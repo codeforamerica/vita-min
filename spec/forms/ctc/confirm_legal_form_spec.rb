@@ -65,7 +65,10 @@ describe Ctc::ConfirmLegalForm do
     end
 
     it "persists efile_security_information as a record linked to the client" do
-      expect { described_class.new(intake, params).save }.to change(EfileSecurityInformation, :count).by(1)
+      expect {
+        described_class.new(intake, params).save
+      }.to change(EfileSecurityInformation, :count).by(1)
+       .and change(intake.client.recaptcha_scores, :count).by 1
       efile_security_information = intake.client.reload.efile_security_informations.last
       expect(efile_security_information.ip_address).to eq "1.1.1.1"
       expect(efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
@@ -74,7 +77,6 @@ describe Ctc::ConfirmLegalForm do
       expect(efile_security_information.platform).to eq "iPad"
       expect(efile_security_information.timezone_offset).to eq "+240"
       expect(efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
-      expect(efile_security_information.recaptcha_score).to eq 0.9
     end
 
     context 'when a submission already exists' do

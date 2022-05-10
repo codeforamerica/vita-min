@@ -9,7 +9,6 @@ module Ctc
                        :timezone_offset,
                        :client_system_time,
                        :ip_address,
-                       :recaptcha_score, # will eventually be removed, we want it to live on RecaptchaScore
                        :timezone
     set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
@@ -22,6 +21,13 @@ module Ctc
       @intake.update(intake_attributes)
       efile_attrs = attributes_for(:efile_security_information)
 
+      if attributes_for(:recaptcha)[:recaptcha_score].present?
+        @intake.client.recaptcha_scores.create(
+            score: attributes_for(:recaptcha)[:recaptcha_score],
+            action: attributes_for(:recaptcha)[:recaptcha_action]
+        )
+      end
+
       unless @intake.tax_returns.last.efile_submissions.any?
         EfileSecurityInformation.create(efile_attrs.merge(client: @intake.client))
         efile_submission = EfileSubmission.create(tax_return: @intake.tax_returns.last)
@@ -30,13 +36,6 @@ module Ctc
         rescue Statesman::GuardFailedError
           Rails.logger.error "Failed to transition EfileSubmission##{efile_submission.id} to :preparing"
         end
-      end
-
-      if attributes_for(:recaptcha)[:recaptcha_score].present?
-        @intake.client.recaptcha_scores.create(
-          score: attributes_for(:recaptcha)[:recaptcha_score],
-          action: attributes_for(:recaptcha)[:recaptcha_action]
-        )
       end
     end
   end
