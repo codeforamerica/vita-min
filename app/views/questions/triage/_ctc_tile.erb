@@ -22,7 +22,7 @@
     <%= t('.warning_html') %>
   </p>
   <div class="spacing-above-35">
-    <%= link_to t('.sign_up_for_ctc'),
+    <%= link_to open_for_ctc_intake? ? t('.choose_ctc') : t('.sign_up_for_ctc'),
                 url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"),
                 class: "button button--wide text--centered",
                 "data-track-click": click_tracking_event_name

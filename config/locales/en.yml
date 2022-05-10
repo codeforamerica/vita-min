@@ -1553,8 +1553,9 @@ en:
         additional_credits: Additional State Credits
         ctc: Child Tax Credit
         eitc: Earned Income Tax Credit
-        missing_stimulus: Missing Stimulus Payments
+        missing_stimulus: Missing third stimulus payment
       ctc_tile:
+        choose_ctc: Choose GetCTC
         description: File quickly online on your own!
         sign_up_for_ctc: Sign up for GetCTC
         timeframe: 15 minutes to file

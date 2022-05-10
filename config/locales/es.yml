@@ -1515,8 +1515,9 @@ es:
         additional_credits: Créditos estatales adicionales
         ctc: Crédito Tributario por Hijos
         eitc: Crédito tributario por ingresos del trabajo
-        missing_stimulus: Pagos de estímulos faltantes
+        missing_stimulus: Falta el tercer pago de estímulo
       ctc_tile:
+        choose_ctc: Elija GetCTC
         description: También mejor conocido como “File Myself” en inglés. Declare rápidamente por su cuenta para 2021.
         sign_up_for_ctc: Regístrese para recibir GetCTC
         timeframe: 15 minutos para declarar
