@@ -18,8 +18,21 @@
 #
 #  index_addresses_on_record_type_and_record_id  (record_type,record_id)
 #
-class Address < ApplicationRecord
-  belongs_to :record, polymorphic: true
+require 'rails_helper'
 
-  validates_presence_of :zip_code
+describe Address do
+  describe "validations" do
+    let(:record) { create(:intake) }
+    context "with zip_code" do
+      it "is valid" do
+        expect(described_class.new(zip_code: "12345", record: record)).to be_valid
+      end
+    end
+
+    context "without zip_code" do
+      it "is invalid" do
+        expect(described_class.new(record: record)).to be_invalid
+      end
+    end
+  end
 end
