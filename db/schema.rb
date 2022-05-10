@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_09_230303) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_10_182528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1395,7 +1395,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_230303) do
     t.string "spouse_signature"
     t.datetime "spouse_signed_at", precision: nil
     t.inet "spouse_signed_ip"
-    t.integer "status", default: 100, null: false
     t.datetime "updated_at", null: false
     t.integer "year", null: false
     t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"

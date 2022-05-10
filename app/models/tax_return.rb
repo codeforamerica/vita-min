@@ -37,8 +37,6 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-  self.ignored_columns = [:status]
-
   has_many :tax_return_transitions, dependent: :destroy, autosave: false
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: TaxReturnTransition,
