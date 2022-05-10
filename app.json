@@ -16,6 +16,9 @@
   "stack": "heroku-18",
   "buildpacks": [
     {
+      "url": "heroku/nodejs"
+    },
+    {
       "url": "heroku/ruby"
     },
     {
@@ -43,6 +46,7 @@
       "generator": "secret"
     },
     "HEROKU_APP_NAME": {
+      "value": "heroku-pr-apps4",
       "required": true
     }
   },
