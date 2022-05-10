@@ -11,6 +11,7 @@ class StandardizeAddressService
     @_zip_code = intake.zip_code
 
     @result = build_standardized_address
+    log_errors
   end
 
   # the USPS API sometimes responds with # to indicate apt number or with . included,
@@ -49,6 +50,16 @@ class StandardizeAddressService
 
   private
 
+  def log_errors
+    if !valid?
+      Rails.logger.error "Error returned from USPS Address API: #{@result[:error_description]}"
+    elsif @result[:zip_code].blank?
+      Rails.logger.error "Error from USPS Address API: Response had no data."
+      @result[:error_code] = "-MISSING-DATA"
+      @result[:error_message] = "USPS API response had no data"
+    end
+  end
+
   def build_standardized_address
     usps_address_xml = get_usps_address_xml
     {
@@ -82,10 +93,6 @@ class StandardizeAddressService
 
     response = Net::HTTP.get_response(URI(usps_request_address))
     response_xml = Nokogiri::XML(response.body)
-
-    if response_xml.xpath("//Error").present?
-      Rails.logger.error "Error returned from USPS Address API: #{response_xml.xpath("//Error/Description").text}"
-    end
 
     response_xml
   end

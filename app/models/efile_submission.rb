@@ -130,8 +130,8 @@ class EfileSubmission < ApplicationRecord
         state: address_service.state,
         city: address_service.city
       }
+      create_verified_address!(attrs)
     end
-    create_verified_address(attrs)
     address_service # return the service object so that we can get errors if there are any
   end
 

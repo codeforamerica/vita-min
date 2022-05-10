@@ -69,5 +69,17 @@ describe StandardizeAddressService do
         expect(service.error_code).to eq "USPS-2147219401"
       end
     end
+
+    context 'when the response contains no useful data but no Error element' do
+      let(:usps_api_response_body) { "<xml></xml>" }
+
+      it 'logs an error and returns error information' do
+        expect(Rails.logger).to receive(:error).with("Error from USPS Address API: Response had no data.")
+        service = described_class.new(intake)
+        expect(service.valid?).to eq false
+        expect(service.error_message).to eq "USPS API response had no data"
+        expect(service.error_code).to eq "USPS-MISSING-DATA"
+      end
+    end
   end
 end
