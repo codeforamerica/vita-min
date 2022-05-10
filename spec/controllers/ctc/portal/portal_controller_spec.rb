@@ -86,8 +86,6 @@ describe Ctc::Portal::PortalController do
         expect(client.efile_security_informations.last.ip_address).to be_present
         expect(client.efile_security_informations.last.timezone).to eq "America/Chicago"
 
-        expect(client.efile_security_informations.last.recaptcha_score).to eq 0.9
-
         expect(client.recaptcha_scores.last.score).to eq 0.9
 
         system_note = SystemNote::CtcPortalAction.last

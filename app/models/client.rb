@@ -283,7 +283,7 @@ class Client < ApplicationRecord
   end
 
   def recaptcha_scores_average
-    return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
+    return nil unless recaptcha_scores.present?
 
     (recaptcha_scores.map(&:score).sum / recaptcha_scores.size).round(2)
   end

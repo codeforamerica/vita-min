@@ -36,14 +36,3 @@
     </div>
   </td>
 </tr>
-<% if esf.recaptcha_score.present? %>
-  <tr class="index-table__row index-table__vertical_align">
-    <td class="index-table__cell"><%= timestamp(esf.created_at) %></td>
-    <td class="index-table__cell"><strong>Legacy recaptcha score</strong></td>
-    <td class="index-table__cell">
-      <div class="field-display spacing-below-5">
-        <span class="label-value"><%= esf.recaptcha_score %></span>
-      </div>
-    </td>
-  </tr>
-<% end %>

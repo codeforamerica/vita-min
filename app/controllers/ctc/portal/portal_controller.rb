@@ -59,11 +59,8 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
                                               :platform,
                                               :timezone_offset,
                                               :timezone,
-                                              :client_system_time,
-                                              :recaptcha_score)
+                                              :client_system_time)
           .merge(ip_address: request.remote_ip)
-          .merge(recaptcha_score: recaptcha_score_param('resubmit')[:recaptcha_score])
-
   end
 
   def ensure_current_submission
