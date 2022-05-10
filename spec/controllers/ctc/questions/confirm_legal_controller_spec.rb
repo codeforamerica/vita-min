@@ -53,7 +53,6 @@ describe Ctc::Questions::ConfirmLegalController do
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
           expect(efile_submission.current_state).to eq "bundling"
           expect(client.efile_security_informations.last.ip_address).to eq ip_address
-          expect(client.efile_security_informations.last.recaptcha_score).to eq 0.9
           recaptcha_score = client.recaptcha_scores.last
           expect(recaptcha_score.score).to eq 0.9
           expect(recaptcha_score.action).to eq 'confirm_legal'
@@ -81,7 +80,6 @@ describe Ctc::Questions::ConfirmLegalController do
             efile_submission = client.reload.tax_returns.last.efile_submissions.last
             expect(efile_submission.current_state).to eq "bundling"
             expect(client.efile_security_informations.last.ip_address).to eq ip_address
-            expect(client.efile_security_informations.last.recaptcha_score).to eq nil
           end
         end
       end
