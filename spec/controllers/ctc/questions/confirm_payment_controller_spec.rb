@@ -20,7 +20,7 @@ describe Ctc::Questions::ConfirmPaymentController do
   describe '#do_not_file' do
     it "moves the tax return object to the 'file_not_filing' status" do
       patch :do_not_file
-      expect(tax_return.reload.status).to eq "file_not_filing"
+      expect(tax_return.reload.current_state).to eq "file_not_filing"
     end
 
     it "shows a flash notice alerting the client that we will not file their return and redirects to the ctc home page" do

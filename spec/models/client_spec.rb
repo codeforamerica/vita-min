@@ -815,7 +815,7 @@ describe Client do
          .and change(assigned_user_b.notifications, :count).by(1)
         expect(assigned_user_a.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last
         expect(assigned_user_b.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last
-        expect(client.tax_returns.map(&:status).uniq).to eq ["intake_needs_doc_help"]
+        expect(client.tax_returns.map(&:current_state).uniq).to eq ["intake_needs_doc_help"]
       end
     end
 

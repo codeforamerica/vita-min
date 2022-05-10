@@ -5,7 +5,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
-#  current_state       :string
+#  current_state       :string           default("intake_before_consent")
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -19,7 +19,6 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
-#  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -52,7 +51,7 @@ FactoryBot.define do
       trait state.to_sym do
         after :create do |tax_return, evaluator|
           create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
-          tax_return.update_columns(current_state: state, status: TaxReturnStatus::STATUSES[state.to_sym])
+          tax_return.update_columns(current_state: state)
         end
       end
     end

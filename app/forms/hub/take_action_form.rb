@@ -89,7 +89,7 @@ module Hub
     end
 
     def state_has_changed
-      errors.add(:status, I18n.t("forms.errors.status_must_change")) if status == tax_return&.status
+      errors.add(:status, I18n.t("forms.errors.status_must_change")) if status == tax_return&.current_state
     end
 
     def belongs_to_client

@@ -52,7 +52,7 @@ RSpec.describe Questions::ConsentController do
         it "creates tax returns in the intake in progress status for years indicated as needing help" do
           post :update, params: params
 
-          expect(intake.tax_returns.pluck(:status).uniq).to eq ["intake_in_progress"]
+          expect(intake.tax_returns.pluck(:current_state).uniq).to eq ["intake_in_progress"]
           expect(intake.tax_returns.count).to eq 2
           expect(intake.tax_returns.pluck(:year)).to match_array([2021, 2020])
         end
