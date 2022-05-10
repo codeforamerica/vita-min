@@ -52,7 +52,7 @@ class StandardizeAddressService
 
   def log_errors
     if !valid?
-      Rails.logger.error "Error returned from USPS Address API: #{@result[:error_description]}"
+      Rails.logger.error "Error returned from USPS Address API: #{@result[:error_message]}"
     elsif @result[:zip_code].blank?
       Rails.logger.error "Error from USPS Address API: Response had no data."
       @result[:error_code] = "-MISSING-DATA"
