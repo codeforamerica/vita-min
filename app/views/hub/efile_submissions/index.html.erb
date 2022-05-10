@@ -65,9 +65,15 @@
             <td class="index-table__cell">
               <%= timestamp submission.updated_at %>
             </td>
-            <td class="index-table__cell" style="white-space: nowrap;">
+            <td class="index-table__cell">
               <% if submission.in_state?(:rejected) %>
-                <%= submission.last_transition.efile_errors.pluck(:code, :message).map { |i| i.join(": ") }.join(", ") %>
+                <% submission.last_transition.efile_errors.each do |error| %>
+                  <span class="tooltip error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                    <%= link_to hub_efile_error_path(id: error.id) do %>
+                      <div class="label label--red"><%= error.code %></div>
+                    <% end %>
+                  </span>
+                <% end %>
               <% end %>
             </td>
           </tr>

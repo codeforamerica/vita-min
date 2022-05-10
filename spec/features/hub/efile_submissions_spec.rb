@@ -21,7 +21,19 @@ RSpec.describe "efile submissions" do
         it "shows the reject codes for rejected efile submissions" do
           visit hub_efile_submissions_path
 
-          expect(page).to have_text "IND-189: 'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value., IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
+          error_1 = EfileError.where(code: "IND-189").first
+          error_2 = EfileError.where(code: "IND-190").first
+          html = Nokogiri::HTML.parse(page.body)
+
+          expect(page).to have_text error_1.code
+          expect(html.at_css(".error-#{error_1.id}.tooltip").attr("title"))
+            .to eq("'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.")
+          expect(page).to have_link(href: hub_efile_error_path(id: error_1.id))
+
+          expect(page).to have_text error_2.code
+          expect(html.at_css(".error-#{error_2.id}.tooltip").attr("title"))
+            .to eq("'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.")
+          expect(page).to have_link(href: hub_efile_error_path(id: error_2.id))
         end
       end
     end
