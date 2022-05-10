@@ -33,8 +33,8 @@ describe DeduplificationService do
 
     context "when passed with one attr" do
       it "uses the single argument to create the where clause" do
-        described_class.duplicates(instance, :hashed_routing_number, from_scope: instance.class)
-        expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number })
+        described_class.duplicates(instance, :routing_number, from_scope: instance.class)
+        expect(query_double).to have_received(:where).with({ routing_number: instance.routing_number })
       end
 
       context "when an old key is present" do
@@ -44,12 +44,12 @@ describe DeduplificationService do
           allow(EnvironmentCredentials).to receive(:dig).with(:previous_duplicate_hashing_key).and_return "another_secret"
 
           allow(described_class).to receive(:sensitive_attribute_hashed).and_return "new_hash"
-          allow(described_class).to receive(:sensitive_attribute_hashed).with(instance, "routing_number", "another_secret").and_return "old_hash"
+          allow(described_class).to receive(:sensitive_attribute_hashed).with(instance, "account_number", "another_secret").and_return "old_hash"
         end
 
         it "looks for the old and new hash in the db for matches on either" do
-          described_class.duplicates(instance, :hashed_routing_number, from_scope: instance.class)
-          expect(query_double).to have_received(:where).with({ hashed_routing_number: ["new_hash", "old_hash"] })
+          described_class.duplicates(instance, :hashed_account_number, from_scope: instance.class)
+          expect(query_double).to have_received(:where).with({ hashed_account_number: ["new_hash", "old_hash"] })
         end
       end
 
@@ -71,8 +71,8 @@ describe DeduplificationService do
 
     context "when passed with an array of attributes" do
       it "uses the attributes to create the where clause" do
-        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number, from_scope: instance.class)
-        expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
+        described_class.duplicates(instance, :routing_number, :hashed_account_number, from_scope: instance.class)
+        expect(query_double).to have_received(:where).with({ routing_number: instance.routing_number, hashed_account_number: instance.hashed_account_number })
       end
     end
   end
