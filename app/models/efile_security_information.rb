@@ -28,7 +28,6 @@
 #  fk_rails_...  (efile_submission_id => efile_submissions.id)
 #
 class EfileSecurityInformation < ApplicationRecord
-  self.ignored_columns = [:recaptcha_score]
   belongs_to :client
   validates_presence_of :device_id,
                      :user_agent,
