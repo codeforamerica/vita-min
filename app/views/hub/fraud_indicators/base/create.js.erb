@@ -1,8 +1,10 @@
 $(".flash-alerts").html("<%= j render 'shared/flash_alerts', flash: flash %>");
 <% if @resource.persisted? %>
   $(".data-table tbody").append("<%= j render 'hub/fraud_indicators/table_row', resource: @resource %>");
-  $(".resource-form").html("<%= j render 'hub/fraud_indicators/form', resource: resource_class.new %>")
-<% else %>
-  $(".resource-form").html("<%= j render 'hub/fraud_indicators/form', resource: @resource %>")
-<% end %>
+  $(".resource-form").html("<%= j render 'hub/fraud_indicators/form', resource: resource_class.new %>");
+  $(".resource-form input[type!=hidden]:first").focus();
 
+<% else %>
+  $(".resource-form").html("<%= j render 'hub/fraud_indicators/form', resource: @resource %>");
+  $(".resource-form input[type!=hidden]:first").focus();
+<% end %>
