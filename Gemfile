@@ -13,6 +13,12 @@ gem 'mini_racer', '~> 0.4.0', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 
+# Adding this removes some deprecation warnings, caused by double-loading of the net-protocol library
+# (see https://github.com/ruby/net-imap/issues/16)
+# we *might* be able to remove this after upgrading to Ruby 3
+gem 'net-http'
+gem 'uri', '0.10.0' # force us to get the default version from Ruby 2.7
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
