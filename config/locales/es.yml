@@ -533,6 +533,7 @@ es:
       account_type: Tipo de cuenta
       bank_name: Nombre del banco
       checking: Cuenta Corriente
+      empty: N/A
       info_displayed: Visualización de la información de la cuenta bancaria
       routing_number: Número de ruta bancaria
       routing_number_confirmation: Confirmar número de ruta bancaria

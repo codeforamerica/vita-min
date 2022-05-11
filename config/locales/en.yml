@@ -533,6 +533,7 @@ en:
       account_type: Account type
       bank_name: Bank name
       checking: Checking
+      empty: N/A
       info_displayed: Displaying bank account information
       routing_number: Routing number
       routing_number_confirmation: Confirm routing number

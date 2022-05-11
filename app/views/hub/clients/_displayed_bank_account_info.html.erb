@@ -6,7 +6,7 @@
   </div>
   <div class="field-display">
     <span class="form-question"><%= t("hub.bank_accounts.account_type") %>:</span>
-    <span class="label-value"><%=  t("hub.bank_accounts.#{@bank_account.account_type}", default: "N/A") %> </span>
+    <span class="label-value"><%=  t("hub.bank_accounts.#{@bank_account.account_type || "empty"}") %> </span>
   </div>
   <div class="field-display">
     <span class="form-question"><%= t("hub.bank_accounts.account_number") %>:</span>
