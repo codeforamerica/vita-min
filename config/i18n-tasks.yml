@@ -107,6 +107,7 @@ ignore_unused:
   - 'devise.failure.*'
   - 'hub.tax_returns.stage.*'
   - 'hub.tax_returns.status.*'
+  - 'hub.bank_accounts.*'
   - 'hub.status_macros.*'
   - 'hub.user_notifications.bulk_client_message.*'
   - 'hub.user_notifications.bulk_tax_return_update.*'
