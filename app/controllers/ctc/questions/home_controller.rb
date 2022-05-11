@@ -11,7 +11,7 @@ module Ctc
         if @form.lived_in_territory_or_at_foreign_address?
           questions_use_gyr_path
         elsif @form.lived_in_puerto_rico?
-          offboarding_cant_use_getctc_path
+          offboarding_cant_use_getctc_pr_path
         else
           super
         end

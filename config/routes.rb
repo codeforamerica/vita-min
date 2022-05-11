@@ -320,7 +320,7 @@ Rails.application.routes.draw do
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
       get "/already-filed", to: "ctc/offboarding/already_filed#show", as: :offboarding_already_filed
-      get "/cant-use-getctc", to: "ctc/offboarding/puerto_rico_sign_up#show", as: :offboarding_cant_use_getctc
+      get "/cant-use-getctc-pr", to: "ctc/offboarding/puerto_rico_sign_up#show", as: :offboarding_cant_use_getctc_pr
       get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity
       get "/questions/not-filing", to: "ctc/questions/not_filing#edit", as: :questions_not_filing
 

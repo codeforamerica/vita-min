@@ -5,9 +5,11 @@
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
-  <p>
-    <%= t("views.ctc.offboarding.puerto_rico_sign_up.help_text_html") %>
-  </p>
+  <% t("views.ctc.offboarding.puerto_rico_sign_up.help_text").each do |paragraph| %>
+    <p>
+      <%= paragraph %>
+    </p>
+  <% end %>
 
   <div class="spacing-above-60">
     <%= link_to t("views.ctc.offboarding.puerto_rico_sign_up.sign_up"),

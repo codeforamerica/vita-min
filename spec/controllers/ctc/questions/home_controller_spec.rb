@@ -61,7 +61,7 @@ describe Ctc::Questions::HomeController do
       it "redirects to use gyr" do
         get :update, params: params
 
-        expect(response).to redirect_to offboarding_cant_use_getctc_path
+        expect(response).to redirect_to offboarding_cant_use_getctc_pr_path
       end
     end
   end
