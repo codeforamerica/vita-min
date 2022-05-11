@@ -20,10 +20,10 @@ describe RelationshipsHelper do
       ["Half brother", "half_brother"],
       ["Half sister", "half_sister"],
       ["Grandparent", "grandparent"],
-      ["Great-grandchild", "great_grandchild"],
+      # ["Great-grandchild", "great_grandchild"],
       ["Step parent", "step_parent"],
       ["In law", "in_law"],
-      ["Other descendants of my siblings", "siblings_descendant"],
+      # ["Other descendants of my siblings", "siblings_descendant"],
       ["Other relationship not listed", "other"]
     ]
   end
