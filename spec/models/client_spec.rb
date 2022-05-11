@@ -104,7 +104,6 @@ describe Client do
       end
 
       it "returns true" do
-        puts Fraud::Score::HOLD_THRESHOLD
         expect(client.fraud_suspected?).to eq true
       end
     end
