@@ -168,7 +168,7 @@ class Client < ApplicationRecord
   end
 
   def fraud_suspected?
-    fraud_scores.where("score > ?", Fraud::Score::HOLD_THRESHOLD).exists?
+    fraud_scores.where("score >= ?", Fraud::Score::HOLD_THRESHOLD).exists?
   end
 
   def accumulate_total_session_durations

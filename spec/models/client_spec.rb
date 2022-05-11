@@ -91,6 +91,44 @@ describe Client do
     end
   end
 
+  describe "#fraud_suspected?" do
+    let(:efile_submission) { create :efile_submission }
+    let(:client) { efile_submission.client }
+    before do
+      stub_const("Fraud::Score::HOLD_THRESHOLD", 50000)
+    end
+
+    context "with at least one fraud score over the threshold" do
+      before do
+        client.fraud_scores.create(score: 130000, efile_submission: efile_submission)
+      end
+
+      it "returns true" do
+        expect(client.fraud_suspected?).to eq true
+      end
+    end
+
+    context "with at least one fraud score at the threshold" do
+      before do
+        client.fraud_scores.create(score: 50000, efile_submission: efile_submission)
+      end
+
+      it "returns true" do
+        expect(client.fraud_suspected?).to eq true
+      end
+    end
+
+    context "with no scores at or above the threshold" do
+      before do
+        client.fraud_scores.create(score: 50, efile_submission: efile_submission)
+      end
+
+      it "returns false" do
+        expect(client.fraud_suspected?).to eq false
+      end
+    end
+  end
+
 
   describe ".needs_in_progress_survey scope" do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
