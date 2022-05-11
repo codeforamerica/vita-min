@@ -1,10 +1,9 @@
 require "rails_helper"
 
-Rails.application.load_tasks
-
-describe "not_ready:remind" do
+describe "not_ready_reminders:remind" do
+  include_context "rake"
   after(:each) do
-    Rake::Task["not_ready:remind"].reenable
+    Rake::Task["not_ready_reminders:remind"].reenable
   end
 
   before do
@@ -12,6 +11,6 @@ describe "not_ready:remind" do
   end
 
   it "is successful" do
-    Rake::Task["not_ready:remind"].invoke
+    Rake::Task["not_ready_reminders:remind"].invoke
   end
 end

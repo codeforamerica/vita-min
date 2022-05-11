@@ -1,4 +1,4 @@
-namespace :not_ready do
+namespace :not_ready_reminders do
   desc "sends not ready reminder emails"
   task "remind" => :environment do
     next if Time.current > Rails.configuration.end_of_intake
