@@ -1,8 +1,53 @@
 require "rails_helper"
 
 describe Ctc::Portal::DependentsController do
+  describe "#edit" do
+    let(:intake) { create :ctc_intake, client: client }
+    let(:client) { create :client, tax_returns: [(create :tax_return)] }
+    let(:dependent) do
+      create(
+        :qualifying_child,
+        intake: intake,
+        first_name: "Maggie",
+        middle_initial: "M",
+        last_name: "Mango",
+        birth_date: Date.parse("2012-05-01"),
+        tin_type: "ssn",
+        ssn: '111-22-9999',
+        has_ip_pin: "no"
+      )
+    end
+
+    let(:params) {
+      {
+        id: dependent.id,
+        ctc_portal_dependent_form: {
+          first_name: "Maggie",
+          middle_initial: "M",
+          last_name: "Mango",
+          birth_date_year: "2012",
+          birth_date_month: "5",
+          birth_date_day: "1",
+          tin_type: "ssn",
+          ssn: '111-22-9999',
+          ssn_confirmation: "111-22-9999",
+        }
+      }
+    }
+
+    before do
+      sign_in intake.client
+    end
+
+    it "renders edit template" do
+      get :edit, params: params
+      expect(response).to render_template :edit
+    end
+  end
+
   context "#update" do
-    let(:intake) { create :ctc_intake }
+    let(:intake) { create :ctc_intake, client: client }
+    let(:client) { create :client, tax_returns: [(create :tax_return)] }
     let(:dependent) do
       create(
         :qualifying_child,
@@ -85,6 +130,27 @@ describe Ctc::Portal::DependentsController do
             "ssn" => ["[REDACTED]", "[REDACTED]"],
           )
         })
+      end
+    end
+
+    context "when the changes are invalid" do
+      render_views
+
+      let(:params) {
+        {
+          id: dependent.id,
+          ctc_portal_dependent_form: {
+            invalid_params: "very invalid"
+          }
+        }
+      }
+
+      it "renders edit template" do
+        put :update, params: params
+
+        expect(assigns(:form).errors).not_to be_blank
+        expect(response).to be_ok
+        expect(response).to render_template :edit
       end
     end
   end
