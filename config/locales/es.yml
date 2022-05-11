@@ -1749,7 +1749,7 @@ es:
         puerto_rico_sign_up:
           help_text:
           - GetCTC está disponible actualmente para los residentes de los 50 estados y D.C. y estará disponible para los residentes de Puerto Rico a finales de este año.
-          - ¡Reciba una notificación cuando lancemos proporcionando su información de contacto en nuestra página de registro!
+          - "¡Reciba una notificación cuando lancemos proporcionando su información de contacto en nuestra página de registro!"
           return_home: Volver al inicio
           sign_up: Continuar a la página de registro
           title: Actualmente no estamos aceptando devoluciones de Puerto Rico, pero puede registrarse para recibir una notificación cuando lo hagamos.
