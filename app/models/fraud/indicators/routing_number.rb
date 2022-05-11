@@ -23,6 +23,10 @@ module Fraud
         all.pluck(:routing_number)
       end
 
+      def name
+        routing_number
+      end
+
       def active
         activated_at?
       end
