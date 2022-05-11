@@ -17,29 +17,52 @@ describe Ctc::Questions::HomeController do
   end
 
   describe "#update" do
+    let(:home_location) { "lived_in_fifty_states" }
     let(:params) do
       {
         ctc_home_form: {
-          home_location: "lived_in_us_territory",
+          home_location: home_location,
         }
       }
     end
 
-    it "saves the form and redirects to the next step" do
+    it "redirects to next path" do
       get :update, params: params
 
-      expect(response).to redirect_to questions_use_gyr_path
+      expect(response).to redirect_to questions_life_situations_path
     end
 
     it "sends an event to mixpanel with the home data" do
       post :update, params: params
 
-      expect(MixpanelService).to have_received(:send_event).with(hash_including(
-                                                                   event_name: "question_answered",
-                                                                   data: {
-                                                                     home_location: "lived_in_us_territory",
-                                                                   }
-                                                                 ))
+      expect(MixpanelService).to have_received(:send_event).with(
+        hash_including(
+          event_name: "question_answered",
+          data: {
+            home_location: home_location,
+          }
+        )
+      )
+    end
+
+    context "when client lived in territory or foreign address" do
+      let(:home_location) { "lived_in_us_territory" }
+
+      it "redirects to use gyr" do
+        get :update, params: params
+
+        expect(response).to redirect_to questions_use_gyr_path
+      end
+    end
+
+    context "when client lived in Puerto Rico" do
+      let(:home_location) { "lived_in_puerto_rico" }
+
+      it "redirects to use gyr" do
+        get :update, params: params
+
+        expect(response).to redirect_to offboarding_cant_use_getctc_path
+      end
     end
   end
 end
