@@ -10,9 +10,9 @@ module FraudIndicatorsHelper
            else
              return nil
            end
-    table = fraud_indicator.list_model_name.split("::").last.downcase
-    path_with_type = "hub_#{type}_#{table}s_path"
-    path_without_type = "hub_#{table}s_path"
+    table = fraud_indicator.list_model_name.split("::").last.tableize
+    path_with_type = "hub_#{type}_#{table}_path"
+    path_without_type = "hub_#{table}_path"
 
     matching_path = nil
     matching_path = path_with_type if respond_to?(path_with_type)
