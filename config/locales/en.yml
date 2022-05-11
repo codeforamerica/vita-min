@@ -2029,7 +2029,7 @@ en:
               - Whoever lived with %{name} for longer in %{current_tax_year} has the right to claim them.
               - If you both spent the same time living with %{name} in %{current_tax_year}, then whichever parent made more money in %{current_tax_year} can claim %{name}.
               p1: If you and the other person who could claim the dependent are both their legal parents...
-              p2: If you are %{name}’s legal parent and the other person who could claim them is not then you can claim them.
+              p2: If you are %{name}’s legal parent and the other person who could claim them is not, then you can claim them.
             legal_parent_reveal:
               p1: Only a biological parent or a foster or adoptive parent who is legally caring for a child is eligible to claim a dependent.
               p2: Caring for a child based on an informal agreement does not legally qualify you as a “parent”.
