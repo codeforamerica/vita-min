@@ -7,6 +7,12 @@
     <div class="grid">
       <h1><%= @main_heading %></h1>
 
+      <p>
+        Hold threshold: <%= Fraud::Score::HOLD_THRESHOLD  %>
+        <br/>
+        Restrict threshold: <%= Fraud::Score::RESTRICT_THRESHOLD %>
+      </p>
+
       <% if @fraud_indicators.present? %>
         <table class="data-table">
           <thead>
