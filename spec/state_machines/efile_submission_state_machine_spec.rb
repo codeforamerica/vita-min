@@ -84,6 +84,21 @@ describe EfileSubmissionStateMachine do
           expect(submission.tax_return.current_state).to eq("file_fraud_hold")
         end
       end
+
+      context "with blocking fraud characteristics that restrict" do
+        before do
+          stub_const("Fraud::Score::HOLD_THRESHOLD", Fraud::Score::HOLD_THRESHOLD)
+          stub_const("Fraud::Score::RESTRICT_THRESHOLD", Fraud::Score::RESTRICT_THRESHOLD)
+          allow_any_instance_of(Fraud::Score).to receive(:score).and_return (Fraud::Score::RESTRICT_THRESHOLD)
+        end
+
+        it "transitions the tax return status and submission status to hold" do
+          submission.transition_to!(:preparing)
+          expect(submission.current_state).to eq "fraud_hold"
+          expect(submission.client.restricted_at).not_to be_nil
+          expect(submission.tax_return.current_state).to eq("file_fraud_hold")
+        end
+      end
     end
 
     context "to bundling" do
