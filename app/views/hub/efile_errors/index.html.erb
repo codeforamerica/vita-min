@@ -12,6 +12,8 @@
         <th scope="col" width="100" class="index-table__header index-table__header--center">
           Auto-wait?
         </th>
+        <th scope="col" width="150" class="index-table__header index-table__header--center">
+        </th>
         <th scope="col" width="100" class="index-table__header">
           Source
         </th>
@@ -21,16 +23,16 @@
         <th scope="col" width="500" class="index-table__header">
           Error Message
         </th>
-        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+        <th scope="col" width="75" class="index-table__header index-table__cell--center">
           Desc (en)
         </th>
-        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+        <th scope="col" width="75" class="index-table__header index-table__cell--center">
           Desc (es)
         </th>
-        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+        <th scope="col" width="75" class="index-table__header index-table__cell--center">
           Res (en)
         </th>
-        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+        <th scope="col" width="75" class="index-table__header index-table__cell--center">
           Res (es)
         </th>
       </tr>
@@ -47,6 +49,9 @@
           </td>
           <td class="index-table__cell index-table__cell--center">
             <%= image_tag error.auto_wait ? "icons/check.svg" : "icons/cancelled.svg", alt: error.auto_wait ? "yes" : "no" %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= link_to "Reprocess errors", reprocess_hub_efile_error_path(id: error), method: :patch, class: "button button--small button--centered" %>
           </td>
           <td class="index-table__cell status">
             <%= link_to error.source, hub_efile_error_path(id: error.id) %>

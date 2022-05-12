@@ -190,7 +190,10 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
+        resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
+          patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
+        end
+
         resources :assigned_clients, path: "assigned", only: [:index]
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
