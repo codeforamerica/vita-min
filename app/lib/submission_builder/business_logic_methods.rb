@@ -56,7 +56,7 @@ module SubmissionBuilder
         raise "spouse_prior_year_agi only works for current tax year"
       end
 
-      intake.spouse_prior_year_agi_amount
+      intake.spouse_prior_year_agi_amount || 0
     end
 
     def primary_prior_year_agi(intake, tax_year)
