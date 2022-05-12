@@ -56,7 +56,7 @@ module Ctc
     end
 
     def expiration_date_is_valid_date
-      valid_text_date(expiration_date_year, expiration_date_month, expiration_date_day, :expiration_date)
+      valid_expiration_date(expiration_date_year, expiration_date_month, expiration_date_day)
     end
   end
 end

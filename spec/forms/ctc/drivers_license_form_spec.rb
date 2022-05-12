@@ -42,6 +42,66 @@ describe Ctc::DriversLicenseForm do
         expect(form.errors.attribute_names).to include :issue_date, :expiration_date
       end
     end
+
+    context "when the year is a two digit number" do
+      let(:params) {
+        {
+            issue_date_year: "1999",
+            issue_date_month: "12",
+            issue_date_day: "01",
+            expiration_date_year: "19",
+            expiration_date_month: "12",
+            expiration_date_day: "13",
+            state: "CA",
+            license_number: "YT12345",
+        }
+      }
+
+      it "includes the correct error attributes" do
+        form.valid?
+        expect(form.errors.attribute_names).to include :expiration_date
+      end
+    end
+
+    context "when the year is before the year 2000" do
+      let(:params) {
+        {
+            issue_date_year: "1999",
+            issue_date_month: "12",
+            issue_date_day: "01",
+            expiration_date_year: "1999",
+            expiration_date_month: "12",
+            expiration_date_day: "13",
+            state: "CA",
+            license_number: "YT12345",
+        }
+      }
+
+      it "includes the correct error attributes" do
+        form.valid?
+        expect(form.errors.attribute_names).to include :expiration_date
+      end
+    end
+
+    # If this app makes it to the year 2100, make this test fail on Jan 1.
+    context "when the year is this year" do
+      let(:params) {
+        {
+            issue_date_year: "1999",
+            issue_date_month: "12",
+            issue_date_day: "01",
+            expiration_date_year: Date.today.year.to_s,
+            expiration_date_month: "12",
+            expiration_date_day: "13",
+            state: "CA",
+            license_number: "YT12345",
+        }
+      }
+
+      it "includes the correct error attributes" do
+        expect(form.valid?).to eq true
+      end
+    end
   end
 
   describe "#existing_attributes" do

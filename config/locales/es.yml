@@ -128,6 +128,8 @@ es:
         blank: Por favor, introduzca una fecha válida.
       certification_level:
         inclusion: Por favor, seleccione un nivel de certificación.
+      date:
+        format: Ingrese una fecha en el formato MM-DD-YYYY.
       demographic_disability:
         blank: Por favor, responda o haga clic en "Saltar pregunta"
       demographic_english_conversation:
@@ -146,6 +148,8 @@ es:
         invalid: Por favor, introduzca una dirección de correo electrónico válida.
       email_address_confirmation:
         confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
+      expiration_date:
+        format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, introduzca un nombre.
       intake_site:
