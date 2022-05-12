@@ -22,6 +22,7 @@
       &.landing-page-header {
         font-size: 2.7rem;
         line-height: 3.5rem;
+        margin-top: 2.5rem;
       }
 
       @media screen and (min-width: $tablet-up) {
@@ -36,15 +37,8 @@
         }
       }
 
-    }
-
-    @media screen and (max-width: $site-max-up) {
-      h1 {
-        margin-bottom: 1.5rem;
-
-        &.landing-page-header {
-          margin-top: 2.5rem;
-        }
+      @media screen and (min-width: $site-max-up) {
+        margin-bottom: 2.5rem;
       }
     }
 
