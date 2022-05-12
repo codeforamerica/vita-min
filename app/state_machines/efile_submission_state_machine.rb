@@ -43,6 +43,9 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :preparing) do |submission|
     submission.create_qualifying_dependents
+    if submission.first_submission? && submission.intake.filing_jointly?
+      submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
+    end
 
     fraud_score = Fraud::Score.create_from(submission)
     bypass_fraud_check = submission.admin_resubmission? || submission.client.identity_verified_at
