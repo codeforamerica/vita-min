@@ -49,7 +49,7 @@ class EfileSubmissionStateMachine
     if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
       submission.transition_to(:bundling)
     else
-      submission.client.touch(:restricted_at) if fraud_score.score > Fraud::Score::RESTRICT_THRESHOLD
+      submission.client.touch(:restricted_at) if fraud_score.score >= Fraud::Score::RESTRICT_THRESHOLD
       submission.transition_to(:fraud_hold)
     end
     CreateSubmissionPdfJob.perform_later(submission.id)

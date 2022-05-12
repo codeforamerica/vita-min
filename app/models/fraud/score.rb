@@ -17,7 +17,7 @@ module Fraud
   class Score < ApplicationRecord
     self.table_name = "fraud_scores"
     HOLD_THRESHOLD = 50
-    RESTRICT_THRESHOLD = 100
+    RESTRICT_THRESHOLD = 125
 
     belongs_to :efile_submission
 
