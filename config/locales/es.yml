@@ -2241,7 +2241,7 @@ es:
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta. (opcional)
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
-          help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
+          help_text: Por lo general, alguien puede reclamar a usted como dependiente si son un miembro de su familia, usted vivió con él/ella la mayor parte del año y ellos pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
