@@ -1753,6 +1753,13 @@ es:
           - Para comprobar el estado de su declaración de impuestos de %{current_tax_year}, puede iniciar sesión en su <a href='https://www.irs.gov/payments/your-online-account'>cuenta en línea del IRS</a>.
           - Si necesita apoyo adicional, puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o el Servicio de Defensa del Contribuyente.
           title: Desafortunadamente, no puede usar GetCTC porque ya presentó una declaración de impuestos de %{current_tax_year}.
+        puerto_rico_sign_up:
+          help_text:
+          - GetCTC está disponible actualmente para los residentes de los 50 estados y D.C. y estará disponible para los residentes de Puerto Rico a finales de este año.
+          - "¡Reciba una notificación cuando lancemos proporcionando su información de contacto en nuestra página de registro!"
+          return_home: Volver al inicio
+          sign_up: Continuar a la página de registro
+          title: Actualmente no estamos aceptando devoluciones de Puerto Rico, pero puede registrarse para recibir una notificación cuando lo hagamos.
       portal:
         bank_account:
           title: Proporcione sus datos bancarios a continuación
@@ -2168,7 +2175,8 @@ es:
             fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección en el extranjero
             military_facility: Instalación militar estadounidense
-            us_territory: Territorio de Estados Unidos, como Puerto Rico o Guam
+            puerto_rico: Puerto Rico
+            us_territory: Otro territorio de Estados Unidos (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
           title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
           income_qualifications:

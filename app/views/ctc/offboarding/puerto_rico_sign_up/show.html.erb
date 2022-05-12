@@ -1,0 +1,22 @@
+<% @main_question = t("views.ctc.offboarding.puerto_rico_sign_up.title", current_tax_year: current_tax_year) %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <% t("views.ctc.offboarding.puerto_rico_sign_up.help_text").each do |paragraph| %>
+    <p>
+      <%= paragraph %>
+    </p>
+  <% end %>
+
+  <div class="spacing-above-60">
+    <%= link_to t("views.ctc.offboarding.puerto_rico_sign_up.sign_up"),
+                ctc_signups_path,
+                class: "button button--full-width text--centered spacing-above-60 button--primary" %>
+    <%= link_to t("views.ctc.offboarding.puerto_rico_sign_up.return_home"),
+                ctc_root_path,
+                class: "button button--full-width text--centered" %>
+  </div>
+<% end %>
