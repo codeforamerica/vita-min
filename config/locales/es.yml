@@ -8,10 +8,10 @@ es:
             ssn:
               blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   attributes:
-    confirm_primary_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés)
-    confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) de su cónyuge
-    primary_ssn: Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés)
-    spouse_ssn: Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) de su cónyuge
+    confirm_primary_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés)
+    confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés) de su cónyuge
+    primary_ssn: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés)
+    spouse_ssn: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés) de su cónyuge
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
@@ -129,7 +129,7 @@ es:
       certification_level:
         inclusion: Por favor, seleccione un nivel de certificación.
       date:
-        format: Ingrese una fecha en el formato MM-DD-YYYY.
+        format: Por favor ingrese una fecha en el formato MM-DD-YYYY.
       demographic_disability:
         blank: Por favor, responda o haga clic en "Saltar pregunta"
       demographic_english_conversation:
@@ -187,7 +187,7 @@ es:
       spouse_last_name:
         blank: Por favor, ingrese el apellido de su pareja.
       spouse_ssn:
-        blank: Se requiere el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) del cónyuge
+        blank: Se requiere el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés) del cónyuge
       spouse_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
       ssn_confirmation:
@@ -314,7 +314,7 @@ es:
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
       selfie: Selfie
-      ssn_or_itin: SSN o ITIN
+      ssn_or_itin: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
       with_descriptions:
@@ -506,7 +506,7 @@ es:
     used_navigator: Navegador usado
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
-    visit_stimulus_faq: Preguntas Frecuentes sobre el estímulo
+    visit_stimulus_faq: Preguntas Frecuentes sobre el pago de estímulo
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
@@ -537,7 +537,7 @@ es:
       account_type: Tipo de cuenta
       bank_name: Nombre del banco
       checking: Cuenta Corriente
-      empty: N/A
+      empty: N / A
       info_displayed: Visualización de la información de la cuenta bancaria
       routing_number: Número de ruta bancaria
       routing_number_confirmation: Confirmar número de ruta bancaria
@@ -665,7 +665,7 @@ es:
         suffix: Suffix
         taxpayer_id:
           error: Please select at least one taxpayer ID type
-          itin: Individual Taxpayer ID Number (ITIN) letter
+          itin: carta del Número de Identificación Personal del Contribuyente (ITIN en inglés)
           social_security: Social Security card
           title: Type of taxpayer ID used
           vita_approved: Identification approved by my VITA site
@@ -717,7 +717,7 @@ es:
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
-        itin_help_required: Número de Identificación del Contribuyente, ITIN en inglés, Ayuda Necesaria
+        itin_help_required: Número de Identificación Personal del Contribuyente (ITIN en inglés) Ayuda Necesaria
         legal_name: Nombre legal
         mailing_address: Dirección postal
         marital_status: Estado civil
@@ -774,7 +774,7 @@ es:
         upload_by: Subido por
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
-    itin_applicant: Solicitante de ITIN
+    itin_applicant: Solicitante de Número de Identificación Personal del Contribuyente (ITIN en inglés)
     last_client_update: 'Última actualización de cliente: '
     last_contact: último contacto
     messages:
@@ -1160,9 +1160,10 @@ es:
         subject: Inscripción para GetCTC
       sms: |
         Hola <<Client.PreferredName>>,
-        Gracias por comenzar su Crédito Tributario por Hijos ¡Regístrese con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
-        ¡Estamos aquí para ayudar!
-    ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
+        Gracias por iniciar su formulario de declaración simplificada con GetCTC. Su ID de cliente es <<Client.ClientId>>
+        Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN <<Client.LoginLink>>
+        ¡Estamos aquí para ayudarle!
+    ctc_sms_opt_in: Bienvenido a los mensajes de GetCTC. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     default_subject_with_service_name: Actualización de %{service_name}
     efile:
       acceptance:
@@ -1200,9 +1201,9 @@ es:
           Su equipo de impuesto de GetCTC.org
       preparing:
         email:
-          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
+          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los del impacto económico hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
           subject: Su declaración de impuestos se está procesando.
-        sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
+        sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los del impacto económico hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
       rejected:
         email:
           body: |
@@ -1294,7 +1295,7 @@ es:
           Su equipo de impuestos de %{service_name}
         subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
       sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
-    sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
+    sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     successful_submission_drop_off:
       email:
         body: |
@@ -1545,7 +1546,7 @@ es:
         collect_your: 'Cobre su:'
         collectables:
           ctc: Crédito Tributario por Hijos
-          missing_stimulus: Pagos de estímulos faltantes
+          missing_stimulus: Pagos de estímulo faltantes
         comparison:
           ctc:
             description: "¡Declare rápido por cuenta propia!"
@@ -1571,7 +1572,7 @@ es:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
-        help_text_1: Le pediremos que suba una copia de su documento de identificación ( licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal del Contribuyente (ITIN en inglés).
+        help_text_1: Le pediremos que suba una copia de su documento de identificación (licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal del Contribuyente (ITIN en inglés).
         help_text_2: En el caso de que no pueda conseguir estos documentos pero se sabe su número de SSN o Número de Identificación Personal del Contribuyente (ITIN en inglés), le recomendamos presentar la solicitud con nuestra opción File Myself, o Declarar por cuenta propia en inglés.
         no_diy: No. Voy a continuar con File Myself.
         title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal del Contribuyente (ITIN en inglés)?
@@ -1611,7 +1612,7 @@ es:
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:
-      header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
+      header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para utilizar el servicio GetYourRefund:'
         02_list:
@@ -1918,7 +1919,7 @@ es:
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
           title: Vaya, parece que ahora mismo nos encontramos a la máxima capacidad. ¡Por favor vuelva la semana entrante!
           visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
+          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el pago de estímulo
         bank_account:
           title: Proporcione sus datos bancarios a continuación
         cell_phone_number:
@@ -1942,8 +1943,8 @@ es:
                 title: "¿Debo declarar como cabeza de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
-          qualifying_for_ctc: Dependientes para el CTC y por estímulo
-          qualifying_for_other_credits: Dependientes con sólo derecho a recibir por estímulo
+          qualifying_for_ctc: Dependientes para el CTC y el pago de estímulo
+          qualifying_for_other_credits: Dependientes con sólo derecho a recibir el pago de estímulo
           ssn: Número de Seguro Social
           ssn_no_employment: Número de seguro social (no válido para empleo)
           title: Confirmemos sus dependientes
@@ -1995,18 +1996,18 @@ es:
               - Quien haya vivido con %{name} durante más tiempo en %{current_tax_year} tiene derecho a reclamarlos.
               - Si ambos pasaron el mismo tiempo viviendo con %{name} en %{current_tax_year}, el padre que ganó más dinero en %{current_tax_year} puede reclamar %{name}.
               p1: Si usted y la otra persona que podría reclamar al dependiente son ambos sus padres legales...
-              p2: Si usted es el padre legal de %{name} y la otra persona que podría reclamarlos no lo es, usted puede reclamarlos.
+              p2: Si usted es el padre legal de %{name} y la otra persona que podría reclamarlos no lo es, entonces puede reclamarlos.
             legal_parent_reveal:
               p1: Solo un padre biológico o un padre de acogida o adoptivo que esté cuidando legalmente a un niño es elegible para reclamar a un dependiente.
               p2: Cuidar a un niño en base a un acuerdo informal no lo califica legalmente como “padre”.
               title: "¿Qué es un padre legal?"
-            no_claim: No, no reclamaré a %{dependent_name}
+            no_claim: No, no reclames %{dependent_name}
             not_legal_parent_reveal:
               p1: Si no es el padre de %{name} y la otra persona que podría reclamar a %{name} tampoco es su padre, el cuidador que ganó más dinero en %{current_tax_year} puede reclamar a %{name}.
               p2: Si no es el padre de %{name} y la otra persona que podría reclamar a %{name} es su padre, no puede reclamarlos.
               title: "¿Qué pasa si no soy su padre legal?"
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
-            yes_claim: Sí, reclamaré a %{dependent_name}
+            yes_claim: Si, reclames %{dependent_name}
           child_expenses:
             title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_qualifiers:
@@ -2023,14 +2024,14 @@ es:
               title: "¿A quién se le considera estudiante a tiempo completo?"
             title: "¡Excelente, asegurémonos de que %{name} califique!"
           child_residence:
-            help_text: Seleccione "sí" si nacieron, fueron adoptados o fallecieron en el %{current_tax_year} y vivieron con usted al menos la mitad del tiempo.
+            help_text: Seleccione sí, incluso si nacieron, adoptaron o fallecieron en %{current_tax_year} y vivieron con usted durante al menos la mitad de su tiempo.
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_residence_exceptions:
             help_text: Seleccione "sí" si vivieron por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿%{name} residió permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           dependent_has_itin_reveal:
-            content: Los dependientes con ITIN no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
-            title: "¿Qué pasa si mi dependiente tiene un ITIN?"
+            content: Los dependientes con un Número de Identificación Personal del Contribuyente (ITIN en inglés) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
+            title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal del Contribuyente (ITIN en inglés)"
           does_my_child_qualify_reveal:
             content:
               list_1:
@@ -2059,7 +2060,7 @@ es:
             middle_initial: Segundo nombre(s) legal (opcional)
             relationship_to_you: "¿Qué relación tiene con usted?"
             situations: 'Seleccione si lo siguiente es cierto:'
-            suffix: Suffix
+            suffix: Forma de tratamiento (opcional)
             title: Veamos algunos datos básicos sobre esta persona.
           relative_financial_support:
             title: "¿Pagó usted más de la mitad de los gastos de manutención de %{name} durante %{current_tax_year}?"
@@ -2099,7 +2100,7 @@ es:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentar una declaración de impuestos completa puede llevar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
+          help_text1: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           reveal:
             body_html:
@@ -2201,7 +2202,7 @@ es:
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
-              p2: No habrá recibido el crédito si tiene Medicaid o Medicare, si recibe cobertura médica a través de un empleador, o si no tiene cobertura médica.
+              p2: No habría recibido el Crédito tributario de prima de seguro médico adelantado el año pasado si tuviera Medicaid o Medicare, si tuviera cobertura de atención médica de su empleador o si no tuviera cobertura de atención médica.
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         ip_pin:
@@ -2218,22 +2219,22 @@ es:
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
-          body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN).
+          body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN en inglés).
           first_name: Primer nombre legal
           form_of_identity: forma de identidad
           last_name: Apellido legal
-          middle_initial: Inicial del segundo nombre
+          middle_initial: Inicial del segundo nombre (opcional)
           primary_active_armed_forces: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
-          primary_ssn_not_valid_for_employment: Mi tarjeta de la Seguridad Social lleva impreso "no es válida para el empleo". (Esto se ve raramente)
+          primary_ssn_not_valid_for_employment: Mi tarjeta de Seguro Social lleva impreso "not valid for employment". (Esto se ve raramente)
           primary_was_blind: Estuve legalmente ciego en %{current_tax_year}
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
-          suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
+          suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta. (opcional)
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
           help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
-          title: "¿Hay alguna persona que pudiera declararlo a usted como dependiente en %{current_tax_year}?"
+          title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
@@ -2290,10 +2291,10 @@ es:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
         spouse_drivers_license:
-          help_text: Al presentar una declaración conjunta, proporcionar la información de la licencia de conducir de su cónyuge es una forma de luchar contra el fraude, y puede hacer que su declaración se procese más rápidamente.
-          license_number: Número de licencia de manejar de su cónyuge
-          state: El estado donde fue emitida la licencia de manejar de su cónyuge
-          title: Ingrese la información de la licencia de conducir de %{spouse_first_name}.
+          help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
+          license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado
+          state: Estado Emisor
+          title: Ingrese la licencia de conducir de %{spouse_first_name} o la información de identificación emitida por el estado
         spouse_filed_prior_tax_year:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía
@@ -2302,7 +2303,7 @@ es:
           help_text: La fecha de plazo máximo para presentar los impuestos de 2020 fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           title: "¿%{spouse_first_name} presentó una declaración de impuestos de %{prior_tax_year}?"
         spouse_info:
-          help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN).
+          help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN en inglés).
           remove_button: Quite a esta persona
           save_button: Guarde a esta persona
           spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
@@ -2311,10 +2312,10 @@ es:
           spouse_identity: Tipo de identificación de su cónyuge
           spouse_identity_help_text: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo
           spouse_last_name: Apellido legal de su cónyuge
-          spouse_middle_initial: Inicial del segundo nombre
+          spouse_middle_initial: Inicial del segundo nombre (opcional)
           spouse_ssn_itin: SSN o ITIN de su cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN de su cónyuge
-          spouse_suffix: Forma de tratamiento de su cónyuge
+          spouse_suffix: Forma de tratamiento de su cónyuge (opcional)
           spouse_was_blind: Mi cónyuge era legalmente ciego en %{current_tax_year}
           ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Denos un poco de información sobre su cónyuge
@@ -2333,7 +2334,7 @@ es:
           amount_received: Cantidad que recibió
           correction: Si la cantidad que ha indicado es incorrecta, el IRS lo corregirá, pero su pago podría ser retrasado.
           eip_three: Tercer pago de estímulo
-          eligible_for: 'Podría ser elegible para un adicional:'
+          eligible_for: 'Usted está reclamando un adicional de:'
           title: Parece que todavía se le deben algunos pagos de estímulo. ¿Desea declararlos?
         stimulus_payments:
           different_amount: Recibí una cantidad diferente
@@ -2343,7 +2344,7 @@ es:
             content_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
+            - Para declarar la totalidad o parte de sus primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos para 2020. Puede presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           third_stimulus: Estimamos que habrá recibido
           third_stimulus_details:
@@ -2416,12 +2417,12 @@ es:
         compare_required_info:
           ctc:
             list:
-            - Seguro Social o número de ITIN
+            - Numeros de Seguro Social o de Identificación Personal del Contribuyente (ITIN en inglés)
           gyr:
             list:
             - Documentos de empleo
             - "(W2’s, 1099’s, etc.)"
-            - Seguro Social o número de ITIN
+            - Numeros de Seguro Social o de Identificación Personal del Contribuyente (ITIN en inglés)
           helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
           title: Comparar la información requerida
         ctc: GetCTC
@@ -2453,10 +2454,7 @@ es:
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
           are_daca_recipients_eligible:
-            answer_html: |
-              Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido.
-              <br/><br/>
-              Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal del Contribuyente (ITIN en inglés)  pueden ser reclamados para el Crédito Tributario por Hijos porque tienen números válidos de seguro social .
+            answer_html: Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido. Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal del Contribuyente (ITIN en inglés)  pueden ser reclamados para el Crédito Tributario por Hijos porque tienen números válidos de seguro social.
             question: "¿Los beneficiarios de DACA son elegibles para el Crédito Tributario por Hijos?"
           check_payment_status:
             answer_html: |
@@ -2475,7 +2473,7 @@ es:
               Para solicitar un ITIN, debe enviar <a rel='noopener' target='_blank' href='https://www.irs.gov/forms-pubs/about-form-w-7'>el formulario W-7</a> a Servicios de Rentas Internas (IRS, por sus siglas en ingles) junto con los documentos comprobantes de identidad (como el pasaporte, la licencia de conducir, o el acta de nacimiento). Puede ver una lista completa de opciones de documentos para la verificación de identidad <a rel='noopener' target='_blank' href='https://www.irs.gov/instructions/iw7'>aquí</a> bajo “Requisitos para los Documentos Comprobantes”.
               <br/><br/>
               Puede presenter su W-7 documentos comprobantes por correo (a la dirección enlistada en el formulario W-7), en persona en una <a rel='noopener' target='_blank' href='https://www.irs.gov/help/contact-your-local-irs-office'>oficina del IRS</a>, o a través de un <a rel='noopener' target='_blank' href='https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program'>Agente tramitador</a> autorizado por el IRS.
-            question: "¿Cómo obtengo un Número de Identificación Personal del Contribuyente (ITIN, por sus siglas en inglés) si no tengo un Número de Seguro Social?"
+            question: "¿Cómo obtengo un Número de Identificación Personal del Contribuyente (ITIN en inglés) si no tengo un Número de Seguro Social?"
           how_do_i_get_my_child_tax_credit_ctc_payments: "¿Cómo obtengo CTC?"
           how_do_i_know_what_i_received_for_the_stimulus:
             answer_html: |
@@ -2574,7 +2572,7 @@ es:
         - Fecha de nacimiento
         - Información demográfica, como la edad y estado marital
         - Características de las clasificaciones protegidas, como género, raza y etnia
-        - Información fiscal, como el número de seguro social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)
+        - Información fiscal, como el número de seguro social o el número de identificación personal del Contribuyente (ITIN en inglés)
         - Identificación emitida por el estado, como el número de licencia de manejar
         - Información financiera, como empleo, ingresos y fuentes de ingresos
         - Datos bancarios para el depósito directo de reembolsos
@@ -2671,7 +2669,7 @@ es:
             Regístrese y le enviaremos un mensaje con las actualizaciones.
           puerto_rico_post_launch:
             header_html: |
-              <a href='%{link}'>GetCTC está disponible actualmente</a> para los residentes de los 50 estados y D.C.
+              <a href='%{link}'>GetCTC está actualmente en vivo</a>para residentes de los 50 estados y D.C.
               Los residentes de Puerto Rico pueden registrarse a continuación para recibir actualizaciones.
             sub_header: Regístrese a continuación para recibir actualizaciones y le informaremos tan pronto como GetCTC esté disponible en Puerto Rico.
           sub_header_html: |
@@ -2698,7 +2696,7 @@ es:
           reveals:
             first_two_body_html:
             - El IRS emitió tres tandas de pagos de estímulo durante la pandemia de COVID. Por lo general, las familias las recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede solicitar todo o parte del tercer pago de estímulo utilizando GetCTC.
-            - Si no recibió algo del primer o segundo pago de estímulo, tiene que presentar una declaración de impuestos de 2020 para solicitarlos. Puede presentar los impuestos atrasados de forma <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">gratuita en GetYourRefund.</a>
+            - Si no recibió la totalidad o parte de su primer o segundo pago de estímulo, tiene que presentar una declaración de impuestos de 2020 para solicitarlos. Puede presentar los impuestos atrasados de forma <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">gratuita en GetYourRefund.</a>
             first_two_title: "¿Qué pasa con los dos primeros pagos de estímulo?"
             how_much_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
             how_much_title: "¿Cuánto recibiré?"
@@ -2810,7 +2808,7 @@ es:
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
       primary_ssn_itins:
         help_text: El IRS require que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
-        title: Anexe una foto de su Tarjeta de Seguro Social o ITIN
+        title: Anexe una foto de su Tarjeta de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés)
       prior_tax_returns:
         help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que informó una pérdida por la venta de acciones, bonos o bienes inmuebles el año pasado. Es posible que tenga su retorno %{year}, que puede compartir abajo. Puede rastrear su retorno %{year} %{transcript_link}."
         title: Adjunte su declaración de impuestos %{year}.
@@ -2839,15 +2837,15 @@ es:
         help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
         title: Adjunte una foto de la tarjeta de identificación de su cónyuge
       spouse_ssn_itins:
-        help_text: El IRS nos exige que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
-        title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o ITIN
+        help_text: El IRS nos exige que veamos un Número de Seguro Social (SSN en inglés) o Número de Identificación Personal del Contribuyente (ITIN en inglés) válido para los servicios de preparación de impuestos.
+        title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o Número de Identificación Personal del Contribuyente (ITIN en inglés)
       ssa1099s:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si tuvo ingresos específicamente del Seguro Social, <strong>debe tener este formulario.</strong> Este es un formulario de impuestos que muestra la cantidad total de beneficios que recibió del Seguro Social en el año anterior. Puede obtener este formulario %{ssa_link}.
         title: Adjunte sus SSA-1099
       ssn_itins:
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
-        title: Adjunte fotos de la Tarjeta de Seguro Social o ITIN
+        title: Adjunte fotos de la Tarjeta de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés)
       student_account_statements:
         help_text_html: "<strong>Es posible que tenga esta declaración</strong> porque dijo que está declarando impuestos de personas que son estudiantes de tiempo completo."
         need_for: 'Comparta un imagen de la declaración de cuenta del alumno(a) para las siguientes personas:'
@@ -2931,7 +2929,7 @@ es:
           child_tax_credit:
             am_i_eligible_for_child_tax_credit_if_i_dont:
               answer_html: |
-                <p>Para tener derecho al Crédito Tributario por Hijos, (CTC en inglés) cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal del Contribuyente (ITIN).</p>
+                <p>Para tener derecho al Crédito Tributario por Hijos, (CTC en inglés) cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal del Contribuyente (ITIN en inglés).</p>
                 <p>Si actualmente no tiene un Número de Identificación Personal del Contribuyente (ITIN) pero desea solicitar el Crédito Tributario por Hijos para sus hijos, puede solicitar un Número de Identificación Personal del Contribuyente (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
               question: "¿Tengo derecho al Crédito Tributario por Hijos, Child Tax Credit en inglés, si no tengo número de Número de Seguro Social, Social Security Number, en inglés?"
             do_i_have_to_report_my_advanced_child_tax_credit:
@@ -3070,7 +3068,7 @@ es:
             i_cant_sign_in:
               answer_html: |
                 <p>Puede iniciar sesión en GetYourRefund para responder a las preguntas sobre impuestos, cargar documentos de impuestos, firmar su declaración de impuestos definitiva y enviar mensajes a su equipo de los impuestos.</p>
-                <p>Haga clic en <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">iniciar sesión</a>. Se le pedirá que introduzca los últimos 4 dígitos de su Número de Seguro Social o Número de Identificación Personal del Contribuyente, ITIN en inglés, o que introduzca su ID de cliente. A continuación, le enviaremos por mensaje de texto o por correo electrónico una contraseña de 6 dígitos de un solo uso. Una vez que haya introducido la contraseña, habrá iniciado la sesión en su cuenta.</p>
+                <p>Haga clic en <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">iniciar sesión</a>. Se le pedirá que introduzca los últimos 4 dígitos de su Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés), o que introduzca su ID de cliente. A continuación, le enviaremos por mensaje de texto o por correo electrónico una contraseña de 6 dígitos de un solo uso. Una vez que haya introducido la contraseña, habrá iniciado la sesión en su cuenta.</p>
               question: No puedo iniciar sesión
             title: Acceso a la cuenta de GetYourRefund
             what_is_my_client_id_number:
@@ -3196,7 +3194,7 @@ es:
               answer_html: |
                 <p>A muchas personas que no están autorizadas a vivir en Estados Unidos les preocupa que la declaración de impuestos aumente su exposición al gobierno, temiendo que esto pueda resultar en última instancia en la deportación. Si usted ya tiene un Número de Identificación Personal del Contribuyente (ITIN en inglés), el IRS tiene su información, a menos que se haya mudado recientemente. Usted no está aumentando su exposición al renovar un ITIN o declarar impuestos con un ITIN.</p>
                 <p>La ley actual generalmente prohíbe al IRS compartir la información de la declaración de  con otras agencias, con algunas excepciones importantes. Por ejemplo, la información de la declaración de impuestos puede ser compartida en ciertos casos con las agencias estatales responsables de la administración de impuestos o con las agencias de aplicación de la ley para la investigación y el enjuiciamiento de las leyes penales no fiscales. Las protecciones contra la divulgación de información están establecidas en la ley, por lo que no pueden ser anuladas por una orden ejecutiva presidencial u otra acción administrativa, a menos que el Congreso cambie la ley.</p>
-                <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un ITIN o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
+                <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un Número de Identificación Personal del Contribuyente (ITIN en inglés) o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
               question: Si declaro mis impuestos, ¿puede el ICE obtener mis datos?
             title: Solicitud de Número de Identificación Personal del Contribuyente (ITIN en inglés) para personas sin número de Seguro Social
             what_is_an_itin_itin_number:
@@ -3446,7 +3444,7 @@ es:
           header: 'Preguntas frecuentes:'
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
-        header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
+        header: Declare sus impuestos sin costo. ¡Es sencillo!
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
@@ -3502,7 +3500,7 @@ es:
               personal_identifiers: Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
               protected_classifications: Características de las clasificaciones protegidas, como género, raza y etnia
               state_information: Identificación emitida por el estado, como el número de licencia de manejar
-              tax_information: Información fiscal, como el número de seguridad social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)
+              tax_information: Información fiscal, como el número de seguridad social o el número de identificación personal del contribuyente (ITIN en inglés)
         information_protection:
           header: Cómo protegemos su información
           important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.
@@ -3697,7 +3695,7 @@ es:
             info_html:
             - Originalmente, las familias con estatus migratorio mixto no tenían derecho a la primera ronda de pagos. Sin embargo, ahora las familias con estatus mixto pueden solicitar tanto la primera como la segunda ronda de pagos en la declaración de impuestos de este año. Para la segunda ronda de pagos, si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes tiene un número de seguro social válido, el cónyuge con el número de seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo, el cónyuge que no tenga un número de seguro social válido no será elegible. Las mismas reglas ahora también se aplican para la primera ronda de pagos.
             - |-
-              Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación de Contribuyente Individual (ITIN) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
+              Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación Personal del Contribuyente Individual (ITIN en inglés) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
                 href="https://www.irs.gov/es/node/41556"
                 rel="noopener nofollow"
                 target="_blank"
@@ -4025,7 +4023,7 @@ es:
           header: 'En las próximas páginas, solicitaremos lo siguiente:'
           id: Licencia de conducir actual, identificación estatal o pasaporte
           other_tax: Cualquier otro documento fiscal oficial
-          ssn_itn: Número de Seguro Social o ITIN
+          ssn_itn: Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés)
         title: Reúna todos sus documentos y llévelos con usted.
         valid_phone_email: También necesitaremos verificar que tenga un número de teléfono y un correo electrónico válidos.
       paid_alimony:
@@ -4038,7 +4036,7 @@ es:
         itin_reveal:
           info: Un Número de Identificación Personal del Contribuyente (ITIN en inglés) es un número que el IRS puede expedirle si no tiene un número de Número de Seguro Social para poder declarar sus impuestos y obtener beneficios fiscales. Si ya tiene un número de Número de Seguro Social, no necesita solicitar un Número de Identificación Personal del Contribuyente (ITIN en inglés).
           title: "¿Qué es un Número de Identificación Personal del Contribuyente (ITIN en inglés)?"
-        need_itin_help: "¿Necesita ayuda para solicitar un ITIN?"
+        need_itin_help: "¿Necesita ayuda para solicitar un Número de Identificación Personal del Contribuyente (ITIN en inglés)?"
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"
@@ -4215,7 +4213,7 @@ es:
             - Entiendo que debo de proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
           - header: Validación de la autenticidad del contribuyente (revisión de identificación con foto y tarjetas de seguro social / ITINS)
             content:
-            - Entiendo que este sitio recopila la información de identificación personal que proporciono (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos) para preparar y revisar mi declaración de impuestos. La identidad se valida mediante la revisión de una identificación con foto, prueba de número de seguro social o ITIN y una foto del contribuyente con su identificación.
+            - Entiendo que este sitio recopila la información de identificación personal que proporciono (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos) para preparar y revisar mi declaración de impuestos. La identidad se valida mediante la revisión de una identificación con foto, prueba de número de seguro social o Número de Identificación Personal del Contribuyente (ITIN en inglés) y una foto del contribuyente con su identificación.
           - header: La realización de la entrevista con el (los) contribuyente (s)
             content:
             - Entiendo que debo participar en una entrevista de admisión por teléfono para que un sitio de VITA prepare mi declaración de impuestos.
