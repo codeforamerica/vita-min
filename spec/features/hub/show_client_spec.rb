@@ -76,6 +76,7 @@ RSpec.describe "a user viewing a client" do
         expect(page).to have_content(archived_dependent_1.full_name)
         expect(page).to have_content(archived_dependent_2.full_name)
         expect(page).to have_content(archived_bank_account.bank_name)
+        expect(page).to have_content("Primary Prior Year (2018) AGI")
       end
     end
 
