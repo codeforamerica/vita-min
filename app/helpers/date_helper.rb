@@ -25,22 +25,37 @@ module DateHelper
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)
     parsed_birth_date = parse_date_params(birth_date_year, birth_date_month, birth_date_day)
     unless parsed_birth_date.present?
-      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
       return false
     end
 
     if parsed_birth_date.year < 1900 || parsed_birth_date.year > Date.today.year
-      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
       return false
     end
 
     true
   end
 
+  def valid_expiration_date(date_year, date_month, date_day, key = :expiration_date)
+    if date_year.present? && date_year.starts_with?("19")
+      errors.add(key, I18n.t('errors.attributes.expiration_date.format'))
+      return false
+    end
+    valid_text_date(date_year, date_month, date_day, key)
+  end
+
   def valid_text_date(date_year, date_month, date_day, key = :date)
+    if date_year.present?
+      unless date_year.length == 4 && (date_year.starts_with?("19") || date_year.starts_with?("20"))
+        errors.add(key, I18n.t('errors.attributes.date.format'))
+        return false
+      end
+    end
+
     parsed_date = parse_date_params(date_year, date_month, date_day)
     unless parsed_date.present?
-      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
       return false
     end
 

@@ -128,6 +128,8 @@ en:
         blank: Please enter a valid date.
       certification_level:
         inclusion: Please select a certification level.
+      date:
+        format: Please enter a date in the format MM-DD-YYYY.
       demographic_disability:
         blank: Please answer or click "Skip question"
       demographic_english_conversation:
@@ -146,6 +148,8 @@ en:
         invalid: Please enter a valid email address.
       email_address_confirmation:
         confirmation: Please double check that the email addresses match.
+      expiration_date:
+        format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
       intake_site:
