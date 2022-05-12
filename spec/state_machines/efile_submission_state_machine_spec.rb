@@ -40,6 +40,48 @@ describe EfileSubmissionStateMachine do
         end
       end
 
+
+      context "calculating spouse agi" do
+        context "when the filer is not married_filing_jointly" do
+          it "does not do any calculations" do
+            expect {
+              submission.transition_to!(:preparing)
+            }.not_to change(submission.intake, :spouse_prior_year_agi_amount)
+          end
+        end
+
+        context "when the filer is married_filing_jointly" do
+          before do
+            submission.tax_return.update(filing_status: "married_filing_jointly")
+          end
+
+
+          context "when it is the first submission" do
+            before do
+              allow(submission.intake).to receive(:spouse_prior_year_agi_amount_computed).and_return 501
+              submission.intake.update(spouse_prior_year_agi_amount: nil, spouse_filed_prior_tax_year: 'filed_non_filer_separate')
+            end
+
+            it "calculates the AGI based on previous year filing" do
+              expect {
+                submission.transition_to!(:preparing)
+              }.to change(submission.intake, :spouse_prior_year_agi_amount).to 501
+
+              expect(submission.intake).to have_received(:spouse_prior_year_agi_amount_computed)
+            end
+          end
+
+          context "when it is not the first submission" do
+            let(:previous_submission) { create :efile_submission }
+            it "does not do any calculations" do
+              expect {
+                submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
+              }.not_to change(submission.intake, :spouse_prior_year_agi_amount)
+            end
+          end
+        end
+      end
+
       context "without blocking fraud characteristics" do
         it "enqueues a BuildSubmissionBundleJob" do
           expect {
