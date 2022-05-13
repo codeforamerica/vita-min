@@ -2163,7 +2163,7 @@ en:
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           married_filing_jointly: Married Filing Jointly
-          reveal_body: |
+          reveal_body_html: |
             If you usually file Head of Household, select “Single” for the purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
 
             If you are married and want to file Married Filing Separately, you cannot use this tool. You can file for free at <a href="https://www.getyourrefund.org/ctc-married-filing-separately">GetYourRefund.org</a>.

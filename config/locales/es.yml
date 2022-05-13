@@ -2125,7 +2125,7 @@ es:
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
-          reveal_body: |
+          reveal_body_html: |
             Si normalmente declara como Jefe de Familia (Head of Household, en inglés), seleccione "Soltero" para los fines de esta declaración.
 
             Por separado (Married Filing Separately, en inglés), usted no puede utilizar esta herramienta. Puede presentar su solicitud de forma gratuita en <a href="https://www.getyourrefund.org/es/ctc-married-filing-separately">GetYourRefund.org</a>
