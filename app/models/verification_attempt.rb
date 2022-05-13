@@ -43,8 +43,10 @@ class VerificationAttempt < ApplicationRecord
 
   def attachment_file_types
     [selfie, photo_identification].each do |attachment|
-      unless FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
-        errors.add(attachment.name, I18n.t("validators.file_type"))
+      if attachment.present?
+        unless FileTypeAllowedValidator::VALID_MIME_TYPES.include?(attachment.content_type)
+          errors.add(attachment.name, I18n.t("validators.file_type"))
+        end
       end
     end
   end
