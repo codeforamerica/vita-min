@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SignupsController do
-  xdescribe "#create" do
+  describe "#create" do
     context "with valid params" do
       before do
         allow(subject).to receive(:send_mixpanel_event)
@@ -19,7 +19,7 @@ RSpec.describe SignupsController do
         expect(signup.email_address).to eq("example@example.com")
         expect(signup.phone_number).to eq("+14155551212")
         expect(response).to redirect_to root_path
-        expect(flash[:notice]).to eq("Thank you! You will receive a notification when we open in January 2021.")
+        expect(flash[:notice]).to eq("Thank you! You will receive a notification when we open.")
       end
 
       it "sends an event to mixpanel" do
@@ -48,7 +48,7 @@ RSpec.describe SignupsController do
     end
   end
 
-  xdescribe "#new" do
+  describe "#new" do
     it "passes an empty signup to the template" do
       get :new
 

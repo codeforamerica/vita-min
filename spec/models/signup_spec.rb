@@ -2,14 +2,14 @@
 #
 # Table name: signups
 #
-#  id            :bigint           not null, primary key
-#  email_address :citext
-#  name          :string
-#  phone_number  :string
-#  sent_followup :boolean          default(FALSE)
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                            :bigint           not null, primary key
+#  ctc_2022_open_message_sent_at :datetime
+#  email_address                 :citext
+#  name                          :string
+#  phone_number                  :string
+#  zip_code                      :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #
 require "rails_helper"
 
@@ -80,6 +80,37 @@ RSpec.describe Signup, type: :model do
           expect(signup).not_to be_valid
           expect(signup.errors).to include :email_address
         end
+      end
+    end
+  end
+
+  describe ".send_message" do
+    subject { described_class.send_message("ctc_2022_open_message") }
+    context "when an email is present" do
+      let!(:signup) { create :signup, email_address: "mango@example.com" }
+
+      it "sends an email and updates the timestamp" do
+        expect {
+          subject
+        }.to change(ActionMailer::Base.deliveries, :count).by(1)
+        mail = ActionMailer::Base.deliveries.last
+        expect(mail.body.encoded).to include AutomatedMessage::Ctc2022OpenMessage.new.email_body[0..20]
+        expect(mail.to).to eq ["mango@example.com"]
+        expect(mail.subject).to eq AutomatedMessage::Ctc2022OpenMessage.new.email_subject
+        expect(mail.from).to eq ["no-reply@ctc.test.localhost"]
+        expect(signup.reload.ctc_2022_open_message_sent_at).to be_within(2.seconds).of(Time.zone.now)
+      end
+    end
+
+    context "when a phone number is present" do
+      before do
+        allow(TwilioService).to receive(:send_text_message)
+      end
+      let!(:signup) { create :signup, phone_number: "+18888888888" }
+      it "sends a text message" do
+        subject
+        expect(TwilioService).to have_received(:send_text_message).with(to: "+18888888888", body: AutomatedMessage::Ctc2022OpenMessage.new.sms_body)
+        expect(signup.reload.ctc_2022_open_message_sent_at).to be_within(2.seconds).of(Time.zone.now)
       end
     end
   end

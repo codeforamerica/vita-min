@@ -2,14 +2,14 @@
 #
 # Table name: signups
 #
-#  id            :bigint           not null, primary key
-#  email_address :citext
-#  name          :string
-#  phone_number  :string
-#  sent_followup :boolean          default(FALSE)
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                            :bigint           not null, primary key
+#  ctc_2022_open_message_sent_at :datetime
+#  email_address                 :citext
+#  name                          :string
+#  phone_number                  :string
+#  zip_code                      :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #
 FactoryBot.define do
   factory :signup do

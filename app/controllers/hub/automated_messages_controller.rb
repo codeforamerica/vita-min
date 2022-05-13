@@ -28,7 +28,8 @@ module Hub
           [AutomatedMessage::SecondNotReadyReminder, {}],
           [AutomatedMessage::InformOfFraudHold, {}],
           [AutomatedMessage::NewPhotosRequested, {}],
-          [AutomatedMessage::VerificationAttemptDenied, {}]
+          [AutomatedMessage::VerificationAttemptDenied, {}],
+          [AutomatedMessage::Ctc2022OpenMessage, {}]
       ]
 
       @messages = messages.map do |message|
