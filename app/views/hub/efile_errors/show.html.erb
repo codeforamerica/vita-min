@@ -33,6 +33,7 @@
 
     <div class="spacing-above-35">
       <%= link_to t("general.edit"), edit_hub_efile_error_path(id: @efile_error.id), class: "button button--primary" %>
+      <%= link_to "Reprocess errors", reprocess_hub_efile_error_path(id: @efile_error), method: :patch, class: "button button--centered" %>
     </div>
   </div>
 <% end %>

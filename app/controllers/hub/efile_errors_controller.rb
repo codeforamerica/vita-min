@@ -32,7 +32,7 @@ module Hub
       else
         flash[:notice] = "Could not reprocess #{@efile_error.code}. Try again."
       end
-      redirect_to hub_efile_errors_path
+      redirect_to hub_efile_error_path(id: @efile_error.id)
     end
 
     def permitted_params
