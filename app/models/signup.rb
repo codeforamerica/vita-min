@@ -25,7 +25,7 @@ class Signup < ApplicationRecord
     sent_at_column = "#{message_name}_sent_at"
 
     Signup.where("#{message_name}_sent_at" => nil).order(created_at: :asc).limit(batch_size).find_each do |signup|
-      if signup.email_address.present?
+      if signup.email_address.present? && signup.valid?
         SignupFollowupMailer.followup(email_address: signup.email_address, message: message).deliver
         signup.touch(sent_at_column)
       end
