@@ -1,12 +1,10 @@
 class SignupFollowupMailer < ApplicationMailer
-  default from: Rails.configuration.email_from[:noreply][:gyr]
-
-  def followup(email_address, name)
-    @name = name
-    @subject = "Start your taxes with GetYourRefund now"
+  def followup(email_address:, message:)
+    @body = message.email_body
     mail(
       to: email_address,
-      subject: @subject,
+      subject: message.email_subject,
+      from: message.from
     )
   end
 end

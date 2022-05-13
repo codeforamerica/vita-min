@@ -1610,7 +1610,7 @@ es:
         vita_income_ineligible:
           label: "¿Recibió ingresos de una propiedad de renta/alquiler, una granja o criptomoneda?"
   signups:
-    flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
+    flash_notice: Gracias, recibirá una notificación cuando iniciemos.
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
       opt_in_message:

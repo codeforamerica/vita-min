@@ -1647,7 +1647,7 @@ en:
         vita_income_ineligible:
           label: Did you earn income from a rental property, a farm, or cryptocurrency?
   signups:
-    flash_notice: Thank you! You will receive a notification when we open in January 2022.
+    flash_notice: Thank you! You will receive a notification when we open.
     new:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
       opt_in_message:

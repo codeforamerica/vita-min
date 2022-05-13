@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_10_182528) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1285,10 +1285,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_10_182528) do
 
   create_table "signups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.datetime "ctc_2022_open_message_sent_at", precision: nil
     t.citext "email_address"
     t.string "name"
     t.string "phone_number"
-    t.boolean "sent_followup", default: false
     t.datetime "updated_at", null: false
     t.string "zip_code"
   end
