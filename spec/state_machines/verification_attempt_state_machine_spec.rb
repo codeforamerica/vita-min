@@ -1,6 +1,23 @@
 require "rails_helper"
 
 describe VerificationAttemptStateMachine do
+
+  context "transitions" do
+    context "from restricted" do
+      let(:verification_attempt) { create :verification_attempt, :restricted }
+      allowed_states = ["approved", "denied"]
+      allowed_states.each do |state|
+        it "can transition to #{state}" do
+          expect(verification_attempt.transition_to(state)).to eq true
+        end
+      end
+      (VerificationAttemptStateMachine.states - allowed_states).each do |state|
+        it "cannot transition to #{state}" do
+          expect(verification_attempt.transition_to(state)).to eq false
+        end
+      end
+    end
+  end
   context "after transitions" do
     let(:verification_attempt) { create :verification_attempt, :pending }
     let(:user) { create :admin_user }

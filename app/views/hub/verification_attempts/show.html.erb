@@ -95,7 +95,8 @@
       <% content_for :sticky_action_footer do %>
         <% if @verification_attempt.current_state == "restricted" %>
           <div class="flash--notice slab slab--half-padded verification-attempts-show__actions">
-            No action can be taken on this verification attempt because of its high fraud score.
+            <p>No action can be taken on this verification attempt because of its high fraud score.</p>
+            <p>Please contact @gyr-eng-on-call for manual transition if necessary.</p>
           </div>
         <% elsif @verification_attempt.current_state == "escalated" && !@form.can_handle_escalations? %>
           <div class="flash--warning slab slab--half-padded verification-attempts-show__actions">
