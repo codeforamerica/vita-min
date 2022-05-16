@@ -353,7 +353,7 @@ es:
     file_my_taxes: Declarar mis impuestos
     filing_joint: Presentación conjunta
     filing_status:
-      head_of_household: Cabeza de familia (HOH)
+      head_of_household: Jefe de familia
       married_filing_jointly: Casado que presenta una declaración conjunta (MFJ)
       married_filing_separately: Casado que presenta una declaración por separado (MFS)
       qualifying_widow: Viudo que reúne los requisitos (QW)
@@ -801,7 +801,7 @@ es:
           one: El cliente agregó 1 documento.
           other: El cliente agregó %{count} documentos.
         note_form:
-          label: Añadir una nota
+          label: Agregar una nota
           submit: Guardar
         outbound_call_synthetic_note: Llamado por %{user_name}. La llamada se %{status} y duró %{duration}.
         outbound_call_synthetic_note_body: 'Notas de llamada:'
@@ -1463,7 +1463,7 @@ es:
           in_person: Entregar en persona
           submit_either: 'Presentar a la Agencia del IRS ya sea:'
         download_your_documents: Descargue su W-7, la declaración de la impuestos, la prueba original de identidad y los documentos originales de su estatus de extranjero.
-        how_you_can_complete: 'A continuación le indicamos cómo puede completar su declaración:'
+        how_you_can_complete: 'Así es como puede completar su declaración de impuestos:'
         submit_by_mail: 'Enviar al IRS por correo:'
     still_needs_helps:
       chat_later:
@@ -1610,7 +1610,7 @@ es:
         vita_income_ineligible:
           label: "¿Recibió ingresos de una propiedad de renta/alquiler, una granja o criptomoneda?"
   signups:
-    flash_notice: Gracias, recibirá una notificación cuando iniciemos.
+    flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
       opt_in_message:
@@ -1757,12 +1757,12 @@ es:
           help_text:
           - GetCTC está disponible actualmente para los residentes de los 50 estados y D.C. y estará disponible para los residentes de Puerto Rico a finales de este año.
           - "¡Reciba una notificación cuando lancemos proporcionando su información de contacto en nuestra página de registro!"
-          return_home: Volver al inicio
+          return_home: Volver a casa
           sign_up: Continuar a la página de registro
-          title: Actualmente no estamos aceptando devoluciones de Puerto Rico, pero puede registrarse para recibir una notificación cuando lo hagamos.
+          title: Actualmente no estamos aceptando declaraciones de impuestos de Puerto Rico, pero puede registrarse para recibir una notificación cuando lo hagamos.
       portal:
         bank_account:
-          title: Proporcione sus datos bancarios a continuación
+          title: Proporcione sus datos bancarios.
         dependent_info:
           help_text: Confirmar / editar la información básica de su dependiente
           title: Edita la información básica de %{name}
@@ -1779,7 +1779,7 @@ es:
           no_bank_account: 'No ingreso su información bancaria. '
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
-          will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para añadir su información bancaria a continuación.
+          will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
           contact_us: Contáctanos
@@ -1945,9 +1945,9 @@ es:
           other_benefits_reveal:
             content:
               head_of_household:
-                p1: Si presenta su declaración como soltero y no está casado, uno o más de sus dependientes también pueden calificarlo para reclamar el estado de cabeza de familia, un estado fiscal que pueden usar algunos padres solteros.Sin embargo, para los créditos que puede reclamar con GetCTC El estado de cabeza de familia no aumentará su reembolso ni lo hará elegible para ningún beneficio fiscal adicional.
-                p2_html: Si declara como cabeza de familia, "Head of Household" en inglés, también podría aumentar su probabilidad de ser auditado por el IRS. De todos modos, si está interesado en declarar como jefe de familia, <a href=%{link}>haga clic aquí</a>.
-                title: "¿Debo declarar como cabeza de familia?"
+                p1: Si presenta su declaración como soltero y no está casado, uno o más de sus dependientes también pueden calificarlo para reclamar el estado de jefe de familia, un estado fiscal que pueden usar algunos padres solteros.Sin embargo, para los créditos que puede reclamar con GetCTC El estado de jefe de familia no aumentará su reembolso ni lo hará elegible para ningún beneficio fiscal adicional.
+                p2_html: Si declara como Jefe de Familia, "Head of Household" en inglés, también podría aumentar su probabilidad de ser auditado por el IRS. De todos modos, si está interesado en declarar como Jefe de Familia, <a href=%{link}>haga clic aquí</a>.
+                title: "¿Debo declarar como jefe de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
           qualifying_for_ctc: Dependientes para el CTC y el pago de estímulo
@@ -1960,7 +1960,7 @@ es:
           labels:
             signature_pin: El PIN de cinco dígitos de %{name}
           pin_help_text: Seleccione un PIN de 5 dígitos. Este es un número que usted elige como contraseña propia. Este PIN puede utilizarse para verificar su identidad al presentar la declaración de impuestos del próximo año.
-          title: Revise y confirme su información a continuación.
+          title: Revise y confirme su información.
           your_dependents: Sus dependientes
           your_information: Su información
         confirm_legal:
@@ -1968,7 +1968,7 @@ es:
           consent: Estoy de acuerdo
           error: Por favor, acepte antes de continuar.
           legal_info_html: |
-            <p>So pena de perjurio, declaro que he examinado esta declaración (o solicitud de reembolso), incluyendo las declaraciones y anexos que la acompañan, y que, a mi leal saber y entender, es verdadera, correcta y completa.</p>
+            <p>Bajo pena de perjurio, declaro que he examinado esta declaración (o solicitud de reembolso), incluyendo las declaraciones y anexos que la acompañan, y que, a mi leal saber y entender, es verdadera, correcta y completa.</p>
             <p>Autorizo a mi proveedor de servicios intermediario, transmisor u originador de declaraciones electrónicas (ERO) a enviar mi declaración (o solicitud de reembolso) al IRS y a recibir la siguiente información del IRS: a) un reconocimiento de recibo o el motivo del rechazo de la transmisión; b) una indicación de cualquier compensación de reembolso; c) el motivo de cualquier retraso en la tramitación de la declaración o el reembolso; y d) la fecha de cualquier reembolso.</p>
             <p class="spacing-below-35">Firmo esta declaración de impuestos introduciendo el PIN de firma que he seleccionado y los datos de firma electrónica asociados en la página anterior.</p>
           title: Favor de leer la información legal antes de presentar su declaración de impuestos.
@@ -2068,7 +2068,7 @@ es:
             relationship_to_you: "¿Qué relación tiene con usted?"
             situations: 'Seleccione si lo siguiente es cierto:'
             suffix: Forma de tratamiento (opcional)
-            title: Veamos algunos datos básicos sobre esta persona.
+            title: "¡Obtengamos información básica sobre esta persona!"
           relative_financial_support:
             title: "¿Pagó usted más de la mitad de los gastos de manutención de %{name} durante %{current_tax_year}?"
           relative_member_of_household:
@@ -2126,15 +2126,15 @@ es:
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
           reveal_body_html: |
-            Si normalmente declara como Jefe de Familia (Head of Household, en inglés), seleccione "Soltero" para los fines de esta declaración.
+            Si por lo general presenta la declaración como jefe de familia, seleccione “Soltero” para los fines de esta declaración de impuestos. Seleccionar "Soltero" no afectará la cantidad de beneficios fiscales que puede reclamar.
 
-            Por separado (Married Filing Separately, en inglés), usted no puede utilizar esta herramienta. Puede presentar su solicitud de forma gratuita en <a href="https://www.getyourrefund.org/es/ctc-married-filing-separately">GetYourRefund.org</a>
+            Si está casado y desea presentar la declaración de Casado Por Separado, no puede utilizar esta herramienta. Puede presentar su solicitud de forma gratuita en <a href="https://www.getyourrefund.org/ctc-married-filing-separately">GetYourRefund.org</a>.
           reveal_title: Usualmente declaro impuestos con otro estado civil
           single: Soltero
           title: "¿Cómo desea presentar su declaración de impuestos?"
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerada como dependiente.
-          title: "¿Desea añadir un hijo u otra persona a la que haya mantenido en el %{current_tax_year}?"
+          title: "¿Desea agregar un hijo u otra persona a la que haya mantenido en el %{current_tax_year}?"
           which_relationships_qualify_reveal:
             content:
             - Hijo
@@ -2179,11 +2179,11 @@ es:
             foreign_address: Dirección en el extranjero
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
-            us_territory: Otro territorio de Estados Unidos (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
+            us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
           title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
           income_qualifications:
-          - ha ganado menos de %{standard_deduction} en ingresos de cualquier tipo
+          - ha ganado menos de %{standard_deduction} en ingresos totales
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
           - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
           - no está obligado a presentar una declaración completa por cualquier otro razón
@@ -2223,7 +2223,7 @@ es:
           title: "¿Alguien de su declaración ha recibido un IP PIN a causa de un robo de identidad?"
         ip_pin_entry:
           label: El IP PIN de %{name}
-          title: Por favor, indique el IP PIN a continuación.
+          title: Por favor, indique el IP PIN.
         ip_pin_explanation_html: |
           <p>Si es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su IP PIN, un número de 6 dígitos asignado a ciertos contribuyentes elegibles.</p>
           <p>El IRS le emite un nuevo IP PIN cada año y debe proporcionar el PIN de este año.</p>
@@ -2263,8 +2263,8 @@ es:
           - Gracias por utilizar nuestra aplicación. No tiene que hacer nada más.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Utilice nuestra herramienta electrónica sencilla para la declaración de impuestos para recibir su Crédito Tributario por Hijos y su pago de estímulo o las correcciones que le correspondan.
-          legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión en la medida de sus posibilidades.
+          help_text: Utilice nuestra herramienta electrónica sencilla para la declaración de impuestos para recibir su Crédito Tributario por Hijos y su pago de estímulo.
+          legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
@@ -2300,7 +2300,7 @@ es:
           next_steps: Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesión de chat con nosotros.
         routing_number:
           routing_number: Número de ruta bancaria
-          routing_number_confirmation: Confirme su número de ruta bancaria bancaria
+          routing_number_confirmation: Confirme su número de ruta
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
           license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado
@@ -2346,7 +2346,7 @@ es:
           correction: Si la cantidad que ha indicado es incorrecta, el IRS lo corregirá, pero su pago podría ser retrasado.
           eip_three: Tercer pago de estímulo
           eligible_for: 'Usted está reclamando un adicional de:'
-          title: Parece que todavía se le deben algunos pagos de estímulo. ¿Desea declararlos?
+          title: Parece que todavía se le deben algunos pagos de estímulo.
         stimulus_payments:
           different_amount: Recibí una cantidad diferente
           no_amount: No he recibido ningún pago
@@ -4217,7 +4217,7 @@ es:
             - Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
           - header: La obtención del acuerdo de consentimiento del contribuyente
             content:
-            - Entiendo que seleccionar "Acepto" a continuación proporciona mi consentimiento para el proceso de preparación de impuestos de GetYourRefund.
+            - Entiendo que seleccionar "Acepto" proporciona mi consentimiento para el proceso de preparación de impuestos de GetYourRefund.
           - header: La realización del proceso de admisión (obtener todos los documentos)
             content:
             - 'Proceso de admisión: GetYourRefund coleccionará su información y documentación a través del proceso de admisión para preparar con precisión su declaración de impuestos. Todos los documentos seran guardados y asegurados en el sistema.'
