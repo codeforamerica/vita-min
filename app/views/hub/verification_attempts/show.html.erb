@@ -57,7 +57,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div class="grid-flex column-column justify-flex-end">
+                <div class="grid-flex column-column">
                   <div class="spacing-below-0" style="font-size: smaller; text-align: right;"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id), id: "time" %></div>
                   <div class="spacing-above-10">
                     <div class="label"><%= attempt.current_state.humanize(capitalize: false) %></div>

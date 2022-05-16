@@ -185,7 +185,6 @@ describe EfileSubmissionStateMachine do
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
             message: AutomatedMessage::EfileFailed,
-            locale: submission.client.intake.locale
           )
         end
       end
@@ -246,7 +245,6 @@ describe EfileSubmissionStateMachine do
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
           message: AutomatedMessage::EfileAcceptance,
-          locale: submission.client.intake.locale
         )
       end
 
@@ -286,7 +284,6 @@ describe EfileSubmissionStateMachine do
         expect(new_submission.qualifying_dependents).to be_present
         expect(new_submission.last_transition_to("preparing").metadata["previous_submission_id"]).to eq efile_submission.id
       end
-
     end
   end
 end

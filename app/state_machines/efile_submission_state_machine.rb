@@ -63,7 +63,7 @@ class EfileSubmissionStateMachine
     # AutomatedMessage::EfilePreparing has send_only_once set to true
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
-      message: AutomatedMessage::EfilePreparing
+      message: AutomatedMessage::EfilePreparing,
     )
     submission.tax_return.transition_to!(:file_ready_to_file)
 
@@ -79,7 +79,6 @@ class EfileSubmissionStateMachine
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,
-      locale: submission.client.intake.locale,
     )
   end
 
@@ -98,7 +97,6 @@ class EfileSubmissionStateMachine
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
           message: AutomatedMessage::EfileFailed,
-          locale: submission.client.intake.locale
         )
       end
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
@@ -118,7 +116,6 @@ class EfileSubmissionStateMachine
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
       message: AutomatedMessage::EfileAcceptance,
-      locale: client.intake.locale
     )
     tax_return.transition_to(:file_accepted)
 
