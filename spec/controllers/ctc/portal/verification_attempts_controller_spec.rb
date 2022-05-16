@@ -113,6 +113,27 @@ describe Ctc::Portal::VerificationAttemptsController do
             expect(verification_attempt.selfie.filename).to eq "test-pattern.png"
             expect(response).to redirect_to ctc_portal_verification_attempt_path
           end
+
+          context "when submitted with an invalid file type" do
+            render_views
+
+            let(:params) do
+              {
+                verification_attempt: {
+                  selfie: fixture_file_upload("test-pattern.html", "text/html")
+                }
+              }
+            end
+
+            it "does not update the verification attempt and renders a validation error" do
+              expect {
+                patch :update, params: params
+              }.not_to change { verification_attempt.reload.selfie.filename.to_s }
+
+              expect(response).to render_template :edit
+              expect(response.body).to include "Please upload a valid document type."
+            end
+          end
         end
 
         context "when submitted with photo_identification image params" do
