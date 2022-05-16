@@ -21,7 +21,7 @@
   <%= form_with model: @verification_attempt, url: ctc_portal_update_verification_attempt_path, method: "patch", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
     <div class="document-upload">
       <div class="file-upload">
-        <% unless @verification_attempt.photo_identification.present? %>
+        <% unless @verification_attempt.photo_identification.persisted? %>
           <%= f.file_field(:photo_identification, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
           <%= f.label(:photo_identification, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
               <div style="display:flex;">
@@ -30,7 +30,7 @@
               </div>
           <% end %>
         <% end %>
-        <% unless @verification_attempt.selfie.present? %>
+        <% unless @verification_attempt.selfie.persisted? %>
           <%= f.file_field(:selfie, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
           <%= f.label(:selfie, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
             <div style="display:flex;">
@@ -61,7 +61,7 @@
       <% images.each do |item| %>
         <% type = item[0] %>
         <% image = item[1] %>
-        <% next unless image.present? %>
+        <% next unless image.persisted? %>
         <li class="doc-preview">
           <div class="doc-preview__thumb">
             <% if image.representable? %>

@@ -17,9 +17,14 @@ class Ctc::Portal::VerificationAttemptsController < Ctc::Portal::BaseAuthenticat
         redirect_to action: :edit and return
       end
     end
+    @verification_attempt.assign_attributes(permitted_params)
 
-    @verification_attempt.update!(permitted_params)
-    redirect_to action: :edit
+    if @verification_attempt.valid?
+      @verification_attempt.save
+      redirect_to action: :edit
+    else
+      render :edit
+    end
   end
 
   def paper_file

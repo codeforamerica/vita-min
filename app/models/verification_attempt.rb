@@ -39,6 +39,17 @@ class VerificationAttempt < ApplicationRecord
   scope :reviewing, -> { in_state(:pending, :escalated, :restricted) }
 
   validate :only_one_open_attempt_per_client, on: :create
+  validate :attachment_file_types
+
+  def attachment_file_types
+    [selfie, photo_identification].each do |attachment|
+      if attachment.present?
+        unless FileTypeAllowedValidator::VALID_MIME_TYPES.include?(attachment.content_type)
+          errors.add(attachment.name, I18n.t("validators.file_type"))
+        end
+      end
+    end
+  end
 
   def only_one_open_attempt_per_client
     errors.add(:client, "only one open attempt is allowed per client") if client.verification_attempts.open.exists?
