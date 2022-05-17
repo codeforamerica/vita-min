@@ -361,6 +361,7 @@ describe EfileSubmission do
     before do
       allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
       allow(Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(Irs8812Ty2021Pdf, output_file: example_pdf))
+      allow(Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(Irs1040ScheduleLepPdf, output_file: example_pdf))
     end
 
     context "the filer is claiming CTC (line 28 is greater than $0)" do
@@ -373,7 +374,7 @@ describe EfileSubmission do
       it "generates and stores the 1040 and 8812 combined PDF" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
         expect(Irs8812Ty2021Pdf).to have_received(:new)
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
@@ -382,11 +383,34 @@ describe EfileSubmission do
     end
 
     context "the filer is not claiming CTC (line 28 = $0 or missing)" do
+      before do
+        allow(submission).to receive(:irs_submission_id).and_return "123456789"
+      end
+
       it "generates and stores just the 1040 (does not generate the 8812)" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(Irs1040Pdf).to have_received(:new)
         expect(Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year} - 789.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+        expect(doc.tax_return).to eq(submission.tax_return)
+        expect(doc.upload.blob.download).not_to be_nil
+      end
+    end
+
+    context "the filer requested a language change" do
+      before do
+        submission.intake.update(irs_language_preference: "spanish")
+      end
+
+      it "attaches the schedule lep" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(Irs1040Pdf).to have_received(:new)
+        expect(Irs1040ScheduleLepPdf).to have_received(:new)
+        expect(Irs8812Ty2021Pdf).not_to have_received(:new)
+        doc = submission.client.documents.last
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil
