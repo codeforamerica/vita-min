@@ -1,0 +1,74 @@
+name: Heroku Pull Request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  heroku-pull-request:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_APP_NAME: review-app-${{ github.event.number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
+          ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
+
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: wschaefer@codeforamerica.org
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          justlogin: true
+
+      - name: Create Heroku app
+        if: github.event.action == 'opened'
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund
+
+      - name: Add nodejs buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
+
+      - name: Add ruby buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 heroku/ruby
+
+      - name: Add activestorage-preview buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
+
+      - name: Add pdftk buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 https://github.com/fxtentacle/heroku-pdftk-buildpack.git
+
+      - name: Add Heroku app to pipeline
+        if: github.event.action == 'opened'
+        run: heroku pipelines:add vita-min --app=${{ env.HEROKU_APP_NAME }} --stage=development
+
+      - name: Copy environment variables to Heroku app
+        if: github.event.action == 'opened'
+        run: heroku config -a heroku-pr-app-from-dashboard --shell | grep -v DATABASE_URL | grep -v HEROKU_ | xargs heroku config:set -a ${{ env.HEROKU_APP_NAME }}
+
+      - name: Create database
+        if: github.event.action == 'opened'
+        run: heroku addons:create heroku-postgresql:hobby-dev --app ${{ env.HEROKU_APP_NAME }}
+
+      - name: Add Heroku remote
+        run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Push to Heroku
+        run: git push heroku ${{ github.head_ref }}:main --force
+
+      - name: Add comment to PR
+        if: github.event.action == 'opened'
+        run: |
+          gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Destroy Heroku app
+        if: github.event.action == 'closed'
+        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
