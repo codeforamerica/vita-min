@@ -67,6 +67,18 @@ RSpec.describe Hub::UsersController do
         create :user
       end
 
+      context "with a page param that is not an integer" do
+        let(:params) do
+          { page: "someone" }
+        end
+
+        it "coerces the page param into something that can be understood and processed" do
+          get :index, params: params
+
+          expect(response).to be_ok
+        end
+      end
+
       it "displays a list of all users and certain key attributes" do
         get :index
 
