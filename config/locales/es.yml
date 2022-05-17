@@ -2544,7 +2544,6 @@ es:
         navigator_resources_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
-        service_name: GetYourRefund
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
