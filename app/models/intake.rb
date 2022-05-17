@@ -115,6 +115,7 @@
 #  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -331,6 +332,7 @@ class Intake < ApplicationRecord
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
   enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
   enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
+  enum irs_language_preference: { english: 0, spanish: 1 }, _prefix: :irs_language_preference
 
   NAVIGATOR_TYPES = {
     general: {
@@ -362,6 +364,12 @@ class Intake < ApplicationRecord
     return self.class.none unless hashed_primary_ssn.present?
 
     DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+  end
+
+  def irs_language_preference_code
+    return nil unless irs_language_preference
+    preference_int = self.class.irs_language_preferences[irs_language_preference]
+    "%03d" % preference_int
   end
 
   def itin_duplicates
