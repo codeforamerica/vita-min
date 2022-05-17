@@ -28,6 +28,10 @@ jobs:
         if: github.event.action == 'opened'
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund
 
+      - name: Save app name and PR number as heroku environment variable
+        if: github.event.action == 'opened'
+        run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
+
       - name: Add nodejs buildpack
         if: github.event.action == 'opened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
@@ -50,7 +54,7 @@ jobs:
 
       - name: Copy environment variables to Heroku app
         if: github.event.action == 'opened'
-        run: heroku config -a heroku-pr-app-from-dashboard --shell | grep -v DATABASE_URL | grep -v HEROKU_ | xargs heroku config:set -a ${{ env.HEROKU_APP_NAME }}
+        run: heroku config -a heroku-pr-app-from-dashboard --shell | grep -v DATABASE_URL | xargs heroku config:set -a ${{ env.HEROKU_APP_NAME }}
 
       - name: Create database
         if: github.event.action == 'opened'
@@ -62,12 +66,24 @@ jobs:
       - name: Push to Heroku
         run: git push heroku ${{ github.head_ref }}:main --force
 
+      - name: Setup database
+        if: github.event.action == 'opened'
+        run: heroku run rails heroku:postdeploy
+
+      - name: Setup hostnames (GYR and CTC)
+        if: github.event.action == 'opened'
+        run: heroku run rails heroku:review_app_setup
+
       - name: Add comment to PR
         if: github.event.action == 'opened'
         run: |
           gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pre-destroy - clean up the hostnames (GYR and CTC)
+        if: github.event.action == 'closed'
+        run: heroku run rails heroku:review_app_predestroy
 
       - name: Destroy Heroku app
         if: github.event.action == 'closed'
