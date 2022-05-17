@@ -5,10 +5,10 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleLep do
 
   before do
     submission.intake.update(
-        irs_language_preference: "spanish",
-        primary_first_name: "Herbert",
-        primary_last_name: "Mickeymousegoofyplutodonaldduckminniemouse",
-        primary_ssn: "123456789"
+      irs_language_preference: "spanish",
+      primary_first_name: "Herbert",
+      primary_last_name: "Mickeymousegoofyplutodonaldduckminniemouse",
+      primary_ssn: "123456789"
     )
   end
 

@@ -21,6 +21,11 @@ module SubmissionBuilder
             include: true
           },
           {
+            xml: nil,
+            pdf: AdditionalDependentsPdf,
+            include: @submission.qualifying_dependents.count > 4
+          },
+          {
             xml: SubmissionBuilder::Ty2021::Documents::Schedule8812,
             pdf: Irs8812Ty2021Pdf,
             include: @submission.has_outstanding_ctc?
