@@ -185,7 +185,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           email_address: "mango@example.com",
           email_notification_opt_in: "yes",
           refund_payment_method: "direct_deposit",
-          advance_ctc_amount_received: 4000,
+          advance_ctc_amount_received: 6000,
           spouse_first_name: "Eva",
           spouse_last_name: "Hesse",
           spouse_birth_date: Date.new(1929, 9, 2),
