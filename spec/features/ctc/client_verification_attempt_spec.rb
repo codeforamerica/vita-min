@@ -44,7 +44,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     scenario "they see the verification attempt page" do
       visit "/en/portal"
       expect(page).to have_content(I18n.t("views.ctc.portal.verification.title"))
-      expect(page).to have_text("We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif")
+      expect(page).to have_text(I18n.t("views.layouts.document_upload.accepted_file_types"))
       within "form#file-upload-form" do
         expect(page).to have_text(I18n.t("views.ctc.portal.verification.selfie_label"))
         expect(page).not_to have_text(I18n.t("views.ctc.portal.verification.resubmission"))
