@@ -2,21 +2,35 @@
 <% content_for :page_title, t(".title") %>
 
 <% content_for :card do %>
-  <div class="slab">
-    <h1 class="h1"><%= t(".title") %></h1>
-    <table class="index-table user-table">
-      <caption class="index-table__title">
-        <%= page_entries_info @users, model: "entry" %>
-        <%= will_paginate(
-              @users,
-              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
-              next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-              inner_window: 1,
-              outer_window: 1,
-              param_name: "page",
-            ) %>
-      </caption>
+  <div class="slab slab--padded">
+    <div class="grid-flex column-row space-between">
+      <h1 class="h1"><%= t(".title") %></h1>
+      <%= form_for "", url: url_for(locale: :en), method: "get", builder: VitaMinFormBuilder do |f| %>
+        <div class="grid-flex">
+          <%= f.text_field :search, class: "text-input", style: "width: 275px", value: params[:search] %>
+          <%= f.submit "Search", class: "button button--primary" %>
+        </div>
+      <% end %>
+    </div>
 
+    <div class="pagination-wrapper spacing-below-15">
+      <div class="count-wrapper">
+        <div>
+          <%= page_entries_info @users, model: "user" %>
+        </div>
+      </div>
+      <div>
+        <%= will_paginate(
+            @users,
+            previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+            next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+            inner_window: 1,
+            outer_window: 1,
+            param_name: "page",
+        ) %>
+      </div>
+    </div>
+    <table class="index-table user-table">
       <thead class="index-table__head">
       <tr class="index-table__row">
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>

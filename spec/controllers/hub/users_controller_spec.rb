@@ -145,6 +145,18 @@ RSpec.describe Hub::UsersController do
           expect(assigns(:users)).to match_array([first_match, second_match])
         end
       end
+
+      context "with a page param that is not an integer" do
+        let(:params) do
+          { page: "someone" }
+        end
+
+        it "coerces the page param into something that can be understood and processed" do
+          get :index, params: params
+
+          expect(response).to be_ok
+        end
+      end
     end
   end
 
