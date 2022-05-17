@@ -64,6 +64,7 @@ jobs:
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Push to Heroku
+        if: github.event.action != 'closed'
         run: git push heroku ${{ github.head_ref }}:main --force
 
       - name: Setup database
