@@ -14,8 +14,7 @@
   </div>
 
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.stimulus_payments.reveal.title")) do %>
-    <% t('views.ctc.questions.stimulus_payments.reveal.content_html',
-         link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home'))).each do |body| %>
+    <% t('views.ctc.questions.stimulus_payments.reveal.content_html').each do |body| %>
       <p><%= body %></p>
     <% end %>
   <% end %>
