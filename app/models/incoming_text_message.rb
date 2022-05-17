@@ -38,8 +38,12 @@ class IncomingTextMessage < ApplicationRecord
   end
 
   def body
-    return "Client sent an empty text message with no attachments" if attributes[:body].blank? && documents.blank?
+    raw_body = attributes["body"]
 
-    super
+    if raw_body.blank? && documents.blank?
+      "Client sent an empty text message with no attachments"
+    else
+      raw_body
+    end
   end
 end
