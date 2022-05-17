@@ -13,7 +13,7 @@ module Hub
 
     def index
       @users = @users.search(params[:search]) if params[:search].present?
-      @users = @users.page(params[:page])
+      @users = @users.page(!params[:page].to_i.zero? ? params[:page] : 1)
     end
 
     def edit; end
