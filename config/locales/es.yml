@@ -2875,7 +2875,7 @@ es:
         meta:
           description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
       document_upload:
-        accepted_file_types: 'Nosotros aceptamos: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif'
+        accepted_file_types: Los tipos aceptados incluyen .jpg, .pdf y .png
         dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
