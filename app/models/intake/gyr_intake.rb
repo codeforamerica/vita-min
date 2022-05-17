@@ -115,6 +115,7 @@
 #  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default("unfilled"), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null

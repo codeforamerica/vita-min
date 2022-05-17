@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_17_001337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1042,6 +1042,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.string "hashed_primary_ssn"
     t.integer "income_over_limit", default: 0, null: false
     t.string "interview_timing_preference"
+    t.integer "irs_language_preference"
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
     t.integer "lived_with_spouse", default: 0, null: false

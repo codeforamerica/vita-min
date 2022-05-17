@@ -115,6 +115,7 @@
 #  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -498,6 +499,32 @@ describe Intake do
     end
   end
 
+  describe "#irs_language_preference_code" do
+    context "when language is english" do
+      let(:intake) { build :intake, irs_language_preference: "english" }
+
+      it "responds with 000" do
+        expect(intake.irs_language_preference_code).to eq "000"
+      end
+    end
+
+    context "when language is english" do
+      let(:intake) { build :intake, irs_language_preference: "spanish" }
+
+      it "responds with 001" do
+        expect(intake.irs_language_preference_code).to eq "001"
+      end
+    end
+
+    context "when language is nil" do
+      let(:intake) { build :intake, irs_language_preference: nil }
+
+      it "responds with nil" do
+        expect(intake.irs_language_preference_code).to eq nil
+
+      end
+    end
+  end
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
