@@ -2,15 +2,19 @@ module SubmissionBuilder
   module Ty2021
     class Return1040 < SubmissionBuilder::Shared::Return1040
       def attached_documents
-        @attached_documents ||= xml_documents
+        @attached_documents ||= xml_documents.map(&:xml)
       end
 
       def xml_documents
-        supported_documents.map { |item| item[:xml] if item[:include] }.compact
+        included_documents.map { |item| item if item.xml }.compact
       end
 
       def pdf_documents
-        supported_documents.map { |item| item[:pdf] if item[:include] }.compact
+        included_documents.map { |item| item if item.pdf }.compact
+      end
+
+      def included_documents
+        supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
       end
 
       def supported_documents
@@ -19,6 +23,18 @@ module SubmissionBuilder
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
             pdf: Irs1040Pdf,
             include: true
+          },
+          {
+            xml: nil,
+            pdf: AdditionalDependentsPdf,
+            include: @submission.qualifying_dependents.count > 4,
+            kwargs: { start_node: 4 }
+          },
+          {
+            xml: nil,
+            pdf: AdditionalDependentsPdf,
+            include: @submission.qualifying_dependents.count > 26,
+            kwargs: { start_node: 26 }
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::Schedule8812,

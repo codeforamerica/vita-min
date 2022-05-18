@@ -30,7 +30,7 @@ describe Irs1040ScheduleLepPdf do
       it "returns default values" do
         output_file = pdf.output_file
 
-        expect(non_preparer_fields(output_file.path)).to eq ({
+        expect(filled_in_values(output_file.path)).to eq ({
             "PersonNm" => "",
             "SSN" => "",
             "LanguagePreferenceCd" => "",
@@ -42,7 +42,7 @@ describe Irs1040ScheduleLepPdf do
       it "returns fill out values from XML values" do
         output_file = pdf.output_file
 
-        expect(non_preparer_fields(output_file.path)).to eq ({
+        expect(filled_in_values(output_file.path)).to eq ({
             "PersonNm" => "Martha Mango",
             "SSN" => "111223333",
             "LanguagePreferenceCd" => "004"

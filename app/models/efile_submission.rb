@@ -144,9 +144,9 @@ class EfileSubmission < ApplicationRecord
     filename = "IRS 1040 - TY#{tax_return.year}"
     filename += slug ? " - #{slug}.pdf" : ".pdf"
 
-    attached_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
+    pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
     output_file = Tempfile.new([filename, ".pdf"], "tmp/")
-    filled_out_documents = attached_documents.map { |pdf_class| pdf_class.new(self).output_file }
+    filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
     PdfForms.new.cat(*filled_out_documents.push(output_file.path))
     ClientPdfDocument.create_or_update(
       output_file: output_file,

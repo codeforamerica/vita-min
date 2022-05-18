@@ -54,8 +54,7 @@ RSpec.describe Irs1040Pdf do
         submission.reload
 
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
-        expect(result).to match({
+        expect(filled_in_values(output_file.path)).to match({
           "AdditionalChildTaxCreditAmt28" => "",
           "AdditionalTaxAmt17" => nil,
           "AddressLine1Txt" => "",
@@ -171,7 +170,7 @@ RSpec.describe Irs1040Pdf do
 
     it "renders xml fields" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
           "FilingStatus" => "1",
           "PrimarySSN" => '111223333',
@@ -195,7 +194,7 @@ RSpec.describe Irs1040Pdf do
 
     it 'renders fields that have to be from the db instead of xml because the xml is truncated or weird' do
       output_file = pdf.output_file
-      result = non_preparer_fields(output_file.path)
+      result = filled_in_values(output_file.path)
       expect(result).to match(hash_including(
         "PrimaryFirstNm" => submission.intake.primary_first_name,
         "PrimaryLastNm" => submission.intake.primary_last_name,
@@ -215,7 +214,7 @@ RSpec.describe Irs1040Pdf do
 
       it "returns 1" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including("Primary65OrOlderInd" => "1"))
       end
     end
@@ -229,7 +228,7 @@ RSpec.describe Irs1040Pdf do
 
       it "returns 1" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including("PrimaryBlindInd" => "1"))
       end
     end
@@ -238,7 +237,7 @@ RSpec.describe Irs1040Pdf do
       it 'uses the intake address' do
         submission.update!(verified_address: nil)
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
           "AddressLine1Txt" => "972 Mission St",
           "CityNm" => "San Francisco",
@@ -250,7 +249,7 @@ RSpec.describe Irs1040Pdf do
 
     context "when status is married filing jointly" do
       let(:filing_status) { '2' }
-      let(:result) { non_preparer_fields(pdf.output_file.path) }
+      let(:result) { filled_in_values(pdf.output_file.path) }
       let(:optional_xml_fields) do
         lambda do |xml|
           xml.SpouseSSN "123456789"
@@ -292,7 +291,7 @@ RSpec.describe Irs1040Pdf do
 
         it "returns 1" do
           output_file = pdf.output_file
-          result = non_preparer_fields(output_file.path)
+          result = filled_in_values(output_file.path)
           expect(result).to match(hash_including("Spouse65OrOlderInd" => "1"))
         end
       end
@@ -308,7 +307,7 @@ RSpec.describe Irs1040Pdf do
 
         it "returns 1" do
           output_file = pdf.output_file
-          result = non_preparer_fields(output_file.path)
+          result = filled_in_values(output_file.path)
           expect(result).to match(hash_including("SpouseBlindInd" => "1"))
         end
       end
@@ -342,7 +341,7 @@ RSpec.describe Irs1040Pdf do
 
       it "returns correct values for dependents" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "DependentLegalNm[0]" => "Danielle Dob",
                                   "DependentRelationship[0]" => "DAUGHTER",
