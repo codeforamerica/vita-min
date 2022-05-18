@@ -196,7 +196,6 @@ Rails.application.routes.draw do
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]
-        resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end

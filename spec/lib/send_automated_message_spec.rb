@@ -64,6 +64,18 @@ describe SendAutomatedMessage, active_job: true do
       allow(ClientMessagingService).to receive(:send_system_text_message).and_return(outgoing_text_message)
     end
 
+    context "when sms arg is false" do
+      it "only sends an email" do
+        expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted, sms: false).send_messages).to eq [outgoing_email]
+      end
+    end
+
+    context "when email arg is false" do
+      it "only sends a text message" do
+        expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted, email: false).send_messages).to eq [outgoing_text_message]
+      end
+    end
+
     it "returns a hash containing all contact records" do
       getting_started_message = AutomatedMessage::GettingStarted
       expect(described_class.new(client: client, message: getting_started_message, locale: "es").send_messages)

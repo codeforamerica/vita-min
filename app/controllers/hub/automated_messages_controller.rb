@@ -29,7 +29,8 @@ module Hub
           [AutomatedMessage::InformOfFraudHold, {}],
           [AutomatedMessage::NewPhotosRequested, {}],
           [AutomatedMessage::VerificationAttemptDenied, {}],
-          [AutomatedMessage::Ctc2022OpenMessage, {}]
+          [AutomatedMessage::Ctc2022OpenMessage, {}],
+          [AutomatedMessage::IntercomForwarding, {}]
       ]
 
       @messages = messages.map do |message|

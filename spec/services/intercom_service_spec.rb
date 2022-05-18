@@ -18,21 +18,24 @@ RSpec.describe IntercomService do
       let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
 
       before do
-        allow(described_class).to receive(:contact_id_from_client_id).with(client.id).and_return(nil)
+        allow(described_class).to receive(:contact_from_client).with(client).and_return(nil)
         fake_contact = OpenStruct.new(id: 'fake_new_contact_id')
         allow(fake_intercom).to receive(:contacts).and_return(fake_contacts)
         allow(fake_contacts).to receive(:create).and_return(fake_contact)
         allow(fake_contacts).to receive(:search).and_return([])
         allow(described_class).to receive(:create_new_intercom_thread)
-        allow(ClientMessagingService).to receive(:send_system_text_message)
-        allow(ClientMessagingService).to receive(:send_system_email)
+        allow(SendAutomatedMessage).to receive(:send_messages)
       end
 
       it "creates a new contact, message and conversation for the client id, and sends forwarding messages" do
         described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "Hello")
-        expect(ClientMessagingService).to have_received(:send_system_text_message).once
-        expect(ClientMessagingService).to have_received(:send_system_email).once
+        expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
+                                                                                      client: incoming_portal_message.client,
+                                                                                      sms: true,
+                                                                                      email: true,
+                                                                                      message: AutomatedMessage::IntercomForwarding
+                                                                                  })
       end
 
       context "if the contact already existed (maybe we just created it but it's not showing up in search)" do
@@ -44,15 +47,19 @@ RSpec.describe IntercomService do
         it "uses the existing contact from the intercom side" do
           described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)
           expect(described_class).to have_received(:create_new_intercom_thread).with("abcdefg", incoming_portal_message.body)
-          expect(ClientMessagingService).to have_received(:send_system_text_message).once
-          expect(ClientMessagingService).to have_received(:send_system_email).once
+          expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
+                                                                                     message: AutomatedMessage::IntercomForwarding,
+                                                                                     sms: true,
+                                                                                     email: true,
+                                                                                     client: client
+                                                                                 })
         end
       end
     end
 
     context "with an existing contact and conversation for the client" do
       before do
-        allow(described_class).to receive(:contact_id_from_client_id).with(client.id).and_return("fake_existing_contact_id")
+        allow(described_class).to receive(:contact_from_client).with(client).and_return(OpenStruct.new(id: "fake_existing_contact_id"))
         allow(described_class).to receive(:most_recent_conversation).with("fake_existing_contact_id").and_return("fake_convo")
         allow(described_class).to receive(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", incoming_portal_message.body)
       end
@@ -69,23 +76,29 @@ RSpec.describe IntercomService do
 
     context "with no existing contact with email" do
       before do
-        allow(described_class).to receive(:contact_id_from_email).with(incoming_email.sender).and_return(nil)
-        allow(described_class).to receive(:contact_id_from_client_id).with(client.id).and_return(nil)
+        allow(described_class).to receive(:contact_from_email).with(incoming_email.sender).and_return(nil)
+        allow(described_class).to receive(:contact_from_client).with(client).and_return(nil)
         allow(fake_intercom).to receive_message_chain(:contacts, :create, :id).and_return("fake_new_contact_id")
         allow(described_class).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_email.body)
-        allow(ClientMessagingService).to receive(:send_system_email)
+        allow(SendAutomatedMessage).to receive(:send_messages)
       end
 
       it "creates a new contact, message and conversation for email, and sends forwarding message" do
         described_class.create_intercom_message_from_email(incoming_email, inform_of_handoff: true)
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "hi i would like some help")
-        expect(ClientMessagingService).to have_received(:send_system_email).once
+        expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
+                                                                                    email: true,
+                                                                                    sms: false,
+                                                                                    message: AutomatedMessage::IntercomForwarding,
+                                                                                    client: incoming_email.client
+                                                                                })
       end
     end
 
     context "with existing contact and conversation associated with email in intercom" do
       before do
-        allow(described_class).to receive(:contact_id_from_email).with(incoming_email.sender).and_return("fak3_1d")
+        allow(described_class).to receive(:contact_from_email).with(incoming_email.sender).and_return(OpenStruct.new(id: "fak3_1d"))
+        allow(described_class).to receive(:contact_from_client).and_return nil
         allow(described_class).to receive(:most_recent_conversation).with("fak3_1d").and_return("fake_convo_id")
         allow(described_class).to receive(:reply_to_existing_intercom_thread).with("fak3_1d", incoming_email.body)
       end
@@ -98,7 +111,8 @@ RSpec.describe IntercomService do
 
     context "with existing contact but no conversation associated with email in intercom" do
       before do
-        allow(described_class).to receive(:contact_id_from_email).with(incoming_email.sender).and_return("fak3_1d")
+        allow(described_class).to receive(:contact_from_client).and_return nil
+        allow(described_class).to receive(:contact_from_email).with(incoming_email.sender).and_return(OpenStruct.new(id: "fak3_1d"))
         allow(described_class).to receive(:most_recent_conversation).with("fak3_1d").and_return(nil)
         allow(described_class).to receive(:create_new_intercom_thread).with("fak3_1d", incoming_email.body)
       end
@@ -119,19 +133,25 @@ RSpec.describe IntercomService do
       let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
 
       before do
-        allow(described_class).to receive(:contact_id_from_sms).with("+14152515239").and_return(nil)
+        allow(described_class).to receive(:contact_from_sms).with("+14152515239").and_return(nil)
         fake_contact = OpenStruct.new(id: 'fake_new_contact_id')
         allow(fake_intercom).to receive(:contacts).and_return(fake_contacts)
         allow(fake_contacts).to receive(:create).and_return(fake_contact)
         allow(fake_contacts).to receive(:search).and_return([])
         allow(described_class).to receive(:create_new_intercom_thread)
-        allow(ClientMessagingService).to receive(:send_system_text_message)
+        allow(SendAutomatedMessage).to receive(:send_messages)
       end
 
       it "creates a new contact, message and conversation for phone number, and sends forwarding message" do
         described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", sms_body)
-        expect(ClientMessagingService).to have_received(:send_system_text_message).once
+        expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
+                                                                                    sms: true,
+                                                                                    email: false,
+                                                                                    client: incoming_text_message.client,
+                                                                                    message: AutomatedMessage::IntercomForwarding
+
+                                                                                })
       end
 
       context "if the contact already existed (maybe we just created it but it's not showing up in search)" do
@@ -143,7 +163,7 @@ RSpec.describe IntercomService do
         it "uses the existing contact from the intercom side" do
           described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
           expect(described_class).to have_received(:create_new_intercom_thread).with("abcdefg", sms_body)
-          expect(ClientMessagingService).to have_received(:send_system_text_message).once
+          expect(SendAutomatedMessage).to have_received(:send_messages).once
         end
       end
 
@@ -170,7 +190,9 @@ RSpec.describe IntercomService do
 
     context "with an existing contact and conversation for phone number" do
       before do
-        allow(described_class).to receive(:contact_id_from_sms).with(incoming_text_message.from_phone_number).and_return("fake_existing_contact_id")
+        allow(described_class).to receive(:contact_from_client).and_return nil
+        allow(described_class).to receive(:contact_from_email).and_return nil
+        allow(described_class).to receive(:contact_from_sms).with(incoming_text_message.from_phone_number).and_return(OpenStruct.new(id: "fake_existing_contact_id"))
         allow(described_class).to receive(:most_recent_conversation).with("fake_existing_contact_id").and_return("fake_convo")
         allow(described_class).to receive(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", incoming_text_message.body)
       end

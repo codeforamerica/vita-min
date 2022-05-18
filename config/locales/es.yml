@@ -732,8 +732,6 @@ es:
         spouse_contact_info: Información de contacto de su cónyuge
         tax_info: Información de impuestos
         texting_phone: Número de celular
-      unlinked_clients:
-        title: Clientes no vinculados
       unlock:
         account_unlocked: La cuenta de %{name} se ha desbloqueado.
       update_take_action:
@@ -1055,10 +1053,6 @@ es:
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}.
         no_one: nadie
-    unlinked_clients:
-      index:
-        description: Mensajes de personas cuya información de contacto no coincide con la de un cliente.
-        phone_number_or_email: Número de teléfono / correo electrónico
     unlock_account: Desbloquear cuenta
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     unsuspend_account: Anular la suspensión del usuario
