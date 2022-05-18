@@ -95,12 +95,12 @@ describe AdditionalDependentsPdf do
           empty.merge!({
             "DependentNameRow#{i + 1}" => nil,
             "CTCRow#{i + 1}" => nil,
-            "OTCRow#{i + 1}" => nil,
+            "ODCRow#{i + 1}" => nil,
             "RelationshipRow#{i + 1}" => nil,
             "TINRow#{i + 1}" => nil,
           })
         end
-        expect(non_preparer_fields(output_file.path)).to eq empty
+        expect(filled_in_values(output_file.path)).to eq empty
       end
     end
 
@@ -108,38 +108,38 @@ describe AdditionalDependentsPdf do
       it "returns fill out values from XML values" do
         output_file = pdf.output_file
         filled = {}
-        19.times do |i|
+        18.times do |i|
           filled.merge!({
-                           "DependentNameRow#{i + 4}" => nil,
-                           "CTCRow#{i + 4}" => nil,
-                           "OTCRow#{i + 4}" => nil,
-                           "RelationshipRow#{i + 4}" => nil,
-                           "TINRow#{i + 4}" => nil,
+                           "DependentNameRow#{i + 5}" => nil,
+                           "CTCRow#{i + 5}" => nil,
+                           "ODCRow#{i + 5}" => nil,
+                           "RelationshipRow#{i + 5}" => nil,
+                           "TINRow#{i + 5}" => nil,
                        })
         end
-        expect(non_preparer_fields(output_file.path)).to eq filled.merge!(
+        expect(filled_in_values(output_file.path)).to eq filled.merge!(
           {
           "DependentNameRow1" => "FirstAdditional Dependent",
           "CTCRow1" => "Yes",
-          "OTCRow1" => "",
+          "ODCRow1" => "",
           "RelationshipRow1" => "SON",
           "TINRow1" => "111111115",
 
           "DependentNameRow2" => "SecondAdditional Dependent",
           "CTCRow2" => "",
-          "OTCRow2" => "",
+          "ODCRow2" => "",
           "RelationshipRow2" => "FOSTER CHILD",
           "TINRow2" => "111111116",
 
           "DependentNameRow3" => "ThirdAdditional Dependent",
           "CTCRow3" => "",
-          "OTCRow3" => "",
+          "ODCRow3" => "",
           "RelationshipRow3" => "GRANDCHILD",
           "TINRow3" => "111111117",
 
           "DependentNameRow4" => "FourthAdditional Dependent",
           "CTCRow4" => "",
-          "OTCRow4" => "",
+          "ODCRow4" => "",
           "RelationshipRow4" => "PARENT",
           "TINRow4" => "111111118",
        })

@@ -18,7 +18,7 @@ RSpec.describe Irs8812Ty2021Pdf do
 
       it "returns a pdf with default fields and values" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "AdjustedGrossIncomeAmt1" => "0", # 1
                                   "PRExcludedIncomeAmt2a" => "0", # 2a
@@ -85,7 +85,7 @@ RSpec.describe Irs8812Ty2021Pdf do
 
       it "returns a filled out pdf" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "AdjustedGrossIncomeAmt1" => "0", # 1
                                   "PRExcludedIncomeAmt2a" => "0", # 2a
@@ -125,7 +125,7 @@ RSpec.describe Irs8812Ty2021Pdf do
 
       it "includes the correct filing status threshold" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "FilingStatusIncomeLimit9" => "400000", #9
                                 ))

@@ -362,6 +362,7 @@ describe EfileSubmission do
       allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
       allow(Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(Irs8812Ty2021Pdf, output_file: example_pdf))
       allow(Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(Irs1040ScheduleLepPdf, output_file: example_pdf))
+      allow(AdditionalDependentsPdf).to receive(:new).and_return(instance_double(AdditionalDependentsPdf, output_file: example_pdf))
     end
 
     context "the filer is claiming CTC (line 28 is greater than $0)" do
@@ -396,6 +397,19 @@ describe EfileSubmission do
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil
+      end
+    end
+
+    context "when the filer has tons of dependents" do
+      before do
+        allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
+        allow(submission).to receive(:has_outstanding_ctc?).and_return true
+      end
+
+      it "attaches multiple dependents documents" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 4)
+        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 26)
       end
     end
 
