@@ -22,7 +22,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
             )
@@ -43,7 +43,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_text_message).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_email)
@@ -63,7 +63,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
             )

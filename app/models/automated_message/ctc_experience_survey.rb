@@ -11,7 +11,7 @@ module AutomatedMessage
     def self.survey_link(client)
       ctc_not_filing_status = client.intake.default_tax_return.current_state == "file_not_filing" ? 'TRUE' : 'FALSE'
 
-      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA?&ExternalDataReference=#{client.id}&ctcNotFiling=#{ctc_not_filing_status}&expGroup=#{client.ctc_experience_survey_variant}"
+      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW?&ExternalDataReference=#{client.id}&ctcNotFiling=#{ctc_not_filing_status}&expGroup=#{client.ctc_experience_survey_variant}"
     end
 
     def sms_body(*args)
