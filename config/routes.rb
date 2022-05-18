@@ -179,6 +179,7 @@ Rails.application.routes.draw do
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
           get '/download', to: 'efile_submissions#download', on: :member, as: :download
+          get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
         end
 
         resources :fraud_indicators, path: "fraud-indicators" do

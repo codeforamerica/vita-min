@@ -13,7 +13,9 @@ import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
-import { initServiceComparisonComponent } from "../lib/service_comparison_component"
+import { initServiceComparisonComponent } from "../lib/service_comparison_component";
+import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
+
 const Listeners =  (function(){
     return {
         init: function () {
@@ -54,6 +56,10 @@ const Listeners =  (function(){
 
                 if(window.appData.controller_action == "Ctc::Portal::PortalController#edit_info" || window.appData.controller_action == "Ctc::Portal::PortalController#resubmit") {
                     getEfileSecurityInformation('ctc_resubmit_form');
+                }
+
+                if(window.appData.controller_action == "Hub::EfileSubmissionsController#index") {
+                    fetchEfileStateCounts();
                 }
 
                 if (document.querySelector('.taggable-note')) {
