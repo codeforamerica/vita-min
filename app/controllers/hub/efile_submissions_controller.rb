@@ -9,7 +9,6 @@ module Hub
     layout "hub"
 
     def index
-      @efile_submission_state_counts = EfileSubmission.state_counts(except: %w[new resubmitted ready_to_resubmit])
       @efile_submissions = EfileSubmission.includes(:efile_submission_transitions, tax_return: [:client, :intake]).most_recent_by_current_year_tax_return.page(params[:page])
       @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
     end
@@ -52,6 +51,11 @@ module Hub
       @efile_submission.transition_to!(:waiting, { initiated_by_id: current_user.id })
       flash[:notice] = "Waiting for client action."
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+    end
+
+    def state_counts
+      @efile_submission_state_counts = EfileSubmission.state_counts(except: %w[new resubmitted ready_to_resubmit])
+      respond_to :js
     end
 
     def download
