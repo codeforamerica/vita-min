@@ -1,7 +1,7 @@
 class MessageTracker
   attr_accessor :client, :message_name
 
-  def initialize(client: nil, message:)
+  def initialize(client:, message:)
     @client = client
     @message_name = message.name
   end
