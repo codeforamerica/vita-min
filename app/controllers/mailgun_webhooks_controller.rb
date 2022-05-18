@@ -9,16 +9,15 @@ class MailgunWebhooksController < ActionController::Base
     sender_email = params["sender"]
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email})
     client_count = clients.count
-    if client_count == 0
+    if client_count.zero?
       DatadogApi.increment("mailgun.incoming_emails.client_not_found")
-      clients = [Client.create!(
-        intake: Intake::GyrIntake.create!(
-          email_address: sender_email,
-          visitor_id: SecureRandom.hex(26),
-          email_notification_opt_in: "yes",
-        ),
-        vita_partner: VitaPartner.client_support_org,
-      )]
+
+      IntercomService.create_intercom_message(
+        email_address: sender_email,
+        inform_of_handoff: false,
+        body: params["stripped-text"] || params["body-plain"]
+      )
+      head :ok
     elsif client_count == 1
       DatadogApi.increment("mailgun.incoming_emails.client_found")
     elsif client_count > 1

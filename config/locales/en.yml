@@ -732,8 +732,6 @@ en:
         spouse_contact_info: Spouse Contact Info
         tax_info: Tax Info
         texting_phone: Phone For Texting
-      unlinked_clients:
-        title: Unlinked clients
       unlock:
         account_unlocked: Unlocked %{name}'s account.
       update_take_action:
@@ -1070,10 +1068,6 @@ en:
       update:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}.
         no_one: no one
-    unlinked_clients:
-      index:
-        description: Messages from people whose contact info did not match a client.
-        phone_number_or_email: Phone number/email
     unlock_account: Unlock account
     unlock_confirmation: Unlock %{name}'s account? Have they confirmed their identity?
     unsuspend_account: Unsuspend account
