@@ -17,7 +17,7 @@ class MailgunWebhooksController < ActionController::Base
         inform_of_handoff: false,
         body: params["stripped-text"] || params["body-plain"]
       )
-      head :ok
+      return head :ok
     elsif client_count == 1
       DatadogApi.increment("mailgun.incoming_emails.client_found")
     elsif client_count > 1
