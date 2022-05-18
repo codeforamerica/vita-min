@@ -63,7 +63,7 @@
             <td class="index-table__cell">
               <% if submission.in_state?(:rejected) %>
                 <% submission.last_transition.efile_errors.each do |error| %>
-                  <span class="tooltip error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                  <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
                     <%= link_to hub_efile_error_path(id: error.id) do %>
                       <div class="label label--red"><%= error.code %></div>
                     <% end %>
