@@ -35,6 +35,11 @@ RSpec.describe "efile submissions" do
             .to eq("'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.")
           expect(page).to have_link(href: hub_efile_error_path(id: error_2.id))
         end
+
+        it "eventually async loads the efile submission state counts", js: true do
+          visit hub_efile_submissions_path
+          expect(page).to have_css('.status.rejected', text: "1")
+        end
       end
     end
   end
