@@ -2113,7 +2113,7 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar si cumple con los requisitos para presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
+            - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar si cumple con los requisitos para presentar los impuestos atrasados de <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">manera gratuita utilizando GetYourRefund.</a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -2355,7 +2355,7 @@ es:
             content_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Para declarar la totalidad o parte de sus primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos para 2020. Puede presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
+            - Para declarar la totalidad o parte de sus primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos para 2020. Puede presentar los impuestos atrasados de <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">manera gratuita utilizando GetYourRefund.</a>.
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           third_stimulus: Estimamos que habrá recibido
           third_stimulus_details:
@@ -2544,7 +2544,6 @@ es:
         navigator_resources_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
-        service_name: GetYourRefund
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
