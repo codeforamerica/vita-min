@@ -19,8 +19,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def instantiate_document
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.blank?
-      # TODO: has access to locale?
-      errors.add(:document, I18n.t("validators.file_type", valid_types: Document::VALID_FILE_TYPES.to_sentence(locale: locale)))
+      errors.add(:document, I18n.t("validators.file_type", valid_types: Document::VALID_FILE_TYPES.to_sentence))
       return
     end
 
