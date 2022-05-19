@@ -35,6 +35,8 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
+  VALID_FILE_TYPES = [".jpg", ".jpeg", ".pdf", ".png", ".heic", ".bmp", ".txt", ".tiff", ".gif"].freeze
+  VALID_MIME_TYPES = ["image/jpeg", "image/png", "application/pdf", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"].freeze
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
   belongs_to :documents_request, optional: true

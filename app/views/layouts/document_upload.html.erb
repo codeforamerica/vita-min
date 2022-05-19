@@ -70,7 +70,7 @@
                     <%= t("views.layouts.document_upload.take_picture") %>
                   </span>
                 <% end %>
-                <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types") %></span>
+                <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types", accepted_types: Document::VALID_FILE_TYPES.to_sentence(locale: locale)) %></span>
               </div>
             </div>
 

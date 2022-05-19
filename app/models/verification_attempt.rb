@@ -13,6 +13,9 @@
 #  index_verification_attempts_on_client_id  (client_id)
 #
 class VerificationAttempt < ApplicationRecord
+  VALID_FILE_TYPES = [".jpg", ".pdf", ".png"].freeze
+  # TODO: check this list?
+  VALID_MIME_TYPES = ["image/jpeg", "image/png", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"].freeze
   belongs_to :client
   has_one :intake, through: :client
   has_one_attached :selfie
@@ -44,8 +47,8 @@ class VerificationAttempt < ApplicationRecord
   def attachment_file_types
     [selfie, photo_identification].each do |attachment|
       if attachment.present?
-        unless FileTypeAllowedValidator::VALID_MIME_TYPES.include?(attachment.content_type)
-          errors.add(attachment.name, I18n.t("validators.file_type"))
+        unless VALID_MIME_TYPES.include?(attachment.content_type)
+          errors.add(attachment.name, I18n.t("validators.file_type", valid_types: VALID_FILE_TYPES.to_sentence(locale: I18n.locale)))
         end
       end
     end

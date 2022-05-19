@@ -1618,7 +1618,7 @@ es:
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
-    file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
+    file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
@@ -2868,7 +2868,7 @@ es:
         meta:
           description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
       document_upload:
-        accepted_file_types: Los tipos aceptados incluyen .jpg, .pdf y .png
+        accepted_file_types: Los tipos aceptados incluyen %{accepted_types}
         dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
