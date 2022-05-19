@@ -113,6 +113,7 @@
 #  has_primary_ip_pin                                   :integer          default("unfilled"), not null
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  irs_language_preference                              :integer
@@ -304,6 +305,7 @@ class Intake::CtcIntake < Intake
   enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
   enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+  enum home_location: { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, _prefix: :home_location
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)
