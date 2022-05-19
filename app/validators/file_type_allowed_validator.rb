@@ -22,10 +22,6 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
     model::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:extensions] }.flatten
   end
 
-  # TODO: remove these
-  # VALID_FILE_EXTENSIONS = [".jpg", ".jpeg", ".pdf", ".png", ".heic", ".bmp", ".txt", ".tiff", ".gif"]
-  # VALID_MIME_TYPES = ["image/jpeg", "image/png", "application/pdf", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"]
-
   def validate_each(record, attr_name, value)
     return if !value
 

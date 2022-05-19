@@ -42,17 +42,6 @@ class VerificationAttempt < ApplicationRecord
   validate :only_one_open_attempt_per_client, on: :create
   validates :selfie, file_type_allowed: true
   validates :photo_identification, file_type_allowed: true
-  # validate :attachment_file_types
-
-  def attachment_file_types
-    [selfie, photo_identification].each do |attachment|
-      if attachment.present?
-        unless VALID_MIME_TYPES.include?(attachment.content_type)
-          errors.add(attachment.name, I18n.t("validators.file_type", valid_types: VALID_FILE_TYPES.to_sentence))
-        end
-      end
-    end
-  end
 
   def only_one_open_attempt_per_client
     errors.add(:client, "only one open attempt is allowed per client") if client.verification_attempts.open.exists?
