@@ -48,7 +48,7 @@ class VerificationAttempt < ApplicationRecord
     [selfie, photo_identification].each do |attachment|
       if attachment.present?
         unless VALID_MIME_TYPES.include?(attachment.content_type)
-          errors.add(attachment.name, I18n.t("validators.file_type", valid_types: VALID_FILE_TYPES.to_sentence(locale: I18n.locale)))
+          errors.add(attachment.name, I18n.t("validators.file_type", valid_types: VALID_FILE_TYPES.to_sentence))
         end
       end
     end
