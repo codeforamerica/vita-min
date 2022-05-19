@@ -3,6 +3,25 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
   # capabilities to be uploaded leading to XSS attacks. Please be sure to know what you are
   # doing when modifying this list.
 
+  FILE_TYPE_GROUPS = {
+    browser_native_image: {
+      extensions: [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".gif"],
+      mime_type: ["image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff", "image/gif"]
+    },
+    other_image: {
+      extensions: [".heic"],
+      mime_type: ["image/heic"]
+    },
+    document: {
+      extensions: [".txt", ".pdf"],
+      mime_type: ["text/plain", "application/pdf"]
+    },
+  }
+
+  def self.extensions(model)
+    model::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:extensions] }.flatten
+  end
+
   # TODO: remove these
   # VALID_FILE_EXTENSIONS = [".jpg", ".jpeg", ".pdf", ".png", ".heic", ".bmp", ".txt", ".tiff", ".gif"]
   # VALID_MIME_TYPES = ["image/jpeg", "image/png", "application/pdf", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"]
@@ -10,11 +29,9 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
   def validate_each(record, attr_name, value)
     return if !value
 
-    extension = File.extname(value.path)
-    valid_types_from_record = record.classify.constantize::VALID_FILE_TYPES
-    unless valid_types_from_record.include?(extension.downcase)
-      # TODO: has access to locale?
-      record.errors.add(attr_name, I18n.t("validators.file_type", valid_types: valid_types_from_record.to_sentence(locale: locale)))
+    valid_extensions = record.class::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:extensions] }.flatten
+    unless valid_extensions.include?(value.filename.extension_with_delimiter.downcase)
+      record.errors.add(attr_name, I18n.t("validators.file_type", valid_types: valid_extensions.to_sentence))
     end
   end
 end

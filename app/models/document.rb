@@ -35,8 +35,7 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
-  VALID_FILE_TYPES = [".jpg", ".jpeg", ".pdf", ".png", ".heic", ".bmp", ".txt", ".tiff", ".gif"].freeze
-  VALID_MIME_TYPES = ["image/jpeg", "image/png", "application/pdf", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"].freeze
+  ACCEPTED_FILE_TYPES = [:browser_native_image, :other_image, :document]
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
   belongs_to :documents_request, optional: true
@@ -50,7 +49,7 @@ class Document < ApplicationRecord
   validate :tax_return_present_sometimes
   validate :tax_return_absent_sometimes
   validate :upload_must_have_data
-  validate :file_type
+  validate :unsigned_form_8879_file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
@@ -74,6 +73,7 @@ class Document < ApplicationRecord
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
+  validates :upload, file_type_allowed: true
 
   def is_pdf?
     upload&.content_type == "application/pdf"
@@ -140,7 +140,7 @@ class Document < ApplicationRecord
     end
   end
 
-  def file_type
+  def unsigned_form_8879_file_type
     if upload.attached? && document_type == DocumentTypes::UnsignedForm8879.key && !upload.content_type.in?(%w(application/pdf))
       errors.add(:upload, I18n.t("validators.pdf_file_type", document_type: document_type))
     end

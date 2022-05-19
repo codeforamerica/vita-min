@@ -13,9 +13,7 @@
 #  index_verification_attempts_on_client_id  (client_id)
 #
 class VerificationAttempt < ApplicationRecord
-  VALID_FILE_TYPES = [".jpg", ".pdf", ".png"].freeze
-  # TODO: check this list?
-  VALID_MIME_TYPES = ["image/jpeg", "image/png", "image/heic", "image/bmp", "text/plain", "image/tiff", "image/gif"].freeze
+  ACCEPTED_FILE_TYPES = [:browser_native_image]
   belongs_to :client
   has_one :intake, through: :client
   has_one_attached :selfie
@@ -42,7 +40,9 @@ class VerificationAttempt < ApplicationRecord
   scope :reviewing, -> { in_state(:pending, :escalated, :restricted) }
 
   validate :only_one_open_attempt_per_client, on: :create
-  validate :attachment_file_types
+  validates :selfie, file_type_allowed: true
+  validates :photo_identification, file_type_allowed: true
+  # validate :attachment_file_types
 
   def attachment_file_types
     [selfie, photo_identification].each do |attachment|

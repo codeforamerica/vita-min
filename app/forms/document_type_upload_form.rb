@@ -1,6 +1,5 @@
 class DocumentTypeUploadForm < QuestionsForm
   set_attributes_for :intake, :document
-  validates :document, file_type_allowed: true
   validate :instantiate_document
 
   def initialize(document_type, *args, **kwargs)
@@ -19,7 +18,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def instantiate_document
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.blank?
-      errors.add(:document, I18n.t("validators.file_type", valid_types: Document::VALID_FILE_TYPES.to_sentence))
+      errors.add(:document, I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
       return
     end
 
