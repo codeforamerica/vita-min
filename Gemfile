@@ -82,7 +82,7 @@ group :demo, :development, :test do
   gem 'faker'
 end
 
-group :demo, :development do
+group :demo, :development, :heroku, :staging do
   gem 'rack-mini-profiler'
 end
 
