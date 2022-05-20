@@ -82,6 +82,10 @@ group :demo, :development, :test do
   gem 'faker'
 end
 
+group :demo, :development, :heroku, :staging do
+  gem 'rack-mini-profiler'
+end
+
 group :development, :test do
   gem 'awesome_print'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -114,7 +118,6 @@ group :development do
   gem 'spring'
   gem 'git-pair'
   gem 'annotate'
-  gem 'rack-mini-profiler'
   gem 'flamegraph'
   gem 'stackprof'
   gem 'memory_profiler'
