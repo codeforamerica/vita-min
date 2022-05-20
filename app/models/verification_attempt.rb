@@ -40,8 +40,8 @@ class VerificationAttempt < ApplicationRecord
   scope :reviewing, -> { in_state(:pending, :escalated, :restricted) }
 
   validate :only_one_open_attempt_per_client, on: :create
-  validates :selfie, file_type_allowed: true
-  validates :photo_identification, file_type_allowed: true
+  validates :selfie, file_type_allowed: true, if: -> { selfie.present? }
+  validates :photo_identification, file_type_allowed: true, if: -> { photo_identification.present? }
 
   def only_one_open_attempt_per_client
     errors.add(:client, "only one open attempt is allowed per client") if client.verification_attempts.open.exists?

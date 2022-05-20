@@ -5,6 +5,10 @@ RSpec.describe FileTypeAllowedValidator do
 
   let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
 
+  before do
+    stub_const("OpenStruct::ACCEPTED_FILE_TYPES", [:browser_native_image, :other_image, :document])
+  end
+
   context "png" do
     let(:valid_document) { fixture_file_upload("test-pattern.png") }
 

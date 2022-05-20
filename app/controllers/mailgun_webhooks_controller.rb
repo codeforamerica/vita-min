@@ -50,7 +50,7 @@ class MailgunWebhooksController < ActionController::Base
         size = attachment.tempfile.size
 
         processed_attachments <<
-          if (Document::VALID_MIME_TYPES.include? attachment.content_type) && (size > 0)
+          if (FileTypeAllowedValidator.mime_types(Document).include? attachment.content_type) && (size > 0)
             {
                 io: attachment,
                 filename: attachment.original_filename,

@@ -22,6 +22,10 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
     model::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:extensions] }.flatten
   end
 
+  def self.mime_types(model)
+    model::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:mime_type] }.flatten
+  end
+
   def validate_each(record, attr_name, value)
     return if !value
 
