@@ -113,6 +113,7 @@
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  irs_language_preference                              :integer

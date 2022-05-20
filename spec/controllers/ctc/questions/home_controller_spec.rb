@@ -17,7 +17,7 @@ describe Ctc::Questions::HomeController do
   end
 
   describe "#update" do
-    let(:home_location) { "lived_in_fifty_states" }
+    let(:home_location) { "fifty_states" }
     let(:params) do
       {
         ctc_home_form: {
@@ -46,7 +46,7 @@ describe Ctc::Questions::HomeController do
     end
 
     context "when client lived in territory or foreign address" do
-      let(:home_location) { "lived_in_us_territory" }
+      let(:home_location) { "us_territory" }
 
       it "redirects to use gyr" do
         get :update, params: params
@@ -56,7 +56,7 @@ describe Ctc::Questions::HomeController do
     end
 
     context "when client lived in Puerto Rico" do
-      let(:home_location) { "lived_in_puerto_rico" }
+      let(:home_location) { "puerto_rico" }
 
       it "redirects to use gyr" do
         get :update, params: params
