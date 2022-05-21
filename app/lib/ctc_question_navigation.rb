@@ -50,6 +50,10 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmDependentsController,
     Ctc::Questions::HeadOfHouseholdController, # only reached through link on ConfirmDependentsController#edit
 
+    # No Dependents
+    Ctc::Questions::NoDependentsController,
+    Ctc::Questions::NoDependentsAdvanceCtcPaymentsController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
