@@ -5,8 +5,8 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
 
   FILE_TYPE_GROUPS = {
     browser_native_image: {
-      extensions: [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".gif"],
-      mime_type: ["image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff", "image/gif"]
+      extensions: [".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".gif"],
+      mime_type: ["image/jpeg", "image/png", "image/bmp", "image/tiff", "image/gif"]
     },
     other_image: {
       extensions: [".heic"],

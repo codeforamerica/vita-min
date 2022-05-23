@@ -6,7 +6,7 @@ class F15080VitaConsentToDisclosePdf
   end
 
   def output_filename
-    "F15080 - VITA Consent To Disclose"
+    "F15080 - VITA Consent To Disclose.pdf"
   end
 
   def document_type

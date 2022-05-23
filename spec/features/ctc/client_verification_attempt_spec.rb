@@ -44,14 +44,14 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     scenario "they see the verification attempt page" do
       visit "/en/portal"
       expect(page).to have_content(I18n.t("views.ctc.portal.verification.title"))
-      expect(page).to have_text(I18n.t("views.layouts.document_upload.accepted_file_types"))
+      expect(page).to have_text(I18n.t("views.layouts.document_upload.accepted_file_types", accepted_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
       within "form#file-upload-form" do
         expect(page).to have_text(I18n.t("views.ctc.portal.verification.selfie_label"))
         expect(page).not_to have_text(I18n.t("views.ctc.portal.verification.resubmission"))
 
         # Try to add invalid document type
         upload_file("verification_attempt_selfie", Rails.root.join("spec", "fixtures", "files", "test-pattern.html"))
-        expect(page).to have_text(I18n.t("validators.file_type"))
+        expect(page).to have_text(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
 
         # Add a selfie
         upload_file("verification_attempt_selfie", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
@@ -74,7 +74,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         # Try to add invalid document type
         upload_file("verification_attempt_photo_identification", Rails.root.join("spec", "fixtures", "files", "test-pattern.html"))
-        expect(page).to have_text(I18n.t("validators.file_type"))
+        expect(page).to have_text(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
 
         # Add a photo ID picture
         upload_file("verification_attempt_photo_identification", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))

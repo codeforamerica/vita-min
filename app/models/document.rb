@@ -73,7 +73,7 @@ class Document < ApplicationRecord
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
-  validates :upload, file_type_allowed: true
+  validates :upload, file_type_allowed: true, if: -> { upload.present? }
 
   def is_pdf?
     upload&.content_type == "application/pdf"
@@ -98,7 +98,7 @@ class Document < ApplicationRecord
 
     jpg_image = image.format("jpg")
 
-    upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpg")
+    upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpeg")
     update!(display_name: upload.attachment.filename)
   end
 

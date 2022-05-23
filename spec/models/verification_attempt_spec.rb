@@ -64,8 +64,8 @@ RSpec.describe VerificationAttempt, type: :model do
           )
 
           expect(verification_attempt.valid?).to eq false
-          expect(verification_attempt.errors[:selfie]).to include("Please upload a valid document type. Accepted types include jpg, pdf, and png.")
-          expect(verification_attempt.errors[:photo_identification]).to include("Please upload a valid document type. Accepted types include jpg, pdf, and png.")
+          expect(verification_attempt.errors[:selfie]).to include(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
+          expect(verification_attempt.errors[:photo_identification]).to include(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
         end
       end
 

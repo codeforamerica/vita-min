@@ -294,7 +294,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-    expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types'))
+    expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
     upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
