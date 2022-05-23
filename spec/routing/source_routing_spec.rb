@@ -6,7 +6,7 @@ describe "partner source routing" do
   it "converts the source in the url to a parameter" do
     expect(get: "/#{code}").to route_to(
       controller: "public_pages",
-        action: "source_routing",
+        action: "home",
         source: code,
     )
   end
@@ -15,7 +15,7 @@ describe "partner source routing" do
     mangled_code = "eXAMpLe"
     expect(get: "/#{mangled_code}").to route_to(
       controller: "public_pages",
-        action: "source_routing",
+        action: "home",
         source: mangled_code,
     )
   end
@@ -23,7 +23,7 @@ describe "partner source routing" do
   it "routes correctly with locale" do
     expect(get: "/es/#{code}").to route_to(
       controller: "public_pages",
-        action: "source_routing",
+        action: "home",
         locale: "es",
         source: code,
     )
@@ -32,7 +32,7 @@ describe "partner source routing" do
   it "accepts arbitrary source parameters that contain only slug-like characters" do
     expect(get: "/4Rb1_trar-y").to route_to(
       controller: "public_pages",
-      action: "source_routing",
+      action: "home",
       source: "4Rb1_trar-y",
      )
   end

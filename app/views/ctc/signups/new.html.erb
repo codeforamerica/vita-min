@@ -10,7 +10,7 @@
           <p class="text--line-breaks spacing-below-60"><%= t("views.ctc_pages.signups.new.puerto_rico_post_launch.sub_header") %></p>
         <% else %>
           <h2 class="text--line-breaks"><%= t("views.ctc_pages.signups.new.header") %></h2>
-          <p class="text--line-breaks spacing-below-60"><%= t("views.ctc_pages.signups.new.sub_header_html", homepage_link: root_url(host: MultiTenantService.new(:gyr).host)) %></p>
+          <p class="text--line-breaks spacing-below-60"><%= t("views.ctc_pages.signups.new.sub_header_html", homepage_link: root_with_source_url(host: MultiTenantService.new(:ctc).host, source:  'GetCTCSignup')) %></p>
         <% end %>
 
         <div class="grid-flex display-block-on-small-screens contained space-between align-flex-start">

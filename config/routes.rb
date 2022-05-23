@@ -297,7 +297,7 @@ Rails.application.routes.draw do
       end
 
       # Any other top level slash just goes to home as a source parameter
-      get "/:source" => "public_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+      get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }, as: :root_with_source
     end
     # Routes outside of the locale scope are not internationalized
 
@@ -446,7 +446,7 @@ Rails.application.routes.draw do
         end
 
         # Any other top level slash just goes to home as a source parameter
-        get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+        get "/:source" => "ctc_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
       end
     end
 
