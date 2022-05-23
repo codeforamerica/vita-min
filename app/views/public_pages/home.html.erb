@@ -26,7 +26,7 @@
         <div class="grid__item">
           <b>
             <%= t('views.public_pages.home.ctc_banner.claim_ctc') %>
-            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home', params: { source: "gyrhomebanner"}), class: "text--underline link--subtle") %>
+            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home'), class: "text--underline link--subtle") %>
           </b>
         </div>
       </div>
