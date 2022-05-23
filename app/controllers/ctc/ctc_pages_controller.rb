@@ -12,6 +12,9 @@ module Ctc
     ].freeze
 
     def home
+      # redirect to home hiding original source param
+      redirect_to root_path and return if params[:source].present?
+
       case session[:source]
       when "cactc", "fed", "child"
         redirect_to action: :help
@@ -37,11 +40,6 @@ module Ctc
       session[:source] = "stimulus-navigator" unless session[:source].present?
       @needs_help_banner = true
       render :stimulus_home
-    end
-
-    def source_routing
-      # allow before_action to stash the source, then go to the homepage
-      redirect_to root_path(ctc_beta: params[:ctc_beta])
     end
 
     def navigators
