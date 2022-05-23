@@ -22,9 +22,9 @@ FactoryBot.define do
         content_type: 'image/jpeg'
       )
       verification_attempt.photo_identification.attach(
-        io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
-        filename: 'test.jpg',
-        content_type: 'image/jpeg'
+          io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
+          filename: 'test.jpg',
+          content_type: 'image/jpeg'
       )
     end
 
