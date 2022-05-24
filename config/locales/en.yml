@@ -2572,7 +2572,6 @@ en:
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         get_started: Get Started
         get_your_refund_link: File taxes for free today with GetYourRefund
-        header: Claim Your Child Tax Credit
         navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         portal_sign_in_link: Already started? Sign in.
@@ -2582,7 +2581,7 @@ en:
           claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
           time_estimate: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
-        title: Get Your Child Tax Credit
+        title: Claim Your Child Tax Credit
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
           heading: Most families can get thousands of dollars from the Child Tax Credit

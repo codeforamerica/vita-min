@@ -69,7 +69,9 @@ describe Ctc::CtcPagesController do
     end
   end
 
-  describe "#california_benefits" do
+  # California benefits page was turned off on 5/25/22, but we were asked to keep code
+  # in case of relaunch of relationship later this year.
+  xdescribe "#california_benefits" do
     context "source is present" do
       let(:params) { { source: 'claim' } }
 

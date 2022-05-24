@@ -361,9 +361,6 @@ Rails.application.routes.draw do
         get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator"
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
-        get "/california-benefits", to: "ctc_pages#california_benefits"
-        get "/claim", to: "ctc_pages#california_benefits", defaults: { source: "claim" }
-        get "/file", to: "ctc_pages#california_benefits", defaults: { source: "file" }
 
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"

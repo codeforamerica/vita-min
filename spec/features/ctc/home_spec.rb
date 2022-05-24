@@ -7,7 +7,7 @@ RSpec.feature "Visit CTC home page" do
 
   it "has content" do
     visit "/"
-    expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+    expect(page).to have_text I18n.t("views.ctc_pages.home.title")
   end
 
   it "the first tab goes to the skip main content link and the link takes you to maincontent", js: true do
@@ -30,7 +30,7 @@ RSpec.feature "Visit CTC home page" do
 
     it "doesn't show the DIY link" do
       visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.title")
       expect(page).not_to have_text I18n.t("views.ctc_pages.home.obtain.full_return.gyr_diy_link")
     end
   end
@@ -42,7 +42,7 @@ RSpec.feature "Visit CTC home page" do
 
     it "shows the button to file a simplified return" do
       visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.title")
       expect(page).not_to have_text I18n.t("views.ctc_pages.home.subheader.launching_soon_html")
       expect(page).to have_text I18n.t("views.ctc_pages.home.subheader.claim")
 
@@ -57,7 +57,7 @@ RSpec.feature "Visit CTC home page" do
 
     it "saves their contact information" do
       visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.title")
       click_on I18n.t("views.ctc_pages.home.sign_up_for_updates")
 
       expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header").split("\n").first
@@ -74,7 +74,7 @@ RSpec.feature "Visit CTC home page" do
       expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.header")
       expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.body")
       click_on I18n.t('views.ctc_pages.signups.confirmation.button')
-      expect(page).to have_text I18n.t('views.ctc_pages.home.header')
+      expect(page).to have_text I18n.t('views.ctc_pages.home.title')
     end
   end
 end
