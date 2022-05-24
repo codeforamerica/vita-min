@@ -132,7 +132,7 @@ RSpec.describe Irs8812Ty2021Pdf do
       end
     end
 
-    context "home location is Puerto Rico" do
+    context "for clients living in Puerto Rico" do
       before do
         submission.intake.update(home_location: :puerto_rico)
         submission.reload
