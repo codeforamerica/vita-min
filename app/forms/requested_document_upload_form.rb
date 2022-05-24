@@ -1,6 +1,6 @@
 class RequestedDocumentUploadForm < QuestionsForm
   set_attributes_for :documents_request, :document, :document_type
-  # validates :document, file_type_allowed: true
+  validate :instantiate_document
 
   def initialize(documents_request, *args, **kwargs)
     @documents_request = documents_request
@@ -8,6 +8,14 @@ class RequestedDocumentUploadForm < QuestionsForm
   end
 
   def save
+    return false unless valid?
+
+    @doc.save!
+  end
+
+  private
+
+  def instantiate_document
     document_file_upload = attributes_for(:documents_request)[:document]
     document_type = attributes_for(:documents_request)[:document_type] || DocumentTypes::RequestedLater
     if document_file_upload.present?
@@ -20,7 +28,7 @@ class RequestedDocumentUploadForm < QuestionsForm
     end
 
     if doc.valid?
-      @documents_request = doc
+      @doc = doc
     else
       doc.errors.map { |error| error.message }.flatten.each { |msg| errors.add(:document, msg) }
     end
