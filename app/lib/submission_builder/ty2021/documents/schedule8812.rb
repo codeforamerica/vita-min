@@ -24,12 +24,13 @@ module SubmissionBuilder
             xml.MaxCTCAfterLimitAmt benefits_eligibility.ctc_amount #5
             xml.OtherDependentCnt (benefits_eligibility.odc_amount / 500) unless benefits_eligibility.odc_amount.nil? #6
             xml.OtherDependentCreditAmt benefits_eligibility.odc_amount unless benefits_eligibility.odc_amount.nil? #7
-            xml.InitialCTCODCAmt benefits_eligibility.odc_amount + benefits_eligibility.ctc_amount #8
+            xml.InitialCTCODCAmt benefits_eligibility.odc_amount.to_i + benefits_eligibility.ctc_amount #8
             xml.FilingStatusThresholdCd submission.tax_return.filing_jointly? ? "400000" : "200000" #9
             xml.ExcessAdjGrossIncomeAmt 0 unless home_location_puerto_rico #10
             xml.ModifiedAGIPhaseOutAmt 0 unless home_location_puerto_rico #11
-            xml.CTCODCAfterAGILimitAmt benefits_eligibility.odc_amount + benefits_eligibility.ctc_amount #12 (=8)
-            xml.MainHomeInUSOverHalfYrInd 'X' #13a
+            xml.CTCODCAfterAGILimitAmt benefits_eligibility.odc_amount.to_i + benefits_eligibility.ctc_amount #12 (=8)
+            xml.MainHomeInUSOverHalfYrInd 'X' unless home_location_puerto_rico #13a
+            xml.BonaFidePRResidentInd 'X' if home_location_puerto_rico #13b
             xml.FilersWhoCheckBoxSpcfdGrp {
               xml.ODCAfterAGILimitAmt benefits_eligibility.odc_amount unless benefits_eligibility.odc_amount.nil? #14a (=7)
               xml.CTCAfterAGILimitAmt benefits_eligibility.ctc_amount #14b (=5)
