@@ -2189,6 +2189,7 @@ es:
               - consejos
               - comisiones
               - pagos por cuenta propia o por contrato
+              - beneficios de desempleado
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué cuenta como ingreso?"
           self_employment_income_reveal:
@@ -2198,7 +2199,7 @@ es:
               - trabajo de concierto
               - conducir para Uber, Lyft o similar
               - alquilar su casa
-              p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2.
+              p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo probablemente sean ingresos del trabajo por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué cuenta como ingreso del trabajo por cuenta propia?"
           title:
@@ -2866,7 +2867,7 @@ es:
         skip_content: Ir al contenido principal
       ctc:
         meta:
-          description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
+          description: Dinero en efectivo en el bolsillo de su familia para las cosas que necesita
       document_upload:
         accepted_file_types: Los tipos aceptados incluyen .jpg, .pdf y .png
         dont_have: No lo tengo ahora
