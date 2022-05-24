@@ -10,10 +10,11 @@ RSpec.describe FileTypeAllowedValidator do
   end
 
   context "png" do
-    let(:valid_document) { fixture_file_upload("test-pattern.png") }
+    # let(:valid_document) { fixture_file_upload("test-pattern.png") }
+    let(:valid_document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pattern.png") }
 
     it "is a valid file type" do
-      assert_valid(valid_document)
+      assert_valid(valid_document.upload)
     end
   end
 
