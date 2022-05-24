@@ -12,6 +12,10 @@ module PdfHelper
     value ? "yes" : nil
   end
 
+  def xml_check_to_bool(node)
+    node&.text == "X"
+  end
+
   def collective_yes_no_unsure(*values)
     return "unfilled" if values.all?("unfilled")
     return "yes" if values.any?("yes")

@@ -35,7 +35,7 @@ module SubmissionBuilder
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # line 12a in 2021v5.2/IndividualIncomeTax/Ind1040/IRS1040/IRS1040.xsd
             xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
             xml.TotalDeductionsAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 14
-            xml.TaxableIncomeAmt 0 # 15
+            xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
             xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
