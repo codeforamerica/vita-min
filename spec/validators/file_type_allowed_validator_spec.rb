@@ -10,7 +10,6 @@ RSpec.describe FileTypeAllowedValidator do
   end
 
   context "png" do
-    # let(:valid_document) { fixture_file_upload("test-pattern.png") }
     let(:valid_document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pattern.png") }
 
     it "is a valid file type" do
@@ -19,24 +18,24 @@ RSpec.describe FileTypeAllowedValidator do
   end
 
   context "all caps extension JPG" do
-    let(:valid_document) { fixture_file_upload("test-pattern.JPG") }
+    let(:valid_document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pattern.JPG") }
 
     it "is a valid file type after downcase" do
-      assert_valid(valid_document)
+      assert_valid(valid_document.upload)
     end
   end
 
   context "html" do
-    let(:invalid_document) { fixture_file_upload("test-pattern.html") }
+    let(:invalid_document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pattern.html") }
 
     it "is not a valid file type" do
-      assert_invalid(invalid_document)
+      assert_invalid(invalid_document.upload)
     end
   end
 
   def assert_invalid(value)
     subject.validate_each(record, :document, value)
-    expect(record.errors[:document]).to include I18n.t("validators.file_type")
+    expect(record.errors[:document]).to include I18n.t("validators.file_type", valid_types: described_class.extensions(record.class).to_sentence)
   end
 
   def assert_valid(value)
