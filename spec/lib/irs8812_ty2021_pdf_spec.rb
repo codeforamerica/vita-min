@@ -131,5 +131,30 @@ RSpec.describe Irs8812Ty2021Pdf do
                                 ))
       end
     end
+
+    context "for clients living in Puerto Rico" do
+      before do
+        submission.intake.update(home_location: :puerto_rico)
+        submission.reload
+      end
+
+      it "includes the correct empty fields and checked box" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+                                  "AdjustedGrossIncomeAmt1" => "", #1
+                                  "PRExcludedIncomeAmt2a" => "", #2a
+                                  "GrossIncomeExclusionAmt2c" => "", #2c
+                                  "ExclusionsTotalAmt2d" => "", #2d
+                                  "AGIExclusionsTotalAmt3" => "", #3
+                                  "Line10" => "", #10
+                                  "Line11" => "", #11
+                                  "Line14c" => "", #14c
+                                  "Line14d" => "", #14d
+                                  "Line14h" => "", #14h
+                                  "PRResidentInd13b" => 'X', #13b
+                                  ))
+      end
+    end
   end
 end
