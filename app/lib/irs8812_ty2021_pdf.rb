@@ -27,8 +27,8 @@ class Irs8812Ty2021Pdf
       Line10: @xml_document.at("ExcessAdjGrossIncomeAmt")&.text, #10
       Line11: @xml_document.at("ModifiedAGIPhaseOutAmt")&.text, #11
       TotalCreditAmt12: @xml_document.at("CTCODCAfterAGILimitAmt")&.text, #12 (=8)
-      USHomeInd13a: @xml_document.at("MainHomeInUSOverHalfYrInd")&.text, #13a
-      PRResidentInd13b: @xml_document.at("BonaFidePRResidentInd")&.text, #13b
+      USHomeInd13a: xml_check_to_bool(@xml_document.at("MainHomeInUSOverHalfYrInd")) ? "1" : "Off", #13a
+      PRResidentInd13b: xml_check_to_bool(@xml_document.at("BonaFidePRResidentInd")) ? "1" : "Off", #13b
       OtherDependentCreditAmt14a: @xml_document.at("ODCAfterAGILimitAmt")&.text, #14a (=7)
       TotalCtcAmt14b: @xml_document.at("CTCAfterAGILimitAmt")&.text, #14b (=5)
       Line14c: @xml_document.at("RCTCTaxLiabiltyLimitAmt")&.text, #14c

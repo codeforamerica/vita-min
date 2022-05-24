@@ -72,8 +72,4 @@ class Irs1040Pdf
     end
     answers
   end
-
-  def xml_check_to_bool(node)
-    node&.text == "X"
-  end
 end

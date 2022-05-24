@@ -36,7 +36,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line10" => "0", #10
                                   "Line11" => "0", #11
                                   "TotalCreditAmt12" => "0", #12 (=8)
-                                  "USHomeInd13a" => 'X', #13a
+                                  "USHomeInd13a" => "1", #13a
                                   "OtherDependentCreditAmt14a" => "0", #14a (=7)
                                   "TotalCtcAmt14b" => "0", #14b (=5)
                                   "Line14c" => "0", #14c
@@ -103,7 +103,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line10" => "0", #10
                                   "Line11" => "0", #11
                                   "TotalCreditAmt12" => "7100", #12 (=8)
-                                  "USHomeInd13a" => 'X', #13a
+                                  "USHomeInd13a" => "1", #13a
                                   "OtherDependentCreditAmt14a" => "500", #14a (=7)
                                   "TotalCtcAmt14b" => "6600", #14b (=5)
                                   "Line14c" => "0", #14c
@@ -152,7 +152,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line14c" => "", #14c
                                   "Line14d" => "", #14d
                                   "Line14h" => "", #14h
-                                  "PRResidentInd13b" => 'X', #13b
+                                  "PRResidentInd13b" => "1", #13b
                                   ))
       end
     end
