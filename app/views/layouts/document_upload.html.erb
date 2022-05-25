@@ -59,8 +59,8 @@
           <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
-                <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
-                <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
+                <%= f.file_field(:upload, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+                <%= f.label(:upload, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
                     <%= t("views.layouts.document_upload.select_file") %>
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <% if @form.errors[:document].any? %>
+            <% if @form.errors.any? %>
               <div class="form-group form-group--error">
                 <% @form.errors.map { |error| error.message }.flatten.each do |error_message| %>
                   <p class="text--error"><i class="icon-warning"></i>
