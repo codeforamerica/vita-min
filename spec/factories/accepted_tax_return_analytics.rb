@@ -20,6 +20,18 @@
 #
 #  index_accepted_tax_return_analytics_on_tax_return_id  (tax_return_id)
 #
-class AcceptedTaxReturnAnalytics < ApplicationRecord
-  belongs_to :tax_return
+FactoryBot.define do
+  factory :accepted_tax_return_analytics do
+    trait :with_tax_return do
+      tax_return { create(:tax_return, year: 2021) }
+      outstanding_ctc_amount_cents { 90000 }
+      ctc_amount_cents { 245000 }
+      advance_ctc_amount_cents { 150000 }
+      eip1_and_eip2_amount_cents { 230000 }
+      eip3_amount_cents { 240000 }
+      eip3_amount_received_cents { 235000 }
+      tax_return_year { 2021 }
+      total_refund_amount_cents { 330000 }
+    end
+  end
 end

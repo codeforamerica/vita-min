@@ -19,9 +19,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_215706) do
   create_table "accepted_tax_return_analytics", force: :cascade do |t|
     t.bigint "advance_ctc_amount_cents"
     t.datetime "created_at", null: false
+    t.bigint "ctc_amount_cents"
+    t.bigint "eip1_and_eip2_amount_cents"
     t.bigint "eip3_amount_cents"
-    t.bigint "refund_amount_cents"
+    t.bigint "eip3_amount_received_cents"
+    t.bigint "outstanding_ctc_amount_cents"
+    t.bigint "outstanding_eip3_amount_cents"
     t.bigint "tax_return_id"
+    t.integer "tax_return_year"
+    t.bigint "total_refund_amount_cents"
     t.datetime "updated_at", null: false
     t.index ["tax_return_id"], name: "index_accepted_tax_return_analytics_on_tax_return_id"
   end
