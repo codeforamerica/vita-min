@@ -3,7 +3,7 @@ module Ctc
     include InitialCtcFormAttributes
 
     set_attributes_for :intake, :home_location
-    # validates :home_location, presence: true
+    validates :home_location, presence: true
 
     def save
       initial_intake_save
