@@ -10,7 +10,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on "Sign out"
 
     expect(page).to have_text "You've been successfully signed out."
-    expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+    expect(page).to have_text I18n.t("views.ctc_pages.home.title")
   end
 
   def sign_up
