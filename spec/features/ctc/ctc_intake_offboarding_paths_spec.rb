@@ -24,6 +24,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
       click_on I18n.t('general.continue')
 
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+      choose I18n.t('views.ctc.questions.main_home.options.foreign_address')
+      click_on I18n.t('general.continue')
+      expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+      click_on I18n.t('general.back')
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+      choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
+      click_on I18n.t('general.continue')
+
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
       choose I18n.t('general.filing_status.single')
       click_on I18n.t('general.continue')
@@ -40,14 +49,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       # =========== ELIGIBILITY ===========
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.negative')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
-      choose I18n.t('views.ctc.questions.home.options.foreign_address')
-      click_on I18n.t('general.continue')
-      expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
-      click_on I18n.t('general.back')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
-      choose I18n.t('views.ctc.questions.home.options.fifty_states')
-      click_on I18n.t('general.continue')
+
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.negative')
 
@@ -83,28 +85,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-      choose I18n.t('general.filing_status.single')
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+      choose I18n.t('views.ctc.questions.main_home.options.puerto_rico')
       click_on I18n.t('general.continue')
-
-      expect(page).to have_selector(".toolbar", text: "GetCTC")
-      within "h1" do
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
-      end
-      click_on I18n.t('general.continue')
-      click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
-      click_on I18n.t('general.continue')
-
-      # =========== ELIGIBILITY ===========
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
-      choose "Puerto Rico"
-      click_on I18n.t('general.continue')
-      expect(page).to have_selector("h1", text: "We aren’t currently accepting returns from Puerto Rico, but you can sign up to be notified when we do.")
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.offboarding.puerto_rico_sign_up.title"))
       expect(page).to have_link(href: ctc_root_path)
-      click_on "Continue to sign up page"
+      click_on  I18n.t("views.ctc.offboarding.puerto_rico_sign_up.sign_up")
       expect(page).to have_current_path(ctc_signups_path)
     end
   end

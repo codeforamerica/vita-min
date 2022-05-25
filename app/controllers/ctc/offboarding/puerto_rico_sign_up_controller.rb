@@ -16,7 +16,7 @@ module Ctc
       end
 
       def prev_path
-        questions_home_path
+        questions_main_home_path
       end
     end
   end

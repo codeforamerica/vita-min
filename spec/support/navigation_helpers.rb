@@ -27,6 +27,10 @@ module NavigationHelpers
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+    choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
     choose I18n.t('general.filing_status.single')
     click_on I18n.t('general.continue')
@@ -40,9 +44,7 @@ module NavigationHelpers
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
-    choose I18n.t('views.ctc.questions.home.options.fifty_states')
-    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 

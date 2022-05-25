@@ -2204,15 +2204,6 @@ en:
           subtitle_1: Because you are claiming dependents, you may be eligible to claim Head of Household tax status on your return. Claiming Head of Household status will not increase your refund, and will not make you eligible for any additional tax benefits. We do not recommend you claim Head of Household status.
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
-        home:
-          help_text: Your home must have been in the United States for more than half the tax year.
-          options:
-            fifty_states: Any of the 50 states or the District of Columbia
-            foreign_address: Foreign address
-            military_facility: U.S. military facility
-            puerto_rico: Puerto Rico
-            us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
-          title: Where was your main home for %{current_tax_year}?
         income:
           income_qualifications:
           - earned less than %{standard_deduction} in total income
@@ -2288,6 +2279,15 @@ en:
             Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
           reveal_label: What if I don’t have a mailing address?
           title: Please provide your mailing address.
+        main_home:
+          help_text: Your main home is a place you stayed at for more than half the tax year.
+          options:
+            fifty_states: Any of the 50 states or the District of Columbia
+            foreign_address: Foreign address
+            military_facility: U.S. military facility
+            puerto_rico: Puerto Rico
+            us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
+          title: Where was your main home for %{current_tax_year}?
         not_filing:
           buttons:
             faq: Visit our FAQ

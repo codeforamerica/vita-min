@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class FilingStatusController < QuestionsController
       include AnonymousIntakeConcern
-      include FirstPageOfCtcIntakeConcern
 
       private
 

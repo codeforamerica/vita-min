@@ -1,7 +1,7 @@
 module Ctc
   module Questions
-    class HomeController < QuestionsController
-      include Ctc::ResetToStartIfIntakeNotPersistedConcern
+    class MainHomeController < QuestionsController
+      include FirstPageOfCtcIntakeConcern
 
       private
 
