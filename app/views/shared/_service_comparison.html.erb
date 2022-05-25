@@ -25,9 +25,15 @@
                 </div>
               <% end %>
               <div class="service__cta">
-                <%= link_to open_for_ctc_intake? ? t("views.shared.service_comparison.services.ctc.cta.open") : t("views.shared.service_comparison.services.ctc.cta.closed"),
-                            url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"),
-                            class: "button", "data-track-click": "service-comparison-ctc" %>
+                <% if open_for_ctc_intake? %>
+                  <%= link_to t("views.shared.service_comparison.services.ctc.cta.open"),
+                              root_with_source_path(host: MultiTenantService.new(:ctc).host, source: "gyractivechoice"),
+                              class: "button", "data-track-click": "service-comparison-ctc" %>
+                <% else %>
+                  <%= link_to t("views.shared.service_comparison.services.ctc.cta.closed"),
+                              url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"),
+                              class: "button", "data-track-click": "service-comparison-ctc" %>
+                <% end %>
               </div>
             </div>
             <div class="service full-service">
