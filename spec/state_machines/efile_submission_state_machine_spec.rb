@@ -236,7 +236,7 @@ describe EfileSubmissionStateMachine do
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(2400)
-        allow_any_instance_of(Intake).to receive(:eip3_amount_received).and_return(2350)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount_received).and_return(2350)
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2450)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1500)

@@ -119,7 +119,7 @@ class EfileSubmissionStateMachine
     )
     tax_return.transition_to(:file_accepted)
 
-    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!(tax_return_year: TaxReturn.current_tax_year)
+    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
     accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
 
     benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
