@@ -71,12 +71,12 @@ module Documents
     end
 
     def track_document_upload
-      return unless @form.document.present?
+      return unless @form.upload.present?
 
       send_mixpanel_event(event_name: "document_uploaded", data: {
         document_type: document_type_key,
-        file_extension: File.extname(@form.document.original_filename),
-        file_content_type: @form.document.content_type,
+        file_extension: File.extname(@form.upload.original_filename),
+        file_content_type: @form.upload.content_type,
       })
     end
 

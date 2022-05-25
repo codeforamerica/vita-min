@@ -110,7 +110,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
       let(:valid_params) do
         {
             document_type_upload_form: {
-                document: fixture_file_upload("test-pattern.png", "image/png")
+                upload: fixture_file_upload("test-pattern.png", "image/png")
             }
         }
       end

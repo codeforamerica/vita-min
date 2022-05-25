@@ -1,7 +1,8 @@
 require "rails_helper"
 
-RSpec.describe DocumentTypeUploadForm do
+RSpec.describe RequestedDocumentUploadForm do
   let(:intake) { create(:intake) }
+  let(:documents_request) { create(:documents_request) }
 
   describe "validations" do
     context "when valid params" do
@@ -12,7 +13,7 @@ RSpec.describe DocumentTypeUploadForm do
       end
 
       it "is valid" do
-        form = described_class.new("Other", intake, valid_params)
+        form = described_class.new(documents_request, valid_params)
 
         expect(form).to be_valid
       end
@@ -22,10 +23,21 @@ RSpec.describe DocumentTypeUploadForm do
       let(:params) { { upload: fixture_file_upload("test-pattern.html") } }
 
       it "is not valid" do
-        form = described_class.new("Other", intake, params)
+        form = described_class.new(documents_request, params)
 
         expect(form).not_to be_valid
         expect(form.errors.messages[:upload].first).to include "Please upload a valid document type. Accepted types include"
+      end
+    end
+
+    context "when uploading a nil file" do
+      let(:params) { { upload: nil } }
+
+      it "is not valid" do
+        form = described_class.new(documents_request, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors.messages[:upload]).to include "Can't be blank."
       end
     end
 
@@ -42,7 +54,7 @@ RSpec.describe DocumentTypeUploadForm do
       end
 
       it "makes the form invalid and copies the errors onto the form" do
-        form = described_class.new("Other", intake, params)
+        form = described_class.new(documents_request, params)
 
         expect(form).not_to be_valid
         expect(form.errors[:upload]).to eq(["Example error"])
@@ -53,7 +65,7 @@ RSpec.describe DocumentTypeUploadForm do
       let(:params) { { } }
 
       it "is not valid" do
-        form = described_class.new("Other", intake, params)
+        form = described_class.new(documents_request, params)
 
         expect(form).not_to be_valid
         expect(form.errors[:upload]).to include "Can't be blank."
@@ -63,17 +75,16 @@ RSpec.describe DocumentTypeUploadForm do
 
   describe "#save" do
     context "with valid params" do
-      let(:valid_params) do
+      let(:params) do
         {
             upload: fixture_file_upload("test-pattern.png")
         }
       end
 
       it "creates a new document" do
-        document_type = "Other"
         expect {
-          described_class.new(document_type, intake, valid_params).save
-        }.to change { intake.reload.documents.count }.by(1)
+          described_class.new(documents_request, params).save
+        }.to change { documents_request.reload.documents.count }.by(1)
         doc = Document.last
         expect(doc.upload.blob.filename.to_s).to eq("test-pattern.png")
         expect(doc.upload.download).to eq(File.binread("spec/fixtures/files/test-pattern.png"))
@@ -85,7 +96,7 @@ RSpec.describe DocumentTypeUploadForm do
       # Clients have uploaded files with non-utf8 characters in filenames
       let(:file_upload) { fixture_file_upload("test-pattern.png") }
 
-      let(:valid_params) do
+      let(:params) do
         {
             upload: file_upload
         }
@@ -96,10 +107,9 @@ RSpec.describe DocumentTypeUploadForm do
       end
 
       it "creates a new document, skipping invalid characters in the filename" do
-        document_type = "Other"
         expect {
-          described_class.new(document_type, intake, valid_params).save
-        }.to change { intake.reload.documents.count }.by(1)
+          described_class.new(documents_request, params).save
+        }.to change { documents_request.reload.documents.count }.by(1)
         expect(Document.last.upload.blob.filename.to_s).to eq("Skip a non-utf8 char.png")
       end
     end

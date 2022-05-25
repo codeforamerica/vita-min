@@ -1,6 +1,7 @@
 class RequestedDocumentUploadForm < QuestionsForm
-  set_attributes_for :documents_request, :document, :document_type
-  validates :document, file_type_allowed: true
+  set_attributes_for :documents_request, :upload, :document_type
+  before_validation :instantiate_document
+  validate :validate_document
 
   def initialize(documents_request, *args, **kwargs)
     @documents_request = documents_request
@@ -8,15 +9,28 @@ class RequestedDocumentUploadForm < QuestionsForm
   end
 
   def save
-    document_file_upload = attributes_for(:documents_request)[:document]
-    document_type = attributes_for(:documents_request)[:document_type] || DocumentTypes::RequestedLater
-    if document_file_upload.present?
-      @documents_request.documents.create(
-        uploaded_by: @documents_request.client,
-        document_type: document_type.key,
-        client: @documents_request.client,
-        upload: document_file_upload,
-      )
-    end
+    return false unless valid?
+
+    @document.save!
+  end
+
+  private
+
+  def validate_document
+    errors.copy!(@document.errors) unless @document.valid?
+  end
+
+  def instantiate_document
+    @upload.tempfile.rewind if @upload.present?
+    @document = @documents_request.documents.new(
+      document_type: @document_type || DocumentTypes::RequestedLater,
+      client: @documents_request.client,
+      uploaded_by: @documents_request.client,
+      upload: @upload.present? ? {
+          io: @upload.tempfile, # Rewind to avoid integrity error
+          filename: @upload.original_filename.encode("UTF-8", invalid: :replace, replace: ""), # Remove non-utf-8 characters from the original filename
+          content_type: @upload.content_type
+      } : nil
+    )
   end
 end

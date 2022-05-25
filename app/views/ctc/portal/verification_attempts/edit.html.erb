@@ -39,7 +39,7 @@
             </div>
           <% end %>
         <% end %>
-        <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types") %></span>
+        <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types", accepted_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence) %></span>
       </div>
     </div>
 

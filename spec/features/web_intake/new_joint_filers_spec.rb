@@ -481,8 +481,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
@@ -493,13 +493,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
     screenshot_after do
       expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
@@ -511,18 +511,18 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Share your employment documents")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
       expect(page).to have_content("test-pattern.png")
       expect(page).to have_link("Remove")
 
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
 
       expect(page).to have_content("test-pattern.png")
       expect(page).to have_content("picture_id.jpg")
@@ -531,7 +531,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     expect do
       click_on "Continue"
@@ -539,7 +539,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Please share any additional documents.")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
       expect(page).to have_content("test-pattern.png")
     end
     click_on "Continue"
