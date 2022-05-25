@@ -68,10 +68,11 @@ relationships:
     relationship: qualifying_relative
     irs_enum: GRANDPARENT
     skip_relative_household_test: true
-#  - id: great_grandchild
-#    relationship: qualifying_child
-#    irs_enum: OTHER
-#    skip_relative_household_test: true
+  - id: great_grandchild
+    relationship: qualifying_child
+    irs_enum: OTHER
+    skip_relative_household_test: true
+    archived: true
   - id: step_parent
     relationship: qualifying_relative
     irs_enum: OTHER
@@ -80,10 +81,11 @@ relationships:
     relationship: qualifying_relative
     irs_enum: OTHER
     skip_relative_household_test: true
-#  - id: siblings_descendant
-#    relationship: qualifying_child
-#    irs_enum: OTHER
-#    skip_relative_household_test: false
+  - id: siblings_descendant
+    relationship: qualifying_child
+    irs_enum: OTHER
+    skip_relative_household_test: false
+    archived: true
   - id: other
     relationship: qualifying_relative
     irs_enum: OTHER
