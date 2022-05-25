@@ -7,12 +7,12 @@
   <div class="reveal-shrink-wrapper">
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.use_gyr.why_ineligible_reveal.title")) do %>
       <p><%= t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.p") %></p>
-      <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
+      <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year) %>
       <ul class="list--bulleted">
         <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list",
           current_tax_year: current_tax_year,
-          single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
-          joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))).each do |item| %>
+          single_deduction: number_to_currency(standard_deductions[:single]),
+          joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
           <li><%= item %></li>
         <% end %>
       </ul>

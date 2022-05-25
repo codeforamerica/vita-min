@@ -4,7 +4,7 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year).standard_deduction(current_intake.default_tax_return.filing_status) %>
+  <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
     <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
       <li><%= income_qualifications %></li>

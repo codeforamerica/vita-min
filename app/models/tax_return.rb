@@ -93,12 +93,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def standard_deduction
-    return nil if intake.is_ctc? && intake.home_location_puerto_rico?
-
-    standard_deduction = StandardDeduction.for(tax_year: year, filing_status: filing_status)
-    return if standard_deduction.nil?
-
-    standard_deduction + additional_blind_standard_deduction + additional_older_than_65_standard_deduction
+    AppliedStandardDeduction.new(tax_return: self).applied_standard_deduction
   end
 
   def has_submissions?
@@ -252,28 +247,6 @@ class TaxReturn < ApplicationRecord
   def system_change_status(new_status)
     SystemNote::StatusChange.generate!(tax_return: self, old_status: current_state, new_status: new_status)
     transition_to(new_status)
-  end
-
-  def additional_older_than_65_standard_deduction
-    case filing_status
-    when "single", "head_of_household"
-      return 1700 if primary_age_65_or_older?
-    when "married_filing_jointly"
-      return 2700 if primary_age_65_or_older? && spouse_age_65_or_older?
-      return 1350 if primary_age_65_or_older? || spouse_age_65_or_older?
-    end
-    0
-  end
-
-  def additional_blind_standard_deduction
-    case filing_status
-    when "single", "head_of_household"
-      return 1700 if intake.was_blind_yes?
-    when "married_filing_jointly"
-      return 2700 if intake.was_blind_yes? && intake.spouse_was_blind_yes?
-      return 1350 if intake.was_blind_yes? || intake.spouse_was_blind_yes?
-    end
-    0
   end
 end
 

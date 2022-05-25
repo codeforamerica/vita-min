@@ -1,0 +1,25 @@
+standard_deductions:
+  base:
+      2020:
+        single: 12400
+        married_filing_separately: 12400
+        head_of_household: 18650
+        married_filing_jointly: 24800
+        qualifying_widow: 24800
+      2021:
+        single: 12550
+        married_filing_separately: 12550
+        head_of_household: 18800
+        married_filing_jointly: 25100
+        qualifying_widow: 25100
+  older_than_65:
+    2021:
+      single_filer: 1700
+      primary_or_spouse: 1350
+      primary_and_spouse: 2700
+  blind:
+    2021:
+      single_filer: 1700
+      primary_or_spouse: 1350
+      primary_and_spouse: 2700
+
