@@ -6,7 +6,7 @@
     <div class="grid">
       <div class="grid__item width-one-whole">
         <% if open_for_ctc_intake? %>
-          <h2 class="text--line-breaks"><%= t("views.ctc_pages.signups.new.puerto_rico_post_launch.header_html", link: root_url(host: MultiTenantService.new(:ctc).host)) %></h2>
+          <h2 class="text--line-breaks"><%= t("views.ctc_pages.signups.new.puerto_rico_post_launch.header_html", link: root_with_source_url(host: MultiTenantService.new(:ctc).host, source: 'GetCTCSignup')) %></h2>
           <p class="text--line-breaks spacing-below-60"><%= t("views.ctc_pages.signups.new.puerto_rico_post_launch.sub_header") %></p>
         <% else %>
           <h2 class="text--line-breaks"><%= t("views.ctc_pages.signups.new.header") %></h2>
