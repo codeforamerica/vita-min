@@ -36,6 +36,7 @@ class OutgoingEmail < ApplicationRecord
 
   belongs_to :client
   belongs_to :user, optional: true
+  has_many :bulk_client_message_outgoing_emails, dependent: :destroy
   validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject

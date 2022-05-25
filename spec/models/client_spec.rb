@@ -458,6 +458,11 @@ describe Client do
       let!(:unrelated_intake) { create :intake }
       let(:attachment) { fixture_file_upload("test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
+      let(:outgoing_email) { create(:outgoing_email, client: client) }
+      let!(:bulk_client_message) { BulkClientMessageOutgoingEmail.create(outgoing_email: outgoing_email)}
+      let(:bulk_client_message) { BulkClientMessage.create }
+      let!(:outgoing_text_message) { create(:outgoing_text_message, client: client) }
+      let!(:bulk_client_sms) { BulkClientMessageOutgoingTextMessage.create(outgoing_text_message: outgoing_text_message) }
       before do
         doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
