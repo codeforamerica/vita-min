@@ -9,7 +9,7 @@
       <%= link_to t("general.back"), :back %>
     </div>
     <div class="question-wrapper">
-      <%= form_with url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+      <%= form_with url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, data: { efile_security_information: true, form_name: "ctc_resubmit_form" }, html: { class: "form-card form-card--long" } do |f| %>
 
         <h1 class="h2"><%= @main_question %></h1>
 

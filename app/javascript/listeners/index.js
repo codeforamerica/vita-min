@@ -46,16 +46,9 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::FilingStatusController#edit" || window.appData.controller_action == "Ctc::Questions::FilingStatusController#update") {
-                    getEfileSecurityInformation('ctc_filing_status_form');
-                }
-
-                if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit" || window.appData.controller_action == "Ctc::Questions::LegalConsentController#update") {
-                    getEfileSecurityInformation('ctc_confirm_legal_form');
-                }
-
-                if(window.appData.controller_action == "Ctc::Portal::PortalController#edit_info" || window.appData.controller_action == "Ctc::Portal::PortalController#resubmit") {
-                    getEfileSecurityInformation('ctc_resubmit_form');
+                if(document.querySelector("form[data-efile-security-information='true']")) {
+                    const form = document.querySelector("form[data-efile-security-information='true']");
+                    getEfileSecurityInformation(form.dataset.formName);
                 }
 
                 if(window.appData.controller_action == "Hub::EfileSubmissionsController#index") {

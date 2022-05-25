@@ -2166,15 +2166,6 @@ es:
           subtitle_1: Debido a que está declarando a sus dependientes, puede ser elegible para declarar el estatus de Jefe de Familia en su declaración. La solicitud de la condición de jefe de familia no aumentará su reembolso y no le dará derecho a ningún beneficio fiscal adicional. No le recomendamos que solicite la condición de jefe de familia.
           subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
-        home:
-          help_text: Su domicilio debe haber sido los Estados Unidos durante más de la mitad del año fiscal.
-          options:
-            fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
-            foreign_address: Dirección en el extranjero
-            military_facility: Instalación militar estadounidense
-            puerto_rico: Puerto Rico
-            us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
-          title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
           income_qualifications:
           - ha ganado menos de %{standard_deduction} en ingresos totales
@@ -2249,6 +2240,15 @@ es:
             Asegúrese de proporcionar una dirección donde pueda recibir correo postal. Si seleccionó deposito directo para sus pagos, existe una posibilidad que el IRS le envíe notificaciones importantes y hasta pagos a este dirección.
           reveal_label: "¿Qué tal si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
+        main_home:
+          help_text: Su hogar principal es un lugar en el que se quedó durante más de la mitad del año fiscal.
+          options:
+            fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
+            foreign_address: Dirección en el extranjero
+            military_facility: Instalación militar estadounidense
+            puerto_rico: Puerto Rico
+            us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
+          title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         not_filing:
           buttons:
             faq: Visite nuestra página de preguntas frecuentes, o FAQ

@@ -10,9 +10,10 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true, requi
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t('general.filing_status.single')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+    choose I18n.t('views.ctc.questions.main_home.options.military_facility')
     click_on I18n.t('general.continue')
+
     intake = Intake::CtcIntake.last
     expect(intake.timezone).to be_present
     expect(intake.client.efile_security_informations.last.client_system_time).to be_present
