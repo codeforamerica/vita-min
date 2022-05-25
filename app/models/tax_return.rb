@@ -93,12 +93,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def standard_deduction
-    return nil if intake.is_ctc? && intake.home_location_puerto_rico?
-
-    standard_deduction = StandardDeduction.for(tax_year: year, filing_status: filing_status)
-    return if standard_deduction.nil?
-
-    standard_deduction + additional_blind_standard_deduction + additional_older_than_65_standard_deduction
+    AppliedStandardDeduction.new(tax_return: self).applied_standard_deduction
   end
 
   def has_submissions?
