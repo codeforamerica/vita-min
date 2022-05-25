@@ -257,8 +257,6 @@ describe EfileSubmissionStateMachine do
         expect(submission.tax_return.current_state).to eq("file_accepted")
       end
 
-
-
       it "creates a record to store the tax return data" do
         expect {
           submission.transition_to(:accepted)

@@ -119,26 +119,13 @@ class EfileSubmissionStateMachine
     )
     tax_return.transition_to(:file_accepted)
 
+    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!(tax_return_year: TaxReturn.current_tax_year)
+    accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
+
     benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-    eip1_and_eip2_amount = [benefits.eip1_amount, benefits.eip2_amount].compact.sum
-    total_refund_amount = [benefits.outstanding_ctc_amount, benefits.outstanding_recovery_rebate_credit].compact.sum
-    eip3_amount_received = tax_return.intake.eip3_amount_received || 0
-
-    submission.tax_return.create_accepted_tax_return_analytics!(
-      tax_return_year: TaxReturn.current_tax_year,
-      eip1_and_eip2_amount_cents: eip1_and_eip2_amount * 100,
-      advance_ctc_amount_cents: benefits.advance_ctc_amount_received * 100,
-      outstanding_ctc_amount_cents: benefits.outstanding_ctc_amount * 100,
-      ctc_amount_cents: benefits.ctc_amount * 100,
-      eip3_amount_received_cents: eip3_amount_received * 100,
-      eip3_amount_cents: benefits.eip3_amount * 100,
-      outstanding_eip3_amount_cents: benefits.outstanding_eip3 * 100,
-      total_refund_amount_cents: total_refund_amount * 100,
-    )
-
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
       child_tax_credit_advance: benefits.ctc_amount,
-      recovery_rebate_credit: eip1_and_eip2_amount,
+      recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
       third_stimulus_amount: benefits.eip3_amount,
     })
   end

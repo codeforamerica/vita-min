@@ -10,7 +10,6 @@
 #  eip3_amount_received_cents    :bigint
 #  outstanding_ctc_amount_cents  :bigint
 #  outstanding_eip3_amount_cents :bigint
-#  tax_return_year               :integer
 #  total_refund_amount_cents     :bigint
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

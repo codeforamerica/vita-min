@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_19_215706) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_25_213918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_215706) do
     t.bigint "outstanding_ctc_amount_cents"
     t.bigint "outstanding_eip3_amount_cents"
     t.bigint "tax_return_id"
-    t.integer "tax_return_year"
     t.bigint "total_refund_amount_cents"
     t.datetime "updated_at", null: false
     t.index ["tax_return_id"], name: "index_accepted_tax_return_analytics_on_tax_return_id"
@@ -1409,6 +1408,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_215706) do
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
     t.index ["current_state"], name: "index_tax_returns_on_current_state"
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
+    t.index ["year"], name: "index_tax_returns_on_year"
   end
 
   create_table "team_member_roles", force: :cascade do |t|

@@ -29,6 +29,7 @@
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
 #  index_tax_returns_on_current_state       (current_state)
+#  index_tax_returns_on_year                (year)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
