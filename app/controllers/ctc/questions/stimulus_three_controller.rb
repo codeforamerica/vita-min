@@ -6,6 +6,8 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
+        return false if intake.puerto_rico_filing?
+
         intake.eip3_amount_received.nil?
       end
 

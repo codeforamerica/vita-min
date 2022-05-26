@@ -427,4 +427,9 @@ class Intake::CtcIntake < Intake
       0
     end
   end
+
+  # TODO: Add feature flag here so we don't have to add it in a ton of places
+  def puerto_rico_filing?
+    home_location_puerto_rico?
+  end
 end

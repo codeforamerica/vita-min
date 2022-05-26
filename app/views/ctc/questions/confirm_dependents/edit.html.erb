@@ -10,7 +10,7 @@
     <div class="review-box spacing-below-35">
       <div data-automation="ctc-dependents">
         <div class="review-box__title review-box__title-tighter">
-          <h2><%= t("views.ctc.questions.confirm_dependents.qualifying_for_ctc") %></h2>
+          <h2><%= current_intake.puerto_rico_filing? ? t("views.ctc.questions.confirm_dependents.qualifying_for_ctc") : t("views.ctc.questions.confirm_dependents.qualifying_for_both") %></h2>
         </div>
         <div class="spacing-below-15">
           <%=
@@ -22,21 +22,22 @@
           %>
         </div>
       </div>
-      <div data-automation="other-credits-dependents">
-        <div class="review-box__title review-box__title-tighter">
+      <% unless current_intake.puerto_rico_filing? %>
+        <div data-automation="other-credits-dependents">
+          <div class="review-box__title review-box__title-tighter">
           <h2><%= t("views.ctc.questions.confirm_dependents.qualifying_for_other_credits") %></h2>
         </div>
-        <div class="spacing-below-35">
+          <div class="spacing-below-35">
           <%=
             render(
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dep| !dep.qualifying_ctc? && (dep.qualifying_child? || dep.qualifying_relative?) }
+              collection: current_intake.dependents.select { |dependent| dependent.qualifying_eip3? }
             ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
-      </div>
-
+        </div>
+      <% end %>
       <div class="review-box__cta-button-container">
         <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
           <%= image_tag("add-person.svg", alt: "") %>
