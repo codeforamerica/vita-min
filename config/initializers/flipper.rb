@@ -25,6 +25,6 @@ end
 class CanAccessFlipperUI
   def self.matches?(request)
     current_user = request.env['warden'].user
-    current_user.present? && current_user.admin?
+    current_user.present? && current_user.admin? && current_user.email.include?("@codeforamerica.org")
   end
 end
