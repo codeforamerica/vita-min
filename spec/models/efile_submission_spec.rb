@@ -255,8 +255,9 @@ describe EfileSubmission do
       context "after transition to" do
         before do
           allow(MixpanelService).to receive(:send_event)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(3600)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(1200)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1800)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
           allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(3000)
         end
 
@@ -271,7 +272,7 @@ describe EfileSubmission do
             subject: submission.intake,
             data: {
               child_tax_credit_advance: 1800,
-              recovery_rebate_credit: 0,
+              recovery_rebate_credit: 2300,
               third_stimulus_amount: 3000
             }
           )

@@ -39,8 +39,12 @@ module Efile
       sum
     end
 
+    def eip3_amount_received
+      intake.eip3_amount_received || 0
+    end
+
     def outstanding_eip3
-      [eip3_amount - intake.eip3_amount_received, 0].max
+      [eip3_amount - eip3_amount_received, 0].max
     end
 
     def ctc_amount
