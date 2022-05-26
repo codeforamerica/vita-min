@@ -428,8 +428,7 @@ class Intake::CtcIntake < Intake
     end
   end
 
-  # TODO: Add feature flag here so we don't have to add it in a ton of places
   def puerto_rico_filing?
-    home_location_puerto_rico?
+    home_location_puerto_rico? && Flipper.enabled?(:puerto_rico_home_location)
   end
 end
