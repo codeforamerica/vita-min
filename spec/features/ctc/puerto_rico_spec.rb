@@ -22,7 +22,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.offboarding.puerto_rico_sign_up.title'))
     end
   end
-  
+
   context "when the puerto rico intake has launched" do
     before do
       allow(Flipper).to receive(:enabled?).and_return true

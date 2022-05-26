@@ -32,7 +32,7 @@
             render(
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dependent| dependent.qualifying_eip3? }
+              collection: current_intake.dependents.select { |dependent| !dependent.qualifying_ctc? && dependent.qualifying_eip3? }
             ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>

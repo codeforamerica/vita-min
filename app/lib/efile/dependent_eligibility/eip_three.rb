@@ -19,7 +19,7 @@ module Efile
       end
 
       def not_puerto_rican_filing?
-        !dependent.intake.puerto_rico_filing?
+        !dependent.intake.home_location_puerto_rico?
       end
 
       def is_qualifying_child?
