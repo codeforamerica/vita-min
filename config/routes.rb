@@ -168,6 +168,11 @@ Rails.application.routes.draw do
       namespace :hub do
         # root "assigned_clients#index"
 
+        # Feature flags are admin access only
+        constraints CanAccessFlipperUI do
+          mount Flipper::UI.app(Flipper) => '/flipper'
+        end
+
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do

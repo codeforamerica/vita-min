@@ -77,6 +77,11 @@ gem 'redcarpet'
 gem 'platform-api'
 gem 'strong_migrations'
 
+# Use Flipper for feature flagging
+gem 'flipper'
+gem 'flipper-active_record'
+gem 'flipper-ui'
+
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
   gem 'faker'
