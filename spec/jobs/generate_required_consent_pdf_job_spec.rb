@@ -5,7 +5,7 @@ RSpec.describe GenerateRequiredConsentPdfJob, type: :job do
     let(:intake) { create(:intake) }
 
     before do
-      allow(intake).to receive(:update_or_create_required_consent_pdf)
+      allow(intake).to receive(:update_or_create_required_consent_pdf).and_call_original
     end
 
     it "creates a 14446 PDF with the chosen filename" do
