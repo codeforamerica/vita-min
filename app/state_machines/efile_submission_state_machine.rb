@@ -32,6 +32,7 @@ class EfileSubmissionStateMachine
   transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
   transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
   transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
+  transition from: :cancelled,         to: [:investigating, :waiting]
 
   guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
