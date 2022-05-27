@@ -6,7 +6,7 @@ class ConsentPdf
   end
 
   def output_filename
-    "F14446 - GYR Consent Form"
+    "F14446 - GYR Consent Form.pdf"
   end
 
   def document_type
