@@ -109,25 +109,4 @@ RSpec.describe IncomingTextMessage, type: :model do
       expect(message.formatted_time).to eq "2:45 AM UTC"
     end
   end
-
-  describe "#body" do
-    let(:message) { build :incoming_text_message, body: body, documents: documents }
-    let(:body) { nil }
-    let(:documents) { [] }
-
-    context "with an empty body" do
-      context "with no documents" do
-        it "returns a special message" do
-          expect(message.body).to eq("Client sent an empty text message with no attachments")
-        end
-      end
-
-      context "with documents" do
-        let(:documents) { [build(:document)] }
-        it "returns the blank body" do
-          expect(message.body).to eq(body)
-        end
-      end
-    end
-  end
 end
