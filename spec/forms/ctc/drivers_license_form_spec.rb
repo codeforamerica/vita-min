@@ -23,6 +23,39 @@ describe Ctc::DriversLicenseForm do
       end
     end
 
+    context "license number" do
+      context "not allowed characters: supertext" do
+        before do
+          params[:license_number] = "101619702¹1"
+        end
+
+        it "is not valid" do
+          form.valid?
+          expect(form.errors.attribute_names).to include :license_number
+        end
+      end
+
+      context "not allowed characters: dashes" do
+        before do
+          params[:license_number] = "101-619702-1"
+        end
+
+        it "is not valid" do
+          form.valid?
+          expect(form.errors.attribute_names).to include :license_number
+        end
+      end
+
+      context "only allowed characters" do
+        before do
+          params[:license_number] = "WADLFKadjj94856"
+        end
+        it "is valid" do
+          expect(form.valid?).to eq true
+        end
+      end
+    end
+
     context "when there is no valid issue date or expiration date" do
       let(:params) {
         {

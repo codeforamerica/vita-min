@@ -1617,6 +1617,7 @@ es:
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
+    alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
