@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        intake.dependents.none?
+        intake.dependents.none?(&:qualifying_ctc?)
       end
 
       private

@@ -4,9 +4,13 @@ RSpec.describe Ctc::Questions::NoDependentsController do
   describe ".show?" do
     let!(:intake) { create :ctc_intake }
 
+    before do
+      create :tax_return, client: intake.client
+    end
+
     context "with an intake that has created dependents" do
       before do
-        create :dependent, intake: intake
+        create :qualifying_child, intake: intake
       end
 
       it "returns false" do
@@ -15,6 +19,16 @@ RSpec.describe Ctc::Questions::NoDependentsController do
     end
 
     context "with an intake with no created dependents" do
+      it "returns true" do
+        expect(Ctc::Questions::NoDependentsController.show?(intake)).to eq true
+      end
+    end
+
+    context "with an intake with dependents but no qualifying dependents" do
+      before do
+        create :nonqualifying_dependent, intake: intake
+      end
+
       it "returns true" do
         expect(Ctc::Questions::NoDependentsController.show?(intake)).to eq true
       end
