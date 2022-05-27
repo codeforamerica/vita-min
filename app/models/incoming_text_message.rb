@@ -36,14 +36,4 @@ class IncomingTextMessage < ApplicationRecord
   def from
     PhoneParser.formatted_phone_number(from_phone_number)
   end
-
-  def body
-    raw_body = attributes["body"]
-
-    if raw_body.blank? && documents.blank?
-      "Client sent an empty text message with no attachments"
-    else
-      raw_body
-    end
-  end
 end
