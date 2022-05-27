@@ -9,7 +9,7 @@ module Ctc
 
       def file_with_gyr
         SystemNote.create(client: current_client, body: "Client clicked File with GetYourRefund button on #{Time.zone.now.strftime("%-m/%-d/%Y")} at #{Time.zone.now.strftime("%l:%M %p").strip}")
-        redirect_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'received_ctc' })
+        redirect_to root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "received_ctc")
       end
 
       def illustration_path
