@@ -20,6 +20,7 @@
 class EfileSubmissionDependent < ApplicationRecord
   belongs_to :dependent
   belongs_to :efile_submission
+  has_one :intake, through: :efile_submission
 
   delegate :first_name, :last_name, :full_name, :ssn, :irs_relationship_enum, :birth_date, :tin_type_ssn?, :tin_type_atin?, to: :dependent
 

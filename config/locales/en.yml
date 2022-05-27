@@ -1982,7 +1982,8 @@ en:
                 title: Should I file as the Head of Household?
               p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: What about other benefits my dependents could be eligible for?
-          qualifying_for_ctc: Dependents qualifying for CTC and stimulus
+          qualifying_for_both: Dependents qualifying for CTC and stimulus
+          qualifying_for_ctc: Dependents qualifying for CTC
           qualifying_for_other_credits: Dependents qualifying for only stimulus
           ssn: SSN
           ssn_no_employment: SSN (not valid for employment)
