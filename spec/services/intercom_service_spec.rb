@@ -181,7 +181,7 @@ RSpec.describe IntercomService do
       end
 
       context "when there is an associated document" do
-        let(:documents) { [build(:document, client: client)] }
+        let(:documents) { [create(:document, client: client)] }
 
         context 'when the sms body was blank' do
           let(:sms_body) { nil }
