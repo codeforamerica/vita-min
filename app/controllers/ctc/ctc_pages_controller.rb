@@ -47,6 +47,11 @@ module Ctc
       @markdown_content = markdown_content_from_file(file_name)
     end
 
+    def navigators_cms
+      @navigator_page = Content.find_by(name: "navigators")
+
+    end
+
     def privacy_policy
     end
 

@@ -1,0 +1,21 @@
+<div class="navigator-resources">
+  <div class="slab slab--hero slab--blue">
+    <div class="grid-flex contained column-row space-between">
+      <div class="grid-flex column-column spacing-below-35">
+        <h1><%= locale == :es ? @navigator_page.title_es : @navigator_page.title_en %></h1>
+        <p class="help-text"><%= locale == :es ? @navigator_page.subtitle_es : @navigator_page.subtitle_en %></p>
+      </div>
+
+      <div class="grid-flex align-flex-end justify-flex-end">
+        <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
+      </div>
+    </div>
+  </div>
+  <section class="slab slab--white slab--half-padded">
+    <div class="grid">
+      <div class="grid__item width-one-whole spacing-above-35">
+        <%= locale == :es ? @navigator_page.body_es : @navigator_page.body_en %>
+      </div>
+    </div>
+  </section>
+</div>

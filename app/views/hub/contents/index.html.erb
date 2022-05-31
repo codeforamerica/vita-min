@@ -1,0 +1,6 @@
+<% content_for :card do %>
+  <div class="slab slab--half-padded">
+    <h1>Content Management</h1>
+    <%= link_to "Navigator Page", hub_content_path(name: @navigator_page.name) %>
+  </div>
+<% end %>

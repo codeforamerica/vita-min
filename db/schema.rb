@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_161533) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_31_210734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -567,6 +567,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_161533) do
     t.datetime "use_consented_at", precision: nil
     t.string "user_agent"
     t.index ["client_id"], name: "index_consents_on_client_id"
+  end
+
+  create_table "contents", force: :cascade do |t|
+    t.datetime "activated_at", precision: nil
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.boolean "is_faq"
+    t.string "name"
+    t.string "pathname"
+    t.text "subtitle_en"
+    t.text "subtitle_es"
+    t.text "title_en"
+    t.text "title_es"
+    t.datetime "updated_at", null: false
   end
 
   create_table "ctc_intake_capacities", force: :cascade do |t|

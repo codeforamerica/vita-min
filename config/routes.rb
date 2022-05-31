@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :clients
 
   devise_scope :client do
@@ -172,7 +171,7 @@ Rails.application.routes.draw do
         constraints CanAccessFlipperUI do
           mount Flipper::UI.app(Flipper) => '/flipper'
         end
-
+        resources :contents, path: "cms", param: :name, only: [:index, :show, :update]
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do
@@ -363,6 +362,7 @@ Rails.application.routes.draw do
         get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator"
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
+        get "/navigators-cms", to: "ctc_pages#navigators_cms"
 
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"

@@ -1,0 +1,52 @@
+<% content_for :card do %>
+  <div class="slab slab--half-padded">
+    <h1><%= @content.name.titleize %></h1>
+    <%= form_with model: @content, method: :put, local: true, url: hub_content_path, builder: VitaMinFormBuilder do |f| %>
+      <div class="spacing-above-25">
+        <%= f.label :title_en, "Title (English)", class: "h4" %>
+        <div>
+          <%= f.text_field :title_en, rows: 1, style: 'width: 100%' %>
+        </div>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :title_es, "Title (Spanish)", class: "h4" %>
+        <div>
+          <%= f.text_field :title_es, style: "width: 100%" %>
+        </div>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :subtitle_en, "Subtitle (English)", class: "h4" %>
+        <div>
+          <%= f.rich_text_area :subtitle_en%>
+        </div>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :subtitle_es, "Subtitle (Spanish)", class: "h4" %>
+        <div>
+          <%= f.rich_text_area :subtitle_es %>
+        </div>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :body_en, "Body (English)", class: "h4" %>
+        <div>
+          <%= f.rich_text_area :body_en %>
+        </div>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :body_es, "Body (Spanish)", class: "h4" %>
+        <div>
+          <%= f.rich_text_area :body_es %>
+        </div>
+      </div>
+      <div class="spacing-above-25">
+        <%= f.submit 'Save', class: 'button button--primary' %>
+      </div>
+
+    <% end %>
+  </div>
+<% end %>
