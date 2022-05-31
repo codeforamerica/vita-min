@@ -4,6 +4,10 @@ module AutomatedMessage
       'messages.ctc_2022_open_message'.freeze
     end
 
+    def service_type
+      :ctc
+    end
+
     def from
       Rails.configuration.email_from[:noreply][:ctc]
     end
