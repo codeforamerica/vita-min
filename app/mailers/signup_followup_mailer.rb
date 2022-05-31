@@ -6,7 +6,9 @@ class SignupFollowupMailer < ApplicationMailer
       to: email_address,
       subject: message.email_subject,
       from: service.noreply_email,
-      delivery_method_options: service.delivery_method_options
+      delivery_method_options: service.delivery_method_options,
+      template_path: "outgoing_email_mailer",
+      template_name: "user_message"
     )
   end
 end
