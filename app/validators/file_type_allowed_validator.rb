@@ -14,7 +14,7 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
     },
     document: {
       extensions: [".txt", ".pdf"],
-      mime_type: ["text/plain", "application/pdf"]
+      mime_type: ["text/plain", "application/pdf", "text/plain;charset=UTF-8"]
     },
   }
 
@@ -27,11 +27,10 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attr_name, value)
-    return if !value
+    return unless value
 
-    valid_extensions = record.class::ACCEPTED_FILE_TYPES.map { |group| FILE_TYPE_GROUPS[group][:extensions] }.flatten
-    unless valid_extensions.include?(value.filename.extension_with_delimiter.downcase)
-      record.errors.add(attr_name, I18n.t("validators.file_type", valid_types: valid_extensions.to_sentence))
+    unless self.class.mime_types(record.class).include?(value.content_type)
+      record.errors.add(attr_name, I18n.t("validators.file_type", valid_types: self.class.extensions(record.class).to_sentence))
     end
   end
 end

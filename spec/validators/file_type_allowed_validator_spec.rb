@@ -12,6 +12,7 @@ RSpec.describe FileTypeAllowedValidator do
       content_type: content_type
     )
   end
+
   before do
     stub_const("OpenStruct::ACCEPTED_FILE_TYPES", [:browser_native_image, :other_image, :document])
   end
