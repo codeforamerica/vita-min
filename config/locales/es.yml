@@ -1617,6 +1617,7 @@ es:
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
+    alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
@@ -1944,6 +1945,7 @@ es:
                 title: "¿Debo declarar como jefe de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
+          qualifying_for_both: Dependientes para el CTC
           qualifying_for_ctc: Dependientes para el CTC y el pago de estímulo
           qualifying_for_other_credits: Dependientes con sólo derecho a recibir el pago de estímulo
           ssn: Número de Seguro Social

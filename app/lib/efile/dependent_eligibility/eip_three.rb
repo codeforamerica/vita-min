@@ -9,12 +9,17 @@ module Efile
 
       def self.rules
         {
-            qualifying_relationship_test: [:is_qualifying_child?, :is_qualifying_relative?]
+            qualifying_relationship_test: [:is_qualifying_child?, :is_qualifying_relative?],
+            puerto_rico_test: [:not_puerto_rican_filing?]
         }
       end
 
       def benefit_amount
         qualifies? ? 1400 : 0
+      end
+
+      def not_puerto_rican_filing?
+        !dependent.intake.home_location_puerto_rico?
       end
 
       def is_qualifying_child?

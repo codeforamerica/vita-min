@@ -16,4 +16,14 @@ module FormattingHelper
     end
     simple_format(text, {}, sanitize: false)
   end
+
+  def message_body(body)
+    if body.blank?
+      return content_tag :div, class: "grid-flex center-aligned" do
+        image_tag("icons/exclamation.svg", class: "message__status item-5r") +
+        content_tag(:i, "Message has no content.")
+      end
+    end
+    simple_format(body)
+  end
 end

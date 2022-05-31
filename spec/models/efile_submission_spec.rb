@@ -292,6 +292,45 @@ describe EfileSubmission do
         end
       end
     end
+
+    context "cancelled" do
+      let(:submission) { create :efile_submission, :cancelled }
+
+      context "can transition to" do
+        it "waiting" do
+          expect { submission.transition_to!(:waiting) }.not_to raise_error
+        end
+
+        it "investigating" do
+          expect { submission.transition_to!(:investigating) }.not_to raise_error
+        end
+      end
+
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding("waiting", "investigating", "cancelled").each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
+        end
+      end
+
+      context "after transition to" do
+        before { allow(MixpanelService).to receive(:send_event) }
+        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
+
+        it "sends a mixpanel event" do
+          submission.transition_to!(:transmitted)
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+                                                                         distinct_id: submission.client.intake.visitor_id,
+                                                                         event_name: "ctc_efile_return_transmitted",
+                                                                         subject: submission.intake,
+                                                                         )
+        end
+      end
+    end
+
+
   end
 
   describe "#generate_verified_address" do

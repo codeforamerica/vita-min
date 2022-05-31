@@ -32,7 +32,7 @@
           Subj: <%= contact_record.subject %>
         </div>
       <% end %>
-      <%= simple_format(contact_record.body) %>
+      <%= message_body(contact_record.body) %>
 
       <% if contact_record.contact_record_type == :outgoing_email %>
         <% if contact_record.attachments.present? %>

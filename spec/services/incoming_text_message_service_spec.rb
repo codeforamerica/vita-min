@@ -42,7 +42,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
       let(:tax_returns) { [(create :tax_return, :prep_preparing, year: 2021)] }
       let!(:intake) { create(:intake, client: client, phone_number: "+15005550006") }
 
-      it "creates a new IncomingTextMessage linked to the client the right data" do
+      it "creates a new IncomingTextMessage linked to the client with the right data" do
         expect do
           IncomingTextMessageService.process(incoming_message_params)
         end.to change(IncomingTextMessage, :count).by 1

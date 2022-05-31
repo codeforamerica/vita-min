@@ -1,19 +1,7 @@
 require "rails_helper"
 
-def fill_in_dependent_info(dependent_birth_year)
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
-  fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Jessie"
-  fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "M"
-  fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
-  fill_in "ctc_dependents_info_form[birth_date_month]", with: "11"
-  fill_in "ctc_dependents_info_form[birth_date_day]", with: "01"
-  fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
-  select "Social Security Number (SSN)"
-  fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-  fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-end
-
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
+  include CtcIntakeFeatureHelper
   let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2021, filing_status: :married_filing_jointly)] }
 
   before do
