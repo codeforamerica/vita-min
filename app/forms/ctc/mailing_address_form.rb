@@ -5,8 +5,7 @@ module Ctc
     validates_presence_of :street_address
     validates_presence_of :city
     validates_presence_of :state
-    validates :zip_code, zip_code: true
-
+    validates :zip_code, us_or_puerto_rico_zip_code: true
 
     def save
       @intake.update(attributes_for(:intake))

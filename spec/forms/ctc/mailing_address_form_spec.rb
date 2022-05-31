@@ -21,6 +21,16 @@ describe Ctc::MailingAddressForm do
       end
     end
 
+    context "with a puerto rico zip code" do
+      it "is valid" do
+        params[:zip_code] = '00931'
+
+        expect(
+          described_class.new(intake, params)
+        ).to be_valid
+      end
+    end
+
     context "without street address" do
       before do
         params[:street_address] = nil
@@ -35,7 +45,7 @@ describe Ctc::MailingAddressForm do
 
     context "without a valid zip code" do
       before do
-        params[:zip_code] = 1
+        params[:zip_code] = '1'
       end
 
       it "is not valid" do
