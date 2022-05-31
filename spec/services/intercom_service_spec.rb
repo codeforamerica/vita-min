@@ -69,6 +69,19 @@ RSpec.describe IntercomService do
         expect(described_class).to have_received(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", "Hello")
       end
     end
+
+    context "when message body is empty" do
+      before do
+        incoming_portal_message.update(body: '')
+        allow(fake_intercom).to receive(:contacts)
+      end
+
+      it "does not send an intercom message" do
+        expect(described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)).to eq nil
+
+        expect(fake_intercom).not_to have_received(:contacts)
+      end
+    end
   end
 
   describe "#create_intercom_message_from_email" do
