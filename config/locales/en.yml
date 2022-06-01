@@ -1953,6 +1953,11 @@ en:
           help_text_html: |
             <p class="text--bold">If you already filed a 2021 tax return, the IRS will reject your GetCTC return without looking at it.</p>
             <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
+          pr:
+            help_text_html: |
+              <p class="text--bold">If you already filed a 1040 tax return, the IRS will reject your GetCTC return without looking at it.</p>
+              <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
+            title: Did you file a %{current_tax_year} 1040 with the IRS this year?
           title: Did you file a %{current_tax_year} tax return this year?
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.

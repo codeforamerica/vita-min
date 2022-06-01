@@ -30,7 +30,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
 
     scenario "puerto rico intake" do
       fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "puerto_rico")
-      fill_in_eligibility
+      fill_in_eligibility(home_location: "puerto_rico")
       fill_in_basic_info
       fill_in_spouse_info
       # modified dependent flow

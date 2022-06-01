@@ -39,9 +39,13 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.continue')
   end
 
-  def fill_in_eligibility
+  def fill_in_eligibility(home_location: "fifty_states")
     # =========== ELIGIBILITY ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+    if home_location == "puerto_rico"
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.pr.title', current_tax_year: current_tax_year))
+    else
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+    end
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
