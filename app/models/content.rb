@@ -21,4 +21,8 @@ class Content < ApplicationRecord
 
   has_rich_text :body_en
   has_rich_text :body_es
+
+  def full_pathname
+    "/" + [category, pathname].join("/")
+  end
 end

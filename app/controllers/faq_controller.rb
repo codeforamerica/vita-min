@@ -144,9 +144,16 @@ class FaqController < ApplicationController
   end
 
   def show
-    @section_key = params[:section_key]
     @question_key = params[:question_key].underscore
+    @content = Content.find_by(category: params[:section_key], pathname: @question_key)
     @survey = FaqSurvey.find_or_initialize_by(visitor_id: visitor_id, question_key: @question_key)
+
+    if @content
+      render :show_cms and return
+    else
+      @section_key = params[:section_key]
+      @question_key = params[:question_key].underscore
+    end
 
     raise ActionController::RoutingError.new('Not found') unless I18n.exists?("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}")
   end

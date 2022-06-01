@@ -172,6 +172,7 @@ Rails.application.routes.draw do
           mount Flipper::UI.app(Flipper) => '/flipper'
         end
         resources :contents, path: "cms", param: :name, only: [:index, :show, :update]
+        resources :faq, only: [:show, :create, :update]
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do

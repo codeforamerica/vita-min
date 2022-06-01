@@ -2,5 +2,41 @@
   <div class="slab slab--half-padded">
     <h1>Content Management</h1>
     <%= link_to "Navigator Page", hub_content_path(name: @navigator_page.name) %>
+    <h4>FAQ</h4>
+    <table class="index-table">
+      <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th class="index-table__header">
+            Pathname
+          </th>
+          <th class="index-table__header">
+            Category
+          </th>
+          <th class="index-table__header">
+            Title
+          </th>
+          <th class="index-table__header">
+            Published?
+          </th>
+      </thead>
+      <tbody>
+        <% @faq.each do |faq| %>
+        <tr class="index-table__row">
+          <td class="index-table__cell index-table__cell">
+            <%= faq.pathname %>
+          </td>
+          <td class="index-table__cell index-table__cell">
+            <%= faq.category %>
+          </td>
+          <td class="index-table__cell index-table__cell">
+            <%= faq.title_en %>
+          </td>
+          <td class="index-table__cell">
+            <%= faq.activated_at %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>
