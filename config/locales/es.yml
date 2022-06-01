@@ -1931,6 +1931,11 @@ es:
             <p class="text--bold">Si ya presentó una declaración de impuestos de 2021, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
             <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
           title: "¿Declaró este año los impuestos para %{current_tax_year}?"
+          pr:
+            help_text_html: |
+              <p class="text--bold">Si ya presentó una declaración de impuestos 1040, el IRS rechazará su declaración GetCTC sin mirarla.</p>
+              <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
+            title: ¿Presentó un %{current_tax_year} 1040 con el IRS este año?
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes.
