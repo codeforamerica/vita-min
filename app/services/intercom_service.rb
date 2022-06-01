@@ -36,6 +36,8 @@ class IntercomService
     if documents.present? && client.present?
       message_body = [body, "[client sent an attachment, see #{Rails.application.routes.url_helpers.hub_client_documents_url(client_id: client.id)}]"].compact.join(' ')
     end
+    return nil if message_body.blank?
+
     existing_contact = contact_from_client(client) || contact_from_email(email_address) || contact_from_sms(phone_number)
 
     if existing_contact.present? && most_recent_conversation(existing_contact.id).present?
