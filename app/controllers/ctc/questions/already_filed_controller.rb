@@ -5,12 +5,6 @@ module Ctc
 
       layout "yes_no_question"
 
-      def edit
-        super
-
-        current_intake.puerto_rico_filing? ? render(:pr_edit) : render(:edit)
-      end
-
       private
 
       def next_path
