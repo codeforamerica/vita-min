@@ -3,8 +3,8 @@ class StandardDeductions
     @@standard_deductions = YAML.load_file(filename)['standard_deductions'].with_indifferent_access
   end
 
-  def self.base_deductions(tax_year: TaxReturn.current_tax_year)
-    @@standard_deductions[:base][tax_year]
+  def self.base_deductions(tax_year: TaxReturn.current_tax_year, puerto_rico_filing: false)
+    puerto_rico_filing ? @@standard_deductions[:base_puerto_rico][tax_year] : @@standard_deductions[:base][tax_year]
   end
 
   def self.blind_deductions(tax_year: TaxReturn.current_tax_year)
