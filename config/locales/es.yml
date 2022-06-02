@@ -2192,14 +2192,8 @@ es:
           income_qualifications:
           - ha ganado menos de %{standard_deduction} en ingresos totales
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
-          - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
+          - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
           - no está obligado a presentar una declaración completa por cualquier otro razón
-          puerto_rico_income_qualifications:
-          - ganó menos de %{standard_deduction} en ingresos totales
-          - ganó menos de $400 en ingresos de trabajo por cuenta propia
-          - no recibió el crédito fiscal anticipado para la prima
-          - es un residente de buena fe de Puerto Rico
-          - no están obligados a presentar una declaración de impuestos completa por ningún otro motivo
           income_reveal:
             content:
               list_1:
@@ -2210,17 +2204,13 @@ es:
               - pagos por cuenta propia o por contrato
               - beneficios de desempleo
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
-<<<<<<< HEAD
             title: "¿Qué se puede considera como un ingreso?"
-=======
-            title: "¿Qué cuenta como ingreso?"
           puerto_rico_income_qualifications:
           - ganó menos de %{standard_deduction} en ingresos totales
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
           - no recibió el crédito fiscal anticipado para la prima
           - es un residente de buena fe de Puerto Rico
           - no están obligados a presentar una declaración de impuestos completa por ningún otro motivo
->>>>>>> normalize
           self_employment_income_reveal:
             content:
               list_1:
