@@ -4,9 +4,10 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year)[current_intake.default_tax_return.filing_status] %>
+  <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
+    <% income_qual_list = current_intake.puerto_rico_filing? ? "puerto_rico_income_qualifications" : "income_qualifications" %>
+    <% t("views.ctc.questions.income.#{income_qual_list}", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
       <li><%= income_qualifications %></li>
     <% end %>
   </ul>

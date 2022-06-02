@@ -2228,6 +2228,12 @@ en:
               - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
+          puerto_rico_income_qualifications:
+          - earned less than %{standard_deduction} in total income
+          - earned less than $400 in self-employment income
+          - did not receive the Advance Premium Tax Credit
+          - are a bonafide resident of Puerto Rico
+          - are not required to file a full tax return for any other reason
           self_employment_income_reveal:
             content:
               list_1:
