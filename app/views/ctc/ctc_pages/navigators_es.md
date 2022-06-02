@@ -1,73 +1,85 @@
-***¿Necesita ayuda para reclamar sus beneficios fiscales?*** *Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetYourRefund.org](https://www.getyourrefund.org/es) y haga clic en "Comenzar". Si necesita ayuda, haga clic en "Chatea con nosotros".*
+***¿Necesita ayuda para reclamar sus beneficios fiscales?** Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetCTC.org](https://www.getctc.org/es) y haga clic en "Empezar". Si necesita ayuda, haga clic en "Hable con nosotros".*
 
-Cada año, millones de familias son elegibles para miles de dólares en beneficios fiscales como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo, pero no los reciben porque no han presentado una declaración de impuestos. Este año, más familias que nunca califican para estos beneficios fiscales ampliados. Puede ayudar a estas familias convirtiéndose en un Navegador de la comunidad.
+Cada año, millones de familias son elegibles para miles de dólares en beneficios fiscales como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo, pero no los reciben porque no han presentado una declaración de impuestos. **Este año, más familias que nunca califican para estos beneficios fiscales ampliados.** Puede ayudar a estas familias convirtiéndose en un Navegador de la comunidad.
 
-Los navegadores no tienen que ser expertos en impuestos. Los navegadores son guías confiables basadas en la comunidad que ayudan a las familias marginadas a acceder a información y recursos para reclamar sus beneficios elegibles.
+Este año, casi todas las familias que tienen un hijo con un SSN pueden reclamar el Crédito fiscal por hijos ampliado (CTC): hasta $3600 por hijo y hasta $1800 por hijo para las familias que recibieron pagos mensuales el año pasado. **Pero deben presentar una declaración de impuestos de 2021 para recibir su crédito completo, independientemente de si la presentaron**. Para muchas familias, usar GetCTC será la opción más fácil.
+
+**Los navegadores no tienen que ser expertos en impuestos.** Los navegadores son guías confiables basadas en la comunidad que ayudan a las familias marginadas a acceder a información y recursos para reclamar sus beneficios elegibles.
 
 Hay varias formas en que puede ayudar a las familias a acceder a sus beneficios. Depende de cada organización determinar el nivel de soporte que pueden brindar y qué sería más valioso para su público objetivo. La asistencia podría incluir:
 
 - Crear conciencia sobre los beneficios de presentar una declaración de impuestos
-- Ayudar a los clientes a acceder a los servicios en [GetYourRefund.org](https://www.getyourrefund.org/es) y otras herramientas en línea
+- Ayudar a los clientes a acceder a los servicios en [GetCTC.org](https://www.getctc.org/es) y [GetYourRefund.org](https://www.getyourrefund.org/es).
 - Ayudar a los clientes a acceder a los documentos que necesitan para presentar una declaración de impuestos
 - Proporcionar servicios de interpretación para comunidades de habla hispana y no inglesa
 
+# Recursos del Navegado
+
+Hemos creado y recopilado una serie de recursos que pueden ayudarlo a ayudar a las familias a acceder a sus beneficios. No es necesario que lea toda la información antes de comenzar. Sugerimos revisar nuestros recursos de introducción y luego usar solo los recursos más relevantes para el tipo de soporte que planea ofrecer.
+
 ## Recursos para empezar
 
-- Este año, todos los servicios de declaración de impuestos están disponibles en [GetYourRefund.org](https://www.getyourrefund.org/es). Los detalles completos sobre los servicios disponibles en GetYourRefund y la información sobre cómo los socios de divulgación pueden participar están disponibles en nuestra **[guía de la Asociación de divulgación de 2022](https://codeforamerica.org/getyourrefund-outreach) .** En la guía se incluye una descripción general de las opciones de servicio GetYourRefund 2022.
-- **[Vea esta capacitación de Navigator grabada](https://drive.google.com/file/d/169-ziuNn6H6E14DoqDD5NN8-xVw1dJjq/view?usp=sharing)** para obtener más información sobre los créditos fiscales disponibles, los servicios disponibles en [GetYourRefund.org](https://www.getyourrefund.org/es), y cómo su organización puede ayudar a las familias a acceder a sus beneficios.
-- **[Complete este formulario](https://airtable.com/shrHvPtoDS8VzSOXN) para registrarse para recibir actualizaciones y solicitar una URL única**. Para ayudarlo a rastrear la cantidad de clientes atendidos, podemos proporcionar una URL única que registrará la cantidad de personas a las que refiere GetYourRefund y la cantidad estimada de declaraciones de impuestos presentadas utilizando su URL.
-- Ayude a generar conciencia y confianza en los beneficios fiscales y GetYourRefund utilizando **[este kit de herramientas de divulgación de EITC y CTC](https://thesocialpresskit.com/ctcoutreach)**.
+- **[Complete este formulario](https://airtable.com/shrHvPtoDS8VzSOXN) para registrarse para recibir actualizaciones y solicitar una URL única**. Para ayudarlo a rastrear la cantidad de clientes atendidos, podemos proporcionar una URL única que registrará la cantidad de personas a las que refiere GetCTC y la cantidad estimada de declaraciones de impuestos presentadas utilizando su URL.
+- **[Guía de introducción de Navigator](https://codeforamerica.org/wp-content/uploads/2022/04/navigator-guide-2022.pdf)** (en inglés): En esta guía introductoria, le presentaremos el rol de Navigator, brindaremos detalles sobre los servicios disponibles en GetYourRefund y GetCTC, y algunas consideraciones al elegir la mejor opción de servicio.
+- Este año, todos los servicios de declaración de impuestos están disponibles en [GetYourRefund.org](https://www.getyourrefund.org/es) y [GetCTC.org](http://www.getctc.org/es). Los detalles completos sobre los servicios disponibles en GetCTC, GetYourRefund y la información sobre cómo los socios de divulgación pueden participar están disponibles en nuestra **[guía de la Asociación de divulgación de 2022](https://codeforamerica.org/getyourrefund-outreach) .** En la guía se incluye una descripción general de las opciones de servicio GetYourRefund 2022.
+
+
+📌 **[Obtenga ayuda durante nuestro horario de atención de extensión y navegación](https://calendly.com/coreilly-3/nonprofit-outreach-navigation-office-hours)** la mayoría de los jueves de 1 a 2 p.m., hora del este.
+
+</aside>
+
+## Información y recursos de GetCTC
+
+La herramienta de presentación simplificada de GetCTC permite a las familias que no tienen la obligación de presentar una declaración de impuestos reclamar el Crédito Tributario por Hijos y cualquier parte de su tercer pago de estímulo faltante. La herramienta estará disponible hasta mediados de noviembre.
+
+- **[Vea una breve demostración de GetCTC](https://web.archive.org/web/20211220035554/https://youtu.be/PSth7ly2QFM)**[.](https://web.archive.org/web/20211220035554/https://www.youtube.com/watch?v=nGoyN_M9SfQ) Obtenga un rápido recorrido por el portal de presentación simplificada de GetCTS. El portal es fácil de usar en el teléfono móvil, está disponible en inglés y español. Los usuarios sólo son elegibles para este servicio si sus ingresos de 2021 son menores a un determinado nivel: 12.550 dólares si declaran como solteros, o 25.100 dólares si declaran como casados.
+- **[Vea esta capacitación de Navigator grabada](https://youtu.be/YvA5xHsH6Uw)** para obtener más información sobre los créditos fiscales disponibles, los servicios disponibles en GetCTC.org, y cómo su organización puede ayudar a las familias a acceder a sus beneficios.
 - Ayudar a las familias a acceder al Crédito Tributario por Hijos nos enseñó mucho sobre lo que se necesita para encontrar y servir a los nuevos contribuyentes. **[Recopilamos nuestros aprendizajes del primer año de GetCTC.org en este informe resumido](https://codeforamerica.org/wp-content/uploads/2022/01/lessons-from-simplified-filing-in-2021-getctc-report-january-2022.pdf)**, y estamos emocionados de compartirlos con el campo para informar nuestros próximos pasos colectivos.
 
-### Actualizaciones de difusión y navegación
 
-*Para mejorar la transparencia con nuestros socios, alojaremos todas las actualizaciones futuras en esta sección de nuestra página del navegador con la fecha de publicación. A medida que se publiquen nuevas actualizaciones, los avisos anteriores estarán disponibles en un documento vinculado.*
+📌 [Lea más sobre la herramienta de este año en nuestra publicación de blog GetCTC.](https://codeforamerica.org/news/helping-families-tax-benefits-2022-filing-season/)
 
-### Temporada de presentación de impuestos de 2022 - Publicado el 2/7/2022
+</aside>
 
-La siguiente es una actualización de los planes de Code for America para la temporada de presentación de impuestos de 2022, a principios de febrero de 2022. Tenga en cuenta que estos planes podrían estar sujetos a cambios en función de los cambios de política u otros eventos externos.
+*Estén atentos para obtener más recursos del navegador GetCTC, incluida una capacitación grabada del navegador GetCTC, una guía de asistencia posterior a la presentación y una guía para resolver rechazos comunes.*
 
-- A partir del 31 de enero, [GetYourRefund.org](https://www.getyourrefund.org/es) está abierto al público. GetYourRefund actualmente brinda tres servicios para ayudar a los clientes a presentar declaraciones de impuestos completas:
+## Asistencia de Alcance
 
-    (1) **GetYourRefund Virtual VITA**, que permite a los clientes completar una admisión virtual de VITA y los conecta con un voluntario de VITA para presentar
+- [**2022 GetCTC Outreach Partnership Guide**](https://files.codeforamerica.org/2022/05/10140910/getctc-outreach-partnerships-guide-may-2022-code-for-america.pdf?_ga=2.203786896.1620481273.1652989069-1892405044.1643823539): Aprenda cómo puede ayudar a las familias de su comunidad a acceder al crédito fiscal por hijos y al estímulo a través de una presentación simplificada.
+- [**2022 GetYourRefund Outreach Partnership Guide**](https://files.codeforamerica.org/2022/02/15163444/2022-getyourrefund-outreach-partnerships-guide-code-for-america.pdf): Aprenda cómo puede ayudar a las familias de su comunidad a acceder al crédito fiscal por hijos y otros beneficios a través de nuestra guía de asociación de divulgación.
+- Ayude a generar conciencia y confianza en los beneficios fiscales y GetYourRefund utilizando **[este kit de herramientas de divulgación de EITC y CTC](https://thesocialpresskit.com/ctcoutreach)**.
+- [**Aprendizajes y recomendaciones para no declarantes**](https://files.codeforamerica.org/2021/06/16174016/filer-learnings-and-recommendations-april-2021.pdf): lea las recomendaciones de divulgación en un informe de investigación de Code for America sobre las barreras que enfrentan los no declarantes para acceder a los beneficios fiscales que merecen.
 
-    (2) **File Myself** (también conocido como autoasistencia facilitada o bricolaje), que permite a los clientes presentar sus propios archivos utilizando el software TaxSlayer, con asistencia de chat de voluntarios certificados por VITA, y
 
-    (3) Un **localizador de sitios de VITA** que los clientes pueden usar para encontrar un sitio de VITA en persona (donde esté disponible).
+📌 Las investigaciones han demostrado que las agencias de beneficios estatales y locales son una de las estrategias más efectivas para la divulgación. Si es una agencia local o estalal, visite  [codeforamerica.org/ctcoutreach](http://codeforamerica.org/ctcoutreach) para saber cómo puede ayudar con el alcance.
 
-    Cuando los clientes llegan a GetYourRefund, también se les ofrece una herramienta interactiva que les ayuda a determinar cuál de estos servicios es el mejor para ellos.
+</aside>
 
-- La presentación simplificada, similar al proceso ofrecido en [GetCTC.org](https://www.getctc.org/es) el año pasado, estará disponible en [GetYourRefund.org](https://www.getyourrefund.org/es) a finales de este año. .
-    - Esperamos lanzar la presentación simplificada en mayo de 2022. La presentación simplificada se lanzará más adelante en el año porque: (1) las regulaciones del IRS que autorizan la presentación simplificada no permiten que se presenten declaraciones simplificadas antes del 18 de abril, y (2) las reglas de presentación simplificada fueron Lanzado solo a fines de enero, y son algo más complicados de lo que esperaba Code for America. Tomará algunos meses actualizar, certificar y probar una herramienta que cumpla con los requisitos.
-    - Tras el lanzamiento, la presentación simplificada permitirá a los hogares sin obligación de declaración de impuestos reclamar el Crédito Tributario por Hijos (CTC) de 2021 y los pagos de EIP3.
-    - Si bien las normas que autorizan la presentación simplificada mencionan el Crédito Tributario por Ingreso del Trabajo (EITC), el proceso descrito para reclamar el EITC no es sencillo; requiere que los contribuyentes informen sus ingresos y proporcionen un W-2. Los contribuyentes simplificados que utilicen nuestro servicio *no* podrán reclamar el EITC cuando se inicie la presentación simplificada. Investigaremos la posibilidad de agregar la funcionalidad EITC más adelante en el año.
-    - En la actualidad, las reglas de presentación simplificadas *no* se adaptan a los residentes puertorriqueños que buscan reclamar CTC. El IRS y el Tesoro están trabajando actualmente en este tema y esperamos tener una actualización pronto.
+## ****Declarar por mi cuenta o "File Myself" en inglés****
 
-Code for America alienta a otras organizaciones y agencias gubernamentales a ayudar con los esfuerzos de divulgación para promover las herramientas de declaración de impuestos.
+Presentar una declaración de impuestos completa puede ayudar a las familias a reclamar todos sus beneficios tributarios elegibles, pero la investigación muestra que la divulgación por sí sola no es suficiente para convertir a los no declarantes en declarantes.
 
-- Alentamos a los socios que se enfocan en llegar a los que no presentan declaraciones tradicionales sin ingresos (o casi sin ingresos) a esperar hasta que la presentación simplificada esté disponible para lanzar esfuerzos significativos de divulgación. Si bien hacemos todo lo posible para brindar un servicio simplificado a los clientes de GetYourRefund, presentar una declaración completa probablemente será una barrera importante para estas familias, y es posible que tengan más suerte esperando la herramienta simplificada.
-- Los detalles completos sobre los servicios disponibles en [GetYourRefund.org](https://www.getyourrefund.org/es), y la información sobre cómo pueden participar los socios de divulgación, están disponibles **[aquí](https://codeforamerica.org/getyourrefund-outreach)**.
-- La investigación adicional sobre las mejores prácticas en el alcance de los beneficios fiscales, basada en nuestra experiencia ofreciendo una presentación simplificada en 2021, está disponible [aquí](https://codeforamerica.org/wp-content/uploads/2022/01/lessons-from-simplified-filing-in-2021-getctc-report-january-2022.pdf). Tenga en cuenta que esta investigación se basa en la presentación simplificada, no en la presentación de declaraciones de impuestos completas.
-- Como referencia, durante esta temporada de impuestos, Code for America priorizará las siguientes estrategias de divulgación:
-    - Seguimiento con los clientes de GetYourRefund y GetCTC del año pasado, incluidas pruebas para ver cuándo los clientes de GetCTC logran una devolución completa.
-    - Ejecutar anuncios de búsqueda de Google, comenzando cuando esté disponible la presentación simplificada.
-    - Alentar a las agencias de beneficios estatales y locales a enviar mensajes de divulgación a sus beneficiarios.
+La opción File Myself remite a los clientes al software de impuestos gratuito para preparar sus propios impuestos para reclamar todos los créditos federales y estatales elegibles. Hay asistencia adicional disponible a través de chat y correo electrónico.
 
-Los socios de divulgación deben ponerse en contacto con preguntas, comentarios o ideas para colaborar en [Navigators@getyourrefund.org](mailto:Navigators@getyourrefund.org)
-
-## ¡Próximamente!
-
-Estén atentos a nuestros recursos del navegador 2022. Los próximos recursos incluyen:
-
-- Configuración de un sitio de soporte de File Myself
-- Configuración de un sitio de soporte de GetYourRefund
-- Razones comunes y resoluciones para declaraciones de impuestos rechazadas
-- Guía de asistencia de documentos requeridos
-- Guía de conciliación de pagos de Adv CTC
-- ¡Y más!
-
-Asegúrese de haber completado nuestro [formulario de socio](https://airtable.com/shrHvPtoDS8VzSOXN) para recibir una notificación cuando haya nuevos recursos disponibles.
+- [**Cómo alojar un sitio de soporte de File Myself**](https://drive.google.com/file/d/15ZmeOoo5hADDGkoDKO1Mvb1Mso_EY6Yx/view): aprenda cómo puede ayudar a los clientes a acceder a este servicio configurando un sitio de soporte de File Myself. ¡El simple hecho de darle a alguien acceso a una computadora y un enlace al servicio podría marcar la diferencia!
+- [**Guía para el cliente de File Myself**](https://drive.google.com/file/d/1HHQId0wOD3h_0cHCJQfjjl-98e77MoMa/view): Brinda a los clientes consejos, mejores prácticas e instrucciones paso a paso para completar una declaración de impuestos básica utilizando la opción File Myself.
 
 ## ¿Preguntas?
 
-Envíe un correo electrónico a la asistencia del navegador de GYR a [navigators@getyourrefund.org](mailto:navigators@getyourrefund.org)
+[**Regístrese para el horario de oficina**](https://calendly.com/coreilly-3/nonprofit-outreach-navigation-office-hours) de los jueves o envíe un correo electrónico a la asistencia para navegadores de GetCTC en [navigators@getyourrefund.org](mailto:navigators@getyourrefund.org)
+
+### Actualizaciones de alcance y navegación
+
+*Para mejorar la transparencia con nuestros socios, alojaremos todas las actualizaciones futuras en esta sección de nuestra página del navegador con la fecha de publicación. Las actualizaciones anteriores se pueden encontrar en [este documento](https://docs.google.com/document/d/1IW05-RwNHh2gEVfEb1TwA59ojQE2XntfzlJm8UMW_-k/edit?usp=sharing).*
+
+### GetCTC se relanza el 11 de mayo - Publicado el 9/5/2022
+
+Estamos emocionado de compartir la noticia de que nuestra herramienta de presentación simplificada **GetCTC se relanzará públicamente el próximo miércoles 11 de mayo**. Pronto habrá más anuncios públicos, pero queríamos asegurarnos de comunicarnos con usted ahora para brindarle algunos detalles sobre lo que puede esperar.
+
+Al igual que el año pasado, **GetCTC está disponible para los hogares que no están obligados a declarar impuestos** , lo que generalmente significa que ganan menos. de $12,500 soltero o $25,000 casado, y tiene menos de $400 en ingresos de trabajo por cuenta propia. GetCTC permite a los clientes reclamar el CTC y el Crédito de reembolso de recuperación *solamente*. Debido a que la herramienta está "simplificada", los clientes no tienen que declarar ingresos ni proporcionar documentos fiscales. Esto hace que el proceso sea mucho más fácil para las familias de bajos ingresos, [como vimos el año pasado](https://codeforamerica.org/news/getctc-simplified-filing-report-2021/). Los hogares que aún no han presentado su declaración en este momento del año enfrentan grandes barreras para presentar declaraciones completas, y promover esta herramienta simplificada es la mejor oportunidad que tenemos para cerrar la brecha de cobertura de CTC y mostrar todo lo que este programa puede hacer por los más necesitados. familias
+
+Un par de limitaciones a tener en cuenta:
+
+1. **los clientes de GetCTC no pueden reclamar el EITC**, ya que las reglas de presentación simplificadas no permiten a los contribuyentes reclamar el EITC sin declarar ingresos.
+2. GetCTC **no tiene funcionalidad para declarar impuestos estatales**. (Mientras tanto, las familias que deseen acceder al EITC o a los créditos estatales pueden usar GetYourRefund, que aún está disponible).
+3. **GetCTC no está disponible actualmente para los residentes de Puerto Rico**, según las reglas de presentación simplificadas.
