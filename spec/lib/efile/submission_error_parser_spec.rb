@@ -102,15 +102,27 @@ describe Efile::SubmissionErrorParser do
         end
 
         context "with dependent association" do
+          let(:dependent) { transition.efile_submission.intake.dependents.last }
+
           before do
-            d = transition.efile_submission.intake.dependents.last
-            d.update(ssn: "142111111")
-            EfileSubmissionDependent.create(efile_submission: transition.efile_submission, dependent: d)
+            dependent.update(ssn: "142111111")
+            EfileSubmissionDependent.create(efile_submission: transition.efile_submission, dependent: dependent)
           end
 
           it "associates the efile error with the dependent specified in the FieldValueTxt if there is a match" do
             Efile::SubmissionErrorParser.new(transition).persist_errors
             expect(transition.efile_submission_transition_errors.last.dependent).to eq transition.efile_submission.qualifying_dependents.last.dependent
+          end
+
+          context "and the dependent was deleted prior to us receiving the response" do
+            before do
+              dependent.destroy
+            end
+
+            it "does not fail and does not associate a dependent with the error" do
+              Efile::SubmissionErrorParser.new(transition).persist_errors
+              expect(transition.efile_submission_transition_errors.last.dependent).to be_nil
+            end
           end
         end
       end
