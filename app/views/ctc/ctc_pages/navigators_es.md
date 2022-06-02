@@ -1,4 +1,4 @@
-***¿Necesita ayuda para reclamar sus beneficios fiscales?** Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetCTC.org](https://www.getctc.org/es) y haga clic en "Empezar". Si necesita ayuda, haga clic en "Hable con nosotros".*
+**¿Necesita ayuda para reclamar sus beneficios fiscales?** Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetCTC.org](https://www.getctc.org/es) y haga clic en "Empezar". Si necesita ayuda, haga clic en "Hable con nosotros."
 
 Cada año, millones de familias son elegibles para miles de dólares en beneficios fiscales como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo, pero no los reciben porque no han presentado una declaración de impuestos. **Este año, más familias que nunca califican para estos beneficios fiscales ampliados.** Puede ayudar a estas familias convirtiéndose en un Navegador de la comunidad.
 
@@ -55,7 +55,7 @@ La herramienta de presentación simplificada de GetCTC permite a las familias qu
 
 </aside>
 
-## ****Declarar por mi cuenta o "File Myself" en inglés****
+## ***Declarar por mi cuenta o "File Myself" en inglés***
 
 Presentar una declaración de impuestos completa puede ayudar a las familias a reclamar todos sus beneficios tributarios elegibles, pero la investigación muestra que la divulgación por sí sola no es suficiente para convertir a los no declarantes en declarantes.
 

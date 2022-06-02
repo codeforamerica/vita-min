@@ -1,4 +1,4 @@
-***Need help claiming your tax benefits?** To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to [GetCTC.org](http://GetCTC.org)* and click “Get Started.” If you need assistance, click "Chat with us."
+**Need help claiming your tax benefits?** To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to [GetCTC.org](http://GetCTC.org)* and click “Get Started.” If you need assistance, click "Chat with us."
 
 Each year millions of families are eligible for thousands of dollars in tax benefits like the Child Tax Credit and Earned Income Tax Credit, but don’t receive them because they haven’t filed a tax return. **This year, more families than ever qualify for these expanded tax benefits.** You can help these families by becoming a community navigator.
 
