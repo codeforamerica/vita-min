@@ -78,7 +78,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   end
 
   def load_current_submission
-    @submission = current_client.efile_submissions.last
+    @submission = current_client.efile_submissions.order(created_at: :asc).last
   end
 
   def redirect_if_identity_verification_needed
