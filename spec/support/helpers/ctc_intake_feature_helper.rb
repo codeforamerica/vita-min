@@ -173,12 +173,12 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
   end
 
-  def fill_in_dependents(third_stimulus_amount: "$2,800", head_of_household: false)
+  def fill_in_dependents(head_of_household: false)
     # =========== DEPENDENTS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: third_stimulus_amount))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.back')
     click_on I18n.t('general.affirmative')
 

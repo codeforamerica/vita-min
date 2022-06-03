@@ -55,7 +55,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in_can_use_ctc(filing_status: "single")
     fill_in_eligibility
     fill_in_basic_info
-    fill_in_dependents(third_stimulus_amount: "$1,400", head_of_household: true)
+    fill_in_dependents(head_of_household: true)
     fill_in_advance_child_tax_credit
     fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
     fill_in_bank_info
@@ -167,6 +167,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     # No dependents
+    click_on I18n.t('general.negative')
+
+    # No Advance CTC
+    click_on I18n.t('general.continue')
     click_on I18n.t('general.negative')
 
     # =========== RECOVERY REBATE CREDIT ===========

@@ -1,0 +1,17 @@
+<% @main_question = t("views.ctc.offboarding.actc_without_dependents.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+  <%= t("views.ctc.offboarding.actc_without_dependents.subtitle_html", current_tax_year: current_tax_year) %>
+
+  <div class="spacing-above-60">
+    <%= link_to t("views.ctc.offboarding.actc_without_dependents.file_with_gyr"),
+      offboarding_actc_without_dependents_file_with_gyr_path,
+      class: "button button--full-width text--centered spacing-above-60 button--primary" %>
+    <%= link_to t("views.ctc.offboarding.actc_without_dependents.add_more_dependents"),
+      Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token),
+      class: "button button--full-width text--centered" %>
+  </div>
+<% end %>
