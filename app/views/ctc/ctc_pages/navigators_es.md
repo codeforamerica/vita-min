@@ -1,4 +1,4 @@
-**¿Necesita ayuda para reclamar sus beneficios fiscales?** Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetCTC.org](https://www.getctc.org/es) y haga clic en "Empezar". Si necesita ayuda, haga clic en "Hable con nosotros."
+_**¿Necesita ayuda para reclamar sus beneficios fiscales?** Para obtener ayuda para reclamar el Crédito Tributario por Hijos, los pagos de estímulo, el Crédito Tributario por Ingreso del Trabajo y otros créditos, vaya a [GetCTC.org](https://www.getctc.org/es) y haga clic en "Empezar". Si necesita ayuda, haga clic en "Hable con nosotros."_
 
 Cada año, millones de familias son elegibles para miles de dólares en beneficios fiscales como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo, pero no los reciben porque no han presentado una declaración de impuestos. **Este año, más familias que nunca califican para estos beneficios fiscales ampliados.** Puede ayudar a estas familias convirtiéndose en un Navegador de la comunidad.
 
@@ -61,8 +61,8 @@ Presentar una declaración de impuestos completa puede ayudar a las familias a r
 
 La opción File Myself remite a los clientes al software de impuestos gratuito para preparar sus propios impuestos para reclamar todos los créditos federales y estatales elegibles. Hay asistencia adicional disponible a través de chat y correo electrónico.
 
-- [**Cómo alojar un sitio de soporte de File Myself**](https://drive.google.com/file/d/15ZmeOoo5hADDGkoDKO1Mvb1Mso_EY6Yx/view): aprenda cómo puede ayudar a los clientes a acceder a este servicio configurando un sitio de soporte de File Myself. ¡El simple hecho de darle a alguien acceso a una computadora y un enlace al servicio podría marcar la diferencia!
-- [**Guía para el cliente de File Myself**](https://drive.google.com/file/d/1HHQId0wOD3h_0cHCJQfjjl-98e77MoMa/view): Brinda a los clientes consejos, mejores prácticas e instrucciones paso a paso para completar una declaración de impuestos básica utilizando la opción File Myself.
+- [**Cómo alojar un sitio de soporte de File Myself**](https://codeforamerica.org/wp-content/uploads/2022/03/setting-up-a-file-myself-support-site-navigator-guide.pdf): aprenda cómo puede ayudar a los clientes a acceder a este servicio configurando un sitio de soporte de File Myself. ¡El simple hecho de darle a alguien acceso a una computadora y un enlace al servicio podría marcar la diferencia!
+- [**Guía para el cliente de File Myself**](https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf): Brinda a los clientes consejos, mejores prácticas e instrucciones paso a paso para completar una declaración de impuestos básica utilizando la opción File Myself.
 
 ## ¿Preguntas?
 

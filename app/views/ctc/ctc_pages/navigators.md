@@ -1,4 +1,4 @@
-**Need help claiming your tax benefits?** To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to [GetCTC.org](http://GetCTC.org)* and click “Get Started.” If you need assistance, click "Chat with us."
+_**Need help claiming your tax benefits?** To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to [GetCTC.org](http://GetCTC.org)* and click “Get Started.” If you need assistance, click "Chat with us."_
 
 Each year millions of families are eligible for thousands of dollars in tax benefits like the Child Tax Credit and Earned Income Tax Credit, but don’t receive them because they haven’t filed a tax return. **This year, more families than ever qualify for these expanded tax benefits.** You can help these families by becoming a community navigator.
 
@@ -57,19 +57,18 @@ Filing a full tax return can help families claim all of their eligible tax benef
 
 The File Myself option refers clients to free tax software to prepare their own taxes to claim all eligible federal and state credits. Additional assistance is available through chat and email. 
 
-- **[How to Host a File Myself Support Site](https://drive.google.com/file/d/15ZmeOoo5hADDGkoDKO1Mvb1Mso_EY6Yx/view):** Learn how you can help clients access this service by setting up a File Myself Support Site. Simply giving someone access to a computer and a link to the service could make all the difference!
-- **[File Myself Client Guide](https://drive.google.com/file/d/1HHQId0wOD3h_0cHCJQfjjl-98e77MoMa/view):** Provides clients with tips, best practices, and step-by-step instructions to complete a basic tax return using the File Myself option.
-- **[File Myself Child Tax Credit and Stimulus Only Guide](https://drive.google.com/file/d/1hfCa92uWK0kyAsj005C0-1hc2GhYB0bM/view):** Provides clients with tips, best practices, and instructions to file a simplified tax return to claim their remaining Child Tax Credit or missing third stimulus payment and have no reportable income. This option should be unnecessary once GetCTC’s simplified filing tool launches in May 2022.
+- **[How to Host a File Myself Support Site](https://codeforamerica.org/wp-content/uploads/2022/03/setting-up-a-file-myself-support-site-navigator-guide.pdf):** Learn how you can help clients access this service by setting up a File Myself Support Site. Simply giving someone access to a computer and a link to the service could make all the difference!
+- **[File Myself Client Guide](https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf):** Provides clients with tips, best practices, and step-by-step instructions to complete a basic tax return using the File Myself option.
 
 ## Questions?
 
 **[Register for Thursday office hours](https://calendly.com/coreilly-3/nonprofit-outreach-navigation-office-hours)** or email GYR navigator support at **[navigators@getyourrefund.org](mailto:Navigators@getyourrefund.org)**
 
-## Outreach and Navigation Updates
+### Outreach and Navigation Updates
 
 *To improve transparency with our partners, we will host all future updates in this section of our navigator page with the posted date. *Previous updates can be found in* [**this document**](https://docs.google.com/document/d/1KUsnQioSqPX4MnDYW83jqu2R8OtqAOYxLOS_kLqxQqM/edit?usp=sharing).* 
 
-**GetCTC Relaunches May 11 - Posted on 5/9/22**
+### GetCTC Relaunches May 11 - Posted on 5/9/22
     
 We’re excited to share the news that our simplified filing tool **GetCTC will relaunch publicly next Wednesday, May 11**. More public announcements will be forthcoming soon, but we wanted to make sure we reached out now to give you some details on what to expect
     
