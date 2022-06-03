@@ -55,6 +55,12 @@ Get the fraud indicators decryption key from lastpass, too
 echo "[secret key]" > config/fraud_indicators.key
 ```
 
+Get the fraud-gem github private access token from lastpass and add it to your bundler config
+
+```sh
+bundle config --local GITHUB__COM x-access-token:<a token for the development environment can be found in lastpass>
+```
+
 ### Add efile resources locally
 
 In development, we need to download the IRS e-file schemas zip manually from S3.

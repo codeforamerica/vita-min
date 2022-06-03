@@ -24,7 +24,7 @@ module Fraud
 
     TOO_SHORT_MESSAGE = "must have minimum length of %{count}"
     WRONG_LENGTH_MESSAGE = "must have length of %{count}"
-    validates :indicator_type, presence: true, inclusion: { in: ["missing_relationship", "duplicates", "average_under", "not_in_safelist", "in_riskylist", "execute", "equals"] }
+    validates :indicator_type, presence: true, inclusion: { in: ["missing_relationship", "duplicates", "average_under", "not_in_safelist", "in_riskylist", "execute", "equals", "gem"] }
     validates :points, presence: true
     validates :query_model_name, presence: true
     validates :list_model_name, presence: true, if: -> { indicator_type.in? ["not_in_safelist", "in_riskylist"] }
@@ -48,6 +48,19 @@ module Fraud
           bank_account: bank_account
       }.with_indifferent_access
       send(indicator_type, references)
+    end
+
+    def gem(references)
+      attribute1 = indicator_attributes[0]
+      attribute2 = indicator_attributes[1]
+      attribute3 = indicator_attributes[2]
+
+      record = scoped_records(references)
+
+      result_is_fraudy = FraudGem.new.send(name, value1: record.send(attribute1), value2: record.send(attribute2), value3: record.send(attribute3))
+      # TODO: possible add multiplier once getting answer from Gabriel
+      # points_with_multiplier = FraudGem.new.apply_multiplier?(name, record.send(attribute1)) ? points * multiplier : points
+      result_is_fraudy ? response(points_with_multiplier) : passing_response
     end
 
     def average_under(references)
