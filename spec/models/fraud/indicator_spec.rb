@@ -378,4 +378,34 @@ describe Fraud::Indicator do
       expect(fraud_indicator.execute(client: client)).to eq [12, []]
     end
   end
+
+  describe "#gem" do
+    let(:fraud_indicator) { described_class.create(name: "gem_method", points: 7, indicator_type: "gem", query_model_name: "Intake", reference: "intake", indicator_attributes: %w[bank_name primary_first_name primary_last_name]) }
+    let(:intake) { create :intake, primary_first_name: "Mickey", primary_last_name: "Mouse", bank_name: "abc inc" }
+    let(:gem_double) { double } # not using an instance double so we can obfuscate the real method name
+
+    before do
+      allow(FraudGem).to receive(:new).and_return(gem_double)
+    end
+
+    context "when the gem indicates fraud" do
+      before do
+        allow(gem_double).to receive(:gem_method).with(value1: 'abc inc', value2: 'Mickey', value3: 'Mouse').and_return(true)
+      end
+
+      it "returns points" do
+        expect(fraud_indicator.execute(intake: intake)).to eq [7, []]
+      end
+    end
+
+    context "when the gem indicates not fraud" do
+      before do
+        allow(gem_double).to receive(:gem_method).with(value1: 'abc inc', value2: 'Mickey', value3: 'Mouse').and_return(false)
+      end
+
+      it "returns no points" do
+        expect(fraud_indicator.execute(intake: intake)).to eq [0, []]
+      end
+    end
+  end
 end
