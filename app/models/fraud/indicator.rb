@@ -58,9 +58,7 @@ module Fraud
       record = scoped_records(references)
 
       result_is_fraudy = FraudGem.new.send(name, value1: record.send(attribute1), value2: record.send(attribute2), value3: record.send(attribute3))
-      # TODO: possible add multiplier once getting answer from Gabriel
-      # points_with_multiplier = FraudGem.new.apply_multiplier?(name, record.send(attribute1)) ? points * multiplier : points
-      result_is_fraudy ? response(points_with_multiplier) : passing_response
+      result_is_fraudy ? response(points) : passing_response
     end
 
     def average_under(references)
