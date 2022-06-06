@@ -61,7 +61,15 @@ jobs:
         run: heroku addons:create heroku-postgresql:hobby-dev --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
+        continue-on-error: true
+        id: add-remote
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Retry Add Heroku remote if failed while trying to close the PR and destroy the app
+        if: github.event.action == 'closed' && steps.add-remote.outcome=='failure'
+        run: |
+          sleep 10
+          heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Push to Heroku
         if: github.event.action != 'closed'
