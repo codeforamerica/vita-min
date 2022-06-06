@@ -2219,12 +2219,12 @@ es:
             - ganó menos de $400 en ingresos de trabajo por cuenta propia
             - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
             - es un residente de buena fe de Puerto Rico
-            - no está obligado a presentar una declaración completa por cualquier otro razón
+            - no está obligado a presentar una declaración completa por cualquier otra razón
             other:
             - ganaron menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $400 en ingresos de trabajo por cuenta propia
+            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
             - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-            - es un residente de buena fe de Puerto Rico
+            - son residentes de buena fe de Puerto Rico
             - no están obligado a presentar una declaración completa por cualquier otra razón
           self_employment_income_reveal:
             content:
