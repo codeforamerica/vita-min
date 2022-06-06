@@ -316,7 +316,10 @@ class Intake < ApplicationRecord
   end
 
   after_save do
-    client.update(consented_to_service_at: updated_at) if primary_consented_to_service_previously_changed?(to: "yes")
+    if primary_consented_to_service_previously_changed?(to: "yes")
+      client.update(consented_to_service_at: updated_at)
+      update(primary_consented_to_service_at: updated_at) # temporary dual-write to maintain current support for accessible_intakes
+    end
   end
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
