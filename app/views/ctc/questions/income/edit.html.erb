@@ -1,4 +1,5 @@
-<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: current_intake.default_tax_return.filing_status_single? ? 1 : 2) %>
+<% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
+<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: @filing_count) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
@@ -6,9 +7,14 @@
 
   <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
-    <% income_qual_list = current_intake.puerto_rico_filing? ? "puerto_rico_income_qualifications" : "income_qualifications" %>
-    <% t("views.ctc.questions.income.#{income_qual_list}", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
-      <li><%= income_qualifications %></li>
+    <% if current_intake.puerto_rico_filing? %>
+      <% t("views.ctc.questions.income.puerto_rico_income_qualifications", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
+        <li><%= income_qualifications %></li>
+      <% end %>
+    <% else %>
+      <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
+        <li><%= income_qualifications %></li>
+      <% end %>
     <% end %>
   </ul>
 
