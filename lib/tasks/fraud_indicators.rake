@@ -14,7 +14,6 @@ namespace :fraud_indicators do
     JSON.parse(Rails.application.encrypted('app/models/fraud/indicators.json.enc', key_path: 'config/fraud_indicators.key', env_key: 'FRAUD_INDICATORS_KEY').read).each do |indicator_attributes|
       indicator = Fraud::Indicator.find_or_initialize_by(name: indicator_attributes['name'])
 
-      puts indicator_attributes['list_model_name']
       indicator_attributes['activated_at'] = Time.zone.now unless indicator.persisted?
       indicator_attributes['query_model_name'] = indicator_attributes['query_model_name']&.constantize
       indicator.assign_attributes(indicator_attributes)
