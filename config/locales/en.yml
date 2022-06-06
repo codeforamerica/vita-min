@@ -2109,7 +2109,7 @@ en:
           info:
             filed_joint_return: This person is married and filing taxes with their spouse
             first_name: Legal first name
-            help_text: To avoid delays, please provide this person’s legal information as it is written on their identification card.
+            help_text: Enter their name exactly as it appears on their Social Security card or identification paperwork.
             last_name: Legal last name
             middle_initial: Legal middle name(s) (optional)
             relationship_to_you: What is their relationship to you?
