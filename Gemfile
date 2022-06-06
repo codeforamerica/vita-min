@@ -76,7 +76,7 @@ gem 'statesman', '~> 9.0'
 gem 'redcarpet'
 gem 'platform-api'
 gem 'strong_migrations'
-gem 'fraud-gem', git: 'https://github.com/codeforamerica/fraud-gem.git', tag: 'v1.0.0', require: ["fraud_gem"]
+gem 'fraud-gem', git: 'https://github.com/codeforamerica/fraud-gem.git', tag: 'v1.0.1', require: ["fraud_gem"]
 
 # Use Flipper for feature flagging
 gem 'flipper'

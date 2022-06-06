@@ -55,7 +55,7 @@ module Fraud
       attribute2 = indicator_attributes[1]
       attribute3 = indicator_attributes[2]
 
-      record = scoped_records(references).first # are we guaranteed there will always be exactly one?
+      record = scoped_records(references).first
 
       result_is_fraudy = FraudGem.new.send(name, value1: record.send(attribute1), value2: record.send(attribute2), value3: record.send(attribute3))
       result_is_fraudy ? response(points) : passing_response
