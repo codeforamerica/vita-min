@@ -17,7 +17,6 @@ module Questions
       if current_intake.primary_consented_to_service_at.blank?
         current_intake.update(
           primary_consented_to_service_ip: request.remote_ip,
-          primary_consented_to_service_at: DateTime.current,
           primary_consented_to_service: "yes"
         )
       end
