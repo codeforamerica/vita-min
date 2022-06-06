@@ -29,7 +29,11 @@ describe "fraud_indicators:update" do
 
     context "with the variable --preview" do
       before do
-        ARGV.replace ["fraud_indicators:update", "--preview"]
+        ARGV.replace ["fraud_indicators:update", "preview"]
+      end
+
+      after do
+        ARGV.replace ["fraud_indicators:update"]
       end
 
       it "does not create a new indicator" do
@@ -38,13 +42,26 @@ describe "fraud_indicators:update" do
 
       it "outputs the expected changes" do
         expected_output = {"description"=>nil, "indicator_attributes"=>["attribute1", "attribute2", "attribute3"], "indicator_type"=>"gem", "list_model_name"=>nil, "multiplier"=>0.0, "name"=>"pretend_indicator", "points"=>10, "query_model_name"=>"Intake", "reference"=>"intake", "threshold"=>nil}
-        expect { task.invoke }.to output("adds: #{expected_output}").to_stdout
+        expect { task.invoke }.to output("adds: #{expected_output}\n").to_stdout
       end
     end
   end
 
   context "with the same indicator name but different attributes" do
-    let!(:existing_indicator) { create(:fraud_indicator, name: "pretend_indicator", points: 30) }
+    let!(:existing_indicator) do
+      create(:fraud_indicator,
+             name: "pretend_indicator",
+             indicator_type: "gem",
+             query_model_name: "Intake",
+             threshold: nil,
+             reference: "intake",
+             list_model_name: nil,
+             indicator_attributes: %w[attribute1 attribute2 attribute3],
+             points: 30, #this is the only line that is being changed
+             multiplier: 0,
+             description: nil
+      )
+    end
 
     it "does not create a new indicator" do
       expect { task.invoke }.to change { Fraud::Indicator.count }.by(0)
@@ -58,9 +75,13 @@ describe "fraud_indicators:update" do
       expect { task.invoke }.not_to change { Fraud::Indicator.last.activated_at }
     end
 
-    context "with the variable --preview" do
+    context "with the variable preview" do
       before do
         ARGV.replace ["fraud_indicators:update", "--preview"]
+      end
+
+      after do
+        ARGV.replace ["fraud_indicators:update"]
       end
 
       it "does not update the indicator" do
@@ -68,7 +89,43 @@ describe "fraud_indicators:update" do
       end
 
       it "outputs the expected changes" do
-        expect { task.invoke }.to output('updates: { points => 10 }').to_stdout
+        expected_output = {"points" => [30, 10]}
+        expect { task.invoke }.to output("updates: #{expected_output}\n").to_stdout
+      end
+    end
+  end
+
+  context "with no changes" do
+    let!(:existing_indicator) do
+      create(:fraud_indicator,
+             name: "pretend_indicator",
+             indicator_type: "gem",
+             query_model_name: "Intake",
+             threshold: nil,
+             reference: "intake",
+             list_model_name: nil,
+             indicator_attributes: %w[attribute1 attribute2 attribute3],
+             points: 10,
+             multiplier: 0,
+             description: nil
+      )
+    end
+
+    context "with the variable preview" do
+      before do
+        ARGV.replace ["fraud_indicators:update", "preview"]
+      end
+
+      after do
+        ARGV.replace ["fraud_indicators:update"]
+      end
+
+      it "does not update the indicator" do
+        expect { task.invoke }.not_to change { Fraud::Indicator.last.points }
+      end
+
+      it "outputs nothing" do
+        expect { task.invoke }.to output("").to_stdout
       end
     end
   end
