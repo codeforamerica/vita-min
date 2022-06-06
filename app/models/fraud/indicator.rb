@@ -34,6 +34,7 @@ module Fraud
     validates :threshold, numericality: true, if: -> { indicator_type.in? ["average_under", "duplicates"] }
     validates :indicator_attributes, length: { is: 1, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["average_under", "not_in_safelist", "in_riskylist", "missing_relationship"] }
     validates :indicator_attributes, length: { is: 2, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["equals"] }
+    validates :indicator_attributes, length: { is: 3, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["gem"] }
     validates :indicator_attributes, length: { minimum: 1, too_short: TOO_SHORT_MESSAGE }, if: -> { indicator_type.in? ["duplicates"] }
     validates :multiplier, presence: true, if: -> { indicator_type.in? ["duplicates"] }
 

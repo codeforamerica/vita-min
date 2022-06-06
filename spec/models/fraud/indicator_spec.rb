@@ -407,5 +407,16 @@ describe Fraud::Indicator do
         expect(fraud_indicator.execute(intake: intake)).to eq [0, []]
       end
     end
+
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = described_class.new(indicator_type: "gem")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 3"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
+    end
   end
 end
