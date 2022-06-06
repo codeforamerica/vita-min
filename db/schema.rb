@@ -571,20 +571,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_183453) do
     t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
-  create_table "contents", force: :cascade do |t|
-    t.datetime "activated_at", precision: nil
-    t.string "category"
-    t.datetime "created_at", null: false
-    t.boolean "is_faq"
-    t.string "name"
-    t.string "pathname"
-    t.text "subtitle_en"
-    t.text "subtitle_es"
-    t.text "title_en"
-    t.text "title_es"
-    t.datetime "updated_at", null: false
-  end
-
   create_table "ctc_intake_capacities", force: :cascade do |t|
     t.integer "capacity", null: false
     t.datetime "created_at", null: false
