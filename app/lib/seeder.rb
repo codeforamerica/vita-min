@@ -239,7 +239,7 @@ class Seeder
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
       primary_consented_to_service_at: DateTime.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
     va1_client = intake_for_verification_attempt_1.client
@@ -257,7 +257,7 @@ class Seeder
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
       primary_consented_to_service_at: DateTime.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
     va2_client = intake_for_verification_attempt_2.client
     efile_submission = va2_client.efile_submissions.last || va2_client.tax_returns.last.efile_submissions.create
@@ -275,7 +275,7 @@ class Seeder
         primary_first_name: "RestrictedVerifier",
         primary_last_name: "Smith",
         primary_consented_to_service_at: DateTime.current,
-        tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+        tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
     verifying_with_restricted_intake.client.touch(:restricted_at)
