@@ -75,6 +75,10 @@ jobs:
         if: github.event.action == 'opened'
         run: heroku run rails heroku:review_app_setup
 
+      - name: Start the worker process
+        if: github.event.action == 'opened'
+        run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
+
       - name: Add comment to PR
         if: github.event.action == 'opened'
         run: |
