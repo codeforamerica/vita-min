@@ -318,7 +318,6 @@ class Intake < ApplicationRecord
   after_save do
     if primary_consented_to_service_previously_changed?(to: "yes")
       client.update(consented_to_service_at: updated_at)
-      update(primary_consented_to_service_at: updated_at) # temporary dual-write to maintain current support for accessible_intakes
     end
   end
 
@@ -365,7 +364,7 @@ class Intake < ApplicationRecord
     }
   }
 
-  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
+  scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
 
   def duplicates
     return itin_duplicates if itin_applicant?

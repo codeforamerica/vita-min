@@ -280,7 +280,7 @@ require "rails_helper"
 describe Intake::GyrIntake do
   describe ".accessible_intakes" do
     context "a consented intake" do
-      let!(:intake) { create :intake, primary_consented_to_service_at: DateTime.now }
+      let!(:intake) { create :intake, primary_consented_to_service: "yes" }
       it "appears as an accessible intake" do
         expect(described_class.accessible_intakes).to include intake
       end
