@@ -7,6 +7,13 @@ GIT
       encryptor (~> 3.0.0)
 
 GIT
+  remote: https://github.com/codeforamerica/fraud-gem.git
+  revision: 9cfffdda2cccbaea8f2bb3663a6f7f117f3fabad
+  tag: v1.0.2
+  specs:
+    fraud-gem (1.0.2)
+
+GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
   revision: 4c6f873f55704ec34fd518906f131133b290e56a
   ref: 4c6f873f55704ec34fd518906f131133b290e56a
@@ -671,6 +678,7 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
+  fraud-gem!
   git-pair
   guard-rspec
   http_accept_language
