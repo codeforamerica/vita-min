@@ -36,14 +36,16 @@ RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
  && rm -f /tmp/openjdk.tar.gz
 ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 
+ADD . /app
 WORKDIR /app
 ADD package.json yarn.lock /app/
 RUN NODE_ENV=production yarn install --frozen-lockfile
 ADD .ruby-version Gemfile Gemfile.lock /app/
-RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
- && bundle install --without test development
 
-ADD . /app
+RUN set -a \
+    && . ./.aptible.env \
+    && gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
+    && bundle install --without test development
 
 # Add IRS e-file schemas, which are not in the git repo
 RUN set -a \
