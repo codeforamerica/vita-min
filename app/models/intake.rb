@@ -315,6 +315,12 @@ class Intake < ApplicationRecord
     self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
   end
 
+  after_save do
+    if primary_consented_to_service_previously_changed?(to: "yes")
+      client.update(consented_to_service_at: updated_at)
+    end
+  end
+
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -358,13 +364,18 @@ class Intake < ApplicationRecord
     }
   }
 
-  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
+  scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
 
   def duplicates
     return itin_duplicates if itin_applicant?
     return self.class.none unless hashed_primary_ssn.present?
 
     DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+  end
+
+  # TODO: Delegate to client once backfill is run
+  def primary_consented_to_service_at
+    client.consented_to_service_at || read_attribute(:primary_consented_to_service_at)
   end
 
   def irs_language_preference_code

@@ -62,12 +62,15 @@ describe Ctc::Questions::LegalConsentController do
       it "persists information about consenting to service" do
         expect(intake.primary_consented_to_service_at).to eq nil
         expect(intake.primary_consented_to_service_ip).to eq nil
+        expect(intake.client.consented_to_service_at).to eq nil
 
         post :update, params: params
 
-        expect(intake.reload.primary_consented_to_service_at).to be_present
+        intake.reload
         expect(intake.primary_consented_to_service).to eq "yes"
         expect(intake.primary_consented_to_service_ip).to be_present
+        expect(intake.primary_consented_to_service_at).to be_present
+        expect(intake.client.consented_to_service_at).to eq intake.primary_consented_to_service_at
       end
     end
   end

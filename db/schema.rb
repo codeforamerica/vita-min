@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_161533) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_06_183453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -506,6 +506,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_161533) do
   create_table "clients", force: :cascade do |t|
     t.datetime "attention_needed_since", precision: nil
     t.datetime "completion_survey_sent_at", precision: nil
+    t.datetime "consented_to_service_at"
     t.datetime "created_at", null: false
     t.datetime "ctc_experience_survey_sent_at", precision: nil
     t.integer "ctc_experience_survey_variant"
@@ -536,6 +537,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_161533) do
     t.datetime "triggered_still_needs_help_at", precision: nil
     t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
+    t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
     t.index ["login_token"], name: "index_clients_on_login_token"

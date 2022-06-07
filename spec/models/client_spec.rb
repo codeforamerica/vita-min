@@ -5,6 +5,7 @@
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
 #  completion_survey_sent_at                :datetime
+#  consented_to_service_at                  :datetime
 #  ctc_experience_survey_sent_at            :datetime
 #  ctc_experience_survey_variant            :integer
 #  current_sign_in_at                       :datetime
@@ -38,6 +39,7 @@
 #
 # Indexes
 #
+#  index_clients_on_consented_to_service_at         (consented_to_service_at)
 #  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
 #  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
 #  index_clients_on_login_token                     (login_token)
@@ -645,21 +647,20 @@ describe Client do
 
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
-    let(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
-    let(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
-    let(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
+    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "drop_off")] }
-    let(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: nil), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let!(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let!(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let!(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
 
     context "GYR client" do
       let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
-
         it "returns accessible CTC clients with the same ssn" do
           expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
           expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
@@ -668,7 +669,6 @@ describe Client do
 
       context "looking for GYR matches" do
         let(:display_type) { Intake::GyrIntake }
-
         it "returns accessible GYR clients with the same ssn" do
           expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
           expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)
