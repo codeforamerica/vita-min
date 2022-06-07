@@ -150,6 +150,7 @@ jobs:
     steps:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
+      - run: echo BUNDLE_GITHUB__COM=$BUNDLE_GITHUB__COM >> ~/.aptible.env
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
     parallelism: 1
