@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_06_183453) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_193139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -569,6 +569,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_183453) do
     t.datetime "use_consented_at", precision: nil
     t.string "user_agent"
     t.index ["client_id"], name: "index_consents_on_client_id"
+  end
+
+  create_table "contents", force: :cascade do |t|
+    t.datetime "activated_at", precision: nil
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.boolean "is_faq"
+    t.string "name"
+    t.string "pathname"
+    t.text "subtitle_en"
+    t.text "subtitle_es"
+    t.text "title_en"
+    t.text "title_es"
+    t.datetime "updated_at", null: false
   end
 
   create_table "ctc_intake_capacities", force: :cascade do |t|
@@ -1207,6 +1221,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_183453) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
