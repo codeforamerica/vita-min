@@ -6,11 +6,18 @@ class Irs8812Ty2021Pdf
   end
 
   def initialize(submission)
+    @full_names = [submission.intake.primary_full_name]
+    @ssn = submission.intake.primary_ssn
+    if submission.tax_return.filing_jointly?
+      @full_names << submission.intake.spouse_full_name
+    end
     @xml_document = SubmissionBuilder::Ty2021::Documents::Schedule8812.new(submission).document
   end
 
   def hash_for_pdf
     {
+      FullPrimaryName: @full_names.join(', '),
+      PrimarySSN: @ssn,
       AdjustedGrossIncomeAmt1: @xml_document.at("AdjustedGrossIncomeAmt")&.text, # 1
       PRExcludedIncomeAmt2a: @xml_document.at("ExcldSect933PuertoRicoIncmAmt")&.text, # 2a
       GrossIncomeExclusionAmt2c: @xml_document.at("GrossIncomeExclusionAmt")&.text, # 2c
