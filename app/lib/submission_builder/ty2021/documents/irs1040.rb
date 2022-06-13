@@ -32,7 +32,11 @@ module SubmissionBuilder
             xml.OtherDependentsListedCnt qualifying_dependents.count { |qd| qd.qualifying_relative? }
 
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
-            xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # line 12a in 2021v5.2/IndividualIncomeTax/Ind1040/IRS1040/IRS1040.xsd
+            if intake.home_location_puerto_rico?
+              xml.TotalItemizedOrStandardDedAmt 0, {modifiedStandardDeductionInd: 'SECT 933'}
+            else
+              xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction
+            end
             xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
             xml.TotalDeductionsAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 14
             xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
