@@ -134,9 +134,10 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         submission.intake.update(home_location: :puerto_rico)
       end
 
-      it "leaves certain fields blank" do
+      it "leaves certain fields blank and puts a special attribute on standard deduction amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-        expect(xml.at("TotalItemizedOrStandardDedAmt")).to be_nil
+        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq("0")
+        expect(xml.at("TotalItemizedOrStandardDedAmt").attributes['modifiedStandardDeductionInd'].value).to eq('SECT 933')
         expect(xml.at("TotDedCharitableContriAmt")).to be_nil
         expect(xml.at("TotalDeductionsAmt")).to be_nil
         expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
