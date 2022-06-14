@@ -2019,7 +2019,7 @@ es:
           title: "¿Cuál es la mejor manera de comunicarnos con usted?"
         dependents:
           child_can_be_claimed_by_other:
-            help_text: Si otra persona también se ocupa de %{name}, solo uno de ustedes puede reclamarlos para obtener beneficios fiscales. Lo guiaremos a través de los pasos para determinar si puede reclamarlos o no.
+            help_text: Si otra persona también cuida a %{name}, solo uno de ustedes puede reclamarlo para obtener beneficios fiscales. Lo guiaremos a través de los pasos para determinar si puede reclamarlo o no.
             title: "¿Es usted la única persona que pudiera reclamar a %{name}?"
           child_claim_anyway:
             help_text:
@@ -2032,13 +2032,13 @@ es:
               p1: Solo un padre biológico, o un padre de acogida o adoptivo que esté cuidando legalmente a un niño es elegible para reclamar a un dependiente.
               p2: Cuidar a un niño en base a un acuerdo informal no lo califica legalmente como “padre”.
               title: "¿Qué es un padre legal?"
-            no_claim: No, no reclames %{dependent_name}
+            no_claim: No, no reclame a %{dependent_name}
             not_legal_parent_reveal:
               p1: Si usted no es el padre de %{name} y la otra persona que podría reclamar a %{name} tampoco es su padre, el cuidador que ganó más dinero en %{current_tax_year} puede reclamar a %{name}.
               p2: Si usted no es el padre de %{name}, y la otra persona que podría reclamar a %{name} es su padre, no puede reclamarlos.
               title: "¿Qué pasa si no soy su padre legal?"
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
-            yes_claim: Si, reclames %{dependent_name}
+            yes_claim: Sí, reclame a %{dependent_name}
           child_expenses:
             title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_qualifiers:
@@ -2071,7 +2071,7 @@ es:
               - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
               p1: "¿Quién cuenta como hijo de acogida?"
               p2: "¿Qué pasa si tengo un hijo adoptado?"
-            title: "¿Mi hijo califica?"
+            title: "¿Mi niño califica?"
           does_not_qualify_ctc:
             conditions:
             - La persona que intenta declarar podría haber nacido en %{filing_year}. Sólo puede declarar a  dependientes nacidos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
@@ -2098,7 +2098,7 @@ es:
           relative_member_of_household:
             title: "¿Vivió %{name} con usted durante todo el año en %{current_tax_year}?"
           relative_qualifiers:
-            claimable: "%{name} no vivió con ninguna otra persona que pudiera declararlos."
+            claimable: "%{name} no vivió con ninguna otra persona que pudiera declararlo."
             gross_income_reveal:
               content: El "ingreso bruto" generalmente incluye todos los ingresos recibidos durante el año, incluidos los ingresos ganados y no ganados. Los ejemplos incluyen salarios, dinero en efectivo de su propio negocio o trabajo adicional, ingresos por desempleo o ingresos del Seguro Social.
               title: "¿Qué es el ingreso bruto?"
@@ -2131,7 +2131,7 @@ es:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
+          help_text1: Puede beneficiarse de presentar una declaración de impuestos (o planilla federal) completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           reveal:
             body_html:
@@ -2158,7 +2158,7 @@ es:
           title: "¿Cómo desea presentar su declaración de impuestos?"
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
-          title: "¿Desea agregar un hijo u otra persona a la que haya mantenido en el %{current_tax_year}?"
+          title: "¿Desea agregar un niños u otra persona a la que haya mantenido en el %{current_tax_year}?"
           which_relationships_qualify_reveal:
             content:
             - Hijo
@@ -2198,7 +2198,7 @@ es:
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         income:
           income_qualifications:
-          - ha ganado menos de %{standard_deduction} en ingresos totales
+          - ganó menos de %{standard_deduction} en ingresos totales
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
           - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
           - no está obligado a presentar una declaración completa por cualquier otra razón
@@ -2260,7 +2260,7 @@ es:
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
-          body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN en inglés).
+          body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN).
           first_name: Primer nombre legal
           form_of_identity: Forma de identidad
           last_name: Apellido legal
@@ -2286,7 +2286,7 @@ es:
           reveal_label: "¿Qué tal si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
         main_home:
-          help_text: Su hogar principal es un lugar donde permaneció más de la mitad del año fiscal.
+          help_text: Su hogar principal es un lugar donde permaneció más de la mitad del año tributario.
           options:
             fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección fuera de los Estados Unidos
@@ -2331,7 +2331,7 @@ es:
           cannot_use_ctc: No puedo usar GetCTC
           list:
           - en los últimos 10 años se le ha prohibido solicitar el Crédito Tributario por Hijos (Niños), lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de solicitar el Crédito Tributario por Hijos (Niños).
-          - Usted desea presentar con el formulario 8332 para declarar a un hijo que no vive con usted
+          - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
           - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
           - usted no reclama ningunos hijos por el Crédito Tributario por Hijos (Niños) este año, pero recibió pagos adelantados del Crédito Tributario por Hijos (Niños) en %{current_tax_year}
           - compró o vendió criptomoneda en %{current_tax_year}
@@ -2445,7 +2445,7 @@ es:
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
       shared:
-        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto es poco común)
+        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto es raro)
     ctc_pages:
       california_benefits:
         compare_benefits:
@@ -2598,7 +2598,7 @@ es:
         title: Reclame su Crédito Tributario por Hijos
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
-          heading: Crédito Tributario por Hijo
+          heading: La mayoría de las familias pueden obtener miles de dólares del Crédito Tributario por Hijos
           how_much_reveal:
             body_html: |
               <p>El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.</p>
@@ -2607,7 +2607,7 @@ es:
             title: "¿Cuánto recibiré?"
           qualify_reveal:
             body: Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
-            title: "¿Califican mis hijos?"
+            title: "¿Califican mis niños?"
       navigators:
         help_text: Orientación para navegadores comunitarios que ayudan a clientes difíciles de alcanzar a acceder a sus beneficios tributario.
         title: Recursos de extensión y navegador de GetCTC
