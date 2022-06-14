@@ -2171,14 +2171,20 @@ en:
           help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
-          married_filing_jointly: Married Filing Jointly
-          reveal_body_html: |
-            If you usually file Head of Household, select “Single” for the purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
-
-            If you are married and want to file Married Filing Separately, you cannot use this tool. You can file for free at <a href="https://www.getyourrefund.org/ctc-married-filing-separately">GetYourRefund.org</a>.
-          reveal_title: I normally file with a different status
-          single: Single
-          title: How would you like to file your tax return?
+          irs_reveal:
+            body_html: |
+              According to the IRS, you are <b>not</b> married for a tax year if:
+              <ul class="list--bulleted">
+              <li>You were never married, OR You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
+              </ul>
+            title: Does the IRS consider me to be married?
+          mfs_reveal:
+            body: The only filing options for a simplified return are married and single. If you are legally married, you have to say Yes and file jointly with your spouse. If you are not married, file single and say No.
+            title: What if I’m married but want to file without my spouse?
+          spouse_died_reveal:
+            body: Select Yes, and you’ll file with your deceased spouse.
+            title: What if my spouse died last year?
+          title: Are you married?
         had_dependents:
           help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
           title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
