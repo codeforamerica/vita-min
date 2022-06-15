@@ -4,6 +4,7 @@ describe Ctc::Questions::LegalConsentController do
   let(:intake) { create :ctc_intake, visitor_id: "visitor-id" }
 
   before do
+    intake.client.update(consented_to_service_at: nil)
     allow(MixpanelService).to receive(:send_event)
     session[:intake_id] = intake.id
     allow(controller).to receive(:verify_recaptcha).and_return(true)

@@ -91,7 +91,7 @@ class Client < ApplicationRecord
   end
 
   delegate *delegated_intake_attributes, to: :intake
-  scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where.not(current_state: "intake_before_consent")) }
+  scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :greetable, -> do
     greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
     distinct.joins(:tax_returns).where(tax_returns: { current_state: greeter_statuses })

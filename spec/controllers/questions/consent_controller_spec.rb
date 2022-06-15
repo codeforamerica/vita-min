@@ -6,6 +6,7 @@ RSpec.describe Questions::ConsentController do
   let!(:routing_double) { double(routing_method: "zip_code", determine_partner: (create :organization) ) }
 
   before do
+    client.update(consented_to_service_at: nil)
     allow(subject).to receive(:current_intake).and_return(intake)
     allow(PartnerRoutingService).to receive(:new).and_return(routing_double)
   end

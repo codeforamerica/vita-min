@@ -586,7 +586,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil, intake: create(:intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
@@ -609,7 +609,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil,  intake: create(:ctc_intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)

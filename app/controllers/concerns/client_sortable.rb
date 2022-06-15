@@ -24,7 +24,7 @@ module ClientSortable
                 @clients.after_consent
               end
     # Force an inner join to `intakes` to exclude clients from previous years
-    clients = clients.joins(:intake)
+    clients = clients.distinct.joins(:intake)
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where(tax_returns: { current_state: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
