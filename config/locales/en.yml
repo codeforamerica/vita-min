@@ -2169,6 +2169,11 @@ en:
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal or GetCTC
           help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
+          pr:
+            did_not_file: No, I didn’t file a 2020 IRS tax return
+            filed_full: Yes, I filed an IRS tax return
+            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filled with Hacienda.'
+            title: Did you file a %{prior_tax_year} federal tax return with the IRS?
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           irs_reveal:

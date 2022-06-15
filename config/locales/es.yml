@@ -2146,6 +2146,11 @@ es:
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
+          pr:
+            did_not_file: No, no presenté una declaración de impuestos del IRS de 2020
+            filed_full: Sí, presenté una declaración de impuestos del IRS
+            note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
+            title: "¿Presentaste una declaración de impuestos federales de %{prior_tax_year} ante el IRS?"
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           irs_reveal:
