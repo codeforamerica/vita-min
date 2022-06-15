@@ -2148,14 +2148,20 @@ es:
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
-          married_filing_jointly: Casado Presentando Conjunta
-          reveal_body_html: |
-            Si por lo general presenta la declaración como jefe de familia, seleccione “Soltero” para los fines de esta declaración de impuestos. Seleccionar "Soltero" no afectará la cantidad de beneficios fiscales que puede reclamar.
-
-            Si está casado y desea presentar la declaración de Casado Por Separado, no puede usar esta herramienta. Puede presentar su solicitud de forma gratuita en <a href="https://www.getyourrefund.org/ctc-married-filing-separately">GetYourRefund.org</a>.
-          reveal_title: Usualmente declaro impuestos con otro estado civil
-          single: Soltero
-          title: "¿Cómo desea presentar su declaración de impuestos?"
+          irs_reveal:
+            body_html: |
+              De acuerdo con el IRS, usted <b>no</b> está casado durante un año fiscal si:
+              <ul class="list--bulleted">
+                <li>Nunca estuvo casado, O Estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              </ul>
+            title: "¿El IRS me considera casado?"
+          mfs_reveal:
+            body: Las únicas opciones de presentación para una planilla simplificada son casado y soltero. Si está legalmente casado, debe decir Sí y presentar una declaración conjunta con su cónyuge. Si no está casado, presente la solicitud como soltero y diga No.
+            title: "¿Qué sucede si estoy casado pero quiero presentar la solicitud sin mi cónyuge?"
+          spouse_died_reveal:
+            body: Seleccione Sí, y lo presentará con su cónyuge fallecido.
+            title: "¿Qué pasa si mi cónyuge murió el año pasado?"
+          title: "¿Estás casado?"
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
           title: "¿Desea agregar un niños u otra persona a la que haya mantenido en el %{current_tax_year}?"

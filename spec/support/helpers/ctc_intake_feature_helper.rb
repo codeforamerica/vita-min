@@ -17,8 +17,11 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t("views.ctc.questions.filing_status.#{filing_status}")
-    click_on I18n.t('general.continue')
+    if married_filing_jointly
+      click_on I18n.t('general.affirmative')
+    else
+      click_on I18n.t('general.negative')
+    end
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do

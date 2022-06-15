@@ -32,8 +32,7 @@ module NavigationHelpers
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t('general.filing_status.single')
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.negative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     click_on I18n.t('general.continue')
