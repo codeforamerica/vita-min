@@ -278,6 +278,8 @@
 #
 
 class Intake < ApplicationRecord
+  self.ignored_columns = ["primary_consented_to_service_at"]
+
   include PgSearch::Model
 
   def self.searchable_fields
