@@ -2316,7 +2316,7 @@ es:
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
           help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos (Niños) y su pago de estímulo.
-          legal_warning: Está a punto de presentar una declaración de impuestos (o planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+          legal_warning: Está a punto de presentar una declaración de impuestos (o como se refiere en Puerto Rico, radicación de planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
