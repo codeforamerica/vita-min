@@ -205,6 +205,12 @@ es:
       hub:
         communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
+      mailing_address:
+        city: 'Error: ciudad no válida'
+        state: 'Error: código de estado no válido'
+        multiple: "Error: se encontraron varias direcciones para la información que ingresó y no existe ninguna predeterminada."
+        not_found: "Error: dirección no encontrada."
+        invalid: "Error: dirección no válida."
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
@@ -2283,6 +2289,7 @@ es:
           help_text: Por lo general, alguien puede reclamar a usted como dependiente si son un miembro de su familia, usted vivió con él/ella la mayor parte del año y ellos pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
+          error_notice: "¡Ay, no! No pudimos procesar su dirección. Actualice la información que ingresó."
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
             <br/>

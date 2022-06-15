@@ -5,6 +5,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
+
   context "when we have not launched puerto rico intake" do
     before do
       allow(Flipper).to receive(:enabled?).and_return false

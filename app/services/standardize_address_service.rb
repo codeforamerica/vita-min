@@ -5,7 +5,7 @@ require 'uri'
 # as that violates the terms of agreement with USPS and will result in access being revoked.
 class StandardizeAddressService
   def initialize(intake)
-    @_street_address = [intake.street_address, intake.street_address2].join(" ")
+    @_street_address = [intake.street_address, intake.street_address2].map(&:presence).compact.join(" ")
     @_city = intake.city
     @_state = intake.state
     @_zip_code = intake.zip_code
