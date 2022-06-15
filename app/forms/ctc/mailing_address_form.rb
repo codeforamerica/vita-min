@@ -1,7 +1,6 @@
 module Ctc
   class MailingAddressForm < QuestionsForm
     set_attributes_for :intake, :street_address, :street_address2, :state, :city, :zip_code
-    set_attributes_for :misc, :address_not_found
 
     validates_presence_of :street_address
     validates_presence_of :city
@@ -19,6 +18,7 @@ module Ctc
       }
       @intake.update(attrs)
     rescue => e
+      Sentry.capture_message("Error during USPS validation: #{e}")
       @intake.update(attributes_for(:intake))
     end
 

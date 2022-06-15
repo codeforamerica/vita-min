@@ -107,6 +107,13 @@ describe Ctc::MailingAddressForm do
         form = described_class.new(intake, params)
         expect(form).to be_valid
       end
+
+      it "sends a message to Sentry" do
+        allow(Sentry).to receive(:capture_message)
+        form = described_class.new(intake, params)
+        form.save
+        expect(Sentry).to have_received(:capture_message).with("Error during USPS validation: StandardError")
+      end
     end
   end
 
