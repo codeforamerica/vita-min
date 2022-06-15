@@ -154,7 +154,6 @@
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
-#  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
@@ -262,7 +261,7 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
-#  index_intakes_on_primary_consented_to_service_at        (primary_consented_to_service_at)
+#  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
@@ -279,7 +278,6 @@
 
 class Intake < ApplicationRecord
   self.ignored_columns = ["primary_consented_to_service_at"]
-
   include PgSearch::Model
 
   def self.searchable_fields
