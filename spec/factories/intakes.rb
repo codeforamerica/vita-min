@@ -552,7 +552,7 @@ FactoryBot.define do
 
   factory :intake, class: Intake::GyrIntake do
     had_wages { :unfilled }
-    client
+    client { create :client, consented_to_service_at: nil }
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
     current_step { "/en/questions/overview" }

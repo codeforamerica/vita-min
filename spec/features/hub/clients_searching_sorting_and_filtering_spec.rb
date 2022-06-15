@@ -127,7 +127,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
-
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 3
 
@@ -161,6 +160,8 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           click_link "Clear"
         end
+        expect(page).to have_select("status", selected: "")
+
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 5
         end

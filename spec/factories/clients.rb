@@ -51,6 +51,7 @@
 #
 FactoryBot.define do
   factory :client do
+    consented_to_service_at { DateTime.current }
     efile_security_informations { [build(:efile_security_information)] }
 
     trait :with_return do
