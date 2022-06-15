@@ -7,6 +7,7 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+              hello: change
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
