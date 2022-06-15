@@ -21,13 +21,15 @@ describe F15080VitaConsentToDisclosePdf do
 
     context "with a consented intake record" do
       let(:intake) do
-        create :intake,
-               primary_first_name: "Oscar",
-               primary_last_name: "Orange",
-               primary_consented_to_service_at: DateTime.new(2020, 4, 15),
-               spouse_consented_to_service_at: DateTime.new(2020, 4, 17),
-               spouse_first_name: "Owen",
-               spouse_last_name: "Orange"
+        Timecop.freeze(Date.new(2020, 4, 15)) do
+          create :intake,
+                 primary_first_name: "Oscar",
+                 primary_last_name: "Orange",
+                 primary_consented_to_service: "yes",
+                 spouse_first_name: "Owen",
+                 spouse_last_name: "Orange",
+                 spouse_consented_to_service_at: Date.new(2020, 4, 17)
+        end
       end
       it "returns a filled out pdf" do
         consent_pdf = described_class.new(intake)

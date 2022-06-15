@@ -288,7 +288,7 @@ describe Intake::GyrIntake do
     end
 
     context "not consented intakes" do
-      let!(:intake) { create :intake, primary_consented_to_service_at: nil }
+      let!(:intake) { create :intake, primary_consented_to_service: "unfilled" }
       it "are not present in the accessible intakes" do
         expect(described_class.accessible_intakes).not_to include intake
       end
@@ -345,7 +345,7 @@ describe Intake::GyrIntake do
 
       context "when there is another accessible intake with the same ssn" do
         let!(:dupe) {
-          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_consented_to_service_at: 15.minutes.ago, primary_ssn: "123456789")), service_type: "drop_off").intake
+          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
         }
         let(:intake) { create :intake, primary_ssn: "123456789" }
         it "returns that as a duplicate" do

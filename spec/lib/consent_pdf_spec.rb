@@ -34,22 +34,24 @@ RSpec.describe ConsentPdf do
 
     context "with a complete intake record" do
       let(:intake) do
-        create :intake,
-           primary_first_name: "Oscar",
-           primary_last_name: "Orange",
-           primary_consented_to_service_at: DateTime.new(2020, 4, 15),
-           primary_consented_to_service_ip: "127.0.0.1",
-           primary_last_four_ssn: "5555",
-           primary_birth_date: Date.new(1955, 9, 4),
-           phone_number: "+14158161286",
-           email_address: "me@oscar.orange",
-           spouse_first_name: "Owen",
-           spouse_last_name: "Orange",
-           spouse_email_address: "owen@oscar.orange",
-           spouse_consented_to_service_at: DateTime.new(2020, 4, 17),
-           spouse_consented_to_service_ip: "0.0.0.0",
-           spouse_last_four_ssn: "4444",
-           spouse_birth_date: Date.new(1952, 9, 5)
+        Timecop.freeze(DateTime.new(2020, 4, 15)) do
+          create :intake,
+                 primary_first_name: "Oscar",
+                 primary_last_name: "Orange",
+                 primary_consented_to_service: "yes",
+                 primary_consented_to_service_ip: "127.0.0.1",
+                 primary_last_four_ssn: "5555",
+                 primary_birth_date: Date.new(1955, 9, 4),
+                 phone_number: "+14158161286",
+                 email_address: "me@oscar.orange",
+                 spouse_first_name: "Owen",
+                 spouse_last_name: "Orange",
+                 spouse_email_address: "owen@oscar.orange",
+                 spouse_consented_to_service_at: DateTime.new(2020, 4, 17),
+                 spouse_consented_to_service_ip: "0.0.0.0",
+                 spouse_last_four_ssn: "4444",
+                 spouse_birth_date: Date.new(1952, 9, 5)
+        end
       end
 
       it "returns a filled out pdf" do

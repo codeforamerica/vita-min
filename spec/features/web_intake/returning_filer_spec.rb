@@ -9,7 +9,6 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
       email_address: "original@client.com",
       phone_number: "+14155537865",
       primary_consented_to_service: "yes",
-      primary_consented_to_service_at: 15.minutes.ago,
       primary_ssn: gyr_ssn,
       preferred_name: 'Maeby',
       client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
@@ -17,7 +16,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
   end
   let(:ctc_ssn) { "123-45-6788" }
   let!(:original_ctc_intake) do
-    create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: ctc_ssn
+    create :ctc_intake, primary_consented_to_service: "yes", primary_ssn: ctc_ssn
   end
 
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do

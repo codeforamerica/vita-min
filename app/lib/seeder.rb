@@ -127,7 +127,7 @@ class Seeder
       primary_last_name: "Hook",
       sms_phone_number: "+14155551212",
       email_address: "crunch@example.com",
-      primary_consented_to_service_at: DateTime.current,
+      primary_consented_to_service: "yes",
       sms_notification_opt_in: :yes,
       email_notification_opt_in: :yes,
       bank_name: "Self-help United",
@@ -177,7 +177,6 @@ class Seeder
       spouse_first_name: "Marsha",
       spouse_last_name: "Charms",
       spouse_email_address: "justthemarshmallows@example.com",
-      primary_consented_to_service_at: DateTime.current,
       primary_consented_to_service: "yes",
       primary_consented_to_service_ip: "127.0.0.1",
       client_attributes: {
@@ -241,7 +240,7 @@ class Seeder
       Intake::CtcIntake,
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
-      primary_consented_to_service_at: DateTime.current,
+      primary_consented_to_service: "yes",
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
@@ -259,7 +258,7 @@ class Seeder
       Intake::CtcIntake,
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
-      primary_consented_to_service_at: DateTime.current,
+      primary_consented_to_service: "yes",
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
     va2_client = intake_for_verification_attempt_2.client
@@ -277,7 +276,7 @@ class Seeder
         Intake::CtcIntake,
         primary_first_name: "RestrictedVerifier",
         primary_last_name: "Smith",
-        primary_consented_to_service_at: DateTime.current,
+        primary_consented_to_service: "yes",
         tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 

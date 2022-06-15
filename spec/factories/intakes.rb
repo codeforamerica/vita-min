@@ -305,7 +305,6 @@ end
 
 FactoryBot.define do
   trait :primary_consented do
-    primary_consented_to_service_at { 2.weeks.ago }
     primary_consented_to_service { "yes" }
     primary_consented_to_service_ip { "1.1.1.1" } # IRS approved IP address
   end
@@ -500,7 +499,6 @@ FactoryBot.define do
     routing_criteria { "state" }
     job_count { [1, 2, 3].sample }
     preferred_interview_language { ["en", "es"].sample }
-    primary_consented_to_service_at { 2.weeks.ago }
     completed_at { 1.week.ago }
     demographic_primary_american_indian_alaska_native { true }
     demographic_primary_black_african_american { true }

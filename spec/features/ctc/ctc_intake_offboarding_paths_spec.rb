@@ -11,7 +11,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     before do
       # create duplicated intake
       create(:ctc_intake,
-             primary_consented_to_service_at: DateTime.now,
+             primary_consented_to_service: "yes",
              primary_ssn: "111-22-8888",
              email_address: "mango@example.com",
              email_notification_opt_in: "yes",
