@@ -97,22 +97,19 @@ describe Ctc::MailingAddressForm do
         expect(form.errors[:city]).to eq ["Error: Invalid City"]
       end
     end
+  end
 
-    context "when the address service raises an error, presumably due to the API crashing" do
+  context "USPS API request" do
+    context "when the API times out", do_not_stub_usps: true do
       before do
-        allow(StandardizeAddressService).to receive(:new).and_raise(StandardError)
+        stub_request(:get, /.*secure\.shippingapis\.com.*/).to_timeout
       end
 
-      it "allows the form to be valid so the client can continue" do
+      it "continues with client-entered values" do
         form = described_class.new(intake, params)
-        expect(form).to be_valid
-      end
-
-      it "sends a message to Sentry" do
-        allow(Sentry).to receive(:capture_message)
-        form = described_class.new(intake, params)
+        form.valid?
         form.save
-        expect(Sentry).to have_received(:capture_message).with("Error during USPS validation: StandardError")
+        expect(intake.reload.street_address).to eq("123 Main St")
       end
     end
   end
@@ -129,6 +126,7 @@ describe Ctc::MailingAddressForm do
         allow(address_service_double).to receive(:state).and_return "TX"
         allow(address_service_double).to receive(:zip_code).and_return "77494-1111"
         allow(address_service_double).to receive(:city).and_return "Newton-John"
+        allow(address_service_double).to receive(:has_verified_address?).and_return true
       end
 
       it "saves the values returned from the API" do
@@ -146,8 +144,11 @@ describe Ctc::MailingAddressForm do
 
     context "when the address was not successfully verified with the USPS API" do
       let(:address_service_double) { double }
+
       before do
-        allow(StandardizeAddressService).to receive(:new).and_raise(StandardError)
+        allow(StandardizeAddressService).to receive(:new).and_return(address_service_double)
+        allow(address_service_double).to receive(:valid?).and_return true
+        allow(address_service_double).to receive(:has_verified_address?).and_return false
       end
 
       it "saves the client entered values" do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StandardizeAddressService do
+describe StandardizeAddressService, do_not_stub_usps: true do
   describe '#standardize_address_on_intake' do
     before do
       stub_request(:get, /.*secure\.shippingapis\.com.*/)

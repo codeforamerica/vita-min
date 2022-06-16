@@ -4,7 +4,8 @@ require 'uri'
 # PLEASE do NOT use this service to standardize addresses in bulk (do NOT use in backfills)
 # as that violates the terms of agreement with USPS and will result in access being revoked.
 class StandardizeAddressService
-  def initialize(intake)
+  def initialize(intake, read_timeout: nil)
+    @read_timeout = read_timeout
     @_street_address = [intake.street_address, intake.street_address2].map(&:presence).compact.join(" ")
     @_city = intake.city
     @_state = intake.state
@@ -48,11 +49,17 @@ class StandardizeAddressService
     @result[:error_message].blank?
   end
 
+  def has_verified_address?
+    @result[:street_address].present? && @result[:city].present? && @result[:state].present? && @result[:zip_code].present?
+  end
+
   private
 
   def log_errors
     if !valid?
       Rails.logger.error "Error returned from USPS Address API: #{@result[:error_message]}"
+    elsif @timeout
+      Rails.logger.error "Error from USPS Address API: Timed out."
     elsif @result[:zip_code].blank?
       Rails.logger.error "Error from USPS Address API: Response had no data."
       @result[:error_code] = "-MISSING-DATA"
@@ -62,6 +69,8 @@ class StandardizeAddressService
 
   def build_standardized_address
     usps_address_xml = get_usps_address_xml
+    return {} unless usps_address_xml
+
     {
       street_address: usps_address_xml.xpath("//Address/Address2").text,
       city: usps_address_xml.xpath("//Address/City").text,
@@ -91,9 +100,14 @@ class StandardizeAddressService
     request_address_xml = Nokogiri::XML(builder.to_xml)
     usps_request_address = "https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=#{ERB::Util.url_encode(request_address_xml)}"
 
-    response = Net::HTTP.get_response(URI(usps_request_address))
+    url = URI(usps_request_address)
+    response = Net::HTTP.start(url.host, url.port, read_timeout: @read_timeout) { |http| http.get(url.path) }
+
     response_xml = Nokogiri::XML(response.body)
 
     response_xml
+  rescue Net::OpenTimeout
+    @timeout = true
+    nil
   end
 end

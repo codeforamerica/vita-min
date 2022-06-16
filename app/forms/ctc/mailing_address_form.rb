@@ -9,17 +9,18 @@ module Ctc
     validate :usps_valid_address
 
     def save
-      attrs = {
-        zip_code: address_service.zip_code,
-        street_address: address_service.street_address,
-        street_address2: nil,
-        state: address_service.state,
-        city: address_service.city
-      }
-      @intake.update(attrs)
-    rescue => e
-      Sentry.capture_message("Error during USPS validation: #{e}")
-      @intake.update(attributes_for(:intake))
+      if address_service.has_verified_address?
+        attrs = {
+          zip_code: address_service.zip_code,
+          street_address: address_service.street_address,
+          street_address2: nil,
+          state: address_service.state,
+          city: address_service.city
+        }
+        @intake.update(attrs)
+      else
+        @intake.update(attributes_for(:intake))
+      end
     end
 
     private
@@ -42,12 +43,10 @@ module Ctc
           errors.add(:address_not_found, I18n.t("forms.errors.mailing_address.invalid"))
         end
       end
-    rescue
-      true
     end
 
     def address_service
-      @address_service ||= StandardizeAddressService.new(@intake)
+      @address_service ||= StandardizeAddressService.new(@intake, read_timeout: 1000)
     end
   end
 end
