@@ -54,8 +54,10 @@
         <%= image_tag('ctc-phones.png', alt: "") %>
       </div>
       <div class="grid__item width-one-half">
-        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
-        <%= t('views.ctc_pages.home.what_is.body') %>
+        <h2><%= t('views.ctc_pages.puerto_rico.what_is.heading') %></h2>
+        <% t('views.ctc_pages.puerto_rico.what_is.body').each do |p| %>
+          <p><%= p %></p>
+        <% end %>
         <div class="reveal-shrink-wrapper spacing-above-15">
           <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
             <% t("views.ctc_pages.puerto_rico.what_is.qualify_reveal.body").each do |p| %>

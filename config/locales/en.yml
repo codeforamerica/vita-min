@@ -2753,11 +2753,9 @@ en:
           how_much_reveal:
             body:
             - The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.
-            title: How much will I get?
           qualify_reveal:
             body:
             - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
-            title: Do my children qualify?
       signups:
         confirmation:
           body: We'll contact you as soon as we have more information.
