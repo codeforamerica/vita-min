@@ -94,10 +94,48 @@ describe TaxReturnStatusHelper do
   end
 
   describe "#stage_and_status_translation" do
-    describe "with an example status" do
+    context "with an example status" do
       let(:tax_return) { create :tax_return, :intake_in_progress }
       it "returns the expected text" do
         expect(helper.stage_and_status_translation(tax_return.current_state)).to eq "Intake/Not ready"
+      end
+    end
+
+    context "when status param undefined" do
+      it "returns nil" do
+        expect(helper.stage_and_status_translation(nil)).to eq nil
+      end
+    end
+  end
+
+  describe "#stage_translation_from_status" do
+    context "when param is undefined" do
+      it "returns nil" do
+        expect(helper.stage_translation_from_status(nil)).to eq nil
+      end
+    end
+  end
+
+  describe "#stage_translation_from_status" do
+    context "when param is undefined" do
+      it "returns nil" do
+        expect(helper.stage_translation_from_status(nil)).to eq nil
+      end
+    end
+  end
+
+  describe "#status_translation" do
+    context "when param is undefined" do
+      it "returns nil" do
+        expect(helper.status_translation(nil)).to eq nil
+      end
+    end
+  end
+
+  describe "#stage_translation" do
+    context "when param is undefined" do
+      it "returns nil" do
+        expect(helper.stage_translation(nil)).to eq nil
       end
     end
   end
