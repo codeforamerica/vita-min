@@ -137,7 +137,11 @@ describe Client do
 
     context "clients who should get the survey" do
       context "with a client who has had tax returns in intake_in_progress for >10 days" do
-        let!(:tax_return_in_scope) { create :tax_return, :intake_in_progress, client: create(:client, in_progress_survey_sent_at: nil, intake: create(:intake, primary_consented_to_service_at: fake_time - 10.days - 1.minute)) }
+        let!(:tax_return_in_scope) do
+          Timecop.freeze(fake_time - 20.days) do
+            create :tax_return, :intake_in_progress, client: create(:client, in_progress_survey_sent_at: nil, intake: create(:intake, primary_consented_to_service: "yes"))
+          end
+        end
 
         context "with no inbound messages or documents" do
           it "includes the client" do
@@ -160,7 +164,7 @@ describe Client do
     end
 
     context "clients who should not get the survey" do
-      let!(:tax_return) { create :tax_return, status.to_sym, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
+      let!(:tax_return) { create :tax_return, status.to_sym, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service: "yes")) }
       let(:status) { "intake_in_progress" }
       let(:in_progress_survey_sent_at) { nil }
       let(:primary_consented_to_service_at) { fake_time - 11.days }

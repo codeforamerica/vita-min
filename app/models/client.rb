@@ -136,8 +136,9 @@ class Client < ApplicationRecord
 
   scope :needs_gyr_in_progress_survey, -> do
     where(in_progress_survey_sent_at: nil)
+      .where("consented_to_service_at < ?", 10.days.ago)
       .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
-      .includes(:intake).where("primary_consented_to_service_at < ?", 10.days.ago).where(intake: { type: "Intake::GyrIntake" })
+      .includes(:intake).where(intake: { type: "Intake::GyrIntake" })
       .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
       .includes(:incoming_emails).where(incoming_emails: { client_id: nil })
       .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")

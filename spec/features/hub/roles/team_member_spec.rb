@@ -6,7 +6,7 @@ RSpec.feature "Team member role" do
     let(:user) { create :team_member_user, role: create(:team_member_role, site: vita_partner) }
     # TODO: create a factory for users that will show up on the client list (consented, etc)
     # TODO: also, there should be an easier way to create a client that will not fail the edit form validations (currently this looks like create(:intake, :with_contact_info, :filled_out, state_of_residence: "CA"))
-    let!(:hester_intake) { create(:intake, :filled_out, :with_contact_info, preferred_name: "Hester Horseradish", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA") }
+    let!(:hester_intake) { create(:intake, :filled_out, :with_contact_info, preferred_name: "Hester Horseradish", primary_consented_to_service: "yes", state_of_residence: "CA") }
     let!(:hester_visible) {
       create :client,
              vita_partner: vita_partner,
@@ -16,19 +16,19 @@ RSpec.feature "Team member role" do
     let!(:jerry_visible) {
       create :client,
              vita_partner: vita_partner,
-             intake: (create :intake, :filled_out, preferred_name: "Jerry Jujube", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
+             intake: (create :intake, :filled_out, preferred_name: "Jerry Jujube", primary_consented_to_service: "yes", state_of_residence: "CA"),
              tax_returns: [(create :tax_return, :intake_in_progress, year: 2021)]
     }
     let!(:abigail_invisible) {
       create :client,
              vita_partner: create(:organization),
-             intake: (create :intake, preferred_name: "Abigail Apricot", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
+             intake: (create :intake, preferred_name: "Abigail Apricot", primary_consented_to_service: "yes", state_of_residence: "CA"),
              tax_returns: [(create :tax_return, :intake_in_progress, year: 2018)]
     }
     let!(:mirabel_invisible) {
       create :client,
              vita_partner: create(:organization),
-             intake: (create :intake, preferred_name: "Mirabel Mushroom", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
+             intake: (create :intake, preferred_name: "Mirabel Mushroom", primary_consented_to_service: "yes", state_of_residence: "CA"),
              tax_returns: [(create :tax_return, :intake_in_progress, year: 2019)]
     }
 
