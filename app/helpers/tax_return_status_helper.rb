@@ -24,6 +24,8 @@ module TaxReturnStatusHelper
   end
 
   def self.stage_and_status_translation(status)
+    return unless status
+    
     "#{stage_translation_from_status(status)}/#{status_translation(status)}"
   end
 
@@ -49,15 +51,21 @@ module TaxReturnStatusHelper
   end
 
   def self.stage_translation_from_status(status)
+    return unless status
+
     stage = status.to_s.split("_")[0]
     stage_translation(stage)
   end
 
   def self.stage_translation(stage)
+    return unless stage
+
     I18n.t("hub.tax_returns.stage." + stage)
   end
 
   def self.status_translation(status)
+    return unless status
+
     I18n.t("hub.tax_returns.status." + status.to_s)
   end
 end
