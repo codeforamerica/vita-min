@@ -82,8 +82,8 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
         expect(xml.at("TaxYr").text).to eq "2021"
         expect(xml.at("TaxPeriodBeginDt").text).to eq "2021-01-01"
         expect(xml.at("TaxPeriodEndDt").text).to eq "2021-12-31"
-        expect(xml.at("SoftwareId").text).to eq "11111111" # placeholder
-        expect(xml.at("EFIN").text).to eq "123456"
+        expect(xml.at("SoftwareId").text).to eq @test_environment_credentials[:irs][:sin]
+        expect(xml.at("EFIN").text).to eq @test_environment_credentials[:irs][:efin]
         expect(xml.at("OriginatorTypeCd").text).to eq "OnlineFiler" # TBD -- change to online filer once we have ONlineFiler EFIN
         expect(xml.at("PINTypeCd").text).to eq "Self-Select On-Line"
         expect(xml.at("JuratDisclosureCd").text).to eq "Online Self Select PIN"
