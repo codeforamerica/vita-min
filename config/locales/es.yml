@@ -207,10 +207,10 @@ es:
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
       mailing_address:
         city: 'Error: ciudad no válida'
+        invalid: 'Error: dirección no válida.'
+        multiple: 'Error: se encontraron varias direcciones para la información que ingresó y no existe ninguna predeterminada.'
+        not_found: 'Error: dirección no encontrada.'
         state: 'Error: código de estado no válido'
-        multiple: "Error: se encontraron varias direcciones para la información que ingresó y no existe ninguna predeterminada."
-        not_found: "Error: dirección no encontrada."
-        invalid: "Error: dirección no válida."
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
