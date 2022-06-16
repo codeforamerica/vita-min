@@ -68,7 +68,7 @@ CREATE VIEW analytics.archived_intakes_2021 AS
            needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
            paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
            paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,
-           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at, primary_tin_type,
+           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_tin_type,
            received_alimony, received_irs_letter, refund_payment_method, reported_asset_sale_loss,
            reported_self_employment_loss, satisfaction_face,
            savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
@@ -84,7 +84,7 @@ CREATE VIEW analytics.client_success_roles AS
     FROM public.client_success_roles;
 
 CREATE VIEW analytics.clients AS
-    SELECT id, attention_needed_since, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, flagged_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
+    SELECT id, attention_needed_since, consented_to_service_at, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, flagged_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
     FROM public.clients;
 
 CREATE VIEW analytics.coalition_lead_roles AS
