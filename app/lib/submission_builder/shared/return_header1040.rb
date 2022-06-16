@@ -29,9 +29,9 @@ module SubmissionBuilder
           if submission.imperfect_return_resubmission?
             xml.ImperfectReturnInd "X"
           end
-          xml.SoftwareId EnvironmentCredentials.dig(:irs, :sin)
+          xml.SoftwareId EnvironmentCredentials.irs(:sin)
           xml.OriginatorGrp {
-            xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
+            xml.EFIN EnvironmentCredentials.irs(:efin)
             xml.OriginatorTypeCd "OnlineFiler"
           }
           xml.SelfSelectPINGrp {
