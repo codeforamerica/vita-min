@@ -4,7 +4,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
   subject { described_class.new(dependent, TaxReturn.current_tax_year) }
 
   context 'with a totally qualifying relative' do
-    let(:dependent) { create :qualifying_relative }
+    let(:dependent) { create :qualifying_relative, intake: create(:ctc_intake) }
     let(:test_result) do
       {   wants_to_claim_test: true,
           birth_test: true,
@@ -14,7 +14,8 @@ describe Efile::DependentEligibility::QualifyingRelative do
           tin_test: true,
           residence_test: true,
           financial_support_test: true,
-          claimable_test: true
+          claimable_test: true,
+          home_location_test: true
       }
     end
 
@@ -28,6 +29,26 @@ describe Efile::DependentEligibility::QualifyingRelative do
 
     it "has an empty array for disqualifiers" do
       expect(subject.disqualifiers).to eq []
+    end
+
+    context "but the home location on the intake is puerto rico" do
+      let(:dependent) { create(:qualifying_relative, intake: create(:ctc_intake, home_location: "puerto_rico")) }
+
+      before do
+        test_result[:home_location_test] = false
+      end
+
+      it "returns false for #qualifies?" do
+        expect(subject.qualifies?).to eq false
+      end
+
+      it "has the raw test_results with all true values but the home_location_test" do
+        expect(subject.test_results).to eq test_result
+      end
+
+      it "has home_location_test in the array for disqualifiers" do
+        expect(subject.disqualifiers).to eq [:home_location_test]
+      end
     end
   end
 end
