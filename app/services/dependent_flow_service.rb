@@ -26,10 +26,10 @@ class DependentFlowService
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
       dependent.lived_with_more_than_six_months_no? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController"
-      eligibility = child_qualification(except: [:claimable_test])
+      eligibility = child_qualification(except: :claimable_test)
       eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildClaimAnywayController"
-      eligibility = child_qualification(except: [:claimable_test])
+      eligibility = child_qualification(except: :claimable_test)
       dependent.cant_be_claimed_by_other_no? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::RelativeMemberOfHouseholdController"
       return false if child_qualification.qualifies?
@@ -44,7 +44,7 @@ class DependentFlowService
     when "Ctc::Questions::Dependents::RelativeQualifiersController"
       return false if child_qualification.qualifies?
 
-      eligibility = relative_qualification(except: [:claimable_test])
+      eligibility = relative_qualification(except: :claimable_test)
       eligibility.qualifies?
     when "Ctc::Questions::Dependents::DoesNotQualifyCtcController"
       return false if child_qualification.qualifies?
