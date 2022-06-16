@@ -55,7 +55,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_basic_info
+  def fill_in_basic_info(home_location: "fifty_states")
     # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
@@ -72,8 +72,13 @@ module CtcIntakeFeatureHelper
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    if home_location == "puerto_rico"
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.pr.title', prior_tax_year: prior_tax_year))
+      choose I18n.t('views.ctc.questions.filed_prior_tax_year.pr.did_not_file', prior_tax_year: prior_tax_year)
+    else
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+      choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    end
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
