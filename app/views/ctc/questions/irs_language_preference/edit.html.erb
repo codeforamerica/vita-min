@@ -1,0 +1,11 @@
+<% content_for :page_title, t("views.ctc.questions.irs_language_preference.title") %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= content_for(:page_title) %></h1>
+  <p><%= t("views.ctc.questions.irs_language_preference.subtitle") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_select(:irs_language_preference, t("views.ctc.questions.irs_language_preference.select_language"), IrsLanguages.display_values(locale)) %>
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
+  <% end %>
+<% end %>

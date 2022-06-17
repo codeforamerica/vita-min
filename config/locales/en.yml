@@ -2030,6 +2030,10 @@ en:
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
           third_stimulus: 'Third Stimulus Payment:'
           title: 'Here’s a list of the payments you are claiming:'
+        irs_language_preference:
+          title: What language do you want the IRS to use when they contact you?
+          subtitle: After submitting, the IRS may reach out with questions. You have the option to select a preferred language.
+          select_language: "Please select your preferred language:"
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: Your %{prior_tax_year} AGI
         confirm_spouse_prior_year_agi:

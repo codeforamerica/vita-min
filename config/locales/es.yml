@@ -2007,6 +2007,10 @@ es:
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
+        irs_language_preference:
+          title: ¿Qué idioma quiere que use el IRS cuando se comunique con usted?
+          subtitle: Después de enviar, el IRS puede comunicarse con preguntas. Tiene la opción de seleccionar un idioma preferido.
+          select_language: "Seleccione su idioma preferido:"
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
