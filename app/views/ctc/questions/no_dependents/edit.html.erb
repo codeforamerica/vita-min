@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.no_dependents.title") %>
+<% @main_question = current_intake.puerto_rico_filing? ? t("views.ctc.questions.no_dependents.pr.title") : t("views.ctc.questions.no_dependents.title")  %>
 
 <% content_for :page_title, @main_question %>
 

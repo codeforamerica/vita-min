@@ -2334,6 +2334,7 @@ en:
           pr:
             subtitle1: You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
             subtitle2: If this is a mistake you can click ‘Add a child’.
+            title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
         no_dependents_advance_ctc_payments:

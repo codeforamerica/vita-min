@@ -2312,6 +2312,7 @@ es:
           pr:
             subtitle1: No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
             subtitle2: Si esto es un error, puede hacer clic en 'Agregar un niño'.
+            title: No recibirá el Crédito Tributario por Hijos.
           subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
           title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar para recoger su tercer pago de estímulo.
         no_dependents_advance_ctc_payments:
