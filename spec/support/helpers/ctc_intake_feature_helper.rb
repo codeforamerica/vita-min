@@ -460,6 +460,9 @@ module CtcIntakeFeatureHelper
 
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.irs_language_preference.title"))
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.drivers_license.title"))
     select "Ohio", from: I18n.t('views.ctc.questions.drivers_license.state')
     fill_in I18n.t("views.ctc.questions.drivers_license.license_number"), with: "OH123456"
