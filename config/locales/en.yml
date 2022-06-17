@@ -442,6 +442,7 @@ en:
     responded_to_client: Responded to client
     response: Response
     return_home: Return to home
+    return_to_homepage: Return to homepage
     return_search: Return to search
     role: Role
     routing: Routing
@@ -2331,6 +2332,10 @@ en:
           add_dependents: Add more dependents
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
+          add_child: Add a child
+          pr:
+            subtitle1: You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
+            subtitle2: If this is a mistake you can click ‘Add a child’.
         no_dependents_advance_ctc_payments:
           subtitle: These payments would have arrived between July and December 2021.
           title: Did you receive any monthly Advance Child Tax Credit payments in %{current_tax_year}?

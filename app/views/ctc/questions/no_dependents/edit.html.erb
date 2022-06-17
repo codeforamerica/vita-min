@@ -4,14 +4,28 @@
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
-  <p><%= t("views.ctc.questions.no_dependents.subtitle") %></p>
 
-  <div class="spacing-above-60">
-    <%= link_to t("general.continue"),
-      next_path,
-      class: "button button--full-width text--centered spacing-above-60 button--primary" %>
-    <%= link_to t("views.ctc.questions.no_dependents.add_dependents"),
-      Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token),
-      class: "button button--full-width text--centered" %>
-  </div>
+  <% if current_intake.puerto_rico_filing? %>
+    <p><%= t("views.ctc.questions.no_dependents.pr.subtitle1") %></p>
+    <p><%= t("views.ctc.questions.no_dependents.pr.subtitle2") %></p>
+    <div class="spacing-above-60">
+      <%= link_to t("general.return_to_homepage"),
+                  ctc_root_path,
+                  class: "button button--full-width text--centered spacing-above-60 button--primary" %>
+      <%= link_to t("views.ctc.questions.no_dependents.add_child"),
+                  Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token),
+                  class: "button button--full-width text--centered" %>
+    </div>
+  <% else %>
+    <p><%= t("views.ctc.questions.no_dependents.subtitle") %></p>
+
+    <div class="spacing-above-60">
+      <%= link_to t("general.continue"),
+        next_path,
+        class: "button button--full-width text--centered spacing-above-60 button--primary" %>
+      <%= link_to t("views.ctc.questions.no_dependents.add_dependents"),
+        Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token),
+        class: "button button--full-width text--centered" %>
+    </div>
+  <% end %>
 <% end %>
