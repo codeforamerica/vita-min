@@ -2733,6 +2733,24 @@ es:
         - Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, favor de comunicarse con nuestro proveedor de resolución de disputas con sede en Estados Unidos (sin costo alguno) a <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
         - 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
         51_do_our_best: Haremos todo lo posible para resolver el problema.
+      puerto_rico:
+        hero:
+        - Recolecta dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en efectivo en el bolsillo de su familia. Si no está obligado a presentar una declaración federal ante el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
+        - Este formulario en general tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+        title: "¡Puerto Rico, pueden obtener Crédito Tributario por Hijos para su familia!"
+        what_is:
+          body:
+          - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo completo, de hasta $3,600 por niño.
+          - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado ante el IRS. Si aún no ha presentado una declaración federal ante el IRS, ¡puede hacerlo fácilmente aquí!
+          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración ante el IRS!"
+          how_much_reveal:
+            body:
+            - El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.
+            title: "¿Cuánto recibiré?"
+          qualify_reveal:
+            body:
+            - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+            title: "¿Califican mis niños?"
       signups:
         confirmation:
           body: Nos comunicaremos contigo en cuanto tengamos más información.

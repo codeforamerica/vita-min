@@ -92,4 +92,26 @@ describe Ctc::CtcPagesController do
       expect(response.body).to include "Need help claiming your tax benefits?"
     end
   end
+
+  describe "#puerto_rico" do
+    context "when the puerto rico features has lauched" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:puerto_rico_home_location).and_return true
+      end
+
+      it "renders the puerto_rico template" do
+        get :puerto_rico
+        expect(response).to render_template :puerto_rico
+      end
+    end
+
+    context "when the puerto rico features have not launched" do
+      context "when the puerto rico feature has not launched" do
+        it "redirects to home" do
+          get :puerto_rico
+          expect(response).to redirect_to root_path
+        end
+      end
+    end
+  end
 end
