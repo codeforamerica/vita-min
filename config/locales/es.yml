@@ -2218,9 +2218,6 @@ es:
           subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         income:
-          any_other_reason:
-            one: no está obligado a presentar una declaración completa por cualquier otra razón
-            other: no están obligados a presentar una declaración completa por cualquier otra razón
           income_reveal:
             content:
               list_1:
@@ -2232,9 +2229,22 @@ es:
               - beneficios de desempleo
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué se puede considera como un ingreso?"
-          puerto_rico_resident:
-            one: es un residente de buena fe de Puerto Rico
-            other: son residentes de buena fe de Puerto Rico
+          list:
+            any_other_reason:
+              one: no está obligado a presentar una declaración completa por cualquier otra razón
+              other: no están obligados a presentar una declaración completa por cualquier otra razón
+            puerto_rico_resident:
+              one: es un residente de buena fe de Puerto Rico
+              other: son residentes de buena fe de Puerto Rico
+            specific_eligibility_reasons:
+              one:
+              - ganó menos de %{standard_deduction} en ingresos totales
+              - ganó menos de $400 en ingresos de trabajo por cuenta propia
+              - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+              other:
+              - ganaron menos de %{standard_deduction} en ingresos totales
+              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
+              - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
           self_employment_income_reveal:
             content:
               list_1:
@@ -2245,15 +2255,6 @@ es:
               p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
-          specific_eligibility_reasons:
-            one:
-            - ganó menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-            other:
-            - ganaron menos de %{standard_deduction} en ingresos totales
-            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
           title:
             many: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
             one: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted:'
