@@ -5,7 +5,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
 
   context 'with a totally qualifying relative' do
     let(:dependent) { create :qualifying_relative, intake: create(:ctc_intake) }
-    let(:test_result) do
+    let(:expected_test_result) do
       {   wants_to_claim_test: true,
           birth_test: true,
           married_filing_joint_test: true,
@@ -24,7 +24,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
     end
 
     it "has the raw test_results with all true values" do
-      expect(subject.test_results).to eq test_result
+      expect(subject.test_results).to eq expected_test_result
     end
 
     it "has an empty array for disqualifiers" do
@@ -35,7 +35,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
       let(:dependent) { create(:qualifying_relative, intake: create(:ctc_intake, home_location: "puerto_rico")) }
 
       before do
-        test_result[:home_location_test] = false
+        expected_test_result[:home_location_test] = false
       end
 
       it "returns false for #qualifies?" do
@@ -43,7 +43,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
       end
 
       it "has the raw test_results with all true values but the home_location_test" do
-        expect(subject.test_results).to eq test_result
+        expect(subject.test_results).to eq expected_test_result
       end
 
       it "has home_location_test in the array for disqualifiers" do
