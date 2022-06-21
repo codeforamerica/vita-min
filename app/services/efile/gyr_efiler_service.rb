@@ -139,9 +139,9 @@ module Efile
       # On our Aptible environments, these config values should be in Rails secrets aka EnvironmentCredentials.
       #
       # They can also be configured by environment variables, which is convenient for local dev or manual testing.
-      app_sys_id = ENV['GYR_EFILER_APP_SYS_ID'].presence || EnvironmentCredentials.dig(:irs, :app_sys_id)
-      efile_cert_base64 = ENV['GYR_EFILER_CERT'].presence || EnvironmentCredentials.dig(:irs, :efile_cert_base64)
-      etin = ENV['GYR_EFILER_ETIN'].presence || EnvironmentCredentials.dig(:irs, :etin)
+      app_sys_id = EnvironmentCredentials.irs(:app_sys_id)
+      efile_cert_base64 = EnvironmentCredentials.irs(:efile_cert_base64)
+      etin = EnvironmentCredentials.irs(:etin)
       if app_sys_id.nil? || efile_cert_base64.nil? || etin.nil?
         raise Error.new("Missing app_sys_id and/or efile_cert_base64 and/or etin configuration")
       end

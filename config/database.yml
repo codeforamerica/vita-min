@@ -1,11 +1,11 @@
 local_default: &local_default
   adapter: postgis
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
 
 deploy_default: &deploy_default
   adapter: postgis
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
   url: <%= Rails.application.credentials[:database_url] %>
 

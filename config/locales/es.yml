@@ -1210,7 +1210,7 @@ es:
           Su equipo de impuesto de GetCTC.org
       preparing:
         email:
-          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos (Niños) ni los del impacto económico hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
+          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los del impacto económico hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
           subject: Su declaración de impuestos se está procesando.
         sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos (Niños) ni los del impacto económico hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
       rejected:
@@ -1232,9 +1232,9 @@ es:
           ¡Estamos aquí para ayudarle!
     fraud_hold:
       email:
-        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
         subject: La información ha enviado está en espera por ahora
-      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     getting_started:
       email:
         body: |
@@ -1295,15 +1295,15 @@ es:
         body: |
           Hola,
 
-          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos (Niños) correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos (Niños) que recibió en 2021.
+          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
 
           Favor de guardar esta carta para cuando presente sus impuestos. Ya sea que presente su declaración con %{service_name} o cualquier otro servicio, esta le ayudará a cobrar cualquier pago restante y recibirá cualquier reembolso que se le deba, sin demora.
 
           Feliz Año Nuevo,
 
           Su equipo de impuestos de %{service_name}
-        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos (Niños)
-      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos (Niños) en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
+        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
+      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     successful_submission_drop_off:
       email:
@@ -1528,7 +1528,7 @@ es:
       collect_your: 'Cobre su:'
       collectables:
         additional_credits: Créditos estatales adicionales
-        ctc: Crédito Tributario por Hijos (Niños)
+        ctc: Crédito Tributario por Hijos
         eitc: Crédito tributario por ingresos del trabajo
         missing_stimulus: Falta el tercer pago de estímulo
       ctc_tile:
@@ -1554,7 +1554,7 @@ es:
       edit:
         collect_your: 'Cobre su:'
         collectables:
-          ctc: Crédito Tributario por Hijos (Niños)
+          ctc: Crédito Tributario por Hijos
           missing_stimulus: Pagos de estímulo faltantes
         comparison:
           ctc:
@@ -1606,7 +1606,7 @@ es:
           label_html: |-
             ¿Cuál fue su nivel de ingresos?
 
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos por adelantado del Crédito Tributario por Hijos (Niños) o Adv CTC, los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos por adelantado del Crédito Tributario por Hijos o Adv CTC, los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
           options:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
@@ -1760,7 +1760,7 @@ es:
           add_more_dependents: Agregar más dependientes
           file_with_gyr: Solicite por medio de GetYourRefund
           subtitle_html: |
-            <p>Con base en sus respuestas, usted recibió pagos adelantados del Crédito Tributario por Hijos (Niños) en %{current_tax_year}, y no está reclamando ningún niño para el Crédito Tributario por Hijos (Niños).</p>
+            <p>Con base en sus respuestas, usted recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}, y no está reclamando ningún niño para el Crédito Tributario por Hijos.</p>
             <p>No puede reclamar fondos adicionales usando GetCTC.</p>
             <p>Aún podría beneficiarse al presentar una declaración de impuestos completa gratis usando GetYourRefund.</p>
           title: No puede continuar presentando con GetCTC.
@@ -1786,7 +1786,7 @@ es:
           title: Edita la información básica de %{name}
         dependents:
           no_eligible_dependents:
-            subtitle: No recibirá el Crédito Tributario por Hijos (Niños) porque no tiene dependientes elegibles.
+            subtitle: No recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
             title: 'Usted ha eliminado a todos sus dependientes elegibles para CTC. '
         edit_info:
           add_bank_information: Agregue su información bancaria
@@ -1898,7 +1898,7 @@ es:
           no_did_not_receive: No recibí ningún pago
           no_received_different: Recibí una cantidad diferente
           question: "¿Recibió esta cantidad?"
-          title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos (Niños) en 2021?"
+          title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos en 2021?"
           total_adv_ctc: 'Estimamos que usted habrá recibido:'
           total_adv_ctc_details_html: 'por estos dependientes:'
           yes_received: Recibí esta cantidad
@@ -1911,23 +1911,23 @@ es:
               p1: Si no está seguro de cuánto recibió, puede buscar el monto en la carta 6419 del IRS, que debería haber recibido a principios de este año, o puede consultar sus registros bancarios del año pasado.
               p2: Si está casado, usted y su cónyuge habrían recibido cada uno una Carta 6419 por separado. Sume las dos cantidades de ambas cartas e ingrese el total.
             title: "¿Dónde puedo encontrar esta cantidad?"
-          form_title: Pagos adelantados del Crédito Tributario por Hijos (Niños) recibido
-          title: Ingresa la cantidad total de los pagos adelantados del Crédito Tributario por Hijos (Niños) que recibió.
+          form_title: Pagos adelantados del Crédito Tributario por Hijos recibido
+          title: Ingresa la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió.
         advance_ctc_claimed:
           buttons:
             add: Agregar más dependientes
             correct: Corregir la cantidad que recibí
             no_file: No necesito presentar una declaración de impuestos
           content:
-          - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos (Niños) que recibió en 2021.
-          - Si está correcta, no recibirá ningún Crédito Tributario por Hijos (Niños), y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
-          title: Ya no hay más Crédito Tributario por Hijos (Niños) por solicitar.
+          - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
+          - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
+          title: Ya no hay más Crédito Tributario por Hijos por solicitar.
         advance_ctc_received:
           already_received: Cantidad que recibió
           ctc_owed_details: Si la cantidad que ha anotado es incorrecta, su reembolso de impuestos podría retrasarse mientras el IRS hace las correcciones en su declaración.
           ctc_owed_title: 'Tiene derecho a recibir esta cantidad adicional:'
-          title: Muy bien. Hemos calculado su Crédito Tributario por Hijos (Niños).
-          total_adv_ctc: 'Total del Pago por Adelantado del Crédito Tributario por Hijos (Niños): %{amount}'
+          title: Muy bien. Hemos calculado su Crédito Tributario por Hijos.
+          total_adv_ctc: 'Total del Pago por Adelantado del Crédito Tributario por Hijos: %{amount}'
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
@@ -1948,7 +1948,7 @@ es:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes.
           title: Vaya, parece que ahora mismo nos encontramos a la máxima capacidad. ¡Por favor vuelva la semana entrante!
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos (Niños)
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
           visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el pago de estímulo
         bank_account:
           title: Proporcione sus datos bancarios a continuación
@@ -2001,8 +2001,8 @@ es:
           title: "¡Muy bien! Por favor, confirme su dirección postal."
         confirm_payment:
           client_not_collecting: No está cobrando ningún pago, por favor edite su declaración de impuestos.
-          ctc_0_due_link: Solicitar a los hijos para el Crédito Tributario por Hijos (Niños)
-          ctc_due: Crédito Tributario por Hijos (Niños)
+          ctc_0_due_link: Solicitar a los hijos para el Crédito Tributario por Hijos
+          ctc_due: Crédito Tributario por Hijos
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
@@ -2061,7 +2061,7 @@ es:
             help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿Residió %{name} permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           dependent_has_itin_reveal:
-            content: Los dependientes con un Número de Identificación Personal (ITIN en inglés) no lo califican para el Crédito Tributario por Hijos (Niños) o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
+            content: Los dependientes con un Número de Identificación Personal (ITIN en inglés) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
             title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN en inglés)"
           does_my_child_qualify_reveal:
             content:
@@ -2080,7 +2080,7 @@ es:
             - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
-            help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos (Niños) ni a los pagos de estímulo.
+            help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
             pr:
               conditions:
               - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final del %{current_tax_year}.
@@ -2150,7 +2150,7 @@ es:
             - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>.
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
-          title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos (Niños) y el tercer pago de estímulo.
+          title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
@@ -2165,18 +2165,18 @@ es:
         filing_status:
           irs_reveal:
             body_html: |
-              De acuerdo con el IRS, usted <b>no</b> está casado durante un año fiscal si:
+              Según el IRS, <b>no</b> está casado durante un año tributario si:
               <ul class="list--bulleted">
-                <li>Nunca estuvo casado, O Estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              <li>Nunca estuvo casado, O estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
-            body: Las únicas opciones de presentación para una planilla simplificada son casado y soltero. Si está legalmente casado, debe decir Sí y presentar una declaración conjunta con su cónyuge. Si no está casado, presente la solicitud como soltero y diga No.
-            title: "¿Qué sucede si estoy casado pero quiero presentar la solicitud sin mi cónyuge?"
+            body: Las únicas opciones de presentación para una declaración simplificada son casado y soltero. Si está casado legalmente, debe decir Sí y presentar una declaración conjunta con su cónyuge. Si no está casado, presente la solicitud como soltero y diga No.
+            title: "¿Qué sucede si estoy casado pero quiero presentar una declaración sin mi cónyuge?"
           spouse_died_reveal:
-            body: Seleccione Sí, y lo presentará con su cónyuge fallecido.
+            body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: "¿Estás casado?"
+          title: "¿Está casado?"
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
           title: "¿Desea agregar un niños u otra persona a la que haya mantenido en el %{current_tax_year}?"
@@ -2295,7 +2295,7 @@ es:
           suffix: Forma de tratamiento (opcional)
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
-          help_text: Por lo general, alguien puede reclamar a usted como dependiente si son un miembro de su familia, usted vivió con él/ella la mayor parte del año y ellos pagaron la mayoría de sus gastos de manutención.
+          help_text: Por lo general, alguien puede reclamar a usted como dependiente si es un miembro de su familia, usted vivió con ellos la mayor parte del año y pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
@@ -2317,11 +2317,11 @@ es:
           title: "¿Cuál fue su residencia principal durante %{current_tax_year}?"
         no_dependents:
           add_dependents: Agregar más dependientes
-          subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos (Niños) porque no tiene dependientes elegibles.
-          title: No recibirá el Crédito Tributario por Hijos (Niños), pero podrá continuar para recoger su tercer pago de estímulo.
+          subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
+          title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar para recoger su tercer pago de estímulo.
         no_dependents_advance_ctc_payments:
           subtitle: Estos pagos habrían llegado entre julio y diciembre de 2021.
-          title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos (Niños) en %{current_tax_year}?"
+          title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos en %{current_tax_year}?"
         not_filing:
           buttons:
             faq: Preguntas Frecuentes
@@ -2330,7 +2330,7 @@ es:
           - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos (Niños) y su pago de estímulo.
+          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y su pago de estímulo.
           legal_warning: Está a punto de presentar una declaración de impuestos (o como se refiere en Puerto Rico, radicación de planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
@@ -2351,10 +2351,10 @@ es:
         restrictions:
           cannot_use_ctc: No puedo usar GetCTC
           list:
-          - en los últimos 10 años se le ha prohibido solicitar el Crédito Tributario por Hijos (Niños), lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de solicitar el Crédito Tributario por Hijos (Niños).
+          - en los últimos 10 años se le ha prohibido solicitar el Crédito Tributario por Hijos, lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de solicitar el Crédito Tributario por Hijos.
           - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
           - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
-          - usted no reclama ningunos hijos por el Crédito Tributario por Hijos (Niños) este año, pero recibió pagos adelantados del Crédito Tributario por Hijos (Niños) en %{current_tax_year}
+          - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}
           - compró o vendió criptomoneda en %{current_tax_year}
           list_title: 'No puede usar GetCTC si:'
           multiple_support_agreement_reveal:
@@ -2456,7 +2456,7 @@ es:
               - Puede ser reclamado como dependiente
               - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
               - No vivió en ninguno de los 50 estados o el Distrito de Columbia durante la mayor parte del %{current_tax_year}
-              - Recibió más pagos adelantados del Crédito Tributario por Hijos (Niños) en %{current_tax_year} de los que era elegible para recibir.
+              - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
               p: 'Algunas razones por las que podría no ser elegible para usar GetCTC son:'
             title: "¿Por qué no soy elegible?"
         verification:
@@ -2473,14 +2473,14 @@ es:
           ctc:
             list:
             - Pagos federales de estímulo
-            - Crédito Tributario por Hijos (Niños)
+            - Crédito Tributario por Hijos
             note_html: Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
             p1_html: 'Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>'
             p2_html: 'Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>'
           gyr:
             list:
             - Pagos federales de estímulo
-            - Crédito Tributario por Hijos (Niños)
+            - Crédito Tributario por Hijos
             - Crédito tributario por ingresos del trabajo
             - Crédito tributario por ingresos del trabajo de California
             - Pagos de estímulo del Golden State
@@ -2532,8 +2532,8 @@ es:
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
           are_daca_recipients_eligible:
-            answer_html: Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido. Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal (ITIN)  pueden ser reclamados para el Crédito Tributario por Hijos (Niños) porque tienen números válidos de seguro social.
-            question: "¿Los beneficiarios de DACA son elegibles para el Crédito Tributario por Hijos (Niños)?"
+            answer_html: Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido. Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal (ITIN)  pueden ser reclamados para el Crédito Tributario por Hijos porque tienen números válidos de seguro social.
+            question: "¿Los beneficiarios de DACA son elegibles para el Crédito Tributario por Hijos?"
           check_payment_status:
             answer_html: |
               <p>Puede comprobar el estado de sus pagos con el IRS:</p>
@@ -2575,10 +2575,10 @@ es:
             question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
           parents_with_shared_custody:
             answer_html: |
-              Si está casado y se inscribe para el Crédito Tributario por Hijos (Niños) en conjunto con su cónyuge, recibirá una mensualidad por hijo, como familia.
+              Si está casado y se inscribe para el Crédito Tributario por Hijos en conjunto con su cónyuge, recibirá una mensualidad por hijo, como familia.
               <br/><br/>
-              Si los padres del niño que califica declaran impuestos por separado, sólo puede inscribirse una persona para recibir el Crédito Tributario por Hijos (Niños).
-            question: "¿Pueden ambos padres que comparten la custodia de un hijo recibir el Crédito Tributario por Hijos (Niños)?"
+              Si los padres del niño que califica declaran impuestos por separado, sólo puede inscribirse una persona para recibir el Crédito Tributario por Hijos.
+            question: "¿Pueden ambos padres que comparten la custodia de un hijo recibir el Crédito Tributario por Hijos?"
           title: Preguntas Frecuentes
           view_all_questions: Ver todas las preguntas
           what_do_i_do_if_someone_else_has_claimed_my: "¿Qué hago si alguien reclamó a mi hijo?"
@@ -2590,14 +2590,14 @@ es:
               <br/><br/>
               Si ya ha declarado los impuestos del 2019 o 2020, empezará a recibir sus pagos automáticamente el 15 de julio de 2021 y, a continuación, los días 15 de cada mes, aproximadamente, durante los siguientes 6 meses.
               <br/><br/>
-              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos (Niños), puede usar GetCTC, un portal para declarar sus impuestos de forma simplificada.
+              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede usar GetCTC, un portal para declarar sus impuestos de forma simplificada.
               <br/><br/>
-              Si necesita actualizar su dirección o información bancaria con el IRS, puede usar el portal de actualización del <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-update-portal'>Crédito Tributario por Hijos (Niños)</a></strong> antes de su pago en agosto. Próximamente: en una fecha posterior, el portal de actualización le permitirá actualizar la información de su hogar.
+              Si necesita actualizar su dirección o información bancaria con el IRS, puede usar el portal de actualización del <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-update-portal'>Crédito Tributario por Hijos </a></strong> antes de su pago en agosto. Próximamente: en una fecha posterior, el portal de actualización le permitirá actualizar la información de su hogar.
             question: "¿Cómo es el proceso? ¿Qué ocurrirá y cuándo?"
           what_will_i_need_to_submit:
             answer_html: |
               Necesitará una dirección de correo electrónico, un documento de identidad, una prueba de ingresos y/o beneficios y el número de seguro social de su hijo/a.<br/><br/>
-              Los niños que califican para el Crédito Tributario por Hijos (Niños) deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal (ITIN en inglés).
+              Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal (ITIN en inglés).
             question: No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?
           will_i_ever_have_to_pay_this_money_back:
             answer_html: Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
@@ -2897,7 +2897,7 @@ es:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
         title: Adjunte sus RRB-1099
       selfie_instructions:
-        header: Confirme su identidad con una foto suya sosteniendo su tarjeta de identificación
+        header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
         info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
         steps:
           face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
@@ -2910,13 +2910,13 @@ es:
       selfies:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
-        title: Comparta una foto suya sosteniendo su tarjeta de identificación
+        title: Comparta una foto de usted sosteniendo su tarjeta de identificación
       spouse_ids:
         help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
         title: Adjunte una foto de la tarjeta de identificación de su cónyuge
       spouse_ssn_itins:
         help_text: El IRS nos exige que veamos un Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN en inglés) válido para los servicios de preparación de impuestos.
-        title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o Número de Identificación Personal (ITIN en inglés)
+        title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o Número de Identificación Personal (ITIN)
       ssa1099s:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si tuvo ingresos específicamente del Seguro Social, <strong>debe tener este formulario.</strong> Este es un formulario de impuestos que muestra la cantidad total de beneficios que recibió del Seguro Social en el año anterior. Puede obtener este formulario %{ssa_link}.
         title: Adjunte sus SSA-1099
@@ -3007,12 +3007,12 @@ es:
           child_tax_credit:
             am_i_eligible_for_child_tax_credit_if_i_dont:
               answer_html: |
-                <p>Para tener derecho al Crédito Tributario por Hijos (Niños), cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal (ITIN en inglés).</p>
-                <p>Si actualmente no tiene un Número de Identificación Personal (ITIN) pero desea solicitar el Crédito Tributario por Hijos (Niños) para sus hijos, puede solicitar un Número de Identificación Personal (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+                <p>Para tener derecho al Crédito Tributario por Hijos, cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal (ITIN en inglés).</p>
+                <p>Si actualmente no tiene un Número de Identificación Personal (ITIN) pero desea solicitar el Crédito Tributario por Hijos para sus hijos, puede solicitar un Número de Identificación Personal (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
               question: "¿Tengo derecho al Crédito Tributario por Hijos, Child Tax Credit en inglés, si no tengo número de Número de Seguro Social, Social Security Number, en inglés?"
             do_i_have_to_report_my_advanced_child_tax_credit:
               answer_html: |
-                <p>Cuando presente su declaración de impuestos de 2021, tendrá que informar al IRS de la cantidad que recibió en pagos de Crédito Tributario por Hijos (Niños).</p>
+                <p>Cuando presente su declaración de impuestos de 2021, tendrá que informar al IRS de la cantidad que recibió en pagos de Crédito Tributario por Hijos.</p>
                 <p>Para la mayoría de las familias que recibieron pagos por adelantado, esta cantidad será de $1,800 para los niños pequeños, o de $1,500 para los niños mayores. Por ejemplo, si tiene un niño pequeño, se le deben $3,600 en total de CTC; si recibió $1,800 en pagos anticipados el año pasado, recibirá otros $1,800 este año.</p>
                 <p>El IRS le exige que informe cuánto recibió en pagos mensuales el año pasado cuando presente su declaración de impuestos. El IRS utilizará este número para calcular cuánto dinero más de CTC se le debe.</p>
                 <p>Si no recuerda cuánto recibió en pagos de CTC puede mirar los registros de su cuenta bancaria, consultar la carta que el IRS le envió en enero con esta información, o <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">entrar en su cuenta en línea del IRS5</a>.</p>
@@ -3020,7 +3020,7 @@ es:
               question: "¿Tengo que reportar en mi declaración de impuestos los pagos adelantados del Crédito Tributario por Hijos, Advance Child Tax Credit en inglés, para el 2021?"
             do_i_qualify_for_the_child_tax_credit_ctc:
               answer_html: |
-                <p>La mayoría de las familias con hijos menores de 18 años tienen derecho al Crédito Tributario por Hijos (Niños). Para tener derecho al CTC:</p>
+                <p>La mayoría de las familias con hijos menores de 18 años tienen derecho al Crédito Tributario por Hijos. Para tener derecho al CTC:</p>
                 <ul class="list--bulleted">
                 <li>Para recibir la cantidad completa de dinero, debe ganar menos de $75,000 como padre soltero, o $150,000 como pareja casada. Si gana menos de $240,000 como padre o madre, o $440,000 como matrimonio, puede seguir recibiendo parte del CTC.</li>
                 <li>Debe haber vivido en Estados Unidos durante más de seis meses en 2021. (Si no es así, podría tener derecho a una cantidad menor de CTC.)</li>
@@ -3031,7 +3031,7 @@ es:
                 <li>Su hijo no debe ser económicamente independiente, lo que significa que no puede haber pagado más de la mitad de sus propios gastos de subsistencia.</li>
                 <li>Usted debe ser la persona mejor situada para solicitar el hijo. En general, los padres pueden solicitar el hijo antes que las personas que no son sus padres; los padres que pasan más tiempo con el hijo pueden solicitarlo antes que los padres que pasan menos tiempo; y las personas que no son padres y que pasan más tiempo con el hijo pueden solicitarlo antes que las personas que pasan menos tiempo con el hijo</li>
                 </ul>
-              question: "¿Tengo derecho al Crédito Tributario por Hijos (CTC, en inglés)?"
+              question: "¿Tengo derecho al Crédito Tributario por Hijos?"
             how_do_i_claim_child_tax_credit_for_a_baby_in_2021:
               answer_html: Ahora puede solicitar un bebé nacido en 2021 en su declaración de impuestos. Cuando añada un bebé nacido en 2021 a su declaración de la renta, obtendrá la totalidad del Crédito Tributario por Hijos para él, incluyendo lo que le faltó en los anticipos del año pasado.
               question: "¿Cómo puedo solicitar el Crédito Tributario por Hijos para un bebé nacido en 2021?"
@@ -3045,7 +3045,7 @@ es:
                 <p>Para obtener el Crédito Tributario por Hijos (CTC) tiene que presentar una declaración de impuestos. Si recibió pagos mensuales de CTC o no el año pasado, y si declaró impuestos en los últimos años o no, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
                 <p>Si recibió pagos mensuales por adelantado en 2021, puede presentar una declaración de impuestos para obtener el resto de sus pagos (generalmente, $1,800 por hijo menor y $1,500 por hijo mayor). Si no recibió pagos mensuales en 2021 entonces puede presentar una declaración de impuestos para obtener el total de sus pagos de CTC (generalmente, $3,600 por hijo menor y $3,000 por hijo mayor).</p>
                 <p>Puede presentar una declaración de impuestos gratis con GetYourRefund.</p>
-              question: "¿Qué debo hacer para recibir los pagos del Crédito Tributario por Hijos (CTC)?"
+              question: "¿Qué debo hacer para recibir los pagos del Crédito Tributario por Hijos?"
             how_do_i_get_the_child_tax_credit_if_i:
               answer_html: |
                 <p>Las familias que no suelen declarar impuestos se denominan a veces "no declarantes". A menudo se trata de familias que ganan tan poco dinero que no están obligadas a declarar impuestos, a veces porque obtienen sus ingresos a través de una discapacidad u otras prestaciones.</p>
@@ -3060,7 +3060,7 @@ es:
                 <p>Actualmente no hay más pagos mensuales del CTC durante 2022. Cuando presente la declaración, recibirá la cantidad restante en un solo pago.</p>
               question: "¿A cuánto equivale el Crédito Tributario por Hijos en 2022?"
             i_got_letter_6419_from_the_irs_what_is_it:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para reclamar el resto del Crédito Tributario por Hijos este año, tendrá que reportar la cantidad que el IRS le pagó--por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
+              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para reclamar el resto del Crédito Tributario por Hijos este año, tendrá que reportar la cantidad que el IRS le pagó--por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
               question: He recibido la carta 6419 del IRS. ¿Qué es?
             i_have_student_debt_can_i_still_get_all_of:
               answer_html: <p>Por ahora, sí. Debido a la pandemia de COVID-19, el Departamento de Educación ha dejado de aceptar cualquier pago de otras agencias federales para cubrir la deuda estudiantil pendiente. El Departamento ha dicho que esta política estará <a href="https://www.cnbc.com/2022/02/08/student-loan-borrowers-who-default-may-see-child-tax-credit-garnished.html" target="_blank" rel="noopener">en vigor hasta 2022</a>. Sin embargo, esta política <a href="https://www.ed.gov/news/press-releases/biden-harris-administration-extends-student-loan-pause-through-may-1-2022" target="_blank" rel="noopener">no es permanente</a>, y es posible que no siga así. Debe presentar su solicitud pronto para asegurarse de que su reembolso se emita antes de que se reanuden los pagos de la deuda estudiantil.</p>
@@ -3083,13 +3083,13 @@ es:
                 <p>Si recibió pagos mensuales el año pasado, sólo ha recibido la mitad de sus pagos y necesita presentar una declaración de impuestos de 2021 para obtener el resto de su dinero.</p>
                 <p>Si no recibió pagos mensuales el año pasado, puede obtener la totalidad del CTC, aunque gane poco o no gane nada.</p>
                 <p>Los cambios que hizo el Congreso fueron sólo por un año. Eso significa que, a menos que el Congreso actúe de nuevo, no habrá nuevas mensualidades para este año. También significa que, cuando presente la declaración el año que viene, el CTC se reducirá a $2,000 dólares por hijo, y es posible que no reciba tanto si tiene bajos ingresos.</p>
-              question: "¿Ya no habrá Crédito Tributario por Hijos (Niños)?"
+              question: "¿Ya no habrá Crédito Tributario por Hijos?"
             title: Crédito Tributario por Hijos
             what_do_i_do_if_someone_else_has_claimed_my:
               answer_html: |
                 <p>Sólo se puede declarar a un hijo en una declaración de impuestos en un año fiscal determinado. A veces, dos hogares diferentes intentan reclamar al mismo hijo porque intentan compartir los pagos, los derechos de reclamación no están claros o hay mala fe.</p>
                 <p>Lo que debe hacer a continuación depende del momento en que otra persona declaró a su hijo.</p>
-                <p>Si alguien declaró a su hijo el año pasado (en 2021 en su declaración de impuestos de 2020) y le impidió recibir los pagos mensuales del Crédito Tributario por Hijos (Niños), lo más importante es presentar rápidamente este año. Si presenta la declaración de impuestos antes que la otra persona que declara a su hijo, recibirá el monto completo del CTC (incluyendo todas las mensualidades que dejó de recibir el año pasado).</p>
+                <p>Si alguien declaró a su hijo el año pasado (en 2021 en su declaración de impuestos de 2020) y le impidió recibir los pagos mensuales del Crédito Tributario por Hijos, lo más importante es presentar rápidamente este año. Si presenta la declaración de impuestos antes que la otra persona que declara a su hijo, recibirá el monto completo del CTC (incluyendo todas las mensualidades que dejó de recibir el año pasado).</p>
                 <p>Si intenta presentar una declaración de impuestos este año y descubre que alguien ya ha declarado a su hijo y desea disputar la declaración al IRS para recibir sus pagos, el proceso es más complicado. En primer lugar, tiene que enviar por correo una copia en papel de su declaración al IRS. A continuación, el IRS iniciará un proceso para determinar quién puede declarar a este dependiente. Este proceso puede ser difícil para usted y para quien haya declarado a su dependiente. Si quiere seguir este proceso, consulte aquí para más información: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. Un sitio de <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Voluntarios de Declaración de Impuestos, Volunteer Income Tax , en inglés</a> o el <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Servicio de Defensa del Contribuyente, Taxpayer Advocate Service, en inglés</a>pueden ayudarle con el proceso.</p>
               question: "¿Qué puedo hacer si otra persona ha declarado a mi hijo para el Crédito Tributario por Hijos?"
             what_if_i_dont_have_any_income_or_only_income:
@@ -3102,7 +3102,7 @@ es:
               question: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
             what_is_the_child_tax_credit_update_portal_ctc_up:
               answer_html: |
-                <p>El <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener">portal de actualización de CTC (CTC UP)</a> permitió a las familias actualizar la información pertinente sobre sus pagos de Crédito Tributario por Hijos (Niños). El año pasado, CTC UP permitió a los usuarios optar por no recibir pagos anticipados de CTC, cambiar la información de pago y comprobar el estado general de elegibilidad. Debido a que los pagos mensuales se han detenido este año, no tendrá que utilizar el Portal de Actualización de CTC. Debe presentar una declaración de impuestos para reclamar el resto del CTC de este año.</p>
+                <p>El <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener">portal de actualización de CTC (CTC UP)</a> permitió a las familias actualizar la información pertinente sobre sus pagos de Crédito Tributario por Hijos. El año pasado, CTC UP permitió a los usuarios optar por no recibir pagos anticipados de CTC, cambiar la información de pago y comprobar el estado general de elegibilidad. Debido a que los pagos mensuales se han detenido este año, no tendrá que utilizar el Portal de Actualización de CTC. Debe presentar una declaración de impuestos para reclamar el resto del CTC de este año.</p>
                 <p>Si necesita ver el monto de los pagos anticipados que recibió el año pasado, puede ir a <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">su cuenta en línea del IRS</a>.</p>
               question: "¿Qué es el Portal de Actualización de Crédito Tributario por Hijos (CTC UP)?"
             why_did_my_spouse_and_i_get_two_different_letters:
@@ -3373,12 +3373,12 @@ es:
           should_i_file_a_tax_return:
             am_i_a_nonfiler:
               answer_html: |
-                <p>El término "no declarante" se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos (Niños), los pagos de estímulo y el crédito tributario por ingresos del trabajo.</p>
+                <p>El término "no declarante" se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el crédito tributario por ingresos del trabajo.</p>
                 <p>El "No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para declarar los beneficios fiscales disponibles. Al presentar una declaración de impuestos, usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no suele declarar impuestos.</p>
               question: "¿Soy un no declarante?"
             im_1924_should_i_file_a_tax_return:
               answer_html: |
-                <p>La mayoría de los beneficios fiscales, incluyendo el crédito tributario, el Crédito Tributario por Hijos (Niños), y los pagos de estímulo, sólo están disponibles para individuos que no pueden ser declarados como dependientes en la declaración de impuestos de otra persona. La mayoría de las personas que son estudiantes a tiempo completo de entre 19 y 24 años son dependientes de otra persona (normalmente sus padres o tutores), a menos que puedan demostrar que pagan más de la mitad de sus gastos de manutención, incluyendo la vivienda, la alimentación, los gastos médicos/dentales y los gastos personales.</p>
+                <p>La mayoría de los beneficios fiscales, incluyendo el crédito tributario, el Crédito Tributario por Hijos, y los pagos de estímulo, sólo están disponibles para individuos que no pueden ser declarados como dependientes en la declaración de impuestos de otra persona. La mayoría de las personas que son estudiantes a tiempo completo de entre 19 y 24 años son dependientes de otra persona (normalmente sus padres o tutores), a menos que puedan demostrar que pagan más de la mitad de sus gastos de manutención, incluyendo la vivienda, la alimentación, los gastos médicos/dentales y los gastos personales.</p>
                 <p>En general, si tiene entre 19-24 años debe presentar su propia declaración de impuestos si no es estudiante a tiempo completo y ganó más de $4,300 en el año fiscal.</p>
                 <p>Incluso si puede ser declarado en la declaración de impuestos de otra persona, aún puede beneficiarse de presentar una declaración de impuestos si tuvo un trabajo y los impuestos fueron retenidos de su sueldo. Cuando presente una declaración para declarar las retenciones no utilizadas, asegúrese de indicar que puede ser declarado en la declaración de impuestos de otra persona.</p>
               question: Tengo de 19-24 años, ¿debo hacer la declaración de impuestos?
@@ -3416,7 +3416,7 @@ es:
             do_i_have_to_file_a_state_return_if_i:
               answer_html: |
                 <p>Por lo general, muchos estados exigen que se presente una declaración de impuestos estatal además de la declaración de impuestos federal. Si llena un formulario para no declarantes (como GetCTC o un portal para no declarantes con el IRS), entonces podría no tener que presentar una declaración estatal, pero las leyes estatales varían, por lo que debe verificar nuevamente las reglas de su estado.</p>
-                <p>Muchos estados tienen sus propios créditos fiscales similares al crédito tributario por ingreso del trabajo (EITC), al Crédito Tributario por Hijos (Niños) y a los reembolsos por calefacción y alquiler. Lo más fácil es presentar la declaración de impuestos del estado al mismo tiempo que la declaración de impuestos federales, si le es posible. Puede encontrar instrucciones y recursos específicos del estado en el sitio web del Departamento de Hacienda de su estado.</p>
+                <p>Muchos estados tienen sus propios créditos fiscales similares al crédito tributario por ingreso del trabajo (EITC), al Crédito Tributario por Hijos y a los reembolsos por calefacción y alquiler. Lo más fácil es presentar la declaración de impuestos del estado al mismo tiempo que la declaración de impuestos federales, si le es posible. Puede encontrar instrucciones y recursos específicos del estado en el sitio web del Departamento de Hacienda de su estado.</p>
               question: "¿Tengo que presentar una declaración estatal si he presentado un formulario de no declarante?"
             title: Devoluciones estatales del IRS
           stimulus:
@@ -3454,7 +3454,7 @@ es:
               question: "¿Cómo puedo revisar el estado de mis pagos?"
             how_do_i_log_into_my_account_on_the_irs_website:
               answer_html: |
-                <p>La creación e inicio de sesión en su cuenta del IRS puede ayudarle a acceder a información importante necesaria para presentar una declaración de impuestos precisa este año, incluyendo la cantidad del Crédito Tributario por Hijos (Niños), o los pagos por estímulo recibidos. Puede ser un reto verificar su identidad para crear una cuenta del IRS. Para verificar su identidad necesitará una dirección de correo electrónico, su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN en inglés), una identificación con foto (licencia de conducir, identificación estatal, pasaporte o tarjeta de pasaporte) y un teléfono móvil con cámara o una computadora portátil/computadora de escritorio con cámara web.</p>
+                <p>La creación e inicio de sesión en su cuenta del IRS puede ayudarle a acceder a información importante necesaria para presentar una declaración de impuestos precisa este año, incluyendo la cantidad del Crédito Tributario por Hijos, o los pagos por estímulo recibidos. Puede ser un reto verificar su identidad para crear una cuenta del IRS. Para verificar su identidad necesitará una dirección de correo electrónico, su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN), una identificación con foto (licencia de conducir, identificación estatal, pasaporte o tarjeta de pasaporte) y un teléfono móvil con cámara o una computadora portátil/computadora de escritorio con cámara web.</p>
                 <p>Aprenda sobre los pasos para crear una cuenta ID.me <a href="https://help.id.me/hc/en-us/articles/4402761436823" target="_blank" rel="noopener">aquí</a>.</p>
               question: "¿Cómo puedo acceder a mi cuenta en el sitio web del IRS?"
             how_long_does_it_take_to_get_my_refund_after:
@@ -3480,11 +3480,11 @@ es:
               question: "¿Puedo declarar a mi padre o a mi madre?"
             title: "¿A quién debo incluir en mi declaración de impuestos?"
             what_are_the_benefits_of_claiming_a_child_on_my:
-              answer_html: Dependiendo de su situación, podría obtener hasta unos $10,000 por cada hijo que pueda declarar en su declaración de impuestos. Al declarar a los niños en sus impuestos, podría establecer la elegibilidad para el Crédito Tributario por Hijos (Niños), y aumentar la cantidad de su crédito tributario por ingreso del trabajo (EITC) y su Crédito de Reembolso por Recuperación (RRC - también conocido como el tercer cheque por estímulo, a partir de 2021).
+              answer_html: Dependiendo de su situación, podría obtener hasta unos $10,000 por cada hijo que pueda declarar en su declaración de impuestos. Al declarar a los niños en sus impuestos, podría establecer la elegibilidad para el Crédito Tributario por Hijos, y aumentar la cantidad de su crédito tributario por ingreso del trabajo (EITC) y su Crédito de Reembolso por Recuperación (RRC - también conocido como el tercer cheque por estímulo, a partir de 2021).
               question: "¿Qué ventajas tiene declarar a un hijo en mi declaración de impuestos?"
             what_should_i_do_if_i_was_claimed_as_a:
               answer_html: |
-                <p>Si alguien lo declaró como dependiente, en primer lugar, debe determinar si en realidad esa persona estaba autorizado a hacerlo. Por lo general, alguien (como un padre, un abuelo o un tutor) paga más de la mitad de sus gastos y usted vive con esa persona la mayor parte del año, entonces usted es su dependiente. Eso significa que usted no tiene derecho a la mayoría de los beneficios tributarios (como el Crédito Tributario por Hijos (Niños), el crédito tributario por ingresos del trabajo o los pagos por estímulo) y, por lo general, no puede presentar su propia declaración de impuestos.</p>
+                <p>Si alguien lo declaró como dependiente, en primer lugar, debe determinar si en realidad esa persona estaba autorizado a hacerlo. Por lo general, alguien (como un padre, un abuelo o un tutor) paga más de la mitad de sus gastos y usted vive con esa persona la mayor parte del año, entonces usted es su dependiente. Eso significa que usted no tiene derecho a la mayoría de los beneficios tributarios (como el Crédito Tributario por Hijos, el crédito tributario por ingresos del trabajo o los pagos por estímulo) y, por lo general, no puede presentar su propia declaración de impuestos.</p>
                 <p>Si cree que alguien lo ha declarado incorrectamente, puede apelar, pero desgraciadamente este proceso no es fácil. En primer lugar, tendrá que enviar por correo una copia en papel de su declaración al IRS. (Ver el documento que explica cómo hacer una declaración en papel, en inglés,  'How Do I Paper File'.) Después, el IRS iniciará un proceso para determinar si la declaración de la otra persona era válida. Este proceso puede ser difícil para usted y para quien lo haya declarado, ya que ambos tendrán que aportar documentación que apoye su caso.</p>
               question: "¿Qué puedo hacer si me declaran como dependiente pero quiero declarar mis propios impuestos?"
             who_can_i_claim_on_my_return:
@@ -3804,7 +3804,7 @@ es:
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
       arp_payments:
         errors:
-          advance_child_tax_credit: Favor de ingresar el monto del pago por adelantado del Crédito Tributario por Hijos (Niños), o díganos que no está seguro. Si no recibió el CTC o no aplica a usted, ingrese el 0.
+          advance_child_tax_credit: Favor de ingresar el monto del pago por adelantado del Crédito Tributario por Hijos, o díganos que no está seguro. Si no recibió el CTC o no aplica a usted, ingrese el 0.
           eip: 'Favor de ingresar los montos de cada pago de estímulo, o díganos que no está seguro cuánto recibió. '
         help_text_html:
         - A partir de abril 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de Rescate Estadounidense.
