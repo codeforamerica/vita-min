@@ -5,7 +5,7 @@
   <p><%= t("views.ctc.questions.irs_language_preference.subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <%= f.cfa_select(:irs_language_preference, t("views.ctc.questions.irs_language_preference.select_language"), IrsLanguages.display_values(locale)) %>
+    <%= f.cfa_select(:irs_language_preference, t("views.ctc.questions.irs_language_preference.select_language"), irs_languages, **default_irs_language(@form.irs_language_preference)) %>
     <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
   <% end %>
 <% end %>

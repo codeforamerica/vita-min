@@ -1,10 +1,10 @@
 module Ctc
   class IrsLanguagePreferenceForm < QuestionsForm
-    set_attributes_for :misc, :irs_language_preference
+    set_attributes_for :intake, :irs_language_preference
     validates :irs_language_preference, presence: true
 
     def save
-      @intake.update(irs_language_preference: IrsLanguages.key_for_name(irs_language_preference))
+      @intake.update(attributes_for(:intake))
     end
   end
 end
