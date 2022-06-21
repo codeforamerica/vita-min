@@ -2241,11 +2241,7 @@ en:
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
         income:
-          income_qualifications:
-          - earned less than %{standard_deduction} in total income
-          - earned less than $400 in self-employment income
-          - did not receive the Advance Premium Tax Credit
-          - are not required to file a full tax return for any other reason
+          any_other_reason: are not required to file a full tax return for any other reason
           income_reveal:
             content:
               list_1:
@@ -2257,19 +2253,7 @@ en:
               - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
-          puerto_rico_income_qualifications:
-            one:
-            - earned less than %{standard_deduction} in total income
-            - earned less than $400 in self-employment income
-            - did not receive the Advance Premium Tax Credit
-            - are a bonafide resident of Puerto Rico
-            - are not required to file a full tax return for any other reason
-            other:
-            - earned less than %{standard_deduction} in total income
-            - earned less than $400 in self-employment income
-            - did not receive the Advance Premium Tax Credit
-            - are a bonafide resident of Puerto Rico
-            - are not required to file a full tax return for any other reason
+          puerto_rico_resident: are a bonafide resident of Puerto Rico
           self_employment_income_reveal:
             content:
               list_1:
@@ -2280,6 +2264,10 @@ en:
               p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2. Self-employment income includes cash payments.
               p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
             title: What counts as self-employment income?
+          specific_eligibility_reasons:
+          - earned less than %{standard_deduction} in total income
+          - earned less than $400 in self-employment income
+          - did not receive the Advance Premium Tax Credit
           title:
             one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
             other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
