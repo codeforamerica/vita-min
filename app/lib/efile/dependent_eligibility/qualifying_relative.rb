@@ -31,7 +31,8 @@ module Efile
             claimable_test: [
               :meets_misc_qualifying_relative_requirements_yes?, # 2020 tax year question
               :cant_be_claimed_by_other_and_below_income_requirement? # 2021
-            ]
+            ],
+            home_location_test: :home_location_is_not_puerto_rico?
         }
       end
 
@@ -40,6 +41,10 @@ module Efile
       end
 
       private
+
+      def home_location_is_not_puerto_rico?
+        !dependent.intake.home_location_puerto_rico?
+      end
 
       def filer_financially_supported?
         # filer_provided_over_half_support? is not defined or required on archived dependents

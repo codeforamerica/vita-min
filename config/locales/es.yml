@@ -2081,6 +2081,16 @@ es:
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
             help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
+            pr:
+              conditions:
+              - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final del %{current_tax_year}.
+              - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar niños que estaban vivos en %{current_tax_year} en su declaración de impuestos %{current_tax_year}.
+              - Es posible que la persona que está tratando de reclamar no tenga la relación correcta con usted para calificar para CTC. Debe ser su hijo, su hermano o un descendiente de uno de ellos.
+              - Es posible que la persona que está tratando de reclamar no viva con usted la mayor parte del año. En la mayoría de los casos, solo puede reclamar a los niños que viven con usted la mayor parte del año.
+              - La persona que está tratando de reclamar podría ser económicamente independiente. En la mayoría de los casos, solo puede reclamar a los niños si no pagan sus propios gastos de manutención.
+              - La persona que está tratando de reclamar podría ser el hijo de otra persona en lugar del suyo. Solo un hogar puede reclamar a un niño determinado.
+              - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
+              help_text: No guardaremos %{name} en su declaración de impuestos. No califican para los pagos del Crédito Tributario por Hijos.
             reveal: "¿Por qué no califica esta persona?"
             title: No puede reclamar beneficios para %{name}. ¿Te gustaría agregar a alguien más?
           info:
