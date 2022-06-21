@@ -2720,20 +2720,22 @@ es:
         51_do_our_best: Haremos todo lo posible para resolver el problema.
       puerto_rico:
         hero:
-        - Collect money for any child that you take care of even if you have never filed taxes with the IRS before. You may be eligible to claim the Child Tax Credit and put cash in your family's pocket. If you're not required to file a federal return with the IRS, you can use this simplified tax filing tool to get your money.
-        - This form usually takes about 15 minutes to complete, and you won't need any tax documents.
-        title: Puerto Rico, you can get Child Tax Credit for your family!
+        - Recolecta dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en efectivo en el bolsillo de su familia. Si no está obligado a presentar una declaración federal ante el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
+        - Este formulario en general tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+        title: "¡Puerto Rico, pueden obtener Crédito Tributario por Hijos para su familia!"
         what_is:
           body:
-          - This year, for the first time, families in Puerto Rico can get the full Child Tax Credit, of up to $3,600 per child.
-          - To claim your Child Tax Credit, you need to file a simplified form with the IRS. If you haven't already filed a federal return with the IRS, you can do it easily here!
-          heading: Most families in Puerto Rico can get thousands of dollars from the Child Tax Credit by filing with the IRS!
+          - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo completo, de hasta $3,600 por niño.
+          - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado ante el IRS. Si aún no ha presentado una declaración federal ante el IRS, ¡puede hacerlo fácilmente aquí!
+          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración ante el IRS!"
           how_much_reveal:
             body:
-            - The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.
+            - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+            title: "¿Cuánto recibiré?"
           qualify_reveal:
             body:
-            - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
+            - El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.
+            title: "¿Califican mis niños?"
       signups:
         confirmation:
           body: Nos comunicaremos contigo en cuanto tengamos más información.
