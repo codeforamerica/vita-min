@@ -2218,11 +2218,6 @@ es:
           subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         income:
-          income_qualifications:
-          - ganó menos de %{standard_deduction} en ingresos totales
-          - ganó menos de $400 en ingresos de trabajo por cuenta propia
-          - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
-          - no está obligado a presentar una declaración completa por cualquier otra razón
           income_reveal:
             content:
               list_1:
@@ -2234,19 +2229,22 @@ es:
               - beneficios de desempleo
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué se puede considera como un ingreso?"
-          puerto_rico_income_qualifications:
-            one:
-            - ganó menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
-            - es un residente de buena fe de Puerto Rico
-            - no está obligado a presentar una declaración completa por cualquier otra razón
-            other:
-            - ganaron menos de %{standard_deduction} en ingresos totales
-            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
-            - son residentes de buena fe de Puerto Rico
-            - no están obligados a presentar una declaración completa por cualquier otra razón
+          list:
+            any_other_reason:
+              one: no está obligado a presentar una declaración completa por cualquier otra razón
+              other: no están obligados a presentar una declaración completa por cualquier otra razón
+            puerto_rico_resident:
+              one: es un residente de buena fe de Puerto Rico
+              other: son residentes de buena fe de Puerto Rico
+            specific_eligibility_reasons:
+              one:
+              - ganó menos de %{standard_deduction} en ingresos totales
+              - ganó menos de $400 en ingresos de trabajo por cuenta propia
+              - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+              other:
+              - ganaron menos de %{standard_deduction} en ingresos totales
+              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
+              - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
           self_employment_income_reveal:
             content:
               list_1:

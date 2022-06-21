@@ -7,15 +7,13 @@
 
   <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
-    <% if current_intake.puerto_rico_filing? %>
-      <% t("views.ctc.questions.income.puerto_rico_income_qualifications", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
-        <li><%= income_qualifications %></li>
-      <% end %>
-    <% else %>
-      <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
-        <li><%= income_qualifications %></li>
-      <% end %>
+    <% t("views.ctc.questions.income.list.specific_eligibility_reasons", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
+      <li><%= income_qualifications %></li>
     <% end %>
+    <% if current_intake.puerto_rico_filing? %>
+      <li><%= t("views.ctc.questions.income.list.puerto_rico_resident", count: @filing_count) %></li>
+    <% end %>
+    <li><%= t("views.ctc.questions.income.list.any_other_reason", count: @filing_count) %></li>
   </ul>
 
   <div class="reveal-shrink-wrapper spacing-above-60">
