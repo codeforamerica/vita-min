@@ -4,7 +4,7 @@ module Ctc
     validates :irs_language_preference, presence: true
 
     def save
-      @intake.update!(irs_language_preference: IrsLanguages.key_for_name(irs_language_preference))
+      @intake.update(irs_language_preference: IrsLanguages.key_for_name(irs_language_preference))
     end
   end
 end
