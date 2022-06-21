@@ -2730,11 +2730,11 @@ es:
           heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración ante el IRS!"
           how_much_reveal:
             body:
-            - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+            - El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.
             title: "¿Cuánto recibiré?"
           qualify_reveal:
             body:
-            - El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.
+            - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
       signups:
         confirmation:
