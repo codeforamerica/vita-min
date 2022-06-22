@@ -74,7 +74,9 @@ module Ctc
     def completed; end
 
     def puerto_rico
-      redirect_to action: :home unless Flipper.enabled?(:puerto_rico_home_location)
+      redirect_to action: :home and return unless Flipper.enabled?(:puerto_rico_home_location)
+
+      redirect_to "/es/puertorico" and return unless params[:locale].present?
     end
 
     private
