@@ -30,7 +30,7 @@ irs_languages:
   - key: punjabi
     name: Punjabi [ਪੰਜਾਬੀ]
   - key: khmer
-    name: Khmer [ែខ�រ]
+    name: Khmer [ខ្មែរ]
   - key: urdu
     name: Urdu [اردو]
   - key: bengali
