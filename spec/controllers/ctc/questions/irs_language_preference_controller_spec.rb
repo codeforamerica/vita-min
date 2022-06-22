@@ -11,32 +11,34 @@ describe Ctc::Questions::IrsLanguagePreferenceController do
 
     render_views
 
-    context "locale is es and irs_language_preference is nil" do
-      it "Spanish is selected" do
-        get :edit, params: { locale: "es" }
-        expect(response).to render_template :edit
+    context "without a saved language preference" do
+      context "when the locale is spanish" do
+        it "selects spanish" do
+          get :edit, params: { locale: "es" }
+          expect(response).to render_template :edit
 
-        html = Nokogiri::HTML.parse(response.body)
-        value = html.at_css('#ctc_irs_language_preference_form_irs_language_preference option[@selected="selected"]')['value']
-        expect(value).to eq "spanish"
+          html = Nokogiri::HTML.parse(response.body)
+          value = html.at_css('#ctc_irs_language_preference_form_irs_language_preference option[@selected="selected"]')['value']
+          expect(value).to eq "spanish"
+        end
+      end
+
+      context "when the locale is english" do
+        it "selects english" do
+          get :edit, params: { locale: "en" }
+          expect(response).to render_template :edit
+
+          html = Nokogiri::HTML.parse(response.body)
+          value = html.at_css('#ctc_irs_language_preference_form_irs_language_preference option[@selected="selected"]')['value']
+          expect(value).to eq "english"
+        end
       end
     end
 
-    context "locale is en and irs_language_preference is nil" do
-      it "English is selected" do
-        get :edit, params: { locale: "en" }
-        expect(response).to render_template :edit
-
-        html = Nokogiri::HTML.parse(response.body)
-        value = html.at_css('#ctc_irs_language_preference_form_irs_language_preference option[@selected="selected"]')['value']
-        expect(value).to eq "english"
-      end
-    end
-
-    context "irs_language_preference is russian" do
+    context "with a saved irs language preference" do
       let(:irs_language_preference) { "russian" }
 
-      it "Russian is selected" do
+      it "selects the saved language" do
         get :edit, params: { locale: "en" }
         expect(response).to render_template :edit
 
