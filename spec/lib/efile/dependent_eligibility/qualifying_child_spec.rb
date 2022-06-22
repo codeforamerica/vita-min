@@ -25,6 +25,7 @@ describe Efile::DependentEligibility::QualifyingChild do
           residence_test: true,
           claimable_test: true,
           primary_and_spouse_age_test: true,
+          additional_puerto_rico_rules_test: true,
       }
     end
 
@@ -164,6 +165,55 @@ describe Efile::DependentEligibility::QualifyingChild do
       let(:totally_permanently_disabled) { "yes" }
       let(:full_time_student) { "no" }
       let(:birth_date) { Date.today - 40.years }
+    end
+  end
+
+  describe "additional_puerto_rico_rules_test" do
+    let(:intake) { create(:ctc_intake, home_location: home_location, client: create(:client, :with_return)) }
+    let(:birth_date) { Date.new(2019, 1, 1) }
+    let(:tin_type) { "ssn" }
+    let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake, tin_type: tin_type }
+
+    context "when the parent intake is not home location puerto rico" do
+      let(:home_location) { "fifty_states" }
+
+      it "returns true" do
+        expect(subject.test_results[:additional_puerto_rico_rules_test]).to eq true
+        expect(subject.qualifies?).to eq true
+      end
+    end
+
+    context "when the parent intake is home location puerto rico" do
+      let(:home_location) { "puerto_rico" }
+
+      context "when ssn is not valid for employment" do
+        let(:tin_type) { "ssn_no_employment" }
+        it "returns false" do
+          expect(subject.test_results[:additional_puerto_rico_rules_test]).to eq false
+          expect(subject.qualifies?).to eq false
+          expect(subject.disqualifiers).to eq [:additional_puerto_rico_rules_test]
+        end
+      end
+
+      context "when the dependent is born before 1/1/2004" do
+        let(:birth_date) { Date.new(2001, 01, 01) }
+        let(:tin_type) { "ssn" }
+
+        it "returns false" do
+          expect(subject.test_results[:additional_puerto_rico_rules_test]).to eq false
+          expect(subject.qualifies?).to eq false
+          expect(subject.disqualifiers).to include :additional_puerto_rico_rules_test
+        end
+      end
+
+      context "when the ssn is valid for employment and the dependent was born after 1/1/2004" do
+        let(:birth_date) { Date.new(2004, 01, 02) }
+        let(:tin_type) { "ssn" }
+        it "returns true" do
+          expect(subject.test_results[:additional_puerto_rico_rules_test]).to eq true
+          expect(subject.qualifies?).to eq true
+        end
+      end
     end
   end
 
