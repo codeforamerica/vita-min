@@ -4,6 +4,8 @@
 
 <% content_for :body_class, "body--home" %>
 
+<% content_for :get_started_link, ctc_puerto_rico_overview_path %>
+
 <%= render 'shared/facebook_pixel' %>
 <main role="main" class="ctc-home">
   <div class="slab slab--hero">
@@ -26,7 +28,7 @@
         <% end %>
         <div>
           <% if open_for_ctc_intake? %>
-            <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+            <%= link_to t('views.ctc_pages.home.get_started'), ctc_puerto_rico_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
           <% end %>

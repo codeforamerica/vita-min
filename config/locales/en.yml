@@ -2881,6 +2881,10 @@ en:
             how_much_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
             how_much_title: How much will I get?
           subheading_open: If you missed out on the third stimulus payment in spring 2021, you can claim it now, even if you make little or no money.
+      puerto_rico_overview:
+        title: "Welcome!"
+        help_text: "Use our simple e-filing tool to receive your Child Tax Credit."
+        cta: "You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability."
     dependents:
       form:
         birth_date: Date of birth

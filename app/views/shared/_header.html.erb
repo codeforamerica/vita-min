@@ -28,7 +28,7 @@
       <% else %>
         <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item text--small text--bold" %>
         <% if !@in_intake_flow && ((variation == "gyr" && open_for_gyr_intake?) || (variation == "ctc" && open_for_ctc_intake?)) %>
-          <%= link_to t("general.get_started"), question_path(id: variation == "gyr" ? GyrQuestionNavigation.first : CtcQuestionNavigation.first), class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
+          <%= link_to t("general.get_started"), get_started_link || question_path(id: variation == "gyr" ? GyrQuestionNavigation.first : CtcQuestionNavigation.first), class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
         <% end %>
     <% end %>
     </div>

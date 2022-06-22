@@ -2,10 +2,17 @@ module CtcIntakeFeatureHelper
   def fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "fifty_states")
     married_filing_jointly = filing_status == "married_filing_jointly"
     # =========== BASIC INFO ===========
-    visit "/en/questions/overview"
-    expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
-    click_on I18n.t('general.continue')
+    if home_location == "puerto_rico"
+      visit "/en/puertorico"
+      click_on I18n.t("general.get_started"), id: "firstCta"
+      expect(page).to have_content I18n.t('views.ctc_pages.puerto_rico_overview.do_my_children_qualify_reveal.title')
+      click_on I18n.t('general.continue')
+    else
+      visit "/en/questions/overview"
+      expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+      click_on I18n.t('general.continue')
+    end
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
     choose I18n.t('views.ctc.questions.main_home.options.foreign_address')

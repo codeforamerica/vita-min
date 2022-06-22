@@ -79,6 +79,8 @@ module Ctc
       redirect_to "/es/puertorico" and return unless params[:locale].present?
     end
 
+    def puerto_rico_overview; end
+
     private
 
     def markdown_content_from_file(file_name)
