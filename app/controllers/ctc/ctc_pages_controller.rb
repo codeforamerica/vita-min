@@ -74,10 +74,11 @@ module Ctc
     def completed; end
 
     def puerto_rico
-      redirect_to action: :home unless Flipper.enabled?(:puerto_rico_home_location)
+      redirect_to action: :home and return unless Flipper.enabled?(:puerto_rico_home_location)
+
       if params[:locale].nil?
         I18n.with_locale('es') do
-          render :puerto_rico
+          render :puerto_rico and return
         end
       end
     end
