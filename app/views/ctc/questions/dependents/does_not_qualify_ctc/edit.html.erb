@@ -1,15 +1,16 @@
 <% @puerto_rico_filing = current_intake.puerto_rico_filing? %>
-<% @main_question = t(@puerto_rico_filing ? "views.ctc.questions.dependents.does_not_qualify_ctc.pr.title" : "views.ctc.questions.dependents.does_not_qualify_ctc.title", name:  @dependent.first_name.upcase_first) %>
+<% @main_question = @puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.title", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name:  @dependent.first_name.upcase_first) %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
-    <p><%= t(@puerto_rico_filing ? "views.ctc.questions.dependents.does_not_qualify_ctc.pr.help_text" : "views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.upcase_first) %></p>
+    <p><%= @puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.help_text", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.upcase_first) %></p>
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_not_qualify_ctc.reveal")) do %>
       <ul class="list--bulleted">
-        <% t(@puerto_rico_filing ? "views.ctc.questions.dependents.does_not_qualify_ctc.pr.conditions" : "views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
+        <% @conditions = @puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) : t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) %>
+        <% @conditions.each do |condition| %>
           <li><%= condition %></li>
         <% end %>
       </ul>
