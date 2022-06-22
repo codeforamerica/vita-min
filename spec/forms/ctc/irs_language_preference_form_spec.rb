@@ -4,7 +4,7 @@ describe Ctc::IrsLanguagePreferenceForm do
   let(:intake) { create :intake, irs_language_preference: "english" }
 
   describe "#save" do
-    let(:params) { { irs_language_preference: "Vietnamese [Tiếng Việt]" } }
+    let(:params) { { irs_language_preference: "vietnamese" } }
 
     it "saves the language preference" do
       form = described_class.new(intake, params)
