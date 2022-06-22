@@ -62,6 +62,29 @@ describe Efile::PollForAcknowledgmentsService do
           end
         end
 
+        # We look for acknowledgements for all in transmitted state, but IRS provides two acknowledgements. When we
+        # loop through the first time, it can change the status. Second time, it should record a Sentry message and continue.
+        context "when the IRS sends a duplicate acknowledgement for an efile submission" do
+          let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_acceptance.xml").read }
+
+          before do
+            efile_submission.transition_to!(:accepted)
+            allow(described_class).to receive(:transmitted_submission_ids).and_return [efile_submission.irs_submission_id]
+            allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
+                                                 .with("test", "acks", efile_submission.irs_submission_id)
+                                                 .and_return expected_irs_return_value
+            allow(Sentry).to receive(:capture_message)
+          end
+
+          it "records a message to Sentry but does not raise an error" do
+            expect {
+              Efile::PollForAcknowledgmentsService.run
+            }.not_to raise_error
+            expect(efile_submission.current_state).to eq "accepted"
+            expect(Sentry).to have_received :capture_message
+          end
+        end
+
         context "when the IRS has an acknowledgement ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
