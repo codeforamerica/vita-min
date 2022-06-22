@@ -2525,8 +2525,6 @@ es:
               - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
               p: 'Algunas razones por las que podría no ser elegible para usar GetCTC son:'
             title: "¿Por qué no soy elegible?"
-          do_my_children_qualify_reveal:
-            content: "Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse."
         verification:
           body: 'Se le ha enviado un mensaje con su código a:'
           error_message: El código de verificación está equivocado
@@ -2869,6 +2867,7 @@ es:
         cta: "Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad."
         do_my_children_qualify_reveal:
           title: "¿Califican mis niños?"
+          content: "Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse."
     dependents:
       form:
         birth_date: Fecha de nacimiento

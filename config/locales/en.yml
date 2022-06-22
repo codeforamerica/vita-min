@@ -2885,6 +2885,9 @@ en:
         title: "Welcome!"
         help_text: "Use our simple e-filing tool to receive your Child Tax Credit."
         cta: "You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability."
+        do_my_children_qualify_reveal:
+          title: "Do my children qualify?"
+          content: "You can collect money for any child you care for. Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure."
     dependents:
       form:
         birth_date: Date of birth

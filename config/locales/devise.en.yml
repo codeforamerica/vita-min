@@ -63,13 +63,3 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  views:
-    ctc_pages:
-      puerto_rico_overview:
-        do_my_children_qualify_reveal:
-          title: "Do my children qualify?"
-    ctc:
-      questions:
-        use_gyr:
-          do_my_children_qualify_reveal:
-            content: "You can collect money for any child you care for. Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure."
