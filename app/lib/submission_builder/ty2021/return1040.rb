@@ -44,7 +44,7 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleLep,
             pdf: Irs1040ScheduleLepPdf,
-            include: @submission.intake.irs_language_preference.present?
+            include: @submission.intake.irs_language_preference.present? && @submission.intake.irs_language_preference != "english"
           }
         ]
       end
