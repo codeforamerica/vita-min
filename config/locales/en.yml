@@ -443,6 +443,7 @@ en:
     response: Response
     return_home: Return to home
     return_search: Return to search
+    return_to_homepage: Return to homepage
     role: Role
     routing: Routing
     save: Save
@@ -2331,7 +2332,13 @@ en:
             us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
           title: Where was your main home for %{current_tax_year}?
         no_dependents:
+          add_child: Add a child
           add_dependents: Add more dependents
+          pr:
+            subtitle:
+            - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
+            - If this is a mistake you can click ‘Add a child’.
+            title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
         no_dependents_advance_ctc_payments:

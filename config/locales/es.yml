@@ -444,6 +444,7 @@ es:
     response: 'Respuesta '
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
+    return_to_homepage: Volver a la página de inicio
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -2318,7 +2319,13 @@ es:
             us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
           title: "¿Cuál fue su residencia principal durante %{current_tax_year}?"
         no_dependents:
+          add_child: Agregar un niño
           add_dependents: Agregar más dependientes
+          pr:
+            subtitle:
+            - No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
+            - Si esto es un error, puede hacer clic en 'Agregar un niño'.
+            title: No recibirá el Crédito Tributario por Hijos.
           subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
           title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar para recoger su tercer pago de estímulo.
         no_dependents_advance_ctc_payments:
