@@ -2290,6 +2290,10 @@ en:
           <p>If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.</p>
           <p>The IRS issues you a new IP PIN every year, and you must provide this year's PIN.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
+        irs_language_preference:
+          select_language: 'Please select your preferred language:'
+          subtitle: After submitting, the IRS may reach out with questions. You have the option to select a preferred language.
+          title: What language do you want the IRS to use when they contact you?
         legal_consent:
           agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
           body: Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.

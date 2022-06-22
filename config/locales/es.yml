@@ -2277,6 +2277,10 @@ es:
           <p>Si es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su IP PIN, un número de 6 dígitos asignado a ciertos contribuyentes elegibles.</p>
           <p>El IRS le emite un nuevo IP PIN cada año y debe proporcionar el PIN de este año.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
+        irs_language_preference:
+          select_language: 'Seleccione su idioma preferido:'
+          subtitle: Después de enviar, el IRS puede comunicarse con preguntas. Tiene la opción de seleccionar un idioma preferido.
+          title: "¿Qué idioma quiere que use el IRS cuando se comunique con usted?"
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN).
