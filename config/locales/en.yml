@@ -2837,6 +2837,13 @@ en:
             body:
             - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
             title: Do my children qualify?
+      puerto_rico_overview:
+        cta: You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability.
+        do_my_children_qualify_reveal:
+          content: You can collect money for any child you care for. Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
+          title: Do my children qualify?
+        help_text: Use our simple e-filing tool to receive your Child Tax Credit.
+        title: Welcome!
       signups:
         confirmation:
           body: We'll contact you as soon as we have more information.
@@ -2881,13 +2888,6 @@ en:
             how_much_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
             how_much_title: How much will I get?
           subheading_open: If you missed out on the third stimulus payment in spring 2021, you can claim it now, even if you make little or no money.
-      puerto_rico_overview:
-        title: "Welcome!"
-        help_text: "Use our simple e-filing tool to receive your Child Tax Credit."
-        cta: "You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability."
-        do_my_children_qualify_reveal:
-          title: "Do my children qualify?"
-          content: "You can collect money for any child you care for. Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure."
     dependents:
       form:
         birth_date: Date of birth

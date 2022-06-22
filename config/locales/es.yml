@@ -2817,6 +2817,13 @@ es:
             body:
             - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
+      puerto_rico_overview:
+        cta: Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+        do_my_children_qualify_reveal:
+          content: Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+          title: "¿Califican mis niños?"
+        help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos.
+        title: "¡Bienvenido!"
       signups:
         confirmation:
           body: Nos comunicaremos contigo en cuanto tengamos más información.
@@ -2861,13 +2868,6 @@ es:
             how_much_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
             how_much_title: "¿Cuánto recibiré?"
           subheading_open: Si se perdió el tercer pago de estímulo en la primavera de 2021, puede reclamarlo ahora, incluso si gana poco o nada de dinero.
-      puerto_rico_overview:
-        title: "¡Bienvenido!"
-        help_text: "Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos."
-        cta: "Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad."
-        do_my_children_qualify_reveal:
-          title: "¿Califican mis niños?"
-          content: "Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse."
     dependents:
       form:
         birth_date: Fecha de nacimiento
