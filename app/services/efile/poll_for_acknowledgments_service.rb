@@ -39,12 +39,14 @@ module Efile
         status = ack.css("AcceptanceStatusTxt").text.strip
         raw_response = ack.to_xml
         submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
+
         unless submission.present?
-          raise StandardError.new("Submission acknowledgement for unknown submission id: #{status} for submission ID #{irs_submission_id}")
+          Sentry.capture_message("Submission acknowledgement for unfindable submission id: #{status} for IRS submission ID #{irs_submission_id}")
+          next
         end
 
         if submission.current_state == status.downcase
-          Sentry.capture_message("Submission #{submission.id} was already in terminal state #{status.downcase}. Duplicate acknowledgement?")
+          Sentry.capture_message("Submission #{submission.id} / #{irs_submission_id} was already in terminal state #{status.downcase}. Duplicate acknowledgement?")
           next
         end
 
