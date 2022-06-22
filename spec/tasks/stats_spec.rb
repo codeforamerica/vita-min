@@ -42,10 +42,12 @@ describe "stats:monitor_delayed_efile_submissions" do
   let(:timestamp_preparing) { 1.day.ago }
   let(:timestamp_bundling) { 14.hours.ago }
   let(:timestamp_queued) { 2.hours.ago }
+  let(:timestamp_transmitted) { 20.hours.ago }
   let(:newer_preparing_efile_submission) { create :efile_submission, :preparing }
   let(:preparing_efile_submission) { create :efile_submission, :preparing }
   let(:bundling_efile_submission) { create :efile_submission, :bundling, efile_submission_transitions: [create(:efile_submission_transition, :preparing, created_at: fake_time - 3.days, most_recent: false)] }
   let(:queued_efile_submission) { create :efile_submission, :queued }
+  let(:transmitted_efile_submission) { create :efile_submission, :transmitted }
 
   before do
     enable_datadog_and_stub_emit_point
@@ -54,6 +56,7 @@ describe "stats:monitor_delayed_efile_submissions" do
       preparing_efile_submission.last_transition.update(created_at: timestamp_preparing, most_recent: true)
       bundling_efile_submission.last_transition.update(created_at: timestamp_bundling, most_recent: true)
       queued_efile_submission.last_transition.update(created_at: timestamp_queued, most_recent: true)
+      transmitted_efile_submission.last_transition.update(created_at: timestamp_transmitted, most_recent: true)
     end
   end
 
@@ -66,6 +69,7 @@ describe "stats:monitor_delayed_efile_submissions" do
         ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 1440, tags: ["current_state:preparing", "env:test"], type: "gauge"],
         ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 840, tags: ["current_state:bundling", "env:test"], type: "gauge"],
         ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 120, tags: ["current_state:queued", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 1200, tags: ["current_state:transmitted", "env:test"], type: "gauge"],
       ]
     )
   end
