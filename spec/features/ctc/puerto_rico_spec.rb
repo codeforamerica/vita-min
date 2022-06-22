@@ -28,6 +28,15 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       allow(Flipper).to receive(:enabled?).and_return true
     end
 
+    scenario "puerto rico landing page" do
+      visit "/puertorico"
+      expect(page).to have_content(I18n.t('views.ctc_pages.puerto_rico.title', locale: :es))
+      within ".ctc-home" do
+        click_on I18n.t('views.ctc_pages.home.get_started', locale: :es)
+      end
+      expect(page).to have_content(I18n.t('views.ctc.questions.overview.title', locale: :es))
+    end
+
     scenario "puerto rico intake" do
       fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "puerto_rico")
       fill_in_eligibility(home_location: "puerto_rico")
