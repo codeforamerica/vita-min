@@ -80,7 +80,9 @@ module Ctc
       @get_started_link = open_for_ctc_intake? ? ctc_puerto_rico_overview_path : nil
     end
 
-    def puerto_rico_overview; end
+    def puerto_rico_overview
+      @in_intake_flow = true
+    end
 
     private
 

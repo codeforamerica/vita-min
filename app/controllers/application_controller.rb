@@ -173,8 +173,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_get_started_link
-    # how to get the right locale???
-    @get_started_link = open_for_gyr_intake? ? question_path(GyrQuestionNavigation.first) : nil
+    @get_started_link = open_for_gyr_intake? ? question_path(GyrQuestionNavigation.first, locale: locale) : nil
   end
 
   def user_agent
@@ -246,10 +245,6 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    locale = available_locale(params[:locale]) ||
-      available_locale_from_domain ||
-      http_accept_language.compatible_language_from(I18n.available_locales) ||
-      I18n.default_locale
     I18n.with_locale(locale, &action)
   end
 
@@ -295,6 +290,13 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def locale
+    available_locale(params[:locale]) ||
+      available_locale_from_domain ||
+      http_accept_language.compatible_language_from(I18n.available_locales) ||
+      I18n.default_locale
+  end
 
   def app_time
     if Rails.env.production?

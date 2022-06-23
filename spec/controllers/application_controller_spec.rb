@@ -587,6 +587,24 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#set_get_started_link" do
+    context "locale is en" do
+      it "generates a link to the beginning of the GYR flow" do
+        get :index
+
+        expect(assigns(:get_started_link)).to eq "/en/questions/welcome"
+      end
+    end
+
+    context "locale is es" do
+      it "generates a link to the beginning of the GYR flow" do
+        get :index, params: { locale: 'es' }
+
+        expect(assigns(:get_started_link)).to eq "/es/questions/welcome"
+      end
+    end
+  end
+
   describe 'special modes' do
     controller do
       def index
