@@ -443,6 +443,7 @@ en:
     response: Response
     return_home: Return to home
     return_search: Return to search
+    return_to_homepage: Return to homepage
     role: Role
     routing: Routing
     save: Save
@@ -2105,6 +2106,7 @@ en:
             - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
             help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
             puerto_rico:
+              affirmative: Yes, add another child
               conditions:
               - The person you are trying to claim might be too old to qualify for CTC. They must be 17 years old or less at the end of %{current_tax_year}.
               - The person you are trying to claim might be born in %{filing_year}. You can only claim children who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
@@ -2114,6 +2116,8 @@ en:
               - The person you are trying to claim might be someone else’s child rather than yours. Only one household can claim a given child.
               - The person you are trying to claim might not have a valid Social Security Number. To be eligible for CTC, they need to have a Social Security Number that is valid for employment.
               help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments.
+              negative: No, continue
+              title: You can not claim Child Tax Credit for %{name}. Would you like to add anyone else?
             reveal: Why doesn’t this person qualify?
             title: You can not claim benefits for %{name}. Would you like to add anyone else?
           info:
@@ -2323,6 +2327,10 @@ en:
           <p>If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.</p>
           <p>The IRS issues you a new IP PIN every year, and you must provide this year's PIN.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
+        irs_language_preference:
+          select_language: 'Please select your preferred language:'
+          subtitle: After submitting, the IRS may reach out with questions. You have the option to select a preferred language.
+          title: What language do you want the IRS to use when they contact you?
         legal_consent:
           agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
           body: Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
@@ -2363,7 +2371,13 @@ en:
             title: What if I did not live anywhere for more than 6 months last year?
           title: Where did you live for most of %{current_tax_year}?
         no_dependents:
+          add_child: Add a child
           add_dependents: Add more dependents
+          pr:
+            subtitle:
+            - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
+            - If this is a mistake you can click ‘Add a child’.
+            title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
         no_dependents_advance_ctc_payments:

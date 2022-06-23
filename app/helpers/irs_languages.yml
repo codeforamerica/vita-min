@@ -1,0 +1,43 @@
+irs_languages:
+  - key: english
+    name: English
+  - key: spanish
+    name: Spanish [Español]
+  - key: korean
+    name: Korean [한국어]
+  - key: vietnamese
+    name: Vietnamese [Tiếng Việt]
+  - key: russian
+    name: Russian [Pусский]
+  - key: arabic
+    name: Arabic [العربية]
+  - key: haitian_creole
+    name: Haitian Creole [Kreyòl Ayisyen]
+  - key: tagalog
+    name: Tagalog [Tagalog]
+  - key: portuguese
+    name: Portuguese [Português]
+  - key: polish
+    name: Polish [Polski]
+  - key: farsi
+    name: Farsi [فارسی]
+  - key: french
+    name: French [Français]
+  - key: japanese
+    name: Japanese [日本語]
+  - key: gujarati
+    name: Gujarati [ગુજરાતી]
+  - key: punjabi
+    name: Punjabi [ਪੰਜਾਬੀ]
+  - key: khmer
+    name: Khmer [ខ្មែរ]
+  - key: urdu
+    name: Urdu [اردو]
+  - key: bengali
+    name: Bengali [বাংলা]
+  - key: italian
+    name: Italian [Italiano]
+  - key: chinese_traditional
+    name: Chinese (Traditional) [中文(繁體)]
+  - key: chinese_simplified
+    name: Chinese (Simplified) [中文(简体)]

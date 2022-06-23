@@ -32,25 +32,32 @@ module Efile
     def self._handle_response(response)
       doc = Nokogiri::XML(response)
       ack_count = 0
+
       doc.css('AcknowledgementList Acknowledgement').each do |ack|
         ack_count += 1
         irs_submission_id = ack.css("SubmissionId").text.strip
         status = ack.css("AcceptanceStatusTxt").text.strip
         raw_response = ack.to_xml
+        submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
+
+        unless submission.present?
+          Sentry.capture_message("Submission acknowledgement for unfindable submission id: #{status} for IRS submission ID #{irs_submission_id}")
+          next
+        end
+
+        if submission.current_state == status.downcase
+          Sentry.capture_message("Submission #{submission.id} / #{irs_submission_id} was already in terminal state #{status.downcase}. Duplicate acknowledgement?")
+          next
+        end
 
         if status == "Rejected"
-          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:rejected, raw_response: raw_response)
+          submission.transition_to(:rejected, raw_response: raw_response)
         elsif status == "Accepted"
-          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response)
+          submission.transition_to(:accepted, raw_response: raw_response)
         elsif status == "Exception"
-          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
+          submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
-          submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
-          if submission
-            submission.transition_to!(:failed, raw_response: raw_response)
-          else
-            raise StandardError.new("Submission acknowledgement has an unknown status: #{status} for submission ID #{irs_submission_id}")
-          end
+          submission.transition_to(:failed, raw_response: raw_response)
         end
       end
       ack_count

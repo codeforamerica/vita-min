@@ -94,14 +94,14 @@ describe Ctc::CtcPagesController do
   end
 
   describe "#puerto_rico" do
-    context "when the puerto rico features has lauched" do
+    context "when the puerto rico features has launched" do
       before do
         allow(Flipper).to receive(:enabled?).with(:puerto_rico_home_location).and_return true
       end
 
-      it "renders the puerto_rico template" do
+      it "redirects to the spanish version of the page" do
         get :puerto_rico
-        expect(response).to render_template :puerto_rico
+        expect(response).to redirect_to "/es/puertorico"
       end
     end
 
