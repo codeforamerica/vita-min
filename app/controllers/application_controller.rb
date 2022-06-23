@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu
+  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
@@ -170,6 +170,11 @@ class ApplicationController < ActionController::Base
 
   def navigator
     session[:navigator]
+  end
+
+  def set_get_started_link
+    # how to get the right locale???
+    @get_started_link = open_for_gyr_intake? ? question_path(GyrQuestionNavigation.first) : nil
   end
 
   def user_agent

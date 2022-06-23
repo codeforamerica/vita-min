@@ -77,6 +77,7 @@ module Ctc
       redirect_to action: :home and return unless Flipper.enabled?(:puerto_rico_home_location)
 
       redirect_to "/es/puertorico" and return unless params[:locale].present?
+      @get_started_link = open_for_ctc_intake? ? ctc_puerto_rico_overview_path : nil
     end
 
     def puerto_rico_overview; end
