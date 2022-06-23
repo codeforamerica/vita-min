@@ -47,11 +47,12 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       click_on "Yes"
 
       fill_in_qualifying_child_age_5
-      # check they dont appear on summary page
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
       expect(page).not_to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_both"))
       expect(page).not_to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_other_credits"))
       expect(page).to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_ctc"))
+      expect(page).to have_text "Jessie M Pepper"
+      # This dependent qualifies
       click_on I18n.t('views.ctc.questions.confirm_dependents.add_a_dependent')
 
       # Offboard dependent because of birthday
@@ -87,14 +88,42 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "You can not claim benefits for Groucho. Would you like to add anyone else?")
-      click_on "No"
-
+      click_on "No, continue"
       click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
       fill_in_advance_child_tax_credit
       # Skips RRC Questions
       fill_in_bank_info
       fill_in_ip_pins
       fill_in_review(home_location: "puerto_rico")
+    end
+
+    scenario "puerto rico with no qualifying dependents" do
+      fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "puerto_rico")
+      fill_in_eligibility(home_location: "puerto_rico")
+      fill_in_basic_info(home_location: "puerto_rico")
+      fill_in_spouse_info
+      # modified dependent flow
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+      click_on "Yes"
+
+      # Offboard dependent because of birthday
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
+      fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Melanie"
+      fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "M"
+      fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
+      fill_in "ctc_dependents_info_form[birth_date_month]", with: "11"
+      fill_in "ctc_dependents_info_form[birth_date_day]", with: "01"
+      fill_in "ctc_dependents_info_form[birth_date_year]", with: 2000
+      select "Social Security Number (SSN)"
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "You can not claim benefits for Melanie. Would you like to add anyone else?")
+      click_on "No, continue"
+
+      expect(page).to have_selector("h1", text: "You will not receive the Child Tax Credit")
     end
   end
 end

@@ -22,7 +22,7 @@
         <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered spacing-above-35" do %>
           <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.affirmative") %>
         <% end %>
-        <%= link_to Ctc::Questions::NoDependentsController.to_path_helper, class: "button button--wide text--centered" do %>
+        <%= link_to(current_intake.dependents.count(&:qualifying_ctc?).zero? ? Ctc::Questions::NoDependentsController.to_path_helper : next_path, class: "button button--wide text--centered") do %>
           <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.negative") %>
         <% end %>
       <% else %>
