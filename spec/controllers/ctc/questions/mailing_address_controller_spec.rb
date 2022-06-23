@@ -10,6 +10,7 @@ describe Ctc::Questions::MailingAddressController do
   describe "#edit" do
     it "renders edit template and initializes form" do
       get :edit, params: {}
+
       expect(response).to render_template :edit
       expect(assigns(:form)).to be_an_instance_of Ctc::MailingAddressForm
       expect(assigns(:form).intake).to be_an_instance_of Intake::CtcIntake
@@ -33,8 +34,10 @@ describe Ctc::Questions::MailingAddressController do
       before do
         allow_any_instance_of(Ctc::MailingAddressForm).to receive(:valid?).and_return false
       end
+
       it "renders the edit page" do
         get :update, params: params
+
         expect(response).to render_template :edit
       end
     end

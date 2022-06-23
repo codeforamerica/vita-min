@@ -10,6 +10,15 @@
       <%= t("views.ctc.questions.mailing_address.reveal_content_html") %>
     <% end %>
 
+    <% if @form.errors[:address_not_found].present? %>
+      <div class="notice--error">
+        <p><%= t("views.ctc.questions.mailing_address.error_notice") %></p>
+        <p class="text--error">
+          <%= @form.errors[:address_not_found].join(", ") %>
+        </p>
+      </div>
+    <% end %>
+
     <div class="form-card__content">
       <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), ) %>
       <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>

@@ -5,8 +5,7 @@ describe Ctc::Portal::MailingAddressController do
     let(:intake) do
       create(
         :ctc_intake,
-        street_address: "123 Main St",
-        street_address2: "STE 5",
+        street_address: "123 Main St STE 5",
         state: "TX",
         city: "Newton",
         zip_code: "77494"
@@ -39,6 +38,7 @@ describe Ctc::Portal::MailingAddressController do
       before do
         params[:ctc_mailing_address_form].merge!(
           street_address: "123 Bane St",
+          street_address2: nil,
           city: "Gotham",
         )
       end
@@ -51,7 +51,7 @@ describe Ctc::Portal::MailingAddressController do
         expect(note.data).to match({
           "model" => intake.to_global_id.to_s,
           "changes" => a_hash_including(
-            "street_address" => ["123 Main St", "123 Bane St"],
+            "street_address" => ["123 Main St STE 5", "123 Bane St"],
             "city" => ["Newton", "Gotham"],
           )
         })
