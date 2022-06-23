@@ -2250,26 +2250,6 @@ en:
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
         income:
-          puerto_rico:
-            list:
-              one:
-              - you earned less than %{standard_deduction} in total income
-              - you earned less than $400 in self-employment income
-              - you are not required to file a full tax return for any other reason
-              - all of your earned income came from sources within Puerto Rico
-              - you lived in Puerto Rico for at least half the year (183 days)
-              - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
-              - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
-              - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
-              other:
-              - you and your spouse earned less than %{standard_deduction} in total income
-              - you and your spouse earned less than $400 in self-employment income
-              - you and your spouse are not required to file a full tax return for any other reason
-              - all of your and your spouse's earned income came from sources within Puerto Rico
-              - you and your spouse lived in Puerto Rico for at least half the year (183 days)
-              - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
-              - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
-              - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
           income_reveal:
             content:
               list_1:
@@ -2298,6 +2278,26 @@ en:
           mainland_connection_reveal:
             content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
             title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
+          puerto_rico:
+            list:
+              one:
+              - you earned less than %{standard_deduction} in total income
+              - you earned less than $400 in self-employment income
+              - you are not required to file a full tax return for any other reason
+              - all of your earned income came from sources within Puerto Rico
+              - you lived in Puerto Rico for at least half the year (183 days)
+              - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+              other:
+              - you and your spouse earned less than %{standard_deduction} in total income
+              - you and your spouse earned less than $400 in self-employment income
+              - you and your spouse are not required to file a full tax return for any other reason
+              - all of your and your spouse's earned income came from sources within Puerto Rico
+              - you and your spouse lived in Puerto Rico for at least half the year (183 days)
+              - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
           self_employment_income_reveal:
             content:
               list_1:
@@ -2373,7 +2373,7 @@ en:
         no_dependents:
           add_child: Add a child
           add_dependents: Add more dependents
-          pr:
+          puerto_rico:
             subtitle:
             - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
             - If this is a mistake you can click ‘Add a child’.

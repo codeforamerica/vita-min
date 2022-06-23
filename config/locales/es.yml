@@ -2227,26 +2227,6 @@ es:
           subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         income:
-          puerto_rico:
-            list:
-              one:
-              - ganó menos de %{standard_deduction} en ingresos totales
-              - ganó menos de $400 en ingresos de trabajo por cuenta propia
-              - no está obligado a presentar una declaración completa por cualquier otra razón
-              - todo su ingreso del trabajo provino de fuentes dentro de Puerto Rico
-              - vivió en Puerto Rico durante al menos la mitad del año (183 días)
-              - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - no tenía una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenía con Puerto Rico
-              - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
-              other:
-              - ganaron menos de %{standard_deduction} en ingresos totales
-              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - no están obligados a presentar una declaración completa por cualquier otra razón
-              - todos los ingresos del trabajo suyos y de su cónyuge provinieron de fuentes dentro de Puerto Rico
-              - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
-              - el lugar de trabajo regular de usted y su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - usted y su cónyuge no tenían una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
-              - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
           income_reveal:
             content:
               list_1:
@@ -2275,6 +2255,26 @@ es:
           mainland_connection_reveal:
             content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces puede No use GetCTC como residente de Puerto Rico.
             title: "¿Qué significa tener una conexión más estrecha con los Estados Unidos continentales que con Puerto Rico?"
+          puerto_rico:
+            list:
+              one:
+              - ganó menos de %{standard_deduction} en ingresos totales
+              - ganó menos de $400 en ingresos de trabajo por cuenta propia
+              - no está obligado a presentar una declaración completa por cualquier otra razón
+              - todo su ingreso del trabajo provino de fuentes dentro de Puerto Rico
+              - vivió en Puerto Rico durante al menos la mitad del año (183 días)
+              - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+              - no tenía una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenía con Puerto Rico
+              - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
+              other:
+              - ganaron menos de %{standard_deduction} en ingresos totales
+              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
+              - no están obligados a presentar una declaración completa por cualquier otra razón
+              - todos los ingresos del trabajo suyos y de su cónyuge provinieron de fuentes dentro de Puerto Rico
+              - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
+              - el lugar de trabajo regular de usted y su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+              - usted y su cónyuge no tenían una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
+              - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
           self_employment_income_reveal:
             content:
               list_1:
@@ -2353,7 +2353,7 @@ es:
         no_dependents:
           add_child: Agregar un niño
           add_dependents: Agregar más dependientes
-          pr:
+          puerto_rico:
             subtitle:
             - No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
             - Si esto es un error, puede hacer clic en 'Agregar un niño'.
