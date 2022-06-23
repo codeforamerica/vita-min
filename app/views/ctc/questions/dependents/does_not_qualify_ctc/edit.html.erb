@@ -1,15 +1,15 @@
 <% puerto_rico_filing = current_intake.puerto_rico_filing? %>
-<% @main_question = @puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.title", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name:  @dependent.first_name.upcase_first) %>
+<% @main_question = @puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.title", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name:  @dependent.first_name.upcase_first) %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
-    <p><%= puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.help_text", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.upcase_first) %></p>
+    <p><%= puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.help_text", name:  @dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.upcase_first) %></p>
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_not_qualify_ctc.reveal")) do %>
       <ul class="list--bulleted">
-        <% conditions = puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) : t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) %>
+        <% conditions = puerto_rico_filing ? t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) : t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1) %>
         <% conditions.each do |condition| %>
           <li><%= condition %></li>
         <% end %>
@@ -20,10 +20,10 @@
     <div class="options-wrapper">
       <% if puerto_rico_filing %>
         <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered spacing-above-35" do %>
-          <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.affirmative") %>
+          <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.affirmative") %>
         <% end %>
         <%= link_to(current_intake.dependents.count(&:qualifying_ctc?).zero? ? Ctc::Questions::NoDependentsController.to_path_helper : next_path, class: "button button--wide text--centered") do %>
-          <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.negative") %>
+          <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.negative") %>
         <% end %>
       <% else %>
         <div class="yes-no-buttons">

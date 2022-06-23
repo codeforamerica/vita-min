@@ -1,6 +1,6 @@
 <% if current_intake.puerto_rico_filing? %>
-  <% content_for :form_question, t("views.ctc.questions.already_filed.pr.title", current_tax_year: current_tax_year) %>
-  <% content_for :form_help_text, t("views.ctc.questions.already_filed.pr.help_text_html") %>
+  <% content_for :form_question, t("views.ctc.questions.already_filed.puerto_rico.title", current_tax_year: current_tax_year) %>
+  <% content_for :form_help_text, t("views.ctc.questions.already_filed.puerto_rico.help_text_html") %>
 <% else %>
   <% content_for :form_question, t("views.ctc.questions.already_filed.title", current_tax_year: current_tax_year) %>
   <% content_for :form_help_text, t("views.ctc.questions.already_filed.help_text_html") %>

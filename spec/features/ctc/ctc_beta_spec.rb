@@ -12,7 +12,7 @@ def begin_intake
   click_on I18n.t('general.affirmative')
 
   within "h1" do
-    expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+    expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
   end
   click_on I18n.t('general.continue')
 
