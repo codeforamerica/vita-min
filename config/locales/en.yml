@@ -2250,33 +2250,8 @@ en:
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
         income:
-          income_reveal:
-            content:
-              list_1:
-              - salary
-              - hourly wages
-              - tips
-              - commissions
-              - self-employment or contract payments
-              - unemployment benefits
-              p1: 'Income could come from any of the following sources:'
-            title: What counts as income?
-          income_source_reveal:
-            content: Income does not have a Puerto Rico source if it comes from the 50 states or from another country rather than from somewhere in Puerto Rico. If you earned income working in the 50 states or another country, earned money from a pension that was based on a job you did in the 50 states or another country, received interest payments while living in the 50 states or another country, received stock dividends from a company based in the 50 states or another country, or earned money from selling property based in the 50 states or another country, then you have income from non-Puerto Rico sources, and you cannot use GetCTC.
-            title: How do I know the source of my income?
-          list:
-            non_pr_resident:
-              one:
-              - you earned less than %{standard_deduction} in total income
-              - you earned less than $400 in self-employment income
-              - you did not receive the Advance Premium Tax Credit
-              - you are not required to file a full tax return for any other reason
-              other:
-              - you and your spouse earned less than %{standard_deduction} in total income
-              - you and your spouse earned less than $400 in self-employment income
-              - you and your spouse did not receive the Advance Premium Tax Credit
-              - you and your spouse are not required to file a full tax return for any other reason
-            puerto_rico:
+          puerto_rico:
+            list:
               one:
               - you earned less than %{standard_deduction} in total income
               - you earned less than $400 in self-employment income
@@ -2295,6 +2270,31 @@ en:
               - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
               - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
               - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+          income_reveal:
+            content:
+              list_1:
+              - salary
+              - hourly wages
+              - tips
+              - commissions
+              - self-employment or contract payments
+              - unemployment benefits
+              p1: 'Income could come from any of the following sources:'
+            title: What counts as income?
+          income_source_reveal:
+            content: Income does not have a Puerto Rico source if it comes from the 50 states or from another country rather than from somewhere in Puerto Rico. If you earned income working in the 50 states or another country, earned money from a pension that was based on a job you did in the 50 states or another country, received interest payments while living in the 50 states or another country, received stock dividends from a company based in the 50 states or another country, or earned money from selling property based in the 50 states or another country, then you have income from non-Puerto Rico sources, and you cannot use GetCTC.
+            title: How do I know the source of my income?
+          list:
+            one:
+            - you earned less than %{standard_deduction} in total income
+            - you earned less than $400 in self-employment income
+            - you did not receive the Advance Premium Tax Credit
+            - you are not required to file a full tax return for any other reason
+            other:
+            - you and your spouse earned less than %{standard_deduction} in total income
+            - you and your spouse earned less than $400 in self-employment income
+            - you and your spouse did not receive the Advance Premium Tax Credit
+            - you and your spouse are not required to file a full tax return for any other reason
           mainland_connection_reveal:
             content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
             title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?

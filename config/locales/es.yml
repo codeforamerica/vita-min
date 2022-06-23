@@ -2227,33 +2227,8 @@ es:
           subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
           title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         income:
-          income_reveal:
-            content:
-              list_1:
-              - salario
-              - salarios por hora
-              - propinas
-              - comisiones
-              - pagos por cuenta propia o por contrato
-              - beneficios de desempleo
-              p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
-            title: "¿Qué se puede considera como un ingreso?"
-          income_source_reveal:
-            content: Los ingresos no tienen fuente de Puerto Rico si provienen de los 50 estados o de otro país en lugar de algún lugar de Puerto Rico. Si ganó ingresos trabajando en los 50 estados o en otro país, ganó dinero de una pensión basada en un trabajo que hizo en los 50 estados o en otro país, recibió pagos de intereses mientras vivía en los 50 estados o en otro país, recibió dividendos en acciones de una empresa con sede en los 50 estados o en otro país, o ganó dinero vendiendo propiedades en los 50 estados o en otro país, entonces tiene ingresos de fuentes fuera de Puerto Rico y no puede usar GetCTC.
-            title: "¿Cómo puedo saber la fuente de mis ingresos?"
-          list:
-            non_pr_resident:
-              one:
-              - ganó menos de %{standard_deduction} en ingresos totales
-              - ganó menos de $400 en ingresos de trabajo por cuenta propia
-              - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-              - no está obligado a presentar una declaración completa por cualquier otra razón
-              other:
-              - ganaron menos de %{standard_deduction} en ingresos totales
-              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-              - no están obligados a presentar una declaración completa por cualquier otra razón
-            puerto_rico:
+          puerto_rico:
+            list:
               one:
               - ganó menos de %{standard_deduction} en ingresos totales
               - ganó menos de $400 en ingresos de trabajo por cuenta propia
@@ -2272,6 +2247,31 @@ es:
               - el lugar de trabajo regular de usted y su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
               - usted y su cónyuge no tenían una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
               - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
+          income_reveal:
+            content:
+              list_1:
+              - salario
+              - salarios por hora
+              - propinas
+              - comisiones
+              - pagos por cuenta propia o por contrato
+              - beneficios de desempleo
+              p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
+            title: "¿Qué se puede considera como un ingreso?"
+          income_source_reveal:
+            content: Los ingresos no tienen fuente de Puerto Rico si provienen de los 50 estados o de otro país en lugar de algún lugar de Puerto Rico. Si ganó ingresos trabajando en los 50 estados o en otro país, ganó dinero de una pensión basada en un trabajo que hizo en los 50 estados o en otro país, recibió pagos de intereses mientras vivía en los 50 estados o en otro país, recibió dividendos en acciones de una empresa con sede en los 50 estados o en otro país, o ganó dinero vendiendo propiedades en los 50 estados o en otro país, entonces tiene ingresos de fuentes fuera de Puerto Rico y no puede usar GetCTC.
+            title: "¿Cómo puedo saber la fuente de mis ingresos?"
+          list:
+            one:
+            - ganó menos de %{standard_deduction} en ingresos totales
+            - ganó menos de $400 en ingresos de trabajo por cuenta propia
+            - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+            - no está obligado a presentar una declaración completa por cualquier otra razón
+            other:
+            - ganaron menos de %{standard_deduction} en ingresos totales
+            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
+            - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+            - no están obligados a presentar una declaración completa por cualquier otra razón
           mainland_connection_reveal:
             content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces puede No use GetCTC como residente de Puerto Rico.
             title: "¿Qué significa tener una conexión más estrecha con los Estados Unidos continentales que con Puerto Rico?"
