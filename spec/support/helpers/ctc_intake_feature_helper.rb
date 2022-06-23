@@ -33,8 +33,9 @@ module CtcIntakeFeatureHelper
     end
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.puerto_rico_resident.title"))
-    click_on I18n.t("views.ctc.questions.file_full_return.puerto_rico_resident.simplified_btn")
+    ffr_key = home_location == "puerto_rico" ? "puerto_rico_resident." : ""
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{ffr_key}title"))
+    click_on I18n.t("views.ctc.questions.file_full_return.#{ffr_key}simplified_btn")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
