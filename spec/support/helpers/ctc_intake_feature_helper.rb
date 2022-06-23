@@ -26,9 +26,9 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       if married_filing_jointly
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
       else
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
       end
     end
     click_on I18n.t('general.continue')
