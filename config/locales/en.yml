@@ -2166,6 +2166,11 @@ en:
           full_btn: File a full tax return
           help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
+          puerto_rico_resident:
+            full_btn: File a Puerto Rico tax return
+            help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
+            simplified_btn: Continue filing a simplified federal return
+            title: You are currently filing a simplified tax return to claim only your Child Tax Credit.
           reveal:
             body_html:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
@@ -2252,13 +2257,43 @@ en:
               - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
+          income_source_reveal:
+            content: Income does not have a Puerto Rico source if it comes from the 50 states or from another country rather than from somewhere in Puerto Rico. If you earned income working in the 50 states or another country, earned money from a pension that was based on a job you did in the 50 states or another country, received interest payments while living in the 50 states or another country, received stock dividends from a company based in the 50 states or another country, or earned money from selling property based in the 50 states or another country, then you have income from non-Puerto Rico sources, and you cannot use GetCTC.
+            title: How do I know the source of my income?
           list:
-            any_other_reason: are not required to file a full tax return for any other reason
-            puerto_rico_resident: are a bonafide resident of Puerto Rico
-            specific_eligibility_reasons:
-            - earned less than %{standard_deduction} in total income
-            - earned less than $400 in self-employment income
-            - did not receive the Advance Premium Tax Credit
+            non_pr_resident:
+              one:
+              - you earned less than %{standard_deduction} in total income
+              - you earned less than $400 in self-employment income
+              - you did not receive the Advance Premium Tax Credit
+              - you are not required to file a full tax return for any other reason
+              other:
+              - you and your spouse earned less than %{standard_deduction} in total income
+              - you and your spouse earned less than $400 in self-employment income
+              - you and your spouse did not receive the Advance Premium Tax Credit
+              - you and your spouse are not required to file a full tax return for any other reason
+            puerto_rico_resident:
+              one:
+              - you earned less than %{standard_deduction} in total income
+              - you earned less than $400 in self-employment income
+              - you are not required to file a full tax return for any other reason
+              - all of your earned income came from sources within Puerto Rico
+              - you lived in Puerto Rico for at least half the year (183 days)
+              - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+              other:
+              - you and your spouse earned less than %{standard_deduction} in total income
+              - you and your spouse earned less than $400 in self-employment income
+              - you and your spouse are not required to file a full tax return for any other reason
+              - all of your and your spouse's earned income came from sources within Puerto Rico
+              - you and your spouse lived in Puerto Rico for at least half the year (183 days)
+              - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+          mainland_connection_reveal:
+            content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
+            title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
           self_employment_income_reveal:
             content:
               list_1:
@@ -2269,9 +2304,7 @@ en:
               p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2. Self-employment income includes cash payments.
               p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
             title: What counts as self-employment income?
-          title:
-            one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
-            other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
+          title: 'You can only use GetCTC if, in %{current_tax_year}:'
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
@@ -2318,14 +2351,17 @@ en:
           reveal_label: What if I don’t have a mailing address?
           title: Please provide your mailing address.
         main_home:
-          help_text: Your main home is a place you stayed at for more than half the tax year.
+          help_text: Select the location where you spent more than half of 2021.
           options:
             fifty_states: Any of the 50 states or the District of Columbia
             foreign_address: Foreign address
             military_facility: U.S. military facility
             puerto_rico: Puerto Rico
             us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
-          title: Where was your main home for %{current_tax_year}?
+          reveal:
+            body: If you did not live in one of these places for more than half of 2021, you cannot use GetCTC.
+            title: What if I did not live anywhere for more than 6 months last year?
+          title: Where did you live for most of %{current_tax_year}?
         no_dependents:
           add_dependents: Add more dependents
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
@@ -2341,7 +2377,7 @@ en:
           - We will not send any of your information to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your third stimulus payment.
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit and, if applicable, your third stimulus payment.
           legal_warning: You are about to file a tax return. You are responsible for answering  questions truthfully and accurately to the best of your ability.
           title: Welcome!
         prior_tax_year_agi:
@@ -2456,6 +2492,13 @@ en:
           title: Enter the total amount you received for your third stimulus payment.
         use_gyr:
           file_gyr: File with GetYourRefund
+          puerto_rico_resident:
+            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. By appointment only. Call 787-622-8069.'
+            in_person: 'In-person:'
+            online_html: 'Online filing: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
+            pr_number: 'Puerto Rico Helpline: 877-722-9832'
+            still_file: 'You may still be able to file to claim your benefits. For additional help, consider reaching out to:'
+            virtual: 'Virtual: MyFreeTaxes'
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use GetCTC.
           visit_our_faq: Visit our FAQ
@@ -2467,6 +2510,15 @@ en:
               - You can be claimed as a dependent
               - You (and your spouse if applicable) don’t have a valid SSN or ITIN
               - You didn’t live in any of the 50 states or the District of Columbia for most of %{current_tax_year}
+              - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
+              list_puerto_rico_resident:
+              - You earned more than $400 in self-employment income
+              - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
+              - You did not live in Puerto Rico for more than half of %{current_tax_year}
+              - You moved in or out of Puerto Rico during %{current_tax_year}
+              - You can be claimed as a dependent by someone else
+              - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+              - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
               - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
               p: 'Some reasons you might be ineligible to use GetCTC are:'
             title: Why am I ineligible?

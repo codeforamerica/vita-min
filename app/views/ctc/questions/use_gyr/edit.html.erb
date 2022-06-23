@@ -4,27 +4,54 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <div class="reveal-shrink-wrapper">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.use_gyr.why_ineligible_reveal.title")) do %>
-      <p><%= t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.p") %></p>
-      <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year) %>
-      <ul class="list--bulleted">
-        <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list",
-          current_tax_year: current_tax_year,
-          single_deduction: number_to_currency(standard_deductions[:single]),
-          joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
-          <li><%= item %></li>
-        <% end %>
-      </ul>
+  <% if current_intake.puerto_rico_filing? %>
+    <div class="reveal-shrink-wrapper">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.use_gyr.why_ineligible_reveal.title")) do %>
+        <p><%= t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.p") %></p>
+        <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?) %>
+        <ul class="list--bulleted">
+          <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list_puerto_rico_resident",
+                current_tax_year: current_tax_year,
+                single_deduction: number_to_currency(standard_deductions[:single]),
+                joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <p><strong><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.still_file") %></strong></p>
+    <p class="spacing-below-10"><strong><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.virtual") %></strong></p>
+    <ul class="list--bulleted spacing-above-0 spacing-below-25">
+      <li><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.online_html") %></li>
+      <li><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.pr_number") %></li>
+    </ul>
+    <p class="spacing-below-10"><strong><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.in_person") %></strong></p>
+    <ul class="spacing-above-0">
+      <li><%= t("views.ctc.questions.use_gyr.puerto_rico_resident.address") %></li>
+    </ul>
+  <% else %>
+    <div class="reveal-shrink-wrapper">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.use_gyr.why_ineligible_reveal.title")) do %>
+        <p><%= t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.p") %></p>
+        <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?) %>
+        <ul class="list--bulleted">
+          <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list",
+                current_tax_year: current_tax_year,
+                single_deduction: number_to_currency(standard_deductions[:single]),
+                joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <p><strong><%= t("views.ctc.questions.use_gyr.still_benefit") %></strong></p>
+    <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), class: "button button--wide button--primary text--centered spacing-above-60", "data-track-click": "gctc_to_gyr_usegyr" do %>
+      <%= t("views.ctc.questions.use_gyr.file_gyr") %>
     <% end %>
-  </div>
-
-  <p><strong><%= t("views.ctc.questions.use_gyr.still_benefit") %></strong></p>
-
-  <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), class: "button button--wide button--primary text--centered spacing-above-60", "data-track-click": "gctc_to_gyr_usegyr" do %>
-    <%=t("views.ctc.questions.use_gyr.file_gyr") %>
-  <% end %>
-  <%= link_to root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" do %>
-    <%=t("views.ctc.questions.use_gyr.visit_our_faq") %>
+    <%= link_to root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.use_gyr.visit_our_faq") %>
+    <% end %>
   <% end %>
 <% end %>
