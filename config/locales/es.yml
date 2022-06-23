@@ -1939,7 +1939,7 @@ es:
           help_text_html: |
             <p class="text--bold">Si ya presentó una declaración de impuestos de 2021, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
             <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
-          pr:
+          puerto_rico:
             help_text_html: |
               <p class="text--bold">Si ya presentó una declaración de impuestos 1040, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
               <p>Responda sí, incluso si todavía está esperando su pago o cree que cometió un error.</p>
@@ -2082,7 +2082,7 @@ es:
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
             help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
-            pr:
+            puerto_rico:
               affirmative: Sí, agregar otro niño
               conditions:
               - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final del %{current_tax_year}.
@@ -2147,6 +2147,11 @@ es:
           full_btn: Presente su declaración de impuestos completa
           help_text1: Puede beneficiarse de presentar una declaración de impuestos (o planilla federal) completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
+          puerto_rico:
+            full_btn: Presentar una planilla de impuestos de Puerto Rico
+            help_text: Esto no es un regreso a Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquiera de los pagos de estímulo u otros créditos de Puerto Rico), deberá presentar una Declaración de Impuestos de Puerto Rico por separado con Hacienda.
+            simplified_btn: Continuar presentando una declaración federal simplificada
+            title: Actualmente está presentando una declaración de impuestos simplificada para reclamar solo su Crédito Tributario por Hijos.
           reveal:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
@@ -2160,7 +2165,7 @@ es:
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
-          pr:
+          puerto_rico:
             did_not_file: No, no presenté una declaración de impuestos del IRS de 2020
             filed_full: Sí, presenté una declaración de impuestos del IRS
             note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
@@ -2233,22 +2238,43 @@ es:
               - beneficios de desempleo
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué se puede considera como un ingreso?"
+          income_source_reveal:
+            content: Los ingresos no tienen fuente de Puerto Rico si provienen de los 50 estados o de otro país en lugar de algún lugar de Puerto Rico. Si ganó ingresos trabajando en los 50 estados o en otro país, ganó dinero de una pensión basada en un trabajo que hizo en los 50 estados o en otro país, recibió pagos de intereses mientras vivía en los 50 estados o en otro país, recibió dividendos en acciones de una empresa con sede en los 50 estados o en otro país, o ganó dinero vendiendo propiedades en los 50 estados o en otro país, entonces tiene ingresos de fuentes fuera de Puerto Rico y no puede usar GetCTC.
+            title: "¿Cómo puedo saber la fuente de mis ingresos?"
           list:
-            any_other_reason:
-              one: no está obligado a presentar una declaración completa por cualquier otra razón
-              other: no están obligados a presentar una declaración completa por cualquier otra razón
-            puerto_rico_resident:
-              one: es un residente de buena fe de Puerto Rico
-              other: son residentes de buena fe de Puerto Rico
-            specific_eligibility_reasons:
+            one:
+            - ganó menos de %{standard_deduction} en ingresos totales
+            - ganó menos de $400 en ingresos de trabajo por cuenta propia
+            - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+            - no está obligado a presentar una declaración completa por cualquier otra razón
+            other:
+            - ganaron menos de %{standard_deduction} en ingresos totales
+            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
+            - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+            - no están obligados a presentar una declaración completa por cualquier otra razón
+          mainland_connection_reveal:
+            content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces puede No use GetCTC como residente de Puerto Rico.
+            title: "¿Qué significa tener una conexión más estrecha con los Estados Unidos continentales que con Puerto Rico?"
+          puerto_rico:
+            list:
               one:
               - ganó menos de %{standard_deduction} en ingresos totales
               - ganó menos de $400 en ingresos de trabajo por cuenta propia
-              - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+              - no está obligado a presentar una declaración completa por cualquier otra razón
+              - todo su ingreso del trabajo provino de fuentes dentro de Puerto Rico
+              - vivió en Puerto Rico durante al menos la mitad del año (183 días)
+              - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+              - no tenía una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenía con Puerto Rico
+              - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
               other:
               - ganaron menos de %{standard_deduction} en ingresos totales
               - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
+              - no están obligados a presentar una declaración completa por cualquier otra razón
+              - todos los ingresos del trabajo suyos y de su cónyuge provinieron de fuentes dentro de Puerto Rico
+              - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
+              - el lugar de trabajo regular de usted y su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+              - usted y su cónyuge no tenían una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
+              - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
           self_employment_income_reveal:
             content:
               list_1:
@@ -2320,11 +2346,14 @@ es:
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
             us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
+          reveal:
+            body: Si no vivió en uno de estos lugares durante más de la mitad de 2021, no puede usar GetCTC.
+            title: "¿Qué sucede si no viví en ningún lugar durante más de 6 meses el año pasado?"
           title: "¿Cuál fue su residencia principal durante %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño
           add_dependents: Agregar más dependientes
-          pr:
+          puerto_rico:
             subtitle:
             - No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
             - Si esto es un error, puede hacer clic en 'Agregar un niño'.
@@ -2457,6 +2486,24 @@ es:
           title: Indique la cantidad total que recibió por su tercer pago de estímulo.
         use_gyr:
           file_gyr: Solicite por medio de GetYourRefund
+          puerto_rico:
+            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. Solo por cita. Call 787-622-8069.'
+            in_person: 'En persona:'
+            online_html: 'Presentación en línea: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
+            pr_number: 'Línea de ayuda de Puerto Rico: 877-722-9832'
+            still_file: 'Es posible que aún pueda presentar una solicitud para reclamar sus beneficios. Para obtener ayuda adicional, considere comunicarse con:'
+            virtual: 'Virtual: Mis Impuestos Gratis'
+            why_ineligible_reveal:
+              content:
+                list:
+                - Ganó más de $400 en ingresos de trabajo por cuenta propia
+                - Ganaste algo de dinero de fuentes fuera de Puerto Rico, por ejemplo en uno de los 50 estados o en un país extranjero
+                - No viviste en Puerto Rico por más de la mitad del %{current_tax_year}
+                - Te mudaste dentro o fuera de Puerto Rico durante %{current_tax_year}
+                - Puede ser reclamado como dependiente
+                - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
+                - Ganaste más del %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
+                - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
           title: Desafortunadamente, no es elegible para usar GetCTC. ¡Pero aún así podemos ayudarle!
           visit_our_faq: Preguntas Frecuentes

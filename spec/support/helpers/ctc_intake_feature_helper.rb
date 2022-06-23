@@ -26,15 +26,16 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       if married_filing_jointly
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
       else
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
       end
     end
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
-    click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+    key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
@@ -45,7 +46,7 @@ module CtcIntakeFeatureHelper
   def fill_in_eligibility(home_location: "fifty_states")
     # =========== ELIGIBILITY ===========
     if home_location == "puerto_rico"
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.pr.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.puerto_rico.title', current_tax_year: current_tax_year))
     else
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     end
@@ -73,8 +74,8 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.continue')
 
     if home_location == "puerto_rico"
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.pr.title', prior_tax_year: prior_tax_year))
-      choose I18n.t('views.ctc.questions.filed_prior_tax_year.pr.did_not_file', prior_tax_year: prior_tax_year)
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.puerto_rico.title', prior_tax_year: prior_tax_year))
+      choose I18n.t('views.ctc.questions.filed_prior_tax_year.puerto_rico.did_not_file', prior_tax_year: prior_tax_year)
     else
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
       choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)

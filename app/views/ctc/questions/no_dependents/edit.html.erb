@@ -1,4 +1,4 @@
-<% @main_question = current_intake.puerto_rico_filing? ? t("views.ctc.questions.no_dependents.pr.title") : t("views.ctc.questions.no_dependents.title")  %>
+<% @main_question = current_intake.puerto_rico_filing? ? t("views.ctc.questions.no_dependents.puerto_rico.title") : t("views.ctc.questions.no_dependents.title")  %>
 
 <% content_for :page_title, @main_question %>
 
@@ -6,7 +6,7 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <% if current_intake.puerto_rico_filing? %>
-    <% t("views.ctc.questions.no_dependents.pr.subtitle").each do |item| %>
+    <% t("views.ctc.questions.no_dependents.puerto_rico.subtitle").each do |item| %>
       <p><%= item %></p>
     <% end %>
     <div class="spacing-above-60">
