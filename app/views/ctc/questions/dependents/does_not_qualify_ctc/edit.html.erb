@@ -6,10 +6,10 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <% if current_intake.puerto_rico_filing? %>
-    <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.help_text", name:  @dependent.first_name.capitalize) %></p>
+    <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.help_text", name:  @dependent.first_name.capitalize) %></p>
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_not_qualify_ctc.reveal")) do %>
       <ul class="list--bulleted">
-        <% t("views.ctc.questions.dependents.does_not_qualify_ctc.pr.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
+        <% t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
           <li><%= condition %></li>
         <% end %>
       </ul>

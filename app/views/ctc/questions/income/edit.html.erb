@@ -8,7 +8,7 @@
   <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
     <% if current_intake.puerto_rico_filing? %>
-      <% t("views.ctc.questions.income.list.puerto_rico_resident", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
+      <% t("views.ctc.questions.income.list.puerto_rico", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
         <li><%= income_qualifications %></li>
       <% end %>
     <% else %>

@@ -1961,7 +1961,7 @@ en:
           help_text_html: |
             <p class="text--bold">If you already filed a 2021 tax return, the IRS will reject your GetCTC return without looking at it.</p>
             <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
-          pr:
+          puerto_rico:
             help_text_html: |
               <p class="text--bold">If you already filed a 1040 tax return, the IRS will reject your GetCTC return without looking at it.</p>
               <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
@@ -2104,7 +2104,7 @@ en:
             - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
             - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
             help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
-            pr:
+            puerto_rico:
               conditions:
               - The person you are trying to claim might be too old to qualify for CTC. They must be 17 years old or less at the end of %{current_tax_year}.
               - The person you are trying to claim might be born in %{filing_year}. You can only claim children who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
@@ -2166,7 +2166,7 @@ en:
           full_btn: File a full tax return
           help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
-          puerto_rico_resident:
+          puerto_rico:
             full_btn: File a Puerto Rico tax return
             help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
             simplified_btn: Continue filing a simplified federal return
@@ -2184,7 +2184,7 @@ en:
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal or GetCTC
           help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
-          pr:
+          puerto_rico:
             did_not_file: No, I didn’t file a 2020 IRS tax return
             filed_full: Yes, I filed an IRS tax return
             note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filled with Hacienda.'
@@ -2272,7 +2272,7 @@ en:
               - you and your spouse earned less than $400 in self-employment income
               - you and your spouse did not receive the Advance Premium Tax Credit
               - you and your spouse are not required to file a full tax return for any other reason
-            puerto_rico_resident:
+            puerto_rico:
               one:
               - you earned less than %{standard_deduction} in total income
               - you earned less than $400 in self-employment income
@@ -2492,13 +2492,24 @@ en:
           title: Enter the total amount you received for your third stimulus payment.
         use_gyr:
           file_gyr: File with GetYourRefund
-          puerto_rico_resident:
+          puerto_rico:
             address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. By appointment only. Call 787-622-8069.'
             in_person: 'In-person:'
             online_html: 'Online filing: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
             pr_number: 'Puerto Rico Helpline: 877-722-9832'
             still_file: 'You may still be able to file to claim your benefits. For additional help, consider reaching out to:'
             virtual: 'Virtual: MyFreeTaxes'
+            why_ineligible_reveal:
+              content:
+                list:
+                - You earned more than $400 in self-employment income
+                - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
+                - You did not live in Puerto Rico for more than half of %{current_tax_year}
+                - You moved in or out of Puerto Rico during %{current_tax_year}
+                - You can be claimed as a dependent by someone else
+                - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+                - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
+                - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use GetCTC.
           visit_our_faq: Visit our FAQ
@@ -2510,15 +2521,6 @@ en:
               - You can be claimed as a dependent
               - You (and your spouse if applicable) don’t have a valid SSN or ITIN
               - You didn’t live in any of the 50 states or the District of Columbia for most of %{current_tax_year}
-              - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
-              list_puerto_rico_resident:
-              - You earned more than $400 in self-employment income
-              - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
-              - You did not live in Puerto Rico for more than half of %{current_tax_year}
-              - You moved in or out of Puerto Rico during %{current_tax_year}
-              - You can be claimed as a dependent by someone else
-              - You (and your spouse if applicable) don’t have a valid SSN or ITIN
-              - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
               - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
               p: 'Some reasons you might be ineligible to use GetCTC are:'
             title: Why am I ineligible?
