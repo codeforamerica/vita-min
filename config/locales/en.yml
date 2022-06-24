@@ -2197,7 +2197,7 @@ en:
           puerto_rico:
             did_not_file: No, I didn’t file a 2020 IRS tax return
             filed_full: Yes, I filed an IRS tax return
-            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filled with Hacienda.'
+            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
             title: Did you file a %{prior_tax_year} federal tax return with the IRS?
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
@@ -2205,7 +2205,8 @@ en:
             body_html: |
               According to the IRS, you are <b>not</b> married for a tax year if:
               <ul class="list--bulleted">
-              <li>You were never married, OR You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
+              <li>You were never married</li>
+              <li>You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
               </ul>
             title: Does the IRS consider me to be married?
           mfs_reveal:
@@ -2214,7 +2215,7 @@ en:
           spouse_died_reveal:
             body: Select Yes, and you’ll file with your deceased spouse.
             title: What if my spouse died last year?
-          title: Are you married?
+          title: As of December 31, %{current_tax_year}, were you legally married?
         had_dependents:
           help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
           title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
@@ -2335,7 +2336,7 @@ en:
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
         irs_language_preference:
           select_language: 'Please select your preferred language:'
-          subtitle: After submitting, the IRS may reach out with questions. You have the option to select a preferred language.
+          subtitle: The IRS may reach out with questions. You have the option to select a preferred language.
           title: What language do you want the IRS to use when they contact you?
         legal_consent:
           agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
@@ -4133,7 +4134,7 @@ en:
           other: In %{year}, did you or your spouse receive a state or local income tax refund?
       mailing_address:
         city: City
-        state: State
+        state: State or US Territory
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
         title: What is your mailing address?

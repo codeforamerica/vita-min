@@ -2182,7 +2182,8 @@ es:
             body_html: |
               Según el IRS, <b>no</b> está casado durante un año tributario si:
               <ul class="list--bulleted">
-              <li>Nunca estuvo casado, O estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              <li>Nunca estuvo casado</li>
+              <li>Estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
@@ -2315,7 +2316,7 @@ es:
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         irs_language_preference:
           select_language: 'Seleccione su idioma preferido:'
-          subtitle: Después de enviar, el IRS puede comunicarse con preguntas. Tiene la opción de seleccionar un idioma preferido.
+          subtitle: El IRS puede comunicarse con preguntas. Tiene la opción de seleccionar un idioma preferido.
           title: "¿Qué idioma quiere que use el IRS cuando se comunique con usted?"
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
