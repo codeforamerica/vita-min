@@ -2817,6 +2817,13 @@ es:
             body:
             - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
+      puerto_rico_overview:
+        cta: Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+        do_my_children_qualify_reveal:
+          content: Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+          title: "¿Califican mis niños?"
+        help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos.
+        title: "¡Bienvenido!"
       signups:
         confirmation:
           body: Nos comunicaremos contigo en cuanto tengamos más información.

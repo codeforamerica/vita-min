@@ -130,7 +130,7 @@ RSpec.describe ApplicationController do
         it "defaults to english" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('en', any_args)
+          expect(I18n).to have_received(:with_locale).with('en', any_args).twice
         end
       end
 
@@ -144,7 +144,7 @@ RSpec.describe ApplicationController do
         it "defaults to Spanish" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('es', any_args)
+          expect(I18n).to have_received(:with_locale).with('es', any_args).twice
         end
       end
 
@@ -158,7 +158,7 @@ RSpec.describe ApplicationController do
         it "defaults to English" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('en', any_args)
+          expect(I18n).to have_received(:with_locale).with('en', any_args).twice
         end
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe ApplicationController do
         it "defers to the default locale" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('zz', any_args)
+          expect(I18n).to have_received(:with_locale).with('zz', any_args).twice
         end
       end
 
@@ -182,7 +182,7 @@ RSpec.describe ApplicationController do
         it "uses the indicated language" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('yy', any_args)
+          expect(I18n).to have_received(:with_locale).with('yy', any_args).twice
         end
       end
 
@@ -196,7 +196,7 @@ RSpec.describe ApplicationController do
         it "defaults to Spanish even when a different indicated language is available" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('es', any_args)
+          expect(I18n).to have_received(:with_locale).with('es', any_args).twice
         end
       end
 
@@ -210,7 +210,7 @@ RSpec.describe ApplicationController do
         it "uses the indicated language" do
           get :index
 
-          expect(I18n).to have_received(:with_locale).with('yy', any_args)
+          expect(I18n).to have_received(:with_locale).with('yy', any_args).twice
         end
       end
 
@@ -222,7 +222,7 @@ RSpec.describe ApplicationController do
           it "uses the :locale param" do
             get :index, params: @params
 
-            expect(I18n).to have_received(:with_locale).with('yy', any_args)
+            expect(I18n).to have_received(:with_locale).with('yy', any_args).twice
           end
         end
 
@@ -583,6 +583,24 @@ RSpec.describe ApplicationController do
         get :index
 
         expect(subject).to have_received(:send_mixpanel_event).with(event_name: "page_view")
+      end
+    end
+  end
+
+  describe "#set_get_started_link" do
+    context "locale is en" do
+      it "generates a link to the beginning of the GYR flow" do
+        get :index
+
+        expect(assigns(:get_started_link)).to eq "/en/questions/welcome"
+      end
+    end
+
+    context "locale is es" do
+      it "generates a link to the beginning of the GYR flow" do
+        get :index, params: { locale: 'es' }
+
+        expect(assigns(:get_started_link)).to eq "/es/questions/welcome"
       end
     end
   end

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu
+  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
@@ -172,6 +172,12 @@ class ApplicationController < ActionController::Base
     session[:navigator]
   end
 
+  def set_get_started_link
+    I18n.with_locale(locale) do
+      @get_started_link = open_for_gyr_intake? ? question_path(GyrQuestionNavigation.first) : nil
+    end
+  end
+
   def user_agent
     @user_agent ||= DeviceDetector.new(request.user_agent)
   end
@@ -241,10 +247,6 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    locale = available_locale(params[:locale]) ||
-      available_locale_from_domain ||
-      http_accept_language.compatible_language_from(I18n.available_locales) ||
-      I18n.default_locale
     I18n.with_locale(locale, &action)
   end
 
@@ -290,6 +292,13 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def locale
+    available_locale(params[:locale]) ||
+      available_locale_from_domain ||
+      http_accept_language.compatible_language_from(I18n.available_locales) ||
+      I18n.default_locale
+  end
 
   def app_time
     if Rails.env.production?
