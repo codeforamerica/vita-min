@@ -7,11 +7,11 @@
   <% if current_intake.puerto_rico_filing? %>
     <p><%= t("views.ctc.questions.file_full_return.puerto_rico.help_text") %></p>
 
-    <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
+    <%= link_to next_path, class: "button button--wide text--centered spacing-above-60 button--primary" do %>
       <%= t("views.ctc.questions.file_full_return.puerto_rico.simplified_btn") %>
     <% end %>
 
-    <%= link_to t("views.ctc.questions.file_full_return.puerto_rico.full_btn"), "https://suri.hacienda.pr.gov/_/", target: "_blank", rel: "noopener", class: "button button--full-width text--centered" %>
+    <%= link_to t("views.ctc.questions.file_full_return.puerto_rico.full_btn"), "https://suri.hacienda.pr.gov/_/", target: "_blank", rel: "noopener", class: "button button--wide text--centered" %>
   <% else %>
     <p><%= t("views.ctc.questions.file_full_return.help_text1", current_tax_year: current_tax_year) %></p>
     <p><%= t("views.ctc.questions.file_full_return.help_text2") %></p>
@@ -22,11 +22,11 @@
       <% end %>
     <% end %>
 
-    <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
+    <%= link_to next_path, class: "button button--wide text--centered spacing-above-60 button--primary" do %>
       <%= t("views.ctc.questions.file_full_return.simplified_btn") %>
     <% end %>
 
-    <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: (open_for_gyr_intake? ? 'home' : 'diy'), params: { source: 'gctc_ref' }), class: "button button--full-width text--centered", "data-track-click": "gctc_to_gyr_filefullreturn" do %>
+    <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: (open_for_gyr_intake? ? 'home' : 'diy'), params: { source: 'gctc_ref' }), class: "button button--wide text--centered", "data-track-click": "gctc_to_gyr_filefullreturn" do %>
       <%= t("views.ctc.questions.file_full_return.full_btn") %>
     <% end %>
   <% end %>
