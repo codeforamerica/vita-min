@@ -1928,9 +1928,9 @@ en:
           no_did_not_receive: I didn’t receive any payments
           no_received_different: I received a different amount
           puerto_rico:
-            title: "Did you receive any Advance Child Tax Credit payments from the IRS in 2021?"
-            need_to_report: "If you received any advance payments of the Child Tax Credit in 2021, you’ll need to report them here, or your refund will be delayed."
-            rare_to_receive: "It is rare for families in Puerto Rico to have received advance payments, but it is possible."
+            need_to_report: If you received any advance payments of the Child Tax Credit in 2021, you’ll need to report them here, or your refund will be delayed.
+            rare_to_receive: It is rare for families in Puerto Rico to have received advance payments, but it is possible.
+            title: Did you receive any Advance Child Tax Credit payments from the IRS in 2021?
           question: Did you receive this amount?
           title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credit payments in 2021?
           total_adv_ctc: 'We estimate that you should have received:'
