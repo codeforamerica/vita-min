@@ -2192,7 +2192,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: "¿Está casado?"
+          title: Al 31 de diciembre, %{current_tax_year}, ¿estabas legalmente casada?
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
           title: "¿Desea agregar un niños u otra persona a la que haya mantenido en el %{current_tax_year}?"
