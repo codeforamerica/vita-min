@@ -6,7 +6,7 @@ es:
         ctc/dependents/info_form:
           attributes:
             ssn:
-              blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
+              blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN) de su cónyuge
@@ -206,11 +206,11 @@ es:
         communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
       mailing_address:
-        city: 'Error: ciudad no válida'
-        invalid: 'Error: dirección no válida.'
-        multiple: 'Error: se encontraron varias direcciones para la información que ingresó y no existe ninguna predeterminada.'
-        not_found: 'Error: dirección no encontrada.'
-        state: 'Error: código de estado no válido'
+        city: 'Error: Ciudad Inválida'
+        invalid: 'Error: Dirección Inválida'
+        multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado'
+        not_found: 'Error: Dirección no encontrada'
+        state: 'Error: Código de Estado Inválido'
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
@@ -285,7 +285,7 @@ es:
       aunt: Tía
       brother: Hermano
       daughter: Hija
-      foster_child: Hijo/hija de acogida
+      foster_child: Hijo/hija de crianza
       grandchild: Nieta/Nieto
       grandparent: Abuela/Abuelo
       great_grandchild: Bisnieto
@@ -450,7 +450,7 @@ es:
     response: 'Respuesta '
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
-    return_to_homepage: Volver a la página de inicio
+    return_to_homepage: Regresar a la página principal
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -1807,7 +1807,7 @@ es:
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
-          contact_us: Contáctanos
+          contact_us: Contáctenos
           correct_info: Corrija mi información
           current_status: 'Estado actual de la declaración de impuestos:'
           default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
@@ -1928,7 +1928,7 @@ es:
           content:
           - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
           - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
-          title: Ya no hay más Crédito Tributario por Hijos por solicitar.
+          title: Ya no hay más Crédito Tributario por Hijos para reclamar.
         advance_ctc_received:
           already_received: Cantidad que recibió
           ctc_owed_details: Si la cantidad que ha anotado es incorrecta, su reembolso de impuestos podría retrasarse mientras el IRS hace las correcciones en su declaración.
@@ -1967,10 +1967,10 @@ es:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
-          add_a_dependent: Agregar una persona dependiente
+          add_a_dependent: Agregar un dependiente
           atin: Número de Adopción
           birthday: Fecha de nacimiento
-          done_adding: Ya no hay más dependientes por agregar
+          done_adding: 'Termine de agregar dependientes '
           no_qualifying_dependents: No hay dependientes que cumplan los requisitos
           other_benefits_reveal:
             content:
@@ -2068,15 +2068,15 @@ es:
             help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿Residió %{name} permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           dependent_has_itin_reveal:
-            content: Los dependientes con un Número de Identificación Personal (ITIN en inglés) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
+            content: Los dependientes con un Número de Identificación Personal (ITIN) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
             title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN en inglés)"
           does_my_child_qualify_reveal:
             content:
               list_1:
-              - Su hijo de acogida debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
+              - Su hijo de crianza debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
               list_2:
               - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
-              p1: "¿Quién cuenta como hijo de acogida?"
+              p1: "¿Quién cuenta como hijo de crianza?"
               p2: "¿Qué pasa si tengo un hijo adoptado?"
             title: "¿Mi niño califica?"
           does_not_qualify_ctc:
@@ -2089,18 +2089,18 @@ es:
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
             help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
             puerto_rico:
-              affirmative: Sí, agregar otro niño
+              affirmative: Si, agrega otro niño
               conditions:
-              - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final del %{current_tax_year}.
-              - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar niños que estaban vivos en %{current_tax_year} en su declaración de impuestos %{current_tax_year}.
-              - Es posible que la persona que está tratando de reclamar no tenga la relación correcta con usted para calificar para CTC. Debe ser su hijo, su hermano o un descendiente de uno de ellos.
-              - Es posible que la persona que está tratando de reclamar no viva con usted la mayor parte del año. En la mayoría de los casos, solo puede reclamar a los niños que viven con usted la mayor parte del año.
+              - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final de %{current_tax_year}.
+              - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar hijos que estaban vivos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
+              - Es posible que la persona que está tratando de reclamar no tenga la relación correcta con usted para calificar para CTC. Debe ser su hijo, su hermano/a o un descendiente de uno de ellos.
+              - Es posible que la persona que está tratando de reclamar no vive con usted la mayor parte del año. En la mayoría de los casos, solo puede reclamar a los niños que viven con usted la mayor parte del año.
               - La persona que está tratando de reclamar podría ser económicamente independiente. En la mayoría de los casos, solo puede reclamar a los niños si no pagan sus propios gastos de manutención.
-              - La persona que está tratando de reclamar podría ser el hijo de otra persona en lugar del suyo. Solo un hogar puede reclamar a un niño determinado.
-              - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
-              help_text: No guardaremos %{name} en su declaración de impuestos. No califican para los pagos del Crédito Tributario por Hijos.
+              - La persona que está tratando de reclamar podría ser el hijo de otra persona, no el suyo. Solo un hogar puede reclamar a un niño determinado.
+              - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social (SSN) válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
+              help_text: No guardaremos%{name} en su declaración de impuestos. No califican para los pagos del Crédito Tributario por Hijos.
               negative: No, continuar
-              title: No puede reclamar el crédito fiscal por hijos para %{name}. ¿Te gustaría agregar a alguien más?
+              title: No puede reclamar el Crédito Tributario por Hijos por %{name}. ¿Te gustaría agregar a alguien más?
             reveal: "¿Por qué no califica esta persona?"
             title: No puede reclamar beneficios para %{name}. ¿Te gustaría agregar a alguien más?
           info:
@@ -2154,10 +2154,10 @@ es:
           help_text1: Puede beneficiarse de presentar una declaración de impuestos (o planilla federal) completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           puerto_rico:
-            full_btn: Presentar una planilla de impuestos de Puerto Rico
-            help_text: Esto no es un regreso a Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquiera de los pagos de estímulo u otros créditos de Puerto Rico), deberá presentar una Declaración de Impuestos de Puerto Rico por separado con Hacienda.
+            full_btn: Radicar una planilla de impuestos de Puerto Rico
+            help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquiera de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla federal de Puerto Rico por separado con Hacienda.
             simplified_btn: Continuar presentando una declaración federal simplificada
-            title: Actualmente está presentando una declaración de impuestos simplificada para reclamar solo su Crédito Tributario por Hijos.
+            title: Está presentando una declaración de impuestos simplificada para reclamar solo su Crédito Tributario por Hijos.
           reveal:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
@@ -2174,8 +2174,8 @@ es:
           puerto_rico:
             did_not_file: No, no presenté una declaración de impuestos del IRS de 2020
             filed_full: Sí, presenté una declaración de impuestos del IRS
-            note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
-            title: "¿Presentaste una declaración de impuestos federales de %{prior_tax_year} ante el IRS?"
+            note: 'Nota: declaración federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con Hacienda.'
+            title: "¿Presentó una declaración de impuestos federales de %{prior_tax_year} con el IRS?"
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           irs_reveal:
@@ -2194,13 +2194,13 @@ es:
           title: "¿Está casado?"
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
-          title: "¿Desea agregar un niños u otra persona a la que haya mantenido en el %{current_tax_year}?"
+          title: "¿Le gustaría agregar a un niño u otra persona a la que apoyó en %{current_tax_year}?"
           which_relationships_qualify_reveal:
             content:
             - Hijo
             - Hija
             - Hijastro
-            - Hijo de acogida
+            - Hijo de crianza
             - Sobrina
             - Sobrino
             - Nieto
@@ -2245,56 +2245,53 @@ es:
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué se puede considera como un ingreso?"
           income_source_reveal:
-            content: Los ingresos no tienen fuente de Puerto Rico si provienen de los 50 estados o de otro país en lugar de algún lugar de Puerto Rico. Si ganó ingresos trabajando en los 50 estados o en otro país, ganó dinero de una pensión basada en un trabajo que hizo en los 50 estados o en otro país, recibió pagos de intereses mientras vivía en los 50 estados o en otro país, recibió dividendos en acciones de una empresa con sede en los 50 estados o en otro país, o ganó dinero vendiendo propiedades en los 50 estados o en otro país, entonces tiene ingresos de fuentes fuera de Puerto Rico y no puede usar GetCTC.
+            content: Los ingresos no tienen fuente de Puerto Rico si vienen de los 50 estados o de otro país en lugar de algún lugar de Puerto Rico. Si ganó ingresos trabajando en los 50 estados o en otro país, ganó dinero de una pensión basada en un trabajo que hizo en los 50 estados o en otro país, recibió pagos de intereses mientras vivía en los 50 estados o en otro país, recibió dividendos en acciones de una empresa basado en los 50 estados o en otro país, o ganó dinero vendiendo propiedades en los 50 estados o en otro país, entonces tiene ingresos de fuentes fuera de Puerto Rico y no puede usar GetCTC.
             title: "¿Cómo puedo saber la fuente de mis ingresos?"
           list:
             one:
             - ganó menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-            - no está obligado a presentar una declaración completa por cualquier otra razón
+            - ganó menos de $ 400 en ingresos de trabajo por cuenta propia
+            - usted no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
+            - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
-            - ganaron menos de %{standard_deduction} en ingresos totales
-            - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-            - 'no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit'
-            - no están obligados a presentar una declaración completa por cualquier otra razón
+            - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
+            - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
+            - usted y su cónyuge no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado
+            - usted y su cónyuge no están obligados a presentar una declaración de impuestos completa por cualquier otra razón
           mainland_connection_reveal:
-            content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces puede No use GetCTC como residente de Puerto Rico.
-            title: "¿Qué significa tener una conexión más estrecha con los Estados Unidos continentales que con Puerto Rico?"
+            content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces no puedes usar GetCTC como residente de Puerto Rico.
+            title: "¿Qué significa tener una conexión más cercana con los Estados Unidos continentales que con Puerto Rico?"
           puerto_rico:
             list:
               one:
               - ganó menos de %{standard_deduction} en ingresos totales
-              - ganó menos de $400 en ingresos de trabajo por cuenta propia
-              - no está obligado a presentar una declaración completa por cualquier otra razón
-              - todo su ingreso del trabajo provino de fuentes dentro de Puerto Rico
-              - vivió en Puerto Rico durante al menos la mitad del año (183 días)
+              - ganó menos de $ 400 en ingresos de trabajo por cuenta propia
+              - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
+              - todo su ingreso del trabajo vino de fuentes dentro de Puerto Rico
+              - usted vivió en Puerto Rico durante al menos la mitad del año (183 días)
               - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - no tenía una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenía con Puerto Rico
+              - no tuvo una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tuvo con Puerto Rico
               - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
               other:
-              - ganaron menos de %{standard_deduction} en ingresos totales
-              - ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - no están obligados a presentar una declaración completa por cualquier otra razón
-              - todos los ingresos del trabajo suyos y de su cónyuge provinieron de fuentes dentro de Puerto Rico
+              - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
+              - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
+              - usted y su cónyuge no están obligados a presentar una declaración de impuestos completa por cualquier otra razón
+              - todos los ingresos del trabajo suyo y de su cónyuge vinieron de fuentes dentro de Puerto Rico
               - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
-              - el lugar de trabajo regular de usted y su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - usted y su cónyuge no tenían una “conexión más estrecha” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
+              - el lugar habitual de trabajo suyo y de su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+              - usted y su cónyuge no tenían una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
               - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
           self_employment_income_reveal:
             content:
               list_1:
               - 1099 contrato de trabajo
-              - trabajos eventuales
+              - trabajo temporero
               - conducir para Uber, Lyft o similar
               - alquilar su casa
               p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
-          title:
-            many: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
-            one: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted:'
-            other: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
+          title: Solo puede usar GetCTC si, en%{current_tax_year}
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
@@ -2336,7 +2333,7 @@ es:
           help_text: Por lo general, alguien puede reclamar a usted como dependiente si es un miembro de su familia, usted vivió con ellos la mayor parte del año y pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
-          error_notice: "¡Ay, no! No pudimos procesar su dirección. Actualice la información que ingresó."
+          error_notice: "¡Oh, no! No pudimos procesar su dirección. Actualice la información que ingresó."
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
             <br/>
@@ -2346,7 +2343,7 @@ es:
           reveal_label: "¿Qué tal si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
         main_home:
-          help_text: Su hogar principal es un lugar donde permaneció más de la mitad del año tributario.
+          help_text: Seleccione la ubicación donde pasó más de la mitad de 2021.
           options:
             fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección fuera de los Estados Unidos
@@ -2356,7 +2353,7 @@ es:
           reveal:
             body: Si no vivió en uno de estos lugares durante más de la mitad de 2021, no puede usar GetCTC.
             title: "¿Qué sucede si no viví en ningún lugar durante más de 6 meses el año pasado?"
-          title: "¿Cuál fue su residencia principal durante %{current_tax_year}?"
+          title: "¿Dónde viviste la mayor parte de %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño
           add_dependents: Agregar más dependientes
@@ -2378,8 +2375,8 @@ es:
           - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y su pago de estímulo.
-          legal_warning: Está a punto de presentar una declaración de impuestos (o como se refiere en Puerto Rico, radicación de planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
+          legal_warning: Está a punto de presentar una declaración de impuestos (o como se refiere en Puerto Rico, radicar una planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
@@ -2494,23 +2491,23 @@ es:
         use_gyr:
           file_gyr: Solicite por medio de GetYourRefund
           puerto_rico:
-            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. Solo por cita. Call 787-622-8069.'
+            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. Solo por cita. Llama al 787-622-8069.'
             in_person: 'En persona:'
             online_html: 'Presentación en línea: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
             pr_number: 'Línea de ayuda de Puerto Rico: 877-722-9832'
             still_file: 'Es posible que aún pueda presentar una solicitud para reclamar sus beneficios. Para obtener ayuda adicional, considere comunicarse con:'
-            virtual: 'Virtual: Mis Impuestos Gratis'
+            virtual: 'Virtual: MyFreeTaxes'
             why_ineligible_reveal:
               content:
                 list:
                 - Ganó más de $400 en ingresos de trabajo por cuenta propia
                 - Ganaste algo de dinero de fuentes fuera de Puerto Rico, por ejemplo en uno de los 50 estados o en un país extranjero
-                - No viviste en Puerto Rico por más de la mitad del %{current_tax_year}
-                - Te mudaste dentro o fuera de Puerto Rico durante %{current_tax_year}
-                - Puede ser reclamado como dependiente
+                - No vivió en Puerto Rico por más de la mitad de %{current_tax_year}
+                - 'Se mudó dentro o fuera de Puerto Rico durante %{current_tax_year} '
+                - Puede ser reclamado como dependiente por otra persona
                 - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
-                - Ganaste más del %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
-                - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
+                - Ganaste más de %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
+                - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de lo que era elegible para recibir.
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
           title: Desafortunadamente, no es elegible para usar GetCTC. ¡Pero aún así podemos ayudarle!
           visit_our_faq: Preguntas Frecuentes
@@ -2693,7 +2690,7 @@ es:
               <p>Si aún no ha recibido ningún pago del Crédito Tributario por Hijos, puede presentar impuestos simplificados ahora para obtener todo el crédito.</p>
             title: "¿Cuánto recibiré?"
           qualify_reveal:
-            body: Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+            body: Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
       navigators:
         help_text: Orientación para navegadores comunitarios que ayudan a clientes difíciles de alcanzar a acceder a sus beneficios tributario.
@@ -2801,21 +2798,21 @@ es:
         51_do_our_best: Haremos todo lo posible para resolver el problema.
       puerto_rico:
         hero:
-        - Recolecta dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en efectivo en el bolsillo de su familia. Si no está obligado a presentar una declaración federal ante el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
-        - Este formulario en general tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
-        title: "¡Puerto Rico, pueden obtener Crédito Tributario por Hijos para su familia!"
+        - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a presentar una declaración federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
+        - Este formulario en general tarda unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+        title: "¡Puerto Rico, pueden obtener Crédito Tributario por Hijos para sus familia!"
         what_is:
           body:
-          - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo completo, de hasta $3,600 por niño.
-          - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado ante el IRS. Si aún no ha presentado una declaración federal ante el IRS, ¡puede hacerlo fácilmente aquí!
-          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración ante el IRS!"
+          - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo, de hasta $3,600 por niño.
+          - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado con el IRS. Si aún no ha presentado una declaración federal con el IRS, ¡puede hacerlo fácilmente aquí!
+          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración con el IRS!"
           how_much_reveal:
             body:
-            - El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.
+            - El Crédito Tributario por Hijos para el año fiscal 2021 es $3,600 por niño menor de 6 años y $3,000 por niño de 6-17 años.
             title: "¿Cuánto recibiré?"
           qualify_reveal:
             body:
-            - Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+            - Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
       puerto_rico_overview:
         cta: Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
