@@ -2172,7 +2172,7 @@ es:
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           puerto_rico:
-            did_not_file: No, no presenté una declaración de impuestos del IRS de 2020
+            did_not_file: No, no presenté una declaración de impuestos del IRS de %{prior_tax_year}
             filed_full: Sí, presenté una declaración de impuestos del IRS
             note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
             title: "¿Presentaste una declaración de impuestos federales de %{prior_tax_year} ante el IRS?"
@@ -2427,6 +2427,12 @@ es:
           filed_non_filer_separate: Mi cónyuge usó la herramienta de IRS de non-filers o usó GetCTC por separado de mi
           filed_together: Mi cónyuge declaró impuestos o usó una herramienta de non-filers conmigo
           help_text: La fecha de plazo máximo para presentar los impuestos de 2020 fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
+          puerto_rico:
+            did_not_file: No, %{spouse_first_name} no presenté una declaración de impuestos del IRS de %{prior_tax_year}.
+            filed_full: Sí, %{spouse_first_name} presentó una declaración de impuestos del IRS por separado de mí
+            filed_together: Sí, %{spouse_first_name} presentó una declaración de impuestos del IRS junto conmigo
+            note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
+            title: "¿%{spouse_first_name} presentó una declaración de impuestos federales de %{prior_tax_year} ante el IRS?"
           title: "¿%{spouse_first_name} presentó una declaración de impuestos de %{prior_tax_year}?"
         spouse_info:
           help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN en inglés).
