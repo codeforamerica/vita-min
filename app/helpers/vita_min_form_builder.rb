@@ -235,4 +235,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
           </fieldset>
     HTML
   end
+
+  def submit_and_disable(value, options = {})
+    #data = options[:data] || {}
+    data = {disable_with: t("general.please_wait")}
+    submit(value, data: data, **options)
+  end
 end

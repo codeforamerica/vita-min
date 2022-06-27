@@ -8,7 +8,8 @@
       <%= f.cfa_checkbox(:spouse_accepts_terms, t("portal.tax_returns.authorize_signature.efile_acceptance", year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
       <%= f.cfa_checkbox(:spouse_confirms_identity, t(".efile_identity_spouse", spouse_name: @tax_return.client.spouse_legal_name&.upcase ,primary_name: @tax_return.client.legal_name&.upcase, year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
     </div>
-    <%= f.submit "Submit", class: 'button button--primary button--wide' %>
+    <% button_text = t("general.submit") %>
+    <%= f.submit button_text, class: 'button button--primary button--wide', data_disable_with: button_text %>
   <% end %>
 </div>
 
