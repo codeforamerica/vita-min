@@ -2360,7 +2360,7 @@ en:
           error_notice: Oh no! We could not process your address. Please update the information you entered.
           puerto_rico_reveal_html: |
             If you live in Puerto Rico, your address should be written as Number, Avenida/Calle, Street Name (ex: 63 Calle Fortaleza, not, Calle Fortaleza 63).
-            <br/></br>
+            <br/><br/>
             Some guidance:
             <br/>
             <ul>
