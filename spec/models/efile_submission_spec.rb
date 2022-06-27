@@ -334,14 +334,28 @@ describe EfileSubmission do
   end
 
   describe "#generate_verified_address" do
+    let(:submission) { create :efile_submission, :preparing }
+
     context "when there is an existing address" do
-      let(:submission) { create :efile_submission, :preparing }
       let!(:address) { create :address, record: submission, skip_usps_validation: true }
-
       it "returns an object that we can call valid on and does not connect to USPS service" do
-
         expect(submission.generate_verified_address.valid?).to be true
         expect(StandardizeAddressService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is a timeout" do
+      let(:address_double) { double }
+      before do
+        allow(StandardizeAddressService).to receive(:new).and_return address_double
+        allow(address_double).to receive(:timeout?).and_return true
+        allow(address_double).to receive(:valid?).and_return false
+
+      end
+
+      it "tries again up to 3x and returns the address object if it fails after 3 tries" do
+        expect(StandardizeAddressService).to receive(:new).exactly(3).times
+        expect(submission.generate_verified_address).to eq address_double
       end
     end
   end

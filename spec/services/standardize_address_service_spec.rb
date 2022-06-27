@@ -80,5 +80,18 @@ describe StandardizeAddressService, do_not_stub_usps: true do
         expect(service.error_code).to eq "USPS-MISSING-DATA"
       end
     end
+
+    context 'when the response times out' do
+      before do
+        allow(Net::HTTP).to receive(:start).and_raise Net::OpenTimeout
+      end
+
+      it "makes the object respond to #timeout?" do
+        expect(Rails.logger).to receive(:error).with("Error from USPS Address API: Timed out.")
+        service = described_class.new(intake)
+        expect(service.timeout?).to eq true
+        expect(service.valid?).to eq false
+      end
+    end
   end
 end
