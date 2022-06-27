@@ -121,6 +121,10 @@ class EfileSubmission < ApplicationRecord
 
   def generate_verified_address
     return OpenStruct.new(valid?: true) if verified_address.present?
+    if intake.client_confirmed_address.present?
+      confirmed_address = intake.client_confirmed_address.dup
+      confirmed_address.update(record: intake)
+    end
 
     address_service = StandardizeAddressService.new(intake)
     if address_service.valid?

@@ -18,8 +18,10 @@ module Ctc
           city: address_service.city
         }
         @intake.update(attrs)
+        session[:address_usps_verified] = true
       else
         @intake.update(attributes_for(:intake))
+        session[:address_usps_verified] = false
       end
     end
 
@@ -46,6 +48,9 @@ module Ctc
     end
 
     def address_service
+      @address_service = session[:address_service] if session[:address_service].present?
+      return
+
       @address_service ||= StandardizeAddressService.new(@intake, read_timeout: 1000)
     end
   end

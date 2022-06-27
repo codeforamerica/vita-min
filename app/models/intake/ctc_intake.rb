@@ -314,6 +314,7 @@ class Intake::CtcIntake < Intake
     sms_verified.or(email_verified).or(navigator_verified)
   end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
+  has_one :client_confirmed_address, as: :record, dependent: :destroy, class_name: "Address"
   belongs_to :primary_drivers_license, class_name: "DriversLicense", optional: true
   belongs_to :spouse_drivers_license, class_name: "DriversLicense", optional: true
   accepts_nested_attributes_for :bank_account, :primary_drivers_license, :spouse_drivers_license
