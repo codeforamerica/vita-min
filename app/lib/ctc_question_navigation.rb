@@ -4,6 +4,7 @@ class CtcQuestionNavigation
   FLOW = [
     # Basic info
     Ctc::Questions::OverviewController,
+    Ctc::Questions::MainHomeController,
     Ctc::Questions::FilingStatusController, # At this point we create the intake, client, and tax return
     Ctc::Questions::IncomeController,
     Ctc::Questions::FileFullReturnController,
@@ -11,7 +12,6 @@ class CtcQuestionNavigation
 
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
-    Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituationsController,
 
     # Consent/Contact
@@ -50,6 +50,10 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmDependentsController,
     Ctc::Questions::HeadOfHouseholdController, # only reached through link on ConfirmDependentsController#edit
 
+    # No Dependents
+    Ctc::Questions::NoDependentsController,
+    Ctc::Questions::NoDependentsAdvanceCtcPaymentsController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
@@ -81,6 +85,7 @@ class CtcQuestionNavigation
     Ctc::Questions::IpPinEntryController,
     Ctc::Questions::ConfirmInformationController,
     Ctc::Questions::ConfirmPaymentController,
+    Ctc::Questions::IrsLanguagePreferenceController,
     Ctc::Questions::DriversLicenseController,
     Ctc::Questions::SpouseDriversLicenseController,
     Ctc::Questions::ConfirmLegalController, # sets completed_at, after which a client will no longer be able to make changes in the questions flow.

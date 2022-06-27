@@ -314,12 +314,12 @@ RSpec.describe Hub::ClientsController do
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
         let!(:tobias_2019_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2019, assigned_user: assigned_user }
         let!(:tobias_2018_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2018, assigned_user: assigned_user }
-        let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
+        let!(:lucille) { create :client, vita_partner: organization, consented_to_service_at: nil, intake: create(:intake, preferred_name: "Lucille") }
         let!(:lucille_2018_return) { create(:tax_return, :intake_before_consent, client: lucille, year: 2018, assigned_user: assigned_user) }
-        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
+        let!(:bob_loblaw) { create :client, consented_to_service_at: nil, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
         let!(:bob_loblaw_online_intake_return) { create :tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
 
-        it "does not show a client whose tax returns are all before_consent" do
+        it "does not show a client who has not consented" do
           get :index
           expect(assigns(:clients).pluck(:id)).not_to include(lucille.id)
           expect(assigns(:clients).pluck(:id)).not_to include(bob_loblaw.id)
@@ -643,7 +643,7 @@ RSpec.describe Hub::ClientsController do
         let(:client) { (create :intake).client }
         let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client, year: 2021 }
         let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
-        before { client.update(vita_partner: organization) }
+        before { client.update(vita_partner: organization, consented_to_service_at: DateTime.current) }
         render_views
 
         it "shows the tax returns in order of year" do

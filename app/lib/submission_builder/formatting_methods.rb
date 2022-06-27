@@ -18,10 +18,10 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
-    def person_name_type(name)
+    def person_name_type(name, length: 20)
       return "" unless name.present?
 
-      trim(I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, ''), 20)
+      trim(I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, ''), length)
     end
 
     def name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first = nil, spouse_middle = nil, spouse_last = nil)

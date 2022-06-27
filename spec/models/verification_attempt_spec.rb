@@ -47,5 +47,37 @@ RSpec.describe VerificationAttempt, type: :model do
         end
       end
     end
+
+    context "validate both document file types" do
+      context "type is html (invalid)" do
+        it "adds an error" do
+          verification_attempt = build :verification_attempt
+          verification_attempt.selfie.attach(
+            io: File.open(Rails.root.join("spec", "fixtures", "files", "test-pattern.html")),
+            filename: 'test-pattern.html',
+            content_type: 'text/html'
+          )
+          verification_attempt.photo_identification.attach(
+            io: File.open(Rails.root.join("spec", "fixtures", "files", "test-pattern.html")),
+            filename: 'test-pattern.html',
+            content_type: 'text/html'
+          )
+
+          expect(verification_attempt.valid?).to eq false
+          expect(verification_attempt.errors[:selfie]).to include(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
+          expect(verification_attempt.errors[:photo_identification]).to include(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
+        end
+      end
+
+      context "type is jpg (valid)" do
+        it "does not add an error" do
+          verification_attempt = build :verification_attempt
+
+          expect(verification_attempt.valid?).to eq true
+          expect(verification_attempt.errors[:selfie]).to be_empty
+          expect(verification_attempt.errors[:photo_identification]).to be_empty
+        end
+      end
+    end
   end
 end

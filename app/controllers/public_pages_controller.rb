@@ -10,16 +10,17 @@ class PublicPagesController < ApplicationController
     redirect_to root_path
   end
 
-  def source_routing
-    vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
-    if vita_partner.present?
-      flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
-      cookies[:used_unique_link] = {value: "yes", expiration: 1.year.from_now.utc }
+  def home
+    # redirect to home hiding original source param
+    if params[:source].present?
+      vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
+      if vita_partner.present?
+        flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
+        cookies[:used_unique_link] = { value: "yes", expiration: 1.year.from_now.utc }
+      end
+      redirect_to root_path and return
     end
-    redirect_to root_path
   end
-
-  def home; end
 
   def pending; end
 

@@ -94,7 +94,6 @@ RSpec.feature "A client who wants help getting an ITIN" do
         primary_birth_date: Date.new(1971, 3, 5),
         email_address: "gary.gardengnome@example.green",
         primary_consented_to_service: "yes",
-        primary_consented_to_service_at: 15.minutes.ago,
         need_itin_help: "yes"
       )
     end

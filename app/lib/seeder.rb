@@ -11,12 +11,15 @@ class Seeder
 
   def self.load_fraud_indicators
     JSON.parse(Rails.application.encrypted('app/models/fraud/indicators.json.enc', key_path: 'config/fraud_indicators.key', env_key: 'FRAUD_INDICATORS_KEY').read).each do |indicator_attributes|
-      Fraud::Indicator.find_or_initialize_by(name: indicator_attributes['name']).update(
+      indicator = Fraud::Indicator.find_or_initialize_by(name: indicator_attributes['name'])
+
+      indicator.assign_attributes(
         indicator_attributes.merge(
-          'activated_at' => Time.now,
+          'activated_at' => Time.zone.now,
           'query_model_name' => indicator_attributes['query_model_name']&.constantize
         )
       )
+      indicator.save!
     end
   end
 
@@ -124,7 +127,7 @@ class Seeder
       primary_last_name: "Hook",
       sms_phone_number: "+14155551212",
       email_address: "crunch@example.com",
-      primary_consented_to_service_at: DateTime.current,
+      primary_consented_to_service: "yes",
       sms_notification_opt_in: :yes,
       email_notification_opt_in: :yes,
       bank_name: "Self-help United",
@@ -174,7 +177,6 @@ class Seeder
       spouse_first_name: "Marsha",
       spouse_last_name: "Charms",
       spouse_email_address: "justthemarshmallows@example.com",
-      primary_consented_to_service_at: DateTime.current,
       primary_consented_to_service: "yes",
       primary_consented_to_service_ip: "127.0.0.1",
       client_attributes: {
@@ -238,8 +240,8 @@ class Seeder
       Intake::CtcIntake,
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
-      primary_consented_to_service_at: DateTime.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+      primary_consented_to_service: "yes",
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
     va1_client = intake_for_verification_attempt_1.client
@@ -256,8 +258,8 @@ class Seeder
       Intake::CtcIntake,
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
-      primary_consented_to_service_at: DateTime.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+      primary_consented_to_service: "yes",
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
     va2_client = intake_for_verification_attempt_2.client
     efile_submission = va2_client.efile_submissions.last || va2_client.tax_returns.last.efile_submissions.create
@@ -274,8 +276,8 @@ class Seeder
         Intake::CtcIntake,
         primary_first_name: "RestrictedVerifier",
         primary_last_name: "Smith",
-        primary_consented_to_service_at: DateTime.current,
-        tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+        primary_consented_to_service: "yes",
+        tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
     verifying_with_restricted_intake.client.touch(:restricted_at)

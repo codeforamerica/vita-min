@@ -39,8 +39,12 @@ module Efile
       sum
     end
 
+    def eip3_amount_received
+      intake.eip3_amount_received || 0
+    end
+
     def outstanding_eip3
-      [eip3_amount - intake.eip3_amount_received, 0].max
+      [eip3_amount - eip3_amount_received, 0].max
     end
 
     def ctc_amount
@@ -60,6 +64,7 @@ module Efile
     # A quick calculation for ODC (Other Dependents Credit) which does not get paid out to our filers,
     # but is needed for the 8812 calculation.
     def odc_amount
+      return nil if intake.home_location_puerto_rico?
       return 0 if year == 2020
 
       dependents.count { |d| !d.qualifying_ctc? && (d.qualifying_child? || d.qualifying_relative?) } * 500
@@ -78,6 +83,7 @@ module Efile
     end
 
     def claimed_recovery_rebate_credit
+      return nil if intake.home_location_puerto_rico?
       return 0 if intake.claim_owed_stimulus_money_no?
 
       outstanding_recovery_rebate_credit

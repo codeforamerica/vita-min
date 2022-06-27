@@ -7,6 +7,13 @@ GIT
       encryptor (~> 3.0.0)
 
 GIT
+  remote: https://github.com/codeforamerica/fraud-gem.git
+  revision: 9cfffdda2cccbaea8f2bb3663a6f7f117f3fabad
+  tag: v1.0.2
+  specs:
+    fraud-gem (1.0.2)
+
+GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
   revision: 4c6f873f55704ec34fd518906f131133b290e56a
   ref: 4c6f873f55704ec34fd518906f131133b290e56a
@@ -229,6 +236,16 @@ GEM
     fix-db-schema-conflicts (3.1.0)
       rubocop (>= 0.38.0)
     flamegraph (0.9.5)
+    flipper (0.24.1)
+    flipper-active_record (0.24.1)
+      activerecord (>= 4.2, < 8)
+      flipper (~> 0.24.1)
+    flipper-ui (0.24.1)
+      erubi (>= 1.0.0, < 2.0.0)
+      flipper (~> 0.24.1)
+      rack (>= 1.4, < 3)
+      rack-protection (>= 1.5.3, <= 2.2.0)
+      sanitize (< 7)
     formatador (1.1.0)
     git-pair (0.1.0)
     globalid (1.0.0)
@@ -388,9 +405,11 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
+    rack-protection (2.2.0)
+      rack
     rack-proxy (0.7.2)
       rack
     rack-test (1.1.0)
@@ -498,6 +517,9 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     safe_shell (1.1.0)
+    sanitize (6.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.12.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -653,6 +675,10 @@ DEPENDENCIES
   faker
   fix-db-schema-conflicts
   flamegraph
+  flipper
+  flipper-active_record
+  flipper-ui
+  fraud-gem!
   git-pair
   guard-rspec
   http_accept_language

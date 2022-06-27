@@ -12,7 +12,7 @@ module Ctc
                        :expiration_date_day,
                        :expiration_date_month,
                        :expiration_date_year
-    validates :license_number, presence: true
+    validates :license_number, presence: true, alphanumeric: true
     validates :state, presence: true, inclusion: { in: States.keys }
     validate :issue_date_is_valid_date
     validate :expiration_date_is_valid_date

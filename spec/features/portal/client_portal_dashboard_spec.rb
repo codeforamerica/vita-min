@@ -336,7 +336,7 @@ RSpec.feature "a client on their portal" do
       click_link "Submit additional documents"
       expect(page).to have_text "Please share any additional documents."
 
-      upload_file("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      upload_file("requested_document_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
       expect(page).to have_content("test-pattern.png")
 
       expect(client.documents.where(document_type: "Other").length).to eq 1

@@ -15,9 +15,9 @@ RSpec.feature "Read and send messages to a client", js: true do
       )
     end
     let(:client) { create(:client, vita_partner: user.role.organization, intake: intake) }
-
     before do
       login_as user
+      create(:incoming_text_message, body: "", client: client)
     end
 
     scenario "I can view a client's information and send them a message" do
@@ -38,6 +38,7 @@ RSpec.feature "Read and send messages to a client", js: true do
       click_on "Messages"
       expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Messages")
       expect(page).to have_text("Send a text message")
+      expect(page).to have_text("Message has no content.")
 
       within(".text-message-form") do
         fill_in "Send a text message", with: "Example text message"

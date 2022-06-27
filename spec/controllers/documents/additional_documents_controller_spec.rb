@@ -72,7 +72,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
       let(:valid_params) do
         {
           document_type_upload_form: {
-            document: fixture_file_upload("test-pattern.png")
+              upload: fixture_file_upload("test-pattern.png")
           }
         }
       end

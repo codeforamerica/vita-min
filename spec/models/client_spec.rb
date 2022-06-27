@@ -5,6 +5,7 @@
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
 #  completion_survey_sent_at                :datetime
+#  consented_to_service_at                  :datetime
 #  ctc_experience_survey_sent_at            :datetime
 #  ctc_experience_survey_variant            :integer
 #  current_sign_in_at                       :datetime
@@ -38,6 +39,7 @@
 #
 # Indexes
 #
+#  index_clients_on_consented_to_service_at         (consented_to_service_at)
 #  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
 #  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
 #  index_clients_on_login_token                     (login_token)
@@ -130,17 +132,21 @@ describe Client do
   end
 
 
-  describe ".needs_in_progress_survey scope" do
+  describe ".needs_gyr_in_progress_survey scope" do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
     context "clients who should get the survey" do
       context "with a client who has had tax returns in intake_in_progress for >10 days" do
-        let!(:tax_return_in_scope) { create :tax_return, :intake_in_progress, client: create(:client, in_progress_survey_sent_at: nil, intake: create(:intake, primary_consented_to_service_at: fake_time - 10.days - 1.minute)) }
+        let!(:tax_return_in_scope) do
+          Timecop.freeze(fake_time - 20.days) do
+            create :tax_return, :intake_in_progress, client: create(:client, in_progress_survey_sent_at: nil, intake: create(:intake, primary_consented_to_service: "yes"))
+          end
+        end
 
         context "with no inbound messages or documents" do
           it "includes the client" do
             Timecop.freeze(fake_time) do
-              expect(Client.needs_in_progress_survey).to include(tax_return_in_scope.client)
+              expect(Client.needs_gyr_in_progress_survey).to include(tax_return_in_scope.client)
             end
           end
         end
@@ -150,7 +156,7 @@ describe Client do
 
           it "includes the client" do
             Timecop.freeze(fake_time) do
-              expect(Client.needs_in_progress_survey).to include(tax_return_in_scope.client)
+              expect(Client.needs_gyr_in_progress_survey).to include(tax_return_in_scope.client)
             end
           end
         end
@@ -158,15 +164,25 @@ describe Client do
     end
 
     context "clients who should not get the survey" do
-      let!(:tax_return) { create :tax_return, status.to_sym, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
+      let!(:tax_return) { create :tax_return, status.to_sym, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service: "yes")) }
       let(:status) { "intake_in_progress" }
       let(:in_progress_survey_sent_at) { nil }
       let(:primary_consented_to_service_at) { fake_time - 11.days }
 
+      context "with an intake that is a CTC intake" do
+        before do
+          tax_return.intake.update(type: "Intake::CtcIntake")
+        end
+        
+        it "does not include them" do
+          Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
+        end
+      end
+
       context "with a tax return that does not have a intake_in_progress status" do
         let(:status) { "intake_ready" }
         it "does not include them" do
-          Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+          Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
         end
       end
 
@@ -174,7 +190,7 @@ describe Client do
         let(:primary_consented_to_service_at) { fake_time - 9.days }
 
         it "does not include them" do
-          Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+          Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
         end
       end
 
@@ -183,7 +199,7 @@ describe Client do
           let!(:inbound_text_message) { create :incoming_text_message, client: tax_return.client }
 
           it "does not include them" do
-            Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+            Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
           end
         end
 
@@ -191,7 +207,7 @@ describe Client do
           let!(:inbound_email) { create :incoming_email, client: tax_return.client }
 
           it "does not include them" do
-            Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+            Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
           end
         end
 
@@ -199,14 +215,14 @@ describe Client do
           let!(:document) { create :document, uploaded_by: tax_return.client, client: tax_return.client, created_at: tax_return.client.intake.created_at + 1.day + 1.second }
 
           it "does not include them" do
-            Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+            Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
           end
         end
 
         context "with a client who already received the survey" do
           let(:in_progress_survey_sent_at) { DateTime.current }
           it "is not included" do
-            Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
+            Timecop.freeze(fake_time) { expect(Client.needs_gyr_in_progress_survey).not_to include(tax_return.client) }
           end
         end
       end
@@ -448,6 +464,11 @@ describe Client do
       let!(:unrelated_intake) { create :intake }
       let(:attachment) { fixture_file_upload("test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
+      let(:outgoing_email) { create(:outgoing_email, client: client) }
+      let!(:bulk_client_message) { BulkClientMessageOutgoingEmail.create(outgoing_email: outgoing_email)}
+      let(:bulk_client_message) { BulkClientMessage.create }
+      let!(:outgoing_text_message) { create(:outgoing_text_message, client: client) }
+      let!(:bulk_client_sms) { BulkClientMessageOutgoingTextMessage.create(outgoing_text_message: outgoing_text_message) }
       before do
         doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
@@ -569,7 +590,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil, intake: create(:intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
@@ -592,7 +613,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil,  intake: create(:ctc_intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)
@@ -630,21 +651,20 @@ describe Client do
 
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
-    let(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
-    let(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
-    let(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
+    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "drop_off")] }
-    let(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service_at: nil), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service_at: DateTime.now), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let!(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let!(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let!(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
 
     context "GYR client" do
       let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
-
         it "returns accessible CTC clients with the same ssn" do
           expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
           expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
@@ -653,7 +673,6 @@ describe Client do
 
       context "looking for GYR matches" do
         let(:display_type) { Intake::GyrIntake }
-
         it "returns accessible GYR clients with the same ssn" do
           expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
           expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)

@@ -12,7 +12,7 @@ module SubmissionBuilder
 
       build_xml_doc("efile:IRSSubmissionManifest") do |xml|
         xml.SubmissionId @submission.irs_submission_id
-        xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
+        xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr tax_return.year
         xml.GovernmentCd "IRS"
         xml.FederalSubmissionTypeCd "1040"

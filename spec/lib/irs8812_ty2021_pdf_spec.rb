@@ -18,8 +18,10 @@ RSpec.describe Irs8812Ty2021Pdf do
 
       it "returns a pdf with default fields and values" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
+                                  "FullPrimaryName" => submission.intake.primary_full_name,
+                                  "PrimarySSN" => submission.intake.primary_ssn,
                                   "AdjustedGrossIncomeAmt1" => "0", # 1
                                   "PRExcludedIncomeAmt2a" => "0", # 2a
                                   "GrossIncomeExclusionAmt2c" => "0", # 2c
@@ -36,7 +38,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line10" => "0", #10
                                   "Line11" => "0", #11
                                   "TotalCreditAmt12" => "0", #12 (=8)
-                                  "USHomeInd13a" => 'X', #13a
+                                  "USHomeInd13a" => "1", #13a
                                   "OtherDependentCreditAmt14a" => "0", #14a (=7)
                                   "TotalCtcAmt14b" => "0", #14b (=5)
                                   "Line14c" => "0", #14c
@@ -85,7 +87,7 @@ RSpec.describe Irs8812Ty2021Pdf do
 
       it "returns a filled out pdf" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "AdjustedGrossIncomeAmt1" => "0", # 1
                                   "PRExcludedIncomeAmt2a" => "0", # 2a
@@ -103,7 +105,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line10" => "0", #10
                                   "Line11" => "0", #11
                                   "TotalCreditAmt12" => "7100", #12 (=8)
-                                  "USHomeInd13a" => 'X', #13a
+                                  "USHomeInd13a" => "1", #13a
                                   "OtherDependentCreditAmt14a" => "500", #14a (=7)
                                   "TotalCtcAmt14b" => "6600", #14b (=5)
                                   "Line14c" => "0", #14c
@@ -120,15 +122,50 @@ RSpec.describe Irs8812Ty2021Pdf do
     context "when status is married filing jointly" do
       before do
         submission.tax_return.update(filing_status: "married_filing_jointly")
+        submission.intake.update(spouse_first_name: "Spouser", spouse_last_name: "Spouseperson")
         submission.reload
+      end
+
+      it "includes full names and ssns of each filer" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+          "FullPrimaryName" => [submission.intake.primary_full_name, "Spouser Spouseperson"].join(', '),
+          "PrimarySSN" => submission.intake.primary_ssn,
+        ))
       end
 
       it "includes the correct filing status threshold" do
         output_file = pdf.output_file
-        result = non_preparer_fields(output_file.path)
+        result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
                                   "FilingStatusIncomeLimit9" => "400000", #9
                                 ))
+      end
+    end
+
+    context "for clients living in Puerto Rico" do
+      before do
+        submission.intake.update(home_location: :puerto_rico)
+        submission.reload
+      end
+
+      it "includes the correct empty fields and checked box" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+                                  "AdjustedGrossIncomeAmt1" => "", #1
+                                  "PRExcludedIncomeAmt2a" => "", #2a
+                                  "GrossIncomeExclusionAmt2c" => "", #2c
+                                  "ExclusionsTotalAmt2d" => "", #2d
+                                  "AGIExclusionsTotalAmt3" => "", #3
+                                  "Line10" => "", #10
+                                  "Line11" => "", #11
+                                  "Line14c" => "", #14c
+                                  "Line14d" => "", #14d
+                                  "Line14h" => "", #14h
+                                  "PRResidentInd13b" => "1", #13b
+                                  ))
       end
     end
   end

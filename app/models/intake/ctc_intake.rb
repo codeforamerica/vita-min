@@ -113,8 +113,10 @@
 #  has_primary_ip_pin                                   :integer          default("unfilled"), not null
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -260,6 +262,7 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_consented_to_service_at        (primary_consented_to_service_at)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
@@ -303,6 +306,7 @@ class Intake::CtcIntake < Intake
   enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
   enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+  enum home_location: { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, _prefix: :home_location
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)
@@ -423,5 +427,9 @@ class Intake::CtcIntake < Intake
     else
       0
     end
+  end
+
+  def puerto_rico_filing?
+    home_location_puerto_rico? && Flipper.enabled?(:puerto_rico_home_location)
   end
 end

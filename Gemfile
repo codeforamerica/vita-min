@@ -76,10 +76,20 @@ gem 'statesman', '~> 9.0'
 gem 'redcarpet'
 gem 'platform-api'
 gem 'strong_migrations'
+gem 'fraud-gem', git: 'https://github.com/codeforamerica/fraud-gem.git', tag: 'v1.0.2', require: ["fraud_gem"]
+
+# Use Flipper for feature flagging
+gem 'flipper'
+gem 'flipper-active_record'
+gem 'flipper-ui'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
   gem 'faker'
+end
+
+group :demo, :development, :heroku, :staging do
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do
@@ -114,7 +124,6 @@ group :development do
   gem 'spring'
   gem 'git-pair'
   gem 'annotate'
-  gem 'rack-mini-profiler'
   gem 'flamegraph'
   gem 'stackprof'
   gem 'memory_profiler'

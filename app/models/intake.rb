@@ -113,8 +113,10 @@
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -260,6 +262,7 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_consented_to_service_at        (primary_consented_to_service_at)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
@@ -275,6 +278,8 @@
 #
 
 class Intake < ApplicationRecord
+  self.ignored_columns = ["primary_consented_to_service_at"]
+
   include PgSearch::Model
 
   def self.searchable_fields
@@ -313,6 +318,12 @@ class Intake < ApplicationRecord
     self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
   end
 
+  after_save do
+    if primary_consented_to_service_previously_changed?(to: "yes")
+      client.update(consented_to_service_at: updated_at)
+    end
+  end
+
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -331,6 +342,7 @@ class Intake < ApplicationRecord
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
   enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
   enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
+  enum irs_language_preference: { english: 0, spanish: 1, korean: 2, vietnamese: 3, russian: 4, arabic: 5, haitian_creole: 6, tagalog: 7, portuguese: 8, polish: 9, farsi: 10, french: 11, japanese: 12, gujarati: 13, punjabi: 14, khmer: 15, urdu: 16, bengali: 17, italian: 18, chinese_traditional: 19, chinese_simplified: 20 }, _prefix: :irs_language_preference
 
   NAVIGATOR_TYPES = {
     general: {
@@ -355,13 +367,24 @@ class Intake < ApplicationRecord
     }
   }
 
-  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
+  scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
 
   def duplicates
     return itin_duplicates if itin_applicant?
     return self.class.none unless hashed_primary_ssn.present?
 
     DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+  end
+
+  # TODO: Delegate to client once backfill is run
+  def primary_consented_to_service_at
+    client.consented_to_service_at || read_attribute(:primary_consented_to_service_at)
+  end
+
+  def irs_language_preference_code
+    return nil unless irs_language_preference
+    preference_int = self.class.irs_language_preferences[irs_language_preference]
+    "%03d" % preference_int
   end
 
   def itin_duplicates

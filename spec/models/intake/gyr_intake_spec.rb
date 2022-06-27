@@ -113,8 +113,10 @@
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default("unfilled"), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
@@ -260,6 +262,7 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_consented_to_service_at        (primary_consented_to_service_at)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
@@ -278,14 +281,14 @@ require "rails_helper"
 describe Intake::GyrIntake do
   describe ".accessible_intakes" do
     context "a consented intake" do
-      let!(:intake) { create :intake, primary_consented_to_service_at: DateTime.now }
+      let!(:intake) { create :intake, primary_consented_to_service: "yes" }
       it "appears as an accessible intake" do
         expect(described_class.accessible_intakes).to include intake
       end
     end
 
     context "not consented intakes" do
-      let!(:intake) { create :intake, primary_consented_to_service_at: nil }
+      let!(:intake) { create :intake, primary_consented_to_service: "unfilled" }
       it "are not present in the accessible intakes" do
         expect(described_class.accessible_intakes).not_to include intake
       end
@@ -342,7 +345,7 @@ describe Intake::GyrIntake do
 
       context "when there is another accessible intake with the same ssn" do
         let!(:dupe) {
-          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_consented_to_service_at: 15.minutes.ago, primary_ssn: "123456789")), service_type: "drop_off").intake
+          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
         }
         let(:intake) { create :intake, primary_ssn: "123456789" }
         it "returns that as a duplicate" do

@@ -32,16 +32,20 @@ module SubmissionBuilder
             xml.OtherDependentsListedCnt qualifying_dependents.count { |qd| qd.qualifying_relative? }
 
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
-            xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction # line 12a in 2021v5.2/IndividualIncomeTax/Ind1040/IRS1040/IRS1040.xsd
-            xml.TotDedCharitableContriAmt tax_return.standard_deduction # 12c
-            xml.TotalDeductionsAmt tax_return.standard_deduction # 14
-            xml.TaxableIncomeAmt 0 # 15
+            if intake.home_location_puerto_rico?
+              xml.TotalItemizedOrStandardDedAmt 0, {modifiedStandardDeductionInd: 'SECT 933'}
+            else
+              xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction
+            end
+            xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
+            xml.TotalDeductionsAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 14
+            xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
             xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
-            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit.to_i # 30
+            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit unless benefits.claimed_recovery_rebate_credit.nil? # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
             total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i

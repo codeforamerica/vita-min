@@ -1,0 +1,31 @@
+<% content_for :page_title, t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year) %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, data: { efile_security_information: true, form_name: form_name }, html: { class: "form-card" } do |f| %>
+    <h1 class="form-question spacing-below-35">
+      <%= content_for(:page_title) %>
+    </h1>
+    <p>
+      <%= t('views.ctc.questions.main_home.help_text') %>
+    </p>
+    <%= f.cfa_radio_set(
+          :home_location,
+          collection: [
+            { value: :fifty_states, label: t('views.ctc.questions.main_home.options.fifty_states') },
+            { value: :military_facility, label: t('views.ctc.questions.main_home.options.military_facility') },
+            { value: :puerto_rico, label: t('views.ctc.questions.main_home.options.puerto_rico') },
+            { value: :us_territory, label: t('views.ctc.questions.main_home.options.us_territory') },
+            { value: :foreign_address, label: t('views.ctc.questions.main_home.options.foreign_address') },
+          ]
+        )
+    %>
+    <div class="reveal-shrink-wrapper spacing-above-0 spacing-below-60">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.main_home.reveal.title")) do %>
+        <%= t("views.ctc.questions.main_home.reveal.body") %>
+      <% end %>
+    </div>
+    <button class="button button--primary button--wide" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

@@ -5,6 +5,7 @@
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
 #  completion_survey_sent_at                :datetime
+#  consented_to_service_at                  :datetime
 #  ctc_experience_survey_sent_at            :datetime
 #  ctc_experience_survey_variant            :integer
 #  current_sign_in_at                       :datetime
@@ -38,6 +39,7 @@
 #
 # Indexes
 #
+#  index_clients_on_consented_to_service_at         (consented_to_service_at)
 #  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
 #  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
 #  index_clients_on_login_token                     (login_token)
@@ -49,6 +51,7 @@
 #
 FactoryBot.define do
   factory :client do
+    consented_to_service_at { DateTime.current }
     efile_security_informations { [build(:efile_security_information)] }
 
     trait :with_return do

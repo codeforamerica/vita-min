@@ -7,7 +7,7 @@ RSpec.describe DocumentTypeUploadForm do
     context "when valid params" do
       let(:valid_params) do
         {
-          document: fixture_file_upload("test-pattern.png")
+            upload: fixture_file_upload("test-pattern.png")
         }
       end
 
@@ -19,18 +19,18 @@ RSpec.describe DocumentTypeUploadForm do
     end
 
     context "when uploading a file whose file extension is disallowed" do
-      let(:params) { { document: fixture_file_upload("test-pattern.html") } }
+      let(:params) { { upload: fixture_file_upload("test-pattern.html") } }
 
       it "is not valid" do
         form = described_class.new("Other", intake, params)
 
         expect(form).not_to be_valid
-        expect(form.errors[:document]).to be_present
+        expect(form.errors.messages[:upload].first).to include "Please upload a valid document type. Accepted types include"
       end
     end
 
     context "when the document model has errors" do
-      let(:params) { { document: fixture_file_upload("test-pattern.png") } }
+      let(:params) { { upload: fixture_file_upload("test-pattern.png") } }
       let!(:fake_document) { build(:document) }
 
       before do
@@ -41,11 +41,11 @@ RSpec.describe DocumentTypeUploadForm do
         allow(Document).to receive(:new).and_return(fake_document)
       end
 
-      it "is not valid" do
+      it "makes the form invalid and copies the errors onto the form" do
         form = described_class.new("Other", intake, params)
 
         expect(form).not_to be_valid
-        expect(form.errors[:document]).to eq(["Example error"])
+        expect(form.errors[:upload]).to eq(["Example error"])
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe DocumentTypeUploadForm do
         form = described_class.new("Other", intake, params)
 
         expect(form).not_to be_valid
-        expect(form.errors[:document]).to be_present
+        expect(form.errors[:upload]).to include "Can't be blank."
       end
     end
   end
@@ -65,7 +65,7 @@ RSpec.describe DocumentTypeUploadForm do
     context "with valid params" do
       let(:valid_params) do
         {
-          document: fixture_file_upload("test-pattern.png")
+            upload: fixture_file_upload("test-pattern.png")
         }
       end
 
@@ -87,7 +87,7 @@ RSpec.describe DocumentTypeUploadForm do
 
       let(:valid_params) do
         {
-          document: file_upload
+            upload: file_upload
         }
       end
 

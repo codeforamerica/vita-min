@@ -9,16 +9,15 @@ class MailgunWebhooksController < ActionController::Base
     sender_email = params["sender"]
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email})
     client_count = clients.count
-    if client_count == 0
+    if client_count.zero?
       DatadogApi.increment("mailgun.incoming_emails.client_not_found")
-      clients = [Client.create!(
-        intake: Intake::GyrIntake.create!(
-          email_address: sender_email,
-          visitor_id: SecureRandom.hex(26),
-          email_notification_opt_in: "yes",
-        ),
-        vita_partner: VitaPartner.client_support_org,
-      )]
+
+      IntercomService.create_intercom_message(
+        email_address: sender_email,
+        inform_of_handoff: false,
+        body: params["stripped-text"] || params["body-plain"]
+      )
+      return head :ok
     elsif client_count == 1
       DatadogApi.increment("mailgun.incoming_emails.client_found")
     elsif client_count > 1
@@ -51,7 +50,7 @@ class MailgunWebhooksController < ActionController::Base
         size = attachment.tempfile.size
 
         processed_attachments <<
-          if (FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type) && (size > 0)
+          if (FileTypeAllowedValidator.mime_types(Document).include? attachment.content_type) && (size > 0)
             {
                 io: attachment,
                 filename: attachment.original_filename,

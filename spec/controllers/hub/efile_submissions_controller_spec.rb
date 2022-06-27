@@ -346,4 +346,20 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
       end
     end
   end
+
+  describe "#state_counts" do
+    context "when authenticated as an admin" do
+      let(:user) { create :admin_user }
+      let(:state_counts) { { "some_state" => 1, "another_state" => 2 } }
+      before do
+        sign_in user
+        allow(EfileSubmission).to receive(:state_counts).and_return state_counts
+      end
+
+      it "loads most recent submissions for tax returns" do
+        get :state_counts, format: :js, xhr: true
+        expect(assigns(:efile_submission_state_counts)).to eq state_counts
+      end
+    end
+  end
 end

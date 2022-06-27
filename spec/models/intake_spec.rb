@@ -113,8 +113,10 @@
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -260,6 +262,7 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_consented_to_service_at        (primary_consented_to_service_at)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
@@ -498,6 +501,32 @@ describe Intake do
     end
   end
 
+  describe "#irs_language_preference_code" do
+    context "when language is english" do
+      let(:intake) { build :intake, irs_language_preference: "english" }
+
+      it "responds with 000" do
+        expect(intake.irs_language_preference_code).to eq "000"
+      end
+    end
+
+    context "when language is english" do
+      let(:intake) { build :intake, irs_language_preference: "spanish" }
+
+      it "responds with 001" do
+        expect(intake.irs_language_preference_code).to eq "001"
+      end
+    end
+
+    context "when language is nil" do
+      let(:intake) { build :intake, irs_language_preference: nil }
+
+      it "responds with nil" do
+        expect(intake.irs_language_preference_code).to eq nil
+
+      end
+    end
+  end
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 

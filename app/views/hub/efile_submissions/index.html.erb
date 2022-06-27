@@ -1,12 +1,7 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
-    <div style="display: flex;">
-      <% @efile_submission_state_counts.each do |state, count| %>
-        <div class="metric-box">
-          <div class="status <%= state %>"><%= count %></div>
-          <div class="status <%= state %>"><%= link_to state, Hub::EfileSubmissionsController.to_path_helper(action: :index, status: state), class: 'link--subtle', style: "color: inherit;" %></div>
-         </div>
-      <% end %>
+    <div class="efile-state-counts" style="display: flex;">
+      <%= render "hub/efile_submissions/state_counts", efile_submission_state_counts: @efile_submission_state_counts %>
     </div>
     <div class="slab slab--not-padded spacing-above-25">
       <div class="pagination-wrapper">
@@ -68,7 +63,7 @@
             <td class="index-table__cell">
               <% if submission.in_state?(:rejected) %>
                 <% submission.last_transition.efile_errors.each do |error| %>
-                  <span class="tooltip error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                  <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
                     <%= link_to hub_efile_error_path(id: error.id) do %>
                       <div class="label label--red"><%= error.code %></div>
                     <% end %>

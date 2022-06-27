@@ -93,10 +93,7 @@ Rails.application.routes.draw do
       end
 
       namespace :documents do
-        get "/add/:token", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login" }, as: :add_requested_documents
         get "/doc-help/:doc_type", to: "documents_help#show", as: :help
-        post '/doc-help/send-reminder', to: 'documents_help#send_reminder' # remove after next release
-        post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help' # remove after next release
         post '/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
         post '/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
       end
@@ -171,6 +168,11 @@ Rails.application.routes.draw do
       namespace :hub do
         # root "assigned_clients#index"
 
+        # Feature flags are admin access only
+        constraints CanAccessFlipperUI do
+          mount Flipper::UI.app(Flipper) => '/flipper'
+        end
+
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do
@@ -179,6 +181,7 @@ Rails.application.routes.draw do
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
           get '/download', to: 'efile_submissions#download', on: :member, as: :download
+          get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
         end
 
         resources :fraud_indicators, path: "fraud-indicators" do
@@ -195,7 +198,6 @@ Rails.application.routes.draw do
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]
-        resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end
@@ -297,7 +299,7 @@ Rails.application.routes.draw do
       end
 
       # Any other top level slash just goes to home as a source parameter
-      get "/:source" => "public_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+      get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }, as: :root_with_source
     end
     # Routes outside of the locale scope are not internationalized
 
@@ -325,6 +327,8 @@ Rails.application.routes.draw do
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
       get "/already-filed", to: "ctc/offboarding/already_filed#show", as: :offboarding_already_filed
       get "/cant-use-getctc-pr", to: "ctc/offboarding/puerto_rico_sign_up#show", as: :offboarding_cant_use_getctc_pr
+      get "/actc-without-dependents", to: "ctc/offboarding/actc_without_dependents#show", as: :offboarding_actc_without_dependents
+      get "/actc-without-dependents-use-gyr", to: "ctc/offboarding/actc_without_dependents#file_with_gyr", as: :offboarding_actc_without_dependents_file_with_gyr
       get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity
       get "/questions/not-filing", to: "ctc/questions/not_filing#edit", as: :questions_not_filing
 
@@ -361,9 +365,8 @@ Rails.application.routes.draw do
         get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator"
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
-        get "/california-benefits", to: "ctc_pages#california_benefits"
-        get "/claim", to: "ctc_pages#california_benefits", defaults: { source: "claim" }
-        get "/file", to: "ctc_pages#california_benefits", defaults: { source: "file" }
+        get "/puertorico", to: "ctc_pages#puerto_rico"
+        get "/puerto-rico-overview", to: "ctc_pages#puerto_rico_overview"
 
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
@@ -446,7 +449,7 @@ Rails.application.routes.draw do
         end
 
         # Any other top level slash just goes to home as a source parameter
-        get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+        get "/:source" => "ctc_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
       end
     end
 

@@ -13,7 +13,9 @@ import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
-import { initServiceComparisonComponent } from "../lib/service_comparison_component"
+import { initServiceComparisonComponent } from "../lib/service_comparison_component";
+import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
+
 const Listeners =  (function(){
     return {
         init: function () {
@@ -44,16 +46,13 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::FilingStatusController#edit" || window.appData.controller_action == "Ctc::Questions::FilingStatusController#update") {
-                    getEfileSecurityInformation('ctc_filing_status_form');
+                if(document.querySelector("form[data-efile-security-information='true']")) {
+                    const form = document.querySelector("form[data-efile-security-information='true']");
+                    getEfileSecurityInformation(form.dataset.formName);
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit" || window.appData.controller_action == "Ctc::Questions::LegalConsentController#update") {
-                    getEfileSecurityInformation('ctc_confirm_legal_form');
-                }
-
-                if(window.appData.controller_action == "Ctc::Portal::PortalController#edit_info" || window.appData.controller_action == "Ctc::Portal::PortalController#resubmit") {
-                    getEfileSecurityInformation('ctc_resubmit_form');
+                if(window.appData.controller_action == "Hub::EfileSubmissionsController#index") {
+                    fetchEfileStateCounts();
                 }
 
                 if (document.querySelector('.taggable-note')) {

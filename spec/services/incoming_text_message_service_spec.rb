@@ -42,7 +42,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
       let(:tax_returns) { [(create :tax_return, :prep_preparing, year: 2021)] }
       let!(:intake) { create(:intake, client: client, phone_number: "+15005550006") }
 
-      it "creates a new IncomingTextMessage linked to the client the right data" do
+      it "creates a new IncomingTextMessage linked to the client with the right data" do
         expect do
           IncomingTextMessageService.process(incoming_message_params)
         end.to change(IncomingTextMessage, :count).by 1
@@ -90,22 +90,13 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
     end
 
     context "without a matching client" do
-      it "creates a new incoming text message attached to a new client" do
-        expect do
-          IncomingTextMessageService.process(incoming_message_params)
-        end.to change(IncomingTextMessage, :count).by(1).and change(Client, :count).by(1)
+      before do
+        allow(IntercomService).to receive(:create_intercom_message)
+      end
 
-        message = IncomingTextMessage.last
-        expect(message.body).to eq "Hello, it me"
-        expect(message.from_phone_number).to eq "+15005550006"
-        expect(message.received_at).to eq current_time
-        client = Client.last
-        expect(message.client).to eq client
-        expect(client.intake.class).to eq(Intake::GyrIntake)
-        expect(client.intake.phone_number).to eq "+15005550006"
-        expect(client.intake.sms_phone_number).to eq "+15005550006"
-        expect(client.intake.sms_notification_opt_in).to eq("yes")
-        expect(client.vita_partner).to eq VitaPartner.client_support_org
+      it "forwards the message to intercom" do
+        IncomingTextMessageService.process(incoming_message_params)
+        expect(IntercomService).to have_received(:create_intercom_message).with(phone_number: "+15005550006", body: "Hello, it me")
       end
 
       it "sends a metric to Datadog" do

@@ -10,21 +10,20 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on "Sign out"
 
     expect(page).to have_text "You've been successfully signed out."
-    expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+    expect(page).to have_text I18n.t("views.ctc_pages.home.title")
   end
 
   def sign_up
     visit "/en/questions/overview"
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t('views.ctc.questions.filing_status.single')
+    choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
     click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
     click_on I18n.t('general.continue')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     click_on "Continue"
     click_on I18n.t('general.negative')
-    choose I18n.t('views.ctc.questions.home.options.fifty_states')
-    click_on I18n.t('general.continue')
     click_on I18n.t('general.negative')
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.legal_consent.middle_initial'), with: "H"

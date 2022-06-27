@@ -12,6 +12,9 @@ module Ctc
     ].freeze
 
     def home
+      # redirect to home hiding original source param
+      redirect_to root_path and return if params[:source].present?
+
       case session[:source]
       when "cactc", "fed", "child"
         redirect_to action: :help
@@ -39,53 +42,47 @@ module Ctc
       render :stimulus_home
     end
 
-    def source_routing
-      # allow before_action to stash the source, then go to the homepage
-      redirect_to root_path(ctc_beta: params[:ctc_beta])
-    end
-
     def navigators
       file_name = params[:locale] == "es" ? "navigators_es.md" : "navigators.md"
       @markdown_content = markdown_content_from_file(file_name)
     end
 
-    def privacy_policy
-    end
+    def privacy_policy; end
 
-    def california_benefits
-    end
+    def california_benefits; end
 
-    def what_will_i_need_to_submit
-    end
+    def what_will_i_need_to_submit; end
 
-    def check_payment_status
-    end
+    def check_payment_status; end
 
-    def what_will_happen_and_when
-    end
+    def what_will_happen_and_when; end
 
-    def how_do_i_know_what_i_received_for_the_stimulus
-    end
+    def how_do_i_know_what_i_received_for_the_stimulus; end
 
-    def will_i_ever_have_to_pay_this_money_back
-    end
+    def will_i_ever_have_to_pay_this_money_back; end
 
-    def parents_with_shared_custody
-    end
+    def parents_with_shared_custody; end
 
-    def no_income_or_income_from_benefits_programs
-    end
+    def no_income_or_income_from_benefits_programs; end
 
-    def are_daca_recipients_eligible
-    end
+    def are_daca_recipients_eligible; end
 
-    def will_it_affect_my_immigration_status
-    end
+    def will_it_affect_my_immigration_status; end
 
-    def how_do_i_get_an_itin
-    end
+    def how_do_i_get_an_itin; end
 
     def completed; end
+
+    def puerto_rico
+      redirect_to action: :home and return unless Flipper.enabled?(:puerto_rico_home_location)
+
+      redirect_to "/es/puertorico" and return unless params[:locale].present?
+      @get_started_link = open_for_ctc_intake? ? ctc_puerto_rico_overview_path : nil
+    end
+
+    def puerto_rico_overview
+      @in_intake_flow = true
+    end
 
     private
 

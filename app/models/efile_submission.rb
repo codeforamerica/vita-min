@@ -140,23 +140,18 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_filing_pdf
-    filename = "IRS 1040 - TY #{tax_return.year} - #{irs_submission_id}.pdf"
-    temp_1040_pdf = Irs1040Pdf.new(self).output_file
-    output_file = if has_outstanding_ctc?
-                    combined_temp_file = Tempfile.new(
-                      [filename, ".pdf"],
-                      "tmp/",
-                    )
-                    temp_8812_pdf = Irs8812Ty2021Pdf.new(self).output_file
-                    PdfForms.new.cat(temp_1040_pdf, temp_8812_pdf, combined_temp_file.path)
-                    combined_temp_file
-                  else
-                    temp_1040_pdf
-                  end
+    slug = irs_submission_id[6..] if  irs_submission_id.present?
+    filename = "IRS 1040 - TY#{tax_return.year}"
+    filename += slug ? " - #{slug}.pdf" : ".pdf"
+
+    pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
+    output_file = Tempfile.new([filename, ".pdf"], "tmp/")
+    filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
+    PdfForms.new.cat(*filled_out_documents.push(output_file.path))
     ClientPdfDocument.create_or_update(
       output_file: output_file,
       document_type: DocumentTypes::Form1040,
-      client: self.client,
+      client: client,
       filename: filename,
       tax_return: tax_return
     )
@@ -217,7 +212,7 @@ class EfileSubmission < ApplicationRecord
 
     raise "Max irs_submission_id attempts exceeded. Too many submissions today?" if i > 5
 
-    efin = EnvironmentCredentials.dig(:irs, :efin)
+    efin = EnvironmentCredentials.irs(:efin)
     irs_submission_id = "#{efin}#{Date.current.strftime('%C%y%j')}#{SecureRandom.base36(7)}"
     if self.class.find_by(irs_submission_id: irs_submission_id)
       i += 1

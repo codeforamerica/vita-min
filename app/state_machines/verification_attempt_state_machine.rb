@@ -11,7 +11,7 @@ class VerificationAttemptStateMachine
   transition from: :new, to: [:pending]
   transition from: :pending, to: [:approved, :denied, :escalated, :restricted, :requested_replacements]
   transition from: :escalated, to: [:approved, :denied, :requested_replacements]
-  transition from: :restricted, to: [:denied]
+  transition from: :restricted, to: [:approved, :denied]
 
   after_transition(to: :pending) do |verification_attempt|
     verification_attempt.transition_to(:restricted) if verification_attempt.client.restricted_at?

@@ -69,7 +69,9 @@ describe Ctc::CtcPagesController do
     end
   end
 
-  describe "#california_benefits" do
+  # California benefits page was turned off on 5/25/22, but we were asked to keep code
+  # in case of relaunch of relationship later this year.
+  xdescribe "#california_benefits" do
     context "source is present" do
       let(:params) { { source: 'claim' } }
 
@@ -88,6 +90,28 @@ describe Ctc::CtcPagesController do
       get :navigators
 
       expect(response.body).to include "Need help claiming your tax benefits?"
+    end
+  end
+
+  describe "#puerto_rico" do
+    context "when the puerto rico features has launched" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:puerto_rico_home_location).and_return true
+      end
+
+      it "redirects to the spanish version of the page" do
+        get :puerto_rico
+        expect(response).to redirect_to "/es/puertorico"
+      end
+    end
+
+    context "when the puerto rico features have not launched" do
+      context "when the puerto rico feature has not launched" do
+        it "redirects to home" do
+          get :puerto_rico
+          expect(response).to redirect_to root_path
+        end
+      end
     end
   end
 end

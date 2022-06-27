@@ -205,6 +205,12 @@ en:
       hub:
         communication_opt_in: If signature method is "online", a contact method and communication opt-in is required.
         contact_method_required: "%{attribute} is required if opting into notifications"
+      mailing_address:
+        city: 'Error: Invalid City'
+        invalid: 'Error: Invalid Address.'
+        multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
+        not_found: 'Error: Address Not Found.'
+        state: 'Error: Invalid State Code'
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
@@ -443,6 +449,7 @@ en:
     response: Response
     return_home: Return to home
     return_search: Return to search
+    return_to_homepage: Return to homepage
     role: Role
     routing: Routing
     save: Save
@@ -732,8 +739,6 @@ en:
         spouse_contact_info: Spouse Contact Info
         tax_info: Tax Info
         texting_phone: Phone For Texting
-      unlinked_clients:
-        title: Unlinked clients
       unlock:
         account_unlocked: Unlocked %{name}'s account.
       update_take_action:
@@ -1070,10 +1075,6 @@ en:
       update:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}.
         no_one: no one
-    unlinked_clients:
-      index:
-        description: Messages from people whose contact info did not match a client.
-        phone_number_or_email: Phone number/email
     unlock_account: Unlock account
     unlock_confirmation: Unlock %{name}'s account? Have they confirmed their identity?
     unsuspend_account: Unsuspend account
@@ -1660,8 +1661,9 @@ en:
       subheader: Please sign up here to receive a notification when we open in January 2022.
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
+    alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
-    file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
+    file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     ip_pin: IP PINs must be a 6 digit number.
     itin: Please enter a valid individual taxpayer identification number.
@@ -1784,6 +1786,14 @@ en:
         title: Relational EFIN
     ctc:
       offboarding:
+        actc_without_dependents:
+          add_more_dependents: Add more dependents
+          file_with_gyr: File with GetYourRefund
+          subtitle_html: |
+            <p>Based on your answers you received %{current_tax_year} Advance Child Tax Credit payments, and are not claiming any children for the Child Tax Credit.</p>
+            <p>You cannot claim any additional funds using GetCTC.</p>
+            <p>You could still benefit by filing a full tax return for free using GetYourRefund.</p>
+          title: You cannot continue filing with GetCTC.
         already_filed:
           contact_ta: Contact a Taxpayer Advocate
           contact_vita: Contact a VITA Site
@@ -1958,6 +1968,11 @@ en:
           help_text_html: |
             <p class="text--bold">If you already filed a 2021 tax return, the IRS will reject your GetCTC return without looking at it.</p>
             <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
+          puerto_rico:
+            help_text_html: |
+              <p class="text--bold">If you already filed a 1040 tax return, the IRS will reject your GetCTC return without looking at it.</p>
+              <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
+            title: Did you file a %{current_tax_year} 1040 with the IRS this year?
           title: Did you file a %{current_tax_year} tax return this year?
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
@@ -1988,7 +2003,8 @@ en:
                 title: Should I file as the Head of Household?
               p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: What about other benefits my dependents could be eligible for?
-          qualifying_for_ctc: Dependents qualifying for CTC and stimulus
+          qualifying_for_both: Dependents qualifying for CTC and stimulus
+          qualifying_for_ctc: Dependents qualifying for CTC
           qualifying_for_other_credits: Dependents qualifying for only stimulus
           ssn: SSN
           ssn_no_employment: SSN (not valid for employment)
@@ -2095,12 +2111,25 @@ en:
             - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
             - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
             help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
+            puerto_rico:
+              affirmative: Yes, add another child
+              conditions:
+              - The person you are trying to claim might be too old to qualify for CTC. They must be 17 years old or less at the end of %{current_tax_year}.
+              - The person you are trying to claim might be born in %{filing_year}. You can only claim children who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
+              - The person you are trying to claim might not have the right relationship to you to qualify for CTC. They must be your child, your sibling, or a descendent of one of them.
+              - The person you are trying to claim might not live with you for enough of the year. In most cases, you can only claim children who live with you for most of the year.
+              - The person you are trying to claim might be financially independent. In most cases, you can only claim children if they do not pay for their own living expenses.
+              - The person you are trying to claim might be someone else’s child rather than yours. Only one household can claim a given child.
+              - The person you are trying to claim might not have a valid Social Security Number. To be eligible for CTC, they need to have a Social Security Number that is valid for employment.
+              help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments.
+              negative: No, continue
+              title: You can not claim Child Tax Credit for %{name}. Would you like to add anyone else?
             reveal: Why doesn’t this person qualify?
             title: You can not claim benefits for %{name}. Would you like to add anyone else?
           info:
             filed_joint_return: This person is married and filing taxes with their spouse
             first_name: Legal first name
-            help_text: To avoid delays, please provide this person’s legal information as it is written on their identification card.
+            help_text: Enter their name exactly as it appears on their Social Security card or identification paperwork.
             last_name: Legal last name
             middle_initial: Legal middle name(s) (optional)
             relationship_to_you: What is their relationship to you?
@@ -2147,11 +2176,16 @@ en:
           full_btn: File a full tax return
           help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
+          puerto_rico:
+            full_btn: File a Puerto Rico tax return
+            help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
+            simplified_btn: Continue filing a simplified federal return
+            title: You are currently filing a simplified tax return to claim only your Child Tax Credit.
           reveal:
             body_html:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
             - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for free at GetYourRefund.
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>.
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
@@ -2160,16 +2194,28 @@ en:
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal or GetCTC
           help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
+          puerto_rico:
+            did_not_file: No, I didn’t file a %{prior_tax_year} IRS tax return
+            filed_full: Yes, I filed an IRS tax return
+            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
+            title: Did you file a %{prior_tax_year} federal tax return with the IRS?
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
-          married_filing_jointly: Married Filing Jointly
-          reveal_body_html: |
-            If you usually file Head of Household, select “Single” for the purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
-
-            If you are married and want to file Married Filing Separately, you cannot use this tool. You can file for free at <a href="https://www.getyourrefund.org/ctc-married-filing-separately">GetYourRefund.org</a>.
-          reveal_title: I normally file with a different status
-          single: Single
-          title: How would you like to file your tax return?
+          irs_reveal:
+            body_html: |
+              According to the IRS, you are <b>not</b> married for a tax year if:
+              <ul class="list--bulleted">
+              <li>You were never married</li>
+              <li>You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
+              </ul>
+            title: Does the IRS consider me to be married?
+          mfs_reveal:
+            body: The only filing options for a simplified return are married and single. If you are legally married, you have to say Yes and file jointly with your spouse. If you are not married, file single and say No.
+            title: What if I’m married but want to file without my spouse?
+          spouse_died_reveal:
+            body: Select Yes, and you’ll file with your deceased spouse.
+            title: What if my spouse died last year?
+          title: As of December 31, %{current_tax_year}, were you legally married?
         had_dependents:
           help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
           title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
@@ -2210,21 +2256,7 @@ en:
           subtitle_1: Because you are claiming dependents, you may be eligible to claim Head of Household tax status on your return. Claiming Head of Household status will not increase your refund, and will not make you eligible for any additional tax benefits. We do not recommend you claim Head of Household status.
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
-        home:
-          help_text: Your home must have been in the United States for more than half the tax year.
-          options:
-            fifty_states: Any of the 50 states or the District of Columbia
-            foreign_address: Foreign address
-            military_facility: U.S. military facility
-            puerto_rico: Puerto Rico
-            us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
-          title: Where was your main home for %{current_tax_year}?
         income:
-          income_qualifications:
-          - earned less than %{standard_deduction} in total income
-          - earned less than $400 in self-employment income
-          - did not receive the Advance Premium Tax Credit
-          - are not required to file a full tax return for any other reason
           income_reveal:
             content:
               list_1:
@@ -2233,8 +2265,46 @@ en:
               - tips
               - commissions
               - self-employment or contract payments
+              - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
+          income_source_reveal:
+            content: Income does not have a Puerto Rico source if it comes from the 50 states or from another country rather than from somewhere in Puerto Rico. If you earned income working in the 50 states or another country, earned money from a pension that was based on a job you did in the 50 states or another country, received interest payments while living in the 50 states or another country, received stock dividends from a company based in the 50 states or another country, or earned money from selling property based in the 50 states or another country, then you have income from non-Puerto Rico sources, and you cannot use GetCTC.
+            title: How do I know the source of my income?
+          list:
+            one:
+            - you earned less than %{standard_deduction} in total income
+            - you earned less than $400 in self-employment income
+            - you did not receive the Advance Premium Tax Credit
+            - you are not required to file a full tax return for any other reason
+            other:
+            - you and your spouse earned less than %{standard_deduction} in total income
+            - you and your spouse earned less than $400 in self-employment income
+            - you and your spouse did not receive the Advance Premium Tax Credit
+            - you and your spouse are not required to file a full tax return for any other reason
+          mainland_connection_reveal:
+            content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
+            title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
+          puerto_rico:
+            list:
+              one:
+              - you earned less than %{standard_deduction} in total income
+              - you earned less than $400 in self-employment income
+              - you are not required to file a full tax return for any other reason
+              - all of your earned income came from sources within Puerto Rico
+              - you lived in Puerto Rico for at least half the year (183 days)
+              - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+              other:
+              - you and your spouse earned less than %{standard_deduction} in total income
+              - you and your spouse earned less than $400 in self-employment income
+              - you and your spouse are not required to file a full tax return for any other reason
+              - all of your and your spouse's earned income came from sources within Puerto Rico
+              - you and your spouse lived in Puerto Rico for at least half the year (183 days)
+              - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+              - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+              - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
           self_employment_income_reveal:
             content:
               list_1:
@@ -2242,12 +2312,10 @@ en:
               - gig work
               - driving for Uber, Lyft, or similar
               - renting out your home
-              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2.
+              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2. Self-employment income includes cash payments.
               p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
             title: What counts as self-employment income?
-          title:
-            one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
-            other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
+          title: 'You can only use GetCTC if, in %{current_tax_year}:'
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
@@ -2266,6 +2334,10 @@ en:
           <p>If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.</p>
           <p>The IRS issues you a new IP PIN every year, and you must provide this year's PIN.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
+        irs_language_preference:
+          select_language: 'Please select your preferred language:'
+          subtitle: The IRS may reach out with questions. You have the option to select a preferred language.
+          title: What language do you want the IRS to use when they contact you?
         legal_consent:
           agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
           body: Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
@@ -2285,6 +2357,20 @@ en:
           help_text: Generally, someone can claim you as a dependent if they are your family member, you lived with them most of the year, and they paid for most of your living expenses.
           title: Can anyone else claim you on their %{current_tax_year} tax return?
         mailing_address:
+          error_notice: Oh no! We could not process your address. Please update the information you entered.
+          puerto_rico_reveal_html: |
+            If you live in Puerto Rico, your address should be written as Number, Avenida/Calle, Street Name (ex: 63 Calle Fortaleza, not, Calle Fortaleza 63).
+            <br/><br/>
+            Some guidance:
+            <br/>
+            <ul>
+            <li>&#8226; Use the offical name of your street. (ex: use Calle Fortaleza instead of Avenida Fortaleza)</li>
+            <li>&#8226; If the building number contains letters and numbers with a hyphen between them, try removing the hyphen. (ex: A17 Calle Amapola, not A-17 Calle Amapola)</li>
+            <li>&#8226; If you have a block number and an apartment number, try hyphenating these. (ex: 199-31 Calle 19, not Calle 19 Bloque 199 Casa 31)</li>
+            </ul>
+            <br/>
+            If you do not submit your address correctly, we will receive a validation error and your payment will be delayed.
+          puerto_rico_reveal_label: What if I live in Puerto Rico?
           reveal_content_html: |
             The IRS requires an address to be submitted with your return.<br/>
             <br/>
@@ -2293,6 +2379,31 @@ en:
             Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
           reveal_label: What if I don’t have a mailing address?
           title: Please provide your mailing address.
+        main_home:
+          help_text: Select the location where you spent more than half of 2021.
+          options:
+            fifty_states: Any of the 50 states or the District of Columbia
+            foreign_address: Foreign address
+            military_facility: U.S. military facility
+            puerto_rico: Puerto Rico
+            us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
+          reveal:
+            body: If you did not live in one of these places for more than half of 2021, you cannot use GetCTC.
+            title: What if I did not live anywhere for more than 6 months last year?
+          title: Where did you live for most of %{current_tax_year}?
+        no_dependents:
+          add_child: Add a child
+          add_dependents: Add more dependents
+          puerto_rico:
+            subtitle:
+            - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
+            - If this is a mistake you can click ‘Add a child’.
+            title: You will not receive the Child Tax Credit.
+          subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
+          title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
+        no_dependents_advance_ctc_payments:
+          subtitle: These payments would have arrived between July and December 2021.
+          title: Did you receive any monthly Advance Child Tax Credit payments in %{current_tax_year}?
         not_filing:
           buttons:
             faq: Visit our FAQ
@@ -2301,7 +2412,7 @@ en:
           - We will not send any of your information to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your third stimulus payment.
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit and, if applicable, your third stimulus payment.
           legal_warning: You are about to file a tax return. You are responsible for answering  questions truthfully and accurately to the best of your ability.
           title: Welcome!
         prior_tax_year_agi:
@@ -2350,6 +2461,12 @@ en:
           filed_non_filer_separate: My spouse used the IRS non-filer tool or GetCTC separately from me
           filed_together: My spouse filed taxes or used a non-filer tool with me
           help_text: A 2020 tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
+          puerto_rico:
+            did_not_file: No, %{spouse_first_name} didn’t file a %{prior_tax_year} IRS tax return
+            filed_full: Yes, %{spouse_first_name} filed an IRS tax return separately from me
+            filed_together: Yes, %{spouse_first_name} filed an IRS tax return jointly with me
+            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
+            title: Did %{spouse_first_name} file a %{prior_tax_year} federal tax return with the IRS?
           title: Did %{spouse_first_name} file a %{prior_tax_year} tax return?
         spouse_info:
           help_text: Enter your spouse’s name exactly as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
@@ -2393,7 +2510,7 @@ en:
             content_html:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
             - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for free at %{link_to_get_your_refund}
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
             title: How do I get the first two stimulus payments?
           third_stimulus: We estimate that you should have received
           third_stimulus_details:
@@ -2416,6 +2533,24 @@ en:
           title: Enter the total amount you received for your third stimulus payment.
         use_gyr:
           file_gyr: File with GetYourRefund
+          puerto_rico:
+            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. By appointment only. Call 787-622-8069.'
+            in_person: 'In-person:'
+            online_html: 'Online filing: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
+            pr_number: 'Puerto Rico Helpline: 877-722-9832'
+            still_file: 'You may still be able to file to claim your benefits. For additional help, consider reaching out to:'
+            virtual: 'Virtual: MyFreeTaxes'
+            why_ineligible_reveal:
+              content:
+                list:
+                - You earned more than $400 in self-employment income
+                - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
+                - You did not live in Puerto Rico for more than half of %{current_tax_year}
+                - You moved in or out of Puerto Rico during %{current_tax_year}
+                - You can be claimed as a dependent by someone else
+                - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+                - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
+                - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use GetCTC.
           visit_our_faq: Visit our FAQ
@@ -2578,18 +2713,16 @@ en:
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         get_started: Get Started
         get_your_refund_link: File taxes for free today with GetYourRefund
-        header: Claim Your Child Tax Credit
         navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         portal_sign_in_link: Already started? Sign in.
-        service_name: GetYourRefund
         sign_up_for_updates: Sign up for GetCTC updates
         subheader:
           claim: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
           claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
           time_estimate: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
-        title: Get Your Child Tax Credit
+        title: Claim Your Child Tax Credit
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
           heading: Most families can get thousands of dollars from the Child Tax Credit
@@ -2603,8 +2736,8 @@ en:
             body: Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
             title: Do my children qualify?
       navigators:
-        help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access their tax benefits.
-        title: GetYourRefund and GetCTC Outreach and Navigator Resources
+        help_text: Guidance for community-based navigators helping hard-to-reach clients access their tax benefits..
+        title: GetCTC Outreach and Navigator Resources
       privacy_policy:
         01_intro:
         - GetCTC.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households access tax benefits, like the Advance Child Tax Credit (AdvCTC) and Economic Impact Payments through accessible tax filing services.
@@ -2706,6 +2839,31 @@ en:
         - If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
         - 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
         51_do_our_best: We will do our best to resolve the issue.
+      puerto_rico:
+        hero:
+        - Collect money for any child that you take care of even if you have never filed taxes with the IRS before. You may be eligible to claim the Child Tax Credit and put cash in your family's pocket. If you're not required to file a federal return with the IRS, you can use this simplified tax filing tool to get your money.
+        - This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+        title: Puerto Rico, you can get Child Tax Credit for your family!
+        what_is:
+          body:
+          - This year, for the first time, families in Puerto Rico can get the full Child Tax Credit, of up to $3,600 per child.
+          - To claim your Child Tax Credit, you need to file a simplified form with the IRS. If you haven't already filed a federal return with the IRS, you can do it easily here!
+          heading: Most families in Puerto Rico can get thousands of dollars from the Child Tax Credit by filing with the IRS!
+          how_much_reveal:
+            body:
+            - The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.
+            title: How much will I get?
+          qualify_reveal:
+            body:
+            - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
+            title: Do my children qualify?
+      puerto_rico_overview:
+        cta: You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability.
+        do_my_children_qualify_reveal:
+          content: You can collect money for any child you care for. Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
+          title: Do my children qualify?
+        help_text: Use our simple e-filing tool to receive your Child Tax Credit.
+        title: Welcome!
       signups:
         confirmation:
           body: We'll contact you as soon as we have more information.
@@ -2911,9 +3069,9 @@ en:
         skip_content: Skip to main content
       ctc:
         meta:
-          description: Cash in your family’s pocket every month for the things you need.
+          description: Cash in your family’s pocket for the things you need.
       document_upload:
-        accepted_file_types: 'We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif'
+        accepted_file_types: Accepted types include %{accepted_types}
         dont_have: I don't have this right now.
         remove_confirmation: Are you sure you want to remove "%{filename}"?
         select_file: Select a file
@@ -3995,7 +4153,7 @@ en:
           other: In %{year}, did you or your spouse receive a state or local income tax refund?
       mailing_address:
         city: City
-        state: State
+        state: State or US Territory
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
         title: What is your mailing address?

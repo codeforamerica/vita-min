@@ -1,13 +1,20 @@
-<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: current_intake.default_tax_return.filing_status_single? ? 1 : 2) %>
+<% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
+<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: @filing_count) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year).standard_deduction(current_intake.default_tax_return.filing_status) %>
+  <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction)).each do |income_qualifications| %>
-      <li><%= income_qualifications %></li>
+    <% if current_intake.puerto_rico_filing? %>
+      <% t("views.ctc.questions.income.puerto_rico.list", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
+        <li><%= income_qualifications %></li>
+      <% end %>
+    <% else %>
+      <% t("views.ctc.questions.income.list", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>
+        <li><%= income_qualifications %></li>
+      <% end %>
     <% end %>
   </ul>
 
@@ -34,13 +41,27 @@
     <% end %>
   </div>
 
-  <div class="reveal-shrink-wrapper">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.what_is_aptc_reveal.title")) do %>
-      <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p1") %></p>
-      <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p2") %></p>
-      <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p3") %></p>
-    <% end %>
-  </div>
+  <% if current_intake.puerto_rico_filing? %>
+    <div class="reveal-shrink-wrapper">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.income_source_reveal.title")) do %>
+        <p><%= t("views.ctc.questions.income.income_source_reveal.content") %></p>
+      <% end %>
+    </div>
+
+    <div class="reveal-shrink-wrapper">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.mainland_connection_reveal.title")) do %>
+        <p><%= t("views.ctc.questions.income.mainland_connection_reveal.content") %></p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="reveal-shrink-wrapper">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.what_is_aptc_reveal.title")) do %>
+        <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p1") %></p>
+        <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p2") %></p>
+        <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p3") %></p>
+      <% end %>
+    </div>
+  <% end %>
 
   <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
     <%= t("general.continue") %>

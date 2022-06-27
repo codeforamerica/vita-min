@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_193139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -19,9 +19,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
   create_table "accepted_tax_return_analytics", force: :cascade do |t|
     t.bigint "advance_ctc_amount_cents"
     t.datetime "created_at", null: false
+    t.bigint "ctc_amount_cents"
+    t.bigint "eip1_and_eip2_amount_cents"
     t.bigint "eip3_amount_cents"
-    t.bigint "refund_amount_cents"
+    t.bigint "eip3_amount_received_cents"
+    t.bigint "outstanding_ctc_amount_cents"
+    t.bigint "outstanding_eip3_amount_cents"
     t.bigint "tax_return_id"
+    t.bigint "total_refund_amount_cents"
     t.datetime "updated_at", null: false
     t.index ["tax_return_id"], name: "index_accepted_tax_return_analytics_on_tax_return_id"
   end
@@ -501,6 +506,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
   create_table "clients", force: :cascade do |t|
     t.datetime "attention_needed_since", precision: nil
     t.datetime "completion_survey_sent_at", precision: nil
+    t.datetime "consented_to_service_at"
     t.datetime "created_at", null: false
     t.datetime "ctc_experience_survey_sent_at", precision: nil
     t.integer "ctc_experience_survey_variant"
@@ -531,6 +537,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.datetime "triggered_still_needs_help_at", precision: nil
     t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
+    t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
     t.index ["login_token"], name: "index_clients_on_login_token"
@@ -810,6 +817,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
   end
 
+  create_table "flipper_features", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_flipper_features_on_key", unique: true
+  end
+
+  create_table "flipper_gates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "feature_key", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.string "value"
+    t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
+  end
+
   create_table "fraud_indicators", force: :cascade do |t|
     t.datetime "activated_at", precision: nil
     t.datetime "created_at", null: false
@@ -1040,8 +1063,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.integer "has_primary_ip_pin", default: 0, null: false
     t.integer "has_spouse_ip_pin", default: 0, null: false
     t.string "hashed_primary_ssn"
+    t.integer "home_location"
     t.integer "income_over_limit", default: 0, null: false
     t.string "interview_timing_preference"
+    t.integer "irs_language_preference"
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
     t.integer "lived_with_spouse", default: 0, null: false
@@ -1182,6 +1207,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
@@ -1401,6 +1427,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_221949) do
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
     t.index ["current_state"], name: "index_tax_returns_on_current_state"
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
+    t.index ["year"], name: "index_tax_returns_on_year"
   end
 
   create_table "team_member_roles", force: :cascade do |t|

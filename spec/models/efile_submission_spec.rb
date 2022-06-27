@@ -255,8 +255,9 @@ describe EfileSubmission do
       context "after transition to" do
         before do
           allow(MixpanelService).to receive(:send_event)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(3600)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(1200)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1800)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
           allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(3000)
         end
 
@@ -271,7 +272,7 @@ describe EfileSubmission do
             subject: submission.intake,
             data: {
               child_tax_credit_advance: 1800,
-              recovery_rebate_credit: 0,
+              recovery_rebate_credit: 2300,
               third_stimulus_amount: 3000
             }
           )
@@ -291,6 +292,45 @@ describe EfileSubmission do
         end
       end
     end
+
+    context "cancelled" do
+      let(:submission) { create :efile_submission, :cancelled }
+
+      context "can transition to" do
+        it "waiting" do
+          expect { submission.transition_to!(:waiting) }.not_to raise_error
+        end
+
+        it "investigating" do
+          expect { submission.transition_to!(:investigating) }.not_to raise_error
+        end
+      end
+
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding("waiting", "investigating", "cancelled").each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
+        end
+      end
+
+      context "after transition to" do
+        before { allow(MixpanelService).to receive(:send_event) }
+        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
+
+        it "sends a mixpanel event" do
+          submission.transition_to!(:transmitted)
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+                                                                         distinct_id: submission.client.intake.visitor_id,
+                                                                         event_name: "ctc_efile_return_transmitted",
+                                                                         subject: submission.intake,
+                                                                         )
+        end
+      end
+    end
+
+
   end
 
   describe "#generate_verified_address" do
@@ -361,6 +401,8 @@ describe EfileSubmission do
     before do
       allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
       allow(Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(Irs8812Ty2021Pdf, output_file: example_pdf))
+      allow(Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(Irs1040ScheduleLepPdf, output_file: example_pdf))
+      allow(AdditionalDependentsPdf).to receive(:new).and_return(instance_double(AdditionalDependentsPdf, output_file: example_pdf))
     end
 
     context "the filer is claiming CTC (line 28 is greater than $0)" do
@@ -373,7 +415,7 @@ describe EfileSubmission do
       it "generates and stores the 1040 and 8812 combined PDF" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
         expect(Irs8812Ty2021Pdf).to have_received(:new)
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
@@ -382,11 +424,47 @@ describe EfileSubmission do
     end
 
     context "the filer is not claiming CTC (line 28 = $0 or missing)" do
+      before do
+        allow(submission).to receive(:irs_submission_id).and_return "123456789"
+      end
+
       it "generates and stores just the 1040 (does not generate the 8812)" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(Irs1040Pdf).to have_received(:new)
         expect(Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year} - 789.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+        expect(doc.tax_return).to eq(submission.tax_return)
+        expect(doc.upload.blob.download).not_to be_nil
+      end
+    end
+
+    context "when the filer has tons of dependents" do
+      before do
+        allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
+        allow(submission).to receive(:has_outstanding_ctc?).and_return true
+      end
+
+      it "attaches multiple dependents documents" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 4)
+        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 26)
+      end
+    end
+
+    context "the filer requested a language change" do
+      before do
+        submission.intake.update(irs_language_preference: "spanish")
+      end
+
+      it "attaches the schedule lep" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(Irs1040Pdf).to have_received(:new)
+        expect(Irs1040ScheduleLepPdf).to have_received(:new)
+        expect(Irs8812Ty2021Pdf).not_to have_received(:new)
+        doc = submission.client.documents.last
+        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil

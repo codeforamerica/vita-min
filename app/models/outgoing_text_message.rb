@@ -34,13 +34,13 @@ class OutgoingTextMessage < ApplicationRecord
 
   belongs_to :client
   belongs_to :user, optional: true
+  has_many :bulk_client_message_outgoing_text_messages, dependent: :destroy
   validates_presence_of :body
   validates :to_phone_number, e164_phone: true
   validates :twilio_status, inclusion: { in: ALL_KNOWN_TWILIO_STATUSES }
   after_create :deliver, :broadcast
   after_create { |msg| InteractionTrackingService.record_user_initiated_outgoing_interaction(client) if msg.user.present? }
   after_create { InteractionTrackingService.update_last_outgoing_communication_at(client) }
-
   scope :succeeded, -> { where(twilio_status: SUCCESSFUL_TWILIO_STATUSES) }
   scope :failed, -> { where(twilio_status: FAILED_TWILIO_STATUSES) }
   scope :in_progress, -> { where(twilio_status: IN_PROGRESS_TWILIO_STATUSES) }

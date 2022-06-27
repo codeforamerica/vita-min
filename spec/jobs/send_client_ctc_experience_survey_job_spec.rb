@@ -22,7 +22,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
             )
@@ -43,7 +43,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_text_message).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_email)
@@ -63,7 +63,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA"),
+              body: a_string_including("qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
             )
@@ -89,12 +89,12 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
           allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
         end
 
-        it "includes something in the URL saying it was not rejected" do
+        it "includes something in the URL saying it was not `not-filing`" do
           described_class.perform_now(client)
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("ctcRejected=FALSE"),
+              body: a_string_including("ctcNotFiling=FALSE"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
           )
@@ -102,8 +102,8 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
         end
       end
 
-      context "with a client whose efile submission was rejected" do
-        let!(:tax_return) { create :tax_return, :file_rejected, client: client, year: TaxReturn.current_tax_year }
+      context "with a client whose efile submission was cancelled" do
+        let!(:tax_return) { create :tax_return, :file_not_filing, client: client, year: TaxReturn.current_tax_year }
 
         before do
           allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
@@ -114,7 +114,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("ctcRejected=TRUE"),
+              body: a_string_including("ctcNotFiling=TRUE"),
               subject: I18n.t('messages.surveys.ctc_experience.email.subject', locale: :es),
               locale: "es"
           )

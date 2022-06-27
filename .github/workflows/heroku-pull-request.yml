@@ -1,0 +1,103 @@
+name: Heroku Pull Request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  heroku-pull-request:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_APP_NAME: gyr-review-app-${{ github.event.number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
+          ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
+
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: wschaefer@codeforamerica.org
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          justlogin: true
+
+      - name: Create Heroku app
+        if: github.event.action == 'opened'
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund
+
+      - name: Save app name and PR number as heroku environment variable
+        if: github.event.action == 'opened'
+        run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
+
+      - name: Add nodejs buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
+
+      - name: Add ruby buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 heroku/ruby
+
+      - name: Add activestorage-preview buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
+
+      - name: Add pdftk buildpack
+        if: github.event.action == 'opened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 https://github.com/fxtentacle/heroku-pdftk-buildpack.git
+
+      - name: Add Heroku app to pipeline
+        if: github.event.action == 'opened'
+        run: heroku pipelines:add vita-min --app=${{ env.HEROKU_APP_NAME }} --stage=development
+
+      - name: Copy environment variables to Heroku app
+        if: github.event.action == 'opened'
+        run: heroku config -a base-pr-app-to-copy-env-vars --shell | grep -v DATABASE_URL | xargs heroku config:set -a ${{ env.HEROKU_APP_NAME }}
+
+      - name: Create database
+        if: github.event.action == 'opened'
+        run: heroku addons:create heroku-postgresql:hobby-dev --app ${{ env.HEROKU_APP_NAME }}
+
+      - name: Add Heroku remote
+        continue-on-error: true
+        id: add-remote
+        run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Retry Add Heroku remote if failed while trying to close the PR and destroy the app
+        if: github.event.action == 'closed' && steps.add-remote.outcome=='failure'
+        run: |
+          sleep 10
+          heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Push to Heroku
+        if: github.event.action != 'closed'
+        run: git push heroku ${{ github.head_ref }}:main --force
+
+      - name: Setup database
+        if: github.event.action == 'opened'
+        run: heroku run rails heroku:postdeploy
+
+      - name: Setup hostnames (GYR and CTC)
+        if: github.event.action == 'opened'
+        run: heroku run rails heroku:review_app_setup
+
+      - name: Start the worker process
+        if: github.event.action == 'opened'
+        run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Add comment to PR
+        if: github.event.action == 'opened'
+        run: |
+          gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pre-destroy - clean up the hostnames (GYR and CTC)
+        if: github.event.action == 'closed'
+        run: heroku run rails heroku:review_app_predestroy
+
+      - name: Destroy Heroku app
+        if: github.event.action == 'closed'
+        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}

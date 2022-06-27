@@ -43,7 +43,41 @@ describe SubmissionBuilder::Ty2021::Return1040 do
         expect(xml.at("IRS1040Schedule8812")).to be_nil
       end
     end
+
+    context "when the filer has a new language preference" do
+      context "when it is English" do
+        before do
+          submission.intake.update(irs_language_preference: "english")
+        end
+
+        it "does not attach the ScheduleLEP" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at("IRS1040ScheduleLEP")).to be_nil
+        end
+      end
+
+      context "when it is not English" do
+        before do
+          submission.intake.update(irs_language_preference: "spanish")
+        end
+
+        it "attaches the ScheduleLEP and creates valid XML" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at("IRS1040ScheduleLEP")).not_to be_nil
+          expect(described_class.build(submission)).to be_valid
+        end
+      end
+    end
+
+    context "when the filer does not have a language preference" do
+      before do
+        submission.intake.update(irs_language_preference: nil)
+      end
+
+      it "does not attach the ScheduleLEP" do
+        xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+        expect(xml.at("IRS1040ScheduleLEP")).to be_nil
+      end
+    end
   end
-
-
 end

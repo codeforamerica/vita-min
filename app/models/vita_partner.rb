@@ -50,7 +50,6 @@ class VitaPartner < ApplicationRecord
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: ->(attributes) { attributes['code'].blank? }
 
   def self.client_support_org
-    # When a person messages us, but their contact info does not match any Client, link them to this org.
     VitaPartner.find_by!(name: "GYR National Organization")
   end
 

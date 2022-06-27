@@ -1,14 +1,16 @@
 class SendAutomatedMessage
   attr_accessor :locale, :message, :tax_return, :locale, :message_tracker, :sent_messages, :client
 
-  def initialize(client:, message:, tax_return: nil, locale: nil, body_args: {})
+  def initialize(client:, message:, tax_return: nil, locale: nil, sms: true, email: true, body_args: {})
     @client = client
-    @locale = locale || client.intake&.locale || "en"
+    @locale = locale || client&.intake.locale || "en"
     @message = message
     @message_instance = message.new
     @tax_return = tax_return
     @sent_messages = []
     @body_args = body_args
+    @do_sms = sms
+    @do_email = email
   end
 
   def message_tracker
@@ -18,8 +20,8 @@ class SendAutomatedMessage
   def send_messages
     return nil if message_tracker.already_sent? && message.send_only_once?
 
-    send_email
-    send_sms
+    send_email if @do_email
+    send_sms if @do_sms
 
     message_tracker.record(sent_messages.last.created_at) if sent_messages.any?
 
@@ -61,5 +63,9 @@ class SendAutomatedMessage
       sent_message = ClientMessagingService.send_system_text_message(**sms_args)
       sent_messages << sent_message if sent_message.present?
     end
+  end
+
+  def self.send_messages(*args)
+    new(*args).send_messages
   end
 end

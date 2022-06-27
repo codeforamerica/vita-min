@@ -5,6 +5,7 @@
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
 #  completion_survey_sent_at                :datetime
+#  consented_to_service_at                  :datetime
 #  ctc_experience_survey_sent_at            :datetime
 #  ctc_experience_survey_variant            :integer
 #  current_sign_in_at                       :datetime
@@ -38,6 +39,7 @@
 #
 # Indexes
 #
+#  index_clients_on_consented_to_service_at         (consented_to_service_at)
 #  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
 #  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
 #  index_clients_on_login_token                     (login_token)
@@ -89,7 +91,7 @@ class Client < ApplicationRecord
   end
 
   delegate *delegated_intake_attributes, to: :intake
-  scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where.not(current_state: "intake_before_consent")) }
+  scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :greetable, -> do
     greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
     distinct.joins(:tax_returns).where(tax_returns: { current_state: greeter_statuses })
@@ -132,10 +134,11 @@ class Client < ApplicationRecord
     where.not(intake: can_use_email.or(can_use_sms))
   end
 
-  scope :needs_in_progress_survey, -> do
+  scope :needs_gyr_in_progress_survey, -> do
     where(in_progress_survey_sent_at: nil)
+      .where("consented_to_service_at < ?", 10.days.ago)
       .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
-      .includes(:intake).where("primary_consented_to_service_at < ?", 10.days.ago)
+      .includes(:intake).where(intake: { type: "Intake::GyrIntake" })
       .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
       .includes(:incoming_emails).where(incoming_emails: { client_id: nil })
       .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")

@@ -25,13 +25,21 @@
       <% else %>
         <div class="grid-flex verification-attempts-photo-container">
           <% if @verification_attempt.selfie.present? %>
-            <div class="item-15r">
-              <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
+            <div class="item item-15r">
+              <% if @verification_attempt.selfie.content_type == "application/pdf" %>
+                <embed src="<%= transient_storage_url(@verification_attempt.selfie.blob) %>" height="500" type="application/pdf" />
+              <% else %>
+                <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
+              <% end %>
             </div>
           <% end %>
           <% if @verification_attempt.photo_identification.present? %>
-            <div class="item-15r">
-              <%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob), id: "photo_id" %>
+            <div class="item">
+              <% if @verification_attempt.photo_identification.content_type == "application/pdf" %>
+                <embed src="<%= transient_storage_url(@verification_attempt.photo_identification.blob) %>" width="100%" height="500" type="application/pdf" />
+              <% else %>
+                <%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob), id: "photo_id" %>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -57,7 +65,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div class="grid-flex column-column justify-flex-end">
+                <div class="grid-flex column-column">
                   <div class="spacing-below-0" style="font-size: smaller; text-align: right;"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id), id: "time" %></div>
                   <div class="spacing-above-10">
                     <div class="label"><%= attempt.current_state.humanize(capitalize: false) %></div>
@@ -95,7 +103,8 @@
       <% content_for :sticky_action_footer do %>
         <% if @verification_attempt.current_state == "restricted" %>
           <div class="flash--notice slab slab--half-padded verification-attempts-show__actions">
-            No action can be taken on this verification attempt because of its high fraud score.
+            <p>No action can be taken on this verification attempt because of its high fraud score.</p>
+            <p>Please contact @gyr-eng-on-call for manual transition if necessary.</p>
           </div>
         <% elsif @verification_attempt.current_state == "escalated" && !@form.can_handle_escalations? %>
           <div class="flash--warning slab slab--half-padded verification-attempts-show__actions">

@@ -185,7 +185,6 @@ describe EfileSubmissionStateMachine do
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
             message: AutomatedMessage::EfileFailed,
-            locale: submission.client.intake.locale
           )
         end
       end
@@ -237,8 +236,12 @@ describe EfileSubmissionStateMachine do
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount_received).and_return(2350)
 
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2450)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1500)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(900)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_recovery_rebate_credit).and_return(2400)
       end
 
       it "sends a message to the client" do
@@ -246,7 +249,6 @@ describe EfileSubmissionStateMachine do
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
           message: AutomatedMessage::EfileAcceptance,
-          locale: submission.client.intake.locale
         )
       end
 
@@ -255,15 +257,20 @@ describe EfileSubmissionStateMachine do
         expect(submission.tax_return.current_state).to eq("file_accepted")
       end
 
-
-
       it "creates a record to store the tax return data" do
         expect {
           submission.transition_to(:accepted)
         }.to change(AcceptedTaxReturnAnalytics, :count).by 1
-        expect(submission.tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 120000
-        expect(submission.tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 230000
+        expect(submission.tax_return.accepted_tax_return_analytics.outstanding_ctc_amount_cents).to eq 90000
+        expect(submission.tax_return.accepted_tax_return_analytics.ctc_amount_cents).to eq 245000
+        expect(submission.tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 150000
+
+        expect(submission.tax_return.accepted_tax_return_analytics.eip1_and_eip2_amount_cents).to eq 230000
+
         expect(submission.tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
+        expect(submission.tax_return.accepted_tax_return_analytics.eip3_amount_received_cents).to eq 235000
+
+        expect(submission.tax_return.accepted_tax_return_analytics.total_refund_amount_cents).to eq 330000
       end
     end
 
@@ -286,7 +293,6 @@ describe EfileSubmissionStateMachine do
         expect(new_submission.qualifying_dependents).to be_present
         expect(new_submission.last_transition_to("preparing").metadata["previous_submission_id"]).to eq efile_submission.id
       end
-
     end
   end
 end

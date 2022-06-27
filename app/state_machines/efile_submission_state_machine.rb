@@ -32,6 +32,7 @@ class EfileSubmissionStateMachine
   transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
   transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
   transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
+  transition from: :cancelled,         to: [:investigating, :waiting]
 
   guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -63,7 +64,7 @@ class EfileSubmissionStateMachine
     # AutomatedMessage::EfilePreparing has send_only_once set to true
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
-      message: AutomatedMessage::EfilePreparing
+      message: AutomatedMessage::EfilePreparing,
     )
     submission.tax_return.transition_to!(:file_ready_to_file)
 
@@ -79,7 +80,6 @@ class EfileSubmissionStateMachine
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,
-      locale: submission.client.intake.locale,
     )
   end
 
@@ -98,7 +98,6 @@ class EfileSubmissionStateMachine
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
           message: AutomatedMessage::EfileFailed,
-          locale: submission.client.intake.locale
         )
       end
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
@@ -118,26 +117,17 @@ class EfileSubmissionStateMachine
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
       message: AutomatedMessage::EfileAcceptance,
-      locale: client.intake.locale
     )
     tax_return.transition_to(:file_accepted)
 
+    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
+    accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
+
     benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-    ctc_amount = benefits.ctc_amount / 2
-    refund_amount = client.intake.claim_owed_stimulus_money_no? ? 0 : (benefits.eip1_amount + benefits.eip2_amount)
-    eip3_amount = benefits.eip3_amount
-
-    # TODO: Update analytics table to report relevant information for tax year
-    submission.tax_return.create_accepted_tax_return_analytics!(
-      advance_ctc_amount_cents: ctc_amount * 100,
-      refund_amount_cents: refund_amount * 100,
-      eip3_amount_cents: eip3_amount * 100
-    )
-
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-      child_tax_credit_advance: ctc_amount,
-      recovery_rebate_credit: refund_amount,
-      third_stimulus_amount: eip3_amount,
+      child_tax_credit_advance: benefits.advance_ctc_amount_received,
+      recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
+      third_stimulus_amount: benefits.eip3_amount,
     })
   end
 

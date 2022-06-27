@@ -14,7 +14,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
   end
 
   ["pending", "escalated", "restricted"].each do |state|
-    context "when the client is in fraud_hold state  and has a verification attempt that is being reviewed in state of #{state}" do
+    context "when the client is in fraud_hold state and has a verification attempt that is being reviewed in state of #{state}" do
       before do
         create :verification_attempt, state.to_sym, client: client
       end
@@ -44,10 +44,14 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     scenario "they see the verification attempt page" do
       visit "/en/portal"
       expect(page).to have_content(I18n.t("views.ctc.portal.verification.title"))
-      expect(page).to have_text("We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif")
+      expect(page).to have_text(I18n.t("views.layouts.document_upload.accepted_file_types", accepted_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
       within "form#file-upload-form" do
         expect(page).to have_text(I18n.t("views.ctc.portal.verification.selfie_label"))
         expect(page).not_to have_text(I18n.t("views.ctc.portal.verification.resubmission"))
+
+        # Try to add invalid document type
+        upload_file("verification_attempt_selfie", Rails.root.join("spec", "fixtures", "files", "test-pattern.html"))
+        expect(page).to have_text(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
 
         # Add a selfie
         upload_file("verification_attempt_selfie", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
@@ -60,7 +64,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         accept_alert do
           click_on("Remove")
         end
-        # Now, it asks us to add another selfie
+        # See the option to upload a selfie again
         expect(page).to have_text(I18n.t("views.ctc.portal.verification.selfie_label"))
 
         upload_file("verification_attempt_selfie", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
@@ -68,6 +72,11 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         # We also need to add a photo of the ID alone
         expect(page).to have_text(I18n.t("views.ctc.portal.verification.id_label"))
 
+        # Try to add invalid document type
+        upload_file("verification_attempt_photo_identification", Rails.root.join("spec", "fixtures", "files", "test-pattern.html"))
+        expect(page).to have_text(I18n.t("validators.file_type", valid_types: FileTypeAllowedValidator.extensions(VerificationAttempt).to_sentence))
+
+        # Add a photo ID picture
         upload_file("verification_attempt_photo_identification", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
         expect(page).not_to have_text(I18n.t("views.ctc.portal.verification.id_label"))
       end

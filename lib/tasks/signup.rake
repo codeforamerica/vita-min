@@ -2,10 +2,8 @@ namespace :signup do
   desc 'Deal with messaging signups'
   # rake signup:delete_messaged ctc_2020_open_message
   task delete_messaged: [:environment] do
-    puts ARGV
     ARGV.each { |a| task a.to_sym do ; end }
     attribute = "#{ARGV[1]}_sent_at"
-    puts attribute
     if Signup.new.respond_to?(attribute)
       Signup.where.not(attribute => nil).delete_all
     end

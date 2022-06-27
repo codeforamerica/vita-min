@@ -30,9 +30,10 @@ module Efile
       metadata = @transition.metadata
 
       attrs = { code: metadata["error_code"] }
-      attrs[:message] = metadata["error_message"] if metadata["error_message"].present?
       attrs[:source] = metadata["error_source"] if metadata["error_source"].present?
       efile_error = EfileError.find_or_create_by!(attrs)
+
+      efile_error.update(message: metadata["error_message"]) if metadata["error_message"].present? && efile_error.message != metadata["error_message"]
 
       @transition.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
     end
@@ -45,17 +46,19 @@ module Efile
       as_xml.search("ValidationErrorGrp").each do |error_group|
         error = EfileError.find_or_create_by!(
           code: error_group.at("RuleNum")&.text,
-          message: error_group.at("ErrorMessageTxt")&.text,
           category: error_group.at("ErrorCategoryCd")&.text,
           severity: error_group.at("SeverityCd")&.text,
           source: "irs"
         )
+        message = error_group.at("ErrorMessageTxt")&.text
+        error.update(message: message) if message.present? && error.message != message
+
         identifier = error_group.at("FieldValueTxt")&.text
         dependent_id = nil
 
         if identifier.present?
-          @transition.efile_submission.qualifying_dependents.each do |dependent|
-            dependent_id = dependent.dependent_id if dependent.ssn == identifier
+          @transition.efile_submission.qualifying_dependents.each do |submission_dependent|
+            dependent_id = submission_dependent.dependent_id if submission_dependent.dependent&.ssn == identifier
           end
         end
         @transition.efile_submission_transition_errors.create(efile_submission_id: @transition.efile_submission.id, efile_error_id: error.id, dependent_id: dependent_id)

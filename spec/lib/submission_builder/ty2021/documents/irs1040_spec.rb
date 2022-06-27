@@ -129,6 +129,25 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
       end
     end
 
+    context "when client lives in Puerto Rico" do
+      before do
+        submission.intake.update(home_location: :puerto_rico)
+      end
+
+      it "leaves certain fields blank and puts a special attribute on standard deduction amount" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq("0")
+        expect(xml.at("TotalItemizedOrStandardDedAmt").attributes['modifiedStandardDeductionInd'].value).to eq('SECT 933')
+        expect(xml.at("TotDedCharitableContriAmt")).to be_nil
+        expect(xml.at("TotalDeductionsAmt")).to be_nil
+        expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+      end
+
+      it "conforms to the eFileAttachments schema" do
+        expect(described_class.build(submission)).to be_valid
+      end
+    end
+
     context "when not claiming additional rrc credit" do
       before do
         submission.intake.update(claim_owed_stimulus_money: "no")

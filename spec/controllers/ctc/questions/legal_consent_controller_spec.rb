@@ -4,6 +4,7 @@ describe Ctc::Questions::LegalConsentController do
   let(:intake) { create :ctc_intake, visitor_id: "visitor-id" }
 
   before do
+    intake.client.update(consented_to_service_at: nil)
     allow(MixpanelService).to receive(:send_event)
     session[:intake_id] = intake.id
     allow(controller).to receive(:verify_recaptcha).and_return(true)
@@ -62,12 +63,15 @@ describe Ctc::Questions::LegalConsentController do
       it "persists information about consenting to service" do
         expect(intake.primary_consented_to_service_at).to eq nil
         expect(intake.primary_consented_to_service_ip).to eq nil
+        expect(intake.client.consented_to_service_at).to eq nil
 
         post :update, params: params
 
-        expect(intake.reload.primary_consented_to_service_at).to be_present
+        intake.reload
         expect(intake.primary_consented_to_service).to eq "yes"
         expect(intake.primary_consented_to_service_ip).to be_present
+        expect(intake.primary_consented_to_service_at).to be_present
+        expect(intake.client.consented_to_service_at).to eq intake.primary_consented_to_service_at
       end
     end
   end

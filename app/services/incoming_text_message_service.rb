@@ -8,23 +8,16 @@ class IncomingTextMessageService
     clients = Client.joins(:intake).where(intakes: { phone_number: phone_number}).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number}))
 
     client_count = clients.count
-    if client_count == 0
+    if client_count.zero?
       DatadogApi.increment("twilio.incoming_text_messages.client_not_found")
-      clients = [Client.create!(
-        intake: Intake::GyrIntake.create!(
-          phone_number: phone_number,
-          sms_phone_number: phone_number,
-
-          visitor_id: SecureRandom.hex(26),
-          sms_notification_opt_in: "yes",
-        ),
-        vita_partner: VitaPartner.client_support_org,
-      )]
-    elsif client_count == 1
-      DatadogApi.increment("twilio.incoming_text_messages.client_found")
-    elsif client_count > 1
-      DatadogApi.increment("twilio.incoming_text_messages.client_found_multiple")
+      return IntercomService.create_intercom_message(
+        phone_number: phone_number,
+        body: params["Body"]
+      )
     end
+
+    event_name = client_count > 1 ? "client_found_multiple" : "client_found"
+    DatadogApi.increment("twilio.incoming_text_messages.#{event_name}")
 
     # process attachments once
     attachments = TwilioService.parse_attachments(params)

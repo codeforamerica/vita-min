@@ -18,6 +18,7 @@ module Efile
               :permanently_totally_disabled_yes?,
               :qualified_student?
             ],
+            additional_puerto_rico_rules_test: [:additional_puerto_rico_rules?],
             primary_and_spouse_age_test: :younger_than_primary_and_spouse?,
             # Ctc::Questions::Dependents::ChildExpensesController
             financial_support_test: :provided_over_half_own_support_no?,
@@ -51,6 +52,14 @@ module Efile
 
       def under_qualifying_age_limit?
         !over_qualifying_age_limit?
+      end
+
+      def additional_puerto_rico_rules?
+        return true unless dependent.intake.home_location_puerto_rico?
+
+        return false if dependent.tin_type_ssn_no_employment?
+
+        dependent.birth_date > Date.new(2004, 1, 1)
       end
 
       def younger_than_primary_and_spouse?
