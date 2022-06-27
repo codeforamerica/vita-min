@@ -191,7 +191,21 @@ RSpec.describe Irs1040Pdf do
           "PrimaryBlindInd" => "Off",
         ))
       end
+    context "with no verified address" do
+      before do
+        submission.update(verified_address: nil)
+        submission.intake.update(street_address2: "UNIT 2", street_address: "850 Mission St")
+      end
 
+      it "puts street_address and street_address2 onto the document" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+                                    "AddressLine1Txt" => "850 Mission St UNIT 2",
+                                    ))
+      end
+    end
+    
     it 'renders fields that have to be from the db instead of xml because the xml is truncated or weird' do
       output_file = pdf.output_file
       result = filled_in_values(output_file.path)
