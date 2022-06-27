@@ -2358,6 +2358,19 @@ en:
           title: Can anyone else claim you on their %{current_tax_year} tax return?
         mailing_address:
           error_notice: Oh no! We could not process your address. Please update the information you entered.
+          puerto_rico_reveal_html: |
+            If you live in Puerto Rico, your address should be written as Number, Avenida/Calle, Street Name (ex: 63 Calle Fortaleza, not, Calle Fortaleza 63).
+            <br/><br/>
+            Some guidance:
+            <br/>
+            <ul>
+            <li>&#8226; Use the offical name of your street. (ex: use Calle Fortaleza instead of Avenida Fortaleza)</li>
+            <li>&#8226; If the building number contains letters and numbers with a hyphen between them, try removing the hyphen. (ex: A17 Calle Amapola, not A-17 Calle Amapola)</li>
+            <li>&#8226; If you have a block number and an apartment number, try hyphenating these. (ex: 199-31 Calle 19, not Calle 19 Bloque 199 Casa 31)</li>
+            </ul>
+            <br/>
+            If you do not submit your address correctly, we will receive a validation error and your payment will be delayed.
+          puerto_rico_reveal_label: What if I live in Puerto Rico?
           reveal_content_html: |
             The IRS requires an address to be submitted with your return.<br/>
             <br/>

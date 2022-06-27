@@ -2335,6 +2335,19 @@ es:
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
           error_notice: "¡Oh, no! No pudimos procesar su dirección. Actualice la información que ingresó."
+          puerto_rico_reveal_html: |
+            Si vive en Puerto Rico, su dirección debe escribirse como Número, Avenida/Calle, Nombre de la calle. (Ej: 63 Calle Fortaleza, no, Calle Fortaleza 63)
+            <br/><br/>
+            Algunas orientaciones:
+            <br/>
+            <ul>
+            <li>&#8226; Usa el nombre oficial de tu calle. (Ej: usar Calle Fortaleza en lugar de Avenida Fortaleza)</li>
+            <li>&#8226; Si el número de edificio contiene letras y números con un guión entre ellos, intente eliminar el guión. (ej: A17 Calle Amapola, no A-17 Calle Amapola)</li>
+            <li>&#8226; Si tiene un número de bloque y un número de apartamento, intente separarlos. (Ej: 199-31 Calle 19, no Calle 19 Bloque 199 Casa 31)</li>
+            </ul>
+            <br/>
+            Si no envía su dirección correctamente, recibiremos un error de validación y su pago se retrasará.
+          puerto_rico_reveal_label: "¿Qué pasa si vivo en Puerto Rico?"
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
             <br/>
