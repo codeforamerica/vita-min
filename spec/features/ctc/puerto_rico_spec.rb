@@ -42,7 +42,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "puerto_rico")
       fill_in_eligibility(home_location: "puerto_rico")
       fill_in_basic_info(home_location: "puerto_rico")
-      fill_in_spouse_info
+      fill_in_spouse_info(home_location: "puerto_rico")
       # modified dependent flow
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
       click_on "Yes"
@@ -102,7 +102,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
       fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "puerto_rico")
       fill_in_eligibility(home_location: "puerto_rico")
       fill_in_basic_info(home_location: "puerto_rico")
-      fill_in_spouse_info
+      fill_in_spouse_info(home_location: "puerto_rico")
       # modified dependent flow
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
       click_on "Yes"

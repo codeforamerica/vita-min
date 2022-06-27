@@ -111,7 +111,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t("views.ctc.questions.verification.verify")
   end
 
-  def fill_in_spouse_info
+  def fill_in_spouse_info(home_location: nil)
     # =========== SPOUSE INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
@@ -126,9 +126,13 @@ module CtcIntakeFeatureHelper
     check I18n.t('views.ctc.questions.spouse_info.spouse_was_blind', current_tax_year: TaxReturn.current_tax_year)
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
-    choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    if home_location == "puerto_rico"
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
+      choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.did_not_file', spouse_first_name: "Peter", prior_tax_year: prior_tax_year)
+    else
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
+      choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    end
     click_on I18n.t('general.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.title'))

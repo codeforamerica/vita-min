@@ -2195,7 +2195,7 @@ en:
           filed_non_filer: Yes, I filed using the IRS non-filer portal or GetCTC
           help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
           puerto_rico:
-            did_not_file: No, I didn’t file a 2020 IRS tax return
+            did_not_file: No, I didn’t file a %{prior_tax_year} IRS tax return
             filed_full: Yes, I filed an IRS tax return
             note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
             title: Did you file a %{prior_tax_year} federal tax return with the IRS?
@@ -2448,6 +2448,12 @@ en:
           filed_non_filer_separate: My spouse used the IRS non-filer tool or GetCTC separately from me
           filed_together: My spouse filed taxes or used a non-filer tool with me
           help_text: A 2020 tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
+          puerto_rico:
+            did_not_file: No, %{spouse_first_name} didn’t file a %{prior_tax_year} IRS tax return
+            filed_full: Yes, %{spouse_first_name} filed an IRS tax return separately from me
+            filed_together: Yes, %{spouse_first_name} filed an IRS tax return jointly with me
+            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
+            title: Did %{spouse_first_name} file a %{prior_tax_year} federal tax return with the IRS?
           title: Did %{spouse_first_name} file a %{prior_tax_year} tax return?
         spouse_info:
           help_text: Enter your spouse’s name exactly as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
