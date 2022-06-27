@@ -237,8 +237,8 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def submit_and_disable(value, options = {})
-    #data = options[:data] || {}
-    data = {disable_with: t("general.please_wait")}
-    submit(value, data: data, **options)
+    options[:data] ||= {}
+    options[:data][:disable_with] = I18n.t("general.please_wait")
+    submit(value, **options)
   end
 end

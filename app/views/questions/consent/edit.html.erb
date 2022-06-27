@@ -20,9 +20,7 @@
           ) %>
     </div>
 
-    <button class="button button--primary button--wide spacing-above-60" type="submit" data-disable-with="<%= t("views.questions.consent.cta") %>">
-      <%= t("views.questions.consent.cta") %>
-    </button>
+    <%= f.submit_and_disable t("views.questions.consent.cta"), class: "button button--primary button--wide spacing-above-60" %>
   <% end %>
 
 <% end %>

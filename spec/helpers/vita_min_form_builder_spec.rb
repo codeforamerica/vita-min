@@ -162,13 +162,13 @@ RSpec.describe VitaMinFormBuilder do
       output = form_builder.submit_and_disable(
         "Submit!",
         class: "button button--wide",
-        data: {existing_data: "is retained"},
+        data: { existing_data: "is retained" },
       )
       expect(output).to be_html_safe
       doc = Nokogiri::HTML(output)
       element = doc.css('input').first
-      expect(element.attribute('data-disable-with')).to eq("Please wait")
-      expect(element.attribute('data-existing-data')).to eq("is retained")
+      expect(element.attribute('data-disable-with').text).to eq("Please wait...")
+      expect(element.attribute('data-existing-data')&.text).to eq("is retained")
     end
   end
 end
