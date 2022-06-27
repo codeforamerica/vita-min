@@ -2155,9 +2155,9 @@ es:
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
-            help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquiera de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla federal de Puerto Rico por separado con Hacienda.
-            simplified_btn: Continuar presentando una declaración federal simplificada
-            title: Está presentando una declaración de impuestos simplificada para reclamar solo su Crédito Tributario por Hijos.
+            help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquier de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla de Puerto Rico al Departamento de Hacienda.
+            simplified_btn: Continuar radicando una planilla federal simplificada
+            title: Está radicando una planilla federal simplificada para reclamar solo su Crédito Tributario por Hijos.
           reveal:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
@@ -2172,18 +2172,18 @@ es:
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           puerto_rico:
-            did_not_file: No, no presenté una declaración de impuestos del IRS de %{prior_tax_year}
-            filed_full: Sí, presenté una declaración de impuestos del IRS
-            note: 'Nota: declaración federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con Hacienda.'
-            title: "¿Presentó una declaración de impuestos federales de %{prior_tax_year} con el IRS?"
+            did_not_file: No, no radiqué una planilla de impuestos del IRS de %{prior_tax_year}
+            filed_full: Sí, radiqué una planilla de impuestos del IRS
+            note: 'Nota: una planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con el Departamento de Hacienda.'
+            title: "¿Presentó una planilla de impuestos federal de %{prior_tax_year} con el IRS?"
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           irs_reveal:
             body_html: |
               Según el IRS, <b>no</b> está casado durante un año tributario si:
               <ul class="list--bulleted">
-              <li>Nunca estuvo casado</li>
-              <li>Estuvo casado anteriormente, pero al final del año tenía un decreto de divorcio o un decreto de manutención por separación (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              <li>nunca estuvo casado</li>
+              <li>Estuvo casado anteriormente pero al final del año tenía una sentencia de divorcio o una sentencia de manutención por separado (estos son instrumentos legales formales, no solo como un acuerdo)</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
@@ -2192,7 +2192,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: Al 31 de diciembre, %{current_tax_year}, ¿estabas legalmente casada?
+          title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
         had_dependents:
           help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerado como dependiente.
           title: "¿Le gustaría agregar a un niño u otra persona a la que apoyó en %{current_tax_year}?"
@@ -2251,7 +2251,7 @@ es:
           list:
             one:
             - ganó menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $ 400 en ingresos de trabajo por cuenta propia
+            - ganó menos de $400 en ingresos de trabajo por cuenta propia
             - usted no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
@@ -2260,14 +2260,14 @@ es:
             - usted y su cónyuge no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado
             - usted y su cónyuge no están obligados a presentar una declaración de impuestos completa por cualquier otra razón
           mainland_connection_reveal:
-            content: Si su familia y sus pertenencias están ubicadas en cualquiera de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces no puedes usar GetCTC como residente de Puerto Rico.
+            content: Si su familia y sus pertenencias están ubicadas en cualquier de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces no puede usar GetCTC como residente de Puerto Rico.
             title: "¿Qué significa tener una conexión más cercana con los Estados Unidos continentales que con Puerto Rico?"
           puerto_rico:
             list:
               one:
               - ganó menos de %{standard_deduction} en ingresos totales
-              - ganó menos de $ 400 en ingresos de trabajo por cuenta propia
-              - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
+              - ganó menos de $400 en ingresos de trabajo por cuenta propia
+              - no está obligado a radicar una planilla federal completa por cualquier otra razón
               - todo su ingreso del trabajo vino de fuentes dentro de Puerto Rico
               - usted vivió en Puerto Rico durante al menos la mitad del año (183 días)
               - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
@@ -2276,7 +2276,7 @@ es:
               other:
               - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
               - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - usted y su cónyuge no están obligados a presentar una declaración de impuestos completa por cualquier otra razón
+              - usted y su cónyuge no están obligados a radicar una planilla federal completa por cualquier otra razón
               - todos los ingresos del trabajo suyo y de su cónyuge vinieron de fuentes dentro de Puerto Rico
               - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
               - el lugar habitual de trabajo suyo y de su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
@@ -2292,7 +2292,7 @@ es:
               p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
-          title: Solo puede usar GetCTC si, en%{current_tax_year}
+          title: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
@@ -2313,7 +2313,7 @@ es:
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         irs_language_preference:
           select_language: 'Seleccione su idioma preferido:'
-          subtitle: El IRS puede comunicarse con preguntas. Tiene la opción de seleccionar un idioma preferido.
+          subtitle: El IRS puede comunicarse con usted si tiene preguntas. Tiene la opción de seleccionar un idioma preferido.
           title: "¿Qué idioma quiere que use el IRS cuando se comunique con usted?"
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
@@ -2359,7 +2359,7 @@ es:
         main_home:
           help_text: Seleccione la ubicación donde pasó más de la mitad de 2021.
           options:
-            fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
+            fifty_states: Cualquier de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección fuera de los Estados Unidos
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
@@ -2367,7 +2367,7 @@ es:
           reveal:
             body: Si no vivió en uno de estos lugares durante más de la mitad de 2021, no puede usar GetCTC.
             title: "¿Qué sucede si no viví en ningún lugar durante más de 6 meses el año pasado?"
-          title: "¿Dónde viviste la mayor parte de %{current_tax_year}?"
+          title: "¿Dónde vivió la mayor parte de %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño
           add_dependents: Agregar más dependientes
@@ -2390,7 +2390,7 @@ es:
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
           help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
-          legal_warning: Está a punto de presentar una declaración de impuestos (o como se refiere en Puerto Rico, radicar una planilla federal). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+          legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
@@ -2439,11 +2439,11 @@ es:
           filed_together: Mi cónyuge declaró impuestos o usó una herramienta de non-filers conmigo
           help_text: La fecha de plazo máximo para presentar los impuestos de 2020 fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           puerto_rico:
-            did_not_file: No, %{spouse_first_name} no presenté una declaración de impuestos del IRS de %{prior_tax_year}.
-            filed_full: Sí, %{spouse_first_name} presentó una declaración de impuestos del IRS por separado de mí
-            filed_together: Sí, %{spouse_first_name} presentó una declaración de impuestos del IRS junto conmigo
-            note: 'Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda'
-            title: "¿%{spouse_first_name} presentó una declaración de impuestos federales de %{prior_tax_year} ante el IRS?"
+            did_not_file: No, %{spouse_first_name}no radicó una planilla de impuestos del IRS de %{prior_tax_year}
+            filed_full: Sí, %{spouse_first_name} radicó una planilla de impuestos al IRS por separado de mí
+            filed_together: Sí, %{spouse_first_name} radicó una planilla de impuestos del IRS junto conmigo
+            note: 'Nota: una planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con el Departamento de Hacienda.'
+            title: "¿%{spouse_first_name} radicó una planilla federal de %{prior_tax_year} con el IRS?"
           title: "¿%{spouse_first_name} presentó una declaración de impuestos de %{prior_tax_year}?"
         spouse_info:
           help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN en inglés).
@@ -2549,7 +2549,7 @@ es:
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
       shared:
-        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto es raro)
+        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
       california_benefits:
         compare_benefits:
@@ -2818,14 +2818,14 @@ es:
         51_do_our_best: Haremos todo lo posible para resolver el problema.
       puerto_rico:
         hero:
-        - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a presentar una declaración federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
+        - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a radicar una planilla federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
         - Este formulario en general tarda unos 15 minutos en completarse y no necesitará ningún documento fiscal.
-        title: "¡Puerto Rico, pueden obtener Crédito Tributario por Hijos para sus familia!"
+        title: "¡Puerto Rico, puedes obtener Crédito Tributario por Hijos para su familia!"
         what_is:
           body:
           - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo, de hasta $3,600 por niño.
           - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado con el IRS. Si aún no ha presentado una declaración federal con el IRS, ¡puede hacerlo fácilmente aquí!
-          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos presentando una declaración con el IRS!"
+          heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos radicando una planilla federal con el IRS!"
           how_much_reveal:
             body:
             - El Crédito Tributario por Hijos para el año fiscal 2021 es $3,600 por niño menor de 6 años y $3,000 por niño de 6-17 años.
@@ -2835,11 +2835,11 @@ es:
             - Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
       puerto_rico_overview:
-        cta: Está a punto de radicar una planilla federal con el Servicio de Rentas Internas Federal (IRS). Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
+        cta: Está a punto de radicar una planilla federal. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
         do_my_children_qualify_reveal:
-          content: Puedes recolectar dinero para cualquier niño que cuides. Sus niños probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC lo guiará a través de algunas preguntas rápidas para asegurarse.
+          content: Puede recaudar dinero para cualquier niño que cuide. Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
           title: "¿Califican mis niños?"
-        help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos.
+        help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos
         title: "¡Bienvenido!"
       signups:
         confirmation:
@@ -2874,7 +2874,7 @@ es:
 
             <p>El Congreso aprobó tres rondas de pagos de estímulo en respuesta a la pandemia de COVID-19, en abril de 2020, diciembre de 2020 y marzo de 2021. En total, los pagos suman hasta $3,200 por adulto y hasta $2,500 por niño en su familia. Los pagos se conocen formalmente como Pagos por Impacto Económico (EIP) o como Crédito de Reembolso de Recuperación (RRC).</p>
 
-            <p>Puede actuar ahora para recibir cualquiera de los tres pagos que aún no ha recibido. Si tiene hijos, también podrá inscribirse para recibir pagos del nuevo Crédito Tributario Anticipado por Hijos [enlace a la página principal de GetCTC]. GetCTC es un producto de Code for America. Obtenga más información sobre por qué estamos haciendo este trabajo aquí.</p>
+            <p>Puede actuar ahora para recibir cualquier de los tres pagos que aún no ha recibido. Si tiene hijos, también podrá inscribirse para recibir pagos del nuevo Crédito Tributario Anticipado por Hijos [enlace a la página principal de GetCTC]. GetCTC es un producto de Code for America. Obtenga más información sobre por qué estamos haciendo este trabajo aquí.</p>
           heading: Pagos de estímulo
           heading_open: La mayoría de las familias pueden obtener miles de dólares del tercer pago de estímulo
           reveals:
@@ -2913,12 +2913,12 @@ es:
       additional_documents:
         document_list_title: 'Basado en sus respuestas previas, es possible que tenga los siguientes documentos:'
         help_text: Si tiene otros documentos que puedan ser relevantes, por favor compártalos con nosotros. ¡Nos ayudará a preparar mejor sus impuestos!
-        title: Por favor, provea cualquieras documentos adicionales
+        title: Por favor comparta cualquier documento adicional.
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
         title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
       employment:
-        help_text_html: 'Hace falta una prueba de su empleo. Por favor, provea un (1) documento para cada empleo en que ha trabajado. El documento puede ser cualquiera de los enumerados aquí:'
+        help_text_html: "<strong>Hace falta una prueba de su empleo. Por favor, provea un (1) documento para cada empleo en que ha trabajado. El documento puede ser cualquier de los enumerados aquí:</strong>"
         personal_log: Registro personal
         title: Comparte sus documentos de empleo
         uber_lyft_dashboard_information: Informe del tablero Uber/Lyft
@@ -3531,7 +3531,7 @@ es:
             how_do_i_get_the_stimulus_payments:
               answer_html: |
                 <p>Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado recientemente sus declaraciones de impuestos, o que estaban inscritas en ciertos programas federales. Si no ha recibido ningún de los tres pagos de estímulo, tendrá que presentar una declaración de impuestos para declarar la cantidad que ha perdido. Los pagos de estímulo que le faltan se denominan Crédito de Reembolso por Recuperación, "Recovery Rebate Credit" en inglés.</p>
-                <p>Para declarar la totalidad o parte de su tercer pago de estímulo, necesita presentar una declaración de impuestos para 2021. Puede presentarla gratuitamente utilizando cualquiera de nuestros servicios en <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+                <p>Para declarar la totalidad o parte de su tercer pago de estímulo, necesita presentar una declaración de impuestos para 2021. Puede presentarla gratuitamente utilizando cualquier de nuestros servicios en <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>.</p>
                 <p>Para reclamar la totalidad o parte de su primer o segundo pago de estímulo, tiene que presentar una declaración de impuestos para 2020. Puede comprobar su derecho a presentar los impuestos atrasados de forma gratuita usando <a href="https://www.getyourrefund.org/questions/backtaxes" target="_blank" rel="noopener">GetYourRefund</a>.</p>
               question: "¿Cómo obtengo los pagos de estímulo?"
             how_many_stimulus_payments_were_there:
@@ -3802,7 +3802,7 @@ es:
             header: "¿Cómo cobrar?"
             items:
             - title: "¿Cómo puedo recibir mi cheque del Pago de Impacto Económico?"
-              content_html: Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo, o si recibió una cantidad incorrecta para cualquiera de los dos pagos, tendrá que presentar una declaración de impuestos de 2020 para poder recibirlo.
+              content_html: Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo, o si recibió una cantidad incorrecta para cualquier de los dos pagos, tendrá que presentar una declaración de impuestos de 2020 para poder recibirlo.
             - title: "¿Cómo puedo determinar si el IRS ha enviado mi cheque de estímulo?"
               content_html: |-
                 Si no está seguro de si el IRS ha enviado su tercer pago de estímulo o quiere comprobar el estado, puede buscar en el sitio web del IRS <a
@@ -4162,7 +4162,7 @@ es:
           other: En %{year}, ¿recibió usted o su cónyuge un reembolso del impuesto sobre la renta estatal o local?
       mailing_address:
         city: Ciudad
-        state: Estado
+        state: Estado o territorio de EE. UU.
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
