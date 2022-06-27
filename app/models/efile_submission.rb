@@ -119,10 +119,15 @@ class EfileSubmission < ApplicationRecord
     previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
-  def generate_verified_address
+  def generate_verified_address(i = 0)
     return OpenStruct.new(valid?: true) if verified_address.present?
 
-    address_service = StandardizeAddressService.new(intake)
+    address_service = StandardizeAddressService.new(intake, read_timeout: 1500)
+
+    if address_service.timeout? && i < 2
+      generate_verified_address(i += 1)
+    end
+
     if address_service.valid?
       attrs = {
         zip_code: address_service.zip_code,

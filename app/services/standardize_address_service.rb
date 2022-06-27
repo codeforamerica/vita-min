@@ -4,6 +4,9 @@ require 'uri'
 # PLEASE do NOT use this service to standardize addresses in bulk (do NOT use in backfills)
 # as that violates the terms of agreement with USPS and will result in access being revoked.
 class StandardizeAddressService
+  attr_accessor :timeout
+  alias_method :timeout?, :timeout
+
   def initialize(intake, read_timeout: nil)
     @read_timeout = read_timeout
     @_street_address = [intake.street_address, intake.street_address2].map(&:presence).compact.join(" ")
@@ -46,6 +49,8 @@ class StandardizeAddressService
   end
 
   def valid?
+    return false if timeout?
+
     @result[:error_message].blank?
   end
 
@@ -56,10 +61,10 @@ class StandardizeAddressService
   private
 
   def log_errors
-    if !valid?
-      Rails.logger.error "Error returned from USPS Address API: #{@result[:error_message]}"
-    elsif @timeout
+    if timeout?
       Rails.logger.error "Error from USPS Address API: Timed out."
+    elsif !valid?
+      Rails.logger.error "Error returned from USPS Address API: #{@result[:error_message]}"
     elsif @result[:zip_code].blank?
       Rails.logger.error "Error from USPS Address API: Response had no data."
       @result[:error_code] = "-MISSING-DATA"
