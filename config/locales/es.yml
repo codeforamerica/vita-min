@@ -1904,6 +1904,10 @@ es:
             title: "¿Dónde puedo encontrar esta cantidad?"
           no_did_not_receive: No recibí ningún pago
           no_received_different: Recibí una cantidad diferente
+          puerto_rico:
+            need_to_report: Si recibió pagos adelantados del Crédito Tributario por Hijos (Niños) en 2021, deberá reportarlos aquí o su reembolso se retrasará.
+            rare_to_receive: Es raro que las familias en Puerto Rico hayan recibido pagos adelantados, pero es posible.
+            title: "¿Recibió algún pago por Adelantado del Crédito Tributario por Hijos (Niños) del IRS en 2021?"
           question: "¿Recibió esta cantidad?"
           title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos en 2021?"
           total_adv_ctc: 'Estimamos que usted habrá recibido:'

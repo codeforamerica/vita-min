@@ -1,0 +1,15 @@
+<p><%= t("views.ctc.questions.advance_ctc.puerto_rico.need_to_report") %></p>
+<p><%= t("views.ctc.questions.advance_ctc.puerto_rico.rare_to_receive") %></p>
+<%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
+  <%= f.hidden_field :adv_ctc_entry_method, value: :calculated_amount %>
+  <div class="options-wrapper">
+    <div class="yes-no-buttons">
+      <%= f.button :submit, name: "#{f.object_name}[advance_ctc_received_choice]", value: "no_received_different_amount", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
+        <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
+      <% end %>
+      <%= f.button :submit, name: "#{f.object_name}[advance_ctc_received_choice]", value: "no_did_not_receive", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
+        <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
