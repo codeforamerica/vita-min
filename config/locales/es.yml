@@ -1950,20 +1950,20 @@ es:
               <p class="text--bold">Si ya presentó una declaración de impuestos federal de 2021 (1040, 1040PR, 1040SS) este año, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
               <p>Si recibió un aviso del IRS este año sobre su declaración (Carta 5071C, Carta 6331C o Carta 12C), entonces ya presentó una declaración federal ante el IRS este año.</p>
               <p class="text--bold text--small">Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda.</p>
-            title: "¿Presentó un %{current_tax_year} 1040 con el IRS este año?"
             reveal:
-              title: Recibí una carta diferente del IRS. ¿Eso significa que ya presenté?
-              content_title: "Si recibió alguna de las cartas enumeradas aquí, ya ha presentado:"
+              content_title: 'Si recibió alguna de las cartas enumeradas aquí, ya ha presentado:'
               list_content:
-                - 12C
-                - CP21
-                - 131C
-                - 4883C
-                - 5071C
-                - 5447C
-                - 5747C
-                - 6330C
-                - 6331C
+              - 12C
+              - CP21
+              - 131C
+              - 4883C
+              - 5071C
+              - 5447C
+              - 5747C
+              - 6330C
+              - 6331C
+              title: Recibí una carta diferente del IRS. ¿Eso significa que ya presenté?
+            title: "¿Presentó un %{current_tax_year} 1040 con el IRS este año?"
           title: "¿Declaró este año los impuestos para %{current_tax_year}?"
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
