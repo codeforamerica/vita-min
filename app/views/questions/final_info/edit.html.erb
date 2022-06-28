@@ -8,8 +8,6 @@
           help_text: t("views.questions.final_info.help_text"),
           options: { rows: '5' }
         ) %>
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("general.submit") %>
-    </button>
+    <%= f.continue t("general.submit") %>
   <% end %>
 <% end %>

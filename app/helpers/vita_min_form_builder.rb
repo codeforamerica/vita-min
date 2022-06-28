@@ -241,4 +241,8 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options[:data][:disable_with] = value
     super(value, **options)
   end
+
+  def continue(value = I18n.t("general.continue"))
+    submit(value, class: "button button--primary button--wide")
+  end
 end

@@ -19,9 +19,7 @@
             <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
 
-            <button class="button button--primary button--wide" type="submit">
-              <%= t("general.sign_up") %>
-            </button>
+            <%= f.continue t("general.sign_up") %>
 
             <div class="spacing-above-60">
               <p><%= t(".opt_in_message.01_intro") %></p>

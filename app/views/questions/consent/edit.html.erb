@@ -20,7 +20,9 @@
           ) %>
     </div>
 
-    <%= f.submit t("views.questions.consent.cta"), class: "button button--primary button--wide spacing-above-60" %>
+    <div class="spacing-above-60">
+      <%= f.continue t("views.questions.consent.cta") %>
+    </div>
   <% end %>
 
 <% end %>

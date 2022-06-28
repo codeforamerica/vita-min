@@ -24,7 +24,10 @@
           ) %>
     </div>
 
-    <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
+
+    <div class="spacing-below-15">
+      <%= f.continue %>
+    </div>
 
     <%= link_to next_path, class: "button button--wide text--centered" do %>
       <%= t("general.skip") %>

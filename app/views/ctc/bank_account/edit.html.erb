@@ -32,9 +32,7 @@
           <%= f.cfa_input_field(:account_number_confirmation, t("views.ctc.questions.account_number.account_number_confirmation"), classes: ["form-width--long"]) %>
         </div>
 
-        <button class="button button--primary button--wide" type="submit">
-          <%=t("general.save") %>
-        </button>
+        <%= f.submit t("general.save"), class:"button button--primary button--wide" %>
         <%= link_to t("general.cancel"), defined?(prev_path) ? prev_path : :back, class: "button button--wide" %>
     <% end %>
     </div>

@@ -16,9 +16,9 @@
           <%= f.cfa_input_field(:email_address, t("views.questions.email_address.email_address"), classes: ["form-width--long"]) %>
           <%= f.cfa_input_field(:email_address_confirmation, t("views.questions.email_address.email_address_confirmation"), classes: ["form-width--long"]) %>
 
-          <button type="submit" class="button button--primary text--centered button--wide spacing-above-60">
-            <%= t("general.continue") %>
-          </button>
+          <div class="spacing-above-60">
+            <%= f.continue %>
+          </div>
         <% end %>
       </main>
     </div>

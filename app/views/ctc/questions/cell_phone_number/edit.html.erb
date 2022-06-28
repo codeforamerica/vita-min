@@ -11,8 +11,6 @@
       <%= f.cfa_input_field(:sms_phone_number_confirmation, t("views.ctc.questions.cell_phone_number.confirm_label"), classes: ["form-width--long"]) %>
     </div>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("general.continue") %>
-    </button>
+    <%= f.continue %>
   <% end %>
 <% end %>
