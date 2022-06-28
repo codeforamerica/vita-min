@@ -20,9 +20,7 @@
             )
         %>
 
-        <div class="spacing-below-15">
-          <%= f.continue %>
-        </div>
+        <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
         <%= link_to t("general.cancel"), defined?(prev_path) ? prev_path : :back, class: "button button--wide" %>
       <% end %>
     </div>
