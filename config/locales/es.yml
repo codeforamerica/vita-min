@@ -1905,9 +1905,9 @@ es:
           no_did_not_receive: No recibí ningún pago
           no_received_different: Recibí una cantidad diferente
           puerto_rico:
-            need_to_report: Si recibió pagos adelantados del Crédito Tributario por Hijos (Niños) en 2021, deberá reportarlos aquí o su reembolso se retrasará.
+            need_to_report: Si recibió algún pago por adelantado del Crédito Tributario por Hijos en 2021, tendrá que notarlo aquí, o su reembolso se retrasará.
             rare_to_receive: Es raro que las familias en Puerto Rico hayan recibido pagos adelantados, pero es posible.
-            title: "¿Recibió algún pago por Adelantado del Crédito Tributario por Hijos (Niños) del IRS en 2021?"
+            title: "¿Recibió algún pago por adelantado del Crédito Tributario por Hijos del IRS en 2021?"
           question: "¿Recibió esta cantidad?"
           title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos en 2021?"
           total_adv_ctc: 'Estimamos que usted habrá recibido:'
@@ -1951,11 +1951,11 @@ es:
             <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
           puerto_rico:
             help_text_html: |
-              <p class="text--bold">Si ya presentó una declaración de impuestos federal de 2021 (1040, 1040PR, 1040SS) este año, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
-              <p>Si recibió un aviso del IRS este año sobre su declaración (Carta 5071C, Carta 6331C o Carta 12C), entonces ya presentó una declaración federal ante el IRS este año.</p>
-              <p class="text--bold text--small">Nota: la declaración federal con el IRS es independiente de una declaración de Puerto Rico que puede haber llenado con Hacienda.</p>
+              <p class="text--bold">Si ya radicó una planilla federal de 2021 (1040, 1040-PR, 1040-SS) este año, el IRS rechazará su planilla de GetCTC sin mirarla.</p>
+              <p>Si recibió una noticia del IRS este año sobre su planilla (Carta 5071C, Carta 6331C, o Carta 12C), ya radicó una planilla federal al IRS este año.</p>
+              <p class="text--bold text--small">Nota: la planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado al Departamento de Hacienda.</p>
             reveal:
-              content_title: 'Si recibió alguna de las cartas enumeradas aquí, ya ha presentado:'
+              content_title: 'Si recibió una de estas cartas, ya ha radicado una planilla federal:'
               list_content:
               - 12C
               - CP21
@@ -1966,8 +1966,8 @@ es:
               - 5747C
               - 6330C
               - 6331C
-              title: Recibí una carta diferente del IRS. ¿Eso significa que ya presenté?
-            title: "¿Presentó un %{current_tax_year} 1040 con el IRS este año?"
+              title: Recibí otra carta del IRS. ¿Significa que ya radiqué la planilla federal?
+            title: "¿Radicó una planilla federal de %{current_tax_year} al IRS este año?"
           title: "¿Declaró este año los impuestos para %{current_tax_year}?"
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
@@ -2107,7 +2107,7 @@ es:
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
             help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
             puerto_rico:
-              affirmative: Si, agrega otro niño
+              affirmative: Sí, agregar otro niño
               conditions:
               - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final de %{current_tax_year}.
               - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar hijos que estaban vivos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
@@ -2116,11 +2116,11 @@ es:
               - La persona que está tratando de reclamar podría ser económicamente independiente. En la mayoría de los casos, solo puede reclamar a los niños si no pagan sus propios gastos de manutención.
               - La persona que está tratando de reclamar podría ser el hijo de otra persona, no el suyo. Solo un hogar puede reclamar a un niño determinado.
               - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social (SSN) válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
-              help_text: No guardaremos%{name} en su declaración de impuestos. No califican para los pagos del Crédito Tributario por Hijos.
+              help_text: No guardaremos %{name} en su planilla. No califica para el Crédito Tributario por Hijos.
               negative: No, continuar
-              title: No puede reclamar el Crédito Tributario por Hijos por %{name}. ¿Te gustaría agregar a alguien más?
+              title: No puede reclamar el Crédito Tributario por Hijos por %{name}. ¿Le gustaría agregar a alguien más?
             reveal: "¿Por qué no califica esta persona?"
-            title: No puede reclamar beneficios para %{name}. ¿Te gustaría agregar a alguien más?
+            title: No puede reclamar beneficios para %{name}. ¿Le gustaría agregar a alguien más?
           info:
             filed_joint_return: Esta persona estaba casada y declaró impuestos con su cónyuge
             first_name: Primer nombre legal
@@ -2190,9 +2190,9 @@ es:
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           puerto_rico:
-            did_not_file: No, no radiqué una planilla de impuestos del IRS de %{prior_tax_year}
-            filed_full: Sí, radiqué una planilla de impuestos del IRS
-            note: 'Nota: una planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con el Departamento de Hacienda.'
+            did_not_file: No, no radiqué una planilla federal al IRS de %{prior_tax_year}
+            filed_full: Sí, radiqué una planilla federal al IRS
+            note: 'Nota: la planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado al Departamento de Hacienda.'
             title: "¿Presentó una planilla de impuestos federal de %{prior_tax_year} con el IRS?"
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
@@ -2354,12 +2354,12 @@ es:
         mailing_address:
           error_notice: "¡Oh, no! No pudimos procesar su dirección. Actualice la información que ingresó."
           puerto_rico_reveal_html: |
-            Si vive en Puerto Rico, su dirección debe escribirse como Número, Avenida/Calle, Nombre de la calle. (Ej: 63 Calle Fortaleza, no, Calle Fortaleza 63)
+            Si vive en Puerto Rico, su dirección debe escribirse como Número, Avenida/Calle, Nombre de la calle. (Ej: use 63 Calle Fortaleza, no use Calle Fortaleza 63)
             <br/><br/>
             Algunas orientaciones:
             <br/>
             <ul>
-            <li>&#8226; Usa el nombre oficial de tu calle. (Ej: usar Calle Fortaleza en lugar de Avenida Fortaleza)</li>
+            <li>&#8226; Use el nombre oficial de tu calle. (Ej: use Calle Fortaleza en lugar de Avenida Fortaleza)</li>
             <li>&#8226; Si el número de edificio contiene letras y números con un guión entre ellos, intente eliminar el guión. (ej: A17 Calle Amapola, no A-17 Calle Amapola)</li>
             <li>&#8226; Si tiene un número de bloque y un número de apartamento, intente separarlos. (Ej: 199-31 Calle 19, no Calle 19 Bloque 199 Casa 31)</li>
             </ul>
@@ -2457,11 +2457,11 @@ es:
           filed_together: Mi cónyuge declaró impuestos o usó una herramienta de non-filers conmigo
           help_text: La fecha de plazo máximo para presentar los impuestos de 2020 fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           puerto_rico:
-            did_not_file: No, %{spouse_first_name}no radicó una planilla de impuestos del IRS de %{prior_tax_year}
-            filed_full: Sí, %{spouse_first_name} radicó una planilla de impuestos al IRS por separado de mí
-            filed_together: Sí, %{spouse_first_name} radicó una planilla de impuestos del IRS junto conmigo
-            note: 'Nota: una planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado con el Departamento de Hacienda.'
-            title: "¿%{spouse_first_name} radicó una planilla federal de %{prior_tax_year} con el IRS?"
+            did_not_file: No, %{spouse_first_name} no radicó una planilla de impuestos al IRS de %{prior_tax_year}
+            filed_full: Sí, %{spouse_first_name} radicó una planilla federal al IRS por separado de mí
+            filed_together: Sí, %{spouse_first_name} radicó una planilla federal al IRS junto conmigo
+            note: 'Nota: la planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado al Departamento de Hacienda.'
+            title: "¿Radicó %{spouse_first_name} una planilla federal de %{prior_tax_year} al IRS?"
           title: "¿%{spouse_first_name} presentó una declaración de impuestos de %{prior_tax_year}?"
         spouse_info:
           help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN en inglés).
@@ -2838,7 +2838,7 @@ es:
         hero:
         - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a radicar una planilla federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
         - Este formulario en general tarda unos 15 minutos en completarse y no necesitará ningún documento fiscal.
-        title: "¡Puerto Rico, puedes obtener Crédito Tributario por Hijos para su familia!"
+        title: "¡Puerto Rico, puede obtener el Crédito Tributario por Hijos para su familia!"
         what_is:
           body:
           - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo, de hasta $3,600 por niño.
@@ -4289,7 +4289,7 @@ es:
           one: En %{year}, ¿recibió algún ingreso de pensión alimenticia?
           other: En %{year}, ¿recibió usted o su pareja algún ingreso de la pensión alimenticia?
       refund_payment:
-        check: Envíame un cheque (más lento)
+        check: Cheque enviado por correo (más lento)
         direct_deposit: Depósito directo (el más rápido)
         title: Si se debe un reembolso, ¿cómo le gustaría recibirlo?
       retirement_contributions:
@@ -4507,7 +4507,7 @@ es:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
-        ctc_service_description_html: GetCTC.org es un servicio sin ánimo de lucro creado por %{link}.
+        ctc_service_description_html: GetCTC.org es un servicio sin fines de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
