@@ -285,7 +285,7 @@ es:
       aunt: Tía
       brother: Hermano
       daughter: Hija
-      foster_child: Hijo/hija de crianza
+      foster_child: Hijo/hija de acogida/crianza
       grandchild: Nieta/Nieto
       grandparent: Abuela/Abuelo
       great_grandchild: Bisnieto
@@ -2091,10 +2091,10 @@ es:
           does_my_child_qualify_reveal:
             content:
               list_1:
-              - Su hijo de crianza debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
+              - Su hijo de acogida/crianza debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
               list_2:
               - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
-              p1: "¿Quién cuenta como hijo de crianza?"
+              p1: "¿Quién cuenta como hijo de acogida/crianza?"
               p2: "¿Qué pasa si tengo un hijo adoptado?"
             title: "¿Mi niño califica?"
           does_not_qualify_ctc:
@@ -2219,7 +2219,7 @@ es:
             - Hijo
             - Hija
             - Hijastro
-            - Hijo de crianza
+            - Hijo de acogida/crianza
             - Sobrina
             - Sobrino
             - Nieto
@@ -3223,7 +3223,7 @@ es:
               question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
             what_is_the_child_tax_credit_ctc:
               answer_html: |
-                <p>El Crédito Tributario por Hijos (CTC) es un impuesto que ayuda a las familias con los costos de la crianza de los hijos. Aunque el CTC existe desde hace más de dos décadas, se amplió considerablemente en 2021. Este año, puede obtener <strong>hasta $3,600 por cada hijo menor de seis años y $3,000 por cada hijo de 6-17 años</strong>.</p>
+                <p>El Crédito Tributario por Hijos es un impuesto que ayuda a las familias con los costos de la acogida/crianza de los hijos. Aunque el CTC existe desde hace más de dos décadas, se amplió considerablemente en 2021. Este año, puede obtener <strong>hasta $3,600 por cada hijo menor de seis años y $3,000 por cada hijo de 6-17 años</strong>.</p>
                 <p>El crédito es menor para las familias con un solo padre de familia que gane más de $75,000 y las parejas casadas que ganan más de $150,000. Casi todas las familias por debajo de esos niveles de ingresos reciben el importe completo. Usted tiene derecho a recibir la totalidad de los pagos del CTC aunque gane muy poco o nada, e incluso si no suele declarar impuestos.</p>
               question: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
             what_is_the_child_tax_credit_update_portal_ctc_up:
