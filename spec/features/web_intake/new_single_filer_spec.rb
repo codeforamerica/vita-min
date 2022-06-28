@@ -281,7 +281,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "City", with: "Anytown"
     select "California", from: "State"
     fill_in "ZIP code", with: "94612"
-    click_on "Confirm"
+    click_on "Continue"
 
     # Overview: Documents
     expect(intake.reload.current_step).to eq("/en/questions/overview-documents")
