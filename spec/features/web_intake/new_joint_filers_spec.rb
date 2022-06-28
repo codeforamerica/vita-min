@@ -303,7 +303,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       select "3 jobs", from: "In #{TaxReturn.current_tax_year}, how many jobs did you or your spouse have?"
     end
-    click_on "Next"
+    click_on "Continue"
     screenshot_after do
       expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you live or work in any other states besides Virginia?")
     end
@@ -359,7 +359,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       fill_in "What were the other types of income that you or your spouse received?", with: "cash from gardening"
     end
-    click_on "Next"
+    click_on "Continue"
 
     # Health insurance
     screenshot_after do
@@ -613,4 +613,3 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
   end
 end
-

@@ -169,7 +169,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Income from working
     expect(intake.reload.current_step).to eq("/en/questions/job-count")
     select "3 jobs", from: "In #{TaxReturn.current_tax_year}, how many jobs did you have?"
-    click_on "Next"
+    click_on "Continue"
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you live or work in any other states besides Virginia?")
     click_on "No"
     expect(page).to have_selector("h1", text: "Tell us about your work in #{TaxReturn.current_tax_year}")
@@ -203,7 +203,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you receive any other money?")
     click_on "Yes"
     fill_in "What were the other types of income that you received?", with: "cash from gardening"
-    click_on "Next"
+    click_on "Continue"
 
     # Health insurance
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you purchase health insurance through the marketplace or exchange?")
