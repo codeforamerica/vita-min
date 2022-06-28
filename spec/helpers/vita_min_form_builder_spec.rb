@@ -150,8 +150,8 @@ RSpec.describe VitaMinFormBuilder do
     end
   end
 
-  describe "#submit_and_disable" do
-    it "sets data-disable-width to please wait" do
+  describe "#submit" do
+    it "sets data-disable-with to the button text" do
       class SampleForm < Cfa::Styleguide::FormExample
         attr_accessor :birth_date_day, :birth_date_month, :birth_date_year
         validates_presence_of :birth_date_day, :birth_date_month, :birth_date_year
@@ -159,7 +159,7 @@ RSpec.describe VitaMinFormBuilder do
 
       form = SampleForm.new
       form_builder = described_class.new("form", form, template, {})
-      output = form_builder.submit_and_disable(
+      output = form_builder.submit(
         "Submit!",
         class: "button button--wide",
         data: { existing_data: "is retained" },
@@ -167,7 +167,7 @@ RSpec.describe VitaMinFormBuilder do
       expect(output).to be_html_safe
       doc = Nokogiri::HTML(output)
       element = doc.css('input').first
-      expect(element.attribute('data-disable-with').text).to eq("Please wait...")
+      expect(element.attribute('data-disable-with').text).to eq("Submit!")
       expect(element.attribute('data-existing-data')&.text).to eq("is retained")
     end
   end
