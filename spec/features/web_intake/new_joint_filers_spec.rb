@@ -465,7 +465,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "California", from: "State"
       fill_in "ZIP code", with: "94612"
     end
-    click_on "Confirm"
+    click_on "Continue"
 
     screenshot_after do
       # Overview: Documents
