@@ -5,16 +5,19 @@
     <style>
       body {
         font-family: Helvetica Nue, Helvetica, Arial, sans-serif;
+        background-color: #F7F7F7;
       }
       .wrapper {
         max-width: 500px;
         margin: 0 auto;
+        background: white;
+        padding: 25px 25px 25px 25px;
       }
       .wrapper p {
         margin: 1.5rem 0;
       }
       .logo {
-        margin: 2.5rem 0;
+        margin: 0 0 25px;
       }
       .subject {
         font-size: 20px;
@@ -28,7 +31,7 @@
   <body>
     <div class="wrapper">
       <div class="logo">
-        <%= image_tag attachments["logo.png"].url, style: "width:20px;height:auto" %> <%= @service_type == :ctc ? 'GetCTC' : 'GetYourRefund' %>
+        <%= image_tag attachments["logo.png"].url, style: "width:auto;height:25px" %>
       </div>
       <% if @subject %>
         <h1 class="subject"><%= @subject %></h1>

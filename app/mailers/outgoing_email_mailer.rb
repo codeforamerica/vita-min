@@ -4,8 +4,7 @@ class OutgoingEmailMailer < ApplicationMailer
     attachment = outgoing_email.attachment
 
     is_ctc = (@outgoing_email.client.intake || Archived::Intake2021.where(client_id: @outgoing_email.client.id).first).is_ctc?
-    service_type = is_ctc ? :ctc : :gyr
-    service = MultiTenantService.new(service_type)
+    service = MultiTenantService.new(is_ctc ? :ctc : :gyr)
     @service_type = service.service_type
 
     @body = outgoing_email.body
@@ -16,6 +15,7 @@ class OutgoingEmailMailer < ApplicationMailer
 
     DatadogApi.increment("mailgun.outgoing_emails.sent")
 
+    attachments.inline['logo.png'] = service.email_logo
     mail(
       to: outgoing_email.to,
       subject: @subject,
@@ -23,4 +23,5 @@ class OutgoingEmailMailer < ApplicationMailer
       delivery_method_options: service.delivery_method_options
     )
   end
+
 end

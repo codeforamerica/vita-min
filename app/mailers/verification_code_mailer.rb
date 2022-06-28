@@ -6,6 +6,8 @@ class VerificationCodeMailer < ApplicationMailer
     @locale = params[:locale]
     @subject = I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
     @verification_code = params[:verification_code]
+    attachments.inline['logo.png'] = service.email_logo
+
     mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
 
@@ -16,6 +18,7 @@ class VerificationCodeMailer < ApplicationMailer
     @service_type = service.service_type
     @url = service.url(locale: locale)
     @subject = I18n.t("verification_code_mailer.no_match.subject", service_name: @service_name, url: service.url(locale: locale), locale: @locale)
+    attachments.inline['logo.png'] = service.email_logo
     mail(to: to, subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
 end

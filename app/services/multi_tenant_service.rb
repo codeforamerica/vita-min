@@ -24,6 +24,13 @@ class MultiTenantService
     end
   end
 
+  def email_logo
+    case service_type
+    when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
+    when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
+    end
+  end
+
   def default_email
     Rails.configuration.email_from[:default][service_type]
   end

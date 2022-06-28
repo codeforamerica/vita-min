@@ -78,9 +78,9 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       context 'for a GYR client' do
         let!(:intake) { create :intake, client: outgoing_email.client, locale: "en" }
 
-        it 'shows "GetYourRefund"' do
+        it 'shows logo and sends from GYR domain"' do
           email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
-          expect(email.html_part.decoded).to include('GetYourRefund')
+          expect(email.html_part.decoded).to include "cid:#{email.attachments.inline["logo.png"]["Content-ID"].value[1..-2]}"
           expect(email.from).to eq ["hello@test.localhost"]
         end
       end
@@ -88,9 +88,9 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       context 'for a CTC client' do
         let!(:intake) { create :ctc_intake, client: outgoing_email.client, locale: "en" }
 
-        it 'shows "GetCTC"' do
+        it 'uses logo and sends from getCTC domain' do
           email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
-          expect(email.html_part.decoded).to include('GetCTC')
+          expect(email.html_part.decoded).to include "cid:#{email.attachments.inline["logo.png"]["Content-ID"].value[1..-2]}"
           expect(email.from).to eq ["hello@ctc.test.localhost"]
         end
       end
@@ -98,9 +98,9 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       context 'for a client with an archived CTC intake' do
         let!(:intake) { create :archived_2021_ctc_intake, client: outgoing_email.client, locale: "en" }
 
-        it 'shows "GetCTC"' do
+        it 'shows logo and sends from ctc domain' do
           email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
-          expect(email.html_part.decoded).to include('GetCTC')
+          expect(email.html_part.decoded).to include "cid:#{email.attachments.inline["logo.png"]["Content-ID"].value[1..-2]}"
           expect(email.from).to eq ["hello@ctc.test.localhost"]
         end
       end
