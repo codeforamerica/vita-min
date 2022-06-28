@@ -214,6 +214,16 @@ describe Efile::DependentEligibility::QualifyingChild do
           expect(subject.qualifies?).to eq true
         end
       end
+
+      context "when the client has an ATIN" do
+        let(:birth_date) { Date.new(2004, 01, 02) }
+        let(:tin_type) { "atin" }
+
+        it "returns false" do
+          expect(subject.test_results[:additional_puerto_rico_rules_test]).to eq false
+          expect(subject.qualifies?).to eq false
+        end
+      end
     end
   end
 

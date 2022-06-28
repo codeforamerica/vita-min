@@ -59,6 +59,8 @@ module Efile
 
         return false if dependent.tin_type_ssn_no_employment?
 
+        return false if dependent.tin_type_atin?
+
         dependent.birth_date > Date.new(2004, 1, 1)
       end
 
