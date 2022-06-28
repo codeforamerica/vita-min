@@ -433,7 +433,6 @@ en:
     phone_for_texting: Phone for texting
     phone_number: Phone number
     please_select_at_least_one_option: Please select at least one option.
-    please_wait: Please wait...
     privacy_policy: privacy policy
     race:
       american_indian_alaska_native: American Indian or Alaska Native
@@ -4181,7 +4180,6 @@ en:
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
-        cta: Continue
         global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
         help_text_html: 'We respect your privacy. <strong>You have the option</strong> to consent to the following:'
         legal_details_html: |
