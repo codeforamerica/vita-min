@@ -6,6 +6,9 @@
       <div><%= intake.street_address2 %></div>
     <% end %>
     <div><%= intake.city %>, <%= intake.state %> <%= intake.zip_code %></div>
+    <% unless intake.usps_address_verified_at %>
+      <%= I18n.t('general.error_found') %>
+    <% end %>
   </div>
   <% if defined?(edit_controller) %>
     <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>

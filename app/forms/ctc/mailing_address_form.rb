@@ -15,7 +15,8 @@ module Ctc
           street_address: address_service.street_address,
           street_address2: nil,
           state: address_service.state,
-          city: address_service.city
+          city: address_service.city,
+          usps_address_verified_at: DateTime.now,
         }
         @intake.update(attrs)
       else

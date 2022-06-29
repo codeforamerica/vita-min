@@ -352,6 +352,7 @@ en:
     error:
       form_failed: Please fix indicated errors and try again.
       sorry_something_went_wrong: Oops, we're sorry, but something went wrong.
+    error_found: Error found
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
@@ -4175,6 +4176,7 @@ en:
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
         title: What is your mailing address?
+        unable_to_validate: An error occurred while contacting the US Postal Service. Please submit your address again.
         zip_code: ZIP code
       married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.

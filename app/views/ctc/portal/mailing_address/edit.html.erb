@@ -25,6 +25,10 @@
           <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
         </div>
 
+        <% if @show_usps_error %>
+          <%= I18n.t('views.questions.mailing_address.unable_to_validate') %>
+        <% end %>
+
         <button class="button button--primary button--wide" type="submit">
           <%=t("general.save") %>
         </button>
