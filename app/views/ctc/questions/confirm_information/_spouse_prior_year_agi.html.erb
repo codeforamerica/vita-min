@@ -3,7 +3,7 @@
   <div>
     <%= number_to_currency(intake.spouse_prior_year_agi_amount_computed) %>
   </div>
-  <% if intake.spouse_filed_prior_tax_year_filed_full_separate? && defined?(edit_controller) %>
+  <% if defined?(edit_controller) %>
     <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
   <% end %>
 </div>

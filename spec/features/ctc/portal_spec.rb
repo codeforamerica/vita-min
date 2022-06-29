@@ -368,13 +368,13 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
       context "when the spouse filed with the primary the prior year" do
         let(:spouse_filed_prior_tax_year) { :filed_together }
 
-        scenario "they cannot edit the spouse AGI" do
+        scenario "they can still edit the spouse AGI independently" do
           log_in_to_ctc_portal
 
           click_on I18n.t("views.ctc.portal.home.correct_info")
 
           within ".spouse-prior-year-agi" do
-            expect(page).not_to have_selector("a", text: I18n.t("general.edit").downcase)
+            expect(page).to have_selector("a", text: I18n.t("general.edit").downcase)
           end
         end
       end
