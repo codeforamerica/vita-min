@@ -13,6 +13,8 @@ class UserMailer < ApplicationMailer
     @assigned_at = assigned_at.in_time_zone(@assigned_user.timezone)
     @client = tax_return.client
     @subject = "GetYourRefund Client ##{@client.id} Assigned to You"
+    service = MultiTenantService.new(:gyr)
+    attachments.inline['logo.png'] = service.email_logo
 
     mail(to: @assigned_user.email, subject: @subject)
   end

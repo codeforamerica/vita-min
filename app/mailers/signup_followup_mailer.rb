@@ -1,7 +1,9 @@
 class SignupFollowupMailer < ApplicationMailer
   def followup(email_address:, message:)
     @body = message.email_body
+
     service = MultiTenantService.new(message.service_type)
+    attachments.inline['logo.png'] = service.email_logo
     mail(
       to: email_address,
       subject: message.email_subject,
