@@ -14,6 +14,19 @@ describe UpdateClientVitaPartnerService do
     let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
     let(:assigned_user) { create :team_member_user, site: current_site }
 
+    context "when a client was previously routed to no one because we were at capacity" do
+      before do
+        client.update(routing_method: :at_capacity, vita_partner: nil)
+      end
+
+      it "changes the vita partner and the routing method" do
+        expect {
+          subject.update!
+        }.to change(client, :vita_partner).from(nil).to(other_site)
+         .and change(client, :routing_method).from("at_capacity").to("hub_assignment")
+      end
+    end
+
     context "when an assigned user does not have access to the new vita partner" do
       it "changes the vita partner" do
         expect { subject.update! }.to change(client, :vita_partner).from(current_site).to(other_site)
