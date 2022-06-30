@@ -210,7 +210,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         click_on I18n.t("views.ctc.portal.home.correct_info")
 
         # Can't resubmit until you have made a meaningful edit
-        expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+        expect(page).to have_button(I18n.t('views.ctc.portal.edit_info.resubmit'), disabled: true)
 
         within ".primary-info" do
           click_on I18n.t('general.edit').downcase
@@ -405,7 +405,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t('general.back')
 
           # Can't resubmit until you enter direct deposit info
-          expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+          expect(page).to have_button(I18n.t('views.ctc.portal.edit_info.resubmit'), disabled: true)
+
 
           click_on I18n.t('views.ctc.portal.edit_info.add_bank_information')
           choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")

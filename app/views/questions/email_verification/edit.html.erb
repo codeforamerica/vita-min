@@ -13,8 +13,6 @@
       <%= f.cfa_input_field(:verification_code, t("views.questions.verification.verification_code_label"), classes: ["form-width--long"]) %>
     </div>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("views.questions.verification.verify") %>
-    </button>
+    <%= f.continue t("views.questions.verification.verify") %>
   <% end %>
 <% end %>

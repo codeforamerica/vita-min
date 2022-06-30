@@ -412,7 +412,6 @@ es:
     negative: 'No'
     new: Nuevo
     new_unique_link: Nuevo Enlace único
-    next: Próximo
     no_intake: Sin ingesta
     none: Ninguna
     none_of_the_above: Ninguna de las anteriores
@@ -434,7 +433,6 @@ es:
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
     please_select_at_least_one_option: Favor de seleccionar por lo menos una opción.
-    please_wait: Espere por favor...
     privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
@@ -4210,7 +4208,6 @@ es:
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
-        cta: Continuar
         global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
         help_text_html: 'Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:'
         legal_details_html: |

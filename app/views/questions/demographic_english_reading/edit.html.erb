@@ -15,9 +15,7 @@
           ]
         )
     %>
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("general.continue") %>
-    </button>
+    <%= f.continue %>
     <%= f.button :submit, name: "#{f.object_name}[demographic_english_reading]", value: :prefer_not_to_answer, class: "button button--wide" do %>
       <%=t("general.skip_question") %>
     <% end %>

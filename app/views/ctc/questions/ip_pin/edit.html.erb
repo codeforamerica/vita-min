@@ -25,6 +25,8 @@
       <% end %>
       <%= f.cfa_checkbox(:no_ip_pins, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
-    <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered spacing-above-60" %>
+    <div class="spacing-above-60">
+      <%= f.continue %>
+    </div>
   <% end %>
 <% end %>

@@ -59,9 +59,7 @@
       </div>
     </div>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%= t("general.continue") %>
-    </button>
+    <%= f.continue %>
     <% if @form.dependent.persisted? %>
       <%= link_to questions_remove_dependent_path, class: "button button--wide button--danger text--centered" do %>
         <%= image_tag("remove-minus.svg", alt: "") %>

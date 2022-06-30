@@ -11,7 +11,7 @@
       <%= form_with model: @message, url: portal_messages_path, local: true, builder: VitaMinFormBuilder, class: "portal-message-form" do |f| %>
         <%= f.cfa_textarea(:body, t(".body_label")) %>
         <div>
-          <%= f.submit t("general.send_message"), class: "button button--primary button--wide" %>
+          <%= f.continue t("general.send_message") %>
         </div>
       <% end %>
     </div>

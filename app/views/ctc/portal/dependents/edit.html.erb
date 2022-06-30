@@ -29,9 +29,7 @@
           <%= f.cfa_input_field(:ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: @form.dependent.first_name), classes: ["form-width--long"]) %>
         </div>
 
-        <button class="button button--primary button--wide" type="submit">
-          <%= t("general.save") %>
-        </button>
+        <%= f.continue t("general.save") %>
         <% if eligibility_without_dependent.ctc_amount >= eligibility_without_dependent.advance_ctc_amount_received %>
           <%= link_to({ action: :confirm_remove }, class: "button button--wide button--danger text--centered") do %>
             <%= image_tag("remove-minus.svg", alt: "") %>

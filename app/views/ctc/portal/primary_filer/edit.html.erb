@@ -32,11 +32,8 @@
           <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name), type: "tel", classes: ["form-width--long"]) %>
         </div>
 
-        <button class="button button--primary button--wide" type="submit">
-          <%=t("general.save") %>
-        </button>
+        <%= f.continue t("general.save") %>
       <% end %>
     </div>
   </div>
 <% end %>
-

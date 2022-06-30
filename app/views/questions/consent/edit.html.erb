@@ -4,25 +4,25 @@
 <% content_for :body_class, "consent-form" %>
 
 <% content_for :form_card do %>
-    <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
-      <%= render "shared/consent_agreement" %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= render "shared/consent_agreement" %>
 
-      <%= f.cfa_input_field(:primary_first_name, t("views.questions.consent.primary_first_name")) %>
-      <%= f.cfa_input_field(:primary_last_name, t("views.questions.consent.primary_last_name")) %>
-      <div class="date-select">
-        <%= f.cfa_date_select(
-                :birth_date,
-                t("views.questions.consent.birth_date"),
-                options: {
-                    start_year: Time.now.year - 17,
-                    end_year: Time.now.year - 120,
-                }
-            ) %>
-      </div>
+    <%= f.cfa_input_field(:primary_first_name, t("views.questions.consent.primary_first_name")) %>
+    <%= f.cfa_input_field(:primary_last_name, t("views.questions.consent.primary_last_name")) %>
+    <div class="date-select">
+      <%= f.cfa_date_select(
+            :birth_date,
+            t("views.questions.consent.birth_date"),
+            options: {
+              start_year: Time.now.year - 17,
+              end_year: Time.now.year - 120,
+            }
+          ) %>
+    </div>
 
-      <button class="button button--primary button--wide spacing-above-60" type="submit">
-        <%= t("views.questions.consent.cta") %>
-      </button>
-    <% end %>
+    <div class="spacing-above-60">
+      <%= f.continue t("views.questions.consent.cta") %>
+    </div>
+  <% end %>
 
 <% end %>
