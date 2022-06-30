@@ -417,6 +417,9 @@ class Intake::CtcIntake < Intake
     client.tax_returns.last.filing_status_married_filing_jointly?
   end
 
+  # Only use this when initially calculating the spouse's AGI for initial submission.
+  # In all instances after, use the saved spouse_prior_year_agi_amount so that incorrect
+  # answers to prior year filing questions do not affect submission values.
   def spouse_prior_year_agi_amount_computed
     if spouse_filed_prior_tax_year_filed_non_filer_separate?
       1
