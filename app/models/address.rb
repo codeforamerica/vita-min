@@ -22,4 +22,11 @@ class Address < ApplicationRecord
   belongs_to :record, polymorphic: true
 
   validates_presence_of :zip_code
+
+  def to_s
+    <<~ADDRESS
+      #{street_address} #{street_address2}
+      #{city}, #{state} #{zip_code}
+    ADDRESS
+  end
 end
