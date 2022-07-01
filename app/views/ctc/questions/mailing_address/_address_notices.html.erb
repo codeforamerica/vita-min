@@ -1,0 +1,14 @@
+<% if current_intake.puerto_rico_filing? %>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.mailing_address.puerto_rico_reveal_label")) do %>
+    <%= t("views.ctc.questions.mailing_address.puerto_rico_reveal_html") %>
+  <% end %>
+<% end %>
+
+<% if @form.errors[:address_not_found].present? %>
+  <div class="notice--error">
+    <p><%= t("views.ctc.questions.mailing_address.error_notice") %></p>
+    <p class="text--error">
+      <%= @form.errors[:address_not_found].join(", ") %>
+    </p>
+  </div>
+<% end %>

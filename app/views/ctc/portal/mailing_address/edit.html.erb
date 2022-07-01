@@ -11,11 +11,7 @@
       <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
         <h1 class="h2"><%= @main_question %></h1>
 
-        <% if current_intake.puerto_rico_filing? %>
-          <%= render('components/molecules/reveal', title: t("views.ctc.questions.mailing_address.puerto_rico_reveal_label")) do %>
-            <%= t("views.ctc.questions.mailing_address.puerto_rico_reveal_html") %>
-          <% end %>
-        <% end %>
+        <%= render 'ctc/questions/mailing_address/address_notices' %>
 
         <div class="form-card__content">
           <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), classes: ["form-width--long"]) %>
@@ -23,6 +19,10 @@
           <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city"), classes: ["form-width--long"]) %>
           <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
           <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
+
+          <% if @show_usps_error %>
+            <p class="text--error"><%= I18n.t('views.questions.mailing_address.unable_to_validate') %></p>
+          <% end %>
         </div>
 
         <%= f.continue t("general.save") %>
