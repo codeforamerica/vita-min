@@ -139,6 +139,7 @@ describe Ctc::MailingAddressForm do
          .and change(intake, :zip_code).to("77494-1111")
          .and not_change(intake, :street_address2)
         expect(intake.street_address2).to be_nil
+        expect(intake.usps_address_verified_at).to be_within(1.second).of(DateTime.now)
       end
     end
 

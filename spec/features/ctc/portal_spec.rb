@@ -335,6 +335,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
           "street_address" => ["972 Mission St", "123 Sandwich Lane"],
+          "usps_address_verified_at" => ["nil", an_instance_of(String)],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
@@ -475,7 +476,10 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         notes = SystemNote::CtcPortalUpdate.order(:id)
 
-        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
+        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
+                                                                                  "zip_code" => ["94103", "94117"],
+                                                                                  "usps_address_verified_at" => ["nil", an_instance_of(String)],
+                                                                                })
 
         expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
 

@@ -28,10 +28,19 @@ describe Ctc::Portal::MailingAddressController do
       sign_in intake.client
     end
 
-    it "does not make a system note if nothing significant changed" do
+    it "creates a system note with an updated timestamp for usps verified at" do
       expect do
         put :update, params: params
-      end.not_to change(SystemNote::CtcPortalUpdate, :count)
+      end.to change(SystemNote::CtcPortalUpdate, :count).by(1)
+
+      note = SystemNote::CtcPortalUpdate.last
+      expect(note.client).to eq(intake.client)
+      expect(note.data).to match({
+                                   "model" => intake.to_global_id.to_s,
+                                   "changes" => a_hash_including(
+                                     "usps_address_verified_at" => [nil, an_instance_of(String)],
+                                     )
+                                 })
     end
 
     context "when there are changes of note" do

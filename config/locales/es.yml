@@ -353,6 +353,7 @@ es:
     error:
       form_failed: Corrija los errores indicados y vuelva a intentarlo.
       sorry_something_went_wrong: Lo sentimos, algo salió mal.
+    error_found: Error encontrado
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
@@ -4182,6 +4183,7 @@ es:
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
+        unable_to_validate: Ocurrió un error al comunicarse con el Servicio Postal de EE. UU. Por favor, envíe su dirección de nuevo.
         zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
