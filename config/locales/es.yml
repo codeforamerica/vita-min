@@ -3166,16 +3166,16 @@ es:
               question: "¿Cómo se solicita el Crédito Tributario por Hijos para un bebé nacido en 2022?"
             how_do_i_get_my_child_tax_credit_ctc_payments:
               answer_html: |
-                <p>Para obtener el Crédito Tributario por Hijos (CTC) tiene que presentar una declaración de impuestos. Si recibió pagos mensuales de CTC o no el año pasado, y si declaró impuestos en los últimos años o no, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
+                <p>Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>Para presentar una declaración de impuestos completa para reclamar el CTC y todos los demás beneficios fiscales para los que es elegible, puede usar <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+                <p>Ya sea que haya recibido pagos mensuales de CTC o no el año pasado, y haya presentado o no impuestos en los últimos años o en absoluto, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
                 <p>Si recibió pagos mensuales por adelantado en 2021, puede presentar una declaración de impuestos para obtener el resto de sus pagos (generalmente, $1,800 por hijo menor y $1,500 por hijo mayor). Si no recibió pagos mensuales en 2021 entonces puede presentar una declaración de impuestos para obtener el total de sus pagos de CTC (generalmente, $3,600 por hijo menor y $3,000 por hijo mayor).</p>
-                <p>Puede presentar una declaración de impuestos gratis con GetYourRefund.</p>
               question: "¿Qué debo hacer para recibir los pagos del Crédito Tributario por Hijos?"
             how_do_i_get_the_child_tax_credit_if_i:
               answer_html: |
                 <p>Las familias que no suelen declarar impuestos se denominan a veces "no declarantes". A menudo se trata de familias que ganan tan poco dinero que no están obligadas a declarar impuestos, a veces porque obtienen sus ingresos a través de una discapacidad u otras prestaciones.</p>
                 <p>Todo individuo con derecho a prestaciones fiscales debe presentar la declaración de impuestos, aunque se le considere "no declarante". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas como el Crédito Tributario por Hijos, CTC en inglés, aunque no haga la declaración de impuestos o no los haya declarado en mucho tiempo.</p>
-                <p>Las familias que no están obligadas a presentar una declaración de la impuestos tienen una opción adicional: pueden presentar una declaración simplificada. La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de completar y requiere menos información. La declaración simplificada estará disponible en mayo de 2022. Si no está obligado a presentar impuestos, tiene la opción de presentar una declaración de impuestos completa ahora o esperar hasta mayo para utilizar una herramienta de presentación simplificada.</p>
-                <p>Presente la declaración de impuestos hoy con <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a> o <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">suscríbase para recibir actualizaciones</a> sobre la presentación simplificada.</p>
+                <p>Las familias que no están obligadas a presentar declaraciones de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto a veces se ha llamado "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de completar y requiere mucha menos información. Puede presentar una declaración simplificada gratis hoy con <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cómo puedo obtener el Crédito Tributario por Hijos si soy no declarante?"
             how_much_is_the_child_tax_credit_in_2022:
               answer_html: |
@@ -3217,7 +3217,7 @@ es:
                 <p>Si intenta presentar una declaración de impuestos este año y descubre que alguien ya ha declarado a su hijo y desea disputar la declaración al IRS para recibir sus pagos, el proceso es más complicado. En primer lugar, tiene que enviar por correo una copia en papel de su declaración al IRS. A continuación, el IRS iniciará un proceso para determinar quién puede declarar a este dependiente. Este proceso puede ser difícil para usted y para quien haya declarado a su dependiente. Si quiere seguir este proceso, consulte aquí para más información: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. Un sitio de <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Voluntarios de Declaración de Impuestos, Volunteer Income Tax , en inglés</a> o el <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Servicio de Defensa del Contribuyente, Taxpayer Advocate Service, en inglés</a>pueden ayudarle con el proceso.</p>
               question: "¿Qué puedo hacer si otra persona ha declarado a mi hijo para el Crédito Tributario por Hijos?"
             what_if_i_dont_have_any_income_or_only_income:
-              answer_html: No es necesario tener ningún ingreso para tener derecho al Crédito Tributario por Hijos (CTC) y recibir pagos de otros programas de prestaciones no influye en su elegibilidad.
+              answer_html: No es necesario tener ningún ingreso para tener derecho al Crédito Tributario por Hijos (CTC) y recibir pagos de otros programas de prestaciones no influye en su elegibilidad. Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.
               question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
             what_is_the_child_tax_credit_ctc:
               answer_html: |
@@ -3298,9 +3298,9 @@ es:
               question: "¿Qué es GetYourRefund y cómo funciona?"
             what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
-                <p>GetCTC, también se conoce como la herramienta para las personas que no declaran impuestos. Es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y luego presentamos su declaración de impuestos directamente con el IRS.</p>
-                <p>Puede utilizar GetCTC para declarar pagos de estímulo (Pagos por Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario ni los créditos fiscales estatales. Generalmente, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
-                <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o si le falta una copia de su tarjeta de Seguro Social.</p>
+                <p><a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta nonfiler, es la opción de presentación más sencilla y rápida. Todo lo que tiene que hacer es responder algunas preguntas y luego presentaremos su declaración de impuestos directamente con el IRS.</p>
+                <p>Puede usar GetCTC para reclamar el tercer pago de estímulo (pago de impacto económico) y el crédito fiscal por hijos (CTC), pero no el crédito fiscal por ingreso del trabajo ni los créditos fiscales estatales. Por lo general, solo puede usar GetCTC si es soltero y ganó menos de $12 500 en 2021, o si está casado y ganó menos de $25 000 en 2021.</p>
+                <p>GetCTC es una excelente opción para usted si <em>solo</em> busca obtener su tercer pago de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos fiscales o le falta una copia impresa de su Social Tarjeta de seguridad.</p>
               question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3407,7 +3407,7 @@ es:
             where_is_the_nonfiler_portal_where_is_getctc:
               answer_html: |
                 <p>En 2020 y 2021, el "portal para no declarantes" ("nonfiler portal" en inglés), o "herramienta para no declarantes" ("non-filer tool" en inglés) del IRS permitió a las personas que no suelen presentar declaraciones presentar una declaración de impuestos sencilla para declarar beneficios como los pagos de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
-                <p>Actualmente, por normas del IRS, estos portales para no declarantes están cerrados. Si anteriormente presentó una declaración simple para declarar sus beneficios fiscales, puede intentar declarar aún más dinero presentando una declaración completa de forma gratuita con <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>. Nuestros voluntarios certificados por el IRS pueden ayudarle a presentarla. Si no puede presentar una declaración completa, puede <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">suscribirse</a> para que se le notifique cuando nuestro nuevo servicio de declaración simplificada (a veces llamado portal para no declarantes) abra en mayo de 2022.</p>
+                <p>Si anteriormente usó una herramienta de no declaración, puede presentar una declaración de impuestos simple hoy usando <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Dónde está el portal para no declarantes? ¿Dónde está GetCTC?"
           paper_filing:
             how_do_i_paper_file:
@@ -3444,7 +3444,7 @@ es:
             how_do_i_get_the_ctc_in_puerto_rico:
               answer_html: |
                 <p>Si desea declarar el Crédito Tributario por Hijos (CTC), tiene que facilitar sus datos al IRS, aunque normalmente no tenga que declarar impuestos en EE.UU. al IRS. <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">El Instituto del Desarrollo de la Juventud ofrece instrucciones </a>sobre cómo presentar el formulario 1040-PR para declarar el crédito.</p>
-                <p>Si gana menos de $75,000 soltero o $150,000 casado, también es probable que GetYourRefund proporcione un formulario simplificado en línea para declarar el CTC, pero esta opción no estará disponible hasta mayo.</p>
+                <p>Una regla del IRS ha cambiado recientemente por lo que pronto podrá reclamar el Crédito Tributario por Hijos en línea en Puerto Rico. <a href="https://www.getctc.org/es/sign-up" target="_blank" rel="noopener">Regístrese</a> para recibir actualizaciones sobre los servicios de GetCTC para Puerto Rico.</p>
               question: "¿Cómo puedo obtener el Crédito Tributario por Hijos (CTC) en Puerto Rico?"
             how_do_i_get_the_eitc_in_puerto_rico:
               answer_html: A diferencia del Crédito Tributario por Hijos(CTC), el Earned Income crédito tributario (EITC) en Puerto Rico es administrado por el Departamento de Hacienda de Puerto Rico, no por el IRS. Para declarar el EITC, tendrá que presentar una declaración de impuestos de Puerto Rico ante el Departamento.
@@ -3498,7 +3498,7 @@ es:
             am_i_a_nonfiler:
               answer_html: |
                 <p>El término "no declarante" se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el crédito tributario por ingresos del trabajo.</p>
-                <p>El "No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para declarar los beneficios fiscales disponibles. Al presentar una declaración de impuestos, usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no suele declarar impuestos.</p>
+                <p>El "No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para declarar los beneficios fiscales disponibles. Al presentar una declaración de impuestos, usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no suele declarar impuestos. Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar nuestra herramienta para personas que no declaran, <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Soy un no declarante?"
             im_1924_should_i_file_a_tax_return:
               answer_html: |
@@ -3516,8 +3516,8 @@ es:
               answer_html: |
                 <p>Aún si gana poco o nada y no está obligado a presentar una declaración de impuestos, es probable que tenga derecho a recibir pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que tenga derecho a pagos si tiene hijos. Para poder declarar este dinero, tiene que presentar una declaración de impuestos.</p>
                 <p>La presentación de la declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayuda económicas para la universidad, o un préstamo hipotecario.</p>
-                <p>Es posible presentar una declaración de impuestos completa y declarar todos los beneficios fiscales pertinentes con GetYourRefund. Para obtener el servicio más rápido, pruebe nuestra opción <a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a>.</p>
-                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede elegir esperar y presentar una declaración simplificada para declarar sólo el Crédito Tributario por Hijos y el tercer pago de estímulo usando nuestra opción gratuita GetCTC en mayo de 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Inscríbase aquí</a> para recibir un mensaje cuando la presentación de GetCTC esté disponible.</p>
+                <p>Puede presentar una declaración de impuestos completa y reclamar todos los beneficios fiscales relevantes con la ayuda de un preparador de impuestos usando <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener">Obtenga su reembolso</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/es/diy" target="_blank" rel="noopener">File Myself</a>.</p>
+                <p>Si gana menos de $ 12,500 (o menos de $ 25,000 como pareja casada), puede elegir esperar y presentar una declaración simplificada para reclamar solo el Crédito fiscal por hijos y el tercer pago de estímulo usando <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
