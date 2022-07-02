@@ -3166,6 +3166,7 @@ es:
               question: "¿Cómo se solicita el Crédito Tributario por Hijos para un bebé nacido en 2022?"
             how_do_i_get_my_child_tax_credit_ctc_payments:
               answer_html: |
+                <p>Para obtener el Child Tax Credit (CTC) debe presentar una declaración de impuestos.</p>
                 <p>Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
                 <p>Para presentar una declaración de impuestos completa para reclamar el CTC y todos los demás beneficios fiscales para los que es elegible, puede usar <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener">GetYourRefund</a>.</p>
                 <p>Ya sea que haya recibido pagos mensuales de CTC o no el año pasado, y haya presentado o no impuestos en los últimos años o en absoluto, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
