@@ -1974,7 +1974,7 @@ en:
             help_text_html: |
               <p class="text--bold">If you already filed a federal 2021 tax return (1040, 1040PR, 1040SS) this year, the IRS will reject your GetCTC return without looking at it.</p>
               <p>If you received a notice from the IRS this year about your return (Letter 5071C, Letter 6331C, or Letter 12C), then you already filed a federal return with the IRS this year.</p>
-              <p class="text--bold text--small">Note: federal return with the IRS is separate from a Puerto Rico return you may have filled with Hacienda.</p>
+              <p class="text--bold text--small">Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.</p>
             reveal:
               content_title: 'If you received any of the letters listed here, you’ve already filed:'
               list_content:
