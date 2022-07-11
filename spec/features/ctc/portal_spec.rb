@@ -335,6 +335,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
           "street_address" => ["972 Mission St", "123 Sandwich Lane"],
+          "usps_address_verified_at" => ["nil", an_instance_of(String)],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
@@ -449,7 +450,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text "Edit your address"
         fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
         click_on "Save"
-        
+
         within ".address-info" do
           expect(page).to have_text "94117"
         end
@@ -475,7 +476,10 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         notes = SystemNote::CtcPortalUpdate.order(:id)
 
-        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
+        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
+                                                                                  "zip_code" => ["94103", "94117"],
+                                                                                  "usps_address_verified_at" => ["nil", an_instance_of(String)],
+                                                                                })
 
         expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
 
@@ -517,7 +521,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
             expect(page).to have_text "94117"
           end
 
-          expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+          expect(page).to have_button(I18n.t('views.ctc.portal.edit_info.resubmit'), disabled: true)
           expect(page).to have_text I18n.t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: "support@getctc.org")
           expect(page).not_to have_text I18n.t("views.ctc.portal.edit_info.help_text_cant_submit")
         end

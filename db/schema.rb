@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_07_193139) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_30_180747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1177,6 +1177,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_193139) do
     t.datetime "updated_at", null: false
     t.boolean "use_primary_name_for_name_control", default: false
     t.boolean "used_itin_certifying_acceptance_agent", default: false, null: false
+    t.integer "usps_address_late_verification_attempts", default: 0
+    t.datetime "usps_address_verified_at"
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.bigint "vita_partner_id"
