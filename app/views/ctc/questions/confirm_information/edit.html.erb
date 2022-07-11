@@ -59,13 +59,6 @@
       <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse_full_name), options: { maxlength: 5 }, type: "tel", classes: ["form-width--long"]) %>
     <% end %>
 
-    <%= button_tag(
-          class: "button button--primary button--wide spacing-above-60",
-          type: "submit",
-          data: { disable_with: t("general.continue") },
-          disabled: @submit_disabled
-        ) do %>
-      <%= t("general.continue") %>
-    <% end %>
+    <%= f.submit(t("general.continue"), class: "button button--primary button--wide spacing-above-60", disabled: @submit_disabled) %>
   <% end %>
 <% end %>
