@@ -109,7 +109,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       end
 
       # Disallow submission until the address is fixed
-      expect(page).to have_selector("button:disabled", text: I18n.t('general.continue'))
+      expect(page).to have_button(I18n.t('general.continue'), disabled: true)
 
       within ".address-info" do
         click_on "edit"
@@ -161,7 +161,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       end
 
       # Disallow submission until the client attempts to fix address
-      expect(page).to have_selector("button:disabled", text: I18n.t('general.continue'))
+      expect(page).to have_button(I18n.t('general.continue'), disabled: true)
 
       within ".address-info" do
         click_on "edit"

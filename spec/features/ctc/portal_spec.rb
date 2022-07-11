@@ -450,7 +450,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text "Edit your address"
         fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
         click_on "Save"
-        
+
         within ".address-info" do
           expect(page).to have_text "94117"
         end
@@ -521,7 +521,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
             expect(page).to have_text "94117"
           end
 
-          expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+          expect(page).to have_button(I18n.t('views.ctc.portal.edit_info.resubmit'), disabled: true)
           expect(page).to have_text I18n.t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: "support@getctc.org")
           expect(page).not_to have_text I18n.t("views.ctc.portal.edit_info.help_text_cant_submit")
         end
