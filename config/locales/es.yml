@@ -1343,16 +1343,9 @@ es:
     surveys:
       completion:
         email:
-          body: |
-            ¡Gracias por presentar sus impuestos con GetYourRefund!
-
-            Puede verificar el estado de su reembolso en el sitio web del IRS <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
-
-            ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue?
-
-            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+          body: "¡Gracias por elegir GetYourRefund! \n\nSi se aceptó su declaración de impuestos, puede verificar el estado de su reembolso en el sitio web del IRS <a href=\"https://www.irs.gov/refunds\">https://www.irs.gov/refunds</a>.\n\n¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue?\n\nResponda nuestra encuesta de 5 minutos aquí: %{survey_link}\n"
           subject: "¡Gracias por declarar tus impuestos con GetYourRefund!"
-        sms: 'Gracias por presentar sus impuestos con GetYourRefund. ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}'
+        sms: "¡Gracias por elegir GetYourRefund! ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}"
       ctc_experience:
         email:
           body: |
