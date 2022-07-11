@@ -99,8 +99,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       # see error notice
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.mailing_address.title'))
       within ".notice--error" do
-        expect(page).to have_text "Oh no! We could not process your address. Please update the information you entered."
-        expect(page).to have_text "Error: Address Not Found"
+        expect(page).to have_text I18n.t('views.ctc.questions.mailing_address.error_notice')
+        expect(page).to have_text I18n.t('forms.errors.mailing_address.not_found')
       end
     end
   end
