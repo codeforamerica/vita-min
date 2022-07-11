@@ -45,4 +45,25 @@ RSpec.feature "Admin Tools", active_job: true do
     click_on "SLA Breaches"
     expect(page).to have_text "Report run at:"
   end
+
+  scenario "admin can click to verifications page" do
+    visit hub_user_profile_path
+    click_on "Admin Tools"
+    click_on "Client Verification"
+    expect(page).to have_text "verification attempts"
+  end
+
+  scenario "admin can click to efile errors page" do
+    visit hub_user_profile_path
+    click_on "Admin Tools"
+    click_on "E-file Errors"
+    expect(page).to have_text "Error Code"
+  end
+
+  scenario "admin can click to efile page" do
+    visit hub_user_profile_path
+    click_on "Admin Tools"
+    click_on "E-file Dashboard"
+    expect(page).to have_text "submissions"
+  end
 end
