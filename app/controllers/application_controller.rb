@@ -402,6 +402,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Rails's CSRF countermeasures trigger two exceptions. Mostly these are triggered by security scans.
+  # Catch them to avoid being noisy in logs etc.
+  rescue_from 'ActionController::InvalidCrossOriginRequest' do
+    DatadogApi.increment("rails.invalid_cross_origin_request")
+    respond_to do |format|
+      format.any { head 422 }
+    end
+  end
+
   rescue_from 'ActionController::InvalidAuthenticityToken' do
     DatadogApi.increment("rails.invalid_authenticity_token")
     flash[:alert] = I18n.t('general.authenticity_token_invalid')

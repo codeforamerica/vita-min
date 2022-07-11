@@ -5,7 +5,10 @@ RSpec.describe ApplicationController do
 
   controller do
     def index
-      head :ok
+      respond_to do |format|
+        format.html { head :ok }
+        format.js { head :ok }
+      end
     end
   end
 
@@ -1127,7 +1130,7 @@ RSpec.describe ApplicationController do
         before do
           allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return true
         end
-        
+
         context "when the param value is 1" do
           it "sets the cookie value" do
             get :index, params: { ctc_beta: 1 }
@@ -1185,6 +1188,36 @@ RSpec.describe ApplicationController do
       it "sets collapse main menu to true" do
         subject.set_collapse_main_menu
         expect(assigns(:collapse_main_menu)).to eq true
+      end
+    end
+  end
+
+  context "when receiving invalid requests from robots" do
+    before do
+      allow(DatadogApi).to receive(:increment)
+      allow_any_instance_of(ApplicationController).to receive(:protect_against_forgery?).and_return(true)
+    end
+
+    context "when receiving a request for a JS page without the Rails authenticity token" do
+      it "captures the error and responds with 422" do
+        get :index, format: :js
+        expect(response.status).to eq 422
+        expect(DatadogApi).to have_received(:increment).with("rails.invalid_cross_origin_request")
+      end
+    end
+
+    context "when receiving a POST request without the Rails authenticity token" do
+      it "captures the error and responds with a redirect" do
+        post :index
+        expect(response.status).to eq 302
+        expect(DatadogApi).to have_received(:increment).with("rails.invalid_authenticity_token")
+      end
+    end
+
+    context "when receiving a request with an unknown format" do
+      it "responds with 404" do
+        get :index, format: :text
+        expect(response.status).to eq(404)
       end
     end
   end
