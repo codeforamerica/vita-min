@@ -66,8 +66,8 @@ describe UpdateClientVitaPartnerService do
     context "when the assigned user does have access to the new vita partner" do
       let(:assigned_user) { create :organization_lead_user, organization: current_site.parent_organization }
 
-      it "changes the vita partner" do
-        expect { subject.update! }.to change(client, :vita_partner).from(current_site).to(other_site)
+      it "changes the vita partner without changing the routing_method" do
+        expect { subject.update! }.to change(client, :vita_partner).from(current_site).to(other_site).and not_change(client, :routing_method)
       end
 
       it "leaves the assignee on the return" do
