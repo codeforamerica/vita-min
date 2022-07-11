@@ -2350,7 +2350,8 @@ es:
           help_text: Por lo general, alguien puede reclamar a usted como dependiente si es un miembro de su familia, usted vivió con ellos la mayor parte del año y pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
-          error_notice: "¡Oh, no! No pudimos procesar su dirección. Actualice la información que ingresó."
+          error_notice: "¡Oh, no! No pudimos validar su dirección con el Servicio Postal de EE. UU. Vuelva a verificar que ingresó su dirección correctamente y actualice cualquier información."
+          help_text: Verificaremos la dirección que ingrese con el Servicio Postal de EE. UU. antes de procesar su devolución. El IRS solo aceptará direcciones en un formato validado por USPS.
           puerto_rico_reveal_html: |
             Si vive en Puerto Rico, su dirección debe escribirse como Número, Avenida/Calle, Nombre de la calle. (Ej: use 63 Calle Fortaleza, no use Calle Fortaleza 63)
             <br/><br/>

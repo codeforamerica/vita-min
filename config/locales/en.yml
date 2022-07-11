@@ -2373,7 +2373,8 @@ en:
           help_text: Generally, someone can claim you as a dependent if they are your family member, you lived with them most of the year, and they paid for most of your living expenses.
           title: Can anyone else claim you on their %{current_tax_year} tax return?
         mailing_address:
-          error_notice: Oh no! We could not process your address. Please update the information you entered.
+          error_notice: Oh no! We could not validate your address with the US Postal Service. Please double check that you entered your address correctly and update any information.
+          help_text: We will verify the address you enter with the US Postal Service before processing your return. The IRS will only accept addresses in a USPS-validated format.
           puerto_rico_reveal_html: |
             If you live in Puerto Rico, your address should be written as Number, Avenida/Calle, Street Name (ex: 63 Calle Fortaleza, not, Calle Fortaleza 63).
             <br/><br/>
