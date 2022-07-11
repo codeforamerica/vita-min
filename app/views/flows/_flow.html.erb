@@ -1,6 +1,8 @@
 <p>
   <% if flow_params.reference_object %>
     Reference Object: <strong><%= flow_params.pretty_reference_object %></strong>
+    <br/>
+    <%= link_to 'View client in hub', url_for(host: MultiTenantService.new(:gyr).host, controller: "/hub/clients", action: 'show', id: flow_params.reference_object.client_id), target: "_blank" %>
   <% else %>
     <strong>No Reference Object -- Showing All Pages</strong>
   <% end %>

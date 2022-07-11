@@ -16,6 +16,24 @@
         <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: @form.fraud_score, fraud_indicators: @form.fraud_indicators, hide_zeros: true }  %>
       <hr class="spacing-above-5 spacing-below-5">
 
+      <div class="grid-flex">
+        <div class="item-15r">
+          <b>Mailing address:</b>
+          <br/>
+          <%= simple_format @verification_attempt.intake.address.to_s, { class: "spacing-below-15"} %>
+        </div>
+        <div class="item-15r">
+          <b>Source param:</b>
+          <br/>
+          <%= @verification_attempt.intake.source || "N/A" %>
+        </div>
+        <div>
+          <b>Email:</b>
+          <br/>
+          <%= @verification_attempt.intake.email_address || "N/A" %>
+        </div>
+      </div>
+
       <% if @verification_attempt.client_bypass_request.present? %>
         <div class="note">
           <div class="note__body">

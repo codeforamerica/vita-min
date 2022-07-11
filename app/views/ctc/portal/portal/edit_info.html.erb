@@ -62,14 +62,7 @@
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
           <%= recaptcha_v3(action: 'resubmit') %>
-          <%= button_tag(
-                class: "button button--primary button--full-width",
-                type: "submit",
-                data: { disable_with: t("general.please_wait") },
-                disabled: !@submit_enabled
-              ) do %>
-            <%= t("views.ctc.portal.edit_info.resubmit") %>
-          <% end %>
+          <%= f.submit(t("views.ctc.portal.edit_info.resubmit"), class: "button button--primary button--full-width", disabled: !@submit_enabled) %>
         <% else %>
           <p>
             <%= @intake.default_tax_return.under_submission_limit? ? t("views.ctc.portal.edit_info.help_text_cant_submit") : t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: mail_to("support@getctc.org")) %>

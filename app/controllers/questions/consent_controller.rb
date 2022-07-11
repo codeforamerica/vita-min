@@ -32,7 +32,7 @@ module Questions
         )
         current_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
       end
-      
+
       # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
         tax_returns = []

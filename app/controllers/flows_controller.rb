@@ -250,6 +250,7 @@ class FlowsController < ApplicationController
       }
       client = Client.create!(
         intake_attributes: intake_attributes,
+        consented_to_service_at: Time.zone.now,
         efile_security_informations_attributes: [{
           ip_address: '127.0.0.1',
           device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",

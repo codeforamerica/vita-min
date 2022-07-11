@@ -8,7 +8,6 @@
       <%= f.cfa_checkbox(:primary_accepts_terms, t(".efile_acceptance", year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
       <%= f.cfa_checkbox(:primary_confirms_identity, t(".efile_identity_primary", name: @tax_return.client.legal_name&.upcase, year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
     </div>
-    <%= f.submit "Submit", class: 'button button--primary button--wide' %>
+    <%= f.continue t("general.submit") %>
   <% end %>
 </div>
-
