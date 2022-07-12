@@ -1,4 +1,6 @@
 class RequestVerificationCodeEmailJob < ApplicationJob
+  retry_on Mailgun::CommunicationError
+
   def perform(email_address: , locale: , visitor_id: , client_id: nil, service_type:)
     EmailVerificationCodeService.request_code(
       email_address: email_address,
