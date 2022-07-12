@@ -1,6 +1,7 @@
 class SendOutgoingEmailJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
+  retry_on Mailgun::CommunicationError
 
   def perform(outgoing_email_id)
     outgoing_email = OutgoingEmail.find(outgoing_email_id)
