@@ -41,6 +41,16 @@ class StandardizeAddressService
     @result[:urbanization]
   end
 
+  def verified_address_attributes
+    {
+      zip_code: zip_code,
+      street_address: street_address,
+      state: state,
+      city: city,
+      urbanization: urbanization
+    }
+  end
+
   def error_message
     return nil unless @result[:error_message]
 

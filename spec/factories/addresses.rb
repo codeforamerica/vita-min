@@ -9,6 +9,7 @@
 #  state                :string
 #  street_address       :string
 #  street_address2      :string
+#  urbanization         :string
 #  zip_code             :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -25,5 +26,11 @@ FactoryBot.define do
     zip_code { "77494" }
     state { "TX" }
     city { "KATY" }
+    trait :with_urbanization do
+      zip_code { "00797" }
+      state { "PR" }
+      city { "SAN JUAN" }
+      urbanization { "URB PICARD" }
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_13_183147) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_13_210511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_183147) do
     t.string "street_address"
     t.string "street_address2"
     t.datetime "updated_at", null: false
+    t.string "urbanization"
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_addresses_on_record_type_and_record_id"
   end

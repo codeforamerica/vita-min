@@ -129,13 +129,7 @@ class EfileSubmission < ApplicationRecord
     end
 
     if address_service.valid?
-      attrs = {
-        zip_code: address_service.zip_code,
-        street_address: address_service.street_address,
-        state: address_service.state,
-        city: address_service.city
-      }
-      create_verified_address!(attrs)
+      create_verified_address!(address_service.verified_address_attributes)
     end
     address_service # return the service object so that we can get errors if there are any
   end

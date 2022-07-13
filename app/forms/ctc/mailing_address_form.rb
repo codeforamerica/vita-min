@@ -10,15 +10,10 @@ module Ctc
 
     def save
       if address_service.has_verified_address?
-        attrs = {
-          zip_code: address_service.zip_code,
-          urbanization: address_service.urbanization,
-          street_address: address_service.street_address,
+        attrs = address_service.verified_address_attributes.merge(
           street_address2: nil,
-          state: address_service.state,
-          city: address_service.city,
           usps_address_verified_at: DateTime.now,
-        }
+        )
         @intake.update(attrs)
       else
         @intake.update(attributes_for(:intake))
