@@ -79,11 +79,12 @@ class StandardizeAddressService
 
   def build_standardized_address
     usps_address_xml = get_usps_address_xml
+    puts usps_address_xml.xpath("//Address/Urbanization").inspect
     return {} unless usps_address_xml
 
     {
       street_address: usps_address_xml.xpath("//Address/Address2").text,
-      urbanization: usps_address_xml.xpath("//Address/Urbanization")&.text,
+      urbanization: usps_address_xml.xpath("//Address/Urbanization").presence&.text,
       city: usps_address_xml.xpath("//Address/City").text,
       state: usps_address_xml.xpath("//Address/State").text,
       zip_code: usps_address_xml.xpath("//Address/Zip5").text,
