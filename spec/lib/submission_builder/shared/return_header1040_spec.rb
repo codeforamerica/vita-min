@@ -287,11 +287,11 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
           response = described_class.build(submission)
           expect(response).to be_an_instance_of SubmissionBuilder::Response
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
-          expect(xml.at("AddressLine1Txt").text).to eq "URB PICARD, 23627 HAWKINS CREEK CT"
+          expect(xml.at("AddressLine1Txt").text).to eq "URB PICARD 23627 HAWKINS CREEK CT"
           expect(xml.at("CityNm").text).to eq "SAN JUAN"
           expect(xml.at("StateAbbreviationCd").text).to eq "PR"
           expect(xml.at("ZIPCd").text).to eq "00797"
-          expect(response).not_to be_valid
+          expect(response).to be_valid
         end
       end
     end
