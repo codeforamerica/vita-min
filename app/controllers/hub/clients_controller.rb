@@ -199,6 +199,10 @@ module Hub
         end
       end
 
+      def urbanization
+        @intake.urbanization if @intake.respond_to?(:urbanization)
+      end
+
       def editable?
         !!@client.intake
       end

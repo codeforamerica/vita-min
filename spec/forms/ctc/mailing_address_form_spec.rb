@@ -123,12 +123,14 @@ describe Ctc::MailingAddressForm do
       before do
         allow(StandardizeAddressService).to receive(:new).and_return(address_service_double)
         allow(address_service_double).to receive(:valid?).and_return true
-        allow(address_service_double).to receive(:street_address).and_return "123 Main Street STE 5"
-        allow(address_service_double).to receive(:state).and_return state
-        allow(address_service_double).to receive(:zip_code).and_return "77494"
-        allow(address_service_double).to receive(:city).and_return "Newton-John"
         allow(address_service_double).to receive(:has_verified_address?).and_return true
-        allow(address_service_double).to receive(:urbanization).and_return(nil)
+        allow(address_service_double).to receive(:verified_address_attributes).and_return({
+          street_address: "123 Main Street STE 5",
+          state: state,
+          zip_code: "77494",
+          city: "Newton-John",
+          urbanization: nil,
+        })
       end
 
       it "saves the values returned from the API" do
@@ -148,7 +150,13 @@ describe Ctc::MailingAddressForm do
         let(:state) { "PR" }
         before do
           params.merge!(urbanization: "Urb Picard")
-          allow(address_service_double).to receive(:urbanization).and_return("URB PICARD")
+          allow(address_service_double).to receive(:verified_address_attributes).and_return({
+            street_address: "123 Main Street STE 5",
+            state: state,
+            zip_code: "77494",
+            city: "Newton-John",
+            urbanization: "URB PICARD",
+          })
         end
 
         it "saves the urbanization into the intake" do
