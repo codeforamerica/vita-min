@@ -9,6 +9,7 @@
 #  state                :string
 #  street_address       :string
 #  street_address2      :string
+#  urbanization         :string
 #  zip_code             :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -25,7 +26,7 @@ class Address < ApplicationRecord
 
   def to_s
     <<~ADDRESS
-      #{street_address} #{street_address2}
+      #{urbanization} #{street_address} #{street_address2}
       #{city}, #{state} #{zip_code}
     ADDRESS
   end

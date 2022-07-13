@@ -207,7 +207,8 @@
             <div class="field-display">
               <span class="form-question"><%= t(".mailing_address") %>:</span>
               <div class="label-indented spacing-above-10">
-                <div> <%= @client.intake&.street_address %></div>
+                <div><%= @client.urbanization if @client.urbanization.present? %></div>
+                <div><%= @client.intake.street_address %></div>
                 <div><%= @client.intake.street_address2 if @client.intake.street_address2.present? %></div>
                 <div><%= @client.intake.city %>, <%= @client.intake.state %> <%= @client.intake.zip_code %></div>
               </div>

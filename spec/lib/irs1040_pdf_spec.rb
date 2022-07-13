@@ -47,7 +47,7 @@ RSpec.describe Irs1040Pdf do
       }
 
       it "returns defaults" do
-        submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no", zip_code: "", city: "", state: "", street_address: "", street_address2: "" )
+        submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no", zip_code: "", city: "", state: "", street_address: "", street_address2: "")
         submission.verified_address.destroy!
         submission.intake.dependents.destroy_all
         submission.tax_return.update(filing_status: nil)
@@ -169,28 +169,28 @@ RSpec.describe Irs1040Pdf do
     end
 
     it "renders xml fields" do
-        output_file = pdf.output_file
-        result = filled_in_values(output_file.path)
-        expect(result).to match(hash_including(
-          "FilingStatus" => "1",
-          "PrimarySSN" => '111223333',
-          "VirtualCurAcquiredDurTYInd" => "true",
-          "TotalItemizedOrStandardDedAmt12a" => "999",
-          "TotalAdjustmentsToIncomeAmt12c" => "999",
-          "TotalDeductionsAmt14" => "999",
-          "TaxableIncomeAmt15" => "100",
-          "RecoveryRebateCreditAmt30" => "200",
-          "RefundableCreditsAmt32" => "300",
-          "TotalPaymentsAmt33" => "400",
-          "OverpaidAmt34" => "500",
-          "RefundAmt35" => "600",
-          "PrimaryIPPIN" => "12345",
-          "PhoneNumber" => "(415) 555-1212",
-          "EmailAddress" => "example@example.com",
-          "Primary65OrOlderInd" => "Off",
-          "PrimaryBlindInd" => "Off",
-        ))
-      end
+      output_file = pdf.output_file
+      result = filled_in_values(output_file.path)
+      expect(result).to match(hash_including(
+        "FilingStatus" => "1",
+        "PrimarySSN" => '111223333',
+        "VirtualCurAcquiredDurTYInd" => "true",
+        "TotalItemizedOrStandardDedAmt12a" => "999",
+        "TotalAdjustmentsToIncomeAmt12c" => "999",
+        "TotalDeductionsAmt14" => "999",
+        "TaxableIncomeAmt15" => "100",
+        "RecoveryRebateCreditAmt30" => "200",
+        "RefundableCreditsAmt32" => "300",
+        "TotalPaymentsAmt33" => "400",
+        "OverpaidAmt34" => "500",
+        "RefundAmt35" => "600",
+        "PrimaryIPPIN" => "12345",
+        "PhoneNumber" => "(415) 555-1212",
+        "EmailAddress" => "example@example.com",
+        "Primary65OrOlderInd" => "Off",
+        "PrimaryBlindInd" => "Off",
+      ))
+    end
     context "with no verified address" do
       before do
         submission.update(verified_address: nil)
@@ -201,11 +201,25 @@ RSpec.describe Irs1040Pdf do
         output_file = pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
-                                    "AddressLine1Txt" => "850 Mission St UNIT 2",
-                                    ))
+          "AddressLine1Txt" => "850 Mission St UNIT 2",
+        ))
       end
     end
-    
+
+    context "with an urbanization code within a Puerto Rico address" do
+      before do
+        submission.verified_address.update!(urbanization: "Urb Picard")
+      end
+
+      it "puts the urbanization into the street_address" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+          "AddressLine1Txt" => "Urb Picard, 23627 HAWKINS CREEK CT",
+        ))
+      end
+    end
+
     it 'renders fields that have to be from the db instead of xml because the xml is truncated or weird' do
       output_file = pdf.output_file
       result = filled_in_values(output_file.path)
@@ -333,7 +347,7 @@ RSpec.describe Irs1040Pdf do
           xml.DependentDetail do
             xml.DependentFirstNm "Danielle"
             xml.DependentLastNm "Dob"
-            xml.DependentRelationshipCd  "DAUGHTER"
+            xml.DependentRelationshipCd "DAUGHTER"
             xml.DependentSSN "123456789"
             xml.EligibleForChildTaxCreditInd "X"
           end
@@ -357,19 +371,19 @@ RSpec.describe Irs1040Pdf do
         output_file = pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
-                                  "DependentLegalNm[0]" => "Danielle Dob",
-                                  "DependentRelationship[0]" => "DAUGHTER",
-                                  "DependentSSN[0]" => "123456789",
-                                  "DependentCTCInd[0]" => "1", # checked
-                                  "DependentLegalNm[1]" => "Daniel Dob2",
-                                  "DependentRelationship[1]" => "SON",
-                                  "DependentSSN[1]" => "123456788",
-                                  "DependentCTCInd[1]" => "1", # checked
-                                  "DependentLegalNm[2]" => "Mother Dob3",
-                                  "DependentRelationship[2]" => "PARENT",
-                                  "DependentSSN[2]" => "123455787",
-                                  "DependentCTCInd[2]" => "0", # unchecked
-                                ))
+          "DependentLegalNm[0]" => "Danielle Dob",
+          "DependentRelationship[0]" => "DAUGHTER",
+          "DependentSSN[0]" => "123456789",
+          "DependentCTCInd[0]" => "1", # checked
+          "DependentLegalNm[1]" => "Daniel Dob2",
+          "DependentRelationship[1]" => "SON",
+          "DependentSSN[1]" => "123456788",
+          "DependentCTCInd[1]" => "1", # checked
+          "DependentLegalNm[2]" => "Mother Dob3",
+          "DependentRelationship[2]" => "PARENT",
+          "DependentSSN[2]" => "123455787",
+          "DependentCTCInd[2]" => "0", # unchecked
+        ))
       end
     end
   end

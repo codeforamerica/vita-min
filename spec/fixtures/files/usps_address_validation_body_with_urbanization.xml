@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressValidateResponse>
+  <Address ID="0">
+    <Address2>1-23 CALLE 1</Address2>
+    <City>BAYAMON</City>
+    <State>PR</State>
+    <Urbanization>URB SIERRA BAYAMON</Urbanization>
+    <Zip5>00961</Zip5>
+    <Zip4/>
+    <CarrierRoute>C027</CarrierRoute>
+    <Footnotes>N</Footnotes>
+    <DPVConfirmation>N</DPVConfirmation>
+    <DPVFalse>N</DPVFalse>
+    <DPVFootnotes>AAM3</DPVFootnotes>
+    <CentralDeliveryPoint>N</CentralDeliveryPoint>
+  </Address>
+</AddressValidateResponse>

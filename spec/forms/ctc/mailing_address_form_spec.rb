@@ -119,14 +119,18 @@ describe Ctc::MailingAddressForm do
     # as it will be combined with street_address when pulled from the API
     context "when the address was successfully verified with the USPS API" do
       let(:address_service_double) { double }
+      let(:state) { "TX" }
       before do
         allow(StandardizeAddressService).to receive(:new).and_return(address_service_double)
         allow(address_service_double).to receive(:valid?).and_return true
-        allow(address_service_double).to receive(:street_address).and_return "123 Main Street STE 5"
-        allow(address_service_double).to receive(:state).and_return "TX"
-        allow(address_service_double).to receive(:zip_code).and_return "77494-1111"
-        allow(address_service_double).to receive(:city).and_return "Newton-John"
         allow(address_service_double).to receive(:has_verified_address?).and_return true
+        allow(address_service_double).to receive(:verified_address_attributes).and_return({
+          street_address: "123 Main Street STE 5",
+          state: state,
+          zip_code: "77494",
+          city: "Newton-John",
+          urbanization: nil,
+        })
       end
 
       it "saves the values returned from the API" do
@@ -136,10 +140,36 @@ describe Ctc::MailingAddressForm do
         }.to change(intake, :street_address).to("123 Main Street STE 5")
          .and change(intake, :city).to("Newton-John")
          .and change(intake, :state).to("TX")
-         .and change(intake, :zip_code).to("77494-1111")
+         .and change(intake, :zip_code).to("77494")
          .and not_change(intake, :street_address2)
         expect(intake.street_address2).to be_nil
         expect(intake.usps_address_verified_at).to be_within(1.second).of(DateTime.now)
+      end
+
+      context "with a Puerto Rico urbanization code" do
+        let(:state) { "PR" }
+        before do
+          params.merge!(urbanization: "Urb Picard")
+          allow(address_service_double).to receive(:verified_address_attributes).and_return({
+            street_address: "123 Main Street STE 5",
+            state: state,
+            zip_code: "77494",
+            city: "Newton-John",
+            urbanization: "URB PICARD",
+          })
+        end
+
+        it "saves the urbanization into the intake" do
+          form = described_class.new(intake, params)
+          expect {
+            form.save
+          }.to change(intake, :street_address).to("123 Main Street STE 5")
+            .and change(intake, :city).to("Newton-John")
+            .and change(intake, :state).to(state)
+            .and change(intake, :zip_code).to("77494")
+            .and change(intake, :urbanization).to("URB PICARD")
+            .and not_change(intake, :street_address2)
+        end
       end
     end
 
@@ -161,6 +191,26 @@ describe Ctc::MailingAddressForm do
          .and change(intake, :city).to("Newton")
          .and change(intake, :state).to("TX")
          .and change(intake, :zip_code).to("77494")
+      end
+
+
+      context "with a Puerto Rico urbanization code" do
+        before do
+          params.merge!(state: "PR")
+          params.merge!(urbanization: "Urb Picard")
+        end
+
+        it "saves the urbanization into the intake" do
+          form = described_class.new(intake, params)
+          expect {
+            form.save
+          }.to change(intake, :street_address).to("123 Main St")
+            .and change(intake, :street_address2).to("STE 5")
+            .and change(intake, :city).to("Newton")
+            .and change(intake, :state).to("PR")
+            .and change(intake, :zip_code).to("77494")
+            .and change(intake, :urbanization).to("Urb Picard")
+        end
       end
     end
   end

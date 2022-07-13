@@ -510,6 +510,7 @@ es:
     update: Actualizar
     updated_at: Actualizado en
     upload: Subir
+    urbanization: Código de urbanización
     used_navigator: Navegador usado
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
@@ -4185,6 +4186,7 @@ es:
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
         unable_to_validate: Ocurrió un error al comunicarse con el Servicio Postal de EE. UU. Por favor, envíe su dirección de nuevo.
+        urbanization: Código de urbanización
         zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.

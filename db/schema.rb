@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_30_180747) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_13_210511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_180747) do
     t.string "street_address"
     t.string "street_address2"
     t.datetime "updated_at", null: false
+    t.string "urbanization"
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_addresses_on_record_type_and_record_id"
   end
@@ -1175,6 +1176,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_180747) do
     t.integer "triage_vita_income_ineligible", default: 0, null: false
     t.string "type"
     t.datetime "updated_at", null: false
+    t.string "urbanization"
     t.boolean "use_primary_name_for_name_control", default: false
     t.boolean "used_itin_certifying_acceptance_agent", default: false, null: false
     t.integer "usps_address_late_verification_attempts", default: 0

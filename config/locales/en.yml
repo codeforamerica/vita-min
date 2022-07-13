@@ -509,6 +509,7 @@ en:
     update: Update
     updated_at: Updated At
     upload: Upload
+    urbanization: Urbanization code
     used_navigator: Used navigator
     very_well: Very well
     visit_free_file: Visit IRS Free File
@@ -4176,6 +4177,7 @@ en:
         street_address2: Apartment number (optional)
         title: What is your mailing address?
         unable_to_validate: An error occurred while contacting the US Postal Service. Please submit your address again.
+        urbanization: Urbanization code
         zip_code: ZIP code
       married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.

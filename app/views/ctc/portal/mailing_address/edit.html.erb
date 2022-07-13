@@ -14,6 +14,9 @@
         <%= render 'ctc/questions/mailing_address/address_notices' %>
 
         <div class="form-card__content">
+          <% if current_intake.home_location_puerto_rico? %>
+            <%= f.cfa_input_field(:urbanization, t("views.questions.mailing_address.urbanization")) %>
+          <% end %>
           <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), classes: ["form-width--long"]) %>
           <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>
           <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city"), classes: ["form-width--long"]) %>

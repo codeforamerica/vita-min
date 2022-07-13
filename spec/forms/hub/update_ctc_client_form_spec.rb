@@ -263,6 +263,21 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
           end.to change(intake, :was_blind).to("yes").and change(intake, :spouse_was_blind).to("yes")
         end
       end
+
+      context "updating urbanization code for Puerto Rico client" do
+        before do
+          intake.update!(home_location: "puerto_rico")
+          form_attributes[:urbanization] = "URB PICARD"
+        end
+
+        it "persists the change" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :urbanization).to("URB PICARD")
+        end
+      end
     end
   end
 

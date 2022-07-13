@@ -13,6 +13,7 @@ class StandardizeAddressService
     @_city = intake.city
     @_state = intake.state
     @_zip_code = intake.zip_code
+    @_urbanization = intake.urbanization
 
     @result = build_standardized_address
     log_errors
@@ -34,6 +35,20 @@ class StandardizeAddressService
 
   def zip_code
     @result[:zip_code]
+  end
+
+  def urbanization
+    @result[:urbanization]
+  end
+
+  def verified_address_attributes
+    {
+      zip_code: zip_code,
+      street_address: street_address,
+      state: state,
+      city: city,
+      urbanization: urbanization
+    }
   end
 
   def error_message
@@ -78,6 +93,7 @@ class StandardizeAddressService
 
     {
       street_address: usps_address_xml.xpath("//Address/Address2").text,
+      urbanization: usps_address_xml.xpath("//Address/Urbanization").presence&.text,
       city: usps_address_xml.xpath("//Address/City").text,
       state: usps_address_xml.xpath("//Address/State").text,
       zip_code: usps_address_xml.xpath("//Address/Zip5").text,
@@ -96,6 +112,7 @@ class StandardizeAddressService
           xml.Address2 @_street_address
           xml.City @_city
           xml.State @_state
+          xml.Urbanization @_urbanization if @_urbanization
           xml.Zip5 @_zip_code
           xml.Zip4
         }

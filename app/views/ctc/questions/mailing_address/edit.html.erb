@@ -15,7 +15,10 @@
     <%= render 'address_notices' %>
 
     <div class="form-card__content">
-      <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), ) %>
+      <% if current_intake.home_location_puerto_rico? %>
+        <%= f.cfa_input_field(:urbanization, t("views.questions.mailing_address.urbanization")) %>
+      <% end %>
+      <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address")) %>
       <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>
       <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city")) %>
       <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
