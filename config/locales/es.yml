@@ -225,7 +225,6 @@ es:
         is_hsa: es HSA
   general:
     NA: N/A
-    urbanization: Código de urbanización
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
@@ -511,6 +510,7 @@ es:
     update: Actualizar
     updated_at: Actualizado en
     upload: Subir
+    urbanization: Código de urbanización
     used_navigator: Navegador usado
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
@@ -4182,11 +4182,11 @@ es:
       mailing_address:
         city: Ciudad
         state: Estado o territorio de EE. UU.
-        urbanization: Código de urbanización
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
         unable_to_validate: Ocurrió un error al comunicarse con el Servicio Postal de EE. UU. Por favor, envíe su dirección de nuevo.
+        urbanization: Código de urbanización
         zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
