@@ -221,6 +221,7 @@
 #  triage_income_level                                  :integer          default("unfilled"), not null
 #  triage_vita_income_ineligible                        :integer          default("unfilled"), not null
 #  type                                                 :string
+#  urbanization                                         :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
 #  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
 #  usps_address_late_verification_attempts              :integer          default(0)

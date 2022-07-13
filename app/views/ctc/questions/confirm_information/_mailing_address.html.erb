@@ -1,6 +1,9 @@
 <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
 <div class="review-box__space-between address-info">
   <div class="form-group <%= intake.usps_address_verified_at ? "" : "form-group--error" %>">
+    <% if intake.urbanization.present? %>
+      <div><%= intake.urbanization %></div>
+    <% end %>
     <div><%= intake.street_address %></div>
     <% if intake.street_address2.present? %>
       <div><%= intake.street_address2 %></div>

@@ -225,6 +225,7 @@ es:
         is_hsa: es HSA
   general:
     NA: N/A
+    urbanization: Código de urbanización
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
@@ -4181,6 +4182,7 @@ es:
       mailing_address:
         city: Ciudad
         state: Estado o territorio de EE. UU.
+        urbanization: Código de urbanización
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"

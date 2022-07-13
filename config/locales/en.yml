@@ -233,6 +233,7 @@ en:
     admin: Admin
     admin_controls: Admin Controls
     affirmative: 'Yes'
+    urbanization: Urbanization code
     all_organizations: All organizations
     and: and
     assign: Assign
@@ -4172,6 +4173,7 @@ en:
       mailing_address:
         city: City
         state: State or US Territory
+        urbanization: Urbanization code
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
         title: What is your mailing address?

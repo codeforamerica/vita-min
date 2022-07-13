@@ -18,6 +18,7 @@ describe StandardizeAddressService, do_not_stub_usps: true do
       expect(service.valid?).to eq true
       expect(service.street_address).to eq "43 VICKSBURG ST UNIT B"
       expect(service.city).to eq "SAN FRANCISCO"
+      expect(service.urbanization).to be_nil
       expect(service.state).to eq "CA"
       expect(service.zip_code).to eq "94114"
     end
@@ -46,6 +47,20 @@ describe StandardizeAddressService, do_not_stub_usps: true do
         expect(service.city).to eq "SAN FRANCISCO"
         expect(service.state).to eq "CA"
         expect(service.zip_code).to eq "94114"
+      end
+    end
+
+    context 'when the result contains urbanization code' do
+      let(:usps_api_response_body) { file_fixture("usps_address_validation_body_with_urbanization.xml") }
+
+      it 'is valid and has standardized address fields including urbanization' do
+        service = described_class.new(intake)
+        expect(service.valid?).to eq true
+        expect(service.street_address).to eq "1-23 CALLE 1"
+        expect(service.city).to eq "BAYAMON"
+        expect(service.urbanization).to eq "URB SIERRA BAYAMON"
+        expect(service.state).to eq "PR"
+        expect(service.zip_code).to eq "00961"
       end
     end
 

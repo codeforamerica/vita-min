@@ -13,6 +13,9 @@
         <%= link_to t("general.edit").downcase, prev_path, class: "review-box__edit-button" %>
       </div>
       <div class="review-box__body">
+        <% if current_intake.urbanization.present? %>
+          <div><%= current_intake.urbanization %></div>
+        <% end %>
         <div><%= current_intake.street_address %></div>
         <% if current_intake.street_address2.present? %>
           <div><%= current_intake.street_address2 %></div>
