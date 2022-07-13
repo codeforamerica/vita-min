@@ -16,6 +16,7 @@ module Hub
                        :email_address,
                        :phone_number,
                        :sms_phone_number,
+                       :urbanization,
                        :street_address,
                        :street_address2,
                        :city,
