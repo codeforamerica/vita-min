@@ -215,7 +215,7 @@ RSpec.describe Irs1040Pdf do
         output_file = pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
-          "AddressLine1Txt" => "Urb Picard, 23627 HAWKINS CREEK CT",
+          "AddressLine1Txt" => "Urb Picard 23627 HAWKINS CREEK CT",
         ))
       end
     end

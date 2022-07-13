@@ -15,15 +15,12 @@ class Irs1040Pdf
   end
 
   def hash_for_pdf
-    urbanization = @address.urbanization
-    urbanization += "," if urbanization.present?
-
     answers = {
       FilingStatus: @xml_document.at("IndividualReturnFilingStatusCd")&.text,
       PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
       PrimaryLastNm: @intake.primary_last_name,
       PrimarySSN: @xml_document.at("PrimarySSN")&.text,
-      AddressLine1Txt: [urbanization, @address.street_address, @address.street_address2].compact.join(" "),
+      AddressLine1Txt: [@address.urbanization, @address.street_address, @address.street_address2].compact.join(" "),
       CityNm: @address.city,
       StateAbbreviationCd: @address.state,
       ZipCd: @address.zip_code,
