@@ -1,6 +1,6 @@
 module Ctc
   class MailingAddressForm < QuestionsForm
-    set_attributes_for :intake, :street_address, :street_address2, :state, :city, :zip_code
+    set_attributes_for :intake, :urbanization, :street_address, :street_address2, :state, :city, :zip_code
 
     validates_presence_of :street_address
     validates_presence_of :city
@@ -12,6 +12,7 @@ module Ctc
       if address_service.has_verified_address?
         attrs = {
           zip_code: address_service.zip_code,
+          urbanization: address_service.urbanization,
           street_address: address_service.street_address,
           street_address2: nil,
           state: address_service.state,
