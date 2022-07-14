@@ -85,6 +85,44 @@ describe Ctc::MailingAddressForm do
       end
     end
 
+    context "urbanization" do
+      context "blank value" do
+        before do
+          params[:urbanization] = ""
+        end
+
+        it "is valid" do
+          expect(
+            described_class.new(intake, params)
+          ).to be_valid
+        end
+      end
+
+      context "with only alphanumeric characters and spaces" do
+        before do
+          params[:urbanization] = "URB Royal Oaks 1"
+        end
+
+        it "is valid" do
+          expect(
+            described_class.new(intake, params)
+          ).to be_valid
+        end
+      end
+
+      context "with any other characters" do
+        before do
+          params[:urbanization] = "URB. Royal Oaks"
+        end
+
+        it "is not valid" do
+          expect(
+            described_class.new(intake, params)
+          ).not_to be_valid
+        end
+      end
+    end
+
     context "when not valid with USPS service" do
       before do
         allow(address_service_double).to receive(:valid?).and_return false
