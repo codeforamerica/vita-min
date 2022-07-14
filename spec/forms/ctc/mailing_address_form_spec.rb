@@ -98,9 +98,9 @@ describe Ctc::MailingAddressForm do
         end
       end
 
-      context "with only alphanumeric characters and spaces" do
+      context "with allowed characters (alphanumeric, dash, and spaces)" do
         before do
-          params[:urbanization] = "URB Royal Oaks 1"
+          params[:urbanization] = "URB Royal Oaks 1-23"
         end
 
         it "is valid" do

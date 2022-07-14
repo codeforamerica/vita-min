@@ -1675,6 +1675,7 @@ en:
     signature_pin: Signature PIN must be a 5 digit number.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
+    urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
     zip: Please enter a valid 5-digit zip code.
   verification_code_mailer:
     no_match:
