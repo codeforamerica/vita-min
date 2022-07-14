@@ -208,7 +208,7 @@ es:
       mailing_address:
         city: 'Error: Ciudad Inválida'
         invalid: 'Error: Dirección Inválida'
-        multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado'
+        multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado.'
         not_found: 'Error: Dirección no encontrada'
         state: 'Error: Código de Estado Inválido'
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
@@ -1951,9 +1951,9 @@ es:
             <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
           puerto_rico:
             help_text_html: |
-              <p class="text--bold">Si ya radicó una planilla federal de 2021 (1040, 1040-PR, 1040-SS) este año, el IRS rechazará su planilla de GetCTC sin mirarla.</p>
-              <p>Si recibió una noticia del IRS este año sobre su planilla (Carta 5071C, Carta 6331C, o Carta 12C), ya radicó una planilla federal al IRS este año.</p>
-              <p class="text--bold text--small">Nota: la planilla federal con el IRS es independiente de una planilla de Puerto Rico que puede haber radicado al Departamento de Hacienda.</p>
+              <p class="text--bold">Si ya radicó una planilla federal de 2021 (1040, 1040PR, 1040SS) este año, el IRS rechazará su planilla de GetCTC sin mirarla.</p>
+              <p>Si recibió una noticia del IRS este año sobre su planilla (Carta 5071C, Carta 6331C, o Carta 12C), entonces ya radicó una planilla federal con el IRS este año.</p>
+              <p class="text--bold text--small">Nota: una planilla federal con el IRS es diferente de una planilla de Puerto Rico que habrá radicado con el Departamento de Hacienda.</p>
             reveal:
               content_title: 'Si recibió una de estas cartas, ya ha radicado una planilla federal:'
               list_content:
@@ -2352,8 +2352,8 @@ es:
           help_text: Por lo general, alguien puede reclamar a usted como dependiente si es un miembro de su familia, usted vivió con ellos la mayor parte del año y pagaron la mayoría de sus gastos de manutención.
           title: "¿Alguien más puede reclamarlo como dependiente en su declaración de impuestos de %{current_tax_year}?"
         mailing_address:
-          error_notice: "¡Oh, no! No pudimos validar su dirección con el Servicio Postal de EE. UU. Vuelva a verificar que ingresó su dirección correctamente y actualice cualquier información."
-          help_text: Verificaremos la dirección que ingrese con el Servicio Postal de EE. UU. antes de procesar su devolución. El IRS solo aceptará direcciones en un formato validado por USPS.
+          error_notice: "¡Oh no! No pudimos verificar su dirección con el USPS. Por favor confirme que haya ingresado correctamente su dirección y actualice cualquier dato incorrecto. "
+          help_text: Verificaremos la dirección que ingresa con el USPS antes de procesar su declaración. El IRS solo acepta direcciones en el formato aprobado por el USPS.
           puerto_rico_reveal_html: |
             Si vive en Puerto Rico, su dirección debe escribirse como Número, Avenida/Calle, Nombre de la calle. (Ej: use 63 Calle Fortaleza, no use Calle Fortaleza 63)
             <br/><br/>
@@ -4185,7 +4185,7 @@ es:
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
-        unable_to_validate: Ocurrió un error al comunicarse con el Servicio Postal de EE. UU. Por favor, envíe su dirección de nuevo.
+        unable_to_validate: Hubo un error en contactar el USPS. Por favor ingrese nuevamente su dirección.
         urbanization: Código de urbanización
         zip_code: Código postal
       married:
