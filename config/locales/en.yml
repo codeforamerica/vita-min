@@ -1371,13 +1371,13 @@ en:
       completion:
         email:
           body: |
-            Thank you for filing your taxes with GetYourRefund! You can check the status of your refund at the IRS website <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
+            Thank you for choosing GetYourRefund! If your tax return was accepted, you can check the status of your refund at the IRS website <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
             We would love feedback on your experience so we can improve this service! Could you tell us about how it went?
 
             Take our 5 minute survey here: %{survey_link}
-          subject: Thank you for filing your taxes with GetYourRefund!
-        sms: 'Thank you for filing your taxes with GetYourRefund. We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
+          subject: Thank you for choosing GetYourRefund!
+        sms: 'Thank you for choosing GetYourRefund! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
       ctc_experience:
         email:
           body: |
