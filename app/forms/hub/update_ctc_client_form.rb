@@ -4,6 +4,7 @@ module Hub
     include CtcClientFormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
+                       :primary_middle_initial,
                        :primary_last_name,
                        :primary_suffix,
                        :primary_prior_year_agi_amount,
@@ -29,6 +30,7 @@ module Hub
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
+                       :spouse_middle_initial,
                        :spouse_last_name,
                        :spouse_suffix,
                        :spouse_email_address,
@@ -81,6 +83,9 @@ module Hub
     validate :at_least_one_taxpayer_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
     validate :valid_primary_birth_date
     validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
+
+    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
+    validates :spouse_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
 
     def initialize(client, params = {})
       @client = client

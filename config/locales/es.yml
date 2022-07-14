@@ -646,6 +646,7 @@ es:
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
         marital_status: Estado civil
+        middle_initial: Inicial del segundo nombre (opcional)
         navigator:
           general: General
           incarcerated: Incarcerated/reentry
@@ -1632,6 +1633,7 @@ es:
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
+    alpha: Solo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}

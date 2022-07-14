@@ -86,6 +86,28 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       end
     end
 
+    context "middle initial" do
+      context "when middle initial is not a single letter" do
+        before do
+          params[:primary_middle_initial] = '.'
+        end
+
+        it "is invalid" do
+          expect(described_class.new(intake, params)).not_to be_valid
+        end
+      end
+
+      context "when middle initial is blank" do
+        before do
+          params[:primary_middle_initial] = ''
+        end
+
+        it "is invalid" do
+          expect(described_class.new(intake, params)).to be_valid
+        end
+      end
+    end
+
     context "when itin format is correct" do
       before do
         params[:primary_tin_type] = "itin"
