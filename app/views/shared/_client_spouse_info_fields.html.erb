@@ -9,6 +9,7 @@
     <% end %>
     <div>
       <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
+      <%= f.cfa_input_field(:spouse_middle_initial, t("hub.clients.fields.middle_initial"), classes: ["form-width--short"]) %>
       <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
       <% if is_ctc %>
         <%= f.cfa_select(:spouse_suffix, t("hub.clients.fields.suffix"), suffix_options_for_select, include_blank: true) %>

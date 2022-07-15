@@ -179,6 +179,56 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
         end
       end
 
+      context "primary middle initial" do
+        context "with a non-alpha character" do
+          before do
+            form_attributes[:primary_middle_initial] = '.'
+          end
+
+          it "is not valid" do
+            form = described_class.new(client, form_attributes)
+            form.valid?
+            expect(form.errors.attribute_names).to include(:primary_middle_initial)
+          end
+        end
+
+        context "with blank value" do
+          before do
+            form_attributes[:primary_middle_initial] = ''
+          end
+
+          it "is valid" do
+            form = described_class.new(client, form_attributes)
+            expect(form).to be_valid
+          end
+        end
+      end
+
+      context "spouse middle initial" do
+        context "with a non-alpha character" do
+          before do
+            form_attributes[:spouse_middle_initial] = '.'
+          end
+
+          it "is not valid" do
+            form = described_class.new(client, form_attributes)
+            form.valid?
+            expect(form.errors.attribute_names).to include(:spouse_middle_initial)
+          end
+        end
+
+        context "with blank value" do
+          before do
+            form_attributes[:spouse_middle_initial] = ''
+          end
+
+          it "is valid" do
+            form = described_class.new(client, form_attributes)
+            expect(form).to be_valid
+          end
+        end
+      end
+
       context "updating the filing_status" do
         before do
           form_attributes[:filing_status] = "single"

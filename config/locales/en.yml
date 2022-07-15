@@ -637,6 +637,7 @@ en:
         legal_last_name: Legal last name
         mailing_address: Mailing Address
         marital_status: Marital Status
+        middle_initial: Legal middle initial (optional)
         navigator:
           general: General
           incarcerated: Incarcerated/reentry
@@ -1661,6 +1662,7 @@ en:
       subheader: Please sign up here to receive a notification when we open in January 2022.
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
+    alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
