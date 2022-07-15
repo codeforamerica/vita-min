@@ -326,6 +326,10 @@ class Intake < ApplicationRecord
     end
   end
 
+  before_destroy do
+    dependents.with_deleted.each(&:destroy!)
+  end
+
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
