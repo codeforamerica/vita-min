@@ -1646,6 +1646,7 @@ es:
     signature_pin: El PIN debe ser un número de 5 dígitos.
     signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
+    urbanization: Solo se aceptan números del 0 al 9, letras A-Z y a-z, espacios y guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
   verification_code_mailer:
     no_match:
