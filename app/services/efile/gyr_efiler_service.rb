@@ -83,7 +83,7 @@ module Efile
       system!("unzip -o #{config_zip_path} -d #{Rails.root.join("tmp", "gyr_efiler")}")
 
       local_efiler_repo_config_path = File.expand_path('../gyr-efiler/gyr_efiler_config', Rails.root)
-      if Rails.env.development?
+      if Rails.env.development? && File.exists?(local_efiler_repo_config_path)
         begin
           FileUtils.cp(File.join(local_efiler_repo_config_path, 'gyr_secrets.properties'), config_dir)
           FileUtils.cp(File.join(local_efiler_repo_config_path, 'secret_key_and_cert.p12.key'), config_dir)

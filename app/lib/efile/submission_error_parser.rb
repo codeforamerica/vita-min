@@ -66,7 +66,7 @@ module Efile
     end
 
     def persist_bundle_errors_from_raw_response_metadata
-      if @transition.metadata["raw_response"].to_s.match?(/(RoutingTransitNum|DepositorAccountNum)/)
+      if @transition.metadata["raw_response"].to_s.match?(/(RoutingTransitNum|DepositorAccountNum).*is not accepted by the pattern/)
         error = EfileError.find_by(
           code: "BANK-DETAILS"
         )
