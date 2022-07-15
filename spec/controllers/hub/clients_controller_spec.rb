@@ -1076,6 +1076,23 @@ RSpec.describe Hub::ClientsController do
           client.reload
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
+
+      context "a client with soft deleted dependents" do
+        let(:intake) { create :intake, :with_contact_info, dependents: [create(:dependent, soft_deleted_at: Time.now()), create(:dependent)] }
+
+        it "deletes the client and destroys all dependents" do
+          expect do
+            delete :destroy, params: params
+          end.to change(Client, :count).by(-1).and change(Dependent.with_deleted, :count).by(-2)
+
+          expect(response).to redirect_to hub_clients_path
+          expect(flash[:notice]).to eq "The client has been successfully deleted"
+
+          expect do
+            client.reload
+          end.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
     end
   end
 
