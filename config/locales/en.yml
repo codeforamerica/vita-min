@@ -658,12 +658,12 @@ en:
         recovery_rebate_credit: Recovery Rebate Credit (optional)
         routing_methods:
           at_capacity: At capacity (not routed)
+          hub_assignment: Hub assignment
           most_org_leads: Greatest number of org leads (2021 season WIP fallback)
           national_overflow: National overflow
           source_param: Direct URL
           state: State
           zip_code: Zip code
-          hub_assignment: Hub assignment
         service_type: Service type
         signature_method: Signature method
         signature_methods:
