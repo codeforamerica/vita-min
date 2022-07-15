@@ -233,7 +233,7 @@ class FlowsController < ApplicationController
         filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
         primary_tin_type: 'ssn',
-        primary_ssn: '555112222',
+        primary_ssn: '555002222',
         primary_last_four_ssn: '2222',
         primary_first_name: first_name,
         primary_last_name: last_name,
@@ -268,7 +268,7 @@ class FlowsController < ApplicationController
         client.intake.update(
           spouse_tin_type: 'ssn',
           spouse_birth_date: 31.years.ago + 51.days,
-          spouse_ssn: '555113333',
+          spouse_ssn: '555003333',
           spouse_last_four_ssn: '3333',
           spouse_first_name: "#{first_name}Spouse",
           spouse_last_name: last_name,
@@ -291,7 +291,7 @@ class FlowsController < ApplicationController
           cant_be_claimed_by_other: 'yes',
           birth_date: 12.years.ago,
           tin_type: 'ssn',
-          ssn: '555114444'
+          ssn: '555004444'
         )
         client.intake.dependents.create(
           first_name: 'Relly',
