@@ -1,4 +1,3 @@
-
 <div data-component="ClientMenuComponent" class="client-menu" data-target="toggle">
   <div class="container">
     <div>
@@ -7,6 +6,12 @@
           My account
         </div>
       <% else %>
+        <div class="client-menu-link">
+          <% if !@in_intake_flow && @get_started_link.present? %>
+            <div class="client-menu-link">
+              <%= link_to t("general.get_started"), @get_started_link, class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
+            </div>
+          <% end %>
         <div class="client-menu-item">
           <%= link_to t("general.login"), new_portal_client_login_path %>
         </div>
