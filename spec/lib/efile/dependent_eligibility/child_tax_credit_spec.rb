@@ -28,6 +28,16 @@ describe Efile::DependentEligibility::ChildTaxCredit do
     end
   end
 
+  context "when the intake says that ctc is disallowed" do
+    let(:intake) { create :ctc_intake, client: (create :client, :with_return), disallowed_ctc: true }
+    let(:dependent) { create :qualifying_child, intake: intake }
+    it "makes the dependent disqualified" do
+      subject = described_class.new(dependent, TaxReturn.current_tax_year)
+      expect(subject.qualifies?).to eq false
+      expect(subject.disqualifiers).to include :disallowed_test
+    end
+  end
+
   context "prequalifying attribute" do
     subject { described_class.new(efile_submission_dependent, TaxReturn.current_tax_year) }
     before do

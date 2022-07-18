@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_170630) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_220949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -994,6 +994,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_170630) do
     t.boolean "demographic_spouse_prefer_not_to_answer_race"
     t.boolean "demographic_spouse_white"
     t.integer "demographic_veteran", default: 0, null: false
+    t.boolean "disallowed_ctc"
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
     t.integer "eip1_amount_received"
