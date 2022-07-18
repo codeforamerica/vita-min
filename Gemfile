@@ -93,6 +93,7 @@ group :demo, :development, :heroku, :staging do
 end
 
 group :development, :test do
+  gem 'annotate'
   gem 'awesome_print'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -123,7 +124,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'git-pair'
-  gem 'annotate'
   gem 'flamegraph'
   gem 'stackprof'
   gem 'memory_profiler'
