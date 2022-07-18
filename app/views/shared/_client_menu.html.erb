@@ -8,7 +8,7 @@
       <% else %>
         <% if !@in_intake_flow && @get_started_link.present? %>
           <div class="client-menu-item">
-            <%= link_to t("general.get_started"), @get_started_link, class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
+            <%= link_to t("general.get_started"), @get_started_link %>
           </div>
         <% end %>
         <div class="client-menu-item">
