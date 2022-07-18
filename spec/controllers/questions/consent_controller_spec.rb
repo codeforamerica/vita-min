@@ -258,10 +258,10 @@ RSpec.describe Questions::ConsentController do
           allow_any_instance_of(Client).to receive(:routing_method_at_capacity?).and_return true
         end
 
-        it "does not send a message" do
+        it "does send a message" do
           subject.after_update_success
 
-          expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
               client: intake.client,
               message: AutomatedMessage::GettingStarted,
               locale: :en

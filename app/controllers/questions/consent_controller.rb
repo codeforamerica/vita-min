@@ -41,14 +41,17 @@ module Questions
         end
         current_intake.client.tax_returns.replace(tax_returns)
         tax_returns.map { |tr| tr.advance_to(:intake_in_progress) }
-
-        sign_in current_intake.client
-        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-          client: current_intake.client,
-          message: AutomatedMessage::GettingStarted,
-          locale: I18n.locale
-        )
         GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
+      end
+
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: current_intake.client,
+        message: AutomatedMessage::GettingStarted,
+        locale: I18n.locale
+      )
+
+      unless current_intake.client.routing_method_at_capacity?
+        sign_in current_intake.client
       end
     end
   end
