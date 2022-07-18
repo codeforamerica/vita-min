@@ -1,8 +1,9 @@
 class UpdateClientVitaPartnerService < BaseService
-  def initialize(clients:, vita_partner_id:, change_initiated_by: nil)
+  def initialize(clients:, vita_partner_id:, change_initiated_by: nil, first_time: false)
     @clients = clients
     @new_vita_partner = VitaPartner.find_by_id(vita_partner_id)
     @change_initiated_by = change_initiated_by
+    @first_time = first_time
   end
 
   def update!
@@ -12,6 +13,7 @@ class UpdateClientVitaPartnerService < BaseService
         # Update routing method so that clients aren't being caught in previously at-capacity re-route attempts in intake
         if client.vita_partner.nil? && client.routing_method_at_capacity?
           attributes[:routing_method] = :hub_assignment
+          CreateInitialTaxReturnsService.new(intake: client.intake).create!
         end
         client.update!(attributes)
         SystemNote::OrganizationChange.generate!(client: client, initiated_by: @change_initiated_by)

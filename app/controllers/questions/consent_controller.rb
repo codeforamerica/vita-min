@@ -35,12 +35,7 @@ module Questions
 
       # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
-        tax_returns = []
-        TaxReturn.filing_years.each do |year|
-          tax_returns.push(TaxReturn.find_or_initialize_by(year: year, client: current_intake.client)) if current_intake.send("needs_help_#{year}") == "yes"
-        end
-        current_intake.client.tax_returns.replace(tax_returns)
-        tax_returns.map { |tr| tr.advance_to(:intake_in_progress) }
+        CreateInitialTaxReturnsService.new(intake: current_intake).create!
         GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
       end
 
@@ -50,7 +45,9 @@ module Questions
         locale: I18n.locale
       )
 
-      unless current_intake.client.routing_method_at_capacity?
+      if current_intake.client.routing_method_at_capacity?
+        session[:intake_id] = nil
+      else
         sign_in current_intake.client
       end
     end

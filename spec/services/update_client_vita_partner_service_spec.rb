@@ -15,15 +15,20 @@ describe UpdateClientVitaPartnerService do
     let(:assigned_user) { create :team_member_user, site: current_site }
 
     context "when a client was previously routed to no one because we were at capacity" do
+      let(:fake_service) { instance_double(CreateInitialTaxReturnsService) }
       before do
         client.update(routing_method: :at_capacity, vita_partner: nil)
+        allow(CreateInitialTaxReturnsService).to receive(:new).and_return(fake_service)
+        allow(fake_service).to receive(:create!)
       end
 
-      it "changes the vita partner and the routing method" do
+      it "changes the vita partner and the routing method and creates initial tax returns" do
         expect {
           subject.update!
         }.to change(client, :vita_partner).from(nil).to(other_site)
          .and change(client, :routing_method).from("at_capacity").to("hub_assignment")
+        expect(CreateInitialTaxReturnsService).to have_received(:new).with(intake: client.intake)
+        expect(fake_service).to have_received(:create!)
       end
     end
 
