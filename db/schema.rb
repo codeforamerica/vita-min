@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_13_210511) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_170630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -743,6 +743,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_210511) do
     t.bigint "efile_submission_id"
     t.boolean "qualifying_child"
     t.boolean "qualifying_ctc"
+    t.boolean "qualifying_eitc"
     t.boolean "qualifying_relative"
     t.datetime "updated_at", null: false
     t.index ["dependent_id"], name: "index_efile_submission_dependents_on_dependent_id"

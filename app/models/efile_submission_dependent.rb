@@ -6,6 +6,7 @@
 #  age_during_tax_year :integer
 #  qualifying_child    :boolean
 #  qualifying_ctc      :boolean
+#  qualifying_eitc     :boolean
 #  qualifying_relative :boolean
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
