@@ -1,0 +1,40 @@
+
+<div data-component="ClientMenuComponent" class="client-menu" data-target="toggle">
+  <div class="container">
+    <div>
+      <% if current_client.present? %>
+        <div class="client-menu-item">
+          My account
+        </div>
+      <% else %>
+        <div class="client-menu-item">
+          <%= link_to t("general.login"), new_portal_client_login_path %>
+        </div>
+      <% end %>
+
+      <% if I18n.locale != :en %>
+        <div class="client-menu-item">
+          <%= link_to_english %>
+        </div>
+      <% end %>
+
+      <% if I18n.locale != :es %>
+        <div class="client-menu-item">
+          <%= link_to_spanish %>
+        </div>
+      <% end %>
+
+      <div class="client-menu-item">
+        <%= link_to t("general.faq"), faq_path %>
+      </div>
+
+      <% if current_client.present? %>
+        <div class="client-menu-item">
+          <%= form_with url: destroy_client_session_path, local: true, method: :delete, class: "toolbar__item text--small text--bold" do |f| %>
+            <%= f.submit value: t("general.sign_out"), class: "button--link" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -47,8 +47,9 @@ RSpec.feature "Logging in" do
           login_as(client, scope: :client)
           visit portal_root_path
           expect(page).to have_text("Carrie")
-
-          click_on "Sign out"
+          within ".toolbar" do
+            click_on "Sign out"
+          end
           visit portal_root_path
           expect(page).not_to have_text("Carrie")
         end
