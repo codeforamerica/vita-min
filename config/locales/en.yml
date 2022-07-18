@@ -3193,16 +3193,17 @@ en:
               question: How do I claim Child Tax Credit for a baby born in 2022?
             how_do_i_get_my_child_tax_credit_ctc_payments:
               answer_html: |
-                <p>To get the Child Tax Credit (CTC) you have to file a tax return. Whether or not you received monthly CTC payments last year, and whether or not you filed taxes in the last few years or at all, filing a tax return this year is the right next step to get your CTC payments.</p>
+                <p>To get the Child Tax Credit (CTC) you have to file a tax return.</p>
+                <p>To file a tax return for just the CTC and third stimulus payment you can use <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a></p>
+                <p>To file a full tax return to claim the CTC and all other tax benefits you are eligible for you can use <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a></p>
+                <p>Whether or not you received monthly CTC payments last year, and whether or not you filed taxes in the last few years or at all, filing a tax return this year is the right next step to get your CTC payments.</p>
                 <p>If you received advance monthly payments in 2021 then you can file a tax return to get the rest of your payments (generally, $1,800 per younger child and $1,500 per older child). If you did not receive monthly payments in 2021 then you can file a tax return to get your total CTC payments (generally, $3,600 per younger child and $3,000 per older child).</p>
-                <p>You can file a tax return for free with GetYourRefund.</p>
               question: How do I get my Child Tax Credit (CTC) payments?
             how_do_i_get_the_child_tax_credit_if_i:
               answer_html: |
                 <p>Families who do not usually file taxes are sometimes called "non-filers." Often, this refers to families who make little enough money that they aren't required to file taxes—sometimes because they get their income from disability or other benefits, instead.</p>
                 <p>Everyone who is eligible for tax benefits should file a tax return, even if you think of yourself as a "non-filer." Filing a tax return could get you cash benefits like the Child Tax Credit even if you do not normally file a tax return or have not filed a tax return in a long time.</p>
-                <p>Families who are not required to file tax returns do have an extra option: they can file a "simplified" tax return. This has sometimes been called the "non-filer form" or "non-filer tool." The simplified return is technically a tax return, but is much easier to finish, and requires much less information. Simplified filing will be available in May 2022. If you are not required to file taxes, you have the option to file a full tax return now or to wait until May to use a simpler filing tool.</p>
-                <p>File a tax return today with <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a> or <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">sign up to receive updates</a> about simplified filing.</p>
+                <p>Families who are not required to file tax returns do have an extra option: they can file a "simplified" tax return. This has sometimes been called the "non-filer form" or "non-filer tool." The simplified return is technically a tax return, but is much easier to finish, and requires much less information. You can file a simplified return for free today with <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: How do I get the Child Tax Credit if I am a non-filer?
             how_much_is_the_child_tax_credit_in_2022:
               answer_html: |
@@ -3244,7 +3245,7 @@ en:
                 <p>If you try to file a tax return this year and find that someone has already claimed your child and you wish to contest the claim to the IRS in order to receive your payments, the process is more complicated. First, you have to mail a paper copy of your return to the IRS. Next, the IRS will begin a process to determine who is allowed to claim this dependent. This process can be difficult for you and for whoever else claimed your dependent. If you want to pursue this process, see here for more info: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. A <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Volunteer Income Tax site</a> or the <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Taxpayer Advocate Service</a> can assist you with the process.</p>
               question: What do I do if someone else claimed my child for Child Tax Credit?
             what_if_i_dont_have_any_income_or_only_income:
-              answer_html: You don’t need any income to qualify for the Child Tax Credit (CTC) and receiving payments from other benefits programs does not impact your eligibility.
+              answer_html: You don’t need any income to qualify for the Child Tax Credit (CTC) and receiving payments from other benefits programs does not impact your eligibility. To file a tax return for just the CTC and third stimulus payment you can use <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.
               question: What if I don’t have any income, or only income from benefits programs (like SSI, SNAP, TANF, or WIC)?
             what_is_the_child_tax_credit_ctc:
               answer_html: |
@@ -3325,9 +3326,9 @@ en:
               question: What is GetYourRefund and how does it work?
             what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
-                <p>GetCTC, also known as the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
-                <p>You can use GetCTC to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
-                <p>GetCTC is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
+                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, also known as the nonfiler tool, is your simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
+                <p>You can use GetCTC to claim the third stimulus payment (Economic Impact Payment) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
+                <p>GetCTC is a great choice for you if you are <em>only</em> looking to get your third stimulus payment and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
               question: What is GetCTC and how does it work?
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3434,7 +3435,7 @@ en:
             where_is_the_nonfiler_portal_where_is_getctc:
               answer_html: |
                 <p>In 2020 and 2021, the IRS "nonfiler portal" or "non-filer tool" allowed people who don't typically file returns to file a simple tax return to claim benefits such as the stimulus checks (Economic Impact Payments) and Child Tax Credit (CTC). Code for America launched a simplified filing portal, called GetCTC, in Fall 2021.</p>
-                <p>Per IRS rules, these nonfiler portals are currently closed. If you previously filed a simple return to claim your tax benefits, you can try to claim even more money by filing a full return for free with <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>. Our IRS-certified volunteers can help you file. If you are unable to file a full return, you can <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">sign up</a> to be notified when our new simplified filing service (sometimes referred to as a nonfiler portal) opens in May 2022.</p>
+                <p>If you previously used a nonfiler tool, you can file a simple tax return today using <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: Where is the nonfiler portal? Where is GetCTC?
           paper_filing:
             how_do_i_paper_file:
@@ -3471,7 +3472,7 @@ en:
             how_do_i_get_the_ctc_in_puerto_rico:
               answer_html: |
                 <p>If you want to claim the Child Tax Credit (CTC) you need to provide your information to the IRS, even if you don't usually have to file U.S. taxes with the IRS. Instructions on how to file Form 1040-PR to claim the credit are <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">available from the Instituto del Desarrollo de la Juventud</a>.</p>
-                <p>If you earn less than $75,000 single or $150,000 married, it is also likely that GetYourRefund will provide a simplified online form to claim the CTC, but this option will not be available until May.</p>
+                <p>An IRS  rule has recently changed so that soon you will be able to claim the Child Tax Credit online in Puerto Rico. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Sign up</a> for updates about GetCTC services for Puerto Rico.</p>
               question: How do I get the Child Tax Credit (CTC) in Puerto Rico?
             how_do_i_get_the_eitc_in_puerto_rico:
               answer_html: Unlike the Child Tax Credit (CTC), the Earned Income Tax Credit (EITC) in Puerto Rico is administered by the Departamento de Hacienda de Puerto Rico, not by the IRS. To claim the EITC, you will have to file a Puerto Rico tax return with the department.
@@ -3525,7 +3526,7 @@ en:
             am_i_a_nonfiler:
               answer_html: |
                 <p>The term "nonfiler" is sometimes used to refer to people who are not required to file a tax return and have not filed a tax return in the past few years. Most "nonfilers" are eligible for thousands of dollars in tax benefits from the Child Tax Credit, stimulus payments, and the Earned Income Tax Credit.</p>
-                <p>"Non-filer" is not a legal category—anyone can and should file a return, to claim the tax benefits available. By filing a tax return you are able to access thousands of dollars in tax benefits even if you make little to no money or do not usually file taxes.</p>
+                <p>"Non-filer" is not a legal category—anyone can and should file a return, to claim the tax benefits available. By filing a tax return you are able to access thousands of dollars in tax benefits even if you make little to no money or do not usually file taxes. To file a tax return for just the CTC and third stimulus payment you can use our nonfiler tool, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: Am I a nonfiler?
             im_1924_should_i_file_a_tax_return:
               answer_html: |
@@ -3543,8 +3544,8 @@ en:
               answer_html: |
                 <p>Even if you make little to no income and are not required to file a tax return, you likely qualify for payments from the IRS—perhaps totaling thousands of dollars. You are especially likely to qualify for payments if you have children. In order to claim this money, you need to file a tax return.</p>
                 <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p>
-                <p>You can file a full tax return and claim all relevant tax benefits with GetYourRefund. For the fastest service, try our <a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a> option.</p>
-                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment by using our free GetCTC option in May 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Sign up here</a> to receive a message when GetCTC filing is available.</p>
+                <p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a> option.</p>
+                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment using <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: What are the potential benefits of filing a tax return?
           state_returns:
             can_i_get_tax_credits_from_california:
