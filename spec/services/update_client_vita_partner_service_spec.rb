@@ -10,7 +10,7 @@ describe UpdateClientVitaPartnerService do
 
     let(:current_site) { create :site }
     let(:other_site) { create :site, parent_organization: current_site.parent_organization }
-    let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return] }
+    let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return], intake: build(:intake) }
     let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
     let(:assigned_user) { create :team_member_user, site: current_site }
 
@@ -20,15 +20,17 @@ describe UpdateClientVitaPartnerService do
         client.update(routing_method: :at_capacity, vita_partner: nil)
         allow(CreateInitialTaxReturnsService).to receive(:new).and_return(fake_service)
         allow(fake_service).to receive(:create!)
+        allow(GenerateF13614cPdfJob).to receive(:perform_later)
       end
 
-      it "changes the vita partner and the routing method and creates initial tax returns" do
+      it "changes the vita partner and the routing method and creates initial tax returns and intake PDF" do
         expect {
           subject.update!
         }.to change(client, :vita_partner).from(nil).to(other_site)
          .and change(client, :routing_method).from("at_capacity").to("hub_assignment")
         expect(CreateInitialTaxReturnsService).to have_received(:new).with(intake: client.intake)
         expect(fake_service).to have_received(:create!)
+        expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(client.intake.id, "Preliminary 13614-C.pdf")
       end
     end
 
