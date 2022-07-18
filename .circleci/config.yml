@@ -94,6 +94,13 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
+  run_annotate:
+    executor: rails_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - run: bundle exec rails db:test:prepare
+      - run: bundle exec annotate --frozen
   run_ruby_tests:
     executor: rails_executor
     parallelism: 4
@@ -164,6 +171,7 @@ workflows:
               only: translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
+      - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
           filters:
