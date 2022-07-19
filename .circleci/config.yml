@@ -99,7 +99,7 @@ jobs:
     steps:
       - checkout
       - install_ruby_dependencies
-      - run: bundle exec rails db:test:prepare
+      - setup_test_db
       - run: bundle exec annotate --frozen
   run_ruby_tests:
     executor: rails_executor
