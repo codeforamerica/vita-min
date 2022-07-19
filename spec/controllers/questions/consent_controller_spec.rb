@@ -54,13 +54,14 @@ RSpec.describe Questions::ConsentController do
 
         before do
           allow(InitialTaxReturnsService).to receive(:new).and_return(fake_service)
+          allow(fake_service).to receive(:create!)
         end
 
         it "creates initial tax returns" do
           post :update, params: params
 
           expect(InitialTaxReturnsService).to have_received(:new).with(intake: intake)
-          expect(fake_create_initial_tax_returns_service).to have_received(:create!)
+          expect(fake_service).to have_received(:create!)
         end
       end
 
