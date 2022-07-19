@@ -42,6 +42,7 @@
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
 #  demographic_spouse_white                             :boolean
 #  demographic_veteran                                  :integer          default(0), not null
+#  disallowed_ctc                                       :boolean
 #  divorced                                             :integer          default(0), not null
 #  divorced_year                                        :string
 #  eip1_amount_received                                 :integer

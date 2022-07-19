@@ -12,6 +12,7 @@ module Efile
             qc_test: :is_qualifying_child?,
             tin_test: :tin_type_ssn?,
             age_test: :under_ctc_age_limit?,
+            disallowed_test: :not_ctc_disallowed?
         }
       end
 
@@ -25,6 +26,10 @@ module Efile
       def under_ctc_age_limit?
         ctc_age_cutoff = tax_year == 2020 ? 17 : 18
         age < ctc_age_cutoff
+      end
+
+      def not_ctc_disallowed?
+        !dependent.intake.disallowed_ctc?
       end
 
       private
