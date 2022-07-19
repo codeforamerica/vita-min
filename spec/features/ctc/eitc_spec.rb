@@ -31,7 +31,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # Ask about EITC
-    expect(page).to have_selector("h1", text: "Are you also interested in claiming the Earned Income Tax Credit?")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
     click_on I18n.t("general.affirmative")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
