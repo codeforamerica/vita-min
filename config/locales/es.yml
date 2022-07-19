@@ -1275,10 +1275,12 @@ es:
       admin_note: Se solicitaron nuevas fotos
       email:
         body: |
-          Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
+          Lamentablemente, sus documentos de identidad no han pasado nuestra revisión.
+          Le rogamos que vuelva a subir estas imágenes entrando aquí: <<Client.LoginLink>>
         subject: Se solicitan documentos de identidad adicionales
       sms: |
-        Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes.<<Client.LoginLink>>
+        Lamentablemente, sus documentos de identidad no han pasado nuestra revisión.
+        Le rogamos que vuelva a subir estas imágenes entrando aquí: <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |+

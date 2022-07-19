@@ -1294,10 +1294,12 @@ en:
       admin_note: requested new photos
       email:
         body: |
-          Unfortunately, your identity documents did not pass our review. Please log in and upload new images.<<Client.LoginLink>>
+          Unfortunately, your identity documents did not pass our review.
+          We request that you re-upload these images by logging in here: <<Client.LoginLink>>
         subject: Additional identity documents requested
       sms: |
-        Unfortunately, your identity documents did not pass our review. Please log in and upload new images.<<Client.LoginLink>>
+        Unfortunately, your identity documents did not pass our review.
+        We request that you re-upload these images by logging in here: <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |
