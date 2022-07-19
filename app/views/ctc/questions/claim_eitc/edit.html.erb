@@ -1,5 +1,7 @@
 <% content_for :form_question, t("views.ctc.questions.claim_eitc.title") %>
 
 <% content_for :form_help_text do %>
-
+  <p><%= t("views.ctc.questions.claim_eitc.p1") %></p>
+  <p><%= t("views.ctc.questions.claim_eitc.p2") %></p>
+  <p class="text--bold"><%= t("views.ctc.questions.claim_eitc.p3", current_tax_year: current_tax_year) %></p>
 <% end %>

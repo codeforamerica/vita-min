@@ -1,18 +1,18 @@
 module Ctc
   module Questions
     class ClaimEitcController < QuestionsController
-      include AuthenticatedCtcClientConcern
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
       layout "yes_no_question"
 
-      def edit
-        super
+      def self.show?(_intake)
+        Flipper.enabled?(:eitc)
       end
 
       private
 
       def illustration_path
-        "check.svg"
+        "hand-holding-check.svg"
       end
     end
   end
