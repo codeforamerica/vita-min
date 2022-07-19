@@ -7,10 +7,6 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
   end
 
   context "when we have not launched puerto rico intake" do
-    before do
-      allow(Flipper).to receive(:enabled?).and_return false
-    end
-
     scenario "we do not allow those who reside in puerto rico to complete intake" do
       visit "/en/questions/overview"
       expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
@@ -26,7 +22,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job
 
   context "when the puerto rico intake has launched" do
     before do
-      allow(Flipper).to receive(:enabled?).and_return true
+      Flipper.enable :puerto_rico_home_location
     end
 
     scenario "puerto rico landing page" do

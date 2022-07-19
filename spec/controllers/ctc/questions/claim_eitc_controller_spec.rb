@@ -10,7 +10,7 @@ describe Ctc::Questions::ClaimEitcController do
   describe ".show?" do
     context "with the env variable enabled" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:eitc).and_return true
+        Flipper.enable :eitc
       end
 
       it "returns true" do
@@ -19,10 +19,6 @@ describe Ctc::Questions::ClaimEitcController do
     end
 
     context "with the env variable disabled" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:eitc).and_return false
-      end
-
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
       end
