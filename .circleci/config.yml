@@ -94,7 +94,7 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
-  run_annotate:
+  run_annotate: # not running now because it seems to hang the DB when running concurrently with run_ruby_tests
     executor: rails_executor
     steps:
       - checkout
@@ -171,7 +171,6 @@ workflows:
               only: translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
-      - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
           filters:
