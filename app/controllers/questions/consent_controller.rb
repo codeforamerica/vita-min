@@ -45,11 +45,7 @@ module Questions
         locale: I18n.locale
       )
 
-      if current_intake.client.routing_method_at_capacity?
-        session[:intake_id] = nil
-      else
-        sign_in current_intake.client
-      end
+      sign_in current_intake.client unless current_intake.client.routing_method_at_capacity?
     end
   end
 end
