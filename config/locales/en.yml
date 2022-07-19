@@ -2007,6 +2007,11 @@ en:
           confirm_label: Confirm cell phone number
           label: Cell phone number
           title: Please share your cell phone number.
+        claim_eitc:
+          p1: The Earned Income Tax Credit (EITC) is a tax credit that may give you up to $6,700. This credit is usually at least $1,500.
+          p2: The main requirement is that you must earn money from a job and all individuals on the return have a SSN. We will ask a few additional questions to confirm your EITC amount.
+          p3: You must have a %{current_tax_year} W2 from your employer(s) to claim EITC.
+          title: Are you also interested in claiming the Earned Income Tax Credit?
         confirm_bank_account:
           bank_information: Your bank information
           title: Great! Check to make sure your bank information is correct.
@@ -2593,11 +2598,6 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
-        claim_eitc:
-          title: "Are you also interested in claiming the Earned Income Tax Credit?"
-          p1: "The Earned Income Tax Credit (EITC) is a tax credit that may give you up to $6,700. This credit is usually at least $1,500."
-          p2: "The main requirement is that you must earn money from a job and all individuals on the return have a SSN. We will ask a few additional questions to confirm your EITC amount."
-          p3: "You must have a %{current_tax_year} W2 from your employer(s) to claim EITC."
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
