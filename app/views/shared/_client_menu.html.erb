@@ -6,7 +6,7 @@
           <%= link_to t("general.my_account"), new_portal_client_login_path %>
         </div>
       <% else %>
-        <% if !@in_intake_flow && @get_started_link.present? %>
+        <% if @get_started_link.present? %>
           <div class="client-menu-item">
             <%= link_to t("general.get_started"), @get_started_link %>
           </div>
