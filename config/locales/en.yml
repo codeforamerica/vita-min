@@ -2593,6 +2593,8 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
+        claim_eitc:
+          title: "Are you also interested in claiming the Earned Income Tax Credit?"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
