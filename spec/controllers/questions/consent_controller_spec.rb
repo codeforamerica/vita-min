@@ -49,43 +49,19 @@ RSpec.describe Questions::ConsentController do
         end.to change { subject.current_client }.from(nil).to(intake.client)
       end
 
-      context "creating tax returns" do
-        it "creates tax returns in the intake in progress status for years indicated as needing help" do
+      context "initial tax returns" do
+        let(:fake_service) { instance_double(InitialTaxReturnsService) }
+
+        before do
+          allow(InitialTaxReturnsService).to receive(:new).and_return(fake_service)
+          allow(fake_service).to receive(:create!)
+        end
+
+        it "creates initial tax returns" do
           post :update, params: params
 
-          expect(intake.tax_returns.pluck(:current_state).uniq).to eq ["intake_in_progress"]
-          expect(intake.tax_returns.count).to eq 2
-          expect(intake.tax_returns.pluck(:year)).to match_array([2021, 2020])
-        end
-
-        context "when a tax return for a selected year already exists" do
-          let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2018 }
-          before do
-            intake.update(needs_help_2018: "yes")
-          end
-
-          it "uses the existing tax return object and does not crash" do
-            post :update, params: params
-
-            expect(intake.tax_returns.count).to eq 3
-            expect(intake.tax_returns.pluck(:year)).to match_array([2018, 2021, 2020])
-            expect(intake.tax_returns.find_by(year: 2018)).to eq tax_return
-          end
-        end
-
-        context "when a tax return had existed for a specific year but the needs_help_xxxx value is now false" do
-          let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2021 }
-
-          before do
-            intake.update(needs_help_2021: "no")
-          end
-
-          it "does not have that tax return associated anymore" do
-            expect(intake.tax_returns.pluck(:year)).to include 2021
-
-            post :update, params: params
-            expect(intake.tax_returns.pluck(:year)).not_to include 2021
-          end
+          expect(InitialTaxReturnsService).to have_received(:new).with(intake: intake)
+          expect(fake_service).to have_received(:create!)
         end
       end
 
@@ -258,10 +234,10 @@ RSpec.describe Questions::ConsentController do
           allow_any_instance_of(Client).to receive(:routing_method_at_capacity?).and_return true
         end
 
-        it "does not send a message" do
+        it "does send a message" do
           subject.after_update_success
 
-          expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
               client: intake.client,
               message: AutomatedMessage::GettingStarted,
               locale: :en

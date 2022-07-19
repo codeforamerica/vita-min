@@ -8,7 +8,14 @@ class UpdateClientVitaPartnerService < BaseService
   def update!
     BaseService.ensure_transaction do
       @clients.each do |client|
-        client.update!(vita_partner: @new_vita_partner, change_initiated_by: @change_initiated_by)
+        attributes = { vita_partner: @new_vita_partner, change_initiated_by: @change_initiated_by }
+        # Update routing method so that clients aren't being caught in previously at-capacity re-route attempts in intake
+        if client.vita_partner.nil? && client.routing_method_at_capacity?
+          attributes[:routing_method] = :hub_assignment
+          InitialTaxReturnsService.new(intake: client.intake).create!
+          GenerateF13614cPdfJob.perform_later(client.intake.id, "Preliminary 13614-C.pdf")
+        end
+        client.update!(attributes)
         SystemNote::OrganizationChange.generate!(client: client, initiated_by: @change_initiated_by)
       end
 

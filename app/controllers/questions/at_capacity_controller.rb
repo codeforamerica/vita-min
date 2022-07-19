@@ -8,6 +8,10 @@ module Questions
     end
 
     def edit
+      if current_client.present? && current_client.routing_method != "at_capacity"
+        redirect_to next_path
+      end
+
       current_intake.update(viewed_at_capacity: true)
     end
   end
