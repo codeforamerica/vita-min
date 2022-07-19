@@ -1,4 +1,4 @@
-class CreateInitialTaxReturnsService < BaseService
+class InitialTaxReturnsService < BaseService
   def initialize(intake:)
     @intake = intake
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe CreateInitialTaxReturnsService do
+describe InitialTaxReturnsService do
   describe "#create!" do
     let(:intake) { create :intake, needs_help_2021: "yes", needs_help_2020: "yes" }
 

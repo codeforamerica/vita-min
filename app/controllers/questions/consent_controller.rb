@@ -35,7 +35,7 @@ module Questions
 
       # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
-        CreateInitialTaxReturnsService.new(intake: current_intake).create!
+        InitialTaxReturnsService.new(intake: current_intake).create!
         GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
       end
 

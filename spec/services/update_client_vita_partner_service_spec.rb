@@ -15,10 +15,10 @@ describe UpdateClientVitaPartnerService do
     let(:assigned_user) { create :team_member_user, site: current_site }
 
     context "when a client was previously routed to no one because we were at capacity" do
-      let(:fake_service) { instance_double(CreateInitialTaxReturnsService) }
+      let(:fake_service) { instance_double(InitialTaxReturnsService) }
       before do
         client.update(routing_method: :at_capacity, vita_partner: nil)
-        allow(CreateInitialTaxReturnsService).to receive(:new).and_return(fake_service)
+        allow(InitialTaxReturnsService).to receive(:new).and_return(fake_service)
         allow(fake_service).to receive(:create!)
         allow(GenerateF13614cPdfJob).to receive(:perform_later)
       end
@@ -28,7 +28,7 @@ describe UpdateClientVitaPartnerService do
           subject.update!
         }.to change(client, :vita_partner).from(nil).to(other_site)
          .and change(client, :routing_method).from("at_capacity").to("hub_assignment")
-        expect(CreateInitialTaxReturnsService).to have_received(:new).with(intake: client.intake)
+        expect(InitialTaxReturnsService).to have_received(:new).with(intake: client.intake)
         expect(fake_service).to have_received(:create!)
         expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(client.intake.id, "Preliminary 13614-C.pdf")
       end

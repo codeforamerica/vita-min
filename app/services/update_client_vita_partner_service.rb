@@ -12,7 +12,7 @@ class UpdateClientVitaPartnerService < BaseService
         # Update routing method so that clients aren't being caught in previously at-capacity re-route attempts in intake
         if client.vita_partner.nil? && client.routing_method_at_capacity?
           attributes[:routing_method] = :hub_assignment
-          CreateInitialTaxReturnsService.new(intake: client.intake).create!
+          InitialTaxReturnsService.new(intake: client.intake).create!
           GenerateF13614cPdfJob.perform_later(client.intake.id, "Preliminary 13614-C.pdf")
         end
         client.update!(attributes)
