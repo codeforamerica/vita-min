@@ -76,7 +76,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
     it "shows an at capacity page and logs the client out" do
       expect(page).to have_selector("h1", text: I18n.t("views.questions.at_capacity.title"))
       expect(page).to have_text I18n.t("views.questions.at_capacity.body_html")[1]
-      expect(page).not_to have_text("Sign out")
+      expect(page).not_to have_text("Logout")
       expect(Intake.last.viewed_at_capacity).to be_truthy
       click_on "Return to homepage"
     end
@@ -89,7 +89,9 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
     end
 
     it "allows the client to log in again and see the at capacity page" do
-      click_on "Sign in"
+      within ".toolbar" do
+        click_on "Login"
+      end
       fill_in "Email address", with: "gary.gardengnome@example.green"
       click_on I18n.t("portal.client_logins.new.send_code")
       perform_enqueued_jobs
@@ -112,8 +114,9 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
         ActiveRecord::Base.transaction do
           UpdateClientVitaPartnerService.new(clients: [Client.last], vita_partner_id: create(:organization).id).update!
         end
-
-        click_on "Sign in"
+        within ".toolbar" do
+          click_on "Login"
+        end
         fill_in "Email address", with: "gary.gardengnome@example.green"
         click_on I18n.t("portal.client_logins.new.send_code")
         perform_enqueued_jobs
