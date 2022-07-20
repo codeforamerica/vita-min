@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_220949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -572,20 +572,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
-  create_table "contents", force: :cascade do |t|
-    t.datetime "activated_at", precision: nil
-    t.string "category"
-    t.datetime "created_at", null: false
-    t.boolean "is_faq"
-    t.string "name"
-    t.string "pathname"
-    t.text "subtitle_en"
-    t.text "subtitle_es"
-    t.text "title_en"
-    t.text "title_es"
-    t.datetime "updated_at", null: false
-  end
-
   create_table "ctc_intake_capacities", force: :cascade do |t|
     t.integer "capacity", null: false
     t.datetime "created_at", null: false
@@ -923,37 +909,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "idme_users", force: :cascade do |t|
-    t.string "birth_date"
-    t.string "city"
-    t.integer "consented_to_service", default: 0, null: false
-    t.datetime "consented_to_service_at", precision: nil
-    t.string "consented_to_service_ip"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.inet "current_sign_in_ip"
-    t.string "email"
-    t.integer "email_notification_opt_in", default: 0, null: false
-    t.string "encrypted_ssn"
-    t.string "encrypted_ssn_iv"
-    t.string "first_name"
-    t.bigint "intake_id", null: false
-    t.boolean "is_spouse", default: false
-    t.string "last_name"
-    t.datetime "last_sign_in_at", precision: nil
-    t.inet "last_sign_in_ip"
-    t.string "phone_number"
-    t.string "provider"
-    t.integer "sign_in_count", default: 0, null: false
-    t.integer "sms_notification_opt_in", default: 0, null: false
-    t.string "state"
-    t.string "street_address"
-    t.string "uid"
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "zip_code"
-    t.index ["intake_id"], name: "index_idme_users_on_intake_id"
-  end
-
   create_table "incoming_emails", force: :cascade do |t|
     t.integer "attachment_count"
     t.string "body_html"
@@ -995,26 +950,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
     t.index ["created_at"], name: "index_incoming_text_messages_on_created_at"
-  end
-
-  create_table "intake_site_drop_offs", force: :cascade do |t|
-    t.string "additional_info"
-    t.string "certification_level"
-    t.datetime "created_at", precision: nil
-    t.string "email"
-    t.boolean "hsa", default: false
-    t.string "intake_site", null: false
-    t.string "name", null: false
-    t.string "organization"
-    t.string "phone_number"
-    t.date "pickup_date"
-    t.bigint "prior_drop_off_id"
-    t.string "signature_method", null: false
-    t.string "state"
-    t.string "timezone"
-    t.datetime "updated_at", precision: nil
-    t.string "zendesk_ticket_id"
-    t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
   create_table "intakes", force: :cascade do |t|
@@ -1172,6 +1107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
+    t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
@@ -1277,7 +1213,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
-    t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
+    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
@@ -1385,7 +1321,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.citext "email_address"
     t.string "name"
     t.string "phone_number"
-    t.datetime "puerto_rico_open_sent_at"
     t.datetime "updated_at", null: false
     t.string "zip_code"
   end
@@ -1424,31 +1359,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.string "target_type", null: false
     t.datetime "updated_at", null: false
     t.index ["target_type", "target_id"], name: "index_state_routing_targets_on_target"
-  end
-
-  create_table "states", primary_key: "abbreviation", id: :string, force: :cascade do |t|
-    t.string "name"
-    t.index ["name"], name: "index_states_on_name"
-  end
-
-  create_table "states_vita_partners", id: false, force: :cascade do |t|
-    t.string "state_abbreviation"
-    t.integer "vita_partner_id"
-    t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
-    t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
-  end
-
-  create_table "stimulus_triages", force: :cascade do |t|
-    t.integer "chose_to_file", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.integer "filed_prior_years", default: 0, null: false
-    t.integer "filed_recently", default: 0, null: false
-    t.integer "need_to_correct", default: 0, null: false
-    t.integer "need_to_file", default: 0, null: false
-    t.string "referrer"
-    t.string "source"
-    t.datetime "updated_at", null: false
-    t.string "visitor_id"
   end
 
   create_table "system_notes", force: :cascade do |t|
@@ -1555,18 +1465,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
   end
 
-  create_table "ticket_statuses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "eip_status"
-    t.integer "intake_id"
-    t.string "intake_status"
-    t.string "return_status"
-    t.integer "ticket_id"
-    t.datetime "updated_at", null: false
-    t.boolean "verified_change", default: true
-    t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
-  end
-
   create_table "triages", force: :cascade do |t|
     t.integer "assistance_in_person", default: 0, null: false
     t.integer "assistance_phone_review_english", default: 0, null: false
@@ -1637,13 +1535,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id", unique: true
-  end
-
-  create_table "users_vita_partners", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "vita_partner_id", null: false
-    t.index ["user_id"], name: "index_users_vita_partners_on_user_id"
-    t.index ["vita_partner_id"], name: "index_users_vita_partners_on_vita_partner_id"
   end
 
   create_table "verification_attempt_transitions", force: :cascade do |t|
@@ -1747,7 +1638,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
-  add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -1791,7 +1681,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_221112) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
+            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count
