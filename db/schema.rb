@@ -1549,6 +1549,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_220949) do
     t.index ["verification_attempt_id", "sort_key"], name: "index_verification_attempt_transitions_parent_sort", unique: true
   end
 
+  
   create_table "verification_attempts", force: :cascade do |t|
     t.text "client_bypass_request"
     t.bigint "client_id"
