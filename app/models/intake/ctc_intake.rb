@@ -16,6 +16,7 @@
 #  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
+#  claim_eitc                                           :integer          default("unfilled"), not null
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
@@ -310,6 +311,7 @@ class Intake::CtcIntake < Intake
   enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
   enum home_location: { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, _prefix: :home_location
+  enum claim_eitc: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_eitc
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)

@@ -16,6 +16,7 @@
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
+#  claim_eitc                                           :integer          default(0), not null
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime

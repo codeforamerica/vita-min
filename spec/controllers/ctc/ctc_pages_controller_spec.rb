@@ -96,7 +96,7 @@ describe Ctc::CtcPagesController do
   describe "#puerto_rico" do
     context "when the puerto rico features has launched" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:puerto_rico_home_location).and_return true
+        Flipper.enable :puerto_rico_home_location
       end
 
       it "redirects to the spanish version of the page" do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_220949) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_19_202248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -966,6 +966,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_220949) do
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
     t.string "canonical_email_address"
     t.string "city"
+    t.integer "claim_eitc", default: 0, null: false
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
     t.bigint "client_id"

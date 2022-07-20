@@ -8,6 +8,7 @@ class CtcQuestionNavigation
     Ctc::Questions::FilingStatusController, # At this point we create the intake, client, and tax return
     Ctc::Questions::IncomeController,
     Ctc::Questions::FileFullReturnController,
+    Ctc::Questions::ClaimEitcController,
     Ctc::Questions::RestrictionsController,
 
     # Eligibility

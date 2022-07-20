@@ -1977,6 +1977,11 @@ es:
           confirm_label: Confirmar número de celular
           label: Número de celular
           title: Favor de compartir su número de celular
+        claim_eitc:
+          p1: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede otorgarle hasta $6,700. Este crédito suele ser de al menos $1,500.
+          p2: El requisito principal es que debe ganar dinero en un trabajo y que todas las personas que figuran en la declaración tengan un SSN. Le haremos algunas preguntas adicionales para confirmar la cantidad de su EITC.
+          p3: Debe tener un %{current_tax_year} W2 de su(s) empleador(es) para reclamar el EITC.
+          title: "¿También está interesado en reclamar el Crédito Tributario por Ingreso del Trabajo?"
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
