@@ -5,8 +5,8 @@ module Ctc
 
       layout "yes_no_question"
 
-      def self.show?(_intake)
-        Flipper.enabled?(:eitc)
+      def self.show?(intake)
+        Flipper.enabled?(:eitc) && !intake.home_location_puerto_rico?
       end
 
       private

@@ -16,6 +16,14 @@ describe Ctc::Questions::ClaimEitcController do
       it "returns true" do
         expect(described_class.show?(intake)).to eq true
       end
+
+      context "when client home is in puerto rico" do
+        let(:intake) { create :ctc_intake, home_location: :puerto_rico }
+
+        it "returns false" do
+          expect(described_class.show?(intake)).to eq false
+        end
+      end
     end
 
     context "with the env variable disabled" do
