@@ -7,7 +7,6 @@
 #  email_address                 :citext
 #  name                          :string
 #  phone_number                  :string
-#  puerto_rico_open_sent_at      :datetime
 #  zip_code                      :string
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
