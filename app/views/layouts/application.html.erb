@@ -60,28 +60,34 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
-      <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
-      <% if content_for :header %>
-        <%= yield :header %>
-      <% elsif hub? %>
-        <%= render 'shared/hub_header' %>
-      <% else %>
-        <%= render 'shared/header', variation: "gyr", home_link: root_path %>
+      <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
+      <% unless hub? %>
+        <%= render "shared/client_menu" %>
       <% end %>
+      <div class="page-content">
+        <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
+        <% if content_for :header %>
+          <%= yield :header %>
+        <% elsif hub? %>
+          <%= render 'shared/hub_header' %>
+        <% else %>
+          <%= render 'shared/header', variation: "gyr", home_link: root_path %>
+        <% end %>
 
-      <%= render "shared/environment_warning" %>
+        <%= render "shared/environment_warning" %>
 
-      <% if content_for(:back_to) %>
-        <%= render "hub/back_to", back_to: content_for(:back_to)%>
-      <% end %>
-      <div id="maincontent">
-        <div class="flash-alerts">
-          <%= render "shared/flash_alerts", flash: flash %>
+        <% if content_for(:back_to) %>
+          <%= render "hub/back_to", back_to: content_for(:back_to)%>
+        <% end %>
+        <div id="maincontent">
+          <div class="flash-alerts">
+            <%= render "shared/flash_alerts", flash: flash %>
+          </div>
+          <%= yield(:notice) if content_for?(:notice) %>
+
+          <%= content_for?(:main) ? yield(:main) : yield %>
+          <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
         </div>
-        <%= yield(:notice) if content_for?(:notice) %>
-
-        <%= content_for?(:main) ? yield(:main) : yield %>
-        <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
       </div>
     </div>
     <% if content_for?(:sticky_action_footer) %>

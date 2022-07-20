@@ -101,6 +101,7 @@
 @import "templates/exported-notion-resources";
 @import "templates/cdss-landing-pages";
 @import "components/verification_attempts";
+@import "components/ClientMenu";
 
 html {
   background-color: black;
@@ -117,6 +118,12 @@ body {
 // differently in GYR.
 .page-wrapper {
   overflow: unset !important;
+  position: relative;
+
+  .page-content, .menu-overlay {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @mixin visually-hidden {

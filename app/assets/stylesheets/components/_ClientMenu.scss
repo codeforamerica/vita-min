@@ -1,0 +1,76 @@
+.client-menu-trigger {
+  text-decoration: underline;
+}
+
+.client-menu {
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  height: 100%;
+  z-index: 999;
+  background: $color-gyr-green;
+  width: 30rem;
+  visibility: hidden;
+  opacity: 0;
+  display: block;
+  &.open {
+    opacity: 1;
+    transition: opacity .5s;
+    visibility: visible;
+  }
+
+  .container {
+    position: fixed;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.8rem 1.8rem;
+  }
+
+  .client-menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    border-bottom: 1px solid $color-grey-medium;
+    font-weight: 500;
+    a {
+      text-align: center;
+      text-decoration: none;
+      color: $color-black;
+      align-items: center;
+    }
+  }
+}
+
+.menu-overlay {
+  z-index: 998;
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+
+  &.open {
+    visibility: visible;
+    background-color: transparentize($color-black, .42);
+  }
+}
+
+.client-menu-closer {
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $color-white;
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .5s;
+  }
+}

@@ -15,6 +15,8 @@ import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
 import { initServiceComparisonComponent } from "../lib/service_comparison_component";
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
+import ClientMenuComponent from "../components/ClientMenuComponent";
+
 
 const Listeners =  (function(){
     return {
@@ -23,6 +25,7 @@ const Listeners =  (function(){
                 if (!window.appData) {
                     return;
                 }
+                ClientMenuComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 

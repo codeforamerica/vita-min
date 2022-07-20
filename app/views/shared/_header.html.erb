@@ -14,7 +14,7 @@
         </div>
       <% end %>
     </div>
-    <div class="toolbar__right">
+    <div class="toolbar__right is-mobile-hidden">
       <% if I18n.locale != :en %>
         <%= link_to_english(class: "toolbar__item text--small") %>
       <% end %>
@@ -26,11 +26,15 @@
           <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
       <% else %>
-        <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item text--small text--bold" %>
+        <%= link_to t("general.login"), new_portal_client_login_path, class: "toolbar__item text--small text--bold" %>
         <% if !@in_intake_flow && @get_started_link.present? %>
           <%= link_to t("general.get_started"), @get_started_link, class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
         <% end %>
-    <% end %>
+      <% end %>
     </div>
+    <a data-component="ClientMenuTrigger" class="client-menu-trigger is-desktop-hidden toolbar__item text--small">Menu</a>
+    <a class="is-desktop-hidden client-menu-closer" data-component="ClientMenuCloser">
+      <%= image_tag "icons/close.svg"%>
+    </a>
   </div>
 </header>
