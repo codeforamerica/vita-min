@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/codeforamerica/fraud-gem.git
-  revision: 9cfffdda2cccbaea8f2bb3663a6f7f117f3fabad
-  tag: v1.0.2
+  revision: 8afece392597f634aaffa9b1860e1ca4c197c1c2
+  tag: v1.0.4
   specs:
-    fraud-gem (1.0.2)
+    fraud-gem (1.0.4)
 
 GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
