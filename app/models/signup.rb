@@ -2,14 +2,15 @@
 #
 # Table name: signups
 #
-#  id                            :bigint           not null, primary key
-#  ctc_2022_open_message_sent_at :datetime
-#  email_address                 :citext
-#  name                          :string
-#  phone_number                  :string
-#  zip_code                      :string
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
+#  id                               :bigint           not null, primary key
+#  ctc_2022_open_message_sent_at    :datetime
+#  email_address                    :citext
+#  name                             :string
+#  phone_number                     :string
+#  puerto_rico_open_message_sent_at :datetime
+#  zip_code                         :string
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #
 class Signup < ApplicationRecord
   self.ignored_columns = [:sent_followup]
@@ -19,12 +20,14 @@ class Signup < ApplicationRecord
   validates :phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true
 
-  def self.send_message(message_name, batch_size=nil)
+  def self.send_message(message_name, batch_size=nil, after: )
     message_class = "AutomatedMessage::#{message_name.camelize}".constantize
     message = message_class.new
     sent_at_column = "#{message_name}_sent_at"
 
-    Signup.where("#{message_name}_sent_at" => nil).order(created_at: :asc).limit(batch_size).find_each do |signup|
+    signups = Signup.where("#{message_name}_sent_at" => nil)
+    signups = Signup.where('created_at >= ?', after) if after.present?
+    signups.find_each do |signup|
       if signup.email_address.present? && signup.valid?
         SignupFollowupMailer.followup(email_address: signup.email_address, message: message).deliver
         signup.touch(sent_at_column)

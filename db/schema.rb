@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_202248) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_225926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1322,6 +1322,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_202248) do
     t.citext "email_address"
     t.string "name"
     t.string "phone_number"
+    t.datetime "puerto_rico_open_message_sent_at"
     t.datetime "updated_at", null: false
     t.string "zip_code"
   end

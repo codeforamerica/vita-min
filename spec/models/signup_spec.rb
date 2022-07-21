@@ -2,14 +2,15 @@
 #
 # Table name: signups
 #
-#  id                            :bigint           not null, primary key
-#  ctc_2022_open_message_sent_at :datetime
-#  email_address                 :citext
-#  name                          :string
-#  phone_number                  :string
-#  zip_code                      :string
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
+#  id                               :bigint           not null, primary key
+#  ctc_2022_open_message_sent_at    :datetime
+#  email_address                    :citext
+#  name                             :string
+#  phone_number                     :string
+#  puerto_rico_open_message_sent_at :datetime
+#  zip_code                         :string
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #
 require "rails_helper"
 
@@ -111,6 +112,33 @@ RSpec.describe Signup, type: :model do
         subject
         expect(TwilioService).to have_received(:send_text_message).with(to: "+18888888888", body: AutomatedMessage::Ctc2022OpenMessage.new.sms_body)
         expect(signup.reload.ctc_2022_open_message_sent_at).to be_within(2.seconds).of(Time.zone.now)
+      end
+    end
+
+    context "when an after attribute is present" do
+      let(:signup_double) { double Signup }
+
+      context 'building the query' do
+        before do
+          allow(Signup).to receive(:where).and_return signup_double
+          allow(signup_double).to receive(:find_each)
+        end
+
+        it "uses the after value to create the query" do
+          Signup.send_message("ctc_2022_open_message", after: Date.today.beginning_of_day)
+          expect(Signup).to have_received(:where).with("created_at >= ?", Date.today.beginning_of_day)
+        end
+      end
+
+      context 'segmenting the signups' do
+        let!(:excluded_signup) { create :signup, created_at: 2.years.ago }
+        let!(:included_signup) { create :signup, created_at: 1.year.ago.beginning_of_day }
+
+        it "sends to the included signup but not to the not included signup" do
+          Signup.send_message("puerto_rico_open_message", after: 1.year.ago.beginning_of_day)
+          expect(included_signup.reload.puerto_rico_open_message_sent_at).to be_present
+          expect(excluded_signup.reload.puerto_rico_open_message_sent_at).not_to be_present
+        end
       end
     end
   end
