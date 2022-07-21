@@ -1275,9 +1275,9 @@ es:
     new_photos_requested:
       admin_note: Se solicitaron nuevas fotos
       email:
-        body: 'Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>'
+        body: Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
         subject: Se solicitan documentos de identidad adicionales
-      sms: 'Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>'
+      sms: Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |+
