@@ -30,6 +30,7 @@ module Hub
           [AutomatedMessage::NewPhotosRequested, {}],
           [AutomatedMessage::VerificationAttemptDenied, {}],
           [AutomatedMessage::Ctc2022OpenMessage, {}],
+          [AutomatedMessage::PuertoRicoOpenMessage, {}],
           [AutomatedMessage::IntercomForwarding, {}]
       ]
 
