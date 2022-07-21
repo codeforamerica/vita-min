@@ -49,16 +49,5 @@ describe Ctc::Questions::MainHomeController, requires_default_vita_partners: tru
         expect(response).to redirect_to questions_use_gyr_path
       end
     end
-
-    context "when client lived in Puerto Rico" do
-      include_context :first_page_of_ctc_intake_update_context, form_name: :ctc_main_home_form, additional_params: { home_location: "puerto_rico" }
-
-
-      it "redirects to use gyr" do
-        get :update, params: params
-
-        expect(response).to redirect_to offboarding_cant_use_getctc_pr_path
-      end
-    end
   end
 end

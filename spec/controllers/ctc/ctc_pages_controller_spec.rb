@@ -94,24 +94,9 @@ describe Ctc::CtcPagesController do
   end
 
   describe "#puerto_rico" do
-    context "when the puerto rico features has launched" do
-      before do
-        Flipper.enable :puerto_rico_home_location
-      end
-
-      it "redirects to the spanish version of the page" do
-        get :puerto_rico
-        expect(response).to redirect_to "/es/puertorico"
-      end
-    end
-
-    context "when the puerto rico features have not launched" do
-      context "when the puerto rico feature has not launched" do
-        it "redirects to home" do
-          get :puerto_rico
-          expect(response).to redirect_to root_path
-        end
-      end
+    it "redirects to the spanish version of the page" do
+      get :puerto_rico
+      expect(response).to redirect_to "/es/puertorico"
     end
   end
 end

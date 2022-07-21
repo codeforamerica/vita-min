@@ -438,6 +438,6 @@ class Intake::CtcIntake < Intake
   end
 
   def puerto_rico_filing?
-    home_location_puerto_rico? && Flipper.enabled?(:puerto_rico_home_location)
+    home_location_puerto_rico?
   end
 end

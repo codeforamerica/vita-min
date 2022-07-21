@@ -1804,13 +1804,6 @@ en:
           - To check the status of your %{current_tax_year} tax return you can log into your <a href='https://www.irs.gov/payments/your-online-account'>IRS online account</a>.
           - If you need additional support, you can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
           title: Unfortunately, you can’t use GetCTC because you already filed a %{current_tax_year} tax return.
-        puerto_rico_sign_up:
-          help_text:
-          - GetCTC is currently live for residents of the 50 states and D.C. and will be available for residents of Puerto Rico later this year.
-          - Get notified when we launch by providing your contact information on our sign up page!
-          return_home: Return home
-          sign_up: Continue to sign up page
-          title: We aren’t currently accepting returns from Puerto Rico, but you can sign up to be notified when we do.
       portal:
         bank_account:
           title: Please provide your bank details.
