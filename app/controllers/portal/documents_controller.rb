@@ -4,7 +4,7 @@ module Portal
     before_action :load_document
 
     def show
-      redirect_to transient_storage_url(@document.upload.blob)
+      redirect_to transient_storage_url(@document.upload.blob), allow_other_host: true
     end
 
     def load_document
