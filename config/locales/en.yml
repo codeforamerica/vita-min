@@ -1299,7 +1299,7 @@ en:
       email:
         body: Unfortunately, your identity documents did not pass our review. Please log in and upload new images. <<Client.LoginLink>>
         subject: Additional identity documents requested
-      sms: Unfortunately, your identity documents did not pass our review. Please log in and upload new images. <<Client.LoginLink>
+      sms: Unfortunately, your identity documents did not pass our review. Please log in and upload new images. <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |
