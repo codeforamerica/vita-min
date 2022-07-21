@@ -6,7 +6,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
     Flipper.enable :eitc
-    Flipper.enable :puerto_rico_home_location
   end
 
   scenario "EITC intake" do

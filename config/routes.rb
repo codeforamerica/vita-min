@@ -326,7 +326,6 @@ Rails.application.routes.draw do
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
       get "/already-filed", to: "ctc/offboarding/already_filed#show", as: :offboarding_already_filed
-      get "/cant-use-getctc-pr", to: "ctc/offboarding/puerto_rico_sign_up#show", as: :offboarding_cant_use_getctc_pr
       get "/actc-without-dependents", to: "ctc/offboarding/actc_without_dependents#show", as: :offboarding_actc_without_dependents
       get "/actc-without-dependents-use-gyr", to: "ctc/offboarding/actc_without_dependents#file_with_gyr", as: :offboarding_actc_without_dependents_file_with_gyr
       get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity

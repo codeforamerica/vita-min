@@ -79,24 +79,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     end
   end
 
-  context "offboarding Puerto Rico clients" do
-    scenario "client can return home or sign up" do
-      # =========== BASIC INFO ===========
-      visit "/en/questions/overview"
-      expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
-      click_on I18n.t('general.continue')
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
-      choose I18n.t('views.ctc.questions.main_home.options.puerto_rico')
-      click_on I18n.t('general.continue')
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.offboarding.puerto_rico_sign_up.title"))
-      expect(page).to have_link(href: ctc_root_path)
-      click_on  I18n.t("views.ctc.offboarding.puerto_rico_sign_up.sign_up")
-      expect(page).to have_current_path(ctc_signups_path)
-    end
-  end
-
   context "offboarding people with no dependents who received advance ctc" do
     before do
       fill_in_can_use_ctc(filing_status: "married_filing_jointly")
