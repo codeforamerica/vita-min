@@ -20,7 +20,7 @@ class Signup < ApplicationRecord
   validates :phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true
 
-  def self.send_message(message_name, batch_size=nil, after: )
+  def self.send_message(message_name, batch_size=nil, after: nil)
     message_class = "AutomatedMessage::#{message_name.camelize}".constantize
     message = message_class.new
     sent_at_column = "#{message_name}_sent_at"
