@@ -40,11 +40,11 @@ class FlowsController < ApplicationController
     on_ctc_hostname = request.host == MultiTenantService.new(:ctc).host
     if on_ctc_hostname
       if flow_config[:host] == :gyr
-        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:gyr).host))
+        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:gyr).host), allow_other_host: true)
       end
     else
       if flow_config[:host] == :ctc
-        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:ctc).host))
+        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:ctc).host), allow_other_host: true)
       end
     end
 
