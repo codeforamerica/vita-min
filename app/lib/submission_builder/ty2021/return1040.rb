@@ -1,6 +1,11 @@
 module SubmissionBuilder
   module Ty2021
     class Return1040 < SubmissionBuilder::Shared::Return1040
+      def initialize(submission, validate: true, documents: [], include_sensitive_fields: false)
+        @include_sensitive_fields = include_sensitive_fields
+        super(submission, validate: true, documents: [])
+      end
+
       def attached_documents
         @attached_documents ||= xml_documents.map(&:xml)
       end
@@ -22,7 +27,8 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
             pdf: Irs1040Pdf,
-            include: true
+            include: true,
+            kwargs: { include_sensitive_fields: @include_sensitive_fields }
           },
           {
             xml: nil,

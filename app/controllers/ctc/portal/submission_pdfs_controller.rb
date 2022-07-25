@@ -5,15 +5,15 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
     @submission = current_client.efile_submissions.find_by(id: params[:id])
     error_redirect and return unless @submission.present?
 
-    @document = current_client.documents.find_by(tax_return_id: @submission.tax_return_id, document_type: DocumentTypes::Form1040.key)
-    if @submission.present? && !@document.present?
-      begin
-        @document = CreateSubmissionPdfJob.perform_now(@submission.id)
-      rescue
-        error_redirect and return
-      end
+    submission = EfileSubmission.includes(:intake, :qualifying_dependents, :verified_address, :tax_return).find(@submission.id)
+
+    begin
+      output_file = submission.generate_filing_pdf(save: false, include_sensitive_fields: true)
+      return send_data output_file.read, filename: submission.filing_pdf_filename, disposition: 'inline'
+    rescue StandardError => e
+      DatadogApi.increment('clients.pdf_generation_failed')
+      error_redirect and return
     end
-    redirect_to transient_storage_url(@document.upload.blob)
   end
 
   def error_redirect
