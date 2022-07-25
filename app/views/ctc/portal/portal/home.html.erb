@@ -73,7 +73,7 @@
         <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
       <% end %>
       <% if @submission.present? %>
-        <%= link_to ctc_portal_submission_pdf_path(id: @submission.id), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
+        <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
           <%= t("views.ctc.portal.home.download_tax_return") %>
         <% end %>
       <% end %>
