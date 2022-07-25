@@ -386,5 +386,24 @@ RSpec.describe Irs1040Pdf do
         ))
       end
     end
+
+    describe "#sensitive_fields_for_pdf" do
+      let(:optional_xml_fields) do
+        lambda do |xml|
+          xml.RoutingTransitNum '12345'
+          xml.BankAccountTypeCd '1'
+          xml.DepositorAccountNum '54321'
+        end
+      end
+
+      it "includes bank account information" do
+        expect(described_class.new(submission).sensitive_fields_hash_for_pdf).to eq(
+          RoutingTransitNum35b: "12345",
+          BankAccountTypeCd: "Checking",
+          DepositorAccountNum35d: "54321"
+        )
+      end
+    end
+
   end
 end

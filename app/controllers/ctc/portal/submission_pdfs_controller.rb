@@ -13,7 +13,18 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
         error_redirect and return
       end
     end
-    redirect_to transient_storage_url(@document.upload.blob)
+
+    pdf_basename = @document.display_name.split('.').first
+    filled_tempfile = Tempfile.new([pdf_basename, ".pdf"])
+    @document.upload.open do |original_tempfile|
+      PdfForms.new.fill_form(
+        original_tempfile.path,
+        filled_tempfile.path,
+        Irs1040Pdf.new(@submission).sensitive_fields_hash_for_pdf
+      )
+    end
+
+    send_data filled_tempfile.read, filename: @document.display_name, disposition: 'inline'
   end
 
   def error_redirect

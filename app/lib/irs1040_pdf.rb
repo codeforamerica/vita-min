@@ -47,7 +47,24 @@ class Irs1040Pdf
     answers
   end
 
+  def sensitive_fields_hash_for_pdf
+    bank_info
+  end
+
   private
+
+  def bank_info
+    types_to_string = {
+      "1" => "Checking",
+      "2" => "Savings"
+    }
+
+    {
+      RoutingTransitNum35b:  @xml_document.at("RoutingTransitNum")&.text,
+      BankAccountTypeCd: types_to_string[@xml_document.at("BankAccountTypeCd")&.text],
+      DepositorAccountNum35d: @xml_document.at("DepositorAccountNum")&.text,
+    }
+  end
 
   def spouse_info
     {
