@@ -65,5 +65,7 @@ module VitaMin
     config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2022-10-19 17:00:00")
 
     config.include_optimizely = false
+
+    config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
   end
 end
