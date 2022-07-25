@@ -29,8 +29,9 @@ FactoryBot.define do
     end
 
     after(:create) do |verification_attempt|
-      create :ctc_intake, :filled_out_ctc, :with_bank_account
       create :bank_account, intake: verification_attempt.intake
+      submission = create :efile_submission, :preparing, tax_return: verification_attempt.client.tax_returns.first
+      create :fraud_score, efile_submission: submission
     end
 
     VerificationAttemptStateMachine.states.each do |state|
