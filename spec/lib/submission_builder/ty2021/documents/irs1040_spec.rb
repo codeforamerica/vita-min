@@ -5,7 +5,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
     before do
       submission.intake.update(primary_last_name: "Kòala")
       dependent = submission.intake.dependents.first
-      dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
+      dependent_attrs = attributes_for(:qualifying_child, ip_pin: "123456", first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
       dependent.update(dependent_attrs)
       dependent2 = submission.intake.dependents.second
       dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235") # too old to be qualifying child
@@ -89,6 +89,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(dependent_nodes[0].at("DependentFirstNm").text.length).to eq 20
         expect(dependent_nodes[0].at("DependentLastNm").text).to eq "Kiwi-Cucumbersteinin"
         expect(dependent_nodes[0].at("DependentFirstNm").text.length).to eq 20
+        expect(dependent_nodes[0].at("IdentityProtectionPIN").text).to eq "123456"
         expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KIWI"
         expect(dependent_nodes[0].at("DependentSSN").text).to eq "123001234"
         expect(dependent_nodes[0].at("DependentRelationshipCd").text).to eq "DAUGHTER"
