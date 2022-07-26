@@ -4,9 +4,9 @@ namespace :flow_explorer do
     all_passed = true
 
     [
-      "rspec --tag flow_explorer_screenshot",
-      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly",
-      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly",
+      "rspec --tag flow_explorer_screenshot --tag flow_explorer_screenshot_i18n_friendly",
+      # "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly",
+      # "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly",
     ].each do |cmd|
       puts "RUNNING: #{cmd}"
       result = system(cmd)
