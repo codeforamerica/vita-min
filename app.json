@@ -22,7 +22,13 @@
       "url": "https://github.com/heroku/heroku-buildpack-activestorage-preview"
     },
     {
-      "url": "https://github.com/fxtentacle/heroku-pdftk-buildpack.git"
+      "url": "heroku/jvm"
+    },
+    {
+      "url": "heroku-community/apt"
+    },
+    {
+      "url": "https://github.com/codeforamerica/heroku-pdftk-java-buildpack.git"
     }
   ],
   "env": {
