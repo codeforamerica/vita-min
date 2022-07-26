@@ -44,9 +44,17 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
 
-      - name: Add pdftk buildpack
+      - name: Add jvm buildpack
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 https://github.com/fxtentacle/heroku-pdftk-buildpack.git
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 heroku/jvm
+
+      - name: Add apt buildpack
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 heroku-community/apt
+
+      - name: Add pdftk-java buildpack
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 6 https://github.com/codeforamerica/heroku-pdftk-java-buildpack.git
 
       - name: Add Heroku app to pipeline
         if: github.event.action == 'opened' || github.event.action == 'reopened'
