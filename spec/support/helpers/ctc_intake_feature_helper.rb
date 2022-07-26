@@ -302,6 +302,7 @@ module CtcIntakeFeatureHelper
     expect(page).not_to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
     if head_of_household
+      click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")
       click_on "click here"
       expect(page).to have_text I18n.t("views.ctc.questions.head_of_household.title")
       click_on I18n.t("views.ctc.questions.head_of_household.claim_hoh")
