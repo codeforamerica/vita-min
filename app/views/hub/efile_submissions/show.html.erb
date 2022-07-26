@@ -7,7 +7,7 @@
 
       <div style="display: flex;">
         <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state.humanize %>)</h1>
-        <% if latest_efile_submission.can_transition_to?(:resubmitted) %>
+        <% if latest_efile_submission.can_transition_to?(:resubmitted) && !@client.archived? %>
           <div style="margin-left: 10px;">
             <%= button_to("Resubmit",
                         resubmit_hub_efile_submission_path(id: latest_efile_submission.id),
