@@ -387,7 +387,7 @@ RSpec.describe Irs1040Pdf do
       end
     end
 
-    describe "bank account fields" do
+    describe "#sensitive_fields_for_pdf" do
       let(:optional_xml_fields) do
         lambda do |xml|
           xml.RoutingTransitNum '12345'
@@ -396,28 +396,12 @@ RSpec.describe Irs1040Pdf do
         end
       end
 
-      context "when the viewer is the client" do
-        it "renders the pdf with the bank account information" do
-          output_file = described_class.new(submission, include_sensitive_fields: true).output_file
-          result = filled_in_values(output_file.path)
-          expect(result).to match(hash_including(
-                                    "RoutingTransitNum35b" => "12345",
-                                    "BankAccountTypeCd" => "Checking",
-                                    "DepositorAccountNum35d" => "54321",
-                                    ))
-        end
-      end
-
-      context "when the viewer is a hub user" do
-        it "renders the pdf without the bank account information" do
-          output_file = described_class.new(submission).output_file
-          result = filled_in_values(output_file.path)
-          expect(result).to match(hash_including(
-                                    "RoutingTransitNum35b" => nil,
-                                    "BankAccountTypeCd" => nil,
-                                    "DepositorAccountNum35d" => nil,
-                                    ))
-        end
+      it "includes bank account information" do
+        expect(described_class.new(submission).sensitive_fields_hash_for_pdf).to eq(
+          RoutingTransitNum35b: "12345",
+          BankAccountTypeCd: "Checking",
+          DepositorAccountNum35d: "54321"
+        )
       end
     end
 

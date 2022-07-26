@@ -138,28 +138,21 @@ class EfileSubmission < ApplicationRecord
     Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents).outstanding_ctc_amount.positive?
   end
 
-  def filing_pdf_filename
+  def generate_filing_pdf
     slug = irs_submission_id[6..] if  irs_submission_id.present?
     filename = "IRS 1040 - TY#{tax_return.year}"
     filename += slug ? " - #{slug}.pdf" : ".pdf"
-    filename
-  end
-
-  def generate_filing_pdf(save: true, include_sensitive_fields: false)
-    pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self, include_sensitive_fields: include_sensitive_fields).pdf_documents
-    output_file = Tempfile.new([filing_pdf_filename, ".pdf"], "tmp/")
+    pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
+    output_file = Tempfile.new([filename, ".pdf"], "tmp/")
     filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
     PdfForms.new.cat(*filled_out_documents.push(output_file.path))
-    if save
-      ClientPdfDocument.create_or_update(
-        output_file: output_file,
-        document_type: DocumentTypes::Form1040,
-        client: client,
-        filename: filing_pdf_filename,
-        tax_return: tax_return
-      )
-    end
-    output_file
+    ClientPdfDocument.create_or_update(
+      output_file: output_file,
+      document_type: DocumentTypes::Form1040,
+      client: client,
+      filename: filename,
+      tax_return: tax_return
+    )
   end
 
   def bundle_class

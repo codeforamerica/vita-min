@@ -5,11 +5,10 @@ class Irs1040Pdf
     "f1040-TY2021"
   end
 
-  def initialize(submission, include_sensitive_fields: false)
+  def initialize(submission)
     # For some PDF fields, use values from the database b/c the XML values are truncated or missing.
     @intake = submission.intake
     @address = submission.verified_address || @intake.address
-    @include_sensitive_fields = include_sensitive_fields
 
     # Most PDF fields are grabbed right off the XML
     @xml_document = SubmissionBuilder::Ty2021::Return1040.new(submission).document
@@ -42,11 +41,14 @@ class Irs1040Pdf
       PhoneNumber: PhoneParser.formatted_phone_number(@xml_document.at("PhoneNum")&.text),
       EmailAddress: @xml_document.at("EmailAddressTxt")&.text
     }
-    answers.merge!(bank_info) if @include_sensitive_fields
     answers.merge!(spouse_info) if @xml_document.at("IndividualReturnFilingStatusCd")&.text.to_i == TaxReturn.filing_statuses[:married_filing_jointly]
     dependent_nodes = @xml_document.search("DependentDetail")
     answers.merge!(dependents_info(dependent_nodes)) if dependent_nodes.any?
     answers
+  end
+
+  def sensitive_fields_hash_for_pdf
+    bank_info
   end
 
   private
