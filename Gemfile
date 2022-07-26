@@ -115,6 +115,7 @@ group :development, :test do
   gem 'turbo_tests'
   gem 'timecop'
   gem 'warning', require: false
+  gem 'bullet'
 end
 
 group :development do

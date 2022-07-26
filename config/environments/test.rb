@@ -22,6 +22,12 @@ Rails.application.configure do
     'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+    # Bullet.raise = true
+  end
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
