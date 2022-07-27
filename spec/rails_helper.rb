@@ -155,7 +155,7 @@ RSpec.configure do |config|
   end
 
   config.before(type: :feature) do |example|
-    if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot]
+    if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
       Capybara.page.current_window.resize_to(2000, 4000)
