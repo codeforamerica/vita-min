@@ -1,0 +1,11 @@
+<% @main_heading = t("views.ctc.questions.eitc_offboarding.title") %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+  <p class="text--small"><%= t("views.ctc.questions.eitc_offboarding.help_text") %></p>
+
+  <%= link_to next_path, class: "button button--primary button--wide text--centered" do %>
+    <%= t("general.continue") %>
+  <% end %>
+<% end %>

@@ -5,7 +5,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
-    Flipper.enable :eitc
+    Flipper.enable(:eitc)
   end
 
   scenario "EITC intake" do
@@ -19,7 +19,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
-    click_on I18n.t('general.affirmative')
+    click_on I18n.t('general.negative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
@@ -36,6 +36,57 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
+    fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Edith"
+    fill_in I18n.t('views.ctc.questions.legal_consent.middle_initial'), with: "I"
+    fill_in I18n.t('views.ctc.questions.legal_consent.last_name'), with: "Tecumpsa-Calhoun"
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "12"
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "2"
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1988"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "142-86-1000"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "142-86-1000"
+    fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "512=123-1234"
+    check "agree_to_privacy_policy"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
+    click_on I18n.t('views.ctc.questions.contact_preference.email')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))
+    fill_in I18n.t('views.questions.email_address.email_address'), with: "eitc@example.com"
+    fill_in I18n.t('views.questions.email_address.email_address_confirmation'), with: "eitc@example.com"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("p", text: I18n.t('views.ctc.questions.verification.body').strip)
+
+    perform_enqueued_jobs
+    mail = ActionMailer::Base.deliveries.last
+    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+
+    fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
+    click_on I18n.t("views.ctc.questions.verification.verify")
+
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
+    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.investment_income.help_text'))
+
+    click_on "Yes"
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.eitc_offboarding.title'))
+    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.eitc_offboarding.help_text'))
+    click_on "Go back" # This will be at the top of your offbvoarding page
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
+    click_on "No" # puts you back on the investment income page
+    # Dependents page (skips EITC offboarding page)
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: TaxReturn.current_tax_year))
   end
 
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do

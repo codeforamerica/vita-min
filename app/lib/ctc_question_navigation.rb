@@ -10,7 +10,6 @@ class CtcQuestionNavigation
     Ctc::Questions::FileFullReturnController,
     Ctc::Questions::ClaimEitcController,
     Ctc::Questions::RestrictionsController,
-
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
     Ctc::Questions::LifeSituationsController,
@@ -31,7 +30,8 @@ class CtcQuestionNavigation
     Ctc::Questions::SpousePriorTaxYearAgiController,
     Ctc::Questions::SpouseReviewController,
 
-    # Dependents Intro
+    Ctc::Questions::InvestmentIncomeController,
+    Ctc::Questions::EitcOffboardingController,
     Ctc::Questions::HadDependentsController,
 
     # Looping Dependents Questions

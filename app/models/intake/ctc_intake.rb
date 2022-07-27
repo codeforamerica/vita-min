@@ -82,6 +82,7 @@
 #  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
+#  exceeded_investment_income_limit                     :integer          default("unfilled")
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
@@ -294,6 +295,7 @@ class Intake::CtcIntake < Intake
   attr_encrypted :spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
+  enum exceeded_investment_income_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :exceeded_investment_income_limit
   enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
   enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
   enum eip3_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip3_entry_method
