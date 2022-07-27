@@ -12,14 +12,17 @@ module SubmissionBuilder
             eitc_dependents.each do |dependent|
               xml.QualifyingChildInformation {
                 xml.QualifyingChildNameControlTxt person_name_control_type(dependent.last_name)
-                xml.ChildFirstAndLastName "#{person_name_type(dependent.first_name)} #{person_name_type(dependent.last_name)}"
+                xml.ChildFirstAndLastName {
+                  xml.PersonFirstNm person_name_type(dependent.first_name)
+                  xml.PersonLastNm person_name_type(dependent.last_name)
+                }
                 xml.IdentityProtectionPIN dependent.ip_pin
                 xml.QualifyingChildSSN dependent.ssn
                 xml.ChildBirthYr dependent.birth_date.year
-                xml.ChildIsAStudentUnder24Ind 'X' if dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
-                xml.ChildPermanentlyDisabledInd 'X' if dependent.permanently_totally_disabled_yes?
+                xml.ChildIsAStudentUnder24Ind dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
+                xml.ChildPermanentlyDisabledInd dependent.permanently_totally_disabled_yes?
                 xml.ChildRelationshipCd dependent.irs_relationship_enum
-                xml.MonthsChildLivedWithYouCnt dependent.lived_with_more_than_six_months_yes? ? '7' : '0'
+                xml.MonthsChildLivedWithYouCnt '07'
               }
             end
           end
