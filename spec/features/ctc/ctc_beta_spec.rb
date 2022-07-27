@@ -29,7 +29,7 @@ def begin_intake
   click_on I18n.t('general.negative')
 end
 
-RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
+RSpec.feature "CTC Beta intake", :flow_explorer_screenshot, active_job: true, requires_default_vita_partners: true do
   around do |example|
     freeze_time do
       example.run

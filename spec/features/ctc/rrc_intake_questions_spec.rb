@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, requires_default_vita_partners: true do
   include CtcIntakeFeatureHelper
   
   before do

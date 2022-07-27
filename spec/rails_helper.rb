@@ -138,7 +138,7 @@ RSpec.configure do |config|
     Flipper.instance = Flipper.new(Flipper::Adapters::Memory.new)
   end
 
-  if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
+  if config.filter.rules[:flow_explorer_screenshot]
     FlowExplorerScreenshots.hook!(config)
   end
 end
@@ -156,7 +156,7 @@ RSpec.configure do |config|
   end
 
   config.before(type: :feature) do |example|
-    if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
+    if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
       Capybara.page.current_window.resize_to(2000, 4000)

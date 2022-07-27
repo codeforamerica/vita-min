@@ -3,11 +3,13 @@ class FlowExplorerScreenshots
     require 'mini_magick'
 
     Capybara::Session.class_exec do
-      capybara_visit = instance_method(:visit)
-
+      orig = instance_method(:visit)
       define_method :visit do |*args|
-        capybara_visit.bind(self).call(*args)
-        FlowExplorerScreenshots.create_flow_explorer_screenshot
+        # Allow visit to be called in create_flow_explorer_screenshot without recursing forever
+        no_screenshot = args.last.is_a?(Hash) && args.last.dig(:no_screenshot)
+        args.pop if no_screenshot
+        orig.bind(self).call(*args)
+        FlowExplorerScreenshots.create_flow_explorer_screenshot unless no_screenshot
       end
     end
 
@@ -15,11 +17,13 @@ class FlowExplorerScreenshots
       [:click_on, :click_button, :click_link].each do |capybara_method|
         orig = instance_method(capybara_method)
         define_method(capybara_method) do |*args|
-          # Allow click_link to be called in create_flow_explorer_screenshot without recursing forever
-          no_screenshot = args.last.is_a?(Hash) && args.last.dig(:no_screenshot)
-          args.pop if no_screenshot
           orig.bind(self).call(*args)
-          FlowExplorerScreenshots.create_flow_explorer_screenshot unless no_screenshot
+
+          # Capybara only allows calling .switch_to_window (which is used to capture the spanish screenshots)
+          # if we're not in a `within` block
+          if Capybara.current_scope.is_a?(Capybara::Node::Document)
+            FlowExplorerScreenshots.create_flow_explorer_screenshot
+          end
         end
       end
     end
@@ -48,7 +52,12 @@ class FlowExplorerScreenshots
     end
 
     if locale == :es && switch_locale
-      Capybara.page.find('.main-header').click_link("Español", no_screenshot: true)
+      link = Capybara.page.evaluate_script("document.querySelector('#locale_switcher_#{locale}').href")
+      if Capybara.windows.count == 1
+        Capybara.open_new_window
+      end
+      Capybara.switch_to_window(Capybara.windows.last)
+      Capybara.visit(link, no_screenshot: true)
     end
 
     card_rect = Capybara.page.evaluate_script(<<~SIZE_JS)
@@ -63,7 +72,7 @@ class FlowExplorerScreenshots
     puts "Saved new screenshot to #{screenshot_path}"
 
     if locale == :es && switch_locale
-      Capybara.page.find('.main-header').click_link('English', no_screenshot: true)
+      Capybara.switch_to_window(Capybara.windows.first)
     end
   end
 end
