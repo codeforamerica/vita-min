@@ -33,7 +33,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Ask about backtaxes
-    expect(intake.reload.current_step).to eq("/en/questions/backtaxes")
+    expect(intake.reload.current_step).to end_with("/questions/backtaxes")
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
     check "#{TaxReturn.current_tax_year}"
     check "#{TaxReturn.current_tax_year - 3}"
@@ -45,7 +45,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Interview time preferences
-    expect(intake.reload.current_step).to eq("/en/questions/interview-scheduling")
+    expect(intake.reload.current_step).to end_with("/questions/interview-scheduling")
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
     expect(page).to have_select(
       "What is your preferred language for the review?", selected: "English"
@@ -54,7 +54,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Notification Preference
-    expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
+    expect(intake.reload.current_step).to end_with("/questions/notification-preference")
     expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
     check "Email Me"
     check "Text Me"
@@ -150,7 +150,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "No"
 
     # Dependents
-    expect(intake.reload.current_step).to eq("/en/questions/had-dependents")
+    expect(intake.reload.current_step).to end_with("/questions/had-dependents")
     expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{TaxReturn.current_tax_year}?")
     click_on "No"
 
@@ -167,7 +167,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "No"
 
     # Income from working
-    expect(intake.reload.current_step).to eq("/en/questions/job-count")
+    expect(intake.reload.current_step).to end_with("/questions/job-count")
     select "3 jobs", from: "In #{TaxReturn.current_tax_year}, how many jobs did you have?"
     click_on "Continue"
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you live or work in any other states besides Virginia?")
@@ -190,7 +190,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Yes"
 
     # Retirement income/contributions
-    expect(intake.reload.current_step).to eq("/en/questions/social-security-or-retirement")
+    expect(intake.reload.current_step).to end_with("/questions/social-security-or-retirement")
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you have Social Security income, retirement income, or retirement contributions?")
     click_on "No"
 
@@ -238,7 +238,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Yes"
 
     # Miscellaneous
-    expect(intake.reload.current_step).to eq("/en/questions/disaster-loss")
+    expect(intake.reload.current_step).to end_with("/questions/disaster-loss")
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you have a loss related to a declared Federal Disaster Area?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you have debt cancelled or forgiven by a lender?")
@@ -259,7 +259,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     choose "Direct deposit (fastest)"
     click_on "Continue"
     # Savings Options
-    expect(intake.reload.current_step).to eq("/en/questions/savings-options")
+    expect(intake.reload.current_step).to end_with("/questions/savings-options")
     expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
     check "Purchase United States Savings Bond"
     click_on "Continue"
@@ -275,7 +275,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Contact information
-    expect(intake.reload.current_step).to eq("/en/questions/mailing-address")
+    expect(intake.reload.current_step).to end_with("/questions/mailing-address")
     expect(page).to have_text("What is your mailing address?")
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
@@ -284,7 +284,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Overview: Documents
-    expect(intake.reload.current_step).to eq("/en/questions/overview-documents")
+    expect(intake.reload.current_step).to end_with("/questions/overview-documents")
 
     expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     click_on "Continue"
@@ -298,16 +298,16 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
-    expect(intake.reload.current_step).to eq("/en/documents/selfie-instructions")
+    expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
     expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
     click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
-    expect(intake.reload.current_step).to eq("/en/documents/selfies")
+    expect(intake.reload.current_step).to end_with("/documents/selfies")
     expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
     upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
-    expect(intake.reload.current_step).to eq("/en/documents/ssn-itins")
+    expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
     expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
     upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
@@ -333,23 +333,23 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_content("test-pattern.png")
     click_on "Continue"
 
-    expect(intake.reload.current_step).to eq("/en/documents/overview")
+    expect(intake.reload.current_step).to end_with("/documents/overview")
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
     click_on "I've shared all my documents"
 
     # Final Information
-    expect(intake.reload.current_step).to eq("/en/questions/final-info")
+    expect(intake.reload.current_step).to end_with("/questions/final-info")
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
     expect {
       click_on "Submit"
     }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
-    expect(intake.reload.current_step).to eq("/en/questions/successfully-submitted")
+    expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
     click_on "Great!"
 
-    expect(intake.reload.current_step).to eq("/en/questions/feedback")
+    expect(intake.reload.current_step).to end_with("/questions/feedback")
     fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
     click_on "Continue"
 
@@ -368,7 +368,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
     choose "Yes"
     click_on "Continue"
-    expect(intake.reload.current_step).to eq("/en/questions/demographic-primary-race")
+    expect(intake.reload.current_step).to end_with("/questions/demographic-primary-race")
     expect(page).to have_selector("h1", text: "What is your race?")
     check "Asian"
     check "White"
@@ -381,7 +381,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # going back to another page after submit redirects to client login, does not reset current_step
     visit "/questions/work-situations"
-    expect(intake.reload.current_step).to eq("/en/questions/demographic-primary-ethnicity")
+    expect(intake.reload.current_step).to end_with("/questions/demographic-primary-ethnicity")
     expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
   end
 end
