@@ -32,14 +32,6 @@ class CtcQuestionNavigation
 
     Ctc::Questions::InvestmentIncomeController,
     Ctc::Questions::EitcOffboardingController,
-    # Ctc::Questions::InvestmentIncomeController # Show only if answer on ClaimEITCController is answered as TRUE (yes)
-    # What is that question? (where do we store that data)
-    # def self.show?(intake), return FALSE if eitc feature flag is off OR claim EITC is false
-    # template (investment_income/edit) that has some of this info to match figma
-    #
-    # Ctc::Questions::EitcOffboarding # def show Show only if InvestmentIncome > 10k
-    # Dependents Intro
-
     Ctc::Questions::HadDependentsController,
 
     # Looping Dependents Questions
