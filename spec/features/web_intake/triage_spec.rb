@@ -38,7 +38,7 @@ RSpec.feature "triage flow" do
 
       @test_cases = rows.map { |row| TriageFlowTestCase.new(row) }
 
-      # flag certain test cases as `flow_explorer_screenshot_i18n_friendly` to ensure we screenshot
+      # flag certain test cases as `flow_explorer_screenshot` to ensure we screenshot
       # every page at least once, without having to run every single test case through headless chrome
       # (which takes like 10 minutes as of the writing of this comment)
       seen_controllers = {}
@@ -70,7 +70,7 @@ RSpec.feature "triage flow" do
     end
 
     def rspec_metadata
-      screenshot ? { flow_explorer_screenshot_i18n_friendly: true } : { }
+      screenshot ? { flow_explorer_screenshot: true } : { }
     end
 
     def final_page

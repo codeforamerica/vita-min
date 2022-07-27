@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Puerto Rico", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
+RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requires_default_vita_partners: true do
   include CtcIntakeFeatureHelper
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)

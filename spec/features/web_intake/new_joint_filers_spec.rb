@@ -64,7 +64,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       # Notification Preference
-      expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
+      expect(intake.reload.current_step).to end_with("/questions/notification-preference")
       check "Email Me"
       check "Text Me"
       click_on "Continue"
@@ -562,7 +562,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Great!"
 
-    expect(intake.reload.current_step).to eq("/en/questions/feedback")
+    expect(intake.reload.current_step).to end_with("/questions/feedback")
     fill_in "Thank you for sharing your experience.", with: "I am a joint filer. I file with my spouse."
     click_on "Continue"
 

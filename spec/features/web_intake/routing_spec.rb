@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_job do
+feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   include MockTwilio
 
   def fill_out_notification_preferences(fill_out_optional_consent: true)

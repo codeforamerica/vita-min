@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_friendly do
+RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
   let(:gyr_ssn) { "123-45-6789" }
   let!(:original_gyr_intake) do
     create(

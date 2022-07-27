@@ -16,8 +16,9 @@ module ApplicationHelper
 
   def link_to_locale(locale, label, additional_attributes = {})
     link_to(label,
-            { :locale=>locale, :params=>request.query_parameters },
+            { locale: locale, params: request.query_parameters },
             lang: locale,
+            id: "locale_switcher_#{locale}",
             "data-track-click": "intake-language-changed",
             "data-track-attributes-to_locale": locale,
             "data-track-attributes_from_locale": I18n.locale,

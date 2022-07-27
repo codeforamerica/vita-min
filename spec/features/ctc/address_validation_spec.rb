@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true, do_not_stub_usps: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, requires_default_vita_partners: true, do_not_stub_usps: true do
   include CtcIntakeFeatureHelper
   let(:usps_api_response_body) { file_fixture("usps_address_validation_body.xml").read }
   let!(:intake_with_verified_address) { create(:ctc_intake, usps_address_verified_at: 5.minutes.ago) }
