@@ -2159,6 +2159,9 @@ es:
           license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado
           state: Estado
           title: Ingrese su información de su licencia de conducir o su tarjeta de identificación emitida por el estado
+        eitc_offboarding:
+          help_text: Continúe con GetCTC para reclamar su Crédito Tributario por Hijos y/o pagos de estímulo faltantes.
+          title: No califica para el Crédito Tributario por Ingreso del Trabajo, ¡pero todavía hay dinero esperándolo!
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
@@ -2311,6 +2314,10 @@ es:
               p2: No habría recibido el Crédito tributario de prima de seguro médico adelantado el año pasado si tuviera Medicaid o Medicare, si tuviera cobertura de atención médica de su empleador o si no tuviera cobertura de atención médica.
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
+        investment_income:
+          help_text: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingresos por inversiones?"
+          single_title: "¿Ganaste más de $10,000 en ingresos de inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.

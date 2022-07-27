@@ -2189,6 +2189,9 @@ en:
           license_number: Driver's license or state issued ID number
           state: Issuing state
           title: Enter your driver's license or state issued ID information.
+        eitc_offboarding:
+          help_text: Continue with GetCTC to claim your Child Tax Credit and/or missing stimulus payments.
+          title: You do not qualify for the Earned Income Tax Credit, but there’s still money waiting for you!
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -2341,6 +2344,10 @@ en:
               p2: You would not have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
               p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
             title: What is the Advance Premium Tax Credit?
+        investment_income:
+          help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
+          married_title: Did you and your spouse earn more than $10,000 in investment income?
+          single_title: Did you earn more than $10,000 in investment income?
         ip_pin:
           help_text_1: Having an IP PIN is rare. If you are unfamiliar with an IP PIN, you likely have not been issued one.
           help_text_2: Select ‘None of the above’ to continue.

@@ -82,6 +82,7 @@
 #  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
+#  exceeded_investment_income_limit                     :integer          default(0)
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
