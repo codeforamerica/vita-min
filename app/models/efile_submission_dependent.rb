@@ -36,6 +36,7 @@ class EfileSubmissionDependent < ApplicationRecord
         qualifying_child: eligibility.qualifying_child?,
         qualifying_relative: eligibility.qualifying_relative?,
         qualifying_ctc: eligibility.qualifying_ctc?,
+        qualifying_eitc: eligibility.qualifying_eitc?,
         age_during_tax_year: eligibility.age
       )
     end

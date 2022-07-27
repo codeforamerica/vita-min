@@ -1,0 +1,30 @@
+module SubmissionBuilder
+  module Ty2021
+    module Documents
+      class ScheduleEic < SubmissionBuilder::Document
+        def schema_file
+          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040ScheduleEIC", "IRS1040ScheduleEIC.xsd")
+        end
+
+        def document
+          eitc_dependents = submission.qualifying_dependents.select(&:qualifying_eitc?)
+          build_xml_doc("IRS1040ScheduleEIC", documentId: "IRS1040ScheduleEIC", documentName: "IRS1040ScheduleEIC") do |xml|
+            eitc_dependents.each do |dependent|
+              xml.QualifyingChildInformation {
+                xml.QualifyingChildNameControlTxt person_name_control_type(dependent.last_name)
+                xml.ChildFirstAndLastName "#{person_name_type(dependent.first_name)} #{person_name_type(dependent.last_name)}"
+                xml.IdentityProtectionPIN dependent.ip_pin
+                xml.QualifyingChildSSN dependent.ssn
+                xml.ChildBirthYr dependent.birth_date.year
+                xml.ChildIsAStudentUnder24Ind 'X' if dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
+                xml.ChildPermanentlyDisabledInd 'X' if dependent.permanently_totally_disabled_yes?
+                xml.ChildRelationshipCd dependent.irs_relationship_enum
+                xml.MonthsChildLivedWithYouCnt dependent.lived_with_more_than_six_months_yes? ? '7' : '0'
+              }
+            end
+          end
+        end
+      end
+    end
+  end
+end
