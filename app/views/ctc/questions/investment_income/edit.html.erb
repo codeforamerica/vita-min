@@ -1,6 +1,6 @@
 <% if current_intake.filing_jointly? %>
   <% content_for :form_question, t("views.ctc.questions.investment_income.married_title") %>
 <% else %>
-  <% content_for :form_question, t("views.ctc.questions.investment_income.single_title") %>
+  <% content_for :form_question, t("views.ctc.questions.investment_income.title") %>
 <% end %>
 <% content_for :form_help_text, t("views.ctc.questions.investment_income.help_text") %>

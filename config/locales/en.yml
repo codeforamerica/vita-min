@@ -2347,7 +2347,7 @@ en:
         investment_income:
           help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
           married_title: Did you and your spouse earn more than $10,000 in investment income?
-          single_title: Did you earn more than $10,000 in investment income?
+          title: Did you earn more than $10,000 in investment income?
         ip_pin:
           help_text_1: Having an IP PIN is rare. If you are unfamiliar with an IP PIN, you likely have not been issued one.
           help_text_2: Select ‘None of the above’ to continue.
