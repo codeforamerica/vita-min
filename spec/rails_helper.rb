@@ -135,7 +135,6 @@ RSpec.configure do |config|
     allow(fake_dns).to receive(:open) { raise StandardError, "Cannot use DNS from test suite" }
     allow(fake_dns).to receive(:close)
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
-    Flipper.instance = Flipper.new(Flipper::Adapters::Memory.new)
   end
 
   if config.filter.rules[:flow_explorer_screenshot]
@@ -174,6 +173,12 @@ RSpec.configure do |config|
           timezone: "America/New_York"
         }
       )
+    end
+  end
+
+  config.before(:each) do
+    unless Capybara.current_driver == Capybara.javascript_driver
+      Flipper.instance = Flipper.new(Flipper::Adapters::Memory.new)
     end
   end
 
