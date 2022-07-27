@@ -77,11 +77,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t("views.ctc.questions.verification.verify")
 
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
-    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.investment_income.help_text_html'))
+    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.investment_income.help_text'))
 
     click_on "Yes"
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.eitc_offboarding.title'))
-    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.eitc_offboarding.help_text_html'))
+    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.eitc_offboarding.help_text'))
     click_on "Go back" # This will be at the top of your offbvoarding page
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
     click_on "No" # puts you back on the investment income page
