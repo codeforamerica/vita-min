@@ -210,9 +210,12 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       end
     end
 
-    context "when the year is before 1900" do
+    context "when the birth date is less than 16 years ago" do
       before do
-        params[:primary_birth_date_year] = "1492"
+        birthdate = 15.years.ago
+        params[:primary_birth_date_year] = birthdate.year
+        params[:primary_birth_date_month] = birthdate.month
+        params[:primary_birth_date_day] = birthdate.day
       end
 
       it "is not valid" do

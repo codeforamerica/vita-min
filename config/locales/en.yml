@@ -126,6 +126,7 @@ en:
     attributes:
       birth_date:
         blank: Please enter a valid date.
+        must_be_sixteen: Primary tax filer must be at least 16.
       certification_level:
         inclusion: Please select a certification level.
       date:
@@ -2373,7 +2374,9 @@ en:
           title: What language do you want the IRS to use when they contact you?
         legal_consent:
           agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
-          body: Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          body_html: |
+            <p>Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.</p>
+            <p>If you are trying to claim tax benefits for your child, enter your own information here. You will enter your child’s information later.</p>
           first_name: Legal first name
           form_of_identity: Form of identity
           last_name: Legal last name
