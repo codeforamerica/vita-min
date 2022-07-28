@@ -1,17 +1,24 @@
 module AdhocMessages
   class IncreaseReferralsExperiment
-    def subject
+    def content
       {
-        en: "Refer your friends to GetCTC!",
-        es: "¡Refiera a sus amigos a GetCTC!"
+        en: {
+          body: "Thank you for filing your tax return with GetCTC! Every family should get the money they deserve. Tell your family and friends to claim their benefits too at getctc.org/refer",
+          subject: "Refer your friends to GetCTC!",
+        },
+        es: {
+          body: "¡Gracias por presentar su declaración de impuestos con GetCTC! Cada familia debe recibir el dinero que se merece. Dígales a sus familiares y amigos que también reclamen sus beneficios en getctc.org/refer",
+          subject: "¡Refiera a sus amigos a GetCTC!",
+        }
       }
     end
 
-    def body
-      {
-        en: "Thank you for filing your tax return with GetCTC! Every family should get the money they deserve. Tell your family and friends to claim their benefits too at getctc.org/refer",
-        es: "¡Gracias por presentar su declaración de impuestos con GetCTC! Cada familia debe recibir el dinero que se merece. Dígales a sus familiares y amigos que también reclamen sus beneficios en getctc.org/refer"
-      }
+    def bulk_message(tax_return_selection, user)
+      ClientMessagingService.send_bulk_message(
+        tax_return_selection,
+        user,
+        content
+      )
     end
 
     def create_tax_return_selection(batch: nil)
@@ -29,7 +36,7 @@ module AdhocMessages
         end
       TaxReturn.joins(client: :intake).in_state(:file_accepted).where(
         "most_recent_tax_return_transition.created_at > ?", 5.days.ago
-      ).where(intake: {type: 'Intake::CtcIntake', state: state_filter})
+      ).where(intake: { type: 'Intake::CtcIntake', state: state_filter })
     end
   end
 end
