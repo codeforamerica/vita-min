@@ -2246,8 +2246,10 @@ en:
             title: What if my spouse died last year?
           title: As of December 31, %{current_tax_year}, were you legally married?
         had_dependents:
-          help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
-          title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
+          help_text: Anyone who you support financially or who lived with you might qualify you for additional benefits, we’ll help you figure it out.
+          title: To claim your Child Tax Credit, you must add your dependents (children or others who you financially support)
+          add: Add dependents
+          continue: Continue without dependents
           which_relationships_qualify_reveal:
             content:
             - Son
