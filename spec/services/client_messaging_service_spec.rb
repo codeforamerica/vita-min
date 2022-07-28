@@ -604,17 +604,44 @@ RSpec.describe ClientMessagingService do
       let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
       let!(:client_nil) { create :client, intake: create(:intake, locale: nil), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
 
-      it "sends messages to clients with the appropriate locales" do
-        described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
-        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client: client_es, user: user, body: message_body_es
-        )
-        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client: client_en, user: user, body: message_body_en
-        )
-        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client: client_nil, user: user, body: message_body_en
-        )
+      context "without a subject line" do
+        it "sends messages to clients with the appropriate locales with nil subject" do
+          described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_es, user: user, body: message_body_es, subject: nil
+          )
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_en, user: user, body: message_body_en, subject: nil
+          )
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_nil, user: user, body: message_body_en, subject: nil
+          )
+        end
+      end
+
+      context "with a subject line" do
+        let(:subject_en) { "Message subject" }
+        let(:subject_es) { "Línea de asunto" }
+        it "sends messages to clients with the appropriate locales with the subject" do
+          described_class.send_bulk_message(tax_return_selection, user, {en: subject_en, es: subject_es}, en: message_body_en, es: message_body_es)
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_es, user: user, body: message_body_es, subject: subject_es
+          )
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_en, user: user, body: message_body_en, subject: subject_en
+          )
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client: client_nil, user: user, body: message_body_en, subject: subject_en
+          )
+        end
+      end
+
+      context "with not enough subject lines for the client locales" do
+        it "raises ArgumentError" do
+          expect {
+            described_class.send_bulk_message(tax_return_selection, user, {en: "Subject"}, en: message_body_en, es: message_body_es)
+          }.to raise_error(ArgumentError)
+        end
       end
 
       context "with message records returned by send_message_to_all_opted_in_contact_methods" do
@@ -663,7 +690,7 @@ RSpec.describe ClientMessagingService do
           described_class.send_bulk_message(tax_return_selection, user, es: message_body_es)
 
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: client_es, user: user, body: message_body_es
+            client: client_es, user: user, body: message_body_es, subject: nil
           )
         end
       end
@@ -690,10 +717,10 @@ RSpec.describe ClientMessagingService do
       it "scopes down to only the accessible clients" do
         described_class.send_bulk_message(tax_return_selection, user, en: message_body_en)
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client: accessible_client, user: user, body: message_body_en
+          client: accessible_client, user: user, body: message_body_en, subject: nil
         )
         expect(ClientMessagingService).not_to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client: inaccessible_client, user: user, body: message_body_en
+          client: inaccessible_client, user: user, body: message_body_en, subject: nil
         )
       end
     end
