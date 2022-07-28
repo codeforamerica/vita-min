@@ -1271,11 +1271,12 @@ en:
           Hello <<Client.PreferredName>>,
 
           Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>>.
+
           We will begin to prepare your taxes once we have all of your required information and tax documents.
 
           Check your progress and add additional documents here: <<Client.LoginLink>>
 
-          The entire GetYourRefund process will take 2-3weeks.
+          The entire GetYourRefund process will take 2-3 weeks.
 
           If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
