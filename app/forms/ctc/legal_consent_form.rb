@@ -19,6 +19,7 @@ module Ctc
 
     validates :phone_number, e164_phone: true
     validates :agree_to_privacy_policy, acceptance: { accept: "1", message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validate :must_be_at_least_16_years_old
 
     before_validation do
       if ssn_no_employment == "yes" && primary_tin_type == "ssn"
@@ -48,6 +49,16 @@ module Ctc
 
     def normalize_phone_numbers
       self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
+    end
+
+    def must_be_at_least_16_years_old
+      parsed_birth_date = parse_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
+      if parsed_birth_date.present? && parsed_birth_date > 16.years.ago
+        errors.add(:primary_birth_date, I18n.t('errors.attributes.birth_date.must_be_sixteen'))
+        return false
+      end
+
+      true
     end
   end
 end

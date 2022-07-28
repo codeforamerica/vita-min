@@ -126,6 +126,7 @@ es:
     attributes:
       birth_date:
         blank: Por favor, ingrese una fecha válida.
+        must_be_sixteen: El contribuyente principal debe tener al menos 16 años.
       certification_level:
         inclusion: Por favor, seleccione un nivel de certificación.
       date:
@@ -2343,7 +2344,9 @@ es:
           title: "¿Qué idioma quiere que use el IRS cuando se comunique con usted?"
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
-          body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN).
+          body_html: |
+            <p>Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN).</p>
+            <p>Si está tratando de reclamar beneficios fiscales para su hijo, ingrese su propia información aquí. Ingresará la información de su hijo más tarde.</p>
           first_name: Primer nombre legal
           form_of_identity: Forma de identidad
           last_name: Apellido legal
