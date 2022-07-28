@@ -35,9 +35,9 @@ module Hub
           @bulk_client_message = ClientMessagingService.send_bulk_message(
             @selection,
             current_user,
-            en: @form.message_body_en,
-            es: @form.message_body_es,
-            )
+            en: { body: @form.message_body_en },
+            es: { body: @form.message_body_es },
+          )
         end
       end
 

@@ -228,8 +228,8 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
             expect(ClientMessagingService).to have_received(:send_bulk_message).with(
                 tax_return_selection,
                 team_member,
-                en: english_message_body,
-                es: spanish_message_body,
+                en: { body: english_message_body },
+                es: { body: spanish_message_body },
                 )
           end
 
