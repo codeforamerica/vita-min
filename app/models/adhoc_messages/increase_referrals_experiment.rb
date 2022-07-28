@@ -14,11 +14,12 @@ module AdhocMessages
     end
 
     def bulk_message(tax_return_selection, user)
-      ClientMessagingService.send_bulk_message(
+      bulk_client_message = ClientMessagingService.send_bulk_message(
         tax_return_selection,
         user,
         content
       )
+      UserNotification.create!(notifiable: bulk_client_message, user: user)
     end
 
     def create_tax_return_selection(batch: nil)
