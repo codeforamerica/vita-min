@@ -3,7 +3,7 @@ module Ctc
     class ClaimEitcController < QuestionsController
       include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
-      layout "yes_no_question"
+      layout "intake"
 
       def self.show?(intake)
         Flipper.enabled?(:eitc) && !intake.home_location_puerto_rico?

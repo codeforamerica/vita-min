@@ -2001,10 +2001,17 @@ en:
           label: Cell phone number
           title: Please share your cell phone number.
         claim_eitc:
-          p1: The Earned Income Tax Credit (EITC) is a tax credit that may give you up to $6,700. This credit is usually at least $1,500.
-          p2: The main requirement is that you must earn money from a job and all individuals on the return have a SSN. We will ask a few additional questions to confirm your EITC amount.
-          p3: You must have a %{current_tax_year} W2 from your employer(s) to claim EITC.
-          title: Are you also interested in claiming the Earned Income Tax Credit?
+          buttons:
+            claim: Yes, claim EITC
+            dont_claim: No, continue without EITC
+          help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700. Most people receive at least $1,500.
+          info_box:
+            list:
+            - You have a job earning money
+            - You have a 2021 W2 from your employer(s)
+            - Each person on this return has an SSN
+            title: 'Requirements:'
+          title: Would you like to claim more money by sharing any 2021 W2 forms?
         confirm_bank_account:
           bank_information: Your bank information
           title: Great! Check to make sure your bank information is correct.
