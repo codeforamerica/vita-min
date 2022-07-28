@@ -606,7 +606,7 @@ RSpec.describe ClientMessagingService do
 
       context "without a subject line" do
         it "sends messages to clients with the appropriate locales with nil subject" do
-          described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
+          described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en }, es: { body: message_body_es })
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
             client: client_es, user: user, body: message_body_es, subject: nil
           )
@@ -623,7 +623,7 @@ RSpec.describe ClientMessagingService do
         let(:subject_en) { "Message subject" }
         let(:subject_es) { "Línea de asunto" }
         it "sends messages to clients with the appropriate locales with the subject" do
-          described_class.send_bulk_message(tax_return_selection, user, {en: subject_en, es: subject_es}, en: message_body_en, es: message_body_es)
+          described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en, subject: subject_en }, es: { body: message_body_es, subject: subject_es })
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
             client: client_es, user: user, body: message_body_es, subject: subject_es
           )
@@ -633,14 +633,6 @@ RSpec.describe ClientMessagingService do
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
             client: client_nil, user: user, body: message_body_en, subject: subject_en
           )
-        end
-      end
-
-      context "with not enough subject lines for the client locales" do
-        it "raises ArgumentError" do
-          expect {
-            described_class.send_bulk_message(tax_return_selection, user, {en: "Subject"}, en: message_body_en, es: message_body_es)
-          }.to raise_error(ArgumentError)
         end
       end
 
@@ -666,7 +658,7 @@ RSpec.describe ClientMessagingService do
 
         it "creates the correct records" do
           expect do
-            described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
+            described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en }, es: { body: message_body_es })
           end.to change(BulkClientMessage, :count).by(1).and(
             change(BulkClientMessageOutgoingEmail, :count).by(2)
           ).and(
@@ -675,7 +667,7 @@ RSpec.describe ClientMessagingService do
         end
 
         it "returns the BulkClientMessage with the correct records attached" do
-          bulk_message = described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
+          bulk_message = described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en }, es: { body: message_body_es })
           expect(bulk_message.outgoing_emails).to match_array([outgoing_email_1, outgoing_email_2])
           expect(bulk_message.outgoing_text_messages).to match_array([outgoing_text_message_1, outgoing_text_message_2])
         end
@@ -687,7 +679,7 @@ RSpec.describe ClientMessagingService do
         let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
 
         it "sends messages to the clients without problems" do
-          described_class.send_bulk_message(tax_return_selection, user, es: message_body_es)
+          described_class.send_bulk_message(tax_return_selection, user, es: { body: message_body_es })
 
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
             client: client_es, user: user, body: message_body_es, subject: nil
@@ -701,7 +693,7 @@ RSpec.describe ClientMessagingService do
 
         it "raises an error" do
           expect do
-            described_class.send_bulk_message(tax_return_selection, user, es: message_body_es)
+            described_class.send_bulk_message(tax_return_selection, user, es: { body: message_body_es })
           end.to raise_error(ArgumentError)
         end
       end
@@ -715,7 +707,7 @@ RSpec.describe ClientMessagingService do
       let!(:inaccessible_client) { create(:intake, client: create(:client, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: other_org)).client }
 
       it "scopes down to only the accessible clients" do
-        described_class.send_bulk_message(tax_return_selection, user, en: message_body_en)
+        described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en })
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
           client: accessible_client, user: user, body: message_body_en, subject: nil
         )

@@ -101,27 +101,23 @@ class ClientMessagingService
       methods
     end
 
-    def send_bulk_message(tax_return_selection, sender, subjects_by_locale = {}, **message_bodies_by_locale)
+    def send_bulk_message(tax_return_selection, sender, content_by_locale)
       locale_counts = tax_return_selection.clients.locale_counts
       client_locales = locale_counts.keys.filter { |key| locale_counts[key].nonzero? }
 
-      present_message_bodies_by_locale = message_bodies_by_locale.keys.filter { |key| message_bodies_by_locale[key].present? }.map(&:to_s)
+      present_message_bodies_by_locale = content_by_locale.keys.filter { |key| content_by_locale.dig(key, :body).present? }.map(&:to_s)
       raise ArgumentError, "Missing message bodies for some client locales" unless client_locales.all? { |locale| present_message_bodies_by_locale.include?(locale) }
-
-      if subjects_by_locale.present? && Set.new(subjects_by_locale.keys) != Set.new(message_bodies_by_locale.keys)
-        raise ArgumentError, "Missing message subjects for some locales' message bodies"
-      end
 
       bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
 
       client_locales.each do |locale|
-        message_body = message_bodies_by_locale[locale.to_sym]
+        content = content_by_locale[locale.to_sym]
 
         # we normalize nil to "en" in locale counts and so we have to check if intake has nil locale for "en"
         locale_on_intake = locale == "en" ? [locale, nil] : locale
         tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale_on_intake)).find_each do |client|
           message_records = ClientMessagingService.send_message_to_all_opted_in_contact_methods(
-              client: client, user: sender, body: message_body, subject: subjects_by_locale[locale.to_sym]
+              client: client, user: sender, body: content[:body], subject: content[:subject]
           )
 
           if message_records[:outgoing_text_message].present?
