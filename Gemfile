@@ -8,8 +8,6 @@ gem 'rails', '~> 7.0.3.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'mini_racer', '~> 0.4.0', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 
