@@ -14,6 +14,7 @@ describe Efile::DependentEligibility::Eligibility do
     allow_any_instance_of(Efile::DependentEligibility::EipTwo).to receive(:qualifies?).and_return false
     allow_any_instance_of(Efile::DependentEligibility::EipThree).to receive(:qualifies?).and_return true
     allow_any_instance_of(Efile::DependentEligibility::EipThree).to receive(:benefit_amount).and_return 1400
+    allow_any_instance_of(Efile::DependentEligibility::EarnedIncomeTaxCredit).to receive(:qualifies?).and_return true
   end
   context ".test_results" do
     it "returns a hash with the eligibility results" do
@@ -26,6 +27,7 @@ describe Efile::DependentEligibility::Eligibility do
           qualifying_eip3: true,
           qualifying_eip2: false,
           qualifying_eip1: false,
+          qualifying_eitc: true,
       })
     end
   end
