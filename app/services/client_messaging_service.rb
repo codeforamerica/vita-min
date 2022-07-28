@@ -70,7 +70,7 @@ class ClientMessagingService
       send_text_message(**args)
     end
 
-    def send_message_to_all_opted_in_contact_methods(client:, user:, body:, locale: nil, tax_return: nil)
+    def send_message_to_all_opted_in_contact_methods(client:, user:, body:, subject: nil, locale: nil, tax_return: nil)
       message_records = {
         outgoing_email: nil,
         outgoing_text_message: nil,
@@ -79,7 +79,7 @@ class ClientMessagingService
       args[:tax_return] = tax_return if tax_return.present?
       args[:locale] = locale if locale.present?
       # returns nil unless client opted in to contact method
-      message_records[:outgoing_email] = send_email(**args)
+      message_records[:outgoing_email] = send_email(**args.merge(subject: subject))
       message_records[:outgoing_text_message] = send_text_message(**args)
       message_records
     end
