@@ -2216,10 +2216,10 @@ es:
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
           title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
         had_dependents:
-          help_text: Cualquiera a quien apoye financieramente o que haya vivido con usted podría calificarlo para beneficios adicionales, lo ayudaremos a resolverlo.
-          title: Para reclamar su Crédito Tributario por Hijos, debe agregar a sus dependientes (hijos u otras personas a las que mantiene financieramente)
           add: Agregar dependientes
           continue: Continuar sin dependientes
+          help_text: Cualquiera a quien apoye financieramente o que haya vivido con usted podría calificarlo para beneficios adicionales, lo ayudaremos a resolverlo.
+          title: Para reclamar su Crédito Tributario por Hijos, debe agregar a sus dependientes (hijos u otras personas a las que mantiene financieramente)
           which_relationships_qualify_reveal:
             content:
             - Hijo
