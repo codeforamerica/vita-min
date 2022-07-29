@@ -442,4 +442,8 @@ class Intake::CtcIntake < Intake
   def puerto_rico_filing?
     home_location_puerto_rico?
   end
+
+  def claiming_eitc?
+    Flipper.enabled?(:eitc) && claim_eitc_yes?
+  end
 end

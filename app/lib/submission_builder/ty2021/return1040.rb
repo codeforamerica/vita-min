@@ -18,7 +18,7 @@ module SubmissionBuilder
       end
 
       def supported_documents
-        result = [
+        [
           {
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
             pdf: Irs1040Pdf,
@@ -46,16 +46,17 @@ module SubmissionBuilder
             pdf: Irs1040ScheduleLepPdf,
             include: @submission.intake.irs_language_preference.present? && @submission.intake.irs_language_preference != "english"
           },
-        ]
-
-        if ENV['W2_SUPPORT'] == 'true'
-          result << {
+          {
+            xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
+            pdf: Irs1040ScheduleEicPdf,
+            include: @submission.intake.claiming_eitc? && @submission.qualifying_dependents.any?(&:qualifying_eitc?)
+          },
+          {
             xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
-            include: true
+            pdf: nil,
+            include: @submission.intake.claiming_eitc?
           }
-        end
-
-        result
+        ]
       end
     end
   end

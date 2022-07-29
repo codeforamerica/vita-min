@@ -11,6 +11,7 @@ module Efile
           qualifying_eip3: :qualifying_eip3?,
           qualifying_eip2: :qualifying_eip2?,
           qualifying_eip1: :qualifying_eip1?,
+          qualifying_eitc: :qualifying_eitc?
         }
       end
 
@@ -47,6 +48,10 @@ module Efile
         @qualifying_eip1 ||= eip_one_eligibility.qualifies?
       end
 
+      def qualifying_eitc?
+        @qualifying_eitc || eitc_eligibility.qualifies?
+      end
+
       def total_benefit_amount
         @total_benefit_amount ||= benefit_amounts.values.sum
       end
@@ -73,6 +78,10 @@ module Efile
 
       def eip_three_eligibility
         @eip_three_eligibility ||= Efile::DependentEligibility::EipThree.new(dependent, tax_year, child_eligibility: child_eligibility, relative_eligibility: relative_eligibility)
+      end
+
+      def eitc_eligibility
+        @eitc_eligibility ||= Efile::DependentEligibility::EarnedIncomeTaxCredit.new(dependent, tax_year, child_eligibility: child_eligibility)
       end
     end
   end

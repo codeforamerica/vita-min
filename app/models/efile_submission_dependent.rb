@@ -23,7 +23,7 @@ class EfileSubmissionDependent < ApplicationRecord
   belongs_to :efile_submission
   has_one :intake, through: :efile_submission
 
-  delegate :first_name, :last_name, :full_name, :ssn, :irs_relationship_enum, :birth_date, :tin_type_ssn?, :tin_type_atin?, :ip_pin, to: :dependent
+  delegate :first_name, :last_name, :full_name, :ssn, :irs_relationship_enum, :birth_date, :tin_type_ssn?, :tin_type_atin?, :ip_pin, :full_time_student_yes?, :permanently_totally_disabled_yes?, to: :dependent
 
   def self.create_qualifying_dependent(submission, dependent)
     raise "Cannot create EfileSubmissionDependent for dependent not associated with submission's intake" unless submission.intake.dependents.where(id: dependent.id).exists?
@@ -36,6 +36,7 @@ class EfileSubmissionDependent < ApplicationRecord
         qualifying_child: eligibility.qualifying_child?,
         qualifying_relative: eligibility.qualifying_relative?,
         qualifying_ctc: eligibility.qualifying_ctc?,
+        qualifying_eitc: eligibility.qualifying_eitc?,
         age_during_tax_year: eligibility.age
       )
     end

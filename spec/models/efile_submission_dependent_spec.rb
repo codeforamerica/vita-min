@@ -55,12 +55,14 @@ describe EfileSubmissionDependent do
         allow(Efile::DependentEligibility::Eligibility).to receive(:new).and_return(eligibility_double)
         allow(eligibility_double).to receive(:qualifying_child?).and_return true
         allow(eligibility_double).to receive(:qualifying_ctc?).and_return false
+        allow(eligibility_double).to receive(:qualifying_eitc?).and_return false
         allow(eligibility_double).to receive(:qualifying_relative?).and_return false
         allow(eligibility_double).to receive(:age).and_return 5
       end
 
       it "calculates eligibility" do
         EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
+        expect(eligibility_double).to have_received(:qualifying_eitc?).exactly(1).times
         expect(eligibility_double).to have_received(:qualifying_ctc?).exactly(2).times
         expect(eligibility_double).to have_received(:qualifying_child?).exactly(2).times
         expect(eligibility_double).to have_received(:qualifying_relative?).exactly(2).times
