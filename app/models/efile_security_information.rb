@@ -41,6 +41,11 @@ class EfileSecurityInformation < ApplicationRecord
   def client_system_datetime
     return nil unless client_system_time.present?
 
-    DateTime.parse(client_system_time)
+    begin
+      DateTime.parse(client_system_time)
+    rescue ArgumentError
+      length_limited_datetime = client_system_time.split(" (").first
+      DateTime.parse(length_limited_datetime)
+    end
   end
 end

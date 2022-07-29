@@ -30,4 +30,16 @@
 require "rails_helper"
 
 describe EfileSecurityInformation do
+  describe "#client_system_datetime" do
+    context "when there are special characters that cause an ArgumentError" do
+      let(:efile_security_information) { create :efile_security_information, client: create(:client), client_system_time: "Thu Jul 28 2022 00:56:53 GMT-0400 (เวลาออมแสงทางตะวันออกในอเมริกาเหนือ)"}
+
+      it "does not raise an error and returns a processable datetime" do
+        expect {
+          value = efile_security_information.client_system_datetime
+          expect(value).to eq DateTime.parse("Thu Jul 28 2022 00:56:53 GMT-0400")
+        }.not_to raise_error ArgumentError
+      end
+    end
+  end
 end
