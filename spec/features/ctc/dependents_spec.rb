@@ -9,7 +9,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
 
     visit "/questions/had-dependents"
-    click_on I18n.t('general.affirmative')
+    click_on I18n.t('views.ctc.questions.had_dependents.add')
   end
 
   context "adding people who count as dependents" do
