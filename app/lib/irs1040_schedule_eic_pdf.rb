@@ -16,8 +16,7 @@ class Irs1040ScheduleEicPdf
       PrimarySSN: @intake.primary_ssn
     }
     dependent_nodes = @xml_document.search("QualifyingChildInformation")
-    answers.merge!(dependents_info(dependent_nodes[0..]))
-    answers
+    answers.merge!(dependents_info(dependent_nodes))
   end
 
   private

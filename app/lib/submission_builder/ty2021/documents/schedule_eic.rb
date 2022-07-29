@@ -1,6 +1,7 @@
 module SubmissionBuilder
   module Ty2021
     module Documents
+      # The XML schema calls it EIC, the product calls it EITC, and the pdf calls it SEI
       class ScheduleEic < SubmissionBuilder::Document
         def schema_file
           File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040ScheduleEIC", "IRS1040ScheduleEIC.xsd")
@@ -22,7 +23,7 @@ module SubmissionBuilder
                 xml.ChildIsAStudentUnder24Ind dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
                 xml.ChildPermanentlyDisabledInd dependent.permanently_totally_disabled_yes?
                 xml.ChildRelationshipCd dependent.irs_relationship_enum
-                xml.MonthsChildLivedWithYouCnt '07'
+                xml.MonthsChildLivedWithYouCnt '07' # this is a placeholder value until we collect the actual number of months in intake
               }
             end
           end
