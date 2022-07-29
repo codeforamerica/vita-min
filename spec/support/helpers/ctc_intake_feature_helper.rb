@@ -200,7 +200,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.back')
-    click_on I18n.t('general.affirmative')
+    click_on I18n.t('views.ctc.questions.had_dependents.add')
 
     dependent_birth_year = 5.years.ago.year
 
