@@ -22,7 +22,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requir
     fill_in_spouse_info(home_location: "puerto_rico")
     # modified dependent flow
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-    click_on "Yes"
+    click_on I18n.t('views.ctc.questions.had_dependents.add')
 
     fill_in_qualifying_child_age_5
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
@@ -101,7 +101,7 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requir
     fill_in_spouse_info(home_location: "puerto_rico")
     # modified dependent flow
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-    click_on "Yes"
+    click_on I18n.t('views.ctc.questions.had_dependents.add')
 
     # Offboard dependent because of birthday
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
