@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_210842) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1409,6 +1409,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_210842) do
     t.datetime "updated_at", null: false
     t.index ["tax_return_id", "most_recent"], name: "index_tax_return_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["tax_return_id", "sort_key"], name: "index_tax_return_transitions_parent_sort", unique: true
+    t.index ["to_state", "created_at"], name: "index_tax_return_transitions_on_to_state_and_created_at"
   end
 
   create_table "tax_returns", force: :cascade do |t|

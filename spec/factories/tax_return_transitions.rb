@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_tax_return_transitions_parent_most_recent  (tax_return_id,most_recent) UNIQUE WHERE most_recent
-#  index_tax_return_transitions_parent_sort         (tax_return_id,sort_key) UNIQUE
+#  index_tax_return_transitions_on_to_state_and_created_at  (to_state,created_at)
+#  index_tax_return_transitions_parent_most_recent          (tax_return_id,most_recent) UNIQUE WHERE most_recent
+#  index_tax_return_transitions_parent_sort                 (tax_return_id,sort_key) UNIQUE
 #
 # Foreign Keys
 #
