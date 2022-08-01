@@ -33,6 +33,24 @@ class BankAccount < ApplicationRecord
   enum account_type: { checking: 1, savings: 2 }
   before_save :hash_account_number
 
+  if column_names.include? "encrypted_account_number"
+    attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  end
+
+  if column_names.include? "encrypted_account_number_temp"
+    attr_encrypted :account_number_temp, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  end
+
+  if column_names.include? "account_number"
+    encrypts :account_number
+  end
+
+  if column_names.include? "encrypted_bank_name"
+    attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  end
+
+
+
   # map string enum value back to the corresponding integer
   def account_type_code
     self.class.account_types[account_type]
