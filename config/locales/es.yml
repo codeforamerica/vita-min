@@ -1253,7 +1253,9 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información requerida y todo los documentos fiscales.
+          Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>.
+
+          Comenzaremos a preparar sus impuestos una vez que tengamos toda la información requerida y todo los documentos fiscales.
 
           Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
 
