@@ -1,14 +1,14 @@
 module AutomatedMessage
   class CompletionSurvey < AutomatedMessage
     SENT_AT_COLUMN = :completion_survey_sent_at
-    RELEVANT_STATES = ["file_accepted", "file_rejected", "file_not_filing", "file_mailed"]
+    RELEVANT_STATES = %w[file_accepted file_rejected file_not_filing file_mailed]
 
     def self.clients_to_survey
       Client.where(
         id: TaxReturnTransition.where(to_state: RELEVANT_STATES)
             .includes(tax_return: { client: :intake })
             .where("tax_return_transitions.created_at < ?", 1.day.ago)
-            .where("tax_return_transitions.created_at > ?", Date.new(2022, 7, 25))
+            .where("tax_return_transitions.created_at > ?", 30.days.ago)
             .where('intakes.type' => 'Intake::GyrIntake')
             .where(client: { SENT_AT_COLUMN => nil })
             .pluck("tax_returns.client_id")

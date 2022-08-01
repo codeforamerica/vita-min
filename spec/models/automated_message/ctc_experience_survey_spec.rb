@@ -1,39 +1,48 @@
 require 'rails_helper'
 
-RSpec.describe AutomatedMessage::CompletionSurvey do
+RSpec.describe AutomatedMessage::CtcExperienceSurvey do
   describe ".clients_to_survey" do
     let(:transition_time) { 25.hours.ago }
-    let(:completion_survey_sent_at) { nil }
-    let!(:tax_return) do
+    let(:ctc_experience_survey_sent_at) { nil }
+    let(:service_type) { 'online_intake' }
+    let!(:client) do
       Timecop.freeze(transition_time) do
-        create :tax_return, status, client: build(:client, completion_survey_sent_at: completion_survey_sent_at, intake: build(:intake, primary_consented_to_service: "yes"))
-      end
+        create :tax_return, status, service_type: service_type, client: build(:client, ctc_experience_survey_sent_at: ctc_experience_survey_sent_at, intake: build(:ctc_intake, primary_consented_to_service: "yes"))
+      end.client
     end
     let(:status) { :file_accepted }
 
     context "clients who should get the survey" do
       context "with a client who has had tax returns in certain terminal statuses for more than a day" do
         it "includes the client" do
-          expect(described_class.clients_to_survey).to include(tax_return.client)
+          expect(described_class.clients_to_survey).to match_array([client])
         end
       end
     end
 
     context "clients who should not get the survey" do
       context "with a client who already received this survey" do
-        let(:completion_survey_sent_at) { DateTime.now }
+        let(:ctc_experience_survey_sent_at) { DateTime.now }
 
         it "does not include them" do
           expect(described_class.clients_to_survey).to be_empty
         end
       end
 
-      context "with an intake that is a CTC intake" do
+      context "with an intake that is a GYR intake" do
         before do
-          tax_return.intake.update(type: "Intake::CtcIntake")
+          client.intake.update(type: "Intake::GyrIntake")
         end
 
         it "does not include them" do
+          expect(described_class.clients_to_survey).to be_empty
+        end
+      end
+
+      context "when a TaxReturn is ctc and drop off" do
+        let(:service_type) { 'drop_off' }
+
+        it "does not send the survey" do
           expect(described_class.clients_to_survey).to be_empty
         end
       end
@@ -55,7 +64,7 @@ RSpec.describe AutomatedMessage::CompletionSurvey do
       end
 
       context "with a tax return that has been in the final state for a very long time" do
-        let(:transition_time) { 35.days.ago }
+        let(:transition_time) { 31.days.ago }
 
         it "does not include them" do
           expect(described_class.clients_to_survey).to be_empty

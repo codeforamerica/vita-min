@@ -1,6 +1,23 @@
 module AutomatedMessage
   class CtcExperienceSurvey < AutomatedMessage
     SENT_AT_COLUMN = :ctc_experience_survey_sent_at
+    RELEVANT_STATES = %w[file_accepted file_not_filing file_mailed]
+
+    def self.clients_to_survey
+      Client.where(
+        id: TaxReturnTransition.includes(tax_return: { client: :intake })
+          .where(tax_return: { service_type: "online_intake" })
+          .where(clients: { SENT_AT_COLUMN => nil })
+          .where("tax_return_transitions.created_at < ?", 1.day.ago)
+          .where("tax_return_transitions.created_at > ?", 30.days.ago)
+          .where(intake: { type: "Intake::CtcIntake" })
+          .where(to_state: RELEVANT_STATES).pluck("tax_return.client_id")
+      )
+    end
+
+    def self.enqueue_surveys
+      clients_to_survey.find_each { |client| SendClientCtcExperienceSurveyJob.perform_later(client) }
+    end
 
     def self.name
       'messages.surveys.ctc_experience'.freeze

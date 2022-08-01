@@ -1,6 +1,7 @@
 namespace :client_surveys do
   desc 'send completion surveys to eligible clients'
   task send_completion_surveys: [:environment] do
+    AutomatedMessage::CtcExperienceSurvey.enqueue_surveys
     AutomatedMessage::CompletionSurvey.enqueue_surveys
   end
 

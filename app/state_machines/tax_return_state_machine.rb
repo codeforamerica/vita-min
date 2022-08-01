@@ -60,7 +60,6 @@ class TaxReturnStateMachine
   end
 
   after_transition(to: "file_accepted") do |tax_return, _|
-    tax_return.enqueue_experience_survey if tax_return.is_ctc
     MixpanelService.send_file_completed_event(tax_return, "filing_completed")
   end
 
@@ -69,12 +68,10 @@ class TaxReturnStateMachine
   end
 
   after_transition(to: "file_not_filing") do |tax_return, _|
-    tax_return.enqueue_experience_survey if tax_return.is_ctc
     MixpanelService.send_file_completed_event(tax_return, "not_filing")
   end
 
   after_transition(to: "file_mailed") do |tax_return, _|
-    tax_return.enqueue_experience_survey if tax_return.is_ctc
     MixpanelService.send_tax_return_event(tax_return, "filing_filed", { filing_type: "mail" })
   end
 

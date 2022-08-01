@@ -7,6 +7,21 @@ describe 'client_surveys:send_completion_surveys' do
     capture_output { example.run }
   end
 
+  describe "AutomatedMessage::CtcExperienceSurvey" do
+    let!(:client) do
+      Timecop.freeze(25.hours.ago) do
+        create :tax_return, status, client: build(:client, ctc_experience_survey_sent_at: nil, intake: build(:ctc_intake, primary_consented_to_service: "yes"))
+      end.client
+    end
+    let(:status) { :file_accepted }
+
+    it "enqueues surveys" do
+      expect {
+        task.invoke
+      }.to have_enqueued_job(SendClientCtcExperienceSurveyJob).with(client)
+    end
+  end
+
   describe "AutomatedMessage::CompletionSurvey" do
     let(:completion_survey_sent_at) { nil }
     let!(:client) do
