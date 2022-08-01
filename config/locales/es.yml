@@ -2613,6 +2613,17 @@ es:
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
+        eitc_exceptions:
+          former_foster_youth: "Yo era un ex joven de crianza calificado"
+          homeless_youth: "Yo era un joven sin hogar calificado"
+          not_full_time_student: "Yo no era un estudiante de tiempo completo"
+          full_time_student_less_than_four_months: "Fui estudiante de tiempo completo por menos de 4 meses."
+          former_foster_youth_reveal:
+            title: "¿Qué es un ex joven de crianza calificado?"
+            info: "Un ex joven de crianza temporal calificado es alguien que estuvo en crianza temporal entre las edades de 14 y 17 años. Debe haber permitido que el programa de crianza temporal comparta su estado como ex joven de crianza temporal."
+          homeless_youth_reveal:
+            info: "Un joven sin hogar calificado es alguien sin hogar o en riesgo de quedarse sin hogar, que se mantiene económicamente. Debe tener entre 18 y 24 años y no puede estar bajo la custodia física de un padre o tutor."
+            title: "¿Qué es un joven sin hogar calificado?"
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:

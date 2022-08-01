@@ -43,6 +43,10 @@ module CtcIntakeFeatureHelper
     key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
+    if Flipper.enabled?(:eitc)
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
+      click_on I18n.t("general.affirmative")
+    end
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
@@ -63,16 +67,16 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_basic_info(home_location: "fifty_states")
+  def fill_in_basic_info(home_location: "fifty_states", birthdate: DateTime.parse("08-24-1996"))
     # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.legal_consent.middle_initial'), with: "H"
     fill_in I18n.t('views.ctc.questions.legal_consent.last_name'), with: "Mango"
     select "III", from: I18n.t('views.ctc.questions.legal_consent.suffix')
-    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "08"
-    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "24"
-    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1996"
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: birthdate.month
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: birthdate.day
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: birthdate.year
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"

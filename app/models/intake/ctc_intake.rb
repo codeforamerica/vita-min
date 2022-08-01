@@ -71,6 +71,8 @@
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
+#  former_foster_youth                                  :integer          default("unfilled"), not null
+#  full_time_student_less_than_four_months              :integer          default("unfilled"), not null
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default("unfilled"), not null
@@ -98,6 +100,7 @@
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  home_location                                        :integer
+#  homeless_youth                                       :integer          default("unfilled"), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  irs_language_preference                              :integer
@@ -120,6 +123,7 @@
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
+#  not_full_time_student                                :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default(0), not null
 #  paid_charitable_contributions                        :integer          default(0), not null
@@ -296,6 +300,10 @@ class Intake::CtcIntake < Intake
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
   enum home_location: { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, _prefix: :home_location
   enum claim_eitc: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_eitc
+  enum former_foster_youth: { unfilled: 0, yes: 1, no: 2 }, _prefix: :former_foster_youth
+  enum homeless_youth: { unfilled: 0, yes: 1, no: 2 }, _prefix: :homeless_youth
+  enum not_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :not_full_time_student
+  enum full_time_student_less_than_four_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student_less_than_four_months
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)

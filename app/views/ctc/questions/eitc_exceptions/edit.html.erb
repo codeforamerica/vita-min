@@ -1,0 +1,26 @@
+<% @main_heading = t("views.ctc.questions.eitc_exceptions.title") %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_heading %></h1>
+
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <%= f.cfa_checkbox(:former_foster_youth, t("views.ctc.questions.eitc_exceptions.former_foster_youth"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:homeless_youth, t("views.ctc.questions.eitc_exceptions.homeless_youth"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:not_full_time_student, t("views.ctc.questions.eitc_exceptions.not_full_time_student"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:full_time_student_less_than_four_months, t("views.ctc.questions.eitc_exceptions.full_time_student_less_than_four_months"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="reveal-shrink-wrapper spacing-above-10">
+        <%= render('components/molecules/reveal', title: t("views.ctc.questions.eitc_exceptions.former_foster_youth_reveal.title")) do %>
+          <%= t("views.ctc.questions.eitc_exceptions.former_foster_youth_reveal.info") %>
+        <% end %>
+        <%= render('components/molecules/reveal', title: t("views.ctc.questions.eitc_exceptions.homeless_youth_reveal.title")) do %>
+          <p><%= t("views.ctc.questions.eitc_exceptions.homeless_youth_reveal.info") %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

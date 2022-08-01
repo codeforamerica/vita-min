@@ -1058,6 +1058,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
     t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
+    t.integer "former_foster_youth", default: 0, null: false
+    t.integer "full_time_student_less_than_four_months", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
     t.integer "had_dependents", default: 0, null: false
@@ -1085,6 +1087,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
     t.integer "has_spouse_ip_pin", default: 0, null: false
     t.string "hashed_primary_ssn"
     t.integer "home_location"
+    t.integer "homeless_youth", default: 0, null: false
     t.integer "income_over_limit", default: 0, null: false
     t.string "interview_timing_preference"
     t.integer "irs_language_preference"
@@ -1107,6 +1110,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
+    t.integer "not_full_time_student", default: 0, null: false
     t.string "other_income_types"
     t.integer "paid_alimony", default: 0, null: false
     t.integer "paid_charitable_contributions", default: 0, null: false

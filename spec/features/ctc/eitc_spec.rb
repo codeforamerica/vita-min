@@ -114,4 +114,36 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('general.continue')
   end
+
+  scenario "a client who is under 24 and has no qualifying children" do
+    fill_in_can_use_ctc
+    fill_in_eligibility
+    fill_in_basic_info(birthdate: 23.years.ago)
+    fill_in_spouse_info
+
+    # EITC investment question
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    # Dependents
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_exceptions.title'))
+    check I18n.t('general.none_of_the_above')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
+
+    click_on I18n.t('general.back')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_exceptions.title'))
+    select I18n.t('views.ctc.questions.eitc_exceptions.')
+  end
 end

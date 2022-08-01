@@ -55,6 +55,8 @@ class CtcQuestionNavigation
     Ctc::Questions::NoDependentsController,
     Ctc::Questions::NoDependentsAdvanceCtcPaymentsController,
 
+    Ctc::Questions::EitcExceptionsController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
