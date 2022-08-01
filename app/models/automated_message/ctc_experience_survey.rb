@@ -1,5 +1,7 @@
 module AutomatedMessage
   class CtcExperienceSurvey < AutomatedMessage
+    SENT_AT_COLUMN = :ctc_experience_survey_sent_at
+
     def self.name
       'messages.surveys.ctc_experience'.freeze
     end

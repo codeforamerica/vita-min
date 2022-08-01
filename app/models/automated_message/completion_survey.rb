@@ -1,5 +1,7 @@
 module AutomatedMessage
   class CompletionSurvey < AutomatedMessage
+    SENT_AT_COLUMN = :completion_survey_sent_at
+
     def self.name
       'messages.surveys.completion'.freeze
     end
