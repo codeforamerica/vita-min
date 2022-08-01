@@ -57,16 +57,6 @@ RSpec.describe AutomatedMessage::CompletionSurvey do
           Timecop.freeze(fake_time) { expect(described_class.clients_to_survey).to be_empty }
         end
       end
-
-      context "with a tax return that has been in progress for more than 10 days" do
-        context "with a client that has inbound text messages" do
-          let!(:inbound_text_message) { create :incoming_text_message, client: tax_return.client }
-
-          it "does not include them" do
-            Timecop.freeze(fake_time) { expect(described_class.clients_to_survey).not_to include(tax_return.client) }
-          end
-        end
-      end
     end
   end
 end

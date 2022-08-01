@@ -79,18 +79,12 @@ describe TaxReturnStateMachine do
 
     context "to file_accepted" do
       before do
-        allow(tax_return).to receive(:enqueue_experience_survey)
         allow(MixpanelService).to receive(:send_file_completed_event)
       end
 
       it "sets current_state and status as well" do
         tax_return.transition_to(:file_accepted)
-        expect(tax_return.read_attribute(:current_state)).to eq "file_accepted"
-      end
-
-      it "enqueues the experience survey" do
-        tax_return.transition_to(:file_accepted)
-        expect(tax_return).to have_received(:enqueue_experience_survey)
+        expect(tax_return.current_state).to eq "file_accepted"
       end
 
       it "sends a Mixpanel event" do
@@ -101,13 +95,7 @@ describe TaxReturnStateMachine do
 
     context "to file_mailed" do
       before do
-        allow(tax_return).to receive(:enqueue_experience_survey)
         allow(MixpanelService).to receive(:send_tax_return_event)
-      end
-
-      it "enqueues the experience survey" do
-        tax_return.transition_to(:file_mailed)
-        expect(tax_return).to have_received(:enqueue_experience_survey)
       end
 
       it "sends a mixpanel event" do
@@ -118,7 +106,6 @@ describe TaxReturnStateMachine do
 
     context "to file_rejected" do
       before do
-        allow(tax_return).to receive(:enqueue_experience_survey)
         allow(MixpanelService).to receive(:send_file_completed_event)
       end
 
@@ -126,38 +113,16 @@ describe TaxReturnStateMachine do
         tax_return.transition_to(:file_rejected)
         expect(MixpanelService).to have_received(:send_file_completed_event).with(tax_return, "filing_rejected")
       end
-
-      context "for ctc tax returns" do
-        let(:tax_return) { create(:tax_return, :ctc) }
-
-        it "does not enqueue the experience survey" do
-          tax_return.transition_to(:file_rejected)
-          expect(tax_return).to_not have_received(:enqueue_experience_survey)
-        end
-      end
-
-      context "for gyr tax returns" do
-        it "enqueues the experience survey" do
-          tax_return.transition_to(:file_rejected)
-          expect(tax_return).to have_received(:enqueue_experience_survey)
-        end
-      end
     end
 
     context "to file_not_filing" do
       before do
-        allow(tax_return).to receive(:enqueue_experience_survey)
         allow(MixpanelService).to receive(:send_file_completed_event)
       end
 
       it "sends a mixpanel event" do
         tax_return.transition_to(:file_not_filing)
         expect(MixpanelService).to have_received(:send_file_completed_event).with(tax_return, "not_filing")
-      end
-
-      it "does not enqueue the experience survey" do
-        tax_return.transition_to(:file_not_filing)
-        expect(tax_return).to have_received(:enqueue_experience_survey)
       end
     end
 
