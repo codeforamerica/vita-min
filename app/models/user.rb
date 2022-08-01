@@ -47,7 +47,6 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
   pg_search_scope :search, against: [
@@ -63,8 +62,6 @@ class User < ApplicationRecord
   has_many :access_logs
   has_many :notifications, class_name: "UserNotification"
   belongs_to :role, polymorphic: true
-
-  attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
