@@ -15,6 +15,10 @@ module AutomatedMessage
       )
     end
 
+    def self.enqueue_surveys
+      clients_to_survey.find_each { |client| SendClientCompletionSurveyJob.perform_later(client) }
+    end
+
     def self.name
       'messages.surveys.completion'.freeze
     end
