@@ -267,13 +267,13 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         click_on I18n.t('general.continue')
 
         expect(page).to have_text I18n.t("views.ctc.portal.bank_account.title")
-        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Three Melons"
         choose I18n.t('views.questions.bank_details.account_type.checking')
         fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
         fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "133456789"
         click_on I18n.t("general.save")
         expect(page).to have_selector(".text--error", text: I18n.t('validators.routing_number'))
-        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Three Melons"
         choose I18n.t('views.questions.bank_details.account_type.checking')
         check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
 
@@ -284,7 +284,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         click_on I18n.t("general.save")
 
         within ".bank-account-info" do
-          expect(page).to have_text "Bank of Two Melons"
+          expect(page).to have_text "Bank of Three Melons"
           expect(page).to have_text "Type: Checking"
           expect(page).to have_text "Routing number: 123456789"
           expect(page).to have_text "Account number: ●●●●●6789"
@@ -350,7 +350,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         })
 
         expect(changes_table_contents(".changes-note-#{notes[4].id}")).to match({
-          "bank_name" => ["[REDACTED]", "[REDACTED]"],
+          "bank_name" => ["Self-help United", "Bank of Three Melons"],
           "account_number" => ["[REDACTED]", "[REDACTED]"],
         })
 
@@ -413,7 +413,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
           click_on I18n.t('general.continue')
 
-          fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+          fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Three Melons"
           choose I18n.t('views.questions.bank_details.account_type.checking')
           check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
 

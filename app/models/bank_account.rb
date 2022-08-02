@@ -3,7 +3,9 @@
 # Table name: bank_accounts
 #
 #  id                          :bigint           not null, primary key
+#  account_number              :text
 #  account_type                :integer
+#  bank_name                   :string
 #  encrypted_account_number    :string
 #  encrypted_account_number_iv :string
 #  encrypted_bank_name         :string
@@ -27,11 +29,22 @@
 class BankAccount < ApplicationRecord
   belongs_to :intake
   has_one :client, through: :intake
-  attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
+
   enum account_type: { checking: 1, savings: 2 }
   before_save :hash_account_number
+
+  attr_encrypted :attr_encrypted_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_account_number"
+  attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_name"
+
+  encrypts :account_number
+
+  def account_number
+    read_attribute(:account_number) || attr_encrypted_account_number
+  end
+
+  def bank_name
+    read_attribute(:bank_name) || attr_encrypted_bank_name
+  end
 
   # map string enum value back to the corresponding integer
   def account_type_code
@@ -43,7 +56,8 @@ class BankAccount < ApplicationRecord
   end
 
   def hash_account_number
-    if account_number_changed? && account_number.present?
+    # if account_number_changed? && account_number.present?
+    if account_number.present? # temporarily always rewrite the hashed value while we do this cutover.
       self.hashed_account_number = DeduplificationService.sensitive_attribute_hashed(self, :account_number)
     end
   end

@@ -124,6 +124,11 @@ RSpec.configure do |config|
         efin: '123456',
         sin: '11111111'
       },
+      active_record_encryption: {
+        primary_key: "uR4EX3854UXojDzjkl01c1AkXQR680Kq",
+        deterministic_key: "46ftEBVZfqtbNlKheZqpeSyQ8CovxLcb",
+        key_derivation_salt: "MK4hnhzHOgNLcooaF7EDF0TyyLkDcbgR"
+      }
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
