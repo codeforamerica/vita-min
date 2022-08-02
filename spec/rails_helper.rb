@@ -123,11 +123,6 @@ RSpec.configure do |config|
       irs: {
         efin: '123456',
         sin: '11111111'
-      },
-      active_record_encryption: {
-        primary_key: "uR4EX3854UXojDzjkl01c1AkXQR680Kq",
-        deterministic_key: "46ftEBVZfqtbNlKheZqpeSyQ8CovxLcb",
-        key_derivation_salt: "MK4hnhzHOgNLcooaF7EDF0TyyLkDcbgR"
       }
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
@@ -140,6 +135,7 @@ RSpec.configure do |config|
     allow(fake_dns).to receive(:open) { raise StandardError, "Cannot use DNS from test suite" }
     allow(fake_dns).to receive(:close)
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
+
   end
 
   if config.filter.rules[:flow_explorer_screenshot]
