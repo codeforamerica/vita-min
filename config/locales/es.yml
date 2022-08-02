@@ -2613,7 +2613,7 @@ es:
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
-        eitc_exceptions:
+        eitc_qualifiers:
           former_foster_youth: "Yo era un ex joven de crianza calificado"
           homeless_youth: "Yo era un joven sin hogar calificado"
           not_full_time_student: "Yo no era un estudiante de tiempo completo"

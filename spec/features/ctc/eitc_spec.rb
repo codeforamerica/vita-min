@@ -135,15 +135,19 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_exceptions.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_qualifiers.title'))
     check I18n.t('general.none_of_the_above')
     click_on I18n.t('general.continue')
 
+    # not meeting any of the exceptions disqualifies client
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
 
     click_on I18n.t('general.back')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_exceptions.title'))
-    select I18n.t('views.ctc.questions.eitc_exceptions.')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_qualifiers.title'))
+    select I18n.t('views.ctc.questions.eitc_qualifiers.former_foster_youth')
+
+    # meeting an exception qualifies client
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.title', adv_ctc_estimate: 1800))
   end
 end

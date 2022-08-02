@@ -2642,7 +2642,7 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
-        eitc_exceptions:
+        eitc_qualifiers:
           title: "Select any of the situations that were true in 2021:"
           former_foster_youth: "I was a qualified former foster youth"
           homeless_youth: "I was a qualified homeless youth"
