@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_182512) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_202132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1510,8 +1510,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_182512) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
-    t.string "encrypted_access_token"
-    t.string "encrypted_access_token_iv"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "invitation_accepted_at", precision: nil

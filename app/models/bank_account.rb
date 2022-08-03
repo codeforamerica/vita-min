@@ -2,19 +2,15 @@
 #
 # Table name: bank_accounts
 #
-#  id                          :bigint           not null, primary key
-#  account_number              :text
-#  account_type                :integer
-#  bank_name                   :string
-#  encrypted_account_number    :string
-#  encrypted_account_number_iv :string
-#  encrypted_bank_name         :string
-#  encrypted_bank_name_iv      :string
-#  hashed_account_number       :string
-#  routing_number              :string
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  intake_id                   :bigint
+#  id                    :bigint           not null, primary key
+#  account_number        :text
+#  account_type          :integer
+#  bank_name             :string
+#  hashed_account_number :string
+#  routing_number        :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  intake_id             :bigint
 #
 # Indexes
 #
@@ -27,25 +23,14 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
+  self.ignored_columns = [:encrypted_account_number, :encrypted_account_number_iv, :encrypted_bank_name, :encrypted_bank_name_iv]
   belongs_to :intake
   has_one :client, through: :intake
-
   # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
   before_save :hash_account_number
 
-  attr_encrypted :attr_encrypted_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_account_number"
-  attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_name"
-
   encrypts :account_number
-
-  def account_number
-    read_attribute(:account_number) || attr_encrypted_account_number
-  end
-
-  def bank_name
-    read_attribute(:bank_name) || attr_encrypted_bank_name
-  end
 
   # map string enum value back to the corresponding integer
   def account_type_code
