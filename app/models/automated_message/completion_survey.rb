@@ -4,15 +4,18 @@ module AutomatedMessage
     RELEVANT_STATES = %w[file_accepted file_rejected file_not_filing file_mailed]
 
     def self.clients_to_survey
-      Client.where(
-        id: TaxReturnTransition.where(to_state: RELEVANT_STATES)
-            .includes(tax_return: { client: :intake })
-            .where("tax_return_transitions.created_at < ?", 1.day.ago)
-            .where("tax_return_transitions.created_at > ?", 30.days.ago)
-            .where('intakes.type' => 'Intake::GyrIntake')
-            .where(client: { SENT_AT_COLUMN => nil })
-            .pluck("tax_returns.client_id")
-      )
+      Client.includes(:intake, tax_returns: :tax_return_transitions)
+        .where(SENT_AT_COLUMN => nil)
+        .where(intake: { type: "Intake::GyrIntake" })
+        .where(
+          tax_returns: {
+            service_type: "online_intake",
+            tax_return_transitions: TaxReturnTransition
+              .where(to_state: RELEVANT_STATES)
+              .where(most_recent: true)
+              .where(created_at: 30.days.ago...1.day.ago)
+          }
+        )
     end
 
     def self.enqueue_surveys
