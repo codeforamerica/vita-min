@@ -18,6 +18,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements  :integer          default("unfilled"), not null
@@ -35,6 +36,7 @@
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
 #  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
+#  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
 #  was_married                                  :integer          default("unfilled"), not null
@@ -58,8 +60,10 @@ class Dependent < ApplicationRecord
 
   belongs_to :intake, inverse_of: :dependents
 
-  attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :attr_encrypted_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: :encrypted_ssn
+  attr_encrypted :attr_encrypted_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: :encrypted_ip_pin
+
+  encrypts :ssn, :ip_pin
 
   auto_strip_attributes :ssn, :ip_pin, :first_name, :middle_initial, :last_name, virtual: true
 
@@ -111,6 +115,14 @@ class Dependent < ApplicationRecord
 
   before_validation do
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
+  end
+
+  def ssn
+    read_attribute(:ssn) || attr_encrypted_ssn
+  end
+
+  def ip_pin
+    read_attribute(:ip_pin) || attr_encrypted_ip_pin
   end
 
   def full_name
