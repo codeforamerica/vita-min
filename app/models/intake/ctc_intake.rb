@@ -438,6 +438,30 @@ class Intake::CtcIntake < Intake
   end
 
   def eitc_qualifications_passes_age_test?
+    if primary_birth_date > 24.years.ago
+      if dependents.any?(&:qualifying_child?)
+        return true
+      else
+        if former_foster_youth_yes? || homeless_youth_yes?
+          # TODO: calculate year instead of hard code?
+          if age_on_date(Date.parse("31-12-2021")) >= 18
+            return true
+          else
+            return false
+          end
+        end
+
+        if not_full_time_student_yes? || full_time_student_less_than_four_months_yes?
+          if age_on_date(Date.parse("31-12-2021")) >= 19
+            return true
+          else
+            return false
+          end
+        end
+      end
+    else
+      return true
+    end
   # TODO
   end
 

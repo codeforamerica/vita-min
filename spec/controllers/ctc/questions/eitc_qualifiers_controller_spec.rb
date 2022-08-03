@@ -13,6 +13,10 @@ describe Ctc::Questions::EitcQualifiersController do
         Flipper.enable :eitc
       end
 
+      context "when the client is already disqualifeid by investment income" do
+      # TODO
+      end
+
       context "when the client is over 24" do
         let(:intake) { create :ctc_intake, primary_birth_date: 25.years.ago.to_date }
 

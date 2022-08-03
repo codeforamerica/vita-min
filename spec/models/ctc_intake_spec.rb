@@ -355,35 +355,82 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
   end
 
   describe "#eitc_qualifications_passes_age_test?" do
+    let(:intake) do
+      create(
+        :ctc_intake,
+        client: create(
+          :client,
+          tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]
+        ),
+        primary_birth_date: primary_birth_date
+      )
+    end
+
     context "when they are over 24" do
-      #  they qualify
+      let(:primary_birth_date) { 25.years.ago.to_date }
+
+      it "returns true" do
+        expect(intake.eitc_qualifications_passes_age_test?).to eq true
+      end
     end
 
     context "when they are under 24" do
+      let(:primary_birth_date) { 23.years.ago.to_date }
+
       context "when they have at least one qualifying child" do
-        #  they qualify
+        let!(:dependent) { create :qualifying_child, intake: intake }
+
+        it "returns true" do
+          expect(intake.eitc_qualifications_passes_age_test?).to eq true
+        end
       end
 
       context "when they have no qualifying children" do
+        before do
+          intake.dependents.destroy_all
+        end
+
         # if they are a qualified former foster youth or qualified homeless youth, they must be at least 18 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
         context "they are a former foster or homeless youth" do
+          before do
+            # TODO: test homeless_youth?
+            intake.update(former_foster_youth: "yes")
+          end
+
           context "they were at least 18 on 12/31/2021" do
-            #  they qualify
+            it "returns true" do
+              expect(intake.eitc_qualifications_passes_age_test?).to eq true
+            end
           end
 
           context "they were not at least 18 on 12/31/2021" do
-            #  they do not qualify
+            let(:primary_birth_date) { 17.years.ago.to_date }
+
+            it "returns false" do
+              expect(intake.eitc_qualifications_passes_age_test?).to eq false
+            end
           end
         end
 
         # if they were a full-time student for 4 months of fewer or were NOT a full-time student, they must be at least 19 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
         context "they are not a full time student or were a full time student for 4 months or fewer" do
+          before do
+            # TODO: test full_time_student_less_than_four_months?
+            intake.update(not_full_time_student: "yes")
+          end
+
           context "they were at least 19 on 12/31/2021" do
-            #  they qualify
+            it "returns true" do
+              expect(intake.eitc_qualifications_passes_age_test?).to eq true
+            end
           end
 
           context "they were not at least 19 on 12/31/2021" do
-            #  they do not qualify
+            let(:primary_birth_date) { 18.years.ago.to_date }
+
+            it "returns false" do
+              expect(intake.eitc_qualifications_passes_age_test?).to eq false
+            end
           end
         end
       end
