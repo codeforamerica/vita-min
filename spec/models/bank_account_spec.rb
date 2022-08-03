@@ -2,19 +2,15 @@
 #
 # Table name: bank_accounts
 #
-#  id                          :bigint           not null, primary key
-#  account_number              :text
-#  account_type                :integer
-#  bank_name                   :string
-#  encrypted_account_number    :string
-#  encrypted_account_number_iv :string
-#  encrypted_bank_name         :string
-#  encrypted_bank_name_iv      :string
-#  hashed_account_number       :string
-#  routing_number              :string
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  intake_id                   :bigint
+#  id                    :bigint           not null, primary key
+#  account_number        :text
+#  account_type          :integer
+#  bank_name             :string
+#  hashed_account_number :string
+#  routing_number        :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  intake_id             :bigint
 #
 # Indexes
 #
@@ -29,34 +25,6 @@
 require "rails_helper"
 
 describe BankAccount do
-
-  describe "#account_number" do
-    let(:bank_account) { create :bank_account, attr_encrypted_account_number: "12345678910", account_number: nil }
-    it "can read account_number when there is only an old encrypted value" do
-      expect(bank_account.read_attribute(:account_number)).to eq nil
-      expect(bank_account.account_number).to eq "12345678910"
-    end
-
-    it "can write account_number to the new encrypted field" do
-      bank_account.update(account_number: "123456789101")
-      expect(bank_account.attr_encrypted_account_number).to eq "12345678910"
-      expect(bank_account.account_number).to eq "123456789101"
-    end
-  end
-
-  describe "#bank_name" do
-    let(:bank_account) { create :bank_account, attr_encrypted_bank_name: "Some bank", bank_name: nil }
-    it "can read account_number from encrypted field only" do
-      expect(bank_account.bank_name).to eq "Some bank"
-    end
-
-    it "can write bank_name to the new unencrypted field" do
-      bank_account.update(bank_name: "Any bank")
-      expect(bank_account.read_attribute(:bank_name)).to eq "Any bank"
-      expect(bank_account.bank_name).to eq "Any bank"
-    end
-  end
-
   describe "#account_type_code" do
     context "when checking" do
       let(:bank_account) { create :bank_account, account_type: "checking" }

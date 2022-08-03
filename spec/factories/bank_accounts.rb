@@ -2,19 +2,15 @@
 #
 # Table name: bank_accounts
 #
-#  id                          :bigint           not null, primary key
-#  account_number              :text
-#  account_type                :integer
-#  bank_name                   :string
-#  encrypted_account_number    :string
-#  encrypted_account_number_iv :string
-#  encrypted_bank_name         :string
-#  encrypted_bank_name_iv      :string
-#  hashed_account_number       :string
-#  routing_number              :string
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  intake_id                   :bigint
+#  id                    :bigint           not null, primary key
+#  account_number        :text
+#  account_type          :integer
+#  bank_name             :string
+#  hashed_account_number :string
+#  routing_number        :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  intake_id             :bigint
 #
 # Indexes
 #

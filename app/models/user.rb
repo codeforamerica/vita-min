@@ -45,8 +45,6 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  # prepare to drop -- unused columns from old zendesk integration
-  self.ignored_columns = ["encrypted_access_token", "encrypted_access_token_iv"]
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
   pg_search_scope :search, against: [
