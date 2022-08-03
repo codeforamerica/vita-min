@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_210842) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_02_182512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -431,7 +431,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_210842) do
   end
 
   create_table "bank_accounts", force: :cascade do |t|
+    t.text "account_number"
     t.integer "account_type"
+    t.string "bank_name"
     t.datetime "created_at", null: false
     t.string "encrypted_account_number"
     t.string "encrypted_account_number_iv"

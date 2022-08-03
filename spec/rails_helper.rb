@@ -123,7 +123,7 @@ RSpec.configure do |config|
       irs: {
         efin: '123456',
         sin: '11111111'
-      },
+      }
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
@@ -135,6 +135,7 @@ RSpec.configure do |config|
     allow(fake_dns).to receive(:open) { raise StandardError, "Cannot use DNS from test suite" }
     allow(fake_dns).to receive(:close)
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
+
   end
 
   if config.filter.rules[:flow_explorer_screenshot]
