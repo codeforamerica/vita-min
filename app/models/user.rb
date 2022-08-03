@@ -45,7 +45,6 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  # prepare to drop -- unused columns from old zendesk integration
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
   pg_search_scope :search, against: [
