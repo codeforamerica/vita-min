@@ -437,8 +437,11 @@ class Intake::CtcIntake < Intake
     Flipper.enabled?(:eitc) && claim_eitc_yes?
   end
 
+  def eitc_qualifications_passes_age_test?
+  # TODO
+  end
+
   def qualified_for_eitc?
-    # Flipper.enabled?(:eitc) &&
-    #   intake.exceeded_investment_income_limit_no? &&
+    Flipper.enabled?(:eitc) && exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test?
   end
 end

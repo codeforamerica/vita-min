@@ -354,50 +354,73 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     end
   end
 
+  describe "#eitc_qualifications_passes_age_test?" do
+    context "when they are over 24" do
+      #  they qualify
+    end
+
+    context "when they are under 24" do
+      context "when they have at least one qualifying child" do
+        #  they qualify
+      end
+
+      context "when they have no qualifying children" do
+        # if they are a qualified former foster youth or qualified homeless youth, they must be at least 18 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
+        context "they are a former foster or homeless youth" do
+          context "they were at least 18 on 12/31/2021" do
+            #  they qualify
+          end
+
+          context "they were not at least 18 on 12/31/2021" do
+            #  they do not qualify
+          end
+        end
+
+        # if they were a full-time student for 4 months of fewer or were NOT a full-time student, they must be at least 19 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
+        context "they are not a full time student or were a full time student for 4 months or fewer" do
+          context "they were at least 19 on 12/31/2021" do
+            #  they qualify
+          end
+
+          context "they were not at least 19 on 12/31/2021" do
+            #  they do not qualify
+          end
+        end
+      end
+    end
+  end
+
   describe "#qualified_for_eitc?" do
-    let(:primary_birth_date) { 26.years.ago }
     let(:intake) { create(:ctc_intake, exceeded_investment_income_limit: exceeded_investment_income_limit) }
 
-    context "when they have exceeded the investment income limit" do
+    before do
+      Flipper.enable(:eitc)
+    end
+
+    context "when they do not pass investment income test or age test" do
       let(:exceeded_investment_income_limit) { "yes" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return false
+      end
 
       it "returns false" do
         expect(intake.qualified_for_eitc?).to eq false
       end
     end
 
-    context "when they have not exceeded the investment income limit" do
+    context "they pass investment income test and age test" do
       let(:exceeded_investment_income_limit) { "no" }
 
-      context "when they have no qualifying children" do
-        context "when they are over 24" do
-        #  they do not qualify
-        end
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return true
+      end
 
-        context "when they are under 24" do
-          # if they are a qualified former foster youth or qualified homeless youth, they must be at least 18 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
-          context "they are a former foster or homeless youth" do
-            context "they were at least 18 on 12/31/2021" do
-            #  they qualify
-            end
-
-            context "they were not at least 18 on 12/31/2021" do
-            #  they do not qualify
-            end
-          end
-
-          # if they were a full-time student for 4 months of fewer or were NOT a full-time student, they must be at least 19 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
-          context "they are not a full time student or were a full time student for 4 months or fewer" do
-            context "they were at least 19 on 12/31/2021" do
-            #  they qualify
-            end
-
-            context "they were not at least 19 on 12/31/2021" do
-              #  they do not qualify
-            end
-          end
-        end
+      it "returns true" do
+        expect(intake.qualified_for_eitc?).to eq true
       end
     end
+
+  #  TODO: test all combinations?
   end
 end
