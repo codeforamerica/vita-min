@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_03_205232) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_212151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -435,10 +435,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_205232) do
     t.integer "account_type"
     t.string "bank_name"
     t.datetime "created_at", null: false
-    t.string "encrypted_account_number"
-    t.string "encrypted_account_number_iv"
-    t.string "encrypted_bank_name"
-    t.string "encrypted_bank_name_iv"
     t.string "hashed_account_number"
     t.bigint "intake_id"
     t.string "routing_number"
