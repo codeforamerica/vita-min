@@ -1,7 +1,9 @@
 module AutomatedMessage
   class CtcExperienceSurvey < AutomatedMessage
     SENT_AT_COLUMN = :ctc_experience_survey_sent_at
-    RELEVANT_STATES = %w[file_accepted file_not_filing file_mailed]
+    RELEVANT_STATES = %w[file_accepted file_mailed]
+    FOUR_DAY_STATES = [:file_not_filing]
+    SEVEN_DAY_STATES = [:file_hold]
 
     def self.clients_to_survey
       Client.includes(:intake, tax_returns: :tax_return_transitions)
@@ -10,10 +12,9 @@ module AutomatedMessage
         .where(
           tax_returns: {
             service_type: "online_intake",
-            tax_return_transitions: TaxReturnTransition
-              .where(to_state: RELEVANT_STATES)
-              .where(most_recent: true)
-              .where(created_at: 30.days.ago...1.day.ago)
+            tax_return_transitions: TaxReturnTransition.where(to_state: RELEVANT_STATES, most_recent: true, created_at: 30.days.ago...1.day.ago).or(
+              TaxReturnTransition.where(to_state: FOUR_DAY_STATES, most_recent: true, created_at: 30.days.ago...4.days.ago)).or(
+              TaxReturnTransition.where(to_state: SEVEN_DAY_STATES, most_recent: true, created_at: 30.days.ago...7.days.ago))
           }
         )
     end

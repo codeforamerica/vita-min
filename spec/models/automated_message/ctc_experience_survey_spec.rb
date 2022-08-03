@@ -18,6 +18,32 @@ RSpec.describe AutomatedMessage::CtcExperienceSurvey do
           expect(described_class.clients_to_survey).to match_array([client])
         end
       end
+
+      describe 'file_not_filing status' do
+        let(:status) { :file_not_filing }
+        let!(:old_enough_client) do
+          Timecop.freeze((4.01).days.ago) do
+            create :tax_return, status, service_type: service_type, client: build(:client, ctc_experience_survey_sent_at: ctc_experience_survey_sent_at, intake: build(:ctc_intake, primary_consented_to_service: "yes"))
+          end.client
+        end
+
+        it "sends after four days" do
+          expect(described_class.clients_to_survey).to match_array([old_enough_client])
+        end
+      end
+
+      describe 'file_hold status' do
+        let(:status) { :file_hold }
+        let!(:old_enough_client) do
+          Timecop.freeze((7.01).days.ago) do
+            create :tax_return, status, service_type: service_type, client: build(:client, ctc_experience_survey_sent_at: ctc_experience_survey_sent_at, intake: build(:ctc_intake, primary_consented_to_service: "yes"))
+          end.client
+        end
+
+        it "sends the survey after seven days" do
+          expect(described_class.clients_to_survey).to match_array([old_enough_client])
+        end
+      end
     end
 
     context "clients who should not get the survey" do
