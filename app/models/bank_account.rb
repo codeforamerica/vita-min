@@ -30,6 +30,7 @@ class BankAccount < ApplicationRecord
   belongs_to :intake
   has_one :client, through: :intake
 
+  # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
   before_save :hash_account_number
 
