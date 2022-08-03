@@ -31,7 +31,6 @@ class CtcQuestionNavigation
     Ctc::Questions::SpouseReviewController,
 
     Ctc::Questions::InvestmentIncomeController,
-    Ctc::Questions::EitcOffboardingController,
     Ctc::Questions::HadDependentsController,
 
     # Looping Dependents Questions
@@ -56,6 +55,9 @@ class CtcQuestionNavigation
     Ctc::Questions::NoDependentsAdvanceCtcPaymentsController,
 
     Ctc::Questions::EitcQualifiersController,
+
+    # Notice of qualification for EITC
+    Ctc::Questions::EitcOffboardingController,
 
     # RRC
     # => Adv. CTC

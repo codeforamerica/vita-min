@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        Flipper.enabled?(:eitc) && intake.claim_eitc_yes? && intake.exceeded_investment_income_limit_yes?
+        Flipper.enabled?(:eitc) && intake.claiming_eitc? && !intake.qualified_for_eitc?
       end
 
       private

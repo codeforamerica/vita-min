@@ -353,4 +353,51 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       end
     end
   end
+
+  describe "#qualified_for_eitc?" do
+    let(:primary_birth_date) { 26.years.ago }
+    let(:intake) { create(:ctc_intake, exceeded_investment_income_limit: exceeded_investment_income_limit) }
+
+    context "when they have exceeded the investment income limit" do
+      let(:exceeded_investment_income_limit) { "yes" }
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "when they have not exceeded the investment income limit" do
+      let(:exceeded_investment_income_limit) { "no" }
+
+      context "when they have no qualifying children" do
+        context "when they are over 24" do
+        #  they do not qualify
+        end
+
+        context "when they are under 24" do
+          # if they are a qualified former foster youth or qualified homeless youth, they must be at least 18 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
+          context "they are a former foster or homeless youth" do
+            context "they were at least 18 on 12/31/2021" do
+            #  they qualify
+            end
+
+            context "they were not at least 18 on 12/31/2021" do
+            #  they do not qualify
+            end
+          end
+
+          # if they were a full-time student for 4 months of fewer or were NOT a full-time student, they must be at least 19 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
+          context "they are not a full time student or were a full time student for 4 months or fewer" do
+            context "they were at least 19 on 12/31/2021" do
+            #  they qualify
+            end
+
+            context "they were not at least 19 on 12/31/2021" do
+              #  they do not qualify
+            end
+          end
+        end
+      end
+    end
+  end
 end

@@ -436,4 +436,9 @@ class Intake::CtcIntake < Intake
   def claiming_eitc?
     Flipper.enabled?(:eitc) && claim_eitc_yes?
   end
+
+  def qualified_for_eitc?
+    # Flipper.enabled?(:eitc) &&
+    #   intake.exceeded_investment_income_limit_no? &&
+  end
 end
