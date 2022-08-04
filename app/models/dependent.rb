@@ -9,10 +9,6 @@
 #  claim_anyway                                 :integer          default("unfilled"), not null
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
-#  encrypted_ip_pin                             :string
-#  encrypted_ip_pin_iv                          :string
-#  encrypted_ssn                                :string
-#  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
@@ -57,11 +53,8 @@
 
 class Dependent < ApplicationRecord
   include SoftDeletable
-
+  self.ignored_columns = [:encrypted_ssn, :encrypted_ssn_iv, :encrypted_ip_pin, :encrypted_ip_pin_iv]
   belongs_to :intake, inverse_of: :dependents
-
-  attr_encrypted :attr_encrypted_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: :encrypted_ssn
-  attr_encrypted :attr_encrypted_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: :encrypted_ip_pin
 
   encrypts :ssn, :ip_pin
 
@@ -115,14 +108,6 @@ class Dependent < ApplicationRecord
 
   before_validation do
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
-  end
-
-  def ssn
-    read_attribute(:ssn) || attr_encrypted_ssn
-  end
-
-  def ip_pin
-    read_attribute(:ip_pin) || attr_encrypted_ip_pin
   end
 
   def full_name

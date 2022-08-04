@@ -9,10 +9,6 @@
 #  claim_anyway                                 :integer          default("unfilled"), not null
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
-#  encrypted_ip_pin                             :string
-#  encrypted_ip_pin_iv                          :string
-#  encrypted_ssn                                :string
-#  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
