@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_04_191312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -431,12 +431,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
   end
 
   create_table "bank_accounts", force: :cascade do |t|
+    t.text "account_number"
     t.integer "account_type"
+    t.string "bank_name"
     t.datetime "created_at", null: false
-    t.string "encrypted_account_number"
-    t.string "encrypted_account_number_iv"
-    t.string "encrypted_bank_name"
-    t.string "encrypted_bank_name_iv"
     t.string "hashed_account_number"
     t.bigint "intake_id"
     t.string "routing_number"
@@ -619,16 +617,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
     t.datetime "created_at", precision: nil, null: false
     t.string "creation_token"
     t.integer "disabled", default: 0, null: false
-    t.string "encrypted_ip_pin"
-    t.string "encrypted_ip_pin_iv"
-    t.string "encrypted_ssn"
-    t.string "encrypted_ssn_iv"
     t.integer "filed_joint_return", default: 0, null: false
     t.integer "filer_provided_over_half_support", default: 0
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
     t.bigint "intake_id", null: false
+    t.text "ip_pin"
     t.string "last_name"
     t.integer "lived_with_more_than_six_months", default: 0, null: false
     t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
@@ -646,6 +641,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
     t.integer "residence_exception_passed_away", default: 0, null: false
     t.integer "residence_lived_with_all_year", default: 0
     t.datetime "soft_deleted_at", precision: nil
+    t.text "ssn"
     t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", precision: nil, null: false
@@ -1509,8 +1505,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_223346) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
-    t.string "encrypted_access_token"
-    t.string "encrypted_access_token_iv"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "invitation_accepted_at", precision: nil

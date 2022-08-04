@@ -82,4 +82,8 @@ Rails.application.configure do
   config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
   config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
   config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2038-12-31 23:59:59')
+
+  config.active_record.encryption.primary_key = 'test'
+  config.active_record.encryption.deterministic_key = 'test'
+  config.active_record.encryption.key_derivation_salt = 'test'
 end

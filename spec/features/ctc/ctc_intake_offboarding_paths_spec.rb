@@ -89,7 +89,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     scenario "client can file with GYR" do
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
+      click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
       click_on I18n.t('general.continue')
@@ -106,7 +106,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     scenario "client can add more dependents to continue CTC" do
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
+      click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
 
@@ -125,7 +125,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     scenario "client who did not receive advance ctc is not offboarded" do
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
+      click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
 
@@ -141,7 +141,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     scenario "people who remove their last dependent are sent into the offboarding flow" do
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
 
-      click_on I18n.t('general.affirmative')
+      click_on I18n.t('views.ctc.questions.had_dependents.add')
 
       dependent_birth_year = 5.years.ago.year
 

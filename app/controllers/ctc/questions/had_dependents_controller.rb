@@ -3,7 +3,7 @@ module Ctc
     class HadDependentsController < QuestionsController
       include AuthenticatedCtcClientConcern
 
-      layout "yes_no_question"
+      layout "intake"
 
       private
 

@@ -9,15 +9,12 @@
 #  claim_anyway                                 :integer          default("unfilled"), not null
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
-#  encrypted_ip_pin                             :string
-#  encrypted_ip_pin_iv                          :string
-#  encrypted_ssn                                :string
-#  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements  :integer          default("unfilled"), not null
@@ -35,6 +32,7 @@
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
 #  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
+#  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
 #  was_married                                  :integer          default("unfilled"), not null

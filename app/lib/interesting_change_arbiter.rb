@@ -40,7 +40,7 @@ class InterestingChangeArbiter
   private_class_method :encrypted_column_accessors
 
   def self.encrypted_columns(model)
-    model.saved_changes.keys.select { |k| k.start_with?("encrypted_") }
+    model.saved_changes.keys.select { |k| k.start_with?("encrypted_") || model.encrypted_attribute?(k) }
   end
   private_class_method :encrypted_columns
 end

@@ -166,7 +166,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.continue')
 
     # No dependents
-    click_on I18n.t('general.negative')
+    click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.continue')
