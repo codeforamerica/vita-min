@@ -390,46 +390,46 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
           intake.dependents.destroy_all
         end
 
-        # if they are a qualified former foster youth or qualified homeless youth, they must be at least 18 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
         context "they are a former foster or homeless youth" do
-          before do
-            # TODO: test homeless_youth?
-            intake.update(former_foster_youth: "yes")
-          end
-
-          context "they were at least 18 on 12/31/2021" do
-            it "returns true" do
-              expect(intake.eitc_qualifications_passes_age_test?).to eq true
+          [:homeless_youth, :former_foster_youth].each do |qualifier|
+            before do
+              intake.update(qualifier => "yes")
             end
-          end
 
-          context "they were not at least 18 on 12/31/2021" do
-            let(:primary_birth_date) { 17.years.ago.to_date }
+            context "they were at least 18 on 12/31/2021" do
+              it "returns true" do
+                expect(intake.eitc_qualifications_passes_age_test?).to eq true
+              end
+            end
 
-            it "returns false" do
-              expect(intake.eitc_qualifications_passes_age_test?).to eq false
+            context "they were not at least 18 on 12/31/2021" do
+              let(:primary_birth_date) { 17.years.ago.to_date }
+
+              it "returns false" do
+                expect(intake.eitc_qualifications_passes_age_test?).to eq false
+              end
             end
           end
         end
 
-        # if they were a full-time student for 4 months of fewer or were NOT a full-time student, they must be at least 19 on 12/31/2021 (otherwise, they cannot claim the EITC). Show them the offboarding page
         context "they are not a full time student or were a full time student for 4 months or fewer" do
-          before do
-            # TODO: test full_time_student_less_than_four_months?
-            intake.update(not_full_time_student: "yes")
-          end
-
-          context "they were at least 19 on 12/31/2021" do
-            it "returns true" do
-              expect(intake.eitc_qualifications_passes_age_test?).to eq true
+          [:not_full_time_student, :full_time_student_less_than_four_months].each do |qualifier|
+            before do
+              intake.update(qualifier => "yes")
             end
-          end
 
-          context "they were not at least 19 on 12/31/2021" do
-            let(:primary_birth_date) { 18.years.ago.to_date }
+            context "they were at least 19 on 12/31/2021" do
+              it "returns true" do
+                expect(intake.eitc_qualifications_passes_age_test?).to eq true
+              end
+            end
 
-            it "returns false" do
-              expect(intake.eitc_qualifications_passes_age_test?).to eq false
+            context "they were not at least 19 on 12/31/2021" do
+              let(:primary_birth_date) { 18.years.ago.to_date }
+
+              it "returns false" do
+                expect(intake.eitc_qualifications_passes_age_test?).to eq false
+              end
             end
           end
         end
@@ -444,7 +444,7 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       Flipper.enable(:eitc)
     end
 
-    context "when they do not pass investment income test or age test" do
+    context "they do not pass investment income test or age test" do
       let(:exceeded_investment_income_limit) { "yes" }
 
       before do
@@ -468,6 +468,28 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       end
     end
 
-  #  TODO: test all combinations?
+    context "they pass investment income but not age" do
+      let(:exceeded_investment_income_limit) { "no" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return false
+      end
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "they pass age but not investment income" do
+      let(:exceeded_investment_income_limit) { "yes" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return true
+      end
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
+      end
+    end
   end
 end
