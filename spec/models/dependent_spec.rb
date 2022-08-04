@@ -9,10 +9,6 @@
 #  claim_anyway                                 :integer          default("unfilled"), not null
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
-#  encrypted_ip_pin                             :string
-#  encrypted_ip_pin_iv                          :string
-#  encrypted_ssn                                :string
-#  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
@@ -58,34 +54,6 @@
 require "rails_helper"
 
 describe Dependent do
-  describe "#ssn" do
-    let(:dependent) { create :dependent, attr_encrypted_ssn: "124563256", ssn: nil }
-    it "can read ssn when there is only an old encrypted value" do
-      expect(dependent.read_attribute(:ssn)).to eq "124563256" # before_validation does a rewrite to ssn ...
-      expect(dependent.ssn).to eq "124563256"
-    end
-
-    it "can write ssn to the new encrypted field" do
-      dependent.update(ssn: "123456788")
-      expect(dependent.attr_encrypted_ssn).to eq "124563256"
-      expect(dependent.ssn).to eq "123456788"
-    end
-  end
-
-  describe "#ip_pin" do
-    let(:dependent) { create :dependent, attr_encrypted_ip_pin: "124565", ip_pin: nil }
-    it "can read ip_pin when there is only an old encrypted value" do
-      expect(dependent.read_attribute(:ip_pin)).to eq "124565" # autostrip attributes writes to the ip_pin field...
-      expect(dependent.ip_pin).to eq "124565"
-    end
-
-    it "can write ip_pin to the new encrypted field" do
-      dependent.update(ip_pin: "1245656")
-      expect(dependent.attr_encrypted_ip_pin).to eq "124565"
-      expect(dependent.ip_pin).to eq "1245656"
-    end
-  end
-
   it "strips leading or trailing spaces from any free-text attributes" do
     dependent = Dependent.new(
       first_name: "  doug",
