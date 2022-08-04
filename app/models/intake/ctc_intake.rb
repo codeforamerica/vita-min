@@ -462,7 +462,6 @@ class Intake::CtcIntake < Intake
     else
       return true
     end
-  # TODO
   end
 
   def qualified_for_eitc?

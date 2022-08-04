@@ -8,7 +8,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     Flipper.enable(:eitc)
   end
 
-  scenario "EITC intake" do
+  scenario "a client who qualifies for and wants to claim EITC" do
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
@@ -78,15 +78,36 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
     expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.investment_income.help_text'))
+    click_on "No"
 
-    click_on "Yes"
+    fill_in_dependents
+    # add more???
+  end
+
+  scenario "a client who is disqualified by investment income" do
+    fill_in_can_use_ctc
+    fill_in_eligibility
+    fill_in_basic_info(birthdate: 23.years.ago)
+    fill_in_spouse_info
+
+    # EITC investment question
+    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.affirmative')
+
+    # Dependents
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    # skips age test qualifiers page because they are already disqualified
+
+    # offboarding page
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.eitc_offboarding.title'))
-    expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.eitc_offboarding.help_text'))
-    click_on "Go back" # This will be at the top of your offbvoarding page
-    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
-    click_on "No" # puts you back on the investment income page
-    # Dependents page (skips EITC offboarding page)
-    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: TaxReturn.current_tax_year))
   end
 
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do
@@ -115,9 +136,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.continue')
   end
 
-  scenario "a client who is under 24 and has no qualifying children" do
+  scenario "age test" do
     fill_in_can_use_ctc
     fill_in_eligibility
+    # client is under 24
     fill_in_basic_info(birthdate: 23.years.ago)
     fill_in_spouse_info
 
@@ -125,7 +147,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.married_title'))
     click_on I18n.t('general.negative')
 
-    # Dependents
+    # Client has no dependents
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
@@ -145,9 +167,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.back')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_qualifiers.title'))
-    select I18n.t('views.ctc.questions.eitc_qualifiers.former_foster_youth')
+    # client is former foster youth and was over 19 on 12/31/2021
+    check I18n.t('views.ctc.questions.eitc_qualifiers.former_foster_youth')
+    click_on I18n.t('general.continue')
 
-    # meeting an exception qualifies client
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.title', adv_ctc_estimate: 1800))
+    # meeting an exception qualifies client so they don't see the offboarding page
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))
   end
 end

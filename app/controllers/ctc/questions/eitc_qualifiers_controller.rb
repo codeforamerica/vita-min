@@ -7,7 +7,10 @@ module Ctc
 
       def self.show?(intake)
         # TODO: replace qualifying_child? check, should be qualifying for EITC, not CTC
-        Flipper.enabled?(:eitc) && intake.primary_birth_date > 24.years.ago && intake.dependents.none?(&:qualifying_child?)
+        Flipper.enabled?(:eitc) &&
+          intake.exceeded_investment_income_limit_no? &&
+          intake.primary_birth_date > 24.years.ago &&
+          intake.dependents.none?(&:qualifying_child?)
       end
 
       private

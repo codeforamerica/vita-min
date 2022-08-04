@@ -13,10 +13,6 @@ describe Ctc::Questions::EitcQualifiersController do
         Flipper.enable :eitc
       end
 
-      context "when the client is already disqualifeid by investment income" do
-      # TODO
-      end
-
       context "when the client is over 24" do
         let(:intake) { create :ctc_intake, primary_birth_date: 25.years.ago.to_date }
 
@@ -26,7 +22,14 @@ describe Ctc::Questions::EitcQualifiersController do
       end
 
       context "when the client is under 24" do
-        let(:intake) { create :ctc_intake, client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]), primary_birth_date: 23.years.ago.to_date }
+        let(:intake) do
+          create(
+            :ctc_intake,
+            client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]),
+            primary_birth_date: 23.years.ago.to_date,
+            exceeded_investment_income_limit: "no"
+          )
+        end
 
         context "when the client has a qualifying child" do
           let!(:dependent) { create :qualifying_child, intake: intake }
@@ -43,6 +46,16 @@ describe Ctc::Questions::EitcQualifiersController do
 
           it "returns true" do
             expect(described_class.show?(intake)).to eq true
+          end
+
+          context "when the client is already disqualified by investment income" do
+            before do
+              intake.update(exceeded_investment_income_limit: "yes")
+            end
+
+            it "returns false" do
+              expect(described_class.show?(intake)).to eq false
+            end
           end
         end
       end
