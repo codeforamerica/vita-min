@@ -2614,6 +2614,7 @@ es:
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
         eitc_qualifiers:
+          title: "Seleccione alguna de las situaciones que fueron ciertas en 2021:"
           former_foster_youth: "Yo era un ex joven de crianza calificado"
           homeless_youth: "Yo era un joven sin hogar calificado"
           not_full_time_student: "Yo no era un estudiante de tiempo completo"
