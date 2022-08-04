@@ -1,9 +1,9 @@
-module AutomatedMessage
-  class CompletionSurvey < AutomatedMessage
+module SurveyMessages
+  class GyrCompletionSurvey
     SENT_AT_COLUMN = :completion_survey_sent_at
     RELEVANT_STATES = %w[file_accepted file_rejected file_not_filing file_mailed]
 
-    def self.clients_to_survey
+    def self.clients_to_survey(now)
       Client.includes(:intake, tax_returns: :tax_return_transitions)
         .where(SENT_AT_COLUMN => nil)
         .where(intake: { type: "Intake::GyrIntake" })
@@ -13,13 +13,13 @@ module AutomatedMessage
             tax_return_transitions: TaxReturnTransition
               .where(to_state: RELEVANT_STATES)
               .where(most_recent: true)
-              .where(created_at: 30.days.ago...1.day.ago)
+              .where(created_at: (now - 30.days)...(now - 1.day))
           }
         )
     end
 
-    def self.enqueue_surveys
-      clients_to_survey.find_each { |client| SendClientCompletionSurveyJob.perform_later(client) }
+    def self.enqueue_surveys(now)
+      clients_to_survey(now).find_each { |client| SendClientCompletionSurveyJob.perform_later(client) }
     end
 
     def self.name

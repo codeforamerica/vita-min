@@ -1,11 +1,11 @@
-module AutomatedMessage
-  class InProgressSurvey < AutomatedMessage
+module SurveyMessages
+  class GyrInProgressSurvey
     SENT_AT_COLUMN = :in_progress_survey_sent_at
 
-    def self.clients_to_survey
+    def self.clients_to_survey(now)
       Client.
         where(SENT_AT_COLUMN => nil)
-        .where("consented_to_service_at < ?", 10.days.ago)
+        .where("consented_to_service_at < ?", now - 10.days)
         .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
         .includes(:intake).where(intake: { type: "Intake::GyrIntake" })
         .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
@@ -13,8 +13,8 @@ module AutomatedMessage
         .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")
     end
 
-    def self.enqueue_surveys
-      clients_to_survey.find_each { |client| SendClientInProgressSurveyJob.perform_later(client) }
+    def self.enqueue_surveys(now)
+      clients_to_survey(now).find_each { |client| SendClientInProgressSurveyJob.perform_later(client) }
     end
 
     def self.name

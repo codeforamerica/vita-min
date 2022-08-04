@@ -1,26 +1,26 @@
-module AutomatedMessage
-  class CtcExperienceSurvey < AutomatedMessage
+module SurveyMessages
+  class CtcExperienceSurvey
     SENT_AT_COLUMN = :ctc_experience_survey_sent_at
     RELEVANT_STATES = %w[file_accepted file_mailed]
     FOUR_DAY_STATES = [:file_not_filing]
     SEVEN_DAY_STATES = [:file_hold]
 
-    def self.clients_to_survey
+    def self.clients_to_survey(now)
       Client.includes(:intake, tax_returns: :tax_return_transitions)
         .where(SENT_AT_COLUMN => nil)
         .where(intake: { type: "Intake::CtcIntake" })
         .where(
           tax_returns: {
             service_type: "online_intake",
-            tax_return_transitions: TaxReturnTransition.where(to_state: RELEVANT_STATES, most_recent: true, created_at: 30.days.ago...1.day.ago).or(
-              TaxReturnTransition.where(to_state: FOUR_DAY_STATES, most_recent: true, created_at: 30.days.ago...4.days.ago)).or(
-              TaxReturnTransition.where(to_state: SEVEN_DAY_STATES, most_recent: true, created_at: 30.days.ago...7.days.ago))
+            tax_return_transitions: TaxReturnTransition.where(to_state: RELEVANT_STATES, most_recent: true, created_at: (now - 30.days)...(now - 1.day)).or(
+              TaxReturnTransition.where(to_state: FOUR_DAY_STATES, most_recent: true, created_at: (now - 30.days)...(now - 4.days)).or(
+                TaxReturnTransition.where(to_state: SEVEN_DAY_STATES, most_recent: true, created_at: (now - 30.days)...(now - 7.days))))
           }
         )
     end
 
-    def self.enqueue_surveys
-      clients_to_survey.find_each { |client| SendClientCtcExperienceSurveyJob.perform_later(client) }
+    def self.enqueue_surveys(now)
+      clients_to_survey(now).find_each { |client| SendClientCtcExperienceSurveyJob.perform_later(client) }
     end
 
     def self.name
