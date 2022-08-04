@@ -18,6 +18,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements  :integer          default("unfilled"), not null
@@ -35,6 +36,7 @@
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
 #  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
+#  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
 #  was_married                                  :integer          default("unfilled"), not null

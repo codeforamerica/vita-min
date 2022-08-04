@@ -18,6 +18,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements  :integer          default("unfilled"), not null
@@ -35,6 +36,7 @@
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
 #  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
+#  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
 #  was_married                                  :integer          default("unfilled"), not null
@@ -56,6 +58,34 @@
 require "rails_helper"
 
 describe Dependent do
+  describe "#ssn" do
+    let(:dependent) { create :dependent, attr_encrypted_ssn: "124563256", ssn: nil }
+    it "can read ssn when there is only an old encrypted value" do
+      expect(dependent.read_attribute(:ssn)).to eq "124563256" # before_validation does a rewrite to ssn ...
+      expect(dependent.ssn).to eq "124563256"
+    end
+
+    it "can write ssn to the new encrypted field" do
+      dependent.update(ssn: "123456788")
+      expect(dependent.attr_encrypted_ssn).to eq "124563256"
+      expect(dependent.ssn).to eq "123456788"
+    end
+  end
+
+  describe "#ip_pin" do
+    let(:dependent) { create :dependent, attr_encrypted_ip_pin: "124565", ip_pin: nil }
+    it "can read ip_pin when there is only an old encrypted value" do
+      expect(dependent.read_attribute(:ip_pin)).to eq "124565" # autostrip attributes writes to the ip_pin field...
+      expect(dependent.ip_pin).to eq "124565"
+    end
+
+    it "can write ip_pin to the new encrypted field" do
+      dependent.update(ip_pin: "1245656")
+      expect(dependent.attr_encrypted_ip_pin).to eq "124565"
+      expect(dependent.ip_pin).to eq "1245656"
+    end
+  end
+
   it "strips leading or trailing spaces from any free-text attributes" do
     dependent = Dependent.new(
       first_name: "  doug",
