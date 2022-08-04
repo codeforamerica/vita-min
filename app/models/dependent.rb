@@ -53,7 +53,6 @@
 
 class Dependent < ApplicationRecord
   include SoftDeletable
-  self.ignored_columns = [:encrypted_ssn, :encrypted_ssn_iv, :encrypted_ip_pin, :encrypted_ip_pin_iv]
   belongs_to :intake, inverse_of: :dependents
 
   encrypts :ssn, :ip_pin
