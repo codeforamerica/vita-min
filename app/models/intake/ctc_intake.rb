@@ -439,7 +439,7 @@ class Intake::CtcIntake < Intake
 
   def eitc_qualifications_passes_age_test?
     if primary_birth_date > 24.years.ago
-      if dependents.any? { |d| Efile::DependentEligibility::Eligibility.new(d, TaxReturn.current_tax_year).qualifying_eitc? }
+      if dependents.any?(&:qualifying_eitc?)
         return true
       else
         if former_foster_youth_yes? || homeless_youth_yes?
