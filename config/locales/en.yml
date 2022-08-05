@@ -2218,6 +2218,18 @@ en:
         eitc_offboarding:
           help_text: Continue with GetCTC to claim your Child Tax Credit and/or missing stimulus payments.
           title: You do not qualify for the Earned Income Tax Credit, but there’s still money waiting for you!
+        eitc_qualifiers:
+          former_foster_youth: I was a qualified former foster youth
+          former_foster_youth_reveal:
+            info: A qualified former foster youth is someone who was in foster care between the ages of 14 and 17. You must have allowed the foster care program to share your status as a former foster youth.
+            title: What is a qualified former foster youth?
+          full_time_student_less_than_four_months: I was a full time student for less than 4 months
+          homeless_youth: I was a qualified homeless youth
+          homeless_youth_reveal:
+            info: A qualified homeless youth is someone who is homeless or at risk of homelessness, who supports themselves financially. You must be between 18-24 years old and can not be under physical custody of a parent or guardian.
+            title: What is a qualified homeless youth?
+          not_full_time_student: I was not a full time student
+          title: 'Select any of the situations that were true in 2021:'
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -2642,18 +2654,6 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
-        eitc_qualifiers:
-          title: "Select any of the situations that were true in 2021:"
-          former_foster_youth: "I was a qualified former foster youth"
-          homeless_youth: "I was a qualified homeless youth"
-          not_full_time_student: "I was not a full time student"
-          full_time_student_less_than_four_months: "I was a full time student for less than 4 months"
-          former_foster_youth_reveal:
-            title: "What is a qualified former foster youth?"
-            info: "A qualified former foster youth is someone who was in foster care between the ages of 14 and 17. You must have allowed the foster care program to share your status as a former foster youth."
-          homeless_youth_reveal:
-            info: "A qualified homeless youth is someone who is homeless or at risk of homelessness, who supports themselves financially. You must be between 18-24 years old and can not be under physical custody of a parent or guardian."
-            title: "What is a qualified homeless youth?"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
