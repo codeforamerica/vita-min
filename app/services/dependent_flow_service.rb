@@ -24,7 +24,7 @@ class DependentFlowService
       eligibility.qualifies? && !eligibility.born_in_final_six_months?
     when "Ctc::Questions::Dependents::ChildResidenceExceptionsController"
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
-      dependent.lived_with_more_than_six_months_no? && eligibility.qualifies?
+      !dependent.months_in_home_more_than_6? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController"
       eligibility = child_qualification(except: :claimable_test)
       eligibility.qualifies?

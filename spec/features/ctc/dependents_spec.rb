@@ -24,7 +24,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
+      select I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.less_than_six")
+      click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence_exceptions.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
@@ -55,7 +56,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-      click_on I18n.t('general.negative')
+      select I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.less_than_six")
+      click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence_exceptions.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
@@ -132,7 +134,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
-      click_on I18n.t("general.affirmative")
+      select I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.six_to_seven")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       click_on I18n.t("general.negative")
@@ -162,7 +165,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
-      click_on I18n.t("general.affirmative")
+      select I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.six_to_seven")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       click_on I18n.t("general.negative")
@@ -230,7 +234,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-      click_on I18n.t('general.affirmative')
+      select I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.six_to_seven")
+      click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
       click_on I18n.t('general.negative')

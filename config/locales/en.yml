@@ -2113,8 +2113,24 @@ en:
               title: Who is considered a full-time student?
             title: Great, let’s make sure %{name} qualifies!
           child_residence:
-            help_text: Select yes even if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
-            title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
+            help_text: If they were born, adopted, or passed away in %{current_tax_year}, select 12 months.
+            reveal:
+              body: If your dependent was at a temporary location in 2021, select the number of months that your home was their official address.
+              list:
+              - school
+              - medical facility
+              - a juvenile facility
+              list_title: 'Some examples of temporary locations:'
+              select_options:
+                eight_to_nine: 8-9 months
+                eleven_to_twelve: 11-12 months
+                less_than_six: less than 6 months
+                nine_to_ten: 9-10 months
+                seven_to_eight: 7-8 months
+                six_to_seven: 6-7 months
+                ten_to_eleven: 10-11 months
+              title: What if my dependent was away for some time in 2021?
+            title: How many months did %{name} live with you in %{current_tax_year}?
           child_residence_exceptions:
             help_text: Select yes if they spent time living at school, in a medical facility, in a juvenile facility, or another temporary location while their official address was with you.
             title: Was %{name}'s permanent residence with you for more than 6 months, even if they were away for part of that time?

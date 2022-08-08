@@ -2084,8 +2084,24 @@ es:
               title: "¿Quién se considera un estudiante de tiempo completo?"
             title: "¡Excelente, asegurémonos de que %{name} califique!"
           child_residence:
-            help_text: Seleccione sí, incluso si nacieron, adoptaron o fallecieron en %{current_tax_year} y vivieron con usted durante al menos la mitad de su tiempo.
-            title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
+            help_text: Si nacieron, adoptaron o fallecieron en %{current_tax_year}, seleccione 12 meses.
+            reveal:
+              body: Si su dependiente estuvo en una ubicación temporal en 2021, seleccione la cantidad de meses que su hogar fue su dirección oficial.
+              list:
+              - escuela
+              - centro Médico
+              - un centro de menores
+              list_title: 'Algunos ejemplos de ubicaciones temporales:'
+              select_options:
+                eight_to_nine: 8-9 meses
+                eleven_to_twelve: 11-12 meses
+                less_than_six: Menos de 6 meses
+                nine_to_ten: 9-10 meses
+                seven_to_eight: 7-8 meses
+                six_to_seven: 6-7 meses
+                ten_to_eleven: 10-11 meses
+              title: "¿Qué pasa si mi dependiente estuvo fuera por algún tiempo en 2021?"
+            title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"
           child_residence_exceptions:
             help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿Residió %{name} permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
