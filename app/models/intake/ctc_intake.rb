@@ -10,7 +10,10 @@
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
+#  bank_account_number                                  :text
 #  bank_account_type                                    :integer          default("unfilled"), not null
+#  bank_name                                            :string
+#  bank_routing_number                                  :string
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
@@ -159,11 +162,15 @@
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
+#  primary_ip_pin                                       :text
+#  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
+#  primary_signature_pin                                :text
 #  primary_signature_pin_at                             :datetime
+#  primary_ssn                                          :text
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  received_advance_ctc_payment                         :integer
@@ -203,12 +210,16 @@
 #  spouse_filed_prior_tax_year                          :integer          default("unfilled"), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
+#  spouse_ip_pin                                        :text
 #  spouse_issued_identity_pin                           :integer          default(0), not null
+#  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
+#  spouse_signature_pin                                 :text
 #  spouse_signature_pin_at                              :datetime
+#  spouse_ssn                                           :text
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
@@ -286,13 +297,6 @@ class Intake::CtcIntake < Intake
   attribute :eip2_amount_received, :money
   attribute :primary_prior_year_agi_amount, :money
   attribute :spouse_prior_year_agi_amount, :money
-
-  attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :primary_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
   enum exceeded_investment_income_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :exceeded_investment_income_limit

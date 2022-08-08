@@ -10,7 +10,10 @@
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
+#  bank_account_number                                  :text
 #  bank_account_type                                    :integer          default("unfilled"), not null
+#  bank_name                                            :string
+#  bank_routing_number                                  :string
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
@@ -159,11 +162,15 @@
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
+#  primary_ip_pin                                       :text
+#  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
+#  primary_signature_pin                                :text
 #  primary_signature_pin_at                             :datetime
+#  primary_ssn                                          :text
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  received_advance_ctc_payment                         :integer
@@ -203,12 +210,16 @@
 #  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
+#  spouse_ip_pin                                        :text
 #  spouse_issued_identity_pin                           :integer          default(0), not null
+#  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
+#  spouse_signature_pin                                 :text
 #  spouse_signature_pin_at                              :datetime
+#  spouse_ssn                                           :text
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_was_blind                                     :integer          default(0), not null
@@ -333,13 +344,19 @@ class Intake < ApplicationRecord
     dependents.with_deleted.each(&:destroy!)
   end
 
-  attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :attr_encrypted_primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_last_four_ssn'
+  attr_encrypted :attr_encrypted_spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_last_four_ssn'
+  attr_encrypted :attr_encrypted_primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_ssn'
+  attr_encrypted :attr_encrypted_spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_ssn'
+  attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_name'
+  attr_encrypted :attr_encrypted_bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_routing_number'
+  attr_encrypted :attr_encrypted_bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_account_number'
+  attr_encrypted :attr_encrypted_primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_ip_pin'
+  attr_encrypted :attr_encrypted_spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_ip_pin'
+  attr_encrypted :attr_encrypted_primary_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_signature_pin'
+  attr_encrypted :attr_encrypted_spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_signature_pin'
+
+  encrypts :primary_last_four_ssn, :spouse_last_four_ssn, :primary_ssn, :spouse_ssn, :bank_account_number, :primary_ip_pin, :primary_signature_pin, :spouse_signature_pin, :spouse_ip_pin
 
   enum already_filed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_filed
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
@@ -377,6 +394,52 @@ class Intake < ApplicationRecord
   }
 
   scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
+
+  def primary_ssn
+    read_attribute(:primary_ssn) || attr_encrypted_primary_ssn
+  end
+
+  def spouse_ssn
+    read_attribute(:spouse_ssn) || attr_encrypted_spouse_ssn
+  end
+
+  def primary_last_four_ssn
+    read_attribute(:primary_last_four_ssn) || attr_encrypted_primary_last_four_ssn
+  end
+
+  def spouse_last_four_ssn
+    read_attribute(:spouse_last_four_ssn) || attr_encrypted_spouse_last_four_ssn
+  end
+
+  def bank_name
+    read_attribute(:bank_name) || attr_encrypted_bank_name
+  end
+
+  def bank_routing_number
+    read_attribute(:bank_routing_number) || attr_encrypted_bank_routing_number
+  end
+
+  def bank_account_number
+    read_attribute(:bank_account_number) || attr_encrypted_bank_account_number
+  end
+
+  def primary_ip_pin
+    read_attribute(:primary_ip_pin) || attr_encrypted_primary_ip_pin
+  end
+
+  def spouse_ip_pin
+    read_attribute(:spouse_ip_pin) || attr_encrypted_spouse_ip_pin
+  end
+
+  def spouse_signature_pin
+    read_attribute(:spouse_signature_pin) || attr_encrypted_spouse_signature_pin
+  end
+
+  def primary_signature_pin
+    read_attribute(:primary_signature_pin) || attr_encrypted_primary_signature_pin
+  end
+
+
 
   def duplicates
     return itin_duplicates if itin_applicant?

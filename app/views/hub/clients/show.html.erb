@@ -113,11 +113,12 @@
 
           <!-- Payment info-->
           <div class="client-profile__field-group client-bank-account-info">
-            <h2 class="text--bold"><%= "Refund Payment Info" %>
+            <h2 class="text--bold">
+              Refund Payment Info
               <% if @client.intake.bank_account.present? %>
-            <span id="js-toggle-bank-account-info">
-              <%= link_to("View", show_bank_account_hub_client_path, remote: true) %>
-            </span>
+                <span id="js-toggle-bank-account-info">
+                  <%= link_to("View", show_bank_account_hub_client_path, remote: true) %>
+                </span>
               <% end %>
             </h2>
             <div class="field-display">
