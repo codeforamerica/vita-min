@@ -10,7 +10,10 @@
 #  already_applied_for_stimulus                         :integer          default("unfilled"), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_number                                  :text
 #  bank_account_type                                    :integer          default("unfilled"), not null
+#  bank_name                                            :string
+#  bank_routing_number                                  :string
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
@@ -159,11 +162,15 @@
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
+#  primary_ip_pin                                       :text
+#  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
+#  primary_signature_pin                                :text
 #  primary_signature_pin_at                             :datetime
+#  primary_ssn                                          :text
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  received_advance_ctc_payment                         :integer
@@ -203,12 +210,16 @@
 #  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
+#  spouse_ip_pin                                        :text
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
+#  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
+#  spouse_signature_pin                                 :text
 #  spouse_signature_pin_at                              :datetime
+#  spouse_ssn                                           :text
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
@@ -421,7 +432,7 @@ class Intake::GyrIntake < Intake
 
   # create a faux bank account to turn bank account data into a BankAccount object
   def bank_account
-    return nil unless encrypted_bank_account_number || encrypted_bank_name || encrypted_bank_routing_number
+    return nil unless bank_account_number || bank_name || bank_routing_number
 
     type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
