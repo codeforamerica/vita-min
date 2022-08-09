@@ -27,6 +27,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.mailing_address.title'))
+      expect(page).to have_select(I18n.t('views.questions.mailing_address.state'), selected: [])
       fill_in I18n.t('views.questions.mailing_address.street_address'), with: "26 William Street"
       fill_in I18n.t('views.questions.mailing_address.street_address2'), with: "Apt 1234"
       fill_in I18n.t('views.questions.mailing_address.city'), with: "Bel Air"

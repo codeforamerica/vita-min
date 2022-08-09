@@ -21,7 +21,7 @@
       <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address")) %>
       <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>
       <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city")) %>
-      <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
+      <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs, include_blank: true) %>
       <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
     </div>
 
