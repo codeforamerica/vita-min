@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_04_193922) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_10_195131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -190,7 +190,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_04_193922) do
     t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
+    t.text "bank_account_number"
     t.integer "bank_account_type", default: 0, null: false
+    t.string "bank_name"
+    t.string "bank_routing_number"
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
@@ -330,11 +333,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_04_193922) do
     t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
+    t.text "primary_ip_pin"
+    t.text "primary_last_four_ssn"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
+    t.text "primary_signature_pin"
     t.datetime "primary_signature_pin_at", precision: nil
+    t.text "primary_ssn"
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "received_alimony", default: 0, null: false
@@ -374,12 +381,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_04_193922) do
     t.integer "spouse_filed_prior_tax_year", default: 0, null: false
     t.string "spouse_first_name"
     t.integer "spouse_had_disability", default: 0, null: false
+    t.text "spouse_ip_pin"
     t.integer "spouse_issued_identity_pin", default: 0, null: false
+    t.text "spouse_last_four_ssn"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
+    t.text "spouse_signature_pin"
     t.datetime "spouse_signature_pin_at", precision: nil
+    t.text "spouse_ssn"
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_was_blind", default: 0, null: false

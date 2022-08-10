@@ -14,14 +14,14 @@
 #  bank_routing_number                                  :string
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
-#  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
+#  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
-#  consented_to_legal                                   :integer          default("unfilled"), not null
+#  consented_to_legal                                   :integer          default(0), not null
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
@@ -47,9 +47,9 @@
 #  divorced_year                                        :string
 #  eip1_amount_received                                 :integer
 #  eip1_and_2_amount_received_confidence                :integer
-#  eip1_entry_method                                    :integer          default("unfilled"), not null
+#  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
-#  eip2_entry_method                                    :integer          default("unfilled"), not null
+#  eip2_entry_method                                    :integer          default(0), not null
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -82,13 +82,13 @@
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
-#  filed_prior_tax_year                                 :integer          default("unfilled"), not null
+#  filed_prior_tax_year                                 :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
-#  had_dependents                                       :integer          default("unfilled"), not null
+#  had_dependents                                       :integer          default(0), not null
 #  had_disability                                       :integer          default(0), not null
 #  had_disability_income                                :integer          default(0), not null
 #  had_disaster_loss                                    :integer          default(0), not null
@@ -108,8 +108,8 @@
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
 #  had_wages                                            :integer          default(0), not null
-#  has_primary_ip_pin                                   :integer          default("unfilled"), not null
-#  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
+#  has_primary_ip_pin                                   :integer          default(0), not null
+#  has_spouse_ip_pin                                    :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default(0), not null
@@ -143,7 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
-#  primary_active_armed_forces                          :integer          default("unfilled"), not null
+#  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
@@ -186,15 +186,15 @@
 #  sold_a_home                                          :integer          default(0), not null
 #  sold_assets                                          :integer          default(0), not null
 #  source                                               :string
-#  spouse_active_armed_forces                           :integer          default("unfilled")
+#  spouse_active_armed_forces                           :integer          default(0)
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
-#  spouse_can_be_claimed_as_dependent                   :integer          default("unfilled")
+#  spouse_can_be_claimed_as_dependent                   :integer          default(0)
 #  spouse_consented_to_service                          :integer          default(0), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_prior_tax_year                          :integer          default("unfilled"), not null
+#  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_ip_pin                                        :text
@@ -209,7 +209,7 @@
 #  spouse_ssn                                           :text
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
-#  spouse_was_blind                                     :integer          default("unfilled"), not null
+#  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
 #  state                                                :string
@@ -222,7 +222,7 @@
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null
-#  was_blind                                            :integer          default("unfilled"), not null
+#  was_blind                                            :integer          default(0), not null
 #  was_full_time_student                                :integer          default(0), not null
 #  was_on_visa                                          :integer          default(0), not null
 #  widowed                                              :integer          default(0), not null
@@ -266,124 +266,222 @@
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
-class Archived::Intake::CtcIntake2021 < Archived::Intake2021
-  def self.sti_name
-    'Intake::CtcIntake'
-  end
+require "rails_helper"
 
-  attribute :eip1_amount_received, :money
-  attribute :eip2_amount_received, :money
-  attribute :primary_prior_year_agi_amount, :money
-  attribute :spouse_prior_year_agi_amount, :money
+describe Archived::Intake2021 do
+  context "custom readers for encrypted attrs cutover" do
+    describe "#primary_ssn" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_primary_ssn: "123456789", primary_ssn: nil }
 
-  enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
-  enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
-  enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
-  enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
-  enum filed_prior_tax_year: { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, _prefix: :filed_prior_tax_year
-  enum spouse_filed_prior_tax_year: { unfilled: 0, filed_full_joint: 1, filed_non_filer_joint: 2, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5 }, _prefix: :spouse_filed_prior_tax_year
-  enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
-  enum spouse_can_be_claimed_as_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_can_be_claimed_as_dependent
-  enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
-  enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
-  enum primary_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_active_armed_forces
-  enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
-  enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
-  enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
-  enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
-  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+      it "is an encrypted attribute" do
+        intake.update(primary_ssn: "123456789") # only true if reading from the rails encrypts attribute
+        expect(intake.encrypted_attribute?(:primary_ssn)).to eq true
+      end
 
-  has_one :bank_account, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::BankAccount2021', foreign_key: 'archived_intakes_2021_id'
-  accepts_nested_attributes_for :bank_account
+      it "can read primary_ssn when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_primary_ssn).to eq "123456789"
+        expect(intake.read_attribute(:primary_ssn)).to eq nil
+        expect(intake.primary_ssn).to eq "123456789"
+      end
 
-  before_validation do
-    attributes_to_change = self.changes_to_save.keys
-    name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
-
-    (attributes_to_change & name_attributes).each do |attribute|
-      if self.attributes[attribute].present?
-        new_value = self.attributes[attribute].split(/\s/).filter { |str| !str.empty? }.join(" ")
-        self.assign_attributes(attribute => new_value)
+      it "can write primary_ssn to the new encrypted field" do
+        intake.update(primary_ssn: "123456898")
+        expect(intake.attr_encrypted_primary_ssn).to eq "123456789"
+        expect(intake.primary_ssn).to eq "123456898"
       end
     end
-  end
 
-  PHOTO_ID_TYPES = {
-    drivers_license: {
-      display_name: "Drivers License",
-      field_name: :with_drivers_license_photo_id
-    },
-    passport: {
-      display_name: "US Passport",
-      field_name: :with_passport_photo_id
-    },
-    other_state: {
-      display_name: "Other State ID",
-      field_name: :with_other_state_photo_id
-    },
-    vita_approved: {
-      display_name: "Identification approved by my VITA site",
-      field_name: :with_vita_approved_photo_id
-    }
-  }
+    describe "#spouse_ssn" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_spouse_ssn: "123456789", spouse_ssn: nil }
 
-  TAXPAYER_ID_TYPES = {
-    social_security: {
-      display_name: "Social Security card",
-      field_name: :with_social_security_taxpayer_id
-    },
-    itin: {
-      display_name: "Individual Taxpayer ID Number (ITIN) letter",
-      field_name: :with_itin_taxpayer_id
-    },
-    vita_approved: {
-      display_name: "Identification approved by my VITA site",
-      field_name: :with_vita_approved_taxpayer_id
-    }
-  }
+      it "is an encrypted attribute" do
+        intake.update(spouse_ssn: "123456789")
+        expect(intake.encrypted_attribute?(:spouse_ssn)).to eq true
+      end
 
-  def document_types_definitely_needed
-    []
-  end
+      it "can read spouse_ssn when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_spouse_ssn).to eq "123456789"
+        expect(intake.read_attribute(:spouse_ssn)).to eq nil
+        expect(intake.spouse_ssn).to eq "123456789"
+      end
 
-  def is_ctc?
-    true
-  end
-
-  def default_tax_return
-    tax_returns.find_by(year: TaxReturn.current_tax_year)
-  end
-
-  # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP
-  def preferred_name
-    read_attribute(:preferred_name) || primary_first_name
-  end
-
-  def photo_id_display_names
-    names = []
-    PHOTO_ID_TYPES.each do |_, type|
-      if self.send(type[:field_name])
-        names << type[:display_name]
+      it "can write spouse_ssn to the new encrypted field" do
+        intake.update(spouse_ssn: "123456898")
+        expect(intake.attr_encrypted_spouse_ssn).to eq "123456789"
+        expect(intake.spouse_ssn).to eq "123456898"
       end
     end
-    names.join(', ')
-  end
 
-  def taxpayer_id_display_names
-    names = []
-    TAXPAYER_ID_TYPES.each do |_, type|
-      if self.send(type[:field_name])
-        names << type[:display_name]
+    describe "#primary_last_four_ssn" do
+      let!(:intake) { create :archived_2021_ctc_intake, primary_last_four_ssn: "1234" }
+
+      it "is an encrypted attribute" do
+        expect(intake.encrypted_attribute?(:primary_last_four_ssn)).to eq true
+      end
+
+      it "must be written to directly" do
+        expect(intake.read_attribute(:primary_last_four_ssn)).to eq "1234"
+        expect(intake.primary_last_four_ssn).to eq "1234"
       end
     end
-    names.join(', ')
-  end
 
-  def any_ip_pins?
-    primary_ip_pin.present? || spouse_ip_pin.present? || dependents.any? { |d| d.ip_pin.present? }
-  end
+    describe "#spouse_last_four_ssn" do
+      let!(:intake) { create :archived_2021_ctc_intake, spouse_last_four_ssn: "6787" }
 
-  def filing_jointly?
-    client.tax_returns.last.filing_status_married_filing_jointly?
+      it "is an encrypted attribute" do
+        expect(intake.encrypted_attribute?(:spouse_last_four_ssn)).to eq true
+      end
+
+      it "updates when written to directly" do
+        expect(intake.spouse_last_four_ssn).to eq "6787"
+        expect(intake.read_attribute(:spouse_last_four_ssn)).to eq "6787"
+      end
+    end
+
+    describe "#bank_name" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_bank_name: "Bank of Two Melons", bank_name: nil }
+
+      it "is not an encrypted attribute" do
+        expect(intake.encrypted_attribute?(:bank_name)).to eq false
+      end
+
+      it "can read bank_name when there is only an old encrypted value" do
+        expect(intake.bank_name).to eq "Bank of Two Melons"
+        expect(intake.read_attribute(:bank_name)).to eq nil
+      end
+
+      it "can write and read from new bank_account attribute without affecting old column" do
+        intake.update(bank_name: "Bank of Twelve Cherries")
+        expect(intake.bank_name).to eq "Bank of Twelve Cherries"
+        expect(intake.read_attribute(:bank_name)).to eq "Bank of Twelve Cherries"
+        expect(intake.attr_encrypted_bank_name).to eq "Bank of Two Melons"
+      end
+    end
+
+    describe "#bank_routing_number" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_bank_routing_number: "123456878", bank_routing_number: nil }
+
+      it "is not an encrypted attribute" do
+        intake.update(bank_routing_number: "123457898")
+        expect(intake.encrypted_attribute?(:bank_routing_number)).to eq false
+      end
+
+      it "can read routing_number when there is only an old encrypted value" do
+        expect(intake.bank_routing_number).to eq "123456878"
+        expect(intake.read_attribute(:bank_routing_number)).to eq nil
+      end
+
+      it "can write and read from new bank_account attribute without affecting old column" do
+        intake.update(bank_routing_number: "123456877")
+        expect(intake.bank_routing_number).to eq "123456877"
+        expect(intake.read_attribute(:bank_routing_number)).to eq "123456877"
+        expect(intake.attr_encrypted_bank_routing_number).to eq "123456878"
+      end
+    end
+
+    describe "#bank_account_number" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_bank_account_number: "123456878", bank_account_number: nil }
+
+      it "is not an encrypted attribute" do
+        intake.update(bank_account_number: "123457898")
+        expect(intake.encrypted_attribute?(:bank_routing_number)).to eq false
+      end
+
+      it "can read account_number when there is only an old encrypted value" do
+        expect(intake.bank_account_number).to eq "123456878"
+        expect(intake.read_attribute(:bank_account_number)).to eq nil
+      end
+
+      it "can write and read from new bank_account attribute without affecting old column" do
+        intake.update(bank_account_number: "123456877")
+        expect(intake.bank_account_number).to eq "123456877"
+        expect(intake.read_attribute(:bank_account_number)).to eq "123456877"
+        expect(intake.attr_encrypted_bank_account_number).to eq "123456878"
+      end
+    end
+
+    describe "#primary_ip_pin" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_primary_ip_pin: "12345", primary_ip_pin: nil }
+
+      it "is an encrypted attribute" do
+        intake.update(primary_ip_pin: "12345") # only true if reading from the rails encrypts attribute
+        expect(intake.encrypted_attribute?(:primary_ip_pin)).to eq true
+      end
+
+      it "can read primary_ip_pin when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_primary_ip_pin).to eq "12345"
+        expect(intake.read_attribute(:primary_ip_pin)).to eq nil
+        expect(intake.primary_ip_pin).to eq "12345"
+      end
+
+      it "can write primary_ip_pin to the new encrypted field" do
+        intake.update(primary_ip_pin: "11125")
+        expect(intake.attr_encrypted_primary_ip_pin).to eq "12345"
+        expect(intake.primary_ip_pin).to eq "11125"
+      end
+    end
+
+    describe "#spouse_ip_pin" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_spouse_ip_pin: "123456", spouse_ip_pin: nil }
+
+      it "is an encrypted attribute" do
+        intake.update(spouse_ip_pin: "123456") # only true if reading from the rails encrypts attribute
+        expect(intake.encrypted_attribute?(:spouse_ip_pin)).to eq true
+      end
+
+      it "can read spouse_ip_pin when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_spouse_ip_pin).to eq "123456"
+        expect(intake.read_attribute(:spouse_ip_pin)).to eq nil
+        expect(intake.spouse_ip_pin).to eq "123456"
+      end
+
+      it "can write spouse_ip_pin to the new encrypted field" do
+        intake.update(spouse_ip_pin: "111256")
+        expect(intake.attr_encrypted_spouse_ip_pin).to eq "123456"
+        expect(intake.spouse_ip_pin).to eq "111256"
+      end
+    end
+
+    describe "#spouse_signature_pin" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_spouse_signature_pin: "12345", spouse_signature_pin: nil }
+
+      it "is an encrypted attribute" do
+        intake.update(spouse_signature_pin: "12345") # only true if reading from the rails encrypts attribute
+        expect(intake.encrypted_attribute?(:spouse_signature_pin)).to eq true
+      end
+
+      it "can read spouse_signature_pin when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_spouse_signature_pin).to eq "12345"
+        expect(intake.read_attribute(:spouse_signature_pin)).to eq nil
+        expect(intake.spouse_signature_pin).to eq "12345"
+      end
+
+      it "can write spouse_signature_pin to the new encrypted field" do
+        intake.update(spouse_signature_pin: "11125")
+        expect(intake.attr_encrypted_spouse_signature_pin).to eq "12345"
+        expect(intake.spouse_signature_pin).to eq "11125"
+      end
+    end
+
+    describe "#primary_signature_pin" do
+      let!(:intake) { create :archived_2021_ctc_intake, attr_encrypted_primary_signature_pin: "12345", primary_signature_pin: nil }
+
+      it "is an encrypted attribute" do
+        intake.update(primary_signature_pin: "12565") # only true if reading from the rails encrypts attribute
+        expect(intake.encrypted_attribute?(:primary_signature_pin)).to eq true
+      end
+
+      it "can read primary_signature_pin when there is only an old encrypted value" do
+        expect(intake.attr_encrypted_primary_signature_pin).to eq "12345"
+        expect(intake.read_attribute(:primary_signature_pin)).to eq nil
+        expect(intake.primary_signature_pin).to eq "12345"
+      end
+
+      it "can write primary_signature_pin to the new encrypted field" do
+        intake.update(primary_signature_pin: "11125")
+        expect(intake.attr_encrypted_primary_signature_pin).to eq "12345"
+        expect(intake.primary_signature_pin).to eq "11125"
+      end
+    end
   end
 end
