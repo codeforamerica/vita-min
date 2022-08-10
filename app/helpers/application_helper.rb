@@ -77,7 +77,7 @@ module ApplicationHelper
   end
 
   def months_in_home_options_for_select
-    {I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.less_than_six") => 6, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.six_to_seven") => 7, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.seven_to_eight") => 8, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.eight_to_nine") => 9, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.nine_to_ten") => 10, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.ten_to_eleven") => 11, I18n.t("views.ctc.questions.dependents.child_residence.reveal.select_options.eleven_to_twelve") => 12}
+    {I18n.t("views.ctc.questions.dependents.child_residence.select_options.less_than_six") => 5, I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven") => 6, I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven_to_eight") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eight_to_nine") => 8, I18n.t("views.ctc.questions.dependents.child_residence.select_options.nine_to_ten") => 9, I18n.t("views.ctc.questions.dependents.child_residence.select_options.ten_to_eleven") => 10, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eleven_to_twelve") => 11}
   end
 
   def suffix_options_for_select

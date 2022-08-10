@@ -6,7 +6,7 @@ namespace :dependents do
         if dependent.lived_with_more_than_six_months_yes?
           dependent.update!(months_in_home: 7)
         else
-          dependent.update!(months_in_home: 6)
+          dependent.update!(months_in_home: 5)
         end
       end
     end

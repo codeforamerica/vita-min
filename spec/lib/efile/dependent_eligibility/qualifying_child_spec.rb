@@ -296,7 +296,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     end
 
     context "when did not live in the home for more than 6 months" do
-      let(:dependent) { create :qualifying_child, months_in_home: 6, intake: intake }
+      let(:dependent) { create :qualifying_child, months_in_home: 5, intake: intake }
 
       context "when doesnt have an exception set" do
         it "returns false" do
@@ -306,7 +306,7 @@ describe Efile::DependentEligibility::QualifyingChild do
       end
 
       context "when there is a residence exception" do
-        let(:dependent) { create :qualifying_child, months_in_home: 6, intake: intake }
+        let(:dependent) { create :qualifying_child, months_in_home: 5, intake: intake }
 
         residence_exceptions = [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption, :permanent_residence_with_client]
         residence_exceptions.each do |exception|

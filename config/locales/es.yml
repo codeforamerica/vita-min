@@ -2092,15 +2092,15 @@ es:
               - centro Médico
               - un centro de menores
               list_title: 'Algunos ejemplos de ubicaciones temporales:'
-              select_options:
-                eight_to_nine: 8-9 meses
-                eleven_to_twelve: 11-12 meses
-                less_than_six: Menos de 6 meses
-                nine_to_ten: 9-10 meses
-                seven_to_eight: 7-8 meses
-                six_to_seven: 6-7 meses
-                ten_to_eleven: 10-11 meses
               title: "¿Qué pasa si mi dependiente estuvo fuera por algún tiempo en 2021?"
+            select_options:
+              eight_to_nine: 8-9 meses
+              eleven_to_twelve: 11-12 meses
+              less_than_six: Menos de 6 meses
+              nine_to_ten: 9-10 meses
+              seven_to_eight: 7-8 meses
+              six_to_seven: 6-7 meses
+              ten_to_eleven: 10-11 meses
             title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"
           child_residence_exceptions:
             help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.

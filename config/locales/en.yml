@@ -2121,15 +2121,15 @@ en:
               - medical facility
               - a juvenile facility
               list_title: 'Some examples of temporary locations:'
-              select_options:
-                eight_to_nine: 8-9 months
-                eleven_to_twelve: 11-12 months
-                less_than_six: less than 6 months
-                nine_to_ten: 9-10 months
-                seven_to_eight: 7-8 months
-                six_to_seven: 6-7 months
-                ten_to_eleven: 10-11 months
               title: What if my dependent was away for some time in 2021?
+            select_options:
+              eight_to_nine: 8-9 months
+              eleven_to_twelve: 11-12 months
+              less_than_six: less than 6 months
+              nine_to_ten: 9-10 months
+              seven_to_eight: 7-8 months
+              six_to_seven: 6-7 months
+              ten_to_eleven: 10-11 months
             title: How many months did %{name} live with you in %{current_tax_year}?
           child_residence_exceptions:
             help_text: Select yes if they spent time living at school, in a medical facility, in a juvenile facility, or another temporary location while their official address was with you.

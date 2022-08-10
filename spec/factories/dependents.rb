@@ -100,7 +100,7 @@ FactoryBot.define do
       permanently_totally_disabled { "no" }
       provided_over_half_own_support { "no" }
       filed_joint_return { "no" }
-      months_in_home { 6 }
+      months_in_home { 5 }
       cant_be_claimed_by_other { "no" }
       claim_anyway { "yes" }
     end
