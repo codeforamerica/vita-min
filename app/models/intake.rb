@@ -344,18 +344,6 @@ class Intake < ApplicationRecord
     dependents.with_deleted.each(&:destroy!)
   end
 
-  attr_encrypted :attr_encrypted_primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_last_four_ssn'
-  attr_encrypted :attr_encrypted_spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_last_four_ssn'
-  attr_encrypted :attr_encrypted_primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_ssn'
-  attr_encrypted :attr_encrypted_spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_ssn'
-  attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_name'
-  attr_encrypted :attr_encrypted_bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_routing_number'
-  attr_encrypted :attr_encrypted_bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_bank_account_number'
-  attr_encrypted :attr_encrypted_primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_ip_pin'
-  attr_encrypted :attr_encrypted_spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_ip_pin'
-  attr_encrypted :attr_encrypted_primary_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_primary_signature_pin'
-  attr_encrypted :attr_encrypted_spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_spouse_signature_pin'
-
   encrypts :primary_last_four_ssn, :spouse_last_four_ssn, :primary_ssn, :spouse_ssn, :bank_account_number, :primary_ip_pin, :primary_signature_pin, :spouse_signature_pin, :spouse_ip_pin
 
   enum already_filed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_filed
@@ -394,52 +382,6 @@ class Intake < ApplicationRecord
   }
 
   scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
-
-  def primary_ssn
-    read_attribute(:primary_ssn) || attr_encrypted_primary_ssn
-  end
-
-  def spouse_ssn
-    read_attribute(:spouse_ssn) || attr_encrypted_spouse_ssn
-  end
-
-  def primary_last_four_ssn
-    read_attribute(:primary_last_four_ssn) || attr_encrypted_primary_last_four_ssn
-  end
-
-  def spouse_last_four_ssn
-    read_attribute(:spouse_last_four_ssn) || attr_encrypted_spouse_last_four_ssn
-  end
-
-  def bank_name
-    read_attribute(:bank_name) || attr_encrypted_bank_name
-  end
-
-  def bank_routing_number
-    read_attribute(:bank_routing_number) || attr_encrypted_bank_routing_number
-  end
-
-  def bank_account_number
-    read_attribute(:bank_account_number) || attr_encrypted_bank_account_number
-  end
-
-  def primary_ip_pin
-    read_attribute(:primary_ip_pin) || attr_encrypted_primary_ip_pin
-  end
-
-  def spouse_ip_pin
-    read_attribute(:spouse_ip_pin) || attr_encrypted_spouse_ip_pin
-  end
-
-  def spouse_signature_pin
-    read_attribute(:spouse_signature_pin) || attr_encrypted_spouse_signature_pin
-  end
-
-  def primary_signature_pin
-    read_attribute(:primary_signature_pin) || attr_encrypted_primary_signature_pin
-  end
-
-
 
   def duplicates
     return itin_duplicates if itin_applicant?
