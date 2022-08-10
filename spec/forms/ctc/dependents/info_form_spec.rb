@@ -207,10 +207,10 @@ describe Ctc::Dependents::InfoForm do
         params[:birth_date_year] = TaxReturn.current_tax_year
       end
 
-      it "sets lived_with_for_more_than_6_months to true" do
+      it "sets months_in_home to 6" do
         form = described_class.new(dependent, params)
         form.save
-        expect(Dependent.last.lived_with_more_than_six_months).to eq "yes"
+        expect(Dependent.last.months_in_home).to eq 6
       end
     end
   end

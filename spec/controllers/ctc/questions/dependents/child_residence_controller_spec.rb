@@ -14,7 +14,7 @@ describe Ctc::Questions::Dependents::ChildResidenceController do
         {
           id: dependent.id,
           ctc_dependents_child_residence_form: {
-            lived_with_more_than_six_months: "yes"
+            months_in_home: 7
           }
         }
       end
@@ -22,7 +22,7 @@ describe Ctc::Questions::Dependents::ChildResidenceController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.lived_with_more_than_six_months).to eq "yes"
+        expect(dependent.reload.months_in_home).to eq 7
       end
     end
 
@@ -31,7 +31,7 @@ describe Ctc::Questions::Dependents::ChildResidenceController do
         {
           id: 'jeff',
           ctc_dependents_child_residence_form_form: {
-            lived_with_more_than_six_months: "yes"
+            months_in_home: 7
           }
         }
       end
@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ChildResidenceController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.attribute_names).to include(:lived_with_more_than_six_months)
+        expect(assigns(:form).errors.attribute_names).to include(:months_in_home)
       end
     end
   end

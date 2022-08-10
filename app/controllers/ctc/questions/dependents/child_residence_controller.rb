@@ -3,11 +3,7 @@ module Ctc
     module Dependents
       class ChildResidenceController < BaseDependentController
         include AuthenticatedCtcClientConcern
-        layout "yes_no_question"
-
-        def method_name
-          'lived_with_more_than_six_months'
-        end
+        layout "intake"
 
         private
 

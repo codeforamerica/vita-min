@@ -185,7 +185,8 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    click_on I18n.t('general.affirmative')
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
     click_on I18n.t('general.affirmative')
@@ -223,7 +224,8 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    click_on I18n.t('general.affirmative')
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
     click_on I18n.t('general.affirmative')
@@ -255,7 +257,8 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Red', current_tax_year: current_tax_year))
-    click_on I18n.t('general.affirmative')
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
     click_on I18n.t('general.affirmative')

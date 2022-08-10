@@ -287,7 +287,7 @@ class FlowsController < ApplicationController
           relationship: %w[son daughter].sample,
           provided_over_half_own_support: 'no',
           filed_joint_return: 'no',
-          lived_with_more_than_six_months: 'yes',
+          months_in_home: 7,
           cant_be_claimed_by_other: 'yes',
           birth_date: 12.years.ago,
           tin_type: 'ssn',

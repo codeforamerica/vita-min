@@ -25,7 +25,7 @@ module Efile
             # Ctc::Questions::Dependents::ChildResidenceController, Ctc::Questions::Dependents::ChildResidenceExceptionsController
             residence_test: [
               :born_in_final_six_months?,
-              :lived_with_more_than_six_months_yes?,
+              :months_in_home_6_or_more?,
               :residence_exception_born_yes?, # 2020 question
               :residence_exception_passed_away_yes?, # 2020 question
               :residence_exception_adoption_yes?, # 2020 question

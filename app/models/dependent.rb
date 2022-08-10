@@ -175,6 +175,12 @@ class Dependent < ApplicationRecord
     tax_year - birth_date.year
   end
 
+  def months_in_home_6_or_more?
+    return months_in_home >= 6 if months_in_home.present?
+
+    lived_with_more_than_six_months_yes?
+  end
+
   private
 
   def remove_error_associations

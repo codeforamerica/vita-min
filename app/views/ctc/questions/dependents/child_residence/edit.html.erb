@@ -1,3 +1,27 @@
-<% content_for :form_question, t("views.ctc.questions.dependents.child_residence.title", name: @form.dependent.first_name&.upcase_first, current_tax_year: current_tax_year) %>
+<% @main_heading = t("views.ctc.questions.dependents.child_residence.title", name: @form.dependent.first_name&.upcase_first, current_tax_year: current_tax_year) %>
+<% content_for :form_question, @main_heading %>
 
-<% content_for :form_help_text, t("views.ctc.questions.dependents.child_residence.help_text", current_tax_year: current_tax_year) %>
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card__stacked-checkboxes" } do |f| %>
+    <h1 class="form-question"><%= @main_heading %></h1>
+
+    <p><%= t("views.ctc.questions.dependents.child_residence.help_text", current_tax_year: current_tax_year) %></p>
+
+    <%= f.cfa_select(:months_in_home, "", months_in_home_options_for_select) %>
+
+    <div class="reveal-shrink-wrapper spacing-above-15">
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_residence.reveal.title")) do %>
+        <p><%= t("views.ctc.questions.dependents.child_residence.reveal.body") %></p>
+        <p class="spacing-below-5"><%= t("views.ctc.questions.dependents.child_residence.reveal.list_title") %></p>
+        <ul class="list--bulleted spacing-above-0">
+          <% t("views.ctc.questions.dependents.child_residence.reveal.list").each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-above-60" %>
+
+  <% end %>
+<% end %>
