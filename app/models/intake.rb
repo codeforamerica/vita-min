@@ -61,28 +61,8 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
-#  encrypted_bank_account_number                        :string
-#  encrypted_bank_account_number_iv                     :string
-#  encrypted_bank_name                                  :string
-#  encrypted_bank_name_iv                               :string
-#  encrypted_bank_routing_number                        :string
-#  encrypted_bank_routing_number_iv                     :string
-#  encrypted_primary_ip_pin                             :string
-#  encrypted_primary_ip_pin_iv                          :string
-#  encrypted_primary_last_four_ssn                      :string
-#  encrypted_primary_last_four_ssn_iv                   :string
-#  encrypted_primary_signature_pin                      :string
-#  encrypted_primary_signature_pin_iv                   :string
-#  encrypted_primary_ssn                                :string
-#  encrypted_primary_ssn_iv                             :string
-#  encrypted_spouse_ip_pin                              :string
-#  encrypted_spouse_ip_pin_iv                           :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
-#  encrypted_spouse_signature_pin                       :string
-#  encrypted_spouse_signature_pin_iv                    :string
-#  encrypted_spouse_ssn                                 :string
-#  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
 #  exceeded_investment_income_limit                     :integer          default(0)
@@ -294,7 +274,7 @@
 #
 
 class Intake < ApplicationRecord
-  self.ignored_columns = ["primary_consented_to_service_at"]
+  self.ignored_columns = ["primary_consented_to_service_at", "encrypted_primary_last_four_ssn", "encrypted_primary_last_four_ssn_iv", "encrypted_spouse_last_four_ssn" "encrypted_spouse_last_four_ssn_iv", "encrypted_primary_ssn", "encrypted_primary_ssn_iv", "encrypted_spouse_ssn", "encrypted_spouse_ssn_iv", "encrypted_bank_name", "encrypted_bank_name_iv", "encrypted_bank_routing_number", "encrypted_bank_routing_number_iv", "encrypted_bank_account_number", "encrypted_bank_account_number_iv", "encrypted_primary_ip_pin", "encrypted_primary_ip_pin_iv", "encrypted_spouse_ip_pin", "encrypted_spouse_ip_pin_iv", "encrypted_primary_signature_pin", "encrypted_primary_signature_pin_iv", "encrypted_spouse_signature_pin", "encrypted_spouse_signature_pin_iv"]
 
   include PgSearch::Model
 
