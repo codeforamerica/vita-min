@@ -55,28 +55,8 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
-#  encrypted_bank_account_number                        :string
-#  encrypted_bank_account_number_iv                     :string
-#  encrypted_bank_name                                  :string
-#  encrypted_bank_name_iv                               :string
-#  encrypted_bank_routing_number                        :string
-#  encrypted_bank_routing_number_iv                     :string
-#  encrypted_primary_ip_pin                             :string
-#  encrypted_primary_ip_pin_iv                          :string
-#  encrypted_primary_last_four_ssn                      :string
-#  encrypted_primary_last_four_ssn_iv                   :string
-#  encrypted_primary_signature_pin                      :string
-#  encrypted_primary_signature_pin_iv                   :string
-#  encrypted_primary_ssn                                :string
-#  encrypted_primary_ssn_iv                             :string
-#  encrypted_spouse_ip_pin                              :string
-#  encrypted_spouse_ip_pin_iv                           :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
-#  encrypted_spouse_signature_pin                       :string
-#  encrypted_spouse_signature_pin_iv                    :string
-#  encrypted_spouse_ssn                                 :string
-#  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
@@ -268,6 +248,8 @@
 #
 module Archived
   class Intake2021 < ApplicationRecord
+    self.ignored_columns = ["encrypted_primary_last_four_ssn", "encrypted_primary_last_four_ssn_iv", "encrypted_spouse_last_four_ssn" "encrypted_spouse_last_four_ssn_iv", "encrypted_primary_ssn", "encrypted_primary_ssn_iv", "encrypted_spouse_ssn", "encrypted_spouse_ssn_iv", "encrypted_bank_name", "encrypted_bank_name_iv", "encrypted_bank_routing_number", "encrypted_bank_routing_number_iv", "encrypted_bank_account_number", "encrypted_bank_account_number_iv", "encrypted_primary_ip_pin", "encrypted_primary_ip_pin_iv", "encrypted_spouse_ip_pin", "encrypted_spouse_ip_pin_iv", "encrypted_primary_signature_pin", "encrypted_primary_signature_pin_iv", "encrypted_spouse_signature_pin", "encrypted_spouse_signature_pin_iv"]
+
     self.table_name = 'archived_intakes_2021'
 
     def self.discriminate_class_for_record(record)
@@ -312,18 +294,6 @@ module Archived
       end
     end
 
-    attr_encrypted :attr_encrypted_primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_primary_last_four_ssn"
-    attr_encrypted :attr_encrypted_spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_spouse_last_four_ssn"
-    attr_encrypted :attr_encrypted_primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_primary_ssn"
-    attr_encrypted :attr_encrypted_spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_spouse_ssn"
-    attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_name"
-    attr_encrypted :attr_encrypted_bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_routing_number"
-    attr_encrypted :attr_encrypted_bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_account_number"
-    attr_encrypted :attr_encrypted_primary_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_primary_signature_pin"
-    attr_encrypted :attr_encrypted_spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_spouse_signature_pin"
-    attr_encrypted :attr_encrypted_spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_spouse_ip_pin"
-    attr_encrypted :attr_encrypted_primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_primary_ip_pin"
-
     encrypts :primary_last_four_ssn, :spouse_last_four_ssn, :primary_ssn, :spouse_ssn, :bank_account_number, :primary_ip_pin, :primary_signature_pin, :spouse_signature_pin, :spouse_ip_pin
 
     enum already_filed: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_filed
@@ -359,50 +329,6 @@ module Archived
         field_name: :with_unhoused_navigator
       }
     }
-
-    def primary_ssn
-      read_attribute(:primary_ssn) || attr_encrypted_primary_ssn
-    end
-
-    def spouse_ssn
-      read_attribute(:spouse_ssn) || attr_encrypted_spouse_ssn
-    end
-
-    def primary_last_four_ssn
-      read_attribute(:primary_last_four_ssn) || attr_encrypted_primary_last_four_ssn
-    end
-
-    def spouse_last_four_ssn
-      read_attribute(:spouse_last_four_ssn) || attr_encrypted_spouse_last_four_ssn
-    end
-
-    def bank_name
-      read_attribute(:bank_name) || attr_encrypted_bank_name
-    end
-
-    def bank_routing_number
-      read_attribute(:bank_routing_number) || attr_encrypted_bank_routing_number
-    end
-
-    def bank_account_number
-      read_attribute(:bank_account_number) || attr_encrypted_bank_account_number
-    end
-
-    def primary_ip_pin
-      read_attribute(:primary_ip_pin) || attr_encrypted_primary_ip_pin
-    end
-
-    def spouse_ip_pin
-      read_attribute(:spouse_ip_pin) || attr_encrypted_spouse_ip_pin
-    end
-
-    def spouse_signature_pin
-      read_attribute(:spouse_signature_pin) || attr_encrypted_spouse_signature_pin
-    end
-
-    def primary_signature_pin
-      read_attribute(:primary_signature_pin) || attr_encrypted_primary_signature_pin
-    end
 
     def is_ctc?
       false

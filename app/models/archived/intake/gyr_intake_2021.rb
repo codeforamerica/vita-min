@@ -55,28 +55,8 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
-#  encrypted_bank_account_number                        :string
-#  encrypted_bank_account_number_iv                     :string
-#  encrypted_bank_name                                  :string
-#  encrypted_bank_name_iv                               :string
-#  encrypted_bank_routing_number                        :string
-#  encrypted_bank_routing_number_iv                     :string
-#  encrypted_primary_ip_pin                             :string
-#  encrypted_primary_ip_pin_iv                          :string
-#  encrypted_primary_last_four_ssn                      :string
-#  encrypted_primary_last_four_ssn_iv                   :string
-#  encrypted_primary_signature_pin                      :string
-#  encrypted_primary_signature_pin_iv                   :string
-#  encrypted_primary_ssn                                :string
-#  encrypted_primary_ssn_iv                             :string
-#  encrypted_spouse_ip_pin                              :string
-#  encrypted_spouse_ip_pin_iv                           :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
-#  encrypted_spouse_signature_pin                       :string
-#  encrypted_spouse_signature_pin_iv                    :string
-#  encrypted_spouse_ssn                                 :string
-#  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default("unfilled"), not null
 #  ever_owned_home                                      :integer          default("unfilled"), not null
 #  feedback                                             :string
@@ -389,7 +369,7 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
 
   # create a faux bank account to turn bank account data into a BankAccount object
   def bank_account
-    return nil unless encrypted_bank_account_number || encrypted_bank_name || encrypted_bank_routing_number
+    return nil unless bank_account_number || bank_name || bank_routing_number
 
     type = Archived::BankAccount2021.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= Archived::BankAccount2021.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
