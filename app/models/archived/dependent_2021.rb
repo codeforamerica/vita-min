@@ -17,6 +17,7 @@
 #  first_name                                  :string
 #  full_time_student                           :integer          default("unfilled"), not null
 #  has_ip_pin                                  :integer          default("unfilled"), not null
+#  ip_pin                                      :text
 #  last_name                                   :string
 #  lived_with_more_than_six_months             :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
@@ -32,6 +33,7 @@
 #  provided_over_half_own_support              :integer          default("unfilled"), not null
 #  relationship                                :string
 #  soft_deleted_at                             :datetime
+#  ssn                                         :text
 #  suffix                                      :string
 #  tin_type                                    :integer
 #  was_married                                 :integer          default("unfilled"), not null
@@ -57,8 +59,10 @@ module Archived
 
     belongs_to :intake, inverse_of: :dependents, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake2021'
 
-    attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-    attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+    attr_encrypted :attr_encrypted_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_ssn'
+    attr_encrypted :attr_encrypted_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_ip_pin'
+
+    encrypts :ssn, :ip_pin
 
     auto_strip_attributes :ssn, :ip_pin, :first_name, :middle_initial, :last_name, virtual: true
 
@@ -112,6 +116,14 @@ module Archived
     QUALIFYING_CHILD_RELATIONSHIPS = %w[daughter son stepchild stepbrother stepsister foster_child grandchild niece nephew half_brother half_sister brother sister]
 
     QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
+
+    def ssn
+      read_attribute(:ssn) || attr_encrypted_ssn
+    end
+
+    def ip_pin
+      read_attribute(:ip_pin) || attr_encrypted_ip_pin
+    end
 
     def full_name
       parts = [first_name, middle_initial, last_name]
