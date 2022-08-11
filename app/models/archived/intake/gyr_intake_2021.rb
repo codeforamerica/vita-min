@@ -389,7 +389,7 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
 
   # create a faux bank account to turn bank account data into a BankAccount object
   def bank_account
-    return nil unless encrypted_bank_account_number || encrypted_bank_name || encrypted_bank_routing_number
+    return nil unless bank_account_number || bank_name || bank_routing_number
 
     type = Archived::BankAccount2021.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= Archived::BankAccount2021.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
