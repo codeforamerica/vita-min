@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_174110) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_11_214656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_174110) do
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
+    t.text "ip_pin"
     t.string "last_name"
     t.integer "lived_with_more_than_six_months", default: 0, null: false
     t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
@@ -178,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_174110) do
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
     t.datetime "soft_deleted_at", precision: nil
+    t.text "ssn"
     t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", precision: nil, null: false
