@@ -26,8 +26,13 @@ describe Fraud::Indicator do
         ["Bunny", "Peter", "Rabbit", "Bugs"]
       end
 
-      def self.riskylist
-        ["Dog", "Pluto", "Mickey", "Cat"]
+      def self.riskylist_records
+        [
+          OpenStruct.new(primary_first_name: "Dog", extra_points: nil),
+          OpenStruct.new(primary_first_name: "Pluto", extra_points: 10),
+          OpenStruct.new(primary_first_name: "Mickey", extra_points: nil),
+          OpenStruct.new(primary_first_name: "Cat", extra_points: nil)
+        ]
       end
     end)
   end
@@ -159,7 +164,7 @@ describe Fraud::Indicator do
       before do
         allow(Intake).to receive(:where).and_return query_double
         allow(query_double).to receive_message_chain(:where, :not).and_return query_double # ensure a ActiveRecord query object
-        allow(query_double).to receive(:pluck)
+        allow(query_double).to receive(:pluck).and_return []
       end
 
       it "builds the appropriate query" do
@@ -196,18 +201,26 @@ describe Fraud::Indicator do
       before do
         allow(Intake).to receive(:where).and_return query_double
         allow(query_double).to receive_message_chain(:where).and_return query_double # ensure a ActiveRecord query object
-        allow(query_double).to receive(:pluck)
+        allow(query_double).to receive(:pluck).and_return []
       end
 
       it "builds the appropriate query" do
         fraud_indicator.execute(intake: intake)
-        expect(query_double).to have_received(:where).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist)
+        expect(query_double).to have_received(:where).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist_records.map(&:primary_first_name))
       end
     end
 
     context "with a name from the riskylist" do
       it "indicates fraud" do
         expect(fraud_indicator.execute(intake: intake)).to eq [60, ["Mickey"]]
+      end
+    end
+
+    context "with a name from the riskylist that has extra points" do
+      let(:intake) { create :intake, primary_first_name: "Pluto" }
+
+      it "indicates fraud with more points" do
+        expect(fraud_indicator.execute(intake: intake)).to eq [70, ["Pluto"]]
       end
     end
   end

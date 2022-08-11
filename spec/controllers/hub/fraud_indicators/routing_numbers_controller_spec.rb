@@ -49,6 +49,31 @@ describe Hub::FraudIndicators::RoutingNumbersController do
         expect(indicator.routing_number).to eq "123456789"
         expect(indicator.activated_at).not_to be_nil
         expect(indicator.bank_name).to eq "Some bank"
+        expect(indicator.extra_points).to be_nil
+      end
+
+      context "with extra_points provided" do
+        let(:params) do
+          {
+            fraud_indicators_routing_number: {
+              routing_number: "123456789",
+              bank_name: "Some bank",
+              extra_points: 10
+            }
+          }
+        end
+
+        it "persists the extra_points" do
+          expect {
+            post :create, params: params, format: "js"
+          }.to change(Fraud::Indicators::RoutingNumber, :count).by(1)
+
+          indicator = Fraud::Indicators::RoutingNumber.last
+          expect(indicator.routing_number).to eq "123456789"
+          expect(indicator.activated_at).not_to be_nil
+          expect(indicator.bank_name).to eq "Some bank"
+          expect(indicator.extra_points).to eq 10
+        end
       end
 
       context "when an entry already exists with the provided name" do
