@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_214656) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1124,7 +1124,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_214656) do
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
-    t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
@@ -1238,7 +1237,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_214656) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
-    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
+    t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
