@@ -9,10 +9,6 @@
 #  claim_anyway                                :integer          default("unfilled"), not null
 #  creation_token                              :string
 #  disabled                                    :integer          default("unfilled"), not null
-#  encrypted_ip_pin                            :string
-#  encrypted_ip_pin_iv                         :string
-#  encrypted_ssn                               :string
-#  encrypted_ssn_iv                            :string
 #  filed_joint_return                          :integer          default("unfilled"), not null
 #  first_name                                  :string
 #  full_time_student                           :integer          default("unfilled"), not null
@@ -54,13 +50,12 @@
 module Archived
   class Dependent2021 < ApplicationRecord
     self.table_name = 'archived_dependents_2021'
+    self.ignored_columns = ["encrypted_ssn", "encrypted_ssn_iv", "encrypted_ip_pin", "encrypted_ip_pin_iv"]
 
     include SoftDeletable
 
     belongs_to :intake, inverse_of: :dependents, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake2021'
 
-    attr_encrypted :attr_encrypted_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_ssn'
-    attr_encrypted :attr_encrypted_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: 'encrypted_ip_pin'
 
     encrypts :ssn, :ip_pin
 
@@ -117,13 +112,6 @@ module Archived
 
     QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
 
-    def ssn
-      read_attribute(:ssn) || attr_encrypted_ssn
-    end
-
-    def ip_pin
-      read_attribute(:ip_pin) || attr_encrypted_ip_pin
-    end
 
     def full_name
       parts = [first_name, middle_initial, last_name]
