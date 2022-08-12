@@ -1005,7 +1005,7 @@ es:
     system_notes:
       document_help: "%{name} asistencia con los documentos solicitados:"
       custom_help_message:
-        ID: Necesito ayuda para encontrar mi(s) documento(s) de identidad.
+        ID: Necesito ayuda para encontrar mi(s) tarjeta(s) de identificación.
       document_help_types:
         cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
         cant_obtain: No puedo obtener documentos de %{doc_type}.

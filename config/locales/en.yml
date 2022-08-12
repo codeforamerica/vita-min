@@ -1009,7 +1009,7 @@ en:
     system_notes:
       document_help: "%{name} requested document assistance:"
       custom_help_message:
-        ID: I need help finding my identity card(s).
+        ID: I need help finding my ID card(s).
       document_help_types:
         cant_locate: I need help finding my %{doc_type} document(s).
         cant_obtain: I can't get %{doc_type} document(s).

@@ -48,6 +48,7 @@ RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true 
   end
 
   scenario "need help finding ID card" do
+    # navigating as client
     visit "documents/ids"
     expect(page).to have_text I18n.t('views.documents.ids.title.one')
 
@@ -56,6 +57,8 @@ RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true 
     expect do
       click_on I18n.t("documents.documents_help.show.need_help_find")
     end.to change(SystemNote::DocumentHelp, :count).by(1)
+
+    # viewing notes in the hub
     visit hub_client_notes_path(client_id: client.id)
     expect(page).to have_text "Add a note"
     expect(page).to have_text "I need help finding my ID card(s)"
