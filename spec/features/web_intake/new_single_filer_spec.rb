@@ -277,6 +277,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Contact information
     expect(intake.reload.current_step).to end_with("/questions/mailing-address")
     expect(page).to have_text("What is your mailing address?")
+    expect(page).to have_select(I18n.t('views.questions.mailing_address.state'), selected: "Virginia")
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
     select "California", from: "State"
