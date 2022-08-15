@@ -878,6 +878,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
     t.datetime "activated_at", precision: nil
     t.string "bank_name"
     t.datetime "created_at", null: false
+    t.integer "extra_points"
     t.string "routing_number"
     t.datetime "updated_at", null: false
   end

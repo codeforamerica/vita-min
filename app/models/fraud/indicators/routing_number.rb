@@ -5,6 +5,7 @@
 #  id             :bigint           not null, primary key
 #  activated_at   :datetime
 #  bank_name      :string
+#  extra_points   :integer
 #  routing_number :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -19,8 +20,8 @@ module Fraud
       validates :routing_number, length: { is: 9 }, uniqueness: true
       validates :bank_name, presence: true
 
-      def self.riskylist
-        all.pluck(:routing_number)
+      def self.riskylist_records
+        all
       end
 
       def name

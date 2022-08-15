@@ -19,7 +19,8 @@ module Hub
       def form_attributes
         {
             routing_number: "Routing number",
-            bank_name: "Bank name"
+            bank_name: "Bank name",
+            extra_points: "Extra points"
         }
       end
 

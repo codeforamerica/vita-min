@@ -77,8 +77,13 @@ module Fraud
 
     def in_riskylist(references)
       attribute = indicator_attributes[0]
-      values = scoped_records(references).where(attribute => riskylist).pluck(attribute)
-      values.present? ? response(points, values.uniq) : passing_response
+      riskylist = riskylist_records.map { |r| r.send(attribute) }
+      matching_risky_value = scoped_records(references).find_by(attribute => riskylist)&.send(attribute)
+      return passing_response if matching_risky_value.nil?
+
+      matching_riskylist_record = (riskylist_records.find { |r| r.send(attribute) == matching_risky_value })
+      extra_points = matching_riskylist_record.try(:extra_points) || 0
+      response(points + extra_points, [matching_risky_value])
     end
 
     def duplicates(references)
@@ -125,8 +130,8 @@ module Fraud
       list_model_name.constantize.safelist
     end
 
-    def riskylist
-      list_model_name.constantize.riskylist
+    def riskylist_records
+      list_model_name.constantize.riskylist_records
     end
 
     def calculate_points_from_count(count)
