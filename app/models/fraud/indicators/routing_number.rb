@@ -14,6 +14,7 @@ module Fraud
   module Indicators
     class RoutingNumber < ApplicationRecord
       self.table_name = "fraud_indicators_routing_numbers"
+      self.comparison_column = :routing_number
 
       default_scope { where.not(activated_at: nil) }
 

@@ -19,6 +19,7 @@ module Fraud
   module Indicators
     class Domain < ApplicationRecord
       self.table_name = "fraud_indicators_domains"
+      self.comparison_column = :name
 
       default_scope { where.not(activated_at: nil) }
 
@@ -34,7 +35,7 @@ module Fraud
       end
 
       def self.safelist
-        where(safe: true).pluck(:name)
+        where(safe: true).pluck(self.comparison_column)
       end
 
       def active
