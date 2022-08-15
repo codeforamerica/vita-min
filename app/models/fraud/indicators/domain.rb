@@ -19,7 +19,6 @@ module Fraud
   module Indicators
     class Domain < ApplicationRecord
       self.table_name = "fraud_indicators_domains"
-      self.comparison_column = :name
 
       default_scope { where.not(activated_at: nil) }
 
@@ -29,6 +28,10 @@ module Fraud
 
       validates :name, format: { with: /(\.)/, message: "Must include top level domain" }, uniqueness: true
       validate :risky_or_safe
+
+      def self.comparison_column
+        :name
+      end
 
       def self.riskylist_records
         where(risky: true)

@@ -14,12 +14,15 @@ module Fraud
   module Indicators
     class RoutingNumber < ApplicationRecord
       self.table_name = "fraud_indicators_routing_numbers"
-      self.comparison_column = :routing_number
 
       default_scope { where.not(activated_at: nil) }
 
       validates :routing_number, length: { is: 9 }, uniqueness: true
       validates :bank_name, presence: true
+
+      def self.comparison_column
+        :routing_number
+      end
 
       def self.riskylist_records
         all
