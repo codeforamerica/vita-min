@@ -78,13 +78,12 @@ module Fraud
     def in_riskylist(references)
       attribute = indicator_attributes[0]
       riskylist = riskylist_records.map { |r| r.send(attribute) }
-      values = scoped_records(references).where(attribute => riskylist).pluck(attribute)
-      extra_points = 0
-      if values.length > 0
-        riskylist_record_match = riskylist_records.find { |r| r.send(attribute) == values.first }
-        extra_points = (riskylist_record_match.respond_to?(:extra_points) ? riskylist_record_match.extra_points : nil) || 0
-      end
-      values.present? ? response(points + extra_points, values.uniq) : passing_response
+      matching_risky_value = scoped_records(references).find_by(attribute => riskylist)&.send(attribute)
+      return passing_response if matching_risky_value.nil?
+
+      matching_riskylist_record = (riskylist_records.find { |r| r.send(attribute) == matching_risky_value })
+      extra_points = matching_riskylist_record.try(:extra_points) || 0
+      response(points + extra_points, [matching_risky_value])
     end
 
     def duplicates(references)

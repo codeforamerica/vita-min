@@ -200,13 +200,12 @@ describe Fraud::Indicator do
     context "when generating a query" do
       before do
         allow(Intake).to receive(:where).and_return query_double
-        allow(query_double).to receive_message_chain(:where).and_return query_double # ensure a ActiveRecord query object
-        allow(query_double).to receive(:pluck).and_return []
+        allow(query_double).to receive_message_chain(:find_by).and_return nil
       end
 
       it "builds the appropriate query" do
         fraud_indicator.execute(intake: intake)
-        expect(query_double).to have_received(:where).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist_records.map(&:primary_first_name))
+        expect(query_double).to have_received(:find_by).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist_records.map(&:primary_first_name))
       end
     end
 
