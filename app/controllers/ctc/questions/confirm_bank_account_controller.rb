@@ -5,6 +5,14 @@ module Ctc
 
       layout "intake"
 
+      def edit
+        if current_intake.bank_account.nil?
+          redirect_to Ctc::Questions::BankAccountController.to_path_helper
+        end
+
+        super
+      end
+
       def self.show?(intake)
         intake.refund_payment_method_direct_deposit?
       end
