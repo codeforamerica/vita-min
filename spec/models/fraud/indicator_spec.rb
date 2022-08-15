@@ -22,16 +22,28 @@ require "rails_helper"
 describe Fraud::Indicator do
   before do
     stub_const("Fraud::Indicator::Bunny", Class.new do
+      attr_accessor :pet_name
+      attr_accessor :extra_points
+
+      def initialize(pet_name:, extra_points:)
+        @pet_name = pet_name
+        @extra_points = extra_points
+      end
+
+      def self.comparison_column
+        :pet_name
+      end
+
       def self.safelist
         ["Bunny", "Peter", "Rabbit", "Bugs"]
       end
 
       def self.riskylist_records
         [
-          OpenStruct.new(primary_first_name: "Dog", extra_points: nil),
-          OpenStruct.new(primary_first_name: "Pluto", extra_points: 10),
-          OpenStruct.new(primary_first_name: "Mickey", extra_points: nil),
-          OpenStruct.new(primary_first_name: "Cat", extra_points: nil)
+          new(pet_name: "Dog", extra_points: nil),
+          new(pet_name: "Pluto", extra_points: 10),
+          new(pet_name: "Mickey", extra_points: nil),
+          new(pet_name: "Cat", extra_points: nil)
         ]
       end
     end)
@@ -205,7 +217,7 @@ describe Fraud::Indicator do
 
       it "builds the appropriate query" do
         fraud_indicator.execute(intake: intake)
-        expect(query_double).to have_received(:find_by).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist_records.map(&:primary_first_name))
+        expect(query_double).to have_received(:find_by).with("primary_first_name" => Fraud::Indicator::Bunny.riskylist_records.map(&:pet_name))
       end
     end
 

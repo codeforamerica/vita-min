@@ -29,12 +29,16 @@ module Fraud
       validates :name, format: { with: /(\.)/, message: "Must include top level domain" }, uniqueness: true
       validate :risky_or_safe
 
+      def self.comparison_column
+        :name
+      end
+
       def self.riskylist_records
         where(risky: true)
       end
 
       def self.safelist
-        where(safe: true).pluck(:name)
+        where(safe: true).pluck(self.comparison_column)
       end
 
       def active

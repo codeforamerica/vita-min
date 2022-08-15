@@ -77,11 +77,11 @@ module Fraud
 
     def in_riskylist(references)
       attribute = indicator_attributes[0]
-      riskylist = riskylist_records.map { |r| r.send(attribute) }
+      riskylist = riskylist_records.map { |r| r.send(r.class.comparison_column) }
       matching_risky_value = scoped_records(references).find_by(attribute => riskylist)&.send(attribute)
       return passing_response if matching_risky_value.nil?
 
-      matching_riskylist_record = (riskylist_records.find { |r| r.send(attribute) == matching_risky_value })
+      matching_riskylist_record = (riskylist_records.find { |r| r.send(r.class.comparison_column) == matching_risky_value })
       extra_points = matching_riskylist_record.try(:extra_points) || 0
       response(points + extra_points, [matching_risky_value])
     end

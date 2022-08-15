@@ -20,6 +20,10 @@ module Fraud
       validates :routing_number, length: { is: 9 }, uniqueness: true
       validates :bank_name, presence: true
 
+      def self.comparison_column
+        :routing_number
+      end
+
       def self.riskylist_records
         all
       end
