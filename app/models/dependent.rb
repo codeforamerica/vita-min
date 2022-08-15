@@ -176,7 +176,8 @@ class Dependent < ApplicationRecord
   end
 
   def months_in_home_6_or_more?
-    return months_in_home >= 6 if months_in_home.present?
+    # if the dependent lived with a client more than half the year but less than 7 months Schedule EIC wants us to mark it as "7"
+    return months_in_home >= 7 if months_in_home.present?
 
     lived_with_more_than_six_months_yes?
   end

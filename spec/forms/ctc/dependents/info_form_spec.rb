@@ -207,10 +207,10 @@ describe Ctc::Dependents::InfoForm do
         params[:birth_date_year] = TaxReturn.current_tax_year
       end
 
-      it "sets months_in_home to 6" do
+      it "sets months_in_home to 12" do
         form = described_class.new(dependent, params)
         form.save
-        expect(Dependent.last.months_in_home).to eq 6
+        expect(Dependent.last.months_in_home).to eq 12
       end
     end
   end
