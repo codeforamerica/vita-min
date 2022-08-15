@@ -61,6 +61,6 @@ RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true 
     # viewing notes in the hub
     visit hub_client_notes_path(client_id: client.id)
     expect(page).to have_text "Add a note"
-    expect(page).to have_text "I need help finding my ID card(s)"
+    expect(page).to have_text I18n.t("hub.system_notes.custom_help_message.ID")
   end
 end
