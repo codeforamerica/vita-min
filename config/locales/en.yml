@@ -1007,8 +1007,6 @@ en:
     suspend_confirmation: Suspend %{name}'s account? This will remove them from all currently assigned tax returns and prevent them from logging in.
     suspended_user_name: "%{name} (Suspended)"
     system_notes:
-      custom_help_message:
-        ID: I need help finding my ID card(s).
       document_help: "%{name} requested document assistance:"
       document_help_types:
         cant_locate: I need help finding my %{doc_type} document(s).
