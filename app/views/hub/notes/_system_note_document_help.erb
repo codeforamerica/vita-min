@@ -1,4 +1,9 @@
 <p>
   <%= t("hub.system_notes.document_help", name: @client.preferred_name) %>
-  <span style="font-weight: 500">"<%= t("hub.system_notes.document_help_types.#{note.help_type}", doc_type: note.doc_type.key) %>"</span>
+  <% if note.doc_type.key == "ID" %>
+    <span style="font-weight: 500"><%= t("hub.system_notes.custom_help_message.ID") %> </span>
+  <% else %>
+    <span style="font-weight: 500">"<%= t("hub.system_notes.document_help_types.#{note.help_type}", doc_type: note.doc_type.key) %>
+      "</span>
+  <% end %>
 </p>

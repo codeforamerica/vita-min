@@ -8,7 +8,7 @@
     </p>
 
     <div class="form-card__content spacing-below-0">
-      <%= f.cfa_select(:state, t("views.ctc.questions.drivers_license.state"), States.name_value_pairs) %>
+      <%= f.cfa_select(:state, t("views.ctc.questions.drivers_license.state"), States.name_value_pairs, include_blank: true) %>
       <%= f.cfa_input_field(:license_number, t("views.ctc.questions.drivers_license.license_number"), classes: ["form-width--long"], options: { maxlength: 20 }) %>
       <%= f.vita_min_date_text_fields(
             :issue_date,

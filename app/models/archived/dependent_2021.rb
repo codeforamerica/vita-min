@@ -9,14 +9,11 @@
 #  claim_anyway                                :integer          default("unfilled"), not null
 #  creation_token                              :string
 #  disabled                                    :integer          default("unfilled"), not null
-#  encrypted_ip_pin                            :string
-#  encrypted_ip_pin_iv                         :string
-#  encrypted_ssn                               :string
-#  encrypted_ssn_iv                            :string
 #  filed_joint_return                          :integer          default("unfilled"), not null
 #  first_name                                  :string
 #  full_time_student                           :integer          default("unfilled"), not null
 #  has_ip_pin                                  :integer          default("unfilled"), not null
+#  ip_pin                                      :text
 #  last_name                                   :string
 #  lived_with_more_than_six_months             :integer          default("unfilled"), not null
 #  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
@@ -32,6 +29,7 @@
 #  provided_over_half_own_support              :integer          default("unfilled"), not null
 #  relationship                                :string
 #  soft_deleted_at                             :datetime
+#  ssn                                         :text
 #  suffix                                      :string
 #  tin_type                                    :integer
 #  was_married                                 :integer          default("unfilled"), not null
@@ -52,13 +50,14 @@
 module Archived
   class Dependent2021 < ApplicationRecord
     self.table_name = 'archived_dependents_2021'
+    self.ignored_columns = ["encrypted_ssn", "encrypted_ssn_iv", "encrypted_ip_pin", "encrypted_ip_pin_iv"]
 
     include SoftDeletable
 
     belongs_to :intake, inverse_of: :dependents, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake2021'
 
-    attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-    attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+
+    encrypts :ssn, :ip_pin
 
     auto_strip_attributes :ssn, :ip_pin, :first_name, :middle_initial, :last_name, virtual: true
 
@@ -112,6 +111,7 @@ module Archived
     QUALIFYING_CHILD_RELATIONSHIPS = %w[daughter son stepchild stepbrother stepsister foster_child grandchild niece nephew half_brother half_sister brother sister]
 
     QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
+
 
     def full_name
       parts = [first_name, middle_initial, last_name]

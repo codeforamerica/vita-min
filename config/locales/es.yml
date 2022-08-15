@@ -1003,6 +1003,8 @@ es:
     suspend_confirmation: "¿Suspender la cuenta de %{name}? Esto los eliminará de todas las declaraciones de impuestos asignadas actualmente y evitará que inicien sesión."
     suspended_user_name: "%{name} (Suspendido)"
     system_notes:
+      custom_help_message:
+        ID: Necesito ayuda para encontrar mi(s) tarjeta(s) de identificación.
       document_help: "%{name} asistencia con los documentos solicitados:"
       document_help_types:
         cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.

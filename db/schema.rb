@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_212658) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_212658) do
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
+    t.text "ip_pin"
     t.string "last_name"
     t.integer "lived_with_more_than_six_months", default: 0, null: false
     t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
@@ -178,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_212658) do
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
     t.datetime "soft_deleted_at", precision: nil
+    t.text "ssn"
     t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", precision: nil, null: false
@@ -1123,7 +1125,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_212658) do
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
-    t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
@@ -1237,7 +1238,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_212658) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
-    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
+    t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"

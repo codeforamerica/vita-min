@@ -2,22 +2,16 @@
 #
 # Table name: archived_bank_accounts_2021
 #
-#  id                          :bigint           not null, primary key
-#  account_number              :text
-#  account_type                :integer
-#  bank_name                   :string
-#  encrypted_account_number    :string
-#  encrypted_account_number_iv :string
-#  encrypted_bank_name         :string
-#  encrypted_bank_name_iv      :string
-#  encrypted_routing_number    :string
-#  encrypted_routing_number_iv :string
-#  hashed_account_number       :string
-#  hashed_routing_number       :string
-#  routing_number              :string
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  archived_intakes_2021_id    :bigint
+#  id                       :bigint           not null, primary key
+#  account_number           :text
+#  account_type             :integer
+#  bank_name                :string
+#  hashed_account_number    :string
+#  hashed_routing_number    :string
+#  routing_number           :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  archived_intakes_2021_id :bigint
 #
 # Indexes
 #
@@ -32,30 +26,15 @@
 module Archived
   class BankAccount2021 < ApplicationRecord
     self.table_name = 'archived_bank_accounts_2021'
+    self.ignored_columns = ["encrypted_bank_name", "encrypted_bank_name_iv", "encrypted_account_number", "encrypted_account_number_iv", "encrypted_routing_number", "encrypted_routing_number_iv"]
 
     belongs_to :intake, inverse_of: :bank_account, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake::CtcIntake2021'
-
-    attr_encrypted :attr_encrypted_bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_bank_name"
-    attr_encrypted :attr_encrypted_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_routing_number"
-    attr_encrypted :attr_encrypted_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }, attribute: "encrypted_account_number"
 
     # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
     enum account_type: { checking: 1, savings: 2 }
     before_save :hash_data
 
     encrypts :account_number
-
-    def bank_name
-      read_attribute(:bank_name) || attr_encrypted_bank_name
-    end
-
-    def routing_number
-      read_attribute(:routing_number) || attr_encrypted_routing_number
-    end
-
-    def account_number
-      read_attribute(:account_number) || attr_encrypted_account_number
-    end
 
     # map string enum value back to the corresponding integer
     def account_type_code
