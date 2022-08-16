@@ -583,8 +583,4 @@ class Intake < ApplicationRecord
   def itin_applicant?
     need_itin_help_yes?
   end
-
-  def age_on_date(date)
-    ((date.to_time - primary_birth_date.to_time) / 1.year.seconds).floor
-  end
 end

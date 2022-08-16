@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Efile::BenefitsEligibility do
-  let(:subject) { Efile::BenefitsEligibility.new(tax_return: intake.tax_returns.last, dependents: intake.dependents) }
+  let(:subject) { Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents) }
 
   let(:client) { create :client_with_ctc_intake_and_return }
   let(:intake) { client.intake }
@@ -336,6 +336,71 @@ describe Efile::BenefitsEligibility do
             expect(subject.rrc_eligible_filer_count).to eq 0
           end
         end
+      end
+    end
+  end
+
+  describe "#qualified_for_eitc?" do
+    let(:primary_birth_date) { 30.years.ago }
+    let(:exceeded_investment_income_limit) { "no" }
+
+    before do
+      intake.update(exceeded_investment_income_limit: exceeded_investment_income_limit, primary_birth_date: primary_birth_date)
+    end
+
+    context "when they do not pass the age test" do
+      let(:primary_birth_date) { 2.years.ago }
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    xcontext "they do not pass investment income test or age test" do
+      let(:exceeded_investment_income_limit) { "yes" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return false
+      end
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
+      end
+    end
+
+    xcontext "they pass investment income test and age test" do
+      let(:exceeded_investment_income_limit) { "no" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return true
+      end
+
+      it "returns true" do
+        expect(intake.qualified_for_eitc?).to eq true
+      end
+    end
+
+    xcontext "they pass investment income but not age" do
+      let(:exceeded_investment_income_limit) { "no" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return false
+      end
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
+      end
+    end
+
+    xcontext "they pass age but not investment income" do
+      let(:exceeded_investment_income_limit) { "yes" }
+
+      before do
+        allow(intake).to receive(:eitc_qualifications_passes_age_test?).and_return true
+      end
+
+      it "returns false" do
+        expect(intake.qualified_for_eitc?).to eq false
       end
     end
   end

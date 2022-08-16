@@ -89,7 +89,32 @@ module Efile
       outstanding_recovery_rebate_credit
     end
 
+    def claiming_and_qualified_for_eitc?
+      intake.claim_eitc_yes? && qualified_for_eitc?
+    end
+
+    def qualified_for_eitc?
+      intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test?
+    end
+
     private
+
+    def eitc_qualifications_passes_age_test?
+      return true if age_at_end_of_tax_year >= 24
+      return true if dependents.any?(&:qualifying_eitc?)
+
+      if intake.former_foster_youth_yes? || intake.homeless_youth_yes?
+        age_at_end_of_tax_year >= 18
+      elsif intake.not_full_time_student_yes? || intake.full_time_student_less_than_four_months_yes?
+        age_at_end_of_tax_year >= 19
+      else
+        false
+      end
+    end
+
+    def age_at_end_of_tax_year
+      tax_return.year - intake.primary_birth_date.year
+    end
 
     def rrc_eligible_filer_count
       case tax_return.filing_status

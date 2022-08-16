@@ -455,9 +455,10 @@ describe EfileSubmission do
     end
 
     context "when the filer has tons of dependents" do
+
       before do
+        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, outstanding_ctc_amount: 1))
         allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
-        allow(submission).to receive(:has_outstanding_ctc?).and_return true
       end
 
       it "attaches multiple dependents documents" do

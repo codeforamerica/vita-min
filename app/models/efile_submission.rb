@@ -134,8 +134,8 @@ class EfileSubmission < ApplicationRecord
     address_service # return the service object so that we can get errors if there are any
   end
 
-  def has_outstanding_ctc?
-    Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents).outstanding_ctc_amount.positive?
+  def benefits_eligibility
+    Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
   end
 
   def pdf_bundle_filename
