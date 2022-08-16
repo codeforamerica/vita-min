@@ -9,8 +9,7 @@ class SendClientCtcExperienceSurveyJob < ApplicationJob
 
     SurveySender.send_survey(
       client,
-      :ctc_experience_survey_sent_at,
-      AutomatedMessage::CtcExperienceSurvey
+      SurveyMessages::CtcExperienceSurvey
     )
   end
 end

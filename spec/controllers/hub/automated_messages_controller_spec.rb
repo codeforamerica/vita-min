@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe Hub::AutomatedMessagesController do
   describe "#index" do
-    it_behaves_like :a_get_action_for_admins_only, action: :index
     before do
       DefaultErrorMessages.generate!
     end
+    it_behaves_like :a_get_action_for_admins_only, action: :index
 
     context "as an authenticated user" do
       before do
@@ -24,7 +24,7 @@ describe Hub::AutomatedMessagesController do
         get :index
 
         shown_message_classes = assigns(:messages).map { |m| m.class.name }
-        message_class_names = AutomatedMessage::AutomatedMessage.descendants.map &:name
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::CtcExperienceSurvey, SurveyMessages::GyrCompletionSurvey, SurveyMessages::GyrInProgressSurvey]).map(&:name)
 
         expect(shown_message_classes).to match_array(message_class_names)
       end

@@ -1432,6 +1432,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_181224) do
     t.datetime "updated_at", null: false
     t.index ["tax_return_id", "most_recent"], name: "index_tax_return_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["tax_return_id", "sort_key"], name: "index_tax_return_transitions_parent_sort", unique: true
+    t.index ["to_state", "created_at"], name: "index_tax_return_transitions_on_to_state_and_created_at"
   end
 
   create_table "tax_returns", force: :cascade do |t|

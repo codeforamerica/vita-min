@@ -877,44 +877,6 @@ describe TaxReturn do
     end
   end
 
-  describe "experience survey" do
-
-    context "when a TaxReturn is ctc and drop off" do
-      let!(:tax_return) { create(:tax_return, is_ctc: true, service_type: "drop_off") }
-
-      it "does not send the survey" do
-        expect {
-          tax_return.enqueue_experience_survey
-        }.not_to have_enqueued_job(SendClientCompletionSurveyJob)
-      end
-    end
-
-    context "when a TaxReturn is ctc and online intake" do
-      let!(:tax_return) { create(:tax_return, is_ctc: true, service_type: "online_intake") }
-      it "enqueues a job for tomorrow" do
-        t = Time.utc(2021, 2, 11, 10, 5, 0)
-        Timecop.freeze(t) do
-          expect {
-            tax_return.enqueue_experience_survey
-          }.to have_enqueued_job(SendClientCtcExperienceSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
-        end
-      end
-    end
-
-    context "when a tax return is not ctc" do
-      let!(:tax_return) { create(:tax_return, is_ctc: false) }
-
-      it "sends the survey a day later" do
-        t = Time.utc(2021, 2, 11, 10, 5, 0)
-        Timecop.freeze(t) do
-          expect {
-            tax_return.enqueue_experience_survey
-          }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
-        end
-      end
-    end
-  end
-
   describe "#ready_for_prep_at" do
     let(:tax_return) { create :tax_return, :intake_ready }
 

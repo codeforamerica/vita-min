@@ -229,16 +229,6 @@ class TaxReturn < ApplicationRecord
     true
   end
 
-  def enqueue_experience_survey
-    if is_ctc && service_type_online_intake?
-      SendClientCtcExperienceSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
-    end
-
-    if !is_ctc
-      SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
-    end
-  end
-
   def under_submission_limit?
     efile_submissions.count < 20
   end
