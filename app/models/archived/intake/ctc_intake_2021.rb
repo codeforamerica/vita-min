@@ -55,8 +55,6 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
-#  encrypted_spouse_last_four_ssn                       :string
-#  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
