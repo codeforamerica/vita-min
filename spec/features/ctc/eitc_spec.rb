@@ -95,7 +95,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     # Client will be disqualified age and having no dependents
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
-    click_on I18n.t('general.negative')
+    click_on I18n.t('views.ctc.questions.had_dependents.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.continue')
     expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))

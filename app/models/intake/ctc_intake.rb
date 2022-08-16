@@ -441,21 +441,14 @@ class Intake::CtcIntake < Intake
     return true if primary_birth_date < 24.years.ago
     return true if dependents.any?(&:qualifying_eitc?)
 
-    if former_foster_youth_yes? || homeless_youth_yes?
-      # TODO: calculate year instead of hard code?
-      if age_on_date(Date.parse("31-12-2021")) >= 18
-        return true
-      else
-        return false
-      end
-    end
+    age_at_the_end_of_current_tax_year = age_on_date(Date.parse("31-12-#{TaxReturn.current_tax_year}"))
 
-    if not_full_time_student_yes? || full_time_student_less_than_four_months_yes?
-      if age_on_date(Date.parse("31-12-2021")) >= 19
-        return true
-      else
-        return false
-      end
+    if former_foster_youth_yes? || homeless_youth_yes?
+      age_at_the_end_of_current_tax_year >= 18
+    elsif not_full_time_student_yes? || full_time_student_less_than_four_months_yes?
+      age_at_the_end_of_current_tax_year >= 19
+    else
+      false
     end
   end
 
