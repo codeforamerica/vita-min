@@ -5,11 +5,7 @@ module Ctc
       validates_presence_of :months_in_home
 
       def save
-        attrs = attributes_for(:dependent)
-        unless @dependent.intake.claim_eitc_yes?
-          attrs[:months_in_home] = attrs[:months_in_home].to_i >= 7 ? 7 : 6
-        end
-        @dependent.update!(attrs)
+        @dependent.update!(attributes_for(:dependent))
       end
     end
   end
