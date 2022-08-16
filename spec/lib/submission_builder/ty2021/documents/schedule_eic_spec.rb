@@ -4,10 +4,10 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
   let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
   before do
     dependent = submission.intake.dependents.first
-    dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes")
+    dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes", months_in_home: 10)
     dependent.update(dependent_attrs)
     dependent2 = submission.intake.dependents.second
-    dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(2010, 1, 1), relationship: "son", ssn: "123001235", ip_pin: "123456", permanently_totally_disabled: "yes")
+    dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(2010, 1, 1), relationship: "son", ssn: "123001235", ip_pin: "123456", permanently_totally_disabled: "yes", months_in_home: 8)
     dependent2.update(dependent2_attrs)
     dependent3 = submission.intake.dependents.third
     dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
@@ -32,7 +32,7 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "true"
     expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd").text).to eq "false"
     expect(dependent_nodes[0].at("ChildRelationshipCd").text).to eq "DAUGHTER"
-    expect(dependent_nodes[0].at("MonthsChildLivedWithYouCnt").text).to eq "07"
+    expect(dependent_nodes[0].at("MonthsChildLivedWithYouCnt").text).to eq "10"
     # Second dependent
     expect(dependent_nodes[1].at("QualifyingChildNameControlTxt").text).to eq "KIWI"
     expect(dependent_nodes[1].at("PersonFirstNm").text).to eq "Kara"
@@ -43,7 +43,7 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[1].at("ChildIsAStudentUnder24Ind").text).to eq "false"
     expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd").text).to eq "true"
     expect(dependent_nodes[1].at("ChildRelationshipCd").text).to eq "SON"
-    expect(dependent_nodes[1].at("MonthsChildLivedWithYouCnt").text).to eq "07"
+    expect(dependent_nodes[1].at("MonthsChildLivedWithYouCnt").text).to eq "08"
   end
 
   it "conforms to the eFileAttachments schema 2021v5.2" do
