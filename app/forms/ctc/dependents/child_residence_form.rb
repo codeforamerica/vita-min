@@ -7,7 +7,7 @@ module Ctc
       def save
         attrs = attributes_for(:dependent)
         unless @dependent.intake.claim_eitc_yes?
-          attrs[:months_in_home] = attrs[:months_in_home] >= 7 ? 7 : 6
+          attrs[:months_in_home] = attrs[:months_in_home].to_i >= 7 ? 7 : 6
         end
         @dependent.update!(attrs)
       end
