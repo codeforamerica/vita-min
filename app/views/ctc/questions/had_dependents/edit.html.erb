@@ -18,8 +18,7 @@
       <% end %>
     </ul>
   <% end %>
-<% end %>
-
+  
 <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
   <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "yes", class: "button button--primary button--icon text--centered button--wide spacing-above-60" do %>
     <%= image_tag("add-person--white.svg", alt: "") %>
@@ -29,5 +28,6 @@
   <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "no", class: "button button--wide text--centered spacing-above-15" do %>
     <%= t("views.ctc.questions.had_dependents.continue") %>
   <% end %>
+<% end %>
 <% end %>
 
