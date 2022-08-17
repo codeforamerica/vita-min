@@ -5,33 +5,29 @@
   <h1 class="form-question"><%= t("views.ctc.questions.had_dependents.title") %></h1>
 
   <p><%= t("views.ctc.questions.had_dependents.help_text") %></p>
-
-  <% if puerto_rico_filing %>
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.title")) do %>
-      <ul class="list--bulleted">
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.title")) do %>
+    <ul class="list--bulleted">
+      <% if puerto_rico_filing %>
         <% t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.content_puerto_rico").each do |item| %>
           <li><%= item %></li>
         <% end %>
-      </ul>
-    <% end %>
-    <% else %>
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.title")) do %>
-      <ul class="list--bulleted">
+      <% else %>
         <% t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.content").each do |item| %>
           <li><%= item %></li>
         <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "yes", class: "button button--primary button--icon text--centered button--wide spacing-above-60" do %>
-      <%= image_tag("add-person--white.svg", alt: "") %>
-      <%= t("views.ctc.questions.had_dependents.add") %>
-    <% end %>
-
-    <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "no", class: "button button--wide text--centered spacing-above-15" do %>
-      <%= t("views.ctc.questions.had_dependents.continue") %>
-    <% end %>
+      <% end %>
+    </ul>
   <% end %>
 <% end %>
+
+<%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "yes", class: "button button--primary button--icon text--centered button--wide spacing-above-60" do %>
+    <%= image_tag("add-person--white.svg", alt: "") %>
+    <%= t("views.ctc.questions.had_dependents.add") %>
+  <% end %>
+
+  <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "no", class: "button button--wide text--centered spacing-above-15" do %>
+    <%= t("views.ctc.questions.had_dependents.continue") %>
+  <% end %>
+<% end %>
+
