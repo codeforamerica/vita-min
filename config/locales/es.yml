@@ -482,6 +482,7 @@ es:
     state_routing: Enrutamiento de %{state}
     states_routing: Enrutamiento estatal
     status: Estado
+    stimulus: Estímulo
     street_address: Dirección
     street_address2: Número de apartamento
     submit: Enviar

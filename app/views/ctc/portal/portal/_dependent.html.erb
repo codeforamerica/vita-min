@@ -1,0 +1,13 @@
+<div class="review-box__space-between spacing-below-25" id="<%= dom_id(dependent) %>">
+  <div class="review-box__person">
+    <div>
+      <icon class="icon-person"></icon>
+    </div>
+    <div>
+      <div class="review-box__name"><%= dependent.full_name %></div>
+      <div class="review-box__details"><%= t("views.ctc.portal.dependent_info.birthday") %>: <%= default_date_format(dependent.birth_date) %></div>
+      <div class="review-box__details"><%= t("views.ctc.portal.dependent_info.#{dependent.tin_type}") %>: <%= ssn_mask(dependent.ssn) %></div>
+    </div>
+  </div>
+  <%= link_to t("general.edit").downcase, edit_controller.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>
+</div>

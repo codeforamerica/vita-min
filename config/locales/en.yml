@@ -481,6 +481,7 @@ en:
     state_routing: "%{state} Routing"
     states_routing: State Routing
     status: Status
+    stimulus: Stimulus
     street_address: Street address or P.O. Box
     street_address2: Apartment or unit number
     submit: Submit
@@ -1812,6 +1813,10 @@ en:
         dependent_info:
           help_text: Confirm/edit your dependent’s basic information
           title: Edit %{name}’s basic information
+          atin: ATIN
+          ssn: SSN
+          ssn_no_employment: SSN (not valid for employment)
+          birthday: Date of birth
         dependents:
           no_eligible_dependents:
             subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
@@ -2019,10 +2024,8 @@ en:
           title: Great! Check to make sure your bank information is correct.
         confirm_dependents:
           add_a_dependent: Add another person
-          atin: ATIN
-          birthday: Date of birth
+          birthday: DOB
           done_adding: Done adding dependents
-          no_qualifying_dependents: No qualifying dependents
           other_benefits_reveal:
             content:
               head_of_household:
@@ -2031,11 +2034,6 @@ en:
                 title: Should I file as the Head of Household?
               p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: What about other benefits my dependents could be eligible for?
-          qualifying_for_both: Dependents qualifying for CTC and stimulus
-          qualifying_for_ctc: Dependents qualifying for CTC
-          qualifying_for_other_credits: Dependents qualifying for only stimulus
-          ssn: SSN
-          ssn_no_employment: SSN (not valid for employment)
           title: Let’s confirm!
         confirm_information:
           help_text: You will not be able change your information once the return is accepted by the IRS.
