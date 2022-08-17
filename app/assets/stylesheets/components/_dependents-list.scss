@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: row;
 
-    &.full-height {
+    &__full-height {
       height: 100%
     }
   }
@@ -33,6 +33,7 @@
     align-content: center;
     justify-content: center;
     width: 100%;
+    min-width: 25px;
 
     >img {
       max-width: 25px;

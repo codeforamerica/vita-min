@@ -5,7 +5,7 @@
     <%= link_to t("general.edit").downcase, Ctc::Questions::Dependents::InfoController.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>
   </div>
   <div class="grid__item width-one-half">
-    <div class="row full-height">
+    <div class="row row__full-height">
       <% if true #dependent.intake.claiming_eitc? %>
         <div class="qualification <%= is_first ? "with-right-border" : "with-top-right-border" %>">
           <%= image_tag(dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>

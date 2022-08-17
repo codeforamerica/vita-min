@@ -230,7 +230,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).to have_content("Jessie M Pepper")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
+    expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
 
     click_on "Add another person"
 
@@ -262,7 +262,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).to have_content("Red Hot Pepper")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
+    expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
 
     within "#dependent_#{Dependent.last.id}" do
       click_on "edit"
@@ -299,7 +299,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).not_to have_content("Sam NotQualified")
-    expect(page).not_to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
+    expect(page).not_to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
 
     if head_of_household
       click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")
