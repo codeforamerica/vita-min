@@ -34,9 +34,9 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='ctc-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_have_ctc_indicator
       end
     end
 
@@ -64,9 +64,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -86,9 +88,12 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
 
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -111,9 +116,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
 
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -142,9 +149,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       # Too old for CTC, but still qualify for other credits
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -172,9 +181,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       # Too old for CTC, but still qualify for other credits
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -198,9 +209,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.continue")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_not_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -215,9 +228,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: "Jessie", current_tax_year: TaxReturn.current_tax_year))
       click_on I18n.t("general.affirmative")
 
-      within "[data-automation='ctc-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{TaxReturn.current_tax_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{TaxReturn.current_tax_year}")
+        expect_dependent_to_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -239,9 +254,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='ctc-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/2019")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/2019")
+        expect_dependent_to_have_ctc_indicator
+        expect_dependent_to_have_stimulus_indicator
       end
     end
 
@@ -261,9 +278,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.continue")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_have_stimulus_indicator
+        expect_dependent_to_not_have_ctc_indicator
       end
     end
 
@@ -283,9 +302,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.continue")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      within "[data-automation='other-credits-dependents']" do
+      within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{dependent_birth_year}")
+        expect_dependent_to_have_stimulus_indicator
+        expect_dependent_to_not_have_ctc_indicator
       end
     end
   end
@@ -304,7 +325,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-      expect(page).not_to have_content("Jessie M Pepper")
+      within "#dependent_#{Dependent.last.id}" do
+        # they do not qualify for anything
+        expect(page).not_to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+      end
     end
 
     scenario "a child who paid for over half their support" do
@@ -334,5 +358,33 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.does_not_qualify_ctc.title', name: 'Jessie'))
     end
+  end
+end
+
+def expect_dependent_to_have_ctc_indicator
+  within "#ctc_#{Dependent.last.id}" do
+    expect(page).to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    expect(page).to_not have_css("img[src*='/assets/icons/grey-close-circle']")
+  end
+end
+
+def expect_dependent_to_not_have_ctc_indicator
+  within "#ctc_#{Dependent.last.id}" do
+    expect(page).to_not have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    expect(page).to have_css("img[src*='/assets/icons/grey-close-circle']")
+  end
+end
+
+def expect_dependent_to_have_stimulus_indicator
+  within "#stimulus_#{Dependent.last.id}" do
+    expect(page).to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    expect(page).to_not have_css("img[src*='/assets/icons/grey-close-circle']")
+  end
+end
+
+def expect_dependent_to_not_have_stimulus_indicator
+  within "#stimulus_#{Dependent.last.id}" do
+    expect(page).to_not have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    expect(page).to_have have_css("img[src*='/assets/icons/grey-close-circle']")
   end
 end

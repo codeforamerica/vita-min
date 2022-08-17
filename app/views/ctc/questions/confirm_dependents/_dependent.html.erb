@@ -7,14 +7,14 @@
   <div class="grid__item width-one-half">
     <div class="row row__full-height">
       <% if dependent.intake.claiming_eitc? %>
-        <div class="qualification <%= is_first ? "with-right-border" : "with-top-right-border" %>">
+        <div class="qualification <%= is_first ? "with-right-border" : "with-top-right-border" %>" id="<%= "eitc_#{dependent.id}" %>">
           <%= image_tag(dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
         </div>
       <% end %>
-      <div class="qualification <%= is_first ? "with-right-border" : "with-top-right-border" %>">
+      <div class="qualification <%= is_first ? "with-right-border" : "with-top-right-border" %>" id="<%= "ctc_#{dependent.id}" %>">
         <%= image_tag(dependent.qualifying_ctc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
       </div>
-      <div class="qualification <%= is_first ? "" : "with-top-border" %>">
+      <div class="qualification <%= is_first ? "" : "with-top-border" %>"  id="<%= "stimulus_#{dependent.id}" %>">
         <%= image_tag(dependent.qualifying_eip3? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
       </div>
     </div>

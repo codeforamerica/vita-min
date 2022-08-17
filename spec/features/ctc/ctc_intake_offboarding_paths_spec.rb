@@ -171,7 +171,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
       expect(page).to have_content("Jessie M Pepper")
-      expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
+      expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
 
       click_on I18n.t('general.edit').downcase
 
