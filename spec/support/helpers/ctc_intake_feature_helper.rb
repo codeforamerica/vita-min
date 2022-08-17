@@ -265,6 +265,7 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
 
     within "#dependent_#{Dependent.last.id}" do
+      expect(page).to have_css("img[src*='/assets/icons/green-checkmark-circle']")
       click_on "edit"
     end
 
@@ -298,8 +299,11 @@ module CtcIntakeFeatureHelper
     click_on "No"
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-    expect(page).not_to have_content("Sam NotQualified")
-    expect(page).not_to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
+    expect(page).to have_content("Sam NotQualified")
+    expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
+    within "#dependent_#{Dependent.last.id}" do
+      expect(page).not_to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    end
 
     if head_of_household
       click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")

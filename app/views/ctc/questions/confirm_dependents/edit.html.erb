@@ -13,7 +13,7 @@
             <div class="row">
               <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
               <div class="grid__item width-one-half row">
-                <% if true #current_intake.claiming_eitc? %>
+                <% if current_intake.claiming_eitc? %>
                   <div class="qualification text--bold text--small">EITC</div>
                 <% end %>
                 <div class="qualification text--bold text--small">CTC</div>
