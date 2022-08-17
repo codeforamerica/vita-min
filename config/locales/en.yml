@@ -1811,12 +1811,12 @@ en:
         bank_account:
           title: Please provide your bank details.
         dependent_info:
-          help_text: Confirm/edit your dependent’s basic information
-          title: Edit %{name}’s basic information
           atin: ATIN
+          birthday: Date of birth
+          help_text: Confirm/edit your dependent’s basic information
           ssn: SSN
           ssn_no_employment: SSN (not valid for employment)
-          birthday: Date of birth
+          title: Edit %{name}’s basic information
         dependents:
           no_eligible_dependents:
             subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
@@ -2039,6 +2039,7 @@ en:
           help_text: You will not be able change your information once the return is accepted by the IRS.
           labels:
             signature_pin: "%{name}'s Five Digit PIN"
+          no_qualifying_dependents: No qualifying dependents
           pin_help_text: Select a five-digit signature PIN. This is a number that you choose as your own password. This PIN can be used to verify your identity when filing next year's tax return.
           title: Please review and confirm your information.
           your_dependents: Your dependents

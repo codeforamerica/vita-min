@@ -1782,7 +1782,11 @@ es:
         bank_account:
           title: Proporcione sus datos bancarios.
         dependent_info:
+          atin: ATIN
+          birthday: Fecha de nacimiento
           help_text: Confirmar / editar la información básica de su dependiente
+          ssn: SSN
+          ssn_no_employment: SSN (no válido para el empleo)
           title: Edita la información básica de %{name}
         dependents:
           no_eligible_dependents:
@@ -1991,10 +1995,8 @@ es:
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
           add_a_dependent: Agregar un dependiente
-          atin: Número de Adopción
-          birthday: Fecha de nacimiento
+          birthday: DOB
           done_adding: 'Termine de agregar dependientes '
-          no_qualifying_dependents: No hay dependientes que cumplan los requisitos
           other_benefits_reveal:
             content:
               head_of_household:
@@ -2003,16 +2005,12 @@ es:
                 title: "¿Debo declarar como jefe de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
-          qualifying_for_both: Dependientes para el CTC y el pago de estímulo
-          qualifying_for_ctc: Dependientes con derecho a CTC
-          qualifying_for_other_credits: Dependientes con sólo derecho a recibir el pago de estímulo
-          ssn: Número de Seguro Social
-          ssn_no_employment: Número de seguro social (no válido para empleo)
           title: Confirmemos sus dependientes
         confirm_information:
           help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
           labels:
             signature_pin: El PIN de cinco dígitos de %{name}
+          no_qualifying_dependents: No dependientes calificadas
           pin_help_text: Seleccione un PIN de 5 dígitos. Este es un número que usted elige como contraseña propia. Este PIN se puede usar para verificar su identidad al presentar la declaración de impuestos del próximo año.
           title: Revise y confirme su información.
           your_dependents: Sus dependientes
