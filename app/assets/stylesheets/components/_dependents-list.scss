@@ -5,6 +5,7 @@
   .row {
     display: flex;
     flex-direction: row;
+    width: 100%;
 
     &__full-height {
       height: 100%
@@ -54,7 +55,11 @@
     border-top: 1px solid $color-grey-medium-light;
   }
 
-  .review-box__edit-button {
-    margin: 0 !important;
+  .review-box {
+    padding: 1.5rem 1rem;
+
+    &__edit-button {
+      margin: 0 !important;
+    }
   }
 }
