@@ -13,11 +13,13 @@
             <div class="row">
               <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
               <div class="grid__item width-one-half row">
+                <div class="qualification text--bold text--small">CTC</div>
                 <% if current_intake.claiming_eitc? %>
                   <div class="qualification text--bold text--small">EITC</div>
                 <% end %>
-                <div class="qualification text--bold text--small">CTC</div>
-                <div class="qualification text--bold text--small"><%= t("general.stimulus") %></div>
+                <% unless current_intake.puerto_rico_filing? %>
+                  <div class="qualification text--bold text--small"><%= t("general.stimulus") %></div>
+                <% end %>
               </div>
             </div>
             <% current_intake.dependents.each_with_index do |dependent, index| %>

@@ -28,6 +28,9 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requir
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).to have_text "Jessie M Pepper"
     # This dependent qualifies
+    within "#ctc_#{Dependent.last.id}" do
+      expect(page).to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    end
     click_on I18n.t('views.ctc.questions.confirm_dependents.add_a_dependent')
 
     # Offboard dependent because of birthday
