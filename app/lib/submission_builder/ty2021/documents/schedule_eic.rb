@@ -23,7 +23,7 @@ module SubmissionBuilder
                 xml.ChildIsAStudentUnder24Ind dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
                 xml.ChildPermanentlyDisabledInd dependent.permanently_totally_disabled_yes?
                 xml.ChildRelationshipCd dependent.irs_relationship_enum
-                xml.MonthsChildLivedWithYouCnt '07' # this is a placeholder value until we collect the actual number of months in intake
+                xml.MonthsChildLivedWithYouCnt dependent.months_in_home.to_s.rjust(2, '0')
               }
             end
           end
