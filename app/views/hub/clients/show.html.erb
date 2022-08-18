@@ -124,14 +124,29 @@
             <div class="field-display">
               <span class="form-question">Refund delivery method:</span>
               <span class="label-value"><%= @client.intake.refund_payment_method&.humanize %> </span>
-            </div>
-            <% if @client.intake.bank_account.present? %>
-              <div id="js-bank-account-info">
-                <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
+              <div>
+                <% if @client.intake.bank_account.present? %>
+                  <div id="js-bank-account-info">
+                    <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
+                  </div>
+                <% else %>
+                  <span class="label-value"><i>No bank account info provided.</i></span>
+                <% end %>
               </div>
-            <% else %>
-              <span class="label-value">No bank account info provided.</span>
-            <% end %>
+            </div>
+            <div class="field-display">
+              <span class="form-question">EIP 3 received:</span>
+              <span class="label-value">$<%= @client.intake.eip3_amount_received || 0 %> </span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">Outstanding RRC:</span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">Outstanding CTC / Received: </span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">EITC:</span>
+            </div>
           </div>
 
           <!-- Recovery rebate credit -->
