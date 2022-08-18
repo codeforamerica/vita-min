@@ -33,7 +33,7 @@ We’ve created and compiled a number of resources that can help you assist fami
 GetCTC’s simplified filing tool allows families without a tax filing obligation to claim the Child Tax Credit and any portion of their missing third stimulus payment. The tool will be available through mid-November.
 
 - [**GetCTC Recorded Demo**](https://www.youtube.com/watch?v=g9Wm7Od9eZg): Get a quick tour of GetCTC’s simplified filing tool. The tool is mobile-friendly and available in English and Spanish. To qualify for the service, clients cannot have a 2021 filing requirement - typically this means their income is below $12,550 if filing single, or $25,100 if filing married.
-- [**How to use GetCTC**](https://files.codeforamerica.org/2022/05/26154208/2022-getctc-guide-navigator-resource.pdf): A detailed walk-through of each page in the GetCTC application. This may be helpful if clients have a specific question about a screen or question.
+- [**How to use GetCTC**](https://files.codeforamerica.org/2022/05/27152938/2022-getctc-guide-navigator-resource.pdf): A detailed walk-through of each page in the GetCTC application. This may be helpful if clients have a specific question about a screen or question.
 - **[Lessons from Simplified Filing in 2021](https://files.codeforamerica.org/2022/03/15163515/lessons-from-simplified-filing-in-2021-getctc-analytics-report-march-2022.pdf?_ga=2.106062467.1447105119.1649891302-2050715804.1642105158):** We've compiled our learnings and best practices from the first year of GetCTC.org in this report, and are excited to share them with the field to inform our collective next steps.
 
 
