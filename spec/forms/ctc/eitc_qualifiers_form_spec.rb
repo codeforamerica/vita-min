@@ -11,43 +11,24 @@ describe Ctc::EitcQualifiersForm do
   end
 
   describe "#save" do
-    let(:no_qualifiers_params) do
+    let(:qualifiers_params) do
       {
         former_foster_youth: "no",
-        homeless_youth: "no",
-        not_full_time_student: "no",
-        full_time_student_less_than_four_months: "no"
-      }
-    end
-
-    let(:all_qualifiers_params) do
-      {
-        former_foster_youth: "yes",
         homeless_youth: "yes",
-        not_full_time_student: "yes",
+        not_full_time_student: "no",
         full_time_student_less_than_four_months: "yes"
       }
     end
 
-    it "parses & saves the correct data to the model record when situations do not apply" do
-      form = described_class.new(intake, no_qualifiers_params)
+    it "saves the data to the model" do
+      form = described_class.new(intake, qualifiers_params)
+      expect(form).to be_valid
       form.save
       intake.reload
 
       expect(intake.former_foster_youth).to eq "no"
-      expect(intake.homeless_youth).to eq "no"
-      expect(intake.not_full_time_student).to eq "no"
-      expect(intake.full_time_student_less_than_four_months).to eq "no"
-    end
-
-    it "parses & saves the correct data to the model record when situations do apply" do
-      form = described_class.new(intake, all_qualifiers_params)
-      form.save
-      intake.reload
-
-      expect(intake.former_foster_youth).to eq "yes"
       expect(intake.homeless_youth).to eq "yes"
-      expect(intake.not_full_time_student).to eq "yes"
+      expect(intake.not_full_time_student).to eq "no"
       expect(intake.full_time_student_less_than_four_months).to eq "yes"
     end
   end
