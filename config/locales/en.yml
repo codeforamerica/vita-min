@@ -2292,6 +2292,20 @@ en:
             - In Laws
             - Other descendants of my siblings
             - Other relationship not listed
+            content_puerto_rico:
+            - Son
+            - Daughter
+            - Stepchild
+            - Foster child
+            - Niece
+            - Nephew
+            - Grandchild
+            - Half Brother
+            - Half Sister
+            - Stepbrother
+            - Stepsister
+            - Great-grandchild
+            - Other descendants of my siblings
             title: Which relationships qualify?
         head_of_household:
           claim_hoh: Claim HoH status

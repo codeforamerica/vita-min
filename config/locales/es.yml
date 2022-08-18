@@ -2263,6 +2263,20 @@ es:
             - En leyes
             - Otros descendientes de mis hermanos
             - Otra relación no listada
+            content_puerto_rico:
+            - Hijo
+            - Hija
+            - Hijastro
+            - Hijo de acogida/crianza
+            - Sobrina
+            - Sobrino
+            - Nieto
+            - Medio hermano
+            - Media hermana
+            - Hermanastro
+            - Hermanastra
+            - Bisnieto
+            - Otros descendientes de mis hermanos
             title: "¿Qué relaciones califican?"
         head_of_household:
           claim_hoh: Declarar estado de Jefe de Familia, "HoH" por sus siglas en inglés.
