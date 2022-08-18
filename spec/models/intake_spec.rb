@@ -1103,15 +1103,4 @@ describe Intake do
       end
     end
   end
-
-  describe "#age_on_date" do
-    let(:intake) { create(:intake) }
-
-    [[Date.parse("21-03-1993"), 29], [Date.parse("07-08-1992"), 30], [Date.parse("09-08-1992"), 29]].each do |dob_age_pair|
-      it "returns the correct age" do
-        intake.update(primary_birth_date: dob_age_pair[0])
-        expect(intake.age_on_date(Date.parse("08-08-2022"))).to eq dob_age_pair[1]
-      end
-    end
-  end
 end

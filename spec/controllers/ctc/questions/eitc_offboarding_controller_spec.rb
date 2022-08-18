@@ -1,9 +1,14 @@
 require "rails_helper"
 
 describe Ctc::Questions::EitcOffboardingController do
-  let(:intake) { create :ctc_intake }
+  let(:intake) { create :ctc_intake, claim_eitc: claim_eitc }
+  let(:eitc_eligible) { true }
+  let(:claim_eitc) { "yes" }
+  let(:benefits_eligibility) { instance_double(Efile::BenefitsEligibility) }
 
   before do
+    allow(Efile::BenefitsEligibility).to receive(:new).and_return benefits_eligibility
+    allow(benefits_eligibility).to receive(:qualified_for_eitc?).and_return eitc_eligible
     sign_in intake.client
   end
 
@@ -13,44 +18,28 @@ describe Ctc::Questions::EitcOffboardingController do
         Flipper.enable :eitc
       end
 
-      context "when they are claiming and qualified for the eitc" do
-        before do
-          allow(intake).to receive(:qualified_for_eitc?).and_return true
-          allow(intake).to receive(:claiming_eitc?).and_return true
+      context "claiming eitc" do
+        let(:claim_eitc) { "yes" }
+
+        context "when they are not qualified for the eitc" do
+          let(:eitc_eligible) { false }
+
+          it "returns true" do
+            expect(described_class.show?(intake)).to eq true
+          end
         end
 
-        it "returns false" do
-          expect(described_class.show?(intake)).to eq false
+        context "when they are qualified for the eitc" do
+          let(:eitc_eligible) { true }
+
+          it "returns false" do
+            expect(described_class.show?(intake)).to eq false
+          end
         end
       end
 
-      context "when they are not claiming and not qualified for the eitc" do
-        before do
-          allow(intake).to receive(:qualified_for_eitc?).and_return false
-          allow(intake).to receive(:claiming_eitc?).and_return false
-        end
-
-        it "returns false" do
-          expect(described_class.show?(intake)).to eq false
-        end
-      end
-
-      context "when they are claiming but not qualified for the eitc" do
-        before do
-          allow(intake).to receive(:qualified_for_eitc?).and_return false
-          allow(intake).to receive(:claiming_eitc?).and_return true
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "when they qualified for but not claiming the eitc" do
-        before do
-          allow(intake).to receive(:qualified_for_eitc?).and_return true
-          allow(intake).to receive(:claiming_eitc?).and_return false
-        end
+      context "when they are not claiming" do
+        let(:claim_eitc) { "no" }
 
         it "returns false" do
           expect(described_class.show?(intake)).to eq false
@@ -62,13 +51,6 @@ describe Ctc::Questions::EitcOffboardingController do
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
       end
-    end
-  end
-
-  describe "#edit" do
-    it "renders edit template" do
-      get :edit, params: {}
-      expect(response).to render_template :edit
     end
   end
 end
