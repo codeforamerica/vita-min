@@ -67,7 +67,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_basic_info(home_location: "fifty_states", birthdate: DateTime.parse("24-08-1996"))
+  def fill_in_basic_info(home_location: "fifty_states", birthdate: DateTime.new(1996, 8, 24))
     # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
