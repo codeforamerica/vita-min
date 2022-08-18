@@ -2229,7 +2229,7 @@ en:
             info: A qualified homeless youth is someone who is homeless or at risk of homelessness, who supports themselves financially. You must be between 18-24 years old and can not be under physical custody of a parent or guardian.
             title: What is a qualified homeless youth?
           not_full_time_student: I was not a full time student
-          title: 'Select any of the situations that were true in 2021:'
+          title: 'Select any of the situations that were true in %{current_tax_year}:'
         email_address:
           title: Please share your email address.
         file_full_return:

@@ -1,4 +1,4 @@
-<% @main_heading = t("views.ctc.questions.eitc_qualifiers.title") %>
+<% @main_heading = t("views.ctc.questions.eitc_qualifiers.title", current_tax_year: current_tax_year) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
