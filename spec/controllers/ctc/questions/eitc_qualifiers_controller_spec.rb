@@ -14,7 +14,7 @@ describe Ctc::Questions::EitcQualifiersController do
       end
 
       context "when the client is over 24" do
-        let(:intake) { create :ctc_intake, primary_birth_date: 25.years.ago.to_date }
+        let(:intake) { create :ctc_intake, primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - 25.years }
 
         it "returns false" do
           expect(described_class.show?(intake)).to eq false
@@ -26,7 +26,7 @@ describe Ctc::Questions::EitcQualifiersController do
           create(
             :ctc_intake,
             client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]),
-            primary_birth_date: 23.years.ago.to_date,
+            primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - 23.years,
             exceeded_investment_income_limit: "no"
           )
         end
@@ -40,10 +40,6 @@ describe Ctc::Questions::EitcQualifiersController do
         end
 
         context "when the client has no qualifying children" do
-          before do
-            intake.dependents.destroy_all
-          end
-
           it "returns true" do
             expect(described_class.show?(intake)).to eq true
           end
@@ -65,13 +61,6 @@ describe Ctc::Questions::EitcQualifiersController do
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
       end
-    end
-  end
-
-  describe "#edit" do
-    it "renders edit template" do
-      get :edit, params: {}
-      expect(response).to render_template :edit
     end
   end
 end
