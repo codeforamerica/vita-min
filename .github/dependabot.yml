@@ -1,0 +1,16 @@
+version: 2
+registries:
+  authenticated_github:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: ${{secrets.DEPENDABOT_GITHUB_TOKEN}}
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    # don't make PRs for regular dependency things, just security updates
+    open-pull-requests-limit: 0
+    registries:
+      - authenticated_github
