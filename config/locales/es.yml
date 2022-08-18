@@ -1995,7 +1995,7 @@ es:
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
           add_a_dependent: Agregar un dependiente
-          birthday: DOB
+          birthday: FDN
           done_adding: 'Termine de agregar dependientes '
           other_benefits_reveal:
             content:
