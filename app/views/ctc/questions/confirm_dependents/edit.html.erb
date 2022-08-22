@@ -9,42 +9,31 @@
 
     <div class="review-box spacing-below-35">
       <div data-automation="ctc-dependents">
-        <div class="review-box__title review-box__title-tighter">
-          <h2><%= current_intake.puerto_rico_filing? ? t("views.ctc.questions.confirm_dependents.qualifying_for_ctc") : t("views.ctc.questions.confirm_dependents.qualifying_for_both") %></h2>
-        </div>
-        <div class="spacing-below-15">
-          <%=
-            render(
-              partial: 'dependent',
-              locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dep| dep.qualifying_ctc? }
-            ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
-          %>
+        <div class="dependents-list grid">
+            <div class="row">
+              <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
+              <div class="grid__item width-one-half row">
+                <div class="qualification text--bold text--small">CTC</div>
+                <% if current_intake.claiming_eitc? %>
+                  <div class="qualification text--bold text--small">EITC</div>
+                <% end %>
+                <% unless current_intake.puerto_rico_filing? %>
+                  <div class="qualification text--bold text--small"><%= t("general.stimulus") %></div>
+                <% end %>
+              </div>
+            </div>
+            <% current_intake.dependents.each_with_index do |dependent, index| %>
+                <%=
+                  render(
+                    partial: 'dependent',
+                    locals: { is_first: index == 0 },
+                    collection: [dependent]
+                  )
+                %>
+            <% end %>
+          </div>
         </div>
       </div>
-      <% unless current_intake.puerto_rico_filing? %>
-        <div data-automation="other-credits-dependents">
-          <div class="review-box__title review-box__title-tighter">
-          <h2><%= t("views.ctc.questions.confirm_dependents.qualifying_for_other_credits") %></h2>
-        </div>
-          <div class="spacing-below-35">
-          <%=
-            render(
-              partial: 'dependent',
-              locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dependent| !dependent.qualifying_ctc? && dependent.qualifying_eip3? }
-            ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
-          %>
-        </div>
-        </div>
-      <% end %>
-      <div class="review-box__cta-button-container">
-        <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
-          <%= image_tag("add-person.svg", alt: "") %>
-          <%= t('views.ctc.questions.confirm_dependents.add_a_dependent') %>
-        <% end %>
-      </div>
-    </div>
 
     <% unless current_intake.filing_jointly? %>
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")) do %>
@@ -55,6 +44,10 @@
       <% end %>
     <% end %>
 
+    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
+      <%= image_tag("add-person.svg", alt: "") %>
+      <%= t('views.ctc.questions.confirm_dependents.add_a_dependent') %>
+    <% end %>
     <%= f.continue t("views.ctc.questions.confirm_dependents.done_adding") %>
   <% end %>
 <% end %>

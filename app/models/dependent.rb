@@ -142,6 +142,10 @@ class Dependent < ApplicationRecord
     Efile::DependentEligibility::EipThree.new(self, tax_year).qualifies?
   end
 
+  def qualifying_eitc?(tax_year = TaxReturn.current_tax_year)
+    intake.claiming_eitc? && Efile::DependentEligibility::EarnedIncomeTaxCredit.new(self, tax_year).qualifies?
+  end
+
   def mixpanel_data
     {
       dependent_age_at_end_of_tax_year: age_during(TaxReturn.current_tax_year).to_s,

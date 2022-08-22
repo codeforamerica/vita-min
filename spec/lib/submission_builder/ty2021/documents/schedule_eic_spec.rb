@@ -3,6 +3,7 @@ require "rails_helper"
 describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
   let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
   before do
+    submission.intake.update(exceeded_investment_income_limit: "no", primary_tin_type: "ssn")
     dependent = submission.intake.dependents.first
     dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes", months_in_home: 10)
     dependent.update(dependent_attrs)

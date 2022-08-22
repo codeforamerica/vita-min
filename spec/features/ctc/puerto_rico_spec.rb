@@ -26,11 +26,11 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requir
 
     fill_in_qualifying_child_age_5
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
-    expect(page).not_to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_both"))
-    expect(page).not_to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_other_credits"))
-    expect(page).to have_selector(".review-box__title", text: I18n.t("views.ctc.questions.confirm_dependents.qualifying_for_ctc"))
     expect(page).to have_text "Jessie M Pepper"
     # This dependent qualifies
+    within "#ctc_#{Dependent.last.id}" do
+      expect(page).to have_css("img[src*='/assets/icons/green-checkmark-circle']")
+    end
     click_on I18n.t('views.ctc.questions.confirm_dependents.add_a_dependent')
 
     # Offboard dependent because of birthday

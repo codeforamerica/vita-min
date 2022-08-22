@@ -10,7 +10,7 @@ describe Efile::DependentEligibility::EarnedIncomeTaxCredit do
     end
 
     it "uses the passed in object instead of instantiating a new one" do
-      described_class.new((create :dependent), TaxReturn.current_tax_year, child_eligibility: child_eligibility)
+      described_class.new((create :dependent, intake: (create :ctc_intake)), TaxReturn.current_tax_year, child_eligibility: child_eligibility)
       expect(child_eligibility).to have_received(:qualifies?)
     end
   end

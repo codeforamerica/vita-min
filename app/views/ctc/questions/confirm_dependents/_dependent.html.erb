@@ -1,13 +1,22 @@
-<div class="review-box__space-between spacing-below-25" id="<%= dom_id(dependent) %>">
-  <div class="review-box__person">
-    <div>
-      <icon class="icon-person"></icon>
-    </div>
-    <div>
-      <div class="review-box__name"><%= dependent.full_name %></div>
-      <div class="review-box__details"><%= t("views.ctc.questions.confirm_dependents.birthday") %>: <%= default_date_format(dependent.birth_date) %></div>
-      <div class="review-box__details"><%= t("views.ctc.questions.confirm_dependents.#{dependent.tin_type}") %>: <%= ssn_mask(dependent.ssn) %></div>
-    </div>
+<div class="row" id="<%= dom_id(dependent) %>">
+  <div class="dependent grid__item width-one-half <%= is_first ? "" : "with-top-border" %>">
+    <div class="review-box__name"><%= dependent.full_name %></div>
+    <div class="review-box__details spacing-below-25"><%= t("views.ctc.questions.confirm_dependents.birthday") %>: <%= default_date_format(dependent.birth_date) %></div>
+    <%= link_to t("general.edit").downcase, Ctc::Questions::Dependents::InfoController.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>
   </div>
-  <%= link_to t("general.edit").downcase, edit_controller.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>
+  <div class="grid__item width-one-half row">
+    <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>" id="<%= "ctc_#{dependent.id}" %>">
+      <%= image_tag(dependent.qualifying_ctc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
+    </div>
+    <% if dependent.intake.claiming_eitc? %>
+      <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>" id="<%= "eitc_#{dependent.id}" %>">
+        <%= image_tag(dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
+      </div>
+    <% end %>
+    <% unless dependent.intake.puerto_rico_filing? %>
+      <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>"  id="<%= "stimulus_#{dependent.id}" %>">
+        <%= image_tag(dependent.qualifying_eip3? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
+      </div>
+    <% end %>
+  </div>
 </div>
