@@ -143,7 +143,7 @@ class Dependent < ApplicationRecord
   end
 
   def qualifying_eitc?(tax_year = TaxReturn.current_tax_year)
-    intake.claiming_eitc? && Efile::DependentEligibility::EarnedIncomeTaxCredit.new(self, tax_year).qualifies?
+    Efile::DependentEligibility::EarnedIncomeTaxCredit.new(self, tax_year).qualifies?
   end
 
   def mixpanel_data

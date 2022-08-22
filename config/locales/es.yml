@@ -2189,6 +2189,18 @@ es:
         eitc_offboarding:
           help_text: Continúe con GetCTC para reclamar su Crédito Tributario por Hijos y/o pagos de estímulo faltantes.
           title: No califica para el Crédito Tributario por Ingreso del Trabajo, ¡pero todavía hay dinero esperándolo!
+        eitc_qualifiers:
+          former_foster_youth: Yo era un ex joven de crianza calificado
+          former_foster_youth_reveal:
+            info: Un ex joven de crianza temporal calificado es alguien que estuvo en crianza temporal entre las edades de 14 y 17 años. Debe haber permitido que el programa de crianza temporal comparta su estado como ex joven de crianza temporal.
+            title: "¿Qué es un ex joven de crianza calificado?"
+          full_time_student_less_than_four_months: Fui estudiante de tiempo completo por menos de 4 meses.
+          homeless_youth: Yo era un joven sin hogar calificado
+          homeless_youth_reveal:
+            info: Un joven sin hogar calificado es alguien sin hogar o en riesgo de quedarse sin hogar, que se mantiene económicamente. Debe tener entre 18 y 24 años y no puede estar bajo la custodia física de un padre o tutor.
+            title: "¿Qué es un joven sin hogar calificado?"
+          not_full_time_student: Yo no era un estudiante de tiempo completo
+          title: 'Seleccione alguna de las situaciones que fueron ciertas en %{current_tax_year}:'
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:

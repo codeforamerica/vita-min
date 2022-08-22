@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Efile::BenefitsEligibility do
-  let(:subject) { Efile::BenefitsEligibility.new(tax_return: intake.tax_returns.last, dependents: intake.dependents) }
+  let(:subject) { Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents) }
 
   let(:client) { create :client_with_ctc_intake_and_return }
   let(:intake) { client.intake }
@@ -261,11 +261,11 @@ describe Efile::BenefitsEligibility do
       let(:spouse_tin_type) { "itin" }
       let(:intake) do
         create :ctc_intake,
-               client: client,
-               spouse_active_armed_forces: spouse_military,
-               primary_active_armed_forces: primary_military,
-               spouse_tin_type: spouse_tin_type,
-               primary_tin_type: primary_tin_type
+          client: client,
+          spouse_active_armed_forces: spouse_military,
+          primary_active_armed_forces: primary_military,
+          spouse_tin_type: spouse_tin_type,
+          primary_tin_type: primary_tin_type
       end
 
       context "when a spouse is part of the armed forces" do
@@ -334,6 +334,100 @@ describe Efile::BenefitsEligibility do
           end
           it "returns 0 for filer count" do
             expect(subject.rrc_eligible_filer_count).to eq 0
+          end
+        end
+      end
+    end
+  end
+
+  describe "#qualified_for_eitc?" do
+    let(:primary_age_at_end_of_tax_year) { 30.years }
+    let(:exceeded_investment_income_limit) { "no" }
+
+    before do
+      intake.update(exceeded_investment_income_limit: exceeded_investment_income_limit, primary_birth_date: Date.new(2021, 12, 31) - primary_age_at_end_of_tax_year)
+    end
+
+    context "when they are qualified w/ no dependents" do
+      it "returns true" do
+        expect(subject.qualified_for_eitc?).to eq true
+      end
+    end
+
+    context "when they do not pass the age test" do
+      let(:primary_age_at_end_of_tax_year) { 2.years }
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "they do not pass investment income test" do
+      let(:exceeded_investment_income_limit) { "yes" }
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "when they are under 24" do
+      let(:primary_age_at_end_of_tax_year) { 20.years }
+      before do
+        intake.update(dependents: dependents)
+      end
+
+      context "when they have at least one qualifying child" do
+        let(:dependents) { [build(:qualifying_child)] }
+
+        it "returns true" do
+          expect(subject.qualified_for_eitc?).to eq true
+        end
+      end
+
+      context "when they have no qualifying children" do
+        let(:dependents) { [] }
+
+        context "they are a former foster or homeless youth" do
+          [:homeless_youth, :former_foster_youth].each do |qualifier|
+            before do
+              intake.update(qualifier => "yes")
+            end
+
+            context "they were at least 18 on 12/31/2021" do
+              it "returns true" do
+                expect(subject.qualified_for_eitc?).to eq true
+              end
+            end
+
+            context "they were not at least 18 on 12/31/2021" do
+              let(:primary_age_at_end_of_tax_year) { 18.years - 1.day }
+
+              it "returns false" do
+                expect(subject.qualified_for_eitc?).to eq false
+              end
+            end
+          end
+        end
+
+        context "they are not a full time student or were a full time student for 4 months or fewer" do
+          [:not_full_time_student, :full_time_student_less_than_four_months].each do |qualifier|
+            before do
+              intake.update(qualifier => "yes")
+            end
+
+            context "they were at least 19 on 12/31/2021" do
+              it "returns true" do
+                expect(subject.qualified_for_eitc?).to eq true
+              end
+            end
+
+            context "they were not at least 19 on 12/31/2021" do
+              let(:primary_age_at_end_of_tax_year) { 19.years - 1.day }
+
+              it "returns false" do
+                expect(subject.qualified_for_eitc?).to eq false
+              end
+            end
           end
         end
       end

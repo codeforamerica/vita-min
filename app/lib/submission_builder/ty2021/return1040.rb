@@ -39,7 +39,7 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::Schedule8812,
             pdf: Irs8812Ty2021Pdf,
-            include: @submission.has_outstanding_ctc?
+            include: @submission.benefits_eligibility.outstanding_ctc_amount.positive?
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleLep,
@@ -49,12 +49,12 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
             pdf: Irs1040ScheduleEicPdf,
-            include: @submission.intake.claiming_eitc? && @submission.qualifying_dependents.any?(&:qualifying_eitc?)
+            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
             pdf: nil,
-            include: @submission.intake.claiming_eitc?
+            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           }
         ]
       end

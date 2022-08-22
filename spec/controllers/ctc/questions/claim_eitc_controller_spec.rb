@@ -33,7 +33,7 @@ describe Ctc::Questions::ClaimEitcController do
     end
   end
 
-    describe "#edit" do
+  describe "#edit" do
     it "renders edit template" do
       get :edit, params: {}
       expect(response).to render_template :edit

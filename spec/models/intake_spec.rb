@@ -71,6 +71,8 @@
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
+#  former_foster_youth                                  :integer          default(0), not null
+#  full_time_student_less_than_four_months              :integer          default(0), not null
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default(0), not null
@@ -98,6 +100,7 @@
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
 #  home_location                                        :integer
+#  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  irs_language_preference                              :integer
@@ -120,6 +123,7 @@
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
+#  not_full_time_student                                :integer          default(0), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default(0), not null
 #  paid_charitable_contributions                        :integer          default(0), not null
@@ -521,6 +525,7 @@ describe Intake do
       end
     end
   end
+
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
