@@ -101,6 +101,8 @@ FactoryBot.define do
       months_in_home { 6 }
       cant_be_claimed_by_other { "no" }
       claim_anyway { "yes" }
+      tin_type { "ssn_no_employment" }
+      ssn { "123121234" }
     end
   end
 end

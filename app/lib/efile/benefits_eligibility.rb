@@ -94,7 +94,7 @@ module Efile
     end
 
     def qualified_for_eitc?
-      intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test?
+      intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test? && eitc_qualifications_valid_ssns?
     end
 
     private
@@ -110,6 +110,12 @@ module Efile
       else
         false
       end
+    end
+
+    def eitc_qualifications_valid_ssns?
+      return false if intake.primary_tin_type != "ssn"
+
+      intake.dependents.none? || intake.dependents.pluck(:tin_type).include?("ssn")
     end
 
     def age_at_end_of_tax_year
