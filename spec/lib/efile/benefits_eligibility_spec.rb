@@ -460,7 +460,7 @@ describe Efile::BenefitsEligibility do
     end
 
     context "when all the of the dependents tin types are SSN not valid for employment or ITN" do
-      let(:dependents) { [create(:qualifying_child, tin_type: "itin"), create(:qualifying_child, tin_type: "ssn_no_employment")] }
+      let(:dependents) { [create(:qualifying_child, tin_type: "itin", ssn: "999-79-1234"), create(:qualifying_child, tin_type: "ssn_no_employment")] }
       before do
         intake.update(dependents: dependents)
       end
