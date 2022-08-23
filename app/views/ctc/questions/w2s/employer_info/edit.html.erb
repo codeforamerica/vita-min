@@ -1,0 +1,13 @@
+<% @main_question = t("views.ctc.questions.w2s.employer_info.title") %>
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <%= f.cfa_input_field(:employer_name, t("views.ctc.questions.w2s.employer_info.employer_name"), classes: ["form-width--long"]) %>
+
+    <%= f.continue t("views.ctc.questions.w2s.employer_info.add") %>
+  <% end %>
+<% end %>

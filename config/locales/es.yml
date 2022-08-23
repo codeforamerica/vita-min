@@ -2625,6 +2625,19 @@ es:
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
+        w2s:
+          title: "Comparta la información de su W-2."
+          add: "Agregar un W-2"
+          employee_info:
+            title: "¡Excelente! Comencemos con la lectura de su W-2."
+            help_text: "Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación."
+            first_name: "Primer nombre legal"
+          employer_info:
+            title: "¡Excelente! Comencemos con la lectura de su W-2."
+            employer_name: "Casilla c: Nombre del empleador"
+            add: "Agregar W-2"
+        confirm_w2s:
+          title: "Comparta la información de su W-2."
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:

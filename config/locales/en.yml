@@ -2654,6 +2654,17 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
+        w2s:
+          title: "Please share your W-2 information."
+          add: "Add a W-2"
+          employee_info:
+            title: "Great! Let’s start with reading your W-2."
+            help_text: "Your W-2 has lettered and numbered boxes. You will match and enter this information below."
+            first_name: "Legal first name"
+          employer_info:
+            title: "Great! Let’s start with reading your W-2."
+            employer_name: "Box c: Employer Name"
+            add: "Add W-2"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:

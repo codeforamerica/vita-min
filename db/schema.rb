@@ -32,12 +32,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "access_logs", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "event_type", null: false
     t.inet "ip_address"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "user_agent", null: false
     t.bigint "user_id", null: false
     t.index ["record_type", "record_id"], name: "index_access_logs_on_record_type_and_record_id"
@@ -98,8 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "admin_roles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "admin_toggles", force: :cascade do |t|
@@ -112,17 +112,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.integer "record_count"
     t.datetime "run_at", precision: nil
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "anonymized_intake_csv_extracts", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.integer "record_count"
     t.datetime "run_at", precision: nil
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "archived_bank_accounts_2021", force: :cascade do |t|
@@ -523,7 +523,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.datetime "attention_needed_since", precision: nil
     t.datetime "completion_survey_sent_at", precision: nil
     t.datetime "consented_to_service_at"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "ctc_experience_survey_sent_at", precision: nil
     t.integer "ctc_experience_survey_variant"
     t.datetime "current_sign_in_at", precision: nil
@@ -551,7 +551,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.integer "sign_in_count", default: 0, null: false
     t.integer "still_needs_help", default: 0, null: false
     t.datetime "triggered_still_needs_help_at", precision: nil
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
@@ -568,9 +568,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "coalitions", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_coalitions_on_name", unique: true
   end
 
@@ -669,12 +669,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "diy_intakes", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "email_address"
     t.string "locale"
     t.string "referrer"
     t.string "source"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "visitor_id"
     t.string "zip_code"
   end
@@ -704,8 +704,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "documents_requests", force: :cascade do |t|
     t.bigint "client_id"
     t.datetime "completed_at", precision: nil
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["client_id"], name: "index_documents_requests_on_client_id"
   end
 
@@ -928,7 +928,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.string "body_html"
     t.string "body_plain"
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.citext "from", null: false
     t.string "message_id"
     t.string "received"
@@ -940,7 +940,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.string "stripped_text"
     t.string "subject"
     t.citext "to"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_incoming_emails_on_client_id"
     t.index ["created_at"], name: "index_incoming_emails_on_created_at"
@@ -958,10 +958,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "incoming_text_messages", force: :cascade do |t|
     t.string "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "from_phone_number", null: false
     t.datetime "received_at", precision: nil, null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
     t.index ["created_at"], name: "index_incoming_text_messages_on_created_at"
   end
@@ -1256,23 +1256,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_notes_on_client_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "organization_lead_roles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "vita_partner_id", null: false
     t.index ["vita_partner_id"], name: "index_organization_lead_roles_on_vita_partner_id"
   end
 
   create_table "outbound_calls", force: :cascade do |t|
     t.bigint "client_id"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "from_phone_number", null: false
     t.text "note"
     t.integer "queue_time_ms"
@@ -1280,7 +1280,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.integer "twilio_call_duration"
     t.string "twilio_sid"
     t.string "twilio_status"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outbound_calls_on_client_id"
     t.index ["created_at"], name: "index_outbound_calls_on_created_at"
@@ -1290,13 +1290,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "mailgun_status", default: "sending"
     t.string "message_id"
     t.datetime "sent_at", precision: nil
     t.string "subject", null: false
     t.citext "to", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
     t.index ["created_at"], name: "index_outgoing_emails_on_created_at"
@@ -1307,12 +1307,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "outgoing_text_messages", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "sent_at", precision: nil
     t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["created_at"], name: "index_outgoing_text_messages_on_created_at"
@@ -1346,13 +1346,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "signups", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "ctc_2022_open_message_sent_at", precision: nil
     t.citext "email_address"
     t.string "name"
     t.string "phone_number"
     t.datetime "puerto_rico_open_message_sent_at"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "zip_code"
   end
 
@@ -1365,8 +1365,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
 
   create_table "source_parameters", force: :cascade do |t|
     t.string "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
@@ -1395,10 +1395,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   create_table "system_notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.jsonb "data"
     t.string "type"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_system_notes_on_client_id"
     t.index ["user_id"], name: "index_system_notes_on_user_id"
@@ -1444,7 +1444,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.bigint "assigned_user_id"
     t.integer "certification_level"
     t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "current_state", default: "intake_before_consent"
     t.integer "filing_status"
     t.text "filing_status_note"
@@ -1459,7 +1459,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.string "spouse_signature"
     t.datetime "spouse_signed_at", precision: nil
     t.inet "spouse_signed_ip"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "year", null: false
     t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
@@ -1533,7 +1533,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
@@ -1558,7 +1558,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "suspended_at", precision: nil
     t.string "timezone", default: "America/New_York", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -1602,7 +1602,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.boolean "archived", default: false
     t.integer "capacity_limit"
     t.bigint "coalition_id"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "logo_path"
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
@@ -1610,7 +1610,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"
     t.string "type", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"
@@ -1631,6 +1631,33 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.datetime "updated_at", precision: nil
     t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
+  end
+
+  create_table "w2s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "employee_apartment_number"
+    t.string "employee_city"
+    t.string "employee_ssn"
+    t.string "employee_state"
+    t.string "employee_street_adddress"
+    t.string "employee_zip_code"
+    t.string "employer_apartment_number"
+    t.string "employer_city"
+    t.string "employer_ein"
+    t.string "employer_name"
+    t.string "employer_name_control_text"
+    t.string "employer_state"
+    t.string "employer_street_address"
+    t.string "employer_zip_code"
+    t.bigint "intake_id"
+    t.string "legal_first_name"
+    t.string "legal_last_initial"
+    t.string "legal_middle_initial"
+    t.string "standard_or_non_standard_code"
+    t.string "suffix"
+    t.datetime "updated_at", null: false
+    t.decimal "wages_amount", precision: 12, scale: 2
+    t.index ["intake_id"], name: "index_w2s_on_intake_id"
   end
 
   add_foreign_key "access_logs", "users"
