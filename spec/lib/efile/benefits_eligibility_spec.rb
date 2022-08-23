@@ -343,9 +343,10 @@ describe Efile::BenefitsEligibility do
   describe "#qualified_for_eitc?" do
     let(:primary_age_at_end_of_tax_year) { 30.years }
     let(:exceeded_investment_income_limit) { "no" }
+    let(:primary_tin_type) { "ssn" }
 
     before do
-      intake.update(exceeded_investment_income_limit: exceeded_investment_income_limit, primary_birth_date: Date.new(2021, 12, 31) - primary_age_at_end_of_tax_year)
+      intake.update(exceeded_investment_income_limit: exceeded_investment_income_limit, primary_birth_date: Date.new(2021, 12, 31) - primary_age_at_end_of_tax_year, primary_tin_type: primary_tin_type)
     end
 
     context "when they are qualified w/ no dependents" do
@@ -430,6 +431,53 @@ describe Efile::BenefitsEligibility do
             end
           end
         end
+      end
+    end
+
+    context "when the primary SSN is not valid for employment" do
+      let(:primary_tin_type) { "ssn_no_employment" }
+      let(:dependents) { [build(:qualifying_child)] }
+      before do
+        intake.update(dependents: dependents)
+      end
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "when the primary tin type is ITIN" do
+      let(:primary_tin_type) { "itin" }
+      let(:dependents) { [build(:qualifying_child)] }
+
+      before do
+        intake.update(dependents: dependents)
+      end
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "when all the of the dependents tin types are SSN not valid for employment or ITN" do
+      let(:dependents) { [create(:qualifying_child, tin_type: "itin", ssn: "999-79-1234"), create(:qualifying_child, tin_type: "ssn_no_employment")] }
+      before do
+        intake.update(dependents: dependents)
+      end
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "when primary and at least one dependents' tin type is SSN" do
+      let(:dependents) { [build(:qualifying_child), build(:qualifying_child, tin_type: "ssn_no_employment")] }
+      before do
+        intake.update(dependents: dependents)
+      end
+
+      it "returns true" do
+        expect(subject.qualified_for_eitc?).to eq true
       end
     end
   end
