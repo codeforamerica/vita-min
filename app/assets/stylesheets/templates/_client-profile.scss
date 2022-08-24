@@ -18,4 +18,26 @@
       margin-bottom: $s15;
     }
   }
+  &__status-label{
+    color: black;
+    align-items: center;
+    margin: 0 1.5rem 0 0;
+    border-radius:10px;
+    padding: 0.5rem 0.75rem;
+    width: 61px;
+    height: 25px;
+    left: 514px;
+    top: 988px;
+    &__background--grey {
+      background: #B2B2B2
+    }
+    &__background--red{
+      background: #FEC8B3;
+    }
+    &__background--green{
+      background: #CFFCD9;
+    }
+  }
 }
+
+
