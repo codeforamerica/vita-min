@@ -148,7 +148,7 @@
                   </div>
                 <% end %>
                 <div class="field-display">
-                  <span class="form-question">EIP 3 received:</span>
+                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
                   <span class="label-value">$<%= @client.intake.eip3_amount_received || 0 %> </span>
                 </div>
                 <% if @client.intake.drop_off? && @client.intake.eip1_and_2_amount_received_confidence.present? %>
@@ -164,16 +164,14 @@
                     <div class="field-display">
                       <span class="form-question"> Outstanding RRC: </span>
                       <span class="label-value">$<%= benefits.outstanding_recovery_rebate_credit || 0 %></span>
-                      <% if @client.intake.claim_owed_stimulus_money.capitalize == 'Unfilled' %>
+                      <% case @client.intake.claim_owed_stimulus_money.capitalize %>
+                      <% when 'Unfilled' %>
                         <span class="label-value client-profile__status-label client-profile__status-label__background--grey"><%= @client.intake.claim_owed_stimulus_money.capitalize %></span>
-                      <% end %>
-                      <% if @client.intake.claim_owed_stimulus_money.capitalize == 'Yes' %>
+                      <% when 'Yes' %>
                         <span class="label-value client-profile__status-label client-profile__status-label__background--green"><%= @client.intake.claim_owed_stimulus_money.capitalize %></span>
-                      <% end %>
-                      <% if @client.intake.claim_owed_stimulus_money.capitalize == 'No' %>
+                      <% when 'No' %>
                         <span class="label-value client-profile__status-label client-profile__status-label__background--red"><%= @client.intake.claim_owed_stimulus_money.capitalize %></span>
                       <% end %>
-
                     </div>
                     <div class="field-display">
                       <span class="form-question">Outstanding CTC / Received:</span>

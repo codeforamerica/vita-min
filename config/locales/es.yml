@@ -869,7 +869,7 @@ es:
     recovery_rebate_credit_amount:
       amount_1: Pago de impacto económico 1 recibió
       amount_2: Pago de impacto económico 2 recibió
-      amount_3: Pago por Impacto Económico 3 recibido
+      amount_3: EIP 3 recibido
       confidence: "¿Qué tan confiado en esta cantidad?"
       confidence_values:
         sure: Seguro
