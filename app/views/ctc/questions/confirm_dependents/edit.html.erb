@@ -44,7 +44,7 @@
       <% end %>
     <% end %>
 
-    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
+    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token), class: "button button--wide text--centered" do %>
       <%= image_tag("add-person.svg", alt: "") %>
       <%= t('views.ctc.questions.confirm_dependents.add_a_dependent') %>
     <% end %>

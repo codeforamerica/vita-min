@@ -1635,28 +1635,31 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
 
   create_table "w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "employee_apartment_number"
+    t.string "creation_token"
     t.string "employee_city"
     t.string "employee_ssn"
     t.string "employee_state"
-    t.string "employee_street_adddress"
+    t.string "employee_street_address"
+    t.string "employee_street_address2"
     t.string "employee_zip_code"
-    t.string "employer_apartment_number"
     t.string "employer_city"
     t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_name_control_text"
     t.string "employer_state"
     t.string "employer_street_address"
+    t.string "employer_street_address2"
     t.string "employer_zip_code"
+    t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
     t.string "legal_first_name"
-    t.string "legal_last_initial"
+    t.string "legal_last_name"
     t.string "legal_middle_initial"
     t.string "standard_or_non_standard_code"
     t.string "suffix"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
+    t.index ["creation_token"], name: "index_w2s_on_creation_token"
     t.index ["intake_id"], name: "index_w2s_on_intake_id"
   end
 

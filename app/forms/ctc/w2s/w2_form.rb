@@ -10,6 +10,11 @@ module Ctc
         super(params)
       end
 
+      def save
+        @w2.assign_attributes(attributes_for(:w2))
+        @w2.save!
+      end
+
       def self.from_w2(w2)
         attribute_keys = Attributes.new(scoped_attributes[:w2]).to_sym
         new(w2, existing_attributes(w2, attribute_keys))

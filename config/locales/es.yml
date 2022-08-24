@@ -2628,14 +2628,45 @@ es:
         w2s:
           title: "Comparta la información de su W-2."
           add: "Agregar un W-2"
+          done_adding: "Terminado de agregar todos los formularios W-2"
+          help_text: "Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 [y el W-2 de su cónyuge] para cobrar el Crédito Tributario por Ingreso del Trabajo."
+          wages: "Salarios"
+          info_box:
+            title: "Requisito:"
+            list_item: "Debe compartir todos sus formularios W-2 para esta devolución para evitar demoras con su devolución."
+          reveal:
+            title: "¿Qué pasa si no he recibido mi W-2?"
+            content:
+              p1: "Si no ha recibido un W-2 de su empleador, puede tomar algunas medidas para asegurarse de obtenerlo. Por ley, su empleador debe enviarle una copia de su W-2 antes del 31 de enero del año fiscal en curso."
+              p2: "Un buen primer paso sería comunicarse directamente con su empleador y asegurarse de que toda la información personal, como su dirección postal, esté actualizada. También puede preguntarles si los formularios W-2 se han enviado por correo o cuándo prevén enviarlos. Puede ser que tu empleador te lo haya enviado el último día, 31 de enero, que luego llegará a principios de febrero. Otra opción sería acceder a su W-2 en línea. La mayoría de los empleadores brindan acceso en línea a su W-2 a través de un portal para empleados. Vuelva a verificar con su empleador si le han dado información sobre cómo iniciar sesión en dicho portal."
           employee_info:
             title: "¡Excelente! Comencemos con la lectura de su W-2."
             help_text: "Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación."
-            first_name: "Primer nombre legal"
+            legal_first_name: "Primer nombre legal"
+            legal_middle_initial: "Inicial legal del medio (opcional)"
+            legal_last_name: "Apellido legal"
+            suffix: "Sufijo (opcional)"
+            employee_ssn: "Casilla a: SSN del empleado"
+            confirm_employee_ssn: "Confirmar el SSN del empleado"
+            wages_amount: "Casilla 1: Importe del salario"
+            federal_income_tax_withheld: "Recuadro 2: Impuesto Federal sobre la Renta Retenido"
+            employee_street_address: "Casilla e: Dirección de la calle del empleado o P.O. caja"
+            employee_street_address2: "Número de apartamento (opcional)"
+            employer_city: "Ciudad"
+            employee_state: "Estado"
+            employee_zip_code: "Código postal"
           employer_info:
             title: "¡Excelente! Comencemos con la lectura de su W-2."
             employer_name: "Casilla c: Nombre del empleador"
             add: "Agregar W-2"
+            employer_ein: "Casilla b: Número de Identificación Patronal (EIN)"
+            employer_street_address: "Dirección de la calle o P.O. del empleador caja"
+            employer_street_address2: "Número de apartamento (opcional)"
+            employer_city: "Ciudad"
+            employer_state: "Estado"
+            employer_zip_code: "Código postal"
+            employer_name_control_text: "Txt de control de nombre del empleador"
+            standard_or_non_standard_code: "Código estándar o no estándar"
         confirm_w2s:
           title: "Comparta la información de su W-2."
       shared:

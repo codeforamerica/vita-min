@@ -11,7 +11,7 @@
       offboarding_actc_without_dependents_file_with_gyr_path,
       class: "button button--full-width text--centered spacing-above-60 button--primary" %>
     <%= link_to t("views.ctc.offboarding.actc_without_dependents.add_more_dependents"),
-      Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token),
+      Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token),
       class: "button button--full-width text--centered" %>
   </div>
 <% end %>

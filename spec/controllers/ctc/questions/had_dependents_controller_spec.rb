@@ -32,7 +32,7 @@ RSpec.describe Ctc::Questions::HadDependentsController do
         let(:info_controller_path) { double }
 
         before do
-          allow_any_instance_of(Intake).to receive(:new_dependent_token).and_return("new")
+          allow_any_instance_of(Intake).to receive(:new_record_token).and_return("new")
         end
 
         it "returns the dependents path" do

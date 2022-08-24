@@ -2657,14 +2657,45 @@ en:
         w2s:
           title: "Please share your W-2 information."
           add: "Add a W-2"
+          done_adding: "Finished adding all W-2s"
+          help_text: "Your W-2 is an official tax form given to you by your employer. Sharing your W-2 [and your spouse's W-2] is required to collect the Earned Income Tax Credit."
+          wages: "Wages"
+          info_box:
+            title: "Requirement:"
+            list_item: "You must share all of your W-2s for this return to avoid delays with your return."
+          reveal:
+            title: "What if I haven’t received my W-2?"
+            content:
+              p1: "If you haven't received a W-2 from your employer, you can take a few actions to ensure you get a hold of it. By law, your employer must send you a copy of your W-2 by January 31 of the current tax year."
+              p2: "A good first step would be to contact your employer directly and ensure that any personal information, like your mailing address, is up to date. You can also ask them if W-2s have been mailed out or when they anticipate sending them. It could be that your employer sent it on the last day, January 31, which will then arrive in early February. Another option would be to access your W-2 online. Most employers provide online access to your W-2 through an employee portal. Double-check with your employer if you've been given information on how to log in to such a portal."
           employee_info:
             title: "Great! Let’s start with reading your W-2."
             help_text: "Your W-2 has lettered and numbered boxes. You will match and enter this information below."
-            first_name: "Legal first name"
+            legal_first_name: "Legal first name"
+            legal_middle_initial: "Legal middle initial (optional)"
+            legal_last_name: "Legal last name"
+            suffix: "Suffix (optional)"
+            employee_ssn: "Box a: Employee SSN"
+            confirm_employee_ssn: "Confirm Employee SSN"
+            wages_amount: "Box 1: Wages Amount"
+            federal_income_tax_withheld: "Box 2: Federal Income Tax Withheld"
+            employee_street_address: "Box e: Employee street address or P.O. box"
+            employee_street_address2: "Apartment number (optional)"
+            employer_city: "City"
+            employee_state: "State"
+            employee_zip_code: "Zip code"
           employer_info:
             title: "Great! Let’s start with reading your W-2."
             employer_name: "Box c: Employer Name"
             add: "Add W-2"
+            employer_ein: "Box b: Employer Identification Number (EIN)"
+            employer_street_address: "Employer street address or P.O. box"
+            employer_street_address2: "Apartment number (optional)"
+            employer_city: "City"
+            employer_state: "State"
+            employer_zip_code: "Zip code"
+            employer_name_control_text: "Employer Name Control Txt"
+            standard_or_non_standard_code: "Standard or Non-Standard Code"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:

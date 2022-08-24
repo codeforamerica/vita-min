@@ -17,13 +17,7 @@ module Ctc
       end
 
       def next_path
-        # if current_intake.dependents.count > 0 # If the client has already added dependents, take them to the confirmation page to add more or continue.
-        #   questions_confirm_dependents_path
-        # elsif current_intake.had_dependents_no?
-        #   super
-        # else
-          Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: 12345)
-        # end
+        form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
       end
 
       private

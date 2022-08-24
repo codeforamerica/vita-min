@@ -13,7 +13,7 @@ module Ctc
         elsif current_intake.had_dependents_no?
           super
         else
-          Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token)
+          Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token)
         end
       end
 

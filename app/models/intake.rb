@@ -576,7 +576,7 @@ class Intake < ApplicationRecord
       SQL
   end
 
-  def new_dependent_token
+  def new_record_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
   end
