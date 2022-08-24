@@ -1637,7 +1637,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.datetime "created_at", null: false
     t.string "creation_token"
     t.string "employee_city"
-    t.string "employee_ssn"
+    t.text "employee_ssn"
     t.string "employee_state"
     t.string "employee_street_address"
     t.string "employee_street_address2"

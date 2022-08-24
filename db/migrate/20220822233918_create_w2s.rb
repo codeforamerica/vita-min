@@ -5,7 +5,7 @@ class CreateW2s < ActiveRecord::Migration[7.0]
       t.string :legal_middle_initial
       t.string :legal_last_name
       t.string :suffix
-      t.string :employee_ssn
+      t.text   :employee_ssn
       t.decimal :wages_amount, precision: 12, scale: 2
       t.decimal :federal_income_tax_withheld, precision: 12, scale: 2
       t.string :employee_street_address

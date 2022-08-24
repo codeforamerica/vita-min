@@ -7,6 +7,15 @@ module Ctc
 
         layout "intake"
 
+        def self.show?(w2)
+          return unless Flipper.enabled?(:eitc)
+          return unless w2
+
+          intake = w2.intake
+          benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
+          benefits_eligibility.claiming_and_qualified_for_eitc?
+        end
+
         def self.resource_name
           :w2s
         end

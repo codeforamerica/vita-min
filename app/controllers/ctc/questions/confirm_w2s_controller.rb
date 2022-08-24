@@ -5,16 +5,15 @@ module Ctc
 
       layout "intake"
 
-      # # def self.show?(intake)
-      # #   Flipper.enabled?(:eitc) &&
-      # #     intake.exceeded_investment_income_limit_no? &&
-      # #     intake.primary_birth_date > 24.years.ago &&
-      # #     intake.dependents.none?(&:qualifying_eitc?)
-      # # end
-      #
+      def self.show?(intake)
+        return unless Flipper.enabled?(:eitc)
+
+        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
+        benefits_eligibility.claiming_and_qualified_for_eitc?
+      end
+
       def edit
         render 'ctc/questions/w2s/edit'
-        # super
       end
 
       def self.form_class

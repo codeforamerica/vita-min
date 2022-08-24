@@ -36,4 +36,6 @@
 #
 class W2 < ApplicationRecord
   belongs_to :intake
+
+  encrypts :employee_ssn
 end
