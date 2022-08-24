@@ -14,7 +14,7 @@
               <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
               <div class="grid__item width-one-half row">
                 <div class="qualification text--bold text--small">CTC</div>
-                <% if current_intake.claim_eitc_yes? %>
+                <% if current_intake.claiming_eitc? %>
                   <div class="qualification text--bold text--small">EITC</div>
                 <% end %>
                 <% unless current_intake.puerto_rico_filing? %>
