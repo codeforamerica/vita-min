@@ -8,6 +8,10 @@ registries:
 updates:
   - package-ecosystem: "bundler"
     directory: "/"
+    # Dependabot external code execution allows gems/gemspec files to possibly read dependabot secrets. The only secret is a
+    # GitHub token. It has read-only permissions and is a machine user.
+    # https://docs.github.com/en/developers/overview/managing-deploy-keys#machine-users
+    insecure-external-code-execution: allow
     schedule:
       interval: "daily"
     # don't make PRs for regular dependency things, just security updates
