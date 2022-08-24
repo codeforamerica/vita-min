@@ -147,10 +147,12 @@
                     <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
                   </div>
                 <% end %>
-                <div class="field-display">
-                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
-                  <span class="label-value">$<%= @client.intake.eip3_amount_received || 0 %> </span>
-                </div>
+                <% if !@client.archived? %>
+                  <div class="field-display">
+                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
+                    <span class="label-value">$<%= @client.intake.eip3_amount_received || 0 %> </span>
+                  </div>
+                <% end %>
                 <% if @client.intake.drop_off? && @client.intake.eip1_and_2_amount_received_confidence.present? %>
                   <div class="field-display">
                     <span class="form-question">Confidence:</span>
