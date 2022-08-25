@@ -88,6 +88,7 @@
 #  had_wages                                            :integer          default("unfilled"), not null
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
+#  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default("unfilled"), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
@@ -301,7 +302,6 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
   enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
   enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
   enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
-  enum needs_help_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2021
   enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
   enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_alimony
