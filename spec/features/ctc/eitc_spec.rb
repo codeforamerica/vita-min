@@ -98,9 +98,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'lumen inc'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
     click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
 
-    expect(page).to have_text(I18n.t('views.ctc.questions.confirm_w2s.title'))
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'
   end
 

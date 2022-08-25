@@ -12,6 +12,10 @@ module Ctc
         benefits_eligibility.claiming_and_qualified_for_eitc?
       end
 
+      def self.i18n_base_path
+        "views.ctc.questions.w2s"
+      end
+
       def edit
         render 'ctc/questions/w2s/edit'
       end
