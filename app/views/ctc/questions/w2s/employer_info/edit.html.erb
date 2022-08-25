@@ -14,7 +14,6 @@
     <%= f.cfa_input_field(:employer_city, t("views.ctc.questions.w2s.employer_info.employer_city"), classes: ["form-width--long"]) %>
     <%= f.cfa_select(:employer_state, t("views.ctc.questions.w2s.employer_info.employer_state"), States.name_value_pairs, include_blank: true) %>
     <%= f.cfa_input_field(:employer_zip_code, t("views.ctc.questions.w2s.employer_info.employer_zip_code"), classes: ["form-width--zip"]) %>
-    <%= f.cfa_input_field(:employer_name_control_text, t("views.ctc.questions.w2s.employer_info.employer_name_control_text"), classes: ["form-width--long"]) %>
     <%= f.cfa_select(:standard_or_non_standard_code, t("views.ctc.questions.w2s.employer_info.standard_or_non_standard_code"), [%w[S S], %w[N N]]) %>
 
     <%= f.continue t("views.ctc.questions.w2s.employer_info.add") %>

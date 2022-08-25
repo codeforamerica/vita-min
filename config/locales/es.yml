@@ -2652,7 +2652,6 @@ es:
             employer_city: Ciudad
             employer_ein: 'Casilla b: Número de Identificación Patronal (EIN)'
             employer_name: 'Casilla c: Nombre del empleador'
-            employer_name_control_text: Txt de control de nombre del empleador
             employer_state: Estado
             employer_street_address: Dirección de la calle o P.O. del empleador caja
             employer_street_address2: Número de apartamento (opcional)

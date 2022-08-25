@@ -1645,7 +1645,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_202611) do
     t.string "employer_city"
     t.string "employer_ein"
     t.string "employer_name"
-    t.string "employer_name_control_text"
     t.string "employer_state"
     t.string "employer_street_address"
     t.string "employer_street_address2"

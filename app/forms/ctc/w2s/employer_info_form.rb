@@ -10,7 +10,6 @@ module Ctc
         :employer_city,
         :employer_state,
         :employer_zip_code,
-        :employer_name_control_text,
         :standard_or_non_standard_code
       )
 

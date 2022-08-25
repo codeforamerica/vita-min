@@ -20,7 +20,6 @@ class CreateW2s < ActiveRecord::Migration[7.0]
       t.string :employer_city
       t.string :employer_state
       t.string :employer_zip_code
-      t.string :employer_name_control_text
       t.string :standard_or_non_standard_code
       t.string :creation_token, index: true
       t.references :intake

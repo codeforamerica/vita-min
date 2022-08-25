@@ -2679,7 +2679,6 @@ en:
             employer_city: City
             employer_ein: 'Box b: Employer Identification Number (EIN)'
             employer_name: 'Box c: Employer Name'
-            employer_name_control_text: Employer Name Control Txt
             employer_state: State
             employer_street_address: Employer street address or P.O. box
             employer_street_address2: Apartment number (optional)
