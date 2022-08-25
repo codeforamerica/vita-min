@@ -2662,12 +2662,12 @@ en:
           done_adding: Finished adding all W-2s
           employee_info:
             confirm_employee_ssn: Confirm Employee SSN
+            employee_city: City
             employee_ssn: 'Box a: Employee SSN'
             employee_state: State
             employee_street_address: 'Box e: Employee street address or P.O. box'
             employee_street_address2: Apartment number (optional)
             employee_zip_code: Zip code
-            employee_city: City
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
             help_text: Your W-2 has lettered and numbered boxes. You will match and enter this information below.
             legal_first_name: Legal first name

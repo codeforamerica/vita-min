@@ -2633,12 +2633,12 @@ es:
           done_adding: Terminado de agregar todos los formularios W-2
           employee_info:
             confirm_employee_ssn: Confirmar el SSN del empleado
+            employee_city: Ciudad
             employee_ssn: 'Casilla a: SSN del empleado'
             employee_state: Estado
             employee_street_address: 'Casilla e: Dirección de la calle del empleado o P.O. caja'
             employee_street_address2: Número de apartamento (opcional)
             employee_zip_code: Código postal
-            employee_city: Ciudad
             federal_income_tax_withheld: 'Recuadro 2: Impuesto Federal sobre la Renta Retenido'
             help_text: Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación.
             legal_first_name: Primer nombre legal
