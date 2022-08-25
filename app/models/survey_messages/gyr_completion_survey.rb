@@ -7,12 +7,10 @@ module SurveyMessages
       Client.includes(:intake, tax_returns: :tax_return_transitions)
         .where(SENT_AT_COLUMN => nil)
         .where(intake: { type: "Intake::GyrIntake" })
+        .where.not(id: Client.has_active_tax_returns.select(:id))
         .where(
           tax_returns: {
-            service_type: "online_intake",
             tax_return_transitions: TaxReturnTransition
-              .where(to_state: RELEVANT_STATES)
-              .where(most_recent: true)
               .where(created_at: (now - 30.days)...(now - 1.day))
           }
         )
