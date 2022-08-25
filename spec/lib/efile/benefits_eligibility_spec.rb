@@ -459,19 +459,8 @@ describe Efile::BenefitsEligibility do
       end
     end
 
-    context "when all the of the dependents tin types are SSN not valid for employment or ITN" do
+    context "when primary tin type is ssn but none of the dependents tin types' are" do
       let(:dependents) { [create(:qualifying_child, tin_type: "itin", ssn: "999-79-1234"), create(:qualifying_child, tin_type: "ssn_no_employment")] }
-      before do
-        intake.update(dependents: dependents)
-      end
-
-      it "returns false" do
-        expect(subject.qualified_for_eitc?).to eq false
-      end
-    end
-
-    context "when primary and at least one dependents' tin type is SSN" do
-      let(:dependents) { [build(:qualifying_child), build(:qualifying_child, tin_type: "ssn_no_employment")] }
       before do
         intake.update(dependents: dependents)
       end
