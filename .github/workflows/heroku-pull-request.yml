@@ -26,7 +26,7 @@ jobs:
 
       - name: Create Heroku app
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund --stack heroku-20
 
       - name: Save app name and PR number as heroku environment variable
         if: github.event.action == 'opened' || github.event.action == 'reopened'
