@@ -1642,6 +1642,7 @@ es:
     alpha: Solo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
+    ein: El EIN debe ser un número de 9 dígitos.
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
@@ -1657,6 +1658,7 @@ es:
     ssn: Por favor, ingrese un número de seguro social válido.
     urbanization: Solo se aceptan números del 0 al 9, letras A-Z y a-z, espacios y guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
+    zip_code_with_optional_extra_digits: Ingrese un código postal válido de 5 dígitos más 4 o 7 dígitos opcionales.
   verification_code_mailer:
     no_match:
       body_html: |
@@ -2636,7 +2638,7 @@ es:
             employee_street_address: 'Casilla e: Dirección de la calle del empleado o P.O. caja'
             employee_street_address2: Número de apartamento (opcional)
             employee_zip_code: Código postal
-            employer_city: Ciudad
+            employee_city: Ciudad
             federal_income_tax_withheld: 'Recuadro 2: Impuesto Federal sobre la Renta Retenido'
             help_text: Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación.
             legal_first_name: Primer nombre legal
