@@ -2042,8 +2042,6 @@ es:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
           spouse_prior_year_agi: 'Los Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year} de su cónyuge'
-        confirm_w2s:
-          title: Comparta la información de su W-2.
         contact_preference:
           body: Le enviaremos un código para verificar su información de contacto y así poder enviarle información actualizada sobre su declaración de impuestos. ¡Por favor, seleccione la opción que mejor prefiera!
           email: Envíenme correos electrónicos
