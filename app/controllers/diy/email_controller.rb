@@ -1,18 +1,18 @@
 module Diy
-  class DiyIntakesController < ApplicationController
+  class EmailController < ApplicationController
     before_action :redirect_in_offseason
 
-    def new
+    def edit
       @diy_intake = DiyIntake.new
     end
 
-    def create
+    def update
       @diy_intake = DiyIntake.new(create_params)
 
-      return render :new unless @diy_intake.save
+      return render :edit unless @diy_intake.save
 
       session[:diy_intake_id] = @diy_intake.id
-      redirect_to(diy_tax_slayer_path)
+      redirect_to(diy_continue_to_fsa_path)
     end
 
     private

@@ -1,15 +1,15 @@
 require "rails_helper"
 
-RSpec.describe Diy::DiyIntakesController do
-  describe "#new" do
+RSpec.describe Diy::EmailController do
+  describe "#edit" do
     it "is 200 OK 👍" do
-      get :new
+      get :edit
 
       expect(response).to be_ok
     end
   end
 
-  describe "#create" do
+  describe "#update" do
     context "with a valid pair of emails" do
       let(:params) do
         {
@@ -22,7 +22,7 @@ RSpec.describe Diy::DiyIntakesController do
 
       it "creates a new diy intake and stores the id in the session" do
         expect do
-          post :create, params: params
+          post :update, params: params
         end.to change(DiyIntake, :count).by(1)
 
         diy_intake = DiyIntake.last
@@ -30,9 +30,9 @@ RSpec.describe Diy::DiyIntakesController do
       end
 
       it "redirects to the tax slayer link page" do
-        post :create, params: params
+        post :update, params: params
 
-        expect(response).to redirect_to diy_tax_slayer_path
+        expect(response).to redirect_to diy_continue_to_fsa_path
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Diy::DiyIntakesController do
 
       it "returns 200 and doesn't make a diy intake record" do
         expect do
-          post :create, params: params
+          post :update, params: params
         end.not_to change(DiyIntake, :count)
 
         expect(response).to be_ok

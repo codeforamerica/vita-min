@@ -72,6 +72,18 @@ RSpec.describe FlowsController do
 
         expect(response.body).to have_content('GetYourRefund Flow')
       end
+
+      context "when on the ctc hostname" do
+        before do
+          @request.host = MultiTenantService.new(:ctc).host
+        end
+
+        it "redirects to the gyr hostname" do
+          get :show, params: { id: :gyr }
+
+          expect(response).to redirect_to(flow_url(id: :gyr, host: MultiTenantService.new(:gyr).host))
+        end
+      end
     end
 
     context 'for the ctc flow' do

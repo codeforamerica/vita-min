@@ -104,11 +104,17 @@ Rails.application.routes.draw do
         get "/confirmation", to: "signups#confirmation", on: :collection
       end
 
-      namespace :diy do
-        get "/file-yourself", to: "file_yourself#edit"
-        get "/email", to: "diy_intakes#new"
-        post "/email", to: "diy_intakes#create"
-        get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
+      DiyNavigation.controllers.uniq.each do |controller_class|
+        match "/#{controller_class.controller_path}",
+              action: :edit,
+              controller: controller_class.controller_path,
+              via: :get
+        if controller_class.method_defined?(:update)
+          match "/#{controller_class.controller_path}",
+                action: :update,
+                controller: controller_class.controller_path,
+                via: :put
+        end
       end
       unless Rails.env.production?
         get "/pending", to: "public_pages#pending"
@@ -432,7 +438,6 @@ Rails.application.routes.draw do
           patch "verification", to: "verification_attempts#update", as: "update_verification_attempt"
           delete "verification-photo/:id", to: "verification_attempts#destroy", as: "destroy_verification_attempt_photo"
           get "paper-file", to: 'verification_attempts#paper_file', as: "verification_attempt_paper_file"
-
 
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member

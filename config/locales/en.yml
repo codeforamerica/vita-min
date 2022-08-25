@@ -74,8 +74,18 @@ en:
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
   diy:
-    diy_intakes:
-      new:
+    continue_to_fsa:
+      edit:
+        continue_to_tax_slayer: Continue to TaxSlayer
+        guide_html: See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at FileMyself@getyourrefund.org
+        steps:
+          description:
+          - To start filing, create a login in TaxSlayer.
+          - Do not click 'back' or navigate away from the TaxSlayer page.
+          - Double check your spelling.
+        title: File taxes on your own!
+    email:
+      edit:
         title: To access this site, please provide your e-mail address.
     file_yourself:
       edit:
@@ -89,16 +99,6 @@ en:
           - You need a quick option
           header: 'This is the right option for you if:'
         title: File your taxes yourself!
-    tax_slayer:
-      show:
-        continue_to_tax_slayer: Continue to TaxSlayer
-        guide_html: See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at FileMyself@getyourrefund.org
-        steps:
-          description:
-          - To start filing, create a login in TaxSlayer.
-          - Do not click 'back' or navigate away from the TaxSlayer page.
-          - Double check your spelling.
-        title: File taxes on your own!
   documents:
     documents_help:
       show:

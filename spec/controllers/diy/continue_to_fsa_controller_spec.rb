@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe Diy::TaxSlayerController do
-  describe "#show" do
+RSpec.describe Diy::ContinueToFsaController do
+  describe "#edit" do
     let(:diy_intake_id) { 4 }
 
     before do
@@ -10,7 +10,7 @@ RSpec.describe Diy::TaxSlayerController do
 
     context "with a diy intake id in the session" do
       it "returns 200 OK" do
-        get :show
+        get :edit
 
         expect(response).to be_ok
       end
@@ -20,7 +20,7 @@ RSpec.describe Diy::TaxSlayerController do
       let(:diy_intake_id) { nil }
 
       it "redirects to file yourself page" do
-        get :show
+        get :edit
 
         expect(response).to redirect_to diy_file_yourself_path
       end
@@ -33,7 +33,7 @@ RSpec.describe Diy::TaxSlayerController do
         end
 
         it "shows the right TS link" do
-          get :show
+          get :edit
 
           expect(assigns(:taxslayer_link)).to eq "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2021&sidn=34092122"
         end
@@ -45,7 +45,7 @@ RSpec.describe Diy::TaxSlayerController do
         end
 
         it "shows the right TS link" do
-          get :show
+          get :edit
 
           expect(assigns(:taxslayer_link)).to eq "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2021&sidn=31096682"
         end
@@ -57,7 +57,7 @@ RSpec.describe Diy::TaxSlayerController do
         end
 
         it "shows the normal taxslayer link" do
-          get :show
+          get :edit
 
           expect(assigns(:taxslayer_link)).to eq "https://example.com/taxslayer"
         end

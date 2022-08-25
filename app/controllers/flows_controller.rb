@@ -1,7 +1,8 @@
 class FlowsController < ApplicationController
-  FLOW_CONFIG = {
-    gyr: { emoji: "💵", name: "GetYourRefund Flow" },
-    ctc: { emoji: "👶", name: "CTC Flow" },
+  FLOW_CONFIGS = {
+    gyr: { emoji: "💵", name: "GetYourRefund Flow", host: :gyr },
+    ctc: { emoji: "👶", name: "CTC Flow", host: :ctc },
+    diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
   }
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
@@ -10,11 +11,11 @@ class FlowsController < ApplicationController
 
   def index
     @page_title = 'GetYourRefund Flows'
-    @flow_config = FLOW_CONFIG
+    @flow_configs = FLOW_CONFIGS
   end
 
   def generate
-    unless FLOW_CONFIG.keys.map(&:to_s).include?(params[:type])
+    unless FLOW_CONFIGS.keys.map(&:to_s).include?(params[:type])
       raise ActionController::RoutingError.new('Not Found')
     end
 
@@ -33,16 +34,23 @@ class FlowsController < ApplicationController
   end
 
   def show
-    unless FLOW_CONFIG.keys.map(&:to_s).include?(params[:id])
-      raise ActionController::RoutingError.new('Not Found')
-    end
+    flow_config = FLOW_CONFIGS[params[:id].to_sym]
+    raise ActionController::RoutingError.new('Not Found') if flow_config.nil?
 
-    if params[:id] == 'ctc' && (MultiTenantService.new(:ctc).host != request.host)
-      return redirect_to flow_url(id: :ctc, host: MultiTenantService.new(:ctc).host)
+    on_ctc_hostname = request.host == MultiTenantService.new(:ctc).host
+    if on_ctc_hostname
+      if flow_config[:host] == :gyr
+        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:gyr).host))
+      end
+    else
+      if flow_config[:host] == :ctc
+        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:ctc).host))
+      end
     end
 
     type = params[:id].to_sym
-    @page_title = "#{FLOW_CONFIG[type][:emoji]} #{FLOW_CONFIG[type][:name]}"
+    @page_title = "#{flow_config[:emoji]} #{flow_config[:name]}"
+
     @sample_types = SAMPLE_GENERATOR_TYPES[type]
     @flow_params = FlowParams.for(type, self)
     respond_to do |format|
@@ -69,24 +77,32 @@ class FlowsController < ApplicationController
     attr_reader :form
 
     def self.for(type, controller)
-      if type == :gyr
+      case type
+      when :gyr
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
           controller_list: GyrQuestionNavigation::FLOW,
           form: SampleGyrIntakeGenerator.new.form
         )
-      elsif type == :ctc
+      when :ctc
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::CtcIntake) ? controller.current_intake : nil,
           controller_list: CtcQuestionNavigation::FLOW,
           form: SampleCtcIntakeGenerator.new.form
         )
+      when :diy
+        FlowParams.new(
+          controller: controller,
+          reference_object: nil,
+          controller_list: DiyNavigation::FLOW,
+          form: nil
+        )
       end
     end
 
-    def initialize(controller:, reference_object:, controller_list:, form: nil)
+    def initialize(controller:, reference_object:, controller_list:, form:)
       @reference_object = reference_object
       @controllers = DecoratedControllerList.new(
         controller_list,

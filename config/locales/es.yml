@@ -74,8 +74,18 @@ es:
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
   diy:
-    diy_intakes:
-      new:
+    continue_to_fsa:
+      edit:
+        continue_to_tax_slayer: Continuar con TaxSlayer
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene un dificultades, use la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
+        steps:
+          description:
+          - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
+          - No haga clic en 'atrás' ni navegue fuera de la página TaxSlayer.
+          - Revisa su ortografía.
+        title: "¡Declare impuestos por su cuenta!"
+    email:
+      edit:
         title: Para acceder a este sitio, proporcione su dirección de correo electrónico.
     file_yourself:
       edit:
@@ -89,16 +99,6 @@ es:
           - Necesita una solución rápida
           header: 'Esta es la opción adecuada para usted si:'
         title: "¡Declare aquí sus impuestos usted mismo!"
-    tax_slayer:
-      show:
-        continue_to_tax_slayer: Continuar con TaxSlayer
-        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene un dificultades, use la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
-        steps:
-          description:
-          - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
-          - No haga clic en 'atrás' ni navegue fuera de la página TaxSlayer.
-          - Revisa su ortografía.
-        title: "¡Declare impuestos por su cuenta!"
   documents:
     documents_help:
       show:
