@@ -40,9 +40,9 @@ RSpec.describe "offseason routes", type: :request do
         end
       end
 
-      context "/diy/file-yourself" do
+      context "/diy/file_yourself" do
         it "redirects home" do
-          get "/diy/file-yourself"
+          get "/diy/file_yourself"
           expect(response).to redirect_to root_path
         end
       end
@@ -56,7 +56,7 @@ RSpec.describe "offseason routes", type: :request do
 
       context "post to /diy routes" do
         it "redirects home" do
-          post "/diy/email"
+          put "/diy/email"
           expect(response).to redirect_to root_path
         end
       end
