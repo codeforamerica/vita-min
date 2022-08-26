@@ -5,9 +5,9 @@ class InitSchema < ActiveRecord::Migration[6.0]
     enable_extension "postgis"
     create_table "access_logs" do |t|
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.inet "ip_address"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.string "user_agent", null: false
       t.bigint "user_id", null: false
       t.index ["client_id"], name: "index_access_logs_on_client_id"
@@ -33,34 +33,34 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
     end
     create_table "admin_roles" do |t|
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", null: false, precision: 6
+      t.datetime "updated_at", null: false, precision: 6
     end
     create_table "anonymized_diy_intake_csv_extracts" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.integer "record_count"
       t.datetime "run_at", precision: nil
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
     end
     create_table "anonymized_intake_csv_extracts" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.integer "record_count"
       t.datetime "run_at", precision: nil
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
     end
     create_table "clients" do |t|
       t.datetime "attention_needed_since", precision: nil
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.datetime "last_incoming_interaction_at", precision: nil
       t.datetime "last_interaction_at", precision: nil
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "vita_partner_id"
       t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
     end
     create_table "coalitions" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "name", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.index ["name"], name: "index_coalitions_on_name", unique: true
     end
     create_table "delayed_jobs" do |t|
@@ -94,7 +94,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["intake_id"], name: "index_dependents_on_intake_id"
     end
     create_table "diy_intakes" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "email_address"
       t.string "locale"
       t.string "preferred_name"
@@ -104,7 +104,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.string "state_of_residence"
       t.bigint "ticket_id"
       t.string "token"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.string "visitor_id"
       t.index ["token"], name: "index_diy_intakes_on_token", unique: true
     end
@@ -125,9 +125,9 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["intake_id"], name: "index_documents_on_intake_id"
     end
     create_table "documents_requests" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.bigint "intake_id"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
     end
     create_table "incoming_emails" do |t|
@@ -135,7 +135,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.string "body_html"
       t.string "body_plain", null: false
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "from", null: false
       t.string "message_id"
       t.string "received"
@@ -147,17 +147,17 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.string "stripped_text"
       t.string "subject"
       t.string "to", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.string "user_agent"
       t.index ["client_id"], name: "index_incoming_emails_on_client_id"
     end
     create_table "incoming_text_messages" do |t|
       t.string "body", null: false
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "from_phone_number", null: false
       t.datetime "received_at", precision: nil, null: false
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
     end
     create_table "intakes" do |t|
@@ -344,28 +344,28 @@ class InitSchema < ActiveRecord::Migration[6.0]
     create_table "notes" do |t|
       t.text "body"
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", null: false, precision: 6
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "user_id", null: false
       t.index ["client_id"], name: "index_notes_on_client_id"
       t.index ["user_id"], name: "index_notes_on_user_id"
     end
     create_table "organization_lead_roles" do |t|
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", null: false, precision: 6
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "vita_partner_id", null: false
       t.index ["vita_partner_id"], name: "index_organization_lead_roles_on_vita_partner_id"
     end
     create_table "outbound_calls" do |t|
       t.bigint "client_id"
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "from_phone_number", null: false
       t.text "note"
       t.string "to_phone_number", null: false
       t.integer "twilio_call_duration"
       t.string "twilio_sid"
       t.string "twilio_status"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "user_id"
       t.index ["client_id"], name: "index_outbound_calls_on_client_id"
       t.index ["user_id"], name: "index_outbound_calls_on_user_id"
@@ -373,11 +373,11 @@ class InitSchema < ActiveRecord::Migration[6.0]
     create_table "outgoing_emails" do |t|
       t.string "body", null: false
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.datetime "sent_at", precision: nil, null: false
       t.string "subject", null: false
       t.string "to", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "user_id"
       t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
       t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
@@ -385,12 +385,12 @@ class InitSchema < ActiveRecord::Migration[6.0]
     create_table "outgoing_text_messages" do |t|
       t.string "body", null: false
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.datetime "sent_at", precision: nil, null: false
       t.string "to_phone_number", null: false
       t.string "twilio_sid"
       t.string "twilio_status"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "user_id"
       t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
       t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
@@ -403,17 +403,17 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.datetime "updated_at", precision: nil, null: false
     end
     create_table "signups" do |t|
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "email_address"
       t.string "name"
       t.string "phone_number"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.string "zip_code"
     end
     create_table "source_parameters" do |t|
       t.string "code"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", null: false, precision: 6
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "vita_partner_id", null: false
       t.index ["code"], name: "index_source_parameters_on_code", unique: true
       t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
@@ -443,8 +443,8 @@ class InitSchema < ActiveRecord::Migration[6.0]
     create_table "system_notes" do |t|
       t.text "body"
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
+      t.datetime "created_at", null: false, precision: 6
+      t.datetime "updated_at", null: false, precision: 6
       t.bigint "user_id"
       t.index ["client_id"], name: "index_system_notes_on_client_id"
       t.index ["user_id"], name: "index_system_notes_on_user_id"
@@ -453,11 +453,11 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.bigint "assigned_user_id"
       t.integer "certification_level"
       t.bigint "client_id", null: false
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.boolean "is_hsa"
       t.integer "service_type", default: 0
       t.integer "status", default: 100, null: false
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.integer "year", null: false
       t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
       t.index ["client_id"], name: "index_tax_returns_on_client_id"
@@ -465,7 +465,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
     end
     create_table "users" do |t|
       t.boolean "active"
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.datetime "current_sign_in_at", precision: nil
       t.string "current_sign_in_ip"
       t.string "email", null: false
@@ -497,7 +497,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.string "timezone", default: "America/New_York", null: false
       t.boolean "two_factor_auth_enabled"
       t.string "uid"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.boolean "verified"
       t.bigint "zendesk_user_id"
       t.index ["email"], name: "index_users_on_email", unique: true
@@ -517,12 +517,12 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.boolean "accepts_overflow", default: false
       t.boolean "archived", default: false
       t.bigint "coalition_id"
-      t.datetime "created_at", null: false
+      t.datetime "created_at", null: false, precision: 6
       t.string "logo_path"
       t.string "name", null: false
       t.bigint "parent_organization_id"
       t.string "source_parameter"
-      t.datetime "updated_at", null: false
+      t.datetime "updated_at", null: false, precision: 6
       t.integer "weekly_capacity_limit"
       t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
       t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
