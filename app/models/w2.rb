@@ -37,4 +37,8 @@ class W2 < ApplicationRecord
   belongs_to :intake
 
   encrypts :employee_ssn
+
+  before_validation do
+    self.employee_ssn = self.employee_ssn.remove(/\D/) if employee_ssn_changed? && self.employee_ssn
+  end
 end

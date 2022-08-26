@@ -2687,7 +2687,9 @@ en:
             employer_zip_code: Zip code
             standard_or_non_standard_code: Standard or Non-Standard Code
             title: Great! Let’s start with reading your W-2.
-          help_text: Your W-2 is an official tax form given to you by your employer. Sharing your W-2 [and your spouse's W-2] is required to collect the Earned Income Tax Credit.
+          help_text:
+            one: Your W-2 is an official tax form given to you by your employer. Sharing your W-2 is required to collect the Earned Income Tax Credit.
+            other: Your W-2 is an official tax form given to you by your employer. Sharing your W-2 and your spouse's W-2 is required to collect the Earned Income Tax Credit.
           info_box:
             list_item: You must share all of your W-2s for this return to avoid delays with your return.
             title: 'Requirement:'

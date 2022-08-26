@@ -5,7 +5,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t('views.ctc.questions.w2s.help_text') %></p>
+    <p><%= t('views.ctc.questions.w2s.help_text', count: current_intake.filing_jointly? ? 2 : 1) %></p>
     <div class="info-box">
       <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
       <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.info_box.title") %></p>
@@ -25,7 +25,7 @@
     <% if current_intake.w2s.any? %>
       <div class="review-box spacing-below-35">
         <% current_intake.w2s.each do |w2| %>
-          <div class="review-box__space-between spacing-below-25">
+          <div class="review-box__space-between review-box__list-item">
             <div class="review-box__person">
               <div>
                 <%= image_tag("paper.svg", alt: "", style: "margin-right: 1em;") %>

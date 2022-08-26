@@ -116,6 +116,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'
+
+    expect(W2.last.employee_ssn).to eq '888223333'
   end
 
   scenario "a client who does not qualify for the EITC" do

@@ -2658,7 +2658,9 @@ es:
             employer_zip_code: Código postal
             standard_or_non_standard_code: Código estándar o no estándar
             title: "¡Excelente! Comencemos con la lectura de su W-2."
-          help_text: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 [y el W-2 de su cónyuge] para cobrar el Crédito Tributario por Ingreso del Trabajo.
+          help_text:
+            one: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 para cobrar el Crédito Tributario por Ingreso del Trabajo.
+            other: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 y el W-2 de su cónyuge para cobrar el Crédito Tributario por Ingreso del Trabajo.
           info_box:
             list_item: Debe compartir todos sus formularios W-2 para esta devolución para evitar demoras con su devolución.
             title: 'Requisito:'
