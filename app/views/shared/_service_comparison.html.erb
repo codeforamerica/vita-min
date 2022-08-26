@@ -27,7 +27,7 @@
               <div class="service__cta">
                 <% if open_for_ctc_intake? %>
                   <%= link_to t("views.shared.service_comparison.services.ctc.cta.open"),
-                              url_for(host: MultiTenantService.new(:ctc).host, source: "gyractivechoice"),
+                              root_with_source_url(host: MultiTenantService.new(:ctc).host, source: "gyractivechoice"),
                               class: "button", "data-track-click": "service-comparison-ctc" %>
                 <% else %>
                   <%= link_to t("views.shared.service_comparison.services.ctc.cta.closed"),
