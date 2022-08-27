@@ -12,6 +12,7 @@ RSpec.describe SurveyMessages::GyrCompletionSurvey do
     let(:too_stale_dont_send_time) { expected_send_time + 31.days }
 
     before do
+      client.tax_returns.last.last_transition.update(created_at: 2.days.ago)
       client.tax_returns.last.transition_to(status)
     end
 
