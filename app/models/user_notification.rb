@@ -27,10 +27,11 @@ class UserNotification < ApplicationRecord
     "BulkClientNote",
     "BulkClientMessage",
     "BulkTaxReturnUpdate",
-    "SystemNote::DocumentHelp"
+    "SystemNote::DocumentHelp",
+    "Delayed::Job",
   ].freeze
 
-  belongs_to :notifiable, polymorphic: true
+  belongs_to :notifiable, polymorphic: true, optional: true
   belongs_to :user
   scope :unread, -> { where(read: false) }
   validates :notifiable_type, presence: true, inclusion: { in: ALLOWED_NOTIFIABLE_TYPES }
