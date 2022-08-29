@@ -24,5 +24,5 @@ Rails.application.configure do
   config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-03-01 09:00:00")
   config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
 
-  config.include_optimizely = true
+  config.optimizely_available = true
 end
