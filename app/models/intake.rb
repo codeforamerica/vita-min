@@ -288,6 +288,7 @@ class Intake < ApplicationRecord
 
   has_many :documents, dependent: :destroy
   has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy
+  has_many :w2s, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy
   has_one :triage
   belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
@@ -575,7 +576,7 @@ class Intake < ApplicationRecord
       SQL
   end
 
-  def new_dependent_token
+  def new_record_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
   end

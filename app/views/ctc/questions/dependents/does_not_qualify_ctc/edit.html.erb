@@ -19,7 +19,7 @@
   <div class="form-card--yes-no spacing-above-25">
     <div class="options-wrapper">
       <% if puerto_rico_filing %>
-        <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered spacing-above-35" do %>
+        <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token), class: "button button--wide text--centered spacing-above-35" do %>
           <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.puerto_rico.affirmative") %>
         <% end %>
         <%= link_to(current_intake.dependents.count(&:qualifying_ctc?).zero? ? Ctc::Questions::NoDependentsController.to_path_helper : next_path, class: "button button--wide text--centered") do %>
@@ -27,7 +27,7 @@
         <% end %>
       <% else %>
         <div class="yes-no-buttons">
-          <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--icon button--icon--centered button--med-wide" do %>
+          <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token), class: "button button--icon button--icon--centered button--med-wide" do %>
             <%= image_tag("checkmark.svg", alt: "") %>
             <%= t("general.affirmative") %>
           <% end %>

@@ -17,10 +17,10 @@ module ControllerNavigation
     @current_controller = current_controller
   end
 
-  def next
-    return unless index
+  def next(controller_class = nil)
+    return unless index(controller_class)
 
-    controllers_until_end = controllers[index + 1..-1]
+    controllers_until_end = controllers[index(controller_class) + 1..-1]
     seek(controllers_until_end)
   end
 
@@ -33,8 +33,9 @@ module ControllerNavigation
 
   private
 
-  def index
-    controllers.index(current_controller.class)
+  def index(controller_class = nil)
+    controller_class ||= current_controller.class
+    controllers.index(controller_class)
   end
 
   def seek(list)

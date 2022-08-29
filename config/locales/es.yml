@@ -1642,9 +1642,11 @@ es:
     alpha: Solo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
+    ein: El EIN debe ser un número de 9 dígitos.
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
+    irs_street_address: Solo se aceptan números del 0 al 9, letras A-Z y a-z, guiones, barras y espacios simples.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
@@ -1656,6 +1658,7 @@ es:
     ssn: Por favor, ingrese un número de seguro social válido.
     urbanization: Solo se aceptan números del 0 al 9, letras A-Z y a-z, espacios y guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
+    zip_code_with_optional_extra_digits: Ingrese un código postal válido de 5 dígitos más 4 o 7 dígitos opcionales.
   verification_code_mailer:
     no_match:
       body_html: |
@@ -2625,6 +2628,49 @@ es:
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
+        w2s:
+          add: Agregar un W-2
+          done_adding: Terminado de agregar todos los formularios W-2
+          employee_info:
+            confirm_employee_ssn: Confirmar el SSN del empleado
+            employee_city: Ciudad
+            employee_ssn: 'Casilla a: SSN del empleado'
+            employee_state: Estado
+            employee_street_address: 'Casilla e: Dirección de la calle del empleado o P.O. caja'
+            employee_street_address2: Número de apartamento (opcional)
+            employee_zip_code: Código postal
+            federal_income_tax_withheld: 'Recuadro 2: Impuesto Federal sobre la Renta Retenido'
+            help_text: Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación.
+            legal_first_name: Primer nombre legal
+            legal_last_name: Apellido legal
+            legal_middle_initial: Inicial legal del medio (opcional)
+            suffix: Sufijo (opcional)
+            title: "¡Excelente! Comencemos con la lectura de su W-2."
+            wages_amount: 'Casilla 1: Importe del salario'
+          employer_info:
+            add: Agregar W-2
+            employer_city: Ciudad
+            employer_ein: 'Casilla b: Número de Identificación Patronal (EIN)'
+            employer_name: 'Casilla c: Nombre del empleador'
+            employer_state: Estado
+            employer_street_address: Dirección de la calle o P.O. del empleador caja
+            employer_street_address2: Número de apartamento (opcional)
+            employer_zip_code: Código postal
+            standard_or_non_standard_code: Código estándar o no estándar
+            title: "¡Excelente! Comencemos con la lectura de su W-2."
+          help_text:
+            one: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 para cobrar el Crédito Tributario por Ingreso del Trabajo.
+            other: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 y el W-2 de su cónyuge para cobrar el Crédito Tributario por Ingreso del Trabajo.
+          info_box:
+            list_item: Debe compartir todos sus formularios W-2 para esta devolución para evitar demoras con su devolución.
+            title: 'Requisito:'
+          reveal:
+            content:
+              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunas medidas para asegurarse de obtenerlo. Por ley, su empleador debe enviarle una copia de su W-2 antes del 31 de enero del año fiscal en curso.
+              p2: Un buen primer paso sería comunicarse directamente con su empleador y asegurarse de que toda la información personal, como su dirección postal, esté actualizada. También puede preguntarles si los formularios W-2 se han enviado por correo o cuándo prevén enviarlos. Puede ser que tu empleador te lo haya enviado el último día, 31 de enero, que luego llegará a principios de febrero. Otra opción sería acceder a su W-2 en línea. La mayoría de los empleadores brindan acceso en línea a su W-2 a través de un portal para empleados. Vuelva a verificar con su empleador si le han dado información sobre cómo iniciar sesión en dicho portal.
+            title: "¿Qué pasa si no he recibido mi W-2?"
+          title: Comparta la información de su W-2.
+          wages: Salarios
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:

@@ -103,6 +103,14 @@
     margin-bottom: .5rem;
   }
 
+  &__list-item {
+    margin-bottom: 25px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .form-group {
     margin-bottom: 0;
   }

@@ -8,7 +8,7 @@
     <div class="spacing-above-0">
       <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.ctc_due') %></strong></p>
       <p class="spacing-below-15"><%= number_to_currency(@ctc_amount) %></p>
-      <%= link_to t('views.ctc.questions.confirm_payment.ctc_0_due_link'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "link" if @ctc_amount.zero? %>
+      <%= link_to t('views.ctc.questions.confirm_payment.ctc_0_due_link'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_record_token), class: "link" if @ctc_amount.zero? %>
     </div>
     <% unless current_intake.puerto_rico_filing? %>
       <div class="spacing-above-35">

@@ -80,7 +80,44 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("p", text:I18n.t('views.ctc.questions.investment_income.help_text'))
     click_on I18n.t('general.negative')
 
-    fill_in_dependents
+    # no dependents
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+    click_on I18n.t('views.ctc.questions.had_dependents.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
+    click_on I18n.t('general.continue')
+    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t('views.ctc.questions.w2s.add')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_first_name'), with: 'sam'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_last_name'), with: 'eagley'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_ssn'), with: '888-22-3333'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.confirm_employee_ssn'), with: '888-22-3333'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: '123.45'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
+    select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'lumen inc'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
+    select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
+    select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
+    click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
+    expect(page).to have_text 'lumen inc'
+
+    expect(W2.last.employee_ssn).to eq '888223333'
   end
 
   scenario "a client who does not qualify for the EITC" do
@@ -100,6 +137,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.continue')
     expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_qualifiers.title', current_tax_year: current_tax_year))
     check I18n.t('general.none_of_the_above')
     click_on I18n.t('general.continue')

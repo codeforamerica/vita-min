@@ -59,6 +59,12 @@ class CtcQuestionNavigation
     # Notice of qualification for EITC
     Ctc::Questions::EitcOffboardingController,
 
+    # W2 flow for EITC
+    Ctc::Questions::W2sController,
+    Ctc::Questions::W2s::EmployeeInfoController,
+    Ctc::Questions::W2s::EmployerInfoController,
+    Ctc::Questions::ConfirmW2sController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
