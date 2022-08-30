@@ -70,20 +70,6 @@ class ClientMessagingService
       send_text_message(**args)
     end
 
-    def send_message_to_all_opted_in_contact_methods(client:, user:, body:, subject: nil, locale: nil, tax_return: nil)
-      message_records = {
-        outgoing_email: nil,
-        outgoing_text_message: nil,
-      }
-      args = { client: client, user: user, body: body }
-      args[:tax_return] = tax_return if tax_return.present?
-      args[:locale] = locale if locale.present?
-      # returns nil unless client opted in to contact method
-      message_records[:outgoing_email] = send_email(**args.merge(subject: subject))
-      message_records[:outgoing_text_message] = send_text_message(**args)
-      message_records
-    end
-
     def send_system_message_to_all_opted_in_contact_methods(client:, message:, tax_return: nil, locale: nil, body_args: {})
       SendAutomatedMessage.new(
         client: client,
@@ -116,17 +102,13 @@ class ClientMessagingService
         # we normalize nil to "en" in locale counts and so we have to check if intake has nil locale for "en"
         locale_on_intake = locale == "en" ? [locale, nil] : locale
         tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale_on_intake)).find_each do |client|
-          message_records = ClientMessagingService.send_message_to_all_opted_in_contact_methods(
-              client: client, user: sender, body: content[:body], subject: content[:subject]
-          )
+          args = { client: client, user: sender, body: content[:body] }
 
-          if message_records[:outgoing_text_message].present?
-            bulk_client_message.outgoing_text_messages << message_records[:outgoing_text_message]
-          end
+          outgoing_text_message = send_text_message(**args)
+          bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
 
-          if message_records[:outgoing_email].present?
-            bulk_client_message.outgoing_emails << message_records[:outgoing_email]
-          end
+          outgoing_email = send_email(**args.merge(subject: content[:subject]))
+          bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
         end
       end
       bulk_client_message
