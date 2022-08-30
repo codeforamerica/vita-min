@@ -19,4 +19,5 @@
 class BulkActionNotification < ApplicationRecord
   has_one :user_notification, as: :notifiable
   belongs_to :tax_return_selection
+  validates_presence_of :task_type
 end
