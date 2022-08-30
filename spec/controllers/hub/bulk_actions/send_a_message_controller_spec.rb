@@ -57,7 +57,9 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
           it "creates a Notification for BulkClientMessage" do
             expect do
               put :update, params: params
-            end.to change { UserNotification.where(notifiable_type: "BulkClientMessage").count }.by(1)
+            end.to change { UserNotification.where(notifiable_type: "BulkClientMessage").count }.by(1).and(
+              change { UserNotification.where(notifiable_type: "BulkActionNotification").count }.by(1)
+            )
 
             bulk_message_notification = UserNotification.where(notifiable_type: "BulkClientMessage").last
             expect(bulk_message_notification.user).to eq(user)

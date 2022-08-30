@@ -1,15 +1,18 @@
 class BulkActionJob < ApplicationJob
-  def perform(task:, user:, bulk_action_notification:, tax_return_selection:, form_params:)
+  def perform(task:, user:, tax_return_selection:, form_params:)
     ActiveRecord::Base.transaction do
+      @form = Hub::BulkActionForm.new(tax_return_selection, form_params)
+      @selection = tax_return_selection
+      @clients = tax_return_selection.clients.accessible_to_user(user)
       case task
       when :change_organization
-        @form = Hub::BulkActionForm.new(tax_return_selection, form_params)
-        @clients = tax_return_selection.clients.accessible_to_user(user)
         UpdateClientVitaPartnerService.new(clients: @clients, vita_partner_id: @form.vita_partner_id, change_initiated_by: user).update!
-        create_notes!(tax_return_selection, user)
-        create_change_org_notifications!(tax_return_selection, user, bulk_action_notification)
-        create_outgoing_messages!(tax_return_selection, user)
+        create_change_org_notifications!(tax_return_selection, user)
+      when :change_assignee_and_status
+        update_assignee_and_status!(user)
       end
+      create_notes!(tax_return_selection, user)
+      create_outgoing_messages!(tax_return_selection, user)
     end
   end
 
@@ -25,14 +28,14 @@ class BulkActionJob < ApplicationJob
     end
   end
 
-  def create_change_org_notifications!(tax_return_selection, user, notification)
+  def create_change_org_notifications!(tax_return_selection, user)
     vita_partner = VitaPartner.accessible_by(Ability.new(user)).find(@form.vita_partner_id)
     if vita_partner.present?
       bulk_update = BulkClientOrganizationUpdate.create!(
         tax_return_selection: tax_return_selection,
         vita_partner: vita_partner
       )
-      notification.update(notifiable: bulk_update, user: user)
+      UserNotification.create!(notifiable: bulk_update, user: user)
     end
   end
 
@@ -48,5 +51,38 @@ class BulkActionJob < ApplicationJob
         UserNotification.create!(notifiable: bulk_client_message, user: user)
       end
     end
+  end
+
+  def update_assignee_and_status!(user)
+    assignment_action =
+      case @form.assigned_user_id
+      when BulkTaxReturnUpdate::KEEP
+        BulkTaxReturnUpdate::KEEP
+      when BulkTaxReturnUpdate::REMOVE
+        BulkTaxReturnUpdate::REMOVE
+      else
+        BulkTaxReturnUpdate::UPDATE
+      end
+    status_action =
+      case @form.status
+      when BulkTaxReturnUpdate::KEEP
+        BulkTaxReturnUpdate::KEEP
+      else
+        BulkTaxReturnUpdate::UPDATE
+      end
+    @selection.tax_returns.find_each do |tax_return|
+      TaxReturnAssignmentService.new(tax_return: tax_return, assigned_user: @form.assigned_user, assigned_by: user).assign! unless assignment_action == BulkTaxReturnUpdate::KEEP
+      tax_return.transition_to!(@form.status) unless status_action == BulkTaxReturnUpdate::KEEP
+    end
+    bulk_update = BulkTaxReturnUpdate.create!(
+      tax_return_selection: @selection,
+      assigned_user: @form.assigned_user,
+      state: @form.status,
+      data: {
+        assigned_user: assignment_action,
+        status: status_action
+      }
+    )
+    UserNotification.create!(notifiable: bulk_update, user: user)
   end
 end

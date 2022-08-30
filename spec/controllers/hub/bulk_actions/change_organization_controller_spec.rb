@@ -53,9 +53,10 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           }.to change { selected_client.reload.vita_partner }.from(organization).to(new_vita_partner).and(
             change(BulkClientOrganizationUpdate, :count).by(1)
           ).and(
-            change(UserNotification, :count).by(1)
+            change(UserNotification, :count).by(2)
           )
 
+          expect(user.notifications.map(&:notifiable_type)).to match_array(["BulkActionNotification", "BulkClientOrganizationUpdate"])
           bulk_update = BulkClientOrganizationUpdate.last
           expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq user

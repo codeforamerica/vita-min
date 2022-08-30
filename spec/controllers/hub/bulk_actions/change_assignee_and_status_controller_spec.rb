@@ -79,9 +79,10 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(2)
+            change(UserNotification, :count).by(3)
           )
 
+          expect(team_member.notifications.map(&:notifiable_type)).to match_array(["BulkActionNotification", "BulkTaxReturnUpdate", "BulkClientMessage"])
           bulk_update = BulkTaxReturnUpdate.last
           expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq team_member
@@ -112,11 +113,11 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect(tax_return_3.current_state).to eq "review_signature_requested"
         end
 
-        it "does not create a notification and redirects to the notification page" do
+        it "does create a notification and redirects to the notification page" do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(1)
+            change(UserNotification, :count).by(2)
           )
           expect(response).to redirect_to hub_user_notifications_path
         end
@@ -145,7 +146,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(2)
+            change(UserNotification, :count).by(3)
           )
           expect(response).to redirect_to hub_user_notifications_path
         end
@@ -174,7 +175,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(2)
+            change(UserNotification, :count).by(3)
           )
 
           expect(response).to redirect_to hub_user_notifications_path

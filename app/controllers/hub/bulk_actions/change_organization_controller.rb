@@ -11,19 +11,22 @@ module Hub
 
         @new_vita_partner = @vita_partners.find(@form.vita_partner_id)
 
-        bulk_action_notification = UserNotification.create!(notifiable_type: "BulkClientOrganizationUpdate", user: current_user)
+        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @selection), user: current_user)
         BulkActionJob.new(
-          task: :change_organization,
+          task: task_type,
           user: current_user,
           tax_return_selection: @selection,
-          form_params: update_params,
-          bulk_action_notification: bulk_action_notification,
+          form_params: update_params
         ).perform_now
 
         redirect_to hub_user_notifications_path
       end
 
       private
+
+      def task_type
+        :change_organization
+      end
 
       def update_params
         params.require(:hub_bulk_action_form).permit(:vita_partner_id, :note_body, :message_body_en, :message_body_es)
