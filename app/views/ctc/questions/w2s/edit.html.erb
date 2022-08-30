@@ -2,7 +2,7 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
     <p><%= t('views.ctc.questions.w2s.help_text', count: current_intake.filing_jointly? ? 2 : 1) %></p>
@@ -41,12 +41,19 @@
       </div>
     <% end %>
 
-    <%= link_to Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: current_intake.new_record_token), class: "button button--wide text--centered" do %>
+    <%= f.button value: 'yes', name: 'ctc_w2s_form[had_w2s]', class: 'button button--wide text--centered', type: 'submit' do %>
       <%= image_tag("paper.svg", alt: "") %>
       <%= t('views.ctc.questions.w2s.add') %>
     <% end %>
+
+    <% if current_intake.w2s.none? %>
+      <%= f.button t("views.ctc.questions.w2s.dont_add_w2"), value: 'no', name: 'ctc_w2s_form[had_w2s]', class: 'button button--primary button--wide text--centered', type: 'submit' %>
+
+      <%= link_to t("views.ctc.questions.file_full_return.full_btn"), root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "getctc_W2"), class: "button button--primary button--wide text--centered" %>
+    <% end %>
+
     <% if current_intake.w2s.any? %>
-      <%= f.continue t("views.ctc.questions.w2s.done_adding") %>
+      <%= link_to t("views.ctc.questions.w2s.done_adding"), form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper, class: "button button--primary button--wide text--centered" %>
     <% end %>
   <% end %>
 <% end %>

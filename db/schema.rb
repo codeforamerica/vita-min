@@ -1090,6 +1090,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
     t.integer "had_tax_credit_disallowed", default: 0, null: false
     t.integer "had_tips", default: 0, null: false
     t.integer "had_unemployment_income", default: 0, null: false
+    t.integer "had_w2s", default: 0, null: false
     t.integer "had_wages", default: 0, null: false
     t.boolean "has_crypto_income", default: false
     t.integer "has_primary_ip_pin", default: 0, null: false

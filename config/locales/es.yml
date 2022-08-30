@@ -2631,6 +2631,7 @@ es:
         w2s:
           add: Agregar un W-2
           done_adding: Terminado de agregar todos los formularios W-2
+          dont_add_w2: No quiero añadir ningún ingreso
           employee_info:
             confirm_employee_ssn: Confirmar el SSN del empleado
             employee_city: Ciudad

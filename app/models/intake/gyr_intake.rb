@@ -94,6 +94,7 @@
 #  had_tax_credit_disallowed                            :integer          default("unfilled"), not null
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
+#  had_w2s                                              :integer          default(0), not null
 #  had_wages                                            :integer          default("unfilled"), not null
 #  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default(0), not null

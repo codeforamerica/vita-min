@@ -89,6 +89,7 @@ module Questions
     def form_navigation
       question_navigator.new(self)
     end
+    helper_method :form_navigation
 
     private
 

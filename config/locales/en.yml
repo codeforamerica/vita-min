@@ -2660,6 +2660,7 @@ en:
         w2s:
           add: Add a W-2
           done_adding: Finished adding all W-2s
+          dont_add_w2: I don't want to add any income
           employee_info:
             confirm_employee_ssn: Confirm Employee SSN
             employee_city: City
