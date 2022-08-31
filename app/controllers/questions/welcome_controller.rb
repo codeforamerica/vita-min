@@ -12,9 +12,5 @@ module Questions
     private
 
     def illustration_path; end
-
-    def form_class
-      NullForm
-    end
   end
 end
