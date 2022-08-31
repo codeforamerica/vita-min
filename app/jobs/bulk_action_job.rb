@@ -2,6 +2,7 @@ class BulkActionJob < ApplicationJob
   def perform(task:, user:, tax_return_selection:, form_params:)
     ActiveRecord::Base.transaction do
       @form = Hub::BulkActionForm.new(tax_return_selection, form_params)
+      raise ArgumentError unless @form.valid?
       @selection = tax_return_selection
       @clients = tax_return_selection.clients.accessible_to_user(user)
       case task

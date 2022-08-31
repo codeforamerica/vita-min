@@ -8,12 +8,12 @@ describe BulkActionJob do
     let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
     let(:email_address) { "client@example.com" }
     let(:params) { { message_body_en: english_message_body, message_body_es: spanish_message_body } }
+    let(:tax_return_selection) { create :tax_return_selection }
 
     context "when sending a message" do
       let(:task_type) { :any_task_type }
       let(:email) { "email@example.com" }
       let(:sms_phone_number) { "+14155551212" }
-      let(:tax_return_selection) { create :tax_return_selection }
 
       context "with a client needing an email & text" do
         let!(:selected_client) { create :client, intake: intake, tax_returns: [(build :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
@@ -62,6 +62,31 @@ describe BulkActionJob do
           bulk_client_message = bulk_message_notification.notifiable
           expect(bulk_client_message.outgoing_emails.count).to eq(1)
           expect(bulk_client_message.outgoing_text_messages.count).to eq(1)
+        end
+
+        context "when the intake locale is nil" do
+          let(:locale) { nil }
+
+          it "sends the message in English" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+
+            expect(ClientMessagingService).to have_received(:send_email).with(
+              body: english_message_body,
+              client: selected_client,
+              user: user,
+              subject: nil
+            )
+            expect(ClientMessagingService).to have_received(:send_text_message).with(
+              body: english_message_body,
+              client: selected_client,
+              user: user
+            )
+          end
         end
 
         context "with a client in Spanish" do
@@ -115,41 +140,57 @@ describe BulkActionJob do
             )
           end
         end
+
+        context "when the message for a locale is missing" do
+          let(:params) { { message_body_en: english_message_body } }
+          let(:locale) { "es" }
+
+          it "raises an error" do
+            expect do
+              described_class.perform_now(
+                task: task_type,
+                user: user,
+                tax_return_selection: tax_return_selection,
+                form_params: params
+              )
+            end.to raise_error(ArgumentError)
+          end
+        end
+      end
+    end
+
+    context "when creating a note" do
+      let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let(:note_body) { "An internal note with some text in it" }
+      let(:params) do
+        { note_body: note_body }
       end
 
-      context "when creating a note" do
-        let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-        let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-        let(:note_body) { "An internal note with some text in it" }
-        let(:params) do
-          { note_body: note_body }
-        end
-
-        it "saves a note and fires related after creation hooks" do
-          expect {
-            described_class.perform_now(
-              task: :any_task,
-              user: user,
-              tax_return_selection: tax_return_selection,
-              form_params: params
-            )
-          }.to change(Note, :count).by(2).and(
-            change { selected_client_1.reload.last_internal_or_outgoing_interaction_at }
-          ).and(
-            change(BulkClientNote, :count).by(1)
-          ).and(
-            change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
+      it "saves a note and fires related after creation hooks" do
+        expect {
+          described_class.perform_now(
+            task: :any_task,
+            user: user,
+            tax_return_selection: tax_return_selection,
+            form_params: params
           )
+        }.to change(Note, :count).by(2).and(
+          change { selected_client_1.reload.last_internal_or_outgoing_interaction_at }
+        ).and(
+          change(BulkClientNote, :count).by(1)
+        ).and(
+          change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
+        )
 
-          expect(selected_client_1.notes.first.body).to eq note_body
-          expect(selected_client_1.notes.first.user).to eq user
-          expect(selected_client_2.notes.first.body).to eq note_body
-          expect(selected_client_2.notes.first.user).to eq user
+        expect(selected_client_1.notes.first.body).to eq note_body
+        expect(selected_client_1.notes.first.user).to eq user
+        expect(selected_client_2.notes.first.body).to eq note_body
+        expect(selected_client_2.notes.first.user).to eq user
 
-          bulk_note = BulkClientNote.last
-          expect(bulk_note.tax_return_selection).to eq tax_return_selection
-          expect(bulk_note.user_notification.user).to eq user
-        end
+        bulk_note = BulkClientNote.last
+        expect(bulk_note.tax_return_selection).to eq tax_return_selection
+        expect(bulk_note.user_notification.user).to eq user
       end
     end
 

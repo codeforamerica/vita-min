@@ -524,56 +524,6 @@ RSpec.describe ClientMessagingService do
       end
       let!(:client_nil) { create :client, intake: create(:intake, locale: nil), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
 
-      context "without a subject line" do
-        it "sends messages to clients with the appropriate locales with nil subject" do
-          described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en }, es: { body: message_body_es })
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_es, user: user, body: message_body_es, subject: nil
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_es, user: user, body: message_body_es
-          )
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_en, user: user, body: message_body_en, subject: nil
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_en, user: user, body: message_body_en
-          )
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_nil, user: user, body: message_body_en, subject: nil
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_nil, user: user, body: message_body_en
-          )
-        end
-      end
-
-      context "with a subject line" do
-        let(:subject_en) { "Message subject" }
-        let(:subject_es) { "Línea de asunto" }
-        it "sends messages to clients with the appropriate locales with the subject" do
-          described_class.send_bulk_message(tax_return_selection, user, en: { body: message_body_en, subject: subject_en }, es: { body: message_body_es, subject: subject_es })
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_es, user: user, body: message_body_es, subject: subject_es
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_es, user: user, body: message_body_es
-          )
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_en, user: user, body: message_body_en, subject: subject_en
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_en, user: user, body: message_body_en
-          )
-          expect(ClientMessagingService).to have_received(:send_email).with(
-            client: client_nil, user: user, body: message_body_en, subject: subject_en
-          )
-          expect(ClientMessagingService).to have_received(:send_text_message).with(
-            client: client_nil, user: user, body: message_body_en
-          )
-        end
-      end
-
       context "with message records returned by send_message_to_all_opted_in_contact_methods" do
         let(:outgoing_text_message_1) { build :outgoing_text_message }
         let(:outgoing_text_message_2) { build :outgoing_text_message }

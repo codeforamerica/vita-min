@@ -88,12 +88,6 @@ class ClientMessagingService
     end
 
     def send_bulk_message(tax_return_selection, sender, content_by_locale)
-      locale_counts = tax_return_selection.clients.locale_counts
-      client_locales = locale_counts.keys.filter { |key| locale_counts[key].nonzero? }
-
-      present_message_bodies_by_locale = content_by_locale.keys.filter { |key| content_by_locale.dig(key, :body).present? }.map(&:to_s)
-      raise ArgumentError, "Missing message bodies for some client locales" unless client_locales.all? { |locale| present_message_bodies_by_locale.include?(locale) }
-
       bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
 
       tax_return_selection.clients.accessible_to_user(sender).find_each do |client|
