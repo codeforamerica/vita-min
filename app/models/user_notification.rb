@@ -31,7 +31,7 @@ class UserNotification < ApplicationRecord
     "SystemNote::DocumentHelp",
   ].freeze
 
-  belongs_to :notifiable, polymorphic: true, optional: true
+  belongs_to :notifiable, polymorphic: true
   belongs_to :user
   scope :unread, -> { where(read: false) }
   validates :notifiable_type, presence: true, inclusion: { in: ALLOWED_NOTIFIABLE_TYPES }

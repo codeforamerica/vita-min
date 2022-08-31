@@ -29,20 +29,6 @@ module Hub
       @assigned_user ||= User.find_by_id(assigned_user_id)
     end
 
-    def perform_later(task, user)
-      BulkActionJob.perform_later(**@form.stuff.merge(task: task, user: user))
-    end
-
-    def perform(task, user)
-      case task
-      when :change_organization
-        UpdateClientVitaPartnerService.new(clients: @clients, vita_partner_id: @form.vita_partner_id, change_initiated_by: current_user).update!
-        create_notes!
-        create_change_org_notifications!
-        create_outgoing_messages!
-      end
-    end
-
     private
 
     def set_default_message_body(locale)
