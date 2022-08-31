@@ -2,83 +2,100 @@ require "rails_helper"
 
 describe BulkActionJob do
   describe '#perform' do
-    let(:bulk_client_message) { create :bulk_client_message }
     let(:organization) { create :organization }
-    let(:tax_return_selection) { create :tax_return_selection }
     let(:user) { create :organization_lead_user, organization: organization }
     let(:english_message_body) { "I moved your case to a new org!" }
     let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
+    let(:email_address) { "client@example.com" }
     let(:params) { { message_body_en: english_message_body, message_body_es: spanish_message_body } }
-    before do
-      allow(ClientMessagingService).to receive(:send_bulk_message).and_return(bulk_client_message)
-    end
 
     context "when sending a message" do
-      it "calls the ClientMessagingService with the right arguments" do
-        described_class.perform_now(
-          task: :any_task,
-          user: user,
-          tax_return_selection: tax_return_selection,
-          form_params: params
-        )
+      let(:task_type) { :any_task_type }
+      let(:email) { "email@example.com" }
+      let(:sms_phone_number) { "+14155551212" }
+      let(:tax_return_selection) { create :tax_return_selection }
 
-        expect(ClientMessagingService).to have_received(:send_bulk_message).with(
-          tax_return_selection,
-          user,
-          en: { body: english_message_body },
-          es: { body: spanish_message_body },
-        )
-      end
+      context "with a client needing an email & text" do
+        let!(:selected_client) { create :client, intake: (build :intake, email_address: email, email_notification_opt_in: "yes", sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes"), tax_returns: [(build :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
 
-      it "creates a Notification for BulkClientMessage" do
-        expect do
+        before do
+          allow(ClientMessagingService).to receive(:send_email).and_call_original
+          allow(ClientMessagingService).to receive(:send_text_message).and_call_original
+        end
+
+        it "sends an email & text" do
           described_class.perform_now(
-            task: :any_task,
+            task: task_type,
             user: user,
             tax_return_selection: tax_return_selection,
             form_params: params
           )
-        end.to change(UserNotification, :count).by(1)
 
-        bulk_message_notification = UserNotification.last
-        expect(bulk_message_notification.notifiable_type).to eq("BulkClientMessage")
-        expect(bulk_message_notification.user).to eq(user)
-        expect(bulk_message_notification.notifiable).to eq(bulk_client_message)
-      end
-    end
-
-    context "when creating a note" do
-      let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-      let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-      let(:note_body) { "An internal note with some text in it" }
-      let(:params) do
-        { note_body: note_body }
-      end
-
-      it "saves a note and fires related after creation hooks" do
-        expect {
-          described_class.perform_now(
-            task: :any_task,
+          expect(ClientMessagingService).to have_received(:send_email).with(
+            body: english_message_body,
+            client: selected_client,
             user: user,
-            tax_return_selection: tax_return_selection,
-            form_params: params
+            subject: nil
           )
-        }.to change(Note, :count).by(2).and(
-          change { selected_client_1.reload.last_internal_or_outgoing_interaction_at }
-        ).and(
-          change(BulkClientNote, :count).by(1)
-        ).and(
-          change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
-        )
+          expect(ClientMessagingService).to have_received(:send_text_message).with(
+            body: english_message_body,
+            client: selected_client,
+            user: user
+          )
+        end
 
-        expect(selected_client_1.notes.first.body).to eq note_body
-        expect(selected_client_1.notes.first.user).to eq user
-        expect(selected_client_2.notes.first.body).to eq note_body
-        expect(selected_client_2.notes.first.user).to eq user
+        it "creates a Notification for BulkClientMessage" do
+          expect do
+            described_class.perform_now(
+              task: :any_task,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+          end.to change(UserNotification, :count).by(1)
 
-        bulk_note = BulkClientNote.last
-        expect(bulk_note.tax_return_selection).to eq tax_return_selection
-        expect(bulk_note.user_notification.user).to eq user
+          bulk_message_notification = UserNotification.last
+          expect(bulk_message_notification.notifiable_type).to eq("BulkClientMessage")
+          expect(bulk_message_notification.user).to eq(user)
+          bulk_client_message = bulk_message_notification.notifiable
+          expect(bulk_client_message.outgoing_emails.count).to eq(1)
+          expect(bulk_client_message.outgoing_text_messages.count).to eq(1)
+        end
+      end
+
+      context "when creating a note" do
+        let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let(:note_body) { "An internal note with some text in it" }
+        let(:params) do
+          { note_body: note_body }
+        end
+
+        it "saves a note and fires related after creation hooks" do
+          expect {
+            described_class.perform_now(
+              task: :any_task,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+          }.to change(Note, :count).by(2).and(
+            change { selected_client_1.reload.last_internal_or_outgoing_interaction_at }
+          ).and(
+            change(BulkClientNote, :count).by(1)
+          ).and(
+            change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
+          )
+
+          expect(selected_client_1.notes.first.body).to eq note_body
+          expect(selected_client_1.notes.first.user).to eq user
+          expect(selected_client_2.notes.first.body).to eq note_body
+          expect(selected_client_2.notes.first.user).to eq user
+
+          bulk_note = BulkClientNote.last
+          expect(bulk_note.tax_return_selection).to eq tax_return_selection
+          expect(bulk_note.user_notification.user).to eq user
+        end
       end
     end
 

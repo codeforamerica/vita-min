@@ -516,8 +516,12 @@ RSpec.describe ClientMessagingService do
     end
 
     context "with messages for both locales" do
-      let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-      let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:client_es) { create :client, intake: nil, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:client_en) { create :client, intake: nil, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      before do
+        create(:archived_2021_ctc_intake, locale: :es, client: client_es,)
+        create(:archived_2021_ctc_intake, locale: :en, client: client_en)
+      end
       let!(:client_nil) { create :client, intake: create(:intake, locale: nil), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
 
       context "without a subject line" do
