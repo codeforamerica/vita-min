@@ -526,6 +526,9 @@ describe Efile::BenefitsEligibility do
     end
 
     context "when they are qualified for EITC" do
+      let(:earned_income) { 0 }
+      let!(:w2) { create :w2, intake: intake, wages_amount: earned_income }
+
       before do
         allow(subject).to receive(:qualified_for_eitc?).and_return true
         allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(true)
@@ -534,7 +537,6 @@ describe Efile::BenefitsEligibility do
       context "when they have 0 EITC-qualifying children" do
         before do
           intake.dependents.destroy_all
-          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
         end
 
         context "their income is $2,724" do
@@ -565,7 +567,6 @@ describe Efile::BenefitsEligibility do
         before do
           intake.dependents.destroy_all
           create :qualifying_child, intake: intake
-          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
         end
 
         context "their income is $14,683" do
@@ -590,7 +591,6 @@ describe Efile::BenefitsEligibility do
           intake.dependents.destroy_all
           create :qualifying_child, intake: intake
           create :qualifying_child, intake: intake
-          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
         end
 
         context "their income is $7,345" do
@@ -608,7 +608,6 @@ describe Efile::BenefitsEligibility do
           create :qualifying_child, intake: intake
           create :qualifying_child, intake: intake
           create :qualifying_child, intake: intake
-          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
         end
 
         context "their income is $9,135" do
