@@ -152,7 +152,7 @@ module Questions
       end
 
       def form_class
-        form_key.classify.constantize
+        Object.const_defined?(form_key.classify) ? form_key.classify.constantize : NullForm
       end
     end
   end
