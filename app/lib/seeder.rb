@@ -298,6 +298,41 @@ class Seeder
     Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
   end
 
+
+  def create_many_clients_and_tax_returns(total_clients)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    total_clients.times do |n|
+      suffix = [
+        alphabet[((n / 26) / 26) % 26],
+        alphabet[(n / 26) % 26],
+        alphabet[n % 26]
+      ].join('')
+
+      find_or_create_intake_and_client(
+        Intake::CtcIntake,
+        primary_first_name: "TaxReturnImportTester#{suffix}",
+        primary_last_name: "Smith",
+        primary_consented_to_service: "yes",
+        tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+      )
+    end
+  end
+
+  def create_tax_return_selection_slow(client_ids)
+    # TODO: handle clients with more than one tax return id
+    tax_returns = TaxReturn.where(client_id: client_ids).includes(:client)
+    TaxReturnSelection.create(tax_returns: tax_returns)
+  end
+
+  def create_tax_return_selection_fast(client_ids)
+    # TODO: handle clients with more than one tax return id
+    tax_returns = TaxReturn.where(client_id: client_ids).includes(:client)
+    selection = TaxReturnSelection.create
+    TaxReturnSelectionTaxReturn.insert_all(
+      tax_returns.map { |tr| { tax_return_id: tr.id, tax_return_selection_id: selection.id }}
+    )
+  end
+
   def find_or_create_intake_and_client(intake_type, attributes)
     attributes[:preferred_name] = attributes[:primary_first_name] if attributes[:preferred_name].blank?
     attributes[:visitor_id] = SecureRandom.hex(26)
