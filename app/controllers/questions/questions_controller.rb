@@ -14,6 +14,10 @@ module Questions
       @form = initialized_edit_form
     end
 
+    def include_optimizely?
+      (form_class.attribute_names || []).none? { |attribute| Rails.application.config.filter_parameters.include?(attribute) }
+    end
+
     def update
       @form = initialized_update_form
       if @form.valid?
@@ -148,7 +152,7 @@ module Questions
       end
 
       def form_class
-        form_key.classify.constantize
+        Object.const_defined?(form_key.classify) ? form_key.classify.constantize : NullForm
       end
     end
   end

@@ -25,6 +25,24 @@ RSpec.describe Questions::QuestionsController do
     end
   end
 
+  describe '#include_optimizely?' do
+    describe "when the controller's form_class references sensitive fields like ssn" do
+      controller(Ctc::Questions::LegalConsentController) { }
+
+      it "is false" do
+        expect(subject).not_to be_include_optimizely
+      end
+    end
+
+    describe "when the controller's form_class references no sensitive fields" do
+      controller(Ctc::Questions::FiledPriorTaxYearController) { }
+
+      it "is true" do
+        expect(subject).to be_include_optimizely
+      end
+    end
+  end
+
   describe ".to_path_helper" do
     context "with a random child controller" do
       let(:controller_class) { Documents::IdsController }

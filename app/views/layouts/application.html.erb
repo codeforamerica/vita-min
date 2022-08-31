@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" <% if content_for :html_class %>class="<%= yield :html_class %>"<% end %>>
   <head>
-    <% if Rails.configuration.include_optimizely %>
+    <% if include_optimizely? %>
       <link rel="preload" href="//cdn.optimizely.com/js/21316291320.js" as="script">
       <link rel="preconnect" href="//logx.optimizely.com">
     <% end %>
@@ -51,7 +51,7 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all' %>
 
-    <% if Rails.configuration.include_optimizely %>
+    <% if include_optimizely? %>
       <script src="https://cdn.optimizely.com/js/21316291320.js"></script>
     <% end %>
 
