@@ -156,6 +156,22 @@ describe BulkActionJob do
             end.to raise_error(ArgumentError)
           end
         end
+
+        context "when the client is not accessible to this user" do
+          let(:user) { create(:organization_lead_user) }
+
+          it "sends no messages" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+
+            expect(ClientMessagingService).not_to have_received(:send_email)
+            expect(ClientMessagingService).not_to have_received(:send_text_message)
+          end
+        end
       end
     end
 

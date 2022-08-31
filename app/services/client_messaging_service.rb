@@ -86,23 +86,5 @@ class ClientMessagingService
       methods[:sms_phone_number] = client.intake.sms_phone_number if client.intake.sms_notification_opt_in_yes? && client.intake.sms_phone_number.present?
       methods
     end
-
-    def send_bulk_message(tax_return_selection, sender, content_by_locale)
-      bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
-
-      tax_return_selection.clients.accessible_to_user(sender).find_each do |client|
-        locale = Hub::ClientsController::HubClientPresenter.new(client).intake.locale || "en"
-        content = content_by_locale[locale.to_sym]
-
-        args = { client: client, user: sender, body: content[:body] }
-
-        outgoing_text_message = send_text_message(**args)
-        bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
-
-        outgoing_email = send_email(**args.merge(subject: content[:subject]))
-        bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
-      end
-      bulk_client_message
-    end
   end
 end
