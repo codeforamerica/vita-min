@@ -2702,7 +2702,7 @@ en:
               p4: Have additional questions? Click "Chat with us" to get more information about these options.
             title: What if I haven’t received my W-2?
           reveal_1099:
-            content: Placeholder
+            content: If you have income from a 1099-NEC or 1099-K, this is not a W-2, and you will need to file a full tax return.
             title: What if I have a 1099?
           title: Please share the income from your W-2.
           wages: Wages

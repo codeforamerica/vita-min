@@ -2673,7 +2673,7 @@ es:
               p4: ¿Tiene preguntas adicionales? Haz clic en "Chatea con nosotros" para obtener más información sobre estas opciones.
             title: "¿Qué pasa si no he recibido mi W-2?"
           reveal_1099:
-            content: Placeholder
+            content: Si tiene ingresos de un 1099-NEC o 1099-K, este no es un W-2 y deberá presentar una declaración de impuestos completa.
             title: "¿Qué pasa si tengo un 1099?"
           title: Por favor comparta los ingresos de su W-2.
           wages: Salarios
