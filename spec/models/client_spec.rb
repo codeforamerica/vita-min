@@ -668,15 +668,18 @@ describe Client do
   end
 
   describe ".locale_counts" do
+    let(:organization) { create(:organization) }
     context "with all languages present" do
       before do
-        create(:client, intake: create(:intake, locale: "en"))
-        create(:client, intake: create(:intake, locale: "es"))
-        create(:client, intake: create(:intake, locale: nil))
+        create(:client, intake: create(:intake, locale: "en"), vita_partner: nil)
+        create(:client, intake: create(:intake, locale: "en"), vita_partner: organization)
+        create(:client, intake: create(:intake, locale: "es"), vita_partner: organization)
+        create(:client, intake: create(:intake, locale: nil), vita_partner: organization)
+        create(:archived_2021_gyr_intake, locale: "en", client: create(:client, intake: nil, vita_partner: organization))
       end
 
       it "takes locales and counts them into a hash, counting nil as en" do
-        expect(Client.all.locale_counts).to eq({ "en" => 2, "es" => 1})
+        expect(Client.where(vita_partner: organization).locale_counts).to eq({ "en" => 3, "es" => 1})
       end
     end
 

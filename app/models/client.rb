@@ -145,15 +145,18 @@ class Client < ApplicationRecord
   end
 
   def self.locale_counts
-    counts = joins(:intake).group(:locale).count
-    counts["en"] = 0 unless counts.key?("en")
-    counts["es"] = 0 unless counts.key?("es")
+    result = {
+      "en" => 0,
+      "es" => 0
+    }
 
-    nil_count = counts.delete(nil)
-    if nil_count.present?
-      counts["en"] += nil_count
+    intake_models = [Intake, Archived::Intake2021]
+    intake_models.each do |klass|
+      counts = klass.where(client: all).group(:locale).count
+      result["en"] += counts.fetch("en", 0) + counts.fetch(nil, 0)
+      result["es"] += counts.fetch("es", 0)
     end
-    counts
+    result
   end
 
   def fraud_scores

@@ -2,7 +2,7 @@ class ClientMessagingService
   class << self
     # only sends email if the client can receive emails
     def send_email(client:, user:, body:, attachment: nil, subject: nil, locale: nil, tax_return: nil, to: nil)
-      intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
+      intake = Hub::ClientsController::HubClientPresenter.new(client).intake
       return unless intake.email_notification_opt_in_yes?
 
       if intake.email_notification_opt_in_yes? && !intake.email_address.present?
@@ -45,7 +45,7 @@ class ClientMessagingService
 
     # only sends text message if client can receive texts
     def send_text_message(client:, user:, body:, tax_return: nil, locale: nil, to: nil)
-      intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
+      intake = Hub::ClientsController::HubClientPresenter.new(client).intake
       return unless intake.sms_notification_opt_in_yes?
 
       if intake.sms_notification_opt_in_yes? && !intake.sms_phone_number.present?
@@ -96,20 +96,17 @@ class ClientMessagingService
 
       bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
 
-      client_locales.each do |locale|
+      tax_return_selection.clients.accessible_to_user(sender).find_each do |client|
+        locale = Hub::ClientsController::HubClientPresenter.new(client).intake.locale || "en"
         content = content_by_locale[locale.to_sym]
 
-        # we normalize nil to "en" in locale counts and so we have to check if intake has nil locale for "en"
-        locale_on_intake = locale == "en" ? [locale, nil] : locale
-        tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale_on_intake)).find_each do |client|
-          args = { client: client, user: sender, body: content[:body] }
+        args = { client: client, user: sender, body: content[:body] }
 
-          outgoing_text_message = send_text_message(**args)
-          bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
+        outgoing_text_message = send_text_message(**args)
+        bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
 
-          outgoing_email = send_email(**args.merge(subject: content[:subject]))
-          bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
-        end
+        outgoing_email = send_email(**args.merge(subject: content[:subject]))
+        bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
       end
       bulk_client_message
     end

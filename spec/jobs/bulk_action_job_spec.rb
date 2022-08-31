@@ -16,7 +16,9 @@ describe BulkActionJob do
       let(:tax_return_selection) { create :tax_return_selection }
 
       context "with a client needing an email & text" do
-        let!(:selected_client) { create :client, intake: (build :intake, email_address: email, email_notification_opt_in: "yes", sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes"), tax_returns: [(build :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+        let!(:selected_client) { create :client, intake: intake, tax_returns: [(build :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+        let(:intake) { build :intake, email_address: email, email_notification_opt_in: "yes", sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes", locale: locale }
+        let(:locale) { "en" }
 
         before do
           allow(ClientMessagingService).to receive(:send_email).and_call_original
@@ -60,6 +62,58 @@ describe BulkActionJob do
           bulk_client_message = bulk_message_notification.notifiable
           expect(bulk_client_message.outgoing_emails.count).to eq(1)
           expect(bulk_client_message.outgoing_text_messages.count).to eq(1)
+        end
+
+        context "with a client in Spanish" do
+          let(:locale) { "es" }
+
+          it "sends an email & text" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+
+            expect(ClientMessagingService).to have_received(:send_email).with(
+              body: spanish_message_body,
+              client: selected_client,
+              user: user,
+              subject: nil
+            )
+            expect(ClientMessagingService).to have_received(:send_text_message).with(
+              body: spanish_message_body,
+              client: selected_client,
+              user: user
+            )
+          end
+        end
+
+        context "with an archived client" do
+          let(:intake) { nil }
+          let(:locale) { "es" }
+          let!(:archived_2021_intake) { create :archived_2021_gyr_intake, email_address: email, email_notification_opt_in: "yes", sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes", locale: locale, client: selected_client }
+
+          it "sends an email & text" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+
+            expect(ClientMessagingService).to have_received(:send_email).with(
+              body: spanish_message_body,
+              client: selected_client,
+              user: user,
+              subject: nil
+            )
+            expect(ClientMessagingService).to have_received(:send_text_message).with(
+              body: spanish_message_body,
+              client: selected_client,
+              user: user
+            )
+          end
         end
       end
 
