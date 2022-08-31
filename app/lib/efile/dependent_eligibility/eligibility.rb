@@ -21,6 +21,7 @@ module Efile
             eip2: eip_two_eligibility.benefit_amount,
             eip3: eip_three_eligibility.benefit_amount,
             ctc: ctc_eligibility.benefit_amount
+            #add EITC?
         }
       end
 

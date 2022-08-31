@@ -261,11 +261,11 @@ describe Efile::BenefitsEligibility do
       let(:spouse_tin_type) { "itin" }
       let(:intake) do
         create :ctc_intake,
-          client: client,
-          spouse_active_armed_forces: spouse_military,
-          primary_active_armed_forces: primary_military,
-          spouse_tin_type: spouse_tin_type,
-          primary_tin_type: primary_tin_type
+               client: client,
+               spouse_active_armed_forces: spouse_military,
+               primary_active_armed_forces: primary_military,
+               spouse_tin_type: spouse_tin_type,
+               primary_tin_type: primary_tin_type
       end
 
       context "when a spouse is part of the armed forces" do
@@ -510,6 +510,114 @@ describe Efile::BenefitsEligibility do
 
       it "is false" do
         expect(subject.youngish_without_eitc_dependents?).to eq false
+      end
+    end
+  end
+
+  describe "#eitc_amount" do
+    context "client does not qualify for EITC" do
+      before do
+        allow(subject).to receive(:qualified_for_eitc?).and_return false
+      end
+
+      it "returns nil" do
+        expect(subject.eitc_amount).to eq nil
+      end
+    end
+
+    context "when they are qualified for EITC" do
+      before do
+        allow(subject).to receive(:qualified_for_eitc?).and_return true
+        allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(true)
+      end
+
+      context "when they have 0 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
+        end
+
+        context "their income is $2,724" do
+          let!(:earned_income) { 2724 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 417
+          end
+        end
+
+        context "their income is $3,701" do
+          let!(:earned_income) { 3701 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 566
+          end
+        end
+
+        context "their income is $10,824" do
+          let!(:earned_income) { 10824 }
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 1502
+          end
+        end
+      end
+
+      context "when they have 1 EITC-qualifying child" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
+        end
+
+        context "their income is $14,683" do
+          let!(:earned_income) { 14683 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 3618
+          end
+        end
+
+        context "their income is $12,289" do
+          let!(:earned_income) { 12289 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 3618
+          end
+        end
+      end
+
+      context "when they have 2 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
+        end
+
+        context "their income is $7,345" do
+          let!(:earned_income) { 7345 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 2938
+          end
+        end
+      end
+
+      context "when they have 3 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+          subject.tax_return.intake.update!(primary_prior_year_agi_amount: earned_income)
+        end
+
+        context "their income is $9,135" do
+          let!(:earned_income) { 9135 }
+
+          it "calculates the amount" do
+            expect(subject.eitc_amount).to eq 4111
+          end
+        end
       end
     end
   end

@@ -16,6 +16,18 @@
         <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount) %></p>
       </div>
     <% end %>
+<!--    earned income tax credit-->
+    <% if current_intake.claiming_and_qualified_for_eitc? %>
+      <div class="spacing-above-35">
+        <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.eitc') %></strong></p>
+        <p class="spacing-below-15"><%= number_to_currency(@eitc) %></p>
+      </div>
+    <% end %>
+<!--    total refund amount-->
+    <div class="spacing-above-35">
+      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.total') %></strong></p>
+      <p class="spacing-below-15"><%= number_to_currency(@total) %></p>
+    </div>
   </div>
 
   <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @not_collecting%>

@@ -2077,6 +2077,8 @@ en:
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
           third_stimulus: 'Third Stimulus Payment:'
           title: 'Here’s a list of the payments you are claiming:'
+          eitc: 'Earned Income Tax Credit:'
+          total: 'Total fund amount:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: Your %{prior_tax_year} AGI
         confirm_spouse_prior_year_agi:
