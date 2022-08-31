@@ -9,7 +9,7 @@ module SubmissionBuilder
         end
 
         def document
-          include_w2_detail = submission.benefits_eligibility.claiming_and_qualified_for_eitc?
+          include_w2_detail = submission.benefits_eligibility.claiming_and_qualified_for_eitc? && submission.intake.w2s.any?
 
           intake = submission.intake
           tax_return = submission.tax_return
@@ -35,7 +35,7 @@ module SubmissionBuilder
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
 
             if include_w2_detail
-              w2_wages = intake.w2s.sum(&:wages_amount).round
+              w2_wages = intake.total_wages_amount
               xml.WagesSalariesAndTipsAmt w2_wages # Line 1
               xml.TotalIncomeAmt w2_wages # Line 9
               xml.AdjustedGrossIncomeAmt w2_wages # line 11
@@ -51,11 +51,11 @@ module SubmissionBuilder
             xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
 
             if include_w2_detail
-              w2_withholding = intake.w2s.sum(&:federal_income_tax_withheld).round
+              w2_withholding = intake.total_withholding_amount
               xml.FormW2WithheldTaxAmt w2_withholding # line 25a
               xml.WithholdingTaxAmt w2_withholding # line 25d
-              xml.EarnedIncomeCreditAmt 400 # line 27a amount
-              xml.UndSpcfdAgeStsfyRqrEICInd "X" # line 27a checkbox
+              xml.EarnedIncomeCreditAmt benefits.eitc_amount # line 27a amount
+              xml.UndSpcfdAgeStsfyRqrEICInd "X" if benefits.youngish_without_eitc_dependents? # line 27a checkbox
             end
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
@@ -67,14 +67,21 @@ module SubmissionBuilder
             total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i
 
             if include_w2_detail
-              total_refundable_credits += 500 # also include EITC and withholding
+              total_refundable_credits += benefits.eitc_amount # also include EITC
+              total_refundable_credits_and_withholding = total_refundable_credits + intake.total_withholding_amount
+
+              xml.RefundableCreditsAmt total_refundable_credits # 32 (Line 28 + 30 + 27a)
+              xml.TotalPaymentsAmt total_refundable_credits_and_withholding # 33 (Line 28 + 30 + 27a + 25d)
+              xml.OverpaidAmt total_refundable_credits_and_withholding # 34 (Line 28 + 30 + 27a + 25d)
+              xml.RefundAmt total_refundable_credits_and_withholding # 35a (Line 28 + 30 + 27a + 25d)
+            else
+              # Line 32, 33, 34, 35a: Line 28 + Line 30
+              xml.RefundableCreditsAmt total_refundable_credits # 32
+              xml.TotalPaymentsAmt total_refundable_credits # 33
+              xml.OverpaidAmt total_refundable_credits # 34
+              xml.RefundAmt total_refundable_credits # 35a
             end
 
-            # Line 32, 33, 34, 35a: Line 28 + Line 30
-            xml.RefundableCreditsAmt total_refundable_credits # 32
-            xml.TotalPaymentsAmt total_refundable_credits # 33
-            xml.OverpaidAmt total_refundable_credits # 34
-            xml.RefundAmt total_refundable_credits # 35a
 
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum account_number_type(bank_account.routing_number) # 35b

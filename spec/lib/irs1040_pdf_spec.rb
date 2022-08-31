@@ -58,7 +58,7 @@ RSpec.describe Irs1040Pdf do
           "AdditionalChildTaxCreditAmt28" => "",
           "AdditionalTaxAmt17" => nil,
           "AddressLine1Txt" => "",
-          "AdjustedGrossIncomeAmt11" => nil,
+          "AdjustedGrossIncomeAmt11" => "",
           "AppliedToEsTaxAmt36" => nil,
           "BankAccountTypeCd" => nil,
           "CDCODCAmt19" => nil,
@@ -86,14 +86,14 @@ RSpec.describe Irs1040Pdf do
           "DependentSSN[2]" => nil,
           "DependentSSN[3]" => nil,
           "DepositorAccountNum35d" => nil,
-          "EarnedIncomeCreditAmt27a" => nil,
+          "EarnedIncomeCreditAmt27a" => "",
           "EmailAddress" => "",
           "EsPenaltyAmt38" => nil,
           "EstimatedTaxPaymentsAmt26" => nil,
           "FilingStatus" => "",
           "Form1099WithheldTaxAmt25b" => nil,
           "Form8814Ind7" => "Off",
-          "FormW2WithheldTaxAmt25a" => nil,
+          "FormW2WithheldTaxAmt25a" => "",
           "Has4972Ind16_2" => "Off",
           "Has8814Ind16_1" => "Off",
           "HasOtherFormInd16_3" => "Off",
@@ -152,7 +152,7 @@ RSpec.describe Irs1040Pdf do
           "TotalAdjustmentsToIncomeAmt12c" => "",
           "TotalCreditsAmt21" => nil,
           "TotalDeductionsAmt14" => "",
-          "TotalIncomeAmt9" => nil,
+          "TotalIncomeAmt9" => "",
           "TotalItemizedOrStandardDedAmt12a" => "",
           "TotalNonrefundableCreditsAmt20" => nil,
           "TotalOtherPaymentsRfdblCrAmt31" => nil,
@@ -161,8 +161,8 @@ RSpec.describe Irs1040Pdf do
           "TotalTaxAmt24" => nil,
           "TotalTaxBeforeCrAndOthTaxesAmt18" => nil,
           "TotalTaxablePensionsAmt5b" => nil,
-          "WagesSalariesAndTipsAmt1" => nil,
-          "WithholdingTaxAmt25d" => nil,
+          "WagesSalariesAndTipsAmt1" => "",
+          "WithholdingTaxAmt25d" => "",
           "ZipCd" => "",
         })
       end
@@ -191,6 +191,7 @@ RSpec.describe Irs1040Pdf do
         "PrimaryBlindInd" => "Off",
       ))
     end
+
     context "with no verified address" do
       before do
         submission.update(verified_address: nil)
@@ -405,5 +406,32 @@ RSpec.describe Irs1040Pdf do
       end
     end
 
+    context "with a client claiming EITC" do
+      let(:optional_xml_fields) do
+        lambda do |xml|
+          xml.WagesSalariesAndTipsAmt "223"
+          xml.TotalIncomeAmt "223"
+          xml.AdjustedGrossIncomeAmt "223"
+          xml.FormW2WithheldTaxAmt "5"
+          xml.WithholdingTaxAmt "5"
+          xml.EarnedIncomeCreditAmt "34"
+          xml.UndSpcfdAgeStsfyRqrEICInd "X"
+        end
+      end
+
+      it "includes eitc information from xml" do
+        output_file = pdf.output_file
+        result = filled_in_values(output_file.path)
+        expect(result).to match(hash_including(
+          "WagesSalariesAndTipsAmt1" => "223",
+          "TotalIncomeAmt9" => "223",
+          "AdjustedGrossIncomeAmt11" => "223",
+          "FormW2WithheldTaxAmt25a" => "5",
+          "WithholdingTaxAmt25d" => "5",
+          "EarnedIncomeCreditAmt27a" => "34",
+          "QualifiedFosterOrHomelessYouth" => "1",
+        ))
+      end
+    end
   end
 end

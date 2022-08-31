@@ -431,4 +431,12 @@ class Intake::CtcIntake < Intake
   def puerto_rico_filing?
     home_location_puerto_rico?
   end
+
+  def total_wages_amount
+    w2s.sum { |w2| w2.wages_amount.round }
+  end
+
+  def total_withholding_amount
+    w2s.sum { |w2| w2.federal_income_tax_withheld.round }
+  end
 end

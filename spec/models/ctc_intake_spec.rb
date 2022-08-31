@@ -333,6 +333,22 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     end
   end
 
+  describe "total_wages_amount" do
+    let(:intake) { create :ctc_intake }
+
+    context "with w2s" do
+      before do
+        create :w2, intake: intake, wages_amount: 80.50
+        create :w2, intake: intake, wages_amount: 499.98
+        create :w2, intake: intake, wages_amount: 1800.49
+      end
+
+      it "returns the rounded wages_amount for all w2s summed together" do
+        expect(intake.total_wages_amount).to eq 2381
+      end
+    end
+  end
+
   context "before_validation" do
     context "normalize spaces in names" do
       let(:intake) {

@@ -181,11 +181,14 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
     end
 
     context "when the client is claiming and qualified for EITC" do
+      let(:primary_birth_date) { 30.years.ago }
+
       before do
         submission.intake.update(
           claim_eitc: "yes",
           exceeded_investment_income_limit: "no",
-          primary_birth_date: 30.years.ago,
+          primary_birth_date: primary_birth_date,
+          former_foster_youth: "yes",
           primary_tin_type: "ssn"
         )
         create :w2, intake: submission.intake, wages_amount: 123.45, federal_income_tax_withheld: 1.25
@@ -199,9 +202,21 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("AdjustedGrossIncomeAmt").text).to eq("223")
         expect(xml.at("FormW2WithheldTaxAmt").text).to eq("4")
         expect(xml.at("WithholdingTaxAmt").text).to eq("4")
-        # expect(xml.at("TotDedCharitableContriAmt")).to be_nil
-        # expect(xml.at("TotalDeductionsAmt")).to be_nil
-        # expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+        expect(xml.at("EarnedIncomeCreditAmt").text).to eq("34")
+        expect(xml.at("UndSpcfdAgeStsfyRqrEICInd")).to be_nil
+        expect(xml.at("RefundableCreditsAmt").text).to eq("6834")
+        expect(xml.at("TotalPaymentsAmt").text).to eq("6838")
+        expect(xml.at("OverpaidAmt").text).to eq("6838")
+        expect(xml.at("RefundAmt").text).to eq("6838")
+      end
+
+      context "client is under 24 and over 18 without qualifing dependents" do
+        let(:primary_birth_date) { 20.years.ago }
+
+        it "checks the checkbox" do
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.at("UndSpcfdAgeStsfyRqrEICInd").text).to eq("X")
+        end
       end
 
       it "conforms to the eFileAttachments schema" do
