@@ -20,8 +20,10 @@
         <p><%= t("views.ctc.questions.w2s.reveal_1099.content") %></p>
       <% end %>
 
-      <p><%= t('views.ctc.questions.w2s.note_html') %></p>
-      </div>
+      <% if current_intake.w2s.none? %>
+        <p><%= t('views.ctc.questions.w2s.note_html') %></p>
+      <% end %>
+    </div>
 
     <% if current_intake.w2s.any? %>
       <div class="review-box spacing-below-35">
