@@ -9,7 +9,7 @@ module SubmissionBuilder
         end
 
         def document
-          w2 = @documents.first
+          w2 = submission.intake.w2s.first
 
           build_xml_doc("IRSW2", documentId: "IRSW2", documentName: "IRSW2") do |xml|
             xml.EmployeeSSN w2.employee_ssn

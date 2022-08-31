@@ -18,7 +18,7 @@ module SubmissionBuilder
       end
 
       def supported_documents
-        supported_docs = [
+        [
           {
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
             pdf: Irs1040Pdf,
@@ -51,18 +51,12 @@ module SubmissionBuilder
             pdf: Irs1040ScheduleEicPdf,
             include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           },
-        ]
-        w2s = @submission.intake.w2s.each do |w2|
           {
             xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
             pdf: nil,
-            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?,
-            documents: [w2]
+            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           }
-        end
-        supported_docs.push(*w2s)
-
-        supported_docs
+        ]
       end
     end
   end
