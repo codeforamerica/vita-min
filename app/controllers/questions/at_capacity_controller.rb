@@ -14,5 +14,11 @@ module Questions
 
       current_intake.update(viewed_at_capacity: true)
     end
+
+    private
+
+    def form_class
+      NullForm
+    end
   end
 end
