@@ -9,7 +9,7 @@ module SubmissionBuilder
         end
 
         def document
-          include_w2_detail = ENV['W2_SUPPORT'] == 'true'
+          include_w2_detail = submission.benefits_eligibility.claiming_and_qualified_for_eitc?
 
           intake = submission.intake
           tax_return = submission.tax_return
@@ -35,9 +35,10 @@ module SubmissionBuilder
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
 
             if include_w2_detail
-              xml.WagesSalariesAndTipsAmt 1000 # Line 1
-              xml.TotalIncomeAmt 1000 # Line 9
-              xml.AdjustedGrossIncomeAmt 1000 # line 11
+              w2_wages = intake.w2s.sum(&:wages_amount).round
+              xml.WagesSalariesAndTipsAmt w2_wages # Line 1
+              xml.TotalIncomeAmt w2_wages # Line 9
+              xml.AdjustedGrossIncomeAmt w2_wages # line 11
             end
 
             if intake.home_location_puerto_rico?
@@ -50,12 +51,11 @@ module SubmissionBuilder
             xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
 
             if include_w2_detail
-              xml.FormW2WithheldTaxAmt 100 # line 25a
-              xml.WithholdingTaxAmt 100 # line 25d
+              w2_withholding = intake.w2s.sum(&:federal_income_tax_withheld).round
+              xml.FormW2WithheldTaxAmt w2_withholding # line 25a
+              xml.WithholdingTaxAmt w2_withholding # line 25d
               xml.EarnedIncomeCreditAmt 400 # line 27a amount
               xml.UndSpcfdAgeStsfyRqrEICInd "X" # line 27a checkbox
-              # to do this right here's the rules: If 'NontxCombatPayElectionAmt' in the return has a non-zero value, then it must be equal to the sum of all Forms W-2, 'EmployersUseAmt' with corresponding 'EmployersUseCd' having the value "Q".
-              # xml.NontxCombatPayElectionAmt 50 # line 27b
             end
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i

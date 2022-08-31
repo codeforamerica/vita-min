@@ -179,5 +179,34 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("TotalBoxesCheckedCnt").text).to eq "2"
       end
     end
+
+    context "when the client is claiming and qualified for EITC" do
+      before do
+        submission.intake.update(
+          claim_eitc: "yes",
+          exceeded_investment_income_limit: "no",
+          primary_birth_date: 30.years.ago,
+          primary_tin_type: "ssn"
+        )
+        create :w2, intake: submission.intake, wages_amount: 123.45, federal_income_tax_withheld: 1.25
+        create :w2, intake: submission.intake, wages_amount: 100, federal_income_tax_withheld: 3
+      end
+
+      it "includes W2 and EITC specific fields" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("WagesSalariesAndTipsAmt").text).to eq("223")
+        expect(xml.at("TotalIncomeAmt").text).to eq("223")
+        expect(xml.at("AdjustedGrossIncomeAmt").text).to eq("223")
+        expect(xml.at("FormW2WithheldTaxAmt").text).to eq("4")
+        expect(xml.at("WithholdingTaxAmt").text).to eq("4")
+        # expect(xml.at("TotDedCharitableContriAmt")).to be_nil
+        # expect(xml.at("TotalDeductionsAmt")).to be_nil
+        # expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+      end
+
+      it "conforms to the eFileAttachments schema" do
+        expect(described_class.build(submission)).to be_valid
+      end
+    end
   end
 end

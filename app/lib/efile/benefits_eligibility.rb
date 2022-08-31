@@ -97,6 +97,10 @@ module Efile
       intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test? && intake.primary_tin_type == "ssn"
     end
 
+    def youngish_without_dependents?
+      # age_at_end_of_tax_year < 24 && dependents.none?(&:qualifying_eitc?)
+    end
+
     private
 
     def eitc_qualifications_passes_age_test?
