@@ -32,6 +32,9 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
 
     click_on "Submit"
 
+    perform_enqueued_jobs
+    visit current_path
+
     expect(page).to have_text "Successful Bulk Client Organization Update"
     expect(page).to have_text "You successfully moved 30 clients to Rooster Brew."
   end
