@@ -45,7 +45,7 @@ module SubmissionBuilder
 
     def spouse_name_control(intake)
       name = intake.use_primary_name_for_name_control ? intake.primary_last_name : intake.spouse_last_name
-      person_name_control_type(name)
+      name_control_type(name)
     end
 
     # This is likely only applicable to the latest tax year, and will need revision if we want to submit previous
