@@ -12,12 +12,12 @@ RSpec.describe "Uploading a CSV for bulk client messaging", active_job: true do
 
   around do |example|
     @filename = Rails.root.join("tmp", "bulk-client-message-test-#{SecureRandom.hex}.csv")
+    File.write(@filename, "client_id\n#{email_and_phone_client.id}\n#{email_client.id}"
     example.run
     File.unlink(@filename)
   end
 
   scenario "bulk messaging clients by CSV" do
-    File.write(@filename, "client_id\n#{email_and_phone_client.id}\n#{email_client.id}")
     visit hub_bulk_message_csvs_path
 
     attach_file "Select file", @filename
