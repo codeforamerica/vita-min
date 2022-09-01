@@ -605,6 +605,9 @@ en:
           selected_action_and_client_count_html:
             one: You’ve selected <strong>Send a Message</strong> for <strong>%{count} client</strong>
             other: You’ve selected <strong>Send a Message</strong> for <strong>%{count} clients</strong>
+          selected_action_qualifier:
+            only_email: "(only sending email)"
+            only_text: "(only sending text messages)"
           title: Bulk Action
     client_channel:
       please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
@@ -1143,6 +1146,11 @@ en:
       already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added %{code} to %{name}.
+    bulk_message_csvs:
+      bulk_message_csv:
+        send_email: "Send message (email only)"
+        send_text: "Send message (text message only)"
+        send_default: "Send message (all available contact methods, i.e. default)"
   invitations:
     index:
       invitation:

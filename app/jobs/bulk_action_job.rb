@@ -42,7 +42,7 @@ class BulkActionJob < ApplicationJob
 
   def create_outgoing_messages!(tax_return_selection, user)
     if @form.message_body_en.present? || @form.message_body_es.present?
-      bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
+      bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection, send_only: @form.send_only)
 
       tax_return_selection.clients.accessible_to_user(user).find_each do |client|
         locale = Hub::ClientsController::HubClientPresenter.new(client).intake.locale || "en"
@@ -52,11 +52,15 @@ class BulkActionJob < ApplicationJob
           body: (locale == "en" ? @form.message_body_en : @form.message_body_es)
         }
 
-        outgoing_text_message = ClientMessagingService.send_text_message(**args)
-        bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
+        unless @form.send_only == "email"
+          outgoing_text_message = ClientMessagingService.send_text_message(**args)
+          bulk_client_message.outgoing_text_messages << outgoing_text_message if outgoing_text_message
+        end
 
-        outgoing_email = ClientMessagingService.send_email(**args.merge(subject: nil))
-        bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
+        unless @form.send_only == "text_message"
+          outgoing_email = ClientMessagingService.send_email(**args.merge(subject: nil))
+          bulk_client_message.outgoing_emails << outgoing_email if outgoing_email
+        end
       end
       UserNotification.create!(notifiable: bulk_client_message, user: user)
     end

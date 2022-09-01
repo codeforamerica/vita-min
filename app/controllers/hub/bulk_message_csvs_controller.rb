@@ -13,14 +13,17 @@ module Hub
     end
 
     def create
-      @bulk_message_csv.save if @bulk_message_csv.valid?
-      redirect_to({action: :index})
+      if @bulk_message_csv.valid?
+        @bulk_message_csv.save
+        BulkAction::MessageCsvImportJob.perform_later(@bulk_message_csv)
+      end
+      redirect_to action: :index
     end
 
     private
 
     def create_params
-      params.require(:bulk_message_csv).permit(:upload)
+      params.require(:bulk_message_csv).permit(:upload).merge(user: current_user, status: :queued)
     end
   end
 end

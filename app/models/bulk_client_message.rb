@@ -3,6 +3,7 @@
 # Table name: bulk_client_messages
 #
 #  id                      :bigint           not null, primary key
+#  send_only               :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  tax_return_selection_id :bigint

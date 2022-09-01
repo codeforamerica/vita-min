@@ -12,6 +12,8 @@
                 hub_bulk_client_message_path(id: notification.notifiable.id)
               )
           ) %>
+      <%= t('hub.bulk_actions.send_a_message.edit.selected_action_qualifier.only_email') if notification.notifiable.send_only == 'email' %>
+      <%= t('hub.bulk_actions.send_a_message.edit.selected_action_qualifier.only_text') if notification.notifiable.send_only == 'text_message' %>
     </p>
 
     <% if notification.notifiable.status == BulkClientMessage::IN_PROGRESS %>

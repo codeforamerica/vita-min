@@ -46,6 +46,41 @@ describe BulkActionJob do
           )
         end
 
+        context "when the bulk message is configured to only send on a single medium" do
+          it "can send only email" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params.merge(send_only: 'email')
+            )
+
+            expect(ClientMessagingService).to have_received(:send_email).with(
+              body: english_message_body,
+              client: selected_client,
+              user: user,
+              subject: nil
+            )
+            expect(ClientMessagingService).not_to have_received(:send_text_message)
+          end
+
+          it "can send only text messages" do
+            described_class.perform_now(
+              task: task_type,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params.merge(send_only: 'text_message')
+            )
+
+            expect(ClientMessagingService).not_to have_received(:send_email)
+            expect(ClientMessagingService).to have_received(:send_text_message).with(
+              body: english_message_body,
+              client: selected_client,
+              user: user
+            )
+          end
+        end
+
         it "creates a Notification for BulkClientMessage" do
           expect do
             described_class.perform_now(

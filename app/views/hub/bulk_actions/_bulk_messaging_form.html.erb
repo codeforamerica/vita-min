@@ -35,3 +35,4 @@
 <% end %>
 
 <%= f.cfa_textarea :note_body, t(".note_body_label"), help_text: t(".note_body_help_text"), classes: ["spacing-below-35"] %>
+<%= f.hidden_field :send_only, value: params[:send_only] %>

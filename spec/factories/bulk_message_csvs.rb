@@ -3,6 +3,7 @@
 # Table name: bulk_message_csvs
 #
 #  id                      :bigint           not null, primary key
+#  status                  :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  tax_return_selection_id :bigint

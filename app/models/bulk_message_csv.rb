@@ -3,6 +3,7 @@
 # Table name: bulk_message_csvs
 #
 #  id                      :bigint           not null, primary key
+#  status                  :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  tax_return_selection_id :bigint
@@ -22,4 +23,5 @@ class BulkMessageCsv < ApplicationRecord
   has_one_attached :upload
   belongs_to :tax_return_selection, optional: true
   belongs_to :user
+  enum status: { queued: 0, completed: 100}
 end

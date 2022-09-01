@@ -24,7 +24,7 @@ module Hub
       end
 
       def update_params
-        params.require(:hub_bulk_action_form).permit(:note_body, :message_body_en, :message_body_es)
+        params.require(:hub_bulk_action_form).permit(:note_body, :message_body_en, :message_body_es, :send_only)
       end
     end
   end
