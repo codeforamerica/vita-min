@@ -11,18 +11,22 @@ module Hub
 
         @new_vita_partner = @vita_partners.find(@form.vita_partner_id)
 
-        ActiveRecord::Base.transaction do
-          UpdateClientVitaPartnerService.new(clients: @clients, vita_partner_id: @form.vita_partner_id, change_initiated_by: current_user).update!
-          create_notes!
-          create_change_org_notifications!
-          create_outgoing_messages!
-          create_user_notifications!
-        end
+        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @selection), user: current_user)
+        BulkActionJob.perform_later(
+          task: task_type,
+          user: current_user,
+          tax_return_selection: @selection,
+          form_params: update_params
+        )
 
         redirect_to hub_user_notifications_path
       end
 
       private
+
+      def task_type
+        :change_organization
+      end
 
       def update_params
         params.require(:hub_bulk_action_form).permit(:vita_partner_id, :note_body, :message_body_en, :message_body_es)

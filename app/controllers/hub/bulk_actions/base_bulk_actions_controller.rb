@@ -29,36 +29,6 @@ module Hub
         @locale_counts = @clients.where.not(id: @clients.with_insufficient_contact_info).locale_counts
         @no_contact_info_count = @clients.with_insufficient_contact_info.size
       end
-
-      def create_outgoing_messages!
-        if @form.message_body_en.present? || @form.message_body_es.present?
-          @bulk_client_message = ClientMessagingService.send_bulk_message(
-            @selection,
-            current_user,
-            en: { body: @form.message_body_en },
-            es: { body: @form.message_body_es },
-          )
-        end
-      end
-
-      def create_notes!
-        @clients.find_each do |client|
-          if @form.note_body.present?
-            client.notes.create!(body: @form.note_body, user: current_user)
-          end
-        end
-      end
-
-      def create_user_notifications!
-        if @form.note_body.present?
-          bulk_note = BulkClientNote.create!(tax_return_selection: @selection)
-          UserNotification.create!(notifiable: bulk_note, user: current_user)
-        end
-
-        if @bulk_client_message.present?
-          UserNotification.create!(notifiable: @bulk_client_message, user: current_user)
-        end
-      end
     end
   end
 end

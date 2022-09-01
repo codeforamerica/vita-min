@@ -1,0 +1,8 @@
+<div class="notification notification--<%= notification.read ? 'read' : 'unread' %>" id="notification-<%= notification.id %>">
+  <div class="notification__heading">Bulk Action</div>
+  <div class="notification__date"><%= timestamp(notification.created_at) %></div>
+  <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
+    <%= render 'shared/unread_icon', flag: true unless notification.read? %>
+    You started a "<%= notification.notifiable.task_type.humanize %>" task.
+  </div>
+</div>

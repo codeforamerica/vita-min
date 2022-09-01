@@ -35,6 +35,8 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
     click_on "Submit"
 
     expect(current_path).to eq hub_user_notifications_path
+    perform_enqueued_jobs
+    visit page.current_path
     expect(page).to have_text "You successfully moved 2 clients to Orange Organization."
     expect(page).to have_text "You successfully added internal notes to 2 clients."
     expect(page).to have_text "Bulk Send a Message In Progress"
@@ -90,6 +92,8 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
     click_on "Submit"
 
     expect(current_path).to eq hub_user_notifications_path
+    perform_enqueued_jobs
+    visit page.current_path
     expect(page).to have_text "Bulk Send a Message In Progress"
     expect(page).to have_text "We are still contacting 2 clients."
 
@@ -146,6 +150,8 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
     click_on "Submit"
 
     expect(current_path).to eq hub_user_notifications_path
+    perform_enqueued_jobs
+    visit current_path
 
     expect(page).to have_text "You successfully assigned 2 tax returns to #{new_user.name_with_role}."
     expect(page).to have_text "You successfully updated 2 tax returns to Greeter - info requested."

@@ -10,18 +10,22 @@ module Hub
 
         return render :edit unless @form.valid?
 
-        ActiveRecord::Base.transaction do
-          update_assignee_and_status!
-          create_notes!
-          create_change_assignee_and_status_notifications!
-          create_outgoing_messages!
-          create_user_notifications!
-        end
+        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @selection), user: current_user)
+        BulkActionJob.perform_later(
+          task: task_type,
+          user: current_user,
+          tax_return_selection: @selection,
+          form_params: update_params
+        )
 
         redirect_to hub_user_notifications_path
       end
 
       private
+
+      def task_type
+        :change_assignee_and_status
+      end
 
       def load_edit_form
         @form = BulkActionForm.new(@selection, {
@@ -40,46 +44,6 @@ module Hub
 
       def load_assignable_users
         @assignable_users = @selection.tax_returns.map { |tr| assignable_users(tr.client, [current_user, tr.assigned_user])}.flatten.compact.uniq
-      end
-
-      def update_assignee_and_status!
-        @selection.tax_returns.find_each do |tax_return|
-          TaxReturnAssignmentService.new(tax_return: tax_return, assigned_user: @form.assigned_user, assigned_by: current_user).assign! unless assignment_action == BulkTaxReturnUpdate::KEEP
-          tax_return.transition_to!(@form.status) unless status_action == BulkTaxReturnUpdate::KEEP
-        end
-      end
-
-      def assignment_action
-        case @form.assigned_user_id
-        when BulkTaxReturnUpdate::KEEP
-          BulkTaxReturnUpdate::KEEP
-        when BulkTaxReturnUpdate::REMOVE
-          BulkTaxReturnUpdate::REMOVE
-        else
-          BulkTaxReturnUpdate::UPDATE
-        end
-      end
-
-      def status_action
-        case @form.status
-        when BulkTaxReturnUpdate::KEEP
-          BulkTaxReturnUpdate::KEEP
-        else
-          BulkTaxReturnUpdate::UPDATE
-        end
-      end
-
-      def create_change_assignee_and_status_notifications!
-        bulk_update = BulkTaxReturnUpdate.create!(
-          tax_return_selection: @selection,
-          assigned_user: @form.assigned_user,
-          state: status_action == BulkTaxReturnUpdate::KEEP ? nil : @form.status,
-          data: {
-            assigned_user: assignment_action,
-            status: status_action
-          }
-        )
-        UserNotification.create!(notifiable: bulk_update, user: current_user)
       end
     end
   end
