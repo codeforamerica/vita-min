@@ -1,5 +1,5 @@
 <li>
-  <%= item.upload.filename || "filename" %>
+  <%= item.upload.filename.presence || "filename" %>
   by <%= item.user&.email || "unknown user" %>:
   <%= item.status.capitalize %>
   <% if item.tax_return_selection_id.present? %>
