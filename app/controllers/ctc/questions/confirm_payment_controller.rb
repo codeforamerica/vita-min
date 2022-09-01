@@ -10,7 +10,7 @@ module Ctc
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
         @ctc_amount = benefits.outstanding_ctc_amount
         @third_stimulus_amount = benefits.outstanding_eip3
-        @eitc_amount = benefits.claiming_and_qualified_for_eitc? ? benefits.eitc_amount : nil # calculate EITC amount
+        @eitc_amount = benefits.claiming_and_qualified_for_eitc? ? benefits.eitc_amount : nil
         @not_collecting = @ctc_amount.zero? && @third_stimulus_amount.zero? && @eitc_amount.zero?
         @total_amount = [@ctc_amount, @third_stimulus_amount, @eitc_amount].compact.sum
 
