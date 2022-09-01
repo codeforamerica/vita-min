@@ -2035,9 +2035,9 @@ es:
           ctc_due: Crédito Tributario por Hijos
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
+          eitc: 'Crédito Tributario por Ingreso del Trabajo:'
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
-          eitc: 'Crédito Tributario por Ingreso del Trabajo:'
           total: 'Importe total del fondo:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
