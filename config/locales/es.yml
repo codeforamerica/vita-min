@@ -615,6 +615,7 @@ es:
             other: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>
           selected_action_qualifier:
             only_email: "(only sending email)"
+            only_text: "(only sending text messages)"
           title: Acción masiva
     bulk_message_csvs:
       bulk_message_csv:
