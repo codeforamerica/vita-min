@@ -11,5 +11,16 @@ module Hub
     def index
       @main_heading = "Bulk messaging CSVs"
     end
+
+    def create
+      @bulk_message_csv.save if @bulk_message_csv.valid?
+      redirect_to({action: :index})
+    end
+
+    private
+
+    def create_params
+      params.require(:bulk_message_csv).permit(:upload)
+    end
   end
 end
