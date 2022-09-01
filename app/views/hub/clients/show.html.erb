@@ -185,6 +185,12 @@
                       <span class="label-value"><%= "$#{benefits.advance_ctc_amount_received}" if benefits.advance_ctc_amount_received %></span>
                     </div>
                   <% end %>
+                  <% unless benefits.eitc_amount.nil? %>
+                    <div class="field-display">
+                      <span class="form-question">EITC estimated amount:</span>
+                      <span class="label-value"><%= "$#{benefits.eitc_amount}" %></span>
+                    </div>
+                  <% end %>
                 <% end %>
               </div>
             <% end %>
