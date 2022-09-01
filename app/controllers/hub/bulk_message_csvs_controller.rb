@@ -8,14 +8,18 @@ module Hub
 
     def index
       @main_heading = "Bulk messaging CSVs"
+      @bulk_message_csv = BulkMessageCsv.new
     end
 
     def create
       if @bulk_message_csv.valid?
         @bulk_message_csv.save
         BulkAction::MessageCsvImportJob.perform_later(@bulk_message_csv)
+        redirect_to action: :index
+      else
+        @bulk_message_csvs = BulkMessageCsv.all
+        render :index
       end
-      redirect_to action: :index
     end
 
     private
