@@ -2631,6 +2631,7 @@ es:
         w2s:
           add: Agregar un W-2
           done_adding: Terminado de agregar todos los formularios W-2
+          dont_add_w2: No quiero añadir ningún ingreso
           employee_info:
             confirm_employee_ssn: Confirmar el SSN del empleado
             employee_city: Ciudad
@@ -2659,17 +2660,22 @@ es:
             standard_or_non_standard_code: Código estándar o no estándar
             title: "¡Excelente! Comencemos con la lectura de su W-2."
           help_text:
-            one: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 para cobrar el Crédito Tributario por Ingreso del Trabajo.
-            other: Su W-2 es un formulario fiscal oficial que le entrega su empleador. Se requiere compartir su W-2 y el W-2 de su cónyuge para cobrar el Crédito Tributario por Ingreso del Trabajo.
-          info_box:
-            list_item: Debe compartir todos sus formularios W-2 para esta devolución para evitar demoras con su devolución.
-            title: 'Requisito:'
+            p1:
+              one: Un W-2 es un formulario fiscal oficial que le entrega su empleador. Ingrese todos sus formularios W-2 para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
+              other: Un W-2 es un formulario fiscal oficial que le entrega su empleador. Ingrese todos sus formularios W-2 y los de su cónyuge para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
+            p2: El formulario que ingrese debe tener el W-2 impreso en la parte superior o no será aceptado.
+          note_html: "<strong>Nota:</strong> Si no agrega un formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, aún puede reclamar los otros créditos si están disponibles para usted."
           reveal:
             content:
-              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunas medidas para asegurarse de obtenerlo. Por ley, su empleador debe enviarle una copia de su W-2 antes del 31 de enero del año fiscal en curso.
-              p2: Un buen primer paso sería comunicarse directamente con su empleador y asegurarse de que toda la información personal, como su dirección postal, esté actualizada. También puede preguntarles si los formularios W-2 se han enviado por correo o cuándo prevén enviarlos. Puede ser que tu empleador te lo haya enviado el último día, 31 de enero, que luego llegará a principios de febrero. Otra opción sería acceder a su W-2 en línea. La mayoría de los empleadores brindan acceso en línea a su W-2 a través de un portal para empleados. Vuelva a verificar con su empleador si le han dado información sobre cómo iniciar sesión en dicho portal.
+              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunas medidas para asegurarse de obtenerlo.
+              p2: Un buen primer paso sería ponerse en contacto con su empleador directamente y asegurarse de que cualquier información personal, como su dirección postal, esté actualizada. También puede preguntarles si los formularios W-2 se han enviado por correo o cuándo prevén enviarlos. Puede ser que tu empleador te lo haya enviado el último día, 31 de enero, que luego llegará a principios de febrero. Otra opción sería acceder a su W-2 en línea. La mayoría de los empleadores brindan acceso en línea a su W-2 a través de un portal para empleados. Vuelva a verificar con su empleador si le han dado información sobre cómo iniciar sesión en dicho portal.
+              p3_html: Si no puede comunicarse con su empleador, puede solicitar una transcripción de ingresos y salarios del IRS. Vaya a <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript </a>. Deberá crear o iniciar sesión en su cuenta del IRS.
+              p4: ¿Tiene preguntas adicionales? Haz clic en "Chatea con nosotros" para obtener más información sobre estas opciones.
             title: "¿Qué pasa si no he recibido mi W-2?"
-          title: Comparta la información de su W-2.
+          reveal_1099:
+            content: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede utilizar GetCTC. Haga clic en "Presentar una declaración de impuestos completa en su lugar" para comenzar.
+            title: "¿Qué pasa si tengo un 1099?"
+          title: Por favor comparta los ingresos de su W-2.
           wages: Salarios
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)

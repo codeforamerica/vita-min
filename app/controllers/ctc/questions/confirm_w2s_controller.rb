@@ -20,8 +20,20 @@ module Ctc
         render 'ctc/questions/w2s/edit'
       end
 
+      def form_name
+        "ctc_w2s_form"
+      end
+
       def self.form_class
-        NullForm
+        W2sForm
+      end
+
+      def next_path
+        if current_intake.had_w2s_yes?
+          Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: current_intake.new_record_token)
+        elsif current_intake.had_w2s_no?
+          form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+        end
       end
 
       private

@@ -89,6 +89,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t('views.ctc.questions.w2s.dont_add_w2')
+
+    # skips rest of w2 pages
+    expect(page).to have_text(I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$1,400"))
+
+    click_on I18n.t('general.back')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))

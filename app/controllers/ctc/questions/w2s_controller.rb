@@ -12,12 +12,12 @@ module Ctc
         benefits_eligibility.claiming_and_qualified_for_eitc?
       end
 
-      def self.form_class
-        NullForm
-      end
-
       def next_path
-        form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+        if current_intake.had_w2s_yes?
+          Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: current_intake.new_record_token)
+        elsif current_intake.had_w2s_no?
+          form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+        end
       end
 
       private
