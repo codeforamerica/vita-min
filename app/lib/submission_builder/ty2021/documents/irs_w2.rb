@@ -31,8 +31,8 @@ module SubmissionBuilder
               xml.StateAbbreviationCd w2.employee_state
               xml.ZIPCd w2.employee_zip_code
             end
-            xml.WagesAmt w2.wages_amount.to_int
-            xml.WithholdingAmt w2.federal_income_tax_withheld.to_int
+            xml.WagesAmt w2.rounded_wages_amount
+            xml.WithholdingAmt w2.rounded_federal_income_tax_withheld
             xml.StandardOrNonStandardCd w2.standard_or_non_standard_code
           end
         end
