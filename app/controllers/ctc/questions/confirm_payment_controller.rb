@@ -10,15 +10,16 @@ module Ctc
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
         @ctc_amount = benefits.outstanding_ctc_amount
         @third_stimulus_amount = benefits.outstanding_eip3
-        @eitc = benefits.eitc # calculate EITC amount
-        @not_collecting = @ctc_amount.zero? && @third_stimulus_amount.zero?
-        # calculate @total
+        @eitc_amount = benefits.claiming_and_qualified_for_eitc? ? benefits.eitc_amount : nil # calculate EITC amount
+        @not_collecting = @ctc_amount.zero? && @third_stimulus_amount.zero? && @eitc_amount.zero?
+        @total_amount = [@ctc_amount, @third_stimulus_amount, @eitc_amount].compact.sum
 
         # This feels like a weird place to fire this event, as it will fire each time this page is reloaded.
         # Sending it on some sort of submission status change (submission creation?) probably makes more sense.
         send_mixpanel_event(event_name: "ctc_efile_estimated_payments", data: {
             child_tax_credit_advance: @ctc_amount,
-            third_stimulus_amount: @third_stimulus_amount
+            third_stimulus_amount: @third_stimulus_amount,
+            eitc_amount: @eitc_amount
         })
         super
       end

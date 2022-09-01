@@ -97,9 +97,8 @@ module Efile
       return nil unless qualified_for_eitc?
 
       earned_income = intake.w2s.sum(&:wages_amount).to_f
-      dependent_count = dependents.count { |d| d.qualifying_eitc? && (d.qualifying_child? || d.qualifying_relative?) }
 
-      case dependent_count
+      case dependents.count { |d| d.qualifying_eitc? && (d.qualifying_child? || d.qualifying_relative?) }
       when 0
         [(0.153 * earned_income), 1502].min.round
       when 1
