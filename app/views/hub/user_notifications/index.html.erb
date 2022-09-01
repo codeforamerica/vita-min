@@ -32,7 +32,7 @@
       <% all_notifications_by_day.map do |date, notifications| %>
         <div class="day-heading"><%= default_date_format(date) %></div>
         <% notifications.map do |n| %>
-          <%= render "#{n.notifiable_type.underscore.gsub("/", "_")}", notification: n %>
+          <%= render "#{n.notifiable_type.underscore.gsub("/", "_")}", notification: n unless n.notifiable_type == "BulkActionNotification"%>
         <% end %>
       <% end %>
     </div>

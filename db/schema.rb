@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_01_161020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -508,6 +508,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
     t.bigint "vita_partner_id", null: false
     t.index ["tax_return_selection_id"], name: "index_bcou_on_tax_return_selection_id"
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
+  end
+
+  create_table "bulk_message_csvs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "tax_return_selection_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["tax_return_selection_id"], name: "index_bulk_message_csvs_on_tax_return_selection_id"
+    t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
   create_table "bulk_tax_return_updates", force: :cascade do |t|
@@ -1688,6 +1697,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
   add_foreign_key "bulk_client_notes", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
+  add_foreign_key "bulk_message_csvs", "tax_return_selections"
+  add_foreign_key "bulk_message_csvs", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
@@ -1749,7 +1760,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
+            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count
