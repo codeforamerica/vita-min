@@ -8,9 +8,9 @@ describe SubmissionBuilder::Ty2021::Documents::IrsW2 do
   let(:spouse_w2) { create :w2, intake: intake, legal_first_name: intake.spouse_first_name }
 
   it "conforms to the eFileAttachments schema 2021v5.2" do
-    instance = described_class.new(submission, documents: [primary_w2])
+    instance = described_class.new(submission, kwargs: { w2: primary_w2 })
     expect(instance.schema_version).to eq "2021v5.2"
 
-    expect(described_class.build(submission, documents: [primary_w2])).to be_valid
+    expect(described_class.build(submission, kwargs: { w2: primary_w2 })).to be_valid
   end
 end

@@ -91,7 +91,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
 
         it "attaches the W2" do
           xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
-          expect(xml.at("IRSW2").attr("documentId")).to eq "IRSW2_#{primary_w2.id}"
+          expect(xml.at("IRSW2").attr("documentId")).to eq "IRSW2-#{primary_w2.id}"
         end
       end
 
@@ -101,8 +101,8 @@ describe SubmissionBuilder::Ty2021::Return1040 do
 
         it "attaches both W2s" do
           xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
-          expect(xml.at_xpath("//*[@documentId=\"IRSW2_#{primary_w2.id}\"]")).not_to be_nil
-          expect(xml.at_xpath("//*[@documentId=\"IRSW2_#{spouse_w2.id}\"]")).not_to be_nil
+          expect(xml.at_xpath("//*[@documentId=\"IRSW2-#{primary_w2.id}\"]")).not_to be_nil
+          expect(xml.at_xpath("//*[@documentId=\"IRSW2-#{spouse_w2.id}\"]")).not_to be_nil
         end
       end
     end

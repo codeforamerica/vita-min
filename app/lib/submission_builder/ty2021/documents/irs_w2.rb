@@ -11,7 +11,7 @@ module SubmissionBuilder
         def document
           w2 = @kwargs[:w2]
 
-          build_xml_doc("IRSW2", documentId: "IRSW2_#{w2.id}", documentName: "IRSW2") do |xml|
+          build_xml_doc("IRSW2", documentId: "IRSW2-#{w2.id}", documentName: "IRSW2") do |xml|
             xml.EmployeeSSN w2.employee_ssn
             xml.EmployerEIN w2.employer_ein
             xml.EmployerNameControlTxt name_control_type(w2.employer_name)
