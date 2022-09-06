@@ -3,7 +3,7 @@ require 'csv'
 module BulkAction
   class MessageCsvImportJob < ApplicationJob
     def perform(bulk_message_csv)
-      client_ids = CSV.parse(bulk_message_csv.upload.download, headers: true).map { |row| row[0] }
+      client_ids = CSV.parse(bulk_message_csv.upload.download, headers: true).map { |row| row['client_id'] }
       uniq_tax_return_id_sql = <<~SQL
         select tax_returns.id, tax_returns.client_id
         from tax_returns inner join (
