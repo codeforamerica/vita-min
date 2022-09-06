@@ -36,7 +36,7 @@ RSpec.describe "Uploading a CSV for bulk client messaging", active_job: true do
 
     perform_enqueued_jobs
     visit current_path
-    expect(page).to have_content "Completed"
+    expect(page).to have_content "Ready"
 
     click_on I18n.t("hub.bulk_message_csvs.bulk_message_csv.send_email")
     expect(page).to have_text "You’ve selected Send a Message for 3 clients (only sending email)"

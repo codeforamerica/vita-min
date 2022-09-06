@@ -3,6 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     load_and_authorize_resource
+    before_action :load_bulk_message_csvs
 
     layout "hub"
 
@@ -17,12 +18,15 @@ module Hub
         BulkAction::MessageCsvImportJob.perform_later(@bulk_message_csv)
         redirect_to action: :index
       else
-        @bulk_message_csvs = BulkMessageCsv.all
         render :index
       end
     end
 
     private
+
+    def load_bulk_message_csvs
+      @bulk_message_csvs = BulkMessageCsv.all.order(id: :desc)
+    end
 
     def create_params
       params.require(:bulk_message_csv).permit(:upload).merge(user: current_user, status: :queued)
