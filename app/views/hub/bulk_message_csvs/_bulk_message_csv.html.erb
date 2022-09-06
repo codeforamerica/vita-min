@@ -1,0 +1,10 @@
+<li>
+  <%= item.upload.filename.presence || "filename" %>
+  by <%= item.user&.email || "unknown user" %>:
+  <%= item.status.capitalize %>
+  <% if item.tax_return_selection_id.present? %>
+    <%= link_to(t('.send_email'), hub_bulk_actions_edit_send_a_message_path(tax_return_selection_id: item.tax_return_selection_id, send_only: :email)) %>,
+    <%= link_to(t('.send_text'), hub_bulk_actions_edit_send_a_message_path(tax_return_selection_id: item.tax_return_selection_id, send_only: :text_message)) %>,
+    <%= link_to(t('.send_default'), hub_bulk_actions_edit_send_a_message_path(tax_return_selection_id: item.tax_return_selection_id)) %> to <%= item.tax_return_selection.clients.count %> clients
+  <% end %>
+</li>

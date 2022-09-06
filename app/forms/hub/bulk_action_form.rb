@@ -7,6 +7,7 @@ module Hub
       :message_body_en,
       :message_body_es,
       :note_body,
+      :send_only,
     )
 
     validate :no_missing_message_locales

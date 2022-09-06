@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -489,6 +489,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
 
   create_table "bulk_client_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "send_only"
     t.bigint "tax_return_selection_id"
     t.datetime "updated_at", null: false
     t.index ["tax_return_selection_id"], name: "index_bcm_on_tax_return_selection_id"
@@ -508,6 +509,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
     t.bigint "vita_partner_id", null: false
     t.index ["tax_return_selection_id"], name: "index_bcou_on_tax_return_selection_id"
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
+  end
+
+  create_table "bulk_message_csvs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "status"
+    t.bigint "tax_return_selection_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["tax_return_selection_id"], name: "index_bulk_message_csvs_on_tax_return_selection_id"
+    t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
   create_table "bulk_tax_return_updates", force: :cascade do |t|
@@ -1689,6 +1700,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_212058) do
   add_foreign_key "bulk_client_notes", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
+  add_foreign_key "bulk_message_csvs", "tax_return_selections"
+  add_foreign_key "bulk_message_csvs", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"

@@ -605,7 +605,15 @@ en:
           selected_action_and_client_count_html:
             one: You’ve selected <strong>Send a Message</strong> for <strong>%{count} client</strong>
             other: You’ve selected <strong>Send a Message</strong> for <strong>%{count} clients</strong>
+          selected_action_qualifier:
+            only_email: "(only sending email)"
+            only_text: "(only sending text messages)"
           title: Bulk Action
+    bulk_message_csvs:
+      bulk_message_csv:
+        send_default: Send message (all available contact methods, i.e. default)
+        send_email: Send message (email only)
+        send_text: Send message (text message only)
     client_channel:
       please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
     clients:

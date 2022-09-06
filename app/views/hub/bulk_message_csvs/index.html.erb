@@ -1,0 +1,33 @@
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+      <p>You can use this to send bulk messages. You should use this with great care;
+        coordinate with the program team. Here are the steps.</p>
+
+      <ul class="list--padded list--bulleted">
+        <li>Upload a CSV on this page (1 column, just client_id, header row is required and must be "client_id",
+          filename is displayed on this page).
+        </li>
+        <li>Reload this page until you see the words "Send a message" next to your CSV filename.</li>
+        <li>Click on the contact method(s) you want to use.</li>
+        <li>Type the English & Spanish into the box, then click Submit.
+        <li>You will now see your notifications page ("My Updates"). The messages will start sending. You can reload
+          that page to check on the status.
+        </li>
+      </ul>
+
+      <p>This tool will send messages at whatever ungodly hour of the day you ask it to; if you want to make sure that
+        your messages don’t go out at midnight, it’s on you. The tool may send about 1 message per second.</p>
+
+      <h2>Upload</h2>
+      <%= form_with model: @bulk_message_csv, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
+        <%= f.cfa_file_field :upload, t('general.select_file') %>
+        <%= f.submit(t("general.upload")) %>
+      <% end %>
+
+      <h2>CSVs uploaded</h2>
+      <%= render(partial: 'hub/bulk_message_csvs/bulk_message_csv', collection: @bulk_message_csvs, as: :item) || "None uploaded yet." %>
+    </div>
+  </div>
+<% end %>

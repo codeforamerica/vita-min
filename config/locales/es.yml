@@ -613,7 +613,15 @@ es:
             many: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>
             one: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} cliente</strong>
             other: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>
+          selected_action_qualifier:
+            only_email: "(only sending email)"
+            only_text: "(only sending text messages)"
           title: Acción masiva
+    bulk_message_csvs:
+      bulk_message_csv:
+        send_default: Enviar mensaje (todos los métodos de contacto disponibles, es decir, predeterminado)
+        send_email: Enviar mensaje (solo correo electrónico)
+        send_text: Enviar mensaje (solo mensaje de texto)
     client_channel:
       please_reload_html: "↻ Vuelva a cargar la página para ver un mensaje nuevo."
     clients:
