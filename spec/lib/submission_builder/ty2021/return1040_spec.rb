@@ -83,7 +83,13 @@ describe SubmissionBuilder::Ty2021::Return1040 do
     context "attaching W2s for EITC filers" do
       before do
         allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
-        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, claiming_and_qualified_for_eitc?: true, outstanding_ctc_amount: 1))
+        submission.intake.update(
+          claim_eitc: "yes",
+          exceeded_investment_income_limit: "no",
+          primary_birth_date: 30.years.ago,
+          former_foster_youth: "yes",
+          primary_tin_type: "ssn"
+        )
       end
 
       context "when a W2 is on the intake" do
