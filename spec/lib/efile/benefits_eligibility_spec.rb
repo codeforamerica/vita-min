@@ -539,25 +539,17 @@ describe Efile::BenefitsEligibility do
           intake.dependents.destroy_all
         end
 
-        context "their income is $2,724" do
+        context "when the phase-in function result is below the plateau amount" do
           let!(:earned_income) { 2724 }
 
-          it "calculates the amount" do
+          it "returns the phase-in function result" do
             expect(subject.eitc_amount).to eq 417
           end
         end
 
-        context "their income is $3,701" do
-          let!(:earned_income) { 3701 }
-
-          it "calculates the amount" do
-            expect(subject.eitc_amount).to eq 566
-          end
-        end
-
-        context "their income is $10,824" do
+        context "when the phase-in function result is above the plateau amount" do
           let!(:earned_income) { 10824 }
-          it "calculates the amount" do
+          it "returns the plateau amount" do
             expect(subject.eitc_amount).to eq 1502
           end
         end
@@ -569,18 +561,18 @@ describe Efile::BenefitsEligibility do
           create :qualifying_child, intake: intake
         end
 
-        context "their income is $14,683" do
-          let!(:earned_income) { 14683 }
+        context "when the phase-in function result is below the plateau amount" do
+          let!(:earned_income) { 2000 }
 
-          it "calculates the amount" do
-            expect(subject.eitc_amount).to eq 3618
+          it "returns the phase-in function result" do
+            expect(subject.eitc_amount).to eq 680
           end
         end
 
-        context "their income is $12,289" do
-          let!(:earned_income) { 12289 }
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 14683 }
 
-          it "calculates the amount" do
+          it "returns the plateau amount" do
             expect(subject.eitc_amount).to eq 3618
           end
         end
@@ -593,11 +585,19 @@ describe Efile::BenefitsEligibility do
           create :qualifying_child, intake: intake
         end
 
-        context "their income is $7,345" do
+        context "when the phase-in function result is below the plateau amount" do
           let!(:earned_income) { 7345 }
 
-          it "calculates the amount" do
+          it "returns the phase-in function result" do
             expect(subject.eitc_amount).to eq 2938
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 15000 }
+
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 5980
           end
         end
       end
@@ -610,11 +610,19 @@ describe Efile::BenefitsEligibility do
           create :qualifying_child, intake: intake
         end
 
-        context "their income is $9,135" do
+        context "when the phase-in function result is below the plateau amount" do
           let!(:earned_income) { 9135 }
 
-          it "calculates the amount" do
+          it "returns the phase-in function result" do
             expect(subject.eitc_amount).to eq 4111
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 17000 }
+
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 6728
           end
         end
       end

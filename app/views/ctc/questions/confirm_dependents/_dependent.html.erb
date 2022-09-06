@@ -8,7 +8,7 @@
     <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>" id="<%= "ctc_#{dependent.id}" %>">
       <%= image_tag(dependent.qualifying_ctc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
     </div>
-    <% if Flipper.enabled?(:eitc) && dependent.intake.claim_eitc_yes? %>
+    <% if dependent.intake.claim_eitc_yes? %>
       <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>" id="<%= "eitc_#{dependent.id}" %>">
         <%= image_tag(dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
       </div>
