@@ -129,9 +129,14 @@ class Client < ApplicationRecord
   end
 
   scope :with_insufficient_contact_info, -> do
-    can_use_email = Intake.where(email_notification_opt_in: "yes").where.not(email_address: nil).where.not(email_address: "")
-    can_use_sms = Intake.where(sms_notification_opt_in: "yes").where.not(sms_phone_number: nil).where.not(sms_phone_number: "")
-    where.not(intake: can_use_email.or(can_use_sms))
+    intake_models = [Intake, Archived::Intake2021]
+    client_ids = intake_models.each_with_object([]) do |klass, client_ids|
+      can_use_email = klass.where(client: all, email_notification_opt_in: "yes").where.not(email_address: nil).where.not(email_address: "")
+      can_use_sms = klass.where(client: all, sms_notification_opt_in: "yes").where.not(sms_phone_number: nil).where.not(sms_phone_number: "")
+      client_ids.concat(can_use_email.or(can_use_sms).pluck(:client_id))
+    end
+
+    where.not(id: client_ids)
   end
 
   scope :accessible_to_user, ->(user) do

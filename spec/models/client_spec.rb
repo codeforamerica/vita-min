@@ -143,13 +143,15 @@ describe Client do
       create(:intake, email_notification_opt_in: "no", email_address: "irrelevant@example.com", sms_notification_opt_in: "no", sms_phone_number: "+14155537865").client
     }
     let!(:client_no_preferences_no_info) { create(:intake, email_notification_opt_in: "no", email_address: nil, sms_notification_opt_in: "no", sms_phone_number: nil).client }
+    let!(:archived_2021_email_client) { create(:client, intake: nil) }
+    let!(:archived_2021_email_intake) { create(:archived_2021_gyr_intake, client: archived_2021_email_client, email_address: "someone_archived@example.com", email_notification_opt_in: "yes") }
 
     it "correctly filters the clients who either haven't opted in or have opted in but without contact info" do
       expect(Client.with_insufficient_contact_info).to match_array [
         client_no_info, client_no_email, client_no_phone, client_no_preferences, client_no_preferences_no_info
       ]
       expect(Client.where.not(id: Client.with_insufficient_contact_info)).to match_array [
-        client_with_contact_info, client_opted_into_both_but_only_one_contact
+        client_with_contact_info, client_opted_into_both_but_only_one_contact, archived_2021_email_client
       ]
     end
   end
