@@ -7,6 +7,7 @@ module SurveyMessages
       Client.includes(:intake, tax_returns: :tax_return_transitions)
         .where(SENT_AT_COLUMN => nil)
         .where(intake: { type: "Intake::GyrIntake" })
+        .where.not(id: Client.has_active_tax_returns)
         .where(
           tax_returns: {
             service_type: "online_intake",
