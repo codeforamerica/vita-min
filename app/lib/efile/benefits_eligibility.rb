@@ -89,12 +89,38 @@ module Efile
       outstanding_recovery_rebate_credit
     end
 
+    def eitc_amount
+      # EITC amount = [phase-in function, plateau amount, phase-out function].min
+      # where phase-in function = earned-income amount * phase-in rate
+      # But b/c of simplified filing rules, those above the phase out threshold cannot use the tool
+      # so we are not including the phase-out function but keep in mind this might change next year
+      return nil unless qualified_for_eitc?
+
+      earned_income = intake.w2s.sum(&:wages_amount).to_f
+      dependent_count = dependents.count { |d| d.qualifying_eitc? && (d.qualifying_child? || d.qualifying_relative?) }
+
+      case dependent_count
+      when 0
+        [(0.153 * earned_income), 1502].min.round
+      when 1
+        [(0.34 * earned_income), 3618].min.round
+      when 2
+        [(0.4 * earned_income), 5980].min.round
+      else
+        [(0.45 * earned_income), 6728].min.round
+      end
+    end
+
     def claiming_and_qualified_for_eitc?
       intake.claim_eitc_yes? && qualified_for_eitc?
     end
 
     def qualified_for_eitc?
       intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test? && intake.primary_tin_type == "ssn"
+    end
+
+    def youngish_without_eitc_dependents?
+      intake.primary_birth_date >= Date.new(1998, 1, 2) && intake.primary_birth_date <= Date.new(2004, 1, 1) && dependents.none?(&:qualifying_eitc?)
     end
 
     private

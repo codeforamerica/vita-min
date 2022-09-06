@@ -333,6 +333,50 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     end
   end
 
+  describe "total_wages_amount" do
+    let(:intake) { create :ctc_intake }
+
+    context "with w2s" do
+      before do
+        create :w2, intake: intake, wages_amount: 80.50
+        create :w2, intake: intake, wages_amount: 499.98
+        create :w2, intake: intake, wages_amount: 1800.49
+      end
+
+      it "returns the rounded wages_amount for all w2s summed together" do
+        expect(intake.total_wages_amount).to eq 2381
+      end
+    end
+
+    context "without w2s" do
+      it "returns nil" do
+        expect(intake.total_wages_amount).to be_nil
+      end
+    end
+  end
+
+  describe "total_withholding_amount" do
+    let(:intake) { create :ctc_intake }
+
+    context "with w2s" do
+      before do
+        create :w2, intake: intake, federal_income_tax_withheld: 80.50
+        create :w2, intake: intake, federal_income_tax_withheld: 499.98
+        create :w2, intake: intake, federal_income_tax_withheld: 1800.49
+      end
+
+      it "returns the rounded federal_income_tax_withheld for all w2s summed together" do
+        expect(intake.total_withholding_amount).to eq 2381
+      end
+    end
+
+    context "without w2s" do
+      it "returns nil" do
+        expect(intake.total_withholding_amount).to be_nil
+      end
+    end
+  end
+
   context "before_validation" do
     context "normalize spaces in names" do
       let(:intake) {

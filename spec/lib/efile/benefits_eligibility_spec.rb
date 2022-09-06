@@ -470,4 +470,47 @@ describe Efile::BenefitsEligibility do
       end
     end
   end
+
+  describe "#youngish_without_eitc_dependents?" do
+    let(:primary_birth_date) { 20.years.ago }
+    let(:dependents) { [] }
+
+    before do
+      intake.update(primary_birth_date: primary_birth_date, dependents: dependents, exceeded_investment_income_limit: "no")
+    end
+
+    context "without dependents" do
+      context "born before 1/2/98" do
+        let(:primary_birth_date) { Date.new(1998, 1, 1) }
+
+        it "is false" do
+          expect(subject.youngish_without_eitc_dependents?).to eq false
+        end
+      end
+
+      context "born after 1/1/04" do
+        let(:primary_birth_date) { Date.new(2004, 1, 2) }
+
+        it "is false" do
+          expect(subject.youngish_without_eitc_dependents?).to eq false
+        end
+      end
+
+      context "born between 1/2/98 and 1/1/04" do
+        let(:primary_birth_date) { Date.new(2000, 1, 2) }
+
+        it "is true" do
+          expect(subject.youngish_without_eitc_dependents?).to eq true
+        end
+      end
+    end
+
+    context "with dependents" do
+      let(:dependents) { [build(:qualifying_child)] }
+
+      it "is false" do
+        expect(subject.youngish_without_eitc_dependents?).to eq false
+      end
+    end
+  end
 end

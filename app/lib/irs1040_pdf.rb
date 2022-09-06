@@ -44,6 +44,7 @@ class Irs1040Pdf
     answers.merge!(spouse_info) if @xml_document.at("IndividualReturnFilingStatusCd")&.text.to_i == TaxReturn.filing_statuses[:married_filing_jointly]
     dependent_nodes = @xml_document.search("DependentDetail")
     answers.merge!(dependents_info(dependent_nodes)) if dependent_nodes.any?
+    answers.merge!(eitc_info)
     answers
   end
 
@@ -52,6 +53,18 @@ class Irs1040Pdf
   end
 
   private
+
+  def eitc_info
+    {
+      WagesSalariesAndTipsAmt1: @xml_document.at("WagesSalariesAndTipsAmt")&.text,
+      TotalIncomeAmt9: @xml_document.at("TotalIncomeAmt")&.text,
+      AdjustedGrossIncomeAmt11: @xml_document.at("AdjustedGrossIncomeAmt")&.text,
+      FormW2WithheldTaxAmt25a: @xml_document.at("FormW2WithheldTaxAmt")&.text,
+      WithholdingTaxAmt25d: @xml_document.at("WithholdingTaxAmt")&.text,
+      EarnedIncomeCreditAmt27a: @xml_document.at("EarnedIncomeCreditAmt")&.text,
+      QualifiedFosterOrHomelessYouth: xml_check_to_bool(@xml_document.at("UndSpcfdAgeStsfyRqrEICInd")) ? "1" : "Off",
+    }
+  end
 
   def bank_info
     types_to_string = {
