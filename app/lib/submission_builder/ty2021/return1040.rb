@@ -2,7 +2,7 @@ module SubmissionBuilder
   module Ty2021
     class Return1040 < SubmissionBuilder::Shared::Return1040
       def attached_documents
-        @attached_documents ||= xml_documents.map(&:xml)
+        @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
       end
 
       def xml_documents
@@ -18,7 +18,7 @@ module SubmissionBuilder
       end
 
       def supported_documents
-        [
+        supported_docs = [
           {
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
             pdf: Irs1040Pdf,
@@ -51,12 +51,16 @@ module SubmissionBuilder
             pdf: Irs1040ScheduleEicPdf,
             include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           },
+        ]
+        w2_docs = submission.intake.w2s.map do |w2|
           {
             xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
             pdf: nil,
-            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
+            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?,
+            kwargs: { w2: w2 }
           }
-        ]
+        end
+        supported_docs.push(*w2_docs)
       end
     end
   end

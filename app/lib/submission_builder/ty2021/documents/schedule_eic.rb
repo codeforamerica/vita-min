@@ -12,7 +12,7 @@ module SubmissionBuilder
           build_xml_doc("IRS1040ScheduleEIC", documentId: "IRS1040ScheduleEIC", documentName: "IRS1040ScheduleEIC") do |xml|
             eitc_dependents.each do |dependent|
               xml.QualifyingChildInformation {
-                xml.QualifyingChildNameControlTxt person_name_control_type(dependent.last_name)
+                xml.QualifyingChildNameControlTxt name_control_type(dependent.last_name)
                 xml.ChildFirstAndLastName {
                   xml.PersonFirstNm person_name_type(dependent.first_name)
                   xml.PersonLastNm person_name_type(dependent.last_name)

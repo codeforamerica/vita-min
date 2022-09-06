@@ -3,11 +3,11 @@ module SubmissionBuilder
     include SubmissionBuilder::FormattingMethods
     attr_accessor :submission, :schema_file, :schema_version
 
-    def initialize(submission, validate: true, documents: [])
+    def initialize(submission, validate: true, kwargs: {})
       @submission = submission
       @validate = validate
-      @documents = documents
       @schema_version = determine_default_schema_version_by_tax_year
+      @kwargs = kwargs
     end
 
     def document

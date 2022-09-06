@@ -12,7 +12,7 @@ module SubmissionBuilder
           xml.DependentDetail do
             xml.DependentFirstNm person_name_type(dependent.first_name)
             xml.DependentLastNm person_name_type(dependent.last_name)
-            xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
+            xml.DependentNameControlTxt name_control_type(dependent.last_name)
             xml.DependentSSN dependent.ssn
             xml.DependentRelationshipCd dependent.irs_relationship_enum
             xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?

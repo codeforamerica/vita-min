@@ -79,5 +79,32 @@ describe SubmissionBuilder::Ty2021::Return1040 do
         expect(xml.at("IRS1040ScheduleLEP")).to be_nil
       end
     end
+
+    context "attaching W2s for EITC filers" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
+        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, claiming_and_qualified_for_eitc?: true, outstanding_ctc_amount: 1))
+      end
+
+      context "when a W2 is on the intake" do
+        let!(:primary_w2) { create :w2, intake: submission.intake }
+
+        it "attaches the W2" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at("IRSW2").attr("documentId")).to eq "IRSW2-#{primary_w2.id}"
+        end
+      end
+
+      context "when multiple W2s are on the intake" do
+        let!(:primary_w2) { create :w2, intake: submission.intake }
+        let!(:spouse_w2) { create :w2, intake: submission.intake, legal_first_name: submission.intake.spouse_first_name }
+
+        it "attaches both W2s" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at_xpath("//*[@documentId=\"IRSW2-#{primary_w2.id}\"]")).not_to be_nil
+          expect(xml.at_xpath("//*[@documentId=\"IRSW2-#{spouse_w2.id}\"]")).not_to be_nil
+        end
+      end
+    end
   end
 end

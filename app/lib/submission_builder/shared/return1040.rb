@@ -18,8 +18,8 @@ module SubmissionBuilder
 
       private
 
-      def document_fragment(class_obj)
-        class_obj.build(@submission, validate: false).document.at("*")
+      def document_fragment(document)
+        document[:xml_class].build(@submission, validate: false, kwargs: document[:kwargs]).document.at("*")
       end
 
       def return_header

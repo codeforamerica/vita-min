@@ -78,7 +78,7 @@ module SubmissionBuilder
     end
 
     # Limit to max 4 chars uppercased with special characters and spaces removed
-    def person_name_control_type(string)
+    def name_control_type(string)
       return "" unless string.present?
 
       formatted_last_name(string).delete(" ").first(4)
