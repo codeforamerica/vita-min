@@ -77,16 +77,16 @@ es:
     continue_to_fsa:
       edit:
         continue_to_tax_slayer: Continuar con TaxSlayer
-        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene un dificultades, use la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
         steps:
           description:
-          - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
-          - No haga clic en 'atrás' ni navegue fuera de la página TaxSlayer.
-          - Revisa su ortografía.
+          - Para comenzar su declaración de impuestos, abra una cuenta de usuario con TaxSlayer.
+          - No haga clic en 'back/atrás' ni navegue fuera de la página TaxSlayer.
+          - Revise dos veces su ortografía para que no haya errores.
         title: "¡Declare impuestos por su cuenta!"
     email:
       edit:
-        title: Para acceder a este sitio, proporcione su dirección de correo electrónico.
+        title: Para acceder a este sitio, indique su dirección de correo electrónico.
     file_yourself:
       edit:
         assistance: De hecho, necesito ayuda para declarar.
@@ -411,7 +411,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
-    my_account: Mi perfil
+    my_account: Mi cuenta
     my_profile: Mi perfil
     name: Nombre
     negative: 'No'
@@ -651,7 +651,7 @@ es:
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
         marital_status: Estado civil
-        middle_initial: Inicial del segundo nombre (opcional)
+        middle_initial: La inicial del segundo nombre (opcional)
         navigator:
           general: General
           incarcerated: Incarcerated/reentry
@@ -672,7 +672,7 @@ es:
         recovery_rebate_credit: Crédito de recuperación de reembolso (opcional)
         routing_methods:
           at_capacity: Estar a capacidad (no enrutado)
-          hub_assignment: Hub assignment
+          hub_assignment: Grupo asignado o Hub
           most_org_leads: Mayor número de clientes potenciales de la organización (reserva de WIP para la temporada 2021)
           national_overflow: Desbordamiento nacional
           source_param: URL directa
@@ -1005,7 +1005,7 @@ es:
     suspended_user_name: "%{name} (Suspendido)"
     system_notes:
       custom_help_message:
-        ID: Necesito ayuda para encontrar mi(s) tarjeta(s) de identificación.
+        ID: Necesito ayuda para encontrar mi(s) documento(s) de identificación.
       document_help: "%{name} asistencia con los documentos solicitados:"
       document_help_types:
         cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
@@ -1253,23 +1253,7 @@ es:
       sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     getting_started:
       email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>.
-
-          Comenzaremos a preparar sus impuestos una vez que tengamos toda la información requerida y todo los documentos fiscales.
-
-          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
-
-           El proceso completo de GetYourRefund tardará entre 2 y 3 semanas.
-
-          Si tiene alguna pregunta, puede comunicarse con su equipo de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o enviando un mensaje de texto a 58750.
-
-          Recuerde, revisaremos todo con usted por teléfono antes de presentar la solicitud. Complete nuestro formulario lo mejor que pueda y lo ayudaremos a obtener los créditos fiscales que le pertenecen.
-
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetYourRefund.org
+        body: "Hola <<Client.PreferredName>>,\n\nGracias por iniciar la declaración de impuestos con GetYourRefund - ¡ya le falta poco! Su ID de cliente es <<Client.ClientId>>.\n\nComenzaremos a preparar sus impuestos en cuanto tengamos toda su información y documentos fiscales requeridos.\n\nRevise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>\n\nEl proceso completo de GetYourRefund tardará entre 2-3 semanas.\n\nSi tiene alguna duda puede ponerse en contacto con su equipo fiscal a través del correo electrónico <a href=\"mailto:hello@getyourrefund.org\">hello@getyourrefund.org</a> o envíe un mensaje de texto a 58750.\n\nRecuerde que revisaremos todo con usted por teléfono antes de presentar la declaración. ¡Complete nuestro formulario lo mejor que pueda y le ayudaremos a conseguir los créditos fiscales que le corresponden! .\n\n¡Estamos aquí para servirle! \nSu Equipo de Impuestos en GetYourRefund.org\n\n"
         subject: Comience a tramitar sus impuestos con GetYourRefund
       sms: |
         Hola <<Client.PreferredName>>,
@@ -1284,9 +1268,9 @@ es:
     new_photos_requested:
       admin_note: Se solicitaron nuevas fotos
       email:
-        body: Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
+        body: Desafortunadamente, sus documentos de identidad no han sido aprobados en nuestra revisión. Por favor, inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
         subject: Se solicitan documentos de identidad adicionales
-      sms: Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
+      sms: Desafortunadamente, sus documentos de identidad no han sido aprobados en nuestra revisión. Por favor, inicie sesión y cargue nuevas imágenes. <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |+
@@ -1352,9 +1336,14 @@ es:
     surveys:
       completion:
         email:
-          body: "¡Gracias por elegir GetYourRefund! \n\nSi se aceptó su declaración de impuestos, puede verificar el estado de su reembolso en el sitio web del IRS <a href=\"https://www.irs.gov/refunds\">https://www.irs.gov/refunds</a>.\n\n¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue?\n\nResponda nuestra encuesta de 5 minutos aquí: %{survey_link}\n"
-          subject: "¡Gracias por elegir GetYourRefund!"
-        sms: "¡Gracias por elegir GetYourRefund! ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}"
+          body: |
+            ¡Gracias por seleccionar GetYourRefund! Si su declaración de impuestos fue aceptada, puede revisar el estado de su reembolso en el sitio web del IRS <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
+
+            ¡Nos encantaría recibir comentarios sobre su experiencia para poder mejorar este servicio! ¿Podría decirnos cómo le fue?
+
+            Responda a nuestra encuesta de 5 minutos aquí: %{survey_link}
+          subject: "¡Gracias por seleccionar GetYourRefund!"
+        sms: "¡Gracias por seleccionar GetYourRefund! Nos encantaría recibir comentarios sobre su experiencia para poder mejorar este servicio. ¿Podría contarnos cómo le fue? Responda a nuestra encuesta de 5 minutos aquí: %{survey_link}"
       ctc_experience:
         email:
           body: |
@@ -1639,14 +1628,14 @@ es:
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
-    alpha: Solo se aceptan las letras A-Z y a-z.
+    alpha: Sólo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
-    ein: El EIN debe ser un número de 9 dígitos.
+    ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
-    irs_street_address: Solo se aceptan números del 0 al 9, letras A-Z y a-z, guiones, barras y espacios simples.
+    irs_street_address: Sólo se aceptan los números del 0-9, las letras de la A a la Z y de la a a la Z, el guión, la barra oblicua y los espacios simples.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
@@ -1656,9 +1645,9 @@ es:
     signature_pin: El PIN debe ser un número de 5 dígitos.
     signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
-    urbanization: Solo se aceptan números del 0 al 9, letras A-Z y a-z, espacios y guiones.
+    urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
-    zip_code_with_optional_extra_digits: Ingrese un código postal válido de 5 dígitos más 4 o 7 dígitos opcionales.
+    zip_code_with_optional_extra_digits: Por favor, introduzca un código postal válido de 5 dígitos más los 4 o 7 dígitos opcionales.
   verification_code_mailer:
     no_match:
       body_html: |
@@ -1787,11 +1776,11 @@ es:
         bank_account:
           title: Proporcione sus datos bancarios.
         dependent_info:
-          atin: ATIN
+          atin: ATIN o Número de Adopción
           birthday: Fecha de nacimiento
           help_text: Confirmar / editar la información básica de su dependiente
-          ssn: SSN
-          ssn_no_employment: SSN (no válido para el empleo)
+          ssn: SNS o Número de Seguro Social
+          ssn_no_employment: SSN o Número de Seguro Social (no válido para empleo)
           title: Edita la información básica de %{name}
         dependents:
           no_eligible_dependents:
@@ -1810,7 +1799,7 @@ es:
         home:
           complete_form: Complete el formulario CTC
           contact_us: Contáctenos
-          correct_info: Corrija mi información
+          correct_info: Corregir mi información
           current_status: 'Estado actual de la declaración de impuestos:'
           default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
           download_tax_return: Descargar mi declaración de impuestos
@@ -1985,22 +1974,22 @@ es:
           title: Favor de compartir su número de celular
         claim_eitc:
           buttons:
-            claim: Sí, reclamar EITC
-            dont_claim: No, continuar sin EITC
-          help_text: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede otorgarle hasta $6,700. Este crédito suele ser de al menos $1,500.
+            claim: Sí, solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
+            dont_claim: No, continuar sin solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
+          help_text: El crédito tributario por ingreso de trabajo (EITC) es un crédito tributario que puede darle hasta $6,700. La mayoría de las personas reciben al menos $1,500.
           info_box:
             list:
-            - Tienes un trabajo ganando dinero
+            - Tiene un trabajo que le permite ganar dinero
             - Tiene un W2 2021 de su(s) empleador(es)
-            - Cada persona en esta declaración tiene un SSN
+            - Cada persona de esta declaración tiene un SSN, Número de Seguro Social
             title: 'Requisitos:'
-          title: "¿Le gustaría reclamar más dinero compartiendo algún formulario W2 2021?"
+          title: "¿Le gustaría declarar más dinero compartiendo algún formulario W2 de 2021?"
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
           add_a_dependent: Agregar un dependiente
-          birthday: FDN
+          birthday: DOB, fecha de nacimiento
           done_adding: 'Termine de agregar dependientes '
           other_benefits_reveal:
             content:
@@ -2015,7 +2004,7 @@ es:
           help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
           labels:
             signature_pin: El PIN de cinco dígitos de %{name}
-          no_qualifying_dependents: No dependientes calificadas
+          no_qualifying_dependents: No hay dependientes que reúnan los requisitos
           pin_help_text: Seleccione un PIN de 5 dígitos. Este es un número que usted elige como contraseña propia. Este PIN se puede usar para verificar su identidad al presentar la declaración de impuestos del próximo año.
           title: Revise y confirme su información.
           your_dependents: Sus dependientes
@@ -2088,19 +2077,19 @@ es:
               title: "¿Quién se considera un estudiante de tiempo completo?"
             title: "¡Excelente, asegurémonos de que %{name} califique!"
           child_residence:
-            help_text: Si nacieron, adoptaron o fallecieron en %{current_tax_year}, seleccione 12 meses.
+            help_text: Si nacieron, fueron adoptados o fallecieron en %{current_tax_year}, seleccione 12 meses.
             reveal:
-              body: Si su dependiente estuvo en una ubicación temporal en 2021, seleccione la cantidad de meses que su hogar fue su dirección oficial.
+              body: Si su dependiente estuvo en un lugar temporal en 2021, seleccione el número de meses que su casa fue su dirección oficial.
               list:
               - escuela
-              - centro Médico
-              - un centro de menores
-              list_title: 'Algunos ejemplos de ubicaciones temporales:'
-              title: "¿Qué pasa si mi dependiente estuvo fuera por algún tiempo en 2021?"
+              - centro médico
+              - un centro para menores
+              list_title: 'Algunos ejemplos de lugares temporales:'
+              title: "¿Qué pasa si mi dependiente estuvo fuera durante una temporada en 2021?"
             select_options:
               eight_to_nine: 8-9 meses
               eleven_to_twelve: 11-12 meses
-              less_than_six: Menos de 6 meses
+              less_than_six: menos de 6 meses
               nine_to_ten: 9-10 meses
               seven_to_eight: 7-8 meses
               six_to_seven: 6-7 meses
@@ -2190,25 +2179,25 @@ es:
           state: Estado
           title: Ingrese su información de su licencia de conducir o su tarjeta de identificación emitida por el estado
         eitc_offboarding:
-          help_text: Continúe con GetCTC para reclamar su Crédito Tributario por Hijos y/o pagos de estímulo faltantes.
-          title: No califica para el Crédito Tributario por Ingreso del Trabajo, ¡pero todavía hay dinero esperándolo!
+          help_text: Continúe con GetCTC para solicitar su Crédito Tributario por Hijos y/o los pagos de estímulo que faltan.
+          title: "¡No cumple los requisitos para obtener el crédito tributario por ingresos del trabajo, pero aún hay dinero disponible para usted!"
         eitc_qualifiers:
-          former_foster_youth: Yo era un ex joven de crianza calificado
+          former_foster_youth: Antes fui un ex joven de acogida calificado
           former_foster_youth_reveal:
-            info: Un ex joven de crianza temporal calificado es alguien que estuvo en crianza temporal entre las edades de 14 y 17 años. Debe haber permitido que el programa de crianza temporal comparta su estado como ex joven de crianza temporal.
-            title: "¿Qué es un ex joven de crianza calificado?"
-          full_time_student_less_than_four_months: Fui estudiante de tiempo completo por menos de 4 meses.
-          homeless_youth: Yo era un joven sin hogar calificado
+            info: Un antiguo joven de acogida calificado es alguien que estuvo en cuidado de acogida entre los 14 y los 17 años. Necesita haberle permitido que el programa de acogida compartiera su estado de antiguo joven de acogida.
+            title: "¿Cómo se define un antiguo joven de acogida calificado?"
+          full_time_student_less_than_four_months: Fui estudiante a tiempo completo por menos de 4 meses
+          homeless_youth: Fui un joven sin hogar calificado
           homeless_youth_reveal:
-            info: Un joven sin hogar calificado es alguien sin hogar o en riesgo de quedarse sin hogar, que se mantiene económicamente. Debe tener entre 18 y 24 años y no puede estar bajo la custodia física de un padre o tutor.
-            title: "¿Qué es un joven sin hogar calificado?"
-          not_full_time_student: Yo no era un estudiante de tiempo completo
-          title: 'Seleccione alguna de las situaciones que fueron ciertas en %{current_tax_year}:'
+            info: Un joven sin hogar calificado es alguien que no tiene hogar o está en riesgo de no tenerlo, y que se mantiene económicamente. Debe tener entre 18-24 años y no puede estar bajo la custodia física de un padre o tutor.
+            title: "¿Cómo se define un joven sin hogar calificado?"
+          not_full_time_student: No era estudiante a tiempo completo
+          title: 'Seleccione cualquiera de las situaciones que fueron verdaderas en %{current_tax_year}:'
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Puede beneficiarse de presentar una declaración de impuestos (o planilla federal) completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
+          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
@@ -2251,10 +2240,10 @@ es:
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
           title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
         had_dependents:
-          add: Agregar dependientes
-          continue: Continuar sin dependientes
-          help_text: Cualquiera a quien apoye financieramente o que haya vivido con usted podría calificarlo para beneficios adicionales, lo ayudaremos a resolverlo.
-          title: Para reclamar su Crédito Tributario por Hijos, debe agregar a sus dependientes (hijos u otras personas a las que mantiene financieramente)
+          add: Agregue dependientes
+          continue: Seguir adelante sin dependientes
+          help_text: Cualquier persona a la que mantenga económicamente o que haya vivido con usted puede tener derecho a prestaciones adicionales, le ayudaremos a averiguarlo.
+          title: Para solicitar el Crédito Tributario por Hijos, debe añadir a las personas a su cargo (hijos u otras personas a las que mantiene económicamente)
           which_relationships_qualify_reveal:
             content:
             - Hijo
@@ -2281,7 +2270,7 @@ es:
             - Hijo
             - Hija
             - Hijastro
-            - Hijo de acogida/crianza
+            - Niño de acogida
             - Sobrina
             - Sobrino
             - Nieto
@@ -2373,9 +2362,9 @@ es:
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
-          help_text: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
-          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingresos por inversiones?"
-          title: "¿Ganaste más de $10,000 en ingresos de inversiones?"
+          help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
+          title: "¿Ganó más de $10.000 en ingresos por inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
@@ -2395,8 +2384,8 @@ es:
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body_html: |
-            <p>Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN).</p>
-            <p>Si está tratando de reclamar beneficios fiscales para su hijo, ingrese su propia información aquí. Ingresará la información de su hijo más tarde.</p>
+            <p>Introduzca su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN)</p>
+            <p>Si está tratando de obtener beneficios tributarios para su hijo, introduzca su propia información aquí. Más tarde introducirá la información de su hijo.</p>
           first_name: Primer nombre legal
           form_of_identity: Forma de identidad
           last_name: Apellido legal
@@ -2490,7 +2479,7 @@ es:
         restrictions:
           cannot_use_ctc: No puedo usar GetCTC
           list:
-          - en los últimos 10 años se le ha prohibido solicitar el Crédito Tributario por Hijos, lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de solicitar el Crédito Tributario por Hijos.
+          - anteriormente se le redujo o se le rechazó el CTC por una investigación del IRS y no ha presentado correctamente el formulario 8862 desde entonces
           - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
           - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
           - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}
@@ -2629,54 +2618,55 @@ es:
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
         w2s:
-          add: Agregar un W-2
-          done_adding: Terminado de agregar todos los formularios W-2
-          dont_add_w2: No quiero añadir ningún ingreso
+          add: Agregar la forma W-2
+          done_adding: Se ha terminado de añadir todas las formas W-2
+          dont_add_w2: No deseo añadir ningún ingreso
           employee_info:
-            confirm_employee_ssn: Confirmar el SSN del empleado
+            confirm_employee_ssn: Confirmar el SSN, Número de Seguro Social, del empleado
             employee_city: Ciudad
             employee_ssn: 'Casilla a: SSN del empleado'
             employee_state: Estado
-            employee_street_address: 'Casilla e: Dirección de la calle del empleado o P.O. caja'
+            employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
             employee_street_address2: Número de apartamento (opcional)
             employee_zip_code: Código postal
-            federal_income_tax_withheld: 'Recuadro 2: Impuesto Federal sobre la Renta Retenido'
-            help_text: Su W-2 tiene casillas con letras y números. Hará coincidir e ingresará esta información a continuación.
-            legal_first_name: Primer nombre legal
+            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
+            help_text: Su forma W-2 tiene casillas con letras y números. A continuación, deberá hacer que coincidan e introducir esta información.
+            legal_first_name: Nombre de pila legal
             legal_last_name: Apellido legal
-            legal_middle_initial: Inicial legal del medio (opcional)
+            legal_middle_initial: La inicial del segundo nombre (opcional)
             suffix: Sufijo (opcional)
-            title: "¡Excelente! Comencemos con la lectura de su W-2."
-            wages_amount: 'Casilla 1: Importe del salario'
+            title: "¡Excelente! Empecemos por leer su forma W-2."
+            wages_amount: 'Casilla 1: Importe de los salarios'
           employer_info:
-            add: Agregar W-2
+            add: Agregar la forma W-2
             employer_city: Ciudad
-            employer_ein: 'Casilla b: Número de Identificación Patronal (EIN)'
+            employer_ein: 'Casilla b: Número de identificación del empleador (EIN)'
             employer_name: 'Casilla c: Nombre del empleador'
             employer_state: Estado
-            employer_street_address: Dirección de la calle o P.O. del empleador caja
+            employer_street_address: Dirección del empleador o apartado postal
             employer_street_address2: Número de apartamento (opcional)
             employer_zip_code: Código postal
             standard_or_non_standard_code: Código estándar o no estándar
-            title: "¡Excelente! Comencemos con la lectura de su W-2."
+            title: "¡Fantástico! Empecemos por leer su forma W-2"
           help_text:
             p1:
-              one: Un W-2 es un formulario fiscal oficial que le entrega su empleador. Ingrese todos sus formularios W-2 para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
-              other: Un W-2 es un formulario fiscal oficial que le entrega su empleador. Ingrese todos sus formularios W-2 y los de su cónyuge para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
-            p2: El formulario que ingrese debe tener el W-2 impreso en la parte superior o no será aceptado.
-          note_html: "<strong>Nota:</strong> Si no agrega un formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, aún puede reclamar los otros créditos si están disponibles para usted."
+              many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
+              one: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
+              other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
+            p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
+          note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
             content:
-              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunas medidas para asegurarse de obtenerlo.
-              p2: Un buen primer paso sería ponerse en contacto con su empleador directamente y asegurarse de que cualquier información personal, como su dirección postal, esté actualizada. También puede preguntarles si los formularios W-2 se han enviado por correo o cuándo prevén enviarlos. Puede ser que tu empleador te lo haya enviado el último día, 31 de enero, que luego llegará a principios de febrero. Otra opción sería acceder a su W-2 en línea. La mayoría de los empleadores brindan acceso en línea a su W-2 a través de un portal para empleados. Vuelva a verificar con su empleador si le han dado información sobre cómo iniciar sesión en dicho portal.
-              p3_html: Si no puede comunicarse con su empleador, puede solicitar una transcripción de ingresos y salarios del IRS. Vaya a <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript </a>. Deberá crear o iniciar sesión en su cuenta del IRS.
-              p4: ¿Tiene preguntas adicionales? Haz clic en "Chatea con nosotros" para obtener más información sobre estas opciones.
+              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunos pasos para asegurarse de obtenerla.
+              p2: Un buen primer paso sería ponerse en contacto directamente con su empresa y asegurarse de que cualquier información personal, como su dirección postal, está actualizada. También puede preguntarles si se han enviado las W-2 o cuándo tienen previsto enviarlas. Puede ser que su empleador lo haya enviado el último día, el 31 de enero, y que le llegue a principios de febrero. Otra opción sería acceder a su W-2 por Internet. La mayoría de los empleadores proporcionan acceso en línea a su W-2 a través de un portal para empleados. Consulte con su empleador si le han dado información sobre cómo acceder a dicho portal.
+              p3_html: Si no puede ponerse en contacto con su empleador, puede solicitar una transcripción de ingresos y salarios al IRS. Vaya a <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript</a>. Necesitará crear o iniciar sesión en su cuenta del IRS.
+              p4: ¿Tiene más preguntas? Haga clic en Chatear con nosotros o "Chat with us" en inglés, para obtener más información sobre estas opciones.
             title: "¿Qué pasa si no he recibido mi W-2?"
           reveal_1099:
-            content: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede utilizar GetCTC. Haga clic en "Presentar una declaración de impuestos completa en su lugar" para comenzar.
-            title: "¿Qué pasa si tengo un 1099?"
-          title: Por favor comparta los ingresos de su W-2.
-          wages: Salarios
+            content: Si tiene más de 400 dólares en ingresos reportados en un formulario 1099-NEC o 1099-K por el trabajo que hizo en 2021, necesita presentar una declaración de impuestos completa. No puede utilizar GetCTC. Haga clic en "Presentar una declaración de impuestos completa en su lugar" para comenzar.
+            title: "¿Qué pasa si tengo una forma 1099?"
+          title: Por favor, indique los ingresos de su forma W-2.
+          wages: Sueldo
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
@@ -3279,17 +3269,17 @@ es:
               question: "¿Cómo se solicita el Crédito Tributario por Hijos para un bebé nacido en 2022?"
             how_do_i_get_my_child_tax_credit_ctc_payments:
               answer_html: |
-                <p>Para obtener el Child Tax Credit (CTC) debe presentar una declaración de impuestos.</p>
-                <p>Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
-                <p>Para presentar una declaración de impuestos completa para reclamar el CTC y todos los demás beneficios fiscales para los que es elegible, puede usar <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener">GetYourRefund</a>.</p>
-                <p>Ya sea que haya recibido pagos mensuales de CTC o no el año pasado, y haya presentado o no impuestos en los últimos años o en absoluto, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
-                <p>Si recibió pagos mensuales por adelantado en 2021, puede presentar una declaración de impuestos para obtener el resto de sus pagos (generalmente, $1,800 por hijo menor y $1,500 por hijo mayor). Si no recibió pagos mensuales en 2021 entonces puede presentar una declaración de impuestos para obtener el total de sus pagos de CTC (generalmente, $3,600 por hijo menor y $3,000 por hijo mayor).</p>
+                <p>Para poder obtener el Crédito Tributario por Hijos (CTC) tiene que presentar una declaración de impuestos.</p>
+                <p>Para presentar una declaración de impuestos sólo para el CTC y la tercer pago de estímulo puede utilizar <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a></p>
+                <p>Para presentar una declaración de impuestos completa para reclamar el CTC y todos los demás beneficios fiscales a los que tenga derecho puede utilizar <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a></p>
+                <p>Ya sea que haya o no haya recibido pagos mensuales de CTC el año pasado, y que haya o no haya recibido impuestos en los últimos años o en absoluto, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
+                <p>Si recibió pagos mensuales por adelantado en 2021, entonces puede presentar una declaración de impuestos para obtener el resto de sus pagos (generalmente, $1,800 por hijo menor y $1,500 por hijo mayor). Si no recibió pagos mensuales en 2021 entonces puede presentar una declaración de impuestos para obtener el total de sus pagos de CTC (generalmente, $3,600 por hijo menor y $3,000 por hijo mayor).</p>
               question: "¿Qué debo hacer para recibir los pagos del Crédito Tributario por Hijos?"
             how_do_i_get_the_child_tax_credit_if_i:
               answer_html: |
-                <p>Las familias que no suelen declarar impuestos se denominan a veces "no declarantes". A menudo se trata de familias que ganan tan poco dinero que no están obligadas a declarar impuestos, a veces porque obtienen sus ingresos a través de una discapacidad u otras prestaciones.</p>
-                <p>Todo individuo con derecho a prestaciones fiscales debe presentar la declaración de impuestos, aunque se le considere "no declarante". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas como el Crédito Tributario por Hijos, CTC en inglés, aunque no haga la declaración de impuestos o no los haya declarado en mucho tiempo.</p>
-                <p>Las familias que no están obligadas a presentar declaraciones de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto a veces se ha llamado "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de completar y requiere mucha menos información. Puede presentar una declaración simplificada gratis hoy con <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>A las familias que generalmente no declaran impuestos se les conoce a veces como "no declarantes o non filers". Frecuentemente, esto se refiere a las familias que ganan poco como para no tener que declarar impuestos, a veces porque obtienen sus ingresos de la discapacidad u otras prestaciones, en su lugar.</p>
+                <p>Todos los que tienen derecho a beneficios tributarios deben presentar una declaración de impuestos, incluso si usted se considera un "no declarante o non-filer". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas, como el Crédito Tributario por Hijos, incluso si no acostumbra presentar la declaración de impuestos o no la ha presentado en mucho tiempo.</p>
+                <p>Las familias que no están obligadas a presentar la declaración de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto se ha llamado a veces "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de llenar y requiere mucha menos información. Puede presentar una declaración simplificada de forma gratuita hoy mismo con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cómo puedo obtener el Crédito Tributario por Hijos si soy no declarante?"
             how_much_is_the_child_tax_credit_in_2022:
               answer_html: |
@@ -3331,7 +3321,7 @@ es:
                 <p>Si intenta presentar una declaración de impuestos este año y descubre que alguien ya ha declarado a su hijo y desea disputar la declaración al IRS para recibir sus pagos, el proceso es más complicado. En primer lugar, tiene que enviar por correo una copia en papel de su declaración al IRS. A continuación, el IRS iniciará un proceso para determinar quién puede declarar a este dependiente. Este proceso puede ser difícil para usted y para quien haya declarado a su dependiente. Si quiere seguir este proceso, consulte aquí para más información: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. Un sitio de <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Voluntarios de Declaración de Impuestos, Volunteer Income Tax , en inglés</a> o el <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Servicio de Defensa del Contribuyente, Taxpayer Advocate Service, en inglés</a>pueden ayudarle con el proceso.</p>
               question: "¿Qué puedo hacer si otra persona ha declarado a mi hijo para el Crédito Tributario por Hijos?"
             what_if_i_dont_have_any_income_or_only_income:
-              answer_html: No es necesario tener ningún ingreso para tener derecho al Crédito Tributario por Hijos (CTC) y recibir pagos de otros programas de prestaciones no influye en su elegibilidad. Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.
+              answer_html: No necesita ningún ingreso para tener derecho al Crédito Tributario por Hijos (CTC) y recibir pagos de otros programas de prestaciones no afecta a su derecho. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.
               question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
             what_is_the_child_tax_credit_ctc:
               answer_html: |
@@ -3412,9 +3402,9 @@ es:
               question: "¿Qué es GetYourRefund y cómo funciona?"
             what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
-                <p><a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta nonfiler, es la opción de presentación más sencilla y rápida. Todo lo que tiene que hacer es responder algunas preguntas y luego presentaremos su declaración de impuestos directamente con el IRS.</p>
-                <p>Puede usar GetCTC para reclamar el tercer pago de estímulo (pago de impacto económico) y el crédito fiscal por hijos (CTC), pero no el crédito fiscal por ingreso del trabajo ni los créditos fiscales estatales. Por lo general, solo puede usar GetCTC si es soltero y ganó menos de $12 500 en 2021, o si está casado y ganó menos de $25 000 en 2021.</p>
-                <p>GetCTC es una excelente opción para usted si <em>solo</em> busca obtener su tercer pago de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos fiscales o le falta una copia impresa de su Social Tarjeta de seguridad.</p>
+                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta para no declarantes, es su opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y luego presentamos su declaración de impuestos directamente al IRS.</p>
+                <p>Puede utilizar GetCTC para reclamar el tercer pago de estímulo (Pago de Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario por Ingreso del Trabajo o los créditos fiscales estatales. Por lo general, sólo puede utilizar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
+                <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener su tercer pago de estímulo y el Crédito Tributario por Hijos, o si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de la Seguridad Social.</p>
               question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3520,8 +3510,8 @@ es:
             title: Portal para quienes que no declaran impuestos o "No Declarantes"
             where_is_the_nonfiler_portal_where_is_getctc:
               answer_html: |
-                <p>En 2020 y 2021, el "portal para no declarantes" ("nonfiler portal" en inglés), o "herramienta para no declarantes" ("non-filer tool" en inglés) del IRS permitió a las personas que no suelen presentar declaraciones presentar una declaración de impuestos sencilla para declarar beneficios como los pagos de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
-                <p>Si anteriormente usó una herramienta de no declaración, puede presentar una declaración de impuestos simple hoy usando <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>En 2020 y 2021, el "portal para no declarantes" o "herramienta para no declarantes" del IRS permitió a las personas que no acostumbran hacer declaraciones presentar una declaración de impuestos simplificada para solicitar beneficios como los cheques de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
+                <p>Si previamente utilizó una herramienta para no declarantes, puede presentar una declaración de impuestos simplificada hoy utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Dónde está el portal para no declarantes? ¿Dónde está GetCTC?"
           paper_filing:
             how_do_i_paper_file:
@@ -3557,8 +3547,8 @@ es:
               question: "¿Tengo que presentar una declaración de impuestos?"
             how_do_i_get_the_ctc_in_puerto_rico:
               answer_html: |
-                <p>Si desea declarar el Crédito Tributario por Hijos (CTC), tiene que facilitar sus datos al IRS, aunque normalmente no tenga que declarar impuestos en EE.UU. al IRS. <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">El Instituto del Desarrollo de la Juventud ofrece instrucciones </a>sobre cómo presentar el formulario 1040-PR para declarar el crédito.</p>
-                <p>Una regla del IRS ha cambiado recientemente por lo que pronto podrá reclamar el Crédito Tributario por Hijos en línea en Puerto Rico. <a href="https://www.getctc.org/es/sign-up" target="_blank" rel="noopener">Regístrese</a> para recibir actualizaciones sobre los servicios de GetCTC para Puerto Rico.</p>
+                <p>Si desea solicitar el Crédito Tributario por Hijos (CTC) tendrá que proporcionar su información al IRS, aunque no tenga que presentar normalmente los impuestos de EE.UU. al IRS. Las instrucciones sobre cómo presentar el formulario 1040-PR para solicitar el crédito están <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">disponibles en el Instituto del Desarrollo de la Juventud</a>.</p>
+                <p>Una regla del IRS ha cambiado recientemente para que pronto pueda solicitar el Crédito Tributario por Hijos en línea en Puerto Rico. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Inscríbase</a> para recibir actualizaciones sobre los servicios de GetCTC para Puerto Rico.</p>
               question: "¿Cómo puedo obtener el Crédito Tributario por Hijos (CTC) en Puerto Rico?"
             how_do_i_get_the_eitc_in_puerto_rico:
               answer_html: A diferencia del Crédito Tributario por Hijos(CTC), el Earned Income crédito tributario (EITC) en Puerto Rico es administrado por el Departamento de Hacienda de Puerto Rico, no por el IRS. Para declarar el EITC, tendrá que presentar una declaración de impuestos de Puerto Rico ante el Departamento.
@@ -3611,8 +3601,8 @@ es:
           should_i_file_a_tax_return:
             am_i_a_nonfiler:
               answer_html: |
-                <p>El término "no declarante" se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el crédito tributario por ingresos del trabajo.</p>
-                <p>El "No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para declarar los beneficios fiscales disponibles. Al presentar una declaración de impuestos, usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no suele declarar impuestos. Para presentar una declaración de impuestos solo por el CTC y el tercer pago de estímulo, puede usar nuestra herramienta para personas que no declaran, <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>El término "no declarante" o en inglés, "non filer",  se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el Crédito Tributario por Ingresos del Trabajo.</p>
+                <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para solicitar los beneficios fiscales disponibles. Al presentar una declaración de impuestos usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no acostumbra a declarar impuestoss. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar nuestra herramienta para no declarantes, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Soy un no declarante?"
             im_1924_should_i_file_a_tax_return:
               answer_html: |
@@ -3628,10 +3618,11 @@ es:
             title: "¿Necesito declarar impuestos?"
             what_are_the_potential_benefits_of_filing_a_tax_return:
               answer_html: |
-                <p>Aún si gana poco o nada y no está obligado a presentar una declaración de impuestos, es probable que tenga derecho a recibir pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que tenga derecho a pagos si tiene hijos. Para poder declarar este dinero, tiene que presentar una declaración de impuestos.</p>
-                <p>La presentación de la declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayuda económicas para la universidad, o un préstamo hipotecario.</p>
-                <p>Puede presentar una declaración de impuestos completa y reclamar todos los beneficios fiscales relevantes con la ayuda de un preparador de impuestos usando <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener">Obtenga su reembolso</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/es/diy" target="_blank" rel="noopener">File Myself</a>.</p>
-                <p>Si gana menos de $ 12,500 (o menos de $ 25,000 como pareja casada), puede elegir esperar y presentar una declaración simplificada para reclamar solo el Crédito fiscal por hijos y el tercer pago de estímulo usando <a href="https://www.getctc.org/es" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>Aunque tenga pocos o ningún ingreso y no esté obligado a presentar la declaración de la renta, es probable que tenga derecho a recibir pagos del IRS, que pueden sumar miles de dólares. Es especialmente probable que tenga derecho a los pagos si tiene hijos. Para solicitar este dinero, debe presentar una declaración de impuestos.</p>
+                <p>La presentación de la declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad o un préstamo hipotecario.</p>
+                <p>Puede presentar una declaración de impuestos completa y solicitar todos los beneficios fiscales correspondientes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>.
+                </p>
+                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede optar por esperar y presentar una declaración simplificada para solicitar sólo el Crédito Tributario por Hijos y el tercer pago de estímulo utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:

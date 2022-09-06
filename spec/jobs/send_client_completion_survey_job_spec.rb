@@ -22,7 +22,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
               body: a_string_including("qualtrics.com/jfe/form/SV_2uCOhUGqxJdG8Au"),
-              subject: "¡Gracias por elegir GetYourRefund!",
+              subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
               locale: "es"
             )
             expect(client.reload.completion_survey_sent_at).to be_present
@@ -63,7 +63,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
               body: a_string_including("qualtrics.com/jfe/form/SV_2uCOhUGqxJdG8Au"),
-              subject: "¡Gracias por elegir GetYourRefund!",
+              subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
               locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_text_message)
@@ -85,7 +85,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             expect(ClientMessagingService).to have_received(:send_system_email).with(
                 client: client,
                 body: a_string_including("qualtrics.com/jfe/form/SV_1Ch7S3rTLOgzbFk"),
-                subject: "¡Gracias por elegir GetYourRefund!",
+                subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
                 locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_text_message)
