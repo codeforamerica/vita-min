@@ -3,7 +3,10 @@ require 'csv'
 module BulkAction
   class MessageCsvImportJob < ApplicationJob
     def perform(bulk_message_csv)
-      client_ids = CSV.parse(bulk_message_csv.upload.download, headers: true).map { |row| row['client_id'] }
+      csv_content = bulk_message_csv.upload.download
+      io = StringIO.new(csv_content)
+      io.set_encoding_by_bom
+      client_ids = CSV.parse(io, headers: true).map { |row| row['client_id'] }
       uniq_tax_return_id_sql = <<~SQL
         select tax_returns.id, tax_returns.client_id
         from tax_returns inner join (
@@ -17,7 +20,7 @@ module BulkAction
         TaxReturnSelectionTaxReturn.insert_all(
           tax_return_ids.map { |tr_id| { tax_return_id: tr_id, tax_return_selection_id: selection.id } }
         )
-        bulk_message_csv.update!(tax_return_selection: selection, status: "completed")
+        bulk_message_csv.update!(tax_return_selection: selection, status: "ready")
       end
     end
   end
