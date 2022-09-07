@@ -247,8 +247,6 @@
 #
 module Archived
   class Intake2021 < ApplicationRecord
-    self.ignored_columns = ["encrypted_primary_last_four_ssn", "encrypted_primary_last_four_ssn_iv", "encrypted_spouse_last_four_ssn", "encrypted_spouse_last_four_ssn_iv", "encrypted_primary_ssn", "encrypted_primary_ssn_iv", "encrypted_spouse_ssn", "encrypted_spouse_ssn_iv", "encrypted_bank_name", "encrypted_bank_name_iv", "encrypted_bank_routing_number", "encrypted_bank_routing_number_iv", "encrypted_bank_account_number", "encrypted_bank_account_number_iv", "encrypted_primary_ip_pin", "encrypted_primary_ip_pin_iv", "encrypted_spouse_ip_pin", "encrypted_spouse_ip_pin_iv", "encrypted_primary_signature_pin", "encrypted_primary_signature_pin_iv", "encrypted_spouse_signature_pin", "encrypted_spouse_signature_pin_iv"]
-
     self.table_name = 'archived_intakes_2021'
 
     def self.discriminate_class_for_record(record)
