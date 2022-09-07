@@ -23,7 +23,7 @@ class BulkMessageCsv < ApplicationRecord
   has_one_attached :upload
   belongs_to :tax_return_selection, optional: true
   belongs_to :user
-  enum status: { queued: 0, ready: 100}
+  enum status: { queued: 0, empty: 10, failed: 90, ready: 100}
 
   validate :must_contain_client_id_header
 
