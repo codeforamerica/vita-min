@@ -23,7 +23,6 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
-  self.ignored_columns = [:encrypted_account_number, :encrypted_account_number_iv, :encrypted_bank_name, :encrypted_bank_name_iv]
   belongs_to :intake
   has_one :client, through: :intake
   # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
