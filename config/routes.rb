@@ -435,6 +435,11 @@ Rails.application.routes.draw do
           get 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#edit"
           put 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#update"
 
+          resources :w2s do
+            get 'w2s-employee-info', on: :member, to: "w2s/employee_info#edit"
+            put 'w2s-employee-info', on: :member, to: "w2s/employee_info#update"
+          end
+
           get "verification", to: "verification_attempts#edit", as: "verification_attempt"
           patch "verification", to: "verification_attempts#update", as: "update_verification_attempt"
           delete "verification-photo/:id", to: "verification_attempts#destroy", as: "destroy_verification_attempt_photo"

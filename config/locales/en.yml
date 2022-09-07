@@ -1844,6 +1844,7 @@ en:
           resubmit: Resubmit my tax return
           title: Correct your submitted information
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
+          w2s_shared: "W2s shared:"
         home:
           complete_form: Complete CTC form
           contact_us: Contact us
@@ -4697,3 +4698,8 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
+  ctc:
+    portal:
+      portal:
+        edit_info:
+          w2s_shared: "W2s shared:"
