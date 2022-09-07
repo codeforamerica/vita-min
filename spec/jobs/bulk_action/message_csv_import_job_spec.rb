@@ -52,13 +52,13 @@ describe BulkAction::MessageCsvImportJob do
 
     context "when the file does not contain any client ids with tax returns" do
       let!(:no_tax_returns_client_id) { create(:client).id }
-      let(:nonexistant_client_id) { -1000 }
+      let(:nonexistent_client_id) { -1000 }
 
       let(:csv_content) do
         <<~CSV
           client_id
           #{no_tax_returns_client_id}
-          #{nonexistant_client_id}
+          #{nonexistent_client_id}
         CSV
       end
 

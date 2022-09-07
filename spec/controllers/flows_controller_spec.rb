@@ -124,7 +124,7 @@ RSpec.describe FlowsController do
       end
     end
 
-    context 'for a nonexistant flow' do
+    context 'for a nonexistent flow' do
       it 'renders 404' do
         expect do
           get :show, params: { id: :aardvark }
