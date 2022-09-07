@@ -57,13 +57,12 @@ module Hub
     end
 
     def update
-      original_intake = @client.intake.dup
       # need to use the presenter bc it has ITIN applicant methods that are used in the form
       @client = HubClientPresenter.new(@client)
       @form = UpdateClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
-        SystemNote::ClientChange.generate!(initiated_by: current_user, original_intake: original_intake, intake: @client.intake)
+        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")
@@ -85,9 +84,8 @@ module Hub
     end
 
     def toggle_field
-      original_intake = @client.intake.dup
       @client.intake.update(toggle_field_params)
-      SystemNote::ClientChange.generate!(initiated_by: current_user, original_intake: original_intake, intake: @client.intake)
+      SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
     end
 
     def edit_take_action

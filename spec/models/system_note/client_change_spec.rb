@@ -27,7 +27,6 @@ describe SystemNote::ClientChange do
   describe ".generate!" do
     let(:user) { create :user }
     let!(:intake) { create :intake, :with_contact_info, primary_first_name: "Original first name", primary_last_name: "Original last name" }
-    let!(:original_intake) { intake.dup }
 
     context "with changes to the client profile" do
       before do
@@ -36,7 +35,7 @@ describe SystemNote::ClientChange do
 
       it "creates a system note summarizing all changes" do
         expect {
-          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: intake)
+          described_class.generate!(initiated_by: user, intake: intake)
         }.to change(described_class, :count).by 1
 
         note = described_class.last
@@ -55,7 +54,7 @@ describe SystemNote::ClientChange do
     context "without any changes" do
       it "creates no system note" do
         expect {
-          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: Intake.find(intake.id))
+          described_class.generate!(initiated_by: user, intake: Intake.find(intake.id))
         }.not_to change(SystemNote, :count)
       end
     end
@@ -65,7 +64,7 @@ describe SystemNote::ClientChange do
         intake.update(updated_at: Time.now)
 
         expect {
-          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: intake)
+          described_class.generate!(initiated_by: user, intake: intake)
         }.not_to change(described_class, :count)
       end
     end
