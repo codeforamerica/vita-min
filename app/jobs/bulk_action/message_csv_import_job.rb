@@ -15,6 +15,11 @@ module BulkAction
         ) max_year_by_client_id on tax_returns.client_id = max_year_by_client_id.client_id and tax_returns.year = max_year_by_client_id.year
       SQL
       tax_return_ids = TaxReturn.find_by_sql([uniq_tax_return_id_sql, client_ids]).pluck(:id)
+      if tax_return_ids.length == 0
+        bulk_message_csv.update!(status: 'empty')
+        return
+      end
+
       ActiveRecord::Base.transaction do
         selection = TaxReturnSelection.create!
         TaxReturnSelectionTaxReturn.insert_all(
@@ -22,6 +27,9 @@ module BulkAction
         )
         bulk_message_csv.update!(tax_return_selection: selection, status: "ready")
       end
+    rescue
+      bulk_message_csv.update!(status: 'failed')
+      raise
     end
   end
 end

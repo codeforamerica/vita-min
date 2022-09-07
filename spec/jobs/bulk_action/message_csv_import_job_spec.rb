@@ -14,15 +14,18 @@ describe BulkAction::MessageCsvImportJob do
   end
 
   let(:optional_bom) { '' }
-
-  around do |example|
-    @filename = Rails.root.join("tmp", "bulk-client-message-test-#{SecureRandom.hex}.csv")
-    File.write(@filename, <<~CSV)
+  let(:csv_content) do
+    <<~CSV
       #{optional_bom}client_id
       #{email_and_phone_client.id}
       #{email_client.id}
       #{archived_2021_email_client.id}
     CSV
+  end
+
+  around do |example|
+    @filename = Rails.root.join("tmp", "bulk-client-message-test-#{SecureRandom.hex}.csv")
+    File.write(@filename, csv_content)
     example.run
     File.unlink(@filename)
   end
@@ -31,7 +34,10 @@ describe BulkAction::MessageCsvImportJob do
     let(:bulk_message_csv) { BulkMessageCsv.create(upload: { filename: 'really_good_csv.csv', io: File.open(@filename) }, user: user) }
 
     it "creates a tax return selection for the appropriate client ids" do
-      described_class.perform_now(bulk_message_csv)
+      expect do
+        described_class.perform_now(bulk_message_csv)
+      end.to change { bulk_message_csv.reload.status }.to('ready')
+
       expect(TaxReturnSelection.last.clients).to match_array([email_and_phone_client, email_client, archived_2021_email_client])
     end
 
@@ -41,6 +47,41 @@ describe BulkAction::MessageCsvImportJob do
       it "creates the tax return selection as normal" do
         described_class.perform_now(bulk_message_csv)
         expect(TaxReturnSelection.last.clients).to match_array([email_and_phone_client, email_client, archived_2021_email_client])
+      end
+    end
+
+    context "when the file does not contain any client ids with tax returns" do
+      let!(:no_tax_returns_client_id) { create(:client).id }
+      let(:nonexistent_client_id) { -1000 }
+
+      let(:csv_content) do
+        <<~CSV
+          client_id
+          #{no_tax_returns_client_id}
+          #{nonexistent_client_id}
+        CSV
+      end
+
+      it "sets the status to 'empty'" do
+        expect do
+          expect do
+            described_class.perform_now(bulk_message_csv)
+          end.not_to change(TaxReturnSelection, :count)
+        end.to change { bulk_message_csv.reload.status }.to('empty')
+      end
+    end
+
+    context "when the import fails for an unexpected reason" do
+      before do
+        allow(TaxReturn).to receive(:find_by_sql).and_raise(ArgumentError)
+      end
+
+      it "sets the status to 'failed' and still raises the error" do
+        expect do
+          described_class.perform_now(bulk_message_csv)
+        end.to change { bulk_message_csv.reload.status }.to('failed').and(
+          raise_error(ArgumentError)
+        )
       end
     end
   end
