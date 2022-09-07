@@ -22,8 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class SystemNote::CtcPortalUpdate < SystemNote
-  def self.generate!(original_model:, model:, client:)
-    interesting_changes = InterestingChangeArbiter.determine_changes(original_model, model)
+  def self.generate!(model:, client:)
+    interesting_changes = InterestingChangeArbiter.determine_changes(model)
     return unless interesting_changes.present?
 
     create!(
