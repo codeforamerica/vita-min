@@ -16,15 +16,16 @@ namespace :outgoing_messages do
     nil
   end
 
-  def backfill_twilio_statuses
+  def backfill_twilio_statuses(limit: 1000)
     twilio_client = TwilioService.client
     OutgoingTextMessage
-      .where(twilio_status: 'queued')
-      .where('created_at BETWEEN ? AND ?', 90.days.ago, 1.day.ago).each do |outgoing_text_message|
+      .where(twilio_status: OutgoingTextMessage::IN_PROGRESS_TWILIO_STATUSES)
+      .where(created_at: ...4.hours.ago).order(created_at: :desc).limit(limit).each do |outgoing_text_message|
       current_status = twilio_client.messages(outgoing_text_message.twilio_sid).fetch.status
       if current_status != outgoing_text_message.twilio_status
-        puts "Updating status of #{outgoing_text_message.twilio_sid} from #{outgoing_text_message.twilio_status} to #{current_status}"
-        outgoing_text_message.update(twilio_status: current_status)
+        Rails.logger.warn "Updating status of #{outgoing_text_message.twilio_sid} from #{outgoing_text_message.twilio_status} to #{current_status}"
+        DatadogApi.increment "twilio.outgoing_text_messages.updated_stale_status.#{status}"
+        outgoing_text_message.update_status_if_further(current_status)
       end
     end
   end
