@@ -164,6 +164,26 @@ RSpec.describe OutgoingTextMessage, type: :model do
     end
   end
 
+  describe "#update_status_if_further" do
+    context "when updating to a later status" do
+      let(:outgoing_text_message) { create(:outgoing_text_message, twilio_status: "sending") }
+      it "saves the change" do
+        expect {
+          outgoing_text_message.update_status_if_further("sent")
+        }.to change(outgoing_text_message, :twilio_status).from("sending").to("sent")
+      end
+    end
+
+    context "when updating to an earlier status" do
+      let(:outgoing_text_message) { create(:outgoing_text_message, twilio_status: "sent") }
+      it "does not save" do
+        expect {
+          outgoing_text_message.update_status_if_further("sending")
+        }.not_to change(outgoing_text_message, :twilio_status)
+      end
+    end
+  end
+
   describe "scopes for statuses" do
     let!(:undelivered) { create :outgoing_text_message, twilio_status: "undelivered" }
     let!(:failed) { create :outgoing_text_message, twilio_status: "failed" }

@@ -6,7 +6,7 @@ class TwilioWebhooksController < ActionController::Base
   def update_outgoing_text_message
     status = params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-    OutgoingTextMessage.find(params[:id]).update!(twilio_status: status)
+    OutgoingTextMessage.find(params[:id]).update_status_if_further(status)
     head :ok
   end
 
