@@ -21,10 +21,18 @@ namespace :outgoing_messages do
     OutgoingTextMessage
       .where(twilio_status: OutgoingTextMessage::IN_PROGRESS_TWILIO_STATUSES)
       .where(created_at: ...4.hours.ago).order(created_at: :desc).limit(limit).each do |outgoing_text_message|
-      current_status = twilio_client.messages(outgoing_text_message.twilio_sid).fetch.status
+
+      current_status = nil
+      begin
+        current_status = twilio_client.messages(outgoing_text_message.twilio_sid).fetch.status
+      rescue Twilio::REST::RestError
+        Rails.logger.warn "Unable to fetch status for #{outgoing_text_message.twilio_sid}"
+        next
+      end
+
       if current_status != outgoing_text_message.twilio_status
         Rails.logger.warn "Updating status of #{outgoing_text_message.twilio_sid} from #{outgoing_text_message.twilio_status} to #{current_status}"
-        DatadogApi.increment "twilio.outgoing_text_messages.updated_stale_status.#{status}"
+        DatadogApi.increment "twilio.outgoing_text_messages.updated_stale_status.#{current_status}"
         outgoing_text_message.update_status_if_further(current_status)
       end
     end
