@@ -17,7 +17,7 @@ module SubmissionBuilder
                   xml.PersonFirstNm person_name_type(dependent.first_name)
                   xml.PersonLastNm person_name_type(dependent.last_name)
                 }
-                xml.IdentityProtectionPIN dependent.ip_pin
+                xml.IdentityProtectionPIN dependent.ip_pin if dependent.ip_pin.present?
                 xml.QualifyingChildSSN dependent.ssn
                 xml.ChildBirthYr dependent.birth_date.year
                 xml.ChildIsAStudentUnder24Ind dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
