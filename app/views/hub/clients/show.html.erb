@@ -184,12 +184,12 @@
                       /
                       <span class="label-value"><%= "$#{benefits.advance_ctc_amount_received}" if benefits.advance_ctc_amount_received %></span>
                     </div>
-                  <% end %>
-                  <% unless benefits.eitc_amount.nil? %>
-                    <div class="field-display">
-                      <span class="form-question">EITC:</span>
-                      <span class="label-value"><%= number_to_currency(benefits.eitc_amount) %></span>
-                    </div>
+                    <% unless benefits.eitc_amount.nil? %>
+                      <div class="field-display">
+                        <span class="form-question">EITC:</span>
+                        <span class="label-value"><%= number_to_currency(benefits.eitc_amount) %></span>
+                      </div>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>
