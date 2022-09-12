@@ -1844,7 +1844,7 @@ en:
           resubmit: Resubmit my tax return
           title: Correct your submitted information
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
-          w2s_shared: "W2s shared:"
+          w2s_shared: "W-2s shared"
         home:
           complete_form: Complete CTC form
           contact_us: Contact us
