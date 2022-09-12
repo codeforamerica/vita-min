@@ -1931,6 +1931,9 @@ en:
           selfie: You holding the card near your face
           selfie_label: Photo of yourself holding ID
           title: We need some additional information before we submit your tax return.
+        w2s:
+          employer_info:
+            update_w2: "Update W-2"
       questions:
         account_number:
           account_number: Account number
@@ -4700,6 +4703,7 @@ en:
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
   ctc:
     portal:
-      portal:
-        edit_info:
-          w2s_shared: "W2s shared:"
+      w2s:
+        employer_info:
+          edit:
+            update: "Update W-2"

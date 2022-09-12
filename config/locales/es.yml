@@ -1891,6 +1891,9 @@ es:
           selfie: Usted tiene la tarjeta cerca de su cara
           selfie_label: Foto de usted mismo sosteniendo la tarjeta de identificación o ID
           title: Necesitamos algunos datos adicionales antes de presentar su declaración de impuestos.
+        w2s:
+          employer_info:
+            update_w2: "Actualizar W-2"
       questions:
         account_number:
           account_number: Número de cuenta
@@ -4716,6 +4719,7 @@ es:
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
   ctc:
     portal:
-      portal:
-        edit_info:
-          w2s_shared:
+      w2s:
+        employer_info:
+          edit:
+            update: "Update W-2"
