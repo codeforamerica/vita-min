@@ -18,8 +18,6 @@ class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevision
     @_current_model ||= current_intake.w2s.find(params[:id])
   end
 
-  private
-
   def next_path
     redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
   end

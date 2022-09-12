@@ -305,7 +305,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         fill_in I18n.t('views.ctc.portal.spouse_prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "4567"
         click_on I18n.t("general.save")
 
-        # replace with I18n
         within ".w2s-shared" do
           expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
           click_on I18n.t("general.edit").downcase
@@ -317,8 +316,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title"))
         expect(page).to have_text(I18n.t("views.ctc.questions.w2s.employer_info.employer_name"))
         fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
-        # replace with I18n
-        click_on "Update W-2"
+        click_on I18n.t("views.ctc.portal.w2s.employer_info.update_w2")
 
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
 

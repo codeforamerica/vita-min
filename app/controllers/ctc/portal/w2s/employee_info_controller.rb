@@ -5,14 +5,6 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
     render edit_template
   end
 
-  def update
-    puts "yay im updatin"
-    puts params.to_json
-    val = super
-    puts "returning #{val.inspect}"
-    val
-  end
-
   private
 
   def edit_template

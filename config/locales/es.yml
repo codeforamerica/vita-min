@@ -4719,9 +4719,3 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
-  ctc:
-    portal:
-      w2s:
-        employer_info:
-          edit:
-            update: "Update W-2"
