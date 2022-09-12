@@ -24,7 +24,7 @@ module Hub
 
     def show
       log_document_access!
-      redirect_to transient_storage_url(@document.upload.blob)
+      redirect_to transient_storage_url(@document.upload.blob), allow_other_host: true
     end
 
     def confirm; end

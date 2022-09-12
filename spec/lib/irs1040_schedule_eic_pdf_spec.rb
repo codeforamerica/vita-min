@@ -103,11 +103,11 @@ describe Irs1040ScheduleEicPdf do
         output_file = pdf.output_file
         expect(filled_in_values(output_file.path)).to eq({
                "ChildBirthYr1[0]" => "2",
-               "ChildBirthYr1[1]" => nil,
+               "ChildBirthYr1[1]" => "0",
                "ChildBirthYr1[2]" => "1",
                "ChildBirthYr1[3]" => "0",
                "ChildBirthYr2[0]" => "2",
-               "ChildBirthYr2[1]" => nil,
+               "ChildBirthYr2[1]" => "0",
                "ChildBirthYr2[2]" => "1",
                "ChildBirthYr2[3]" => "2",
                "ChildBirthYr3[0]" => nil,

@@ -131,12 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
     t.bigint "archived_intakes_2021_id"
     t.string "bank_name"
     t.datetime "created_at", null: false
-    t.string "encrypted_account_number"
-    t.string "encrypted_account_number_iv"
-    t.string "encrypted_bank_name"
-    t.string "encrypted_bank_name_iv"
-    t.string "encrypted_routing_number"
-    t.string "encrypted_routing_number_iv"
     t.string "hashed_account_number"
     t.string "hashed_routing_number"
     t.string "routing_number"
@@ -155,10 +149,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
     t.datetime "created_at", precision: nil, null: false
     t.string "creation_token"
     t.integer "disabled", default: 0, null: false
-    t.string "encrypted_ip_pin"
-    t.string "encrypted_ip_pin_iv"
-    t.string "encrypted_ssn"
-    t.string "encrypted_ssn_iv"
     t.integer "filed_joint_return", default: 0, null: false
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
@@ -244,28 +234,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
     t.datetime "email_address_verified_at", precision: nil
     t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
-    t.string "encrypted_bank_account_number"
-    t.string "encrypted_bank_account_number_iv"
-    t.string "encrypted_bank_name"
-    t.string "encrypted_bank_name_iv"
-    t.string "encrypted_bank_routing_number"
-    t.string "encrypted_bank_routing_number_iv"
-    t.string "encrypted_primary_ip_pin"
-    t.string "encrypted_primary_ip_pin_iv"
-    t.string "encrypted_primary_last_four_ssn"
-    t.string "encrypted_primary_last_four_ssn_iv"
-    t.string "encrypted_primary_signature_pin"
-    t.string "encrypted_primary_signature_pin_iv"
-    t.string "encrypted_primary_ssn"
-    t.string "encrypted_primary_ssn_iv"
-    t.string "encrypted_spouse_ip_pin"
-    t.string "encrypted_spouse_ip_pin_iv"
-    t.string "encrypted_spouse_last_four_ssn"
-    t.string "encrypted_spouse_last_four_ssn_iv"
-    t.string "encrypted_spouse_signature_pin"
-    t.string "encrypted_spouse_signature_pin_iv"
-    t.string "encrypted_spouse_ssn"
-    t.string "encrypted_spouse_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "ever_owned_home", default: 0, null: false
     t.string "feedback"
@@ -1046,28 +1014,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
     t.datetime "email_address_verified_at", precision: nil
     t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
-    t.string "encrypted_bank_account_number"
-    t.string "encrypted_bank_account_number_iv"
-    t.string "encrypted_bank_name"
-    t.string "encrypted_bank_name_iv"
-    t.string "encrypted_bank_routing_number"
-    t.string "encrypted_bank_routing_number_iv"
-    t.string "encrypted_primary_ip_pin"
-    t.string "encrypted_primary_ip_pin_iv"
-    t.string "encrypted_primary_last_four_ssn"
-    t.string "encrypted_primary_last_four_ssn_iv"
-    t.string "encrypted_primary_signature_pin"
-    t.string "encrypted_primary_signature_pin_iv"
-    t.string "encrypted_primary_ssn"
-    t.string "encrypted_primary_ssn_iv"
-    t.string "encrypted_spouse_ip_pin"
-    t.string "encrypted_spouse_ip_pin_iv"
-    t.string "encrypted_spouse_last_four_ssn"
-    t.string "encrypted_spouse_last_four_ssn_iv"
-    t.string "encrypted_spouse_signature_pin"
-    t.string "encrypted_spouse_signature_pin_iv"
-    t.string "encrypted_spouse_ssn"
-    t.string "encrypted_spouse_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "ever_owned_home", default: 0, null: false
     t.integer "exceeded_investment_income_limit", default: 0

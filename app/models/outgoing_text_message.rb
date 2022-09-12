@@ -29,8 +29,20 @@ class OutgoingTextMessage < ApplicationRecord
 
   FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown", "twilio_error"].freeze
   SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
-  IN_PROGRESS_TWILIO_STATUSES = ["accepted", "queued", nil].freeze
+  IN_PROGRESS_TWILIO_STATUSES = ["accepted", "queued", "sending", nil].freeze
   ALL_KNOWN_TWILIO_STATUSES = FAILED_TWILIO_STATUSES + SUCCESSFUL_TWILIO_STATUSES + IN_PROGRESS_TWILIO_STATUSES
+
+  # https://support.twilio.com/hc/en-us/articles/223134347-What-are-the-Possible-SMS-and-MMS-Message-Statuses-and-What-do-They-Mean-
+  ORDERED_STATUSES = [nil, "twilio_error"] + %w(
+    queued
+    accepted
+    sending
+    sent
+    delivery_unknown
+    delivered
+    undelivered
+    failed
+  ).freeze
 
   belongs_to :client
   belongs_to :user, optional: true
@@ -55,6 +67,17 @@ class OutgoingTextMessage < ApplicationRecord
 
   def to
     PhoneParser.formatted_phone_number(to_phone_number)
+  end
+
+  def update_status_if_further(new_status)
+    with_lock do
+      old_index = ORDERED_STATUSES.index(twilio_status)
+      new_index = ORDERED_STATUSES.index(new_status)
+
+      if new_index > old_index
+        update(twilio_status: new_status)
+      end
+    end
   end
 
   private

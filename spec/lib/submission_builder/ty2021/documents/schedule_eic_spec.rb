@@ -2,18 +2,19 @@ require "rails_helper"
 
 describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
   let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
+  let(:first_dependent) { submission.intake.dependents.first }
+
   before do
     submission.intake.update(exceeded_investment_income_limit: "no", primary_tin_type: "ssn")
-    dependent = submission.intake.dependents.first
     dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes", months_in_home: 10)
-    dependent.update(dependent_attrs)
+    first_dependent.update(dependent_attrs)
     dependent2 = submission.intake.dependents.second
     dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(2010, 1, 1), relationship: "son", ssn: "123001235", ip_pin: "123456", permanently_totally_disabled: "yes", months_in_home: 8)
     dependent2.update(dependent2_attrs)
     dependent3 = submission.intake.dependents.third
     dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
     dependent3.update(dependent3_attrs)
-    EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
+    EfileSubmissionDependent.create_qualifying_dependent(submission, first_dependent)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent2)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent3)
     submission.reload
@@ -52,5 +53,18 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(instance.schema_version).to eq "2021v5.2"
 
     expect(described_class.build(submission)).to be_valid
+  end
+
+  context "with no IP pin" do
+    before do
+      first_dependent.update(ip_pin: nil)
+    end
+
+    it "conforms to the eFileAttachments schema 2021v5.2" do
+      instance = described_class.new(submission)
+      expect(instance.schema_version).to eq "2021v5.2"
+
+      expect(described_class.build(submission)).to be_valid
+    end
   end
 end

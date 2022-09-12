@@ -5,12 +5,10 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
   end
 
   def update
-    original_model = current_model.dup
     @form = form_class.new(current_model, form_params)
     if @form.valid?
       @form.save
       SystemNote::CtcPortalUpdate.generate!(
-        original_model: original_model,
         model: current_model,
         client: current_client,
       )

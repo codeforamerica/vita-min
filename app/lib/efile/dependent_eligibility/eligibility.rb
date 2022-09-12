@@ -37,7 +37,7 @@ module Efile
       end
 
       def qualifying_eip3?
-        @qualifying_eip3 ||=eip_three_eligibility.qualifies?
+        @qualifying_eip3 ||= eip_three_eligibility.qualifies?
       end
 
       def qualifying_eip2?

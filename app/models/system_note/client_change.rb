@@ -22,8 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class SystemNote::ClientChange < SystemNote
-  def self.generate!(original_intake:, intake:, initiated_by: )
-    interesting_changes = InterestingChangeArbiter.determine_changes(original_intake, intake)
+  def self.generate!(intake:, initiated_by: )
+    interesting_changes = InterestingChangeArbiter.determine_changes(intake)
     return unless interesting_changes.present?
 
     create!(

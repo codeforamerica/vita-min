@@ -23,9 +23,18 @@ Bundler.require(*Rails.groups)
 
 module VitaMin
   class Application < Rails::Application
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
     config.active_record.enumerate_columns_in_select_statements = true
+    config.active_storage.variant_processor = :mini_magick
+
+    # The new Rails default is SHA256 but we would need to write a rotator
+    # to ensure nobody gets logged out, so let's stick with the old one for now.
+    config.active_support.hash_digest_class = OpenSSL::Digest::SHA1
+
+    # The new default is 'true'; this can be removed if someone verifies
+    # that all our buttons will work fine as <button> rather than <input>
+    config.action_view.button_to_generates_button_tag = false
 
     config.i18n.default_locale = :en
     config.i18n.fallbacks = [I18n.default_locale]

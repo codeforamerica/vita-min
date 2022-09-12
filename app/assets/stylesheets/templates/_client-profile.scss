@@ -18,4 +18,24 @@
       margin-bottom: $s15;
     }
   }
+
+  &__status-label {
+    color: black;
+    align-items: center;
+    margin: 0 1.5rem 0 0;
+    border-radius: 1rem;
+    padding: 0.5rem 0.75rem;
+
+    &__background--grey {
+      background: $color-grey-medium-light;
+    }
+    &__background--red {
+      background: #FEC8B3;
+    }
+    &__background--green {
+      background: #CFFCD9;
+    }
+  }
 }
+
+

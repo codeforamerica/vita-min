@@ -429,4 +429,10 @@ class ApplicationController < ActionController::Base
       format.any { head 404 }
     end
   end
+
+  rescue_from 'ActionController::Redirecting::UnsafeRedirectError' do
+    respond_to do |format|
+      format.any { head 400 }
+    end
+  end
 end

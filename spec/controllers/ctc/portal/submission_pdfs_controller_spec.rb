@@ -6,7 +6,7 @@ describe Ctc::Portal::SubmissionPdfsController do
   describe "#show" do
     let(:params) {{ id: 1 }}
     let(:client) { create :client_with_ctc_intake_and_return }
-    let(:back) { "http://www.test.example.com/en" }
+    let(:back) { "http://test.host/en" }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
 

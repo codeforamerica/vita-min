@@ -124,68 +124,77 @@
             <div class="field-display">
               <span class="form-question">Refund delivery method:</span>
               <span class="label-value"><%= @client.intake.refund_payment_method&.humanize %> </span>
-            </div>
-            <% if @client.intake.bank_account.present? %>
-              <div id="js-bank-account-info">
-                <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
-              </div>
-            <% else %>
-              <span class="label-value">No bank account info provided.</span>
-            <% end %>
-          </div>
 
-          <!-- Recovery rebate credit -->
-          <% if @client.intake.is_ctc? %>
-            <div class="client-profile__field-group client-recovery-rebate-credit-amount">
-              <h2 class="text--bold"><%= t("hub.clients.fields.recovery_rebate_credit") %></h2>
-              <% if @client.intake.eip1_amount_received.present? && @client.intake.eip2_amount_received.present? %>
-                <div class="field-display">
-                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_1") %>:</span>
-                  <span class="label-value">$<%= @client.intake.eip1_amount_received %> </span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_2") %>:</span>
-                  <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
-                </div>
-              <% end %>
-              <% if !@client.archived? && @client.intake.eip3_amount_received.present? %>
-                <div class="field-display">
-                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
-                  <span class="label-value">$<%= @client.intake.eip3_amount_received %> </span>
-                </div>
-              <% end %>
-              <% if @client.intake.drop_off? && @client.intake.eip1_and_2_amount_received_confidence.present? %>
-                <div class="field-display">
-                  <span class="form-question">Confidence:</span>
-                  <span class="label-value"><%= @client.intake.eip1_and_2_amount_received_confidence.try(:capitalize) %> </span>
-                </div>
-              <% end %>
-              <% unless @client.intake.drop_off? %>
-                <% tax_return = @client.tax_returns.find_by(year: TaxReturn.current_tax_year) %>
-                <% if tax_return %>
-                  <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
-                  <div class="field-display">
-                    <span class="form-question"> Outstanding RRC / Claimed RRC: </span>
-                    <span class="label-value"><%= "$#{benefits.outstanding_recovery_rebate_credit}" if benefits.outstanding_recovery_rebate_credit %></span>
-                    /
-                    <span class="label-value"><%= "$#{benefits.claimed_recovery_rebate_credit}" if benefits.claimed_recovery_rebate_credit %></span>
+                <% if @client.intake.bank_account.present? %>
+                  <div id="js-bank-account-info">
+                    <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
                   </div>
-                  <% unless @client.intake.advance_ctc_amount_received.nil? %>
+                <% else %>
+                  <div>
+                    <span class="label-value"><em>No bank account info provided.</em></span>
+                  </div>
+                <% end %>
+
+            </div>
+
+            <% if @client.intake.is_ctc? %>
+              <div class="client-profile__field-group client-recovery-rebate-credit-amount">
+                <% if @client.intake.eip1_amount_received.present? && @client.intake.eip2_amount_received.present? %>
+                  <div class="field-display">
+                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_1") %>:</span>
+                    <span class="label-value">$<%= @client.intake.eip1_amount_received %> </span>
+                  </div>
+                  <div class="field-display">
+                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_2") %>:</span>
+                    <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
+                  </div>
+                <% end %>
+                <% if !@client.archived? %>
+                  <div class="field-display">
+                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
+                    <span class="label-value"><%= number_to_currency(@client.intake.eip3_amount_received) || "Unfilled" %> </span>
+                  </div>
+                <% end %>
+                <% if @client.intake.drop_off? %>
+                  <% if @client.intake.eip1_and_2_amount_received_confidence.present? %>
                     <div class="field-display">
-                      <span class="form-question">Outstanding CTC / Advance CTC Received:</span>
-                      <span class="label-value"><%= "$#{benefits.outstanding_ctc_amount}" if benefits.outstanding_ctc_amount %></span>
+                      <span class="form-question">Confidence:</span>
+                      <span class="label-value"><%= @client.intake.eip1_and_2_amount_received_confidence.try(:capitalize) %> </span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <% tax_return = @client.intake.default_tax_return %>
+                  <% if tax_return %>
+                    <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
+                    <div class="field-display">
+                      <span class="form-question"> Outstanding RRC: </span>
+                      <span class="label-value"><%= number_to_currency(benefits.outstanding_recovery_rebate_credit) || "" %></span>
+                      <% status_color = if @client.intake.claim_owed_stimulus_money_yes? %>
+                        <% "green" %>
+                      <% elsif @client.intake.claim_owed_stimulus_money_no? %>
+                        <% "red" %>
+                      <% else %>
+                        <% "grey" %>
+                      <% end %>
+                      <span class="label-value client-profile__status-label client-profile__status-label__background--<%= status_color %>"><%= @client.intake.claim_owed_stimulus_money.capitalize %></span>
+                    </div>
+                    <div class="field-display">
+                      <span class="form-question">Outstanding CTC / Received:</span>
+                      <span class="label-value">$<%= benefits.outstanding_ctc_amount || 0 %></span>
                       /
                       <span class="label-value"><%= "$#{benefits.advance_ctc_amount_received}" if benefits.advance_ctc_amount_received %></span>
                     </div>
+                    <% unless benefits.eitc_amount.nil? %>
+                      <div class="field-display">
+                        <span class="form-question">EITC:</span>
+                        <span class="label-value"><%= number_to_currency(benefits.eitc_amount) %></span>
+                      </div>
+                    <% end %>
                   <% end %>
                 <% end %>
-                <div class="field-display">
-                  <span class="form-question">Claim credit:</span>
-                  <span class="label-value"><%= @client.intake.claim_owed_stimulus_money&.titleize %></span>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
 
         <div class="client-profile__column">
@@ -335,11 +344,11 @@
               <h2 class="text--bold">Prior Year AGI Amount</h2>
               <div class="field-display">
                 <span class="form-question">Primary Prior Year (<%= @client.tax_returns.last.year - 1 %>) AGI:</span>
-                <span class="label-value">$<%= @client.intake.primary_prior_year_agi_amount || 0 %></span>
+                <span class="label-value"><%= number_to_currency(@client.intake.primary_prior_year_agi_amount || 0) %></span>
               </div>
               <div class="field-display">
                 <span class="form-question">Spouse Prior Year (<%= @client.tax_returns.last.year - 1 %>) AGI:</span>
-                <span class="label-value">$<%= @client.intake.spouse_prior_year_agi_amount || 0 %></span>
+                <span class="label-value"><%= number_to_currency(@client.intake.spouse_prior_year_agi_amount || 0) %></span>
               </div>
             </div>
           <% end %>

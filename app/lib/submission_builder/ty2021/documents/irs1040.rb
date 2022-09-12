@@ -99,9 +99,7 @@ module SubmissionBuilder
             xml.DependentFirstNm person_name_type(dependent.first_name)
             xml.DependentLastNm person_name_type(dependent.last_name)
             xml.DependentNameControlTxt name_control_type(dependent.last_name)
-            if dependent.ip_pin.present?
-              xml.IdentityProtectionPIN dependent.ip_pin
-            end
+            xml.IdentityProtectionPIN dependent.ip_pin if dependent.ip_pin.present?
             xml.DependentSSN dependent.ssn
             xml.DependentRelationshipCd dependent.irs_relationship_enum
             xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?

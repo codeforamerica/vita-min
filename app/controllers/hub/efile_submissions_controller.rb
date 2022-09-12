@@ -72,7 +72,7 @@ module Hub
         ip_address: request.remote_ip,
         user_agent: request.user_agent,
       )
-      redirect_to transient_storage_url(@efile_submission.submission_bundle.blob, disposition: "attachment")
+      redirect_to transient_storage_url(@efile_submission.submission_bundle.blob, disposition: "attachment"), allow_other_host: true
     end
   end
 end

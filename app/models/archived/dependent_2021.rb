@@ -50,7 +50,6 @@
 module Archived
   class Dependent2021 < ApplicationRecord
     self.table_name = 'archived_dependents_2021'
-    self.ignored_columns = ["encrypted_ssn", "encrypted_ssn_iv", "encrypted_ip_pin", "encrypted_ip_pin_iv"]
 
     include SoftDeletable
 

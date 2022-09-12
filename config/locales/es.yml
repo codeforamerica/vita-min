@@ -878,7 +878,7 @@ es:
     recovery_rebate_credit_amount:
       amount_1: Pago de impacto económico 1 recibió
       amount_2: Pago de impacto económico 2 recibió
-      amount_3: Pago por Impacto Económico 3 recibido
+      amount_3: EIP 3 recibido
       confidence: "¿Qué tan confiado en esta cantidad?"
       confidence_values:
         sure: Seguro
@@ -2039,8 +2039,10 @@ es:
           ctc_due: Crédito Tributario por Hijos
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
+          eitc: 'Crédito Tributario por Ingreso del Trabajo:'
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
+          total: 'Importe total del fondo:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
