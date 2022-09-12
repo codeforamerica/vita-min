@@ -27,7 +27,7 @@ class Irs1040ScheduleEicPdf
       answers["ChildFirstAndLastName#{index + 1}"] = "#{dependent.at("PersonFirstNm").text} #{dependent.at("PersonLastNm").text}"
         answers["QualifyingChildSSN#{index + 1}"] = dependent.at("QualifyingChildSSN").text
         answers["ChildBirthYr#{index + 1}[0]"] = dependent.at("ChildBirthYr").text[0]
-        answers["ChildBirthY#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
+        answers["ChildBirthYr#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
         answers["ChildBirthYr#{index + 1}[2]"] = dependent.at("ChildBirthYr").text[2]
         answers["ChildBirthYr#{index + 1}[3]"] = dependent.at("ChildBirthYr").text[3]
         answers["ChildIsAStudentUnder24IndYes#{index + 1}"] =  xml_check_to_bool(dependent.at("ChildIsAStudentUnder24Ind")) ? "Yes" : nil
