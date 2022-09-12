@@ -60,6 +60,14 @@ describe EfileSubmissionDependent do
         allow(eligibility_double).to receive(:age).and_return 5
       end
 
+      it "delegates some attributes to the original dependent, even if soft-deleted" do
+        efile_submission_dependent = EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
+        expect(efile_submission_dependent.first_name).to eq(dependent.first_name)
+
+        dependent.touch(:soft_deleted_at)
+        expect(efile_submission_dependent.reload.first_name).to eq(dependent.reload.first_name)
+      end
+
       it "calculates eligibility" do
         EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
         expect(eligibility_double).to have_received(:qualifying_eitc?).exactly(1).times
