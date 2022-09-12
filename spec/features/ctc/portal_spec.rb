@@ -384,7 +384,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         })
 
         expect(changes_table_contents(".changes-note-#{notes[7].id}")).to match({
-          "w2s[0].employer_name" => ["Code for America", "Cod for America"],
+          "employer_name" => ["Code for America", "Cod for America"],
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")
