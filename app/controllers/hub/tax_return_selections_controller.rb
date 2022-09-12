@@ -38,7 +38,7 @@ module Hub
     end
 
     def show
-      @client_filter_form_path = hub_clients_path
+      @hide_filters = true
       @clients = @selection.clients.accessible_by(current_ability)
       @client_index_help_text = I18n.t("hub.tax_return_selections.help_text", count: @clients.size)
       inaccessible_client_count = @selection.clients.where.not(id: @clients).size

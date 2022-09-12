@@ -1484,6 +1484,40 @@ RSpec.describe Hub::ClientsController do
       end
     end
 
+    describe "#preferred_language" do
+      context "when preferred language is set to something other than english" do
+        let(:intake) { create :intake, preferred_interview_language: "de", locale: "es" }
+
+        it "it uses preferred language" do
+          expect(presenter.preferred_language).to eq "de"
+        end
+      end
+
+      context "when preferred language is set to english" do
+        let(:intake) { create :intake, preferred_interview_language: "en", locale: "es" }
+
+        it "falls through to locale" do
+          expect(presenter.preferred_language).to eq "es"
+        end
+      end
+
+      context "when preferred language not set" do
+        let(:intake) { create :intake, locale: "en" }
+
+        it "falls through to locale" do
+          expect(presenter.preferred_language).to eq "en"
+        end
+      end
+
+      context "when preferred language is set to en, and locale is not set" do
+        let(:intake) { create :intake, locale: nil, preferred_interview_language: "en" }
+
+        it "falls through to locale" do
+          expect(presenter.preferred_language).to eq "en"
+        end
+      end
+    end
+
     describe "#needs_itin_help_text and #needs_itin_help_yes?" do
       context "when intake is need_itin_help_yes?" do
         let(:intake) { create :intake, need_itin_help: "yes" }

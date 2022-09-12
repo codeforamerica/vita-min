@@ -221,6 +221,12 @@ module Hub
         intake.itin_applicant? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end
 
+      def preferred_language
+        return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
+
+        intake.locale || intake.preferred_interview_language
+      end
+
       def needs_itin_help_yes?
         return false if archived?
 

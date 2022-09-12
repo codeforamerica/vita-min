@@ -5,7 +5,7 @@ RSpec.describe "Uploading a CSV for bulk client messaging", active_job: true do
   let!(:email_and_phone_client) { create :client_with_intake_and_return, tax_return_state: "prep_info_requested" }
   let!(:email_client) { create :client_with_intake_and_return, tax_return_state: "intake_reviewing" }
   let!(:archived_2021_email_client) { create(:client, tax_returns: [build(:tax_return, year: 2018)], intake: nil) }
-  let!(:archived_2021_email_intake) { create(:archived_2021_gyr_intake, client: archived_2021_email_client, email_address: "someone_archived@example.com", email_notification_opt_in: "yes", locale: 'es') }
+  let!(:archived_2021_email_intake) { create(:archived_2021_gyr_intake, client: archived_2021_email_client, preferred_name: "Archivio", email_address: "someone_archived@example.com", email_notification_opt_in: "yes", locale: 'es') }
 
   before do
     login_as user
@@ -55,6 +55,10 @@ RSpec.describe "Uploading a CSV for bulk client messaging", active_job: true do
     within ".in-progress" do
       click_on "3 clients"
     end
+
+    # Archived clients show up
+    expect(page).to have_text "Archivio"
+
     click_on "Nombre"
     click_on "Messages"
     expect(page).to have_text "Naranja es la mejor"
