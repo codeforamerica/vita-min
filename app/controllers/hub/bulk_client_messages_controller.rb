@@ -1,7 +1,6 @@
 module Hub
   class BulkClientMessagesController < ApplicationController
     include AccessControllable
-    include ClientSortable
 
     layout "hub"
 
@@ -9,11 +8,11 @@ module Hub
     before_action :load_bulk_message, :load_selection, :load_clients, only: [:show]
 
     def show
-      @client_filter_form_path = hub_clients_path
+      @hide_filters = true
       @client_index_help_text = I18n.t("hub.tax_return_selections.help_text", count: @clients.size)
       @missing_results_message = I18n.t("hub.tax_return_selections.help_text_missing_results", count: @inaccessible_clients_count) unless @inaccessible_clients_count == 0
 
-      @clients = filtered_and_sorted_clients.page(params[:page]).load
+      @clients = @clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       @page_title = I18n.t("hub.tax_return_selections.page_title", count: @selection.clients.size, id: @selection.id)
       render "hub/clients/index"

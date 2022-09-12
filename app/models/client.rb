@@ -264,12 +264,6 @@ class Client < ApplicationRecord
     Client.where.not(id: id).where(intake: matching_intakes)
   end
 
-  def preferred_language
-    return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
-
-    intake.locale || intake.preferred_interview_language
-  end
-
   def request_document_help(doc_type:, help_type:)
     note = SystemNote::DocumentHelp.generate!(client: self, doc_type: doc_type, help_type: help_type)
     tax_returns.map(&:assigned_user).uniq.each do |user|
