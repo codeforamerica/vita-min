@@ -6,9 +6,10 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
+        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
         Flipper.enabled?(:eitc) &&
           intake.exceeded_investment_income_limit_no? &&
-          intake.primary_birth_date > 24.years.ago &&
+          benefits_eligibility.filers_younger_than_twenty_four? &&
           intake.dependents.none?(&:qualifying_eitc?)
       end
 

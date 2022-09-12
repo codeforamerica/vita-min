@@ -480,24 +480,24 @@ describe Efile::BenefitsEligibility do
     end
 
     context "without dependents" do
-      context "born before 1/2/98" do
-        let(:primary_birth_date) { Date.new(1998, 1, 1) }
+      context "born at least 24 years ago" do
+        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 24, 12, 31) }
 
         it "is false" do
           expect(subject.youngish_without_eitc_dependents?).to eq false
         end
       end
 
-      context "born after 1/1/04" do
-        let(:primary_birth_date) { Date.new(2004, 1, 2) }
+      context "born less than 18 years ago" do
+        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 17, 1, 2) }
 
         it "is false" do
           expect(subject.youngish_without_eitc_dependents?).to eq false
         end
       end
 
-      context "born between 1/2/98 and 1/1/04" do
-        let(:primary_birth_date) { Date.new(2000, 1, 2) }
+      context "born between 18 and 24 years ago" do
+        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 20, 1, 2) }
 
         it "is true" do
           expect(subject.youngish_without_eitc_dependents?).to eq true
@@ -624,6 +624,66 @@ describe Efile::BenefitsEligibility do
           it "returns the plateau amount" do
             expect(subject.eitc_amount).to eq 6728
           end
+        end
+      end
+    end
+  end
+
+  describe "#filers_younger_than_twenty_four?" do
+    let(:filing_status) { "single" }
+
+    before do
+      intake.update(primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - primary_age_at_end_of_tax_year)
+      intake.default_tax_return.update(filing_status: filing_status)
+    end
+
+    context "primary was younger than 24 at the start of the tax year" do
+      let(:primary_age_at_end_of_tax_year) { 23.years }
+
+      it "is true " do
+        expect(subject.filers_younger_than_twenty_four?).to eq true
+      end
+    end
+
+    context "primary was older than 24 at the start of the tax year" do
+      let(:primary_age_at_end_of_tax_year) { 25.years }
+
+      it "is false" do
+        expect(subject.filers_younger_than_twenty_four?).to eq false
+      end
+    end
+
+    context "married filing jointly" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      before do
+        intake.update(spouse_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - spouse_age_at_end_of_tax_year)
+      end
+
+      context "primary and spouse were younger than 24 at the start of the tax year" do
+        let(:spouse_age_at_end_of_tax_year) { 23.years }
+        let(:primary_age_at_end_of_tax_year) { 23.years }
+
+        it "is true" do
+          expect(subject.filers_younger_than_twenty_four?).to eq true
+        end
+      end
+
+      context "primary was older than 24 at the start of the tax year" do
+        let(:spouse_age_at_end_of_tax_year) { 23.years }
+        let(:primary_age_at_end_of_tax_year) { 25.years }
+
+        it "is false" do
+          expect(subject.filers_younger_than_twenty_four?).to eq false
+        end
+      end
+
+      context "spouse was older than 24 at the start of the tax year" do
+        let(:spouse_age_at_end_of_tax_year) { 25.years }
+        let(:primary_age_at_end_of_tax_year) { 23.years }
+
+        it "is false" do
+          expect(subject.filers_younger_than_twenty_four?).to eq false
         end
       end
     end
