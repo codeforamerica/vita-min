@@ -74,7 +74,8 @@
             <div>
               CTC:
               <% ctc_dupe_clients.map.with_index do |client_id, index| %>
-                <%= link_to("##{client_id}", hub_client_path(id: client_id)) + ((index == (ctc_dupe_clients.length - 1)) ? "" : ", ") %>
+                <% last_tr_status = Client.find(client_id).tax_returns.present? ? " (#{status_translation(Client.find(client_id).tax_returns.last.current_state)})" : "" %>
+                <%= link_to("##{client_id}#{last_tr_status},", hub_client_path(id: client_id)) + ((index == (ctc_dupe_clients.length - 1)) ? "" : ", ") %>
               <% end %>
             </div>
           <% end %>
@@ -82,7 +83,8 @@
             <div>
               GYR:
               <% gyr_dupe_clients.map.with_index do |client_id, index| %>
-                <%= link_to("##{client_id}", hub_client_path(id: client_id)) + ((index == (gyr_dupe_clients.length - 1)) ? "" : ", ") %>
+                <% last_tr_status = Client.find(client_id).tax_returns.present? ? " (#{status_translation(Client.find(client_id).tax_returns.last.current_state)})" : "" %>
+                <%= link_to("##{client_id}#{last_tr_status},", hub_client_path(id: client_id)) + ((index == (gyr_dupe_clients.length - 1)) ? "" : ", ") %>
               <% end %>
             </div>
           <% end %>
