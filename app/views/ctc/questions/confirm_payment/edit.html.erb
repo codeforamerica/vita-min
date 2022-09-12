@@ -1,4 +1,4 @@
-<% @main_title = @not_collecting ?  t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
+<% @main_title = @total_amount.zero? ?  t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
 <% content_for :page_title, @main_title %>
 
 <% content_for :form_card do %>
@@ -16,8 +16,18 @@
         <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount) %></p>
       </div>
     <% end %>
+    <% if @eitc_amount %>
+      <div class="spacing-above-35">
+        <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.eitc') %></strong></p>
+        <p class="spacing-below-15"><%= number_to_currency(@eitc_amount) %></p>
+      </div>
+    <% end %>
+    <div class="total_fund_amount-box">
+      <p class="spacing-below-0"><strong><%= t('views.ctc.questions.confirm_payment.total') %></strong></p>
+      <p class="total_fund_amount-text"><%= number_to_currency(@total_amount) %></p>
+    </div>
   </div>
 
-  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @not_collecting%>
-  <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), questions_do_not_file_path, method: :patch, class: "button button--primary button--wide text--centered spacing-above-60" if @not_collecting %>
+  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @total_amount.zero? %>
+  <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), questions_do_not_file_path, method: :patch, class: "button button--primary button--wide text--centered spacing-above-60" if @total_amount.zero? %>
 <% end %>

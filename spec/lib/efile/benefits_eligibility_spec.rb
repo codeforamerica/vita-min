@@ -261,11 +261,11 @@ describe Efile::BenefitsEligibility do
       let(:spouse_tin_type) { "itin" }
       let(:intake) do
         create :ctc_intake,
-          client: client,
-          spouse_active_armed_forces: spouse_military,
-          primary_active_armed_forces: primary_military,
-          spouse_tin_type: spouse_tin_type,
-          primary_tin_type: primary_tin_type
+               client: client,
+               spouse_active_armed_forces: spouse_military,
+               primary_active_armed_forces: primary_military,
+               spouse_tin_type: spouse_tin_type,
+               primary_tin_type: primary_tin_type
       end
 
       context "when a spouse is part of the armed forces" do
@@ -510,6 +510,121 @@ describe Efile::BenefitsEligibility do
 
       it "is false" do
         expect(subject.youngish_without_eitc_dependents?).to eq false
+      end
+    end
+  end
+
+  describe "#eitc_amount" do
+    context "client does not qualify for EITC" do
+      before do
+        allow(subject).to receive(:qualified_for_eitc?).and_return false
+      end
+
+      it "returns nil" do
+        expect(subject.eitc_amount).to eq nil
+      end
+    end
+
+    context "when they are qualified for EITC" do
+      let(:earned_income) { 0 }
+      let!(:w2) { create :w2, intake: intake, wages_amount: earned_income }
+
+      before do
+        allow(subject).to receive(:qualified_for_eitc?).and_return true
+        allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(true)
+      end
+
+      context "when they have 0 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+        end
+
+        context "when the phase-in function result is below the plateau amount" do
+          let!(:earned_income) { 2724 }
+
+          it "returns the phase-in function result" do
+            expect(subject.eitc_amount).to eq 417
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 10824 }
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 1502
+          end
+        end
+      end
+
+      context "when they have 1 EITC-qualifying child" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+        end
+
+        context "when the phase-in function result is below the plateau amount" do
+          let!(:earned_income) { 2000 }
+
+          it "returns the phase-in function result" do
+            expect(subject.eitc_amount).to eq 680
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 14683 }
+
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 3618
+          end
+        end
+      end
+
+      context "when they have 2 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+        end
+
+        context "when the phase-in function result is below the plateau amount" do
+          let!(:earned_income) { 7345 }
+
+          it "returns the phase-in function result" do
+            expect(subject.eitc_amount).to eq 2938
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 15000 }
+
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 5980
+          end
+        end
+      end
+
+      context "when they have 3 EITC-qualifying children" do
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+          create :qualifying_child, intake: intake
+        end
+
+        context "when the phase-in function result is below the plateau amount" do
+          let!(:earned_income) { 9135 }
+
+          it "returns the phase-in function result" do
+            expect(subject.eitc_amount).to eq 4111
+          end
+        end
+
+        context "when the phase-in function result is above the plateau amount" do
+          let!(:earned_income) { 17000 }
+
+          it "returns the plateau amount" do
+            expect(subject.eitc_amount).to eq 6728
+          end
+        end
       end
     end
   end
