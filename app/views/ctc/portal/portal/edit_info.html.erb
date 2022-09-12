@@ -57,9 +57,11 @@
           <% end %>
 
           <% if current_intake.w2s.any? %>
-            <h2 class="review-box__title"><%= t("views.ctc.portal.edit_info.w2s_shared") %></h2>
+            <div class="w2s-shared">
+              <h2 class="review-box__title"><%= t("views.ctc.portal.edit_info.w2s_shared") %></h2>
 
-            <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
+              <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
+            </div>
           <% end %>
         </div>
 

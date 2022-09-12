@@ -1843,8 +1843,8 @@ en:
           no_bank_account: No bank information entered.
           resubmit: Resubmit my tax return
           title: Correct your submitted information
+          w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
-          w2s_shared: "W-2s shared"
         home:
           complete_form: Complete CTC form
           contact_us: Contact us
@@ -1933,7 +1933,7 @@ en:
           title: We need some additional information before we submit your tax return.
         w2s:
           employer_info:
-            update_w2: "Update W-2"
+            update_w2: Update W-2
       questions:
         account_number:
           account_number: Account number
