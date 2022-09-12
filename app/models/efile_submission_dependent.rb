@@ -19,7 +19,7 @@
 #  index_efile_submission_dependents_on_efile_submission_id  (efile_submission_id)
 #
 class EfileSubmissionDependent < ApplicationRecord
-  belongs_to :dependent
+  belongs_to :dependent, -> { with_deleted }
   belongs_to :efile_submission
   has_one :intake, through: :efile_submission
 
