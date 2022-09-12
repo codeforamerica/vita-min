@@ -135,7 +135,7 @@ module Efile
     private
 
     def eitc_qualifications_passes_age_test?
-      return true if primary_age_at_end_of_tax_year >= 24
+      return true unless filers_younger_than_twenty_four?
       return true if dependents.any?(&:qualifying_eitc?)
 
       if intake.former_foster_youth_yes? || intake.homeless_youth_yes?
