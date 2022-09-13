@@ -290,7 +290,7 @@ class Seeder
     end
     restricted_attempt.transition_to(:pending)
 
-    find_or_create_intake_and_client(
+    eitc_under_twenty_four_qc = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "EitcUnderTwentyFourQC",
       primary_last_name: "Smith",
@@ -299,6 +299,8 @@ class Seeder
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
+      email_address: "EitcUnderTwentyFourQC@example.com",
+      email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
       dependent_attributes: [
         {
@@ -316,18 +318,53 @@ class Seeder
           tin_type: "ssn",
           ssn: "123121234"
         }
-      ]
+      ],
+      w2_attributes: [
+        {
+          legal_first_name: "Sheldon",
+          legal_last_name: "Faceplate",
+          employee_ssn: "888119876",
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+          standard_or_non_standard_code: "S",
+        }
+      ],
     )
 
-    find_or_create_intake_and_client(
+    if eitc_under_twenty_four_qc.client.efile_submissions.none?
+      eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
+      eitc_under_twenty_four_qc_efile_submission.transition_to!(:preparing)
+      eitc_under_twenty_four_qc_efile_submission.transition_to!(:queued)
+      eitc_under_twenty_four_qc_efile_submission.transition_to!(:transmitted)
+      eitc_under_twenty_four_qc_efile_submission.transition_to!(:rejected)
+      efile_error = EfileError.create!(expose: true)
+      eitc_under_twenty_four_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
+    end
+
+    eitc_mfj_qc = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "EitcMFJQC",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
       primary_birth_date: 35.years.ago,
+      spouse_first_name: "Spouse",
+      spouse_last_name: "Smith",
+      spouse_birth_date: 35.years.ago,
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
+      email_address: "EitcMFJQC@example.com",
+      email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
       dependent_attributes: [
         {
@@ -345,8 +382,38 @@ class Seeder
           tin_type: "ssn",
           ssn: "123121234"
         }
-      ]
+      ],
+      w2_attributes: [
+        {
+          legal_first_name: "Sheldon",
+          legal_last_name: "Faceplate",
+          employee_ssn: "888119876",
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+          standard_or_non_standard_code: "S",
+        }
+      ],
     )
+
+    if eitc_mfj_qc.client.efile_submissions.none?
+      eitc_mfj_qc_efile_submission = eitc_mfj_qc.client.tax_returns.last.efile_submissions.create
+      eitc_mfj_qc_efile_submission.transition_to!(:preparing)
+      eitc_mfj_qc_efile_submission.transition_to!(:queued)
+      eitc_mfj_qc_efile_submission.transition_to!(:transmitted)
+      eitc_mfj_qc_efile_submission.transition_to!(:rejected)
+      efile_error = EfileError.create!(expose: true)
+      eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
+    end
 
     find_or_create_intake_and_client(
       Intake::CtcIntake,
@@ -357,7 +424,30 @@ class Seeder
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
+      email_address: "EitcNoQC@example.com",
+      email_address_verified_at: Time.current,
+      current_step: "/en/questions/w2s",
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+      w2_attributes: [
+        {
+          legal_first_name: "Sheldon",
+          legal_last_name: "Faceplate",
+          employee_ssn: "888119876",
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+          standard_or_non_standard_code: "S",
+        }
+      ],
     )
 
     Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
@@ -388,6 +478,7 @@ class Seeder
 
     tax_return_attributes = attributes.delete(:tax_return_attributes)
     dependent_attributes = attributes.delete(:dependent_attributes)
+    w2_attributes = attributes.delete(:w2_attributes)
     intake.update!(attributes)
 
     unless intake.tax_returns.present?
@@ -401,6 +492,12 @@ class Seeder
     unless intake.dependents.present?
       dependent_attributes&.each do |da|
         intake.dependents.create!(da)
+      end
+    end
+
+    unless intake.w2s.present?
+      w2_attributes&.each do |w2|
+        intake.w2s.create!(w2)
       end
     end
 

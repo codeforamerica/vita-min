@@ -29,5 +29,7 @@ describe Seeder do
     intake = Intake.find_by(primary_first_name: "EitcUnderTwentyFourQC")
     expect(intake.dependents.count).to eq 1
     expect(intake.dependents.first.qualifying_eitc?).to eq true
+    expect(intake.client.efile_submissions.count).to eq 1
+    expect(intake.client.efile_submissions.first.last_client_accessible_transition.exposed_error).to be_present
   end
 end
