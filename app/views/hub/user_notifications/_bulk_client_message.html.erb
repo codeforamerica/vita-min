@@ -28,24 +28,24 @@
       </p>
     <% end %>
 
-    <% if notification.notifiable.clients_with_successfully_sent_messages.size > 0 %>
+    <% if (count = notification.notifiable.clients_with_successfully_sent_messages.size) > 0 %>
       <p class="succeeded">
         <%= t(".succeeded_body_html",
               tax_return_selection_link:
             link_to(
-              t("hub.clients.count", count: notification.notifiable.clients_with_successfully_sent_messages.size),
+              t("hub.clients.count", count: count),
               hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::SUCCEEDED)
             )
         ) %>
       </p>
     <% end %>
 
-    <% if notification.notifiable.clients_with_no_successfully_sent_messages.size > 0 %>
+    <% if (count = notification.notifiable.clients_with_no_successfully_sent_messages.size) > 0 %>
       <p class="failed">
         <%= t(".failed_body_html",
               tax_return_selection_link:
                 link_to(
-                  t("hub.clients.count", count: notification.notifiable.clients_with_no_successfully_sent_messages.size),
+                  t("hub.clients.count", count: count),
                   hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::FAILED)
                 )
             ) %>
