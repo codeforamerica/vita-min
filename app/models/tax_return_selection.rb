@@ -11,6 +11,6 @@ class TaxReturnSelection < ApplicationRecord
   has_many :tax_returns, through: :tax_return_selection_tax_returns
 
   def clients
-    Client.joins(:tax_returns).where(tax_returns: { id: tax_returns.pluck(:id) }).distinct
+    Client.joins(:tax_returns).where(tax_returns: { id: tax_returns.select(:id) }).distinct
   end
 end
