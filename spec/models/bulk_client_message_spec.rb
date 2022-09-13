@@ -3,6 +3,7 @@
 # Table name: bulk_client_messages
 #
 #  id                      :bigint           not null, primary key
+#  cached_data             :jsonb
 #  send_only               :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -54,6 +55,20 @@ RSpec.describe BulkClientMessage, type: :model do
   end
   let(:bulk_client_message) do
     create :bulk_client_message, outgoing_emails: OutgoingEmail.all, outgoing_text_messages: OutgoingTextMessage.all, tax_return_selection: tax_return_selection
+  end
+
+  describe "#status" do
+    it "returns the right status" do
+      expect(bulk_client_message.status).to eq(BulkClientMessage::IN_PROGRESS)
+      expect(bulk_client_message.cached_data).to eq({})
+
+      in_progress.client.outgoing_emails.first.update!(mailgun_status: 'delivered')
+      one_nil_status_one_fail.client.outgoing_text_messages.first.update!(twilio_status: 'sent')
+
+      bulk_client_message.reload
+      expect(bulk_client_message.status).to eq(BulkClientMessage::FAILED)
+      expect(bulk_client_message.cached_data).to eq('status' => BulkClientMessage::FAILED)
+    end
   end
 
   describe "#clients_with_no_successfully_sent_messages" do

@@ -3,6 +3,7 @@
 # Table name: bulk_client_messages
 #
 #  id                      :bigint           not null, primary key
+#  cached_data             :jsonb
 #  send_only               :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -29,10 +30,38 @@ class BulkClientMessage < ApplicationRecord
   IN_PROGRESS = "in-progress".freeze
 
   def status
-    return IN_PROGRESS if clients_with_in_progress_messages.size > 0
-    return FAILED if clients_with_no_successfully_sent_messages.size > 0
+    return cached_data[:status] if cached_data[:status]
 
-    SUCCEEDED
+    _status = if cacheable_count(:clients_with_in_progress_messages) > 0
+      IN_PROGRESS
+    elsif cacheable_count(:clients_with_no_successfully_sent_messages) > 0
+      FAILED
+    else
+      SUCCEEDED
+    end
+
+    if _status != IN_PROGRESS
+      cached_data[:status] = _status
+      save
+    end
+
+    _status
+  end
+
+  def cacheable_count(method)
+    if cached_data[:status].present?
+      if cached_data[method].blank?
+        cached_data[method] = send(method).size
+        save
+      end
+      cached_data[method]
+    else
+      memoized_counts[method] ||= send(method).size
+    end
+  end
+
+  def clients
+    tax_return_selection.clients
   end
 
   def clients_with_no_successfully_sent_messages
@@ -50,5 +79,16 @@ class BulkClientMessage < ApplicationRecord
 
   def clients_with_in_progress_messages
     tax_return_selection.clients.where(outgoing_emails: outgoing_emails.in_progress).or(tax_return_selection.clients.where(outgoing_text_messages: outgoing_text_messages.in_progress))
+  end
+
+  def reload
+    @_memoized_counts = {}
+    super
+  end
+
+  private
+
+  def memoized_counts
+    @_memoized_counts ||= {}
   end
 end
