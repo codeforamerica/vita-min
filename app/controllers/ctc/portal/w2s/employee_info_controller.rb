@@ -1,7 +1,6 @@
 class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevisionController
   def edit
     @form = form_class.from_w2(current_model)
-    @form.employee_ssn_confirmation = current_model.employee_ssn if current_model.employee_ssn.present?
     render edit_template
   end
 
