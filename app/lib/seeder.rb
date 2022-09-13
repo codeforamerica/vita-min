@@ -290,6 +290,76 @@ class Seeder
     end
     restricted_attempt.transition_to(:pending)
 
+    find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "EitcUnderTwentyFourQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 20.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
+      dependent_attributes: [
+        {
+          first_name: "QC",
+          last_name: "Smith",
+          relationship: "niece",
+          birth_date: 5.years.ago,
+          full_time_student: "no",
+          permanently_totally_disabled: "no",
+          provided_over_half_own_support: "no",
+          filed_joint_return: "no",
+          months_in_home: 7,
+          cant_be_claimed_by_other: "yes",
+          claim_anyway: "yes",
+          tin_type: "ssn",
+          ssn: "123121234"
+        }
+      ]
+    )
+
+    find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "EitcMFJQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 35.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
+      dependent_attributes: [
+        {
+          first_name: "QC",
+          last_name: "Smith",
+          relationship: "niece",
+          birth_date: 5.years.ago,
+          full_time_student: "no",
+          permanently_totally_disabled: "no",
+          provided_over_half_own_support: "no",
+          filed_joint_return: "no",
+          months_in_home: 7,
+          cant_be_claimed_by_other: "yes",
+          claim_anyway: "yes",
+          tin_type: "ssn",
+          ssn: "123121234"
+        }
+      ]
+    )
+
+    find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "EitcNoQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 35.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+    )
+
     Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
@@ -317,12 +387,20 @@ class Seeder
     end
 
     tax_return_attributes = attributes.delete(:tax_return_attributes)
+    dependent_attributes = attributes.delete(:dependent_attributes)
     intake.update!(attributes)
+
     unless intake.tax_returns.present?
       tax_return_attributes.each do |tax_year_attributes|
         status = tax_year_attributes.delete(:current_state) || "intake_ready"
         tax_return = intake.client.tax_returns.create(tax_year_attributes)
         tax_return.transition_to!(status)
+      end
+    end
+
+    unless intake.dependents.present?
+      dependent_attributes&.each do |da|
+        intake.dependents.create!(da)
       end
     end
 
