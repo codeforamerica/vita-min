@@ -1803,6 +1803,7 @@ es:
           no_bank_account: 'No ingreso su información bancaria. '
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
+          w2s_shared: W-2s compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
@@ -1890,6 +1891,9 @@ es:
           selfie: Usted tiene la tarjeta cerca de su cara
           selfie_label: Foto de usted mismo sosteniendo la tarjeta de identificación o ID
           title: Necesitamos algunos datos adicionales antes de presentar su declaración de impuestos.
+        w2s:
+          employer_info:
+            update_w2: Actualizar W-2
       questions:
         account_number:
           account_number: Número de cuenta

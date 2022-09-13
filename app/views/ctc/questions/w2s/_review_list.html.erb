@@ -1,0 +1,16 @@
+<% current_intake.w2s.each do |w2| %>
+  <div class="review-box__space-between review-box__list-item">
+    <div class="review-box__person">
+      <div class="review-box__paper_icon">
+        <%= image_tag("paper.svg", alt: "") %>
+      </div>
+      <div>
+        <div class="review-box__name spacing-below-15"><%= w2.employer_name %></div>
+        <div class="text--italic"><%= t("views.ctc.questions.w2s.wages") %>: <%= number_to_currency(w2.wages_amount) %></div>
+      </div>
+    </div>
+    <% if defined?(edit_controller) %>
+      <%= link_to t("general.edit").downcase, edit_controller.to_path_helper(id: w2.id), class: "review-box__edit review-box__edit-button" %>
+    <% end %>
+  </div>
+<% end %>

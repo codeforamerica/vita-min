@@ -31,7 +31,7 @@ module Ctc
 
       validates :employee_ssn, social_security_number: true
 
-      with_options if: -> { (employee_ssn.present? && employee_ssn != @w2.employee_ssn) || employee_ssn_confirmation.present? } do
+      with_options if: -> { (employee_ssn.present? && employee_ssn.remove(/\D/) != @w2.employee_ssn) || employee_ssn_confirmation.present? } do
         validates :employee_ssn, confirmation: true
         validates :employee_ssn_confirmation, presence: true
       end

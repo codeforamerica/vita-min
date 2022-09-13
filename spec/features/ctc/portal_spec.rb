@@ -194,6 +194,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         )
       end
       let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021)) }
+      let!(:w2) { create :w2, intake: intake }
 
       scenario "a client can correct their information" do
         log_in_to_ctc_portal
@@ -304,7 +305,25 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         fill_in I18n.t('views.ctc.portal.spouse_prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "4567"
         click_on I18n.t("general.save")
 
+        within ".w2s-shared" do
+          expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
+          click_on I18n.t("general.edit").downcase
+        end
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employee_info.title"))
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title"))
+        expect(page).to have_text(I18n.t("views.ctc.questions.w2s.employer_info.employer_name"))
+        fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
+        click_on I18n.t("views.ctc.portal.w2s.employer_info.update_w2")
+
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
+
+        within ".w2s-shared" do
+          expect(page).to have_text "Cod for America"
+        end
+
         click_on I18n.t("views.ctc.portal.home.contact_us")
         click_on I18n.t("general.back")
         click_on I18n.t('views.ctc.portal.edit_info.resubmit')
@@ -360,6 +379,10 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(changes_table_contents(".changes-note-#{notes[6].id}")).to match({
           "spouse_prior_year_agi_amount" => ["nil", "4567"],
+        })
+
+        expect(changes_table_contents(".changes-note-#{notes[7].id}")).to match({
+          "employer_name" => ["Code for America", "Cod for America"],
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")

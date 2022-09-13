@@ -42,7 +42,8 @@ describe Ctc::W2s::EmployeeInfoForm do
       end
 
       it "does not require ssn confirmation if ssn is not being changed" do
-        form = described_class.new(w2, { employee_ssn: w2.employee_ssn })
+        formatted_ssn = "#{w2.employee_ssn[0..2]}-#{w2.employee_ssn[3..4]}-#{w2.employee_ssn[5..8]}"
+        form = described_class.new(w2, { employee_ssn: formatted_ssn })
         form.valid?
         expect(form.errors.attribute_names).not_to include(:employee_ssn_confirmation)
       end

@@ -55,6 +55,14 @@
           <% if @intake.filing_jointly? %>
             <%= render 'ctc/questions/confirm_information/spouse_prior_year_agi', edit_controller: Ctc::Portal::SpousePriorTaxYearAgiController, intake: @intake %>
           <% end %>
+
+          <% if current_intake.w2s.any? %>
+            <div class="w2s-shared">
+              <h2 class="review-box__title"><%= t("views.ctc.portal.edit_info.w2s_shared") %></h2>
+
+              <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
+            </div>
+          <% end %>
         </div>
 
         <% if @submission.can_transition_to?(:resubmitted) && @intake.default_tax_return.under_submission_limit? %>

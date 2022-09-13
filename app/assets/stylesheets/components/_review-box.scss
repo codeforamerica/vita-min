@@ -5,6 +5,10 @@
   max-width: 570px;
   word-break: break-word;
 
+  &__paper_icon {
+    margin-right: 1rem;
+  }
+
   &__title {
     h2 {
       font-size: 1.9rem;
@@ -24,7 +28,6 @@
       margin-bottom: 1.5rem;
     }
   }
-
 
   &__space-between {
     display: flex;
