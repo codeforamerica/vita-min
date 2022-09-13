@@ -115,30 +115,44 @@ module Efile
     end
 
     def qualified_for_eitc?
-      intake.exceeded_investment_income_limit_no? && eitc_qualifications_passes_age_test? && intake.primary_tin_type == "ssn"
+      intake.exceeded_investment_income_limit_no? &&
+        eitc_qualifications_passes_age_test? &&
+        intake.primary_tin_type == "ssn"
     end
 
     def youngish_without_eitc_dependents?
-      intake.primary_birth_date >= Date.new(1998, 1, 2) && intake.primary_birth_date <= Date.new(2004, 1, 1) && dependents.none?(&:qualifying_eitc?)
+      primary_age_at_end_of_tax_year < 24 && primary_age_at_end_of_tax_year >= 18 && dependents.none?(&:qualifying_eitc?)
+    end
+
+    def filers_younger_than_twenty_four?
+      if intake.filing_jointly?
+        primary_age_at_end_of_tax_year < 24 && spouse_age_at_end_of_tax_year < 24
+      else
+        primary_age_at_end_of_tax_year < 24
+      end
     end
 
     private
 
     def eitc_qualifications_passes_age_test?
-      return true if age_at_end_of_tax_year >= 24
+      return true unless filers_younger_than_twenty_four?
       return true if dependents.any?(&:qualifying_eitc?)
 
       if intake.former_foster_youth_yes? || intake.homeless_youth_yes?
-        age_at_end_of_tax_year >= 18
+        primary_age_at_end_of_tax_year >= 18
       elsif intake.not_full_time_student_yes? || intake.full_time_student_less_than_four_months_yes?
-        age_at_end_of_tax_year >= 19
+        primary_age_at_end_of_tax_year >= 19
       else
         false
       end
     end
 
-    def age_at_end_of_tax_year
+    def primary_age_at_end_of_tax_year
       tax_return.year - intake.primary_birth_date.year
+    end
+
+    def spouse_age_at_end_of_tax_year
+      tax_return.year - intake.spouse_birth_date.year
     end
 
     def rrc_eligible_filer_count

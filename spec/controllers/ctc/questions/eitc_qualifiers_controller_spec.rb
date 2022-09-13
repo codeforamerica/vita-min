@@ -1,7 +1,19 @@
 require "rails_helper"
 
 describe Ctc::Questions::EitcQualifiersController do
-  let(:intake) { create :ctc_intake }
+  let(:primary_age_at_end_of_tax_year) { 25.years }
+  let(:spouse_age_at_end_of_tax_year) { 25.years }
+  let(:exceeded_investment_income_limit) { "no" }
+
+  let(:intake) do
+    create(
+      :ctc_intake,
+      client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly", year: TaxReturn.current_tax_year)]),
+      primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - primary_age_at_end_of_tax_year,
+      spouse_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - spouse_age_at_end_of_tax_year,
+      exceeded_investment_income_limit: exceeded_investment_income_limit
+    )
+  end
 
   before do
     sign_in intake.client
@@ -14,22 +26,25 @@ describe Ctc::Questions::EitcQualifiersController do
       end
 
       context "when the client is over 24" do
-        let(:intake) { create :ctc_intake, primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - 25.years }
+        let(:primary_age_at_end_of_tax_year) { 25.years }
 
         it "returns false" do
           expect(described_class.show?(intake)).to eq false
         end
       end
 
-      context "when the client is under 24" do
-        let(:intake) do
-          create(
-            :ctc_intake,
-            client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]),
-            primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - 23.years,
-            exceeded_investment_income_limit: "no"
-          )
+      context "when the spouse is over 24" do
+        let(:primary_age_at_end_of_tax_year) { 23.years }
+        let(:spouse_age_at_end_of_tax_year) { 25.years }
+
+        it "returns false" do
+          expect(described_class.show?(intake)).to eq false
         end
+      end
+
+      context "when the client and spouse are under 24" do
+        let(:primary_age_at_end_of_tax_year) { 23.years }
+        let(:spouse_age_at_end_of_tax_year) { 23.years }
 
         context "when the client has a qualifying child" do
           let!(:dependent) { create :qualifying_child, intake: intake }
@@ -43,15 +58,13 @@ describe Ctc::Questions::EitcQualifiersController do
           it "returns true" do
             expect(described_class.show?(intake)).to eq true
           end
+        end
 
-          context "when the client is already disqualified by investment income" do
-            before do
-              intake.update(exceeded_investment_income_limit: "yes")
-            end
+        context "when the client is already disqualified by investment income" do
+          let(:exceeded_investment_income_limit) { "yes" }
 
-            it "returns false" do
-              expect(described_class.show?(intake)).to eq false
-            end
+          it "returns false" do
+            expect(described_class.show?(intake)).to eq false
           end
         end
       end

@@ -132,7 +132,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_can_use_ctc
     fill_in_eligibility
     fill_in_basic_info(birthdate: 23.years.ago)
-    fill_in_spouse_info
+    fill_in_spouse_info(birthdate: 23.years.ago)
 
     # EITC investment question
     expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.married_title'))

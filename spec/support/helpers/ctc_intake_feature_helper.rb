@@ -115,15 +115,15 @@ module CtcIntakeFeatureHelper
     click_on I18n.t("views.ctc.questions.verification.verify")
   end
 
-  def fill_in_spouse_info(home_location: nil)
+  def fill_in_spouse_info(home_location: nil, birthdate: DateTime.new(1995, 1, 11))
     # =========== SPOUSE INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_middle_initial'), with: "P"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_last_name'), with: "Pepper"
-    fill_in "ctc_spouse_info_form[spouse_birth_date_month]", with: "01"
-    fill_in "ctc_spouse_info_form[spouse_birth_date_day]", with: "11"
-    fill_in "ctc_spouse_info_form[spouse_birth_date_year]", with: "1995"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_month]", with: birthdate.month
+    fill_in "ctc_spouse_info_form[spouse_birth_date_day]", with: birthdate.day
+    fill_in "ctc_spouse_info_form[spouse_birth_date_year]", with: birthdate.year
     select I18n.t('general.tin.ssn')
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
@@ -141,7 +141,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.title'))
     expect(page).to have_text("Peter Pepper")
-    expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.spouse_birthday', dob: "1/11/1995"))
+    expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.spouse_birthday', dob: birthdate.strftime("%-m/%-d/%Y")))
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.spouse_ssn', ssn: "4444"))
     click_on I18n.t('general.edit').downcase
 
