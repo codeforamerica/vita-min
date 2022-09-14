@@ -59,6 +59,27 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
   end
 
+  scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+    fill_in_w2(wages: 16_000)
+    click_on I18n.t("views.ctc.questions.w2s.done_adding")
+
+    expect(page).to have_selector("h1", text: "You and your spouse reported $16,000 in W-2 income. Do you have any additional income to report?")
+    click_on I18n.t("general.affirmative")
+
+    expect(page).to have_selector("h1", text: "Please enter the total amount of additional income you and your spouse earned in 2021.")
+    fill_in "ctc_additional_income_form_amount", with: "$10,000"
+    expect(page).to have_selector("h1", text: "You and your spouse do not qualify for the Earned Income Tax Credit, but there’s still money waiting for you!")
+  end
+
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header

@@ -65,6 +65,9 @@ class CtcQuestionNavigation
     Ctc::Questions::W2s::EmployerInfoController,
     Ctc::Questions::ConfirmW2sController,
 
+    Ctc::Questions::NonW2IncomeController,
+    Ctc::Questions::NonW2IncomeAmountController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
