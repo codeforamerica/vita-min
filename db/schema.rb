@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_230209) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_14_232421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1038,6 +1038,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_230209) do
     t.integer "had_hsa", default: 0, null: false
     t.integer "had_interest_income", default: 0, null: false
     t.integer "had_local_tax_refund", default: 0, null: false
+    t.integer "had_non_w2_income"
     t.integer "had_other_income", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
     t.integer "had_retirement_income", default: 0, null: false
@@ -1078,6 +1079,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_230209) do
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
+    t.integer "non_w2_income_amount"
     t.integer "not_full_time_student", default: 0, null: false
     t.string "other_income_types"
     t.integer "paid_alimony", default: 0, null: false

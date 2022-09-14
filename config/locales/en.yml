@@ -2720,6 +2720,10 @@ en:
             title: What if I have a 1099?
           title: Please share the income from your W-2.
           wages: Wages
+        non_w2_income_amount:
+          title: "Please enter the total amount of additional income you earned in 2021:"
+        non_w2_income:
+          title: "You reported %{w2_amount} in W-2 income. Do you have any additional income to report?"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:

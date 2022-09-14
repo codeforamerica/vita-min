@@ -2681,6 +2681,10 @@ es:
             title: "¿Qué pasa si tengo una forma 1099?"
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
+        non_w2_income_amount:
+          title: ""
+        non_w2_income:
+          title: ""
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:

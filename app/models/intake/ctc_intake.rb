@@ -84,6 +84,7 @@
 #  had_hsa                                              :integer          default(0), not null
 #  had_interest_income                                  :integer          default(0), not null
 #  had_local_tax_refund                                 :integer          default(0), not null
+#  had_non_w2_income                                    :integer
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
 #  had_retirement_income                                :integer          default(0), not null
@@ -124,6 +125,7 @@
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
+#  non_w2_income_amount                                 :integer
 #  not_full_time_student                                :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default(0), not null
@@ -305,6 +307,7 @@ class Intake::CtcIntake < Intake
   enum not_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :not_full_time_student
   enum full_time_student_less_than_four_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student_less_than_four_months
   enum had_w2s: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_w2s
+  enum had_non_w2_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_non_w2_income
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)

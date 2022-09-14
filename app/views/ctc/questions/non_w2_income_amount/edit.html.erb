@@ -1,0 +1,16 @@
+<% @main_question = t('views.ctc.questions.non_w2_income_amount.title') %>
+
+<% content_for :page_title, @main_question %>
+<% content_for :body_class, "amount-collection" %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, class: "amount-collection-form"  do |f| %>
+    <%= f.cfa_input_field(:non_w2_income_amount, nil, prefix: "$") %>
+
+    <%= f.button :submit, class: "button button--wide button--primary" do %>
+      <%= t("general.continue") %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -3,7 +3,7 @@ module Ctc
     class NonW2IncomeController < QuestionsController
       include AuthenticatedCtcClientConcern
 
-      layout "intake"
+      layout "yes_no_question"
 
       def self.show?(intake)
         "eitc and income in specific range"

@@ -84,6 +84,7 @@
 #  had_hsa                                              :integer          default(0), not null
 #  had_interest_income                                  :integer          default(0), not null
 #  had_local_tax_refund                                 :integer          default(0), not null
+#  had_non_w2_income                                    :integer
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
 #  had_retirement_income                                :integer          default(0), not null
@@ -124,6 +125,7 @@
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
+#  non_w2_income_amount                                 :integer
 #  not_full_time_student                                :integer          default(0), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default(0), not null
