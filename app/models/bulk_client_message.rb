@@ -3,6 +3,7 @@
 # Table name: bulk_client_messages
 #
 #  id                      :bigint           not null, primary key
+#  cached_data             :jsonb
 #  send_only               :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -28,11 +29,28 @@ class BulkClientMessage < ApplicationRecord
   FAILED = "failed".freeze
   IN_PROGRESS = "in-progress".freeze
 
-  def status
-    return IN_PROGRESS if clients_with_in_progress_messages.size > 0
-    return FAILED if clients_with_no_successfully_sent_messages.size > 0
+  def flush_memoized_data
+    if status != IN_PROGRESS
+      update_column(:cached_data, cached_data.merge(memoized_data))
+    end
+  end
 
-    SUCCEEDED
+  def status
+    if cacheable_count(:clients_with_in_progress_messages) > 0
+      IN_PROGRESS
+    elsif cacheable_count(:clients_with_no_successfully_sent_messages) > 0
+      FAILED
+    else
+      SUCCEEDED
+    end
+  end
+
+  def cacheable_count(method_sym)
+    memoized_data["#{method_sym}_count"] ||= send(method_sym).size
+  end
+
+  def clients
+    tax_return_selection.clients
   end
 
   def clients_with_no_successfully_sent_messages
@@ -50,5 +68,16 @@ class BulkClientMessage < ApplicationRecord
 
   def clients_with_in_progress_messages
     tax_return_selection.clients.where(outgoing_emails: outgoing_emails.in_progress).or(tax_return_selection.clients.where(outgoing_text_messages: outgoing_text_messages.in_progress))
+  end
+
+  def reload
+    super
+    @_memoized_data = cached_data.dup
+  end
+
+  private
+
+  def memoized_data
+    @_memoized_data ||= cached_data.dup
   end
 end

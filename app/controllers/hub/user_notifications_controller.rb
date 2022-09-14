@@ -7,6 +7,7 @@ module Hub
     def index
       @page_title = I18n.t("hub.clients.navigation.notifications")
       @user_notifications = current_user.notifications.order(created_at: :desc).page(params[:page])
+      @user_notifications.each(&:flush_memoized_data)
     end
 
     def mark_all_notifications_read

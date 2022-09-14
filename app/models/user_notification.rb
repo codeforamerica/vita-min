@@ -37,4 +37,8 @@ class UserNotification < ApplicationRecord
   validates :notifiable_type, presence: true, inclusion: { in: ALLOWED_NOTIFIABLE_TYPES }
 
   self.per_page = 25
+
+  def flush_memoized_data
+    notifiable.send(__method__) if notifiable.respond_to?(__method__)
+  end
 end

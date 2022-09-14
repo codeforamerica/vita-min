@@ -8,7 +8,7 @@
       <%= t(".total_body_html",
             tax_return_selection_link:
               link_to(
-                t("hub.clients.count", count: notification.notifiable.tax_return_selection.clients.size),
+                t("hub.clients.count", count: notification.notifiable.cacheable_count(:clients)),
                 hub_bulk_client_message_path(id: notification.notifiable.id)
               )
           ) %>
@@ -28,7 +28,7 @@
       </p>
     <% end %>
 
-    <% if (count = notification.notifiable.clients_with_successfully_sent_messages.size) > 0 %>
+    <% if (count = notification.notifiable.cacheable_count(:clients_with_successfully_sent_messages)) > 0 %>
       <p class="succeeded">
         <%= t(".succeeded_body_html",
               tax_return_selection_link:
@@ -40,7 +40,7 @@
       </p>
     <% end %>
 
-    <% if (count = notification.notifiable.clients_with_no_successfully_sent_messages.size) > 0 %>
+    <% if (count = notification.notifiable.cacheable_count(:clients_with_no_successfully_sent_messages)) > 0 %>
       <p class="failed">
         <%= t(".failed_body_html",
               tax_return_selection_link:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_230209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -456,6 +456,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
   end
 
   create_table "bulk_client_messages", force: :cascade do |t|
+    t.jsonb "cached_data", default: {}
     t.datetime "created_at", null: false
     t.string "send_only"
     t.bigint "tax_return_selection_id"
