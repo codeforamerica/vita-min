@@ -6,7 +6,7 @@ module Ctc
       layout "yes_no_question"
 
       def self.show?(intake)
-        "eitc and income in specific range"
+        Flipper.enabled?(:eitc) && "income in specific range"
       end
 
       def edit

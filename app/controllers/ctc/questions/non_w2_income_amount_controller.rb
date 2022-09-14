@@ -6,8 +6,7 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        true
-        # eitc and you said yes on the previous page (and maybe also that money range thing, again)
+        Flipper.enabled?(:eitc) && 'you said yes on the previous page (and maybe also income in specific range)'
       end
 
       private
