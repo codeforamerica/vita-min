@@ -82,6 +82,26 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
               expect(notification_html.at_css(".notification__heading")).to have_text "Successful Bulk Send a Message"
               expect(notification_html.at_css("p.in-progress")).not_to be_present
             end
+
+            describe 'caching' do
+              before do
+                @expensive_call_count = 0
+                allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_wrap_original do |original_method, *args, &b|
+                  @expensive_call_count += 1
+                  original_method.call(*args, &b)
+                end
+              end
+
+              it "flushes cached counts so subsequent requests are faster" do
+                expect do
+                  get :index
+                end.to change { @expensive_call_count }.from(0).to(1)
+
+                expect do
+                  get :index
+                end.not_to change { @expensive_call_count }
+              end
+            end
           end
         end
 
@@ -113,6 +133,26 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
 
               notification_html = Nokogiri::HTML.parse(response.body).at_css("#notification-#{notification.id}")
               expect(notification_html.at_css(".notification__heading")).to have_text "Bulk Send a Message In Progress"
+            end
+
+            describe 'caching' do
+              before do
+                @expensive_call_count = 0
+                allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_wrap_original do |original_method, *args, &b|
+                  @expensive_call_count += 1
+                  original_method.call(*args, &b)
+                end
+              end
+
+              it "does not flush cached counts because they still might change" do
+                expect do
+                  get :index
+                end.to change { @expensive_call_count }.by(1)
+
+                expect do
+                  get :index
+                end.to change { @expensive_call_count }.by(1)
+              end
             end
           end
         end

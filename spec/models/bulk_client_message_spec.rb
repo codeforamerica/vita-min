@@ -57,8 +57,9 @@ RSpec.describe BulkClientMessage, type: :model do
     create :bulk_client_message, outgoing_emails: OutgoingEmail.all, outgoing_text_messages: OutgoingTextMessage.all, tax_return_selection: tax_return_selection
   end
 
-  describe "#status" do
-    it "returns the right status" do
+  describe "#flush_memoized_data" do
+    it "updates and uses the cache when the task is completed" do
+      bulk_client_message.flush_memoized_data
       expect(bulk_client_message.status).to eq(BulkClientMessage::IN_PROGRESS)
       expect(bulk_client_message.cached_data).to eq({})
 
@@ -66,8 +67,12 @@ RSpec.describe BulkClientMessage, type: :model do
       one_nil_status_one_fail.client.outgoing_text_messages.first.update!(twilio_status: 'sent')
 
       bulk_client_message.reload
+      bulk_client_message.flush_memoized_data
       expect(bulk_client_message.status).to eq(BulkClientMessage::FAILED)
-      expect(bulk_client_message.cached_data).to eq('status' => BulkClientMessage::FAILED)
+      expect(bulk_client_message.cached_data).to eq(
+                                                   'clients_with_in_progress_messages_count' => 0,
+                                                   'clients_with_no_successfully_sent_messages_count' => 2
+                                                 )
     end
   end
 

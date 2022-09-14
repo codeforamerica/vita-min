@@ -28,7 +28,7 @@
       </p>
     <% end %>
 
-    <% if (count = notification.notifiable.cacheable_count(:clients_with_successfully_sent_messages) > 0) %>
+    <% if (count = notification.notifiable.cacheable_count(:clients_with_successfully_sent_messages)) > 0 %>
       <p class="succeeded">
         <%= t(".succeeded_body_html",
               tax_return_selection_link:
@@ -40,7 +40,7 @@
       </p>
     <% end %>
 
-    <% if (count = notification.notifiable.cacheable_count(:clients_with_no_successfully_sent_messages) > 0) %>
+    <% if (count = notification.notifiable.cacheable_count(:clients_with_no_successfully_sent_messages)) > 0 %>
       <p class="failed">
         <%= t(".failed_body_html",
               tax_return_selection_link:

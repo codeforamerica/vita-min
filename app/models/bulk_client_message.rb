@@ -29,35 +29,24 @@ class BulkClientMessage < ApplicationRecord
   FAILED = "failed".freeze
   IN_PROGRESS = "in-progress".freeze
 
-  def status
-    return cached_data[:status] if cached_data[:status]
+  def flush_memoized_data
+    if status != IN_PROGRESS
+      update_column(:cached_data, cached_data.merge(memoized_data))
+    end
+  end
 
-    _status = if cacheable_count(:clients_with_in_progress_messages) > 0
+  def status
+    if cacheable_count(:clients_with_in_progress_messages) > 0
       IN_PROGRESS
     elsif cacheable_count(:clients_with_no_successfully_sent_messages) > 0
       FAILED
     else
       SUCCEEDED
     end
-
-    if _status != IN_PROGRESS
-      cached_data[:status] = _status
-      save
-    end
-
-    _status
   end
 
-  def cacheable_count(method)
-    if cached_data[:status].present?
-      if cached_data[method].blank?
-        cached_data[method] = send(method).size
-        save
-      end
-      cached_data[method]
-    else
-      memoized_counts[method] ||= send(method).size
-    end
+  def cacheable_count(method_sym)
+    memoized_data["#{method_sym}_count"] ||= send(method_sym).size
   end
 
   def clients
@@ -82,13 +71,13 @@ class BulkClientMessage < ApplicationRecord
   end
 
   def reload
-    @_memoized_counts = {}
     super
+    @_memoized_data = cached_data.dup
   end
 
   private
 
-  def memoized_counts
-    @_memoized_counts ||= {}
+  def memoized_data
+    @_memoized_data ||= cached_data.dup
   end
 end
