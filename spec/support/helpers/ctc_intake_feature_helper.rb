@@ -448,7 +448,7 @@ module CtcIntakeFeatureHelper
       expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
 
       within ".spouse-info" do
-        expect(page).to have_selector("div", text: "Peter Pepper")
+        expect(page).to have_selector("div", text: "Peter P Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/1995")
         expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-4444")
         click_on "edit"
@@ -458,7 +458,7 @@ module CtcIntakeFeatureHelper
       click_on "Save"
 
       within ".spouse-info" do
-        expect(page).to have_selector("div", text: "Petra Pepper")
+        expect(page).to have_selector("div", text: "Petra P Pepper")
       end
     end
 
