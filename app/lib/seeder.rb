@@ -299,7 +299,7 @@ class Seeder
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
-      email_address: "EitcUnderTwentyFourQC@example.com",
+      email_address: "yfong+EitcUnderTwentyFourQC@codeforamerica.org",
       email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
       dependent_attributes: [
@@ -363,7 +363,7 @@ class Seeder
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
-      email_address: "EitcMFJQC@example.com",
+      email_address: "yfong+EitcMFJQC@codeforamerica.org",
       email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
       dependent_attributes: [
@@ -424,7 +424,7 @@ class Seeder
       claim_eitc: 'yes',
       exceeded_investment_income_limit: 'no',
       primary_tin_type: 'ssn',
-      email_address: "EitcNoQC@example.com",
+      email_address: "yfong+EitcNoQC@codeforamerica.org",
       email_address_verified_at: Time.current,
       current_step: "/en/questions/w2s",
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
