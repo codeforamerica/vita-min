@@ -421,14 +421,26 @@ class Intake < ApplicationRecord
     PhoneParser.normalize(sms_phone_number)
   end
 
-  def primary_full_name
+  def primary_first_and_last_name
     parts = [primary_first_name, primary_last_name]
     parts << primary_suffix if primary_suffix.present?
     parts.join(' ')
   end
 
-  def spouse_full_name
+  def primary_full_name
+    parts = [primary_first_name, primary_middle_initial, primary_last_name]
+    parts << primary_suffix if primary_suffix.present?
+    parts.join(' ')
+  end
+
+  def spouse_first_and_last_name
     parts = [spouse_first_name, spouse_last_name]
+    parts << spouse_suffix if spouse_suffix.present?
+    parts.join(' ')
+  end
+
+  def spouse_full_name
+    parts = [spouse_first_name, spouse_middle_initial, spouse_last_name]
     parts << spouse_suffix if spouse_suffix.present?
     parts.join(' ')
   end
@@ -450,12 +462,12 @@ class Intake < ApplicationRecord
 
   def spouse_name_or_placeholder
     return I18n.t("models.intake.your_spouse") unless spouse_first_name.present?
-    spouse_full_name
+    spouse_first_and_last_name
   end
 
   def student_names
     names = []
-    names << primary_full_name if was_full_time_student_yes?
+    names << primary_first_and_last_name if was_full_time_student_yes?
     names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names

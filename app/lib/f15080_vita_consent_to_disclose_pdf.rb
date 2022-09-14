@@ -21,12 +21,12 @@ class F15080VitaConsentToDisclosePdf
     return {} unless @intake.primary_consented_to_service_at.present?
 
     data = {
-        primary_legal_name: @intake.primary_full_name,
+        primary_legal_name: @intake.primary_first_and_last_name,
         primary_consented_at: strftime_date(@intake.primary_consented_to_service_at),
     }
     if @intake.spouse_consented_to_service_at.present?
       data.merge!(
-        spouse_legal_name: @intake.spouse_full_name,
+        spouse_legal_name: @intake.spouse_first_and_last_name,
         spouse_consented_at: strftime_date(@intake.spouse_consented_to_service_at),
       )
     end
