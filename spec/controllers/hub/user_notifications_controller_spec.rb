@@ -43,9 +43,23 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
         let(:bulk_client_message) { create :bulk_client_message }
         let!(:notification) { create :user_notification, user: user, notifiable: bulk_client_message }
         before do
-          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_return Client.where(id: failed_clients)
-          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_successfully_sent_messages).and_return Client.where(id: successful_clients)
-          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_in_progress_messages).and_return Client.where(id: in_progress_clients)
+          @expensive_call_count = 0
+          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages) do
+            @expensive_call_count += 1
+            Client.where(id: failed_clients)
+          end
+          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_successfully_sent_messages) do
+            @expensive_call_count += 1
+            Client.where(id: successful_clients)
+          end
+          allow_any_instance_of(BulkClientMessage).to receive(:clients_with_in_progress_messages) do
+            @expensive_call_count += 1
+            Client.where(id: in_progress_clients)
+          end
+          allow_any_instance_of(BulkClientMessage).to receive(:clients).and_wrap_original do |original_method, *args, &b|
+            @expensive_call_count += 1
+            original_method.call(*args, &b)
+          end
         end
 
         context "with any number of failed clients" do
@@ -84,18 +98,10 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
             end
 
             describe 'caching' do
-              before do
-                @expensive_call_count = 0
-                allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_wrap_original do |original_method, *args, &b|
-                  @expensive_call_count += 1
-                  original_method.call(*args, &b)
-                end
-              end
-
               it "flushes cached counts so subsequent requests are faster" do
                 expect do
                   get :index
-                end.to change { @expensive_call_count }.from(0).to(1)
+                end.to change { @expensive_call_count }
 
                 expect do
                   get :index
@@ -136,22 +142,14 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
             end
 
             describe 'caching' do
-              before do
-                @expensive_call_count = 0
-                allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_wrap_original do |original_method, *args, &b|
-                  @expensive_call_count += 1
-                  original_method.call(*args, &b)
-                end
-              end
-
               it "does not flush cached counts because they still might change" do
                 expect do
                   get :index
-                end.to change { @expensive_call_count }.by(1)
+                end.to change { @expensive_call_count }
 
                 expect do
                   get :index
-                end.to change { @expensive_call_count }.by(1)
+                end.to change { @expensive_call_count }
               end
             end
           end
