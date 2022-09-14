@@ -24,4 +24,12 @@ describe Seeder do
     described_class.new.run
     expect(count_rows_by_model).to eq(row_count_after_one_run)
   end
+
+  it "creates an eitc client under 24 with a qualifying child" do
+    intake = Intake.find_by(primary_first_name: "EitcUnderTwentyFourQC")
+    expect(intake.dependents.count).to eq 1
+    expect(intake.dependents.first.qualifying_eitc?).to eq true
+    expect(intake.client.efile_submissions.count).to eq 1
+    expect(intake.client.efile_submissions.first.last_client_accessible_transition.exposed_error).to be_present
+  end
 end
