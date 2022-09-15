@@ -3,7 +3,7 @@
 
 <% content_for :page_title, @returning_client ? t("views.questions.chat_with_us.returning_client.title", name: current_intake.primary_first_name) : t("views.questions.chat_with_us.title", partner_name: current_intake.vita_partner&.name) %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <div class="form-card">
     <h1 class="form-question">
       <%= content_for(:page_title) %>

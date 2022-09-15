@@ -7,7 +7,7 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   private
 
   def edit_template
-    "ctc/portal/w2s/employee_info/edit"
+    "ctc/questions/w2s/employee_info/edit"
   end
 
   def form_class

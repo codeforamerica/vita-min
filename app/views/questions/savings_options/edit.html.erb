@@ -2,7 +2,7 @@
 
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2" id="main-question"><%= @main_question %></h1>
 

@@ -1,7 +1,7 @@
 <%= render 'shared/trade_desk_pixel' %>
 <% content_for :page_title, t("views.questions.personal_info.title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
     <p>

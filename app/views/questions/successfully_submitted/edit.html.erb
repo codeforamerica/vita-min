@@ -1,6 +1,6 @@
 <% content_for :form_question, t("views.questions.successfully_submitted.title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= render 'shared/facebook_pixel', track_conversion: "SubmitIntake" %>
   <h1 class="form-question">
     <%= content_for(:form_question) %>
