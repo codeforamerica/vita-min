@@ -1,4 +1,6 @@
 class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevisionController
+  before_action :set_continue_label
+
   def edit
     @form = form_class.from_w2(current_model)
     render edit_template
@@ -20,5 +22,9 @@ class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevision
 
   def next_path
     redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+  end
+
+  def set_continue_label
+    @continue_label = t("views.ctc.portal.w2s.employer_info.update_w2")
   end
 end
