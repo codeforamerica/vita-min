@@ -79,6 +79,7 @@
 #  had_disability                                       :integer          default("unfilled"), not null
 #  had_disability_income                                :integer          default("unfilled"), not null
 #  had_disaster_loss                                    :integer          default("unfilled"), not null
+#  had_disqualifying_non_w2_income                      :integer
 #  had_farm_income                                      :integer          default("unfilled"), not null
 #  had_gambling_income                                  :integer          default("unfilled"), not null
 #  had_hsa                                              :integer          default("unfilled"), not null

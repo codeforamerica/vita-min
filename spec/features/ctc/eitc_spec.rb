@@ -75,6 +75,41 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
   end
 
+  scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+    fill_in_w2(wages: 16_000)
+    click_on I18n.t("views.ctc.questions.w2s.done_adding")
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.non_w2_income.title', w2_amount: '$16,000'))
+    click_on I18n.t("general.affirmative")
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_income_offboarding.title', count: 2))
+  end
+
+  scenario "a client who has too much W-2 income for simplified filing" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+    fill_in_w2(wages: 26_000)
+    click_on I18n.t("views.ctc.questions.w2s.done_adding")
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.simplified_filing_income_offboarding.title', count: 2))
+  end
+
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
