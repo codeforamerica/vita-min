@@ -2,7 +2,7 @@
 
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
   <p><%= t("views.ctc.questions.spouse_filed_prior_tax_year.help_text", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse_first_name) %></p>
   <p class="text--small text--bold"><%= t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.note") %></p>

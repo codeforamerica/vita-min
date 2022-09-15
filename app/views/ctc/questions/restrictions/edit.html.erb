@@ -1,7 +1,7 @@
 <% @main_heading = t("views.ctc.questions.restrictions.title") %>
 <% content_for :form_question, @main_heading %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
   <p class="text--bold"><%= t("views.ctc.questions.restrictions.list_title", current_tax_year: current_tax_year)%></p>

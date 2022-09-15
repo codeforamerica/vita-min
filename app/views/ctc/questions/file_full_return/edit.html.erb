@@ -1,7 +1,7 @@
 <% @main_heading = current_intake.puerto_rico_filing? ? t("views.ctc.questions.file_full_return.puerto_rico.title") : t("views.ctc.questions.file_full_return.title") %>
 <% content_for :form_question, @main_heading %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
   <% if current_intake.puerto_rico_filing? %>
