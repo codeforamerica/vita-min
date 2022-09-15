@@ -435,9 +435,12 @@ Rails.application.routes.draw do
           get 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#edit"
           put 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#update"
 
+          get 'w2s-employee-info', to: "w2s/employee_info#edit"
+          put 'w2s-employee-info', to: "w2s/employee_info#update"
+
           resources :w2s do
-            get 'w2s-employee-info', on: :member, to: "w2s/employee_info#edit"
-            put 'w2s-employee-info', on: :member, to: "w2s/employee_info#update"
+            # get 'w2s-employee-info', on: :member, to: "w2s/employee_info#edit"
+            # put 'w2s-employee-info', on: :member, to: "w2s/employee_info#update"
             get 'w2s-employer-info', on: :member, to: "w2s/employer_info#edit"
             put 'w2s-employer-info', on: :member, to: "w2s/employer_info#update"
           end

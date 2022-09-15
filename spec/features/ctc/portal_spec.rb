@@ -190,7 +190,9 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           spouse_last_name: "Hesse",
           spouse_birth_date: Date.new(1929, 9, 2),
           spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
-          dependents: [qualifying_child, dependent_to_delete, dependent_that_cannot_be_deleted]
+          claim_eitc: "yes",
+          exceeded_investment_income_limit: "no",
+          dependents: [qualifying_child, dependent_to_delete, dependent_that_cannot_be_deleted],
         )
       end
       let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021)) }
@@ -305,6 +307,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         fill_in I18n.t('views.ctc.portal.spouse_prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "4567"
         click_on I18n.t("general.save")
 
+        # editing a w-2
         within ".w2s-shared" do
           expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
           click_on I18n.t("general.edit").downcase
@@ -317,6 +320,35 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text(I18n.t("views.ctc.questions.w2s.employer_info.employer_name"))
         fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
         click_on I18n.t("views.ctc.portal.w2s.employer_info.update_w2")
+
+        # adding a w-2
+        within ".w2s-shared" do
+          expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
+          click_on I18n.t("views.ctc.portal.edit_info.w2s_add")
+        end
+
+        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_first_name'), with: 'Mango'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_last_name'), with: 'Mangonada'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_ssn'), with: '888-22-3333'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.confirm_employee_ssn'), with: '888-22-3333'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: '123.45'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
+        select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
+        fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
+        click_on I18n.t('general.continue')
+
+        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+        fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
+        fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'Fruit Stand'
+        fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
+        fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
+        select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
+        fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
+        select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
+        click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
 
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
 

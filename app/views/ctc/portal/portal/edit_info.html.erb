@@ -56,11 +56,24 @@
             <%= render 'ctc/questions/confirm_information/spouse_prior_year_agi', edit_controller: Ctc::Portal::SpousePriorTaxYearAgiController, intake: @intake %>
           <% end %>
 
-          <% if current_intake.w2s.any? %>
+          <% if @show_eitc_info %>
             <div class="w2s-shared">
               <h2 class="review-box__title"><%= t("views.ctc.portal.edit_info.w2s_shared") %></h2>
 
-              <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
+              <% if current_intake.w2s.any? %>
+                <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
+              <% else %>
+                <div class="review-box__person">
+                  <div class="review-box__paper_icon">
+                    <%= image_tag("paper.svg", alt: "") %>
+                  </div>
+                  <div>
+                    <div class="review-box__name spacing-below-15"><%= t("views.ctc.portal.edit_info.w2s_missing") %></div>
+                  </div>
+                </div>
+              <% end %>
+
+              <%= link_to t("views.ctc.portal.edit_info.w2s_add"), Ctc::Portal::W2s::EmployeeInfoController.to_path_helper, class: "button button--small" %>
             </div>
           <% end %>
         </div>

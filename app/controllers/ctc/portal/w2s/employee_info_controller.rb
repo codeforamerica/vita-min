@@ -15,7 +15,7 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def current_model
-    @_current_model ||= current_intake.w2s.find(params[:id])
+    @_current_model ||= params[:id] ? current_intake.w2s.find(params[:id]) : W2.new
   end
 
   def next_path
