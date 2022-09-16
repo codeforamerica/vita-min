@@ -18,6 +18,7 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     token = verifier.verified(params[:id])
     if token
+      @new_model = true
       current_intake.w2s.find_or_initialize_by(creation_token: token)
     else
       current_intake.w2s.find(params[:id])
@@ -26,5 +27,13 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
 
   def next_path
     redirect_to Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+  end
+
+  def create_system_note
+    SystemNote::CtcPortalUpdate.generate!(
+      model: current_model,
+      client: current_client,
+      new: @new_model
+    )
   end
 end

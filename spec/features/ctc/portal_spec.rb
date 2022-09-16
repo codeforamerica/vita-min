@@ -417,6 +417,42 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           "employer_name" => ["Code for America", "Cod for America"],
         })
 
+        expect(changes_table_contents(".changes-note-#{notes[8].id}")).to match({
+          "employee_city" => ["nil", "City Town"],
+          "employee_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "employee_state" => ["nil", "CA"],
+          "employee_street_address" => ["nil", "123 Cool St"],
+          "employee_street_address2" => ["nil", "nil"],
+          "employee_zip_code" => ["nil", "94110"],
+          "employer_city" => ["nil", "nil"],
+          "employer_ein" => ["nil", "nil"],
+          "employer_name" => ["nil", "nil"],
+          "employer_state" => ["nil", "nil"],
+          "employer_street_address" => ["nil", "nil"],
+          "employer_street_address2" => ["nil", "nil"],
+          "employer_zip_code" => ["nil", "nil"],
+          "federal_income_tax_withheld" => ["nil", "12.01"],
+          "id" => ["nil", "2"],
+          "intake_id" => ["nil", "2"],
+          "legal_first_name" => ["nil", "Mango"],
+          "legal_last_name" => ["nil", "Mangonada"],
+          "legal_middle_initial" => ["nil", "nil"],
+          "standard_or_non_standard_code" => ["nil", "nil"],
+          "suffix" => ["nil", "nil"],
+          "wages_amount" => ["nil", "123.45"],
+        })
+
+        expect(changes_table_contents(".changes-note-#{notes[9].id}")).to match({
+          "employer_name" => [nil, "Fruit Stand"],
+          "employer_city" => ["nil", "Citytown"],
+          "employer_ein" => ["nil", "123112222"],
+          "employer_name" => ["nil", "Fruit Stand"],
+          "employer_state" => ["nil", "CA"],
+          "employer_street_address" => ["nil", "123 Easy St"],
+          "employer_zip_code" => ["nil", "94105"],
+          "standard_or_non_standard_code" => ["nil", "S"],
+        })
+
         expect(page).to have_content("Client initiated resubmission of their tax return.")
         expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
       end
