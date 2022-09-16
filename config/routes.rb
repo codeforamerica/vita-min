@@ -210,6 +210,7 @@ Rails.application.routes.draw do
         resources :automated_messages, only: [:index]
         resources :bulk_message_csvs, only: [:index, :create]
         resources :verification_attempts, path: "verifications", only: [:index, :show, :update]
+        resources :socure_csvs, only: [:index, :create]
 
         resources :clients do
           get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
