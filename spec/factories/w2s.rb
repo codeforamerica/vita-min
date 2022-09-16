@@ -4,8 +4,8 @@
 #
 #  id                            :bigint           not null, primary key
 #  creation_token                :string
+#  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string
-#  employee_ssn                  :text
 #  employee_state                :string
 #  employee_street_address       :string
 #  employee_street_address2      :string
@@ -18,11 +18,7 @@
 #  employer_street_address2      :string
 #  employer_zip_code             :string
 #  federal_income_tax_withheld   :decimal(12, 2)
-#  legal_first_name              :string
-#  legal_last_name               :string
-#  legal_middle_initial          :string
 #  standard_or_non_standard_code :string
-#  suffix                        :string
 #  wages_amount                  :decimal(12, 2)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
