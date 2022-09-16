@@ -3,7 +3,7 @@ module Ctc
     module W2s
       class EmployeeInfoController < BaseW2Controller
         def current_resource
-          @dependent ||= begin
+          @_resource ||= begin
                            verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
                            token = verifier.verified(params[:id])
                            if token

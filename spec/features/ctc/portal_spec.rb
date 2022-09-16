@@ -353,7 +353,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
 
         within ".w2s-shared" do
-          expect(page).to have_text "Cod for America"
+          expect(page).to have_text "Fruit Stand"
         end
 
         click_on I18n.t("views.ctc.portal.home.contact_us")

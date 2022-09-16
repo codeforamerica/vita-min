@@ -15,7 +15,13 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def current_model
-    @_current_model ||= params[:id] ? current_intake.w2s.find(params[:id]) : W2.new
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+    token = verifier.verified(params[:id])
+    if token
+      current_intake.w2s.find_or_initialize_by(creation_token: token)
+    else
+      current_intake.w2s.find(params[:id])
+    end
   end
 
   def next_path
