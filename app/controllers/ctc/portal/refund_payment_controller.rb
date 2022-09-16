@@ -9,9 +9,9 @@ class Ctc::Portal::RefundPaymentController < Ctc::Portal::BaseIntakeRevisionCont
 
   def next_path
     if current_intake.refund_payment_method_direct_deposit?
-      redirect_to ctc_portal_bank_account_path
+      ctc_portal_bank_account_path
     elsif current_intake.refund_payment_method_check?
-      redirect_to ctc_portal_mailing_address_path
+      ctc_portal_mailing_address_path
     end
   end
 

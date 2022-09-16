@@ -9,7 +9,7 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
     if @form.valid?
       @form.save
       generate_system_note
-      next_path
+      redirect_to next_path
     else
       render edit_template
     end
@@ -52,6 +52,6 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def next_path
-    redirect_to Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+    Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
   end
 end
