@@ -7,10 +7,12 @@ class InterestingChangeArbiter
   ]
 
   def self.determine_changes(model)
-    interesting_changes = model.saved_changes.reject do |k, v|
-      IGNORED_KEYS.include?(k) ||
-        k.match?("hashed_") ||
-        v == ["unfilled", "no"] && ["was_blind", "spouse_was_blind"].include?(k)
+    interesting_changes = model.saved_changes.select do |k, v|
+      next if IGNORED_KEYS.include?(k)
+      next if k.match?("hashed_")
+      next if ["was_blind", "spouse_was_blind"].include?(k) && v == ["unfilled", "no"]
+
+      true
     end
 
     interesting_changes.each_key do |k|
