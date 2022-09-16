@@ -11,7 +11,7 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
     if @form.valid?
       @form.save
       create_system_note
-      next_path
+      redirect_to next_path
     else
       render edit_template
     end
@@ -25,7 +25,7 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
   private
 
   def next_path
-    redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+    Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
   end
 
   def prev_path
