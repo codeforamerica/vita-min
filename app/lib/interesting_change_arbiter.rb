@@ -4,19 +4,23 @@ class InterestingChangeArbiter
     email_domain
     needs_to_flush_searchable_data_set_at
     updated_at
+    created_at
   ]
 
-  def self.determine_changes(model)
-    interesting_changes = model.saved_changes.select do |k, v|
+  def self.determine_changes(record)
+    interesting_changes = record.saved_changes.select do |k, v|
       next if IGNORED_KEYS.include?(k)
       next if k.match?("hashed_")
-      next if ["was_blind", "spouse_was_blind"].include?(k) && v == ["unfilled", "no"]
+
+      old_val, new_val = v
+      next if %w[was_blind spouse_was_blind].include?(k) && old_val == "unfilled" && new_val == "no"
+      next if k == "id" && old_val == nil
 
       true
     end
 
     interesting_changes.each_key do |k|
-      if model.encrypted_attribute?(k)
+      if record.encrypted_attribute?(k)
         interesting_changes[k] = ["[REDACTED]", "[REDACTED]"]
       end
     end
