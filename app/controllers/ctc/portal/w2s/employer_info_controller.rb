@@ -21,7 +21,7 @@ class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def next_path
-    redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+    Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
   end
 
   def set_continue_label
