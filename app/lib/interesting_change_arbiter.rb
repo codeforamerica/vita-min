@@ -4,6 +4,8 @@ class InterestingChangeArbiter
     email_domain
     needs_to_flush_searchable_data_set_at
     updated_at
+    created_at
+    creation_token
   ]
 
   def self.determine_changes(model, new)
