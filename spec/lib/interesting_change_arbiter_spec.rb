@@ -67,7 +67,7 @@ describe InterestingChangeArbiter do
     end
 
     context "for a newly-saved record" do
-      let(:create_params) { { "first_name" => "First", "last_name" => "Last", "birth_date" => Date.new(2022, 1, 1) } }
+      let(:create_params) { { first_name: "First", last_name: "Last", birth_date: Date.new(2022, 1, 1) } }
       let(:record) do
         intake = FactoryBot.create(:ctc_intake)
         d = Dependent.new(intake: intake, **create_params)
@@ -75,7 +75,7 @@ describe InterestingChangeArbiter do
         d
       end
 
-      it "returns the important data fields " do
+      it "returns the important data fields" do
         expect(described_class.determine_changes(record)).to eq({
                                                                   "first_name" => [nil, "First"],
                                                                   "last_name" => [nil, "Last"],
