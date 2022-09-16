@@ -2282,8 +2282,7 @@ en:
             body_html: |
               According to the IRS, you are <b>not</b> married for a tax year if:
               <ul class="list--bulleted">
-              <li>You were never married</li>
-              <li>You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
+              <li>You were never married OR You were previosuly married but by the end of the year had a decree of divorce or a decree of separate maintenance</li>
               </ul>
             title: Does the IRS consider me to be married?
           mfs_reveal:
@@ -2292,7 +2291,7 @@ en:
           spouse_died_reveal:
             body: Select Yes, and you’ll file with your deceased spouse.
             title: What if my spouse died last year?
-          title: As of December 31, %{current_tax_year}, were you legally married?
+          title: Are you married?
         had_dependents:
           add: Add dependents
           continue: Continue without dependents
@@ -2480,7 +2479,7 @@ en:
           reveal_label: What if I don’t have a mailing address?
           title: Please provide your mailing address.
         main_home:
-          help_text: Select the location where you spent more than half of 2021.
+          help_text: Your main home is a place you stayed at for more than half the tax year.
           options:
             fifty_states: Any of the 50 states or the District of Columbia
             foreign_address: Foreign address
@@ -2490,7 +2489,7 @@ en:
           reveal:
             body: If you did not live in one of these places for more than half of 2021, you cannot use GetCTC.
             title: What if I did not live anywhere for more than 6 months last year?
-          title: Where did you live for most of %{current_tax_year}?
+          title: Where was your main home for %{current_tax_year}?
         no_dependents:
           add_child: Add a child
           add_dependents: Add more dependents
