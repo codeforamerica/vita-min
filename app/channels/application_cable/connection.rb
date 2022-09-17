@@ -9,7 +9,7 @@ module ApplicationCable
     def current_user
       @current_user ||= env['warden'].user
     rescue UncaughtThrowError => e
-      raise unless e.tag == 'warden'
+      raise unless e.tag == :warden
 
       # 'uncaught throw :warden' is fired in certain circumstances, this here is to silence it
       DatadogApi.increment "application_cable.uncaught_throw_warden_error"
