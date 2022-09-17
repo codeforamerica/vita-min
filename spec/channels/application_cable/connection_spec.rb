@@ -31,7 +31,7 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
       before do
         enable_datadog_and_stub_emit_point
         allow(warden).to receive(:user) do
-          throw 'warden'
+          throw :warden
         end
       end
 
