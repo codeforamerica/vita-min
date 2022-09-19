@@ -111,6 +111,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
     t.index ["user_id"], name: "index_admin_toggles_on_user_id"
   end
 
+  create_table "analytics_journeys", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "w2_logout_add_later"
+    t.index ["client_id"], name: "index_analytics_journeys_on_client_id"
+  end
+
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "record_count"
@@ -1631,6 +1639,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_toggles", "users"
+  add_foreign_key "analytics_journeys", "clients"
   add_foreign_key "archived_bank_accounts_2021", "archived_intakes_2021"
   add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"

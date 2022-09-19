@@ -55,6 +55,7 @@ class Client < ApplicationRecord
   self.per_page = 25
 
   belongs_to :vita_partner, optional: true
+  has_one :analytics_journey, dependent: :destroy
   has_many :documents, dependent: :destroy
   has_many :documents_requests, dependent: :destroy
   has_one :intake, inverse_of: :client, dependent: :destroy
