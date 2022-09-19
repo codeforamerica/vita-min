@@ -321,9 +321,7 @@ class Seeder
       ],
       w2_attributes: [
         {
-          legal_first_name: "Sheldon",
-          legal_last_name: "Faceplate",
-          employee_ssn: "888119876",
+          employee: 'primary',
           employee_street_address: "456 Somewhere Ave",
           employee_city: "Cleveland",
           employee_state: "OH",
@@ -385,9 +383,7 @@ class Seeder
       ],
       w2_attributes: [
         {
-          legal_first_name: "Sheldon",
-          legal_last_name: "Faceplate",
-          employee_ssn: "888119876",
+          employee: 'primary',
           employee_street_address: "456 Somewhere Ave",
           employee_city: "Cleveland",
           employee_state: "OH",
@@ -430,9 +426,7 @@ class Seeder
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
       w2_attributes: [
         {
-          legal_first_name: "Sheldon",
-          legal_last_name: "Faceplate",
-          employee_ssn: "888119876",
+          employee: 'primary',
           employee_street_address: "456 Somewhere Ave",
           employee_city: "Cleveland",
           employee_state: "OH",
