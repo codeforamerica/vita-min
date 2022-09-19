@@ -88,7 +88,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_w2(wages: 16_000)
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.non_w2_income.title', w2_amount: '$16,000'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.non_w2_income.title', income_cap: '$16,000'))
     click_on I18n.t("general.affirmative")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_income_offboarding.title', count: 2))

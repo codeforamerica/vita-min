@@ -6,22 +6,12 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        return false unless Flipper.enabled?(:eitc)
+        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
 
-        intake.had_disqualifying_non_w2_income_yes? || over_income_threshold(intake)
+        Flipper.enabled?(:eitc) && benefits_eligibility.disqualified_for_eitc_due_to_income?
       end
 
       private
-
-      def self.over_income_threshold(intake)
-        return false unless intake.total_wages_amount
-
-        if intake.filing_jointly?
-          intake.total_wages_amount > 17_550
-        else
-          intake.total_wages_amount > 11_610
-        end
-      end
 
       def illustration_path
         "error.svg"

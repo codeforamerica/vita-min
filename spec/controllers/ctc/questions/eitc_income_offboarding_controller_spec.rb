@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::EitcIncomeOffboardingController do
-  let(:intake) { create :ctc_intake, had_disqualifying_non_w2_income: had_disqualifying_non_w2_income, client: build(:client, tax_returns: [build(:tax_return, filing_status: filing_status)]) }
+  let(:intake) { create :ctc_intake, had_disqualifying_non_w2_income: had_disqualifying_non_w2_income, client: build(:client, tax_returns: [build(:tax_return, filing_status: filing_status, year: TaxReturn.current_tax_year)]) }
   let(:wages_amount) { 1 }
   let(:filing_status) { "single" }
   let(:had_disqualifying_non_w2_income) { "no" }

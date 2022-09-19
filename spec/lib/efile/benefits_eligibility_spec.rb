@@ -344,9 +344,17 @@ describe Efile::BenefitsEligibility do
     let(:primary_age_at_end_of_tax_year) { 30.years }
     let(:exceeded_investment_income_limit) { "no" }
     let(:primary_tin_type) { "ssn" }
+    let(:wages_amount) { 1000 }
+    let(:had_disqualifying_non_w2_income) { 'no' }
 
     before do
-      intake.update(exceeded_investment_income_limit: exceeded_investment_income_limit, primary_birth_date: Date.new(2021, 12, 31) - primary_age_at_end_of_tax_year, primary_tin_type: primary_tin_type)
+      intake.update(
+        exceeded_investment_income_limit: exceeded_investment_income_limit,
+        primary_birth_date: Date.new(2021, 12, 31) - primary_age_at_end_of_tax_year,
+        primary_tin_type: primary_tin_type,
+        had_disqualifying_non_w2_income: had_disqualifying_non_w2_income
+      )
+      create :w2, intake: intake, wages_amount: wages_amount
     end
 
     context "when they are qualified w/ no dependents" do
@@ -365,6 +373,22 @@ describe Efile::BenefitsEligibility do
 
     context "they do not pass investment income test" do
       let(:exceeded_investment_income_limit) { "yes" }
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "they are over the income threshold" do
+      let(:wages_amount) { 11_611 }
+
+      it "returns false" do
+        expect(subject.qualified_for_eitc?).to eq false
+      end
+    end
+
+    context "they had_disqualifying_non_w2_income" do
+      let(:had_disqualifying_non_w2_income) { 'yes' }
 
       it "returns false" do
         expect(subject.qualified_for_eitc?).to eq false
@@ -479,6 +503,72 @@ describe Efile::BenefitsEligibility do
       it "returns true" do
         expect(subject.qualified_for_eitc?).to eq true
       end
+    end
+  end
+
+  describe "#disqualified_for_eitc_due_to_income?" do
+    let(:had_disqualifying_non_w2_income) { 'no' }
+
+    before do
+      intake.update(had_disqualifying_non_w2_income: had_disqualifying_non_w2_income)
+    end
+
+    context "had_disqualifying_non_w2_income is yes" do
+      let(:had_disqualifying_non_w2_income) { 'yes' }
+
+      it "is true" do
+        expect(subject.disqualified_for_eitc_due_to_income?).to eq true
+      end
+    end
+
+    context "had_disqualifying_non_w2_income is no" do
+      let(:had_disqualifying_non_w2_income) { 'no' }
+
+      before do
+        intake.default_tax_return.update(filing_status: filing_status)
+        create :w2, intake: intake, wages_amount: wages_amount
+      end
+
+      context 'single' do
+        let(:filing_status) { "single" }
+
+        context 'w2 income less than or equal to 11,610' do
+          let(:wages_amount) { 11_610 }
+
+          it 'is false' do
+            expect(subject.disqualified_for_eitc_due_to_income?).to eq false
+          end
+        end
+
+        context 'w2 income greater than 11,610' do
+          let(:wages_amount) { 11_611 }
+
+          it 'is true' do
+            expect(subject.disqualified_for_eitc_due_to_income?).to eq true
+          end
+        end
+      end
+
+      context 'married_filing_jointly' do
+        let(:filing_status) { "married_filing_jointly" }
+
+        context 'w2 income less than or equal to 17,550' do
+          let(:wages_amount) { 17_550 }
+
+          it 'is false' do
+            expect(subject.disqualified_for_eitc_due_to_income?).to eq false
+          end
+        end
+
+        context 'w2 income greater than 17,550' do
+          let(:wages_amount) { 17_551 }
+
+          it 'is true' do
+            expect(subject.disqualified_for_eitc_due_to_income?).to eq true
+          end
+        end
+      end
+
     end
   end
 

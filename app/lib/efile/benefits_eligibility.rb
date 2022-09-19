@@ -117,7 +117,8 @@ module Efile
     def qualified_for_eitc?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
-        intake.primary.tin_type == "ssn"
+        intake.primary.tin_type == "ssn" &&
+        !disqualified_for_eitc_due_to_income?
     end
 
     def youngish_without_eitc_dependents?
@@ -128,7 +129,21 @@ module Efile
       intake.filers.all? { |filer| age_at_end_of_tax_year(filer) < 24 }
     end
 
+    def disqualified_for_eitc_due_to_income?
+      intake.had_disqualifying_non_w2_income_yes? || over_income_threshold
+    end
+
     private
+
+    def over_income_threshold
+      return false unless intake.total_wages_amount
+
+      if intake.filing_jointly?
+        intake.total_wages_amount > 17_550
+      else
+        intake.total_wages_amount > 11_610
+      end
+    end
 
     def eitc_qualifications_passes_age_test?
       return true unless filers_younger_than_twenty_four?

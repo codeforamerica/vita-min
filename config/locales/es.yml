@@ -2472,15 +2472,15 @@ es:
           subtitle: Estos pagos habrían llegado entre julio y diciembre de 2021.
           title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos en %{current_tax_year}?"
         non_w2_income:
-          title: ¿Obtuviste más de %{income_cap} en ingresos totales?
-          total_w2_income: El total de los ingresos W-2 que informó es %{w2_amount}.
           additional_income:
-            list_title: "Los ingresos adicionales incluyen:"
             list:
             - ingresos del contratista
             - ingresos por intereses
             - ingresos por desempleo
             - cualquier otro dinero que hayas recibido
+            list_title: 'Los ingresos adicionales incluyen:'
+          title: "¿Obtuviste más de %{income_cap} en ingresos totales?"
+          total_w2_income: El total de los ingresos W-2 que informó es %{w2_amount}.
         not_filing:
           buttons:
             faq: Preguntas Frecuentes
