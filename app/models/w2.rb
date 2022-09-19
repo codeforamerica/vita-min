@@ -32,13 +32,7 @@
 class W2 < ApplicationRecord
   belongs_to :intake
 
-  encrypts :employee_ssn
-
   enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
-
-  before_validation do
-    self.employee_ssn = self.employee_ssn.remove(/\D/) if employee_ssn_changed? && self.employee_ssn
-  end
 
   def legal_first_name
     if employee_primary?

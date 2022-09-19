@@ -2637,6 +2637,7 @@ es:
           dont_add_w2: No deseo añadir ningún ingreso
           employee_info:
             confirm_employee_ssn: Confirmar el SSN, Número de Seguro Social, del empleado
+            employee_legal_name: "Seleccione el nombre legal en el W2:"
             employee_city: Ciudad
             employee_ssn: 'Casilla a: SSN del empleado'
             employee_state: Estado

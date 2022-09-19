@@ -32,9 +32,6 @@
 FactoryBot.define do
   factory :w2 do
     intake
-    legal_first_name { "Sheldon" }
-    legal_last_name { "Faceplate" }
-    sequence(:employee_ssn) { |n| "88811#{"%04d" % (n % 1000)}" }
     employee_street_address { "456 Somewhere Ave" }
     employee_city { "Cleveland" }
     employee_state { "OH" }
