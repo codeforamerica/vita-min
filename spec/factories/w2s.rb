@@ -32,6 +32,7 @@
 FactoryBot.define do
   factory :w2 do
     intake
+    employee { 'primary' }
     employee_street_address { "456 Somewhere Ave" }
     employee_city { "Cleveland" }
     employee_state { "OH" }
