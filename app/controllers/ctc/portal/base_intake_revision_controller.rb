@@ -8,18 +8,14 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
     @form = form_class.new(current_model, form_params)
     if @form.valid?
       @form.save
-      create_system_note
+      SystemNote::CtcPortalUpdate.generate!(
+        model: current_model,
+        client: current_client,
+      )
       next_path
     else
       render edit_template
     end
-  end
-
-  def create_system_note
-    SystemNote::CtcPortalUpdate.generate!(
-      model: current_model,
-      client: current_client,
-    )
   end
 
   def edit_template
