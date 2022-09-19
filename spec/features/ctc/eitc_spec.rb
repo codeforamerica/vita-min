@@ -85,10 +85,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
-    fill_in_w2(wages: 16_000)
+    fill_in_w2('Peter Pepper', filing_status: 'married_filing_jointly', wages: 16_000)
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.non_w2_income.title', income_cap: '$16,000'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.non_w2_income.title', income_cap: '$17,500'))
     click_on I18n.t("general.affirmative")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_income_offboarding.title', count: 2))
@@ -104,7 +104,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
-    fill_in_w2(wages: 26_000)
+    fill_in_w2('Peter Pepper', filing_status: 'married_filing_jointly', wages: 26_000)
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.simplified_filing_income_offboarding.title', count: 2))

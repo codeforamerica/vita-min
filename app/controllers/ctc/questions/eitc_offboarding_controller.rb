@@ -7,7 +7,7 @@ module Ctc
 
       def self.show?(intake)
         benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
-        Flipper.enabled?(:eitc) && intake.claim_eitc_yes? && !benefits_eligibility.qualified_for_eitc?
+        Flipper.enabled?(:eitc) && intake.claim_eitc_yes? && !benefits_eligibility.qualified_for_eitc_pre_w2s?
       end
 
       private
