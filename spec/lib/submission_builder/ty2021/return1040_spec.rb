@@ -103,7 +103,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
 
       context "when multiple W2s are on the intake" do
         let!(:primary_w2) { create :w2, intake: submission.intake }
-        let!(:spouse_w2) { create :w2, intake: submission.intake, legal_first_name: submission.intake.spouse_first_name }
+        let!(:spouse_w2) { create :w2, intake: submission.intake, employee: 'spouse' }
 
         it "attaches both W2s" do
           xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)

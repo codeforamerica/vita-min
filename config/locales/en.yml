@@ -2678,20 +2678,17 @@ en:
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add any income
           employee_info:
-            confirm_employee_ssn: Confirm Employee SSN
             employee_city: City
-            employee_ssn: 'Box a: Employee SSN'
+            employee_legal_name: 'Select the legal name on the W2:'
             employee_state: State
             employee_street_address: 'Box e: Employee street address or P.O. box'
             employee_street_address2: Apartment number (optional)
             employee_zip_code: Zip code
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
             help_text: Your W-2 has lettered and numbered boxes. You will match and enter this information below.
-            legal_first_name: Legal first name
-            legal_last_name: Legal last name
-            legal_middle_initial: Legal middle initial (optional)
-            suffix: Suffix (optional)
-            title: Great! Let’s start with reading your W-2.
+            title:
+              one: Let’s start by entering some basic info for %{name}.
+              other: Let’s start by entering some basic info.
             wages_amount: 'Box 1: Wages Amount'
           employer_info:
             add: Add W-2

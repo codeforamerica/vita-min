@@ -331,15 +331,16 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_w2(wages: 123.45)
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45)
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
-    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_first_name'), with: 'sam'
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_last_name'), with: 'eagley'
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_ssn'), with: '888-22-3333'
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.confirm_employee_ssn'), with: '888-22-3333'
+    if filing_status == 'single'
+      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 1, name: employee_name))
+    else
+      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
+      select employee_name, from: I18n.t('views.ctc.questions.w2s.employee_info.employee_legal_name')
+    end
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: wages
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'

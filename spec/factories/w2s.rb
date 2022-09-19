@@ -4,8 +4,8 @@
 #
 #  id                            :bigint           not null, primary key
 #  creation_token                :string
+#  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string
-#  employee_ssn                  :text
 #  employee_state                :string
 #  employee_street_address       :string
 #  employee_street_address2      :string
@@ -18,11 +18,7 @@
 #  employer_street_address2      :string
 #  employer_zip_code             :string
 #  federal_income_tax_withheld   :decimal(12, 2)
-#  legal_first_name              :string
-#  legal_last_name               :string
-#  legal_middle_initial          :string
 #  standard_or_non_standard_code :string
-#  suffix                        :string
 #  wages_amount                  :decimal(12, 2)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
@@ -36,9 +32,7 @@
 FactoryBot.define do
   factory :w2 do
     intake
-    legal_first_name { "Sheldon" }
-    legal_last_name { "Faceplate" }
-    sequence(:employee_ssn) { |n| "88811#{"%04d" % (n % 1000)}" }
+    employee { 'primary' }
     employee_street_address { "456 Somewhere Ave" }
     employee_city { "Cleveland" }
     employee_state { "OH" }
