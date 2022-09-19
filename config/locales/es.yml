@@ -2636,21 +2636,17 @@ es:
           done_adding: Se ha terminado de añadir todas las formas W-2
           dont_add_w2: No deseo añadir ningún ingreso
           employee_info:
-            confirm_employee_ssn: Confirmar el SSN, Número de Seguro Social, del empleado
-            employee_legal_name: "Seleccione el nombre legal en el W2:"
             employee_city: Ciudad
-            employee_ssn: 'Casilla a: SSN del empleado'
+            employee_legal_name: 'Seleccione el nombre legal en el W2:'
             employee_state: Estado
             employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
             employee_street_address2: Número de apartamento (opcional)
             employee_zip_code: Código postal
             federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
             help_text: Su forma W-2 tiene casillas con letras y números. A continuación, deberá hacer que coincidan e introducir esta información.
-            legal_first_name: Nombre de pila legal
-            legal_last_name: Apellido legal
-            legal_middle_initial: La inicial del segundo nombre (opcional)
-            suffix: Sufijo (opcional)
-            title: "¡Excelente! Empecemos por leer su forma W-2."
+            title:
+              one: Comencemos ingresando información básica para %{name}.
+              other: Comencemos ingresando información básica.
             wages_amount: 'Casilla 1: Importe de los salarios'
           employer_info:
             add: Agregar la forma W-2
