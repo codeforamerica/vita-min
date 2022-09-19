@@ -2028,11 +2028,10 @@ en:
           buttons:
             claim: Yes, claim EITC
             dont_claim: No, continue without EITC
-          help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700. Most people receive at least $1,500.
+          help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700.
           info_box:
             list:
-            - You have a job earning money
-            - You have a 2021 W2 from your employer(s)
+            - You have a job earning money in %{current_tax_year}
             - Each person on this return has an SSN
             title: 'Requirements:'
           title: Would you like to claim more money by sharing any 2021 W2 forms?
@@ -2251,7 +2250,7 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
+          help_text1: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           puerto_rico:
             full_btn: File a Puerto Rico tax return
@@ -2265,7 +2264,16 @@ en:
             - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>.
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
-          title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
+          title: You are currently filing a simplified federal tax return.
+          list_1:
+            - Child Tax Credit
+            - 3rd Stimulus Check
+            - Earned Income Tax Credit
+          list_1_title: 'You can file a simplified tax return to claim the:'
+          list_2:
+            - Stimulus check 1 or 2
+            - State tax credits or stimulus payments
+          list_2_title: 'You cannot use this tool to claim:'
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
@@ -2282,7 +2290,7 @@ en:
             body_html: |
               According to the IRS, you are <b>not</b> married for a tax year if:
               <ul class="list--bulleted">
-              <li>You were never married OR You were previosuly married but by the end of the year had a decree of divorce or a decree of separate maintenance</li>
+              <li>You were never married OR you were previosuly married but by the end of the year had a decree of divorce or a decree of separate maintenance.</li>
               </ul>
             title: Does the IRS consider me to be married?
           mfs_reveal:
@@ -2357,7 +2365,6 @@ en:
               - tips
               - commissions
               - self-employment or contract payments
-              - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
           income_source_reveal:
@@ -2365,15 +2372,15 @@ en:
             title: How do I know the source of my income?
           list:
             one:
-            - you earned less than %{standard_deduction} in total income
-            - you earned less than $400 in self-employment income
-            - you did not receive the Advance Premium Tax Credit
-            - you are not required to file a full tax return for any other reason
+            - earned less than %{standard_deduction} in total income
+            - earned less than $400 in contract work or self-employment income
+            - did not receive the Advance Premium Tax Credit
+            - are not required to file a full tax return for any other reason
             other:
-            - you and your spouse earned less than %{standard_deduction} in total income
-            - you and your spouse earned less than $400 in self-employment income
-            - you and your spouse did not receive the Advance Premium Tax Credit
-            - you and your spouse are not required to file a full tax return for any other reason
+            - earned less than %{standard_deduction} in total income
+            - earned less than $400 in cintract work or self-employment income
+            - did not receive the Advance Premium Tax Credit
+            - are not required to file a full tax return for any other reason
           mainland_connection_reveal:
             content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
             title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
@@ -2404,14 +2411,16 @@ en:
               - gig work
               - driving for Uber, Lyft, or similar
               - renting out your home
-              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2. Self-employment income includes cash payments.
+              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2.
               p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
             title: What counts as self-employment income?
-          title: 'You can only use GetCTC if, in %{current_tax_year}:'
+          title:
+             one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
+             other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
-              p2: You would not have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
+              p2: You would have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
               p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
             title: What is the Advance Premium Tax Credit?
         investment_income:

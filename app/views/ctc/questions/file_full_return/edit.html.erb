@@ -13,8 +13,19 @@
 
     <%= link_to t("views.ctc.questions.file_full_return.puerto_rico.full_btn"), "https://suri.hacienda.pr.gov/_/", target: "_blank", rel: "noopener", class: "button button--wide text--centered" %>
   <% else %>
+    <p class="text--bold"><%= t("views.ctc.questions.file_full_return.list_1_title")%></p>
+    <ul class="list--bulleted">
+      <% t("views.ctc.questions.file_full_return.list_1").each do |list| %>
+        <li><%= list %></li>
+      <% end %>
+    </ul>
+    <p class="text--bold"><%= t("views.ctc.questions.file_full_return.list_2_title")%></p>
+    <ul class="list--bulleted">
+      <% t("views.ctc.questions.file_full_return.list_2").each do |list| %>
+        <li><%= list %></li>
+      <% end %>
+    </ul>
     <p><%= t("views.ctc.questions.file_full_return.help_text1", current_tax_year: current_tax_year) %></p>
-    <p><%= t("views.ctc.questions.file_full_return.help_text2") %></p>
 
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.file_full_return.reveal.title")) do %>
       <% t('views.ctc.questions.file_full_return.reveal.body_html').each do |body| %>
