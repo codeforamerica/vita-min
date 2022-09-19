@@ -418,7 +418,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         })
 
         expect(changes_table_contents(".changes-note-#{notes[8].id}")).to match({
-          "employer_name" => [nil, "Fruit Stand"],
           "employer_city" => ["nil", "Citytown"],
           "employer_ein" => ["nil", "123112222"],
           "employer_name" => ["nil", "Fruit Stand"],
