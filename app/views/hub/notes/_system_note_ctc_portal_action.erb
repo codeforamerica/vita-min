@@ -5,4 +5,6 @@
   <strong>Client marked <%= model_gid.model_name %> #<%= model_gid.model_id %> ready to submit</strong>
 <% elsif note.data['action'] == 'resubmitted' %>
   <strong>Client initiated resubmission of their tax return.</strong>
+<% elsif note.data['action'] == 'created' %>
+  <strong>Client created <%= model_gid.model_name == "W2" ? "W-2" : model_gid.model_name %> #<%= model_gid.model_id %>.</strong>
 <% end %>
