@@ -1,4 +1,6 @@
 class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticatedController
+  helper_method :prev_path
+
   def edit
     @form = form_class.from_intake(current_model)
     render edit_template
@@ -12,7 +14,7 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
         model: current_model,
         client: current_client,
       )
-      next_path
+      redirect_to next_path
     else
       render edit_template
     end
@@ -22,16 +24,14 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
     raise StandardError, "Edit template must be defined"
   end
 
-  def prev_path
-    ctc_portal_edit_info_path
-  end
-
-  helper_method :prev_path
-
   private
 
   def next_path
-    redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+    Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+  end
+
+  def prev_path
+    ctc_portal_edit_info_path
   end
 
   def current_model

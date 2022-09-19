@@ -52,6 +52,6 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def next_path
-    redirect_to Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+    Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
   end
 end
