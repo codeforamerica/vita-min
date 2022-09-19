@@ -185,7 +185,7 @@ describe Ctc::Portal::PortalController do
 
             expect(response.body).to include I18n.t("views.ctc.portal.edit_info.w2s_shared")
             expect(response.body).to include I18n.t("views.ctc.portal.edit_info.w2s_missing")
-            expect(response.body).to include I18n.t("views.ctc.portal.edit_info.w2s_add")
+            expect(response.body).to include I18n.t("views.ctc.questions.w2s.add")
           end
         end
       end

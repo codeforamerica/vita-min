@@ -321,10 +321,14 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
         click_on I18n.t("views.ctc.portal.w2s.employer_info.update_w2")
 
+        within ".w2s-shared" do
+          expect(page).to have_text "Cod for America"
+        end
+
         # adding a w-2
         within ".w2s-shared" do
           expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
-          click_on I18n.t("views.ctc.portal.edit_info.w2s_add")
+          click_on I18n.t("views.ctc.questions.w2s.add")
         end
 
         expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))

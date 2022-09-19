@@ -20,10 +20,6 @@ class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevision
     @_current_model ||= current_intake.w2s.find(params[:id])
   end
 
-  def next_path
-    Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
-  end
-
   def set_continue_label
     # using presence of required field to ascertain whether this is a new W-2
     if current_model.employer_name.present?
