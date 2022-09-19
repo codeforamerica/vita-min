@@ -1,1 +1,11 @@
-<% content_for :form_question, t("views.ctc.questions.non_w2_income.title", current_tax_year: current_tax_year, w2_amount: number_to_currency(current_intake.total_wages_amount)) %>
+<% content_for :form_question, t("views.ctc.questions.non_w2_income.title", income_cap: current_intake.filing_jointly? ? "$17,500" : "$11,500") %>
+
+<% content_for :form_help_text do %>
+  <p><%= t("views.ctc.questions.non_w2_income.total_w2_income", w2_amount: number_to_currency(current_intake.total_wages_amount)) %></p>
+  <p><%= t("views.ctc.questions.non_w2_income.additional_income.list_title") %></p>
+  <ul class="list--bulleted">
+    <% t("views.ctc.questions.non_w2_income.additional_income.list").each do |list| %>
+      <li><%= list %></li>
+    <% end %>
+  </ul>
+<% end %>
