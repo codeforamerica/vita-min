@@ -466,7 +466,7 @@ class Intake < ApplicationRecord
   end
 
   def filer_count
-    filing_joint_yes? ? 2 : 1
+    filing_jointly? ? 2 : 1
   end
 
   def include_bank_details?
@@ -574,6 +574,14 @@ class Intake < ApplicationRecord
     need_itin_help_yes?
   end
 
+  def filers
+    if filing_jointly?
+      [primary, spouse]
+    else
+      [primary]
+    end
+  end
+
   def primary
     Person.new(self, :primary)
   end
@@ -590,6 +598,7 @@ class Intake < ApplicationRecord
     attr_reader :suffix
     attr_reader :tin_type
     attr_reader :ssn
+    attr_reader :active_armed_forces
 
     def initialize(intake, primary_or_spouse)
       if primary_or_spouse == :primary
@@ -600,6 +609,7 @@ class Intake < ApplicationRecord
         @suffix = intake.primary_suffix
         @tin_type = intake.primary_tin_type
         @ssn = intake.primary_ssn
+        @active_armed_forces = intake.primary_active_armed_forces
       elsif primary_or_spouse == :spouse
         @first_name = intake.spouse_first_name
         @middle_initial = intake.spouse_middle_initial
@@ -608,6 +618,7 @@ class Intake < ApplicationRecord
         @suffix = intake.spouse_suffix
         @tin_type = intake.spouse_tin_type
         @ssn = intake.spouse_ssn
+        @active_armed_forces = intake.spouse_active_armed_forces
       end
     end
 
