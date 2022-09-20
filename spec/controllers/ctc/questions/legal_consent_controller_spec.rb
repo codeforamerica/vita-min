@@ -45,7 +45,7 @@ describe Ctc::Questions::LegalConsentController do
         post :update, params: params
 
         client = Client.last
-        expect(client.intake.primary_first_name).to eq "Marty"
+        expect(client.intake.primary.first_name).to eq "Marty"
         recaptcha_score = client.recaptcha_scores.last
         expect(recaptcha_score.score).to eq 0.9
         expect(recaptcha_score.action).to eq 'legal_consent'

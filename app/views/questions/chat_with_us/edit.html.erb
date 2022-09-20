@@ -1,7 +1,7 @@
 <% content_for :body_class, "partner-page" %>
 
 
-<% content_for :page_title, @returning_client ? t("views.questions.chat_with_us.returning_client.title", name: current_intake.primary_first_name) : t("views.questions.chat_with_us.title", partner_name: current_intake.vita_partner&.name) %>
+<% content_for :page_title, @returning_client ? t("views.questions.chat_with_us.returning_client.title", name: current_intake.primary.first_name) : t("views.questions.chat_with_us.title", partner_name: current_intake.vita_partner&.name) %>
 
 <% content_for :card do %>
   <div class="form-card">

@@ -4,9 +4,9 @@ module SubmissionBuilder
 
     def name_line_1(tax_return, intake)
       if tax_return.filing_jointly?
-        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
+        name_line_1_type(intake.primary.first_name, intake.primary.middle_initial, intake.primary.last_name, intake.primary.suffix, intake.spouse.first_name, intake.spouse.middle_initial, intake.spouse.last_name)
       else
-        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix)
+        name_line_1_type(intake.primary.first_name, intake.primary.middle_initial, intake.primary.last_name, intake.primary.suffix)
       end
     end
 
@@ -44,7 +44,7 @@ module SubmissionBuilder
     end
 
     def spouse_name_control(intake)
-      name = intake.use_primary_name_for_name_control ? intake.primary_last_name : intake.spouse_last_name
+      name = intake.use_primary_name_for_name_control ? intake.primary.last_name : intake.spouse.last_name
       name_control_type(name)
     end
 

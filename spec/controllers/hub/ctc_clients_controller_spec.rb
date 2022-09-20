@@ -39,9 +39,9 @@ RSpec.describe Hub::CtcClientsController do
           email_address: 'san@mateo.com',
           phone_number: intake.phone_number,
           sms_phone_number: intake.sms_phone_number,
-          primary_birth_date_year: intake.primary_birth_date.year,
-          primary_birth_date_month: intake.primary_birth_date.month,
-          primary_birth_date_day: intake.primary_birth_date.day,
+          primary_birth_date_year: intake.primary.birth_date.year,
+          primary_birth_date_month: intake.primary.birth_date.month,
+          primary_birth_date_day: intake.primary.birth_date.day,
           street_address: intake.street_address,
           city: intake.city,
           state: intake.state,
@@ -91,14 +91,14 @@ RSpec.describe Hub::CtcClientsController do
         post :update, params: params
         client.reload
         intake.reload
-        expect(intake.primary_first_name).to eq "San"
+        expect(intake.primary.first_name).to eq "San"
         expect(client.legal_name).to eq "San Mateo"
         expect(client.intake.email_address).to eq "san@mateo.com"
         expect(client.intake.eip1_amount_received).to eq 9000
-        expect(client.intake.spouse_last_name).to eq "Diego"
+        expect(client.intake.spouse.last_name).to eq "Diego"
         expect(client.intake.spouse_email_address).to eq "san@diego.com"
-        expect(client.intake.spouse_ssn).to eq "123456789"
-        expect(client.intake.spouse_birth_date).to eq Date.new(1980, 1, 11)
+        expect(client.intake.spouse.ssn).to eq "123456789"
+        expect(client.intake.spouse.birth_date).to eq Date.new(1980, 1, 11)
         expect(first_dependent.reload.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 1
         expect(response).to redirect_to hub_client_path(id: client.id)

@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filing_jointly? ? 2 : 1, name: current_intake.primary_first_name) %>
+<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filing_jointly? ? 2 : 1, name: current_intake.primary.first_name) %>
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
@@ -8,7 +8,7 @@
     <p><%= t("views.ctc.questions.w2s.employee_info.help_text") %></p>
 
     <% if current_intake.filing_jointly? %>
-      <%= f.cfa_select(:employee, t("views.ctc.questions.w2s.employee_info.employee_legal_name"), [[current_intake.primary_full_name, 'primary'], [current_intake.spouse_full_name, 'spouse' ]], include_blank: true) %>
+      <%= f.cfa_select(:employee, t("views.ctc.questions.w2s.employee_info.employee_legal_name"), [[current_intake.primary.full_name, 'primary'], [current_intake.spouse.full_name, 'spouse' ]], include_blank: true) %>
     <% else %>
       <%= f.hidden_field :employee, value: 'primary' %>
     <% end %>

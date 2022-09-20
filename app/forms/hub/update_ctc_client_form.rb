@@ -111,12 +111,12 @@ module Hub
 
     def self.date_of_birth_attributes(intake)
       {
-        primary_birth_date_day: intake.primary_birth_date&.day,
-        primary_birth_date_month: intake.primary_birth_date&.month,
-        primary_birth_date_year: intake.primary_birth_date&.year,
-        spouse_birth_date_day: intake.spouse_birth_date&.day,
-        spouse_birth_date_month: intake.spouse_birth_date&.month,
-        spouse_birth_date_year: intake.spouse_birth_date&.year
+        primary_birth_date_day: intake.primary.birth_date&.day,
+        primary_birth_date_month: intake.primary.birth_date&.month,
+        primary_birth_date_year: intake.primary.birth_date&.year,
+        spouse_birth_date_day: intake.spouse.birth_date&.day,
+        spouse_birth_date_month: intake.spouse.birth_date&.month,
+        spouse_birth_date_year: intake.spouse.birth_date&.year
       }
     end
 

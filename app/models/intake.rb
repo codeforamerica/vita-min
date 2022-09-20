@@ -421,18 +421,6 @@ class Intake < ApplicationRecord
     PhoneParser.normalize(sms_phone_number)
   end
 
-  def primary_full_name
-    parts = [primary_first_name, primary_last_name]
-    parts << primary_suffix if primary_suffix.present?
-    parts.join(' ')
-  end
-
-  def spouse_full_name
-    parts = [spouse_first_name, spouse_last_name]
-    parts << spouse_suffix if spouse_suffix.present?
-    parts.join(' ')
-  end
-
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
@@ -449,13 +437,13 @@ class Intake < ApplicationRecord
   end
 
   def spouse_name_or_placeholder
-    return I18n.t("models.intake.your_spouse") unless spouse_first_name.present?
-    spouse_full_name
+    return I18n.t("models.intake.your_spouse") unless spouse.first_name.present?
+    spouse.full_name
   end
 
   def student_names
     names = []
-    names << primary_full_name if was_full_time_student_yes?
+    names << primary.full_name if was_full_time_student_yes?
     names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
@@ -584,5 +572,49 @@ class Intake < ApplicationRecord
 
   def itin_applicant?
     need_itin_help_yes?
+  end
+
+  def primary
+    Person.new(self, :primary)
+  end
+
+  def spouse
+    Person.new(self, :spouse)
+  end
+
+  class Person
+    attr_reader :first_name
+    attr_reader :middle_initial
+    attr_reader :last_name
+    attr_reader :birth_date
+    attr_reader :suffix
+    attr_reader :tin_type
+    attr_reader :ssn
+
+    def initialize(intake, primary_or_spouse)
+      if primary_or_spouse == :primary
+        @first_name = intake.primary_first_name
+        @middle_initial = intake.primary_middle_initial
+        @last_name = intake.primary_last_name
+        @birth_date = intake.primary_birth_date
+        @suffix = intake.primary_suffix
+        @tin_type = intake.primary_tin_type
+        @ssn = intake.primary_ssn
+      elsif primary_or_spouse == :spouse
+        @first_name = intake.spouse_first_name
+        @middle_initial = intake.spouse_middle_initial
+        @last_name = intake.spouse_last_name
+        @birth_date = intake.spouse_birth_date
+        @suffix = intake.spouse_suffix
+        @tin_type = intake.spouse_tin_type
+        @ssn = intake.spouse_ssn
+      end
+    end
+
+    def full_name
+      parts = [@first_name, @last_name]
+      parts << @suffix if @suffix.present?
+      parts.join(' ')
+    end
   end
 end

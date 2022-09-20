@@ -117,7 +117,7 @@ module Efile
     def qualified_for_eitc?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
-        intake.primary_tin_type == "ssn"
+        intake.primary.tin_type == "ssn"
     end
 
     def youngish_without_eitc_dependents?
@@ -148,23 +148,23 @@ module Efile
     end
 
     def primary_age_at_end_of_tax_year
-      tax_return.year - intake.primary_birth_date.year
+      tax_return.year - intake.primary.birth_date.year
     end
 
     def spouse_age_at_end_of_tax_year
-      tax_return.year - intake.spouse_birth_date.year
+      tax_return.year - intake.spouse.birth_date.year
     end
 
     def rrc_eligible_filer_count
       case tax_return.filing_status
       when "single", "head_of_household"
-        intake.primary_tin_type == "ssn" ? 1 : 0
+        intake.primary.tin_type == "ssn" ? 1 : 0
       when "married_filing_jointly"
         # if one spouse is a member of the armed forces, both qualify for benefits
         return 2 if [intake.primary_active_armed_forces, intake.spouse_active_armed_forces].any?("yes")
 
         # only filers with SSNs (valid for employment) are eligible for RRC
-        [intake.primary_tin_type, intake.spouse_tin_type].count { |tin_type| tin_type == "ssn" }
+        [intake.primary.tin_type, intake.spouse.tin_type].count { |tin_type| tin_type == "ssn" }
       else
         raise "unsupported filing type"
       end
