@@ -40,6 +40,10 @@ class BankAccount < ApplicationRecord
     DeduplificationService.duplicates(self, :routing_number, :hashed_account_number, from_scope: self.class)
   end
 
+  def incomplete?
+    account_number.nil? || routing_number.nil?
+  end
+
   def hash_account_number
     # if account_number_changed? && account_number.present?
     if account_number.present? # temporarily always rewrite the hashed value while we do this cutover.
