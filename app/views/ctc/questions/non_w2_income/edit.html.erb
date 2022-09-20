@@ -1,4 +1,4 @@
-<% content_for :form_question, t("views.ctc.questions.non_w2_income.title", count: current_intake.filing_jointly? ? 2 : 1, additional_income_amount: number_to_currency(@additional_income)) %>
+<% content_for :form_question, t("views.ctc.questions.non_w2_income.title", count: current_intake.filer_count, additional_income_amount: number_to_currency(@additional_income)) %>
 
 <% content_for :form_help_text do %>
   <p><%= t("views.ctc.questions.non_w2_income.additional_income.list_title") %></p>
