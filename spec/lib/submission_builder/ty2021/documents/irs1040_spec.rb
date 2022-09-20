@@ -189,7 +189,8 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
           exceeded_investment_income_limit: "no",
           primary_birth_date: primary_birth_date,
           former_foster_youth: "yes",
-          primary_tin_type: "ssn"
+          primary_tin_type: "ssn",
+          spouse_tin_type: "ssn"
         )
         create :w2, intake: submission.intake, wages_amount: 123.45, federal_income_tax_withheld: 1.25
         create :w2, intake: submission.intake, wages_amount: 100, federal_income_tax_withheld: 3

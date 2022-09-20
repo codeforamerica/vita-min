@@ -88,7 +88,8 @@ describe SubmissionBuilder::Ty2021::Return1040 do
           exceeded_investment_income_limit: "no",
           primary_birth_date: 30.years.ago,
           former_foster_youth: "yes",
-          primary_tin_type: "ssn"
+          primary_tin_type: "ssn",
+          spouse_tin_type: "ssn"
         )
       end
 
