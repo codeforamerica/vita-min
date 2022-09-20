@@ -276,7 +276,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       expect(intake.primary.middle_initial).to eq "J"
       expect(intake.primary.last_name).to eq "Mango"
       expect(intake.primary.birth_date).to eq Date.new(1963, 9, 10)
-      expect(intake.primary_ssn).to eq "111228888"
+      expect(intake.primary.ssn).to eq "111228888"
       expect(intake.phone_number).to eq "+18312345678"
       expect(intake.primary_last_four_ssn).to eq "8888"
       expect(intake.primary_active_armed_forces).to eq "yes"

@@ -97,7 +97,7 @@ RSpec.describe Hub::CtcClientsController do
         expect(client.intake.eip1_amount_received).to eq 9000
         expect(client.intake.spouse.last_name).to eq "Diego"
         expect(client.intake.spouse_email_address).to eq "san@diego.com"
-        expect(client.intake.spouse_ssn).to eq "123456789"
+        expect(client.intake.spouse.ssn).to eq "123456789"
         expect(client.intake.spouse.birth_date).to eq Date.new(1980, 1, 11)
         expect(first_dependent.reload.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 1

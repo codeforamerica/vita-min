@@ -9,7 +9,7 @@
       <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(intake.primary.birth_date) %></div>
       <div class="review-box__details"><%= t("general.email") %>: <%= intake.email_address %></div>
       <div class="review-box__details"><%= t("general.phone") %>: <%= intake.formatted_phone_number %></div>
-      <div class="review-box__details"><%= intake.primary.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(intake.primary_ssn) %></div>
+      <div class="review-box__details"><%= intake.primary.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(intake.primary.ssn) %></div>
     </div>
 
   </div>

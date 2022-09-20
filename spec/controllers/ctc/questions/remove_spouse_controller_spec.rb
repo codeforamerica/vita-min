@@ -66,7 +66,7 @@ describe Ctc::Questions::RemoveSpouseController do
         expect(intake.spouse.middle_initial).to be nil
         expect(intake.spouse.last_name).to be nil
         expect(intake.spouse.birth_date).to be nil
-        expect(intake.spouse_ssn).to be nil
+        expect(intake.spouse.ssn).to be nil
         expect(intake.spouse.tin_type).to be nil
         expect(intake.spouse_active_armed_forces).to be nil
         expect(response).to redirect_to questions_filing_status_path

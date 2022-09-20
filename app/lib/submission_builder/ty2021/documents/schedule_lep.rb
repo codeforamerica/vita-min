@@ -10,7 +10,7 @@ module SubmissionBuilder
           intake = submission.intake
           build_xml_doc("IRS1040ScheduleLEP", documentId: "IRS1040ScheduleLEP", documentName: "IRS1040ScheduleLEP") do |xml|
             xml.PersonNm person_name_type(intake.primary.full_name, length: 35)
-            xml.SSN intake.primary_ssn
+            xml.SSN intake.primary.ssn
             xml.LanguagePreferenceCd intake.irs_language_preference_code
           end
         end

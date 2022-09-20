@@ -63,8 +63,8 @@ module SubmissionBuilder
           xml.SpouseSignatureDt date_type(intake.spouse_signature_pin_at) if tax_return.filing_jointly?
           xml.ReturnTypeCd "1040"
           xml.Filer {
-            xml.PrimarySSN intake.primary_ssn
-            xml.SpouseSSN intake.spouse_ssn if tax_return.filing_jointly?
+            xml.PrimarySSN intake.primary.ssn
+            xml.SpouseSSN intake.spouse.ssn if tax_return.filing_jointly?
             xml.NameLine1Txt name_line_1(tax_return, intake)
             xml.PrimaryNameControlTxt name_control_type(intake.primary.last_name)
             xml.SpouseNameControlTxt spouse_name_control(intake) if tax_return.filing_jointly?

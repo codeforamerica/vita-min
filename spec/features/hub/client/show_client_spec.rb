@@ -146,7 +146,7 @@ RSpec.describe "a user viewing a client" do
 
     scenario "can view potential duplicate intakes" do
       visit hub_client_path(id: client.id)
-      expect(client.intake.primary_ssn).to eq primary_ssn
+      expect(client.intake.primary.ssn).to eq primary_ssn
 
       within ".client-header" do
         expect(page).to have_text(I18n.t('hub.has_duplicates'))

@@ -249,8 +249,8 @@
                 <span class="form-question">
                   <%= t("general.ssn_itin") %>:
                 </span>
-                <% if @client.intake.spouse_ssn.present? %>
-                  <%= render 'togglable_single_field', masked_value: @client.intake.spouse_ssn.present? ? mask(@client.intake.spouse_ssn, 0) : nil, secret_name: :spouse_ssn %>
+                <% if @client.intake.spouse.ssn.present? %>
+                  <%= render 'togglable_single_field', masked_value: @client.intake.spouse.ssn.present? ? mask(@client.intake.spouse.ssn, 0) : nil, secret_name: :spouse_ssn %>
                 <% else %>
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>

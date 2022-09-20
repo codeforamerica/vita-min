@@ -589,6 +589,7 @@ class Intake < ApplicationRecord
     attr_reader :birth_date
     attr_reader :suffix
     attr_reader :tin_type
+    attr_reader :ssn
 
     def initialize(intake, primary_or_spouse)
       if primary_or_spouse == :primary
@@ -598,6 +599,7 @@ class Intake < ApplicationRecord
         @birth_date = intake.primary_birth_date
         @suffix = intake.primary_suffix
         @tin_type = intake.primary_tin_type
+        @ssn = intake.primary_ssn
       elsif primary_or_spouse == :spouse
         @first_name = intake.spouse_first_name
         @middle_initial = intake.spouse_middle_initial
@@ -605,6 +607,7 @@ class Intake < ApplicationRecord
         @birth_date = intake.spouse_birth_date
         @suffix = intake.spouse_suffix
         @tin_type = intake.spouse_tin_type
+        @ssn = intake.spouse_ssn
       end
     end
 
