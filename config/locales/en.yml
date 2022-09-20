@@ -2750,6 +2750,7 @@ en:
               requirement_title: 'Requirement:'
             title: Great! Please enter all of %{name}’s wages, tips, and taxes withheld from this W-2.
             wages_amount: 'Box 1: Wages Amount'
+          add_later: "Log out and add a W-2 later"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
