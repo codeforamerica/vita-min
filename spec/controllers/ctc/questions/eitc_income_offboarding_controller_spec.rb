@@ -33,16 +33,16 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
         context 'single' do
           let(:filing_status) { "single" }
 
-          context 'w2 income less than or equal to 11,610' do
-            let(:wages_amount) { 11_610 }
+          context 'w2 income less than 11,610' do
+            let(:wages_amount) { 11_609 }
 
             it 'is false' do
               expect(described_class.show?(intake)).to eq false
             end
           end
 
-          context 'w2 income greater than 11,610' do
-            let(:wages_amount) { 11_611 }
+          context 'w2 income greater than or equal to 11,610' do
+            let(:wages_amount) { 11_610 }
 
             it 'is true' do
               expect(described_class.show?(intake)).to eq true
@@ -53,16 +53,16 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
         context 'married_filing_jointly' do
           let(:filing_status) { "married_filing_jointly" }
 
-          context 'w2 income less than or equal to 17,550' do
-            let(:wages_amount) { 17_550 }
+          context 'w2 income less than 17,550' do
+            let(:wages_amount) { 17_549 }
 
             it 'is false' do
               expect(described_class.show?(intake)).to eq false
             end
           end
 
-          context 'w2 income greater than 17,550' do
-            let(:wages_amount) { 17_551 }
+          context 'w2 income greater than or equal to 17,550' do
+            let(:wages_amount) { 17_550 }
 
             it 'is true' do
               expect(described_class.show?(intake)).to eq true
