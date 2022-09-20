@@ -18,4 +18,16 @@ class Users::SessionsController < Devise::SessionsController
     @after_login_path = session.delete("after_login_path")
     super
   end
+
+  rescue_from 'ArgumentError' do |error|
+    respond_to do |format|
+      format.any do
+        if error.message == "string contains null byte"
+          head 400
+        else
+          raise
+        end
+      end
+    end
+  end
 end
