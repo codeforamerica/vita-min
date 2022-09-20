@@ -118,6 +118,10 @@ module Efile
       qualified_for_eitc_pre_w2s? && !disqualified_for_eitc_due_to_income?
     end
 
+    def claiming_and_qualified_for_eitc_pre_w2s?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s?
+    end
+
     def qualified_for_eitc_pre_w2s?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
