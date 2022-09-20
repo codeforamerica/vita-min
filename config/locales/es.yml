@@ -2479,8 +2479,9 @@ es:
             - ingresos por desempleo
             - cualquier otro dinero que hayas recibido
             list_title: 'Los ingresos adicionales incluyen:'
-          title: "¿Obtuviste más de %{income_cap} en ingresos totales?"
-          total_w2_income: El total de los ingresos W-2 que informó es %{w2_amount}.
+          title:
+            one: "¿Obtuviste más de %{additional_income_amount} en ingresos adicionales?"
+            other: "¿Usted y su cónyuge ganaron más del %{additional_income_amount} en ingresos adicionales?"
         not_filing:
           buttons:
             faq: Preguntas Frecuentes

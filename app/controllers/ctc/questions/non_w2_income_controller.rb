@@ -9,10 +9,15 @@ module Ctc
         return false unless Flipper.enabled?(:eitc)
 
         if intake.filing_jointly?
-          (15_000...17_549).cover?(intake.total_wages_amount)
+          (15_000...Efile::BenefitsEligibility::EITC_UPPER_LIMIT_JOINT).cover?(intake.total_wages_amount)
         else
-          (10_000...11_609).cover?(intake.total_wages_amount)
+          (10_000...Efile::BenefitsEligibility::EITC_UPPER_LIMIT_SINGLE).cover?(intake.total_wages_amount)
         end
+      end
+
+      def edit
+        super
+        @additional_income = current_intake.filing_jointly? ? Efile::BenefitsEligibility::EITC_UPPER_LIMIT_JOINT - current_intake.total_wages_amount : Efile::BenefitsEligibility::EITC_UPPER_LIMIT_SINGLE - current_intake.total_wages_amount
       end
 
       private

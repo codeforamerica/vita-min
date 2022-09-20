@@ -1,5 +1,8 @@
 module Efile
   class BenefitsEligibility
+    EITC_UPPER_LIMIT_JOINT = 17_550
+    EITC_UPPER_LIMIT_SINGLE = 11_610
+
     attr_accessor :year, :eligible_filer_count, :dependents, :intake, :tax_return
     def initialize(tax_return:, dependents:)
       @tax_return = tax_return
@@ -143,9 +146,9 @@ module Efile
       return false unless intake.total_wages_amount
 
       if intake.filing_jointly?
-        intake.total_wages_amount > 17_550
+        intake.total_wages_amount >= EITC_UPPER_LIMIT_JOINT
       else
-        intake.total_wages_amount > 11_610
+        intake.total_wages_amount >= EITC_UPPER_LIMIT_SINGLE
       end
     end
 

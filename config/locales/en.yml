@@ -2519,8 +2519,9 @@ en:
             - unemployment income
             - any other money you received
             list_title: 'Additional income includes:'
-          title: Did you make more than %{income_cap} in total income?
-          total_w2_income: The total of the W-2 income you reported is %{w2_amount}.
+          title:
+            one: Did you make more than %{additional_income_amount} in additional income?
+            other: Did you and your spouse make more than %{additional_income_amount} in additional income?
         not_filing:
           buttons:
             faq: Visit our FAQ
