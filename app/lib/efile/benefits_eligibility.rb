@@ -94,7 +94,7 @@ module Efile
       # where phase-in function = earned-income amount * phase-in rate
       # But b/c of simplified filing rules, those above the phase out threshold cannot use the tool
       # so we are not including the phase-out function but keep in mind this might change next year
-      return nil unless qualified_for_eitc?
+      return nil unless claiming_and_qualified_for_eitc?
 
       earned_income = intake.w2s.sum(&:wages_amount).to_f
 
@@ -111,11 +111,7 @@ module Efile
     end
 
     def claiming_and_qualified_for_eitc?
-      intake.claim_eitc_yes? && qualified_for_eitc?
-    end
-
-    def qualified_for_eitc?
-      qualified_for_eitc_pre_w2s? && !disqualified_for_eitc_due_to_income?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && !disqualified_for_eitc_due_to_income?
     end
 
     def claiming_and_qualified_for_eitc_pre_w2s?
