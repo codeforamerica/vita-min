@@ -18,7 +18,8 @@ module Ctc
 
         send_mixpanel_event(event_name: "w2_logout_add_later", data: MixpanelService.data_from([current_intake.client, current_intake]))
 
-        sign_out current_intake.client
+        clear_intake_session
+        redirect_to root_path
       end
 
       def next_path
