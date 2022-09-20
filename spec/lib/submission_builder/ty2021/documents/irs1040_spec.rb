@@ -205,10 +205,10 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("WithholdingTaxAmt").text).to eq("4")
         expect(xml.at("EarnedIncomeCreditAmt").text).to eq("34")
         expect(xml.at("UndSpcfdAgeStsfyRqrEICInd")).to be_nil
-        expect(xml.at("RefundableCreditsAmt").text).to eq("6834")
-        expect(xml.at("TotalPaymentsAmt").text).to eq("6838")
-        expect(xml.at("OverpaidAmt").text).to eq("6838")
-        expect(xml.at("RefundAmt").text).to eq("6838")
+        expect(xml.at("RefundableCreditsAmt").text).to eq("8234")
+        expect(xml.at("TotalPaymentsAmt").text).to eq("8238")
+        expect(xml.at("OverpaidAmt").text).to eq("8238")
+        expect(xml.at("RefundAmt").text).to eq("8238")
       end
 
       context "client is under 24 and over 18 without qualifing dependents" do

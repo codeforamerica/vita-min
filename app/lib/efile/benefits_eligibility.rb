@@ -148,11 +148,7 @@ module Efile
     end
 
     def eitc_qualifications_passes_tin_type_test?
-      if intake.filing_jointly?
-        intake.primary_tin_type_ssn? && intake.spouse_tin_type_ssn?
-      else
-        intake.primary_tin_type_ssn?
-      end
+      intake.filers.all? { |filer| filer.tin_type == 'ssn' }
     end
 
     def rrc_eligible_filer_count
