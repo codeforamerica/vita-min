@@ -17,8 +17,8 @@ RSpec.describe Hub::UpdateClientForm do
     }
     let!(:client) { Hub::ClientsController::HubClientPresenter.new(create :client, intake: intake) }
     let(:form_attributes) do
-      { primary_first_name: intake.primary_first_name,
-        primary_last_name: intake.primary_last_name,
+      { primary_first_name: intake.primary.first_name,
+        primary_last_name: intake.primary.last_name,
         preferred_name: intake.preferred_name,
         preferred_interview_language: intake.preferred_interview_language,
         married: intake.married,
@@ -32,8 +32,8 @@ RSpec.describe Hub::UpdateClientForm do
         email_address: intake.email_address,
         phone_number: intake.phone_number,
         sms_phone_number: intake.sms_phone_number,
-        primary_tin_type: intake.primary_tin_type,
-        spouse_tin_type: intake.spouse_tin_type,
+        primary_tin_type: intake.primary.tin_type,
+        spouse_tin_type: intake.spouse.tin_type,
         primary_ssn: intake.primary_ssn,
         spouse_ssn: intake.spouse_ssn,
         street_address: intake.street_address,
@@ -43,8 +43,8 @@ RSpec.describe Hub::UpdateClientForm do
         was_blind: intake.was_blind,
         sms_notification_opt_in: intake.sms_notification_opt_in,
         email_notification_opt_in: intake.email_notification_opt_in,
-        spouse_first_name: intake.spouse_first_name,
-        spouse_last_name: intake.spouse_last_name,
+        spouse_first_name: intake.spouse.first_name,
+        spouse_last_name: intake.spouse.last_name,
         spouse_email_address: intake.spouse_email_address,
         spouse_was_blind: intake.spouse_was_blind,
         filing_joint: intake.filing_joint,

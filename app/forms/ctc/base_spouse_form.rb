@@ -23,11 +23,11 @@ module Ctc
     end
 
     def self.existing_attributes(intake, attribute_keys)
-      if intake.spouse_birth_date.present?
+      if intake.spouse.birth_date.present?
         super.merge(
-          spouse_birth_date_day: intake.spouse_birth_date.day,
-          spouse_birth_date_month: intake.spouse_birth_date.month,
-          spouse_birth_date_year: intake.spouse_birth_date.year,
+          spouse_birth_date_day: intake.spouse.birth_date.day,
+          spouse_birth_date_month: intake.spouse.birth_date.month,
+          spouse_birth_date_year: intake.spouse.birth_date.year,
         )
       else
         super

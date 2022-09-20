@@ -86,11 +86,11 @@ class TaxReturn < ApplicationRecord
   end
 
   def primary_age_65_or_older?
-    intake.primary_birth_date.present? && intake.primary_birth_date < Date.new(year - 64, 1, 2)
+    intake.primary.birth_date.present? && intake.primary.birth_date < Date.new(year - 64, 1, 2)
   end
 
   def spouse_age_65_or_older?
-    intake.spouse_birth_date.present? && intake.spouse_birth_date < Date.new(year - 64, 1, 2)
+    intake.spouse.birth_date.present? && intake.spouse.birth_date < Date.new(year - 64, 1, 2)
   end
 
   def standard_deduction

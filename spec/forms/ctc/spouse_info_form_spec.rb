@@ -100,14 +100,14 @@ describe Ctc::SpouseInfoForm do
       expect(form.save).to be_truthy
 
       intake = Intake.last
-      expect(intake.spouse_first_name).to eq "Madeline"
-      expect(intake.spouse_middle_initial).to eq "J"
-      expect(intake.spouse_last_name).to eq "Mango"
-      expect(intake.spouse_suffix).to eq "III"
-      expect(intake.spouse_birth_date).to eq Date.new(1963, 9, 10)
+      expect(intake.spouse.first_name).to eq "Madeline"
+      expect(intake.spouse.middle_initial).to eq "J"
+      expect(intake.spouse.last_name).to eq "Mango"
+      expect(intake.spouse.suffix).to eq "III"
+      expect(intake.spouse.birth_date).to eq Date.new(1963, 9, 10)
       expect(intake.spouse_ssn).to eq "999781224"
       expect(intake.spouse_last_four_ssn).to eq "1224"
-      expect(intake.spouse_tin_type).to eq "itin"
+      expect(intake.spouse.tin_type).to eq "itin"
       expect(intake.spouse_was_blind).to eq "no"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
@@ -122,7 +122,7 @@ describe Ctc::SpouseInfoForm do
             form = described_class.new(intake, params)
             form.valid?
             form.save
-            form.intake.spouse_tin_type = "ssn_no_employment"
+            expect(form.intake.spouse.tin_type).to eq("ssn_no_employment")
           end
         end
 

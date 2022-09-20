@@ -7,7 +7,7 @@ module Ctc
       layout "intake"
 
       def edit
-        redirect_to next_path unless current_intake.spouse_full_name.present?
+        redirect_to next_path unless current_intake.spouse.full_name.present?
 
         super
       end

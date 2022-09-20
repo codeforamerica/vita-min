@@ -22,9 +22,9 @@
           <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
           <div class="review-box__space-between primary-info">
             <div>
-              <div class="review-box__name"><%= @intake.primary_full_name %></div>
-              <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(@intake.primary_birth_date) %></div>
-              <div class="review-box__details"><%= @intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(@intake.primary_ssn) %></div>
+              <div class="review-box__name"><%= @intake.primary.full_name %></div>
+              <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(@intake.primary.birth_date) %></div>
+              <div class="review-box__details"><%= @intake.primary.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(@intake.primary_ssn) %></div>
             </div>
             <%= link_to t("general.edit").downcase, Ctc::Portal::PrimaryFilerController.to_path_helper, class: "review-box__edit review-box__edit-button" %>
           </div>

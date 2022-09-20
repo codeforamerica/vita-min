@@ -51,10 +51,10 @@ describe 'W2' do
     let(:employee) { 'primary' }
 
     it 'delegates name and ssn to the primary fields on the intake' do
-      expect(w2.legal_first_name).to eq intake.primary_first_name
-      expect(w2.legal_last_name).to eq intake.primary_last_name
-      expect(w2.legal_middle_initial).to eq intake.primary_middle_initial
-      expect(w2.suffix).to eq intake.primary_suffix
+      expect(w2.legal_first_name).to eq intake.primary.first_name
+      expect(w2.legal_last_name).to eq intake.primary.last_name
+      expect(w2.legal_middle_initial).to eq intake.primary.middle_initial
+      expect(w2.suffix).to eq intake.primary.suffix
       expect(w2.employee_ssn).to eq intake.primary_ssn
     end
   end
@@ -63,10 +63,10 @@ describe 'W2' do
     let(:employee) { 'spouse' }
 
     it 'delegates name and ssn to the spouse fields on the intake' do
-      expect(w2.legal_first_name).to eq intake.spouse_first_name
-      expect(w2.legal_last_name).to eq intake.spouse_last_name
-      expect(w2.legal_middle_initial).to eq intake.spouse_middle_initial
-      expect(w2.suffix).to eq intake.spouse_suffix
+      expect(w2.legal_first_name).to eq intake.spouse.first_name
+      expect(w2.legal_last_name).to eq intake.spouse.last_name
+      expect(w2.legal_middle_initial).to eq intake.spouse.middle_initial
+      expect(w2.suffix).to eq intake.spouse.suffix
       expect(w2.employee_ssn).to eq intake.spouse_ssn
     end
   end

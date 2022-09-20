@@ -64,7 +64,7 @@ RSpec.describe ConsentForm do
       form.save
       intake.reload
 
-      expect(intake.primary_birth_date).to eq Date.new(1983, 5, 10)
+      expect(intake.primary.birth_date).to eq Date.new(1983, 5, 10)
     end
   end
 

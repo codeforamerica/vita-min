@@ -34,35 +34,17 @@ class W2 < ApplicationRecord
 
   enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
 
-  def legal_first_name
-    if employee_primary?
-      intake.primary_first_name
-    elsif employee_spouse?
-      intake.spouse_first_name
-    end
-  end
+  delegate :first_name, :middle_initial, :suffix, :last_name, to: :employee_obj, allow_nil: true
 
-  def legal_middle_initial
-    if employee_primary?
-      intake.primary_middle_initial
-    elsif employee_spouse?
-      intake.spouse_middle_initial
-    end
-  end
+  alias legal_first_name first_name
+  alias legal_last_name last_name
+  alias legal_middle_initial middle_initial
 
-  def suffix
+  def employee_obj
     if employee_primary?
-      intake.primary_suffix
+      intake.primary
     elsif employee_spouse?
-      intake.spouse_suffix
-    end
-  end
-
-  def legal_last_name
-    if employee_primary?
-      intake.primary_last_name
-    elsif employee_spouse?
-      intake.spouse_last_name
+      intake.spouse
     end
   end
 

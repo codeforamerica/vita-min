@@ -242,7 +242,7 @@
               <% if @client.intake.is_ctc? %>
                 <div class="field-display">
                   <span class="form-question">Date of Birth:</span>
-                  <span class="label-value"><%= default_date_format(@client.intake.spouse_birth_date) %></span>
+                  <span class="label-value"><%= default_date_format(@client.intake.spouse.birth_date) %></span>
                 </div>
               <% end %>
               <div class="field-display spouse-ssn">
