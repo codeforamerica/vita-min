@@ -85,8 +85,8 @@ module SubmissionBuilder
           }
           xml.OnlineFilerInformation {
             if intake.refund_payment_method_direct_deposit?
-              xml.RoutingTransitNum account_number_type(intake.bank_account.routing_number)
-              xml.DepositorAccountNum account_number_type(intake.bank_account.account_number)
+              xml.RoutingTransitNum account_number_type(intake.bank_account.routing_number) if intake.bank_account.routing_number.present?
+              xml.DepositorAccountNum account_number_type(intake.bank_account.account_number) if intake.bank_account.account_number.present?
             else
               xml.CheckCd "Check"
             end

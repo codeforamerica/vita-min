@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def edit
-        if current_intake.bank_account.nil?
+        if current_intake.bank_account.nil? || current_intake.bank_account.incomplete?
           redirect_to Ctc::Questions::BankAccountController.to_path_helper
         end
 
