@@ -7,6 +7,8 @@ module Ctc
 
       private
 
+
+
       def form_class
         NullForm
       end

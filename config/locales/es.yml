@@ -2012,6 +2012,7 @@ es:
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
           title: Confirmemos sus dependientes
+          subtitle: "Estos son los créditos para los que sus dependientes son elegibles en %{current_tax_year}. Tenga en cuenta que cada crédito tiene su propio conjunto de reglas de elegibilidad."
         confirm_information:
           help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
           labels:
@@ -2041,8 +2042,10 @@ es:
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo:'
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
-          title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
+          title: 'Revise esta lista de los pagos que está reclamando:'
           total: 'Importe total del fondo:'
+          subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
+          fed_income_tax_withholding: "Retención de impuestos federales sobre la renta:"
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
@@ -2132,7 +2135,7 @@ es:
             - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
-            help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
+            help_text: No incluiremos a  %{name} en su declaración de impuestos. No califican para ningún crédito fiscal.
             puerto_rico:
               affirmative: Sí, agregar otro niño
               conditions:
@@ -2222,7 +2225,7 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>.
+            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -2378,9 +2381,11 @@ es:
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
-          help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
           married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
           title: "¿Ganó más de $10.000 en ingresos por inversiones?"
+          reveal_title: "¿Cómo verifico el monto de los ingresos de mi inversión?"
+          reveal_content: "Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
@@ -2496,6 +2501,7 @@ es:
           cannot_use_ctc: No puedo usar GetCTC
           list:
           - anteriormente se le redujo o se le rechazó el CTC por una investigación del IRS y no ha presentado correctamente el formulario 8862 desde entonces
+          - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
           - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
           - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
           - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}

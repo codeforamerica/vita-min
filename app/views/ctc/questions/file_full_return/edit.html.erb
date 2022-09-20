@@ -8,7 +8,7 @@
     <p><%= t("views.ctc.questions.file_full_return.puerto_rico.help_text") %></p>
 
     <%= link_to next_path, class: "button button--wide text--centered spacing-above-60 button--primary" do %>
-      <%= t("views.ctc.questions.file_full_return.puerto_rico.simplified_btn") %>
+      <%= Flipper.enabled?(:eitc) ? "text if eitc enabled" : t("views.ctc.questions.file_full_return.puerto_rico.simplified_btn") %>
     <% end %>
 
     <%= link_to t("views.ctc.questions.file_full_return.puerto_rico.full_btn"), "https://suri.hacienda.pr.gov/_/", target: "_blank", rel: "noopener", class: "button button--wide text--centered" %>
