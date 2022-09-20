@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filing_jointly? ? 2 : 1, name: current_intake.primary.first_name) %>
+<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filer_count, name: current_intake.primary.first_name) %>
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>

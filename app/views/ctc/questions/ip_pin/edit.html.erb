@@ -15,7 +15,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-15">
       <%= f.cfa_checkbox(:has_primary_ip_pin, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <% if current_intake.client.tax_returns.last.filing_status_married_filing_jointly? %>
+      <% if current_intake.filing_jointly? %>
         <%= f.cfa_checkbox(:has_spouse_ip_pin, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
       <%= f.fields_for :dependents do |ff| %>

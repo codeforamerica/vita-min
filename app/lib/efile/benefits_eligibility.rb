@@ -121,15 +121,11 @@ module Efile
     end
 
     def youngish_without_eitc_dependents?
-      primary_age_at_end_of_tax_year < 24 && primary_age_at_end_of_tax_year >= 18 && dependents.none?(&:qualifying_eitc?)
+      age_at_end_of_tax_year(intake.primary) < 24 && age_at_end_of_tax_year(intake.primary) >= 18 && dependents.none?(&:qualifying_eitc?)
     end
 
     def filers_younger_than_twenty_four?
-      if intake.filing_jointly?
-        primary_age_at_end_of_tax_year < 24 && spouse_age_at_end_of_tax_year < 24
-      else
-        primary_age_at_end_of_tax_year < 24
-      end
+      intake.filers.all? { |filer| age_at_end_of_tax_year(filer) < 24 }
     end
 
     private
@@ -139,35 +135,26 @@ module Efile
       return true if dependents.any?(&:qualifying_eitc?)
 
       if intake.former_foster_youth_yes? || intake.homeless_youth_yes?
-        primary_age_at_end_of_tax_year >= 18
+        age_at_end_of_tax_year(intake.primary) >= 18
       elsif intake.not_full_time_student_yes? || intake.full_time_student_less_than_four_months_yes?
-        primary_age_at_end_of_tax_year >= 19
+        age_at_end_of_tax_year(intake.primary) >= 19
       else
         false
       end
     end
 
-    def primary_age_at_end_of_tax_year
-      tax_return.year - intake.primary.birth_date.year
-    end
-
-    def spouse_age_at_end_of_tax_year
-      tax_return.year - intake.spouse.birth_date.year
+    def age_at_end_of_tax_year(filer)
+      tax_return.year - filer.birth_date.year
     end
 
     def rrc_eligible_filer_count
-      case tax_return.filing_status
-      when "single", "head_of_household"
-        intake.primary.tin_type == "ssn" ? 1 : 0
-      when "married_filing_jointly"
-        # if one spouse is a member of the armed forces, both qualify for benefits
-        return 2 if [intake.primary_active_armed_forces, intake.spouse_active_armed_forces].any?("yes")
+      raise unless tax_return.filing_status.in?(%w[single married_filing_jointly head_of_household])
 
-        # only filers with SSNs (valid for employment) are eligible for RRC
-        [intake.primary.tin_type, intake.spouse.tin_type].count { |tin_type| tin_type == "ssn" }
-      else
-        raise "unsupported filing type"
-      end
+      # if one spouse is a member of the armed forces, both qualify for benefits
+      return intake.filers.count if intake.filers.any? { |filer| filer.active_armed_forces == 'yes' }
+
+      # only filers with SSNs (valid for employment) are eligible for RRC
+      intake.filers.count { |filer| filer.tin_type == 'ssn' }
     end
   end
 end

@@ -432,4 +432,8 @@ class Intake::GyrIntake < Intake
       documents.where(document_type: document_type.key).present?
     end
   end
+
+  def filing_jointly?
+    filing_joint_yes?
+  end
 end

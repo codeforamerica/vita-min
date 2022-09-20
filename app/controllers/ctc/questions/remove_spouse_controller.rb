@@ -13,7 +13,7 @@ module Ctc
       end
 
       def self.show?(intake)
-        intake.client.tax_returns.last.filing_status_married_filing_jointly?
+        intake.filing_jointly?
       end
 
       private
