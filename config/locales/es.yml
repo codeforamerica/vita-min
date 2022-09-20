@@ -2659,6 +2659,7 @@ es:
           verify: Verifique
         w2s:
           add: Agregar la forma W-2
+          add_later: Cerrar sesión y agregar un W-2 más tarde
           done_adding: Se ha terminado de añadir todas las formas W-2
           dont_add_w2: No deseo añadir ningún ingreso
           employee_info:

@@ -2699,6 +2699,7 @@ en:
           verify: Verify
         w2s:
           add: Add a W-2
+          add_later: Log out and add a W-2 later
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add any income
           employee_info:
