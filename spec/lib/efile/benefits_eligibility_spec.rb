@@ -422,7 +422,7 @@ describe Efile::BenefitsEligibility do
         end
 
         it "returns false" do
-          expect(subject.qualified_for_eitc?).to eq false
+          expect(subject.claiming_and_qualified_for_eitc?).to eq false
         end
       end
 
@@ -432,7 +432,7 @@ describe Efile::BenefitsEligibility do
         end
 
         it "returns true" do
-          expect(subject.qualified_for_eitc?).to eq true
+          expect(subject.claiming_and_qualified_for_eitc?).to eq true
         end
       end
     end
