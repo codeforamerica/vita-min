@@ -59,7 +59,7 @@ module Hub
     end
 
     def self.existing_attributes(intake)
-      non_model_attrs = { primary_ssn: intake.primary_ssn, spouse_ssn: intake.spouse_ssn }
+      non_model_attrs = { primary_ssn: intake.primary.ssn, spouse_ssn: intake.spouse.ssn }
       super.merge(non_model_attrs)
     end
 

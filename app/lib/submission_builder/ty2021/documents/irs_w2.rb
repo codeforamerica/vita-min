@@ -24,7 +24,7 @@ module SubmissionBuilder
               xml.StateAbbreviationCd w2.employer_state
               xml.ZIPCd w2.employer_zip_code
             end
-            xml.EmployeeNm person_name_type("#{w2.legal_first_name} #{w2.legal_last_name}", length: 35)
+            xml.EmployeeNm person_name_type("#{w2.employee_first_name} #{w2.employee_last_name}", length: 35)
             xml.EmployeeUSAddress do |xml|
               xml.AddressLine1Txt w2.employee_street_address
               xml.CityNm w2.employee_city

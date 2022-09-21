@@ -66,8 +66,8 @@ RSpec.describe SsnItinForm do
       form.save
       intake.reload
 
-      expect(intake.primary_ssn).to eq "123456789"
-      expect(intake.primary_tin_type).to eq "ssn"
+      expect(intake.primary.ssn).to eq "123456789"
+      expect(intake.primary.tin_type).to eq "ssn"
     end
   end
 end

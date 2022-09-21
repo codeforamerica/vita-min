@@ -390,10 +390,10 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       it "makes sure names with spaces only have one space between each name" do
         intake.valid?
 
-        expect(intake.primary_first_name).to eq "Anna Marie"
-        expect(intake.primary_last_name).to eq "Apple Mango"
-        expect(intake.spouse_first_name).to eq "Roberta Margaret"
-        expect(intake.spouse_last_name).to eq "Raspberry Melon"
+        expect(intake.primary.first_name).to eq "Anna Marie"
+        expect(intake.primary.last_name).to eq "Apple Mango"
+        expect(intake.spouse.first_name).to eq "Roberta Margaret"
+        expect(intake.spouse.last_name).to eq "Raspberry Melon"
       end
     end
   end

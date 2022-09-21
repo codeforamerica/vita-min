@@ -13,7 +13,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_eligibility
     fill_in_basic_info
 
-    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title'))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -26,11 +26,27 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     click_on I18n.t('general.back')
 
-    fill_in_w2
+    fill_in_w2("Gary", filing_status: 'single')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'
-    expect(W2.last.employee_ssn).to eq '888223333'
+    expect(W2.last.employee_ssn).to eq '111228888'
+  end
+
+  scenario "a MFJ client who qualifies for and wants to claim EITC and enters spouse W2" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+
+    fill_in_w2("Peter Pepper", filing_status: 'married_filing_jointly')
+
+    expect(W2.last.employee_ssn).to eq '222334444'
   end
 
   scenario "a client who does not qualify for the EITC" do
@@ -40,7 +56,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_spouse_info(birthdate: 23.years.ago)
 
     # EITC investment question
-    expect(page).to have_selector("h1", text:I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
     click_on I18n.t('general.negative')
 
     # Client will be disqualified age and having no dependents

@@ -313,7 +313,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t("general.edit").downcase
         end
 
-        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employee_info.title"))
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employee_info.title", count: 2))
         click_on I18n.t("general.continue")
 
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title"))

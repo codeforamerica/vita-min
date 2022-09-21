@@ -242,15 +242,15 @@
               <% if @client.intake.is_ctc? %>
                 <div class="field-display">
                   <span class="form-question">Date of Birth:</span>
-                  <span class="label-value"><%= default_date_format(@client.intake.spouse_birth_date) %></span>
+                  <span class="label-value"><%= default_date_format(@client.intake.spouse.birth_date) %></span>
                 </div>
               <% end %>
               <div class="field-display spouse-ssn">
                 <span class="form-question">
                   <%= t("general.ssn_itin") %>:
                 </span>
-                <% if @client.intake.spouse_ssn.present? %>
-                  <%= render 'togglable_single_field', masked_value: @client.intake.spouse_ssn.present? ? mask(@client.intake.spouse_ssn, 0) : nil, secret_name: :spouse_ssn %>
+                <% if @client.intake.spouse.ssn.present? %>
+                  <%= render 'togglable_single_field', masked_value: @client.intake.spouse.ssn.present? ? mask(@client.intake.spouse.ssn, 0) : nil, secret_name: :spouse_ssn %>
                 <% else %>
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>

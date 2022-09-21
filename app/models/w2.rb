@@ -4,8 +4,8 @@
 #
 #  id                            :bigint           not null, primary key
 #  creation_token                :string
+#  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string
-#  employee_ssn                  :text
 #  employee_state                :string
 #  employee_street_address       :string
 #  employee_street_address2      :string
@@ -18,11 +18,7 @@
 #  employer_street_address2      :string
 #  employer_zip_code             :string
 #  federal_income_tax_withheld   :decimal(12, 2)
-#  legal_first_name              :string
-#  legal_last_name               :string
-#  legal_middle_initial          :string
 #  standard_or_non_standard_code :string
-#  suffix                        :string
 #  wages_amount                  :decimal(12, 2)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
@@ -36,10 +32,16 @@
 class W2 < ApplicationRecord
   belongs_to :intake
 
-  encrypts :employee_ssn
+  enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
 
-  before_validation do
-    self.employee_ssn = self.employee_ssn.remove(/\D/) if employee_ssn_changed? && self.employee_ssn
+  delegate :first_name, :middle_initial, :suffix, :last_name, :ssn, to: :employee_obj, allow_nil: true, prefix: :employee
+
+  def employee_obj
+    if employee_primary?
+      intake.primary
+    elsif employee_spouse?
+      intake.spouse
+    end
   end
 
   def rounded_wages_amount

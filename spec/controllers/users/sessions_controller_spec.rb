@@ -64,7 +64,26 @@ RSpec.describe Users::SessionsController do
       it "raises an error from warden" do
         post :create, params: params
 
-        expect{ subject.current_user }.to raise_error(UncaughtThrowError)
+        expect { subject.current_user }.to raise_error(UncaughtThrowError)
+      end
+    end
+  end
+
+  describe "invalid params handling" do
+    context "with null bytes that only a robot would send us" do
+      let(:params) {
+                     {
+                       user: {
+                         email: "user@example.com",
+                         password: "invalid\0"
+                       }
+                     }
+                   }
+
+      it "responds with HTTP 400" do
+        post :create, params: params
+        puts(response.status)
+        expect(response).to be_bad_request
       end
     end
   end

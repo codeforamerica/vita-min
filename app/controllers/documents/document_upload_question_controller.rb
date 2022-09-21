@@ -85,7 +85,7 @@ module Documents
     end
 
     def set_filer_names
-      @names = [current_intake.primary_full_name]
+      @names = [current_intake.primary.full_name]
       if current_intake.filing_joint_yes?
         @names << current_intake.spouse_name_or_placeholder
       end

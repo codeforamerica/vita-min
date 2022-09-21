@@ -65,10 +65,10 @@ module Efile
       end
 
       def younger_than_primary_and_spouse?
-        younger_than_primary = dependent.birth_date > dependent.intake.primary_birth_date
+        younger_than_primary = dependent.birth_date > dependent.intake.primary.birth_date
 
         if dependent.intake.filing_jointly?
-          younger_than_primary && dependent.birth_date > dependent.intake.spouse_birth_date
+          younger_than_primary && dependent.birth_date > dependent.intake.spouse.birth_date
         else
           younger_than_primary
         end

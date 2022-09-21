@@ -17,8 +17,8 @@ class Irs1040Pdf
   def hash_for_pdf
     answers = {
       FilingStatus: @xml_document.at("IndividualReturnFilingStatusCd")&.text,
-      PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
-      PrimaryLastNm: @intake.primary_last_name,
+      PrimaryFirstNm: @intake.primary.middle_initial.present? ? "#{@intake.primary.first_name} #{@intake.primary.middle_initial}" : @intake.primary.first_name,
+      PrimaryLastNm: @intake.primary.last_name,
       PrimarySSN: @xml_document.at("PrimarySSN")&.text,
       AddressLine1Txt: [@address.urbanization, @address.street_address, @address.street_address2].compact.join(" "),
       CityNm: @address.city,
@@ -82,8 +82,8 @@ class Irs1040Pdf
   def spouse_info
     {
       Spouse65OrOlderInd: xml_check_to_bool(@xml_document.at("Spouse65OrOlderInd")) ? "1" : "Off",
-      SpouseFirstNm: @intake.spouse_middle_initial.present? ? "#{@intake.spouse_first_name} #{@intake.spouse_middle_initial}" : @intake.spouse_first_name,
-      SpouseLastNm: @intake.spouse_last_name,
+      SpouseFirstNm: @intake.spouse.middle_initial.present? ? "#{@intake.spouse.first_name} #{@intake.spouse.middle_initial}" : @intake.spouse.first_name,
+      SpouseLastNm: @intake.spouse.last_name,
       SpouseSSN: @xml_document.at("SpouseSSN")&.text,
       SpouseIPPIN: @xml_document.at("SpouseIdentityProtectionPIN")&.text,
       SpouseBlindInd: xml_check_to_bool(@xml_document.at("SpouseBlindInd")) ? "1" : "Off",

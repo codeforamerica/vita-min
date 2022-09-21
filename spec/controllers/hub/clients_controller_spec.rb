@@ -944,8 +944,8 @@ RSpec.describe Hub::ClientsController do
                        zip_code: intake.zip_code,
                        sms_notification_opt_in: intake.sms_notification_opt_in,
                        email_notification_opt_in: intake.email_notification_opt_in,
-                       spouse_first_name: intake.spouse_first_name,
-                       spouse_last_name: intake.spouse_last_name,
+                       spouse_first_name: intake.spouse.first_name,
+                       spouse_last_name: intake.spouse.last_name,
                        spouse_email_address: intake.spouse_email_address,
                        spouse_tin_type: "ssn",
                        spouse_ssn: "912345678",
@@ -977,7 +977,7 @@ RSpec.describe Hub::ClientsController do
       it "updates the clients intake and creates a system note" do
         post :update, params: params
         client.reload
-        expect(client.intake.primary_first_name).to eq "Updated"
+        expect(client.intake.primary.first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
         expect(client.intake.interview_timing_preference).to eq "Tomorrow!"
         expect(client.intake.timezone).to eq "America/Chicago"
@@ -992,8 +992,8 @@ RSpec.describe Hub::ClientsController do
         expect(system_note.user).to eq(user)
         expect(system_note.data['changes']).to match({
           "timezone" => [nil, "America/Chicago"],
-          "primary_last_name" => [intake.primary_last_name, "Name"],
-          "primary_first_name" => [intake.primary_first_name, "Updated"],
+          "primary_last_name" => [intake.primary.last_name, "Name"],
+          "primary_first_name" => [intake.primary.first_name, "Updated"],
           "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
           "state_of_residence" => [nil, "CA"],
           "primary_ssn" => ["[REDACTED]", "[REDACTED]"],

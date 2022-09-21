@@ -225,8 +225,8 @@ RSpec.describe Irs1040Pdf do
       output_file = pdf.output_file
       result = filled_in_values(output_file.path)
       expect(result).to match(hash_including(
-        "PrimaryFirstNm" => submission.intake.primary_first_name,
-        "PrimaryLastNm" => submission.intake.primary_last_name,
+        "PrimaryFirstNm" => submission.intake.primary.first_name,
+        "PrimaryLastNm" => submission.intake.primary.last_name,
         "AddressLine1Txt" => "23627 HAWKINS CREEK CT",
         "CityNm" => "KATY",
         "StateAbbreviationCd" => "TX",

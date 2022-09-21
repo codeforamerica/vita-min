@@ -118,10 +118,10 @@ class F13614cPdf
 
   def primary_info
     {
-      first_name: @intake.primary_first_name,
+      first_name: @intake.primary.first_name,
       middle_initial: nil,
-      last_name: @intake.primary_last_name,
-      date_of_birth: strftime_date(@intake.primary_birth_date),
+      last_name: @intake.primary.last_name,
+      date_of_birth: strftime_date(@intake.primary.birth_date),
       phone_number: @intake.formatted_phone_number,
       job_title: nil,
       is_citizen: nil,
@@ -134,10 +134,10 @@ class F13614cPdf
 
   def spouse_info
     {
-      spouse_first_name: @intake.spouse_first_name,
+      spouse_first_name: @intake.spouse.first_name,
       spouse_middle_initial: nil,
-      spouse_last_name: @intake.spouse_last_name,
-      spouse_date_of_birth: strftime_date(@intake.spouse_birth_date),
+      spouse_last_name: @intake.spouse.last_name,
+      spouse_date_of_birth: strftime_date(@intake.spouse.birth_date),
       spouse_job_title: nil,
       spouse_is_blind: @intake.spouse_was_blind,
       spouse_is_disabled: @intake.spouse_had_disability,
