@@ -2233,6 +2233,13 @@ en:
           license_number: Driver's license or state issued ID number
           state: Issuing state
           title: Enter your driver's license or state issued ID information.
+        eitc_income_offboarding:
+          help_text:
+            one: Unfortunately, your total income is above our limit. You can continue and claim only your Child Tax Credit and third stimulus payment, or you can file a full tax return to claim your EITC.
+            other: Unfortunately, you and your spouse’s total income is above our limit. You can continue and claim only your Child Tax Credit and third stimulus payment, or you can file a full tax return to claim your EITC.
+          title:
+            one: You do not qualify for the Earned Income Tax Credit with GetCTC, but there’s still money waiting for you!
+            other: You and your spouse do not qualify for the Earned Income Tax Credit with GetCTC, but there’s still money waiting for you!
         eitc_offboarding:
           help_text: Continue with GetCTC to claim your Child Tax Credit and/or missing stimulus payments.
           title: You do not qualify for the Earned Income Tax Credit, but there’s still money waiting for you!
@@ -2505,6 +2512,17 @@ en:
         no_dependents_advance_ctc_payments:
           subtitle: These payments would have arrived between July and December 2021.
           title: Did you receive any monthly Advance Child Tax Credit payments in %{current_tax_year}?
+        non_w2_income:
+          additional_income:
+            list:
+            - contractor income
+            - interest income
+            - unemployment income
+            - any other money you received
+            list_title: 'Additional income includes:'
+          title:
+            one: Did you make more than %{additional_income_amount} in additional income?
+            other: Did you and your spouse make more than %{additional_income_amount} in additional income?
         not_filing:
           buttons:
             faq: Visit our FAQ
@@ -2551,6 +2569,13 @@ en:
         routing_number:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
+        simplified_filing_income_offboarding:
+          help_text:
+            one: The IRS does not allow you to use GetCTC if your income is over $12,550. However, you may still be eligible for tax credits if you file a full tax return.
+            other: The IRS does not allow you to use GetCTC if your combined income is over $25,100. However, you and your spouse may still be eligible for tax credits if you file a full tax return.
+          title:
+            one: Unfortunately, you can’t use GetCTC because of your reported income.
+            other: Unfortunately, you and your spouse can’t use GetCTC because of your reported income.
         spouse_drivers_license:
           help_text: If you submit this information, the IRS may process your payments faster. If you do not have a driver's license or a state issued ID or do not want to submit it you can skip this step.
           license_number: Driver's license or state issued ID number
