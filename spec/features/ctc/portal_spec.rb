@@ -182,6 +182,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           :with_contact_info,
           :with_ssns,
           :with_bank_account,
+          primary_first_name: "Mango",
+          primary_last_name: "Mangonada",
           email_address: "mango@example.com",
           email_notification_opt_in: "yes",
           refund_payment_method: "direct_deposit",
@@ -332,7 +334,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         end
 
         expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
-        select "Mangonada O'Cherimoya I", from: I18n.t("views.ctc.questions.w2s.employee_info.employee_legal_name")
+        select "Mangonada Mangonada", from: I18n.t("views.ctc.questions.w2s.employee_info.employee_legal_name")
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: '123.45'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
@@ -382,7 +384,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({
           "has_primary_ip_pin" => ["unfilled", "no"],
-          "primary_first_name" => ["Cher", "Mangonada"],
+          "primary_first_name" => ["Mango", "Mangonada"],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
