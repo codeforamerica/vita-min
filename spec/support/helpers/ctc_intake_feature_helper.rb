@@ -41,7 +41,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.continue')
 
     key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
     if Flipper.enabled?(:eitc)
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
@@ -524,7 +524,7 @@ module CtcIntakeFeatureHelper
       expect(page).to have_selector("p", text:  married_filing_jointly ? "$2,400" : "$1,000")
     end
 
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.confirm')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.irs_language_preference.title"))
     click_on I18n.t('general.continue')

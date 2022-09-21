@@ -2255,7 +2255,7 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text1: "You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc)."
+          help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
           list_1_eitc:

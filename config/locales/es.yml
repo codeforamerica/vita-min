@@ -2203,20 +2203,20 @@ es:
           former_foster_youth_reveal:
             info: Un antiguo joven de acogida calificado es alguien que estuvo en cuidado de acogida entre los 14 y los 17 años. Necesita haberle permitido que el programa de acogida compartiera su estado de antiguo joven de acogida.
             title: "¿Cómo se define un antiguo joven de acogida calificado?"
+          full_time_student: "¿Qué es una estudiante de tiempo completo?"
           full_time_student_less_than_four_months: Fui estudiante a tiempo completo por menos de 4 meses
+          full_time_student_reveal: Alguien que asistió a la escuela a tiempo completo durante al menos cinco meses del año se considera un estudiante de tiempo completo para el año.
           homeless_youth: Fui un joven sin hogar calificado
           homeless_youth_reveal:
             info: Un joven sin hogar calificado es alguien que no tiene hogar o está en riesgo de no tenerlo, y que se mantiene económicamente. Debe tener entre 18-24 años y no puede estar bajo la custodia física de un padre o tutor.
             title: "¿Cómo se define un joven sin hogar calificado?"
           not_full_time_student: No era estudiante a tiempo completo
           title: 'Seleccione cualquiera de las situaciones que fueron verdaderas en %{current_tax_year}:'
-          full_time_student: "¿Qué es una estudiante de tiempo completo?"
-          full_time_student_reveal: "Alguien que asistió a la escuela a tiempo completo durante al menos cinco meses del año se considera un estudiante de tiempo completo para el año."
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: "Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2's, 1099's, etc)."
+          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2's, 1099's, etc).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar.
           list_1_eitc:
@@ -2267,7 +2267,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: ¿Está usted casado?
+          title: "¿Está usted casado?"
         had_dependents:
           add: Agregue dependientes
           continue: Seguir adelante sin dependientes
@@ -2385,7 +2385,7 @@ es:
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
           title:
             one: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
-            other: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
+            other: 'Solo puede usar GetCTC si, en %{current_tax_year} tu y tu cónyuge:'
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
