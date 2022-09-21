@@ -622,8 +622,14 @@ class Intake < ApplicationRecord
       end
     end
 
-    def full_name
+    def first_and_last_name
       parts = [@first_name, @last_name]
+      parts << @suffix if @suffix.present?
+      parts.join(' ')
+    end
+
+    def full_name
+      parts = [@first_name, @middle_initial, @last_name]
       parts << @suffix if @suffix.present?
       parts.join(' ')
     end
