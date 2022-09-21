@@ -2011,8 +2011,8 @@ es:
                 title: "¿Debo declarar como jefe de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
+          subtitle: Estos son los créditos para los que sus dependientes son elegibles en %{current_tax_year}. Tenga en cuenta que cada crédito tiene su propio conjunto de reglas de elegibilidad.
           title: Confirmemos sus dependientes
-          subtitle: "Estos son los créditos para los que sus dependientes son elegibles en %{current_tax_year}. Tenga en cuenta que cada crédito tiene su propio conjunto de reglas de elegibilidad."
         confirm_information:
           help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
           labels:
@@ -2041,11 +2041,11 @@ es:
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo:'
+          fed_income_tax_withholding: 'Retención de impuestos federales sobre la renta:'
+          subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Revise esta lista de los pagos que está reclamando:'
           total: 'Importe total del fondo:'
-          subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
-          fed_income_tax_withholding: "Retención de impuestos federales sobre la renta:"
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
@@ -2216,6 +2216,16 @@ es:
           full_btn: Presente su declaración de impuestos completa
           help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
+          help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar.
+          list_1_eitc:
+          - Crédito tributario por hijos
+          - 3er Cheque de Estímulo
+          - Crédito Tributario por Ingreso del Trabajo
+          list_1_eitc_title: Puede presentar una declaración simplificada para reclamar el
+          list_2_eitc:
+          - Cheque de estímulo 1 o 2
+          - Créditos fiscales estatales o pagos de estímulo
+          list_2_eitc_title: No puede usar esta herramienta para reclamar
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
             help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquier de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla de Puerto Rico al Departamento de Hacienda.
@@ -2229,17 +2239,7 @@ es:
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
-          list_1_eitc_title: "Puede presentar una declaración simplificada para reclamar el"
-          list_1_eitc:
-            - "Crédito tributario por hijos"
-            - "3er Cheque de Estímulo"
-            - "Crédito Tributario por Ingreso del Trabajo"
-          list_2_eitc_title: "No puede usar esta herramienta para reclamar"
-          list_2_eitc:
-           - "Cheque de estímulo 1 o 2"
-           - "Créditos fiscales estatales o pagos de estímulo"
-          title_eitc: "Actualmente está presentando una declaración de impuestos federal simplificada."
-          help_text_eitc: "Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar."
+          title_eitc: Actualmente está presentando una declaración de impuestos federal simplificada.
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
@@ -2383,8 +2383,8 @@ es:
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
           title:
-               one: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
-               other: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
+            one: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
+            other: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
@@ -2394,9 +2394,9 @@ es:
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
           married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
-          title: "¿Ganó más de $10.000 en ingresos por inversiones?"
+          reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV
           reveal_title: "¿Cómo verifico el monto de los ingresos de mi inversión?"
-          reveal_content: "Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV"
+          title: "¿Ganó más de $10.000 en ingresos por inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
