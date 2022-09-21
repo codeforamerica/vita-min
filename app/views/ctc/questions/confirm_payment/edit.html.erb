@@ -17,7 +17,7 @@
         <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount) %></p>
       </div>
     <% end %>
-    <% unless @eitc_amount.zero? || @eitc_amount.nil? %>
+    <% unless @eitc_amount.nil? || @eitc_amount.zero?%>
       <div class="spacing-above-35">
         <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.eitc') %></strong></p>
         <p class="spacing-below-15"><%= number_to_currency(@eitc_amount) %></p>

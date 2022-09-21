@@ -2229,6 +2229,17 @@ es:
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
+          list_1_eitc_title: "Puede presentar una declaración simplificada para reclamar el"
+          list_1_eitc:
+            - "Crédito tributario por hijos"
+            - "3er Cheque de Estímulo"
+            - "Crédito Tributario por Ingreso del Trabajo"
+          list_2_eitc_title: "No puede usar esta herramienta para reclamar"
+          list_2_eitc:
+           - "Cheque de estímulo 1 o 2"
+           - "Créditos fiscales estatales o pagos de estímulo"
+          title_eitc: "Actualmente está presentando una declaración de impuestos federal simplificada."
+          help_text_eitc: "Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar."
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa

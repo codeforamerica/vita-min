@@ -2255,8 +2255,7 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text1: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
-          help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
+          help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
           puerto_rico:
             full_btn: File a Puerto Rico tax return
             help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
@@ -2269,16 +2268,19 @@ en:
             - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
-          title: You are currently filing a simplified federal tax return.
-          list_1:
+          title_eitc: You are currently filing a simplified federal tax return.
+          title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
+          help_text1: You might benefit from filing a full tax return if you earned any income in 2021. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc).
+          help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
+          list_1_eitc:
             - Child Tax Credit
             - 3rd Stimulus Check
             - Earned Income Tax Credit
-          list_1_title: 'You can file a simplified tax return to claim the:'
-          list_2:
+          list_1_eitc_title: 'You can file a simplified tax return to claim the:'
+          list_2_eitc:
             - Stimulus check 1 or 2
             - State tax credits or stimulus payments
-          list_2_title: 'You cannot use this tool to claim:'
+          list_2_eitc_title: 'You cannot use this tool to claim:'
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
