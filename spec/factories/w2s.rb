@@ -3,6 +3,7 @@
 # Table name: w2s
 #
 #  id                            :bigint           not null, primary key
+#  completed_at                  :datetime
 #  creation_token                :string
 #  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string
@@ -46,5 +47,6 @@ FactoryBot.define do
     wages_amount { 100.10 }
     federal_income_tax_withheld { 20.34 }
     standard_or_non_standard_code { "S" }
+    completed_at { DateTime.now }
   end
 end

@@ -438,8 +438,12 @@ Rails.application.routes.draw do
           resources :w2s do
             get 'w2s-employee-info', on: :member, to: "w2s/employee_info#edit"
             put 'w2s-employee-info', on: :member, to: "w2s/employee_info#update"
+            get 'w2s-wages-info', on: :member, to: "w2s/wages_info#edit"
+            put 'w2s-wages-info', on: :member, to: "w2s/wages_info#update"
             get 'w2s-employer-info', on: :member, to: "w2s/employer_info#edit"
             put 'w2s-employer-info', on: :member, to: "w2s/employer_info#update"
+            get 'w2s-misc-info', on: :member, to: "w2s/misc_info#edit"
+            put 'w2s-misc-info', on: :member, to: "w2s/misc_info#update"
           end
 
           get "verification", to: "verification_attempts#edit", as: "verification_attempt"

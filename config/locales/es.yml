@@ -2662,18 +2662,15 @@ es:
           done_adding: Se ha terminado de añadir todas las formas W-2
           dont_add_w2: No deseo añadir ningún ingreso
           employee_info:
-            employee_city: Ciudad
+            employee_city: 'Casilla e: Ciudad'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
-            employee_state: Estado
+            employee_state: 'Casilla e: Estado'
             employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
-            employee_street_address2: Número de apartamento (opcional)
-            employee_zip_code: Código postal
-            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
+            employee_zip_code: 'Casilla e: Código postal'
             help_text: Su forma W-2 tiene casillas con letras y números. A continuación, deberá hacer que coincidan e introducir esta información.
             title:
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
-            wages_amount: 'Casilla 1: Importe de los salarios'
           employer_info:
             add: Agregar la forma W-2
             employer_city: Ciudad
@@ -2691,6 +2688,9 @@ es:
               one: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
               other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
             p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
+          misc_info:
+            submit: Enviar W-2
+            title: Terminemos de ingresar la información W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
             content:
@@ -2704,6 +2704,13 @@ es:
             title: "¿Qué pasa si tengo una forma 1099?"
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
+          wages_info:
+            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
+            info_box:
+              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
+              requirement_title: 'Requisito:'
+            title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos de %{name} retenidos de este W-2."
+            wages_amount: 'Casilla 1: Importe de los salarios'
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:

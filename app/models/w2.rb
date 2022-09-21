@@ -3,6 +3,7 @@
 # Table name: w2s
 #
 #  id                            :bigint           not null, primary key
+#  completed_at                  :datetime
 #  creation_token                :string
 #  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string
@@ -31,6 +32,8 @@
 #
 class W2 < ApplicationRecord
   belongs_to :intake
+
+  scope :completed, -> { where.not(completed_at: nil) }
 
   enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
 

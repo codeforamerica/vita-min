@@ -318,9 +318,15 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employee_info.title", count: 2))
         click_on I18n.t("general.continue")
 
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.wages_info.title", name: "Mangonada Mangonada"))
+        click_on I18n.t("general.continue")
+
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title"))
         expect(page).to have_text(I18n.t("views.ctc.questions.w2s.employer_info.employer_name"))
         fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.misc_info.title", name: "Mangonada Mangonada"))
         click_on I18n.t("views.ctc.portal.w2s.employer_info.update_w2")
 
         within ".w2s-shared" do
@@ -335,12 +341,15 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
         select "Mangonada Mangonada", from: I18n.t("views.ctc.questions.w2s.employee_info.employee_legal_name")
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: '123.45'
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
         select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
+        click_on I18n.t('general.continue')
+
+        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: "Mangonada Mangonada"))
+        fill_in I18n.t('views.ctc.questions.w2s.wages_info.wages_amount'), with: '123.45'
+        fill_in I18n.t('views.ctc.questions.w2s.wages_info.federal_income_tax_withheld'), with: '12.01'
         click_on I18n.t('general.continue')
 
         expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
@@ -351,6 +360,9 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
         select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
+        click_on I18n.t('general.continue')
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.misc_info.title", name: "Mangonada Mangonada"))
         click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
 
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
@@ -421,6 +433,11 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         })
 
         expect(changes_table_contents(".changes-note-#{notes[8].id}")).to match({
+          "federal_income_tax_withheld" => ["nil", "12.01"],
+          "wages_amount" => ["nil", "123.45"],
+        })
+
+        expect(changes_table_contents(".changes-note-#{notes[9].id}")).to match({
           "employer_city" => ["nil", "Citytown"],
           "employer_ein" => ["nil", "123112222"],
           "employer_name" => ["nil", "Fruit Stand"],
@@ -428,6 +445,10 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           "employer_street_address" => ["nil", "123 Easy St"],
           "employer_zip_code" => ["nil", "94105"],
           "standard_or_non_standard_code" => ["nil", "S"],
+        })
+
+        expect(changes_table_contents(".changes-note-#{notes[10].id}")).to match({
+          "completed_at" => ["nil", an_instance_of(String)],
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")
