@@ -41,7 +41,11 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.continue')
 
     key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    if Flipper.enabled?("eitc")
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
+    else
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    end
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
     if Flipper.enabled?(:eitc)
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))

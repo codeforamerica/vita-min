@@ -41,7 +41,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
       expect(page).to have_selector(".toolbar", text: "GetCTC")
       within "h1" do
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
       end
       click_on I18n.t('general.continue')
       click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
