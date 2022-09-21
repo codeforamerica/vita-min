@@ -13,11 +13,8 @@ describe Ctc::Portal::W2s::EmployeeInfoController do
       employee_city: "Los Angeles",
       employee_state: "CA",
       employee_zip_code: "90210",
-      employee_ssn: "111223333",
-      employee_ssn_confirmation: "111223333",
+      employee: "primary",
       employee_street_address: "123 main st",
-      legal_first_name: "Max",
-      legal_last_name: "Melon",
       wages_amount: 123,
       federal_income_tax_withheld: 12
     }}}

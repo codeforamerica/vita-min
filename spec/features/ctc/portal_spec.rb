@@ -331,11 +331,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t("views.ctc.questions.w2s.add")
         end
 
-        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title'))
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_first_name'), with: 'Mango'
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.legal_last_name'), with: 'Mangonada'
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_ssn'), with: '888-22-3333'
-        fill_in I18n.t('views.ctc.questions.w2s.employee_info.confirm_employee_ssn'), with: '888-22-3333'
+        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
+        select "Mangonada O'Cherimoya I", from: I18n.t("views.ctc.questions.w2s.employee_info.employee_legal_name")
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: '123.45'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
         fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
