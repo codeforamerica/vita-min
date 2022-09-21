@@ -389,19 +389,25 @@ describe Efile::BenefitsEligibility do
       end
     end
 
-    context "they are over the income threshold" do
-      let(:wages_amount) { 11_611 }
-
-      it "returns false" do
-        expect(subject.claiming_and_qualified_for_eitc?).to eq false
+    context "when they have no qualifying children" do
+      before do
+        intake.dependents.destroy_all
       end
-    end
 
-    context "they had_disqualifying_non_w2_income" do
-      let(:had_disqualifying_non_w2_income) { 'yes' }
+      context "they are over the income threshold" do
+        let(:wages_amount) { 11_611 }
 
-      it "returns false" do
-        expect(subject.claiming_and_qualified_for_eitc?).to eq false
+        it "returns false" do
+          expect(subject.claiming_and_qualified_for_eitc?).to eq false
+        end
+      end
+
+      context "they had_disqualifying_non_w2_income" do
+        let(:had_disqualifying_non_w2_income) { 'yes' }
+
+        it "returns false" do
+          expect(subject.claiming_and_qualified_for_eitc?).to eq false
+        end
       end
     end
 
