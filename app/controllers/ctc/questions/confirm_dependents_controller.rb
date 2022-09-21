@@ -1,8 +1,8 @@
 module Ctc
   module Questions
     class ConfirmDependentsController < QuestionsController
-      before_action :load_eligibility
       include AuthenticatedCtcClientConcern
+      before_action :load_eligibility
 
       layout "intake"
 
