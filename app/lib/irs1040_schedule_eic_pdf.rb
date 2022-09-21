@@ -12,7 +12,7 @@ class Irs1040ScheduleEicPdf
 
   def hash_for_pdf
     answers = {
-      FullPrimaryName: @intake.primary.full_name,
+      FullPrimaryName: @intake.primary.first_and_last_name,
       PrimarySSN: @intake.primary.ssn
     }
     dependent_nodes = @xml_document.search("QualifyingChildInformation")

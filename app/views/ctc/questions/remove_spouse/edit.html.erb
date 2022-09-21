@@ -1,4 +1,4 @@
-<% @main_heading = t("views.ctc.questions.remove_spouse.title_html", spouse_name: current_intake.spouse.full_name) %>
+<% @main_heading = t("views.ctc.questions.remove_spouse.title_html", spouse_name: current_intake.spouse.first_and_last_name) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :card do %>

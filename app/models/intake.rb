@@ -439,12 +439,12 @@ class Intake < ApplicationRecord
 
   def spouse_name_or_placeholder
     return I18n.t("models.intake.your_spouse") unless spouse.first_name.present?
-    spouse.full_name
+    spouse.first_and_last_name
   end
 
   def student_names
     names = []
-    names << primary.full_name if was_full_time_student_yes?
+    names << primary.first_and_last_name if was_full_time_student_yes?
     names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
@@ -623,8 +623,14 @@ class Intake < ApplicationRecord
       end
     end
 
-    def full_name
+    def first_and_last_name
       parts = [@first_name, @last_name]
+      parts << @suffix if @suffix.present?
+      parts.join(' ')
+    end
+
+    def full_name
+      parts = [@first_name, @middle_initial, @last_name]
       parts << @suffix if @suffix.present?
       parts.join(' ')
     end
