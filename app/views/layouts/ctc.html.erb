@@ -1,5 +1,6 @@
 <%= extends :application do %>
-  <% content_for :app_name do %>GetCTC<% end %>
+  <% content_for :app_name do %>GetCTC
+  <% end %>
 
   <% content_for :header do %>
     <%= render 'shared/ctc_header_analytics' if Rails.env.production? %>

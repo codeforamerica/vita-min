@@ -1,4 +1,4 @@
-<% @main_title = @total_amount.zero? ?  t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
+<% @main_title = @total_amount.zero? ? t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
 <% content_for :page_title, @main_title %>
 
 <% content_for :card do %>
@@ -17,7 +17,7 @@
         <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount) %></p>
       </div>
     <% end %>
-    <% unless @eitc_amount.nil? || @eitc_amount.zero?%>
+    <% unless @eitc_amount.nil? || @eitc_amount.zero? %>
       <div class="spacing-above-35">
         <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.eitc') %></strong></p>
         <p class="spacing-below-15"><%= number_to_currency(@eitc_amount) %></p>
@@ -25,7 +25,8 @@
     <% end %>
     <% unless @fed_income_tax_withholding_amount.zero? || @fed_income_tax_withholding_amount.nil? %>
       <div class="spacing-above-35">
-        <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.fed_income_tax_withholding') %></strong></p>
+        <p class="spacing-below-15">
+          <strong><%= t('views.ctc.questions.confirm_payment.fed_income_tax_withholding') %></strong></p>
         <p class="spacing-below-15"><%= number_to_currency(@fed_income_tax_withholding_amount) %></p>
       </div>
     <% end %>
