@@ -1843,6 +1843,7 @@ en:
           no_bank_account: No bank information entered.
           resubmit: Resubmit my tax return
           title: Correct your submitted information
+          w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
           complete_form: Complete CTC form
@@ -1930,6 +1931,9 @@ en:
           selfie: You holding the card near your face
           selfie_label: Photo of yourself holding ID
           title: We need some additional information before we submit your tax return.
+        w2s:
+          employer_info:
+            update_w2: Update W-2
       questions:
         account_number:
           account_number: Account number
@@ -2672,20 +2676,17 @@ en:
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add any income
           employee_info:
-            confirm_employee_ssn: Confirm Employee SSN
             employee_city: City
-            employee_ssn: 'Box a: Employee SSN'
+            employee_legal_name: 'Select the legal name on the W2:'
             employee_state: State
             employee_street_address: 'Box e: Employee street address or P.O. box'
             employee_street_address2: Apartment number (optional)
             employee_zip_code: Zip code
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
             help_text: Your W-2 has lettered and numbered boxes. You will match and enter this information below.
-            legal_first_name: Legal first name
-            legal_last_name: Legal last name
-            legal_middle_initial: Legal middle initial (optional)
-            suffix: Suffix (optional)
-            title: Great! Let’s start with reading your W-2.
+            title:
+              one: Let’s start by entering some basic info for %{name}.
+              other: Let’s start by entering some basic info.
             wages_amount: 'Box 1: Wages Amount'
           employer_info:
             add: Add W-2

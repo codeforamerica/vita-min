@@ -18,7 +18,7 @@ module SubmissionBuilder
         xml.FederalSubmissionTypeCd "1040"
         xml.TaxPeriodBeginDt date_type(Date.new(tax_return.year, 1, 1))
         xml.TaxPeriodEndDt date_type(Date.new(tax_return.year, 12, 31))
-        xml.TIN intake.primary_ssn
+        xml.TIN intake.primary.ssn
       end
     end
   end

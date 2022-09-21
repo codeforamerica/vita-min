@@ -9,7 +9,7 @@ module Ctc
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
-    with_options if: -> { (primary_ssn.present? && primary_ssn.remove("-") != intake.primary_ssn) || primary_ssn_confirmation.present? } do
+    with_options if: -> { (primary_ssn.present? && primary_ssn.remove("-") != intake.primary.ssn) || primary_ssn_confirmation.present? } do
       validates :primary_ssn, confirmation: true
       validates :primary_ssn_confirmation, presence: true
     end
@@ -23,11 +23,11 @@ module Ctc
     end
 
     def self.existing_attributes(intake, _attribute_keys)
-      if intake.primary_birth_date.present?
+      if intake.primary.birth_date.present?
         super.merge(
-          primary_birth_date_day: intake.primary_birth_date.day,
-          primary_birth_date_month: intake.primary_birth_date.month,
-          primary_birth_date_year: intake.primary_birth_date.year,
+          primary_birth_date_day: intake.primary.birth_date.day,
+          primary_birth_date_month: intake.primary.birth_date.month,
+          primary_birth_date_year: intake.primary.birth_date.year,
         )
       else
         super

@@ -7,13 +7,13 @@ module Ctc
       layout "intake"
 
       def edit
-        redirect_to next_path unless current_intake.spouse_first_and_last_name.present?
+        redirect_to next_path unless current_intake.spouse.first_and_last_name.present?
 
         super
       end
 
       def self.show?(intake)
-        intake.client.tax_returns.last.filing_status_married_filing_jointly?
+        intake.filing_jointly?
       end
 
       private

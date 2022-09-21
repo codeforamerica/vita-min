@@ -1,7 +1,7 @@
 <% puerto_rico_filing = current_intake.puerto_rico_filing? %>
 <% content_for :form_question, t("views.ctc.questions.had_dependents.title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="form-question"><%= t("views.ctc.questions.had_dependents.title") %></h1>
 
   <p><%= t("views.ctc.questions.had_dependents.help_text") %></p>
@@ -18,7 +18,7 @@
       <% end %>
     </ul>
   <% end %>
-  
+
 <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
   <%= f.button :submit, name: "#{f.object_name}[had_dependents]", value: "yes", class: "button button--primary button--icon text--centered button--wide spacing-above-60" do %>
     <%= image_tag("add-person--white.svg", alt: "") %>
@@ -30,4 +30,3 @@
   <% end %>
 <% end %>
 <% end %>
-

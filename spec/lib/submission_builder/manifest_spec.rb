@@ -50,7 +50,7 @@ describe SubmissionBuilder::Manifest do
         expect(xml.at("GovernmentCd").text).to eq("IRS")
         expect(xml.at("EFIN").text).to eq "123456"
         expect(xml.at("FederalSubmissionTypeCd").text).to eq "1040"
-        expect(xml.at("TIN").text).to eq submission.intake.primary_ssn
+        expect(xml.at("TIN").text).to eq submission.intake.primary.ssn
         expect(xml.at("SubmissionId").text).to eq submission.irs_submission_id
       end
 

@@ -5,47 +5,10 @@ describe Ctc::W2s::EmployeeInfoForm do
   let(:intake) { create :ctc_intake }
 
   context "validations" do
-    it "requires first and last name" do
+    it "requires employee" do
       form = described_class.new(w2, {})
       expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:legal_first_name)
-      expect(form.errors.attribute_names).to include(:legal_last_name)
-    end
-
-    it "requires social security number to be present and formatted correctly" do
-      form = described_class.new(w2, {})
-      expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:employee_ssn)
-
-      form = described_class.new(w2, { employee_ssn: '111' })
-      expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:employee_ssn)
-    end
-
-    describe 'ssn confirmation' do
-      it "is not valid if ssn is being changed and confirmation is missing" do
-        form = described_class.new(w2, { employee_ssn: '111-22-3333' })
-        expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to include(:employee_ssn_confirmation)
-      end
-
-      it "is not valid if ssn is being changed and confirmation does not match" do
-        form = described_class.new(w2, { employee_ssn: '111-22-3333', employee_ssn_confirmation: '111-22-4444' })
-        expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to include(:employee_ssn_confirmation)
-      end
-
-      it "is valid if ssn is being changed and confirmation matches" do
-        form = described_class.new(w2, { employee_ssn: '111-22-3333', employee_ssn_confirmation: '111-22-3333' })
-        form.valid?
-        expect(form.errors.attribute_names).not_to include(:employee_ssn_confirmation)
-      end
-
-      it "does not require ssn confirmation if ssn is not being changed" do
-        form = described_class.new(w2, { employee_ssn: w2.employee_ssn })
-        form.valid?
-        expect(form.errors.attribute_names).not_to include(:employee_ssn_confirmation)
-      end
+      expect(form.errors.attribute_names).to include(:employee)
     end
 
     it "requires wages to be present and look like money" do

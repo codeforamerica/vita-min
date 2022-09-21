@@ -1,7 +1,7 @@
 <% @main_question = t("views.ctc.questions.w2s.employer_info.title") %>
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
@@ -16,6 +16,6 @@
     <%= f.cfa_input_field(:employer_zip_code, t("views.ctc.questions.w2s.employer_info.employer_zip_code"), classes: ["form-width--zip"]) %>
     <%= f.cfa_select(:standard_or_non_standard_code, t("views.ctc.questions.w2s.employer_info.standard_or_non_standard_code"), [%w[S S], %w[N N]]) %>
 
-    <%= f.continue t("views.ctc.questions.w2s.employer_info.add") %>
+    <%= f.continue @continue_label %>
   <% end %>
 <% end %>

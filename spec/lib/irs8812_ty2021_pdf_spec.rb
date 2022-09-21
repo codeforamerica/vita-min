@@ -20,8 +20,8 @@ RSpec.describe Irs8812Ty2021Pdf do
         output_file = pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
-                                  "FullPrimaryName" => submission.intake.primary_first_and_last_name,
-                                  "PrimarySSN" => submission.intake.primary_ssn,
+                                  "FullPrimaryName" => submission.intake.primary.first_and_last_name,
+                                  "PrimarySSN" => submission.intake.primary.ssn,
                                   "AdjustedGrossIncomeAmt1" => "0", # 1
                                   "PRExcludedIncomeAmt2a" => "0", # 2a
                                   "GrossIncomeExclusionAmt2c" => "0", # 2c
@@ -130,8 +130,8 @@ RSpec.describe Irs8812Ty2021Pdf do
         output_file = pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to match(hash_including(
-          "FullPrimaryName" => [submission.intake.primary_first_and_last_name, "Spouser Spouseperson"].join(', '),
-          "PrimarySSN" => submission.intake.primary_ssn,
+          "FullPrimaryName" => [submission.intake.primary.first_and_last_name, "Spouser Spouseperson"].join(', '),
+          "PrimarySSN" => submission.intake.primary.ssn,
         ))
       end
 

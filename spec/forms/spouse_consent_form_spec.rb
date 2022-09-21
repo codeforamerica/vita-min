@@ -101,7 +101,7 @@ RSpec.describe SpouseConsentForm do
       form.save
       intake.reload
 
-      expect(intake.spouse_birth_date).to eq Date.new(1983, 5, 10)
+      expect(intake.spouse.birth_date).to eq Date.new(1983, 5, 10)
       expect(intake.spouse_consented_to_service).to eq "yes"
       expect(intake.spouse_consented_to_service_at).to eq DateTime.new(2025, 2, 7, 11, 10, 1)
     end

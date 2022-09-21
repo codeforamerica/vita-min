@@ -322,6 +322,44 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
   end
 
+  def fill_in_no_dependents
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+    click_on I18n.t('views.ctc.questions.had_dependents.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
+    click_on I18n.t('general.continue')
+    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+    click_on I18n.t('general.negative')
+  end
+
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45)
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t('views.ctc.questions.w2s.add')
+
+    if filing_status == 'single'
+      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 1, name: employee_name))
+    else
+      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
+      select employee_name, from: I18n.t('views.ctc.questions.w2s.employee_info.employee_legal_name')
+    end
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: wages
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
+    select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
+    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'lumen inc'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
+    select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
+    select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
+    click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
+  end
+
   def fill_in_advance_child_tax_credit
     # =========== ADVANCE CHILD TAX CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.title', adv_ctc_estimate: 1800))

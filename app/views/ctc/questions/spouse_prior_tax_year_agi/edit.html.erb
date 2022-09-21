@@ -1,8 +1,8 @@
-<% @main_question = t("views.ctc.questions.spouse_prior_tax_year_agi.title", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse_first_name) %>
+<% @main_question = t("views.ctc.questions.spouse_prior_tax_year_agi.title", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %>
 
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
   <%= t("views.ctc.questions.spouse_prior_tax_year_agi.help_text_html", prior_tax_year: prior_tax_year) %>

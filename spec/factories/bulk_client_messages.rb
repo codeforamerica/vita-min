@@ -3,6 +3,7 @@
 # Table name: bulk_client_messages
 #
 #  id                      :bigint           not null, primary key
+#  cached_data             :jsonb
 #  send_only               :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

@@ -1,18 +1,18 @@
-<% @main_question = t("views.ctc.questions.w2s.employee_info.title") %>
+<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filer_count, name: current_intake.primary.first_name) %>
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
     <p><%= t("views.ctc.questions.w2s.employee_info.help_text") %></p>
 
-    <%= f.cfa_input_field(:legal_first_name, t("views.ctc.questions.w2s.employee_info.legal_first_name"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:legal_middle_initial, t("views.ctc.questions.w2s.employee_info.legal_middle_initial"), classes: ["form-width--short"]) %>
-    <%= f.cfa_input_field(:legal_last_name, t("views.ctc.questions.w2s.employee_info.legal_last_name"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:suffix, t("views.ctc.questions.w2s.employee_info.suffix"), classes: ["form-width--short"]) %>
-    <%= f.cfa_input_field(:employee_ssn, t("views.ctc.questions.w2s.employee_info.employee_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
-    <%= f.cfa_input_field(:employee_ssn_confirmation, t("views.ctc.questions.w2s.employee_info.confirm_employee_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+    <% if current_intake.filing_jointly? %>
+      <%= f.cfa_select(:employee, t("views.ctc.questions.w2s.employee_info.employee_legal_name"), [[current_intake.primary.full_name, 'primary'], [current_intake.spouse.full_name, 'spouse' ]], include_blank: true) %>
+    <% else %>
+      <%= f.hidden_field :employee, value: 'primary' %>
+    <% end %>
+
     <%= f.cfa_input_field(:wages_amount, t("views.ctc.questions.w2s.employee_info.wages_amount"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:federal_income_tax_withheld, t("views.ctc.questions.w2s.employee_info.federal_income_tax_withheld"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:employee_street_address, t("views.ctc.questions.w2s.employee_info.employee_street_address"), classes: ["form-width--long"]) %>

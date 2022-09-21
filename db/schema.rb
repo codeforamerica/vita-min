@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -456,6 +456,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
   end
 
   create_table "bulk_client_messages", force: :cascade do |t|
+    t.jsonb "cached_data", default: {}
     t.datetime "created_at", null: false
     t.string "send_only"
     t.bigint "tax_return_selection_id"
@@ -1602,8 +1603,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
   create_table "w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "creation_token"
+    t.integer "employee", default: 0, null: false
     t.string "employee_city"
-    t.text "employee_ssn"
     t.string "employee_state"
     t.string "employee_street_address"
     t.string "employee_street_address2"
@@ -1617,11 +1618,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_01_184813) do
     t.string "employer_zip_code"
     t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
-    t.string "legal_first_name"
-    t.string "legal_last_name"
-    t.string "legal_middle_initial"
     t.string "standard_or_non_standard_code"
-    t.string "suffix"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
     t.index ["creation_token"], name: "index_w2s_on_creation_token"

@@ -272,16 +272,16 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       form.save
 
       intake = Intake.last
-      expect(intake.primary_first_name).to eq "Marty"
-      expect(intake.primary_middle_initial).to eq "J"
-      expect(intake.primary_last_name).to eq "Mango"
-      expect(intake.primary_birth_date).to eq Date.new(1963, 9, 10)
-      expect(intake.primary_ssn).to eq "111228888"
+      expect(intake.primary.first_name).to eq "Marty"
+      expect(intake.primary.middle_initial).to eq "J"
+      expect(intake.primary.last_name).to eq "Mango"
+      expect(intake.primary.birth_date).to eq Date.new(1963, 9, 10)
+      expect(intake.primary.ssn).to eq "111228888"
       expect(intake.phone_number).to eq "+18312345678"
       expect(intake.primary_last_four_ssn).to eq "8888"
       expect(intake.primary_active_armed_forces).to eq "yes"
       expect(intake.client).to be_present
-      expect(intake.primary_tin_type).to eq "itin"
+      expect(intake.primary.tin_type).to eq "itin"
       expect(intake.type).to eq "Intake::CtcIntake"
       expect(intake.was_blind).to eq "yes"
     end
@@ -296,7 +296,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
             form = described_class.new(intake, params)
             form.valid?
             form.save
-            form.intake.primary_tin_type = "ssn_no_employment"
+            expect(form.intake.primary.tin_type).to eq("ssn_no_employment")
           end
         end
 

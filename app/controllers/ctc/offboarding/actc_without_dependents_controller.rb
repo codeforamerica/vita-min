@@ -1,6 +1,8 @@
 module Ctc
   module Offboarding
     class ActcWithoutDependentsController < CtcController
+      include AuthenticatedCtcClientConcern
+
       helper_method :illustration_path, :illustration_folder, :prev_path
 
       layout "intake"

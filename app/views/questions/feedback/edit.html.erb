@@ -1,7 +1,7 @@
 <% @main_heading = t("views.questions.feedback.title") %>
 <% content_for :form_question, @main_heading %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.cfa_textarea(
             :feedback,

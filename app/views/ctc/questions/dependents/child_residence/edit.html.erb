@@ -1,7 +1,7 @@
 <% @main_heading = t("views.ctc.questions.dependents.child_residence.title", name: @form.dependent.first_name&.upcase_first, current_tax_year: current_tax_year) %>
 <% content_for :form_question, @main_heading %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card__stacked-checkboxes" } do |f| %>
     <h1 class="form-question"><%= @main_heading %></h1>
 

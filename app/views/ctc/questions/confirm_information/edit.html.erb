@@ -1,6 +1,6 @@
 <% content_for :page_title, t("views.ctc.questions.confirm_information.title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="h2"><%= content_for(:page_title) %></h1>
   <p><%= t("views.ctc.questions.confirm_information.help_text")  %></p>
 
@@ -54,9 +54,9 @@
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <p class="spacing-below-35"><%= t("views.ctc.questions.confirm_information.pin_help_text") %></p>
-    <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary_first_and_last_name), options: { maxlength: 5 }, type: "tel", classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary.first_and_last_name), options: { maxlength: 5 }, type: "tel", classes: ["form-width--long"]) %>
     <% if current_intake.filing_jointly? %>
-      <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse_first_and_last_name), options: { maxlength: 5 }, type: "tel", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse.first_and_last_name), options: { maxlength: 5 }, type: "tel", classes: ["form-width--long"]) %>
     <% end %>
 
     <%= f.submit(t("general.continue"), class: "button button--primary button--wide spacing-above-60", disabled: @submit_disabled) %>

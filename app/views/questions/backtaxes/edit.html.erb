@@ -1,6 +1,6 @@
 <% content_for :page_title, t("views.questions.backtaxes.title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="form-question spacing-below-35">
       <%= content_for(:page_title) %>

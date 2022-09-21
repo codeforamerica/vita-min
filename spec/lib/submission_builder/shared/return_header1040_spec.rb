@@ -96,8 +96,8 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
         expect(xml.at("PrimarySignatureDt").text).to eq submission.intake.primary_signature_pin_at.strftime("%F")
         expect(xml.at("SpouseSignatureDt").text).to eq submission.intake.spouse_signature_pin_at.strftime("%F")
         expect(xml.at('ReturnTypeCd').text).to eq "1040"
-        expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
-        expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
+        expect(xml.at("PrimarySSN").text).to eq submission.intake.primary.ssn
+        expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse.ssn
         expect(xml.at("NameLine1Txt").text).to eq "HUBERT BLAINE<D<& LISA F" # trimmed to 35 characters
         expect(xml.at("PrimaryNameControlTxt").text).to eq "DIWO"
         expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
@@ -272,7 +272,7 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
           response = described_class.build(submission)
           expect(response).to be_an_instance_of SubmissionBuilder::Response
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
-          expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
+          expect(xml.at("PrimarySSN").text).to eq submission.intake.primary.ssn
           expect(xml.at("USAddress")).to be_nil
           expect(response).not_to be_valid
         end

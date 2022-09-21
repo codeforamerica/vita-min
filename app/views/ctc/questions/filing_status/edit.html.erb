@@ -2,7 +2,7 @@
 
 <% content_for :page_title, @main_question %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
 
@@ -17,7 +17,7 @@
           <% end %>
         </div>
       </div>
-      
+
       <div class="reveal-shrink-wrapper">
         <%= render('components/molecules/reveal', title: t("views.ctc.questions.filing_status.irs_reveal.title")) do %>
           <p><%= t("views.ctc.questions.filing_status.irs_reveal.body_html") %></p>

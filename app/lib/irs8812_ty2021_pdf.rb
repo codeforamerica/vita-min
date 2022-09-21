@@ -6,10 +6,10 @@ class Irs8812Ty2021Pdf
   end
 
   def initialize(submission)
-    @full_names = [submission.intake.primary_first_and_last_name]
-    @ssn = submission.intake.primary_ssn
+    @full_names = [submission.intake.primary.first_and_last_name]
+    @ssn = submission.intake.primary.ssn
     if submission.tax_return.filing_jointly?
-      @full_names << submission.intake.spouse_first_and_last_name
+      @full_names << submission.intake.spouse.first_and_last_name
     end
     @xml_document = SubmissionBuilder::Ty2021::Documents::Schedule8812.new(submission).document
   end
