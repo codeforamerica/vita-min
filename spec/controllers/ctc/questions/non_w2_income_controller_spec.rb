@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ctc::Questions::NonW2IncomeController do
   describe '#show' do
-    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, filing_status: filing_status)]) }
+    let(:intake) { create :ctc_intake, :claiming_eitc, client: build(:client, tax_returns: [build(:tax_return, filing_status: filing_status)]) }
     let(:filing_status) { "single" }
 
     context 'eitc environment variable is disabled' do
@@ -15,6 +15,16 @@ describe Ctc::Questions::NonW2IncomeController do
       before do
         Flipper.enable :eitc
         create :w2, intake: intake, wages_amount: wages_amount
+      end
+
+      context 'has a qualifying dependent' do
+        let!(:dependent) { create :qualifying_child, intake: intake }
+        let(:filing_status) { "single" }
+        let(:wages_amount) { 10_001 }
+
+        it 'is false' do
+          expect(described_class.show?(intake)).to eq false
+        end
       end
 
       context 'single' do

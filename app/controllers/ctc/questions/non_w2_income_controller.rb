@@ -7,6 +7,7 @@ module Ctc
 
       def self.show?(intake)
         return false unless Flipper.enabled?(:eitc)
+        return false if intake.dependents.any?(&:qualifying_eitc?)
 
         if intake.filing_jointly?
           (15_000...Efile::BenefitsEligibility::EITC_UPPER_LIMIT_JOINT).cover?(intake.total_wages_amount)

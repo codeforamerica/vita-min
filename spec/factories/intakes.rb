@@ -99,6 +99,11 @@ FactoryBot.define do
     street_address { "972 Mission St" }
   end
 
+  trait :claiming_eitc do
+    claim_eitc { 'yes' }
+    exceeded_investment_income_limit { 'no' }
+  end
+
   trait :with_deterministic_yes_no_answers do
     married { "yes" }
     divorced { "yes" }

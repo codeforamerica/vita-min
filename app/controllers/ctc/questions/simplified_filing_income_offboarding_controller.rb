@@ -10,9 +10,9 @@ module Ctc
         return false unless intake.total_wages_amount
 
         if intake.filing_jointly?
-          intake.total_wages_amount > 25_100
+          intake.total_wages_amount > Efile::BenefitsEligibility::SIMPLIFIED_FILING_UPPER_LIMIT_JOINT
         else
-          intake.total_wages_amount > 12_550
+          intake.total_wages_amount > Efile::BenefitsEligibility::SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE
         end
       end
 

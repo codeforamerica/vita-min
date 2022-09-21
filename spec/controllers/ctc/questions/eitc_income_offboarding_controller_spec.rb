@@ -47,6 +47,14 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
             it 'is true' do
               expect(described_class.show?(intake)).to eq true
             end
+
+            context 'but there is a qualifying child' do
+              let!(:dependent) { create :qualifying_child, intake: intake }
+
+              it 'is false' do
+                expect(described_class.show?(intake)).to eq false
+              end
+            end
           end
         end
 
