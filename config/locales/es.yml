@@ -2210,11 +2210,13 @@ es:
             title: "¿Cómo se define un joven sin hogar calificado?"
           not_full_time_student: No era estudiante a tiempo completo
           title: 'Seleccione cualquiera de las situaciones que fueron verdaderas en %{current_tax_year}:'
+          full_time_student: "¿Qué es una estudiante de tiempo completo?"
+          full_time_student_reveal: "Alguien que asistió a la escuela a tiempo completo durante al menos cinco meses del año se considera un estudiante de tiempo completo para el año."
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
+          help_text1: "Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2's, 1099's, etc)."
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar.
           list_1_eitc:
@@ -2256,8 +2258,7 @@ es:
             body_html: |
               Según el IRS, <b>no</b> está casado durante un año tributario si:
               <ul class="list--bulleted">
-              <li>nunca estuvo casado</li>
-              <li>Estuvo casado anteriormente pero al final del año tenía una sentencia de divorcio o una sentencia de manutención por separado (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              <li>Nunca estuvo casado O estuvo casado anteriormente pero al final del año tenía un decreto de divorcio o un decreto de manutención por separado</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
@@ -2266,7 +2267,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
+          title: ¿Está usted casado?
         had_dependents:
           add: Agregue dependientes
           continue: Seguir adelante sin dependientes
@@ -2465,9 +2466,6 @@ es:
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
             us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
-          reveal:
-            body: Si no vivió en uno de estos lugares durante más de la mitad de 2021, no puede usar GetCTC.
-            title: "¿Qué sucede si no viví en ningún lugar durante más de 6 meses el año pasado?"
           title: "¿Dónde vivió la mayor parte de %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño

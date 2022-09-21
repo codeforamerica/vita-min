@@ -8,7 +8,7 @@ def begin_intake
   choose I18n.t('views.ctc.questions.main_home.options.military_facility')
   click_on I18n.t('general.continue')
 
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
   click_on I18n.t('general.affirmative')
 
   within "h1" do

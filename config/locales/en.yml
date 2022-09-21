@@ -2255,7 +2255,7 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text1: You might benefit from filing a full tax return if you earned any income in 2021. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc).
+          help_text1: "You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc)."
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
           list_1_eitc:
@@ -2504,9 +2504,6 @@ en:
             military_facility: U.S. military facility
             puerto_rico: Puerto Rico
             us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
-          reveal:
-            body: If you did not live in one of these places for more than half of 2021, you cannot use GetCTC.
-            title: What if I did not live anywhere for more than 6 months last year?
           title: Where was your main home for %{current_tax_year}?
         no_dependents:
           add_child: Add a child
