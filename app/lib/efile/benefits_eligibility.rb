@@ -124,8 +124,7 @@ module Efile
     def qualified_for_eitc_pre_w2s?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
-        intake.primary.tin_type == "ssn" &&
-        !disqualified_for_eitc_due_to_income?
+        intake.primary.tin_type == "ssn"
     end
 
     def youngish_without_eitc_dependents?
