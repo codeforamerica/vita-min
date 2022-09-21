@@ -100,5 +100,4 @@ RSpec.describe Questions::QuestionsController do
       expect(subject.next_path).to eq Questions::FinalInfoController.to_path_helper
     end
   end
-
 end

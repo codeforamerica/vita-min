@@ -36,30 +36,18 @@ describe Ctc::Questions::W2sController do
 
   describe "#add_w2_later" do
     let(:intake) { create :ctc_intake }
-    let(:time_now) { DateTime.new(2022, 9, 19, 0, 0, 0) }
 
     before do
-      allow(subject).to receive(:sign_out)
-      allow(MixpanelService).to receive(:send_event)
-      allow(MixpanelService).to receive(:data_from).with([intake.client, intake]).and_return({ fake: "data" })
+      allow(subject).to receive(:track_click_history)
+      allow(subject).to receive(:sign_out).and_call_original
       sign_in intake.client
-    end
-
-    around do |example|
-      Timecop.freeze(time_now)
-      example.run
-      Timecop.return
     end
 
     it "logs the client out and sends an event to mixpanel" do
       put :add_w2_later
+      expect(response).to redirect_to root_path
 
-      expect(DateTime.parse(intake.client.analytics_journey.w2_logout_add_later)).to eq time_now
-      expect(MixpanelService).to have_received(:send_event).with(hash_including(
-        distinct_id: intake.visitor_id,
-        event_name: "w2_logout_add_later",
-        data: { fake: "data" }
-      ))
+      expect(subject).to have_received(:track_click_history).with(:w2_logout_add_later)
       expect(subject).to have_received(:sign_out).with(intake.client)
     end
   end

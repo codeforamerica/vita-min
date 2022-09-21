@@ -13,10 +13,7 @@ module Ctc
       end
 
       def add_w2_later
-        analytics_journey = AnalyticsJourney.find_or_initialize_by(client: current_intake.client)
-        analytics_journey.update(w2_logout_add_later: Time.now)
-
-        send_mixpanel_event(event_name: "w2_logout_add_later", data: MixpanelService.data_from([current_intake.client, current_intake]))
+        track_click_history(:w2_logout_add_later)
 
         clear_intake_session
         redirect_to root_path

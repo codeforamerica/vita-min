@@ -111,14 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
     t.index ["user_id"], name: "index_admin_toggles_on_user_id"
   end
 
-  create_table "analytics_journeys", force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "w2_logout_add_later"
-    t.index ["client_id"], name: "index_analytics_journeys_on_client_id"
-  end
-
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "record_count"
@@ -712,6 +704,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
     t.string "license_number", null: false
     t.string "state", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ds_click_histories", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "w2_logout_add_later", precision: nil
+    t.index ["client_id"], name: "index_ds_click_histories_on_client_id", unique: true
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -1639,7 +1639,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_toggles", "users"
-  add_foreign_key "analytics_journeys", "clients"
   add_foreign_key "archived_bank_accounts_2021", "archived_intakes_2021"
   add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"
@@ -1666,6 +1665,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "clients"
+  add_foreign_key "ds_click_histories", "clients"
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"
