@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Ctc::Portal::PortalController do
-  let(:intake) { create :ctc_intake, current_step: "/en/last/question" }
-  let(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, year: 2021)] }
+  let!(:intake) { create :ctc_intake, current_step: "/en/last/question" }
+  let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, year: 2021)] }
 
   context '#home' do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :home
@@ -147,6 +147,47 @@ describe Ctc::Portal::PortalController do
           get :edit_info
         ).to redirect_to(ctc_portal_root_path)
         expect(Sentry).to have_received(:capture_message).with("Client #{client.id} unexpectedly lacks an efile submission.")
+      end
+    end
+
+    context "W-2 adding and editing" do
+      render_views
+
+      before do
+        create(:efile_submission, :rejected, tax_return: intake.default_tax_return)
+        sign_in client, scope: :client
+      end
+
+      context "when the client doesn't want to or can't claim the EITC" do
+        before do
+          client.intake.update(claim_eitc: "no")
+        end
+
+        it "doesn't show the W-2 section" do
+          get :edit_info
+
+          expect(response.body).not_to include I18n.t("views.ctc.portal.edit_info.w2s_shared")
+        end
+      end
+
+      context "when the client wants to and can claim the EITC" do
+        before do
+          client.intake.update(claim_eitc: "yes", exceeded_investment_income_limit: "no")
+        end
+
+        context "when the client has no W-2s" do
+          before do
+            client.intake.w2s.destroy_all
+          end
+
+          it "shows the W-2 section with missing info message" do
+            get :edit_info
+
+            expect(response.body).to include I18n.t("views.ctc.portal.edit_info.w2s_shared")
+            expect(response.body).to include I18n.t("views.ctc.portal.edit_info.w2s_missing")
+            expect(response.body).to include I18n.t("views.ctc.questions.w2s.add")
+          end
+        end
       end
     end
   end
