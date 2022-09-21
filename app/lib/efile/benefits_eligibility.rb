@@ -117,7 +117,7 @@ module Efile
     def qualified_for_eitc?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
-        intake.primary.tin_type == "ssn"
+        eitc_qualifications_passes_tin_type_test?
     end
 
     def youngish_without_eitc_dependents?
@@ -145,6 +145,10 @@ module Efile
 
     def age_at_end_of_tax_year(filer)
       tax_return.year - filer.birth_date.year
+    end
+
+    def eitc_qualifications_passes_tin_type_test?
+      intake.filers.all? { |filer| filer.tin_type == 'ssn' }
     end
 
     def rrc_eligible_filer_count

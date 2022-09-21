@@ -189,7 +189,8 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
           exceeded_investment_income_limit: "no",
           primary_birth_date: primary_birth_date,
           former_foster_youth: "yes",
-          primary_tin_type: "ssn"
+          primary_tin_type: "ssn",
+          spouse_tin_type: "ssn"
         )
         create :w2, intake: submission.intake, wages_amount: 123.45, federal_income_tax_withheld: 1.25
         create :w2, intake: submission.intake, wages_amount: 100, federal_income_tax_withheld: 3
@@ -204,10 +205,10 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("WithholdingTaxAmt").text).to eq("4")
         expect(xml.at("EarnedIncomeCreditAmt").text).to eq("34")
         expect(xml.at("UndSpcfdAgeStsfyRqrEICInd")).to be_nil
-        expect(xml.at("RefundableCreditsAmt").text).to eq("6834")
-        expect(xml.at("TotalPaymentsAmt").text).to eq("6838")
-        expect(xml.at("OverpaidAmt").text).to eq("6838")
-        expect(xml.at("RefundAmt").text).to eq("6838")
+        expect(xml.at("RefundableCreditsAmt").text).to eq("8234")
+        expect(xml.at("TotalPaymentsAmt").text).to eq("8238")
+        expect(xml.at("OverpaidAmt").text).to eq("8238")
+        expect(xml.at("RefundAmt").text).to eq("8238")
       end
 
       context "client is under 24 and over 18 without qualifing dependents" do

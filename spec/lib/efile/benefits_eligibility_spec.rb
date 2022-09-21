@@ -371,6 +371,32 @@ describe Efile::BenefitsEligibility do
       end
     end
 
+    context 'married filing jointly' do
+      before do
+        intake.default_tax_return.update(filing_status: 'married_filing_jointly')
+      end
+
+      context "the spouse tin type is not ssn" do
+        before do
+          intake.update(spouse_tin_type: 'itin')
+        end
+
+        it "returns false" do
+          expect(subject.qualified_for_eitc?).to eq false
+        end
+      end
+
+      context "the spouse tin type is ssn" do
+        before do
+          intake.update(spouse_tin_type: 'ssn')
+        end
+
+        it "returns true" do
+          expect(subject.qualified_for_eitc?).to eq true
+        end
+      end
+    end
+
     context "when they are under 24" do
       let(:primary_age_at_end_of_tax_year) { 20.years }
       before do
@@ -391,7 +417,7 @@ describe Efile::BenefitsEligibility do
         context "when their spouse is over 24" do
           before do
             intake.default_tax_return.update(filing_status: "married_filing_jointly")
-            intake.update(spouse_birth_date: Date.new(2021, 12, 31) - 25.years)
+            intake.update(spouse_birth_date: Date.new(2021, 12, 31) - 25.years, spouse_tin_type: 'ssn')
           end
 
           it "returns true" do
