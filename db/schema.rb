@@ -1033,6 +1033,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
     t.integer "had_disability", default: 0, null: false
     t.integer "had_disability_income", default: 0, null: false
     t.integer "had_disaster_loss", default: 0, null: false
+    t.integer "had_disqualifying_non_w2_income"
     t.integer "had_farm_income", default: 0, null: false
     t.integer "had_gambling_income", default: 0, null: false
     t.integer "had_hsa", default: 0, null: false

@@ -1,5 +1,11 @@
 module Efile
   class BenefitsEligibility
+    EITC_UPPER_LIMIT_JOINT = 17_550
+    EITC_UPPER_LIMIT_SINGLE = 11_610
+
+    SIMPLIFIED_FILING_UPPER_LIMIT_JOINT = 25_100
+    SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE = 12_550
+
     attr_accessor :year, :eligible_filer_count, :dependents, :intake, :tax_return
     def initialize(tax_return:, dependents:)
       @tax_return = tax_return
@@ -94,7 +100,7 @@ module Efile
       # where phase-in function = earned-income amount * phase-in rate
       # But b/c of simplified filing rules, those above the phase out threshold cannot use the tool
       # so we are not including the phase-out function but keep in mind this might change next year
-      return nil unless qualified_for_eitc?
+      return nil unless claiming_and_qualified_for_eitc?
 
       earned_income = intake.w2s.sum(&:wages_amount).to_f
 
@@ -111,10 +117,14 @@ module Efile
     end
 
     def claiming_and_qualified_for_eitc?
-      intake.claim_eitc_yes? && qualified_for_eitc?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && !disqualified_for_eitc_due_to_income?
     end
 
-    def qualified_for_eitc?
+    def claiming_and_qualified_for_eitc_pre_w2s?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s?
+    end
+
+    def qualified_for_eitc_pre_w2s?
       intake.exceeded_investment_income_limit_no? &&
         eitc_qualifications_passes_age_test? &&
         eitc_qualifications_passes_tin_type_test?
@@ -128,7 +138,25 @@ module Efile
       intake.filers.all? { |filer| age_at_end_of_tax_year(filer) < 24 }
     end
 
+    def disqualified_for_eitc_due_to_income?
+      no_qcs && (intake.had_disqualifying_non_w2_income_yes? || over_income_threshold)
+    end
+
     private
+
+    def no_qcs
+      intake.dependents.none?(&:qualifying_eitc?)
+    end
+
+    def over_income_threshold
+      return false unless intake.total_wages_amount
+
+      if intake.filing_jointly?
+        intake.total_wages_amount >= EITC_UPPER_LIMIT_JOINT
+      else
+        intake.total_wages_amount >= EITC_UPPER_LIMIT_SINGLE
+      end
+    end
 
     def eitc_qualifications_passes_age_test?
       return true unless filers_younger_than_twenty_four?

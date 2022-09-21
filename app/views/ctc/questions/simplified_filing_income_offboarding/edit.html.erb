@@ -1,0 +1,9 @@
+<% @main_heading = t("views.ctc.questions.simplified_filing_income_offboarding.title", count: current_intake.filer_count) %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+  <p class="text--small"><%= t("views.ctc.questions.simplified_filing_income_offboarding.help_text", count: current_intake.filer_count) %></p>
+
+  <%= link_to t("views.ctc.questions.file_full_return.full_btn"), root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "getctc_W2_simplified_filing_income_offboarding"), class: "button button--wide text--centered" %>
+<% end %>

@@ -8,7 +8,7 @@ describe Ctc::Questions::EitcOffboardingController do
 
   before do
     allow(Efile::BenefitsEligibility).to receive(:new).and_return benefits_eligibility
-    allow(benefits_eligibility).to receive(:qualified_for_eitc?).and_return eitc_eligible
+    allow(benefits_eligibility).to receive(:qualified_for_eitc_pre_w2s?).and_return eitc_eligible
     sign_in intake.client
   end
 

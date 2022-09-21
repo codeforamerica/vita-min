@@ -2192,6 +2192,13 @@ es:
           license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado
           state: Estado
           title: Ingrese su información de su licencia de conducir o su tarjeta de identificación emitida por el estado
+        eitc_income_offboarding:
+          help_text:
+            one: Desafortunadamente, su ingreso total está por encima de nuestro límite. Puede continuar y reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo, o puede presentar una declaración de impuestos completa para reclamar su EITC.
+            other: Desafortunadamente, el ingreso total de usted y su cónyuge está por encima de nuestro límite. Puede continuar y reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo, o puede presentar una declaración de impuestos completa para reclamar su EITC.
+          title:
+            one: No califica para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolo!
+            other: Usted y su cónyuge no califican para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolos!
         eitc_offboarding:
           help_text: Continúe con GetCTC para solicitar su Crédito Tributario por Hijos y/o los pagos de estímulo que faltan.
           title: "¡No cumple los requisitos para obtener el crédito tributario por ingresos del trabajo, pero aún hay dinero disponible para usted!"
@@ -2464,6 +2471,17 @@ es:
         no_dependents_advance_ctc_payments:
           subtitle: Estos pagos habrían llegado entre julio y diciembre de 2021.
           title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos en %{current_tax_year}?"
+        non_w2_income:
+          additional_income:
+            list:
+            - ingresos del contratista
+            - ingresos por intereses
+            - ingresos por desempleo
+            - cualquier otro dinero que hayas recibido
+            list_title: 'Los ingresos adicionales incluyen:'
+          title:
+            one: "¿Obtuviste más de %{additional_income_amount} en ingresos adicionales?"
+            other: "¿Usted y su cónyuge ganaron más del %{additional_income_amount} en ingresos adicionales?"
         not_filing:
           buttons:
             faq: Preguntas Frecuentes
@@ -2510,6 +2528,13 @@ es:
         routing_number:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta
+        simplified_filing_income_offboarding:
+          help_text:
+            one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos fiscales si presenta una declaración de impuestos completa.
+            other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos fiscales si presentan una declaración de impuestos completa.
+          title:
+            one: Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.
+            other: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
           license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado

@@ -79,6 +79,7 @@
 #  had_disability                                       :integer          default(0), not null
 #  had_disability_income                                :integer          default(0), not null
 #  had_disaster_loss                                    :integer          default(0), not null
+#  had_disqualifying_non_w2_income                      :integer
 #  had_farm_income                                      :integer          default(0), not null
 #  had_gambling_income                                  :integer          default(0), not null
 #  had_hsa                                              :integer          default(0), not null
@@ -305,6 +306,7 @@ class Intake::CtcIntake < Intake
   enum not_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :not_full_time_student
   enum full_time_student_less_than_four_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student_less_than_four_months
   enum had_w2s: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_w2s
+  enum had_disqualifying_non_w2_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disqualifying_non_w2_income
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)

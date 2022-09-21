@@ -65,6 +65,11 @@ class CtcQuestionNavigation
     Ctc::Questions::W2s::EmployerInfoController,
     Ctc::Questions::ConfirmW2sController,
 
+    # EITC income exceptions
+    Ctc::Questions::SimplifiedFilingIncomeOffboardingController,
+    Ctc::Questions::NonW2IncomeController,
+    Ctc::Questions::EitcIncomeOffboardingController,
+
     # RRC
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
