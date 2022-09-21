@@ -16,6 +16,6 @@
     <%= f.cfa_input_field(:employer_zip_code, t("views.ctc.questions.w2s.employer_info.employer_zip_code"), classes: ["form-width--zip"]) %>
     <%= f.cfa_select(:standard_or_non_standard_code, t("views.ctc.questions.w2s.employer_info.standard_or_non_standard_code"), [%w[S S], %w[N N]]) %>
 
-    <%= f.continue @continue_label %>
+    <%= f.continue %>
   <% end %>
 <% end %>

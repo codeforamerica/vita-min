@@ -437,7 +437,7 @@ class Intake::CtcIntake < Intake
   end
 
   def total_wages_amount
-    w2s.sum { |w2| w2.wages_amount.round } if w2s.any?
+    w2s.completed.sum { |w2| w2.wages_amount.round } if w2s.any?
   end
 
   def total_withholding_amount

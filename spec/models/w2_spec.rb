@@ -3,6 +3,7 @@
 # Table name: w2s
 #
 #  id                            :bigint           not null, primary key
+#  completed_at                  :datetime
 #  creation_token                :string
 #  employee                      :integer          default("unfilled"), not null
 #  employee_city                 :string

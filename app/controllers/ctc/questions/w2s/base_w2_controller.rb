@@ -55,6 +55,10 @@ module Ctc
         def remember_last_edited_w2_id
           session[:last_edited_w2_id] = @w2&.id
         end
+
+        def illustration_path
+          "documents.svg"
+        end
       end
     end
   end

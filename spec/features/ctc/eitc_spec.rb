@@ -26,7 +26,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     click_on I18n.t('general.back')
 
-    fill_in_w2("Gary", filing_status: 'single')
+    fill_in_w2("Gary Mango III", filing_status: 'single')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'

@@ -2702,18 +2702,15 @@ en:
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add any income
           employee_info:
-            employee_city: City
+            employee_city: 'Box e: City'
             employee_legal_name: 'Select the legal name on the W2:'
-            employee_state: State
+            employee_state: 'Box e: State'
             employee_street_address: 'Box e: Employee street address or P.O. box'
-            employee_street_address2: Apartment number (optional)
-            employee_zip_code: Zip code
-            federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
+            employee_zip_code: 'Box e: Zip code'
             help_text: Your W-2 has lettered and numbered boxes. You will match and enter this information below.
             title:
               one: Let’s start by entering some basic info for %{name}.
               other: Let’s start by entering some basic info.
-            wages_amount: 'Box 1: Wages Amount'
           employer_info:
             add: Add W-2
             employer_city: City
@@ -2730,6 +2727,9 @@ en:
               one: A W-2 is an official tax form given to you by your employer. Enter all of your W-2s to get the Earned Income Tax Credit and avoid delays.
               other: A W-2 is an official tax form given to you by your employer. Enter all of you and your spouse’s W-2s to get the Earned Income Tax Credit and avoid delays.
             p2: The form you enter must have W-2 printed on top or it will not be accepted.
+          misc_info:
+            submit: Submit W-2
+            title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."
           reveal:
             content:
@@ -2743,6 +2743,13 @@ en:
             title: What if I have a 1099?
           title: Please share the income from your W-2.
           wages: Wages
+          wages_info:
+            federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
+            info_box:
+              requirement_description_html: Please enter the information <strong>exactly</strong> as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.
+              requirement_title: 'Requirement:'
+            title: Great! Please enter all of %{name}’s wages, tips, and taxes withheld from this W-2.
+            wages_amount: 'Box 1: Wages Amount'
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:

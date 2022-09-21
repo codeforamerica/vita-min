@@ -341,12 +341,15 @@ module CtcIntakeFeatureHelper
       expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
       select employee_name, from: I18n.t('views.ctc.questions.w2s.employee_info.employee_legal_name')
     end
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: wages
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
     select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: employee_name))
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.wages_amount'), with: wages
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.federal_income_tax_withheld'), with: '12.01'
     click_on I18n.t('general.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
@@ -357,7 +360,10 @@ module CtcIntakeFeatureHelper
     select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
     select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
-    click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
+    click_on I18n.t('general.continue')
+
+    # misc stuff
+    click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
   end
 
   def fill_in_advance_child_tax_credit

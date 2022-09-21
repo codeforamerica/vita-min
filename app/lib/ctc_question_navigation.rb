@@ -62,7 +62,9 @@ class CtcQuestionNavigation
     # Looping W2 flow for EITC
     Ctc::Questions::W2sController,
     Ctc::Questions::W2s::EmployeeInfoController,
+    Ctc::Questions::W2s::WagesInfoController,
     Ctc::Questions::W2s::EmployerInfoController,
+    Ctc::Questions::W2s::MiscInfoController,
     Ctc::Questions::ConfirmW2sController,
 
     # EITC income exceptions

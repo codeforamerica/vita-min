@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_230705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1602,6 +1602,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
   end
 
   create_table "w2s", force: :cascade do |t|
+    t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.string "creation_token"
     t.integer "employee", default: 0, null: false

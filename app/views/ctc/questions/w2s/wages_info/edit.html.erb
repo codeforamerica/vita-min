@@ -1,0 +1,21 @@
+<% @main_question = t("views.ctc.questions.w2s.wages_info.title", name: @form.w2.employee_obj.first_and_last_name) %>
+<% content_for :page_title, @main_question %>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="info-box spacing-below-15">
+      <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
+      <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_title") %></p>
+
+      <div><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_description_html") %></div>
+    </div>
+
+    <%= f.cfa_input_field(:wages_amount, t("views.ctc.questions.w2s.wages_info.wages_amount"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:federal_income_tax_withheld, t("views.ctc.questions.w2s.wages_info.federal_income_tax_withheld"), classes: ["form-width--long"]) %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
