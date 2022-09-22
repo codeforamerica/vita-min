@@ -1,7 +1,9 @@
 <% @main_heading = if current_intake.puerto_rico_filing?
                      t("views.ctc.questions.file_full_return.puerto_rico.title")
+                   elsif Flipper.enabled?(:eitc)
+                     t("views.ctc.questions.file_full_return.title_eitc")
                    else
-                     Flipper.enabled?(:eitc) ? t("views.ctc.questions.file_full_return.title_eitc") : t("views.ctc.questions.file_full_return.title")
+                       t("views.ctc.questions.file_full_return.title")
                    end %>
 <% content_for :form_question, @main_heading %>
 
