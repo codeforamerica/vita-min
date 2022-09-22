@@ -2723,6 +2723,13 @@ es:
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
           wages_info:
+            box10_dependent_care_benefits: 'Cuadro 10: Beneficios para el cuidado de dependientes'
+            box3_social_security_wages: 'Casilla 3: Salarios de seguridad social'
+            box4_social_security_tax_withheld: 'Casilla 4: Impuesto al Seguro Social retenido'
+            box5_medicare_wages_and_tip_amount: 'Casilla 5: Cantidad de salarios y propinas de Medicare'
+            box6_medicare_tax_withheld: 'Casilla 6: Retención de impuestos de Medicare'
+            box7_social_security_tips_amount: 'Casilla 7: Cantidad de propinas del seguro social'
+            box8_allocated_tips: 'Cuadro 8: Propinas asignadas'
             federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
             info_box:
               requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.

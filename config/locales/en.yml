@@ -2760,19 +2760,19 @@ en:
           title: Please share the income from your W-2.
           wages: Wages
           wages_info:
+            box10_dependent_care_benefits: 'Box 10: Dependent care benefits'
+            box3_social_security_wages: 'Box 3: Social security wages'
+            box4_social_security_tax_withheld: 'Box 4: Social security tax withheld'
+            box5_medicare_wages_and_tip_amount: 'Box 5: Medicare wages and tips amount'
+            box6_medicare_tax_withheld: 'Box 6: Medicare tax withheld'
+            box7_social_security_tips_amount: 'Box 7: Social security tips amount'
+            box8_allocated_tips: 'Box 8: Allocated tips'
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
             info_box:
               requirement_description_html: Please enter the information <strong>exactly</strong> as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.
               requirement_title: 'Requirement:'
             title: Great! Please enter all of %{name}’s wages, tips, and taxes withheld from this W-2.
             wages_amount: 'Box 1: Wages Amount'
-            box3_social_security_wages: "Box 3: Social security wages"
-            box4_social_security_tax_withheld: "Box 4: Social security tax withheld"
-            box5_medicare_wages_and_tip_amount: "Box 5: Medicare wages and tips amount"
-            box6_medicare_tax_withheld: "Box 6: Medicare tax withheld"
-            box7_social_security_tips_amount: "Box 7: Social security tips amount"
-            box8_allocated_tips: "Box 8: Allocated tips"
-            box10_dependent_care_benefits: "Box 10: Dependent care benefits"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
