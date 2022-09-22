@@ -11,7 +11,7 @@ module Ctc
         @ctc_amount = benefits.outstanding_ctc_amount
         @third_stimulus_amount = benefits.outstanding_eip3
         @eitc_amount = benefits.claiming_and_qualified_for_eitc? ? benefits.eitc_amount : nil
-        @fed_income_tax_withholding_amount = current_intake.w2s.pluck(:federal_income_tax_withheld).sum
+        @fed_income_tax_withholding_amount = current_intake.total_withholding_amount
         @total_amount = [@ctc_amount, @third_stimulus_amount, @eitc_amount, @fed_income_tax_withholding_amount].compact.sum
 
         # This feels like a weird place to fire this event, as it will fire each time this page is reloaded.
