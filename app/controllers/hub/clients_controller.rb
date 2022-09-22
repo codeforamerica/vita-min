@@ -195,6 +195,7 @@ module Hub
           @intake = Intake::GyrIntake.new(client_id: @client.id)
           @intake.readonly!
         end
+        @intake = HubIntakePresenter.new(@intake)
       end
 
       def urbanization
@@ -231,6 +232,25 @@ module Hub
         return false if archived?
 
         intake.itin_applicant?
+      end
+    end
+
+    class HubIntakePresenter < SimpleDelegator
+      def initialize(intake)
+        @intake = intake
+        __setobj__(intake)
+      end
+
+      def primary
+        return @intake.primary if @intake.is_a?(Intake)
+
+        Intake::Person.new(@intake, :primary)
+      end
+
+      def spouse
+        return @intake.spouse if @intake.is_a?(Intake)
+
+        Intake::Person.new(@intake, :spouse)
       end
     end
   end
