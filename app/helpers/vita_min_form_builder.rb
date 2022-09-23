@@ -75,6 +75,50 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
+  def vita_min_select_and_input_fields(
+    select_method,
+    input_method,
+    label_text,
+    collection,
+    options = {},
+    classes: [],
+    &block
+  )
+    html_options = {
+      class: "select__element",
+    }
+
+    formatted_label = label(
+      select_method,
+      h1_label_contents(label_text, options[:help_text], options[:optional])
+    )
+    html_options_with_errors = html_options.merge(error_attributes(method: select_method))
+
+    text_field_options = standard_options.merge(
+      type: 'text',
+      class: (classes + ["text-input", "text-input--inline-element"]).join(" "),
+    ).merge(options).merge(error_attributes(method: input_method))
+
+    text_field_options[:id] ||= sanitized_id(input_method)
+    options[:input_id] ||= sanitized_id(input_method)
+
+    text_field_html = text_field(input_method, text_field_options)
+
+    html_output = <<~HTML
+          <div class="form-group#{error_state(object, select_method)}">
+            #{formatted_label}
+            <div class="select">
+              #{select(select_method, collection, options, html_options_with_errors, &block)}
+            </div>
+            #{text_field_html}
+
+            #{errors_for(object, select_method)}
+          </div>
+    HTML
+
+    html_output.html_safe
+  end
+
   def simplified_cfa_checkbox(method, label_text, options: {})
     checked_value = options[:checked_value] || "1"
     unchecked_value = options[:unchecked_value] || "0"

@@ -13,9 +13,9 @@
 #  box12c_value                       :decimal(12, 2)
 #  box12d_code                        :string
 #  box12d_value                       :decimal(12, 2)
-#  box13_retirement_plan              :integer          default(0)
-#  box13_statutory_employee           :integer          default(0)
-#  box13_third_party_sick_pay         :integer          default(0)
+#  box13_retirement_plan              :integer          default("unfilled")
+#  box13_statutory_employee           :integer          default("unfilled")
+#  box13_third_party_sick_pay         :integer          default("unfilled")
 #  box3_social_security_wages         :decimal(12, 2)
 #  box4_social_security_tax_withheld  :decimal(12, 2)
 #  box5_medicare_wages_and_tip_amount :decimal(12, 2)
@@ -51,11 +51,15 @@
 #  index_w2s_on_intake_id       (intake_id)
 #
 class W2 < ApplicationRecord
+  BOX12_OPTIONS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "Z", "AA", "BB", "DD", "EE", "FF", "GG", "HH"]
   belongs_to :intake
 
   scope :completed, -> { where.not(completed_at: nil) }
 
   enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
+  enum box13_statutory_employee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_statutory_employee
+  enum box13_retirement_plan: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_retirement_plan
+  enum box13_third_party_sick_pay: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_third_party_sick_pay
 
   delegate :first_name, :middle_initial, :suffix, :last_name, :ssn, to: :employee_obj, allow_nil: true, prefix: :employee
 

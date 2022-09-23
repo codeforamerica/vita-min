@@ -2723,27 +2723,37 @@ en:
             employee_state: 'Box e: State'
             employee_street_address: 'Box e: Employee street address or P.O. box'
             employee_zip_code: 'Box e: Zip code'
-            help_text: Your W-2 has lettered and numbered boxes. You will match and enter this information below.
             title:
               one: Let’s start by entering some basic info for %{name}.
               other: Let’s start by entering some basic info.
           employer_info:
             add: Add W-2
+            box_d_control_number: 'Box d: Control number'
             employer_city: City
             employer_ein: 'Box b: Employer Identification Number (EIN)'
             employer_name: 'Box c: Employer Name'
             employer_state: State
             employer_street_address: Employer street address or P.O. box
-            employer_street_address2: Apartment number (optional)
             employer_zip_code: Zip code
-            standard_or_non_standard_code: Standard or Non-Standard Code
-            title: Great! Let’s start with reading your W-2.
+            title: Now we’ll move into the employer section of %{name}’s W-2.
           help_text:
             p1:
               one: A W-2 is an official tax form given to you by your employer. Enter all of your W-2s to get the Earned Income Tax Credit and avoid delays.
               other: A W-2 is an official tax form given to you by your employer. Enter all of you and your spouse’s W-2s to get the Earned Income Tax Credit and avoid delays.
             p2: The form you enter must have W-2 printed on top or it will not be accepted.
           misc_info:
+            box11_nonqualified_plans: 'Box 11: Nonqualified plans'
+            box12a: 'Box 12a:'
+            box12b: 'Box 12b:'
+            box12c: 'Box 12c:'
+            box12d: 'Box 12d:'
+            box13: 'Box 13: If marked on your W-2, select the matching option below'
+            box13_retirement_plan: Retirement plan
+            box13_statutory_employee: Statutory employee
+            box13_third_party_sick_pay: Third-party sick pay
+            info_box:
+              requirement_description_html: The following sections of your W-2 may likely be blank. If so, there is no problem; leave them blank in the boxes below.
+              requirement_title: 'Requirement:'
             submit: Submit W-2
             title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."
@@ -2768,6 +2778,7 @@ en:
             box7_social_security_tips_amount: 'Box 7: Social security tips amount'
             box8_allocated_tips: 'Box 8: Allocated tips'
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
+            help_text: 'Note: Please enter the information exactly as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.'
             info_box:
               requirement_description_html: Please enter the information <strong>exactly</strong> as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.
               requirement_title: 'Requirement:'

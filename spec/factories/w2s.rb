@@ -13,9 +13,9 @@
 #  box12c_value                       :decimal(12, 2)
 #  box12d_code                        :string
 #  box12d_value                       :decimal(12, 2)
-#  box13_retirement_plan              :integer          default(0)
-#  box13_statutory_employee           :integer          default(0)
-#  box13_third_party_sick_pay         :integer          default(0)
+#  box13_retirement_plan              :integer          default("unfilled")
+#  box13_statutory_employee           :integer          default("unfilled")
+#  box13_third_party_sick_pay         :integer          default("unfilled")
 #  box3_social_security_wages         :decimal(12, 2)
 #  box4_social_security_tax_withheld  :decimal(12, 2)
 #  box5_medicare_wages_and_tip_amount :decimal(12, 2)

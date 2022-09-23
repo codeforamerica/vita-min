@@ -1,20 +1,25 @@
-<% @main_question = t("views.ctc.questions.w2s.employer_info.title") %>
+<% @main_question = t("views.ctc.questions.w2s.employer_info.title", name: @form.w2.employee_obj.first_and_last_name) %>
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t("views.ctc.questions.w2s.employee_info.help_text") %></p>
+
+    <div class="info-box spacing-below-35">
+      <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
+      <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_title") %></p>
+
+      <div><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_description_html") %></div>
+    </div>
 
     <%= f.cfa_input_field(:employer_ein, t("views.ctc.questions.w2s.employer_info.employer_ein"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:employer_name, t("views.ctc.questions.w2s.employer_info.employer_name"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:employer_street_address, t("views.ctc.questions.w2s.employer_info.employer_street_address"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:employer_street_address2, t("views.ctc.questions.w2s.employer_info.employer_street_address2"), classes: ["form-width--short"]) %>
     <%= f.cfa_input_field(:employer_city, t("views.ctc.questions.w2s.employer_info.employer_city"), classes: ["form-width--long"]) %>
     <%= f.cfa_select(:employer_state, t("views.ctc.questions.w2s.employer_info.employer_state"), States.name_value_pairs, include_blank: true) %>
     <%= f.cfa_input_field(:employer_zip_code, t("views.ctc.questions.w2s.employer_info.employer_zip_code"), classes: ["form-width--zip"]) %>
-    <%= f.cfa_select(:standard_or_non_standard_code, t("views.ctc.questions.w2s.employer_info.standard_or_non_standard_code"), [%w[S S], %w[N N]]) %>
+    <%= f.cfa_input_field(:box_d_control_number, t("views.ctc.questions.w2s.employer_info.box_d_control_number"), classes: ["form-width--long"]) %>
 
     <%= f.continue %>
   <% end %>
