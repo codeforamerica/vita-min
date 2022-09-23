@@ -23,7 +23,7 @@
         <p class="spacing-below-15"><%= number_to_currency(@eitc_amount) %></p>
       </div>
     <% end %>
-    <% unless @fed_income_tax_withholding_amount.zero? || @fed_income_tax_withholding_amount.nil? %>
+    <% unless @fed_income_tax_withholding_amount.nil? || @fed_income_tax_withholding_amount.zero? %>
       <div class="spacing-above-35">
         <p class="spacing-below-15">
           <strong><%= t('views.ctc.questions.confirm_payment.fed_income_tax_withholding') %></strong></p>
