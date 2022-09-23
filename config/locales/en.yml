@@ -2526,7 +2526,7 @@ en:
           - We will not send any of your information to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and, if applicable, your third stimulus payment.
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit, your Earned Income Tax Credit, and your third stimulus payment.
           legal_warning: You are about to file a tax return. You are responsible for answering  questions truthfully and accurately to the best of your ability.
           title: Welcome!
         prior_tax_year_agi:

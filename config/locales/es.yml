@@ -2488,7 +2488,7 @@ es:
           - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
+          help_text: Utilice nuestra sencilla herramienta de presentación electrónica para recibir su Crédito Tributario por Hijos, su Crédito Tributario por Ingreso del Trabajo y su tercer pago de estímulo.
           legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
