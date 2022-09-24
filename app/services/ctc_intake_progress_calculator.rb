@@ -1,5 +1,5 @@
 class CtcIntakeProgressCalculator
-  starting_index = CtcQuestionNavigation::FLOW.index(Ctc::Questions::ContactPreferenceController)
+  starting_index = CtcQuestionNavigation::FLOW.index(Ctc::Questions::MainHomeController)
   ending_index = CtcQuestionNavigation::FLOW.index(Ctc::Questions::ConfirmLegalController)
   POSSIBLE_STEPS = CtcQuestionNavigation::FLOW[starting_index..ending_index]
 

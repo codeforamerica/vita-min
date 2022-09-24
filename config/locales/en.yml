@@ -2029,11 +2029,10 @@ en:
           buttons:
             claim: Yes, claim EITC
             dont_claim: No, continue without EITC
-          help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700. Most people receive at least $1,500.
+          help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700.
           info_box:
             list:
-            - You have a job earning money
-            - You have a 2021 W2 from your employer(s)
+            - You have a job earning money in %{current_tax_year}
             - Each person on this return has an SSN
             title: 'Requirements:'
           title: Would you like to claim more money by sharing any 2021 W2 forms?
@@ -2052,6 +2051,7 @@ en:
                 title: Should I file as the Head of Household?
               p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: What about other benefits my dependents could be eligible for?
+          subtitle: Here are the credits your dependents are eligible for in %{current_tax_year}. Please be aware that each credit has its own set of eligibility rules.
           title: Let’s confirm!
         confirm_information:
           help_text: You will not be able change your information once the return is accepted by the IRS.
@@ -2081,9 +2081,11 @@ en:
           do_not_file: Do not file
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
           eitc: 'Earned Income Tax Credit:'
+          fed_income_tax_withholding: 'Federal Income Tax Withholding:'
+          subtitle: You’re almost done! Please continue to complete filing your tax return.
           third_stimulus: 'Third Stimulus Payment:'
-          title: 'Here’s a list of the payments you are claiming:'
-          total: 'Total fund amount:'
+          title: 'Review this list of the payments you are claiming:'
+          total: 'Total refund amount:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: Your %{prior_tax_year} AGI
         confirm_spouse_prior_year_agi:
@@ -2173,7 +2175,7 @@ en:
             - The person you are trying to claim might not live with you for enough of the year. In most cases, your dependent must live with you for most of the year.
             - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
             - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
-            help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
+            help_text: We will not save %{name} to your tax return. They do not qualify for any tax credits.
             puerto_rico:
               affirmative: Yes, add another child
               conditions:
@@ -2247,20 +2249,32 @@ en:
           former_foster_youth: I was a qualified former foster youth
           former_foster_youth_reveal:
             info: A qualified former foster youth is someone who was in foster care between the ages of 14 and 17. You must have allowed the foster care program to share your status as a former foster youth.
-            title: What is a qualified former foster youth?
+            title: Am I a qualified former foster youth?
+          full_time_student: What is a full-time student?
           full_time_student_less_than_four_months: I was a full time student for less than 4 months
+          full_time_student_reveal: Someone who attended school full-time for at least five months of the year is considered a full-time student for the year.
           homeless_youth: I was a qualified homeless youth
           homeless_youth_reveal:
             info: A qualified homeless youth is someone who is homeless or at risk of homelessness, who supports themselves financially. You must be between 18-24 years old and can not be under physical custody of a parent or guardian.
-            title: What is a qualified homeless youth?
+            title: Am I a qualified homeless youth?
           not_full_time_student: I was not a full time student
           title: 'Select any of the situations that were true in %{current_tax_year}:'
         email_address:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
+          help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
+          help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
+          list_1_eitc:
+          - Child Tax Credit
+          - 3rd Stimulus Check
+          - Earned Income Tax Credit
+          list_1_eitc_title: 'You can file a simplified tax return to claim the:'
+          list_2_eitc:
+          - Stimulus check 1 or 2
+          - State tax credits or stimulus payments
+          list_2_eitc_title: 'You cannot use this tool to claim:'
           puerto_rico:
             full_btn: File a Puerto Rico tax return
             help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
@@ -2270,10 +2284,11 @@ en:
             body_html:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
             - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>.
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
+          title_eitc: You are currently filing a simplified federal tax return.
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
@@ -2290,8 +2305,7 @@ en:
             body_html: |
               According to the IRS, you are <b>not</b> married for a tax year if:
               <ul class="list--bulleted">
-              <li>You were never married</li>
-              <li>You were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance (these are formal legal instruments, not just like an agreement)</li>
+              <li>You were never married OR you were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance.</li>
               </ul>
             title: Does the IRS consider me to be married?
           mfs_reveal:
@@ -2300,7 +2314,7 @@ en:
           spouse_died_reveal:
             body: Select Yes, and you’ll file with your deceased spouse.
             title: What if my spouse died last year?
-          title: As of December 31, %{current_tax_year}, were you legally married?
+          title: Are you married?
         had_dependents:
           add: Add dependents
           continue: Continue without dependents
@@ -2366,7 +2380,6 @@ en:
               - tips
               - commissions
               - self-employment or contract payments
-              - unemployment benefits
               p1: 'Income could come from any of the following sources:'
             title: What counts as income?
           income_source_reveal:
@@ -2374,15 +2387,15 @@ en:
             title: How do I know the source of my income?
           list:
             one:
-            - you earned less than %{standard_deduction} in total income
-            - you earned less than $400 in self-employment income
-            - you did not receive the Advance Premium Tax Credit
-            - you are not required to file a full tax return for any other reason
+            - earned less than %{standard_deduction} in total income
+            - earned less than $400 in contract work or self-employment income
+            - did not receive the Advance Premium Tax Credit
+            - are not required to file a full tax return for any other reason
             other:
-            - you and your spouse earned less than %{standard_deduction} in total income
-            - you and your spouse earned less than $400 in self-employment income
-            - you and your spouse did not receive the Advance Premium Tax Credit
-            - you and your spouse are not required to file a full tax return for any other reason
+            - earned less than %{standard_deduction} in total income
+            - earned less than $400 in cintract work or self-employment income
+            - did not receive the Advance Premium Tax Credit
+            - are not required to file a full tax return for any other reason
           mainland_connection_reveal:
             content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
             title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
@@ -2413,19 +2426,23 @@ en:
               - gig work
               - driving for Uber, Lyft, or similar
               - renting out your home
-              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2. Self-employment income includes cash payments.
+              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2.
               p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
             title: What counts as self-employment income?
-          title: 'You can only use GetCTC if, in %{current_tax_year}:'
+          title:
+            one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
+            other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
-              p2: You would not have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
+              p2: You would have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
               p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
             title: What is the Advance Premium Tax Credit?
         investment_income:
-          help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
+          help_text: In general, investment income includes interest, dividends, capital gains, and mutual fund distributions.
           married_title: Did you and your spouse earn more than $10,000 in investment income?
+          reveal_content: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
+          reveal_title: How do I check my investment income amount?
           title: Did you earn more than $10,000 in investment income?
         ip_pin:
           help_text_1: Having an IP PIN is rare. If you are unfamiliar with an IP PIN, you likely have not been issued one.
@@ -2488,17 +2505,14 @@ en:
           reveal_label: What if I don’t have a mailing address?
           title: Please provide your mailing address.
         main_home:
-          help_text: Select the location where you spent more than half of 2021.
+          help_text: Your main home is a place you stayed at for more than half the tax year.
           options:
             fifty_states: Any of the 50 states or the District of Columbia
             foreign_address: Foreign address
             military_facility: U.S. military facility
             puerto_rico: Puerto Rico
             us_territory: Other U.S. territory (such as Guam, American Samoa, U.S. Virgin Islands)
-          reveal:
-            body: If you did not live in one of these places for more than half of 2021, you cannot use GetCTC.
-            title: What if I did not live anywhere for more than 6 months last year?
-          title: Where did you live for most of %{current_tax_year}?
+          title: Where was your main home for %{current_tax_year}?
         no_dependents:
           add_child: Add a child
           add_dependents: Add more dependents
@@ -2532,6 +2546,7 @@ en:
           title: You’ve decided to not file a tax return.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and, if applicable, your third stimulus payment.
+          help_text_eitc: Use our simple e-filing tool to receive your Child Tax Credit, your Earned Income Tax Credit, and your third stimulus payment.
           legal_warning: You are about to file a tax return. You are responsible for answering  questions truthfully and accurately to the best of your ability.
           title: Welcome!
         prior_tax_year_agi:
@@ -2550,9 +2565,10 @@ en:
           remove_button: Yes, remove them
           title_html: You're about to remove %{spouse_name}.<br><br>Is that okay?
         restrictions:
-          cannot_use_ctc: I cannot use GetCTC
+          cannot_use_ctc: I can't use GetCTC
           list:
-          - you have previously had the CTC reduced or disallowed by an IRS investigation and you have not properly filed Form 8862 since then
+          - you have previously had the CTC or the EITC reduced or disallowed by an IRS investigation and you have not properly filed Form 8862 since then
+          - you have income in tips from a service job that was not reported to your employer
           - you want to file Form 8332 in order to claim a child who does not live with you
           - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
           - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credit payments in %{current_tax_year}

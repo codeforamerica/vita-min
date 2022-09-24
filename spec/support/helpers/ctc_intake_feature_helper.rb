@@ -23,7 +23,7 @@ module CtcIntakeFeatureHelper
     choose I18n.t("views.ctc.questions.main_home.options.#{home_location}")
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
     if married_filing_jointly
       click_on I18n.t('general.affirmative')
     else
@@ -33,15 +33,19 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       if married_filing_jointly
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
       else
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
       end
     end
     click_on I18n.t('general.continue')
 
     key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    if Flipper.enabled?("eitc")
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
+    else
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    end
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
     if Flipper.enabled?(:eitc)
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
@@ -531,7 +535,7 @@ module CtcIntakeFeatureHelper
       expect(page).to have_selector("p", text:  married_filing_jointly ? "$2,400" : "$1,000")
     end
 
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.confirm')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.irs_language_preference.title"))
     click_on I18n.t('general.continue')
