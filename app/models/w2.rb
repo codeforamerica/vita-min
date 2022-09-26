@@ -51,8 +51,6 @@ class W2 < ApplicationRecord
   BOX12_OPTIONS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "Z", "AA", "BB", "DD", "EE", "FF", "GG", "HH"]
   belongs_to :intake
 
-  self.ignored_columns = [:standard_or_non_standard_code, :employer_street_address2, :employee_street_address2 ]
-
   scope :completed, -> { where.not(completed_at: nil) }
 
   enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
