@@ -5,7 +5,6 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t("views.ctc.questions.w2s.employee_info.help_text") %></p>
 
     <% if current_intake.filing_jointly? %>
       <%= f.cfa_select(:employee, t("views.ctc.questions.w2s.employee_info.employee_legal_name"), [[current_intake.primary.first_and_last_name, 'primary'], [current_intake.spouse.first_and_last_name, 'spouse' ]], include_blank: true) %>

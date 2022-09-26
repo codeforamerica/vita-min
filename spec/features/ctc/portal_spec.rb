@@ -321,7 +321,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.wages_info.title", name: "Mangonada Mangonada"))
         click_on I18n.t("general.continue")
 
-        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title"))
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employer_info.title", name: "Mangonada Mangonada"))
         expect(page).to have_text(I18n.t("views.ctc.questions.w2s.employer_info.employer_name"))
         fill_in I18n.t("views.ctc.questions.w2s.employer_info.employer_name"), with: "Cod for America"
         click_on I18n.t("general.continue")
@@ -352,14 +352,13 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         fill_in I18n.t('views.ctc.questions.w2s.wages_info.federal_income_tax_withheld'), with: '12.01'
         click_on I18n.t('general.continue')
 
-        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+        expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title', name: "Mangonada Mangonada"))
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'Fruit Stand'
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
         select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
         fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
-        select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
         click_on I18n.t('general.continue')
 
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.misc_info.title", name: "Mangonada Mangonada"))
@@ -444,11 +443,13 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           "employer_state" => ["nil", "CA"],
           "employer_street_address" => ["nil", "123 Easy St"],
           "employer_zip_code" => ["nil", "94105"],
-          "standard_or_non_standard_code" => ["nil", "S"],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[10].id}")).to match({
           "completed_at" => ["nil", an_instance_of(String)],
+          "box13_retirement_plan" => ["unfilled", "no"],
+          "box13_statutory_employee" => ["unfilled", "no"],
+          "box13_third_party_sick_pay" => ["unfilled", "no"],
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")

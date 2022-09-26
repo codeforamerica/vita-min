@@ -6,6 +6,28 @@
 
     <h1 class="h2"><%= @main_question %></h1>
 
+    <div class="info-box spacing-below-35">
+      <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
+      <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.misc_info.info_box.requirement_title") %></p>
+
+      <div><%= t("views.ctc.questions.w2s.misc_info.info_box.requirement_description_html") %></div>
+    </div>
+
+    <%= f.cfa_input_field(:box11_nonqualified_plans, t("views.ctc.questions.w2s.misc_info.box11_nonqualified_plans"), classes: ["form-width--long"]) %>
+
+    <%= f.vita_min_select_and_input_fields :box12a_code, :box12a_value, :box12a, t("views.ctc.questions.w2s.misc_info.box12a"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12b_code, :box12b_value, :box12b, t("views.ctc.questions.w2s.misc_info.box12b"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12c_code, :box12c_value, :box12c, t("views.ctc.questions.w2s.misc_info.box12c"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12d_code, :box12d_value, :box12d, t("views.ctc.questions.w2s.misc_info.box12d"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <p><strong><%= t("views.ctc.questions.w2s.misc_info.box13") %></strong></p>
+
+      <%= f.cfa_checkbox(:box13_statutory_employee, t('views.ctc.questions.w2s.misc_info.box13_statutory_employee'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:box13_retirement_plan, t('views.ctc.questions.w2s.misc_info.box13_retirement_plan'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:box13_third_party_sick_pay, t('views.ctc.questions.w2s.misc_info.box13_third_party_sick_pay'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+
     <%= f.continue @continue_label %>
   <% end %>
 <% end %>

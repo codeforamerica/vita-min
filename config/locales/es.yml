@@ -2685,21 +2685,19 @@ es:
             employee_state: 'Casilla e: Estado'
             employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
             employee_zip_code: 'Casilla e: Código postal'
-            help_text: Su forma W-2 tiene casillas con letras y números. A continuación, deberá hacer que coincidan e introducir esta información.
             title:
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
           employer_info:
             add: Agregar la forma W-2
+            box_d_control_number: 'Casilla d: Número de control'
             employer_city: Ciudad
             employer_ein: 'Casilla b: Número de identificación del empleador (EIN)'
             employer_name: 'Casilla c: Nombre del empleador'
             employer_state: Estado
             employer_street_address: Dirección del empleador o apartado postal
-            employer_street_address2: Número de apartamento (opcional)
             employer_zip_code: Código postal
-            standard_or_non_standard_code: Código estándar o no estándar
-            title: "¡Fantástico! Empecemos por leer su forma W-2"
+            title: Ahora pasaremos a la sección del empleador del W-2 de %{name}.
           help_text:
             p1:
               many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
@@ -2707,6 +2705,20 @@ es:
               other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
             p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
           misc_info:
+            box11_nonqualified_plans: 'Recuadro 11: Planes no calificados'
+            box12_error: Debe proporcionar tanto el código como el valor.
+            box12_value_error: El valor debe ser numérico
+            box12a: 'Recuadro 12a:'
+            box12b: 'Recuadro 12b:'
+            box12c: 'Recuadro 12c:'
+            box12d: 'Recuadro 12d:'
+            box13: 'Cuadro 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
+            box13_retirement_plan: Plan de retiro
+            box13_statutory_employee: Empleado estatutario
+            box13_third_party_sick_pay: Pago por enfermedad de terceros
+            info_box:
+              requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
+              requirement_title: 'Requisito:'
             submit: Enviar W-2
             title: Terminemos de ingresar la información W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
@@ -2723,7 +2735,15 @@ es:
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
           wages_info:
+            box10_dependent_care_benefits: 'Cuadro 10: Beneficios para el cuidado de dependientes'
+            box3_social_security_wages: 'Casilla 3: Salarios de seguridad social'
+            box4_social_security_tax_withheld: 'Casilla 4: Impuesto al Seguro Social retenido'
+            box5_medicare_wages_and_tip_amount: 'Casilla 5: Cantidad de salarios y propinas de Medicare'
+            box6_medicare_tax_withheld: 'Casilla 6: Retención de impuestos de Medicare'
+            box7_social_security_tips_amount: 'Casilla 7: Cantidad de propinas del seguro social'
+            box8_allocated_tips: 'Cuadro 8: Propinas asignadas'
             federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
+            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.'
             info_box:
               requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'

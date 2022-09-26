@@ -334,7 +334,6 @@ class Seeder
           employer_zip_code: "94414",
           wages_amount: 100.10,
           federal_income_tax_withheld: 20.34,
-          standard_or_non_standard_code: "S",
         }
       ],
     )
@@ -396,7 +395,6 @@ class Seeder
           employer_zip_code: "94414",
           wages_amount: 100.10,
           federal_income_tax_withheld: 20.34,
-          standard_or_non_standard_code: "S",
         }
       ],
     )
@@ -439,7 +437,6 @@ class Seeder
           employer_zip_code: "94414",
           wages_amount: 100.10,
           federal_income_tax_withheld: 20.34,
-          standard_or_non_standard_code: "S",
         }
       ],
     )

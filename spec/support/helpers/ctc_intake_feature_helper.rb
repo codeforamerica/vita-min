@@ -354,19 +354,37 @@ module CtcIntakeFeatureHelper
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.wages_info.wages_amount'), with: wages
     fill_in I18n.t('views.ctc.questions.w2s.wages_info.federal_income_tax_withheld'), with: '12.01'
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box3_social_security_wages'), with: 1.40
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box4_social_security_tax_withheld'), with: 123.30
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box5_medicare_wages_and_tip_amount'), with: 5.12
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box6_medicare_tax_withheld'), with: 12.67
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box7_social_security_tips_amount'), with: 27.32
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box8_allocated_tips'), with: 11.39
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box10_dependent_care_benefits'), with: 9.00
+
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'lumen inc'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
     select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
-    select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.box_d_control_number'), with: '12345678'
     click_on I18n.t('general.continue')
 
-    # misc stuff
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.misc_info.title', name: employee_name))
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box11_nonqualified_plans'), with: '123'
+    select "A", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
+    fill_in 'ctc_w2s_misc_info_form_box12a_value', with: "44.50"
+    select "B", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
+    fill_in 'ctc_w2s_misc_info_form_box12b_value', with: "54.50"
+    select "C", from: I18n.t("views.ctc.questions.w2s.misc_info.box12c")
+    fill_in 'ctc_w2s_misc_info_form_box12c_value', with: "64.50"
+    select "D", from: I18n.t("views.ctc.questions.w2s.misc_info.box12d")
+    fill_in 'ctc_w2s_misc_info_form_box12d_value', with: "74.50"
+    check I18n.t('views.ctc.questions.w2s.misc_info.box13_statutory_employee')
     click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
   end
 

@@ -6,15 +6,24 @@
 
     <h1 class="h2"><%= @main_question %></h1>
 
-    <div class="info-box spacing-below-15">
+    <div class="info-box spacing-below-35">
       <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
       <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_title") %></p>
 
       <div><%= t("views.ctc.questions.w2s.wages_info.info_box.requirement_description_html") %></div>
     </div>
 
+    <p class="text--bold spacing-below-35"><%= t('views.ctc.questions.w2s.wages_info.help_text') %></p>
+
     <%= f.cfa_input_field(:wages_amount, t("views.ctc.questions.w2s.wages_info.wages_amount"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:federal_income_tax_withheld, t("views.ctc.questions.w2s.wages_info.federal_income_tax_withheld"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box3_social_security_wages, t("views.ctc.questions.w2s.wages_info.box3_social_security_wages"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box4_social_security_tax_withheld, t("views.ctc.questions.w2s.wages_info.box4_social_security_tax_withheld"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box5_medicare_wages_and_tip_amount, t("views.ctc.questions.w2s.wages_info.box5_medicare_wages_and_tip_amount"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box6_medicare_tax_withheld, t("views.ctc.questions.w2s.wages_info.box6_medicare_tax_withheld"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box7_social_security_tips_amount, t("views.ctc.questions.w2s.wages_info.box7_social_security_tips_amount"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box8_allocated_tips, t("views.ctc.questions.w2s.wages_info.box8_allocated_tips"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box10_dependent_care_benefits, t("views.ctc.questions.w2s.wages_info.box10_dependent_care_benefits"), classes: ["form-width--long"]) %>
 
     <%= f.continue %>
   <% end %>
