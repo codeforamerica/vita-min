@@ -2701,7 +2701,7 @@ en:
           add: Add a W-2
           add_later: Log out and add a W-2 later
           done_adding: Finished adding all W-2s
-          dont_add_w2: I don't want to add any income
+          dont_add_w2: I don't want to add my W-2
           employee_info:
             employee_city: 'Box e: City'
             employee_legal_name: 'Select the legal name on the W2:'

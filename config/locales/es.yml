@@ -2661,7 +2661,7 @@ es:
           add: Agregar la forma W-2
           add_later: Cerrar sesión y agregar un W-2 más tarde
           done_adding: Se ha terminado de añadir todas las formas W-2
-          dont_add_w2: No deseo añadir ningún ingreso
+          dont_add_w2: No deseo añadir ningún forma W-2
           employee_info:
             employee_city: 'Casilla e: Ciudad'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
