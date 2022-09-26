@@ -56,8 +56,19 @@
   }
 }
 
-.text-input--inline-element {
-  display: inline-block;
+.select-and-input {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+
+  select {
+    height: 6rem;
+  }
+
+  .text-input {
+    width: auto;
+    flex-grow: 1;
+  }
 }
 
 .form-group-tight {

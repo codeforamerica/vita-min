@@ -78,6 +78,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def vita_min_select_and_input_fields(
     select_method,
     input_method,
+    error_method,
     label_text,
     collection,
     options = {},
@@ -96,7 +97,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     text_field_options = standard_options.merge(
       type: 'text',
-      class: (classes + ["text-input", "text-input--inline-element"]).join(" "),
+      class: "text-input",
     ).merge(options).merge(error_attributes(method: input_method))
 
     text_field_options[:id] ||= sanitized_id(input_method)
@@ -105,14 +106,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     text_field_html = text_field(input_method, text_field_options)
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, select_method)}">
+          <div class="form-group#{error_state(object, error_method)}">
             #{formatted_label}
-            <div class="select">
-              #{select(select_method, collection, options, html_options_with_errors, &block)}
+            <div class="select-and-input #{classes.join(' ')}">
+              <div class="select">
+                #{select(select_method, collection, options, html_options_with_errors, &block)}
+              </div>
+              #{text_field_html}
             </div>
-            #{text_field_html}
 
-            #{errors_for(object, select_method)}
+            #{errors_for(object, error_method)}
           </div>
     HTML
 

@@ -55,6 +55,11 @@ describe Ctc::W2s::MiscInfoForm do
   end
 
   context "validations" do
+    it "can be valid" do
+      form = described_class.new(w2, {})
+      expect(form).to be_valid
+    end
+
     it "requires :box11_nonqualified_plans to look like money if its present" do
       form = described_class.new(w2, {})
       form.valid?
@@ -71,14 +76,10 @@ describe Ctc::W2s::MiscInfoForm do
     it "does not require the 12s" do
       form = described_class.new(w2, {})
       form.valid?
-      expect(form.errors.attribute_names).not_to include(:box12a_code)
-      expect(form.errors.attribute_names).not_to include(:box12a_value)
-      expect(form.errors.attribute_names).not_to include(:box12b_code)
-      expect(form.errors.attribute_names).not_to include(:box12b_value)
-      expect(form.errors.attribute_names).not_to include(:box12c_code)
-      expect(form.errors.attribute_names).not_to include(:box12c_value)
-      expect(form.errors.attribute_names).not_to include(:box12d_code)
-      expect(form.errors.attribute_names).not_to include(:box12d_value)
+      expect(form.errors.attribute_names).not_to include(:box12a)
+      expect(form.errors.attribute_names).not_to include(:box12b)
+      expect(form.errors.attribute_names).not_to include(:box12c)
+      expect(form.errors.attribute_names).not_to include(:box12d)
     end
 
     it "requires both code and value for all of the 12 boxes if code is present" do
@@ -90,10 +91,10 @@ describe Ctc::W2s::MiscInfoForm do
       })
 
       expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:box12a_value)
-      expect(form.errors.attribute_names).to include(:box12b_value)
-      expect(form.errors.attribute_names).to include(:box12c_value)
-      expect(form.errors.attribute_names).to include(:box12d_value)
+      expect(form.errors.attribute_names).to include(:box12a)
+      expect(form.errors.attribute_names).to include(:box12b)
+      expect(form.errors.attribute_names).to include(:box12c)
+      expect(form.errors.attribute_names).to include(:box12d)
     end
 
     it "requires both code and value for all of the 12 boxes if value is present" do
@@ -104,10 +105,10 @@ describe Ctc::W2s::MiscInfoForm do
         box12d_value: '84.65',
       })
       expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:box12a_code)
-      expect(form.errors.attribute_names).to include(:box12b_code)
-      expect(form.errors.attribute_names).to include(:box12c_code)
-      expect(form.errors.attribute_names).to include(:box12d_code)
+      expect(form.errors.attribute_names).to include(:box12a)
+      expect(form.errors.attribute_names).to include(:box12b)
+      expect(form.errors.attribute_names).to include(:box12c)
+      expect(form.errors.attribute_names).to include(:box12d)
     end
 
     it "requires codes to be in the inclusion list for all of the 12 boxes if code is present" do
@@ -118,10 +119,10 @@ describe Ctc::W2s::MiscInfoForm do
         box12d_code: 'asiodfj',
       })
       expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:box12a_code)
-      expect(form.errors.attribute_names).to include(:box12b_code)
-      expect(form.errors.attribute_names).to include(:box12c_code)
-      expect(form.errors.attribute_names).to include(:box12d_code)
+      expect(form.errors.attribute_names).to include(:box12a)
+      expect(form.errors.attribute_names).to include(:box12b)
+      expect(form.errors.attribute_names).to include(:box12c)
+      expect(form.errors.attribute_names).to include(:box12d)
     end
 
     it "requires values to be dollar amounts for all of the 12 boxes if code is present" do
@@ -132,10 +133,10 @@ describe Ctc::W2s::MiscInfoForm do
         box12d_value: 'asiodfj',
       })
       expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:box12a_value)
-      expect(form.errors.attribute_names).to include(:box12b_value)
-      expect(form.errors.attribute_names).to include(:box12c_value)
-      expect(form.errors.attribute_names).to include(:box12d_value)
+      expect(form.errors.attribute_names).to include(:box12a)
+      expect(form.errors.attribute_names).to include(:box12b)
+      expect(form.errors.attribute_names).to include(:box12c)
+      expect(form.errors.attribute_names).to include(:box12d)
     end
   end
 end

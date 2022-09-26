@@ -2743,6 +2743,8 @@ en:
             p2: The form you enter must have W-2 printed on top or it will not be accepted.
           misc_info:
             box11_nonqualified_plans: 'Box 11: Nonqualified plans'
+            box12_error: Must provide both code and value
+            box12_value_error: Value must be numeric
             box12a: 'Box 12a:'
             box12b: 'Box 12b:'
             box12c: 'Box 12c:'

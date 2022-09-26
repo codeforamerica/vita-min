@@ -18,22 +18,35 @@ module Ctc
       )
 
       validates :box11_nonqualified_plans, gyr_numericality: true, allow_blank: true
-      validates_presence_of :box12a_code, if: :box12a_value
-      validates_presence_of :box12a_value, if: :box12a_code
-      validates_presence_of :box12b_code, if: :box12b_value
-      validates_presence_of :box12b_value, if: :box12b_code
-      validates_presence_of :box12c_code, if: :box12c_value
-      validates_presence_of :box12c_value, if: :box12c_code
-      validates_presence_of :box12d_code, if: :box12d_value
-      validates_presence_of :box12d_value, if: :box12d_code
       validates :box12a_code, allow_blank: true, inclusion: { in: W2::BOX12_OPTIONS }
       validates :box12b_code, allow_blank: true, inclusion: { in: W2::BOX12_OPTIONS }
       validates :box12c_code, allow_blank: true, inclusion: { in: W2::BOX12_OPTIONS }
       validates :box12d_code, allow_blank: true, inclusion: { in: W2::BOX12_OPTIONS }
-      validates :box12a_value, gyr_numericality: true, allow_blank: true
-      validates :box12b_value, gyr_numericality: true, allow_blank: true
-      validates :box12c_value, gyr_numericality: true, allow_blank: true
-      validates :box12d_value, gyr_numericality: true, allow_blank: true
+      validates :box12a_value, gyr_numericality: { message: ->(_object, _data) { I18n.t('views.ctc.questions.w2s.misc_info.box12_value_error') } }, allow_blank: true
+      validates :box12b_value, gyr_numericality: { message: ->(_object, _data) { I18n.t('views.ctc.questions.w2s.misc_info.box12_value_error') } }, allow_blank: true
+      validates :box12c_value, gyr_numericality: { message: ->(_object, _data) { I18n.t('views.ctc.questions.w2s.misc_info.box12_value_error') } }, allow_blank: true
+      validates :box12d_value, gyr_numericality: { message: ->(_object, _data) { I18n.t('views.ctc.questions.w2s.misc_info.box12_value_error') } }, allow_blank: true
+      validate :box12s
+
+      def box12s
+        letters = %w(a b c d)
+        letters.each do |letter|
+          code_field = :"box12#{letter}_code"
+          value_field = :"box12#{letter}_value"
+          error_field = :"box12#{letter}"
+          if send(code_field).present? != send(value_field).present?
+            errors.add(error_field, I18n.t('views.ctc.questions.w2s.misc_info.box12_error'))
+          end
+
+          if (code_error = errors.delete(code_field))
+            errors.add(error_field, code_error)
+          end
+
+          if (value_error = errors.delete(value_field))
+            errors.add(error_field, value_error)
+          end
+        end
+      end
 
       def save
         extra_attributes = w2.completed_at.nil? ? {completed_at: DateTime.now} : {}

@@ -15,10 +15,10 @@
 
     <%= f.cfa_input_field(:box11_nonqualified_plans, t("views.ctc.questions.w2s.misc_info.box11_nonqualified_plans"), classes: ["form-width--long"]) %>
 
-    <%= f.vita_min_select_and_input_fields :box12a_code, :box12a_value, t("views.ctc.questions.w2s.misc_info.box12a"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--med"] %>
-    <%= f.vita_min_select_and_input_fields :box12b_code, :box12b_value, t("views.ctc.questions.w2s.misc_info.box12b"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--med"] %>
-    <%= f.vita_min_select_and_input_fields :box12c_code, :box12c_value, t("views.ctc.questions.w2s.misc_info.box12c"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--med"] %>
-    <%= f.vita_min_select_and_input_fields :box12d_code, :box12d_value, t("views.ctc.questions.w2s.misc_info.box12d"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--med"] %>
+    <%= f.vita_min_select_and_input_fields :box12a_code, :box12a_value, :box12a, t("views.ctc.questions.w2s.misc_info.box12a"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12b_code, :box12b_value, :box12b, t("views.ctc.questions.w2s.misc_info.box12b"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12c_code, :box12c_value, :box12c, t("views.ctc.questions.w2s.misc_info.box12c"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.vita_min_select_and_input_fields :box12d_code, :box12d_value, :box12d, t("views.ctc.questions.w2s.misc_info.box12d"), W2::BOX12_OPTIONS, { include_blank: true }, classes: ["form-width--long"] %>
 
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <p><strong><%= t("views.ctc.questions.w2s.misc_info.box13") %></strong></p>

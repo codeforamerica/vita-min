@@ -2706,6 +2706,8 @@ es:
             p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
           misc_info:
             box11_nonqualified_plans: 'Recuadro 11: Planes no calificados'
+            box12_error: Debe proporcionar tanto el código como el valor.
+            box12_value_error: El valor debe ser numérico
             box12a: 'Recuadro 12a:'
             box12b: 'Recuadro 12b:'
             box12c: 'Recuadro 12c:'
