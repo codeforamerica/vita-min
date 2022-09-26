@@ -14,7 +14,7 @@ module Ctc
         :box10_dependent_care_benefits
       )
 
-      validates :wages_amount, gyr_numericality: { greater_than_or_equal_to: 0 }, presence: true
+      validates :wages_amount, gyr_numericality: { greater_than_or_equal_to: 0.5 }, presence: true
       validates :federal_income_tax_withheld, gyr_numericality: true, presence: true
 
       validates :box3_social_security_wages, gyr_numericality: true, allow_blank: true
