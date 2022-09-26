@@ -68,5 +68,8 @@ FactoryBot.define do
     federal_income_tax_withheld { 20.34 }
     standard_or_non_standard_code { "S" }
     completed_at { DateTime.now }
+    box13_retirement_plan { 'no' }
+    box13_statutory_employee { 'no' }
+    box13_third_party_sick_pay { 'no' }
   end
 end
