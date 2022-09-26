@@ -105,4 +105,59 @@ describe EfileSubmissionDependent do
       end
     end
   end
+
+  describe "#schedule_eic_4a?" do
+    let(:dependent) { create :dependent, full_time_student: full_time_student }
+    let(:efile_submission_dependent) { create :efile_submission_dependent, dependent: dependent, age_during_tax_year: age_during_tax_year }
+
+    context "when the dependent is under 24 and a full time student" do
+      let(:age_during_tax_year) { 22 }
+      let(:full_time_student) { "yes" }
+
+      context "when the filing status is single" do
+        before do
+          submission.tax_return.update(filing_status: "single")
+        end
+
+        context "when the dependent is younger than the primary" do
+          before do
+            efile_submission_dependent.intake.update(primary_birth_date: 50.years.ago)
+          end
+
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
+        end
+      end
+
+      context "when the filing status is mfj" do
+        before do
+          efile_submission.tax_return.update(filing_status: "married_filing_jointly")
+        end
+
+        context "when the dependent is younger than the primary but not the spouse" do
+
+        end
+
+        context "when the dependent is younger than the spouse but not the primary" do
+
+        end
+      end
+    end
+
+    context "when the dependent is over 24" do
+      let(:age_during_tax_year) { 25 }
+      let(:full_time_student) { "yes" }
+
+      it "they do not meet the conditions for checkbox 4a" do
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      end
+    end
+
+    context "when the dependent is not a full time student" do
+      it "returns false" do
+
+      end
+    end
+  end
 end

@@ -41,4 +41,8 @@ class EfileSubmissionDependent < ApplicationRecord
       )
     end
   end
+
+  def schedule_eic_4a?
+    age_during_tax_year < 24
+  end
 end
