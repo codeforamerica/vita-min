@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_22_224124) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1629,18 +1629,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_224124) do
     t.string "employee_city"
     t.string "employee_state"
     t.string "employee_street_address"
-    t.string "employee_street_address2"
     t.string "employee_zip_code"
     t.string "employer_city"
     t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_state"
     t.string "employer_street_address"
-    t.string "employer_street_address2"
     t.string "employer_zip_code"
     t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
-    t.string "standard_or_non_standard_code"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
     t.index ["creation_token"], name: "index_w2s_on_creation_token"
