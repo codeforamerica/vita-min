@@ -33,7 +33,7 @@ module SubmissionBuilder
             end
             xml.WagesAmt w2.rounded_wages_amount
             xml.WithholdingAmt w2.rounded_federal_income_tax_withheld
-            xml.StandardOrNonStandardCd w2.standard_or_non_standard_code
+            xml.StandardOrNonStandardCd 'S'
           end
         end
       end

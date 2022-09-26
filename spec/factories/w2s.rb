@@ -29,17 +29,14 @@
 #  employee_city                      :string
 #  employee_state                     :string
 #  employee_street_address            :string
-#  employee_street_address2           :string
 #  employee_zip_code                  :string
 #  employer_city                      :string
 #  employer_ein                       :string
 #  employer_name                      :string
 #  employer_state                     :string
 #  employer_street_address            :string
-#  employer_street_address2           :string
 #  employer_zip_code                  :string
 #  federal_income_tax_withheld        :decimal(12, 2)
-#  standard_or_non_standard_code      :string
 #  wages_amount                       :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
@@ -66,7 +63,6 @@ FactoryBot.define do
     employer_zip_code { "94414" }
     wages_amount { 100.10 }
     federal_income_tax_withheld { 20.34 }
-    standard_or_non_standard_code { "S" }
     completed_at { DateTime.now }
     box13_retirement_plan { 'no' }
     box13_statutory_employee { 'no' }
