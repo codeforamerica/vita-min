@@ -359,8 +359,6 @@ module CtcIntakeFeatureHelper
     fill_in I18n.t('views.ctc.questions.w2s.wages_info.box5_medicare_wages_and_tip_amount'), with: 5.12
     fill_in I18n.t('views.ctc.questions.w2s.wages_info.box6_medicare_tax_withheld'), with: 12.67
     fill_in I18n.t('views.ctc.questions.w2s.wages_info.box7_social_security_tips_amount'), with: 27.32
-    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box8_allocated_tips'), with: 11.39
-    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box10_dependent_care_benefits'), with: 9.00
 
     click_on I18n.t('general.continue')
 
@@ -384,7 +382,7 @@ module CtcIntakeFeatureHelper
     fill_in 'ctc_w2s_misc_info_form_box12c_value', with: "64.50"
     select "D", from: I18n.t("views.ctc.questions.w2s.misc_info.box12d")
     fill_in 'ctc_w2s_misc_info_form_box12d_value', with: "74.50"
-    check I18n.t('views.ctc.questions.w2s.misc_info.box13_statutory_employee')
+    check I18n.t('views.ctc.questions.w2s.misc_info.box13_retirement_plan')
     click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
   end
 
