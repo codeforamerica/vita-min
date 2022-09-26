@@ -70,11 +70,4 @@ class W2 < ApplicationRecord
     end
   end
 
-  def rounded_wages_amount
-    wages_amount.round
-  end
-
-  def rounded_federal_income_tax_withheld
-    federal_income_tax_withheld.round
-  end
 end
