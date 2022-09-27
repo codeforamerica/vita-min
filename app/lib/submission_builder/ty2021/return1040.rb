@@ -49,14 +49,14 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
             pdf: Irs1040ScheduleEicPdf,
-            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
+            include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
           },
         ]
         w2_docs = submission.intake.w2s.map do |w2|
           {
             xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
             pdf: nil,
-            include: Flipper.enabled?(:eitc) && @submission.benefits_eligibility.claiming_and_qualified_for_eitc?,
+            include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc?,
             kwargs: { w2: w2 }
           }
         end

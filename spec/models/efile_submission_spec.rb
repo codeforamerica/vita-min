@@ -457,7 +457,7 @@ describe EfileSubmission do
     context "when the filer has tons of dependents" do
 
       before do
-        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, outstanding_ctc_amount: 1))
+        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, outstanding_ctc_amount: 1, claiming_and_qualified_for_eitc?: false))
         allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
       end
 

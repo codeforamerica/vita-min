@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
+  before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :include_optimizely?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_gyr_intake?, :open_for_soft_launch?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
+  helper_method :include_analytics?, :include_optimizely?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -129,6 +129,16 @@ class ApplicationController < ActionController::Base
     ctc_beta = params[:ctc_beta]
     if ctc_beta == "1"
       cookies.permanent[:ctc_beta] = true
+    end
+  end
+
+  def set_eitc_beta_cookie
+    return unless Routes::CtcDomain.new.matches?(request)
+    return unless app_time >= Rails.configuration.eitc_soft_launch
+
+    eitc_beta = params[:eitc_beta]
+    if eitc_beta == "1"
+      cookies.permanent[:eitc_beta] = true
     end
   end
 
@@ -273,6 +283,7 @@ class ApplicationController < ActionController::Base
 
     return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
   end
+  helper_method :open_for_gyr_intake?
 
   def open_for_soft_launch?
     return true if app_time >= Rails.configuration.start_of_unique_links_only_intake &&
@@ -280,6 +291,7 @@ class ApplicationController < ActionController::Base
 
     return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
   end
+  helper_method :open_for_soft_launch?
 
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake
@@ -287,6 +299,14 @@ class ApplicationController < ActionController::Base
     return true if app_time >= Rails.configuration.ctc_full_launch
     app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
+  helper_method :open_for_ctc_intake?
+
+  def open_for_eitc_intake?
+    return true if Flipper.enabled?(:eitc)
+
+    app_time >= Rails.configuration.eitc_soft_launch && cookies[:eitc_beta].present?
+  end
+  helper_method :open_for_eitc_intake?
 
   def open_for_ctc_login?
     return false if app_time >= Rails.configuration.ctc_end_of_login
@@ -294,7 +314,7 @@ class ApplicationController < ActionController::Base
     return true if app_time >= Rails.configuration.ctc_full_launch
     app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
-
+  helper_method :open_for_ctc_login?
 
   private
 

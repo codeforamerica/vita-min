@@ -916,6 +916,64 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#open_for_eitc_intake?" do
+    before do
+      allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return true
+    end
+
+    context "when the flipper feature is enabled" do
+      before do
+        Flipper.enable :eitc
+      end
+
+      it "returns true" do
+        expect(subject.open_for_eitc_intake?).to eq true
+      end
+    end
+
+    context "when the app time is before the eitc soft launch time" do
+      context "when the eitc_beta cookie is set" do
+        before do
+          get :index, { params: { eitc_beta: "1" } }
+        end
+
+        around do |example|
+          Timecop.freeze(Rails.configuration.eitc_soft_launch - 1.day) do
+            example.run
+          end
+        end
+
+        it "returns false" do
+          expect(subject.open_for_eitc_intake?).to eq false
+        end
+      end
+    end
+
+    context "when the app time is after the eitc soft launch time" do
+      context "when the eitc_beta cookie is set" do
+        before do
+          get :index, { params: { eitc_beta: "1" } }
+        end
+
+        around do |example|
+          Timecop.freeze(Rails.configuration.eitc_soft_launch + 1.day) do
+            example.run
+          end
+        end
+
+        it "returns true" do
+          expect(subject.open_for_eitc_intake?).to eq true
+        end
+      end
+    end
+
+    context "otherwise" do
+      it "returns false" do
+        expect(subject.open_for_eitc_intake?).to eq false
+      end
+    end
+  end
+
   describe "#open_for_ctc_intake?" do
     around do |example|
       freeze_time do

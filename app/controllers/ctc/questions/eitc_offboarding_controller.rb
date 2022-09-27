@@ -5,9 +5,9 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
+      def self.show?(intake, current_controller)
         benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
-        Flipper.enabled?(:eitc) && intake.claim_eitc_yes? && !benefits_eligibility.qualified_for_eitc_pre_w2s?
+        current_controller.open_for_eitc_intake? && intake.claim_eitc_yes? && !benefits_eligibility.qualified_for_eitc_pre_w2s?
       end
 
       private
