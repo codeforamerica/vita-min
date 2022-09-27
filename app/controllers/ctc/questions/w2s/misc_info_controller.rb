@@ -7,7 +7,8 @@ module Ctc
         private
 
         def next_path
-          if @w2.box13_statutory_employee_yes?
+          box12a_codes = [@w2.box12a_code, @w2.box12b_code, @w2.box12c_code, @w2.box12d_code].map(&:presence).compact
+          if @w2.box13_statutory_employee_yes? || box12a_codes.any? { |code| W2::BOX12_OFFBOARD_CODES.include?(code) }
             Ctc::Questions::UseGyrController.to_path_helper
           else
             super

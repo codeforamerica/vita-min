@@ -374,9 +374,9 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.misc_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.misc_info.box11_nonqualified_plans'), with: '123'
-    select "A", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
+    select "F", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
     fill_in 'ctc_w2s_misc_info_form_box12a_value', with: "44.50"
-    select "B", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
+    select "E", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
     fill_in 'ctc_w2s_misc_info_form_box12b_value', with: "54.50"
     select "C", from: I18n.t("views.ctc.questions.w2s.misc_info.box12c")
     fill_in 'ctc_w2s_misc_info_form_box12c_value', with: "64.50"
