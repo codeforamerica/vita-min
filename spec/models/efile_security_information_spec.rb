@@ -38,7 +38,7 @@ describe EfileSecurityInformation do
         expect {
           value = efile_security_information.client_system_datetime
           expect(value).to eq DateTime.parse("Thu Jul 28 2022 00:56:53 GMT-0400")
-        }.not_to raise_error ArgumentError
+        }.not_to raise_error
       end
     end
   end

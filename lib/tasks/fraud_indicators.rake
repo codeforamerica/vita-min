@@ -19,9 +19,9 @@ namespace :fraud_indicators do
       indicator.assign_attributes(indicator_attributes)
       if preview
         if !indicator.persisted?
-          puts "adds: #{indicator.attributes.except("id", "activated_at", "created_at", "updated_at")}"
+          Rails.logger.info "adds: #{indicator.attributes.except("id", "activated_at", "created_at", "updated_at")}"
         elsif indicator.changed?
-          puts "updates: #{indicator.changes}"
+          Rails.logger.info "updates: #{indicator.changes}"
         end
       else
         indicator.save!
