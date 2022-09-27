@@ -2932,7 +2932,9 @@ en:
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         get_started: Get Started
         get_your_refund_link: File taxes for free today with GetYourRefund
-        navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
+        navigator_resources:
+          eitc_off_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
+          eitc_on_html: <strong>Are you a community partner helping someone else access the CTC or EITC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         portal_sign_in_link: Already started? Sign in.
         sign_up_for_updates: Sign up for GetCTC updates

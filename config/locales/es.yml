@@ -2895,7 +2895,9 @@ es:
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
         get_started: Empezar
         get_your_refund_link: Declare sus impuestos gratis hoy mismo con GetYourRefund
-        navigator_resources_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
+        navigator_resources:
+          eitc_off_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
+          eitc_on_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC o EITC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
