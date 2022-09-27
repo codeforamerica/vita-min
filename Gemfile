@@ -4,7 +4,7 @@ ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).str
 ruby ruby_version
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '~> 7.0.3.1'
+gem 'rails', '~> 7.0.4'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
@@ -17,16 +17,8 @@ gem 'recaptcha'
 gem 'net-http'
 gem 'uri', '0.10.0' # force us to get the default version from Ruby 2.7
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
 # Use ActiveStorage variant
 gem 'image_processing'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
