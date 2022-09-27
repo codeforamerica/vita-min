@@ -25,7 +25,7 @@ describe Ctc::Questions::EitcOffboardingController do
           let(:eitc_eligible) { false }
 
           it "returns true" do
-            expect(described_class.show?(intake)).to eq true
+            expect(described_class.show?(intake, subject)).to eq true
           end
         end
 
@@ -33,7 +33,7 @@ describe Ctc::Questions::EitcOffboardingController do
           let(:eitc_eligible) { true }
 
           it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+            expect(described_class.show?(intake, subject)).to eq false
           end
         end
       end
@@ -42,14 +42,14 @@ describe Ctc::Questions::EitcOffboardingController do
         let(:claim_eitc) { "no" }
 
         it "returns false" do
-          expect(described_class.show?(intake)).to eq false
+          expect(described_class.show?(intake, subject)).to eq false
         end
       end
     end
 
     context "with the feature flag disabled" do
       it "returns false" do
-        expect(described_class.show?(intake)).to eq false
+        expect(described_class.show?(intake, subject)).to eq false
       end
     end
   end

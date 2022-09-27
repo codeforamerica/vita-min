@@ -199,7 +199,7 @@ class FlowsController < ApplicationController
         if @controller_class.method(:show?).arity > 1
           !show?(
             model_for_show_check(current_controller),
-            current_controller.session
+            current_controller
           )
         else
           !show?(

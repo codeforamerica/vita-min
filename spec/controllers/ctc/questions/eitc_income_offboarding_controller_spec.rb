@@ -9,7 +9,7 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
   describe ".show?" do
     context 'eitc environment variable is disabled' do
       it 'is false' do
-        expect(described_class.show?(intake)).to eq false
+        expect(described_class.show?(intake, subject)).to eq false
       end
     end
 
@@ -23,7 +23,7 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
         let(:had_disqualifying_non_w2_income) { "yes" }
 
         it 'is true' do
-          expect(described_class.show?(intake)).to eq true
+          expect(described_class.show?(intake, subject)).to eq true
         end
       end
 
@@ -37,7 +37,7 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
             let(:wages_amount) { 11_609 }
 
             it 'is false' do
-              expect(described_class.show?(intake)).to eq false
+              expect(described_class.show?(intake, subject)).to eq false
             end
           end
 
@@ -45,14 +45,14 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
             let(:wages_amount) { 11_610 }
 
             it 'is true' do
-              expect(described_class.show?(intake)).to eq true
+              expect(described_class.show?(intake, subject)).to eq true
             end
 
             context 'but there is a qualifying child' do
               let!(:dependent) { create :qualifying_child, intake: intake }
 
               it 'is false' do
-                expect(described_class.show?(intake)).to eq false
+                expect(described_class.show?(intake, subject)).to eq false
               end
             end
           end
@@ -65,7 +65,7 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
             let(:wages_amount) { 17_549 }
 
             it 'is false' do
-              expect(described_class.show?(intake)).to eq false
+              expect(described_class.show?(intake, subject)).to eq false
             end
           end
 
@@ -73,7 +73,7 @@ describe Ctc::Questions::EitcIncomeOffboardingController do
             let(:wages_amount) { 17_550 }
 
             it 'is true' do
-              expect(described_class.show?(intake)).to eq true
+              expect(described_class.show?(intake, subject)).to eq true
             end
           end
         end
