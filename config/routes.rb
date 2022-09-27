@@ -346,6 +346,8 @@ Rails.application.routes.draw do
       get "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#edit", as: :questions_remove_dependent
       put "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#update"
 
+      put "/questions/w2s/add-w2-later", to: "ctc/questions/w2s#add_w2_later"
+
       patch '/questions/confirm_payment', to: 'ctc/questions/confirm_payment#do_not_file', as: :questions_do_not_file
 
       unless Rails.env.production?

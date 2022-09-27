@@ -33,4 +33,22 @@ describe Ctc::Questions::W2sController do
       end
     end
   end
+
+  describe "#add_w2_later" do
+    let(:intake) { create :ctc_intake }
+
+    before do
+      allow(subject).to receive(:track_click_history)
+      allow(subject).to receive(:sign_out).and_call_original
+      sign_in intake.client
+    end
+
+    it "logs the client out and sends an event to mixpanel" do
+      put :add_w2_later
+      expect(response).to redirect_to root_path
+
+      expect(subject).to have_received(:track_click_history).with(:w2_logout_add_later)
+      expect(subject).to have_received(:sign_out).with(intake.client)
+    end
+  end
 end

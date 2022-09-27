@@ -706,6 +706,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ds_click_histories", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "w2_logout_add_later", precision: nil
+    t.index ["client_id"], name: "index_ds_click_histories_on_client_id", unique: true
+  end
+
   create_table "efile_errors", force: :cascade do |t|
     t.boolean "auto_cancel", default: false
     t.boolean "auto_wait", default: false
@@ -1674,6 +1682,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "clients"
+  add_foreign_key "ds_click_histories", "clients"
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"

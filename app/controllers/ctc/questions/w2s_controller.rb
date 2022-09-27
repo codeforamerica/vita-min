@@ -12,6 +12,13 @@ module Ctc
         benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
       end
 
+      def add_w2_later
+        track_click_history(:w2_logout_add_later)
+
+        clear_intake_session
+        redirect_to root_path
+      end
+
       def next_path
         if current_intake.had_w2s_yes?
           Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: current_intake.new_record_token)
