@@ -1,6 +1,6 @@
 <% @main_heading = if current_intake.puerto_rico_filing?
                      t("views.ctc.questions.file_full_return.puerto_rico.title")
-                   elsif Flipper.enabled?(:eitc)
+                   elsif open_for_eitc_intake?
                      t("views.ctc.questions.file_full_return.title_eitc")
                    else
                        t("views.ctc.questions.file_full_return.title")
@@ -18,7 +18,7 @@
     <% end %>
 
     <%= link_to t("views.ctc.questions.file_full_return.puerto_rico.full_btn"), "https://suri.hacienda.pr.gov/_/", target: "_blank", rel: "noopener", class: "button button--wide text--centered" %>
-  <% elsif Flipper.enabled?(:eitc) %>
+  <% elsif open_for_eitc_intake? %>
     <p class="text--bold"><%= t("views.ctc.questions.file_full_return.list_1_eitc_title") %></p>
     <ul class="list--bulleted">
       <% t("views.ctc.questions.file_full_return.list_1_eitc").each do |list| %>

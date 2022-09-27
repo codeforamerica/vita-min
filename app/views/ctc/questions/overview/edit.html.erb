@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
   <p>
-    <%= Flipper.enabled?(:eitc)? t("views.ctc.questions.overview.help_text_eitc") : t("views.ctc.questions.overview.help_text")%>
+    <%= open_for_eitc_intake?? t("views.ctc.questions.overview.help_text_eitc") : t("views.ctc.questions.overview.help_text")%>
   </p>
 
   <p class="text--bold">

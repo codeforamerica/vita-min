@@ -7,8 +7,8 @@ module Ctc
 
         layout "intake"
 
-        def self.show?(w2)
-          return unless Flipper.enabled?(:eitc)
+        def self.show?(w2, current_controller)
+          return unless current_controller.open_for_eitc_intake?
           return unless w2
 
           intake = w2.intake

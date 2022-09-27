@@ -5,8 +5,8 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
-        Flipper.enabled?(:eitc) && !intake.home_location_puerto_rico?
+      def self.show?(intake, current_controller)
+        current_controller.open_for_eitc_intake? && !intake.home_location_puerto_rico?
       end
 
       private
