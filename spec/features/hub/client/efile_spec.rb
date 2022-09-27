@@ -4,7 +4,7 @@ RSpec.feature "View efile submissions for a client" do
   context "As an authenticated user" do
     let(:user) { create :admin_user }
     let(:client) { intake.client }
-    let!(:intake) { create(:ctc_intake) }
+    let!(:intake) { create(:ctc_intake, preferred_name: "Glarg") }
     let!(:tax_return) { create(:tax_return, :ctc, client: client, year: TaxReturn.current_tax_year) }
     let!(:initial_efile_submission) { create :efile_submission, :failed, tax_return: tax_return }
 

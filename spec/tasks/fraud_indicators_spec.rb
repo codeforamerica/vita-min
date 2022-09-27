@@ -77,6 +77,7 @@ describe "fraud_indicators:preview_updates" do
 
   before do
     allow(JSON).to receive(:parse).and_return encrypted_indicators
+    allow(Rails.logger).to receive(:info)
   end
 
   context "with a new fraud indicator in the encrypted file" do
@@ -86,7 +87,8 @@ describe "fraud_indicators:preview_updates" do
 
     it "outputs the expected changes" do
       expected_output = {"description"=>nil, "indicator_attributes"=>["attribute1", "attribute2", "attribute3"], "indicator_type"=>"gem", "list_model_name"=>nil, "multiplier"=>0.0, "name"=>"pretend_indicator", "points"=>10, "query_model_name"=>"Intake", "reference"=>"intake", "threshold"=>nil}
-      expect { task.invoke }.to output("adds: #{expected_output}\n").to_stdout
+      task.invoke
+      expect(Rails.logger).to have_received(:info).with("adds: #{expected_output}")
     end
   end
 
@@ -112,7 +114,8 @@ describe "fraud_indicators:preview_updates" do
 
     it "outputs the expected changes" do
       expected_output = {"points" => [30, 10]}
-      expect { task.invoke }.to output("updates: #{expected_output}\n").to_stdout
+      task.invoke
+      expect(Rails.logger).to have_received(:info).with("updates: #{expected_output}")
     end
   end
 
@@ -137,7 +140,7 @@ describe "fraud_indicators:preview_updates" do
     end
 
     it "outputs nothing" do
-      expect { task.invoke }.to output("").to_stdout
+      expect(Rails.logger).not_to have_received(:info)
     end
   end
 end
