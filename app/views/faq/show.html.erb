@@ -16,7 +16,11 @@
         <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h1>
 
         <div class="spacing-below-35">
-          <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+          <% if Flipper.enabled?(:eitc) %>
+            <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.eitc_answer_html", default: t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html")) %>
+          <% else %>
+            <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+          <% end %>
         </div>
 
         <%= form_with model: @survey, url: { action: :answer_survey }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>

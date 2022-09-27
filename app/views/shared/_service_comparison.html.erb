@@ -17,7 +17,7 @@
                 </h2>
               </div>
               <div class="service__description">
-                <%= t("views.shared.service_comparison.services.ctc.service_description") %>
+                <%= Flipper.enabled?(:eitc) ? t("views.shared.service_comparison.services.ctc.service_description.eitc_on") : t("views.shared.service_comparison.services.ctc.service_description.eitc_off") %>
               </div>
               <% unless open_for_ctc_intake? %>
                 <div class="service__availability">
@@ -115,7 +115,7 @@
               <%= TaxReturn.current_tax_year %>
             </div>
             <div class="service full-service">
-              <%= TaxReturn.filing_years.first %>-<%= TaxReturn.filing_years.last %>
+              <%= TaxReturn.filing_years.last %>-<%= TaxReturn.filing_years.first %>
             </div>
             <div class="service diy">
               <%= TaxReturn.current_tax_year %>
@@ -184,6 +184,7 @@
           </div>
           <div class="service-set__services">
             <div class="service ctc">
+              <%= t("views.shared.service_comparison.tax_documents.ctc") %>
             </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
@@ -255,6 +256,9 @@
           </div>
           <div class="service-set__services">
             <div class="service ctc">
+              <% if Flipper.enabled?(:eitc) %>
+                <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              <% end %>
             </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>

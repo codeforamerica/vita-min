@@ -30,8 +30,8 @@
           </p>
         <% end %>
           <% if open_for_ctc_intake? %>
-            <p class="spacing-below-35"><%= t("views.ctc_pages.home.subheader.claim") %></p>
-            <p><%= t("views.ctc_pages.home.subheader.time_estimate") %></p>
+            <p class="spacing-below-35"><%= Flipper.enabled?(:eitc) ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
+            <p><%= Flipper.enabled?(:eitc) ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
           <% else %>
             <p><%= t("views.ctc_pages.home.subheader.claim_next_year_html") %></p>
           <% end %>
@@ -86,8 +86,13 @@
           <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
             <p><%= t("views.ctc_pages.home.what_is.qualify_reveal.body") %></p>
           <% end %>
-          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_reveal.title")) do %>
-            <p><%= t("views.ctc_pages.home.what_is.how_much_reveal.body_html") %></p>
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_ctc_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.how_much_ctc_reveal.body_html") %></p>
+          <% end %>
+          <% if Flipper.enabled?(:eitc) %>
+            <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_eitc_reveal.title")) do %>
+              <p><%= t("views.ctc_pages.home.what_is.how_much_eitc_reveal.body_html") %></p>
+            <% end %>
           <% end %>
         </div>
       </div>

@@ -69,8 +69,13 @@
         <div class="grid__item width-one-half">
           <h2><%= t("views.ctc_pages.stimulus_home.what_is.heading_open") %></h2>
           <p><%= t("views.ctc_pages.stimulus_home.what_is.subheading_open") %></p>
-          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_title")) do %>
-            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_body") %>
+          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_ctc_title")) do %>
+            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_ctc_body") %>
+          <% end %>
+          <% if Flipper.enabled?(:eitc) %>
+            <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_eitc_title")) do %>
+              <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_eitc_body") %>
+            <% end %>
           <% end %>
           <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_title")) do %>
             <% gyr_link = url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_to_gyr' }) %>
