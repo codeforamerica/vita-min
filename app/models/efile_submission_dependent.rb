@@ -44,7 +44,7 @@ class EfileSubmissionDependent < ApplicationRecord
 
   def schedule_eic_4a?
     full_time_student_yes? && age_during_tax_year > 19 && age_during_tax_year < 24 &&
-      intake.filers.any? { |filer| age_during_tax_year < (efile_submission.tax_year - filer.birth_date.year) }
+      intake.filers.any? { |filer| birth_date > filer.birth_date }
   end
 
   def schedule_eic_4b?

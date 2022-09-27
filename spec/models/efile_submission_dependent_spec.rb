@@ -107,7 +107,7 @@ describe EfileSubmissionDependent do
   end
 
   describe "#schedule_eic_4a?" do
-    let(:dependent) { create :dependent, full_time_student: full_time_student }
+    let(:dependent) { create :dependent, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
     let(:efile_submission_dependent) { create :efile_submission_dependent, dependent: dependent, age_during_tax_year: age_during_tax_year }
 
     before do
@@ -117,6 +117,7 @@ describe EfileSubmissionDependent do
     end
 
     context "when the dependent is between 19 and 24 and a full time student" do
+      let(:birth_date) { 22.years.ago }
       let(:age_during_tax_year) { 22 }
       let(:full_time_student) { "yes" }
 
@@ -188,6 +189,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent is over 24" do
       let(:age_during_tax_year) { 25 }
+      let(:birth_date) { 25.years.ago }
       let(:full_time_student) { "yes" }
 
       it "they do not meet the conditions for checkbox 4a" do
@@ -197,6 +199,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent is under 19" do
       let(:age_during_tax_year) { 18 }
+      let(:birth_date) { 18.years.ago }
       let(:full_time_student) { "yes" }
 
       it "they do not meet the conditions for checkbox 4a" do
@@ -206,6 +209,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent is not a full time student" do
       let(:age_during_tax_year) { 22 }
+      let(:birth_date) { 22.years.ago }
       let(:full_time_student) { "no" }
 
       it "they do not meet the conditions for checkbox 4a" do
@@ -220,6 +224,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent was disabled and under 19" do
       let(:age_during_tax_year) { 18 }
+      let(:birth_date) { 18.years.ago }
       let(:permanently_totally_disabled) { "yes" }
 
       it "they meet the conditions for checkbox 4b" do
@@ -229,6 +234,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent was disabled but not under 19" do
       let(:age_during_tax_year) { 21 }
+      let(:birth_date) { 21.years.ago }
       let(:permanently_totally_disabled) { "yes" }
 
       it "they do not meet the conditions for checkbox 4b" do
@@ -238,6 +244,7 @@ describe EfileSubmissionDependent do
 
     context "when the dependent was under 19 but not disabled" do
       let(:age_during_tax_year) { 18 }
+      let(:birth_date) { 18.years.ago }
       let(:permanently_totally_disabled) { "no" }
 
       it "they do not meet the conditions for checkbox 4b" do
