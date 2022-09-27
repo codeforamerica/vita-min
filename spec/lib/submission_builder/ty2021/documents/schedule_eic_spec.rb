@@ -6,7 +6,7 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
 
   before do
     submission.intake.update(exceeded_investment_income_limit: "no", primary_tin_type: "ssn")
-    dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes", months_in_home: 10)
+    dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2000, 1, 1), relationship: "daughter", ssn: "123001234", ip_pin: "123456", full_time_student: "yes", months_in_home: 10)
     first_dependent.update(dependent_attrs)
     dependent2 = submission.intake.dependents.second
     dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(2010, 1, 1), relationship: "son", ssn: "123001235", ip_pin: "123456", permanently_totally_disabled: "yes", months_in_home: 8)
@@ -30,9 +30,9 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[0].at("PersonLastNm").text).to eq "Kiwi-Cucumbersteinin"
     expect(dependent_nodes[0].at("IdentityProtectionPIN").text).to eq "123456"
     expect(dependent_nodes[0].at("QualifyingChildSSN").text).to eq "123001234"
-    expect(dependent_nodes[0].at("ChildBirthYr").text).to eq "2020"
+    expect(dependent_nodes[0].at("ChildBirthYr").text).to eq "2000"
     expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "true"
-    expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd").text).to eq "false"
+    expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd")).to be_nil
     expect(dependent_nodes[0].at("ChildRelationshipCd").text).to eq "DAUGHTER"
     expect(dependent_nodes[0].at("MonthsChildLivedWithYouCnt").text).to eq "10"
     # Second dependent
@@ -46,6 +46,37 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd").text).to eq "true"
     expect(dependent_nodes[1].at("ChildRelationshipCd").text).to eq "SON"
     expect(dependent_nodes[1].at("MonthsChildLivedWithYouCnt").text).to eq "08"
+  end
+
+  context "checkboxes 4a and 4b" do
+    context "when checkbox 4a is no" do
+      before do
+        allow_any_instance_of(EfileSubmissionDependent).to receive(:schedule_eic_4a?).and_return false
+        allow_any_instance_of(EfileSubmissionDependent).to receive(:schedule_eic_4b?).and_return true
+      end
+
+      it "checks 4b as yes or no" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        dependent_nodes = xml.search("QualifyingChildInformation")
+
+        expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "false"
+        expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd").text).to eq "true"
+      end
+    end
+
+    context "when checkbox 4a is yes" do
+      before do
+        allow_any_instance_of(EfileSubmissionDependent).to receive(:schedule_eic_4a?).and_return true
+      end
+
+      it "does not check 4b at all" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        dependent_nodes = xml.search("QualifyingChildInformation")
+
+        expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "true"
+        expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd")).to be_nil
+      end
+    end
   end
 
   it "conforms to the eFileAttachments schema 2021v5.2" do

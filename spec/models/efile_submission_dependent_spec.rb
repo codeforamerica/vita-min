@@ -110,7 +110,13 @@ describe EfileSubmissionDependent do
     let(:dependent) { create :dependent, full_time_student: full_time_student }
     let(:efile_submission_dependent) { create :efile_submission_dependent, dependent: dependent, age_during_tax_year: age_during_tax_year }
 
-    context "when the dependent is under 24 and a full time student" do
+    before do
+      efile_submission_dependent.efile_submission.tax_return.update(year: DateTime.now.year)
+      efile_submission_dependent.intake.update(primary_birth_date: 50.years.ago)
+      efile_submission_dependent.intake.update(spouse_birth_date: 50.years.ago)
+    end
+
+    context "when the dependent is between 19 and 24 and a full time student" do
       let(:age_during_tax_year) { 22 }
       let(:full_time_student) { "yes" }
 
@@ -142,15 +148,40 @@ describe EfileSubmissionDependent do
 
       context "when the filing status is mfj" do
         before do
-          efile_submission.tax_return.update(filing_status: "married_filing_jointly")
+          efile_submission_dependent.efile_submission.tax_return.update(filing_status: "married_filing_jointly")
         end
 
         context "when the dependent is younger than the primary but not the spouse" do
+          before do
+            efile_submission_dependent.intake.update(primary_birth_date: 26.years.ago)
+            efile_submission_dependent.intake.update(spouse_birth_date: 21.years.ago)
+          end
 
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
         end
 
         context "when the dependent is younger than the spouse but not the primary" do
+          before do
+            efile_submission_dependent.intake.update(primary_birth_date: 21.years.ago)
+            efile_submission_dependent.intake.update(spouse_birth_date: 26.years.ago)
+          end
 
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
+        end
+
+        context "when the dependent is older than the spouse and the primary" do
+          before do
+            efile_submission_dependent.intake.update(primary_birth_date: 21.years.ago)
+            efile_submission_dependent.intake.update(spouse_birth_date: 21.years.ago)
+          end
+
+          it "they do not meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+          end
         end
       end
     end
@@ -164,12 +195,53 @@ describe EfileSubmissionDependent do
       end
     end
 
+    context "when the dependent is under 19" do
+      let(:age_during_tax_year) { 18 }
+      let(:full_time_student) { "yes" }
+
+      it "they do not meet the conditions for checkbox 4a" do
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      end
+    end
+
     context "when the dependent is not a full time student" do
       let(:age_during_tax_year) { 22 }
       let(:full_time_student) { "no" }
 
       it "they do not meet the conditions for checkbox 4a" do
         expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      end
+    end
+  end
+
+  describe "#schedule_eic_4b?" do
+    let(:dependent) { create :dependent, permanently_totally_disabled: permanently_totally_disabled }
+    let(:efile_submission_dependent) { create :efile_submission_dependent, dependent: dependent, age_during_tax_year: age_during_tax_year }
+
+    context "when the dependent was disabled and under 19" do
+      let(:age_during_tax_year) { 18 }
+      let(:permanently_totally_disabled) { "yes" }
+
+      it "they meet the conditions for checkbox 4b" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq true
+      end
+    end
+
+    context "when the dependent was disabled but not under 19" do
+      let(:age_during_tax_year) { 21 }
+      let(:permanently_totally_disabled) { "yes" }
+
+      it "they do not meet the conditions for checkbox 4b" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq false
+      end
+    end
+
+    context "when the dependent was under 19 but not disabled" do
+      let(:age_during_tax_year) { 18 }
+      let(:permanently_totally_disabled) { "no" }
+
+      it "they do not meet the conditions for checkbox 4b" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq false
       end
     end
   end
