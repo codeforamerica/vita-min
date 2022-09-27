@@ -20,6 +20,11 @@ module Ctc
         render 'ctc/questions/w2s/edit'
       end
 
+      def destroy
+        current_intake.w2s.find(params[:id]).destroy!
+        redirect_to Ctc::Questions::ConfirmW2sController.to_path_helper
+      end
+
       def form_name
         "ctc_w2s_form"
       end

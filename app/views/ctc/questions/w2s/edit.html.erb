@@ -2,35 +2,34 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <h1 class="h2"><%= @main_question %></h1>
+  <p><%= t('views.ctc.questions.w2s.help_text.p1', count: current_intake.filer_count) %></p>
+  <p class="text--bold"><%= t('views.ctc.questions.w2s.help_text.p2') %></p>
 
-    <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t('views.ctc.questions.w2s.help_text.p1', count: current_intake.filer_count) %></p>
-    <p class="text--bold"><%= t('views.ctc.questions.w2s.help_text.p2') %></p>
-
-    <div class="spacing-above-15 spacing-below-60">
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal.title")) do %>
-        <p><%= t("views.ctc.questions.w2s.reveal.content.p1") %></p>
-        <p><%= t("views.ctc.questions.w2s.reveal.content.p2") %></p>
-        <p><%= t("views.ctc.questions.w2s.reveal.content.p3_html") %></p>
-        <p><%= t("views.ctc.questions.w2s.reveal.content.p4") %></p>
-      <% end %>
-
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal_1099.title")) do %>
-        <p><%= t("views.ctc.questions.w2s.reveal_1099.content") %></p>
-      <% end %>
-
-      <% if current_intake.w2s.none? %>
-        <p><%= t('views.ctc.questions.w2s.note_html') %></p>
-      <% end %>
-    </div>
-
-    <% if current_intake.w2s.any? %>
-      <div class="review-box spacing-below-35">
-        <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Questions::W2s::EmployeeInfoController, intake: @intake %>
-      </div>
+  <div class="spacing-above-15 spacing-below-60">
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal.title")) do %>
+      <p><%= t("views.ctc.questions.w2s.reveal.content.p1") %></p>
+      <p><%= t("views.ctc.questions.w2s.reveal.content.p2") %></p>
+      <p><%= t("views.ctc.questions.w2s.reveal.content.p3_html") %></p>
+      <p><%= t("views.ctc.questions.w2s.reveal.content.p4") %></p>
     <% end %>
 
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal_1099.title")) do %>
+      <p><%= t("views.ctc.questions.w2s.reveal_1099.content") %></p>
+    <% end %>
+
+    <% if current_intake.w2s.none? %>
+      <p><%= t('views.ctc.questions.w2s.note_html') %></p>
+    <% end %>
+  </div>
+
+  <% if current_intake.w2s.any? %>
+    <div class="review-box spacing-below-35">
+      <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Questions::W2s::EmployeeInfoController, destroy_controller: Ctc::Questions::ConfirmW2sController, intake: @intake %>
+    </div>
+  <% end %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.button value: 'yes', name: 'ctc_w2s_form[had_w2s]', class: 'button button--primary button--wide text--centered', type: 'submit' do %>
       <%= image_tag("paper-white.svg", alt: "") %>
       <%= t('views.ctc.questions.w2s.add') %>

@@ -54,6 +54,21 @@
     margin: 0 0 0 1rem !important;
     border-radius: 5px;
   }
+  &__delete-button {
+    @extend .button;
+    color: $color-red;
+    font-size: 1.6rem;
+    // overrides
+    border: 2px solid $color-red;
+    padding: 5px 10px;
+    line-height: 1;
+    border-radius: 5px;
+    margin-left: 0;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
   &__body {
     margin: 0;
 

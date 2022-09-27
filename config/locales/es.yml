@@ -2678,6 +2678,7 @@ es:
         w2s:
           add: Agregar la forma W-2
           add_later: Cerrar sesión y agregar un W-2 más tarde
+          delete_this_w2: Eliminar este W-2
           done_adding: Se ha terminado de añadir todas las formas W-2
           dont_add_w2: No deseo añadir ningún forma W-2
           employee_info:
@@ -2720,6 +2721,7 @@ es:
             info_box:
               requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
               requirement_title: 'Requisito:'
+            remove_this_w2: Eliminar este W-2
             submit: Enviar W-2
             title: Terminemos de ingresar la información W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
