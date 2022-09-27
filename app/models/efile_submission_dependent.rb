@@ -43,6 +43,7 @@ class EfileSubmissionDependent < ApplicationRecord
   end
 
   def schedule_eic_4a?
-    age_during_tax_year < 24
+    primary_age_during_tax_year = efile_submission.tax_year - intake.primary_birth_date.year
+    full_time_student_yes? && age_during_tax_year < 24 && age_during_tax_year < primary_age_during_tax_year  
   end
 end

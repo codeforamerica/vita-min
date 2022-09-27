@@ -128,6 +128,16 @@ describe EfileSubmissionDependent do
             expect(efile_submission_dependent.schedule_eic_4a?).to eq true
           end
         end
+
+        context "when the dependent is older than the primary" do
+          before do
+            efile_submission_dependent.intake.update(primary_birth_date: 21.years.ago)
+          end
+
+          it "they do not meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+          end
+        end
       end
 
       context "when the filing status is mfj" do
@@ -155,8 +165,11 @@ describe EfileSubmissionDependent do
     end
 
     context "when the dependent is not a full time student" do
-      it "returns false" do
+      let(:age_during_tax_year) { 22 }
+      let(:full_time_student) { "no" }
 
+      it "they do not meet the conditions for checkbox 4a" do
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
       end
     end
   end
