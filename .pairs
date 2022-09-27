@@ -21,4 +21,5 @@ email_addresses:
   tg: tgrathwell@codeforamerica.org
   ws: wschaefer@codeforamerica.org
   nn: nnelson@codeforamerica.org
+  #don't merge
 global: false  # Set to true for git-pair to change git configuration for all your projects
