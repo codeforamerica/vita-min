@@ -335,7 +335,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45)
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false)
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
@@ -383,7 +383,11 @@ module CtcIntakeFeatureHelper
     select "D", from: I18n.t("views.ctc.questions.w2s.misc_info.box12d")
     fill_in 'ctc_w2s_misc_info_form_box12d_value', with: "74.50"
     check I18n.t('views.ctc.questions.w2s.misc_info.box13_retirement_plan')
-    click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
+    if delete_instead_of_submit
+      click_on I18n.t('views.ctc.questions.w2s.misc_info.remove_this_w2')
+    else
+      click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
+    end
   end
 
   def fill_in_advance_child_tax_credit

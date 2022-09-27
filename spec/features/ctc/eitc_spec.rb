@@ -31,6 +31,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'
     expect(W2.last.employee_ssn).to eq '111228888'
+
+    click_on I18n.t('views.ctc.questions.w2s.delete_this_w2')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
+    expect(page).not_to have_text 'lumen inc'
+
+    fill_in_w2("Gary Mango III", filing_status: 'single', delete_instead_of_submit: true)
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
+    expect(page).not_to have_text 'lumen inc'
   end
 
   scenario "a MFJ client who qualifies for and wants to claim EITC and enters spouse W2" do

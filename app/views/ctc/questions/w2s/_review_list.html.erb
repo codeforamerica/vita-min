@@ -7,6 +7,9 @@
       <div>
         <div class="review-box__name spacing-below-15"><%= w2.employer_name %></div>
         <div class="text--italic"><%= t("views.ctc.questions.w2s.wages") %>: <%= number_to_currency(w2.wages_amount) %></div>
+        <% if defined?(destroy_controller) %>
+          <%= button_to t("views.ctc.questions.w2s.delete_this_w2"), destroy_controller.to_path_helper(id: w2.id, action: :destroy), method: :delete, class: "review-box__delete-button spacing-above-15" %>
+        <% end %>
       </div>
     </div>
     <% if defined?(edit_controller) %>

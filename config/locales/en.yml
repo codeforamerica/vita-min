@@ -2716,6 +2716,7 @@ en:
         w2s:
           add: Add a W-2
           add_later: Log out and add a W-2 later
+          delete_this_w2: Delete this W-2
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add my W-2
           employee_info:
@@ -2757,6 +2758,7 @@ en:
             info_box:
               requirement_description_html: The following sections of your W-2 may likely be blank. If so, there is no problem; leave them blank in the boxes below.
               requirement_title: 'Requirement:'
+            remove_this_w2: Remove this W-2
             submit: Submit W-2
             title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."

@@ -30,4 +30,10 @@
 
     <%= f.continue @continue_label %>
   <% end %>
+  <% if current_intake.completed_at.blank? %>
+    <%= button_to Ctc::Questions::ConfirmW2sController.to_path_helper(id: @form.w2.id, action: :destroy), method: :delete, class: "button button--wide button--danger text--centered" do %>
+      <%= image_tag("remove-minus.svg", alt: "") %>
+      <%= t("views.ctc.questions.w2s.misc_info.remove_this_w2") %>
+    <% end %>
+  <% end %>
 <% end %>
