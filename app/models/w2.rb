@@ -49,6 +49,8 @@
 #
 class W2 < ApplicationRecord
   BOX12_OPTIONS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "Z", "AA", "BB", "DD", "EE", "FF", "GG", "HH"]
+  BOX12_OFFBOARD_CODES = %w(A B K L M N R V W Z)
+
   belongs_to :intake
 
   scope :completed, -> { where.not(completed_at: nil) }
