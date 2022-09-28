@@ -47,7 +47,7 @@ module CtcIntakeFeatureHelper
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
     end
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
-    if open_for_eitc_intake?
+    if Flipper.enabled?(:eitc)
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
       click_on I18n.t("general.affirmative")
     end
