@@ -112,7 +112,7 @@
           <%= image_tag('question-bubble.svg', alt: "") %>
         </div>
         <div class="media-box__content">
-          <% if Flipper.enabled?(:eitc) %>
+          <% if open_for_eitc_intake? %>
             <%= t('views.ctc_pages.home.navigator_resources.eitc_on_html', navigators_link: ctc_navigators_url) %>
           <% else %>
             <%= t('views.ctc_pages.home.navigator_resources.eitc_off_html', navigators_link: ctc_navigators_url) %>

@@ -30,8 +30,8 @@
           </p>
         <% end %>
           <% if open_for_ctc_intake? %>
-            <p class="spacing-below-35"><%= Flipper.enabled?(:eitc) ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
-            <p><%= Flipper.enabled?(:eitc) ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
+            <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
+            <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
           <% else %>
             <p><%= t("views.ctc_pages.home.subheader.claim_next_year_html") %></p>
           <% end %>
@@ -89,7 +89,7 @@
           <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_ctc_reveal.title")) do %>
             <p><%= t("views.ctc_pages.home.what_is.how_much_ctc_reveal.body_html") %></p>
           <% end %>
-          <% if Flipper.enabled?(:eitc) %>
+          <% if open_for_eitc_intake? %>
             <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_eitc_reveal.title")) do %>
               <p><%= t("views.ctc_pages.home.what_is.how_much_eitc_reveal.body_html") %></p>
             <% end %>
@@ -137,7 +137,7 @@
           <%= image_tag('question-bubble.svg', alt: "") %>
         </div>
         <div class="media-box__content">
-          <% if Flipper.enabled?(:eitc) %>
+          <% if open_for_eitc_intake? %>
             <%= t('views.ctc_pages.home.navigator_resources.eitc_on_html', navigators_link: ctc_navigators_url) %>
           <% else %>
             <%= t('views.ctc_pages.home.navigator_resources.eitc_off_html', navigators_link: ctc_navigators_url) %>

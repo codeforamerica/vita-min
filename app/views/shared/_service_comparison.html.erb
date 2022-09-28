@@ -17,7 +17,7 @@
                 </h2>
               </div>
               <div class="service__description">
-                <%= Flipper.enabled?(:eitc) ? t("views.shared.service_comparison.services.ctc.service_description.eitc_on") : t("views.shared.service_comparison.services.ctc.service_description.eitc_off") %>
+                <%= open_for_eitc_intake? ? t("views.shared.service_comparison.services.ctc.service_description.eitc_on") : t("views.shared.service_comparison.services.ctc.service_description.eitc_off") %>
               </div>
               <% unless open_for_ctc_intake? %>
                 <div class="service__availability">
@@ -256,7 +256,7 @@
           </div>
           <div class="service-set__services">
             <div class="service ctc">
-              <% if Flipper.enabled?(:eitc) %>
+              <% if open_for_eitc_intake? %>
                 <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
               <% end %>
             </div>
