@@ -30,10 +30,12 @@ class Irs1040ScheduleEicPdf
         answers["ChildBirthYr#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
         answers["ChildBirthYr#{index + 1}[2]"] = dependent.at("ChildBirthYr").text[2]
         answers["ChildBirthYr#{index + 1}[3]"] = dependent.at("ChildBirthYr").text[3]
-        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] =  xml_check_to_bool(dependent.at("ChildIsAStudentUnder24Ind")) ? "Yes" : nil
-        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = !xml_check_to_bool(dependent.at("ChildIsAStudentUnder24Ind")) ? "Yes" : nil
-        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = xml_check_to_bool(dependent.at("ChildPermanentlyDisabledInd")) ? "Yes" : nil
-        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = !xml_check_to_bool(dependent.at("ChildPermanentlyDisabledInd")) ? "Yes" : nil
+        bool = xml_bool_to_bool(dependent.at("ChildIsAStudentUnder24Ind"))
+        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] =  bool ? "Yes" : nil
+        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = !bool ? "Yes" : nil
+        bool = xml_bool_to_bool(dependent.at("ChildPermanentlyDisabledInd"))
+        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = bool ? "Yes" : nil
+        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = !bool ? "Yes" : nil
         answers["ChildRelationshipCd#{index + 1}"] = dependent.at("ChildRelationshipCd").text
         answers["MonthsChildLivedWithYouCnt#{index + 1}"] = dependent.at("MonthsChildLivedWithYouCnt").text
     end
