@@ -5,12 +5,6 @@ class GyrQuestionNavigation
       Questions::WelcomeController,
       Questions::TriagePersonalInfoController, # creates Intake record and Client record
       Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController, # deprecated
-      Questions::TriageIdTypeController, # deprecated
-      Questions::TriageDocTypeController, # deprecated
-      Questions::TriageBacktaxesYearsController, # deprecated
-      Questions::TriageAssistanceController, # deprecated
-      Questions::TriageIncomeTypesController, # deprecated
       Questions::TriageGyrController,
       Questions::TriageDiyController,
       Questions::TriageExpressController,
