@@ -23,14 +23,19 @@ module Ctc
 
       if attributes_for(:recaptcha)[:recaptcha_score].present?
         @intake.client.recaptcha_scores.create(
-            score: attributes_for(:recaptcha)[:recaptcha_score],
-            action: attributes_for(:recaptcha)[:recaptcha_action]
+          score: attributes_for(:recaptcha)[:recaptcha_score],
+          action: attributes_for(:recaptcha)[:recaptcha_action]
         )
       end
 
       unless @intake.tax_returns.last.efile_submissions.any?
         EfileSecurityInformation.create(efile_attrs.merge(client: @intake.client))
-        efile_submission = EfileSubmission.create(tax_return: @intake.tax_returns.last)
+
+        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: @intake.tax_returns.last, dependents: @intake.dependents)
+        efile_submission = EfileSubmission.create(
+          tax_return: @intake.tax_returns.last,
+          claimed_eitc: benefits_eligibility.eitc_amount&.positive?
+        )
         begin
           efile_submission.transition_to(:preparing)
         rescue Statesman::GuardFailedError

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::ConfirmLegalForm do
-  let(:client) { create :client, tax_returns: [(create :tax_return, filing_status: nil)] }
+  let(:client) { create :client, tax_returns: [(create :tax_return, filing_status: 'single')] }
   let!(:intake) { create :ctc_intake, client: client }
   let(:params) do
     {
@@ -62,6 +62,16 @@ describe Ctc::ConfirmLegalForm do
         .to change(intake, :consented_to_legal).from("unfilled").to("yes")
         .and change(intake, :completed_at).from(nil)
         .and change(intake.tax_returns.last.efile_submissions, :count).by(1)
+    end
+
+    context "when there was a positive eitc_amount at submission time" do
+      let!(:intake) { create :ctc_intake, :claiming_eitc, client: client }
+      let!(:w2) { create :w2, intake: intake }
+
+      it "sets claimed_eitc to be true on the submission" do
+        described_class.new(intake, params).save
+        expect(EfileSubmission.last.claimed_eitc).to be_truthy
+      end
     end
 
     it "persists efile_security_information as a record linked to the client" do

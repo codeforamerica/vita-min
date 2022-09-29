@@ -3,6 +3,7 @@
 # Table name: efile_submissions
 #
 #  id                      :bigint           not null, primary key
+#  claimed_eitc            :boolean
 #  last_checked_for_ack_at :datetime
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
