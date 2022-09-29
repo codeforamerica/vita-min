@@ -49,7 +49,7 @@ module SubmissionBuilder
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
             pdf: Irs1040ScheduleEicPdf,
-            include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc?
+            include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc? && @submission.qualifying_dependents.any?(&:qualifying_eitc?)
           },
         ]
         w2_docs = submission.intake.w2s.map do |w2|
