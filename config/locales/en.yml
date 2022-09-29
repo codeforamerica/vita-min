@@ -2945,8 +2945,8 @@ en:
           claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
           time_estimate:
-            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
         title: Claim Your Child Tax Credit
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
@@ -3121,8 +3121,8 @@ en:
             eitc_off: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
             eitc_on: Use our simplified tax filing tool to claim your Child Tax Credit, Earned Income Tax Credit, and any missing amount of your third stimulus payment.
           time_estimate:
-            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
         what_is:
           body_html: |
             <p>Relief to help you through these difficult times, even if you make little or no money.</p>
