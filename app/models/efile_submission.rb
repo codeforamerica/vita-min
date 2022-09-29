@@ -2,12 +2,13 @@
 #
 # Table name: efile_submissions
 #
-#  id                      :bigint           not null, primary key
-#  last_checked_for_ack_at :datetime
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  irs_submission_id       :string
-#  tax_return_id           :bigint
+#  id                              :bigint           not null, primary key
+#  claiming_and_qualified_for_eitc :boolean
+#  last_checked_for_ack_at         :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  irs_submission_id               :string
+#  tax_return_id                   :bigint
 #
 # Indexes
 #

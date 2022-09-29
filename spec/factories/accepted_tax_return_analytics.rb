@@ -8,6 +8,7 @@
 #  eip1_and_eip2_amount_cents    :bigint
 #  eip3_amount_cents             :bigint
 #  eip3_amount_received_cents    :bigint
+#  eitc_amount_cents             :bigint
 #  outstanding_ctc_amount_cents  :bigint
 #  outstanding_eip3_amount_cents :bigint
 #  total_refund_amount_cents     :bigint

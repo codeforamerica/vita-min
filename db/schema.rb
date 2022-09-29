@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_29_163418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
     t.bigint "eip1_and_eip2_amount_cents"
     t.bigint "eip3_amount_cents"
     t.bigint "eip3_amount_received_cents"
+    t.bigint "eitc_amount_cents"
     t.bigint "outstanding_ctc_amount_cents"
     t.bigint "outstanding_eip3_amount_cents"
     t.bigint "tax_return_id"
@@ -786,6 +787,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
   end
 
   create_table "efile_submissions", force: :cascade do |t|
+    t.boolean "claiming_and_qualified_for_eitc"
     t.datetime "created_at", null: false
     t.string "irs_submission_id"
     t.datetime "last_checked_for_ack_at", precision: nil

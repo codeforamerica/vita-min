@@ -8,6 +8,7 @@
 #  eip1_and_eip2_amount_cents    :bigint
 #  eip3_amount_cents             :bigint
 #  eip3_amount_received_cents    :bigint
+#  eitc_amount_cents             :bigint
 #  outstanding_ctc_amount_cents  :bigint
 #  outstanding_eip3_amount_cents :bigint
 #  total_refund_amount_cents     :bigint
@@ -27,13 +28,16 @@ class AcceptedTaxReturnAnalytics < ApplicationRecord
     eip1_and_eip2_amount = [benefits.eip1_amount, benefits.eip2_amount].compact.sum
     total_refund_amount = [benefits.outstanding_ctc_amount, benefits.outstanding_recovery_rebate_credit].compact.sum
 
-    { eip1_and_eip2_amount_cents: eip1_and_eip2_amount * 100,
+    {
+      eip1_and_eip2_amount_cents: eip1_and_eip2_amount * 100,
       advance_ctc_amount_cents: benefits.advance_ctc_amount_received * 100,
       outstanding_ctc_amount_cents: benefits.outstanding_ctc_amount * 100,
       ctc_amount_cents: benefits.ctc_amount * 100,
       eip3_amount_received_cents: benefits.eip3_amount_received * 100,
       eip3_amount_cents: benefits.eip3_amount * 100,
       outstanding_eip3_amount_cents: benefits.outstanding_eip3 * 100,
-      total_refund_amount_cents: total_refund_amount * 100 }
+      total_refund_amount_cents: total_refund_amount * 100,
+      eitc_amount_cents: (benefits.eitc_amount || 0) * 100
+    }
   end
 end
