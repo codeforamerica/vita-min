@@ -80,6 +80,40 @@ describe SubmissionBuilder::Ty2021::Return1040 do
       end
     end
 
+    context "schedule EIC" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
+        submission.intake.update(
+          claim_eitc: "yes",
+          exceeded_investment_income_limit: "no",
+          primary_birth_date: 30.years.ago,
+          former_foster_youth: "yes",
+          primary_tin_type: "ssn",
+          spouse_tin_type: "ssn"
+        )
+      end
+
+      context "when there are no qualifying dependents" do
+        it "is not included" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at("IRS1040ScheduleEIC")).to be_nil
+        end
+      end
+
+      context "for eitc filers with qualifying dependents" do
+        before do
+          create(:qualifying_child, intake: submission.intake)
+          submission.create_qualifying_dependents
+          submission.reload
+        end
+
+        it "is included" do
+          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.at("IRS1040ScheduleEIC")).not_to be_nil
+        end
+      end
+    end
+
     context "attaching W2s for EITC filers" do
       before do
         allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
