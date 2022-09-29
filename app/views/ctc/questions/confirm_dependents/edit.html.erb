@@ -6,34 +6,35 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
+    <p><%= t("views.ctc.questions.confirm_dependents.subtitle", current_tax_year: TaxReturn.current_tax_year) %></p>
 
     <div class="review-box spacing-below-35">
       <div data-automation="ctc-dependents">
         <div class="dependents-list grid">
-            <div class="row">
-              <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
-              <div class="grid__item width-one-half row">
-                <div class="qualification text--bold text--small">CTC</div>
-                <% if current_intake.claim_eitc_yes? %>
-                  <div class="qualification text--bold text--small">EITC</div>
-                <% end %>
-                <% unless current_intake.puerto_rico_filing? %>
-                  <div class="qualification text--bold text--small"><%= t("general.stimulus") %></div>
-                <% end %>
-              </div>
+          <div class="row">
+            <div class="dependent dependent__header grid__item width-one-half"><%= image_tag "icons/person.svg" %></div>
+            <div class="grid__item width-one-half row">
+              <div class="qualification text--bold text--small">CTC</div>
+              <% if current_intake.claim_eitc_yes? %>
+                <div class="qualification text--bold text--small">EITC</div>
+              <% end %>
+              <% unless current_intake.puerto_rico_filing? %>
+                <div class="qualification text--bold text--small"><%= t("general.stimulus") %></div>
+              <% end %>
             </div>
-            <% current_intake.dependents.each_with_index do |dependent, index| %>
-                <%=
-                  render(
-                    partial: 'dependent',
-                    locals: { is_first: index == 0 },
-                    collection: [dependent]
-                  )
-                %>
-            <% end %>
           </div>
+          <% current_intake.dependents.each_with_index do |dependent, index| %>
+            <%=
+              render(
+                partial: 'dependent',
+                locals: { is_first: index == 0 },
+                collection: [dependent]
+              )
+            %>
+          <% end %>
         </div>
       </div>
+    </div>
 
     <% unless current_intake.filing_jointly? %>
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")) do %>

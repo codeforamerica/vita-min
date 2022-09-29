@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_26_214237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -704,6 +704,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
     t.string "license_number", null: false
     t.string "state", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ds_click_histories", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "w2_logout_add_later", precision: nil
+    t.index ["client_id"], name: "index_ds_click_histories_on_client_id", unique: true
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -1602,24 +1610,42 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
   end
 
   create_table "w2s", force: :cascade do |t|
+    t.decimal "box10_dependent_care_benefits", precision: 12, scale: 2
+    t.decimal "box11_nonqualified_plans", precision: 12, scale: 2
+    t.string "box12a_code"
+    t.decimal "box12a_value", precision: 12, scale: 2
+    t.string "box12b_code"
+    t.decimal "box12b_value", precision: 12, scale: 2
+    t.string "box12c_code"
+    t.decimal "box12c_value", precision: 12, scale: 2
+    t.string "box12d_code"
+    t.decimal "box12d_value", precision: 12, scale: 2
+    t.integer "box13_retirement_plan", default: 0
+    t.integer "box13_statutory_employee", default: 0
+    t.integer "box13_third_party_sick_pay", default: 0
+    t.decimal "box3_social_security_wages", precision: 12, scale: 2
+    t.decimal "box4_social_security_tax_withheld", precision: 12, scale: 2
+    t.decimal "box5_medicare_wages_and_tip_amount", precision: 12, scale: 2
+    t.decimal "box6_medicare_tax_withheld", precision: 12, scale: 2
+    t.decimal "box7_social_security_tips_amount", precision: 12, scale: 2
+    t.decimal "box8_allocated_tips", precision: 12, scale: 2
+    t.string "box_d_control_number"
+    t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.string "creation_token"
     t.integer "employee", default: 0, null: false
     t.string "employee_city"
     t.string "employee_state"
     t.string "employee_street_address"
-    t.string "employee_street_address2"
     t.string "employee_zip_code"
     t.string "employer_city"
     t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_state"
     t.string "employer_street_address"
-    t.string "employer_street_address2"
     t.string "employer_zip_code"
     t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
-    t.string "standard_or_non_standard_code"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
     t.index ["creation_token"], name: "index_w2s_on_creation_token"
@@ -1656,6 +1682,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_232842) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "clients"
+  add_foreign_key "ds_click_histories", "clients"
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"

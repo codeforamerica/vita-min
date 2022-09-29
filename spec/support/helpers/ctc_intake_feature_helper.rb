@@ -23,7 +23,7 @@ module CtcIntakeFeatureHelper
     choose I18n.t("views.ctc.questions.main_home.options.#{home_location}")
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
     if married_filing_jointly
       click_on I18n.t('general.affirmative')
     else
@@ -33,15 +33,19 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       if married_filing_jointly
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
       else
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
       end
     end
     click_on I18n.t('general.continue')
 
     key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    if Flipper.enabled?("eitc")
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
+    else
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
+    end
     click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
     if Flipper.enabled?(:eitc)
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
@@ -331,7 +335,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45)
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false)
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
@@ -341,23 +345,49 @@ module CtcIntakeFeatureHelper
       expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employee_info.title', count: 2))
       select employee_name, from: I18n.t('views.ctc.questions.w2s.employee_info.employee_legal_name')
     end
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.wages_amount'), with: wages
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.federal_income_tax_withheld'), with: '12.01'
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
     select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
     fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title'))
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: employee_name))
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.wages_amount'), with: wages
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.federal_income_tax_withheld'), with: '12.01'
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box3_social_security_wages'), with: 1.40
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box4_social_security_tax_withheld'), with: 123.30
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box5_medicare_wages_and_tip_amount'), with: 5.12
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box6_medicare_tax_withheld'), with: 12.67
+    fill_in I18n.t('views.ctc.questions.w2s.wages_info.box7_social_security_tips_amount'), with: 27.32
+
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.employer_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_ein'), with: '123112222'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_name'), with: 'lumen inc'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_street_address'), with: '123 Easy St'
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_city'), with: 'Citytown'
     select "California", from: I18n.t('views.ctc.questions.w2s.employer_info.employer_state')
     fill_in I18n.t('views.ctc.questions.w2s.employer_info.employer_zip_code'), with: '94105'
-    select "S", from: I18n.t('views.ctc.questions.w2s.employer_info.standard_or_non_standard_code')
-    click_on I18n.t('views.ctc.questions.w2s.employer_info.add')
+    fill_in I18n.t('views.ctc.questions.w2s.employer_info.box_d_control_number'), with: '12345678'
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.misc_info.title', name: employee_name))
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box11_nonqualified_plans'), with: '123'
+    select "F", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
+    fill_in 'ctc_w2s_misc_info_form_box12a_value', with: "44.50"
+    select "E", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
+    fill_in 'ctc_w2s_misc_info_form_box12b_value', with: "54.50"
+    select "C", from: I18n.t("views.ctc.questions.w2s.misc_info.box12c")
+    fill_in 'ctc_w2s_misc_info_form_box12c_value', with: "64.50"
+    select "D", from: I18n.t("views.ctc.questions.w2s.misc_info.box12d")
+    fill_in 'ctc_w2s_misc_info_form_box12d_value', with: "74.50"
+    check I18n.t('views.ctc.questions.w2s.misc_info.box13_retirement_plan')
+    if delete_instead_of_submit
+      click_on I18n.t('views.ctc.questions.w2s.misc_info.remove_this_w2')
+    else
+      click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
+    end
   end
 
   def fill_in_advance_child_tax_credit
@@ -525,7 +555,7 @@ module CtcIntakeFeatureHelper
       expect(page).to have_selector("p", text:  married_filing_jointly ? "$2,400" : "$1,000")
     end
 
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.confirm')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.irs_language_preference.title"))
     click_on I18n.t('general.continue')

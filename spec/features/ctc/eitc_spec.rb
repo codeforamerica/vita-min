@@ -26,11 +26,21 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     click_on I18n.t('general.back')
 
-    fill_in_w2("Gary", filing_status: 'single')
+    fill_in_w2("Gary Mango III", filing_status: 'single')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     expect(page).to have_text 'lumen inc'
     expect(W2.last.employee_ssn).to eq '111228888'
+
+    click_on I18n.t('views.ctc.questions.w2s.delete_this_w2')
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
+    expect(page).not_to have_text 'lumen inc'
+
+    fill_in_w2("Gary Mango III", filing_status: 'single', delete_instead_of_submit: true)
+
+    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
+    expect(page).not_to have_text 'lumen inc'
   end
 
   scenario "a MFJ client who qualifies for and wants to claim EITC and enters spouse W2" do
@@ -120,12 +130,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     choose I18n.t('views.ctc.questions.main_home.options.puerto_rico')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
     click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+       expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.continue')
 

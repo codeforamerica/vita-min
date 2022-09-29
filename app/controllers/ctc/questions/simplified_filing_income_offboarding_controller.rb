@@ -5,8 +5,8 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
-        return false unless Flipper.enabled?(:eitc)
+      def self.show?(intake, current_controller)
+        return false unless current_controller.open_for_eitc_intake?
         return false unless intake.total_wages_amount
 
         if intake.filing_jointly?

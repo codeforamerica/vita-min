@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.filing_status.title", current_tax_year: current_tax_year) %>
+<% @main_question = t("views.ctc.questions.filing_status.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -10,10 +10,10 @@
       <div class="options-wrapper">
         <div class="yes-no-buttons">
           <%= f.button :submit, name: "#{f.object_name}[filing_status]", value: "married_filing_jointly", class: "button button--icon button--icon--centered" do %>
-            <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
+            <%= image_tag("checkmark.svg", alt: "") %><%= t("general.affirmative") %>
           <% end %>
           <%= f.button :submit, name: "#{f.object_name}[filing_status]", value: "single", class: "button button--icon button--icon--centered" do %>
-            <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
+            <%= image_tag("crossmark.svg", alt: "") %><%= t("general.negative") %>
           <% end %>
         </div>
       </div>

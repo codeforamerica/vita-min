@@ -29,7 +29,7 @@ describe Ctc::Questions::EitcQualifiersController do
         let(:primary_age_at_end_of_tax_year) { 25.years }
 
         it "returns false" do
-          expect(described_class.show?(intake)).to eq false
+          expect(described_class.show?(intake, subject)).to eq false
         end
       end
 
@@ -38,7 +38,7 @@ describe Ctc::Questions::EitcQualifiersController do
         let(:spouse_age_at_end_of_tax_year) { 25.years }
 
         it "returns false" do
-          expect(described_class.show?(intake)).to eq false
+          expect(described_class.show?(intake, subject)).to eq false
         end
       end
 
@@ -50,13 +50,13 @@ describe Ctc::Questions::EitcQualifiersController do
           let!(:dependent) { create :qualifying_child, intake: intake }
 
           it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+            expect(described_class.show?(intake, subject)).to eq false
           end
         end
 
         context "when the client has no qualifying children" do
           it "returns true" do
-            expect(described_class.show?(intake)).to eq true
+            expect(described_class.show?(intake, subject)).to eq true
           end
         end
 
@@ -64,7 +64,7 @@ describe Ctc::Questions::EitcQualifiersController do
           let(:exceeded_investment_income_limit) { "yes" }
 
           it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+            expect(described_class.show?(intake, subject)).to eq false
           end
         end
       end
@@ -72,7 +72,7 @@ describe Ctc::Questions::EitcQualifiersController do
 
     context "with the feature flag disabled" do
       it "returns false" do
-        expect(described_class.show?(intake)).to eq false
+        expect(described_class.show?(intake, subject)).to eq false
       end
     end
   end

@@ -5,8 +5,8 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
-        return unless Flipper.enabled?(:eitc)
+      def self.show?(intake, current_controller)
+        return unless current_controller.open_for_eitc_intake?
 
         benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
         benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
@@ -18,6 +18,11 @@ module Ctc
 
       def edit
         render 'ctc/questions/w2s/edit'
+      end
+
+      def destroy
+        current_intake.w2s.find(params[:id]).destroy!
+        redirect_to Ctc::Questions::ConfirmW2sController.to_path_helper
       end
 
       def form_name

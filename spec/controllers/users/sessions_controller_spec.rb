@@ -82,7 +82,6 @@ RSpec.describe Users::SessionsController do
 
       it "responds with HTTP 400" do
         post :create, params: params
-        puts(response.status)
         expect(response).to be_bad_request
       end
     end

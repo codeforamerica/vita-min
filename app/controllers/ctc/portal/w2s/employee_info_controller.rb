@@ -4,17 +4,6 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
     render edit_template
   end
 
-  def update
-    @form = form_class.new(current_model, form_params)
-    if @form.valid?
-      @form.save
-      generate_system_note
-      redirect_to next_path
-    else
-      render edit_template
-    end
-  end
-
   private
 
   def generate_system_note
@@ -53,6 +42,6 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
   end
 
   def next_path
-    Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+    Ctc::Portal::W2s::WagesInfoController.to_path_helper(action: :edit, id: current_model.id)
   end
 end

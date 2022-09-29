@@ -13,12 +13,6 @@ module Ctc
                            end
                          end
         end
-
-        private
-
-        def illustration_path
-          "documents.svg"
-        end
       end
     end
   end

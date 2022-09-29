@@ -59,14 +59,14 @@ describe Ctc::W2s::EmployerInfoForm do
       expect(form.errors.attribute_names).not_to include(:employer_zip_code)
     end
 
-    it "must have standard_or_non_standard code set appropriately" do
-      form = described_class.new(w2, { standard_or_non_standard_code: 'RUTABAGA' })
-      expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:standard_or_non_standard_code)
-
-      form = described_class.new(w2, { standard_or_non_standard_code: 'S' })
+    it "does not require box_d_control_number but if present it can have a max of 14 characters" do
+      form = described_class.new(w2, {})
       form.valid?
-      expect(form.errors.attribute_names).not_to include(:standard_or_non_standard_code)
+      expect(form.errors.attribute_names).not_to include(:box_d_control_number)
+
+      form = described_class.new(w2, { box_d_control_number: 'a'*15 })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box_d_control_number)
     end
   end
 end

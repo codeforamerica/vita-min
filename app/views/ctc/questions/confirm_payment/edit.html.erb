@@ -1,8 +1,9 @@
-<% @main_title = @total_amount.zero? ?  t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
+<% @main_title = @total_amount.zero? ? t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
 <% content_for :page_title, @main_title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= @main_title %></h1>
+  <p><%= t("views.ctc.questions.confirm_payment.subtitle") %></p>
 
   <div class="review-box">
     <div class="spacing-above-0">
@@ -16,10 +17,17 @@
         <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount) %></p>
       </div>
     <% end %>
-    <% if @eitc_amount %>
+    <% unless @eitc_amount.nil? || @eitc_amount.zero? %>
       <div class="spacing-above-35">
         <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.eitc') %></strong></p>
         <p class="spacing-below-15"><%= number_to_currency(@eitc_amount) %></p>
+      </div>
+    <% end %>
+    <% unless @fed_income_tax_withholding_amount.nil? || @fed_income_tax_withholding_amount.zero? %>
+      <div class="spacing-above-35">
+        <p class="spacing-below-15">
+          <strong><%= t('views.ctc.questions.confirm_payment.fed_income_tax_withholding') %></strong></p>
+        <p class="spacing-below-15"><%= number_to_currency(@fed_income_tax_withholding_amount) %></p>
       </div>
     <% end %>
     <div class="total_fund_amount-box">
@@ -28,6 +36,6 @@
     </div>
   </div>
 
-  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @total_amount.zero? %>
+  <%= link_to t("general.confirm"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @total_amount.zero? %>
   <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), questions_do_not_file_path, method: :patch, class: "button button--primary button--wide text--centered spacing-above-60" if @total_amount.zero? %>
 <% end %>

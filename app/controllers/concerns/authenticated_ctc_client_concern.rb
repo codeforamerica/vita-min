@@ -6,10 +6,16 @@ module AuthenticatedCtcClientConcern
     after_action :update_session_time
   end
 
+  def track_click_history(event_name)
+    history = DataScience::ClickHistory.create_or_find_by!(client: current_intake.client)
+    history.update(event_name => DateTime.now) if history.send(event_name).nil?
+    send_mixpanel_event(event_name: event_name.to_s)
+  end
+
   private
 
   def update_session_time
-    current_client.touch :last_seen_at
+    current_client&.touch :last_seen_at
   end
 
   def current_intake

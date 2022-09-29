@@ -7,7 +7,7 @@ describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
 
     context 'eitc environment variable is disabled' do
       it 'is false' do
-        expect(described_class.show?(intake)).to eq false
+        expect(described_class.show?(intake, subject)).to eq false
       end
     end
 
@@ -24,7 +24,7 @@ describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
           let(:wages_amount) { 12_550 }
 
           it 'is false' do
-            expect(described_class.show?(intake)).to eq false
+            expect(described_class.show?(intake, subject)).to eq false
           end
         end
 
@@ -32,7 +32,7 @@ describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
           let(:wages_amount) { 12_551 }
 
           it 'is true' do
-            expect(described_class.show?(intake)).to eq true
+            expect(described_class.show?(intake, subject)).to eq true
           end
         end
       end
@@ -44,7 +44,7 @@ describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
           let(:wages_amount) { 25_100 }
 
           it 'is false' do
-            expect(described_class.show?(intake)).to eq false
+            expect(described_class.show?(intake, subject)).to eq false
           end
         end
 
@@ -52,7 +52,7 @@ describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
           let(:wages_amount) { 25_101 }
 
           it 'is true' do
-            expect(described_class.show?(intake)).to eq true
+            expect(described_class.show?(intake, subject)).to eq true
           end
         end
       end

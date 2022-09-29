@@ -5,8 +5,8 @@ module Ctc
 
       layout "yes_no_question"
 
-      def self.show?(intake)
-        Flipper.enabled?(:eitc) && intake.claim_eitc_yes?
+      def self.show?(intake, current_controller)
+        current_controller.open_for_eitc_intake? && intake.claim_eitc_yes?
       end
 
       private

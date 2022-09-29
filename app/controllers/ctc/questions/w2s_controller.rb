@@ -5,11 +5,18 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
-        return unless Flipper.enabled?(:eitc)
+      def self.show?(intake, current_controller)
+        return unless current_controller.open_for_eitc_intake?
 
         benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
         benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
+      end
+
+      def add_w2_later
+        track_click_history(:w2_logout_add_later)
+
+        clear_intake_session
+        redirect_to root_path
       end
 
       def next_path

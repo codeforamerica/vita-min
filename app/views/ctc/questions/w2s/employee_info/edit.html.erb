@@ -1,11 +1,10 @@
-<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filer_count, name: current_intake.primary.first_name) %>
+<% @main_question = t("views.ctc.questions.w2s.employee_info.title", count: current_intake.filer_count, name: current_intake.primary.first_and_last_name) %>
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t("views.ctc.questions.w2s.employee_info.help_text") %></p>
 
     <% if current_intake.filing_jointly? %>
       <%= f.cfa_select(:employee, t("views.ctc.questions.w2s.employee_info.employee_legal_name"), [[current_intake.primary.first_and_last_name, 'primary'], [current_intake.spouse.first_and_last_name, 'spouse' ]], include_blank: true) %>
@@ -13,10 +12,7 @@
       <%= f.hidden_field :employee, value: 'primary' %>
     <% end %>
 
-    <%= f.cfa_input_field(:wages_amount, t("views.ctc.questions.w2s.employee_info.wages_amount"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:federal_income_tax_withheld, t("views.ctc.questions.w2s.employee_info.federal_income_tax_withheld"), classes: ["form-width--long"]) %>
     <%= f.cfa_input_field(:employee_street_address, t("views.ctc.questions.w2s.employee_info.employee_street_address"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:employee_street_address2, t("views.ctc.questions.w2s.employee_info.employee_street_address2"), classes: ["form-width--zip"]) %>
     <%= f.cfa_input_field(:employee_city, t("views.ctc.questions.w2s.employee_info.employee_city"), classes: ["form-width--long"]) %>
     <%= f.cfa_select(:employee_state, t("views.ctc.questions.w2s.employee_info.employee_state"), States.name_value_pairs, include_blank: true) %>
     <%= f.cfa_input_field(:employee_zip_code, t("views.ctc.questions.w2s.employee_info.employee_zip_code"), classes: ["form-width--zip"]) %>

@@ -8,10 +8,7 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
     @form = form_class.new(current_model, form_params)
     if @form.valid?
       @form.save
-      SystemNote::CtcPortalUpdate.generate!(
-        model: current_model,
-        client: current_client,
-      )
+      generate_system_note
       redirect_to next_path
     else
       render edit_template
@@ -29,6 +26,13 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
   helper_method :prev_path
 
   private
+
+  def generate_system_note
+    SystemNote::CtcPortalUpdate.generate!(
+      model: current_model,
+      client: current_client,
+    )
+  end
 
   def next_path
     Ctc::Portal::PortalController.to_path_helper(action: :edit_info)

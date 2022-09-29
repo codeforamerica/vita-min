@@ -9,7 +9,7 @@
     <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.claim_eitc.info_box.title") %></p>
 
     <ul class="list--bulleted spacing-below-10">
-      <% t("views.ctc.questions.claim_eitc.info_box.list").each do |item| %>
+      <% t("views.ctc.questions.claim_eitc.info_box.list",current_tax_year: TaxReturn.current_tax_year).each do |item| %>
         <li><%= item %></li>
       <% end %>
     </ul>

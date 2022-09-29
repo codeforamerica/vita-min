@@ -24,6 +24,7 @@ module SubmissionBuilder
               xml.StateAbbreviationCd w2.employer_state
               xml.ZIPCd w2.employer_zip_code
             end
+            xml.ControlNum w2.box_d_control_number if w2.box_d_control_number.present?
             xml.EmployeeNm person_name_type("#{w2.employee_first_name} #{w2.employee_last_name}", length: 35)
             xml.EmployeeUSAddress do |xml|
               xml.AddressLine1Txt w2.employee_street_address
@@ -31,9 +32,45 @@ module SubmissionBuilder
               xml.StateAbbreviationCd w2.employee_state
               xml.ZIPCd w2.employee_zip_code
             end
-            xml.WagesAmt w2.rounded_wages_amount
-            xml.WithholdingAmt w2.rounded_federal_income_tax_withheld
-            xml.StandardOrNonStandardCd w2.standard_or_non_standard_code
+            xml.WagesAmt w2.wages_amount.round
+            xml.WithholdingAmt w2.federal_income_tax_withheld.round
+            xml.SocialSecurityWagesAmt w2.box3_social_security_wages.round if w2.box3_social_security_wages
+            xml.SocialSecurityTaxAmt w2.box4_social_security_tax_withheld.round if w2.box4_social_security_tax_withheld
+            xml.MedicareWagesAndTipsAmt w2.box5_medicare_wages_and_tip_amount.round if w2.box5_medicare_wages_and_tip_amount
+            xml.MedicareTaxWithheldAmt w2.box6_medicare_tax_withheld.round if w2.box6_medicare_tax_withheld
+            xml.SocialSecurityTipsAmt w2.box7_social_security_tips_amount.round if w2.box7_social_security_tips_amount
+            xml.AllocatedTipsAmt w2.box8_allocated_tips.round if w2.box8_allocated_tips
+            xml.DependentCareBenefitsAmt w2.box10_dependent_care_benefits.round if w2.box10_dependent_care_benefits
+            xml.NonqualifiedPlansAmt w2.box11_nonqualified_plans.round if w2.box11_nonqualified_plans
+            if w2.box12a_code.present?
+              xml.EmployersUseGrp do |xml|
+                xml.EmployersUseCd w2.box12a_code
+                xml.EmployersUseAmt w2.box12a_value.round
+              end
+            end
+            if w2.box12b_code.present?
+              xml.EmployersUseGrp do |xml|
+                xml.EmployersUseCd w2.box12b_code
+                xml.EmployersUseAmt w2.box12b_value.round
+              end
+            end
+            if w2.box12c_code.present?
+              xml.EmployersUseGrp do |xml|
+                xml.EmployersUseCd w2.box12c_code
+                xml.EmployersUseAmt w2.box12c_value.round
+              end
+            end
+            if w2.box12d_code.present?
+              xml.EmployersUseGrp do |xml|
+                xml.EmployersUseCd w2.box12d_code
+                xml.EmployersUseAmt w2.box12d_value.round
+              end
+            end
+            xml.StatutoryEmployeeInd "X" if w2.box13_statutory_employee_yes?
+            xml.RetirementPlanInd "X" if w2.box13_retirement_plan_yes?
+            xml.ThirdPartySickPayInd "X" if w2.box13_third_party_sick_pay_yes?
+
+            xml.StandardOrNonStandardCd 'S'
           end
         end
       end

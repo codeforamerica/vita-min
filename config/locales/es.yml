@@ -2012,6 +2012,7 @@ es:
                 title: "¿Debo declarar como jefe de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
+          subtitle: Estos son los créditos para los que sus dependientes son elegibles en %{current_tax_year}. Tenga en cuenta que cada crédito tiene su propio conjunto de reglas de elegibilidad.
           title: Confirmemos sus dependientes
         confirm_information:
           help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
@@ -2041,8 +2042,10 @@ es:
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo:'
+          fed_income_tax_withholding: 'Retención de impuestos federales sobre la renta:'
+          subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
-          title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
+          title: 'Revise esta lista de los pagos que está reclamando:'
           total: 'Importe total del fondo:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
@@ -2133,7 +2136,7 @@ es:
             - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
-            help_text: No incluiremos a  %{name} en su declaración de impuestos. Esta persona no tiene derecho a los pagos de Crédito Tributario por Hijos ni a los pagos de estímulo.
+            help_text: No incluiremos a  %{name} en su declaración de impuestos. No califican para ningún crédito fiscal.
             puerto_rico:
               affirmative: Sí, agregar otro niño
               conditions:
@@ -2208,7 +2211,9 @@ es:
           former_foster_youth_reveal:
             info: Un antiguo joven de acogida calificado es alguien que estuvo en cuidado de acogida entre los 14 y los 17 años. Necesita haberle permitido que el programa de acogida compartiera su estado de antiguo joven de acogida.
             title: "¿Cómo se define un antiguo joven de acogida calificado?"
+          full_time_student: "¿Qué es una estudiante de tiempo completo?"
           full_time_student_less_than_four_months: Fui estudiante a tiempo completo por menos de 4 meses
+          full_time_student_reveal: Alguien que asistió a la escuela a tiempo completo durante al menos cinco meses del año se considera un estudiante de tiempo completo para el año.
           homeless_youth: Fui un joven sin hogar calificado
           homeless_youth_reveal:
             info: Un joven sin hogar calificado es alguien que no tiene hogar o está en riesgo de no tenerlo, y que se mantiene económicamente. Debe tener entre 18-24 años y no puede estar bajo la custodia física de un padre o tutor.
@@ -2219,8 +2224,18 @@ es:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2, 1099, etc.).
+          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2's, 1099's, etc).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
+          help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar.
+          list_1_eitc:
+          - Crédito tributario por hijos
+          - 3er Cheque de Estímulo
+          - Crédito Tributario por Ingreso del Trabajo
+          list_1_eitc_title: Puede presentar una declaración simplificada para reclamar el
+          list_2_eitc:
+          - Cheque de estímulo 1 o 2
+          - Créditos fiscales estatales o pagos de estímulo
+          list_2_eitc_title: No puede usar esta herramienta para reclamar
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
             help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquier de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla de Puerto Rico al Departamento de Hacienda.
@@ -2230,10 +2245,11 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>.
+            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
+          title_eitc: Actualmente está presentando una declaración de impuestos federal simplificada.
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
@@ -2250,8 +2266,7 @@ es:
             body_html: |
               Según el IRS, <b>no</b> está casado durante un año tributario si:
               <ul class="list--bulleted">
-              <li>nunca estuvo casado</li>
-              <li>Estuvo casado anteriormente pero al final del año tenía una sentencia de divorcio o una sentencia de manutención por separado (estos son instrumentos legales formales, no solo como un acuerdo)</li>
+              <li>Nunca estuvo casado O estuvo casado anteriormente pero al final del año tenía un decreto de divorcio o un decreto de manutención por separado</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
@@ -2260,7 +2275,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
+          title: "¿Está usted casado?"
         had_dependents:
           add: Agregue dependientes
           continue: Seguir adelante sin dependientes
@@ -2376,7 +2391,9 @@ es:
               p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
-          title: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
+          title:
+            one: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
+            other: 'Solo puede usar GetCTC si, en %{current_tax_year} tu y tu cónyuge:'
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
@@ -2384,8 +2401,10 @@ es:
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
-          help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
           married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
+          reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV
+          reveal_title: "¿Cómo verifico el monto de los ingresos de mi inversión?"
           title: "¿Ganó más de $10.000 en ingresos por inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
@@ -2455,9 +2474,6 @@ es:
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
             us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
-          reveal:
-            body: Si no vivió en uno de estos lugares durante más de la mitad de 2021, no puede usar GetCTC.
-            title: "¿Qué sucede si no viví en ningún lugar durante más de 6 meses el año pasado?"
           title: "¿Dónde vivió la mayor parte de %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño
@@ -2491,7 +2507,8 @@ es:
           - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
+          help_text: Utilice nuestra sencilla herramienta de presentación electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
+          help_text_eitc: Utilice nuestra sencilla herramienta de presentación electrónica para recibir su Crédito Tributario por Hijos, su Crédito Tributario por Ingreso del Trabajo y su tercer pago de estímulo.
           legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
@@ -2513,6 +2530,7 @@ es:
           cannot_use_ctc: No puedo usar GetCTC
           list:
           - anteriormente se le redujo o se le rechazó el CTC por una investigación del IRS y no ha presentado correctamente el formulario 8862 desde entonces
+          - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
           - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
           - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
           - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}
@@ -2659,38 +2677,53 @@ es:
           verify: Verifique
         w2s:
           add: Agregar la forma W-2
+          add_later: Cerrar sesión y agregar un W-2 más tarde
+          delete_this_w2: Eliminar este W-2
           done_adding: Se ha terminado de añadir todas las formas W-2
-          dont_add_w2: No deseo añadir ningún ingreso
+          dont_add_w2: No deseo añadir ningún forma W-2
           employee_info:
-            employee_city: Ciudad
+            employee_city: 'Casilla e: Ciudad'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
-            employee_state: Estado
+            employee_state: 'Casilla e: Estado'
             employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
-            employee_street_address2: Número de apartamento (opcional)
-            employee_zip_code: Código postal
-            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
-            help_text: Su forma W-2 tiene casillas con letras y números. A continuación, deberá hacer que coincidan e introducir esta información.
+            employee_zip_code: 'Casilla e: Código postal'
             title:
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
-            wages_amount: 'Casilla 1: Importe de los salarios'
           employer_info:
             add: Agregar la forma W-2
+            box_d_control_number: 'Casilla d: Número de control'
             employer_city: Ciudad
             employer_ein: 'Casilla b: Número de identificación del empleador (EIN)'
             employer_name: 'Casilla c: Nombre del empleador'
             employer_state: Estado
             employer_street_address: Dirección del empleador o apartado postal
-            employer_street_address2: Número de apartamento (opcional)
             employer_zip_code: Código postal
-            standard_or_non_standard_code: Código estándar o no estándar
-            title: "¡Fantástico! Empecemos por leer su forma W-2"
+            title: Ahora pasaremos a la sección del empleador del W-2 de %{name}.
           help_text:
             p1:
               many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
               one: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
               other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
             p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
+          misc_info:
+            box11_nonqualified_plans: 'Recuadro 11: Planes no calificados'
+            box12_error: Debe proporcionar tanto el código como el valor.
+            box12_value_error: El valor debe ser numérico
+            box12a: 'Recuadro 12a:'
+            box12b: 'Recuadro 12b:'
+            box12c: 'Recuadro 12c:'
+            box12d: 'Recuadro 12d:'
+            box13: 'Cuadro 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
+            box13_retirement_plan: Plan de retiro
+            box13_statutory_employee: Empleado estatutario
+            box13_third_party_sick_pay: Pago por enfermedad de terceros
+            info_box:
+              requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
+              requirement_title: 'Requisito:'
+            remove_this_w2: Eliminar este W-2
+            submit: Enviar W-2
+            title: Terminemos de ingresar la información W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
             content:
@@ -2704,6 +2737,21 @@ es:
             title: "¿Qué pasa si tengo una forma 1099?"
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
+          wages_info:
+            box10_dependent_care_benefits: 'Cuadro 10: Beneficios para el cuidado de dependientes'
+            box3_social_security_wages: 'Casilla 3: Salarios de seguridad social'
+            box4_social_security_tax_withheld: 'Casilla 4: Impuesto al Seguro Social retenido'
+            box5_medicare_wages_and_tip_amount: 'Casilla 5: Cantidad de salarios y propinas de Medicare'
+            box6_medicare_tax_withheld: 'Casilla 6: Retención de impuestos de Medicare'
+            box7_social_security_tips_amount: 'Casilla 7: Cantidad de propinas del seguro social'
+            box8_allocated_tips: 'Cuadro 8: Propinas asignadas'
+            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
+            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.'
+            info_box:
+              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
+              requirement_title: 'Requisito:'
+            title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos de %{name} retenidos de este W-2."
+            wages_amount: 'Casilla 1: Importe de los salarios'
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
@@ -2767,6 +2815,7 @@ es:
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         closing_date: GetCTC permanecerá cerrado el 15 de noviembre.
         closing_date_not_open: GetCTC se encuentra por ahora cerrado por motivo de la temporada.
+        closing_soon_banner: Comience con GetCTC antes del 15 de noviembre para reclamar sus beneficios fiscales en 2022.
         closing_warning: "¡Presente su declaración hoy para solicitar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que solicitar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
@@ -3779,9 +3828,7 @@ es:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
         closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
-        ctc_banner:
-          claim_ctc: "¿Quiere reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo?"
-          click_here: Haga clic aquí para presentar una declaración simplificada en 15 minutos.
+        closing_soon_banner: Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2022. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'

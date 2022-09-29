@@ -7,8 +7,8 @@ module Ctc
 
         layout "intake"
 
-        def self.show?(w2)
-          return unless Flipper.enabled?(:eitc)
+        def self.show?(w2, current_controller)
+          return unless current_controller.open_for_eitc_intake?
           return unless w2
 
           intake = w2.intake
@@ -54,6 +54,10 @@ module Ctc
 
         def remember_last_edited_w2_id
           session[:last_edited_w2_id] = @w2&.id
+        end
+
+        def illustration_path
+          "documents.svg"
         end
       end
     end

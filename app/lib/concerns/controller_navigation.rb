@@ -43,7 +43,7 @@ module ControllerNavigation
       if controller_class.method(:show?).arity > 1
         controller_class.show?(
           controller_class.model_for_show_check(current_controller),
-          @current_controller.session
+          @current_controller
         )
       else
         controller_class.show?(

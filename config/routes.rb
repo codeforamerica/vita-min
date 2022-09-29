@@ -346,6 +346,9 @@ Rails.application.routes.draw do
       get "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#edit", as: :questions_remove_dependent
       put "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#update"
 
+      put "/questions/w2s/add-w2-later", to: "ctc/questions/w2s#add_w2_later"
+      delete "/questions/confirm-w2s", to: "ctc/questions/confirm_w2s#destroy"
+
       patch '/questions/confirm_payment', to: 'ctc/questions/confirm_payment#do_not_file', as: :questions_do_not_file
 
       unless Rails.env.production?
@@ -438,8 +441,12 @@ Rails.application.routes.draw do
           resources :w2s do
             get 'w2s-employee-info', on: :member, to: "w2s/employee_info#edit"
             put 'w2s-employee-info', on: :member, to: "w2s/employee_info#update"
+            get 'w2s-wages-info', on: :member, to: "w2s/wages_info#edit"
+            put 'w2s-wages-info', on: :member, to: "w2s/wages_info#update"
             get 'w2s-employer-info', on: :member, to: "w2s/employer_info#edit"
             put 'w2s-employer-info', on: :member, to: "w2s/employer_info#update"
+            get 'w2s-misc-info', on: :member, to: "w2s/misc_info#edit"
+            put 'w2s-misc-info', on: :member, to: "w2s/misc_info#update"
           end
 
           get "verification", to: "verification_attempts#edit", as: "verification_attempt"
