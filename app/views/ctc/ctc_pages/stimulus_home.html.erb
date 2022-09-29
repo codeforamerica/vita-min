@@ -16,10 +16,10 @@
 
         <% if open_for_ctc_intake? %>
           <div class="spacing-below-25">
-            <%= t("views.ctc_pages.stimulus_home.subheader.cta") %>
+            <%= open_for_eitc_intake? ? t("views.ctc_pages.stimulus_home.subheader.claim.eitc_on") : t("views.ctc_pages.stimulus_home.subheader.claim.eitc_off") %>
           </div>
           <div class="spacing-below-15">
-            <%= t("views.ctc_pages.stimulus_home.subheader.time_to_complete") %>
+            <%= open_for_eitc_intake? ? t("views.ctc_pages.stimulus_home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.stimulus_home.subheader.time_estimate.eitc_off") %>
           </div>
         <% end %>
 
@@ -69,8 +69,13 @@
         <div class="grid__item width-one-half">
           <h2><%= t("views.ctc_pages.stimulus_home.what_is.heading_open") %></h2>
           <p><%= t("views.ctc_pages.stimulus_home.what_is.subheading_open") %></p>
-          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_title")) do %>
-            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_body") %>
+          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_ctc_title")) do %>
+            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_ctc_body") %>
+          <% end %>
+          <% if open_for_eitc_intake? %>
+            <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_eitc_title")) do %>
+              <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_eitc_body") %>
+            <% end %>
           <% end %>
           <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_title")) do %>
             <% gyr_link = url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_to_gyr' }) %>
@@ -126,7 +131,11 @@
           <%= image_tag('question-bubble.svg', alt: "") %>
         </div>
         <div class="media-box__content">
-          <%= t('views.ctc_pages.home.navigator_resources_html', navigators_link: ctc_navigators_url) %>
+          <% if open_for_eitc_intake? %>
+            <%= t('views.ctc_pages.home.navigator_resources.eitc_on_html', navigators_link: ctc_navigators_url) %>
+          <% else %>
+            <%= t('views.ctc_pages.home.navigator_resources.eitc_off_html', navigators_link: ctc_navigators_url) %>
+          <% end %>
         </div>
       </div>
     </div>

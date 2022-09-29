@@ -17,9 +17,9 @@
           <p><%= t("views.questions.welcome.help_text")%></p>
 
           <ul class="list--bulleted">
-            <% t("views.questions.welcome.list").each do |list_item| %>
-              <li><%= list_item.html_safe %></li>
-            <% end %>
+              <li><%= t("views.questions.welcome.list.gyr_html") %></li>
+              <li><%= t("views.questions.welcome.list.diy_html") %></li>
+              <li><%= open_for_eitc_intake? ? t("views.questions.welcome.list.ctc.eitc_on_html") : t("views.questions.welcome.list.ctc.eitc_off_html") %></li>
           </ul>
 
           <p><strong><%= t("views.questions.welcome.find_right_service")%></strong></p>

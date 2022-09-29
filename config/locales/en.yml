@@ -1184,7 +1184,7 @@ en:
         body: |
           Hello <<Client.PreferredName>>,
 
-          Thanks for starting your Child Tax Credit Sign Up with GetCTC. We can only submit your information to the IRS once you complete the form.
+          Thanks for starting your tax return with GetCTC. We can only submit your information to the IRS once you complete the form.
 
           You can sign in to complete the form and check your status here: <<Client.LoginLink>> You can use your Client ID <<Client.ClientId>> to log in or, if you’ve provided it to us, the last four digits of your SSN/ITIN.
 
@@ -1193,7 +1193,7 @@ en:
         subject: GetCTC Sign Up
       sms: |
         Hello <<Client.PreferredName>>,
-        Thanks for starting your Child Tax Credit Sign Up with GetCTC! Your Client ID is <<Client.ClientId>> Check your progress with your Client ID or last four digits of your SSN/ITIN: <<Client.LoginLink>>
+        Thanks for starting your tax return with GetCTC! Your Client ID is <<Client.ClientId>> Check your progress with your Client ID or last four digits of your SSN/ITIN: <<Client.LoginLink>>
         We’re here to help!
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Update from %{service_name}
@@ -1236,14 +1236,14 @@ en:
           body: |
             Hello <<Client.PreferredName>>,
 
-            We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive Child Tax Credit or stimulus payments until your taxes are accepted.
+            We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
 
             We’re here to help!
             Your tax team at GetCTC.org
           subject: Your taxes are processing
         sms: |
           Hello <<Client.PreferredName>>,
-          We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive Child Tax Credit or stimulus payments until your taxes are accepted.
+          We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
           Your tax team at GetCTC.org
       rejected:
         email:
@@ -2932,25 +2932,34 @@ en:
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         get_started: Get Started
         get_your_refund_link: File taxes for free today with GetYourRefund
-        navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
+        navigator_resources:
+          eitc_off_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
+          eitc_on_html: <strong>Are you a community partner helping someone else access the CTC or EITC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         portal_sign_in_link: Already started? Sign in.
         sign_up_for_updates: Sign up for GetCTC updates
         subheader:
-          claim: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
+          claim:
+            eitc_off: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
+            eitc_on: Use our simplified tax filing tool to claim your Child Tax Credit, Earned Income Tax Credit, and any missing amount of your third stimulus payment.
           claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
-          time_estimate: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+          time_estimate:
+            eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
         title: Claim Your Child Tax Credit
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
           heading: Most families can get thousands of dollars from the Child Tax Credit
-          how_much_reveal:
+          how_much_ctc_reveal:
             body_html: |
               <p>The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.</p>
               <p>If you received any monthly Advance Child Tax Credit payments in 2021, you need to file taxes this year to get the second half of your money. The rest of your Child Tax Credit will be issued in one payment.</p>
               <p>If you have not received any Child Tax Credit payments yet, you can file simplified taxes now to get the whole credit.</p>
-            title: How much will I get?
+            title: How much will I get from the Child Tax Credit?
+          how_much_eitc_reveal:
+            body_html: "<p>The Earned Income Tax Credit is calculated by the amount of earned income you received in 2021, your filing status, and the number of qualifying children claimed as dependents on your simplified tax return. The credit is a range from $560 to $6,935 based on your specific tax situation.</p>\n"
+            title: How much will I get from the Earned Income Tax Credit?
           qualify_reveal:
             body: Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
             title: Do my children qualify?
@@ -3108,8 +3117,12 @@ en:
         header: Simplified tax filing to claim your stimulus payments
         header_open: Simplified tax filing to claim your third stimulus payment
         subheader:
-          cta: If you don't usually file taxes, use our simplified tax filing tool to claim any missing amount of your third stimulus payment and the Child Tax Credit.
-          time_to_complete: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+          claim:
+            eitc_off: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
+            eitc_on: Use our simplified tax filing tool to claim your Child Tax Credit, Earned Income Tax Credit, and any missing amount of your third stimulus payment.
+          time_estimate:
+            eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
         what_is:
           body_html: |
             <p>Relief to help you through these difficult times, even if you make little or no money.</p>
@@ -3124,8 +3137,10 @@ en:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Families usually received them in April 2020, December 2020, and March 2021. You can claim all or part of the third stimulus payment using GetCTC.
             - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file back taxes for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
             first_two_title: What about the first two stimulus payments?
-            how_much_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
-            how_much_title: How much will I get?
+            how_much_ctc_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
+            how_much_ctc_title: How much will I get from the Child Tax Credit?
+            how_much_eitc_body: The Earned Income Tax Credit is calculated by the amount of earned income you received in 2021, your filing status, and the number of qualifying children claimed as dependents on your simplified tax return. The credit is a range from $560 to $6,935 based on your specific tax situation.
+            how_much_eitc_title: How much will I get from the Earned Income Tax Credit?
           subheading_open: If you missed out on the third stimulus payment in spring 2021, you can claim it now, even if you make little or no money.
     dependents:
       form:
@@ -3401,6 +3416,10 @@ en:
                 <p>Families who do not usually file taxes are sometimes called "non-filers." Often, this refers to families who make little enough money that they aren't required to file taxes—sometimes because they get their income from disability or other benefits, instead.</p>
                 <p>Everyone who is eligible for tax benefits should file a tax return, even if you think of yourself as a "non-filer." Filing a tax return could get you cash benefits like the Child Tax Credit even if you do not normally file a tax return or have not filed a tax return in a long time.</p>
                 <p>Families who are not required to file tax returns do have an extra option: they can file a "simplified" tax return. This has sometimes been called the "non-filer form" or "non-filer tool." The simplified return is technically a tax return, but is much easier to finish, and requires much less information. You can file a simplified return for free today with <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+              eitc_answer_html: |
+                <p>Families who do not usually file taxes are sometimes called "non-filers." Often, this refers to families who make little enough money that they aren't required to file taxes—sometimes because they get their income from disability or other benefits, instead.</p>
+                <p>Everyone who is eligible for tax benefits should file a tax return, even if you think of yourself as a "non-filer." Filing a tax return could get you cash benefits like the Child Tax Credit and the Earned Income Tax Credit (EITC), even if you do not normally file a tax return or have not filed a tax return in a long time.</p>
+                <p>Families who are not required to file tax returns do have an extra option: they can file a "simplified" tax return. This has sometimes been called the "non-filer form" or "non-filer tool." The simplified return is technically a tax return, but is much easier to finish, and requires much less information. You can file a simplified return for free today with <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: How do I get the Child Tax Credit if I am a non-filer?
             how_much_is_the_child_tax_credit_in_2022:
               answer_html: |
@@ -3486,10 +3505,14 @@ en:
               answer_html: |
                 <p>In 2021, Congress made significant improvements to the Earned Income Tax Credit (EITC) for people without children. These changes apply to the 2021 tax year, meaning they apply to the tax return you file in 2022. First, the credit is now bigger (it used to be worth only up to about $500, it is now worth up to about $1,500). Second, the eligibility rules were loosened. Now, anyone older than 19, if they are not a full time student, can be eligible for the EITC. Former foster youth or youth experiencing homelessness are eligible at age 18.</p>
                 <p>There is no change to the EITC for people with children, which is still worth up to about $3,600 with one child, $6,000 with two children, or $6,700 with three children, depending on income.</p>
+              eitc_answer_html: |
+                <p>In 2021, Congress made significant improvements to the Earned Income Tax Credit (EITC) for people without children. These changes apply to the 2021 tax year, meaning they apply to the tax return you file in 2022. First, the credit is now bigger (it used to be worth only up to about $500, it is now worth up to about $1,500). Second, the eligibility rules were loosened. Now, anyone older than 19, if they are not a full time student, can be eligible for the EITC. Former foster youth or youth experiencing homelessness are eligible at age 18.</p>
+                <p>There is no change to the EITC for people with children, which is still worth up to about $3,600 with one child, $6,000 with two children, or $6,700 with three children, depending on income. You can now claim the EITC by filing a simplified return through our <a href="https://www.getctc.org/" target="_blank" rel="noopener">GetCTC service</a>.</p>
               question: How has the Earned Income Tax Credit (EITC) changed this year?
             title: Earned Income Tax Credit
             what_is_the_earned_income_tax_credit_eitc:
               answer_html: The Earned Income Tax Credit (EITC) is a benefit available to people who earn income from work. EITC eligibility is complicated, but it is available to most families with children who make less than $42,000, and it is available to most families without children who make less than $21,000. Like other tax credits, you have to claim the EITC by filing a tax return.
+              eitc_answer_html: The Earned Income Tax Credit (EITC) is a benefit available to people who earn income from work. EITC eligibility is complicated, but it is available to most families with children who make less than $42,000, and it is available to most families without children who make less than $21,000. You can claim the EITC by filing a full return, or by filing a simplified return through our <a href="https://www.getctc.org/" target="_blank" rel="noopener">GetCTC service</a>.
               question: What is the Earned Income Tax Credit (EITC)?
           getyourrefund_account_access:
             i_cant_sign_in:
@@ -3526,6 +3549,10 @@ en:
                 <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, also known as the nonfiler tool, is your simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
                 <p>You can use GetCTC to claim the third stimulus payment (Economic Impact Payment) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
                 <p>GetCTC is a great choice for you if you are <em>only</em> looking to get your third stimulus payment and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
+              eitc_answer_html: |
+                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, also known as the nonfiler tool, is your simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
+                <p>You can use GetCTC to claim the third stimulus payment (Economic Impact Payment), the Child Tax Credit (CTC) and the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021. Residents of Puerto Rico have a higher income limit, and should use the website <a href="https://www.getctc.org/puertorico" target="_blank" rel="noopener">https://www.getctc.org/puertorico</a> to claim their benefits. </p>
+                <p>GetCTC is a great choice for you if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
               question: What is GetCTC and how does it work?
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3724,6 +3751,9 @@ en:
               answer_html: |
                 <p>The term "nonfiler" is sometimes used to refer to people who are not required to file a tax return and have not filed a tax return in the past few years. Most "nonfilers" are eligible for thousands of dollars in tax benefits from the Child Tax Credit, stimulus payments, and the Earned Income Tax Credit.</p>
                 <p>"Non-filer" is not a legal category—anyone can and should file a return, to claim the tax benefits available. By filing a tax return you are able to access thousands of dollars in tax benefits even if you make little to no money or do not usually file taxes. To file a tax return for just the CTC and third stimulus payment you can use our nonfiler tool, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+              eitc_answer_html: |
+                <p>The term "nonfiler" is sometimes used to refer to people who are not required to file a tax return and have not filed a tax return in the past few years. Most "nonfilers" are eligible for thousands of dollars in tax benefits from the Child Tax Credit, stimulus payments, and the Earned Income Tax Credit.</p>
+                <p>"Non-filer" is not a legal category—anyone can and should file a return, to claim the tax benefits available. By filing a tax return you are able to access thousands of dollars in tax benefits even if you make little to no money or do not usually file taxes. To file a tax return for just the CTC, EITC, and the third stimulus payment you can use our nonfiler tool, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: Am I a nonfiler?
             im_1924_should_i_file_a_tax_return:
               answer_html: |
@@ -3742,7 +3772,7 @@ en:
                 <p>Even if you make little to no income and are not required to file a tax return, you likely qualify for payments from the IRS—perhaps totaling thousands of dollars. You are especially likely to qualify for payments if you have children. In order to claim this money, you need to file a tax return.</p>
                 <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p>
                 <p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a> option.</p>
-                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment using <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit, the Earned Income Tax Credit (EITC), and the third stimulus payment using <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: What are the potential benefits of filing a tax return?
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -4586,9 +4616,11 @@ en:
         find_right_service: We’ll ask a few questions, to find the right service for you!
         help_text: 'We provide multiple tax filing options to households that qualify:'
         list:
-        - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
-        - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
-        - "<strong>GetCTC</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+          ctc:
+            eitc_off_html: "<strong>GetCTC</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+            eitc_on_html: "<strong>GetCTC</strong> Our quick online option lets you collect any Federal stimulus payments, Earned Income Tax Credit and the Child Tax Credit on your own."
+          diy_html: "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
+          gyr_html: "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         title: Welcome to our free service!
       widowed:
         title: As of December 31, %{year}, were you widowed?
@@ -4717,7 +4749,9 @@ en:
             cta:
               closed: Sign up for GetCTC
               open: Choose GetCTC
-            service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
+            service_description:
+              eitc_off: File quickly on your own to collect your stimulus payments and Child Tax Credit.
+              eitc_on: File quickly on your own to collect your Earned Income Tax Credit (EITC), stimulus payments and Child Tax Credit.
             service_name: GetCTC
           diy:
             cta: Choose File Myself
@@ -4734,6 +4768,7 @@ en:
         stimulus_payments: Stimulus Payments
         support_via_gyr: available through GetYourRefund
         tax_documents:
+          ctc: Not required, but may help you claim more benefits
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         time_to_file:
