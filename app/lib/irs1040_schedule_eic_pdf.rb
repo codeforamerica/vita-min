@@ -30,25 +30,21 @@ class Irs1040ScheduleEicPdf
       answers["ChildBirthYr#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
       answers["ChildBirthYr#{index + 1}[2]"] = dependent.at("ChildBirthYr").text[2]
       answers["ChildBirthYr#{index + 1}[3]"] = dependent.at("ChildBirthYr").text[3]
-      case xml_boolean_type_value(dependent.at("ChildIsAStudentUnder24Ind"))
-      when true
-        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] = "1"
-        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = nil
-      when false
-        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] = nil
-        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = "2"
-      end
-      case xml_boolean_type_value(dependent.at("ChildPermanentlyDisabledInd"))
-      when true
-        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = "1"
-        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = nil
-      when false
-        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = nil
-        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = "2"
-      end
+      answers.merge!(line4_answer(dependent, "ChildIsAStudentUnder24Ind", index))
+      answers.merge!(line4_answer(dependent, "ChildPermanentlyDisabledInd", index))
       answers["ChildRelationshipCd#{index + 1}"] = dependent.at("ChildRelationshipCd").text
       answers["MonthsChildLivedWithYouCnt#{index + 1}"] = dependent.at("MonthsChildLivedWithYouCnt").text
     end
     answers
+  end
+
+  def line4_answer(dependent, field, index)
+    value = xml_value_to_bool(dependent.at(field), 'BooleanType')
+    return {} if value.nil?
+
+    {
+      "#{field}Yes#{index + 1}" => value ? "1" : nil,
+      "#{field}No#{index + 1}" => value ? nil : "2"
+    }
   end
 end

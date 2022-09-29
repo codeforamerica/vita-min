@@ -25,7 +25,7 @@ class Irs1040Pdf
       StateAbbreviationCd: @address.state,
       ZipCd: @address.zip_code,
       VirtualCurAcquiredDurTYInd: @xml_document.at("VirtualCurAcquiredDurTYInd")&.text,
-      PrimaryBlindInd: xml_check_to_bool(@xml_document.at("PrimaryBlindInd")) ? "1" : "Off",
+      PrimaryBlindInd: xml_value_to_bool(@xml_document.at("PrimaryBlindInd"), "CheckboxType") ? "1" : "Off",
       TotalItemizedOrStandardDedAmt12a: @xml_document.at("TotalItemizedOrStandardDedAmt")&.text,
       TotalAdjustmentsToIncomeAmt12c: @xml_document.at("TotDedCharitableContriAmt")&.text,
       TotalDeductionsAmt14: @xml_document.at("TotalDeductionsAmt")&.text,
@@ -36,7 +36,7 @@ class Irs1040Pdf
       TotalPaymentsAmt33: @xml_document.at("TotalPaymentsAmt")&.text,
       OverpaidAmt34: @xml_document.at("OverpaidAmt")&.text,
       RefundAmt35: @xml_document.at("RefundAmt")&.text,
-      Primary65OrOlderInd: xml_check_to_bool(@xml_document.at("Primary65OrOlderInd")) ? "1" : "Off",
+      Primary65OrOlderInd: xml_value_to_bool(@xml_document.at("Primary65OrOlderInd"), "CheckboxType") ? "1" : "Off",
       PrimaryIPPIN: @xml_document.at("IdentityProtectionPIN")&.text,
       PhoneNumber: PhoneParser.formatted_phone_number(@xml_document.at("PhoneNum")&.text),
       EmailAddress: @xml_document.at("EmailAddressTxt")&.text
@@ -62,7 +62,7 @@ class Irs1040Pdf
       FormW2WithheldTaxAmt25a: @xml_document.at("FormW2WithheldTaxAmt")&.text,
       WithholdingTaxAmt25d: @xml_document.at("WithholdingTaxAmt")&.text,
       EarnedIncomeCreditAmt27a: @xml_document.at("EarnedIncomeCreditAmt")&.text,
-      QualifiedFosterOrHomelessYouth: xml_check_to_bool(@xml_document.at("UndSpcfdAgeStsfyRqrEICInd")) ? "1" : "Off",
+      QualifiedFosterOrHomelessYouth: xml_value_to_bool(@xml_document.at("UndSpcfdAgeStsfyRqrEICInd"), "CheckboxType") ? "1" : "Off",
     }
   end
 
@@ -81,12 +81,12 @@ class Irs1040Pdf
 
   def spouse_info
     {
-      Spouse65OrOlderInd: xml_check_to_bool(@xml_document.at("Spouse65OrOlderInd")) ? "1" : "Off",
+      Spouse65OrOlderInd: xml_value_to_bool(@xml_document.at("Spouse65OrOlderInd"), "CheckboxType") ? "1" : "Off",
       SpouseFirstNm: @intake.spouse.middle_initial.present? ? "#{@intake.spouse.first_name} #{@intake.spouse.middle_initial}" : @intake.spouse.first_name,
       SpouseLastNm: @intake.spouse.last_name,
       SpouseSSN: @xml_document.at("SpouseSSN")&.text,
       SpouseIPPIN: @xml_document.at("SpouseIdentityProtectionPIN")&.text,
-      SpouseBlindInd: xml_check_to_bool(@xml_document.at("SpouseBlindInd")) ? "1" : "Off",
+      SpouseBlindInd: xml_value_to_bool(@xml_document.at("SpouseBlindInd"), "CheckboxType") ? "1" : "Off",
     }
   end
 
@@ -98,7 +98,7 @@ class Irs1040Pdf
       answers["DependentLegalNm[#{index}]"] = [dependent.at("DependentFirstNm").text, dependent.at("DependentLastNm").text].join(" ")
       answers["DependentRelationship[#{index}]"] = dependent.at("DependentRelationshipCd").text
       answers["DependentSSN[#{index}]"] = dependent.at("DependentSSN").text
-      answers["DependentCTCInd[#{index}]"] = xml_check_to_bool(dependent.at("EligibleForChildTaxCreditInd")) ? 1 : 0
+      answers["DependentCTCInd[#{index}]"] = xml_value_to_bool(dependent.at("EligibleForChildTaxCreditInd"), "CheckboxType") ? 1 : 0
     end
     answers
   end

@@ -12,14 +12,16 @@ module PdfHelper
     value ? "yes" : nil
   end
 
-  def xml_check_to_bool(node)
-    node&.text == "X"
-  end
+  def xml_value_to_bool(node, type)
+    if type == 'CheckboxType'
+      node&.text == "X"
+    elsif type == 'BooleanType'
+      return nil if node.nil?
 
-  def xml_boolean_type_value(node)
-    return nil if node.nil?
-
-    %w[true 1].include?(node.text)
+      %w[true 1].include?(node.text)
+    else
+      raise StandardError, "Unknown type #{type}"
+    end
   end
 
   def collective_yes_no_unsure(*values)
