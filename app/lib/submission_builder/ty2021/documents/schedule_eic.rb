@@ -20,8 +20,8 @@ module SubmissionBuilder
                 xml.IdentityProtectionPIN dependent.ip_pin if dependent.ip_pin.present?
                 xml.QualifyingChildSSN dependent.ssn
                 xml.ChildBirthYr dependent.birth_date.year
-                xml.ChildIsAStudentUnder24Ind dependent.full_time_student_yes? && dependent.age_during_tax_year < 24
-                xml.ChildPermanentlyDisabledInd dependent.permanently_totally_disabled_yes?
+                xml.ChildIsAStudentUnder24Ind dependent.schedule_eic_4a? unless dependent.skip_schedule_eic_question_4?
+                xml.ChildPermanentlyDisabledInd dependent.schedule_eic_4b? if dependent.schedule_eic_4a? == false
                 xml.ChildRelationshipCd dependent.irs_relationship_enum
                 xml.MonthsChildLivedWithYouCnt dependent.months_in_home.to_s.rjust(2, '0')
               }

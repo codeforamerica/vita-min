@@ -105,4 +105,132 @@ describe EfileSubmissionDependent do
       end
     end
   end
+
+  describe "#schedule_eic_4a?" do
+    let(:primary_birth_date) { 50.years.ago }
+    let(:spouse_birth_date) { 50.years.ago }
+    let(:filing_status) { "single" }
+
+    let(:tax_return) { create :tax_return, year: DateTime.now.year,filing_status: filing_status }
+    let(:client) { create :client, tax_returns: [tax_return] }
+    let!(:intake) { create :ctc_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, client: client }
+    let!(:submission) { create :efile_submission, tax_return: tax_return }
+    let(:dependent) { create :qualifying_child, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
+    let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }
+    let(:full_time_student) { "yes" }
+
+    context "when the dependent is between 19 and 24 and a full time student" do
+      let(:birth_date) { 22.years.ago }
+      let(:full_time_student) { "yes" }
+
+      context "when the filing status is single" do
+        let(:filing_status) { "single" }
+
+        context "when the dependent is younger than the primary" do
+          let(:primary_birth_date) { 50.years.ago }
+
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
+        end
+
+        context "when the dependent is older than the primary" do
+          let(:dependent) { create :qualifying_relative, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
+          let(:primary_birth_date) { 21.years.ago }
+
+          it "they do not meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+          end
+        end
+      end
+
+      context "when the filing status is mfj" do
+        let(:dependent) { create :qualifying_relative, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
+        let(:filing_status) { "married_filing_jointly" }
+
+        context "when the dependent is younger than the primary but not the spouse" do
+          let(:primary_birth_date) { 26.years.ago }
+          let(:spouse_birth_date) { 21.years.ago }
+
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
+        end
+
+        context "when the dependent is younger than the spouse but not the primary" do
+          let(:primary_birth_date) { 21.years.ago }
+          let(:spouse_birth_date) { 26.years.ago }
+
+          it "they meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq true
+          end
+        end
+
+        context "when the dependent is older than the spouse and the primary" do
+          let(:primary_birth_date) { 21.years.ago }
+          let(:spouse_birth_date) { 21.years.ago }
+
+          it "they do not meet the conditions for checkbox 4a" do
+            expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+          end
+        end
+      end
+    end
+
+    context "when the dependent is over 24" do
+      let(:dependent) { create :qualifying_relative, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
+      let(:birth_date) { 25.years.ago }
+      let(:full_time_student) { "yes" }
+
+      it "they do not meet the conditions for checkbox 4a" do
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      end
+    end
+
+    context "when the dependent is under 19" do
+      let(:birth_date) { 18.years.ago }
+
+      it "they do not meet the conditions to fill out question 4" do
+        expect(efile_submission_dependent.skip_schedule_eic_question_4?).to be_truthy
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq nil
+      end
+    end
+
+    context "when the dependent is not a full time student" do
+      let(:dependent) { create :qualifying_relative, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
+      let(:birth_date) { 22.years.ago }
+      let(:full_time_student) { "no" }
+
+      it "they do not meet the conditions for checkbox 4a" do
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      end
+    end
+  end
+
+  describe "#schedule_eic_4b?" do
+    let(:tax_return) { create :tax_return, year: DateTime.now.year }
+    let(:client) { create :client, tax_returns: [tax_return] }
+    let!(:intake) { create :ctc_intake, client: client }
+    let!(:submission) { create :efile_submission, tax_return: tax_return }
+    let(:dependent) { create :qualifying_child, intake: submission.intake, birth_date: birth_date, permanently_totally_disabled: permanently_totally_disabled }
+    let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }
+    let(:birth_date) { 19.years.ago }
+
+    context "when we skipped question 4a (dependent was less than 19 and not younger than filers)" do
+      let(:birth_date) { 16.years.ago }
+      let(:permanently_totally_disabled) { "yes" }
+
+      it "is nil" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq nil
+      end
+    end
+
+    context "when the dependent was disabled" do
+      let(:permanently_totally_disabled) { "yes" }
+
+      it "is true" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq true
+      end
+    end
+  end
 end

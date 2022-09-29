@@ -41,4 +41,24 @@ class EfileSubmissionDependent < ApplicationRecord
       )
     end
   end
+
+  def skip_schedule_eic_question_4?
+    younger_than_filers && age_during_tax_year < 19
+  end
+
+  def schedule_eic_4a?
+    return if skip_schedule_eic_question_4?
+
+    full_time_student_yes? && age_during_tax_year < 24 && younger_than_filers
+  end
+
+  def schedule_eic_4b?
+    return unless schedule_eic_4a? == false
+
+    permanently_totally_disabled_yes?
+  end
+
+  def younger_than_filers
+    intake.filers.any? { |filer| birth_date > filer.birth_date }
+  end
 end

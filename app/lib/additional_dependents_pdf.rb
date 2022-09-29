@@ -27,13 +27,9 @@ class AdditionalDependentsPdf
       answers["DependentNameRow#{index + 1}"] = [dependent.at("DependentFirstNm").text, dependent.at("DependentLastNm").text].join(" ")
       answers["TINRow#{index + 1}"] = dependent.at("DependentSSN").text
       answers["RelationshipRow#{index + 1}"] = dependent.at("DependentRelationshipCd").text
-      answers["CTCRow#{index + 1}"] = xml_check_to_bool(dependent.at("EligibleForChildTaxCreditInd")) ? "Yes" : nil
-      answers["ODCRow#{index + 1}"] = xml_check_to_bool(dependent.at("EligibleForODCInd")) ? "Yes" : nil
+      answers["CTCRow#{index + 1}"] = xml_value_to_bool(dependent.at("EligibleForChildTaxCreditInd"), "CheckboxType") ? "Yes" : nil
+      answers["ODCRow#{index + 1}"] = xml_value_to_bool(dependent.at("EligibleForODCInd"), "CheckboxType") ? "Yes" : nil
     end
     answers
-  end
-
-  def xml_check_to_bool(node)
-    node&.text == "X"
   end
 end
