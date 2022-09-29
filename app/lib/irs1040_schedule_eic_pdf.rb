@@ -25,19 +25,29 @@ class Irs1040ScheduleEicPdf
     answers = {}
     dependent_nodes.each_with_index do |dependent, index|
       answers["ChildFirstAndLastName#{index + 1}"] = "#{dependent.at("PersonFirstNm").text} #{dependent.at("PersonLastNm").text}"
-        answers["QualifyingChildSSN#{index + 1}"] = dependent.at("QualifyingChildSSN").text
-        answers["ChildBirthYr#{index + 1}[0]"] = dependent.at("ChildBirthYr").text[0]
-        answers["ChildBirthYr#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
-        answers["ChildBirthYr#{index + 1}[2]"] = dependent.at("ChildBirthYr").text[2]
-        answers["ChildBirthYr#{index + 1}[3]"] = dependent.at("ChildBirthYr").text[3]
-        bool = xml_bool_to_bool(dependent.at("ChildIsAStudentUnder24Ind"))
-        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] =  bool ? "Yes" : nil
-        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = !bool ? "Yes" : nil
-        bool = xml_bool_to_bool(dependent.at("ChildPermanentlyDisabledInd"))
-        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = bool ? "Yes" : nil
-        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = !bool ? "Yes" : nil
-        answers["ChildRelationshipCd#{index + 1}"] = dependent.at("ChildRelationshipCd").text
-        answers["MonthsChildLivedWithYouCnt#{index + 1}"] = dependent.at("MonthsChildLivedWithYouCnt").text
+      answers["QualifyingChildSSN#{index + 1}"] = dependent.at("QualifyingChildSSN").text
+      answers["ChildBirthYr#{index + 1}[0]"] = dependent.at("ChildBirthYr").text[0]
+      answers["ChildBirthYr#{index + 1}[1]"] = dependent.at("ChildBirthYr").text[1]
+      answers["ChildBirthYr#{index + 1}[2]"] = dependent.at("ChildBirthYr").text[2]
+      answers["ChildBirthYr#{index + 1}[3]"] = dependent.at("ChildBirthYr").text[3]
+      case xml_boolean_type_value(dependent.at("ChildIsAStudentUnder24Ind"))
+      when true
+        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] = "1"
+        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = nil
+      when false
+        answers["ChildIsAStudentUnder24IndYes#{index + 1}"] = nil
+        answers["ChildIsAStudentUnder24IndNo#{index + 1}"] = "2"
+      end
+      case xml_boolean_type_value(dependent.at("ChildPermanentlyDisabledInd"))
+      when true
+        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = "1"
+        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = nil
+      when false
+        answers["ChildPermanentlyDisabledIndYes#{index + 1}"] = nil
+        answers["ChildPermanentlyDisabledIndNo#{index + 1}"] = "2"
+      end
+      answers["ChildRelationshipCd#{index + 1}"] = dependent.at("ChildRelationshipCd").text
+      answers["MonthsChildLivedWithYouCnt#{index + 1}"] = dependent.at("MonthsChildLivedWithYouCnt").text
     end
     answers
   end

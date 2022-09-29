@@ -17,7 +17,6 @@ describe Irs1040ScheduleEicPdf do
           xml.QualifyingChildSSN "111223333"
           xml.ChildBirthYr "2010"
           xml.ChildIsAStudentUnder24Ind true
-          xml.ChildPermanentlyDisabledInd false
           xml.ChildRelationshipCd "SON"
           xml.MonthsChildLivedWithYouCnt "07"
         }
@@ -117,17 +116,20 @@ describe Irs1040ScheduleEicPdf do
                "ChildFirstAndLastName1" => "Kara Kiwi",
                "ChildFirstAndLastName2" => "Paul Peach",
                "ChildFirstAndLastName3" => nil,
+               # Child 1: 4(a) yes (is student); 4(b) skipped (is permanently disabled)
+               "ChildIsAStudentUnder24IndYes1" => "1",
                "ChildIsAStudentUnder24IndNo1" => "",
-               "ChildIsAStudentUnder24IndNo2" => "Yes",
-               "ChildIsAStudentUnder24IndNo3" => nil,
-               "ChildIsAStudentUnder24IndYes1" => "Yes",
+               "ChildPermanentlyDisabledIndNo1" => nil,
+               "ChildPermanentlyDisabledIndYes1" => nil,
+               # Child 1: 4(a) no (is student); 4(b) yes (is permanently disabled)
                "ChildIsAStudentUnder24IndYes2" => "",
-               "ChildIsAStudentUnder24IndYes3" => nil,
-               "ChildPermanentlyDisabledIndNo1" => "Yes",
+               "ChildIsAStudentUnder24IndNo2" => "2",
+               "ChildPermanentlyDisabledIndYes2" => "1",
                "ChildPermanentlyDisabledIndNo2" => "",
+               # Child 3: missing, so nil everywhere
+               "ChildIsAStudentUnder24IndYes3" => nil,
+               "ChildIsAStudentUnder24IndNo3" => nil,
                "ChildPermanentlyDisabledIndNo3" => nil,
-               "ChildPermanentlyDisabledIndYes1" => "",
-               "ChildPermanentlyDisabledIndYes2" => "Yes",
                "ChildPermanentlyDisabledIndYes3" => nil,
                "ChildRelationshipCd1" => "SON",
                "ChildRelationshipCd2" => "NEPHEW",

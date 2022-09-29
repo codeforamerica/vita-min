@@ -16,8 +16,10 @@ module PdfHelper
     node&.text == "X"
   end
 
-  def xml_bool_to_bool(node)
-    %w[true 1].include?(node&.text)
+  def xml_boolean_type_value(node)
+    return nil if node.nil?
+
+    %w[true 1].include?(node.text)
   end
 
   def collective_yes_no_unsure(*values)
