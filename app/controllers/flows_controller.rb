@@ -5,7 +5,7 @@ class FlowsController < ApplicationController
     diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
   }
   SAMPLE_GENERATOR_TYPES = {
-    ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
+    ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents, :claiming_eitc],
     gyr: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
   }.freeze
 
@@ -279,7 +279,7 @@ class FlowsController < ApplicationController
         tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
 
-      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
+      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents || type == :claiming_eitc
         client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
         client.intake.update(
           spouse_tin_type: 'ssn',
@@ -292,7 +292,7 @@ class FlowsController < ApplicationController
         )
       end
 
-      if type == :married_filing_jointly_with_dependents
+      if type == :married_filing_jointly_with_dependents || type == :claiming_eitc
         client.intake.update(
           had_dependents: 'yes',
           advance_ctc_amount_received: 600
@@ -320,6 +320,32 @@ class FlowsController < ApplicationController
           birth_date: 52.years.ago,
           tin_type: 'ssn',
           ssn: '555115555'
+        )
+      end
+
+      if type == :claiming_eitc
+        client.intake.update(
+          claim_eitc: 'yes',
+          exceeded_investment_income_limit: 'no'
+        )
+        client.intake.w2s.create(
+          employee: 'primary',
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+          completed_at: DateTime.now,
+          box13_retirement_plan: 'no',
+          box13_statutory_employee: 'no',
+          box13_third_party_sick_pay: 'no',
         )
       end
 
