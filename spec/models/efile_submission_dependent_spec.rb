@@ -117,6 +117,7 @@ describe EfileSubmissionDependent do
     let!(:submission) { create :efile_submission, tax_return: tax_return }
     let(:dependent) { create :qualifying_child, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
     let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }
+    let(:full_time_student) { "yes" }
 
     context "when the dependent is between 19 and 24 and a full time student" do
       let(:birth_date) { 22.years.ago }
@@ -188,10 +189,10 @@ describe EfileSubmissionDependent do
 
     context "when the dependent is under 19" do
       let(:birth_date) { 18.years.ago }
-      let(:full_time_student) { "yes" }
 
-      it "they do not meet the conditions for checkbox 4a" do
-        expect(efile_submission_dependent.schedule_eic_4a?).to eq false
+      it "they do not meet the conditions to fill out question 4" do
+        expect(efile_submission_dependent.skip_schedule_eic_question_4?).to be_truthy
+        expect(efile_submission_dependent.schedule_eic_4a?).to eq nil
       end
     end
 
@@ -213,31 +214,22 @@ describe EfileSubmissionDependent do
     let!(:submission) { create :efile_submission, tax_return: tax_return }
     let(:dependent) { create :qualifying_child, intake: submission.intake, birth_date: birth_date, permanently_totally_disabled: permanently_totally_disabled }
     let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }
+    let(:birth_date) { 19.years.ago }
 
-    context "when the dependent was disabled and under 19" do
-      let(:birth_date) { 18.years.ago }
+    context "when we skipped question 4a (dependent was less than 19 and not younger than filers)" do
+      let(:birth_date) { 16.years.ago }
       let(:permanently_totally_disabled) { "yes" }
 
-      it "they meet the conditions for checkbox 4b" do
+      it "is nil" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq nil
+      end
+    end
+
+    context "when the dependent was disabled" do
+      let(:permanently_totally_disabled) { "yes" }
+
+      it "is true" do
         expect(efile_submission_dependent.schedule_eic_4b?).to eq true
-      end
-    end
-
-    context "when the dependent was disabled but not under 19" do
-      let(:birth_date) { 19.years.ago }
-      let(:permanently_totally_disabled) { "yes" }
-
-      it "they do not meet the conditions for checkbox 4b" do
-        expect(efile_submission_dependent.schedule_eic_4b?).to eq false
-      end
-    end
-
-    context "when the dependent was under 19 but not disabled" do
-      let(:birth_date) { 18.years.ago }
-      let(:permanently_totally_disabled) { "no" }
-
-      it "they do not meet the conditions for checkbox 4b" do
-        expect(efile_submission_dependent.schedule_eic_4b?).to eq false
       end
     end
   end
