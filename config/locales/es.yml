@@ -3080,8 +3080,12 @@ es:
         header: Declaración de impuestos simplificada para solicitar sus pagos de estímulo
         header_open: Declaración de impuestos simplificada para reclamar su tercer pago de estímulo
         subheader:
-          cta: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar cualquier cantidad faltante de su tercer pago de estímulo y el Crédito Tributario por Hijos.
-          time_to_complete: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+          claim:
+            eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
+            eitc_on: Utilice nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier monto faltante de su tercer pago de estímulo.
+          time_estimate:
+            eitc_off: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+            eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
         what_is:
           body_html: |
             <p>Alivio para ayudarlo en estos momentos difíciles, incluso si gana poco o nada de dinero.</p>
