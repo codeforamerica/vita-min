@@ -16,10 +16,10 @@
 
         <% if open_for_ctc_intake? %>
           <div class="spacing-below-25">
-            <%= t("views.ctc_pages.stimulus_home.subheader.cta") %>
+            <%= open_for_eitc_intake? ? t("views.ctc_pages.stimulus_home.subheader.claim.eitc_on") : t("views.ctc_pages.stimulus_home.subheader.claim.eitc_off") %>
           </div>
           <div class="spacing-below-15">
-            <%= t("views.ctc_pages.stimulus_home.subheader.time_to_complete") %>
+            <%= open_for_eitc_intake? ? t("views.ctc_pages.stimulus_home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.stimulus_home.subheader.time_estimate.eitc_off") %>
           </div>
         <% end %>
 
