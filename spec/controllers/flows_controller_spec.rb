@@ -31,6 +31,17 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
         expect(controller.current_intake.dependents.select { |d| !d.qualifying_ctc? && d.qualifying_relative? }.length).to eq(1)
       end
+
+      it 'can generate a claiming_eitc intake' do
+        post :generate, params: default_params.merge({ submit_claiming_eitc: 'Claiming EITC ✨' })
+        expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
+        expect(controller.current_intake.dependents.count).to eq(2)
+        expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
+        expect(controller.current_intake.dependents.select { |d| !d.qualifying_ctc? && d.qualifying_relative? }.length).to eq(1)
+        expect(controller.current_intake.w2s.count).to eq(1)
+        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: controller.current_intake.default_tax_return, dependents: controller.current_intake.dependents)
+        expect(benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?).to be_truthy
+      end
     end
 
     context 'for a gyr intake' do
