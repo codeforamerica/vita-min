@@ -8,6 +8,7 @@
 #  eip1_and_eip2_amount_cents    :bigint
 #  eip3_amount_cents             :bigint
 #  eip3_amount_received_cents    :bigint
+#  eitc_amount_cents             :bigint
 #  outstanding_ctc_amount_cents  :bigint
 #  outstanding_eip3_amount_cents :bigint
 #  total_refund_amount_cents     :bigint
@@ -23,6 +24,8 @@ require 'rails_helper'
 
 describe AcceptedTaxReturnAnalytics do
   describe "#calculated_benefits_attrs" do
+    let(:eitc_amount) { 3000 }
+
     before do
       allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
       allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
@@ -33,6 +36,7 @@ describe AcceptedTaxReturnAnalytics do
       allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1500)
       allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(900)
       allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_recovery_rebate_credit).and_return(2400)
+      allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eitc_amount).and_return(eitc_amount)
     end
 
     let!(:accepted_tax_return_analytics) { create :accepted_tax_return_analytics, tax_return: create(:tax_return, :ctc) }
@@ -46,10 +50,19 @@ describe AcceptedTaxReturnAnalytics do
         outstanding_eip3_amount_cents: 45000,
         eip3_amount_cents: 240000,
         eip3_amount_received_cents: 235000,
-        total_refund_amount_cents: 330000
+        total_refund_amount_cents: 330000,
+        eitc_amount_cents: 300000
       }
 
       expect(accepted_tax_return_analytics.calculated_benefits_attrs).to eq expected_attributes
+    end
+
+    context "when the eitc_amount cannot be calculated (maybe a gyr return)" do
+      let(:eitc_amount) { nil }
+
+      it "returns 0 for eitc_amount" do
+        expect(accepted_tax_return_analytics.calculated_benefits_attrs[:eitc_amount_cents]).to eq(0)
+      end
     end
   end
 end
