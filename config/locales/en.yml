@@ -3891,8 +3891,8 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the 2022 tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
-        closing_soon_banner: Get started with GetYourRefund by October 1st if you want to file with us in 2022. If your return is in progress, log in and submit your documents by October 8th.
+        closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the next tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
+        closing_soon_banner: If your return is in progress, log in and submit your documents by October 8th.
         faq:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
@@ -3904,7 +3904,7 @@ en:
           header: Committed to keeping your information secure.
         subheader: Claim thousands of dollars through tax credits you’re owed! We work with you to get your highest refund.
         subheader_ctc_open: Even though the traditional tax deadline has passed, you can still claim thousands of dollars in tax credits!
-        subheader_offseason: Sign up for the 2022 tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
+        subheader_offseason: Sign up for the next tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
         cta: File DIY
