@@ -117,7 +117,7 @@ module Portal
     def gyr_redirect_unless_open_for_logged_in_clients
       return unless Routes::GyrDomain.new.matches?(request)
 
-      return redirect_to root_path unless open_for_gyr_logged_in_clients?
+      redirect_to root_path unless open_for_gyr_logged_in_clients?
     end
   end
 end
