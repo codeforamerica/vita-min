@@ -94,7 +94,7 @@ module Questions
     private
 
     def redirect_in_offseason
-      redirect_to root_path unless open_for_gyr_intake? || current_client.present?
+      redirect_to root_path unless open_for_gyr_intake? || (open_for_gyr_logged_in_clients? && current_client.present?)
     end
 
     def redirect_if_completed_intake_present
