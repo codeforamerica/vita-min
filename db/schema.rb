@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_29_163418) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_04_231338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1611,6 +1611,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_163418) do
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
 
+  create_table "w2_box14s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "other_amount", precision: 12, scale: 2
+    t.string "other_description"
+    t.datetime "updated_at", null: false
+    t.bigint "w2_id", null: false
+    t.index ["w2_id"], name: "index_w2_box14s_on_w2_id"
+  end
+
+  create_table "w2_state_fields_groups", force: :cascade do |t|
+    t.string "box15_employer_state_id_number"
+    t.string "box15_state"
+    t.decimal "box16_state_wages", precision: 12, scale: 2
+    t.decimal "box17_state_income_tax", precision: 12, scale: 2
+    t.decimal "box18_local_wages", precision: 12, scale: 2
+    t.decimal "box19_local_income_tax", precision: 12, scale: 2
+    t.string "box20_locality_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "w2_id", null: false
+    t.index ["w2_id"], name: "index_w2_state_fields_groups_on_w2_id"
+  end
+
   create_table "w2s", force: :cascade do |t|
     t.decimal "box10_dependent_care_benefits", precision: 12, scale: 2
     t.decimal "box11_nonqualified_plans", precision: 12, scale: 2
@@ -1723,6 +1746,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_163418) do
   add_foreign_key "vita_partner_zip_codes", "vita_partners"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
+  add_foreign_key "w2_box14s", "w2s"
+  add_foreign_key "w2_state_fields_groups", "w2s"
 
   create_view "organization_capacities", sql_definition: <<-SQL
       WITH organization_id_by_vita_partner_id AS (

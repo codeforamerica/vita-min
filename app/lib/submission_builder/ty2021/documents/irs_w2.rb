@@ -70,6 +70,30 @@ module SubmissionBuilder
             xml.RetirementPlanInd "X" if w2.box13_retirement_plan_yes?
             xml.ThirdPartySickPayInd "X" if w2.box13_third_party_sick_pay_yes?
 
+            [w2.w2_box14].compact.each do |box14|
+              xml.OtherDeductionsBenefitsGrp do |xml|
+                xml.Desc box14.other_description
+                xml.Amt box14.other_amount.round
+              end
+            end
+
+            [w2.w2_state_fields_group].compact.each do |group|
+              xml.W2StateLocalTaxGrp do |xml|
+                xml.W2StateTaxGrp do |xml|
+                  xml.StateAbbreviationCd group.box15_state if group.box15_state.present?
+                  xml.EmployerStateIdNum group.box15_employer_state_id_number if group.box15_employer_state_id_number.present?
+                  xml.StateWagesAmt group.box16_state_wages.round if group.box16_state_wages.present?
+                  xml.StateIncomeTaxAmt group.box17_state_income_tax.round if group.box17_state_income_tax.present?
+
+                  xml.W2LocalTaxGrp do |xml|
+                    xml.LocalWagesAndTipsAmt group.box18_local_wages.round if group.box18_local_wages.present?
+                    xml.LocalIncomeTaxAmt group.box19_local_income_tax.round if group.box19_local_income_tax.present?
+                    xml.LocalityNm group.box20_locality_name if group.box20_locality_name.present?
+                  end
+                end
+              end
+            end
+
             xml.StandardOrNonStandardCd 'S'
           end
         end

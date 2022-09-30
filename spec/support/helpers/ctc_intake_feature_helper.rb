@@ -383,6 +383,18 @@ module CtcIntakeFeatureHelper
     select "D", from: I18n.t("views.ctc.questions.w2s.misc_info.box12d")
     fill_in 'ctc_w2s_misc_info_form_box12d_value', with: "74.50"
     check I18n.t('views.ctc.questions.w2s.misc_info.box13_retirement_plan')
+
+    fill_in 'ctc_w2s_misc_info_form_other_description', with: "abc"
+    fill_in 'ctc_w2s_misc_info_form_other_amount', with: "1234"
+    select "NY", from: I18n.t("views.ctc.questions.w2s.misc_info.box15_state")
+    fill_in 'ctc_w2s_misc_info_form_box15_employer_state_id_number', with: "abcd1234"
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box16_state_wages'), with: '123'
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box17_state_income_tax'), with: '20'
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box18_local_wages'), with: '100'
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box19_local_income_tax'), with: '21'
+    fill_in I18n.t('views.ctc.questions.w2s.misc_info.box20_locality_name'), with: 'banana'
+
+
     if delete_instead_of_submit
       click_on I18n.t('views.ctc.questions.w2s.misc_info.remove_this_w2')
     else

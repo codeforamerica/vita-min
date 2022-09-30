@@ -56,6 +56,12 @@
   }
 }
 
+.input-pair {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
 .select-and-input {
   display: flex;
   flex-direction: row;
