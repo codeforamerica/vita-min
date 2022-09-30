@@ -199,6 +199,7 @@ es:
         inclusion: Por favor, seleccione un estado de la lista.
     messages:
       blank: No puede estar en blanco.
+      invalid: es invalido
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
@@ -2738,6 +2739,15 @@ es:
             box13_retirement_plan: Plan de retiro
             box13_statutory_employee: Empleado estatutario
             box13_third_party_sick_pay: Pago por enfermedad de terceros
+            box14_error: Debe proporcionar tanto la descripción como la cantidad.
+            box14_other: 'Casilla 14: Otro'
+            box15_error: Debe proporcionar el número de identificación del estado y del estado del empleador
+            box15_state: 'Casilla 15: Estado y número de identificación estatal del empleador'
+            box16_state_wages: 'Casilla 16: Salarios estatales, propinas, etc.'
+            box17_state_income_tax: 'Casilla 17: Impuesto estatal sobre la renta'
+            box18_local_wages: 'Casilla 18: Salarios locales, propinas, etc.'
+            box19_local_income_tax: 'Casilla 19: Impuesto sobre la renta local'
+            box20_locality_name: 'Casilla 20: Nombre de la localidad'
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:

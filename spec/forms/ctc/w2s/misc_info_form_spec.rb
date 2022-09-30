@@ -38,6 +38,15 @@ describe Ctc::W2s::MiscInfoForm do
       box13_statutory_employee: 'yes',
       box13_retirement_plan: 'yes',
       box13_third_party_sick_pay: 'no',
+      other_description: "description",
+      other_amount: "12",
+      box15_state: "NY",
+      box15_employer_state_id_number: "abcd1234",
+      box16_state_wages: "1",
+      box17_state_income_tax: "2",
+      box18_local_wages: "3",
+      box19_local_income_tax: "4",
+      box20_locality_name: "someplace",
     }
     described_class.new(w2, params).save
     expect(w2.box11_nonqualified_plans).to eq 123
@@ -52,6 +61,41 @@ describe Ctc::W2s::MiscInfoForm do
     expect(w2.box13_statutory_employee).to eq 'yes'
     expect(w2.box13_retirement_plan).to eq 'yes'
     expect(w2.box13_third_party_sick_pay).to eq 'no'
+    expect(w2.w2_box14.other_description).to eq "description"
+    expect(w2.w2_box14.other_amount).to eq 12
+    expect(w2.w2_state_fields_group.box15_state).to eq "NY"
+    expect(w2.w2_state_fields_group.box15_employer_state_id_number).to eq "abcd1234"
+    expect(w2.w2_state_fields_group.box16_state_wages).to eq 1
+    expect(w2.w2_state_fields_group.box17_state_income_tax).to eq 2
+    expect(w2.w2_state_fields_group.box18_local_wages).to eq 3
+    expect(w2.w2_state_fields_group.box19_local_income_tax).to eq 4
+    expect(w2.w2_state_fields_group.box20_locality_name).to eq "someplace"
+  end
+
+  it "updates an existing w2_state_fields_group and w2_box14" do
+    w2.create_w2_state_fields_group(box16_state_wages: "100")
+    w2.create_w2_box14(other_description: 'banana', other_amount: 12)
+    params = {
+      other_description: 'papaya',
+      other_amount: '24',
+      box15_state: "NY",
+      box15_employer_state_id_number: "abcd1234",
+      box16_state_wages: "1",
+      box17_state_income_tax: "2",
+      box18_local_wages: "3",
+      box19_local_income_tax: "4",
+      box20_locality_name: "someplace",
+    }
+    described_class.new(w2, params).save
+    expect(w2.w2_state_fields_group.box16_state_wages).to eq 1
+    expect(w2.w2_state_fields_group.box15_state).to eq "NY"
+    expect(w2.w2_state_fields_group.box15_employer_state_id_number).to eq "abcd1234"
+    expect(w2.w2_state_fields_group.box17_state_income_tax).to eq 2
+    expect(w2.w2_state_fields_group.box18_local_wages).to eq 3
+    expect(w2.w2_state_fields_group.box19_local_income_tax).to eq 4
+    expect(w2.w2_state_fields_group.box20_locality_name).to eq "someplace"
+    expect(w2.w2_box14.other_description).to eq 'papaya'
+    expect(w2.w2_box14.other_amount).to eq 24
   end
 
   context "validations" do
@@ -137,6 +181,125 @@ describe Ctc::W2s::MiscInfoForm do
       expect(form.errors.attribute_names).to include(:box12b)
       expect(form.errors.attribute_names).to include(:box12c)
       expect(form.errors.attribute_names).to include(:box12d)
+    end
+
+    it "requires both description and amount for box 14 if description is present" do
+      form = described_class.new(w2, {
+        other_description: 'banana',
+      })
+
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box14)
+    end
+
+    it "requires both description and amount for box 14 if amount is present" do
+      form = described_class.new(w2, {
+        other_amount: '12',
+      })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box14)
+    end
+
+    it "requires description to be no more than 100 characters long if it is present" do
+      form = described_class.new(w2, {
+        other_description: 'b'*101,
+        other_amount: '12',
+      })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box14)
+    end
+
+    it "requires amount to look like money if its present" do
+      form = described_class.new(w2, {
+        other_amount: 'banana',
+      })
+      form.valid?
+      expect(form.errors.attribute_names).to include(:box14)
+
+      params = {
+        box16_state_wages: 'RUTABAGA',
+      }
+      form = described_class.new(w2, params)
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box16_state_wages)
+    end
+
+    it "requires both state and employer state id number for box 15 if state is present" do
+      form = described_class.new(w2, {
+        box15_state: 'NY',
+      })
+
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box15)
+    end
+
+    it "requires both state and employer state id number for box 15 if employer state id number is present" do
+      form = described_class.new(w2, {
+        box15_employer_state_id_number: '123abc',
+      })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box15)
+    end
+
+    it "requires state to be in the inclusion list for box 15 if the state is present" do
+      form = described_class.new(w2, {
+        box15_state: 'asdf',
+        box15_employer_state_id_number: '123abc',
+      })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box15)
+    end
+
+    it "requires :box16_state_wages to look like money if its present" do
+      form = described_class.new(w2, {})
+      form.valid?
+      expect(form.errors.attribute_names).not_to include(:box16_state_wages)
+
+      params = {
+        box16_state_wages: 'RUTABAGA',
+      }
+      form = described_class.new(w2, params)
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box16_state_wages)
+    end
+
+    it "requires :box17_state_income_tax to look like money if its present" do
+      form = described_class.new(w2, {})
+      form.valid?
+      expect(form.errors.attribute_names).not_to include(:box17_state_income_tax)
+
+      params = {
+        box17_state_income_tax: 'RUTABAGA',
+      }
+      form = described_class.new(w2, params)
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box17_state_income_tax)
+    end
+
+    it "requires :box18_local_wages to look like money if its present" do
+      form = described_class.new(w2, {})
+      form.valid?
+      expect(form.errors.attribute_names).not_to include(:box18_local_wages)
+
+      params = {
+        box18_local_wages: 'RUTABAGA',
+      }
+      form = described_class.new(w2, params)
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box18_local_wages)
+    end
+
+    it "requires :box19_local_income_tax to look like money if its present" do
+      form = described_class.new(w2, {})
+      form.valid?
+      expect(form.errors.attribute_names).not_to include(:box19_local_income_tax)
+
+      params = {
+        box19_local_income_tax: 'RUTABAGA',
+      }
+      form = described_class.new(w2, params)
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:box19_local_income_tax)
     end
   end
 end

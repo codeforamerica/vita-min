@@ -16,6 +16,10 @@ module FormAttributes
       auto_strip_attributes *attribute_strings, virtual: true
     end
 
+    def before_validation_squish(*attributes)
+      auto_strip_attributes *attributes, virtual: true, squish: true
+    end
+
     def scoped_attributes
       @scoped_attributes ||= {}
     end

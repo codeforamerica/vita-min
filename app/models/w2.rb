@@ -52,6 +52,11 @@ class W2 < ApplicationRecord
   BOX12_OFFBOARD_CODES = %w(A B K L M N R V W Z)
 
   belongs_to :intake
+  has_one :w2_state_fields_group, dependent: :destroy
+  has_one :w2_box14, dependent: :destroy
+
+  accepts_nested_attributes_for :w2_state_fields_group, update_only: true
+  accepts_nested_attributes_for :w2_box14, update_only: true
 
   scope :completed, -> { where.not(completed_at: nil) }
 

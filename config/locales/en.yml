@@ -199,6 +199,7 @@ en:
         inclusion: Please select a state from the list.
     messages:
       blank: Can't be blank.
+      invalid: is invalid
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
@@ -2762,6 +2763,15 @@ en:
             box13_retirement_plan: Retirement plan
             box13_statutory_employee: Statutory employee
             box13_third_party_sick_pay: Third-party sick pay
+            box14_error: Must provide both description and amount
+            box14_other: 'Box 14: Other'
+            box15_error: Must provide both state and employer's state ID number
+            box15_state: 'Box 15: State and Employer’s State ID number'
+            box16_state_wages: 'Box 16: State wages, tips, etc.'
+            box17_state_income_tax: 'Box 17: State income tax'
+            box18_local_wages: 'Box 18: Local wages, tips, etc.'
+            box19_local_income_tax: 'Box 19: Local income tax'
+            box20_locality_name: 'Box 20: Locality name'
             remove_this_w2: Remove this W-2
             requirement_title: 'Requirement:'
             requirements:

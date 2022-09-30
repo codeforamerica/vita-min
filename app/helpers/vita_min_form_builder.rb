@@ -33,12 +33,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
   def h1_label_contents(label_text, help_text, optional = false)
     label_text = <<~HTML
-          <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
+      <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
     HTML
 
     if help_text
       label_text << <<~HTML
-            <p class="text--help">#{help_text}</p>
+        <p class="text--help">#{help_text}</p>
       HTML
     end
 
@@ -63,13 +63,13 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-            #{formatted_label}
-            <div class="select">
-              #{select(method, collection, options, html_options_with_errors, &block)}
-            </div>
-            #{errors_for(object, method)}
-          </div>
+      <div class="form-group#{error_state(object, method)}">
+        #{formatted_label}
+        <div class="select">
+          #{select(method, collection, options, html_options_with_errors, &block)}
+        </div>
+        #{errors_for(object, method)}
+      </div>
     HTML
 
     html_output.html_safe
@@ -106,20 +106,63 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     text_field_html = text_field(input_method, text_field_options)
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, error_method)}">
-            #{formatted_label}
-            <div class="select-and-input #{classes.join(' ')}">
-              <div class="select">
-                #{select(select_method, collection, options, html_options_with_errors, &block)}
-              </div>
-              #{text_field_html}
-            </div>
-
-            #{errors_for(object, error_method)}
+      <div class="form-group#{error_state(object, error_method)}">
+        #{formatted_label}
+        <div class="select-and-input #{classes.join(' ')}">
+          <div class="select">
+            #{select(select_method, collection, options, html_options_with_errors, &block)}
           </div>
+          #{text_field_html}
+        </div>
+
+        #{errors_for(object, error_method)}
+      </div>
     HTML
 
     html_output.html_safe
+  end
+
+  def vita_min_input_field_pair(
+    first_input_method,
+    second_input_method,
+    error_method,
+    label_text,
+    options = {},
+    classes: []
+  )
+    formatted_label = label(
+      first_input_method,
+      h1_label_contents(label_text, options[:help_text], options[:optional])
+    )
+
+    first_text_field_html = text_field_with_options(first_input_method, options)
+    second_text_field_html = text_field_with_options(second_input_method, options)
+
+    html_output = <<~HTML
+      <div class="form-group#{error_state(object, error_method)}">
+        #{formatted_label}
+        <div class="input-pair #{classes.join(' ')}">
+          #{first_text_field_html}
+          #{second_text_field_html}
+        </div>
+
+        #{errors_for(object, error_method)}
+      </div>
+    HTML
+
+    html_output.html_safe
+  end
+
+  def text_field_with_options(input_method, options)
+    text_field_options = standard_options.merge(
+      type: 'text',
+      class: "text-input",
+    ).merge(options).merge(error_attributes(method: input_method))
+
+    text_field_options[:id] ||= sanitized_id(input_method)
+    text_field_options[:input_id] ||= sanitized_id(input_method)
+
+    text_field(input_method, text_field_options)
   end
 
   def simplified_cfa_checkbox(method, label_text, options: {})
@@ -159,12 +202,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     options_with_errors = options.merge(error_attributes(method: method))
     <<~HTML.html_safe
-            <div class="checkbox-group input-group form-group#{error_state(object, method)}">
-              <label class="#{classes.join(' ')}">
-                #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
-              </label>
-              #{errors_for(object, method)}
-            </div>
+      <div class="checkbox-group input-group form-group#{error_state(object, method)}">
+        <label class="#{classes.join(' ')}">
+          #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
+        </label>
+        #{errors_for(object, method)}
+      </div>
     HTML
   end
 
@@ -217,10 +260,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     label_and_field_html = formatted_label + formatted_field(nil, text_field_html, nil, []).html_safe
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-          #{label_and_field_html}
-            #{errors_for(object, method)}
-          </div>
+      <div class="form-group#{error_state(object, method)}">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
     HTML
     html_output.html_safe
   end
@@ -271,15 +314,15 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
 
     <<~HTML.html_safe
-          <fieldset class="date-text-fields form-group#{error_state(object, method)}">
-            #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
-            <div>
-              #{date_text_fields[0]}
-              #{date_text_fields[1]}
-              #{date_text_fields[2]}
-            </div>
-            #{errors_for(object, method)}
-          </fieldset>
+      <fieldset class="date-text-fields form-group#{error_state(object, method)}">
+        #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
+        <div>
+          #{date_text_fields[0]}
+          #{date_text_fields[1]}
+          #{date_text_fields[2]}
+        </div>
+        #{errors_for(object, method)}
+      </fieldset>
     HTML
   end
 

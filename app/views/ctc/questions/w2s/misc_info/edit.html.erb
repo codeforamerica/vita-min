@@ -30,6 +30,14 @@
       <%= f.cfa_checkbox(:box13_third_party_sick_pay, t('views.ctc.questions.w2s.misc_info.box13_third_party_sick_pay'), options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
+    <%= f.vita_min_input_field_pair(:other_description, :other_amount, :box14, t("views.ctc.questions.w2s.misc_info.box14_other"), classes: ["form-width--long"]) %>
+    <%= f.vita_min_select_and_input_fields :box15_state, :box15_employer_state_id_number, :box15, t("views.ctc.questions.w2s.misc_info.box15_state"), States.keys, { include_blank: true }, classes: ["form-width--long"] %>
+    <%= f.cfa_input_field(:box16_state_wages, t("views.ctc.questions.w2s.misc_info.box16_state_wages"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box17_state_income_tax, t("views.ctc.questions.w2s.misc_info.box17_state_income_tax"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box18_local_wages, t("views.ctc.questions.w2s.misc_info.box18_local_wages"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box19_local_income_tax, t("views.ctc.questions.w2s.misc_info.box19_local_income_tax"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:box20_locality_name, t("views.ctc.questions.w2s.misc_info.box20_locality_name"), classes: ["form-width--long"]) %>
+
     <%= f.continue @continue_label %>
   <% end %>
   <% if current_intake.completed_at.blank? %>
