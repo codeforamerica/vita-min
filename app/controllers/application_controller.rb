@@ -276,14 +276,6 @@ class ApplicationController < ActionController::Base
     !open_for_gyr_intake?
   end
 
-  def open_for_soft_launch?
-    return true if app_time >= Rails.configuration.start_of_unique_links_only_intake &&
-      app_time <= Rails.configuration.end_of_intake
-
-    return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
-  end
-  helper_method :open_for_soft_launch?
-
   def open_for_gyr_intake?
     return true if cookies[:used_unique_link] == "yes" &&
       app_time >= Rails.configuration.start_of_unique_links_only_intake &&
@@ -294,10 +286,7 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_gyr_intake?
 
   def open_for_gyr_logged_in_clients?
-    open_for_soft_launch? || open_for_gyr_intake? || (
-
-      app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_login
-    )
+    app_time >= Rails.configuration.start_of_unique_links_only_intake && app_time <= Rails.configuration.end_of_login
   end
   helper_method :open_for_gyr_logged_in_clients?
 
