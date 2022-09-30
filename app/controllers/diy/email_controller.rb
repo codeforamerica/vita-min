@@ -1,7 +1,5 @@
 module Diy
-  class EmailController < ApplicationController
-    before_action :redirect_in_offseason
-
+  class EmailController < BaseController
     def edit
       @diy_intake = DiyIntake.new
     end
@@ -24,10 +22,6 @@ module Diy
         visitor_id: visitor_id,
         locale: I18n.locale
       )
-    end
-
-    def redirect_in_offseason
-      redirect_to root_path unless open_for_gyr_intake?
     end
   end
 end

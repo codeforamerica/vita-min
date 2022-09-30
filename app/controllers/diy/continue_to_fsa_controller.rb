@@ -1,6 +1,6 @@
 module Diy
-  class ContinueToFsaController < ApplicationController
-    before_action :redirect_in_offseason, :require_diy_intake
+  class ContinueToFsaController < BaseController
+    before_action :require_diy_intake
 
     def edit
       @taxslayer_link = taxslayer_link

@@ -1,6 +1,6 @@
 module Portal
   class ClientLoginsController < ApplicationController
-    before_action :redirect_gyr_in_offseason
+    before_action :gyr_redirect_unless_open_for_logged_in_clients
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:edit, :update]
     before_action :redirect_locked_clients, only: [:edit, :update]
@@ -114,8 +114,10 @@ module Portal
       redirect_to portal_root_path if current_client.present?
     end
 
-    def redirect_gyr_in_offseason
-      redirect_to root_path if Routes::GyrDomain.new.matches?(request) && !open_for_soft_launch?
+    def gyr_redirect_unless_open_for_logged_in_clients
+      return unless Routes::GyrDomain.new.matches?(request)
+
+      return redirect_to root_path unless open_for_gyr_logged_in_clients?
     end
   end
 end

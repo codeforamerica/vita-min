@@ -24,7 +24,7 @@ RSpec.describe SignupsController do
 
       it "sends an event to mixpanel" do
         post :create, params: params
-        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "2021-sign-up")
+        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "sign-up-created")
       end
     end
 
