@@ -1,5 +1,7 @@
 module Portal
   class PortalController < ApplicationController
+    before_action :redirect_unless_open_for_logged_in_clients
+
     include AuthenticatedClientConcern
 
     layout "portal"
@@ -33,6 +35,10 @@ module Portal
 
     def ask_for_answers?
       !current_client.intake.completed_at? && current_client.tax_returns.map(&:current_state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
+    end
+
+    def redirect_unless_open_for_logged_in_clients
+      redirect_to root_path unless open_for_gyr_logged_in_clients?
     end
   end
 end

@@ -3,7 +3,7 @@ class SignupsController < ApplicationController
     @signup = Signup.new(signup_params)
 
     if @signup.save
-      send_mixpanel_event(event_name: "2021-sign-up")
+      send_mixpanel_event(event_name: "sign-up-created")
       flash[:notice] = I18n.t("signups.flash_notice")
       redirect_to root_path
     else

@@ -285,13 +285,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_gyr_intake?
 
-  def open_for_soft_launch?
-    return true if app_time >= Rails.configuration.start_of_unique_links_only_intake &&
-      app_time <= Rails.configuration.end_of_intake
-
-    return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
+  def open_for_gyr_logged_in_clients?
+    app_time >= Rails.configuration.start_of_unique_links_only_intake && app_time <= Rails.configuration.end_of_login
   end
-  helper_method :open_for_soft_launch?
+  helper_method :open_for_gyr_logged_in_clients?
 
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake

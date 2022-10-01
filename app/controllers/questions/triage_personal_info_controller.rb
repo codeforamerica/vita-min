@@ -2,7 +2,7 @@ module Questions
   class TriagePersonalInfoController < PersonalInfoController
     before_action :redirect_if_matching_source_param
 
-    def self.show?(intake)
+    def self.show?(_intake)
       true
     end
 

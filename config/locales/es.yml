@@ -1633,7 +1633,7 @@ es:
         - Notificaciones sobre la declaración de impuestos
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
-      subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
+      subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -3856,8 +3856,8 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
-        closing_soon_banner: Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2022. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
+        closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
+        closing_soon_banner: Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
@@ -3869,7 +3869,7 @@ es:
           header: Nos comprometemos a mantener la seguridad de su información.
         subheader: "¡Solicite miles de dólares a través de los créditos fiscales que le corresponden! Trabajamos con usted para obtener su mayor reembolso."
         subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
-        subheader_offseason: "¡Regístrese para la temporada de impuestos de 2022 ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
+        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
