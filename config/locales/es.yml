@@ -614,13 +614,13 @@ es:
             one: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} cliente</strong>
             other: Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>
           selected_action_qualifier:
-            only_email: "(only sending email)"
-            only_text: "(only sending text messages)"
+            only_email: "(solo envio de correo electrónico)"
+            only_text: "(solo envio de mensajes de texto)"
           title: Acción masiva
     bulk_message_csvs:
       bulk_message_csv:
-        send_default: Enviar mensaje (todos los métodos de contacto disponibles, es decir, predeterminado)
-        send_email: Enviar mensaje (solo correo electrónico)
+        send_default: Enviar mensaje (todos los métodos de contacto disponibles, es decir, por defecto)
+        send_email: Enviar mensaje (solamente correo electrónico)
         send_text: Enviar mensaje (solo mensaje de texto)
     client_channel:
       please_reload_html: "↻ Vuelva a cargar la página para ver un mensaje nuevo."
@@ -1182,20 +1182,19 @@ es:
     ctc_getting_started:
       email:
         body: |
-          Hola <<Client.PreferredName>>:
+          Hola <<Client.PreferredName>>,
 
-          Gracias por iniciar su declaración de impuestos con GetCTC. Solamente podemos enviar su información al IRS en cuanto haya completado el formulario.
+          Gracias por comenzar su declaración de impuestos con GetCTC. Solo podemos enviar su información al IRS cuando llenas el formulario
 
-          Puede iniciar su sesión para completar el formulario y comprobar su estado aquí: <<Client.LoginLink>> Puede usar su ID de cliente <<Client.ClientId>> para iniciar su sesión o, si nos lo ha dado, los últimos cuatro dígitos de su SSN/ITIN.
+          Puede iniciar sesión para completar el formulario y verificar su estado aquí: <<Client.LoginLink>> Puede usar su ID de cliente <<Client.ClientId>> para iniciar sesión o, si nos lo ha proporcionado, el último cuatro dígitos de su SSN/ITIN.
 
-          ¡Estamos aquí para ayudarle!
-          Su Equipo de Declaración de Impuestos GetCTC.org
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuestos en GetCTC.org
         subject: Inscripción para GetCTC
       sms: |
         Hola <<Client.PreferredName>>,
-        Gracias por iniciar su declaración de impuestos con GetCTC. Su ID de cliente es <<Client.ClientId>>
-        Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN <<Client.LoginLink>>
-        ¡Estamos aquí para ayudarle!
+        ¡Gracias por comenzar su declaración de impuestos con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
+        ¡Estamos aquí para ayudar!
     ctc_sms_opt_in: Bienvenido a los mensajes de GetCTC. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     default_subject_with_service_name: Actualización de %{service_name}
     efile:
@@ -1234,9 +1233,18 @@ es:
           Su equipo de impuesto de GetCTC.org
       preparing:
         email:
-          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los del impacto económico hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
+          body: |
+            Hola <<Client.PreferredName>>,
+
+            Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá ningún pago hasta que se acepten sus impuestos.
+
+            ¡Estamos aquí para ayudar!
+            Su equipo de impuestos en GetCTC.org
           subject: Su declaración de impuestos se está procesando.
-        sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos (Niños) ni los del impacto económico hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
+        sms: |
+          Hola <<Client.PreferredName>>,
+          Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá ningún pago hasta que se acepten sus impuestos.
+          Su equipo de impuestos en GetCTC.org
       rejected:
         email:
           body: |
@@ -1633,7 +1641,7 @@ es:
         - Notificaciones sobre la declaración de impuestos
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
-      subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero.
+      subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -1804,7 +1812,7 @@ es:
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
           w2s_missing: Falta información W-2
-          w2s_shared: W-2s compartidos
+          w2s_shared: W-2 compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
@@ -1989,12 +1997,11 @@ es:
           buttons:
             claim: Sí, solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
             dont_claim: No, continuar sin solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
-          help_text: El crédito tributario por ingreso de trabajo (EITC) es un crédito tributario que puede darle hasta $6,700. La mayoría de las personas reciben al menos $1,500.
+          help_text: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede darle hasta $6,700.
           info_box:
             list:
-            - Tiene un trabajo que le permite ganar dinero
-            - Tiene un W2 2021 de su(s) empleador(es)
-            - Cada persona de esta declaración tiene un SSN, Número de Seguro Social
+            - Tienes un trabajo ganando dinero en %{current_tax_year}
+            - Cada persona en esta declaración tiene un SSN
             title: 'Requisitos:'
           title: "¿Le gustaría declarar más dinero compartiendo algún formulario W2 de 2021?"
         confirm_bank_account:
@@ -2042,11 +2049,11 @@ es:
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo:'
-          fed_income_tax_withholding: 'Retención de impuestos federales sobre la renta:'
+          fed_income_tax_withholding: 'Impuesto Federal sobre el Ingreso Retenido:'
           subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
           third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Revise esta lista de los pagos que está reclamando:'
-          total: 'Importe total del fondo:'
+          total: 'Reembolso total:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
@@ -2136,7 +2143,7 @@ es:
             - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
-            help_text: No incluiremos a  %{name} en su declaración de impuestos. No califican para ningún crédito fiscal.
+            help_text: No guardamos a %{name} en su declaración de impuestos. Ellos no califican para ningún crédito tributario.
             puerto_rico:
               affirmative: Sí, agregar otro niño
               conditions:
@@ -2198,44 +2205,46 @@ es:
           title: Ingrese su información de su licencia de conducir o su tarjeta de identificación emitida por el estado
         eitc_income_offboarding:
           help_text:
+            many: Desafortunadamente, el ingreso total de usted y su cónyuge está por encima de nuestro límite. Puede continuar y reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo, o puede presentar una declaración de impuestos completa para reclamar su EITC.
             one: Desafortunadamente, su ingreso total está por encima de nuestro límite. Puede continuar y reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo, o puede presentar una declaración de impuestos completa para reclamar su EITC.
             other: Desafortunadamente, el ingreso total de usted y su cónyuge está por encima de nuestro límite. Puede continuar y reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo, o puede presentar una declaración de impuestos completa para reclamar su EITC.
           title:
+            many: No califica para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolo!
             one: No califica para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolo!
             other: Usted y su cónyuge no califican para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolos!
         eitc_offboarding:
           help_text: Continúe con GetCTC para solicitar su Crédito Tributario por Hijos y/o los pagos de estímulo que faltan.
           title: "¡No cumple los requisitos para obtener el crédito tributario por ingresos del trabajo, pero aún hay dinero disponible para usted!"
         eitc_qualifiers:
-          former_foster_youth: Antes fui un ex joven de acogida calificado
+          former_foster_youth: Antes fui un ex joven de crianza calificado
           former_foster_youth_reveal:
-            info: Un antiguo joven de acogida calificado es alguien que estuvo en cuidado de acogida entre los 14 y los 17 años. Necesita haberle permitido que el programa de acogida compartiera su estado de antiguo joven de acogida.
-            title: "¿Cómo se define un antiguo joven de acogida calificado?"
-          full_time_student: "¿Qué es una estudiante de tiempo completo?"
+            info: Un ex joven de crianza calificado es alguien que estuvo en cuidado de crianza entre los 14 y los 17 años. Necesita haberle permitido que el programa de crianza compartiera su estado de ex joven de crianza.
+            title: "¿Soy un ex joven de crianza calificado?"
+          full_time_student: "¿Qué es un estudiante de tiempo completo?"
           full_time_student_less_than_four_months: Fui estudiante a tiempo completo por menos de 4 meses
-          full_time_student_reveal: Alguien que asistió a la escuela a tiempo completo durante al menos cinco meses del año se considera un estudiante de tiempo completo para el año.
+          full_time_student_reveal: Alguien que asistió a la escuela a tiempo completo durante al menos de cinco meses del año se considera un estudiante de tiempo completo para el año.
           homeless_youth: Fui un joven sin hogar calificado
           homeless_youth_reveal:
             info: Un joven sin hogar calificado es alguien que no tiene hogar o está en riesgo de no tenerlo, y que se mantiene económicamente. Debe tener entre 18-24 años y no puede estar bajo la custodia física de un padre o tutor.
-            title: "¿Cómo se define un joven sin hogar calificado?"
+            title: "¿Soy un joven sin hogar calificado?"
           not_full_time_student: No era estudiante a tiempo completo
           title: 'Seleccione cualquiera de las situaciones que fueron verdaderas en %{current_tax_year}:'
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text1: Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentación de una declaración de impuestos completa puede tomar más tiempo y necesitaría todos sus documentos laborales (W2's, 1099's, etc).
+          help_text1: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentando una declaración de impuestos completa puede llevar más tiempo y necesitará todos sus documentos de empleo (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
-          help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa en su lugar.
+          help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa.
           list_1_eitc:
-          - Crédito tributario por hijos
-          - 3er Cheque de Estímulo
+          - Crédito Tributario por Hijos
+          - 3er Pago de Estímulo
           - Crédito Tributario por Ingreso del Trabajo
-          list_1_eitc_title: Puede presentar una declaración simplificada para reclamar el
+          list_1_eitc_title: 'Puede presentar una declaración simplificada para reclamar:'
           list_2_eitc:
-          - Cheque de estímulo 1 o 2
-          - Créditos fiscales estatales o pagos de estímulo
-          list_2_eitc_title: No puede usar esta herramienta para reclamar
+          - Pago de estímulo 1 o 2
+          - Créditos fiscales estatales o pagos de estímulo estatales
+          list_2_eitc_title: 'No puede usar esta herramienta para reclamar:'
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
             help_text: Esto no es una planilla de Puerto Rico con el Departamento de Hacienda. Si desea reclamar beneficios adicionales (como el Crédito Tributario por Ingreso del Trabajo, cualquier de los pagos de estímulo o otros créditos de Puerto Rico), deberá radicar una planilla de Puerto Rico al Departamento de Hacienda.
@@ -2245,7 +2254,7 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund.</a>
+            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund. </a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -2264,9 +2273,9 @@ es:
         filing_status:
           irs_reveal:
             body_html: |
-              Según el IRS, <b>no</b> está casado durante un año tributario si:
+              Según el IRS, <b>no</b> está casado durante un año fiscal si:
               <ul class="list--bulleted">
-              <li>Nunca estuvo casado O estuvo casado anteriormente pero al final del año tenía un decreto de divorcio o un decreto de manutención por separado</li>
+              <li>Nunca estuvo casado O estuvo casado anteriormente pero al final del año tenía una sentencia de divorcio o una sentencia de manutención por separación.</li>
               </ul>
             title: "¿El IRS me considera casado?"
           mfs_reveal:
@@ -2275,7 +2284,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: "¿Está usted casado?"
+          title: Al 31 de diciembre, 2021, ¿estaba legalmente casado?
         had_dependents:
           add: Agregue dependientes
           continue: Seguir adelante sin dependientes
@@ -2341,7 +2350,6 @@ es:
               - propinas
               - comisiones
               - pagos por cuenta propia o por contrato
-              - beneficios de desempleo
               p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
             title: "¿Qué se puede considera como un ingreso?"
           income_source_reveal:
@@ -2350,14 +2358,14 @@ es:
           list:
             one:
             - ganó menos de %{standard_deduction} en ingresos totales
-            - ganó menos de $400 en ingresos de trabajo por cuenta propia
-            - usted no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
+            - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
+            - no recibió el crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
-            - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
-            - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
-            - usted y su cónyuge no recibieron el Crédito Tributario de Prima de Seguro Médico Adelantado
-            - usted y su cónyuge no están obligados a presentar una declaración de impuestos completa por cualquier otra razón
+            - ganaron menos de %{standard_deduction}en ingresos totales.
+            - ganaron menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
+            - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
+            - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
           mainland_connection_reveal:
             content: Si su familia y sus pertenencias están ubicadas en cualquier de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces no puede usar GetCTC como residente de Puerto Rico.
             title: "¿Qué significa tener una conexión más cercana con los Estados Unidos continentales que con Puerto Rico?"
@@ -2388,23 +2396,24 @@ es:
               - trabajo temporero
               - conducir para Uber, Lyft o similar
               - alquilar su casa
-              p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2. Los ingresos del trabajo por cuenta propia incluyen pagos en efectivo.
+              p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
           title:
-            one: 'Solo puede usar GetCTC si, en %{current_tax_year}:'
-            other: 'Solo puede usar GetCTC si, en %{current_tax_year} tu y tu cónyuge:'
+            many: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
+            one: 'Solo puede usar Obtener CTC si, en %{current_tax_year}, usted:'
+            other: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
-              p2: No habría recibido el Crédito tributario de prima de seguro médico adelantado el año pasado si tuviera Medicaid o Medicare, si tuviera cobertura de atención médica de su empleador o si no tuviera cobertura de atención médica.
+              p2: Habría recibido el Crédito Tributario de Prima de Seguro Médico Adelantado el año pasado si tenía Medicaid o Medicare, si obtuvo cobertura de atención médica de su empleador o si no tenía cobertura de atención médica.
               p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
           married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
-          reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV
-          reveal_title: "¿Cómo verifico el monto de los ingresos de mi inversión?"
+          reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
           title: "¿Ganó más de $10.000 en ingresos por inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
@@ -2467,14 +2476,14 @@ es:
           reveal_label: "¿Qué tal si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
         main_home:
-          help_text: Seleccione la ubicación donde pasó más de la mitad de 2021.
+          help_text: Su hogar principal es un lugar en el que se quedó durante más de la mitad del año tributario.
           options:
             fifty_states: Cualquier de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección fuera de los Estados Unidos
             military_facility: Instalación militar estadounidense
             puerto_rico: Puerto Rico
             us_territory: Otro territorio de EE. UU. (como Guam, Samoa Americana, Islas Vírgenes de EE. UU.)
-          title: "¿Dónde vivió la mayor parte de %{current_tax_year}?"
+          title: "¿Cuál fue su hogar principal para %{current_tax_year}?"
         no_dependents:
           add_child: Agregar un niño
           add_dependents: Agregar más dependientes
@@ -2491,14 +2500,15 @@ es:
         non_w2_income:
           additional_income:
             list:
-            - ingresos del contratista
+            - ingresos de contratista
             - ingresos por intereses
             - ingresos por desempleo
-            - cualquier otro dinero que hayas recibido
+            - cualquier otro dinero que recibistes
             list_title: 'Los ingresos adicionales incluyen:'
           title:
-            one: "¿Obtuviste más de %{additional_income_amount} en ingresos adicionales?"
-            other: "¿Usted y su cónyuge ganaron más del %{additional_income_amount} en ingresos adicionales?"
+            many: "¿Usted y su cónyuge ganaron más de %{additional_income_amount} en ingresos adicionales?"
+            one: "¿Hiciste más de %{additional_income_amount} en ingresos adicionales?"
+            other: "¿Usted y su cónyuge ganaron más de %{additional_income_amount} en ingresos adicionales?"
         not_filing:
           buttons:
             faq: Preguntas Frecuentes
@@ -2507,8 +2517,8 @@ es:
           - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Utilice nuestra sencilla herramienta de presentación electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
-          help_text_eitc: Utilice nuestra sencilla herramienta de presentación electrónica para recibir su Crédito Tributario por Hijos, su Crédito Tributario por Ingreso del Trabajo y su tercer pago de estímulo.
+          help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
+          help_text_eitc: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos, su Crédito Tributario por Ingreso del Trabajo y su tercer pago de estímulo.
           legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
@@ -2529,12 +2539,12 @@ es:
         restrictions:
           cannot_use_ctc: No puedo usar GetCTC
           list:
-          - anteriormente se le redujo o se le rechazó el CTC por una investigación del IRS y no ha presentado correctamente el formulario 8862 desde entonces
+          - una investigación del IRS le ha reducido o rechazado previamente el CTC o el EITC y no ha presentado correctamente el Formulario 8862 desde la investigación
           - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
-          - usted desea presentar con el formulario 8332 para declarar a un niño que no vive con usted
-          - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
-          - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}
-          - compró o vendió criptomoneda en %{current_tax_year}
+          - desea presentar el Formulario 8332 para reclamar a un niño que no vive con usted
+          - está reclamando un pariente calificado bajo un "acuerdo de manutención múltiple" según lo define el IRS
+          - no está reclamando ningún hijo para el Crédito Tributario por Hijos este año, pero recibió pagos pagos por Adelantado del Crédito Tributario por Hijos en %{current_tax_year}
+          - compraste o vendiste criptomonedas en %{current_tax_year}
           list_title: 'No puede usar GetCTC si:'
           multiple_support_agreement_reveal:
             content:
@@ -2549,10 +2559,12 @@ es:
           routing_number_confirmation: Confirme su número de ruta
         simplified_filing_income_offboarding:
           help_text:
-            one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos fiscales si presenta una declaración de impuestos completa.
-            other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos fiscales si presentan una declaración de impuestos completa.
+            many: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos tributarios si presentan una declaración de impuestos completa.
+            one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos tributarios si presenta una declaración de impuestos completa.
+            other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos tributarios si presentan una declaración de impuestos completa.
           title:
-            one: Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.
+            many: 'Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados. '
+            one: 'Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados. '
             other: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
@@ -2678,28 +2690,29 @@ es:
         w2s:
           add: Agregar la forma W-2
           add_later: Cerrar sesión y agregar un W-2 más tarde
-          delete_this_w2: Eliminar este W-2
+          delete_this_w2: Elimina este W-2
           done_adding: Se ha terminado de añadir todas las formas W-2
-          dont_add_w2: No deseo añadir ningún forma W-2
+          dont_add_w2: No quiero agregar mi W-2
           employee_info:
-            employee_city: 'Casilla e: Ciudad'
+            employee_city: 'Casilla e: City'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
-            employee_state: 'Casilla e: Estado'
+            employee_state: 'Casilla e: State'
             employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
-            employee_zip_code: 'Casilla e: Código postal'
+            employee_zip_code: 'Casilla e: Zip code'
             title:
+              many: Comencemos ingresando información básica.
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
           employer_info:
             add: Agregar la forma W-2
-            box_d_control_number: 'Casilla d: Número de control'
+            box_d_control_number: 'Casilla d: Control Number'
             employer_city: Ciudad
             employer_ein: 'Casilla b: Número de identificación del empleador (EIN)'
             employer_name: 'Casilla c: Nombre del empleador'
             employer_state: Estado
             employer_street_address: Dirección del empleador o apartado postal
             employer_zip_code: Código postal
-            title: Ahora pasaremos a la sección del empleador del W-2 de %{name}.
+            title: Ahora pasaremos a la sección de empleadores del W-2 de %{name}.
           help_text:
             p1:
               many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
@@ -2707,23 +2720,23 @@ es:
               other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
             p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
           misc_info:
-            box11_nonqualified_plans: 'Recuadro 11: Planes no calificados'
-            box12_error: Debe proporcionar tanto el código como el valor.
+            box11_nonqualified_plans: 'Casilla 11: Nonqualified plans amount'
+            box12_error: debe proporcionar tanto el código como el valor
             box12_value_error: El valor debe ser numérico
-            box12a: 'Recuadro 12a:'
-            box12b: 'Recuadro 12b:'
-            box12c: 'Recuadro 12c:'
-            box12d: 'Recuadro 12d:'
-            box13: 'Cuadro 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
+            box12a: 'Casilla 12a:'
+            box12b: 'Casilla 12b:'
+            box12c: 'Casilla 12c:'
+            box12d: 'Casilla 12d:'
+            box13: 'Casilla 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
             box13_retirement_plan: Plan de retiro
             box13_statutory_employee: Empleado estatutario
             box13_third_party_sick_pay: Pago por enfermedad de terceros
             info_box:
-              requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
+              requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
             remove_this_w2: Eliminar este W-2
             submit: Enviar W-2
-            title: Terminemos de ingresar la información W-2 de %{name}.
+            title: Terminemos de ingresar la información del W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
             content:
@@ -2738,20 +2751,20 @@ es:
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
           wages_info:
-            box10_dependent_care_benefits: 'Cuadro 10: Beneficios para el cuidado de dependientes'
-            box3_social_security_wages: 'Casilla 3: Salarios de seguridad social'
-            box4_social_security_tax_withheld: 'Casilla 4: Impuesto al Seguro Social retenido'
-            box5_medicare_wages_and_tip_amount: 'Casilla 5: Cantidad de salarios y propinas de Medicare'
-            box6_medicare_tax_withheld: 'Casilla 6: Retención de impuestos de Medicare'
-            box7_social_security_tips_amount: 'Casilla 7: Cantidad de propinas del seguro social'
-            box8_allocated_tips: 'Cuadro 8: Propinas asignadas'
-            federal_income_tax_withheld: 'Casilla 2: Impuesto sobre el impuesto federal retenido'
-            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.'
+            box10_dependent_care_benefits: 'Casilla 10: Dependent care benefits'
+            box3_social_security_wages: 'Casilla 3: Social security wages'
+            box4_social_security_tax_withheld: 'Casilla 4: Social security tax withheld'
+            box5_medicare_wages_and_tip_amount: 'Casilla 5: Medicare wages and tips amount'
+            box6_medicare_tax_withheld: 'Casilla 6: Medicare tax withheld'
+            box7_social_security_tips_amount: 'Casilla 7: Social security tips amount'
+            box8_allocated_tips: 'Casilla 8: Allocated tips'
+            federal_income_tax_withheld: 'Casilla 2: Federal Income Tax Withheld'
+            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjalas también en blanco en las casillas a continuación.'
             info_box:
-              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
+              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjalas también en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
-            title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos de %{name} retenidos de este W-2."
-            wages_amount: 'Casilla 1: Importe de los salarios'
+            title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos retenidos de %{name} de este W-2."
+            wages_amount: 'Casilla 1: Wages Amount'
       shared:
         ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
@@ -2815,7 +2828,7 @@ es:
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         closing_date: GetCTC permanecerá cerrado el 15 de noviembre.
         closing_date_not_open: GetCTC se encuentra por ahora cerrado por motivo de la temporada.
-        closing_soon_banner: Comience con GetCTC antes del 15 de noviembre para reclamar sus beneficios fiscales en 2022.
+        closing_soon_banner: Comience con GetCTC antes del 15 de noviembre para reclamar sus beneficios tributarios en 2022.
         closing_warning: "¡Presente su declaración hoy para solicitar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que solicitar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
@@ -2896,33 +2909,33 @@ es:
         get_started: Empezar
         get_your_refund_link: Declare sus impuestos gratis hoy mismo con GetYourRefund
         navigator_resources:
-          eitc_off_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
-          eitc_on_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC o EITC?</strong> <br>Visite nuestra <a href='%{navigators_link}'>página de recursos</a> para navegantes.\n"
+          eitc_off_html: <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
+          eitc_on_html: <strong>¿Es usted un socio comunitario que ayuda a otra persona a acceder al CTC o al EITC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim:
             eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
-            eitc_on: Utilice nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier monto faltante de su tercer pago de estímulo.
+            eitc_on: Use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier cantidad faltante de su tercer pago de estímulo.
           claim_next_year_html: Puede solicitar su CTC, Crédito Tributario por Hijos, cuando presente sus impuestos en 2022. La declaración de impuestos simplificada con GetCTC estará disponible en mayo, o puede presentar una declaración completa hoy mismo utilizando GetYourRefund.
           launching_soon_html: "<strong>¡GetCTC lanzará dentro de poco!</strong> Suscríbase para recibir un mensaje tan pronto como el portal de presentación simplificada esté listo."
           time_estimate:
-            eitc_off: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
-            eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+            eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
+            eitc_on: Este formulario por lo general toma unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar el dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
         title: Reclame su Crédito Tributario por Hijos
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
           heading: La mayoría de las familias pueden obtener miles de dólares del Crédito Tributario por Hijos
           how_much_ctc_reveal:
             body_html: |
-              <p>El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.</p>
-              <p>Si recibió algún pago adelantado del Crédito Tributario por Hijos en 2021, debe declarar impuestos este año para obtener la segunda mitad de su dinero. El resto de su Crédito Tributario por Hijos se emitirá en un solo pago.</p>
-              <p>Si aún no ha recibido ningún pago del Crédito Tributario por Hijos, puede presentar impuestos simplificados ahora para obtener todo el crédito.</p>
-            title: "¿Cuánto recibiré?"
+              <p> El Crédito Tributario por Hijos para el año tributario 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.</p>
+              <p>Si recibió algún pago mensual del Pago por Adelantado del Crédito Tributario por Hijos en 2021, debe declarar impuestos este año para obtener la segunda mitad de su dinero. El resto de su Crédito Tributario por Hijos se emitirá en un solo pago.</p>
+              <p>Si aún no ha recibido ningún pago del Crédito Tributario por Hijos, puede declarar impuestos simplificados ahora para obtener todo el crédito.</p>
+            title: "¿Cuánto recibiré del Crédito Tributario por Hijos?"
           how_much_eitc_reveal:
-            body_html: "<p>El Crédito Tributario por Ingreso del Trabajo se calcula por la cantidad de ingreso del trabajo que recibió en 2021, su estado civil para efectos de la declaración y la cantidad de hijos calificados reclamados como dependientes en su declaración de impuestos simplificada. El crédito es un rango de $560 a $6935 según su situación fiscal específica.</p>\n"
-            title: "¿Cuánto obtendré del Crédito Tributario por Ingreso del Trabajo?"
+            body_html: "<p>El Crédito Tributario por Ingreso del Trabajo se calcula por la cantidad de ingreso del trabajo que recibió en 2021, su estado civil para efectos de la declaración y la cantidad de hijos calificados reclamados como dependientes en su declaración de impuestos simplificada. El crédito es un rango de $560 a $6,935 según su situación tributaria específica.</p>\n"
+            title: "¿Cuánto recibiré del Crédito Tributario por Ingreso del Trabajo?"
           qualify_reveal:
             body: Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
@@ -3082,10 +3095,10 @@ es:
         subheader:
           claim:
             eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
-            eitc_on: Utilice nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier monto faltante de su tercer pago de estímulo.
+            eitc_on: Use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier cantidad faltante de su tercer pago de estímulo.
           time_estimate:
-            eitc_off: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
-            eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+            eitc_off: Este formulario por lo general toma 15 minutos en completarse y no necesitará ningún documento tributario.
+            eitc_on: Este formulario por lo general toma unos 15 minutos en completarse y no se requieren documentos fiscales. Si desea reclamar el dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
         what_is:
           body_html: |
             <p>Alivio para ayudarlo en estos momentos difíciles, incluso si gana poco o nada de dinero.</p>
@@ -3101,9 +3114,9 @@ es:
             - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">sin cargo en GetYourRefund.</a>
             first_two_title: "¿Qué pasa con los dos primeros pagos de estímulo?"
             how_much_ctc_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
-            how_much_ctc_title: "¿Cuánto recibiré?"
-            how_much_eitc_body: El Crédito Tributario por Ingreso del Trabajo se calcula por la cantidad de ingreso del trabajo que recibió en 2021, su estado civil para efectos de la declaración y la cantidad de hijos calificados reclamados como dependientes en su declaración de impuestos simplificada. El crédito es un rango de $560 a $6,935 según su situación fiscal específica.
-            how_much_eitc_title: "¿Cuánto obtendré del Crédito Tributario por Ingreso del Trabajo?"
+            how_much_ctc_title: "¿Cuánto recibiré del Crédito Tributario por Hijos?"
+            how_much_eitc_body: El Crédito Tributario por Ingreso del Trabajo se calcula por la cantidad de ingreso del trabajo que recibió en 2021, su estado civil para efectos de la declaración y la cantidad de hijos calificados reclamados como dependientes en su declaración de impuestos simplificada. El crédito es un rango de $560 a $6,935 según su situación tributaria específica.
+            how_much_eitc_title: "¿Cuánto recibiré del Crédito Tributario por Ingreso del Trabajo?"
           subheading_open: Si se perdió el tercer pago de estímulo en la primavera de 2021, puede reclamarlo ahora, incluso si gana poco o nada de dinero.
     dependents:
       form:
@@ -3382,9 +3395,9 @@ es:
                 <p>Todos los que tienen derecho a beneficios tributarios deben presentar una declaración de impuestos, incluso si usted se considera un "no declarante o non-filer". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas, como el Crédito Tributario por Hijos, incluso si no acostumbra presentar la declaración de impuestos o no la ha presentado en mucho tiempo.</p>
                 <p>Las familias que no están obligadas a presentar la declaración de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto se ha llamado a veces "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de llenar y requiere mucha menos información. Puede presentar una declaración simplificada de forma gratuita hoy mismo con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               eitc_answer_html: |
-                <p>A las familias que generalmente no declaran impuestos se les conoce a veces como "no declarantes o non filers". Frecuentemente, esto se refiere a las familias que ganan poco como para no tener que declarar impuestos, a veces porque obtienen sus ingresos de la discapacidad u otras prestaciones, en su lugar.</p>
-                <p>Todos los que tienen derecho a beneficios tributarios deben presentar una declaración de impuestos, incluso si usted se considera un "no declarante o non-filer". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas, como el Crédito Tributario por Hijos y Crédito Tributario por Ingreso del Trabajo, incluso si no acostumbra presentar la declaración de impuestos o no la ha presentado en mucho tiempo.</p>
-                <p>Las familias que no están obligadas a presentar la declaración de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto se ha llamado a veces "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de llenar y requiere mucha menos información. Puede presentar una declaración simplificada de forma gratuita hoy mismo con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>Las familias que generalmente no declaran impuestos a veces se denominan "no declarantes". Usualmente, esto se refiere a las familias que ganan tan poco dinero que no están obligadas a declarar impuestos, a veces porque obtienen sus ingresos por discapacidad o otros beneficios.</p>
+                <p> Todos los que son elegibles para los beneficios tributarios deben presentar una declaración de impuestos, incluso si se consideran "no declarantes". Presentando una declaración de impuestos podría obtener beneficios en efectivo como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo (EITC), incluso si normalmente no presenta una declaración de impuestos o no ha presentado una declaración de impuestos en mucho tiempo.</p>
+                <p>Las familias que no están obligadas a presentar declaraciones de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto a veces se ha llamado "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de completar y requiere menos información. Puede presentar una declaración simplificada gratis hoy con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cómo puedo obtener el Crédito Tributario por Hijos si soy no declarante?"
             how_much_is_the_child_tax_credit_in_2022:
               answer_html: |
@@ -3471,13 +3484,13 @@ es:
                 <p>En 2021, el Congreso introdujo importantes reformas en el crédito tributario por Ingresos del Trabajo (EITC) para las personas sin hijos. Estos cambios se aplican al año fiscal 2021, lo que significa que se aplican a la declaración de impuestos que usted presenta en 2022. En primer lugar, el crédito es ahora mayor (antes sólo tenía un valor de aproximadamente $500, y ahora vale hasta aproximadamente $1,500). En segundo lugar, se han flexibilizado las normas de elegibilidad. Ahora, cualquier persona mayor de 19 años, si no es estudiante a tiempo completo, puede tener derecho al EITC. Los jóvenes que antes fueron acogidos en hogares de guarda o los que no tienen hogar pueden optar a los 18 años.</p>
                 <p>No hay cambios en el EITC para las personas con hijos, que sigue valiendo hasta unos $3,600 con un hijo, $6,000 con dos hijos, o $6,700 con tres hijos, dependiendo de los ingresos.</p>
               eitc_answer_html: |
-                <p>En 2021, el Congreso introdujo importantes reformas en el crédito tributario por Ingresos del Trabajo (EITC) para las personas sin hijos. Estos cambios se aplican al año fiscal 2021, lo que significa que se aplican a la declaración de impuestos que usted presenta en 2022. En primer lugar, el crédito es ahora mayor (antes sólo tenía un valor de aproximadamente $500, y ahora vale hasta aproximadamente $1,500). En segundo lugar, se han flexibilizado las normas de elegibilidad. Ahora, cualquier persona mayor de 19 años, si no es estudiante a tiempo completo, puede tener derecho al EITC. Los jóvenes que antes fueron acogidos en hogares de guarda o los que no tienen hogar pueden optar a los 18 años.</p>
-                <p>No hay cambios en el EITC para las personas con hijos, que sigue valiendo hasta unos $3,600 con un hijo, $6,000 con dos hijos, o $6,700 con tres hijos, dependiendo de los ingresos. Ahora puede reclamar el EITC presentando una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.</p>
+                <p>En 2021, el Congreso realizó mejoras significativas al Crédito Tributario por Ingreso del Trabajo (EITC) para personas sin hijos. Estos cambios se aplican al año tributario 2021, lo que significa que se aplican a la declaración de impuestos que presente en 2022. En primer lugar, el crédito ahora es más grande (antes tenía un valor hasta alrededor de $500, ahora vale hasta $1,500). En segundo lugar, se relajaron las reglas de elegibilidad. Ahora, cualquier persona mayor de 19 años, si no es estudiante de tiempo completo, puede ser elegible para el EITC. Los ex jóvenes de crianza o los jóvenes sin hogar son elegibles a los 18 años.</p>
+                <p>No hay cambios en el EITC para las personas con hijos, que sigue valiendo hasta $3,600 con un hijo, $6,000 con dos hijos o $6,700 con tres hijos, dependiendo de los ingresos. Ahora puede reclamar el EITC presentando una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.</p>
               question: "¿De qué manera ha cambiado este año el crédito tributario por ingresos del trabajo (EITC)?"
             title: Crédito tributario por ingresos del trabajo
             what_is_the_earned_income_tax_credit_eitc:
               answer_html: El Crédito tributario por ingresos de trabajo (EITC) es una prestación disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con hijos que ganan menos de $42,000, y está disponible para la mayoría de las familias sin hijos que ganan menos de $21,000. Al igual que otros créditos fiscales, hay que solicitar el EITC presentando una declaración de impuestos.
-              eitc_answer_html: El Crédito tributario por ingresos de trabajo (EITC) es una prestación disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con hijos que ganan menos de $42,000, y está disponible para la mayoría de las familias sin hijos que ganan menos de $21,000. Puede reclamar el EITC presentando una declaración completa o una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.
+              eitc_answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC) es un beneficio disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con niños que ganan menos de $42,000, y está disponible para la mayoría de las familias sin niños que ganan menos de $21,000. Puede reclamar el EITC presentando una declaración completa o presentando una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.
               question: "¿Qué es el Crédito tributario por ingresos del trabajo (EITC)?"
           getyourrefund_account_access:
             i_cant_sign_in:
@@ -3515,9 +3528,9 @@ es:
                 <p>Puede utilizar GetCTC para reclamar el tercer pago de estímulo (Pago de Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario por Ingreso del Trabajo o los créditos fiscales estatales. Por lo general, sólo puede utilizar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
                 <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener su tercer pago de estímulo y el Crédito Tributario por Hijos, o si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de la Seguridad Social.</p>
               eitc_answer_html: |
-                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta para no declarantes, es su opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y luego presentamos su declaración de impuestos directamente al IRS.</p>
-                <p>Puede utilizar GetCTC para reclamar el tercer pago de estímulo (Pago de Impacto Económico), el Crédito Tributario por Hijos (CTC) y el crédito tributario por Ingreso del Trabajo o los créditos fiscales estatales. Por lo general, sólo puede utilizar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021. Los residentes de Puerto Rico tienen un límite de ingresos más alto y deben usar el sitio web <a href="https://www.getctc.org/puertorico" target="_blank" rel="noopener">https://www.getctc.org/puertorico</a> para reclamar sus beneficios.</p>
-                <p>GetCTC es una excelente opción para usted si le faltan sus documentos fiscales o si le falta una copia impresa de su tarjeta de Seguro Social.</p>
+                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta nonfiler, es la opción de presentación más sencilla y rápida. Todo lo que tiene que hacer es responder algunas preguntas y luego presentaremos su declaración de impuestos directamente con el IRS.</p>
+                <p>Puede usar GetCTC para reclamar el tercer pago de estímulo, el Crédito Tributario por Hijos y el Crédito Tributario por Ingresos del Trabajo o créditos tributarios estatales. En general, solo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021. Los residentes de Puerto Rico tienen un límite de ingresos más alto y deben usar el sitio web <a href="https://www.getctc.org/puertorico" target="_blank" rel="noopener"> https://www.getctc.org/puertorico</a> para reclamar sus beneficios.</p>
+                <p>GetCTC es una excelente opción para usted si le faltan sus documentos tributarios o si le falta una copia impresa de su tarjeta de Seguro Social.</p>
               question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3525,8 +3538,8 @@ es:
               question: He recibido la carta 6419 del IRS. ¿Qué es?
             i_got_letter_6475_or_1444c_from_the_irs_what:
               answer_html: |
-                <p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer pago de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en el tercer cheque de estímulo.</p>
-                <p>Informar con precisión cuánto recibió en cheques de estímulo puede ayudarle a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero que falte, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
+                <p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer pago de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en el tercer pago de estímulo.</p>
+                <p>Informar con precisión cuánto recibió en pagos de estímulo puede ayudarle a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero que falte, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
               question: Recibí la carta 6475 o 1444-C del IRS. ¿Qué es?
             i_got_notice_4883c_or_5071c_from_the_irs_what:
               answer_html: Los avisos 4883C y 5071C son cartas que el IRS envía si han recibido una declaración de impuestos para usted y les preocupa que pueda ser fraudulenta. Si usted presentó una declaración, tendrá que verificar su identidad, ya sea en línea o por teléfono, de acuerdo con las instrucciones de la carta. Si no presentó una declaración de impuestos, esta carta indica que un defraudador intentó presentar una declaración utilizando sus datos. Debe seguir las instrucciones para denunciar este fraude al IRS, para asegurarse de que sus futuros pagos no se vean afectados negativamente.
@@ -3717,8 +3730,8 @@ es:
                 <p>El término "no declarante" o en inglés, "non filer",  se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el Crédito Tributario por Ingresos del Trabajo.</p>
                 <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para solicitar los beneficios fiscales disponibles. Al presentar una declaración de impuestos usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no acostumbra a declarar impuestoss. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar nuestra herramienta para no declarantes, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               eitc_answer_html: |
-                <p>El término "no declarante" o en inglés, "non filer",  se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el Crédito Tributario por Ingresos del Trabajo.</p>
-                <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para solicitar los beneficios fiscales disponibles. Al presentar una declaración de impuestos usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no acostumbra a declarar impuestoss. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar nuestra herramienta para no declarantes, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>El término "no declarante" a veces se usa para referirse a personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" son elegibles para miles de dólares en beneficios tributarios del Crédito Tributario por Hijos, pagos de estímulo y el Crédito Tributario por Ingreso del Trabajo.</p>
+                <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para reclamar los beneficios tributarios disponibles. Al presentar una declaración de impuestos, puede acceder a miles de dólares en beneficios tributarios, incluso si gana poco o nada de dinero o no suele declarar impuestos. Para presentar una declaración de impuestos solo para el CTC, el EITC y el tercer pago de estímulo, puede usar nuestra herramienta para personas que no declaran, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Soy un no declarante?"
             im_1924_should_i_file_a_tax_return:
               answer_html: |
@@ -3734,10 +3747,11 @@ es:
             title: "¿Necesito declarar impuestos?"
             what_are_the_potential_benefits_of_filing_a_tax_return:
               answer_html: |
-                <p>Aunque tenga pocos o ningún ingreso y no esté obligado a presentar la declaración de la renta, es probable que tenga derecho a recibir pagos del IRS, que pueden sumar miles de dólares. Es especialmente probable que tenga derecho a los pagos si tiene hijos. Para solicitar este dinero, debe presentar una declaración de impuestos.</p>
-                <p>La presentación de la declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad o un préstamo hipotecario.</p>
-                <p>Puede presentar una declaración de impuestos completa y solicitar todos los beneficios fiscales correspondientes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>.</p>
-                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede optar por esperar y presentar una declaración simplificada para solicitar sólo el Crédito Tributario por Hijos, Crédito tributario por ingreso del trabajo y el tercer pago de estímulo utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+                <p>Incluso si gana poco o ningún ingreso y no está obligado a presentar una declaración de impuestos, es probable que califique para pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que califique para los pagos si tiene hijos. Para reclamar este dinero, debe presentar una declaración de impuestos.</p>
+                <p>Presentando una declaración de impuestos también puede servir como documentación útil al solicitar otros beneficios, como ayuda financiera para la universidad o un préstamo hipotecario.</p>
+                <p>Puede presentar una declaración de impuestos completa y reclamar todos los beneficios tributarios relevantes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>.</p>
+
+                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada), entonces puede optar por esperar y presentar una declaración simplificada para reclamar solo el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo (EITC) y el tercer pago de estímulo utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -3856,7 +3870,7 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
+        closing_banner_html: <strong>Los servicios GetYourRefund reabrirán el 31 de enero para la próxima temporada de impuestos.</strong> Para la preparación de impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
         closing_soon_banner: Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
@@ -3869,7 +3883,7 @@ es:
           header: Nos comprometemos a mantener la seguridad de su información.
         subheader: "¡Solicite miles de dólares a través de los créditos fiscales que le corresponden! Trabajamos con usted para obtener su mayor reembolso."
         subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
-        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
+        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
@@ -4003,12 +4017,12 @@ es:
         title: Términos de código
       stimulus:
         facts_html:
-        - ¡Cobre su cheque de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
-        - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Obtener mi pago website</a>
+        - ¡Cobre su pago de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
+        - Revisa el estado de tu pago de estímulo en <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Obtener mi pago website</a>
         - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
         file_with_help:
-          header: Recoja su cheque de estímulo de 2020 presentando su declaración de impuestos hoy mismo!
-        heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
+          header: Recoja su pago de estímulo de 2020 presentando su declaración de impuestos hoy mismo!
+        heading: "¿Necesitas ayuda para conseguir tu pago de estímulo (también conocido como Pago de Impacto Económico)?"
       stimulus_payment:
         faq:
           eip:
@@ -4036,7 +4050,7 @@ es:
             items:
             - title: "¿Cómo puedo recibir mi cheque del Pago de Impacto Económico?"
               content_html: Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo, o si recibió una cantidad incorrecta para cualquier de los dos pagos, tendrá que presentar una declaración de impuestos de 2020 para poder recibirlo.
-            - title: "¿Cómo puedo determinar si el IRS ha enviado mi cheque de estímulo?"
+            - title: "¿Cómo puedo determinar si el IRS ha enviado mi pago de estímulo?"
               content_html: |-
                 Si no está seguro de si el IRS ha enviado su tercer pago de estímulo o quiere comprobar el estado, puede buscar en el sitio web del IRS <a
                   href="https://www.irs.gov/es/coronavirus/get-my-payment"
@@ -4086,11 +4100,11 @@ es:
                   data-track-click="stimulus-irs-address-changes"
                   data-track-attribute-position="stimulus-how-faq6">
                 IRS para actualizar su dirección</a>. Puede haber retrasos en la recepción de su EIP - podría tardar hasta cinco meses en recibir su cheque por correo.
-        header: Obtener su cheque de estímulo (EIP en Inglés)
+        header: Obtener su pago de estímulo (EIP en Inglés)
         intro:
           common_questions: Sabemos que hay muchas preguntas en torno a los Pagos de Impacto Económico (EIP) y tenemos algunas respuestas. Hemos escogido algunas preguntas comunes para ayudarle.
           description:
-          - El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto económico (EIPs en Inglés) a menudo llamada cheque de estímulo). En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400 adicionales por cada dependiente.
+          - El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto económico (EIPs en Inglés) a menudo llamada pago de estímulo). En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400 adicionales por cada dependiente.
           - Si aún no ha recibido este pago o rondas de pagos anteriores, ¡no es demasiado tarde! Todavía puede reclamarlos en la declaración de impuestos de este año.
           eligibility:
             header: "¿Quién es elegible?"
@@ -4404,7 +4418,7 @@ es:
         zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
-        title: El 31 de diciembre, %{year}, ¿Estaba legalmente casado?
+        title: Al 31 de diciembre, %{year}, ¿Estaba legalmente casado?
       medical_expenses:
         help_text: Esto incluye las primas mensuales para el seguro de salud y cualquier pago de Medicare.
         title:
@@ -4628,9 +4642,9 @@ es:
         list:
           ctc:
             eitc_off_html: "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
-            eitc_on_html: "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal, Crédito tributario por ingresos del trabajo y el Crédito Tributario por Hijos por su cuenta."
-          diy_html: "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración, Crédito tributario por ingresos del trabajo y cobrar los créditos tributarios por su cuenta."
-          gyr_html: "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben."
+            eitc_on_html: "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite recoger cualquier pago de estímulo federal, Crédito Tributario por Ingresos del Trabajo y el Crédito Tributario por Hijos por su cuenta."
+          diy_html: "<strong>File Myself</strong> Una opción rápida en línea le permite presentar y cobrar créditos fiscales por su cuenta."
+          gyr_html: "<strong>GetYourRefund</strong> Nuestros especialistas en impuestos certificados lo ayudarán a presentar y recoger todos los créditos tributarios que se le deben."
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
@@ -4765,8 +4779,8 @@ es:
               closed: Regístrese para recibir GetCTC
               open: Elija GetCTC
             service_description:
-              eitc_off: Presente la solicitud rápidamente por su cuenta para cobrar los pagos de estímulo y el Crédito Tributario por Hijos.
-              eitc_on: Presente la solicitud rápidamente por su cuenta para cobrar los pagos de estímulo, Crédito tributario por ingresos del trabajo (EITC) y el Crédito Tributario por Hijos.
+              eitc_off: Presente su declaración rápidamente por su cuenta para recoger sus pagos de estímulo y el Crédito Tributario por Hijos.
+              eitc_on: Presente su declaración rápidamente por su cuenta para recoger su Crédito Tributario por Ingreso del Trabajo (EITC), pagos de estímulo y Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
             cta: Elegir declarar por cuenta propia
@@ -4783,7 +4797,7 @@ es:
         stimulus_payments: Pagos de estímulo
         support_via_gyr: disponible a través de GetYourRefund
         tax_documents:
-          ctc: No es obligatorio, pero puede ayudarlo a reclamar más beneficios
+          ctc: No es obligatorio, pero puede ayudarle a reclamar más beneficios
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         time_to_file:
