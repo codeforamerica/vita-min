@@ -117,7 +117,7 @@ module Efile
     end
 
     def claiming_and_qualified_for_eitc?
-      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && !disqualified_for_eitc_due_to_income?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && intake.w2s.any? && !disqualified_for_eitc_due_to_income?
     end
 
     def claiming_and_qualified_for_eitc_pre_w2s?

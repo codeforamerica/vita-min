@@ -107,9 +107,22 @@ describe SubmissionBuilder::Ty2021::Return1040 do
           submission.reload
         end
 
-        it "is included" do
-          xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
-          expect(xml.at("IRS1040ScheduleEIC")).not_to be_nil
+        context 'when there are W2s' do
+          before do
+            create :w2, intake: submission.intake
+          end
+
+          it "is included" do
+            xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+            expect(xml.at("IRS1040ScheduleEIC")).not_to be_nil
+          end
+        end
+
+        context 'when there are no W2s' do
+          it "is not included" do
+            xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+            expect(xml.at("IRS1040ScheduleEIC")).to be_nil
+          end
         end
       end
     end

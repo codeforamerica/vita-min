@@ -27,8 +27,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       .any?
     direct_deposit_missing_bank_account = current_client.intake.refund_payment_method_direct_deposit? && !current_client.intake.bank_account.present?
     @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account
-    benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: current_client.intake.default_tax_return, dependents: current_client.intake.dependents)
-    @show_eitc_info = benefits_eligibility.claiming_and_qualified_for_eitc?
+    @benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: current_client.intake.default_tax_return, dependents: current_client.intake.dependents)
   end
 
   def resubmit

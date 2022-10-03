@@ -411,6 +411,16 @@ describe Efile::BenefitsEligibility do
       end
     end
 
+    context 'when they do not have any W2s' do
+      before do
+        intake.w2s.destroy_all
+      end
+
+      it 'returns false' do
+        expect(subject.claiming_and_qualified_for_eitc?).to eq false
+      end
+    end
+
     context 'married filing jointly' do
       before do
         intake.default_tax_return.update(filing_status: 'married_filing_jointly')
