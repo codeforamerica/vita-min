@@ -10,7 +10,7 @@
     </div>
     <% if dependent.intake.claim_eitc_yes? %>
       <div class="qualification <%= is_first ? "with-left-border" : "with-top-left-border" %>" id="<%= "eitc_#{dependent.id}" %>">
-        <%= image_tag(@benefits_eligibility.claiming_and_qualified_for_eitc? && dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
+        <%= image_tag(@benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s? && dependent.qualifying_eitc? ? "icons/green-checkmark-circle.svg" : "icons/grey-close-circle.svg") %>
       </div>
     <% end %>
     <% unless dependent.intake.puerto_rico_filing? %>

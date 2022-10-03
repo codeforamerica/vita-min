@@ -9,7 +9,7 @@ module SubmissionBuilder
         end
 
         def document
-          include_w2_detail = submission.benefits_eligibility.claiming_and_qualified_for_eitc? && submission.intake.w2s.any?
+          include_w2_detail = submission.benefits_eligibility.claiming_and_qualified_for_eitc?
 
           intake = submission.intake
           tax_return = submission.tax_return
