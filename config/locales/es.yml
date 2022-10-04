@@ -2731,9 +2731,6 @@ es:
             box13_retirement_plan: Plan de retiro
             box13_statutory_employee: Empleado estatutario
             box13_third_party_sick_pay: Pago por enfermedad de terceros
-            info_box:
-              requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en las casillas a continuación.
-              requirement_title: 'Requisito:'
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
