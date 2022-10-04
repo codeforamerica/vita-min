@@ -2262,7 +2262,7 @@ en:
         email_address:
           title: Please share your email address.
         file_full_return:
-          full_btn: File a full tax return
+          full_btn: Learn more about full filing
           help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2's, 1099's,etc).
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
@@ -2314,7 +2314,7 @@ en:
           spouse_died_reveal:
             body: Select Yes, and you’ll file with your deceased spouse.
             title: What if my spouse died last year?
-          title: Are you married?
+          title: As of December 31, %{current_tax_year}, were you legally married?
         had_dependents:
           add: Add dependents
           continue: Continue without dependents
@@ -2755,10 +2755,11 @@ en:
             box13_retirement_plan: Retirement plan
             box13_statutory_employee: Statutory employee
             box13_third_party_sick_pay: Third-party sick pay
-            info_box:
-              requirement_description_html: The following sections of your W-2 may likely be blank. If so, there is no problem; leave them blank in the boxes below.
-              requirement_title: 'Requirement:'
             remove_this_w2: Remove this W-2
+            requirement_title: 'Requirement:'
+            requirements:
+            - The following sections of your W-2 may likely be blank. If so, there is no problem; leave them blank in the boxes below.
+            - For Boxes 15-20, if your W-2 is filled with information for multiple states, please only enter the first state's information.
             submit: Submit W-2
             title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."
@@ -2770,7 +2771,7 @@ en:
               p4: Have additional questions? Click "Chat with us" to get more information about these options.
             title: What if I haven’t received my W-2?
           reveal_1099:
-            content: If you have more than $400 in income reported on a Form 1099-NEC or 1099-K for work you did in 2021, you need to file a full tax return. You cannot use GetCTC. Click "File a full tax return instead" to get started.
+            content_html: If you have more than $400 in income reported on a Form 1099-NEC or 1099-K for work you did in 2021, you need to file a full tax return. You cannot use GetCTC. <a href="%{url}">File a full return</a> instead to get started.
             title: What if I have a 1099?
           title: Please share the income from your W-2.
           wages: Wages

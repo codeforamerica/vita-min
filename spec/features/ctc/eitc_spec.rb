@@ -130,7 +130,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     choose I18n.t('views.ctc.questions.main_home.options.puerto_rico')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
