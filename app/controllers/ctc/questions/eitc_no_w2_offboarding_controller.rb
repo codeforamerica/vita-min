@@ -5,7 +5,9 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
+      def self.show?(intake, current_controller)
+        return unless current_controller.open_for_eitc_intake?
+
         intake.had_w2s_no? || intake.w2s.none?
       end
 
