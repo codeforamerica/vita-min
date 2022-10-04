@@ -1,17 +1,18 @@
 require 'csv'
 
 namespace :socure do
-  desc "creates a CSV file with client ids and de-crypted SSNs"
-  task create_ssn_file: :environment do
-    client_ids = []
-    file_in = File.open("#{Rails.root}/lib/tasks/socure_test.csv")
-    in_data = CSV.read(file_in, headers: true)
+  desc "create socure CSV file"
+  task create_client_file: :environment do
+    # client_ids = []
+    # file_in = File.open("#{Rails.root}/lib/tasks/client_ids.csv")
+    # in_data = CSV.read(file_in, headers: true)
+    # in_data.each do |record|
+    #   record = record.to_ary
+    #   client_id = record[0][1]&.strip
+    #   client_ids << client_id.to_i
+    # end
 
-    in_data.each do |record|
-      record = record.to_ary
-      client_id = record[0][1]&.strip
-      client_ids << client_id.to_i
-    end
+    client_ids = Client.joins(:efile_submissions).where("efile_submissions.created_at >= ?", Date.parse('2022-05-15')).pluck(:id).uniq
 
     temp_file = Tempfile.open(%w[temp_test .csv], "tmp/")
     CSV.open(Rails.root.join(temp_file.path), 'wb') do |csv|
