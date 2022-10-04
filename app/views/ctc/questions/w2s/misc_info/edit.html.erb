@@ -8,9 +8,11 @@
 
     <div class="info-box spacing-below-35">
       <%= image_tag("icons/exclamation-black.svg", alt: "", class: "info-box__title-image") %>
-      <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.misc_info.info_box.requirement_title") %></p>
-
-      <div><%= t("views.ctc.questions.w2s.misc_info.info_box.requirement_description_html") %></div>
+      <p class="spacing-below-15 text--bold"><%= t("views.ctc.questions.w2s.misc_info.requirement_title") %></p>
+      <ul class="list--bulleted"><% t("views.ctc.questions.w2s.misc_info.requirements").each do |item| %>
+        <li><%= item %></li>
+          <% end %>
+      </ul>
     </div>
 
     <%= f.cfa_input_field(:box11_nonqualified_plans, t("views.ctc.questions.w2s.misc_info.box11_nonqualified_plans"), classes: ["form-width--long"]) %>

@@ -63,3 +63,10 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  views:
+    ctc:
+      questions:
+        w2s:
+          misc_info:
+            info_box:
+              requirement_title: "Requirement"

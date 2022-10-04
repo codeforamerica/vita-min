@@ -2284,7 +2284,7 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: Al 31 de diciembre, 2021, ¿estaba legalmente casado?
+          title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
         had_dependents:
           add: Agregue dependientes
           continue: Seguir adelante sin dependientes
@@ -2735,6 +2735,10 @@ es:
               requirement_description_html: Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
             remove_this_w2: Eliminar este W-2
+            requirement_title: 'Requisito:'
+            requirements:
+            - Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
+            - Para las Casillas 15-20, si su W-2 contiene información de varios estados, ingrese solo la información del primer estado.
             submit: Enviar W-2
             title: Terminemos de ingresar la información del W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
@@ -2746,7 +2750,7 @@ es:
               p4: ¿Tiene más preguntas? Haga clic en Chatear con nosotros o "Chat with us" en inglés, para obtener más información sobre estas opciones.
             title: "¿Qué pasa si no he recibido mi W-2?"
           reveal_1099:
-            content: Si tiene más de 400 dólares en ingresos reportados en un formulario 1099-NEC o 1099-K por el trabajo que hizo en 2021, necesita presentar una declaración de impuestos completa. No puede utilizar GetCTC. Haga clic en "Presentar una declaración de impuestos completa en su lugar" para comenzar.
+            content_html: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede utilizar GetCTC.<a href="%{url}">Presentar una declaración completa </a> en lugar de empezar.
             title: "¿Qué pasa si tengo una forma 1099?"
           title: Por favor, indique los ingresos de su forma W-2.
           wages: Sueldo
