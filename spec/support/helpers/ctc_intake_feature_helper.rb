@@ -316,13 +316,6 @@ module CtcIntakeFeatureHelper
       expect(page).not_to have_css("img[src*='/assets/icons/green-checkmark-circle']")
     end
 
-    if head_of_household
-      click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")
-      click_on "click here"
-      expect(page).to have_text I18n.t("views.ctc.questions.head_of_household.title")
-      click_on I18n.t("views.ctc.questions.head_of_household.claim_hoh")
-    end
-
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
   end
 
