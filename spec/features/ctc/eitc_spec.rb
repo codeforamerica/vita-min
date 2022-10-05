@@ -21,9 +21,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.dont_add_w2')
 
-    # skips rest of w2 pages
-    expect(page).to have_text(I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$1,400"))
-
+    # offboards and skips rest of w2 pages
+    expect(page).to have_text(I18n.t("views.ctc.questions.eitc_no_w2_offboarding.title"))
     click_on I18n.t('general.back')
 
     fill_in_w2("Gary Mango III", filing_status: 'single')
