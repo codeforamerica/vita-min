@@ -16,11 +16,11 @@ module Ctc
       redirect_to root_path and return if params[:source].present?
 
       case session[:source]
-      when "cactc", "fed", "child"
+      when "fed", "child"
         redirect_to action: :help
-      when "eip", "cagov", "state"
+      when "eip", "state"
         redirect_to action: :stimulus_navigator
-      when "credit", "ca", "castate"
+      when "ca", "cactc", "cagov", "castate", "cdss", "credit"
         redirect_to action: :stimulus
       end
     end
