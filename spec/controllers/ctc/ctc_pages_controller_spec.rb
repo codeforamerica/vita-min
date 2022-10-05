@@ -13,14 +13,15 @@ describe Ctc::CtcPagesController do
 
     context "CDSS landing page content" do
       [
-        %w( cactc /en/help ),
-        %w( fed   /en/help ),
-        %w( eip /en/stimulus-navigator ),
-        %w( cagov /en/stimulus-navigator ),
-        %w( state /en/stimulus-navigator ),
-        %w( credit  /en/stimulus ),
+        %w( fed     /en/help ),
+        %w( eip     /en/stimulus-navigator ),
+        %w( state   /en/stimulus-navigator ),
         %w( ca      /en/stimulus ),
+        %w( cactc   /en/stimulus ),
+        %w( cagov   /en/stimulus),
         %w( castate /en/stimulus),
+        %w( cdss    /en/stimulus),
+        %w( credit  /en/stimulus ),
       ].each do |source, location, show_needs_help|
         describe "When client visits from source param #{source}" do
           it "redirects to #{location}" do
