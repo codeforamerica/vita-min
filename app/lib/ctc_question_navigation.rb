@@ -48,7 +48,6 @@ class CtcQuestionNavigation
 
     # Dependents Summary
     Ctc::Questions::ConfirmDependentsController,
-    Ctc::Questions::HeadOfHouseholdController, # only reached through link on ConfirmDependentsController#edit
 
     # No Dependents
     Ctc::Questions::NoDependentsController,
