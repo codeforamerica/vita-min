@@ -21,7 +21,7 @@ module Ctc
       end
 
       def destroy
-        current_intake.w2s.find(params[:id]).destroy!
+        current_intake.w2s_including_incomplete.find(params[:id]).destroy!
         redirect_to Ctc::Questions::ConfirmW2sController.to_path_helper
       end
 

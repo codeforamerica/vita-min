@@ -7,7 +7,7 @@ module Ctc
                            verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
                            token = verifier.verified(params[:id])
                            if token
-                             current_intake.w2s.find_or_initialize_by(creation_token: token)
+                             current_intake.w2s_including_incomplete.find_or_initialize_by(creation_token: token)
                            else
                              super
                            end

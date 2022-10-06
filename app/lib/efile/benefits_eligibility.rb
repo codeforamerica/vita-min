@@ -102,7 +102,7 @@ module Efile
       # so we are not including the phase-out function but keep in mind this might change next year
       return nil unless intake.is_ctc? && claiming_and_qualified_for_eitc?
 
-      earned_income = intake.w2s.completed.sum(&:wages_amount).to_f
+      earned_income = intake.completed_w2s.sum(&:wages_amount).to_f
 
       case dependents.count { |d| d.qualifying_eitc? && (d.qualifying_child? || d.qualifying_relative?) }
       when 0
@@ -117,7 +117,7 @@ module Efile
     end
 
     def claiming_and_qualified_for_eitc?
-      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && intake.w2s.completed.any? && !disqualified_for_eitc_due_to_income?
+      intake.claim_eitc_yes? && qualified_for_eitc_pre_w2s? && intake.completed_w2s.any? && !disqualified_for_eitc_due_to_income?
     end
 
     def claiming_and_qualified_for_eitc_pre_w2s?

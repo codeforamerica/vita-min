@@ -328,7 +328,7 @@ class FlowsController < ApplicationController
           claim_eitc: 'yes',
           exceeded_investment_income_limit: 'no'
         )
-        client.intake.w2s.create(
+        client.intake.w2s_including_incomplete.create(
           employee: 'primary',
           employee_street_address: "456 Somewhere Ave",
           employee_city: "Cleveland",

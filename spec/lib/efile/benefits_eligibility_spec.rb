@@ -413,7 +413,7 @@ describe Efile::BenefitsEligibility do
 
     context 'when they do not have any W2s' do
       before do
-        intake.w2s.destroy_all
+        intake.w2s_including_incomplete.destroy_all
       end
 
       it 'returns false' do

@@ -177,7 +177,7 @@ describe Ctc::Portal::PortalController do
 
         context "when the client has no W-2s" do
           before do
-            client.intake.w2s.destroy_all
+            client.intake.w2s_including_incomplete.destroy_all
           end
 
           it "shows the W-2 section with missing info message" do
