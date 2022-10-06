@@ -25,7 +25,7 @@ module Ctc
         end
 
         def self.current_resource_from_params(current_intake, params)
-          current_intake.w2s.find { |d| d.id == params[:id].to_i }
+          current_intake.w2s_including_incomplete.find { |d| d.id == params[:id].to_i }
         end
 
         def self.last_edited_resource_id(current_controller)
@@ -33,7 +33,7 @@ module Ctc
         end
 
         def self.model_for_show_check(current_controller)
-          current_controller.current_resource || (last_edited_resource_id(current_controller) ? current_controller.visitor_record.w2s.find { |w2| w2.id == last_edited_resource_id(current_controller) } : nil)
+          current_controller.current_resource || (last_edited_resource_id(current_controller) ? current_controller.visitor_record.w2s_including_incomplete.find { |w2| w2.id == last_edited_resource_id(current_controller) } : nil)
         end
 
         def current_resource

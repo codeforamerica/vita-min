@@ -17,7 +17,7 @@ class Ctc::Portal::W2s::MiscInfoController < Ctc::Portal::BaseIntakeRevisionCont
   end
 
   def current_model
-    @_current_model ||= current_intake.w2s.find(params[:id])
+    @_current_model ||= current_intake.w2s_including_incomplete.find(params[:id])
   end
 
   def set_continue_label

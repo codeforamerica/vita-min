@@ -19,6 +19,6 @@ class Ctc::Portal::W2s::WagesInfoController < Ctc::Portal::BaseIntakeRevisionCon
   end
 
   def current_model
-    @_current_model ||= current_intake.w2s.find(params[:id])
+    @_current_model ||= current_intake.w2s_including_incomplete.find(params[:id])
   end
 end
