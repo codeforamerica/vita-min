@@ -82,6 +82,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     # offboarding page
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
+    click_on I18n.t("general.continue")
+
+    # Contiunue with stimulus/RRC flow
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
   end
 
   scenario "a client who said they have W-2 income within EITC but adds no W-2s so is offboarded from EITC" do
@@ -106,7 +110,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_review(filing_status: "married_filing_jointly")
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
   end
-
 
   scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
     fill_in_can_use_ctc(filing_status: "married_filing_jointly")
