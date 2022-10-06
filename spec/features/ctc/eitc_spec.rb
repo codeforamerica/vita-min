@@ -21,9 +21,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.dont_add_w2')
 
-    # skips rest of w2 pages
-    expect(page).to have_text(I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$1,400"))
-
+    # offboards and skips rest of w2 pages
+    expect(page).to have_text(I18n.t("views.ctc.questions.eitc_no_w2_offboarding.title"))
     click_on I18n.t('general.back')
 
     fill_in_w2("Gary Mango III", filing_status: 'single')
@@ -81,8 +80,35 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     check I18n.t('general.none_of_the_above')
     click_on I18n.t('general.continue')
 
-    # offboarding page
+    # off-boarding page
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
+    click_on I18n.t("general.continue")
+
+    # Continue with stimulus/RRC flow
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))
+  end
+
+  scenario "a client who said they have W-2 income within EITC but adds no W-2s so is offboarded from EITC" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_dependents
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t("views.ctc.questions.w2s.dont_add_w2")
+    expect(page).to have_selector("p", text: I18n.t("views.ctc.questions.eitc_no_w2_offboarding.help_text"))
+    click_on I18n.t("views.ctc.questions.eitc_no_w2_offboarding.buttons.continue_without")
+    fill_in_advance_child_tax_credit
+    fill_in_recovery_rebate_credit
+    fill_in_bank_info
+    fill_in_ip_pins
+    fill_in_review(filing_status: "married_filing_jointly")
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
   end
 
   scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do

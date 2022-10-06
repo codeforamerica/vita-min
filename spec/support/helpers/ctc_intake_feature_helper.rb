@@ -472,21 +472,21 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.confirm')
   end
 
-  def fill_in_ip_pins
+  def fill_in_ip_pins(dependent: true)
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     expect(page).not_to have_text "Sam NotQualified"
     check "Gary Mango III"
-    check "Jessie M Pepper"
+    check "Jessie M Pepper" if dependent
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin_entry.title'))
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango III"), with: "123456"
-    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie M Pepper"), with: "123458"
+    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie M Pepper"), with: "123458" if dependent
     click_on I18n.t('general.continue')
   end
 
-  def fill_in_review(filing_status: "married_filing_jointly", home_location: "fifty_states")
+  def fill_in_review(filing_status: "married_filing_jointly", home_location: "fifty_states", dependent: true)
     married_filing_jointly = filing_status == "married_filing_jointly"
     # =========== REVIEW ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
@@ -558,7 +558,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
-    expect(page).to have_selector("p", text:  "$2,600")
+    expect(page).to have_selector("p", text:  "$2,600") if dependent
 
     if home_location == "puerto_rico"
       expect(page).not_to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
