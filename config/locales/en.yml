@@ -2154,9 +2154,6 @@ en:
               six_to_seven: 6-7 months
               ten_to_eleven: 10-11 months
             title: How many months did %{name} live with you in %{current_tax_year}?
-          child_residence_exceptions:
-            help_text: Select yes if they spent time living at school, in a medical facility, in a juvenile facility, or another temporary location while their official address was with you.
-            title: Was %{name}'s permanent residence with you for more than 6 months, even if they were away for part of that time?
           dependent_has_itin_reveal:
             content: Dependents with ITINs do not qualify you for the Child Tax Credit or the third stimulus payment. You do not get any tax credits by claiming them. Please only include dependents with Social Security Numbers or Adoption Taxpayer Identification Numbers.
             title: What if my dependent has an ITIN?
