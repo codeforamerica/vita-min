@@ -2242,13 +2242,6 @@ en:
           title:
             one: You do not qualify for the Earned Income Tax Credit with GetCTC, but there’s still money waiting for you!
             other: You and your spouse do not qualify for the Earned Income Tax Credit with GetCTC, but there’s still money waiting for you!
-        eitc_no_w2_offboarding:
-          buttons:
-            add_w2: Add my W-2 now
-            continue_without: Continue without EITC
-            log_out: Log out and add a W-2 later
-          help_text: You may continue with GetCTC to claim your Child Tax Credit and/or missing stimulus payments. If you’d like to add your W-2 later, you may do so.
-          title: In order to claim your EITC, you need to add the income from your W-2.
         eitc_offboarding:
           help_text: Continue with GetCTC to claim your Child Tax Credit and/or missing stimulus payments.
           title: You do not qualify for the Earned Income Tax Credit, but there’s still money waiting for you!

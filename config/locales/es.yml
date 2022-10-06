@@ -2212,13 +2212,6 @@ es:
             many: No califica para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolo!
             one: No califica para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolo!
             other: Usted y su cónyuge no califican para el Crédito Tributario por Ingreso del Trabajo con GetCTC, ¡pero todavía hay dinero esperándolos!
-        eitc_no_w2_offboarding:
-          buttons:
-            add_w2: Agregar mi W-2 ahora
-            continue_without: Continuar sin EITC
-            log_out: Cerrar sesión y agregar un W-2 más tarde
-          help_text: Puede continuar con GetCTC para reclamar su Crédito Tributario por Hijos y/o los pagos de estímulo faltantes. Si desea agregar su W-2 más adelante, puede hacerlo.
-          title: Para reclamar su EITC, debe agregar los ingresos de su W-2.
         eitc_offboarding:
           help_text: Continúe con GetCTC para solicitar su Crédito Tributario por Hijos y/o los pagos de estímulo que faltan.
           title: "¡No cumple los requisitos para obtener el crédito tributario por ingresos del trabajo, pero aún hay dinero disponible para usted!"

@@ -67,8 +67,6 @@ class CtcQuestionNavigation
     Ctc::Questions::W2s::MiscInfoController,
     Ctc::Questions::ConfirmW2sController,
 
-    Ctc::Questions::EitcNoW2OffboardingController,
-
     # EITC income exceptions
     Ctc::Questions::SimplifiedFilingIncomeOffboardingController,
     Ctc::Questions::NonW2IncomeController,
