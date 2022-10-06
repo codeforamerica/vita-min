@@ -170,7 +170,7 @@ module Archived
       # The age check is handled in the year-specific rules; the rest is handled here.
       lived_with_more_than_six_months_yes? ||
         (lived_with_more_than_six_months_no? &&
-          (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes?))
+          (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
     end
 
     def mixpanel_data
