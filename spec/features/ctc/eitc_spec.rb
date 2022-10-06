@@ -80,12 +80,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     check I18n.t('general.none_of_the_above')
     click_on I18n.t('general.continue')
 
-    # offboarding page
+    # off-boarding page
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_offboarding.title'))
     click_on I18n.t("general.continue")
 
-    # Contiunue with stimulus/RRC flow
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
+    # Continue with stimulus/RRC flow
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))
   end
 
   scenario "a client who said they have W-2 income within EITC but adds no W-2s so is offboarded from EITC" do
