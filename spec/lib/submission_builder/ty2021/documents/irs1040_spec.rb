@@ -194,6 +194,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         )
         create :w2, intake: submission.intake, wages_amount: 123.45, federal_income_tax_withheld: 1.25
         create :w2, intake: submission.intake, wages_amount: 100, federal_income_tax_withheld: 3
+        create :w2, intake: submission.intake, wages_amount: 1210, federal_income_tax_withheld: 31, completed_at: nil
       end
 
       it "includes W2 and EITC specific fields" do
