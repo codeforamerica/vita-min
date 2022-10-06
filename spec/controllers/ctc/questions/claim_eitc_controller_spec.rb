@@ -38,5 +38,15 @@ describe Ctc::Questions::ClaimEitcController do
       get :edit, params: {}
       expect(response).to render_template :edit
     end
+
+    before do
+      allow(subject).to receive(:track_first_visit)
+      sign_in intake.client
+    end
+
+    it "tracks the first visit to this page" do
+      get :edit, params: {}
+      expect(subject).to have_received(:track_first_visit).with(:claim_eitc)
+    end
   end
 end

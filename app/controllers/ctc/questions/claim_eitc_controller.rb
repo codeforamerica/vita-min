@@ -9,6 +9,11 @@ module Ctc
         current_controller.open_for_eitc_intake? && !intake.home_location_puerto_rico?
       end
 
+      def edit
+        track_first_visit(:claim_eitc)
+        super
+      end
+
       private
 
       def illustration_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_231338) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -110,6 +110,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_231338) do
     t.bigint "user_id", null: false
     t.json "value"
     t.index ["user_id"], name: "index_admin_toggles_on_user_id"
+  end
+
+  create_table "analytics_events", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.string "event_type"
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_analytics_events_on_client_id"
+    t.index ["event_type", "client_id"], name: "index_analytics_events_on_event_type_and_client_id"
   end
 
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
@@ -1681,6 +1690,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_231338) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_toggles", "users"
+  add_foreign_key "analytics_events", "clients"
   add_foreign_key "archived_bank_accounts_2021", "archived_intakes_2021"
   add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"

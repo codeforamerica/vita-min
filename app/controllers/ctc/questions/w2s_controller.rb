@@ -13,7 +13,7 @@ module Ctc
       end
 
       def add_w2_later
-        track_click_history(:w2_logout_add_later)
+        track_first_visit(:w2_logout_add_later)
 
         clear_intake_session
         redirect_to root_path

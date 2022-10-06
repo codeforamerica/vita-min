@@ -38,7 +38,7 @@ describe Ctc::Questions::W2sController do
     let(:intake) { create :ctc_intake }
 
     before do
-      allow(subject).to receive(:track_click_history)
+      allow(subject).to receive(:track_first_visit)
       allow(subject).to receive(:sign_out).and_call_original
       sign_in intake.client
     end
@@ -47,7 +47,7 @@ describe Ctc::Questions::W2sController do
       put :add_w2_later
       expect(response).to redirect_to root_path
 
-      expect(subject).to have_received(:track_click_history).with(:w2_logout_add_later)
+      expect(subject).to have_received(:track_first_visit).with(:w2_logout_add_later)
       expect(subject).to have_received(:sign_out).with(intake.client)
     end
   end
