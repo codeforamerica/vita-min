@@ -1664,7 +1664,7 @@ es:
     ssn: Por favor, ingrese un número de seguro social válido.
     urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
-    zip_code_with_optional_extra_digits: Por favor, introduzca un código postal válido de 5 dígitos más los 4 o 7 dígitos opcionales.
+    zip_code_with_optional_extra_digits: Por favor, ingrese un código postal válido de 5 dígitos más los 4 o 7 dígitos opcionales.
   verification_code_mailer:
     no_match:
       body_html: |
@@ -1961,7 +1961,7 @@ es:
         already_filed:
           help_text_html: |
             <p class="text--bold">Si ya presentó una declaración de impuestos de 2021, el IRS rechazará su declaración de GetCTC sin mirarla.</p>
-            <p>Responda sí incluso si aún está esperando su pago o cree que se equivocó.</p>
+            <p>Responda sí incluso si aún está esperando su reembolso o cree que se equivocó.</p>
           puerto_rico:
             help_text_html: |
               <p class="text--bold">Si ya radicó una planilla federal de 2021 (1040, 1040PR, 1040SS) este año, el IRS rechazará su planilla de GetCTC sin mirarla.</p>
@@ -1996,21 +1996,21 @@ es:
           title: Favor de compartir su número de celular
         claim_eitc:
           buttons:
-            claim: Sí, solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
-            dont_claim: No, continuar sin solicitar el EITC, en español, Crédito tributario por ingreso del trabajo.
+            claim: Sí, solicitar el EITC
+            dont_claim: No, continuar sin solicitar el EITC
           help_text: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede darle hasta $6,700.
           info_box:
             list:
-            - Tienes un trabajo ganando dinero en %{current_tax_year}
+            - Tiene un trabajo ganando dinero en %{current_tax_year}
             - Cada persona en esta declaración tiene un SSN
             title: 'Requisitos:'
-          title: "¿Le gustaría declarar más dinero compartiendo algún formulario W2 de 2021?"
+          title: "¿Le gustaría reclamar más dinero compartiendo algún formulario W2 de 2021?"
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
           add_a_dependent: Agregar un dependiente
-          birthday: DOB, fecha de nacimiento
+          birthday: fecha de nacimiento
           done_adding: 'Termine de agregar dependientes '
           other_benefits_reveal:
             content:
@@ -2046,13 +2046,13 @@ es:
         confirm_payment:
           client_not_collecting: No está cobrando ningún pago, por favor edite su declaración de impuestos.
           ctc_0_due_link: Solicitar a los hijos para el Crédito Tributario por Hijos
-          ctc_due: Crédito Tributario por Hijos
+          ctc_due: Crédito Tributario por Hijos (CTC)
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
-          eitc: 'Crédito Tributario por Ingreso del Trabajo:'
-          fed_income_tax_withholding: 'Impuesto Federal sobre el Ingreso Retenido:'
-          subtitle: "¡Ya casi terminas! Continúe completando la presentación de su declaración de impuestos."
-          third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
+          eitc: 'Crédito Tributario por Ingreso del Trabajo (EITC):'
+          fed_income_tax_withholding: 'Impuesto Retenido:'
+          subtitle: "¡Ya casi terminas! Por favor confirme la información de su reembolso."
+          third_stimulus: Tercer Pago de Estímulo
           title: 'Revise esta lista de los pagos que está reclamando:'
           total: 'Reembolso total:'
         confirm_primary_prior_year_agi:
@@ -2109,7 +2109,7 @@ es:
               list:
               - escuela
               - centro médico
-              - un centro para menores
+              - centro de detención juvenil
               list_title: 'Algunos ejemplos de lugares temporales:'
               title: "¿Qué pasa si mi dependiente estuvo fuera durante una temporada en 2021?"
             select_options:
@@ -2168,7 +2168,7 @@ es:
             middle_initial: Segundo nombre(s) legal (opcional)
             relationship_to_you: "¿Qué relación tiene con usted?"
             situations: 'Seleccione si lo siguiente es cierto:'
-            suffix: Forma de tratamiento (opcional)
+            suffix: Sufijo (opcional)
             title: "¡Obtengamos información básica sobre esta persona!"
           relative_financial_support:
             title: "¿Pagó usted más de la mitad de los gastos de manutención de %{name} durante %{current_tax_year}?"
@@ -2233,7 +2233,7 @@ es:
         email_address:
           title: Favor de compartir su correo electrónico
         file_full_return:
-          full_btn: Presente su declaración de impuestos completa
+          full_btn: Más información sobre la declaración de impuestos completa
           help_text1: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentando una declaración de impuestos completa puede llevar más tiempo y necesitará todos sus documentos de empleo (W2, 1099, etc.).
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa.
@@ -2285,12 +2285,12 @@ es:
           spouse_died_reveal:
             body: Seleccione Sí, y presentará una declaración con su cónyuge fallecido.
             title: "¿Qué pasa si mi cónyuge murió el año pasado?"
-          title: Al 31 de diciembre, %{current_tax_year}, ¿Estaba legalmente casado?
+          title: Al 31 de diciembre de %{current_tax_year}, ¿estabas legalmente casado?
         had_dependents:
-          add: Agregue dependientes
-          continue: Seguir adelante sin dependientes
+          add: Agregar dependientes
+          continue: Continuar sin dependientes
           help_text: Cualquier persona a la que mantenga económicamente o que haya vivido con usted puede tener derecho a prestaciones adicionales, le ayudaremos a averiguarlo.
-          title: Para solicitar el Crédito Tributario por Hijos, debe añadir a las personas a su cargo (hijos u otras personas a las que mantiene económicamente)
+          title: Para solicitar el Crédito Tributario por Hijos, debe agregar a las personas a su cargo (hijos o otras personas a las que mantiene económicamente)
           which_relationships_qualify_reveal:
             content:
             - Hijo
@@ -2363,7 +2363,7 @@ es:
             - no recibió el crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
-            - ganaron menos de %{standard_deduction}en ingresos totales.
+            - ganaron menos de %{standard_deduction} en ingresos totales.
             - ganaron menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
             - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
@@ -2402,7 +2402,7 @@ es:
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
           title:
             many: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
-            one: 'Solo puede usar Obtener CTC si, en %{current_tax_year}, usted:'
+            one: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted:'
             other: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
           what_is_aptc_reveal:
             content:
@@ -2412,10 +2412,10 @@ es:
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
-          married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones?"
+          married_title: "¿Ganaron usted y su cónyuge más de $10,000 en ingresos por inversiones?"
           reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
-          title: "¿Ganó más de $10.000 en ingresos por inversiones?"
+          title: "¿Ganó más de $10,000 en ingresos por inversiones?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
@@ -2435,8 +2435,8 @@ es:
         legal_consent:
           agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body_html: |
-            <p>Introduzca su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN)</p>
-            <p>Si está tratando de obtener beneficios tributarios para su hijo, introduzca su propia información aquí. Más tarde introducirá la información de su hijo.</p>
+            <p>Ingresea su nombre exactamente como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal (ITIN)</p>
+            <p>Si está tratando de obtener beneficios tributarios para su hijo, ingrese su propia información aquí. Más tarde introducirá la información de su hijo.</p>
           first_name: Primer nombre legal
           form_of_identity: Forma de identidad
           last_name: Apellido legal
@@ -2447,7 +2447,7 @@ es:
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
-          suffix: Forma de tratamiento (opcional)
+          suffix: Sufijo (opcional)
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
           help_text: Por lo general, alguien puede reclamar a usted como dependiente si es un miembro de su familia, usted vivió con ellos la mayor parte del año y pagaron la mayoría de sus gastos de manutención.
@@ -2474,7 +2474,7 @@ es:
             Si no tiene una residencia permanente, puede usar el de una persona de confianza o la de un grupo que conozca (ej. miembro de la familia, iglesia, centro para personas sin hogar).<br/>
             <br/>
             Asegúrese de proporcionar una dirección donde pueda recibir correo postal. Si seleccionó deposito directo para sus pagos, existe una posibilidad que el IRS le envíe notificaciones importantes y hasta pagos a este dirección.
-          reveal_label: "¿Qué tal si no tengo una dirección postal?"
+          reveal_label: "¿Qué sucede si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
         main_home:
           help_text: Su hogar principal es un lugar en el que se quedó durante más de la mitad del año tributario.
@@ -2544,7 +2544,7 @@ es:
           - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
           - desea presentar el Formulario 8332 para reclamar a un niño que no vive con usted
           - está reclamando un pariente calificado bajo un "acuerdo de manutención múltiple" según lo define el IRS
-          - no está reclamando ningún hijo para el Crédito Tributario por Hijos este año, pero recibió pagos pagos por Adelantado del Crédito Tributario por Hijos en %{current_tax_year}
+          - no está reclamando ningún hijo para el Crédito Tributario por Hijos este año, pero recibió pagos por Adelantado del Crédito Tributario por Hijos en %{current_tax_year}
           - compraste o vendiste criptomonedas en %{current_tax_year}
           list_title: 'No puede usar GetCTC si:'
           multiple_support_agreement_reveal:
@@ -2598,7 +2598,7 @@ es:
           spouse_middle_initial: Inicial del segundo nombre (opcional)
           spouse_ssn_itin: SSN o ITIN de su cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN de su cónyuge
-          spouse_suffix: Forma de tratamiento de su cónyuge (opcional)
+          spouse_suffix: Sufijo de su cónyuge (opcional)
           spouse_was_blind: Mi cónyuge era legalmente ciego en %{current_tax_year}
           ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Denos un poco de información sobre su cónyuge
@@ -2689,37 +2689,37 @@ es:
           verification_code_label: Ingrese el código de 6 dígitos
           verify: Verifique
         w2s:
-          add: Agregar la forma W-2
+          add: Agregar otro W-2
           add_later: Cerrar sesión y agregar un W-2 más tarde
           delete_this_w2: Elimina este W-2
-          done_adding: Se ha terminado de añadir todas las formas W-2
+          done_adding: Termine de agregar los formularios W-2
           dont_add_w2: No quiero agregar mi W-2
           employee_info:
             employee_city: 'Casilla e: City'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
             employee_state: 'Casilla e: State'
-            employee_street_address: 'Casilla e: Dirección del empleado o apartado postal'
+            employee_street_address: 'Casilla e: Employee street address or P.O. box'
             employee_zip_code: 'Casilla e: Zip code'
             title:
               many: Comencemos ingresando información básica.
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
           employer_info:
-            add: Agregar la forma W-2
+            add: Agregar un W-2
             box_d_control_number: 'Casilla d: Control Number'
             employer_city: Ciudad
-            employer_ein: 'Casilla b: Número de identificación del empleador (EIN)'
-            employer_name: 'Casilla c: Nombre del empleador'
+            employer_ein: 'Casilla b: Employer Identification Number (EIN)'
+            employer_name: 'Casilla c: Employer Name'
             employer_state: Estado
             employer_street_address: Dirección del empleador o apartado postal
             employer_zip_code: Código postal
             title: Ahora pasaremos a la sección de empleadores del W-2 de %{name}.
           help_text:
             p1:
-              many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
-              one: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
-              other: La W-2 es una forma oficial de impuestos que le entrega su empleador. Introduzca todos los W-2 suyos y de su cónyuge para obtener el crédito tributario por ingresos del trabajo y evitar retrasos.
-            p2: El formulario que introduzca debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
+              many: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Ingrese todos sus formularios W-2 y los de su cónyuge para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
+              one: Un W-2 es una forma oficial de impuestos que le entrega su empleador. Ingrese todos sus formularios W-2 para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
+              other: Un W-2 es un formulario tributario oficial que le entrega su empleador. Ingrese todos sus formularios W-2 y los de su cónyuge para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
+            p2: El formulario que ingrese debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
           misc_info:
             box11_nonqualified_plans: 'Casilla 11: Nonqualified plans amount'
             box12_error: debe proporcionar tanto el código como el valor
@@ -2744,22 +2744,22 @@ es:
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
-            - Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelos en blanco en los cuadros a continuación.
+            - Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelas en blanco en las casillas a continuación.
             - Para las Casillas 15-20, si su W-2 contiene información de varios estados, ingrese solo la información del primer estado.
             submit: Enviar W-2
             title: Terminemos de ingresar la información del W-2 de %{name}.
-          note_html: "<strong>Aviso:</strong> Si no incluye la forma W-2, no recibirá el Crédito Tributario Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
+          note_html: "<strong>Aviso:</strong> Si no incluye el formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
             content:
               p1: Si no ha recibido un W-2 de su empleador, puede tomar algunos pasos para asegurarse de obtenerla.
-              p2: Un buen primer paso sería ponerse en contacto directamente con su empresa y asegurarse de que cualquier información personal, como su dirección postal, está actualizada. También puede preguntarles si se han enviado las W-2 o cuándo tienen previsto enviarlas. Puede ser que su empleador lo haya enviado el último día, el 31 de enero, y que le llegue a principios de febrero. Otra opción sería acceder a su W-2 por Internet. La mayoría de los empleadores proporcionan acceso en línea a su W-2 a través de un portal para empleados. Consulte con su empleador si le han dado información sobre cómo acceder a dicho portal.
+              p2: Un buen primer paso sería ponerse en contacto directamente con su empresa y asegurarse de que cualquier información personal, como su dirección postal, está actualizada. También puede preguntarles si se han enviado los formularios W-2 o cuándo tienen previsto enviarlos. Puede ser que su empleador lo haya enviado el último día, el 31 de enero, y que le llegue a principios de febrero. Otra opción sería acceder a su W-2 por Internet. La mayoría de los empleadores proporcionan acceso en línea a su W-2 a través de un portal para empleados. Consulte con su empleador si le han dado información sobre cómo acceder a dicho portal.
               p3_html: Si no puede ponerse en contacto con su empleador, puede solicitar una transcripción de ingresos y salarios al IRS. Vaya a <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript</a>. Necesitará crear o iniciar sesión en su cuenta del IRS.
-              p4: ¿Tiene más preguntas? Haga clic en Chatear con nosotros o "Chat with us" en inglés, para obtener más información sobre estas opciones.
+              p4: ¿Tiene más preguntas? Haga clic en “Hable con nosotros" para obtener más información sobre estas opciones.
             title: "¿Qué pasa si no he recibido mi W-2?"
           reveal_1099:
-            content_html: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede utilizar GetCTC.<a href="%{url}">Presentar una declaración completa </a> en lugar de empezar.
-            title: "¿Qué pasa si tengo una forma 1099?"
-          title: Por favor, indique los ingresos de su forma W-2.
+            content_html: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede usar GetCTC. En su lugar, <a href="%{url}">presente una declaración completa</a> para comenzar.
+            title: "¿Qué sucede si tengo un formulario 1099?"
+          title: Confirme la información de su W-2.
           wages: Sueldo
           wages_info:
             box10_dependent_care_benefits: 'Casilla 10: Dependent care benefits'
@@ -2770,14 +2770,14 @@ es:
             box7_social_security_tips_amount: 'Casilla 7: Social security tips amount'
             box8_allocated_tips: 'Casilla 8: Allocated tips'
             federal_income_tax_withheld: 'Casilla 2: Federal Income Tax Withheld'
-            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjalas también en blanco en las casillas a continuación.'
+            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.'
             info_box:
-              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjalas también en blanco en las casillas a continuación.
+              requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
             title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos retenidos de %{name} de este W-2."
             wages_amount: 'Casilla 1: Wages Amount'
       shared:
-        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
+        ssn_not_valid_for_employment: La tarjeta de Seguro Social de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
       california_benefits:
         compare_benefits:
@@ -3507,7 +3507,7 @@ es:
             i_cant_sign_in:
               answer_html: |
                 <p>Puede iniciar sesión en GetYourRefund para responder a las preguntas sobre impuestos, cargar documentos de impuestos, firmar su declaración de impuestos definitiva y enviar mensajes a su equipo de los impuestos.</p>
-                <p>Haga clic en <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">iniciar sesión</a>. Se le pedirá que introduzca los últimos 4 dígitos de su Número de Seguro Social o Número de Identificación Personal (ITIN en inglés), o que ingrese su ID de cliente. A continuación, le enviaremos por mensaje de texto o por correo electrónico una contraseña de 6 dígitos de un solo uso. Una vez que ingrese esa contraseña, habrá iniciado la sesión en su cuenta.</p>
+                <p>Haga clic en <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">iniciar sesión</a>. Se le pedirá que ingrese los últimos 4 dígitos de su Número de Seguro Social o Número de Identificación Personal (ITIN en inglés), o que ingrese su ID de cliente. A continuación, le enviaremos por mensaje de texto o por correo electrónico una contraseña de 6 dígitos de un solo uso. Una vez que ingrese esa contraseña, habrá iniciado la sesión en su cuenta.</p>
               question: No puedo iniciar sesión
             title: Acceso a la cuenta de GetYourRefund
             what_is_my_client_id_number:
