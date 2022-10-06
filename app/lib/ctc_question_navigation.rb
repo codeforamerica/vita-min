@@ -38,7 +38,6 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ChildQualifiersController,
     Ctc::Questions::Dependents::ChildExpensesController,
     Ctc::Questions::Dependents::ChildResidenceController,
-    Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
     Ctc::Questions::Dependents::ChildClaimAnywayController,
     Ctc::Questions::Dependents::RelativeMemberOfHouseholdController,
