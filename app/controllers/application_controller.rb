@@ -292,16 +292,16 @@ class ApplicationController < ActionController::Base
 
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake
-
     return true if app_time >= Rails.configuration.ctc_full_launch
+
     app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
   helper_method :open_for_ctc_intake?
 
   def open_for_eitc_intake?
     return true if Flipper.enabled?(:eitc)
-
     return true if app_time >= Rails.configuration.eitc_full_launch
+
     app_time >= Rails.configuration.eitc_soft_launch && cookies[:eitc_beta].present?
   end
   helper_method :open_for_eitc_intake?
