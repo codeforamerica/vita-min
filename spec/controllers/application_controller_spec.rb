@@ -869,7 +869,7 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "when the app time is before the eitc soft launch time" do
+    context "when eitc hasn't launched" do
       context "when the eitc_beta cookie is set" do
         before do
           get :index, { params: { eitc_beta: "1" } }
@@ -887,9 +887,10 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "when the app time is after the eitc soft launch time" do
+    context "during soft launch" do
       context "when the eitc_beta cookie is set" do
         before do
+          allow(Rails.application.config).to receive(:eitc_full_launch).and_return(Rails.configuration.eitc_soft_launch + 3.days)
           get :index, { params: { eitc_beta: "1" } }
         end
 
@@ -902,6 +903,18 @@ RSpec.describe ApplicationController do
         it "returns true" do
           expect(subject.open_for_eitc_intake?).to eq true
         end
+      end
+    end
+
+    context "during full launch" do
+      around do |example|
+        Timecop.freeze(Rails.configuration.eitc_full_launch + 1.day) do
+          example.run
+        end
+      end
+
+      it "returns true" do
+        expect(subject.open_for_eitc_intake?).to eq true
       end
     end
 
@@ -924,6 +937,7 @@ RSpec.describe ApplicationController do
     before do
       allow_any_instance_of(described_class).to receive(:open_for_ctc_intake?).and_call_original
     end
+
     context "when intake is closed" do
       before do
         allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(past)
