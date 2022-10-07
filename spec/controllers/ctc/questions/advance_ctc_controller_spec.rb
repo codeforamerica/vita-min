@@ -9,9 +9,18 @@ describe Ctc::Questions::AdvanceCtcController do
   end
 
   describe "#edit" do
+    before do
+      allow(subject).to receive(:track_first_visit)
+    end
+
     it "renders the corresponding template" do
       get :edit
       expect(response).to render_template :edit
+    end
+
+    it "tracks the first visit to this page" do
+      get :edit
+      expect(subject).to have_received(:track_first_visit).with(:advance_ctc)
     end
   end
 

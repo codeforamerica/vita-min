@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Ctc::Questions::W2sController do
+  before do
+    allow(subject).to receive(:track_first_visit)
+  end
+
   describe "#edit" do
     render_views
     let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, year: TaxReturn.current_tax_year)]) }
@@ -18,6 +22,11 @@ describe Ctc::Questions::W2sController do
       expect(response.body).to have_text("Wages: $1,123")
       expect(response.body).not_to have_text("Cod for Canada")
       expect(response.body).not_to have_text("Wages: $2,234")
+    end
+
+    it "tracks the first visit to this page" do
+      get :edit
+      expect(subject).to have_received(:track_first_visit).with(:w2s_list)
     end
   end
 
