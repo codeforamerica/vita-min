@@ -201,6 +201,13 @@ class ApplicationController < ActionController::Base
     send_mixpanel_event(event_name: "page_view") if request.get?
   end
 
+  def track_first_visit(page_name)
+    event_name = "visit_#{page_name}"
+    send_mixpanel_event(event_name: event_name)
+    db_event_name = "first_#{event_name}"
+    Analytics::Event.find_or_create_by(client: current_intake.client, event_type: db_event_name)
+  end
+
   def send_mixpanel_validation_error(errors, additional_data = {})
     invalid_field_flags = errors.attribute_names.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
 

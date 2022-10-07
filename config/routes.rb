@@ -227,6 +227,7 @@ Rails.application.routes.draw do
           end
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
+          resources :analytics, only: [:index]
           post '/no_response_needed', to: 'messages#no_response_needed', as: :no_response_needed
           get "/efile", to: "efile_submissions#show", on: :member, as: :efile
           get "/security", to: "security#show", on: :member, as: :security

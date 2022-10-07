@@ -12,8 +12,13 @@ module Ctc
         benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
       end
 
+      def edit
+        track_first_visit(:w2s_list)
+        super
+      end
+
       def add_w2_later
-        track_click_history(:w2_logout_add_later)
+        track_first_visit(:w2_logout_add_later)
 
         clear_intake_session
         redirect_to root_path

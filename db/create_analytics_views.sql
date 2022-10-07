@@ -29,6 +29,10 @@ CREATE VIEW analytics.admin_roles AS
     SELECT id, created_at, updated_at
     FROM public.admin_roles;
 
+CREATE VIEW  analytics.analytics_events AS
+    SELECT id, created_at, updated_at, client_id, event_type
+    FROM public.analytics_events;
+
 CREATE VIEW analytics.anonymized_diy_intake_csv_extracts AS
     SELECT id, created_at, record_count, run_at, updated_at
     FROM public.anonymized_diy_intake_csv_extracts;

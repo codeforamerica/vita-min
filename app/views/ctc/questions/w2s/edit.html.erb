@@ -7,16 +7,26 @@
   <p class="text--bold"><%= t('views.ctc.questions.w2s.help_text.p2') %></p>
 
   <div class="spacing-above-15 spacing-below-60">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal.title")) do %>
-      <p><%= t("views.ctc.questions.w2s.reveal.content.p1") %></p>
-      <p><%= t("views.ctc.questions.w2s.reveal.content.p2") %></p>
-      <p><%= t("views.ctc.questions.w2s.reveal.content.p3_html") %></p>
-      <p><%= t("views.ctc.questions.w2s.reveal.content.p4") %></p>
-    <% end %>
+    <div class="reveal">
+      <p>
+        <a href="#" class="reveal__link" data-track-click="w2_havent_received_reveal"><%= t("views.ctc.questions.w2s.reveal.title") %></a>
+      </p>
+      <div class="reveal__content">
+        <p><%= t("views.ctc.questions.w2s.reveal.content.p1") %></p>
+        <p><%= t("views.ctc.questions.w2s.reveal.content.p2") %></p>
+        <p><%= t("views.ctc.questions.w2s.reveal.content.p3_html") %></p>
+        <p><%= t("views.ctc.questions.w2s.reveal.content.p4") %></p>
+      </div>
+    </div>
 
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.w2s.reveal_1099.title")) do %>
-      <p><%= t("views.ctc.questions.w2s.reveal_1099.content_html", url: root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "gctc_w2_referral")) %></p>
-    <% end %>
+    <div class="reveal">
+      <p>
+        <a href="#" class="reveal__link" data-track-click="w2_have_1099"><%= t("views.ctc.questions.w2s.reveal_1099.title") %></a>
+      </p>
+      <div class="reveal__content">
+        <p><%= t("views.ctc.questions.w2s.reveal_1099.content_html", url: root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "gctc_w2_referral")) %></p>
+      </div>
+    </div>
 
     <% if current_intake.completed_w2s.none? %>
       <p><%= t('views.ctc.questions.w2s.note_html') %></p>
