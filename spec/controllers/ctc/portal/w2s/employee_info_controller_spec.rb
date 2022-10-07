@@ -22,13 +22,13 @@ describe Ctc::Portal::W2s::EmployeeInfoController do
     it "creates a W-2 and a system note" do
       expect {
         post :update, params: params
-      }.to change { intake.w2s.count }.by(1)
+      }.to change { intake.w2s_including_incomplete.count }.by(1)
        .and change { SystemNote::CtcPortalAction.count }.by(1)
 
       system_note = SystemNote::CtcPortalAction.last
       expect(system_note.client).to eq(intake.client)
       expect(system_note.data).to match({
-        'model' => intake.w2s.last.to_global_id.to_s,
+        'model' => intake.w2s_including_incomplete.last.to_global_id.to_s,
         'action' => 'created'
       })
     end

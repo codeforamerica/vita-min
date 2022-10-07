@@ -118,6 +118,17 @@ describe SubmissionBuilder::Ty2021::Return1040 do
           end
         end
 
+        context 'when there are only incomplete W2s' do
+          before do
+            create :w2, intake: submission.intake, completed_at: nil
+          end
+
+          it "is not included" do
+            xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+            expect(xml.at("IRS1040ScheduleEIC")).to be_nil
+          end
+        end
+
         context 'when there are no W2s' do
           it "is not included" do
             xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
@@ -142,9 +153,11 @@ describe SubmissionBuilder::Ty2021::Return1040 do
 
       context "when a W2 is on the intake" do
         let!(:primary_w2) { create :w2, intake: submission.intake }
+        let!(:incomplete_w2) { create :w2, intake: submission.intake, completed_at: nil }
 
-        it "attaches the W2" do
+        it "attaches the completed W2" do
           xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+          expect(xml.search("IRSW2").length).to eq(1)
           expect(xml.at("IRSW2").attr("documentId")).to eq "IRSW2-#{primary_w2.id}"
         end
       end

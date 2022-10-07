@@ -71,6 +71,8 @@ module SubmissionBuilder
             xml.ThirdPartySickPayInd "X" if w2.box13_third_party_sick_pay_yes?
 
             [w2.w2_box14].compact.each do |box14|
+              next unless box14.other_description.present? && box14.other_amount.present?
+
               xml.OtherDeductionsBenefitsGrp do |xml|
                 xml.Desc box14.other_description
                 xml.Amt box14.other_amount.round

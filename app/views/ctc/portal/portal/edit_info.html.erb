@@ -60,7 +60,7 @@
             <div class="w2s-shared">
               <h2 class="review-box__title"><%= t("views.ctc.portal.edit_info.w2s_shared") %></h2>
 
-              <% if @intake.w2s.any? %>
+              <% if @intake.completed_w2s.any? %>
                 <%= render 'ctc/questions/w2s/review_list', edit_controller: Ctc::Portal::W2s::EmployeeInfoController, intake: @intake %>
               <% else %>
                 <div class="review-box__person">

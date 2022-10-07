@@ -35,9 +35,9 @@ class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevision
     @_current_model ||=
       if token
         @new_record = true
-        current_intake.w2s.find_or_initialize_by(creation_token: token)
+        current_intake.w2s_including_incomplete.find_or_initialize_by(creation_token: token)
       else
-        current_intake.w2s.find(params[:id])
+        current_intake.w2s_including_incomplete.find(params[:id])
       end
   end
 

@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 describe Ctc::Questions::W2sController do
+  describe "#edit" do
+    render_views
+    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, year: TaxReturn.current_tax_year)]) }
+    let!(:w2_complete) { create :w2, intake: intake, employer_name: "Code for a Meerkat", wages_amount: 1123, completed_at: Time.now }
+    let!(:w2_incomplete) { create :w2, intake: intake, employer_name: "Cod for Canada", wages_amount: 2234, completed_at: nil }
+
+    before do
+      sign_in intake.client
+    end
+
+    it "shows only completed w2s on the page" do
+      get :edit
+
+      expect(response.body).to have_text("Code for a Meerkat")
+      expect(response.body).to have_text("Wages: $1,123")
+      expect(response.body).not_to have_text("Cod for Canada")
+      expect(response.body).not_to have_text("Wages: $2,234")
+    end
+  end
+
   describe "#update" do
     let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, year: TaxReturn.current_tax_year)]) }
 

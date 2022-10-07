@@ -486,9 +486,9 @@ class Seeder
       end
     end
 
-    unless intake.w2s.present?
+    unless intake.w2s_including_incomplete.present?
       w2_attributes&.each do |w2|
-        intake.w2s.create!(w2)
+        intake.w2s_including_incomplete.create!(w2)
       end
     end
 

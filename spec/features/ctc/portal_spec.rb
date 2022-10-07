@@ -454,7 +454,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")
         expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
-        expect(page).to have_content("Client created W-2 ##{intake.w2s.find_by(employer_name: "Fruit Stand").id}")
+        expect(page).to have_content("Client created W-2 ##{intake.w2s_including_incomplete.find_by(employer_name: "Fruit Stand").id}")
       end
 
       context "when the spouse filed with the primary the prior year" do

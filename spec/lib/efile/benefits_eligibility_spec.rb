@@ -413,7 +413,7 @@ describe Efile::BenefitsEligibility do
 
     context 'when they do not have any W2s' do
       before do
-        intake.w2s.destroy_all
+        intake.w2s_including_incomplete.destroy_all
       end
 
       it 'returns false' do
@@ -685,6 +685,19 @@ describe Efile::BenefitsEligibility do
       before do
         allow(subject).to receive(:claiming_and_qualified_for_eitc?).and_return true
         allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(true)
+      end
+
+      context "when they have an incomplete w2" do
+        let!(:w2_incomplete) { create :w2, intake: intake, wages_amount: earned_income, completed_at: nil }
+        let!(:earned_income) { 2000 }
+        before do
+          intake.dependents.destroy_all
+          create :qualifying_child, intake: intake
+        end
+
+        it "does not calculate the eitc amount from the incomplete w2" do
+          expect(subject.eitc_amount).to eq 680
+        end
       end
 
       context "when they have 0 EITC-qualifying children" do
