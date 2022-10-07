@@ -12,6 +12,8 @@ module Ctc
         :box_d_control_number
       )
 
+      before_validation_squish(:employer_city, :employer_street_address)
+
       validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }
       validates :employer_name, presence: true
       validates :employer_city, presence: true, format: { with: /\A([A-Za-z] ?)*[A-Za-z]\z/, message: -> (*_args) { I18n.t('validators.alpha') }}

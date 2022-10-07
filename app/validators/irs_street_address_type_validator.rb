@@ -1,5 +1,5 @@
 class IrsStreetAddressTypeValidator < ActiveModel::EachValidator
-  ADDRESS_REGEX = /[A-Za-z0-9]( ?[A-Za-z0-9\-\/])*/
+  ADDRESS_REGEX = /\A[A-Za-z0-9]( ?[A-Za-z0-9\- \/])*\z/
 
   def validate_each(record, attr_name, value)
     unless value =~ ADDRESS_REGEX
