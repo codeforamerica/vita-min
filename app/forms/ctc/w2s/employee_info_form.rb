@@ -10,6 +10,8 @@ module Ctc
         :employee
       )
 
+      before_validation_squish(:employee_street_address, :employee_city)
+
       validates :employee, presence: true, inclusion: { in: W2.employees.keys - ['unfilled'], allow_blank: true }
       validates :employee_street_address, irs_street_address_type: true
       validates :employee_city, presence: true, format: { with: /\A([A-Za-z] ?)*[A-Za-z]\z/, message: -> (*_args) { I18n.t('validators.alpha') }}
