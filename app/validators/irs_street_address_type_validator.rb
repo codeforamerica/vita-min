@@ -5,5 +5,7 @@ class IrsStreetAddressTypeValidator < ActiveModel::EachValidator
     unless value =~ ADDRESS_REGEX
       record.errors.add(attr_name, I18n.t("validators.irs_street_address"))
     end
+
+    ActiveModel::Validations::LengthValidator.new(maximum: 35, attributes: attributes).validate_each(record, attr_name, value)
   end
 end
