@@ -38,4 +38,12 @@ describe IrsStreetAddressTypeValidator do
       expect(subject).not_to be_valid
     end
   end
+
+  context "not allowed to be longer than 35 chars" do
+    let(:text) { "123456789012345678901234567890123456"}
+
+    it "is not valid" do
+      expect(subject).not_to be_valid
+    end
+  end
 end
