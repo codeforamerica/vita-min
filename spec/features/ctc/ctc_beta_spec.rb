@@ -19,7 +19,7 @@ def begin_intake
   expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title_eitc"))
   click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
-  click_on I18n.t('general.negative')
+  click_on I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
   click_on I18n.t('general.continue')
 

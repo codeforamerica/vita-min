@@ -45,7 +45,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t("views.ctc.questions.file_full_return.#{home_location == "puerto_rico" ? "puerto_rico." : ""}simplified_btn")
     if home_location != "puerto_rico"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
-      click_on claim_eitc ? I18n.t("general.affirmative") : I18n.t('general.negative')
+      click_on claim_eitc ? I18n.t("views.ctc.questions.claim_eitc.buttons.claim") : I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
     end
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
