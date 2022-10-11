@@ -919,6 +919,12 @@ RSpec.describe ApplicationController do
     end
 
     context "otherwise" do
+      around do |example|
+        Timecop.freeze(Rails.configuration.eitc_full_launch - 1.day) do
+          example.run
+        end
+      end
+
       it "returns false" do
         expect(subject.open_for_eitc_intake?).to eq false
       end

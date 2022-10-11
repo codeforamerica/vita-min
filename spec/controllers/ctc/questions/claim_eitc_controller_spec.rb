@@ -27,6 +27,10 @@ describe Ctc::Questions::ClaimEitcController do
     end
 
     context "with the env variable disabled" do
+      before do
+        Flipper.disable :eitc # not working
+      end
+
       it "returns false" do
         expect(described_class.show?(intake, subject)).to eq false
       end

@@ -9,7 +9,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who qualifies for and wants to claim EITC" do
-    fill_in_can_use_ctc(filing_status: "single")
+    fill_in_can_use_ctc(filing_status: "single", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
 
@@ -43,7 +43,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a MFJ client who qualifies for and wants to claim EITC and enters spouse W2" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
@@ -59,7 +59,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who does not qualify for the EITC" do
-    fill_in_can_use_ctc
+    fill_in_can_use_ctc(claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info(birthdate: 23.years.ago)
     fill_in_spouse_info(birthdate: 23.years.ago)
@@ -89,7 +89,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who said they have W-2 income within EITC but adds no W-2s so is offboarded from EITC" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
@@ -112,7 +112,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
@@ -131,7 +131,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who has too much W-2 income for simplified filing" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
