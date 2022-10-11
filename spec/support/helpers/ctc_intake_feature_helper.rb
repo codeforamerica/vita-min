@@ -1,5 +1,5 @@
 module CtcIntakeFeatureHelper
-  def fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "fifty_states")
+  def fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "fifty_states", claim_eitc: false)
     married_filing_jointly = filing_status == "married_filing_jointly"
     # =========== BASIC INFO ===========
     if home_location == "puerto_rico"
@@ -40,16 +40,12 @@ module CtcIntakeFeatureHelper
     end
     click_on I18n.t('general.continue')
 
-    key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    if Flipper.enabled?("eitc")
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
-    else
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
-    end
-    click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
-    if Flipper.enabled?(:eitc)
+    title_key = home_location == "puerto_rico" ? "puerto_rico.title" : "title_eitc"
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{title_key}"))
+    click_on I18n.t("views.ctc.questions.file_full_return.#{home_location == "puerto_rico" ? "puerto_rico." : ""}simplified_btn")
+    if home_location != "puerto_rico"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
-      click_on I18n.t("general.affirmative")
+      click_on claim_eitc ? I18n.t("views.ctc.questions.claim_eitc.buttons.claim") : I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
     end
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')

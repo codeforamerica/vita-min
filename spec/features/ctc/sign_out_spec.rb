@@ -24,6 +24,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.negative')
     click_on I18n.t('general.continue')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+    click_on I18n.t("views.ctc.questions.claim_eitc.buttons.dont_claim")
     click_on "Continue"
     click_on I18n.t('general.negative')
     click_on I18n.t('general.negative')

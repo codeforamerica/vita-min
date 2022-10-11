@@ -8,13 +8,17 @@ describe Ctc::Questions::ClaimEitcController do
   end
 
   describe ".show?" do
-    context "with the env variable enabled" do
+    context "when open_for_eitc_intake? is true" do
       before do
-        Flipper.enable :eitc
+        allow(subject).to receive(:open_for_eitc_intake?).and_return true
       end
 
-      it "returns true" do
-        expect(described_class.show?(intake, subject)).to eq true
+      context "when the client home is not in puerto rico" do
+        let(:intake) { create :ctc_intake, home_location: :fifty_states }
+
+        it "returns true" do
+          expect(described_class.show?(intake, subject)).to eq true
+        end
       end
 
       context "when client home is in puerto rico" do
@@ -26,7 +30,11 @@ describe Ctc::Questions::ClaimEitcController do
       end
     end
 
-    context "with the env variable disabled" do
+    context "when open_for_eitc_intake? is false" do
+      before do
+        allow(subject).to receive(:open_for_eitc_intake?).and_return false
+      end
+
       it "returns false" do
         expect(described_class.show?(intake, subject)).to eq false
       end
