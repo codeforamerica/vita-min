@@ -40,11 +40,13 @@ module CtcIntakeFeatureHelper
     end
     click_on I18n.t('general.continue')
 
-    key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
-    click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
-    click_on claim_eitc ? I18n.t("general.affirmative") : I18n.t('general.negative')
+    title_key = home_location == "puerto_rico" ? "puerto_rico.title" : "title_eitc"
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{title_key}"))
+    click_on I18n.t("views.ctc.questions.file_full_return.#{home_location == "puerto_rico" ? "puerto_rico." : ""}simplified_btn")
+    if home_location != "puerto_rico"
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
+      click_on claim_eitc ? I18n.t("general.affirmative") : I18n.t('general.negative')
+    end
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
