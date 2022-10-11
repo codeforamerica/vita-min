@@ -3,9 +3,10 @@ require "rails_helper"
 describe IrsStreetAddressTypeValidator do
   before do
     @validatable = Class.new do
+      def self.name; "Validatable"; end
       include ActiveModel::Validations
       validates_with IrsStreetAddressTypeValidator, attributes: :text
-      attr_accessor  :text
+      attr_accessor :text
     end
   end
 

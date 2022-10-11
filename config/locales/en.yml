@@ -1683,6 +1683,7 @@ en:
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     ip_pin: IP PINs must be a 6 digit number.
+    irs_business_name: Only numbers 0-9, letters A-Z and a-z, hash, hyphen, parentheses, ampersand, apostrophe and single spaces are accepted.
     irs_city: Only letters A-Z, a-z, and space are accepted.
     irs_street_address: Only numbers 0-9, letters A-Z and a-z, hyphen, slash and single spaces are accepted.
     itin: Please enter a valid individual taxpayer identification number.
