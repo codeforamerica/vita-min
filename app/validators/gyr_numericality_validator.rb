@@ -12,6 +12,10 @@ class GyrNumericalityValidator < ActiveModel::Validations::NumericalityValidator
 
   private
 
+  def parse_as_number(raw_value, precision, scale)
+    super(clean_value(raw_value), precision, scale)
+  end
+
   def clean_value(value)
     if value.kind_of?(String)
       value.gsub(/[^\-0-9.]/, '')

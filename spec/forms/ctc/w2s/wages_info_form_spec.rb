@@ -4,6 +4,16 @@ describe Ctc::W2s::WagesInfoForm do
   let(:w2) { create :w2, intake: intake }
   let(:intake) { create :ctc_intake }
 
+  it "saves the values correctly" do
+    params = {
+      wages_amount: '$9,900.01',
+      federal_income_tax_withheld: '$8,800.01',
+    }
+    described_class.new(w2, params).save
+    expect(w2.wages_amount).to eq 9900.01
+    expect(w2.federal_income_tax_withheld).to eq 8800.01
+  end
+
   context "validations" do
     it "requires wages to be present and look like money" do
       form = described_class.new(w2, {})
@@ -20,7 +30,18 @@ describe Ctc::W2s::WagesInfoForm do
       expect(form).not_to be_valid
       expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
 
-      form = described_class.new(w2, { federal_income_tax_withheld: 'RUTABAGA'})
+      form = described_class.new(w2, { federal_income_tax_withheld: 'RUTABAGA.'})
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
+    end
+
+    it "allows federal_income_tax_withheld less than wages_amount" do
+      form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: '$9,000.01'})
+      expect(form).to be_valid
+    end
+
+    it "disallows federal_income_tax_withheld greater than or equal to wages_amount" do
+      form = described_class.new(w2, { federal_income_tax_withheld: '100', wages_amount: '90'})
       expect(form).not_to be_valid
       expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
     end
