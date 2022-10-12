@@ -3,7 +3,7 @@ class IrsBusinessNameTypeValidator < ActiveModel::EachValidator
 
   def validate_each(record, attr_name, value)
     unless value =~ BUSINESS_REGEX
-      record.errors.add(attr_name, I18n.t("validators.irs_street_address"))
+      record.errors.add(attr_name, I18n.t("validators.irs_business_name"))
     end
 
     ActiveModel::Validations::LengthValidator.new(maximum: 75, attributes: attributes).validate_each(record, attr_name, value)
