@@ -29,7 +29,6 @@ module Efile
               :residence_exception_born_yes?, # 2020 question
               :residence_exception_passed_away_yes?, # 2020 question
               :residence_exception_adoption_yes?, # 2020 question
-              :permanent_residence_with_client_yes? # in 2021, exception logic is consolidated into this question answer
             ],
             claimable_test: [
                 :cant_be_claimed_by_other_yes?,

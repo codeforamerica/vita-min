@@ -2122,9 +2122,6 @@ es:
               six_to_seven: 6-7 meses
               ten_to_eleven: 10-11 meses
             title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"
-          child_residence_exceptions:
-            help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
-            title: "¿Residió %{name} permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           dependent_has_itin_reveal:
             content: Los dependientes con un Número de Identificación Personal (ITIN) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
             title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN en inglés)"
