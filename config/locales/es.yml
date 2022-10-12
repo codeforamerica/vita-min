@@ -76,13 +76,13 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        continue_to_tax_slayer: Continuar con TaxSlayer
+        continue_to_tax_slayer: Continuar a declarar por mi cuenta
         guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
         steps:
           description:
-          - Para comenzar su declaración de impuestos, abra una cuenta de usuario con TaxSlayer.
-          - No haga clic en 'back/atrás' ni navegue fuera de la página TaxSlayer.
-          - Revise dos veces su ortografía para que no haya errores.
+          - Para comenzar su declaración de impuestos, haga clic en 'Continuar a declarar por mi cuenta' para ser redirigido al software gratuito de impuestos.
+          - No haga clic en 'back/atrás' ni abandone el software hasta que cree un nombre de usuario y una contraseña.
+          - Comienza a ingresar tu información y pide ayuda cuando la necesites.
         title: "¡Declare impuestos por su cuenta!"
     email:
       edit:
