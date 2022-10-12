@@ -331,7 +331,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false)
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false, box_12a: "F")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
@@ -370,7 +370,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.misc_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.misc_info.box11_nonqualified_plans'), with: '123'
-    select "F", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
+    select box_12a, from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
     fill_in 'ctc_w2s_misc_info_form_box12a_value', with: "44.50"
     select "E", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
     fill_in 'ctc_w2s_misc_info_form_box12b_value', with: "54.50"

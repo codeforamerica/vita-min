@@ -7,6 +7,7 @@ module Efile
     SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE = 12_550
 
     attr_accessor :year, :eligible_filer_count, :dependents, :intake, :tax_return
+
     def initialize(tax_return:, dependents:)
       @tax_return = tax_return
       @year = tax_return.year
@@ -140,6 +141,13 @@ module Efile
 
     def disqualified_for_eitc_due_to_income?
       no_qcs && (intake.had_disqualifying_non_w2_income_yes? || over_income_threshold)
+    end
+
+    def disqualified_for_simplified_filing_due_to_w2_answers?
+      intake.w2s_including_incomplete.any? do |w2|
+        box12_codes = [w2.box12a_code, w2.box12b_code, w2.box12c_code, w2.box12d_code].map(&:presence).compact
+        w2.box8_allocated_tips&.positive? || w2.box10_dependent_care_benefits&.positive? || w2.box13_statutory_employee_yes? || box12_codes.any? { |code| W2::BOX12_OFFBOARD_CODES.include?(code) }
+      end
     end
 
     private

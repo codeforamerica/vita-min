@@ -146,6 +146,29 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.simplified_filing_income_offboarding.title', count: 2))
   end
 
+  scenario "a client who has a W-2 whose contents disqualify them from simplified filing" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+    fill_in_w2('Peter Pepper', filing_status: 'married_filing_jointly', wages: 2_000, box_12a: "A")
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title', count: 2))
+    click_on I18n.t("general.back") # go to misc
+    click_on I18n.t("general.back") # go to employer
+    click_on I18n.t("general.back") # go to wages
+    click_on I18n.t("general.back") # go to employee info page
+    click_on I18n.t("general.back") # go to w2s list
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t("views.ctc.questions.w2s.done_adding")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title', count: 2))
+  end
+
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
