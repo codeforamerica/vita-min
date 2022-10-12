@@ -24,6 +24,14 @@ describe IrsBusinessNameTypeValidator do
     end
   end
 
+  context "when blank" do
+    let(:text) { "" }
+
+    it "is valid" do
+      expect(subject).to be_valid
+    end
+  end
+
   context "not allowed characters: leading space" do
     let(:text) { " Space Cadets" }
 
