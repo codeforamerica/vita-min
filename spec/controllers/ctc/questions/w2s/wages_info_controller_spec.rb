@@ -17,7 +17,7 @@ describe Ctc::Questions::W2s::WagesInfoController do
         id: w2.id,
         ctc_w2s_wages_info_form: {
           wages_amount: 123.45,
-          federal_income_tax_withheld: 222.12,
+          federal_income_tax_withheld: 122.12,
           box3_social_security_wages: 1,
           box4_social_security_tax_withheld: 2,
           box5_medicare_wages_and_tip_amount: 3,
