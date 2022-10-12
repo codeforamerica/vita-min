@@ -150,6 +150,20 @@ module Efile
       end
     end
 
+    def disqualified_for_simplified_filing_due_to_income?
+      return false unless intake.total_wages_amount
+
+      if intake.filing_jointly?
+        intake.total_wages_amount > SIMPLIFIED_FILING_UPPER_LIMIT_JOINT
+      else
+        intake.total_wages_amount > SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE
+      end
+    end
+
+    def disqualified_for_simplified_filing?
+      disqualified_for_simplified_filing_due_to_w2_answers? || disqualified_for_simplified_filing_due_to_income?
+    end
+
     private
 
     def no_qcs

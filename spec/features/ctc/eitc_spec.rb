@@ -144,6 +144,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.simplified_filing_income_offboarding.title', count: 2))
+
+    visit questions_confirm_legal_path
+
+    expect(page).to have_button(I18n.t("views.ctc.questions.confirm_legal.action"), disabled: true)
   end
 
   scenario "a client who has a W-2 whose contents disqualify them from simplified filing" do
@@ -167,6 +171,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title', count: 2))
+
+    visit questions_confirm_legal_path
+
+    expect(page).to have_button(I18n.t("views.ctc.questions.confirm_legal.action"), disabled: true)
   end
 
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do
