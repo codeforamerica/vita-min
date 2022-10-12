@@ -1652,6 +1652,7 @@ es:
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
+    irs_business_name: Solo se aceptan números del 0 al 9, letras A-Z y a-z, hash, guión, paréntesis, ampersand, apóstrofe y espacios simples.
     irs_city: Solo se aceptan letras A-Z, a-z y espacio.
     irs_street_address: Sólo se aceptan los números del 0-9, las letras de la A a la Z y de la a a la Z, el guión, la barra oblicua y los espacios simples.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.

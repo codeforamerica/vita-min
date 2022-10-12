@@ -15,7 +15,7 @@ module Ctc
       before_validation_squish(:employer_city, :employer_street_address)
 
       validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }
-      validates :employer_name, presence: true
+      validates :employer_name, presence: true, irs_business_name_type: true
       validates :employer_city, presence: true, irs_city_type: true
       validates :employer_state, presence: true, inclusion: { in: States.keys }
       validates :employer_zip_code, presence: true, format: { with: /\A[0-9]{5}(([0-9]{4})|([0-9]{7}))?\z/, message: -> (*_args) { I18n.t('validators.zip_code_with_optional_extra_digits') } }

@@ -37,6 +37,12 @@ describe Ctc::W2s::EmployerInfoForm do
       expect(form.errors.attribute_names).to include(:employer_zip_code)
     end
 
+    it "must have a valid business name" do
+      form = described_class.new(w2, { employer_name: 'Ca$h Møney B@by' })
+      expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:employer_name)
+    end
+
     it "must have a city with valid characters" do
       form = described_class.new(w2, { employer_city: 'Hamster-Wheel' })
       expect(form).not_to be_valid
