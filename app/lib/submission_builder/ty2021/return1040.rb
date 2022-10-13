@@ -42,14 +42,14 @@ module SubmissionBuilder
             include: @submission.benefits_eligibility.outstanding_ctc_amount.positive?
           },
           {
-            xml: SubmissionBuilder::Ty2021::Documents::ScheduleLep,
-            pdf: Irs1040ScheduleLepPdf,
-            include: @submission.intake.irs_language_preference.present? && @submission.intake.irs_language_preference != "english"
-          },
-          {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
             pdf: Irs1040ScheduleEicPdf,
             include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc? && @submission.qualifying_dependents.any?(&:qualifying_eitc?)
+          },
+          {
+            xml: SubmissionBuilder::Ty2021::Documents::ScheduleLep,
+            pdf: Irs1040ScheduleLepPdf,
+            include: @submission.intake.irs_language_preference.present? && @submission.intake.irs_language_preference != "english"
           },
         ]
         w2_docs = submission.intake.completed_w2s.map do |w2|
