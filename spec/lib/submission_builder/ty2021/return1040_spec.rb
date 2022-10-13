@@ -116,6 +116,19 @@ describe SubmissionBuilder::Ty2021::Return1040 do
             xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
             expect(xml.at("IRS1040ScheduleEIC")).not_to be_nil
           end
+
+          context "is Spanish" do
+            before do
+              submission.intake.update(irs_language_preference: "spanish")
+            end
+
+            it "attaches the ScheduleLEP and creates valid XML" do
+              xml = Nokogiri::XML::Document.parse(described_class.new(submission).document.to_xml)
+              expect(xml.at("IRS1040ScheduleLEP")).not_to be_nil
+              expect(xml.at("IRS1040ScheduleEIC")).not_to be_nil
+              expect(described_class.build(submission)).to be_valid
+            end
+          end
         end
 
         context 'when there are only incomplete W2s' do
