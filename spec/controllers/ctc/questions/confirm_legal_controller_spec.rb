@@ -42,12 +42,11 @@ describe Ctc::Questions::ConfirmLegalController do
     end
 
     context "when submitting the form" do
-      context "when checking 'I agree'" do
+      context "with valid params" do
         it "create a submission with the status of 'bundling' and send client a message and redirect to portal home" do
           expect {
             post :update, params: params
           }.to change(client.efile_security_informations, :count).by 1
-
 
           expect(response).to redirect_to ctc_portal_root_path
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
@@ -82,39 +81,52 @@ describe Ctc::Questions::ConfirmLegalController do
             expect(client.efile_security_informations.last.ip_address).to eq ip_address
           end
         end
-      end
 
-      context "when not checking 'I agree'" do
-        before do
-          params[:ctc_confirm_legal_form][:consented_to_legal] = "no"
-        end
-
-        it "render edit with errors" do
-          post :update, params: params
-          expect(response).to render_template :edit
-          expect(assigns(:form).errors).not_to be_blank
-          expect(intake.consented_to_legal).to eq "unfilled"
-        end
-      end
-
-      context "with invalid params" do
-        context "efile security information fields are missing" do
-          let(:params) do
-            {
-              ctc_confirm_legal_form: {
-                consented_to_legal: "yes",
-              }
-            }
+        context "when the client is disqualified from simplified filing due to income" do
+          before do
+            intake.update(claim_eitc: "yes")
+            create(:w2, intake: intake, wages_amount: 1_000_000_000)
           end
 
-          it "does not create the EfileSubmission, shows a flash message" do
+          it "makes no e-file submission & redirects the client to the Use-GYR offboarding page" do
             expect {
               post :update, params: params
             }.not_to change(EfileSubmission, :count)
-
-            expect(flash[:alert]).to eq I18n.t("general.enable_javascript")
+            expect(response).to redirect_to Ctc::Questions::UseGyrController.to_path_helper
           end
         end
+      end
+    end
+
+    context "with invalid params" do
+      context "when the client does not click 'I agree'"
+      before do
+        params[:ctc_confirm_legal_form][:consented_to_legal] = "no"
+      end
+
+      it "render edit with errors" do
+        post :update, params: params
+        expect(response).to render_template :edit
+        expect(assigns(:form).errors).not_to be_blank
+        expect(intake.consented_to_legal).to eq "unfilled"
+      end
+    end
+
+    context "when hidden efile security information fields have not been filled out by the page JS" do
+      let(:params) do
+        {
+          ctc_confirm_legal_form: {
+            consented_to_legal: "yes",
+          }
+        }
+      end
+
+      it "does not create the EfileSubmission, shows a flash message" do
+        expect {
+          post :update, params: params
+        }.not_to change(EfileSubmission, :count)
+
+        expect(flash[:alert]).to eq I18n.t("general.enable_javascript")
       end
     end
   end
