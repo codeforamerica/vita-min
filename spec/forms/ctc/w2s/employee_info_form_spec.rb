@@ -11,9 +11,10 @@ describe Ctc::W2s::EmployeeInfoForm do
       expect(form.errors.attribute_names).to include(:employee)
     end
 
-    it "requires city, state, and zip code" do
+    it "requires street address, city, state, and zip code" do
       form = described_class.new(w2, {})
       expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:employee_street_address)
       expect(form.errors.attribute_names).to include(:employee_city)
       expect(form.errors.attribute_names).to include(:employee_state)
       expect(form.errors.attribute_names).to include(:employee_zip_code)

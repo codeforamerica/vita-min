@@ -22,16 +22,17 @@ describe Ctc::W2s::EmployerInfoForm do
       form.valid?
       expect(form.errors.attribute_names).not_to include(:employer_ein)
     end
-    
+
     it "requires name" do
       form = described_class.new(w2, {})
       expect(form).not_to be_valid
       expect(form.errors.attribute_names).to include(:employer_name)
     end
 
-    it "requires city, state, and zip code" do
+    it "requires street address, city, state, and zip code" do
       form = described_class.new(w2, {})
       expect(form).not_to be_valid
+      expect(form.errors.attribute_names).to include(:employer_street_address)
       expect(form.errors.attribute_names).to include(:employer_city)
       expect(form.errors.attribute_names).to include(:employer_state)
       expect(form.errors.attribute_names).to include(:employer_zip_code)
@@ -70,7 +71,7 @@ describe Ctc::W2s::EmployerInfoForm do
       form.valid?
       expect(form.errors.attribute_names).not_to include(:box_d_control_number)
 
-      form = described_class.new(w2, { box_d_control_number: 'a'*15 })
+      form = described_class.new(w2, { box_d_control_number: 'a' * 15 })
       expect(form).not_to be_valid
       expect(form.errors.attribute_names).to include(:box_d_control_number)
     end
