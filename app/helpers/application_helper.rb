@@ -78,7 +78,7 @@ module ApplicationHelper
 
   def months_in_home_options_for_select
     # if the dependent lived with a client more than half the year but less than 7 months Schedule EIC wants us to mark it as "7"
-    {I18n.t("views.ctc.questions.dependents.child_residence.select_options.less_than_six") => 6, I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eight") => 8, I18n.t("views.ctc.questions.dependents.child_residence.select_options.nine") => 9, I18n.t("views.ctc.questions.dependents.child_residence.select_options.ten") => 10, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eleven") => 11, I18n.t("views.ctc.questions.dependents.child_residence.select_options.twelve") => 12}
+    {I18n.t("views.ctc.questions.dependents.child_residence.select_options.less_than_six") => 6, I18n.t("views.ctc.questions.dependents.child_residence.select_options.six") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eight") => 8, I18n.t("views.ctc.questions.dependents.child_residence.select_options.nine") => 9, I18n.t("views.ctc.questions.dependents.child_residence.select_options.ten") => 10, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eleven") => 11, I18n.t("views.ctc.questions.dependents.child_residence.select_options.twelve") => 12}
   end
 
   def suffix_options_for_select

@@ -2109,7 +2109,8 @@ es:
               eleven: 11 meses
               less_than_six: menos de 6 meses
               nine: 9 meses
-              six_to_seven: 6-7 meses
+              seven: 7 meses
+              six: 6 meses
               ten: 10 meses
               twelve: Todo el año
             title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"

@@ -2141,7 +2141,8 @@ en:
               eleven: 11 months
               less_than_six: less than 6 months
               nine: 9 months
-              six_to_seven: 6-7 months
+              seven: 7 months
+              six: 6 months
               ten: 10 months
               twelve: All year
             title: How many months did %{name} live with you in %{current_tax_year}?
