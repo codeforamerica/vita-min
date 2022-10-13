@@ -83,6 +83,38 @@ section.client-index-header.slab--padded {
   margin-bottom: 0;
 }
 
-.hub-searchbar__button {
+.hub-searchbar {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 
+.hub-searchbar__button {
+  transition: all $animation-fast;
+  user-select: none;
+  padding: {
+    left: ($s35/2) - 0.5rem;
+    right: ($s35/2) - 0.5rem;
+  }
+  border-radius: 0;
+  vertical-align: middle;
+  border: 1px solid $color-grey-darkest;
+  background-color: $color-black;
+}
+
+.hub-searchbar__input {
+  border: 1px solid $color-grey-darkest;
+  box-shadow: inset 0px 2px 0px rgba(#000, .15);
+  background-color: $color-grey-light;
+  font-weight: $font-weight-bold;
+  padding: 0 $s25;
+  height: $s35;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: $color-grey-dark;
+  }
 }

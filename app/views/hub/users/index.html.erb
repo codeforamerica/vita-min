@@ -5,18 +5,13 @@
   <div class="slab">
     <h1 class="h1"><%= t(".title") %></h1>
 
-    <div class="searchbar form-width--searchbar">
-      <%= form_tag hub_users_path, method: "get", class: "searchbar form-width--searchbar" do %>
-        <label for="search">
-          <%= t("general.search") %>
-          <input type="text" class="searchbar__input" id="search" name="search" />
-        </label>
-        <label class="searchbar__button hub-searchbar__button">
-          <%= image_tag "magnifying-glass-icon-white.svg", alt: "" %>
-          <button type="submit" name="search_btn"></button>
-        </label>
-      <% end %>
-    </div>
+    <span>
+      <%= t("general.search") %>
+    </span>
+    <%= form_tag hub_users_path, method: "get", class: "hub-searchbar" do %>
+        <input type="text" class="hub-searchbar__input" id="search" name="search" />
+      <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+    <% end %>
 
     <table class="index-table user-table">
       <caption class="index-table__title">
