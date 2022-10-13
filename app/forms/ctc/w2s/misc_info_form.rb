@@ -108,13 +108,15 @@ module Ctc
         end
       end
 
-      def save
-        extra_attributes = w2.completed_at.nil? ? {completed_at: DateTime.now} : {}
-        @w2.assign_attributes(attributes_for(:w2).merge(extra_attributes).merge(
+      def extra_attributes
+        attributes = {
           w2_state_fields_group_attributes: attributes_for(:w2_state_fields_group),
-          w2_box14_attributes: attributes_for(:w2_box14)
-        ))
-        @w2.save!
+          w2_box14_attributes: attributes_for(:w2_box14),
+        }
+        if w2.completed_at.nil?
+          attributes[:completed_at] = DateTime.now
+        end
+        attributes
       end
 
       def self.existing_attributes(w2, _attribute_keys)

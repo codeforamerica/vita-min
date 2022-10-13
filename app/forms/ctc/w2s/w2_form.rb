@@ -11,8 +11,12 @@ module Ctc
       end
 
       def save
-        @w2.assign_attributes(attributes_for(:w2))
+        @w2.assign_attributes(attributes_for(:w2).merge(extra_attributes))
         @w2.save!
+      end
+
+      def extra_attributes
+        {}
       end
 
       def self.from_w2(w2)
