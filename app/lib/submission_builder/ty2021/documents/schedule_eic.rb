@@ -8,7 +8,7 @@ module SubmissionBuilder
         end
 
         def document
-          eitc_dependents = submission.qualifying_dependents.select(&:qualifying_eitc?)
+          eitc_dependents = submission.qualifying_dependents.select(&:qualifying_eitc?).first(3)
           build_xml_doc("IRS1040ScheduleEIC", documentId: "IRS1040ScheduleEIC", documentName: "IRS1040ScheduleEIC") do |xml|
             eitc_dependents.each do |dependent|
               xml.QualifyingChildInformation {
