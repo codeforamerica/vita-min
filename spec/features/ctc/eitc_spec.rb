@@ -13,7 +13,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_eligibility
     fill_in_basic_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -48,7 +48,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -65,7 +65,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_spouse_info(birthdate: 23.years.ago)
 
     # EITC investment question
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     # Client will be disqualified age and having no dependents
@@ -94,7 +94,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_dependents
@@ -117,7 +117,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -136,7 +136,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents

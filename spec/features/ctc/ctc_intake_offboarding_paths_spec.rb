@@ -166,7 +166,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-      select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+      select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))

@@ -2035,10 +2035,10 @@ en:
           help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700.
           info_box:
             list:
-            - You have a job earning money in %{current_tax_year}
+            - You had a job earning money in %{current_tax_year}
             - Each person on this return has an SSN
             title: 'Requirements:'
-          title: Would you like to claim more money by sharing any 2021 W2 forms?
+          title: Would you like to claim more money by sharing any 2021 W-2 forms?
         confirm_bank_account:
           bank_information: Your bank information
           title: Great! Check to make sure your bank information is correct.
@@ -2046,14 +2046,6 @@ en:
           add_a_dependent: Add another person
           birthday: DOB
           done_adding: Done adding dependents
-          other_benefits_reveal:
-            content:
-              head_of_household:
-                p1: If you are filing single and not married, one or more of your dependents might also qualify you to claim Head of Household status, a tax status that can be used by some single parents. However, for the credits you are able to claim with GetCTC, Head of Household status will not increase your refund, or make you eligible for any additional tax benefits.
-                p2_html: Claiming Head of Household status also could increase your probability of being audited by the IRS. If you are interested in claiming Head of Household Status regardless, <a href=%{link}>click here</a>.
-                title: Should I file as the Head of Household?
-              p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
-            title: What about other benefits my dependents could be eligible for?
           subtitle: Here are the credits your dependents are eligible for in %{current_tax_year}. Please be aware that each credit has its own set of eligibility rules.
           title: Let’s confirm!
         confirm_information:
@@ -2147,13 +2139,14 @@ en:
               list_title: 'Some examples of temporary locations:'
               title: What if my dependent was away for some time in 2021?
             select_options:
-              eight_to_nine: 8-9 months
-              eleven_to_twelve: 11-12 months
+              eight: 8 months
+              eleven: 11 months
               less_than_six: less than 6 months
-              nine_to_ten: 9-10 months
-              seven_to_eight: 7-8 months
-              six_to_seven: 6-7 months
-              ten_to_eleven: 10-11 months
+              nine: 9 months
+              seven: 7 months
+              six: 6 months
+              ten: 10 months
+              twelve: All year
             title: How many months did %{name} live with you in %{current_tax_year}?
           dependent_has_itin_reveal:
             content: Dependents with ITINs do not qualify you for the Child Tax Credit or the third stimulus payment. You do not get any tax credits by claiming them. Please only include dependents with Social Security Numbers or Adoption Taxpayer Identification Numbers.
@@ -2309,11 +2302,7 @@ en:
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           irs_reveal:
-            body_html: |
-              According to the IRS, you are <b>not</b> married for a tax year if:
-              <ul class="list--bulleted">
-              <li>You were never married OR you were previously married but by the end of the year had a decree of divorce or a decree of separate maintenance.</li>
-              </ul>
+            body: You are married according to the IRS if you have a legal marriage and have not been legally divorced. If you live with and share finances with a partner but are not legally married select No. If you are legally married, even if you do not live with or share finances with a partner, select Yes.
             title: Does the IRS consider me to be married?
           mfs_reveal:
             body: The only filing options for a simplified return are married and single. If you are legally married, you have to say Yes and file jointly with your spouse. If you are not married, file single and say No.
@@ -2400,7 +2389,7 @@ en:
             - are not required to file a full tax return for any other reason
             other:
             - earned less than %{standard_deduction} in total income
-            - earned less than $400 in cintract work or self-employment income
+            - earned less than $400 in contract work or self-employment income
             - did not receive the Advance Premium Tax Credit
             - are not required to file a full tax return for any other reason
           mainland_connection_reveal:
@@ -2447,10 +2436,10 @@ en:
             title: What is the Advance Premium Tax Credit?
         investment_income:
           help_text: In general, investment income includes interest, dividends, capital gains, and mutual fund distributions.
-          married_title: Did you and your spouse earn more than $10,000 in investment income?
+          married_title: Did you and your spouse earn more than $10,000 in investment income in %{current_tax_year}?
           reveal_content: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
           reveal_title: How do I check my investment income amount?
-          title: Did you earn more than $10,000 in investment income?
+          title: Did you earn more than $10,000 in investment income in %{current_tax_year}?
         ip_pin:
           help_text_1: Having an IP PIN is rare. If you are unfamiliar with an IP PIN, you likely have not been issued one.
           help_text_2: Select ‘None of the above’ to continue.
@@ -2529,7 +2518,7 @@ en:
             - If this is a mistake you can click ‘Add a child’.
             title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
-          title: You will not receive the Child Tax Credit, but you may continue to collect your third stimulus payment.
+          title: You will not receive the Child Tax Credit, but you may continue to collect other cash payments.
         no_dependents_advance_ctc_payments:
           subtitle: These payments would have arrived between July and December 2021.
           title: Did you receive any monthly Advance Child Tax Credit payments in %{current_tax_year}?
@@ -2793,14 +2782,13 @@ en:
           wages: Wages
           wages_info:
             box10_dependent_care_benefits: 'Box 10: Dependent care benefits'
-            box3_social_security_wages: 'Box 3: Social security wages'
-            box4_social_security_tax_withheld: 'Box 4: Social security tax withheld'
+            box3_social_security_wages: 'Box 3: Social Security wages'
+            box4_social_security_tax_withheld: 'Box 4: Social Security tax withheld'
             box5_medicare_wages_and_tip_amount: 'Box 5: Medicare wages and tips amount'
             box6_medicare_tax_withheld: 'Box 6: Medicare tax withheld'
-            box7_social_security_tips_amount: 'Box 7: Social security tips amount'
+            box7_social_security_tips_amount: 'Box 7: Social Security tips amount'
             box8_allocated_tips: 'Box 8: Allocated tips'
             federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
-            help_text: 'Note: Please enter the information exactly as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.'
             info_box:
               requirement_description_html: Please enter the information <strong>exactly</strong> as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.
               requirement_title: 'Requirement:'
@@ -2963,7 +2951,7 @@ en:
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
           time_estimate:
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
-            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim the additional money with the EITC, you will need your W-2(s) from your employer.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim additional money with the EITC, you will need your W-2(s) from your employer.
         title: Claim Your Child Tax Credit
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.

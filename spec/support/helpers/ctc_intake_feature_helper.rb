@@ -189,7 +189,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -228,7 +228,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -261,7 +261,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Red', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
@@ -310,13 +310,6 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 1/11/#{dependent_birth_year}")
     within "#dependent_#{Dependent.last.id}" do
       expect(page).not_to have_css("img[src*='/assets/icons/green-checkmark-circle']")
-    end
-
-    if head_of_household
-      click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")
-      click_on "click here"
-      expect(page).to have_text I18n.t("views.ctc.questions.head_of_household.title")
-      click_on I18n.t("views.ctc.questions.head_of_household.claim_hoh")
     end
 
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
