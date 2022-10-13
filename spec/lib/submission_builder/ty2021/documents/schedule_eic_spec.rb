@@ -7,6 +7,9 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     # create a fourth dependent, first three are from the intake factory
     create :dependent, intake: submission.intake
 
+    # create a fifth dependent who is qualifying but won't be included because only 3 are allowed in the xml
+    create :dependent, intake: submission.intake
+
     submission.intake.update(exceeded_investment_income_limit: "no", primary_tin_type: "ssn")
     dependent1 = submission.intake.dependents[0]
     dependent1_attrs = attributes_for(
@@ -53,10 +56,21 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
       ssn: "123001237"
     )
     dependent4.update(dependent4_attrs)
+    dependent5 = submission.intake.dependents[4]
+    dependent5_attrs = attributes_for(
+      :qualifying_child,
+      first_name: "Kevin the second",
+      birth_date: 10.years.ago,
+      permanently_totally_disabled: "yes",
+      relationship: "son",
+      ssn: "123001238"
+    )
+    dependent5.update(dependent5_attrs)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent1)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent2)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent3)
     EfileSubmissionDependent.create_qualifying_dependent(submission, dependent4)
+    EfileSubmissionDependent.create_qualifying_dependent(submission, dependent5)
     submission.reload
   end
 

@@ -590,6 +590,39 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#track_first_visit" do
+    context "when a client is authenticated" do
+      let(:client) { create(:ctc_intake, visitor_id: "visitor-123").client }
+
+      before do
+        sign_in client
+        allow(subject).to receive(:send_mixpanel_event)
+      end
+
+      context "when the click event does not exist" do
+        it "creates one, sets the timestamp, and sends a Mixpanel event" do
+          freeze_time do
+            expect { subject.track_first_visit(:w2_logout_add_later) }.to change(Analytics::Event, :count).by(1)
+            record = Analytics::Event.last
+            expect(record.client).to eq(client)
+            expect(record.created_at).to eq(DateTime.now)
+            expect(record.event_type).to eq("first_visit_w2_logout_add_later")
+            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "visit_w2_logout_add_later")
+          end
+        end
+      end
+
+      context "when the click event does exist" do
+        let!(:old_event) { create(:analytics_event, client: client, event_type: "first_visit_w2_logout_add_later") }
+
+        it "sends a Mixpanel event and does not create a new event" do
+          expect { subject.track_first_visit(:w2_logout_add_later) }.to change(Analytics::Event, :count).by(0)
+          expect(subject).to have_received(:send_mixpanel_event).with(event_name: "visit_w2_logout_add_later")
+        end
+      end
+    end
+  end
+
   describe "#set_get_started_link" do
     context "locale is en" do
       it "generates a link to the beginning of the GYR flow" do
@@ -836,7 +869,7 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "when the app time is before the eitc soft launch time" do
+    context "when eitc hasn't launched" do
       context "when the eitc_beta cookie is set" do
         before do
           get :index, { params: { eitc_beta: "1" } }
@@ -854,9 +887,10 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "when the app time is after the eitc soft launch time" do
+    context "during soft launch" do
       context "when the eitc_beta cookie is set" do
         before do
+          allow(Rails.application.config).to receive(:eitc_full_launch).and_return(Rails.configuration.eitc_soft_launch + 3.days)
           get :index, { params: { eitc_beta: "1" } }
         end
 
@@ -872,7 +906,25 @@ RSpec.describe ApplicationController do
       end
     end
 
+    context "during full launch" do
+      around do |example|
+        Timecop.freeze(Rails.configuration.eitc_full_launch + 1.day) do
+          example.run
+        end
+      end
+
+      it "returns true" do
+        expect(subject.open_for_eitc_intake?).to eq true
+      end
+    end
+
     context "otherwise" do
+      around do |example|
+        Timecop.freeze(Rails.configuration.eitc_full_launch - 1.day) do
+          example.run
+        end
+      end
+
       it "returns false" do
         expect(subject.open_for_eitc_intake?).to eq false
       end
@@ -891,6 +943,7 @@ RSpec.describe ApplicationController do
     before do
       allow_any_instance_of(described_class).to receive(:open_for_ctc_intake?).and_call_original
     end
+
     context "when intake is closed" do
       before do
         allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(past)

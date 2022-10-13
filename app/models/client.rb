@@ -56,6 +56,7 @@ class Client < ApplicationRecord
 
   belongs_to :vita_partner, optional: true
   has_one :data_science_click_history, :class_name => 'DataScience::ClickHistory', dependent: :destroy
+  has_many :analytics_events, dependent: :destroy
   has_many :documents, dependent: :destroy
   has_many :documents_requests, dependent: :destroy
   has_one :intake, inverse_of: :client, dependent: :destroy

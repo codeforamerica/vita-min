@@ -4,8 +4,8 @@ class CtcQuestionNavigation
   FLOW = [
     # Basic info
     Ctc::Questions::OverviewController,
-    Ctc::Questions::MainHomeController,
-    Ctc::Questions::FilingStatusController, # At this point we create the intake, client, and tax return
+    Ctc::Questions::MainHomeController, # At this point we create the intake, client, and tax return
+    Ctc::Questions::FilingStatusController,
     Ctc::Questions::IncomeController,
     Ctc::Questions::FileFullReturnController,
     Ctc::Questions::ClaimEitcController,
@@ -38,7 +38,6 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ChildQualifiersController,
     Ctc::Questions::Dependents::ChildExpensesController,
     Ctc::Questions::Dependents::ChildResidenceController,
-    Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
     Ctc::Questions::Dependents::ChildClaimAnywayController,
     Ctc::Questions::Dependents::RelativeMemberOfHouseholdController,

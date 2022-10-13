@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, requires_default_vita_partners: true do
   include CtcIntakeFeatureHelper
-  
+
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -65,7 +65,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
     expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
-    expect(Intake::CtcIntake.last.default_tax_return.filing_status).to eq 'head_of_household'
+    expect(Intake::CtcIntake.last.default_tax_return.filing_status).to eq 'single'
 
   end
 
@@ -87,8 +87,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     end
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title_eitc"))
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
+    click_on I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('general.continue')
 

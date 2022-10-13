@@ -22,9 +22,6 @@ class DependentFlowService
     when "Ctc::Questions::Dependents::ChildResidenceController"
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
       eligibility.qualifies? && !eligibility.born_in_final_six_months?
-    when "Ctc::Questions::Dependents::ChildResidenceExceptionsController"
-      eligibility = child_qualification(except: [:residence_test, :claimable_test])
-      !dependent.months_in_home_6_or_more? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController"
       eligibility = child_qualification(except: :claimable_test)
       eligibility.qualifies?

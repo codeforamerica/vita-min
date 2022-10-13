@@ -38,7 +38,8 @@ module NavigationHelpers
     primary_birth_date: Date.parse('1996-08-24'),
     primary_email: "mango@example.com",
     primary_ssn: "111-22-8888",
-    sms_phone_number: "831-234-5678"
+    sms_phone_number: "831-234-5678",
+    claim_eitc: false
   )
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
@@ -55,6 +56,8 @@ module NavigationHelpers
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     click_on I18n.t('general.continue')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
+    click_on claim_eitc ? I18n.t('views.ctc.questions.claim_eitc.buttons.claim') : I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('general.continue')
 

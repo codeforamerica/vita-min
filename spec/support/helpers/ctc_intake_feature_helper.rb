@@ -1,5 +1,5 @@
 module CtcIntakeFeatureHelper
-  def fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "fifty_states")
+  def fill_in_can_use_ctc(filing_status: "married_filing_jointly", home_location: "fifty_states", claim_eitc: false)
     married_filing_jointly = filing_status == "married_filing_jointly"
     # =========== BASIC INFO ===========
     if home_location == "puerto_rico"
@@ -40,16 +40,12 @@ module CtcIntakeFeatureHelper
     end
     click_on I18n.t('general.continue')
 
-    key_prefix = home_location == "puerto_rico" ? "puerto_rico." : ""
-    if Flipper.enabled?("eitc")
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title_eitc"))
-    else
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{key_prefix}title"))
-    end
-    click_on I18n.t("views.ctc.questions.file_full_return.#{key_prefix}simplified_btn")
-    if Flipper.enabled?(:eitc)
+    title_key = home_location == "puerto_rico" ? "puerto_rico.title" : "title_eitc"
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.#{title_key}"))
+    click_on I18n.t("views.ctc.questions.file_full_return.#{home_location == "puerto_rico" ? "puerto_rico." : ""}simplified_btn")
+    if home_location != "puerto_rico"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))
-      click_on I18n.t("general.affirmative")
+      click_on claim_eitc ? I18n.t("views.ctc.questions.claim_eitc.buttons.claim") : I18n.t('views.ctc.questions.claim_eitc.buttons.dont_claim')
     end
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('views.ctc.questions.restrictions.cannot_use_ctc')
@@ -193,7 +189,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -232,7 +228,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -265,7 +261,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Red', current_tax_year: current_tax_year))
-    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.six_to_seven")
+    select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
@@ -316,13 +312,6 @@ module CtcIntakeFeatureHelper
       expect(page).not_to have_css("img[src*='/assets/icons/green-checkmark-circle']")
     end
 
-    if head_of_household
-      click_on I18n.t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")
-      click_on "click here"
-      expect(page).to have_text I18n.t("views.ctc.questions.head_of_household.title")
-      click_on I18n.t("views.ctc.questions.head_of_household.claim_hoh")
-    end
-
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
   end
 
@@ -335,7 +324,7 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('general.negative')
   end
 
-  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false)
+  def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false, box_12a: "F")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
     click_on I18n.t('views.ctc.questions.w2s.add')
 
@@ -374,7 +363,7 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_text(I18n.t('views.ctc.questions.w2s.misc_info.title', name: employee_name))
     fill_in I18n.t('views.ctc.questions.w2s.misc_info.box11_nonqualified_plans'), with: '123'
-    select "F", from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
+    select box_12a, from: I18n.t("views.ctc.questions.w2s.misc_info.box12a")
     fill_in 'ctc_w2s_misc_info_form_box12a_value', with: "44.50"
     select "E", from: I18n.t("views.ctc.questions.w2s.misc_info.box12b")
     fill_in 'ctc_w2s_misc_info_form_box12b_value', with: "54.50"

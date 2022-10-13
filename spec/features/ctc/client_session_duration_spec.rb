@@ -10,10 +10,13 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
       let(:hashed_verification_code) { "hashed_verification_code" }
       let(:double_hashed_verification_code) { "double_hashed_verification_code" }
       let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
+      before do
+        allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
+      end
 
       scenario "accumulating session duration" do
         Timecop.freeze(fake_time) do
-          complete_intake_through_code_verification
+          complete_intake_through_code_verification(claim_eitc: true)
         end
 
         client = Client.last

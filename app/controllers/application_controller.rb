@@ -201,6 +201,13 @@ class ApplicationController < ActionController::Base
     send_mixpanel_event(event_name: "page_view") if request.get?
   end
 
+  def track_first_visit(page_name)
+    event_name = "visit_#{page_name}"
+    send_mixpanel_event(event_name: event_name)
+    db_event_name = "first_#{event_name}"
+    Analytics::Event.find_or_create_by(client: current_intake.client, event_type: db_event_name)
+  end
+
   def send_mixpanel_validation_error(errors, additional_data = {})
     invalid_field_flags = errors.attribute_names.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
 
@@ -292,14 +299,15 @@ class ApplicationController < ActionController::Base
 
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake
-
     return true if app_time >= Rails.configuration.ctc_full_launch
+
     app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
   helper_method :open_for_ctc_intake?
 
   def open_for_eitc_intake?
     return true if Flipper.enabled?(:eitc)
+    return true if app_time >= Rails.configuration.eitc_full_launch
 
     app_time >= Rails.configuration.eitc_soft_launch && cookies[:eitc_beta].present?
   end

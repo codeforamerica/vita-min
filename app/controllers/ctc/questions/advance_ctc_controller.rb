@@ -10,6 +10,7 @@ module Ctc
       end
 
       def edit
+        track_first_visit(:advance_ctc)
         tax_return = current_intake.default_tax_return
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
         @adv_ctc_estimate = benefits.ctc_amount / 2

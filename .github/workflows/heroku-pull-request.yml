@@ -66,7 +66,7 @@ jobs:
 
       - name: Create database
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku addons:create heroku-postgresql:hobby-dev --app ${{ env.HEROKU_APP_NAME }}
+        run: heroku addons:create heroku-postgresql:mini --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
         continue-on-error: true

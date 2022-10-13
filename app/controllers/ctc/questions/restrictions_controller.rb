@@ -5,6 +5,11 @@ module Ctc
 
       layout "intake"
 
+      def edit
+        track_first_visit(:ctc_restrictions)
+        super
+      end
+
       private
 
       def form_class

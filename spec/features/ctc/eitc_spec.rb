@@ -9,11 +9,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who qualifies for and wants to claim EITC" do
-    fill_in_can_use_ctc(filing_status: "single")
+    fill_in_can_use_ctc(filing_status: "single", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -43,12 +43,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a MFJ client who qualifies for and wants to claim EITC and enters spouse W2" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -59,13 +59,13 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who does not qualify for the EITC" do
-    fill_in_can_use_ctc
+    fill_in_can_use_ctc(claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info(birthdate: 23.years.ago)
     fill_in_spouse_info(birthdate: 23.years.ago)
 
     # EITC investment question
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     # Client will be disqualified age and having no dependents
@@ -89,12 +89,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who said they have W-2 income within EITC but adds no W-2s so is offboarded from EITC" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_dependents
@@ -142,12 +142,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -161,12 +161,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who has too much W-2 income for simplified filing" do
-    fill_in_can_use_ctc(filing_status: "married_filing_jointly")
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title',current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -174,6 +174,37 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t("views.ctc.questions.w2s.done_adding")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.simplified_filing_income_offboarding.title', count: 2))
+
+    visit questions_confirm_legal_path
+
+    expect(page).to have_button(I18n.t("views.ctc.questions.confirm_legal.action"), disabled: true)
+  end
+
+  scenario "a client who has a W-2 whose contents disqualify them from simplified filing" do
+    fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title', current_tax_year: TaxReturn.current_tax_year))
+    click_on I18n.t('general.negative')
+
+    fill_in_no_dependents
+    fill_in_w2('Peter Pepper', filing_status: 'married_filing_jointly', wages: 2_000, box_12a: "A")
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title', count: 2))
+    click_on I18n.t("general.back") # go to misc
+    click_on I18n.t("general.back") # go to employer
+    click_on I18n.t("general.back") # go to wages
+    click_on I18n.t("general.back") # go to employee info page
+    click_on I18n.t("general.back") # go to w2s list
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
+    click_on I18n.t("views.ctc.questions.w2s.done_adding")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title', count: 2))
+
+    visit questions_confirm_legal_path
+
+    expect(page).to have_button(I18n.t("views.ctc.questions.confirm_legal.action"), disabled: true)
   end
 
   scenario "a client who lives in Puerto Rico does not see the claim EITC page" do

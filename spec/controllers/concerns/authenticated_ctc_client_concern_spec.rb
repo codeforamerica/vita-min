@@ -54,44 +54,4 @@ RSpec.describe AuthenticatedCtcClientConcern, type: :controller do
       end
     end
   end
-
-  describe "#track_click_history" do
-    context "when a client is authenticated" do
-      let(:client) { create(:ctc_intake, visitor_id: "visitor-123").client }
-
-      before do
-        sign_in client
-        allow(subject).to receive(:send_mixpanel_event)
-      end
-
-      context "when the client's click history does not exist" do
-        it "creates one, sets the timestamp, and sends a Mixpanel event" do
-          freeze_time do
-            expect { subject.track_click_history(:w2_logout_add_later) }.to change(DataScience::ClickHistory, :count).by(1)
-            record = DataScience::ClickHistory.last
-            expect(record.client).to eq(client)
-            expect(record.w2_logout_add_later).to eq(DateTime.now)
-            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "w2_logout_add_later")
-          end
-        end
-      end
-
-      context "when the client's click history does exist" do
-        context "when the timestamp is already set" do
-          let(:old_timestamp) { DateTime.new(2022, 1, 1) }
-          before do
-            create(:data_science_click_history, client: client, w2_logout_add_later: old_timestamp)
-          end
-
-          it "sends a Mixpanel event and does not change the database" do
-            expect { subject.track_click_history(:w2_logout_add_later) }.to change(DataScience::ClickHistory, :count).by(0)
-            record = DataScience::ClickHistory.last
-            expect(record.client).to eq(client)
-            expect(record.w2_logout_add_later).to eq(old_timestamp)
-            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "w2_logout_add_later")
-          end
-        end
-      end
-    end
-  end
 end

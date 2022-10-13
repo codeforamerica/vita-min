@@ -76,13 +76,13 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        continue_to_tax_slayer: Continuar con TaxSlayer
+        continue_to_tax_slayer: Continuar a declarar por mi cuenta
         guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
         steps:
           description:
-          - Para comenzar su declaración de impuestos, abra una cuenta de usuario con TaxSlayer.
-          - No haga clic en 'back/atrás' ni navegue fuera de la página TaxSlayer.
-          - Revise dos veces su ortografía para que no haya errores.
+          - Para comenzar su declaración de impuestos, haga clic en 'Continuar a declarar por mi cuenta' para ser redirigido al software gratuito de impuestos.
+          - No haga clic en 'back/atrás' ni abandone el software hasta que cree un nombre de usuario y una contraseña.
+          - Comienza a ingresar tu información y pide ayuda cuando la necesites.
         title: "¡Declare impuestos por su cuenta!"
     email:
       edit:
@@ -1652,6 +1652,8 @@ es:
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
+    irs_business_name: Solo se aceptan números del 0 al 9, letras A-Z y a-z, hash, guión, paréntesis, el signo &, apóstrofe y espacios simples.
+    irs_city: Solo se aceptan letras A-Z, a-z y espacio.
     irs_street_address: Sólo se aceptan los números del 0-9, las letras de la A a la Z y de la a a la Z, el guión, la barra oblicua y los espacios simples.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
@@ -2001,10 +2003,10 @@ es:
           help_text: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede darle hasta $6,700.
           info_box:
             list:
-            - Tiene un trabajo ganando dinero en %{current_tax_year}
+            - Tenías un trabajo ganando dinero en %{current_tax_year}
             - Cada persona en esta declaración tiene un SSN
             title: 'Requisitos:'
-          title: "¿Le gustaría reclamar más dinero compartiendo algún formulario W2 de 2021?"
+          title: "¿Le gustaría declarar más dinero compartiendo algún formulario W-2 de 2021?"
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
@@ -2012,14 +2014,6 @@ es:
           add_a_dependent: Agregar un dependiente
           birthday: fecha de nacimiento
           done_adding: 'Termine de agregar dependientes '
-          other_benefits_reveal:
-            content:
-              head_of_household:
-                p1: Si está presentando soltero y no casado, uno o más de sus dependientes también pueden calificar para reclamar el estado de jefe de familia, un estado fiscal que puede ser utilizado por algunos padres solteros. Sin embargo, para los créditos que puede reclamar con GetCTC, el estado de cabeza de familia no aumentará su reembolso ni lo hará elegible para ningún beneficio fiscal adicional.
-                p2_html: Reclamar el estado de jefe de familia también podría aumentar su probabilidad de ser auditado por el IRS. Si está interesado en reclamar el estado de jefe de familia a pesar de todo, <a href=%{link}>haga clic aquí</a>.
-                title: "¿Debo declarar como jefe de familia?"
-              p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
-            title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
           subtitle: Estos son los créditos para los que sus dependientes son elegibles en %{current_tax_year}. Tenga en cuenta que cada crédito tiene su propio conjunto de reglas de elegibilidad.
           title: Confirmemos sus dependientes
         confirm_information:
@@ -2113,17 +2107,15 @@ es:
               list_title: 'Algunos ejemplos de lugares temporales:'
               title: "¿Qué pasa si mi dependiente estuvo fuera durante una temporada en 2021?"
             select_options:
-              eight_to_nine: 8-9 meses
-              eleven_to_twelve: 11-12 meses
+              eight: 8 meses
+              eleven: 11 meses
               less_than_six: menos de 6 meses
-              nine_to_ten: 9-10 meses
-              seven_to_eight: 7-8 meses
-              six_to_seven: 6-7 meses
-              ten_to_eleven: 10-11 meses
+              nine: 9 meses
+              seven: 7 meses
+              six: 6 meses
+              ten: 10 meses
+              twelve: Todo el año
             title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"
-          child_residence_exceptions:
-            help_text: Seleccione "sí" si vivió por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
-            title: "¿Residió %{name} permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           dependent_has_itin_reveal:
             content: Los dependientes con un Número de Identificación Personal (ITIN) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
             title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN en inglés)"
@@ -2218,7 +2210,7 @@ es:
             add_w2: Agregar mi W-2 ahora
             continue_without: Continuar sin EITC
             log_out: Cerrar sesión y agregar un W-2 más tarde
-          help_text: Puede continuar con GetCTC para reclamar su Crédito Tributario por Hijos y/o los pagos de estímulo faltantes. Si desea agregar su W-2 más adelante, puede hacerlo.
+          help_text: Puede continuar con GetCTC para reclamar su Crédito Tributario por Hijos y/o los pagos de estímulo faltantes. Si desea agregar su W-2 más tarde, puede hacerlo.
           title: Para reclamar su EITC, debe agregar los ingresos de su W-2.
         eitc_offboarding:
           help_text: Continúe con GetCTC para solicitar su Crédito Tributario por Hijos y/o los pagos de estímulo que faltan.
@@ -2280,11 +2272,7 @@ es:
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           irs_reveal:
-            body_html: |
-              Según el IRS, <b>no</b> está casado durante un año fiscal si:
-              <ul class="list--bulleted">
-              <li>Nunca estuvo casado O estuvo casado anteriormente pero al final del año tenía una sentencia de divorcio o una sentencia de manutención por separación.</li>
-              </ul>
+            body: Está casado según el IRS si tiene un matrimonio legal y no se ha divorciado legalmente. Si vive y comparte las finanzas con una pareja, pero no está legalmente casado, seleccione No. Si está legalmente casado, incluso si no vive ni comparte las finanzas con una pareja, seleccione Sí.
             title: "¿El IRS me considera casado?"
           mfs_reveal:
             body: Las únicas opciones de presentación para una declaración simplificada son casado y soltero. Si está casado legalmente, debe decir Sí y presentar una declaración conjunta con su cónyuge. Si no está casado, presente la solicitud como soltero y diga No.
@@ -2419,10 +2407,10 @@ es:
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
-          married_title: "¿Ganaron usted y su cónyuge más de $10,000 en ingresos por inversiones?"
+          married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
           reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
-          title: "¿Ganó más de $10,000 en ingresos por inversiones?"
+          title: "¿Ganó más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
@@ -2501,7 +2489,7 @@ es:
             - Si esto es un error, puede hacer clic en 'Agregar un niño'.
             title: No recibirá el Crédito Tributario por Hijos.
           subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
-          title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar para recoger su tercer pago de estímulo.
+          title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar cobrando otros pagos en efectivo.
         no_dependents_advance_ctc_payments:
           subtitle: Estos pagos habrían llegado entre julio y diciembre de 2021.
           title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos en %{current_tax_year}?"
@@ -2739,15 +2727,15 @@ es:
             box13_retirement_plan: Plan de retiro
             box13_statutory_employee: Empleado estatutario
             box13_third_party_sick_pay: Pago por enfermedad de terceros
-            box14_error: Debe proporcionar tanto la descripción como la cantidad.
-            box14_other: 'Casilla 14: Otro'
-            box15_error: Debe proporcionar el número de identificación del estado y del estado del empleador
-            box15_state: 'Casilla 15: Estado y número de identificación estatal del empleador'
-            box16_state_wages: 'Casilla 16: Salarios estatales, propinas, etc.'
-            box17_state_income_tax: 'Casilla 17: Impuesto estatal sobre la renta'
-            box18_local_wages: 'Casilla 18: Salarios locales, propinas, etc.'
-            box19_local_income_tax: 'Casilla 19: Impuesto sobre la renta local'
-            box20_locality_name: 'Casilla 20: Nombre de la localidad'
+            box14_error: Debe proveer la descripción y la cantidad
+            box14_other: 'Casilla 14: Other'
+            box15_error: Debe proveer el número de identificación del estado y del estado del empleador
+            box15_state: 'Casilla 15: State and Employer’s State ID number'
+            box16_state_wages: 'Casilla 16: State wages, tips, etc.'
+            box17_state_income_tax: 'Casilla 17: State income tax'
+            box18_local_wages: 'Casilla 18: Local wages, tips, etc.'
+            box19_local_income_tax: 'Casilla 19: Local income tax'
+            box20_locality_name: 'Casilla 20: Locality name'
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
@@ -2770,14 +2758,13 @@ es:
           wages: Sueldo
           wages_info:
             box10_dependent_care_benefits: 'Casilla 10: Dependent care benefits'
-            box3_social_security_wages: 'Casilla 3: Social security wages'
-            box4_social_security_tax_withheld: 'Casilla 4: Social security tax withheld'
+            box3_social_security_wages: 'Casilla 3: Social Security wages'
+            box4_social_security_tax_withheld: 'Casilla 4: Social Security tax withheld'
             box5_medicare_wages_and_tip_amount: 'Casilla 5: Medicare wages and tips amount'
             box6_medicare_tax_withheld: 'Casilla 6: Medicare tax withheld'
-            box7_social_security_tips_amount: 'Casilla 7: Social security tips amount'
+            box7_social_security_tips_amount: 'Casilla 7: Social Security tips amount'
             box8_allocated_tips: 'Casilla 8: Allocated tips'
             federal_income_tax_withheld: 'Casilla 2: Federal Income Tax Withheld'
-            help_text: 'Nota: Ingrese la información exactamente como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.'
             info_box:
               requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
@@ -2940,7 +2927,7 @@ es:
           launching_soon_html: "<strong>¡GetCTC lanzará dentro de poco!</strong> Suscríbase para recibir un mensaje tan pronto como el portal de presentación simplificada esté listo."
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
-            eitc_on: Este formulario por lo general toma unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar el dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
+            eitc_on: Este formulario por lo general toma unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
         title: Reclame su Crédito Tributario por Hijos
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.

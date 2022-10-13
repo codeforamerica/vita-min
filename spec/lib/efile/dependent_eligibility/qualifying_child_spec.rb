@@ -306,7 +306,7 @@ describe Efile::DependentEligibility::QualifyingChild do
       end
 
       context "when there is a residence exception" do
-        residence_exceptions = [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption, :permanent_residence_with_client]
+        residence_exceptions = [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption]
         residence_exceptions.each do |exception|
           context "when #{exception} is yes" do
             before do

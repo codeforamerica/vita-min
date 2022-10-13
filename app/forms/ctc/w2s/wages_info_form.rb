@@ -15,7 +15,7 @@ module Ctc
       )
 
       validates :wages_amount, gyr_numericality: { greater_than_or_equal_to: 0.5 }, presence: true
-      validates :federal_income_tax_withheld, gyr_numericality: true, presence: true
+      validates :federal_income_tax_withheld, gyr_numericality: { less_than: :wages_amount }, presence: true
 
       validates :box3_social_security_wages, gyr_numericality: true, allow_blank: true
       validates :box4_social_security_tax_withheld, gyr_numericality: true, allow_blank: true
@@ -24,6 +24,14 @@ module Ctc
       validates :box7_social_security_tips_amount, gyr_numericality: true, allow_blank: true
       validates :box8_allocated_tips, gyr_numericality: true, allow_blank: true
       validates :box10_dependent_care_benefits, gyr_numericality: true, allow_blank: true
+
+      def extra_attributes
+        if w2.completed_at.nil? && (box8_allocated_tips&.to_i&.positive? || box10_dependent_care_benefits&.to_i&.positive?)
+          { completed_at: DateTime.now }
+        else
+          {}
+        end
+      end
     end
   end
 end

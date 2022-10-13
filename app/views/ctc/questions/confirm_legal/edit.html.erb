@@ -10,7 +10,7 @@
     <%= f.cfa_checkbox(:consented_to_legal, t("views.ctc.questions.confirm_legal.consent"), options: { checked_value: "yes", unchecked_value: "no" }) %>
     <%= recaptcha_v3(action: 'confirm_legal') %>
     <div class="spacing-above-60">
-      <%= f.continue t("views.ctc.questions.confirm_legal.action") %>
+      <%= f.submit(t("views.ctc.questions.confirm_legal.action"), class: "button button--primary button--wide", disabled: current_intake.benefits_eligibility.disqualified_for_simplified_filing?) %>
     </div>
   <% end %>
 <% end %>

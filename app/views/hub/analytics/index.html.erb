@@ -1,0 +1,11 @@
+<div class="slab slab--flash flash--warning">
+  <div class="grid-flex center-aligned">
+    <span>Admin-only page with client analytics events; for debugging use only</span>
+  </div>
+</div>
+
+<ul class="list--bulleted">
+  <% @client.analytics_events.each do |event| %>
+    <li><strong><%= event.event_type %></strong> <%= event.created_at %></li>
+  <% end %>
+</ul>

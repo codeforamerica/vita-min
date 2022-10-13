@@ -10,6 +10,7 @@ module Ctc
       end
 
       def edit
+        track_first_visit(:stimulus_payments)
         tax_return = current_intake.default_tax_return
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
         @third_stimulus_amount = benefits.eip3_amount

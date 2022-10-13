@@ -3,6 +3,8 @@ module Ctc
     class W2sController < QuestionsController
       include AuthenticatedCtcClientConcern
 
+      before_action :track_w2s_list_first_visit, only: :edit
+
       layout "intake"
 
       def self.show?(intake, current_controller)
@@ -12,8 +14,12 @@ module Ctc
         benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
       end
 
+      def edit
+        set_done_adding_path
+      end
+
       def add_w2_later
-        track_click_history(:w2_logout_add_later)
+        track_first_visit(:w2_logout_add_later)
 
         clear_intake_session
         redirect_to root_path
@@ -27,7 +33,20 @@ module Ctc
         end
       end
 
+      def set_done_adding_path
+        @done_adding_path =
+          if current_intake.benefits_eligibility.disqualified_for_simplified_filing_due_to_w2_answers?
+            Ctc::Questions::UseGyrController.to_path_helper
+          else
+            form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+          end
+      end
+
       private
+
+      def track_w2s_list_first_visit
+        track_first_visit(:w2s_list)
+      end
 
       def illustration_path; end
     end
