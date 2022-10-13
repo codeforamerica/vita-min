@@ -156,7 +156,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.married_title', current_tax_year: TaxReturn.current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
