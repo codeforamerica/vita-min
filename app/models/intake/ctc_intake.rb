@@ -443,4 +443,8 @@ class Intake::CtcIntake < Intake
   def total_withholding_amount
     completed_w2s.sum { |w2| w2.federal_income_tax_withheld.round } if completed_w2s.any?
   end
+
+  def benefits_eligibility
+    Efile::BenefitsEligibility.new(tax_return: default_tax_return, dependents: dependents)
+  end
 end

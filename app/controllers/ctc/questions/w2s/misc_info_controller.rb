@@ -7,8 +7,7 @@ module Ctc
         private
 
         def next_path
-          box12a_codes = [@w2.box12a_code, @w2.box12b_code, @w2.box12c_code, @w2.box12d_code].map(&:presence).compact
-          if @w2.box13_statutory_employee_yes? || box12a_codes.any? { |code| W2::BOX12_OFFBOARD_CODES.include?(code) }
+          if current_intake.benefits_eligibility.disqualified_for_simplified_filing_due_to_w2_answers?
             Ctc::Questions::UseGyrController.to_path_helper
           else
             super

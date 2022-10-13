@@ -50,7 +50,7 @@
     <% end %>
 
     <% if current_intake.completed_w2s.any? %>
-      <%= link_to t("views.ctc.questions.w2s.done_adding"), form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper, class: "button button--wide text--centered" %>
+      <%= link_to t("views.ctc.questions.w2s.done_adding"), @done_adding_path, class: "button button--wide text--centered" %>
     <% else %>
       <%= link_to t("views.ctc.questions.w2s.add_later"), questions_w2s_add_w2_later_path, method: :put, class: "button button--wide text--centered" %>
     <% end %>

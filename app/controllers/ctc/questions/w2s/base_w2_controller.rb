@@ -11,9 +11,7 @@ module Ctc
           return unless current_controller.open_for_eitc_intake?
           return unless w2
 
-          intake = w2.intake
-          benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
-          benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
+          w2.intake.benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?
         end
 
         def self.resource_name

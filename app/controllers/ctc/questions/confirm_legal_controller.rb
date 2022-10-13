@@ -12,6 +12,14 @@ module Ctc
         ).merge(recaptcha_score_param('confirm_legal'))
       end
 
+      def update
+        if current_intake.benefits_eligibility.disqualified_for_simplified_filing?
+          redirect_to Ctc::Questions::UseGyrController.to_path_helper
+        else
+          super
+        end
+      end
+
       private
 
       def after_update_success
