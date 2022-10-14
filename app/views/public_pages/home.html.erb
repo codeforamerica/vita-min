@@ -20,7 +20,7 @@
 <%= render 'shared/trade_desk_pixel' %>
 <main role="main">
 
-  <% if !open_for_gyr_intake? && open_for_gyr_logged_in_clients? %>
+  <% if @show_documents_deadline_banner %>
     <div class="slab slab--banner get-ctc subtle-links">
       <div class="grid">
         <div class="grid__item">
