@@ -3896,7 +3896,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the next tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
+        closing_banner_html: <strong>GetYourRefund will reopen January 31.</strong> If you only want the Child Tax Credit, Earned Income Tax Credit, and stimulus payments, try filing with <a href="%{url}">GetCTC</a>.
         closing_soon_banner: If your return is in progress, log in and submit your documents by October 8th.
         faq:
           faq_cta: Read our FAQ
