@@ -14,8 +14,27 @@ module Hub
 
     def index
       role_type = role_type_from_readable_role(params[:search])
-      @users = @users.search(params[:search]) if params[:search].present? && !role_type.present?
-      @users = @users.search(role_type) if role_type.present?
+      vita_partner = vita_partner_from_search(params[:search])
+
+      if params[:search].present?
+        @users = if role_type.present?
+                   @users.search(role_type)
+                 elsif vita_partner.present?
+                   if vita_partner.is_a?(Organization)
+                     @users.where(role: OrganizationLeadRole.where(organization: vita_partner))
+                           .or(@users.where(role: SiteCoordinatorRole.where(site: vita_partner.child_sites)))
+                           .or(@users.where(role: TeamMemberRole.where(site: vita_partner.child_sites)))
+                   elsif vita_partner.is_a?(Site)
+                     @users.where(role: SiteCoordinatorRole.where(site: vita_partner))
+                           .or(@users.where(role: TeamMemberRole.where(site: vita_partner)))
+                   elsif vita_partner.is_a?(Coalition)
+                     @users.where(role: CoalitionLeadRole.where(coalition: vita_partner))
+                   end
+                 else
+                   @users.search(params[:search])
+                 end
+      end
+
       @users = @users.page(!params[:page].to_i.zero? ? params[:page] : 1)
     end
 
@@ -104,6 +123,22 @@ module Hub
     def load_groups
       @vita_partners = current_user.accessible_vita_partners
       @coalitions = current_user.accessible_coalitions
+    end
+
+    def vita_partner_from_search(search_param)
+      Organization.all.pluck(:name).each do |name|
+        return Organization.where(name: name).first if name.include? search_param
+      end
+
+      Site.all.pluck(:name).each do |name|
+        return Site.where(name: name).first if name.include? search_param
+      end
+
+      Coalition.all.pluck(:name).each do |name|
+        return Coalition.where(name: name).first if name.include? search_param
+      end
+
+      nil
     end
 
     def load_and_authorize_role

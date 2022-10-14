@@ -26,19 +26,19 @@ module RoleHelper
     return nil unless readable_role.present?
 
     readable_role = readable_role&.capitalize
-    if readable_role.include? I18n.t("general.admin")
+    if readable_role.include?(I18n.t("general.admin"))
       AdminRole::TYPE
-    elsif readable_role.include? I18n.t("general.organization_lead")
+    elsif readable_role.include?(I18n.t("general.organization_lead")) || readable_role.include?("org lead")
       OrganizationLeadRole::TYPE
-    elsif readable_role.include? I18n.t("general.coalition_lead")
+    elsif readable_role.include?(I18n.t("general.coalition_lead"))
       CoalitionLeadRole::TYPE
-    elsif readable_role.include? I18n.t("general.site_coordinator")
+    elsif readable_role.include?(I18n.t("general.site_coordinator"))
       SiteCoordinatorRole::TYPE
-    elsif readable_role.include? I18n.t("general.client_success")
+    elsif readable_role.include?(I18n.t("general.client_success"))
       ClientSuccessRole::TYPE
-    elsif readable_role.include? I18n.t("general.greeter")
+    elsif readable_role.include?(I18n.t("general.greeter"))
       GreeterRole::TYPE
-    elsif readable_role.include? I18n.t("general.team_member")
+    elsif readable_role.include?(I18n.t("general.team_member"))
       TeamMemberRole::TYPE
     else
       false
