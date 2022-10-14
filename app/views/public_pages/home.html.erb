@@ -7,7 +7,7 @@
     <div class="slab slab--banner">
       <div class="grid">
         <div class="grid__item">
-          <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
+          <%= t('views.public_pages.home.closing_banner_html', url: root_with_source_url(host: MultiTenantService.new(:ctc).host, source: 'gyrclosedbanner')) %>
         </div>
       </div>
     </div>
