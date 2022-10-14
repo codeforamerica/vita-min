@@ -190,6 +190,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           advance_ctc_amount_received: 6000,
           spouse_first_name: "Eva",
           spouse_last_name: "Hesse",
+          spouse_tin_type: "ssn",
           spouse_birth_date: Date.new(1929, 9, 2),
           spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
           claim_eitc: "yes",
@@ -406,7 +407,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
           "spouse_first_name" => ["Eva", "Pomelostore"],
           "has_spouse_ip_pin" => ["unfilled", "no"],
-          "spouse_tin_type" => ["nil", "ssn"],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[3].id}")).to match({
@@ -499,7 +499,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           # Can't resubmit until you enter direct deposit info
           expect(page).to have_button(I18n.t('views.ctc.portal.edit_info.resubmit'), disabled: true)
 
-
           click_on I18n.t('views.ctc.portal.edit_info.add_bank_information')
           choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
           click_on I18n.t('general.continue')
@@ -568,11 +567,11 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         notes = SystemNote::CtcPortalUpdate.order(:id)
 
         expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
-                                                                                  "zip_code" => ["94103", "94117"],
-                                                                                  "usps_address_verified_at" => ["nil", an_instance_of(String)],
-                                                                                })
+          "zip_code" => ["94103", "94117"],
+          "usps_address_verified_at" => ["nil", an_instance_of(String)],
+        })
 
-        expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
+        expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({ "refund_payment_method" => ["direct_deposit", "check"] })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")
       end
