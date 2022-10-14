@@ -31,7 +31,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
       end
 
       scenario "I can view all clients and search, sort, and filter", js: true do
-        visit hub_clients_pathh
+        visit hub_clients_path
 
         expect(page).to have_text "All Clients"
         within ".client-table" do

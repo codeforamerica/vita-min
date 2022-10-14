@@ -86,16 +86,16 @@ section.client-index-header.slab--padded {
 .hub-searchbar {
   display: flex;
   justify-content: flex-start;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: $s5;
+  padding-bottom: $s5;
 }
 
 .hub-searchbar__button {
   transition: all $animation-fast;
   user-select: none;
   padding: {
-    left: ($s35/2) - 0.5rem;
-    right: ($s35/2) - 0.5rem;
+    left: $s10;
+    right: $s10;
   }
   border-radius: 0;
   vertical-align: middle;

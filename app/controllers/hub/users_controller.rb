@@ -1,6 +1,7 @@
 module Hub
   class UsersController < ApplicationController
     include AccessControllable
+    include RoleHelper
 
     before_action :require_sign_in
     before_action :load_groups, only: [:edit_role, :update_role]
@@ -12,7 +13,9 @@ module Hub
     def profile; end
 
     def index
-      @users = @users.search(params[:search]) if params[:search].present?
+      role_type = role_type_from_readable_role(params[:search])
+      @users = @users.search(params[:search]) if params[:search].present? && !role_type.present?
+      @users = @users.search(role_type) if role_type.present?
       @users = @users.page(!params[:page].to_i.zero? ? params[:page] : 1)
     end
 

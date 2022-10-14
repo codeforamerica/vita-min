@@ -22,6 +22,29 @@ module RoleHelper
     end&.titleize
   end
 
+  def role_type_from_readable_role(readable_role)
+    readable_role = readable_role&.capitalize
+
+    case readable_role
+    when I18n.t("general.admin")
+      AdminRole::TYPE
+    when I18n.t("general.organization_lead")
+      OrganizationLeadRole::TYPE
+    when I18n.t("general.coalition_lead")
+      CoalitionLeadRole::TYPE
+    when I18n.t("general.site_coordinator")
+      SiteCoordinatorRole::TYPE
+    when I18n.t("general.client_success")
+      ClientSuccessRole::TYPE
+    when I18n.t("general.greeter")
+      GreeterRole::TYPE
+    when I18n.t("general.team_member")
+      TeamMemberRole::TYPE
+    else
+      false
+    end
+  end
+
   def user_group(user)
     if user.role_type == OrganizationLeadRole::TYPE
       user.role.organization.name
