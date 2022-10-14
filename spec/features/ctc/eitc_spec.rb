@@ -112,11 +112,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   end
 
   scenario "a client who is in the middle of the W2 but has to come back to finish later" do
-    fill_in_can_use_ctc(filing_status: "single")
+    fill_in_can_use_ctc(filing_status: "single", claim_eitc: true)
     fill_in_eligibility
     fill_in_basic_info
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     fill_in_no_dependents
@@ -137,7 +137,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
       authenticate_client(Client.last)
 
       click_on I18n.t('views.ctc.portal.home.complete_form')
-      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: "Gary Mango III"))
+      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
     end
   end
 

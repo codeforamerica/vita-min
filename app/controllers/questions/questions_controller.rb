@@ -33,7 +33,7 @@ module Questions
     end
 
     def current_path(params = {})
-      request.path
+      question_path(self.class.to_param, params)
     end
 
     def next_path
