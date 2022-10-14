@@ -26,11 +26,13 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       .where(type: [SystemNote::CtcPortalAction, SystemNote::CtcPortalUpdate].map(&:to_s))
       .any?
     direct_deposit_missing_bank_account = current_client.intake.refund_payment_method_direct_deposit? && !current_client.intake.bank_account.present?
-    @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account
+    @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account && !current_client.intake.benefits_eligibility.disqualified_for_simplified_filing?
     @benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: current_client.intake.default_tax_return, dependents: current_client.intake.dependents)
   end
 
   def resubmit
+    return redirect_to Ctc::Questions::UseGyrController.to_path_helper if current_client.intake.benefits_eligibility.disqualified_for_simplified_filing?
+
     if @submission.can_transition_to?(:resubmitted)
       unless current_client.efile_security_informations.create(efile_security_params).persisted?
         flash[:alert] = I18n.t("general.enable_javascript")

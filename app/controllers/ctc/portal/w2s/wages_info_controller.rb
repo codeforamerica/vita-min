@@ -1,4 +1,4 @@
-class Ctc::Portal::W2s::WagesInfoController < Ctc::Portal::BaseIntakeRevisionController
+class Ctc::Portal::W2s::WagesInfoController < Ctc::Portal::W2s::BaseController
   def edit
     @form = form_class.from_w2(current_model)
     render edit_template
@@ -15,7 +15,11 @@ class Ctc::Portal::W2s::WagesInfoController < Ctc::Portal::BaseIntakeRevisionCon
   end
 
   def next_path
-    Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+    if current_intake.benefits_eligibility.disqualified_for_simplified_filing?
+      Ctc::Questions::UseGyrController.to_path_helper
+    else
+      Ctc::Portal::W2s::EmployerInfoController.to_path_helper(action: :edit, id: current_model.id)
+    end
   end
 
   def current_model

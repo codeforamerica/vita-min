@@ -187,6 +187,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           email_address: "mango@example.com",
           email_notification_opt_in: "yes",
           refund_payment_method: "direct_deposit",
+          bank_account: build(:bank_account),
           advance_ctc_amount_received: 6000,
           spouse_first_name: "Eva",
           spouse_last_name: "Hesse",
@@ -576,7 +577,36 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_content("Client initiated resubmission of their tax return.")
       end
 
-      scenario "a client sees and can click on a link to continue their intake" do
+      scenario "a client sees an offboarding page if their W-2 indicates they cannot use simplified filing" do
+        log_in_to_ctc_portal
+
+        click_on I18n.t("views.ctc.portal.home.correct_info")
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
+
+        within ".w2s-shared" do
+          expect(page).to have_selector("h2", text: I18n.t("views.ctc.portal.edit_info.w2s_shared"))
+          click_on I18n.t("general.edit").downcase
+        end
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.employee_info.title", count: 2))
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.w2s.wages_info.title", name: intake.primary.first_and_last_name))
+        fill_in I18n.t("views.ctc.questions.w2s.wages_info.wages_amount"), with: "$1,000,000,000.01"
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.use_gyr.title"))
+
+        go_back # back to wages
+        go_back # back to employee
+        go_back # back to portal edit info
+
+        refresh # get the page to update
+
+        expect(page).to have_button(I18n.t("views.ctc.portal.edit_info.resubmit"), disabled: true)
+      end
+
+      scenario "a client can contact us" do
         log_in_to_ctc_portal
 
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))

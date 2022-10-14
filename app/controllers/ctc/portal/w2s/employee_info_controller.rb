@@ -1,25 +1,10 @@
-class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::BaseIntakeRevisionController
+class Ctc::Portal::W2s::EmployeeInfoController < Ctc::Portal::W2s::BaseController
   def edit
     @form = form_class.from_w2(current_model)
     render edit_template
   end
 
   private
-
-  def generate_system_note
-    if @new_record
-      SystemNote::CtcPortalAction.generate!(
-        model: current_model,
-        action: 'created',
-        client: current_client
-      )
-    else
-      SystemNote::CtcPortalUpdate.generate!(
-        model: current_model,
-        client: current_client,
-      )
-    end
-  end
 
   def edit_template
     "ctc/questions/w2s/employee_info/edit"
