@@ -40,13 +40,25 @@ describe Ctc::Portal::PortalController do
 
       context "when an efile submission exists" do
         before do
-          client.tax_returns.first.update(efile_submissions: [ create(:efile_submission, :rejected)])
+          client.tax_returns.first.update(efile_submissions: [ create(:efile_submission, :rejected) ])
         end
 
         it "renders with the submission status and nil current step" do
           get :home
           expect(assigns(:status)).to eq "rejected"
           expect(assigns(:current_step)).to eq nil
+        end
+
+        context "when there are multiple errors and at least one of them is auto-cancel" do
+          let(:auto_cancel_error) { create(:efile_error, auto_cancel: true) }
+          before do
+            client.tax_returns.first.efile_submissions.first.update(efile_errors: [ auto_cancel_error, create(:efile_error, auto_wait: true), create(:efile_error, auto_wait: true) ])
+          end
+
+          it "exposes one of the auto-cancel errors" do
+            get :home
+            expect(assigns(:exposed_error)).to eq auto_cancel_error
+          end
         end
       end
     end
