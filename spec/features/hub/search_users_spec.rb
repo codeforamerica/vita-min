@@ -35,6 +35,13 @@ RSpec.feature "Search for Users", :js do
       expect(page.all('.index-table__row')[1]).to have_text("Noah Northfolk")
       expect(page.all('.index-table__row')[2]).to have_text("Totoro")
     end
+
+    scenario "I can search for users by a string including user role", js: true do
+      fill_in "search", with: "greeters role"
+      find('.hub-searchbar__button').click
+      expect(page).to have_text "Displaying 1 entry"
+      expect(page.all('.index-table__row')[1]).to have_text("Princess Mononoke")
+    end
   end
 end
 

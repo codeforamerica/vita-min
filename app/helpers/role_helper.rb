@@ -23,22 +23,22 @@ module RoleHelper
   end
 
   def role_type_from_readable_role(readable_role)
-    readable_role = readable_role&.capitalize
+    return nil unless readable_role.present?
 
-    case readable_role
-    when I18n.t("general.admin")
+    readable_role = readable_role&.capitalize
+    if readable_role.include? I18n.t("general.admin")
       AdminRole::TYPE
-    when I18n.t("general.organization_lead")
+    elsif readable_role.include? I18n.t("general.organization_lead")
       OrganizationLeadRole::TYPE
-    when I18n.t("general.coalition_lead")
+    elsif readable_role.include? I18n.t("general.coalition_lead")
       CoalitionLeadRole::TYPE
-    when I18n.t("general.site_coordinator")
+    elsif readable_role.include? I18n.t("general.site_coordinator")
       SiteCoordinatorRole::TYPE
-    when I18n.t("general.client_success")
+    elsif readable_role.include? I18n.t("general.client_success")
       ClientSuccessRole::TYPE
-    when I18n.t("general.greeter")
+    elsif readable_role.include? I18n.t("general.greeter")
       GreeterRole::TYPE
-    when I18n.t("general.team_member")
+    elsif readable_role.include? I18n.t("general.team_member")
       TeamMemberRole::TYPE
     else
       false
