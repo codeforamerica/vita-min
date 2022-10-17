@@ -42,6 +42,20 @@ describe SubmissionBuilder::Ty2021::Documents::IrsW2 do
     expect(box15_node.at('LocalityNm').text).to eq("squibnocket")
   end
 
+  describe 'EmployerNameControlTxt' do
+    let(:primary_w2) { create :w2, intake: intake, employer_name: 'a & - 2 bananas' }
+
+    it "upcases and removes spaces and whatnot from employer_name to produce EmployerNameControlTxt" do
+      instance = described_class.new(submission, kwargs: { w2: primary_w2 })
+      expect(instance.schema_version).to eq "2021v5.2"
+
+      submission_builder_response = described_class.build(submission, kwargs: { w2: primary_w2 })
+      expect(submission_builder_response).to be_valid
+      xml = Nokogiri::XML::Document.parse(submission_builder_response.document.to_xml)
+      expect(xml.at('EmployerNameControlTxt').text).to eq('A&-2')
+    end
+  end
+
   context "when there are not many box14 or box15 values present" do
     let!(:w2_state_fields_group) do
       create(
