@@ -14,7 +14,7 @@ module SubmissionBuilder
           build_xml_doc("IRSW2", documentId: "IRSW2-#{w2.id}", documentName: "IRSW2") do |xml|
             xml.EmployeeSSN w2.employee_ssn
             xml.EmployerEIN w2.employer_ein
-            xml.EmployerNameControlTxt name_control_type(w2.employer_name)
+            xml.EmployerNameControlTxt employer_name_control_type(w2.employer_name)
             xml.EmployerName do |xml|
               xml.BusinessNameLine1Txt w2.employer_name
             end
@@ -98,6 +98,15 @@ module SubmissionBuilder
 
             xml.StandardOrNonStandardCd 'S'
           end
+        end
+
+        private
+
+        def employer_name_control_type(employer_name)
+          return "" unless employer_name.present?
+
+          # Restrict to just characters allowed in the BusinessNameControlType type from the schema
+          employer_name.upcase.gsub(/[^A-Z0-9\-&]/, '').first(4)
         end
       end
     end
