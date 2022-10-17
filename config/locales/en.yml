@@ -1134,7 +1134,7 @@ en:
         delete_confirmation: Are you sure you want to delete %{name}'s account?
         reassign: Reassign
       index:
-        needs_to_accept_invite: Needs to accept invite
+        invite_pending: Invite pending
         title: Users
       profile:
         start_date: Start date

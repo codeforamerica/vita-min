@@ -1134,7 +1134,7 @@ es:
         delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
         reassign: Reasignar
       index:
-        needs_to_accept_invite: Necesita aceptar la invitación
+        invite_pending: Necesita aceptar la invitación
         title: Usuarios
       profile:
         start_date: Fecha de inicio
