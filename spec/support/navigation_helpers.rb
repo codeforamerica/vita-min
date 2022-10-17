@@ -1,4 +1,22 @@
 module NavigationHelpers
+  def authenticate_client(client)
+    expect(page).to have_text "To view your progress, we’ll send you a secure code"
+    fill_in "Email address", with: client.intake.email_address
+    click_on "Send code"
+    expect(page).to have_text "Let’s verify that code!"
+
+    perform_enqueued_jobs
+
+    mail = ActionMailer::Base.deliveries.last
+    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+
+    fill_in "Enter 6 digit code", with: code
+    click_on "Verify"
+
+    fill_in "Client ID or Last 4 of SSN/ITIN", with: client.id
+    click_on "Continue"
+  end
+
   def go_back
     page.evaluate_script('window.history.back()')
   end

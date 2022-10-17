@@ -1,24 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Session duration", requires_default_vita_partners: true do
-  def authenticate_client(client)
-    expect(page).to have_text "To view your progress, we’ll send you a secure code"
-    fill_in "Email address", with: client.intake.email_address
-    click_on "Send code"
-    expect(page).to have_text "Let’s verify that code!"
-
-    perform_enqueued_jobs
-
-    mail = ActionMailer::Base.deliveries.last
-    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
-
-    fill_in "Enter 6 digit code", with: code
-    click_on "Verify"
-
-    fill_in "Client ID or Last 4 of SSN/ITIN", with: client.id
-    click_on "Continue"
-  end
-
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end

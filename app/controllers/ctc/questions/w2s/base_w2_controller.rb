@@ -57,6 +57,10 @@ module Ctc
         def illustration_path
           "documents.svg"
         end
+
+        def current_path
+          Ctc::Questions::W2sController.to_path_helper
+        end
       end
     end
   end
