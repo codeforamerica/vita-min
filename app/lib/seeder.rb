@@ -405,8 +405,10 @@ class Seeder
       eitc_mfj_qc_efile_submission.transition_to!(:queued)
       eitc_mfj_qc_efile_submission.transition_to!(:transmitted)
       eitc_mfj_qc_efile_submission.transition_to!(:rejected)
-      efile_error = EfileError.create!(expose: true)
+      efile_error = EfileError.create!(expose: true, auto_cancel: false, code: 'not-auto-cancel', message: 'this is an error that is not auto cancel')
+      auto_cancel_efile_error = EfileError.create!(expose: true, auto_cancel: true, code: 'auto-cancel', message: 'this is an error that is auto cancel')
       eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
+      eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: auto_cancel_efile_error)
     end
 
     find_or_create_intake_and_client(
