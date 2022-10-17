@@ -49,7 +49,7 @@
           <td class="index-table__cell">
             <%= user.email %>
             <% if user.access_locked? %>
-              <span class="locked label label--red"><%= t("general.locked") %></span>
+              <span class="locked"><%= image_tag("lock-red.svg", alt: t("general.locked")) %></span>
             <% end %>
             <% if user.suspended? %>
               <span class="locked label label--red"><%= t("general.suspended") %></span>
