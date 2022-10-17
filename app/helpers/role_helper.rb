@@ -1,9 +1,9 @@
 module RoleHelper
-  def user_role(user)
-    readable_role_from_role_type(user.role_type)
+  def user_role_name(user)
+    role_name_from_role_type(user.role_type)
   end
 
-  def readable_role_from_role_type(role_type)
+  def role_name_from_role_type(role_type)
     case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
@@ -22,23 +22,23 @@ module RoleHelper
     end&.titleize
   end
 
-  def role_type_from_readable_role(readable_role)
-    return nil unless readable_role.present?
+  def role_type_from_role_name(role_name)
+    return nil unless role_name.present?
 
-    readable_role = readable_role&.capitalize
-    if readable_role.include?(I18n.t("general.admin"))
+    role_name = role_name&.capitalize
+    if role_name.include?(I18n.t("general.admin"))
       AdminRole::TYPE
-    elsif readable_role.include?(I18n.t("general.organization_lead")) || readable_role.include?("org lead")
+    elsif role_name.include?(I18n.t("general.organization_lead")) || role_name.include?("org lead")
       OrganizationLeadRole::TYPE
-    elsif readable_role.include?(I18n.t("general.coalition_lead"))
+    elsif role_name.include?(I18n.t("general.coalition_lead"))
       CoalitionLeadRole::TYPE
-    elsif readable_role.include?(I18n.t("general.site_coordinator"))
+    elsif role_name.include?(I18n.t("general.site_coordinator"))
       SiteCoordinatorRole::TYPE
-    elsif readable_role.include?(I18n.t("general.client_success"))
+    elsif role_name.include?(I18n.t("general.client_success"))
       ClientSuccessRole::TYPE
-    elsif readable_role.include?(I18n.t("general.greeter"))
+    elsif role_name.include?(I18n.t("general.greeter"))
       GreeterRole::TYPE
-    elsif readable_role.include?(I18n.t("general.team_member"))
+    elsif role_name.include?(I18n.t("general.team_member"))
       TeamMemberRole::TYPE
     else
       false

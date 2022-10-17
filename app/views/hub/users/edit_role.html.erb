@@ -5,7 +5,7 @@
 
     <h2>Current role</h2>
 
-    <p><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+    <p><%= [user_role_name(@user), user_group(@user)].compact.join(", ") %></p>
 
     <h2>New role</h2>
 
@@ -25,7 +25,7 @@
       <% end %>
 
       <% if params[:role] == CoalitionLeadRole::TYPE %>
-        <p><%= readable_role_from_role_type(CoalitionLeadRole::TYPE) %></p>
+        <p><%= role_name_from_role_type(CoalitionLeadRole::TYPE) %></p>
         <div class="form-group">
           <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
           <div class="select form-width--long">
@@ -35,7 +35,7 @@
       <% end %>
 
       <% if params[:role] == OrganizationLeadRole::TYPE %>
-        <p><%= readable_role_from_role_type(OrganizationLeadRole::TYPE) %></p>
+        <p><%= role_name_from_role_type(OrganizationLeadRole::TYPE) %></p>
         <div class="form-group">
           <%= label_tag(:organization_id, t("devise.invitations.new.organization_label"), class: "form-question") %>
           <div class="select form-width--long">
@@ -45,7 +45,7 @@
       <% end %>
 
       <% if params[:role] == SiteCoordinatorRole::TYPE %>
-        <p><%= readable_role_from_role_type(SiteCoordinatorRole::TYPE) %></p>
+        <p><%= role_name_from_role_type(SiteCoordinatorRole::TYPE) %></p>
 
         <div class="form-group">
           <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
@@ -56,7 +56,7 @@
       <% end %>
 
       <% if params[:role] == TeamMemberRole::TYPE %>
-        <p><%= readable_role_from_role_type(TeamMemberRole::TYPE) %></p>
+        <p><%= role_name_from_role_type(TeamMemberRole::TYPE) %></p>
 
         <div class="form-group">
           <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>

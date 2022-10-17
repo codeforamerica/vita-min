@@ -13,7 +13,7 @@ module Hub
     def profile; end
 
     def index
-      role_type = role_type_from_readable_role(params[:search])
+      role_type = role_type_from_role_name(params[:search])
       vita_partner = vita_partner_from_search(params[:search])
 
       if params[:search].present?

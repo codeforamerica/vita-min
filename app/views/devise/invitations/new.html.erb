@@ -13,7 +13,7 @@
       <div class="form-group">
         <%= label_tag(:role, "Which role?", class: "form-question") %>
         <div class="select form-width--long">
-          <%= select_tag(:role, options_for_select([readable_role_from_role_type(params[:role]), params[:role]], params[:role]), class: "select__element", disabled: true, style: "background-color: #F8F8F8") %>
+          <%= select_tag(:role, options_for_select([role_name_from_role_type(params[:role]), params[:role]], params[:role]), class: "select__element", disabled: true, style: "background-color: #F8F8F8") %>
         </div>
       </div>
 

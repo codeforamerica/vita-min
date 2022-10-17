@@ -41,14 +41,14 @@
 
         <h2><%= t("general.role") %></h2>
 
-        <p id="current-role"><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+        <p id="current-role"><%= [user_role_name(@user), user_group(@user)].compact.join(", ") %></p>
 
         <div style="width: 375px">
           <%= render('components/molecules/reveal', title: t(".reassign")) do %>
             <ul class="list--bulleted">
               <% User.roles.each do |role_type| %>
                 <% if can?(:manage, role_type.constantize)  %>
-                  <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
+                  <li><%= link_to role_name_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
                 <% end %>
             <% end %>
             </ul>
