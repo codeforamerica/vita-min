@@ -2284,7 +2284,7 @@ es:
         had_dependents:
           add: Agregar dependientes
           continue: Continuar sin dependientes
-          help_text: Cualquier persona a la que mantenga económicamente o que haya vivido con usted puede tener derecho a prestaciones adicionales, le ayudaremos a averiguarlo.
+          help_text: Cualquier persona a la que mantenga económicamente o que haya vivido con usted puede tener derecho a prestaciones adicionales. Le ayudaremos a averiguarlo.
           title: Para solicitar el Crédito Tributario por Hijos, debe agregar a las personas a su cargo (hijos o otras personas a las que mantiene económicamente)
           which_relationships_qualify_reveal:
             content:
@@ -2402,13 +2402,13 @@ es:
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
-              p2: Habría recibido el Crédito Tributario de Prima de Seguro Médico Adelantado el año pasado si tenía Medicaid o Medicare, si obtuvo cobertura de atención médica de su empleador o si no tenía cobertura de atención médica.
-              p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
+              p2: NO habría recibido el Crédito fiscal anticipado para la prima el año pasado si tuviera Medicaid o Medicare, si tuviera cobertura de atención médica de su empleador o si no tuviera ninguna cobertura de atención médica.
+              p3: Habría recibido el Crédito fiscal anticipado para la prima si compró un seguro a precio de mercado en healthcare.gov o en un sitio web estatal de intercambio de atención médica. Este tipo de seguro a veces se denomina "Obamacare".
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
           married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
-          reveal_content: Por ejemplo, intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+          reveal_content: Si obtuvo ingresos de inversiones (como intereses de una cuenta de ahorros, dividendos de acciones o ganancias de capital de una inversión), habría recibido un 1099-INT, 1099-DIV o 1099-B con el monto.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
           title: "¿Ganó más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
         ip_pin:
@@ -2745,11 +2745,10 @@ es:
             title: Terminemos de ingresar la información del W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye el formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
-            content:
-              p1: Si no ha recibido un W-2 de su empleador, puede tomar algunos pasos para asegurarse de obtenerla.
-              p2: Un buen primer paso sería ponerse en contacto directamente con su empresa y asegurarse de que cualquier información personal, como su dirección postal, está actualizada. También puede preguntarles si se han enviado los formularios W-2 o cuándo tienen previsto enviarlos. Puede ser que su empleador lo haya enviado el último día, el 31 de enero, y que le llegue a principios de febrero. Otra opción sería acceder a su W-2 por Internet. La mayoría de los empleadores proporcionan acceso en línea a su W-2 a través de un portal para empleados. Consulte con su empleador si le han dado información sobre cómo acceder a dicho portal.
-              p3_html: Si no puede ponerse en contacto con su empleador, puede solicitar una transcripción de ingresos y salarios al IRS. Vaya a <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript</a>. Necesitará crear o iniciar sesión en su cuenta del IRS.
-              p4: ¿Tiene más preguntas? Haga clic en “Hable con nosotros" para obtener más información sobre estas opciones.
+            content_html: |
+              El primer paso para obtener su W-2 es comunicarse directamente con su empleador o ex empleador. Pregunte si pueden enviarle una copia de su W-2 o si puede acceder al W-2 en línea en un portal para empleados.
+
+              Si no puede comunicarse con su empleador, puede solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="nofollow noopener">transcripción de ingresos y salarios</a> del IRS.
             title: "¿Qué pasa si no he recibido mi W-2?"
           reveal_1099:
             content_html: Si tiene más de $400 en ingresos informados en un Formulario 1099-NEC o 1099-K por el trabajo que realizó en 2021, debe presentar una declaración de impuestos completa. No puede usar GetCTC. En su lugar, <a href="%{url}">presente una declaración completa</a> para comenzar.
