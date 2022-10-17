@@ -7,7 +7,7 @@ describe Ctc::Questions::W2sController do
 
   describe "#edit" do
     render_views
-    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, year: TaxReturn.current_tax_year)]) }
+    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return)]) }
     let!(:w2_complete) { create :w2, intake: intake, employer_name: "Code for a Meerkat", wages_amount: 1123, completed_at: Time.now }
     let!(:w2_incomplete) { create :w2, intake: intake, employer_name: "Cod for Canada", wages_amount: 2234, completed_at: nil }
 
@@ -31,7 +31,7 @@ describe Ctc::Questions::W2sController do
   end
 
   describe "#update" do
-    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, year: TaxReturn.current_tax_year)]) }
+    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return)]) }
 
     before do
       sign_in intake.client

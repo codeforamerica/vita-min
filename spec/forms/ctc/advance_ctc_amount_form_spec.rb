@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::AdvanceCtcAmountForm do
   let!(:intake) { create :ctc_intake, :with_dependents, client: client, advance_ctc_amount_received: nil, advance_ctc_entry_method: 'unfilled' }
-  let(:client) { create :client, tax_returns: [build(:tax_return, year: 2021)] }
+  let(:client) { create :client, tax_returns: [build(:tax_return)] }
 
   let(:params) {
     {

@@ -25,7 +25,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
                intake: build(:intake)
         create :tax_return, :file_not_filing, client: c, year: 2018
         create :tax_return, :file_accepted, client: c, year: 2019
-        create :tax_return, :file_mailed, client: c, year: 2021
+        create :tax_return, :file_mailed, client: c
         c
       end
       let!(:ten_day_breach_client_half_done_filing) do

@@ -39,7 +39,7 @@ RSpec.feature "Add a tax return for an existing client" do
       before do
         # 2019 already created above
         create :tax_return, client: client, year: 2018
-        create :tax_return, client: client, year: 2021
+        create :tax_return, client: client
         create :tax_return, client: client, year: 2017
       end
 

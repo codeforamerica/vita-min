@@ -73,7 +73,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_preparing, year: 2021)]
+             tax_returns: [(create :tax_return, :prep_preparing)]
     end
 
     before do
@@ -99,7 +99,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_info_requested, year: 2021)]
+             tax_returns: [(create :tax_return, :prep_info_requested)]
     end
 
     before do
@@ -125,7 +125,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, current_step: "/en/questions/asset-loss"),
-             tax_returns: [(create :tax_return, :intake_greeter_info_requested, year: 2021)]
+             tax_returns: [(create :tax_return, :intake_greeter_info_requested)]
     end
 
     before do
@@ -147,7 +147,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :review_reviewing, year: 2021)]
+             tax_returns: [(create :tax_return, :review_reviewing)]
     end
 
     before do
@@ -174,7 +174,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_not_filing, year: 2021)]
+             tax_returns: [(create :tax_return, :file_not_filing)]
     end
 
     before do
@@ -203,7 +203,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, current_step: "/en/questions/asset-loss"),
-             tax_returns: [(create :tax_return, :file_hold, year: 2021)]
+             tax_returns: [(create :tax_return, :file_hold)]
     end
 
     before do
@@ -229,7 +229,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, filing_joint: "yes"),
-             tax_returns: [(create :tax_return, :review_signature_requested, year: 2021)]
+             tax_returns: [(create :tax_return, :review_signature_requested)]
     end
 
     before do
@@ -264,7 +264,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2021)]
+             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed)]
     end
 
     before do
@@ -365,7 +365,7 @@ RSpec.feature "a client on their portal" do
   context "with an ITIN client ready to mail their forms" do
     let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", need_itin_help: "yes" }
     let(:client) { create :client, intake: intake }
-    let(:tax_return) { create :tax_return, :file_mailed, year: TaxReturn.current_tax_year, client: client }
+    let(:tax_return) { create :tax_return, :file_mailed, client: client }
 
     before do
       create(:document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: client)
@@ -418,7 +418,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
         intake: (create :ctc_intake),
-        tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2021, is_ctc: true)]
+        tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, is_ctc: true)]
     end
 
     before do

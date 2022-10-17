@@ -34,7 +34,7 @@ describe InitialTaxReturnsService do
     end
 
     context "when a tax return had existed for a specific year but the needs_help_xxxx value is now false" do
-      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2021 }
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
 
       before do
         intake.update(needs_help_2021: "no")

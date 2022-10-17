@@ -34,7 +34,7 @@ describe FilingStatusHelper do
     end
 
     context "with filing status and note" do
-      let(:tax_return) { create :tax_return, year: 2021, filing_status: "head_of_household", filing_status_note: "Or maybe single?" }
+      let(:tax_return) { create :tax_return, filing_status: "head_of_household", filing_status_note: "Or maybe single?" }
       it "returns info about filing status, tax year, and note" do
         expect(helper.filing_status_tax_return(tax_return)).to include "Or maybe single?"
         expect(helper.filing_status_tax_return(tax_return)).to include "Head of household"

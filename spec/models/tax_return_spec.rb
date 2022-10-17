@@ -915,7 +915,7 @@ describe TaxReturn do
   end
 
   describe "#primary_age_65_or_older?" do
-    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
 
     context "when born before Jan 2, 1957 for tax year 2021" do
       before do
@@ -939,7 +939,7 @@ describe TaxReturn do
   end
 
   describe "#spouse_age_65_or_old" do
-    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
 
     context "when born before Jan 2, 1957 for tax year 2021" do
       before do
@@ -963,7 +963,7 @@ describe TaxReturn do
   end
 
   describe "#standard_deduction" do
-    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
     before do
       allow(AppliedStandardDeduction).to receive(:new).with(tax_return: tax_return).and_call_original
     end
