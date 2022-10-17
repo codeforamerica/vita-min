@@ -25,7 +25,7 @@ module RoleHelper
   def role_type_from_role_name(role_name)
     return nil unless role_name.present?
 
-    role_name = role_name&.capitalize
+    role_name = role_name.capitalize
     if role_name.include?(I18n.t("general.admin"))
       AdminRole::TYPE
     elsif role_name.include?(I18n.t("general.organization_lead")) || role_name.include?("org lead")
