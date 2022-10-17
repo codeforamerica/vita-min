@@ -5,7 +5,7 @@ RSpec.describe "a user viewing a client" do
     let(:created_at) { Time.now }
     let(:user) { create :admin_user }
     let(:intake) { build(:intake, :with_contact_info) }
-    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced")], created_at: created_at }
+    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced", year: 2019)], created_at: created_at }
     let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :site, name: "Tax Help Test" }
     before do

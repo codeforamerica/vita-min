@@ -40,7 +40,7 @@
 #
 FactoryBot.define do
   factory :tax_return do
-    year { 2019 }
+    year { TaxReturn.current_tax_year }
     # when creating a client, also create an intake, since tax returns are made after intake begins
     client { create(:intake).client }
     filing_status { "single" }

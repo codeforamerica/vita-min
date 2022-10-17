@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::StimulusPaymentsForm do
   let(:intake) { create :ctc_intake, client: client, eip3_amount_received: 123 }
-  let(:client) { create :client, tax_returns: [build(:tax_return, year: 2021)] }
+  let(:client) { create :client, tax_returns: [build(:tax_return)] }
 
   let(:params) {
     {

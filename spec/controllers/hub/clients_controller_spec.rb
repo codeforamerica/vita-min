@@ -416,7 +416,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when there are clients with no current intakes (clients from previous tax years)" do
           let!(:former_year_client) { create :client, vita_partner: organization, intake: build(:intake, :filled_out) }
-          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, year: 2021, assigned_user: assigned_user }
+          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, assigned_user: assigned_user }
 
           before do
             # In reality this intake would be moved to the `archived_intakes_2021` table, but removing it from the DB is good enough for our purposes
@@ -641,7 +641,7 @@ RSpec.describe Hub::ClientsController do
 
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
-        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client, year: 2021 }
+        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client }
         let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
         before { client.update(vita_partner: organization, consented_to_service_at: DateTime.current) }
         render_views
@@ -1466,7 +1466,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when all tax returns are filing single" do
           let(:tr_2019) { build :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { build :tax_return, filing_status: "single", year: 2021 }
+          let(:tr_2020) { build :tax_return, filing_status: "single" }
 
           it "returns false" do
             expect(presenter.requires_spouse_info?).to be_falsey
@@ -1475,7 +1475,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when tax returns have any other status or a mix of statuses" do
           let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
+          let(:tr_2020) { create :tax_return, filing_status: "head_of_household" }
 
           it "returns true" do
             expect(presenter.requires_spouse_info?).to be_truthy

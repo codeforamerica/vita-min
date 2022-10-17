@@ -63,7 +63,7 @@ RSpec.describe Portal::PortalController, type: :controller do
         before do
           create :tax_return, :intake_in_progress, year: 2018, client: client
           create :tax_return, :prep_ready_for_prep, year: 2019, client: client
-          create :tax_return, :intake_ready_for_call, year: 2021, client: client
+          create :tax_return, :intake_ready_for_call, client: client
         end
 
         it "is ok" do

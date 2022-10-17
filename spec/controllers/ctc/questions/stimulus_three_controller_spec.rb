@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::StimulusThreeController do
   let(:intake) { create :ctc_intake, client: client, eip3_amount_received: nil }
-  let(:client) { create :client, tax_returns: [build(:tax_return, year: 2021)] }
+  let(:client) { create :client, tax_returns: [build(:tax_return)] }
 
   before do
     sign_in intake.client

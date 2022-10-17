@@ -161,7 +161,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#new" do
-    let!(:tax_return_1) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
+    let!(:tax_return_1) { create :tax_return, client: client }
     let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
     let(:params) do
       { client_id: client.id }
@@ -195,7 +195,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       before do
         sign_in user
-        create :tax_return, client: client, year: 2021
+        create :tax_return, client: client
         create :tax_return, client: client, year: 2019
       end
 
