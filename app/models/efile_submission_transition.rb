@@ -39,7 +39,9 @@ class EfileSubmissionTransition < ApplicationRecord
   def exposed_error
     return EfileError.none unless efile_errors.present?
 
-    efile_submission_transition_errors.joins(:efile_error).where(efile_errors: { expose: true }).first
+    errors = efile_submission_transition_errors.joins(:efile_error).where(efile_errors: { expose: true })
+    auto_cancel_errors = errors.where(efile_errors: { auto_cancel: true })
+    auto_cancel_errors.any? ? auto_cancel_errors.first : errors.first
   end
 
   private
