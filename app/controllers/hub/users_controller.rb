@@ -125,14 +125,9 @@ module Hub
 
     def vita_partner_from_search(search_param)
       current_ability = Ability.new(current_user)
-      org = Organization.accessible_by(current_ability).find_by(name: search_param)
-      return org if org
-
-      site = Site.accessible_by(current_ability).find_by(name: search_param)
-      return site if site
-
-      coalition = Coalition.accessible_by(current_ability).find_by(name: search_param)
-      return coalition if coalition
+      Organization.accessible_by(current_ability).find_by(name: search_param) ||
+        Site.accessible_by(current_ability).find_by(name: search_param) ||
+        Coalition.accessible_by(current_ability).find_by(name: search_param)
     end
 
     def load_and_authorize_role
