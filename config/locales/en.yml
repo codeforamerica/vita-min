@@ -2077,7 +2077,7 @@ en:
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
           eitc: 'Earned Income Tax Credit:'
           fed_income_tax_withholding: 'Federal Income Tax Withholding:'
-          subtitle: You’re almost done! Please continue to complete filing your tax return.
+          subtitle: You’re almost done! Please confirm your refund information.
           third_stimulus: 'Third Stimulus Payment:'
           title: 'Review this list of the payments you are claiming:'
           total: 'Total refund amount:'
@@ -2314,7 +2314,7 @@ en:
         had_dependents:
           add: Add dependents
           continue: Continue without dependents
-          help_text: Anyone who you support financially or who lived with you might qualify you for additional benefits, we’ll help you figure it out.
+          help_text: Anyone who you support financially or who lived with you might qualify you for additional benefits. We’ll help you figure it out.
           title: To claim your Child Tax Credit, you must add your dependents (children or others who you financially support)
           which_relationships_qualify_reveal:
             content:
@@ -2431,13 +2431,13 @@ en:
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
-              p2: You would have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
-              p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
+              p2: You would NOT have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn’t have any healthcare coverage at all.
+              p3: You would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website. This type of insurance is sometimes referred to as “Obamacare.”
             title: What is the Advance Premium Tax Credit?
         investment_income:
           help_text: In general, investment income includes interest, dividends, capital gains, and mutual fund distributions.
           married_title: Did you and your spouse earn more than $10,000 in investment income in %{current_tax_year}?
-          reveal_content: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
+          reveal_content: If you earned income from investments (like interest from a savings account, dividends from stocks, or capital gains from an investment) you would have received a 1099-INT, 1099-DIV, or 1099-B with the amount.
           reveal_title: How do I check my investment income amount?
           title: Did you earn more than $10,000 in investment income in %{current_tax_year}?
         ip_pin:
@@ -2763,17 +2763,16 @@ en:
             remove_this_w2: Remove this W-2
             requirement_title: 'Requirement:'
             requirements:
-            - The following sections of your W-2 may likely be blank. If so, there is no problem; leave them blank in the boxes below.
+            - The following sections of your W-2 are likely blank. Leave those boxes blank below so they match your W-2.
             - For Boxes 15-20, if your W-2 is filled with information for multiple states, please only enter the first state's information.
-            submit: Submit W-2
+            submit: Save this W-2
             title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."
           reveal:
-            content:
-              p1: If you haven't received a W-2 from your employer, you can take a few actions to ensure you get a hold of it.
-              p2: A good first step would be to contact your employer directly and ensure that any personal information, like your mailing address, is up to date. You can also ask them if W-2s have been mailed out or when they anticipate sending them. It could be that your employer sent it on the last day, January 31, which will then arrive in early February. Another option would be to access your W-2 online. Most employers provide online access to your W-2 through an employee portal. Double-check with your employer if you've been given information on how to log in to such a portal.
-              p3_html: If you're unable to contact your employer, you can request an income and wage transcript from the IRS. Go to <a href="https://www.irs.gov/individuals/get-transcript" rel="noopener nofollow" target="_blank">https://www.irs.gov/individuals/get-transcript</a>. You will need to create or login to your IRS account.
-              p4: Have additional questions? Click "Chat with us" to get more information about these options.
+            content_html: |
+              The first step to getting your W-2 is to contact your employer or former employer directly. Ask if they can send you a copy of your W-2 or if you can access the W-2 online in an employee portal.
+
+              If you are not able to contact your employer, you can request an <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="nofollow noopener">income and wage transcript</a> from the IRS.
             title: What if I haven’t received my W-2?
           reveal_1099:
             content_html: If you have more than $400 in income reported on a Form 1099-NEC or 1099-K for work you did in 2021, you need to file a full tax return. You cannot use GetCTC. <a href="%{url}">File a full return</a> instead to get started.
