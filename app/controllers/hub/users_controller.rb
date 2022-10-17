@@ -22,8 +22,6 @@ module Hub
                  elsif vita_partner.present?
                    if vita_partner.is_a?(Organization)
                      @users.where(role: OrganizationLeadRole.where(organization: vita_partner))
-                           .or(@users.where(role: SiteCoordinatorRole.where(site: vita_partner.child_sites)))
-                           .or(@users.where(role: TeamMemberRole.where(site: vita_partner.child_sites)))
                    elsif vita_partner.is_a?(Site)
                      @users.where(role: SiteCoordinatorRole.where(site: vita_partner))
                            .or(@users.where(role: TeamMemberRole.where(site: vita_partner)))
@@ -126,19 +124,15 @@ module Hub
     end
 
     def vita_partner_from_search(search_param)
-      Organization.all.pluck(:name).each do |name|
-        return Organization.where(name: name).first if name.include? search_param
-      end
+      current_ability = Ability.new(current_user)
+      org = Organization.accessible_by(current_ability).find_by(name: search_param)
+      return org if org
 
-      Site.all.pluck(:name).each do |name|
-        return Site.where(name: name).first if name.include? search_param
-      end
+      site = Site.accessible_by(current_ability).find_by(name: search_param)
+      return site if site
 
-      Coalition.all.pluck(:name).each do |name|
-        return Coalition.where(name: name).first if name.include? search_param
-      end
-
-      nil
+      coalition = Coalition.accessible_by(current_ability).find_by(name: search_param)
+      return coalition if coalition
     end
 
     def load_and_authorize_role

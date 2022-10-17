@@ -143,18 +143,67 @@ RSpec.describe Hub::UsersController do
         end
       end
 
-      context "with a search param" do
-        let(:params) do
-          { search: "someone@" }
+      context "searching" do
+        context "when searching by email" do
+          let(:params) do
+            { search: "someone@" }
+          end
+          let!(:first_match) { create :user, email: "someone@example.com" }
+          let!(:second_match) { create :user, email: "someone@example.org" }
+          let!(:nonmatch) { create :user, email: "else@example.com" }
+
+          it "returns the set of matching users" do
+            get :index, params: params
+
+            expect(assigns(:users)).to match_array([first_match, second_match])
+          end
         end
-        let!(:first_match) { create :user, email: "someone@example.com" }
-        let!(:second_match) { create :user, email: "someone@example.org" }
-        let!(:nonmatch) { create :user, email: "else@example.com" }
 
-        it "returns the set of matching users" do
-          get :index, params: params
+        context "when searching for an org's name" do
+          let(:params) do
+            { search: "Oregano org" }
+          end
+          let!(:organization) { create(:organization, name: "Oregano Org") }
+          let!(:site) { create(:site, parent_organization: organization) }
+          let!(:first_match) { create :organization_lead_user, email: "someone@example.com", organization: organization }
+          let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
+          let!(:nonmatch_user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
 
-          expect(assigns(:users)).to match_array([first_match, second_match])
+          it "returns the users within that org" do
+            get :index, params: params
+            expect(assigns(:users)).to match([first_match])
+          end
+        end
+
+        context "when searching for a site's name" do
+          let(:params) do
+            { search: "Library site" }
+          end
+          let!(:organization) { create(:organization, name: "Oregano Org") }
+          let!(:site) { create(:site, parent_organization: organization, name: "Library Site") }
+          let!(:user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
+          let!(:nonmatch_parent_org_user) { create :organization_lead_user, email: "someone@example.com", organization: organization }
+          let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
+
+          it "returns the users within that site" do
+            get :index, params: params
+            expect(assigns(:users)).to match([user_at_child_site])
+          end
+        end
+
+        context "when searching for a coalition's name" do
+          let(:params) do
+            { search: "Nevada coalition" }
+          end
+          let!(:coalition) { create(:coalition, name: "Nevada Coalition") }
+          let!(:coalition_lead_user) { create(:coalition_lead_user, coalition: coalition)}
+          let!(:organization) { create(:organization, coalition: coalition)}
+          let!(:nonmatch_user_at_member_org) { create :organization_lead_user, email: "someone@example.net", organization: organization }
+
+          it "returns the users within that coalition directly" do
+            get :index, params: params
+            expect(assigns(:users)).to match([coalition_lead_user])
+          end
         end
       end
     end

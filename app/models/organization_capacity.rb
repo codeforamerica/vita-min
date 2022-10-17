@@ -4,7 +4,6 @@
 #
 #  active_client_count :bigint
 #  capacity_limit      :integer
-#  name                :string
 #  vita_partner_id     :bigint           primary key
 #
 class OrganizationCapacity < ApplicationRecord

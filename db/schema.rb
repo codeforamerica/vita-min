@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_180031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -567,7 +567,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
 
   create_table "coalitions", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "name", null: false
+    t.citext "name", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_coalitions_on_name", unique: true
   end
@@ -1605,7 +1605,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
     t.bigint "coalition_id"
     t.datetime "created_at", null: false
     t.string "logo_path"
-    t.string "name", null: false
+    t.citext "name", null: false
     t.boolean "national_overflow_location", default: false
     t.bigint "parent_organization_id"
     t.boolean "processes_ctc", default: false
@@ -1785,7 +1785,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
+            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count
@@ -1796,7 +1796,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_221049) do
             GROUP BY organization_id_by_vita_partner_id.organization_id
           )
    SELECT vita_partners.id AS vita_partner_id,
-      vita_partners.name,
       vita_partners.capacity_limit,
           CASE
               WHEN (partner_and_client_counts.active_client_count IS NULL) THEN (0)::bigint
