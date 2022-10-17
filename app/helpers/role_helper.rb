@@ -40,8 +40,6 @@ module RoleHelper
       GreeterRole::TYPE
     elsif role_name.include?(I18n.t("general.team_member"))
       TeamMemberRole::TYPE
-    else
-      false
     end
   end
 
