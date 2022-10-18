@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   end
 
   get '/healthcheck' => 'public_pages#healthcheck'
+  get '/hostheaders' => 'public_pages#hostheaders'
   resources :session_toggles, only: [:index, :create]
 
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do

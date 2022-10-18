@@ -35,6 +35,14 @@ class PublicPagesController < ApplicationController
     render :home
   end
 
+  def hostheaders
+    render plain: JSON.dump(
+      { host: request.host,
+        headers: { host: request.headers["HTTP_HOST"],
+                   forwarded_host: request.headers["HTTP_X_FORWARDED_HOST"] }
+      })
+  end
+
   def other_options; end
 
   def maybe_ineligible; end
@@ -51,14 +59,14 @@ class PublicPagesController < ApplicationController
 
   def internal_server_error
     respond_to do |format|
-      format.html { render 'public_pages/internal_server_error', status: 500  }
+      format.html { render 'public_pages/internal_server_error', status: 500 }
       format.any { head 500 }
     end
   end
 
   def page_not_found
     respond_to do |format|
-      format.html { render 'public_pages/page_not_found', status: 404  }
+      format.html { render 'public_pages/page_not_found', status: 404 }
       format.any { head 404 }
     end
   end
@@ -96,7 +104,7 @@ class PublicPagesController < ApplicationController
         "Unknown PKI validation."
       end
     respond_to do |format|
-      format.text { render plain: website_text  }
+      format.text { render plain: website_text }
       format.any { head 404 }
     end
   end
