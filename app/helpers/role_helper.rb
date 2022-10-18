@@ -1,9 +1,9 @@
 module RoleHelper
-  def user_role(user)
-    readable_role_from_role_type(user.role_type)
+  def user_role_name(user)
+    role_name_from_role_type(user.role_type)
   end
 
-  def readable_role_from_role_type(role_type)
+  def role_name_from_role_type(role_type)
     case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
@@ -20,6 +20,27 @@ module RoleHelper
     when TeamMemberRole::TYPE
       I18n.t("general.team_member")
     end&.titleize
+  end
+
+  def role_type_from_role_name(role_name)
+    return nil unless role_name.present?
+
+    role_name = role_name.capitalize
+    if role_name.include?(I18n.t("general.admin"))
+      AdminRole::TYPE
+    elsif role_name.include?(I18n.t("general.organization_lead")) || role_name.include?("org lead")
+      OrganizationLeadRole::TYPE
+    elsif role_name.include?(I18n.t("general.coalition_lead"))
+      CoalitionLeadRole::TYPE
+    elsif role_name.include?(I18n.t("general.site_coordinator"))
+      SiteCoordinatorRole::TYPE
+    elsif role_name.include?(I18n.t("general.client_success"))
+      ClientSuccessRole::TYPE
+    elsif role_name.include?(I18n.t("general.greeter"))
+      GreeterRole::TYPE
+    elsif role_name.include?(I18n.t("general.team_member"))
+      TeamMemberRole::TYPE
+    end
   end
 
   def user_group(user)

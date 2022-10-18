@@ -8,7 +8,7 @@
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
 #  logo_path                  :string
-#  name                       :string           not null
+#  name                       :citext           not null
 #  national_overflow_location :boolean          default(FALSE)
 #  processes_ctc              :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")

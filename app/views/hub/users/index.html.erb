@@ -4,6 +4,15 @@
 <% content_for :card do %>
   <div class="slab">
     <h1 class="h1"><%= t(".title") %></h1>
+
+    <span>
+      <%= t("general.search") %>
+    </span>
+    <%= form_tag hub_users_path, method: "get", class: "hub-searchbar" do %>
+      <input type="text" class="hub-searchbar__input" id="search" name="search"/>
+      <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+    <% end %>
+
     <table class="index-table user-table">
       <caption class="index-table__title">
         <%= page_entries_info @users, model: "entry" %>
@@ -23,7 +32,7 @@
         <th scope="col" class="index-table__header"><%= t("general.email") %></th>
         <th scope="col" class="index-table__header"><%= t("general.role") %></th>
         <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
-        <th scope="col" class="index-table__header"><%= t(".needs_to_accept_invite") %></th>
+        <th scope="col" class="index-table__header"><%= t(".invite_pending") %></th>
       </tr>
       </thead>
 
@@ -40,13 +49,13 @@
           <td class="index-table__cell">
             <%= user.email %>
             <% if user.access_locked? %>
-              <span class="locked label label--red"><%= t("general.locked") %></span>
+              <span class="locked"><%= image_tag("lock-red.svg", alt: t("general.locked")) %></span>
             <% end %>
             <% if user.suspended? %>
               <span class="locked label label--red"><%= t("general.suspended") %></span>
             <% end %>
           </td>
-          <td class="index-table__cell"><%= user_role(user) %></td>
+          <td class="index-table__cell"><%= user_role_name(user) %></td>
           <td class="index-table__cell"><%= user_group(user) || t("general.none") %></td>
           <td class="index-table__cell"><%= t("general.affirmative") if user.invitation_sent_at.present? && user.invitation_accepted_at.nil? %></td>
         </tr>

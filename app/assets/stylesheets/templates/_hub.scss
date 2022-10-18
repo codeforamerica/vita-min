@@ -82,3 +82,39 @@ section.client-index-header.slab--padded {
 .honeycrisp-compact .no-form-group-padding .form-group {
   margin-bottom: 0;
 }
+
+.hub-searchbar {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: $s5;
+  padding-bottom: $s5;
+}
+
+.hub-searchbar__button {
+  transition: all $animation-fast;
+  user-select: none;
+  padding: {
+    left: $s10;
+    right: $s10;
+  }
+  border-radius: 0;
+  vertical-align: middle;
+  border: 1px solid $color-grey-darkest;
+  background-color: $color-black;
+}
+
+.hub-searchbar__input {
+  border: 1px solid $color-grey-darkest;
+  box-shadow: inset 0px 2px 0px rgba(#000, .15);
+  background-color: $color-grey-light;
+  font-weight: $font-weight-bold;
+  padding: 0 $s25;
+  height: $s35;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: $color-grey-dark;
+  }
+}

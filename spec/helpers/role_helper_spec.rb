@@ -1,18 +1,18 @@
 require "rails_helper"
 
 describe RoleHelper do
-  describe "#user_role" do
+  describe "#user_role_name" do
     context "an admin" do
       let(:user) { create :admin_user }
       it "returns the user role" do
-        expect(helper.user_role(user)).to eq "Admin"
+        expect(helper.user_role_name(user)).to eq "Admin"
       end
     end
 
     context "a client success user" do
       let(:user) { create :client_success_user }
       it "returns the user role" do
-        expect(helper.user_role(user)).to eq "Client Success"
+        expect(helper.user_role_name(user)).to eq "Client Success"
       end
     end
 
@@ -20,7 +20,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:organization_lead_role) }
 
       it "shows they are an org lead" do
-        expect(helper.user_role(user)).to eq "Organization Lead"
+        expect(helper.user_role_name(user)).to eq "Organization Lead"
       end
     end
 
@@ -28,7 +28,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:team_member_role) }
 
       it "shows their role" do
-        expect(helper.user_role(user)).to eq "Team Member"
+        expect(helper.user_role_name(user)).to eq "Team Member"
       end
     end
 
@@ -36,7 +36,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:coalition_lead_role) }
 
       it "shows they are a coalition lead" do
-        expect(helper.user_role(user)).to eq "Coalition Lead"
+        expect(helper.user_role_name(user)).to eq "Coalition Lead"
       end
     end
 
@@ -44,7 +44,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:site_coordinator_role) }
 
       it "shows they are a site coordinator" do
-        expect(helper.user_role(user)).to eq "Site Coordinator"
+        expect(helper.user_role_name(user)).to eq "Site Coordinator"
       end
     end
 
@@ -52,7 +52,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:greeter_role) }
 
       it "shows the role name" do
-        expect(helper.user_role(user)).to eq "Greeter"
+        expect(helper.user_role_name(user)).to eq "Greeter"
       end
     end
   end
