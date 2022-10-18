@@ -122,7 +122,7 @@ RSpec.describe Hub::UsersController do
           get :index
 
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("#user-#{locked_user.id}")).to have_text("Locked")
+          expect(html).to have_css("img[src*='/assets/lock-red']")
         end
       end
 
