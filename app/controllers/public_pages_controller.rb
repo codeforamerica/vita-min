@@ -38,7 +38,9 @@ class PublicPagesController < ApplicationController
   def hostheaders
     render plain: JSON.dump(
       { host: request.host,
+        ip: request.remote_ip,
         headers: { host: request.headers["HTTP_HOST"],
+                   ip: request.headers["HTTP_X_FORWARDED_IP"],
                    forwarded_host: request.headers["HTTP_X_FORWARDED_HOST"] }
       })
   end
