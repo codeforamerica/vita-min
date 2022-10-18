@@ -274,4 +274,27 @@ describe TwilioService do
       expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.sent"
     end
   end
+
+  describe ".get_metadata" do
+    let(:fake_client) { double }
+    let(:fake_metadata) {
+      {
+        "mobile_network_code" => "800",
+        "carrier_name" => "T-Mobile USA, Inc.",
+        "error_code" => nil,
+        "mobile_country_code" => "310",
+        "type" => "mobile"
+      }
+    }
+    before do
+      allow(TwilioService).to receive(:client).and_return fake_client
+      allow(fake_client).to receive_message_chain(:lookups, :v2, :phone_numbers, :fetch, :line_type_intelligence).and_return fake_metadata
+    end
+
+    it "sends a text message using the twilio client" do
+      result = TwilioService.get_metadata(phone_number: "+15855551212")
+
+      expect(result).to eq fake_metadata
+    end
+  end
 end

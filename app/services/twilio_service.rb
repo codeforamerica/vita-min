@@ -75,5 +75,12 @@ class TwilioService
 
       nil
     end
+
+    def get_metadata(phone_number:)
+      client.lookups.v2.phone_numbers(phone_number).fetch(fields: 'line_type_intelligence').line_type_intelligence
+
+    rescue Twilio::REST::RestError
+      {}
+    end
   end
 end

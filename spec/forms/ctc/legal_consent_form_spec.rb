@@ -286,6 +286,15 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       expect(intake.was_blind).to eq "yes"
     end
 
+    it 'enqueues a GetPhoneMetadataJob' do
+      form = described_class.new(intake, params)
+      form.valid? # the form only transforms the phone number if it is validated before calling save
+
+      expect {
+        form.save
+      }.to have_enqueued_job(GetPhoneMetadataJob).with(intake)
+    end
+
     context "tin types" do
       context "when tin type is ssn" do
         let(:tin_type) { "ssn" }

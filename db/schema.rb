@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_180031) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_18_221250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1109,8 +1109,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_180031) do
     t.integer "paid_retirement_contributions", default: 0, null: false
     t.integer "paid_school_supplies", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
+    t.string "phone_carrier"
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
+    t.string "phone_number_type"
     t.string "preferred_interview_language"
     t.string "preferred_name"
     t.string "preferred_written_language"

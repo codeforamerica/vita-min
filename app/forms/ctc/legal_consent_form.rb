@@ -43,6 +43,7 @@ module Ctc
           action: attributes_for(:recaptcha)[:recaptcha_action]
         )
       end
+      GetPhoneMetadataJob.perform_later(@intake)
     end
 
     private

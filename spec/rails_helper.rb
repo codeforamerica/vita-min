@@ -114,6 +114,7 @@ RSpec.configure do |config|
     stub_const('Fraud::Score::HOLD_THRESHOLD', 1000)
     stub_const('Fraud::Score::RESTRICT_THRESHOLD', 1000)
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
+    stub_request(:get, /.*lookups\.twilio\.com.*/).to_return(status: 200, body: "{}", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     @test_environment_credentials = {
