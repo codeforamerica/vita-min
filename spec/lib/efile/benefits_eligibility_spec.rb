@@ -854,4 +854,45 @@ describe Efile::BenefitsEligibility do
       end
     end
   end
+
+  describe "#disqualified_for_simplified_filing_due_to_income?" do
+    let!(:w2) { create(:w2, intake: intake, wages_amount: wages_amount) }
+    before do
+      intake.tax_returns.first.update(filing_status: filing_status)
+    end
+
+    context "when filing single" do
+      let(:filing_status) { "single" }
+      context "when < the limit" do
+        let(:wages_amount) { 12_549 }
+        it "returns false" do
+          expect(subject.disqualified_for_simplified_filing_due_to_income?).to eq(false)
+        end
+      end
+
+      context "when >= the limit" do
+        let(:wages_amount) { 12_550 }
+        it "returns true" do
+          expect(subject.disqualified_for_simplified_filing_due_to_income?).to eq(true)
+        end
+      end
+    end
+
+    context "when filing jointly with a spouse" do
+      let(:filing_status) { "married_filing_jointly" }
+      context "when < the limit" do
+        let(:wages_amount) { 25_099 }
+        it "returns false" do
+          expect(subject.disqualified_for_simplified_filing_due_to_income?).to eq(false)
+        end
+      end
+
+      context "when >= the limit" do
+        let(:wages_amount) { 25_100 }
+        it "returns true" do
+          expect(subject.disqualified_for_simplified_filing_due_to_income?).to eq(true)
+        end
+      end
+    end
+  end
 end

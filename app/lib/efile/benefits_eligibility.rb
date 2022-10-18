@@ -153,11 +153,8 @@ module Efile
     def disqualified_for_simplified_filing_due_to_income?
       return false unless intake.total_wages_amount
 
-      if intake.filing_jointly?
-        intake.total_wages_amount > SIMPLIFIED_FILING_UPPER_LIMIT_JOINT
-      else
-        intake.total_wages_amount > SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE
-      end
+      limit = intake.filing_jointly? ? SIMPLIFIED_FILING_UPPER_LIMIT_JOINT : SIMPLIFIED_FILING_UPPER_LIMIT_SINGLE
+      intake.total_wages_amount >= limit
     end
 
     def disqualified_for_simplified_filing?

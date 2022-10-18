@@ -1,4 +1,4 @@
-class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::BaseIntakeRevisionController
+class Ctc::Portal::W2s::EmployerInfoController < Ctc::Portal::W2s::BaseController
   def edit
     @form = form_class.from_w2(current_model)
     render edit_template

@@ -1,4 +1,4 @@
-class Ctc::Portal::W2s::MiscInfoController < Ctc::Portal::BaseIntakeRevisionController
+class Ctc::Portal::W2s::MiscInfoController < Ctc::Portal::W2s::BaseController
   before_action :set_continue_label
 
   def edit
@@ -7,6 +7,14 @@ class Ctc::Portal::W2s::MiscInfoController < Ctc::Portal::BaseIntakeRevisionCont
   end
 
   private
+
+  def next_path
+    if current_intake.benefits_eligibility.disqualified_for_simplified_filing?
+      Ctc::Questions::UseGyrController.to_path_helper
+    else
+      super
+    end
+  end
 
   def edit_template
     "ctc/questions/w2s/misc_info/edit"

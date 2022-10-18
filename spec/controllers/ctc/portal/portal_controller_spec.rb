@@ -163,6 +163,18 @@ describe Ctc::Portal::PortalController do
           expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
         end
       end
+
+      context "when the client is ineligible for simplified filing" do
+        it "redirects to use gyr without resubmitting" do
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:disqualified_for_simplified_filing?).and_return true
+
+          expect {
+            put :resubmit, params: params
+          }.not_to change(client.efile_submissions, :count)
+
+          expect(response).to redirect_to Ctc::Questions::UseGyrController.to_path_helper
+        end
+      end
     end
   end
 
