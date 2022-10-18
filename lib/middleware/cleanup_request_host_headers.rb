@@ -1,24 +1,16 @@
 module Middleware
-  class CleanupMimeTypeHeaders
+  class CleanupRequestHostHeaders
     def initialize(app)
       @app = app
     end
 
     def call(env)
-      # Filter out invalid "Accept" or "Content-Type" headers to avoid noisy logs.
-      # https://github.com/rails/rails/issues/37620
-      clean_header!(env, 'CONTENT_TYPE')
-      clean_header!(env, 'HTTP_ACCEPT')
+      # Filter out client-submitted "X-Forwarded-Host" headers; Rails trusts them but
+      # our deployment on Aptible does not send them.
+      #
+      # Similar to https://github.com/pusher/rack-headers_filter but retains all the headers
+      # Aptible does actually send: https://deploy-docs.aptible.com/docs/http-request-headers
       @app.call(env)
-    end
-
-    def clean_header!(env, header_name)
-      header_val = env.dig(header_name)
-      return if header_val.nil?
-
-      Mime::Type.parse(header_val)
-    rescue Mime::Type::InvalidMimeType
-      env.store(header_name, 'unknown/unknown')
     end
   end
 end
