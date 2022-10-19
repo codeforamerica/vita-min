@@ -12,7 +12,7 @@ module Ctc
         :box_d_control_number
       )
 
-      before_validation_squish(:employer_city, :employer_street_address)
+      before_validation_squish(:employer_city, :employer_street_address, :box_d_control_number)
 
       validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }
       validates :employer_name, presence: true, irs_business_name_type: true
@@ -24,7 +24,6 @@ module Ctc
 
       before_validation do
         self.employer_ein = employer_ein&.delete('-')
-        self.box_d_control_number = box_d_control_number&.squish
       end
     end
   end
