@@ -1,4 +1,5 @@
 require_relative "boot"
+require_relative "../lib/middleware/cleanup_request_host_headers"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
 require_relative "../lib/middleware/reject_invalid_params"
 
@@ -59,6 +60,7 @@ module VitaMin
     # the framework and any gems in your application.
     #
     #
+    config.middleware.use Middleware::CleanupRequestHostHeaders
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
     config.current_tax_year = 2021
