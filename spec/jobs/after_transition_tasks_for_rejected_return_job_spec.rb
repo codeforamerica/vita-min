@@ -35,11 +35,16 @@ describe AfterTransitionTasksForRejectedReturnJob do
 
     context "when the error is auto-cancel" do
       let(:auto_cancel) { true }
-      it "updates the tax status and submission status" do
+      it "updates the tax status and submission status and uses custom rejection message" do
         AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
         expect(submission.tax_return.reload.current_state).to eq("file_not_filing")
         expect(submission.current_state).to eq("cancelled")
+        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).once.with(
+          client: submission.client.reload,
+          message: AutomatedMessage::EfileRejectedAndCancelled,
+          locale: submission.client.intake.locale
+        )
       end
     end
 

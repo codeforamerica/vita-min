@@ -1261,6 +1261,22 @@ en:
         sms: |
           Hello <<Client.PreferredName>>,
           Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
+      rejected_and_cancelled:
+        email:
+          body: |
+            Hello <<Client.PreferredName>>,
+
+            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
+
+            Sign in to see why your return was not accepted: <<Client.LoginLink>>
+
+            Replies to this address are not monitored. If you need additional assistance, please write support@getyourrefund.org.
+
+            Your tax team at GetCTC.org
+          subject: GetCTC Return Status Update
+        sms: |
+          Hello <<Client.PreferredName>>,
+          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to learn more. (Replies not monitored. Write support@getyourrefund.org for assistance.)
     fraud_hold:
       email:
         body: |

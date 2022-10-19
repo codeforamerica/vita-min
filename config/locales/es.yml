@@ -1263,6 +1263,22 @@ es:
           ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
           Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
           ¡Estamos aquí para ayudarle!
+      rejected_and_cancelled:
+        email:
+          body: |
+            Hola <<Client.PreferredName>>,
+
+            ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, su declaración de impuestos ha sido rechazada por el IRS.
+
+            Inicie sesión para ver por qué no se aceptó su devolución: <<Client.LoginLink>>
+
+            Las respuestas a esta dirección no se controlan. Si necesita asistencia adicional, escriba a support@getyourrefund.org.
+
+            Su equipo de impuestos en GetCTC.org
+          subject: Actualización de estado de devolución de GetCTC
+        sms: |
+          Hola <<Client.PreferredName>>,
+          ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí <<Client.LoginLink>> para obtener más información. (Respuestas no supervisadas. Escriba a support@getyourrefund.org para obtener ayuda).
     fraud_hold:
       email:
         body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
