@@ -24,6 +24,7 @@ module Ctc
 
       before_validation do
         self.employer_ein = employer_ein&.delete('-')
+        self.box_d_control_number = box_d_control_number&.squish
       end
     end
   end
