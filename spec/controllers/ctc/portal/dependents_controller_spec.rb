@@ -73,7 +73,7 @@ describe Ctc::Portal::DependentsController do
         params[:ctc_portal_dependent_form].merge!(
           first_name: 'Margaret',
           last_name: 'Mangosteen',
-          birth_date_year: '2013',
+          birth_date_month: '12',
           ssn: '111-22-8881',
           ssn_confirmation: '111-22-8881',
         )
@@ -89,7 +89,7 @@ describe Ctc::Portal::DependentsController do
           "changes" => a_hash_including(
             "first_name" => ["Maggie", "Margaret"],
             "last_name" => ["Mango", "Mangosteen"],
-            "birth_date" => ["2012-05-01", "2013-05-01"],
+            "birth_date" => ["2012-05-01", "2012-12-01"],
             "ssn" => ["[REDACTED]", "[REDACTED]"],
           )
         })

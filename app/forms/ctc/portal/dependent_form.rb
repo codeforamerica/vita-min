@@ -39,6 +39,7 @@ module Ctc
       end
 
       def initialize(dependent, params)
+        params[:birth_date_year] = dependent.birth_date_year
         super
         if tin_type == "ssn_no_employment"
           self.tin_type = "ssn"

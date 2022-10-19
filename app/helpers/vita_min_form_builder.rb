@@ -292,7 +292,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
-  def vita_min_date_text_fields(method, label_text, help_text: nil, options: {}, classes: [])
+  def vita_min_date_text_fields(method, label_text, help_text: nil, options: {}, options_by_date_component: {}, classes: [])
     date_text_fields = [["month", 2], ["day", 2], ["year", 4]].map do |date_component, max_length|
       date_component_slug = "#{method}_#{date_component}"
       classes += ["text-input date-text-input form-width--short"]
@@ -309,6 +309,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
        )
 
       text_field_options[:id] ||= sanitized_id(date_component_slug)
+      text_field_options.merge!(options_by_date_component[date_component.to_sym] || {})
 
       text_field(date_component_slug, text_field_options)
     end
