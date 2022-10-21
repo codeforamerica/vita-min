@@ -5,17 +5,17 @@ module Hub
     include ClientSortable
 
     before_action :require_sign_in
-    before_action :ensure_always_current_user_assigned, :load_vita_partners, :load_users, :setup_sortable_client, only: [:index]
+    before_action :ensure_always_current_user_assigned, :load_vita_partners, :load_users, only: [:index]
     load_and_authorize_resource :client, parent: false
+    before_action :setup_sortable_client, only: [:index]
     layout "hub"
 
     def index
       @page_title = I18n.t("hub.assigned_clients.index.title")
-      # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
-      @tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).size
-      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @client_sorter.filters[:assigned_to_me] = true
+      @tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.with_eager_loaded_associations.without_pagination).size
+      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
-      @filters[:assigned_to_me] = true
       render "hub/clients/index"
     end
 

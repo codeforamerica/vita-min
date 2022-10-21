@@ -441,8 +441,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "asc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("preferred_name")
-            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns[:client_sorter].sort_column).to eq("preferred_name")
+            expect(assigns[:client_sorter].sort_order).to eq("asc")
             expect(assigns(:clients).length).to eq 2
 
             expect(assigns(:clients)).to eq [alex, ben]
@@ -452,8 +452,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "desc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("preferred_name")
-            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns[:client_sorter].sort_column).to eq("preferred_name")
+            expect(assigns[:client_sorter].sort_order).to eq("desc")
             expect(assigns(:clients).length).to eq 2
             expect(assigns(:clients)).to eq [ben, alex]
           end
@@ -468,8 +468,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "asc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("id")
-            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns[:client_sorter].sort_column).to eq("id")
+            expect(assigns[:client_sorter].sort_order).to eq("asc")
 
             expect(assigns(:clients)).to eq [first_id, second_id]
           end
@@ -478,8 +478,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "desc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("id")
-            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns[:client_sorter].sort_column).to eq("id")
+            expect(assigns[:client_sorter].sort_order).to eq("desc")
 
             expect(assigns(:clients)).to eq [second_id, first_id]
           end
@@ -494,8 +494,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "asc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("updated_at")
-            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns[:client_sorter].sort_column).to eq("updated_at")
+            expect(assigns[:client_sorter].sort_order).to eq("asc")
 
             expect(assigns(:clients)).to eq [one, two]
           end
@@ -504,8 +504,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "desc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("updated_at")
-            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns[:client_sorter].sort_column).to eq("updated_at")
+            expect(assigns[:client_sorter].sort_order).to eq("desc")
 
             expect(assigns(:clients)).to eq [two, one]
           end
@@ -520,8 +520,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "asc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("locale")
-            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns[:client_sorter].sort_column).to eq("locale")
+            expect(assigns[:client_sorter].sort_order).to eq("asc")
 
             expect(assigns(:clients)).to eq [english, spanish]
           end
@@ -530,8 +530,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "desc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("locale")
-            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns[:client_sorter].sort_column).to eq("locale")
+            expect(assigns[:client_sorter].sort_order).to eq("desc")
 
             expect(assigns(:clients)).to eq [spanish, english]
           end
@@ -546,8 +546,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "asc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
-            expect(assigns[:sort_order]).to eq "asc"
+            expect(assigns[:client_sorter].sort_column).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:client_sorter].sort_order).to eq "asc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
           end
@@ -556,8 +556,8 @@ RSpec.describe Hub::ClientsController do
             params[:order] = "desc"
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
-            expect(assigns[:sort_order]).to eq "desc"
+            expect(assigns[:client_sorter].sort_column).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:client_sorter].sort_order).to eq "desc"
 
             expect(assigns(:clients)).to eq [first_id, second_id]
           end
@@ -570,8 +570,8 @@ RSpec.describe Hub::ClientsController do
           it "defaults to sorting by last_outgoing_communication_at, asc by default" do
             get :index
 
-            expect(assigns[:sort_column]).to eq "last_outgoing_communication_at"
-            expect(assigns[:sort_order]).to eq "asc"
+            expect(assigns[:client_sorter].sort_column).to eq "last_outgoing_communication_at"
+            expect(assigns[:client_sorter].sort_order).to eq "asc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
           end
@@ -579,8 +579,8 @@ RSpec.describe Hub::ClientsController do
           it "defaults to sorting by id, desc with bad params" do
             get :index, params: { column: "bad_order", order: "no_order" }
 
-            expect(assigns[:sort_column]).to eq "last_outgoing_communication_at"
-            expect(assigns[:sort_order]).to eq "asc"
+            expect(assigns[:client_sorter].sort_column).to eq "last_outgoing_communication_at"
+            expect(assigns[:client_sorter].sort_order).to eq "asc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
           end

@@ -27,7 +27,7 @@ RSpec.describe Hub::AssignedClientsController do
         it "renders the clients table view" do
           get :index
           expect(response).to render_template "clients/index"
-          expect(assigns(:filters)[:assigned_to_me]).to be_present
+          expect(assigns(:client_sorter).filters[:assigned_to_me]).to be_present
           expect(assigns(:tax_return_count)).to eq 3
         end
       end
