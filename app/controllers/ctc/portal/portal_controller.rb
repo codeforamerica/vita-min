@@ -40,7 +40,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       end
       return redirect_back(fallback_location: ctc_portal_edit_info_path) unless @submission.tax_return.under_submission_limit?
       @submission.transition_to(:resubmitted)
-      if recaptcha_score_param('resubmit').present?
+      if recaptcha_score_param('resubmit').present? && recaptcha_score_param('resubmit')[:recaptcha_score].present?
         current_client.recaptcha_scores.create(
           score: recaptcha_score_param('resubmit')[:recaptcha_score],
           action: recaptcha_score_param('resubmit')[:recaptcha_action]
