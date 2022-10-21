@@ -1,7 +1,7 @@
 <% content_for :page_title, @page_title %>
 <% unless @hide_filters %>
   <% content_for :filters do %>
-    <%= render "shared/client_filters" %>
+    <%= render "shared/client_filters", filters: @client_sorter.active_filters %>
   <% end %>
 <% end %>
 <% content_for :card do %>
@@ -11,8 +11,8 @@
       <% unless @hide_filters %>
         <div class="text--no-wrap quick-filters">
         <label>Quick Filters:</label>
-        <% ClientSortable::QUICK_FILTERS.each do |(filter_values, filter_label)| %>
-          <% selected = filtering_only_by?(filter_values) %>
+        <% ClientSorter::QUICK_FILTERS.each do |(filter_values, filter_label)| %>
+          <% selected = @client_sorter.filtering_only_by?(filter_values) %>
           <%= link_to selected ? hub_clients_path(clear: true) : hub_clients_path(filter_values), class: "button button--quick-filter #{selected ? "selected" : ""}" do %>
             <%= filter_label %>
             <i class="clear-filter icon-close"></i>
@@ -159,9 +159,9 @@
     <% else %>
       <h1 class="sr-only"><%= @page_title %></h1>
       <div class="empty-clients">
-        <% if !@filters %>
+        <% if !@client_sorter&.filters %>
           <%= t("hub.clients.index.apply_filters") %>
-        <% elsif @filters&.values&.any? %>
+        <% elsif @client_sorter&.filters&.values&.any? %>
           <%= t("hub.clients.index.no_filtered_clients") %>
         <% else %>
           <%= t("hub.clients.index.no_clients") %>
@@ -173,7 +173,7 @@
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
       <span id="take-action-all-returns" style="display: none;">
          <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
-              <% @filters&.each do |key, value| %>
+              <% @client_sorter&.filters&.each do |key, value| %>
                 <%= form.hidden_field(key, value: value, id: "#{key}_bulk") %>
               <% end %>
               <button type="submit" name="create_tax_return_selection[action_type]" value="all-filtered-clients" class="button--link">

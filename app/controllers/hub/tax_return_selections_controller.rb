@@ -31,7 +31,8 @@ module Hub
 
     def new
       @clients = Client.accessible_by(current_ability).with_eager_loaded_associations
-      @tr_ids = (new_params.dig(:create_tax_return_selection, :action_type) == "all-filtered-clients") ? TaxReturn.where(client: filtered_and_sorted_clients.reorder(nil)).pluck(:id) : new_params[:tr_ids]
+      @client_sorter = ClientSorter.new(@clients, current_user, params, {})
+      @tr_ids = (new_params.dig(:create_tax_return_selection, :action_type) == "all-filtered-clients") ? TaxReturn.where(client: @client_sorter.filtered_and_sorted_clients.reorder(nil)).pluck(:id) : new_params[:tr_ids]
       @client_count = @clients.distinct.joins(:tax_returns).where(tax_returns: { id: @tr_ids }).size
       @tax_return_count = TaxReturn.accessible_by(current_ability).where(id: @tr_ids).size
       @selection = TaxReturnSelection.new
@@ -44,7 +45,8 @@ module Hub
       inaccessible_client_count = @selection.clients.where.not(id: @clients).size
       @missing_results_message = I18n.t("hub.tax_return_selections.help_text_missing_results", count: inaccessible_client_count) unless inaccessible_client_count.zero?
 
-      @clients = filtered_and_sorted_clients.page(params[:page]).load
+      @client_sorter = ClientSorter.new(@clients, current_user, params, {})
+      @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       @page_title = I18n.t("hub.tax_return_selections.page_title", count: @selection.clients.size, id: @selection.id)
 

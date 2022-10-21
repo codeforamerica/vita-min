@@ -6,8 +6,9 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
-    before_action :load_users, :setup_sortable_client, only: [:index]
+    before_action :load_users, only: [:index]
     load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]
+    before_action :setup_sortable_client, only: [:index]
     layout "hub"
 
     MAX_COUNT = 1000
@@ -16,10 +17,9 @@ module Hub
       @page_title = I18n.t("hub.clients.index.title")
 
       # Compute the count of tax returns, up to a maximum amount. Postgres is slow at computing counts if they are very large.
-      tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination.reorder(nil)).limit(MAX_COUNT + 1).size
-      # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
+      tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.with_eager_loaded_associations.without_pagination.reorder(nil)).limit(MAX_COUNT + 1).size
       @tax_return_count = tax_return_count > MAX_COUNT ? "" : tax_return_count.to_s
-      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end
 
