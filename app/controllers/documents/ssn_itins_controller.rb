@@ -6,6 +6,12 @@ module Documents
       DocumentTypes::SsnItin
     end
 
+    def after_update_success
+      current_intake.tax_returns.each do |tax_return|
+        tax_return.transition_to!(:intake_ready)
+      end
+    end
+
     private
 
     def set_household_names

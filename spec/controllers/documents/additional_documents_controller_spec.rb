@@ -9,12 +9,6 @@ RSpec.describe Documents::AdditionalDocumentsController do
   describe "#edit" do
     let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
 
-    it "advances the tax returns to 'Ready for review' status" do
-      get :edit
-
-      expect(tax_return.reload.current_state).to eq "intake_ready"
-    end
-
     context "with no docs that might be needed" do
       it "does not show an extra list of docs" do
         get :edit

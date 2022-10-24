@@ -69,9 +69,11 @@ describe Portal::UploadDocumentsController do
     let(:requested_docs_double) { double RequestedDocumentUploadForm}
     before { allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double }
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
+    let(:client) { intake.client }
+    let(:intake) { create :intake }
 
     context "when authenticated" do
-      before { sign_in create :client }
+      before { sign_in client }
 
       context "when upload is successful" do
         before do
@@ -83,6 +85,20 @@ describe Portal::UploadDocumentsController do
           put :update
           expect(response).to redirect_to portal_upload_documents_path
           expect(flash[:notice]).to eq I18n.t("portal.upload_documents.success")
+        end
+
+        context "when client's tax returns are in not ready or needs doc help" do
+          let!(:not_ready_tax_return) { create :tax_return, :intake_in_progress, client: client }
+          let!(:needs_doc_help_tax_return) { create :tax_return, :intake_needs_doc_help, year: 2020, client: client }
+          let!(:in_review_tax_return) { create :tax_return, :intake_reviewing, year: 2019, client: client }
+
+          it "updates those tax return statuses to ready for review" do
+            put :update
+
+            expect(not_ready_tax_return.reload.current_state).to eq "intake_ready"
+            expect(needs_doc_help_tax_return.reload.current_state).to eq "intake_ready"
+            expect(in_review_tax_return.reload.current_state).to eq "intake_reviewing"
+          end
         end
       end
 

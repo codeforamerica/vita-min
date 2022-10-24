@@ -73,6 +73,23 @@ RSpec.describe Documents::IdsController do
         expect(response.body).to include "Please upload a valid document type."
       end
     end
+
+    context "when upload is valid" do
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
+      let(:params) do
+        {
+          document_type_upload_form: {
+            upload: fixture_file_upload("test-pattern.JPG")
+          }
+        }
+      end
+
+      it "updates the tax return status(es) to intake_needs_doc_help" do
+        post :update, params: params
+
+        expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+      end
+    end
   end
 end
 

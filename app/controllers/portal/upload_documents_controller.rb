@@ -15,6 +15,9 @@ module Portal
       @form = form_class.new(@document_request, form_params)
       if @form.valid?
         @form.save
+        current_client.tax_returns.each do |tax_return|
+          tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
+        end
         flash[:notice] = I18n.t("portal.upload_documents.success")
         redirect_to action: :edit
       else
