@@ -7,12 +7,20 @@ module Documents
     end
 
     def after_update_success
-      current_intake.tax_returns.each do |tax_return|
-        tax_return.transition_to!(:intake_ready)
+      if has_all_required_docs?
+        current_intake.tax_returns.each do |tax_return|
+          tax_return.transition_to!(:intake_ready)
+        end
       end
     end
 
     private
+
+    def has_all_required_docs?
+      [DocumentTypes::Identity.key, DocumentTypes::Selfie.key, DocumentTypes::SsnItin.key].all? do |key|
+        current_intake.documents.pluck(:document_type).include?(key)
+      end
+    end
 
     def set_household_names
       @names = [current_intake.primary.first_and_last_name]

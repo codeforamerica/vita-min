@@ -76,10 +76,25 @@ RSpec.describe Documents::SsnItinsController do
         }
       end
 
-      it "updates the tax return status(es) to intake_ready" do
-        post :update, params: params
+      context 'all three required doc types are present' do
+        before do
+          create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
+          create :document, document_type: DocumentTypes::Selfie.key, intake: intake, client: intake.client
+        end
 
-        expect(tax_return.reload.current_state).to eq "intake_ready"
+        it "updates the tax return status(es) to intake_ready" do
+          post :update, params: params
+
+          expect(tax_return.reload.current_state).to eq "intake_ready"
+        end
+      end
+
+      context 'required doc types are missing' do
+        it "does not update the tax return status(es) to intake_ready" do
+          post :update, params: params
+
+          expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+        end
       end
     end
   end
