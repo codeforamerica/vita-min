@@ -25,7 +25,8 @@ RSpec.describe FlowsController do
       end
 
       it 'can generate a married filing jointly with dependents intake' do
-        post :generate, params: default_params.merge({ submit_married_filing_jointly_with_dependents: 'Married Filing Jointly With Dependents ✨' })
+        default_params[:flows_controller_sample_intake_form][:with_dependents] = '1'
+        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
         expect(controller.current_intake.dependents.count).to eq(2)
         expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
@@ -33,7 +34,9 @@ RSpec.describe FlowsController do
       end
 
       it 'can generate a claiming_eitc intake' do
-        post :generate, params: default_params.merge({ submit_claiming_eitc: 'Claiming EITC ✨' })
+        default_params[:flows_controller_sample_intake_form][:with_dependents] = '1'
+        default_params[:flows_controller_sample_intake_form][:claiming_eitc] = '1'
+        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
         expect(controller.current_intake.dependents.count).to eq(2)
         expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
@@ -41,6 +44,20 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.w2s_including_incomplete.count).to eq(1)
         benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: controller.current_intake.default_tax_return, dependents: controller.current_intake.dependents)
         expect(benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?).to be_truthy
+      end
+
+      it 'can generate a submission_rejected intake' do
+        create(:efile_error, auto_cancel: false, auto_wait: false, expose: true)
+
+        default_params[:flows_controller_sample_intake_form][:submission_rejected] = '1'
+        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
+
+        tax_return = controller.current_intake.tax_returns.last
+        expect(tax_return).to be_filing_status_married_filing_jointly
+
+        efile_submission = tax_return.efile_submissions.last
+        expect(efile_submission.current_state).to eq("failed")
+        expect(efile_submission.last_transition.efile_errors.last).to be_present
       end
     end
 
@@ -67,7 +84,8 @@ RSpec.describe FlowsController do
       end
 
       it 'can generate a married filing jointly with dependents intake' do
-        post :generate, params: default_params.merge({ submit_married_filing_jointly_with_dependents: 'Married Filing Jointly With Dependents ✨' })
+        default_params[:flows_controller_sample_intake_form][:with_dependents] = '1'
+        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
         expect(controller.current_intake).to be_filing_joint_yes
         expect(controller.current_intake.dependents.count).to eq(2)
       end

@@ -1,3 +1,13 @@
+.flow-explorer-form {
+  label {
+    white-space: nowrap;
+  }
+
+  .form-group {
+    display: inline-block;
+  }
+}
+
 .flow-explorer-header {
   margin-top: 30px;
   display: flex;
