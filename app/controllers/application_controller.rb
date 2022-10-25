@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
+
+  before_action do
+    if defined?(Rack::MiniProfiler) && current_user&.admin?
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
   helper_method :include_analytics?, :include_optimizely?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise

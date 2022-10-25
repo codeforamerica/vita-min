@@ -1,4 +1,4 @@
-if Rails.env.demo? || Rails.env.heroku? || Rails.env.staging?
+if Rails.env.heroku? || Rails.env.demo? || Rails.env.production?
   # Use the "Alt+P" keyboard shortcut to toggle visibility
-  Rack::MiniProfiler.config.start_hidden = false
+  Rack::MiniProfiler.config.start_hidden = true
 end
