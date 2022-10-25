@@ -5,8 +5,8 @@ class FlowsController < ApplicationController
     diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
   }
   SAMPLE_GENERATOR_TYPES = {
-    ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents, :claiming_eitc],
-    gyr: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
+    ctc: [:single, :married_filing_jointly],
+    gyr: [:single, :married_filing_jointly],
   }.freeze
 
   def index
@@ -217,12 +217,18 @@ class FlowsController < ApplicationController
     attr_accessor :last_name
     attr_accessor :sms_phone_number
     attr_accessor :email_address
+    attr_accessor :claiming_eitc
+    attr_accessor :with_dependents
+    attr_accessor :submission_rejected
 
-    def initialize(first_name:, last_name:, sms_phone_number:, email_address:)
+    def initialize(first_name:, last_name:, sms_phone_number:, email_address:, claiming_eitc: nil, with_dependents: nil, submission_rejected: nil)
       @first_name = first_name
       @last_name = last_name
       @sms_phone_number = sms_phone_number
       @email_address = email_address
+      @claiming_eitc = claiming_eitc
+      @with_dependents = with_dependents
+      @submission_rejected = submission_rejected
     end
   end
 
@@ -232,7 +238,10 @@ class FlowsController < ApplicationController
         first_name: 'Testuser',
         last_name: 'Testuser',
         sms_phone_number: nil,
-        email_address: 'testuser@example.com',
+        email_address: "testuser+#{Time.now.to_i.to_s(36)}@example.com",
+        claiming_eitc: false,
+        with_dependents: false,
+        submission_rejected: false
       )
     end
 
@@ -242,6 +251,9 @@ class FlowsController < ApplicationController
       last_name = params[:flows_controller_sample_intake_form][:last_name]
       sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
       email_address = params[:flows_controller_sample_intake_form][:email_address]
+      with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
+      claiming_eitc = params[:flows_controller_sample_intake_form][:claiming_eitc] == "1"
+      submission_rejected = params[:flows_controller_sample_intake_form][:submission_rejected] == "1"
 
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
@@ -279,7 +291,7 @@ class FlowsController < ApplicationController
         tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
 
-      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents || type == :claiming_eitc
+      if type == :married_filing_jointly
         client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
         client.intake.update(
           spouse_tin_type: 'ssn',
@@ -292,7 +304,7 @@ class FlowsController < ApplicationController
         )
       end
 
-      if type == :married_filing_jointly_with_dependents || type == :claiming_eitc
+      if with_dependents
         client.intake.update(
           had_dependents: 'yes',
           advance_ctc_amount_received: 600
@@ -323,7 +335,7 @@ class FlowsController < ApplicationController
         )
       end
 
-      if type == :claiming_eitc
+      if claiming_eitc
         client.intake.update(
           claim_eitc: 'yes',
           exceeded_investment_income_limit: 'no'
@@ -349,6 +361,22 @@ class FlowsController < ApplicationController
         )
       end
 
+      if submission_rejected
+        efile_submission = client.tax_returns.last.efile_submissions.create!
+        efile_submission.efile_submission_transitions.create!(to_state: :preparing, sort_key: 1, most_recent: false)
+        efile_submission.efile_submission_transitions.create!(to_state: :bundling, sort_key: 2, most_recent: false)
+        efile_submission.efile_submission_transitions.create!(to_state: :queued, sort_key: 3, most_recent: false)
+
+        retryable_error = EfileError.where(auto_cancel: false, auto_wait: false, expose: true).last
+        fail_transition = efile_submission.efile_submission_transitions.create!(
+          to_state: :failed,
+          sort_key: 4,
+          most_recent: true,
+          metadata: { error_code: retryable_error.code, raw_response: "Fake state transition from the Flow Explorer" }
+        )
+        fail_transition.efile_errors << retryable_error
+      end
+
       client.intake
     end
   end
@@ -359,7 +387,7 @@ class FlowsController < ApplicationController
         first_name: 'Testuser',
         last_name: 'Testuser',
         sms_phone_number: nil,
-        email_address: 'testuser@example.com',
+        email_address: "testuser+#{Time.now.to_i.to_s(36)}@example.com",
       )
     end
 
@@ -369,6 +397,7 @@ class FlowsController < ApplicationController
       last_name = params[:flows_controller_sample_intake_form][:last_name]
       sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
       email_address = params[:flows_controller_sample_intake_form][:email_address]
+      with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
 
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
@@ -397,7 +426,7 @@ class FlowsController < ApplicationController
         tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: false }],
       )
 
-      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
+      if type == :married_filing_jointly
         client.intake.update(
           spouse_birth_date: 31.years.ago + 51.days,
           spouse_last_four_ssn: '3333',
@@ -407,7 +436,7 @@ class FlowsController < ApplicationController
         )
       end
 
-      if type == :married_filing_jointly_with_dependents
+      if with_dependents
         client.intake.update(
           had_dependents: 'yes'
         )

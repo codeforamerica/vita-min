@@ -18,8 +18,8 @@
     </a>
     <div class="reveal__content">
       <p>This attempts to generate an intake so you can test specific pages. It might not work perfectly.</p>
-      <%= form_for @flow_params.form, url: generate_flows_path(type: params[:id]), style: 'display: inline-block;' do |f| %>
-        <div class="honeycrisp-compact" style="display: flex;">
+      <%= form_for @flow_params.form, url: generate_flows_path(type: params[:id]), html: { class: 'flow-explorer-form' } do |f| %>
+        <div class="honeycrisp-compact">
           <div class="form-group">
             <label>First Name:</label>
             <%= f.text_field :first_name, style: 'width: 100%; max-width: 180px;' %>
@@ -36,6 +36,30 @@
             <label>SMS Phone Number:</label>
             <%= f.text_field :sms_phone_number, style: 'width: 100%; max-width: 180px;' %>
           </div>
+        </div>
+        <div class="honeycrisp-compact">
+          <div class="form-group">
+            <label>
+              <%= f.check_box :with_dependents %>
+              With Dependents?
+            </label>
+          </div>
+          <% if f.object.claiming_eitc != nil %>
+            <div class="form-group">
+              <label>
+                <%= f.check_box :claiming_eitc %>
+                Claiming EITC?
+              </label>
+            </div>
+          <% end %>
+          <% if f.object.submission_rejected != nil %>
+            <div class="form-group">
+              <label>
+                <%= f.check_box :submission_rejected %>
+                Submission Rejected?
+              </label>
+            </div>
+          <% end %>
         </div>
         <% @sample_types.each do |app_type| %>
           <%= submit_tag "#{app_type.to_s.titleize} ✨", name: "submit_#{app_type}", class: 'button button--small', method: :put %>
