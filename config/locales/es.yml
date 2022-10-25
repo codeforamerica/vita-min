@@ -1903,6 +1903,8 @@ es:
             help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos de su cónyuge del %{prior_tax_year}. Ingrese la cantidad correcta o su declaración será rechazada.
             label: 'El Ingreso Bruto Ajustado, en inglés: AGI del cónyuge para %{prior_tax_year}'
             title: Edite el ingreso bruto ajustado de su cónyuge de %{prior_tax_year}
+        submission_pdfs:
+          not_ready: Se está generando el pdf de su declaración de impuestos. Espere unos segundos y actualice la página.
         verification:
           i_dont_have_id: No tengo identificación, o ID
           id: Su licencia de manejar o tarjeta de identificación del estado, o ID

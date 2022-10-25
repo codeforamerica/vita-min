@@ -37,7 +37,7 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
   end
 
   def not_ready_redirect
-    flash[:alert] = "Your tax return pdf is being generated. Please wait a few seconds and refresh the page."
+    flash[:alert] = I18n.t("views.ctc.portal.submission_pdfs.not_ready")
     redirect_back(fallback_location: request.referer)
   end
 end

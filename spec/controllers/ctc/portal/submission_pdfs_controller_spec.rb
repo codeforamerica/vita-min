@@ -61,7 +61,7 @@ describe Ctc::Portal::SubmissionPdfsController do
               get :show, params: { id: efile_submission.id }
 
               expect(response).to redirect_to back
-              expect(flash[:alert]).to eq "Your tax return pdf is being generated. Please wait a few seconds and refresh the page."
+              expect(flash[:alert]).to eq I18n.t("views.ctc.portal.submission_pdfs.not_ready")
             end
           end
         end
