@@ -66,7 +66,7 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "lib/tasks/setup.rake" }}
           paths: [/mnt/ramdisk/vendor/irs]
-  setup_test_db:
+  setup_test_db_with_cache:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -83,6 +83,11 @@ commands:
       - save_cache:
           key: databases-x12-{{ checksum "db/schema.rb" }}
           paths: [tmp/test.sql]
+  setup_test_db:
+    description: "Setup test database"
+    steps:
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: bundle exec rake db:create db:schema:load
   setup_webdriver:
     description: Install Ruby webdriver
     steps:
@@ -132,7 +137,7 @@ jobs:
       - install_system_dependencies
       - install_ruby_dependencies
       - install_efile_schemas
-      - setup_test_db
+      - setup_test_db_with_cache
       - setup_webdriver
       - restore_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
