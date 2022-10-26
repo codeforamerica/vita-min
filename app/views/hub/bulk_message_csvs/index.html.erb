@@ -2,7 +2,7 @@
   <div class="slab">
     <div class="grid">
       <h1><%= @main_heading %></h1>
-      <p> <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda"> Click here for instructions and important warnings on how to use this page </a></p>
+      <p> <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda" target="_blank" rel="noopener noreferrer"> Click here for instructions and important warnings on how to use this page </a></p>
 
       <h2>Upload</h2>
       <%= form_with model: @bulk_message_csv, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
