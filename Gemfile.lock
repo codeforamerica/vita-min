@@ -170,6 +170,7 @@ GEM
       matrix
       ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.10)
+    connection_pool (2.3.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -453,6 +454,10 @@ GEM
     recaptcha (5.10.0)
       json
     redcarpet (3.5.1)
+    redis (5.0.5)
+      redis-client (>= 0.9.0)
+    redis-client (0.10.0)
+      connection_pool
     regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -697,6 +702,7 @@ DEPENDENCIES
   rails_autolink
   recaptcha
   redcarpet
+  redis
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 0.82.0)
