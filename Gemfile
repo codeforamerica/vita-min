@@ -104,6 +104,7 @@ group :development, :test do
   gem 'turbo_tests'
   gem 'timecop'
   gem 'warning', require: false
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
@@ -120,7 +121,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec_junit_formatter'
   gem 'webmock'
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 4.3.0'

@@ -18,6 +18,7 @@ executors:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
           POSTGRES_HOST_AUTH_METHOD: trust
+    resource_class: xlarge
 commands:
   install_system_dependencies:
     description: "Install system dependencies"
@@ -59,17 +60,27 @@ commands:
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
-      - run: bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas && find vendor/irs
+      - restore_cache:
+          key: bundle-{{ checksum "lib/tasks/setup.rake" }}
+      - run: if [ ! -d vendor/irs/unpacked ] ; then bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas ; fi && find vendor/irs
+      - save_cache:
+          key: bundle-{{ checksum "lib/tasks/setup.rake" }}
+          paths: [/mnt/ramdisk/vendor/irs]
   setup_test_db:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
+  setup_webdriver:
+    description: Install Ruby webdriver
+    steps:
+      - run: date -I > /tmp/today && cat /tmp/today
       - restore_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
+          key: webdrivers-{{ checksum "/tmp/today" }}
+      - run: if [ ! -d ~/.webdrivers ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
       - save_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test_db_schema.rb]
+          key: webdrivers-{{ checksum "/tmp/today" }}
+          paths: [/mnt/ramdisk/.webdrivers]
 jobs:
   i18n_normalize:
     executor: ruby_executor
@@ -103,7 +114,6 @@ jobs:
       - run: bundle exec annotate --frozen
   run_ruby_tests:
     executor: rails_executor
-    parallelism: 4
     steps:
       - checkout
       - install_js_dependencies
@@ -111,22 +121,20 @@ jobs:
       - install_ruby_dependencies
       - install_efile_schemas
       - setup_test_db
+      - setup_webdriver
+      - restore_cache:
+          key: parallel-runtime-{{ checksum "/tmp/today" }}
       - run: |
-          EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \
-              --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec-first.xml \
-              --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) || true
+          EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -n 12 || true
       - run: |
-          EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \
-              --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec-second.xml \
-              --format progress \
-              --only-failures
+          TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -n 12 -- --only-failures -- || true
       - store_test_results:
-          path: ~/test-results
+          path: tmp/rspec-parallel-test-results
       - store_artifacts:
           path: /tmp/failure_screenshots
+      - save_cache:
+          key: parallel-runtime-{{ checksum "/tmp/today" }}
+          paths: [tmp/parallel_runtime_rspec.log]
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
