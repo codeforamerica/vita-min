@@ -301,14 +301,14 @@ describe Intake::GyrIntake do
     context "when an itin applicant" do
       let(:dupe_double) { double }
       before do
-        allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
+        allow(DeduplicationService).to receive(:duplicates).and_return dupe_double
         allow(dupe_double).to receive(:or)
       end
       context "when only email is present" do
         let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: nil, need_itin_help: "yes" }
         it "responds with duplicates from birth date and email" do
           intake.duplicates
-          expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, :primary_birth_date, from_scope: described_class.accessible_intakes)
+          expect(DeduplicationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, :primary_birth_date, from_scope: described_class.accessible_intakes)
         end
       end
 
@@ -316,7 +316,7 @@ describe Intake::GyrIntake do
         let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: "+18324658840", need_itin_help: "yes" }
         it "responds with duplicates from sms" do
           intake.duplicates
-          expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, :primary_birth_date, from_scope: described_class.accessible_intakes)
+          expect(DeduplicationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, :primary_birth_date, from_scope: described_class.accessible_intakes)
         end
       end
 
@@ -324,7 +324,7 @@ describe Intake::GyrIntake do
         let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: "+18324658840", need_itin_help: "yes" }
         it "responds with duplicates from both email and sms" do
           intake.duplicates
-          expect(DeduplificationService).to have_received(:duplicates).exactly(2).times
+          expect(DeduplicationService).to have_received(:duplicates).exactly(2).times
         end
       end
 

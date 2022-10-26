@@ -254,14 +254,14 @@ describe Fraud::Indicator do
     end
 
     before do
-      allow(DeduplificationService).to receive(:duplicates).and_return query_double
+      allow(DeduplicationService).to receive(:duplicates).and_return query_double
       allow(query_double).to receive(:pluck).and_return [1,2,3]
     end
 
     context "when the query_model_name responds to accessible_intakes" do
       it "sets up the query to only look at accessible intakes" do
         fraud_indicator.execute(intake: intake, client: client)
-        expect(DeduplificationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
+        expect(DeduplicationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
       end
     end
 
@@ -272,7 +272,7 @@ describe Fraud::Indicator do
 
       it "sets up the query correctly" do
         fraud_indicator.execute(intake: intake, client: client)
-        expect(DeduplificationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
+        expect(DeduplicationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
       end
     end
 
@@ -284,7 +284,7 @@ describe Fraud::Indicator do
 
       it "does not execute the duplification query and returns a passing response" do
         expect(fraud_indicator.execute(intake: intake)).to eq [0, []]
-        expect(DeduplificationService).not_to have_received(:duplicates)
+        expect(DeduplicationService).not_to have_received(:duplicates)
       end
     end
 

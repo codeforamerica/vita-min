@@ -7,7 +7,7 @@ namespace :backfill_hashed_primary_ssn_on_archived_intakes_2021 do
     intakes_left_to_backfill.find_in_batches do |batch|
       Archived::Intake2021.upsert_all(
         batch.map { |archived_intake|
-          { id: archived_intake.id, hashed_primary_ssn: DeduplificationService.sensitive_attribute_hashed(archived_intake, :primary_ssn) }
+          { id: archived_intake.id, hashed_primary_ssn: DeduplicationService.sensitive_attribute_hashed(archived_intake, :primary_ssn) }
         },
         update_only: [:hashed_primary_ssn]
       )

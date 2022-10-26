@@ -349,7 +349,7 @@ describe Intake do
       end
 
       it "updates the hashed primary ssn when setting" do
-        expect(intake.hashed_primary_ssn).to eq DeduplificationService.sensitive_attribute_hashed(intake, :primary_ssn)
+        expect(intake.hashed_primary_ssn).to eq DeduplicationService.sensitive_attribute_hashed(intake, :primary_ssn)
       end
     end
 
@@ -375,7 +375,7 @@ describe Intake do
       end
 
       context "when changing primary_ssn" do
-        let(:hashed_ssn) { DeduplificationService.sensitive_attribute_hashed((create :intake, primary_ssn: "123456666"), :primary_ssn) }
+        let(:hashed_ssn) { DeduplicationService.sensitive_attribute_hashed((create :intake, primary_ssn: "123456666"), :primary_ssn) }
 
         it "sets primary_last_four_ssn to a new value" do
           expect{
