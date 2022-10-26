@@ -14,7 +14,6 @@
     "jquery-mask-plugin": "^1.14.16",
     "jquery-ui": "^1.13.2",
     "mini-css-extract-plugin": "^1.4.0",
-    "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.7",
     "stickybits": "^3.7.9",
     "style-loader": "^2.0.0",
