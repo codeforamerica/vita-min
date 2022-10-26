@@ -82,11 +82,11 @@ commands:
     steps:
       - run: date -I > /tmp/today && cat /tmp/today
       - restore_cache:
-          key: webdrivers-v1-{{ checksum "/tmp/today" }}
+          key: webdrivers-v2-{{ checksum "/tmp/today" }}
       - run: if [ ! -f ~/.webdrivers/* ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
       - save_cache:
-          key: webdrivers-v1-{{ checksum "/tmp/today" }}
-          paths: [/mnt/ramdisk/.webdrivers]
+          key: webdrivers-v2-{{ checksum "/tmp/today" }}
+          paths: [~/.webdrivers]
 jobs:
   i18n_normalize:
     executor: ruby_executor
