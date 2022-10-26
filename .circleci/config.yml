@@ -70,7 +70,19 @@ commands:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
+      - restore_cache:
+          key: databases-x12-{{ checksum "db/schema.rb" }}
+      - run: |
+          if [ -f tmp/test.sql ]
+          then
+            psql -f tmp/test.sql postgres
+          else
+            bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
+            pg_dumpall "$USER" > tmp/test.sql
+          fi
+      - save_cache:
+          key: databases-x12-{{ checksum "db/schema.rb" }}
+          paths: [tmp/test.sql]
   setup_webdriver:
     description: Install Ruby webdriver
     steps:
