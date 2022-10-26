@@ -18,6 +18,7 @@ executors:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
           POSTGRES_HOST_AUTH_METHOD: trust
+        command: postgres -c 'fsync=false'
     resource_class: xlarge
 commands:
   install_system_dependencies:
