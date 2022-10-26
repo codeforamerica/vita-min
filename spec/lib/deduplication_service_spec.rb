@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe DeduplificationService do
+describe DeduplicationService do
   before do
     allow(OpenSSL::HMAC).to receive(:hexdigest)
   end

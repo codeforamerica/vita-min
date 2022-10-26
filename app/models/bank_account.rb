@@ -37,7 +37,7 @@ class BankAccount < ApplicationRecord
   end
 
   def duplicates
-    DeduplificationService.duplicates(self, :routing_number, :hashed_account_number, from_scope: self.class)
+    DeduplicationService.duplicates(self, :routing_number, :hashed_account_number, from_scope: self.class)
   end
 
   def incomplete?
@@ -47,7 +47,7 @@ class BankAccount < ApplicationRecord
   def hash_account_number
     # if account_number_changed? && account_number.present?
     if account_number.present? # temporarily always rewrite the hashed value while we do this cutover.
-      self.hashed_account_number = DeduplificationService.sensitive_attribute_hashed(self, :account_number)
+      self.hashed_account_number = DeduplicationService.sensitive_attribute_hashed(self, :account_number)
     end
   end
 end
