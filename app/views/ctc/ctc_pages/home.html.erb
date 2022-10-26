@@ -74,31 +74,6 @@
     </div>
   <% end %>
 
-  <div class="slab slab--green">
-    <div class="grid">
-      <div class="grid__item width-one-half spacing-below-25">
-        <%= image_tag('ctc-phones.png', alt: "") %>
-      </div>
-      <div class="grid__item width-one-half">
-        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
-        <%= t('views.ctc_pages.home.what_is.body') %>
-        <div class="reveal-shrink-wrapper spacing-above-15">
-          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
-            <p><%= t("views.ctc_pages.home.what_is.qualify_reveal.body") %></p>
-          <% end %>
-          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_ctc_reveal.title")) do %>
-            <p><%= t("views.ctc_pages.home.what_is.how_much_ctc_reveal.body_html") %></p>
-          <% end %>
-          <% if open_for_eitc_intake? %>
-            <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_eitc_reveal.title")) do %>
-              <p><%= t("views.ctc_pages.home.what_is.how_much_eitc_reveal.body_html") %></p>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="slab slab--short slab--affiliations">
     <div class="grid">
       <div class="grid__item width-one-whole affiliations">
@@ -125,6 +100,31 @@
           <div class="text">
             <%= t('views.ctc_pages.home.affiliations.irs') %>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--green">
+    <div class="grid">
+      <div class="grid__item width-one-half spacing-below-25">
+        <%= image_tag('ctc-phones.png', alt: "") %>
+      </div>
+      <div class="grid__item width-one-half">
+        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
+        <%= t('views.ctc_pages.home.what_is.body') %>
+        <div class="reveal-shrink-wrapper spacing-above-15">
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.qualify_reveal.body") %></p>
+          <% end %>
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_ctc_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.how_much_ctc_reveal.body_html") %></p>
+          <% end %>
+          <% if open_for_eitc_intake? %>
+            <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_eitc_reveal.title")) do %>
+              <p><%= t("views.ctc_pages.home.what_is.how_much_eitc_reveal.body_html") %></p>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
