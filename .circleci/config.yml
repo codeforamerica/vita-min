@@ -67,25 +67,11 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "lib/tasks/setup.rake" }}
           paths: [/mnt/ramdisk/vendor/irs]
-  setup_test_db_with_cache:
+  setup_test_db_for_parallel:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - restore_cache:
-          key: databases-x12-v1-{{ checksum "db/schema.rb" }}
-      - run: |
-          if [ -f tmp/test.sql ]
-          then
-            echo "Using cached databases"
-            psql -f tmp/test.sql postgres
-          else
-            bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
-            pg_dumpall > tmp/test.sql
-            git checkout db/schema.rb
-          fi
-      - save_cache:
-          key: databases-x12-v1-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test.sql]
+      - run: bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
   setup_test_db:
     description: "Setup test database"
     steps:
@@ -140,7 +126,7 @@ jobs:
       - install_system_dependencies
       - install_ruby_dependencies
       - install_efile_schemas
-      - setup_test_db_with_cache
+      - setup_test_db_for_parallel
       - setup_webdriver
       - restore_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
