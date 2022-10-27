@@ -1819,8 +1819,9 @@ es:
           title: Edita la información básica de %{name}
         dependents:
           no_eligible_dependents:
-            subtitle: No recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
-            title: 'Usted ha eliminado a todos sus dependientes elegibles para CTC. '
+            subtitle: No recibirá %{ineligible_credits} porque no tiene dependientes elegibles.
+            title: 'Usted ha eliminado a todos sus dependientes elegibles para %{ineligible_credits}.'
+            credits: CTC y EITC
         edit_info:
           add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.

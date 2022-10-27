@@ -18,8 +18,11 @@ class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionControl
       action: 'removed',
       client: current_client
     )
-    ctc_eligibility = Efile::DependentEligibility::ChildTaxCredit
-    if current_intake.dependents.filter { |d| ctc_eligibility.new(d, TaxReturn.current_tax_year).qualifies? }.length.zero?
+
+    benefits = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents)
+    no_eligible_ctc_dependents = current_intake.dependents.filter { |d| Efile::DependentEligibility::ChildTaxCredit.new(d, TaxReturn.current_tax_year).qualifies? }.length.zero?
+
+    if no_eligible_ctc_dependents || (!benefits.claiming_and_qualified_for_eitc? && open_for_eitc_intake?)
       redirect_to not_eligible_ctc_portal_dependents_path
     else
       redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
