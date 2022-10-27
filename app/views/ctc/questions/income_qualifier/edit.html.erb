@@ -1,0 +1,33 @@
+<% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
+<% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
+<% @main_heading = t("views.ctc.questions.income_qualifier.title_list", standard_deduction:number_to_currency(standard_deduction), current_tax_year: current_tax_year, count: @filing_count) %>
+
+<%= content_for :page_title, @main_heading %>
+<% content_for :card do %>
+  <h1 class="h2"><%= content_for(:page_title) %></h1>
+  <%= t("views.ctc.questions.income.income_reveal.content.p1") %>
+
+  <ul class="list--bulleted">
+  <% t("views.ctc.questions.income.income_reveal.content.list_1").each do |income_qualifications| %>
+    <li><%= income_qualifications %></li>
+  <% end %>
+  </ul>
+
+  <div class="form-card--yes-no">
+  <div class="options-wrapper">
+  <div class="yes-no-buttons">
+    <%= link_to next_path, class: "button button--icon button--icon--centered", "data-track-click": "gctc_to_gyr_income" do %>
+      <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
+    <% end %>
+
+    <%= link_to Ctc::Questions::UseGyrController.to_path_helper, class: "button button--icon button--icon--centered", "data-track-click": "gctc_to_gyr_income" do %>
+      <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
+    <% end %>
+  </div>
+  </div>
+  </div>
+
+<% end %>
+
+
+

@@ -2391,6 +2391,7 @@ en:
               list_1:
               - salary
               - hourly wages
+              - dividends and interest
               - tips
               - commissions
               - self-employment or contract payments
@@ -2401,12 +2402,10 @@ en:
             title: How do I know the source of my income?
           list:
             one:
-            - earned less than %{standard_deduction} in total income
             - earned less than $400 in contract work or self-employment income
             - did not receive the Advance Premium Tax Credit
             - are not required to file a full tax return for any other reason
             other:
-            - earned less than %{standard_deduction} in total income
             - earned less than $400 in contract work or self-employment income
             - did not receive the Advance Premium Tax Credit
             - are not required to file a full tax return for any other reason
@@ -2811,6 +2810,10 @@ en:
               requirement_title: 'Requirement:'
             title: Great! Please enter all of %{name}’s wages, tips, and taxes withheld from this W-2.
             wages_amount: 'Box 1: Wages Amount'
+        income_qualifier:
+          title_list:
+            one: "Did you make less than %{standard_deduction} in %{current_tax_year}?"
+            other: "Did you and your spouse make less than %{standard_deduction} in %{current_tax_year}?"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
