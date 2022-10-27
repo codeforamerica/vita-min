@@ -67,7 +67,7 @@ RSpec.describe Documents::SsnItinsController do
 
   describe '#update' do
     context "when upload is valid" do
-      let!(:tax_return) { create :tax_return, :intake_needs_doc_help, client: intake.client }
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
       let(:params) do
         {
           document_type_upload_form: {
@@ -90,7 +90,7 @@ RSpec.describe Documents::SsnItinsController do
       end
 
       context 'required doc types are missing' do
-        it "does not update the tax return status(es) to intake_ready" do
+        it "updates the tax return status(es) to intake_needs_doc_help" do
           post :update, params: params
 
           expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"

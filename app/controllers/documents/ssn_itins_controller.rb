@@ -7,10 +7,9 @@ module Documents
     end
 
     def after_update_success
-      if has_all_required_docs?
-        current_intake.tax_returns.each do |tax_return|
-          tax_return.transition_to!(:intake_ready)
-        end
+      transition_to = has_all_required_docs? ? :intake_ready : :intake_needs_doc_help
+      current_intake.tax_returns.each do |tax_return|
+        tax_return.transition_to!(transition_to)
       end
     end
 
