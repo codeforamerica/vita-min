@@ -47,10 +47,8 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <%= render 'shared/favicon' %>
-    <%= render 'shared/app_data_mixpanel_data_script' %>
-
+    <%= render 'shared/mixpanel_configuration' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
-
     <% if include_optimizely? %>
       <script src="https://cdn.optimizely.com/js/21316291320.js"></script>
     <% end %>

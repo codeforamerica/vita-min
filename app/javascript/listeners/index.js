@@ -22,30 +22,28 @@ const Listeners =  (function(){
     return {
         init: function () {
             window.addEventListener("load", function() {
-                if (!window.appData) {
-                    return;
-                }
+                const { controllerAction } = document.querySelector("#mixpanelData").dataset;
                 ClientMenuComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
-                if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
+                if (controllerAction == "Hub::Users::InvitationsController#edit") {
                     helpers.setDefaultTimezone();
                 }
 
-                if (window.appData.controller_action == "Hub::MessagesController#index") {
+                if (controllerAction == "Hub::MessagesController#index") {
                     consumer.subscriptions.create(getChannelName(window.location.href), callback);
                 }
 
-                if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
+                if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(controllerAction)) {
                     initTakeActionOnChangeHandlers("take_action");
                 }
 
-                if (["Hub::BulkActions::ChangeAssigneeAndStatusController#edit", "Hub::BulkActions::ChangeAssigneeAndStatusController#update"].includes(window.appData.controller_action)) {
+                if (["Hub::BulkActions::ChangeAssigneeAndStatusController#edit", "Hub::BulkActions::ChangeAssigneeAndStatusController#update"].includes(controllerAction)) {
                     initTakeActionOnChangeHandlers("bulk_action");
                 }
 
-                if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(window.appData.controller_action)) {
+                if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(controllerAction)) {
                     initStateRoutingsListeners();
                 }
 
@@ -54,7 +52,7 @@ const Listeners =  (function(){
                     getEfileSecurityInformation(form.dataset.formName);
                 }
 
-                if(window.appData.controller_action == "Hub::EfileSubmissionsController#index") {
+                if(controllerAction == "Hub::EfileSubmissionsController#index") {
                     fetchEfileStateCounts();
                 }
 
