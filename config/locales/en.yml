@@ -1851,9 +1851,9 @@ en:
           title: Edit %{name}’s basic information
         dependents:
           no_eligible_dependents:
+            credits: CTC and EITC
             subtitle: You will not receive %{ineligible_credits}, because you have no eligible dependents.
             title: You have removed all of your %{ineligible_credits} eligible dependents.
-            credits: CTC and EITC
         edit_info:
           add_bank_information: Add bank information
           help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
