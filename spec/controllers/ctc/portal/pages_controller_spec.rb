@@ -51,7 +51,6 @@ describe Ctc::Portal::PagesController do
       it "should return EITC in ineligible credits" do
         get :no_eligible_dependents
         expect(assigns(:ineligible_credits)).to include "EITC"
-        expect(assigns(:ineligible_credits)).not_to include "CTC"
       end
     end
 
