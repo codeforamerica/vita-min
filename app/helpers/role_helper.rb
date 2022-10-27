@@ -4,7 +4,13 @@ module RoleHelper
   end
 
   def role_name_from_role_type(role_type)
-    case role_type
+    @_role_names_for_role_type ||= {}
+    @_role_names_for_role_type[I18n.locale] ||= {}
+    if @_role_names_for_role_type[I18n.locale][role_type]
+      return @_role_names_for_role_type[I18n.locale][role_type]
+    end
+
+    result = case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
     when OrganizationLeadRole::TYPE
@@ -20,6 +26,8 @@ module RoleHelper
     when TeamMemberRole::TYPE
       I18n.t("general.team_member")
     end&.titleize
+
+    @_role_names_for_role_type[I18n.locale][role_type] = result
   end
 
   def role_type_from_role_name(role_name)
