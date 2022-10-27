@@ -712,7 +712,7 @@ en:
         organization: Organization/site
         select: Select
         stage_status: Stage/Status
-        take_action_on_all_html: Take action on all <span id="take-action-all-count">%{count}</span> returns
+        take_action_on_all_html: Take action on all returns
         title: All Clients
         unassigned: Unassigned
       navigation:

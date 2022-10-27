@@ -721,7 +721,7 @@ es:
         organization: Organización/Sitio
         select: Seleccione
         stage_status: Etapa/Estado
-        take_action_on_all_html: Actúe en las <span id="take-action-all-count">%{count}</span> devoluciones
+        take_action_on_all_html: Actúe en las devoluciones
         title: Todos los Clientes
         unassigned: No asignado
       navigation:
