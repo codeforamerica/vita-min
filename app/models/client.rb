@@ -99,11 +99,10 @@ class Client < ApplicationRecord
   end
 
   def self.refresh_filterable_properties(client_ids = nil, limit = 1000)
-    now = Time.current
     ActiveRecord::Base.transaction do
       client_ids =
         if client_ids.nil?
-          where('needs_to_flush_filterable_properties_set_at < ?', now).includes(:tax_returns).limit(limit).pluck(:id)
+          where('needs_to_flush_filterable_properties_set_at < ?', Time.current).includes(:tax_returns).limit(limit).pluck(:id)
         else
           where(id: client_ids).includes(:tax_returns)
         end
