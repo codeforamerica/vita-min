@@ -145,10 +145,6 @@ class Client < ApplicationRecord
 
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
-  scope :greetable, -> do
-    greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
-    distinct.joins(:tax_returns).where(tax_returns: { current_state: greeter_statuses })
-  end
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
@@ -177,10 +173,9 @@ class Client < ApplicationRecord
 
     if sortable_intake_attributes.include? column.to_sym
       column_names = ["clients.*"] + sortable_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
-      select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
+      select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction]))
     else
-      order = {column => direction}
-      includes(:intake).order(order).distinct
+      order(column => direction)
     end
   end
 

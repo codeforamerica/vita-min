@@ -139,7 +139,7 @@ describe Client do
           "stage" => nil
         }
       ]
-      expect(client.reload.filterable_tax_return_properties).to eq(expected_json)
+      expect(client.reload.filterable_tax_return_properties).to match_array(expected_json)
       expect(client.reload.filterable_tax_return_years).to match_array([2018, 2019, 2020])
       expect(client.reload.vita_partner).to eq(organization) # only change intended columns
     end
@@ -223,18 +223,6 @@ describe Client do
       expect(Client.where.not(id: Client.with_insufficient_contact_info)).to match_array [
         client_with_contact_info, client_opted_into_both_but_only_one_contact, archived_2021_email_client
       ]
-    end
-  end
-
-  describe ".greetable scope" do
-    let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, :intake_in_progress)]) }
-    let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, :prep_preparing)]) }
-    before do
-      allow(TaxReturnStateMachine).to receive(:available_states_for).with(role_type: GreeterRole::TYPE).and_return({ "intake" => [:intake_in_progress]})
-    end
-
-    it "returns just the greetable clients" do
-      expect(Client.greetable).to match_array [greetable_client]
     end
   end
 

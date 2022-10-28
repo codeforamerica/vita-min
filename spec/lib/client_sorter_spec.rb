@@ -3,14 +3,17 @@ require "rails_helper"
 RSpec.describe ClientSorter do
   let(:clients_query_double) { double }
   let(:intakes_query_double) { double }
-  let(:user) { create :user }
+  let(:user_role) { build :team_member_role, site: build(:site) }
+  let(:user) { create :user, role: user_role }
   let(:subject) { described_class.new(clients_query_double, user, params, {}) }
 
   before do
+    allow(subject).to receive(:current_user).and_return(user)
     allow(Client).to receive(:joins).and_return Client
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
     allow(clients_query_double).to receive(:distinct).and_return clients_query_double
     allow(clients_query_double).to receive(:joins).and_return clients_query_double
+    allow(clients_query_double).to receive(:or).and_return clients_query_double
     allow(clients_query_double).to receive(:greetable).and_return clients_query_double
     allow(clients_query_double).to receive(:sla_breach_date).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
@@ -22,36 +25,28 @@ RSpec.describe ClientSorter do
 
   describe "#filtered_and_sorted_clients" do
     context "when user is a greeter" do
+      let(:subject) { described_class.new(Client, user, params, {}) }
+      let!(:assigned_tax_return) { create :tax_return, :prep_ready_for_prep, assigned_user: user }
+      let(:user_role) { build(:greeter_role) }
       let(:params) do
         {}
       end
-      let(:user_double) { double(User) }
-      before do
-        allow(subject).to receive(:current_user).and_return(user_double)
-        allow(user_double).to receive(:to_i)
-        allow(user_double).to receive(:greeter?).and_return(true)
-      end
 
       context "there are greetable clients" do
-        it "limits to greetable clients only" do
-          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        let!(:greetable_tax_return) { create :tax_return, :intake_ready }
 
-          expect(clients_query_double).to have_received(:greetable)
+        it "limits to greetable clients and assigned clients" do
+          result = subject.filtered_and_sorted_clients.to_a
+          expect(result).to match_array([assigned_tax_return.client, greetable_tax_return.client])
         end
       end
 
       context "there are not greetable clients" do
-        before do
-          allow(clients_query_double).to receive(:greetable).and_return nil
-        end
-
-        it "limits to intake statuses only" do
-          subject.filtered_and_sorted_clients
-
-          expect(Client).to have_received(:joins).with(:tax_returns)
+        it "limits to assigned clients only" do
+          result = subject.filtered_and_sorted_clients.to_a
+          expect(result).to match_array([assigned_tax_return.client])
         end
       end
-
     end
 
     context "default sort order" do
@@ -85,7 +80,7 @@ RSpec.describe ClientSorter do
 
       it "creates a query for the search and scopes by other provided queries" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with({ tax_returns: { current_state: params[:status] } })
+        expect(clients_query_double).to have_received(:where).with("filterable_tax_return_properties @> ?::jsonb", [{ current_state: params[:status] }].to_json)
         expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
       end
     end
@@ -139,7 +134,7 @@ RSpec.describe ClientSorter do
 
         it "creates a query for the search and scopes to vita partner" do
           expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-          expect(clients_query_double).to have_received(:where).with({ tax_returns: { service_type: "online_intake" } })
+          expect(clients_query_double).to have_received(:where).with("filterable_tax_return_properties @> ?::jsonb", [{ service_type: "online_intake" }].to_json)
         end
       end
 
@@ -151,12 +146,15 @@ RSpec.describe ClientSorter do
         }
         it "creates a query for the search and scopes to vita partner" do
           expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-          expect(clients_query_double).to have_received(:where).with({ tax_returns: { service_type: "drop_off" } })
+          expect(clients_query_double).to have_received(:where).with("filterable_tax_return_properties @> ?::jsonb", [{ service_type: "drop_off" }].to_json)
         end
       end
     end
 
     context "with a selected assigned user id" do
+      let(:subject) { described_class.new(Client, user, params, {}) }
+      let!(:assigned_tax_return) { create :tax_return, :intake_ready, assigned_user_id: user.id }
+      let!(:unassigned_tax_return) { create :tax_return, :intake_ready }
       let(:user) { create :user }
       let(:params) {
         {
@@ -164,13 +162,16 @@ RSpec.describe ClientSorter do
         }
       }
 
-      it "creates a query that includes the call to limit to assigned user" do
-        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [user.id] } })
+      it "returns clients with tax returns assigned to the selected user" do
+        expect(subject.filtered_and_sorted_clients.to_a).to match_array([assigned_tax_return.client])
       end
     end
 
     context "with a selected assigned user id AND assigned to me selected" do
+      let(:subject) { described_class.new(Client, user, params, {}) }
+      let!(:assigned_tax_return) { create :tax_return, :intake_ready, assigned_user_id: user.id }
+      let!(:unassigned_tax_return) { create :tax_return, :intake_ready }
+      let!(:assigned_to_me_tax_return) { create :tax_return, :intake_ready, assigned_user_id: current_user.id }
       let(:user) { create :user }
       let(:current_user) { create :user }
       let(:params) {
@@ -183,9 +184,8 @@ RSpec.describe ClientSorter do
         allow(subject).to receive(:current_user).and_return(current_user)
       end
 
-      it "creates a query that includes a call to limit to assigned to current user AND some other user" do
-        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [current_user.id, user.id] } })
+      it "returns clients with tax returns assigned to the selected user AND the current user" do
+        expect(subject.filtered_and_sorted_clients.to_a).to match_array([assigned_to_me_tax_return.client, assigned_tax_return.client])
       end
     end
 

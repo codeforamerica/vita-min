@@ -62,7 +62,7 @@ RSpec.describe Hub::AssignedClientsController do
         context "filtering by stage" do
           it "filters in" do
             get :index, params: { status: "intake" }
-            expect(assigns(:clients)).to eq [assigned_to_me, assigned_to_me_two_trs]
+            expect(assigns(:clients)).to match_array [assigned_to_me, assigned_to_me_two_trs]
           end
 
           it "filters out" do
