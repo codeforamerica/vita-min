@@ -102,12 +102,12 @@ class Client < ApplicationRecord
     ActiveRecord::Base.transaction do
       client_ids =
         if client_ids.nil?
-          where('needs_to_flush_filterable_properties_set_at < ?', Time.current).includes(:tax_returns).limit(limit).pluck(:id)
+          where('needs_to_flush_filterable_properties_set_at < ?', Time.current).limit(limit).pluck(:id)
         else
           where(id: client_ids).includes(:tax_returns)
         end
 
-      attributes = where(id: client_ids).map do |client|
+      attributes = where(id: client_ids).includes(:tax_returns).map do |client|
         {
           id: client.id,
           created_at: client.created_at,
