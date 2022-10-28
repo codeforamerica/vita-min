@@ -18,17 +18,6 @@
     <% end %>
   </ul>
 
-  <div class="reveal-shrink-wrapper spacing-above-60">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.income_reveal.title")) do %>
-      <p><%= t("views.ctc.questions.income.income_reveal.content.p1") %></p>
-      <ul class="list--bulleted">
-        <% t("views.ctc.questions.income.income_reveal.content.list_1").each do |item| %>
-          <li><%= item %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
-
   <div class="reveal-shrink-wrapper">
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.self_employment_income_reveal.title")) do %>
       <p><%= t("views.ctc.questions.income.self_employment_income_reveal.content.p1") %></p>

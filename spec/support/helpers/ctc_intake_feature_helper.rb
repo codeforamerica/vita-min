@@ -30,6 +30,9 @@ module CtcIntakeFeatureHelper
       click_on I18n.t('general.negative')
     end
 
+    expect(page).to have_text(I18n.t("views.ctc.questions.income_qualifier.subtitle"))
+    click_on I18n.t('general.affirmative')
+
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       if married_filing_jointly
