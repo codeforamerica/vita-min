@@ -32,22 +32,52 @@ class ClientSorter
 
   def filtered_clients
     clients = if current_user&.greeter?
-                # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
-                @clients.greetable || Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct
+                @clients
               else
                 @clients.after_consent
               end
     # Force an inner join to `intakes` to exclude clients from previous years
-    clients = clients.distinct.joins(:intake)
+    clients = clients.joins(:intake)
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
-    clients = clients.where(tax_returns: { current_state: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
-    clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
-    clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
-    clients = clients.where(tax_returns: { current_state: @filters[:status] }) if @filters[:status].present?
-    clients = clients.where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) if @filters[:active_returns].present?
+
+    tax_return_filters = {}
+    if @filters[:stage].present?
+      tax_return_filters[:stage] = @filters[:stage]
+    end
+    if @filters[:year].present?
+      tax_return_filters[:year] = @filters[:year].to_i
+    end
+    if @filters[:status].present?
+      tax_return_filters[:current_state] = @filters[:status]
+    end
+    if @filters[:active_returns].present?
+      tax_return_filters[:active] = @filters[:active_returns].in?([true, "true"])
+    end
+    if @filters[:service_type].present?
+      tax_return_filters[:service_type] = @filters[:service_type]
+    end
+
+    tax_return_filters_expanded = []
+
+    if limited_user_ids.present?
+      special_tax_return_filters = current_user&.greeter? ? tax_return_filters.merge(greetable: true) : tax_return_filters
+      limited_user_ids.each do |id|
+        tax_return_filters_expanded << special_tax_return_filters.merge(assigned_user_id: id)
+      end
+    elsif current_user&.greeter?
+      tax_return_filters_expanded = [tax_return_filters.merge(greetable: true), tax_return_filters.merge(assigned_user_id: current_user.id)]
+    else
+      tax_return_filters_expanded = [tax_return_filters]
+    end
+
+    clients = tax_return_filters_expanded.map do |tax_return_filters|
+      clients.where("filterable_tax_return_properties @> ?::jsonb", [tax_return_filters].to_json)
+    end.reduce do |all_queries, this_query|
+      all_queries.or(this_query)
+    end
+
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
-    clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
     clients = clients.first_unanswered_incoming_interaction_between(...@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
     clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
