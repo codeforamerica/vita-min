@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_18_221250) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_28_170448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -528,6 +528,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_221250) do
     t.inet "current_sign_in_ip"
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
+    t.integer "filterable_tax_return_assigned_users", array: true
+    t.string "filterable_tax_return_service_types", array: true
+    t.string "filterable_tax_return_states", array: true
+    t.integer "filterable_tax_return_years", array: true
     t.datetime "first_unanswered_incoming_interaction_at", precision: nil
     t.datetime "flagged_at", precision: nil
     t.datetime "identity_verification_denied_at", precision: nil
@@ -543,6 +547,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_221250) do
     t.datetime "login_requested_at", precision: nil
     t.string "login_token"
     t.jsonb "message_tracker", default: {}
+    t.datetime "needs_to_flush_filterable_properties_set_at"
     t.integer "previous_sessions_active_seconds"
     t.datetime "restricted_at", precision: nil
     t.integer "routing_method"
@@ -552,9 +557,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_221250) do
     t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
+    t.index ["filterable_tax_return_assigned_users"], name: "index_clients_on_filterable_tax_return_assigned_users", using: :gin
+    t.index ["filterable_tax_return_service_types"], name: "index_clients_on_filterable_tax_return_service_types", using: :gin
+    t.index ["filterable_tax_return_states"], name: "index_clients_on_filterable_tax_return_states", using: :gin
+    t.index ["filterable_tax_return_years"], name: "index_clients_on_filterable_tax_return_years", using: :gin
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
     t.index ["login_token"], name: "index_clients_on_login_token"
+    t.index ["needs_to_flush_filterable_properties_set_at"], name: "index_clients_on_needs_to_flush_filterable_properties_set_at"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
   end
 
