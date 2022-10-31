@@ -161,6 +161,10 @@ module Efile
       disqualified_for_simplified_filing_due_to_w2_answers? || disqualified_for_simplified_filing_due_to_income?
     end
 
+    def any_eligible_ctc_dependents?
+      intake.dependents.filter { |d| Efile::DependentEligibility::ChildTaxCredit.new(d, TaxReturn.current_tax_year).qualifies? }.present?
+    end
+
     private
 
     def no_qcs

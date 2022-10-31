@@ -19,7 +19,7 @@ class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionControl
       client: current_client
     )
 
-    redirect_to not_eligible_ctc_portal_dependents_path
+    redirect_to dependent_removal_summary_ctc_portal_dependents_path
   end
 
   private

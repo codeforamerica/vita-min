@@ -1,11 +1,11 @@
-<% title = t("views.ctc.portal.dependents.no_eligible_dependents.title", ineligible_credits: @ineligible_credits ) %>
+<% title = t("views.ctc.portal.dependents.dependent_removal_summary.title", credit_warnings: @credit_warnings ) %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="form-question">
     <%= title %>
   </h1>
   <h2 class="form-question">
-    <%= t("views.ctc.portal.dependents.no_eligible_dependents.subtitle", ineligible_credits: @ineligible_credits) %>
+    <%= t("views.ctc.portal.dependents.dependent_removal_summary.subtitle", credit_warnings: @credit_warnings) %>
   </h2>
   <%= link_to ctc_portal_edit_info_path, class: "button button--wide text--centered" do %>
     <%= t("general.continue") %>

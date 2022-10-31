@@ -457,7 +457,7 @@ Rails.application.routes.draw do
 
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member
-            get 'not-eligible', to: "pages#no_eligible_dependents", on: :collection
+            get 'dependent-removal-summary', to: "pages#dependent_removal_summary", on: :collection
           end
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]

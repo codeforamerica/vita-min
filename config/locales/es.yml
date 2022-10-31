@@ -1818,10 +1818,10 @@ es:
           ssn_no_employment: SSN o Número de Seguro Social (no válido para empleo)
           title: Edita la información básica de %{name}
         dependents:
-          no_eligible_dependents:
-            credits: CTC y EITC
-            subtitle: No recibirá %{ineligible_credits} porque no tiene dependientes elegibles.
-            title: Usted ha eliminado a todos sus dependientes elegibles para %{ineligible_credits}.
+          dependent_removal_summary:
+            ctc_and_eitc: CTC y EITC
+            subtitle: No recibirá %{credit_warnings} porque no tiene dependientes elegibles.
+            title: Usted ha eliminado a todos sus dependientes elegibles para %{credit_warnings}.
         edit_info:
           add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
