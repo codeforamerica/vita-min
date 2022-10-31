@@ -64,5 +64,59 @@ RSpec.describe Documents::SsnItinsController do
       end
     end
   end
+
+  describe '#update' do
+    context "when upload is valid" do
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
+      let(:params) do
+        {
+          document_type_upload_form: {
+            upload: fixture_file_upload("test-pattern.JPG")
+          }
+        }
+      end
+
+      context 'all three required doc types are present' do
+        before do
+          create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
+          create :document, document_type: DocumentTypes::Selfie.key, intake: intake, client: intake.client
+        end
+
+        it "updates the tax return status(es) to intake_ready" do
+          post :update, params: params
+
+          expect(tax_return.reload.current_state).to eq "intake_ready"
+        end
+      end
+
+      context 'required doc types are missing' do
+        it "updates the tax return status(es) to intake_needs_doc_help" do
+          post :update, params: params
+
+          expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+        end
+
+        context "the current state is already needs doc help" do
+          it "does not create a new transition"do
+            post :update, params: params
+
+            expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+
+            expect {
+              expect {
+                post :update, params: {
+                  document_type_upload_form: {
+                    upload: fixture_file_upload("test-pattern.JPG")
+                  }
+                }
+              }.to change(Document, :count).by(1)
+            }.not_to change(tax_return.tax_return_transitions, :count)
+
+            expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+          end
+        end
+      end
+    end
+  end
 end
 

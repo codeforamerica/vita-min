@@ -533,9 +533,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "Attach your 1099-R's")
       upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
-    expect do
-      click_on "Continue"
-    end.to change { intake.client.tax_returns.pluck(:current_state) }.from(["intake_in_progress", "intake_in_progress"]).to(["intake_ready", "intake_ready"])
+    click_on "Continue"
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Please share any additional documents.")
