@@ -9,7 +9,7 @@ module Documents
     def after_update_success
       transition_to = has_all_required_docs? ? :intake_ready : :intake_needs_doc_help
       current_intake.tax_returns.each do |tax_return|
-        tax_return.transition_to!(transition_to)
+        tax_return.transition_to(transition_to) if tax_return.current_state.to_sym != transition_to
       end
     end
 

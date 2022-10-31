@@ -95,6 +95,26 @@ RSpec.describe Documents::SsnItinsController do
 
           expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
         end
+
+        context "the current state is already needs doc help" do
+          it "does not create a new transition"do
+            post :update, params: params
+
+            expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+
+            expect {
+              expect {
+                post :update, params: {
+                  document_type_upload_form: {
+                    upload: fixture_file_upload("test-pattern.JPG")
+                  }
+                }
+              }.to change(Document, :count).by(1)
+            }.not_to change(tax_return.tax_return_transitions, :count)
+
+            expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+          end
+        end
       end
     end
   end
