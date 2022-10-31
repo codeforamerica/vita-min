@@ -21,7 +21,7 @@ describe "backfill_hashed_primary_ssn_on_archived_intakes_2021:backfill" do
       backfilled = Archived::Intake2021.where.not(primary_ssn: nil)
       expect(backfilled.count).to eq 10
       backfilled.each do |intake|
-        expect(intake.hashed_primary_ssn).to eq DeduplificationService.sensitive_attribute_hashed(intake, :primary_ssn)
+        expect(intake.hashed_primary_ssn).to eq DeduplicationService.sensitive_attribute_hashed(intake, :primary_ssn)
       end
 
       not_backfilled = Archived::Intake2021.where(primary_ssn: nil)

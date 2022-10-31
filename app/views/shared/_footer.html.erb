@@ -26,10 +26,11 @@
         </li>
 
         <li>
-          <%= link_to faq_path do %>
-            <%= t("general.faq") %>
-          <% end %>
+          <%= link_to variation == "ctc" ? "https://www.getyourrefund.org/en/faq/child_tax_credit" : faq_path do %>
+          <%= t("general.faq") %>
+            <% end %>
         </li>
+
 
         <% unless variation == "ctc" %>
           <li>

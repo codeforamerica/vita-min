@@ -1,0 +1,5 @@
+<%= tag(:meta, id: "mixpanelData", data: {
+  controller_action: "#{controller.class.name}##{action_name}",
+  full_path: request.fullpath,
+  send_mixpanel_beacon: !Rails.env.test?,
+}) %>

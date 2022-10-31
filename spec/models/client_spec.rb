@@ -2,48 +2,58 @@
 #
 # Table name: clients
 #
-#  id                                       :bigint           not null, primary key
-#  attention_needed_since                   :datetime
-#  completion_survey_sent_at                :datetime
-#  consented_to_service_at                  :datetime
-#  ctc_experience_survey_sent_at            :datetime
-#  ctc_experience_survey_variant            :integer
-#  current_sign_in_at                       :datetime
-#  current_sign_in_ip                       :inet
-#  experience_survey                        :integer          default("unfilled"), not null
-#  failed_attempts                          :integer          default(0), not null
-#  first_unanswered_incoming_interaction_at :datetime
-#  flagged_at                               :datetime
-#  identity_verification_denied_at          :datetime
-#  identity_verified_at                     :datetime
-#  in_progress_survey_sent_at               :datetime
-#  last_incoming_interaction_at             :datetime
-#  last_internal_or_outgoing_interaction_at :datetime
-#  last_outgoing_communication_at           :datetime
-#  last_seen_at                             :datetime
-#  last_sign_in_at                          :datetime
-#  last_sign_in_ip                          :inet
-#  locked_at                                :datetime
-#  login_requested_at                       :datetime
-#  login_token                              :string
-#  message_tracker                          :jsonb
-#  previous_sessions_active_seconds         :integer
-#  restricted_at                            :datetime
-#  routing_method                           :integer
-#  sign_in_count                            :integer          default(0), not null
-#  still_needs_help                         :integer          default("unfilled"), not null
-#  triggered_still_needs_help_at            :datetime
-#  created_at                               :datetime         not null
-#  updated_at                               :datetime         not null
-#  vita_partner_id                          :bigint
+#  id                                          :bigint           not null, primary key
+#  attention_needed_since                      :datetime
+#  completion_survey_sent_at                   :datetime
+#  consented_to_service_at                     :datetime
+#  ctc_experience_survey_sent_at               :datetime
+#  ctc_experience_survey_variant               :integer
+#  current_sign_in_at                          :datetime
+#  current_sign_in_ip                          :inet
+#  experience_survey                           :integer          default("unfilled"), not null
+#  failed_attempts                             :integer          default(0), not null
+#  filterable_tax_return_assigned_users        :integer          is an Array
+#  filterable_tax_return_service_types         :string           is an Array
+#  filterable_tax_return_states                :string           is an Array
+#  filterable_tax_return_years                 :integer          is an Array
+#  first_unanswered_incoming_interaction_at    :datetime
+#  flagged_at                                  :datetime
+#  identity_verification_denied_at             :datetime
+#  identity_verified_at                        :datetime
+#  in_progress_survey_sent_at                  :datetime
+#  last_incoming_interaction_at                :datetime
+#  last_internal_or_outgoing_interaction_at    :datetime
+#  last_outgoing_communication_at              :datetime
+#  last_seen_at                                :datetime
+#  last_sign_in_at                             :datetime
+#  last_sign_in_ip                             :inet
+#  locked_at                                   :datetime
+#  login_requested_at                          :datetime
+#  login_token                                 :string
+#  message_tracker                             :jsonb
+#  needs_to_flush_filterable_properties_set_at :datetime
+#  previous_sessions_active_seconds            :integer
+#  restricted_at                               :datetime
+#  routing_method                              :integer
+#  sign_in_count                               :integer          default(0), not null
+#  still_needs_help                            :integer          default("unfilled"), not null
+#  triggered_still_needs_help_at               :datetime
+#  created_at                                  :datetime         not null
+#  updated_at                                  :datetime         not null
+#  vita_partner_id                             :bigint
 #
 # Indexes
 #
-#  index_clients_on_consented_to_service_at         (consented_to_service_at)
-#  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
-#  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
-#  index_clients_on_login_token                     (login_token)
-#  index_clients_on_vita_partner_id                 (vita_partner_id)
+#  index_clients_on_consented_to_service_at                      (consented_to_service_at)
+#  index_clients_on_filterable_tax_return_assigned_users         (filterable_tax_return_assigned_users) USING gin
+#  index_clients_on_filterable_tax_return_service_types          (filterable_tax_return_service_types) USING gin
+#  index_clients_on_filterable_tax_return_states                 (filterable_tax_return_states) USING gin
+#  index_clients_on_filterable_tax_return_years                  (filterable_tax_return_years) USING gin
+#  index_clients_on_in_progress_survey_sent_at                   (in_progress_survey_sent_at)
+#  index_clients_on_last_outgoing_communication_at               (last_outgoing_communication_at)
+#  index_clients_on_login_token                                  (login_token)
+#  index_clients_on_needs_to_flush_filterable_properties_set_at  (needs_to_flush_filterable_properties_set_at)
+#  index_clients_on_vita_partner_id                              (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -78,6 +88,26 @@ describe Client do
       expect(sla_tracked_clients).not_to include client_file_accepted
       expect(sla_tracked_clients).not_to include client_before_consent
       expect(sla_tracked_clients).not_to include client_archived_intake
+    end
+  end
+
+  describe ".refresh_filterable_properties" do
+    let(:organization) { create(:organization) }
+    let!(:client) { create(:client, vita_partner: organization) }
+    let!(:tr1) { create(:tax_return, year: 2019, client: client) }
+    let!(:tr2) { create(:tax_return, year: 2020, client: client) }
+
+    it "denormalizes filterable properties onto any clients where needs_to_flush_filterable_properties_set_at is set" do
+      client.touch(:needs_to_flush_filterable_properties_set_at)
+      described_class.refresh_filterable_properties
+      expect(client.reload.filterable_tax_return_years).to eq([2019, 2020])
+      expect(client.reload.vita_partner).to eq(organization) # only change intended columns
+    end
+
+    it "denormalizes filterable properties onto a provided list of client ids" do
+      described_class.refresh_filterable_properties([client.id])
+      expect(client.reload.filterable_tax_return_years).to eq([2019, 2020])
+      expect(client.reload.vita_partner).to eq(organization) # only change intended columns
     end
   end
 

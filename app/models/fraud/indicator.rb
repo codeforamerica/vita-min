@@ -92,7 +92,7 @@ module Fraud
       return passing_response if indicator_attributes.any? { |attr| references[reference].send(attr).nil? }
 
       from_scope = query_model.respond_to?(:accessible_intakes) ? query_model.accessible_intakes : query_model
-      duplicate_ids = DeduplificationService.duplicates(references[reference], *indicator_attributes, from_scope: from_scope).pluck(:id)
+      duplicate_ids = DeduplicationService.duplicates(references[reference], *indicator_attributes, from_scope: from_scope).pluck(:id)
       points = calculate_points_from_count(duplicate_ids.count)
       duplicate_ids.present? ? response(points, duplicate_ids.uniq) : passing_response
     end

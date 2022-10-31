@@ -57,6 +57,23 @@ describe TaxReturn do
       it_behaves_like "an internal interaction" do
         let(:subject) { create :tax_return }
       end
+
+      it "denormalizes tax return info onto the client" do
+        tax_return = create :tax_return
+        expect(tax_return.client.reload.filterable_tax_return_years).to eq([tax_return.year])
+      end
+    end
+  end
+
+  describe "destroy behavior" do
+    context "when the tax return is destroyed" do
+      it "denormalizes tax return info onto the client" do
+        tax_return = create :tax_return
+        client = tax_return.client
+        expect(client.reload.filterable_tax_return_years).to eq([tax_return.year])
+        tax_return.destroy
+        expect(client.reload.filterable_tax_return_years).to eq([])
+      end
     end
   end
 

@@ -54,6 +54,8 @@ module NavigationHelpers
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
+    expect(page).to have_text(I18n.t("views.ctc.questions.income_qualifier.subtitle"))
+    click_on I18n.t('general.affirmative')
     click_on I18n.t('general.continue')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.claim_eitc.title'))

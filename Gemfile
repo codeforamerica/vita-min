@@ -77,7 +77,10 @@ group :demo, :development, :test do
   gem 'faker'
 end
 
-group :demo, :development, :heroku, :staging do
+group :demo, :development, :heroku, :staging, :production do
+  # for storing results of rack-mini-profiler
+  gem 'redis'
+
   gem 'rack-mini-profiler'
 end
 
@@ -89,7 +92,7 @@ group :development, :test do
   gem 'axe-matchers'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'webdrivers'
+  gem 'webdrivers', '>= 5.2.0'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
@@ -104,6 +107,7 @@ group :development, :test do
   gem 'turbo_tests'
   gem 'timecop'
   gem 'warning', require: false
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
@@ -120,7 +124,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec_junit_formatter'
   gem 'webmock'
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 4.3.0'

@@ -253,7 +253,7 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
   describe "#duplicates" do
     let(:dupe_double) { double }
     before do
-      allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
+      allow(DeduplicationService).to receive(:duplicates).and_return dupe_double
       allow(dupe_double).to receive(:or)
     end
 
@@ -261,7 +261,7 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       let(:intake) { create :ctc_intake, hashed_primary_ssn: "123456789" }
       it "builds a query looking for duplicates" do
         intake.duplicates
-        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :hashed_primary_ssn, from_scope: described_class.accessible_intakes)
+        expect(DeduplicationService).to have_received(:duplicates).exactly(1).times.with(intake, :hashed_primary_ssn, from_scope: described_class.accessible_intakes)
       end
     end
 

@@ -317,7 +317,7 @@ class Intake < ApplicationRecord
     end
     if primary_ssn_changed?
       self.primary_last_four_ssn = primary_ssn&.last(4)
-      self.hashed_primary_ssn = DeduplificationService.sensitive_attribute_hashed(self, :primary_ssn)
+      self.hashed_primary_ssn = DeduplicationService.sensitive_attribute_hashed(self, :primary_ssn)
     end
     self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
   end
@@ -375,7 +375,7 @@ class Intake < ApplicationRecord
     return itin_duplicates if itin_applicant?
     return self.class.none unless hashed_primary_ssn.present?
 
-    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+    DeduplicationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
   end
 
   # TODO: Delegate to client once backfill is run
@@ -391,13 +391,13 @@ class Intake < ApplicationRecord
 
   def itin_duplicates
     if email_address.present? && sms_phone_number.present?
-      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes).or(
-          DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+      DeduplicationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes).or(
+        DeduplicationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
       )
     elsif email_address.present?
-      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+      DeduplicationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
     elsif sms_phone_number.present?
-      DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+      DeduplicationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
     else
       self.class.none
     end

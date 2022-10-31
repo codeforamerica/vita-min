@@ -712,7 +712,7 @@ en:
         organization: Organization/site
         select: Select
         stage_status: Stage/Status
-        take_action_on_all_html: Take action on all <span id="take-action-all-count">%{count}</span> returns
+        take_action_on_all_html: Take action on all returns
         title: All Clients
         unassigned: Unassigned
       navigation:
@@ -1936,6 +1936,8 @@ en:
             help_text: You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected.
             label: Spouse's %{prior_tax_year} AGI
             title: Edit your spouse's %{prior_tax_year} Adjusted Gross Income
+        submission_pdfs:
+          not_ready: Your tax return pdf is being generated. Please wait a few seconds and refresh the page.
         verification:
           i_dont_have_id: I don't have an ID
           id: Your driver's license or state ID card
@@ -2385,27 +2387,15 @@ en:
           subtitle_2: 'You are likely eligible for Head of Household status if:'
           title: Claiming Head of Household status will not increase your refund.
         income:
-          income_reveal:
-            content:
-              list_1:
-              - salary
-              - hourly wages
-              - tips
-              - commissions
-              - self-employment or contract payments
-              p1: 'Income could come from any of the following sources:'
-            title: What counts as income?
           income_source_reveal:
             content: Income does not have a Puerto Rico source if it comes from the 50 states or from another country rather than from somewhere in Puerto Rico. If you earned income working in the 50 states or another country, earned money from a pension that was based on a job you did in the 50 states or another country, received interest payments while living in the 50 states or another country, received stock dividends from a company based in the 50 states or another country, or earned money from selling property based in the 50 states or another country, then you have income from non-Puerto Rico sources, and you cannot use GetCTC.
             title: How do I know the source of my income?
           list:
             one:
-            - earned less than %{standard_deduction} in total income
             - earned less than $400 in contract work or self-employment income
             - did not receive the Advance Premium Tax Credit
             - are not required to file a full tax return for any other reason
             other:
-            - earned less than %{standard_deduction} in total income
             - earned less than $400 in contract work or self-employment income
             - did not receive the Advance Premium Tax Credit
             - are not required to file a full tax return for any other reason
@@ -2451,6 +2441,18 @@ en:
               p2: You would NOT have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn’t have any healthcare coverage at all.
               p3: You would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website. This type of insurance is sometimes referred to as “Obamacare.”
             title: What is the Advance Premium Tax Credit?
+        income_qualifier:
+          list:
+          - salary
+          - hourly wages
+          - dividends and interest
+          - tips
+          - commissions
+          - self-employment or contract payments
+          subtitle: 'Income could come from any of the following sources:'
+          title:
+            one: Did you make less than %{standard_deduction} in %{current_tax_year}?
+            other: Did you and your spouse make less than %{standard_deduction} in %{current_tax_year}?
         investment_income:
           help_text: In general, investment income includes interest, dividends, capital gains, and mutual fund distributions.
           married_title: Did you and your spouse earn more than $10,000 in investment income in %{current_tax_year}?

@@ -50,6 +50,20 @@ describe Ctc::Portal::SubmissionPdfsController do
                                                             "BankAccountTypeCd" => "Checking",
                                                             ))
           end
+
+          context "when the upload is not yet attached" do
+            let!(:document_without_attachment) { create :document, client: client, tax_return: efile_submission.tax_return, document_type: DocumentTypes::Form1040.key }
+            before do
+              document_without_attachment.upload.destroy
+            end
+
+            it "shows a flash message to wait and refresh" do
+              get :show, params: { id: efile_submission.id }
+
+              expect(response).to redirect_to back
+              expect(flash[:alert]).to eq I18n.t("views.ctc.portal.submission_pdfs.not_ready")
+            end
+          end
         end
 
         context "when an error was raised while generating the document" do

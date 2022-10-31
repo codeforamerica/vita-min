@@ -16,9 +16,6 @@ module Hub
     def index
       @page_title = I18n.t("hub.clients.index.title")
 
-      # Compute the count of tax returns, up to a maximum amount. Postgres is slow at computing counts if they are very large.
-      tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.with_eager_loaded_associations.without_pagination.reorder(nil)).limit(MAX_COUNT + 1).size
-      @tax_return_count = tax_return_count > MAX_COUNT ? "" : tax_return_count.to_s
       @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end

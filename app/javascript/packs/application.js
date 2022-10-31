@@ -17,19 +17,9 @@ window.$ = $;
 RailsUJS.start();
 ActiveStorage.start();
 
-// *
-// IMPLEMENTATION NOTE 2/22/21
-// I want us to be able to import honeycrisp JS directly from honeycrisp, but the main JS we need is all included
-// right inside of the cfa_styleguide_main sprockets JS file. I'm planning on making a PR to honeycrisp to change this imminently. - SB
-//
-//import "<%#= File.join(Gem.loaded_specs['cfa-styleguide'].full_gem_path, 'app', 'assets', 'javascripts', 'honeycrisp') %>";
-
 import "../lib/honeycrisp";
 
-// *
-<% unless Rails.env.test? %>
-  AjaxMixpanelEvents.init();
-<% end %>
+AjaxMixpanelEvents.init();
 Listeners.init();
 
 import jMaskGlobals from "jquery-mask-plugin";

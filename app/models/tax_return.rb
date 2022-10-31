@@ -61,6 +61,8 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
+  after_save_commit { Client.refresh_filterable_properties([client_id]) }
+  after_destroy_commit { Client.refresh_filterable_properties([client_id]) }
 
   def state_machine
     @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)

@@ -14,6 +14,10 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
       end
     end
 
+    if !@document.upload.attachment.present?
+      not_ready_redirect and return
+    end
+
     pdf_basename = @document.display_name.split('.').first
     filled_tempfile = Tempfile.new([pdf_basename, ".pdf"])
     @document.upload.open do |original_tempfile|
@@ -29,6 +33,11 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
 
   def error_redirect
     flash[:alert] = "We encountered a problem generating your tax return pdf. For assistance, please reach out to GetCTC client support."
+    redirect_back(fallback_location: request.referer)
+  end
+
+  def not_ready_redirect
+    flash[:alert] = I18n.t("views.ctc.portal.submission_pdfs.not_ready")
     redirect_back(fallback_location: request.referer)
   end
 end

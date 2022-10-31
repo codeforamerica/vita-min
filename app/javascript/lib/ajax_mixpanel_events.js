@@ -4,6 +4,7 @@ const AjaxMixpanelEvents = (function () {
   const init = function () {
     $(document).ready(function() {
       $("[data-track-click]").on("click", function (e, options) {
+        const pageData = document.querySelector("#mixpanelData").dataset;
         const clickedElement = $(e.target).closest("a");
         const dataAttributes = clickedElement.data();
         const elementText = clickedElement.text().trim();
@@ -20,12 +21,13 @@ const AjaxMixpanelEvents = (function () {
         });
 
         eventData.append("event[event_name]", eventName);
-        eventData.append("event[controller_action]", window.mixpanelData.controller_action);
-        eventData.append("event[full_path]", window.mixpanelData.full_path);
+        eventData.append("event[controller_action]", pageData.controllerAction);
+        eventData.append("event[full_path]", pageData.fullPath);
         eventData.append("event[data][call_to_action]", elementText);
         eventData.append(Rails.csrfParam(), Rails.csrfToken());
-
-        navigator.sendBeacon("/ajax_mixpanel_events", eventData);
+        if (pageData.sendMixpanelBeacon) {
+          navigator.sendBeacon("/ajax_mixpanel_events", eventData);
+        }
       });
     });
   };

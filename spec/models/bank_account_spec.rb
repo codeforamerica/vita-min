@@ -88,7 +88,7 @@ describe BankAccount do
     context "when bank account number does not change" do
       let(:bank_account) { create :bank_account, account_number: "1230000123" }
       before do
-        allow(DeduplificationService).to receive(:sensitive_attribute_hashed).and_call_original
+        allow(DeduplicationService).to receive(:sensitive_attribute_hashed).and_call_original
       end
       it "does not change the hashed_account_number" do
         expect {

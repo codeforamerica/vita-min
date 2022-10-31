@@ -1,4 +1,4 @@
-class DeduplificationService
+class DeduplicationService
   def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials.dig(:duplicate_hashing_key))
     value = instance.send(attr)
     return unless value.present?
