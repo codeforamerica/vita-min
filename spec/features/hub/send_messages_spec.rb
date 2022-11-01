@@ -3,15 +3,17 @@ require "rails_helper"
 RSpec.feature "Read and send messages to a client", js: true do
   context "As an authenticated user" do
     let(:user) { create :organization_lead_user }
+    let(:email_notification_opt_in) { "yes" }
+    let(:sms_notification_opt_in) { "yes" }
     let(:intake) do
       build(
         :intake,
         preferred_name: "Tobias",
         email_address: "tfunke@example.com",
-        email_notification_opt_in: "yes",
+        email_notification_opt_in: email_notification_opt_in,
         phone_number: "+14155551212",
         sms_phone_number: "+14155551212",
-        sms_notification_opt_in: "yes"
+        sms_notification_opt_in: sms_notification_opt_in
       )
     end
     let(:client) { create(:client, vita_partner: user.role.organization, intake: intake) }
@@ -20,33 +22,42 @@ RSpec.feature "Read and send messages to a client", js: true do
       create(:incoming_text_message, body: "", client: client)
     end
 
-    scenario "I can view a client's information and send them a message" do
-      visit hub_client_path(id: client)
+    context "sending messages to opted in methods" do
+      let(:email_notification_opt_in) { "no" }
 
-      within(".client-header") do
-        expect(page).to have_text "Tobias"
-        expect(page).to have_text client.id
-      end
+      scenario "I can view a client's information and send them a message" do
+        visit hub_client_path(id: client)
 
-      within(".client-navigation") do
-        expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Client Profile")
-        expect(page).to have_link("Messages")
-        expect(page).to have_link("Documents")
-        expect(page).to have_link("Notes")
-      end
+        within(".client-header") do
+          expect(page).to have_text "Tobias"
+          expect(page).to have_text client.id
+        end
 
-      click_on "Messages"
-      expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Messages")
-      expect(page).to have_text("Send a text message")
-      expect(page).to have_text("Message has no content.")
+        within(".client-navigation") do
+          expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Client Profile")
+          expect(page).to have_link("Messages")
+          expect(page).to have_link("Documents")
+          expect(page).to have_link("Notes")
+        end
 
-      within(".text-message-form") do
-        fill_in "Send a text message", with: "Example text message"
-        click_on "Send"
-      end
+        click_on "Messages"
+        expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Messages")
 
-      within(".day-list") do
-        expect(page).to have_text "Example text message"
+        # only see forms for opted in contact methods
+        expect(page).to have_selector("form.text-message-form")
+        expect(page).not_to have_selector("form.email-form")
+
+        expect(page).to have_text("Send a text message")
+        expect(page).to have_text("Message has no content.")
+
+        within(".text-message-form") do
+          fill_in "Send a text message", with: "Example text message"
+          click_on "Send"
+        end
+
+        within(".day-list") do
+          expect(page).to have_text "Example text message"
+        end
       end
     end
 

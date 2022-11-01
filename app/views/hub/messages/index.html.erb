@@ -49,7 +49,7 @@
       </div>
 
       <% if @client.editable? %>
-        <% if @client&.intake.sms_phone_number.present? %>
+        <% if @client&.intake.sms_phone_number.present? && @client&.intake.sms_notification_opt_in_yes?%>
           <div class="single-input-form no-form-group-padding">
             <%= form_with model: @client.outgoing_text_messages.build, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
               <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
@@ -67,7 +67,7 @@
           <p><%= t(".no_sms_number") %></p>
         <% end %>
 
-        <% if @client&.intake.email_address.present? %>
+        <% if @client&.intake.email_address.present? && @client&.intake.email_notification_opt_in_yes? %>
           <div class="single-input-form spacing-above-25">
             <%= form_with model: @client.outgoing_emails.build, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
               <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
