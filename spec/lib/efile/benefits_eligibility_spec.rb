@@ -895,4 +895,23 @@ describe Efile::BenefitsEligibility do
       end
     end
   end
+
+  describe "#any_eligible_ctc_dependents?" do
+    context "when there are CTC-eligible dependents" do
+      it "returns true" do
+        expect(subject.any_eligible_ctc_dependents?).to eq(true)
+      end
+    end
+
+    context "when there are not CTC-eligible dependents" do
+      before do
+        intake.dependents.destroy_all
+        create :qualifying_child, intake: intake, birth_date: 60.years.ago
+      end
+
+      it "returns false" do
+        expect(subject.any_eligible_ctc_dependents?).to eq(false)
+      end
+    end
+  end
 end
