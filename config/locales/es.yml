@@ -76,13 +76,13 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        continue_to_tax_slayer: Continuar a declarar por mi cuenta
+        continue_to_tax_slayer: Continuar a File Myself
         guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
         steps:
           description:
-          - Para comenzar su declaración de impuestos, haga clic en 'Continuar a declarar por mi cuenta' para ser redirigido al software gratuito de impuestos.
-          - No haga clic en 'back/atrás' ni abandone el software hasta que cree un nombre de usuario y una contraseña.
-          - Comienza a ingresar tu información y pide ayuda cuando la necesites.
+          - Para empezar declarando sus impuestos, haga clic en 'Continuar a File Myself' para ser redirigido al software gratuito de impuestos.
+          - No haga clic en 'atrás' ni abandone el software hasta que cree un nombre de usuario y una contraseña.
+          - Comience a ingresar su información y solicite ayuda cuando la necesite.
         title: "¡Declare impuestos por su cuenta!"
     email:
       edit:
@@ -721,7 +721,7 @@ es:
         organization: Organización/Sitio
         select: Seleccione
         stage_status: Etapa/Estado
-        take_action_on_all_html: Actúe en las devoluciones
+        take_action_on_all_html: Tomar medidas en todas las declaraciones
         title: Todos los Clientes
         unassigned: No asignado
       navigation:
@@ -1134,7 +1134,7 @@ es:
         delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
         reassign: Reasignar
       index:
-        invite_pending: Necesita aceptar la invitación
+        invite_pending: Invitación pendiente
         title: Usuarios
       profile:
         start_date: Fecha de inicio
@@ -1171,7 +1171,7 @@ es:
           Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
 
           ¡Estamos aquí para ayudarle!
-          Su Equipo de declaración de impuestos GetCTC.org
+          Su equipo de impuestos GetCTC.org
         subject: Su información de contacto en GetCTC
       sms: |
         Su número de teléfono han sido modificados en su cuenta de GetCTC.
@@ -1179,7 +1179,7 @@ es:
         Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
 
         ¡Estamos aquí para ayudarle!
-        Su Equipo de declaración de impuestos GetCTC.org
+        Su equipo de impuestos GetCTC.org
     ctc_getting_started:
       email:
         body: |
@@ -1209,7 +1209,7 @@ es:
             Puede verificar el estado de su reembolso después de 24 horas en línea en sitio del IRS ¿Donde Está mi reembolso? https://sa.www4.irs.gov/irfof/lang/sp/irfofgetstatus.jsp
 
             ¡Estamos aquí para ayudarle!
-            Su Equipo de Declaración de Impuestos GetCTC.org
+            Su equipo de impuestos GetCTC.org
           subject: "¡Gracias por declarar sus impuestos con GetCTC!"
         sms: |
           Hola <<Client.PreferredName>>, ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS.
@@ -1224,14 +1224,14 @@ es:
             Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
 
             ¡Estamos aquí para ayudar!
-            Su equipo de impuesto de GetCTC.org
+            Su equipo de impuestos de GetCTC.org
           subject: Atención necesaria para presentar su declaración de impuestos con GetCTC
         sms: |
           Hola <<Client.PreferredName>>,
           ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
           Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
           ¡Estamos aquí para ayudar!
-          Su equipo de impuesto de GetCTC.org
+          Su equipo de impuestos de GetCTC.org
       preparing:
         email:
           body: |
@@ -1256,7 +1256,7 @@ es:
             Inicie sesión aquí <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos
 
             ¡Estamos aquí para ayudarle!
-            Su Equipo de Declaración de Impuestos GetCTC
+            Su equipo de impuestos GetCTC
           subject: Le pedimos su atención para poder someter sus impuestos con GetCTC
         sms: |
           Hola <<Client.PreferredName>>,
@@ -1270,12 +1270,12 @@ es:
 
             ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, su declaración de impuestos ha sido rechazada por el IRS.
 
-            Inicie sesión para ver por qué no se aceptó su devolución: <<Client.LoginLink>>
+            Inicie sesión para ver por qué no se aceptó su declaración: <<Client.LoginLink>>
 
             Las respuestas a esta dirección no se controlan. Si necesita asistencia adicional, escriba a support@getyourrefund.org.
 
             Su equipo de impuestos en GetCTC.org
-          subject: Actualización de estado de devolución de GetCTC
+          subject: Actualización de Estado de Declaración de GetCTC
         sms: |
           Hola <<Client.PreferredName>>,
           ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí <<Client.LoginLink>> para obtener más información. (Respuestas no supervisadas. Escriba a support@getyourrefund.org para obtener ayuda).
@@ -1820,8 +1820,8 @@ es:
         dependents:
           dependent_removal_summary:
             ctc_and_eitc: CTC y EITC
-            subtitle: No recibirá %{credit_warnings} porque no tiene dependientes elegibles.
-            title: Usted ha eliminado a todos sus dependientes elegibles para %{credit_warnings}.
+            subtitle: No recibirá %{credit_warnings}, porque no tiene dependientes elegibles.
+            title: Ha eliminado a todos sus %{credit_warnings} dependientes elegibles.
         edit_info:
           add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
@@ -2025,7 +2025,7 @@ es:
             - Tenías un trabajo ganando dinero en %{current_tax_year}
             - Cada persona en esta declaración tiene un SSN
             title: 'Requisitos:'
-          title: "¿Le gustaría declarar más dinero compartiendo algún formulario W-2 de 2021?"
+          title: "¿Le gustaría reclamar más dinero compartiendo algún formulario W-2 de 2021?"
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios estén correctos."
@@ -2064,7 +2064,7 @@ es:
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo (EITC):'
           fed_income_tax_withholding: 'Impuesto Retenido:'
-          subtitle: "¡Ya casi terminas! Por favor confirme la información de su reembolso."
+          subtitle: "¡Ya casi terminas! Por favor, confirme la información de su reembolso."
           third_stimulus: Tercer Pago de Estímulo
           title: 'Revise esta lista de los pagos que está reclamando:'
           total: 'Reembolso total:'
@@ -2303,7 +2303,7 @@ es:
         had_dependents:
           add: Agregar dependientes
           continue: Continuar sin dependientes
-          help_text: Cualquier persona a la que mantenga económicamente o que haya vivido con usted puede tener derecho a prestaciones adicionales. Le ayudaremos a averiguarlo.
+          help_text: Cualquier persona a la que apoye financieramente o que haya vivido con usted puede calificarlo para beneficios adicionales. Te ayudaremos a resolverlo.
           title: Para solicitar el Crédito Tributario por Hijos, debe agregar a las personas a su cargo (hijos o otras personas a las que mantiene económicamente)
           which_relationships_qualify_reveal:
             content:
@@ -2363,10 +2363,10 @@ es:
           list:
             one:
             - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
-            - no recibió el crédito Tributario de Prima de Seguro Médico Adelantado
+            - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
-            - ganaron menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
+            - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
             - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
             - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
           mainland_connection_reveal:
@@ -2409,27 +2409,28 @@ es:
           what_is_aptc_reveal:
             content:
               p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
-              p2: NO habría recibido el Crédito fiscal anticipado para la prima el año pasado si tuviera Medicaid o Medicare, si tuviera cobertura de atención médica de su empleador o si no tuviera ninguna cobertura de atención médica.
-              p3: Habría recibido el Crédito fiscal anticipado para la prima si compró un seguro a precio de mercado en healthcare.gov o en un sitio web estatal de intercambio de atención médica. Este tipo de seguro a veces se denomina "Obamacare".
+              p2: NO habría recibido el Crédito Tributario de Prima de Seguro Médico Adelantado el año pasado si tenía Medicaid o Medicare, si obtuvo cobertura de atención médica de su empleador o si no tenía cobertura de atención médica.
+              p3: Habría recibido el Crédito Tributario de Prima de Seguro Médico Adelantado si compró un seguro a precio de mercado en healthcare.gov o en un sitio web estatal de intercambio de atención médica. Este tipo de seguro a veces se refiere a "Obamacare".
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         income_qualifier:
           list:
           - salario
           - salarios por hora
-          - dividendos e intereses
-          - puntas
+          - dividendos y intereses
+          - propinas
           - comisiones
           - pagos por cuenta propia o por contrato
-          subtitle: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
+          subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
-            one: "¿Ganaste menos de %{standard_deduction} en %{current_tax_year}?"
+            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction}en %{current_tax_year}?"
+            one: "¿Ganaste menos de %{standard_deduction}en %{current_tax_year}?"
             other: "¿Usted y su cónyuge ganaron menos de %{standard_deduction} en %{current_tax_year}?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
-          married_title: "¿Ganaron usted y su cónyuge más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
-          reveal_content: Si obtuvo ingresos de inversiones (como intereses de una cuenta de ahorros, dividendos de acciones o ganancias de capital de una inversión), habría recibido un 1099-INT, 1099-DIV o 1099-B con el monto.
+          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingreso de inversiones en  %{current_tax_year}?"
+          reveal_content: Si obtuvo ingresos de inversiones (como intereses de una cuenta de ahorros, dividendos de acciones o ganancias de capital de una inversión), habría recibido un 1099-INT, 1099-DIV o 1099-B con la cantidad.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
-          title: "¿Ganó más de $10.000 en ingresos por inversiones en %{current_tax_year}?"
+          title: "¿Ganó más de $10,000 en ingreso de inversiones en %{current_tax_year}?"
         ip_pin:
           help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
@@ -2758,9 +2759,9 @@ es:
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
-            - Es probable que las siguientes secciones de su W-2 estén en blanco. Si es así, no hay problema; déjelas en blanco en las casillas a continuación.
+            - Las siguientes secciones de su W-2 probablemente estén en blanco. Deje esas casillas en blanco a continuación para que coincidan con su W-2.
             - Para las Casillas 15-20, si su W-2 contiene información de varios estados, ingrese solo la información del primer estado.
-            submit: Enviar W-2
+            submit: Guarde este W-2
             title: Terminemos de ingresar la información del W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye el formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
           reveal:
@@ -2776,7 +2777,7 @@ es:
           wages: Sueldo
           wages_info:
             box10_dependent_care_benefits: 'Casilla 10: Dependent care benefits'
-            box3_social_security_wages: 'Casilla 3: Social Security wages'
+            box3_social_security_wages: 'Casilla 3: Social security wages'
             box4_social_security_tax_withheld: 'Casilla 4: Social Security tax withheld'
             box5_medicare_wages_and_tip_amount: 'Casilla 5: Medicare wages and tips amount'
             box6_medicare_tax_withheld: 'Casilla 6: Medicare tax withheld'
@@ -2945,7 +2946,7 @@ es:
           launching_soon_html: "<strong>¡GetCTC lanzará dentro de poco!</strong> Suscríbase para recibir un mensaje tan pronto como el portal de presentación simplificada esté listo."
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
-            eitc_on: Este formulario por lo general toma unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
+            eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
         title: Reclame su Crédito Tributario por Hijos
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
@@ -3893,7 +3894,7 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closing_banner_html: <strong>Los servicios GetYourRefund reabrirán el 31 de enero.</strong> Si solo desea el crédito fiscal por hijos, el crédito fiscal por ingreso del trabajo y los pagos de estímulo, intente presentar su solicitud con <a href="%{url}">GetCTC</a>. Para obtener opciones gratuitas para presentar una declaración de impuestos completa este año, visite <a href="https://www.childtaxcredit.gov/triage-results/" target='_blank' rel='noopener noreferrer'>ChildTaxCredit.gov</a>.
+        closing_banner_html: <strong>GetYourRefund reabrirá el 31 de enero.</strong> Si solo desea el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo, intente presentar su declaración de impuestos con <a href="%{url}">GetCTC</a>. Para obtener opciones gratuitas para presentar una declaración de impuestos completa este año, visite <a href="https://www.childtaxcredit.gov/triage-results/" target='_blank' rel='noopener noreferrer'>ChildTaxCredit.gov</a>.
         closing_soon_banner: Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
