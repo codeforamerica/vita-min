@@ -500,6 +500,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
+  create_table "bulk_signup_messages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bulk_tax_return_updates", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.datetime "created_at", null: false
@@ -1306,6 +1311,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   create_table "outgoing_message_statuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "delivery_status"
+    t.text "message_id"
     t.integer "message_type", null: false
     t.datetime "updated_at", null: false
   end
@@ -1349,6 +1355,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.string "type"
     t.datetime "updated_at", null: false
     t.index ["generated_at"], name: "index_reports_on_generated_at"
+  end
+
+  create_table "signup_selections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "signup_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_signup_selections_on_user_id"
   end
 
   create_table "signups", force: :cascade do |t|
@@ -1755,6 +1769,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "recaptcha_scores", "clients"
+  add_foreign_key "signup_selections", "users"
   add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
@@ -1790,7 +1805,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
+            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

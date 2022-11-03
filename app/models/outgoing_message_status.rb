@@ -7,9 +7,10 @@
 #  message_type    :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  message_id      :text
 #
 class OutgoingMessageStatus < ApplicationRecord
-  enum message_type: { sms: 1 }
+  enum message_type: { sms: 1, email: 2 }
 
   def update_status_if_further(new_status)
     with_lock do

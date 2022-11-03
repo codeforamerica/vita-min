@@ -253,7 +253,7 @@ describe TwilioService do
       )
     end
 
-    it "doesn't relay a status callback if not given" do
+    it "adds an OutgoingMessageStatus status callback if not given" do
       TwilioService.send_text_message(
         to: "+15855551212",
         body: "hello there"

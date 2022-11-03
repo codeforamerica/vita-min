@@ -7,6 +7,7 @@
 #  message_type    :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  message_id      :text
 #
 require 'rails_helper'
 

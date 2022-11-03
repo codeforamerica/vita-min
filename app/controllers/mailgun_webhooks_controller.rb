@@ -7,7 +7,7 @@ class MailgunWebhooksController < ActionController::Base
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     DatadogApi.increment("mailgun.incoming_emails.received")
     sender_email = params["sender"]
-    clients = Client.joins(:intake).where(intakes: { email_address: sender_email})
+    clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
     client_count = clients.count
     if client_count.zero?
       DatadogApi.increment("mailgun.incoming_emails.client_not_found")
@@ -52,10 +52,10 @@ class MailgunWebhooksController < ActionController::Base
         processed_attachments <<
           if (FileTypeAllowedValidator.mime_types(Document).include? attachment.content_type) && (size > 0)
             {
-                io: attachment,
-                filename: attachment.original_filename,
-                content_type: attachment.content_type,
-                identify: false # false = don't infer content type from extension
+              io: attachment,
+              filename: attachment.original_filename,
+              content_type: attachment.content_type,
+              identify: false # false = don't infer content type from extension
             }
           else
             io = StringIO.new <<~TEXT
@@ -65,10 +65,10 @@ class MailgunWebhooksController < ActionController::Base
               File size: #{attachment.size} bytes
             TEXT
             {
-                io: io,
-                filename: "invalid-#{attachment.original_filename}.txt",
-                content_type: "text/plain;charset=UTF-8",
-                identify: false
+              io: io,
+              filename: "invalid-#{attachment.original_filename}.txt",
+              content_type: "text/plain;charset=UTF-8",
+              identify: false
             }
           end
       end
@@ -96,11 +96,21 @@ class MailgunWebhooksController < ActionController::Base
   end
 
   def update_outgoing_email_status
+    # TODO: see if there's a nice way to always create OutgoingMessageStatus records
     message_id = params.dig("event-data", "message", "headers", "message-id")
-    email_to_update = OutgoingEmail.find_by(message_id: message_id)
-    email_to_update = VerificationEmail.find_by(mailgun_id: message_id) if email_to_update.nil?
+    email_to_update = (
+      OutgoingEmail.find_by(message_id: message_id) ||
+        VerificationEmail.find_by(mailgun_id: message_id) ||
+        OutgoingMessageStatus.find_by(message_id: message_id, message_type: :email)
+    )
     DatadogApi.increment("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
-    email_to_update&.update(mailgun_status: params.dig("event-data", "event"))
+    status_key =
+      if email_to_update.is_a?(OutgoingMessageStatus)
+        :delivery_status
+      else
+        :mailgun_status
+      end
+    email_to_update&.update(status_key => params.dig("event-data", "event"))
 
     head :ok
   end

@@ -1,0 +1,27 @@
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+      <p>
+        <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda" target="_blank" rel="noopener noreferrer">
+          Click here for instructions and important warnings on how to use this page </a></p>
+
+      <h2>Upload</h2>
+      <%= form_for @signup_selection, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
+        <%= f.cfa_file_field :upload, t('general.select_file') %>
+        <%= f.cfa_radio_set(
+              :signup_type,
+              collection: [
+                { value: :GYR, label: "GYR" },
+                { value: :GetCTC, label: "GetCTC" }
+              ]
+            )
+        %>
+        <%= f.submit(t("general.upload")) %>
+      <% end %>
+
+      <h2>CSVs uploaded</h2>
+      <%= render(partial: 'hub/signup_selections/signup_selection', collection: @signup_selections, as: :item) || "None uploaded yet." %>
+    </div>
+  </div>
+<% end %>
