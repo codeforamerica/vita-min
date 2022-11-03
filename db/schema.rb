@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_28_170448) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1301,6 +1301,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_28_170448) do
     t.index ["created_at"], name: "index_outgoing_emails_on_created_at"
     t.index ["message_id"], name: "index_outgoing_emails_on_message_id"
     t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
+  end
+
+  create_table "outgoing_message_statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "delivery_status"
+    t.integer "message_type", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "outgoing_text_messages", force: :cascade do |t|

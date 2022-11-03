@@ -354,6 +354,5 @@ RSpec.describe MailgunWebhooksController do
         end
       end
     end
-
   end
 end

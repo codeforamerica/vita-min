@@ -1,4 +1,19 @@
 class TwilioService
+  FAILED_STATUSES = ["undelivered", "failed", "delivery_unknown", "twilio_error"].freeze
+  SUCCESSFUL_STATUSES = ["sent", "delivered"].freeze
+  IN_PROGRESS_STATUSES = ["accepted", "queued", "sending", nil].freeze
+  ALL_KNOWN_STATUSES = FAILED_STATUSES + SUCCESSFUL_STATUSES + IN_PROGRESS_STATUSES
+  ORDERED_STATUSES = [nil, "twilio_error"] + %w(
+    queued
+    accepted
+    sending
+    sent
+    delivery_unknown
+    delivered
+    undelivered
+    failed
+  ).freeze
+
   class << self
     def valid_request?(request)
       validator = Twilio::Security::RequestValidator.new(EnvironmentCredentials.dig(:twilio, :auth_token))
@@ -6,7 +21,7 @@ class TwilioService
         request.url,
         request.POST,
         request.headers["X-Twilio-Signature"],
-        )
+      )
     end
 
     def fetch_attachment(url)
