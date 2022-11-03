@@ -3,6 +3,7 @@
 # Table name: signup_selections
 #
 #  id          :bigint           not null, primary key
+#  filename    :text             not null
 #  id_array    :integer          default([]), is an Array
 #  signup_type :integer          not null
 #  created_at  :datetime         not null
@@ -19,6 +20,6 @@
 #
 class SignupSelection < ApplicationRecord
   belongs_to :user
-  validates_presence_of :id_array, :signup_type
+  validates_presence_of :id_array, :signup_type, :filename
   enum signup_type: { GYR: 1, GetCTC: 2 }
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: bulk_signup_messages
+# Table name: signup_selections
 #
 #  id         :bigint           not null, primary key
 #  created_at :datetime         not null

@@ -1,7 +1,7 @@
 require 'csv'
 
 module Hub
-  class BulkSignupMessagesController < ApplicationController
+  class SignupSelectionsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
     before_action :set_main_heading, only: [:index, :create]
@@ -14,9 +14,10 @@ module Hub
     end
 
     def create
+      upload = params.require(:signup_selection).dig(:upload)
       id_array =
         begin
-          io = params.require(:signup_selection).dig(:upload).tempfile
+          io = upload.tempfile
           io.seek(0)
           io.set_encoding_by_bom
           parsed = CSV.parse(io, headers: true)
@@ -27,7 +28,7 @@ module Hub
           @signup_selection.errors.add :upload, "Invalid CSV"
           render :index and return
         end
-      @signup_selection = SignupSelection.new(create_params.merge(id_array: id_array))
+      @signup_selection = SignupSelection.new(create_params.merge(id_array: id_array, filename: upload.original_filename))
 
       if @signup_selection.save
         redirect_to action: :index

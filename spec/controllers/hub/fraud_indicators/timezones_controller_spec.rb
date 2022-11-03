@@ -16,9 +16,9 @@ describe Hub::FraudIndicators::TimezonesController do
       it "assigns a list of all Fraud::Indicator::Timezone objects" do
         get :index
 
-        expect(assigns(:resources).length).to eq 2
-        expect(assigns(:resources).pluck(:name)).to include "Mexico/Tijuana"
-        expect(assigns(:resources).pluck(:name)).to include "America/Indianapolis"
+        expect(assigns(:signup_selections).length).to eq 2
+        expect(assigns(:signup_selections).pluck(:name)).to include "Mexico/Tijuana"
+        expect(assigns(:signup_selections).pluck(:name)).to include "America/Indianapolis"
       end
     end
   end

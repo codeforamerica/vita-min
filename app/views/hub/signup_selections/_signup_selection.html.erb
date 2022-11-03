@@ -1,9 +1,0 @@
-<div>
-  <%= item.filename %> <%# TODO: Store this %>
-  by <%= item.user.email %>: <%# TODO: Make this mandatory %>
-  <strong>(<%= item.id_array.size %> clients)</strong>
-  <ul style="padding-left: 30px;">
-    <li><%= link_to(t('.send_email'), hub_bulk_actions_edit_send_a_message_path(id: item.id, send_only: :email)) %></li>
-    <li><%= link_to(t('.send_text'), hub_bulk_actions_edit_send_a_message_path(id: item.id, send_only: :text_message)) %></li>
-  </ul>
-</div>

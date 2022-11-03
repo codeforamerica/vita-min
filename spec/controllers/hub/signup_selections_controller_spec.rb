@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Hub::BulkSignupMessagesController do
+describe Hub::SignupSelectionsController do
   it_behaves_like :a_get_action_for_admins_only, action: :index
 
   describe '#create' do
@@ -31,6 +31,7 @@ describe Hub::BulkSignupMessagesController do
         }.to change(SignupSelection, :count).by(1)
         record = SignupSelection.last
         expect(record.id_array).to eq [3, 4]
+        expect(record.filename).to eq File.basename(@filename)
       end
     end
 

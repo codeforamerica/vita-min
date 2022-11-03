@@ -1,0 +1,9 @@
+<div>
+  <%= item.filename %>
+  by <%= item.user.email %>:
+  <strong>(<%= item.id_array.size %> clients)</strong>
+  <ul style="padding-left: 30px;">
+    <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_email"), new_bulk_signup_message_path(signup_selection_id: item.id, send_only: :email)) %></li>
+    <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_text"), new_bulk_signup_message_path(signup_selection_id: item.id, send_only: :text_message)) %></li>
+  </ul>
+</div>
