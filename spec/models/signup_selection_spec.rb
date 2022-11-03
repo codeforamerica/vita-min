@@ -17,8 +17,3 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class SignupSelection < ApplicationRecord
-  belongs_to :user
-  validates_presence_of :id_array, :signup_type
-  enum signup_type: { GYR: 1, GetCTC: 2 }
-end

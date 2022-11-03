@@ -1359,6 +1359,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
 
   create_table "signup_selections", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "id_array", default: [], array: true
     t.integer "signup_type", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
