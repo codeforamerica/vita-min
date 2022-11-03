@@ -18,7 +18,7 @@
 #  fk_rails_...  (tax_return_selection_id => tax_return_selections.id)
 #
 class BulkClientMessage < ApplicationRecord
-  has_one :user_notification, as: :notifiable
+  has_one :user_notification, as: :notifiable, dependent: :destroy
   belongs_to :tax_return_selection
   has_many :bulk_client_message_outgoing_emails
   has_many :bulk_client_message_outgoing_text_messages

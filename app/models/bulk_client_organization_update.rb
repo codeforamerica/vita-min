@@ -19,7 +19,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class BulkClientOrganizationUpdate < ApplicationRecord
-  has_one :user_notification, as: :notifiable
+  has_one :user_notification, as: :notifiable, dependent: :destroy
   belongs_to :tax_return_selection
   belongs_to :vita_partner
 end
