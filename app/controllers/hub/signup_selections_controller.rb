@@ -5,7 +5,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :set_main_heading, only: [:index, :create]
-    load_and_authorize_resource :signup_selection, parent: false
+    load_and_authorize_resource
 
     layout "hub"
 
