@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_09_195232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -548,6 +548,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.integer "filterable_tax_return_assigned_users", array: true
+    t.jsonb "filterable_tax_return_properties"
     t.string "filterable_tax_return_service_types", array: true
     t.string "filterable_tax_return_states", array: true
     t.integer "filterable_tax_return_years", array: true
@@ -577,6 +578,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
     t.index ["filterable_tax_return_assigned_users"], name: "index_clients_on_filterable_tax_return_assigned_users", using: :gin
+    t.index ["filterable_tax_return_properties"], name: "index_clients_on_filterable_tax_return_properties", using: :gin
     t.index ["filterable_tax_return_service_types"], name: "index_clients_on_filterable_tax_return_service_types", using: :gin
     t.index ["filterable_tax_return_states"], name: "index_clients_on_filterable_tax_return_states", using: :gin
     t.index ["filterable_tax_return_years"], name: "index_clients_on_filterable_tax_return_years", using: :gin
