@@ -104,7 +104,7 @@ class Client < ApplicationRecord
         if client_ids.nil?
           where('needs_to_flush_filterable_properties_set_at < ?', Time.current).limit(limit).pluck(:id)
         else
-          where(id: client_ids).includes(:tax_returns)
+          where(id: client_ids)
         end
 
       attributes = where(id: client_ids).includes(:tax_returns).map do |client|
