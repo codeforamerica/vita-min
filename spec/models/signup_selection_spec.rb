@@ -6,7 +6,7 @@ require 'rails_helper'
 #
 #  id          :bigint           not null, primary key
 #  filename    :text             not null
-#  id_array    :integer          default([]), is an Array
+#  id_array    :integer          not null, is an Array
 #  signup_type :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

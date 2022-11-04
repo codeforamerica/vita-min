@@ -9,13 +9,9 @@ class CreateDataForBulkSignupMessages < ActiveRecord::Migration[7.0]
     end
 
     create_table :signup_selections do |t|
-      t.timestamps
-    end
-
-    create_table :signup_selections do |t|
       t.references :user, foreign_key: true
       t.integer :signup_type, null: false
-      t.integer :id_array, array: true, default: []
+      t.integer :id_array, array: true, null: false
       t.text :filename, null: false
       t.timestamps
     end

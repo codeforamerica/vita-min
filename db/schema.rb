@@ -500,7 +500,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
-  create_table "signup_selections", force: :cascade do |t|
+  create_table "bulk_signup_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -1360,7 +1360,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   create_table "signup_selections", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "filename", null: false
-    t.integer "id_array", default: [], array: true
+    t.integer "id_array", null: false, array: true
     t.integer "signup_type", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

@@ -18,8 +18,11 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class SignupSelection < ApplicationRecord
-  belongs_to :user
-  validates_presence_of :id_array, :signup_type, :filename
-  enum signup_type: { GYR: 1, GetCTC: 2 }
+FactoryBot.define do
+  factory :signup_selection do
+    filename { "example.csv" }
+    id_array { [3, 4, 5] }
+    signup_type { "GYR" }
+    user { build(:admin_user) }
+  end
 end

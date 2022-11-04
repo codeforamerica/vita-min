@@ -8,8 +8,6 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  message_id      :text
-#  parent_id :bigint --> CtcSignup or Signup
-#  parent_type :text
 #
 class OutgoingMessageStatus < ApplicationRecord
   enum message_type: { sms: 1, email: 2 }

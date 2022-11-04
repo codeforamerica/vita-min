@@ -1,0 +1,15 @@
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+      <p> <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda" target="_blank" rel="noopener noreferrer"> Click here for instructions and important warnings on how to use this page </a></p>
+
+      <%= form_with model: @bulk_signup_message, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
+        <%= f.hidden_field(:message_type, value: @message_type) %>
+        <%= f.hidden_field(:signup_selection_id, value: @signup_selection.id) %>
+        <%= f.cfa_textarea(:message, "Send #{@message_type}", help_text: "Immediately send a message to the selected signups") %>
+        <%= f.submit(t("general.submit")) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

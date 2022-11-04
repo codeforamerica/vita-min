@@ -19,7 +19,7 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
     File.unlink(@filename)
   end
 
-  scenario "bulk messaging clients by CSV" do
+  scenario "bulk messaging signups by CSV" do
     visit hub_signup_selections_path
 
     attach_file "Select file", @filename
@@ -27,15 +27,10 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
     click_on "Upload"
 
     expect(page).to have_content(File.basename(@filename))
-    expect(page).to have_content "Queued"
-
-    perform_enqueued_jobs
-    visit current_path
-    expect(page).to have_content "Ready"
 
     click_on I18n.t("hub.bulk_message_csvs.bulk_message_csv.send_email")
-    expect(page).to have_text "Send a Message for 3 signups (only sending email)"
-    fill_in "Message", with: "Naranja es la mejor"
+    expect(page).to have_text "Sending email to 1 signup record(s)"
+    fill_in "Email message", with: "Naranja es la mejor"
     click_on "Submit"
 
     perform_enqueued_jobs
