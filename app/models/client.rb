@@ -130,6 +130,21 @@ class Client < ApplicationRecord
     [:created_at, :state_of_residence] + delegated_intake_attributes
   end
 
+  scope :greetable_faster, -> do
+    greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
+    where('ARRAY[?]::varchar[] && filterable_tax_return_states', greeter_statuses)
+  end
+  scope :delegated_order_faster, ->(column, direction) do
+    raise ArgumentError, "column and direction are required" if !column || !direction
+
+    if sortable_intake_attributes.include? column.to_sym
+      column_names = ["clients.*"] + sortable_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
+      select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction]))
+    else
+      order(column => direction)
+    end
+  end
+
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :greetable, -> do
