@@ -55,6 +55,7 @@ class TaxReturnStateMachine
 
   after_transition(after_commit: true) do |tax_return, transition|
     tax_return.update_columns(current_state: transition.to_state)
+    Client.refresh_filterable_properties([tax_return.client_id])
     InteractionTrackingService.record_internal_interaction(tax_return.client) # manually run since the update_columns doesn't run callbacks
     MixpanelService.send_tax_return_event(tax_return, "status_change", { from_status: tax_return.previous_state })
   end
