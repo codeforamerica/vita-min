@@ -84,17 +84,36 @@ RSpec.describe MailgunWebhooksController do
           allow(DateTime).to receive(:now).and_return(current_time)
           allow(DatadogApi).to receive(:increment)
           allow(IntercomService).to receive(:create_intercom_message)
+          allow(SendAutomatedMessage).to receive(:send_messages)
         end
 
-        it "forwards the message to intercom" do
-          expect do
+        context "with a matching archived intake" do
+          let!(:archived_intake) { create :archived_2021_ctc_intake, client: create(:client), email_address: sender_email }
+
+          it "sends an automated message saying that replies are not monitored" do
             post :create_incoming_email, params: params
-          end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
-          expect(IntercomService).to have_received(:create_intercom_message).with(
+
+            expect(SendAutomatedMessage).to have_received(:send_messages).once.with({message: AutomatedMessage::UnmonitoredReplies, email: sender_email, client: archived_intake.client})
+          end
+
+          it "sends a metric to Datadog" do
+            post :create_incoming_email, params: params
+
+            expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_emails.sent_replies_not_monitored")
+          end
+        end
+
+        context "without a matching archived intake" do
+          it "forwards the message to intercom" do
+            expect do
+              post :create_incoming_email, params: params
+            end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
+            expect(IntercomService).to have_received(:create_intercom_message).with(
               email_address: sender_email,
               inform_of_handoff: false,
               body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
-          )
+            )
+          end
         end
 
         it "sends a metric to Datadog" do
