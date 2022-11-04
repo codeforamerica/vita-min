@@ -12,10 +12,12 @@ class MailgunWebhooksController < ActionController::Base
     if client_count.zero?
       archived_intakes = Archived::Intake2021.where(email_address: sender_email)
       if archived_intakes.present?
+        archived_intake = archived_intakes.first
         SendAutomatedMessage.send_messages(
           message: AutomatedMessage::UnmonitoredReplies,
           email: sender_email,
-          client: archived_intakes.first.client
+          client: archived_intake.client,
+          locale: archived_intake.locale || "en"
         )
         DatadogApi.increment("mailgun.outgoing_emails.sent_replies_not_monitored")
       else
