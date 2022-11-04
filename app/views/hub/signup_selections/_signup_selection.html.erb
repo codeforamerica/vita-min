@@ -6,4 +6,13 @@
     <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_email"), new_hub_bulk_signup_message_path(signup_selection_id: item.id, message_type: :email)) %></li>
     <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_text"), new_hub_bulk_signup_message_path(signup_selection_id: item.id, message_type: :text_message)) %></li>
   </ul>
+  <ul style="padding-left: 30px;">
+    <% item.bulk_signup_messages.each do |bulk_signup_message| %>
+      <li>
+        <% if bulk_signup_message.status == "sending" %>
+          We are still contacting <%= bulk_signup_message.pending_to_send %> signups.
+        <% end %>
+      </li>
+  <% end %>
+  </ul>
 </div>

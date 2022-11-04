@@ -502,7 +502,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
 
   create_table "bulk_signup_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "message", null: false
+    t.integer "message_type", null: false
+    t.bigint "signup_selection_id", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["signup_selection_id"], name: "index_bulk_signup_messages_on_signup_selection_id"
+    t.index ["user_id"], name: "index_bulk_signup_messages_on_user_id"
   end
 
   create_table "bulk_tax_return_updates", force: :cascade do |t|
@@ -1742,6 +1748,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "bulk_message_csvs", "tax_return_selections"
   add_foreign_key "bulk_message_csvs", "users"
+  add_foreign_key "bulk_signup_messages", "signup_selections"
+  add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"

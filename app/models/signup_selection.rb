@@ -21,5 +21,6 @@
 class SignupSelection < ApplicationRecord
   belongs_to :user
   validates_presence_of :id_array, :signup_type, :filename
+  has_many :bulk_signup_messages
   enum signup_type: { GYR: 1, GetCTC: 2 }
 end

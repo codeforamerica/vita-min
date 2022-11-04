@@ -30,18 +30,15 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
 
     click_on I18n.t("hub.bulk_message_csvs.bulk_message_csv.send_email")
     expect(page).to have_text "Sending email to 1 signup record(s)"
-    fill_in "Email message", with: "Naranja es la mejor"
+    fill_in "Message", with: "Naranja es la mejor"
     click_on "Submit"
 
     perform_enqueued_jobs
     visit current_path
-    expect(page).to have_text "We are still contacting 2 signups."
-    within ".total" do
-      expect(page).to have_text I18n.t("hub.bulk_actions.send_a_message.edit.selected_action_qualifier.only_email")
-    end
+    expect(page).to have_text "We are still contacting 1 signups."
     perform_enqueued_jobs # to finish sending
 
-    expect(page).to have_text "Done contacting 2 signups."
+    expect(page).to have_text "Done contacting 1 signups."
 
     expect(OutgoingMessageStatus.pluck(:to)).to match_array([email_gyr_signup.email_address, email_ctc_signup.email_address])
   end

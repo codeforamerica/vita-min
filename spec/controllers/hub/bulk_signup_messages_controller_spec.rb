@@ -10,11 +10,14 @@ describe Hub::BulkSignupMessagesController do
       end
 
       context "with valid params" do
-        let(:params) { { message_type: "email", signup_selection_id: create(:signup_selection).id } }
+        let(:signup_selection) { create(:signup_selection) }
+        let(:params) { { message_type: "email", signup_selection_id: signup_selection.id } }
 
-        it "sets @message_type" do
+        it "sets required variables for the template" do
           get :new, params: params
-          expect(assigns(:message_type)).to eq("email")
+          expect(assigns[:message_type]).to eq "email"
+          expect(assigns[:signup_selection]).to eq signup_selection
+          expect(response).to be_ok
         end
       end
 
@@ -28,6 +31,13 @@ describe Hub::BulkSignupMessagesController do
   end
 
   describe "#create" do
+    let(:signup_selection) { create(:signup_selection) }
+    let(:params) do
+      {
+        bulk_signup_message:
+          { message_type: "email", signup_selection_id: signup_selection.id, message: "We are now open" }
+      }
+    end
     it_behaves_like :a_post_action_for_admins_only, action: :create # crashing b/c it needs params
 
     context "as an admin" do
@@ -36,24 +46,36 @@ describe Hub::BulkSignupMessagesController do
       end
 
       context "with valid params" do
-        let(:signup_selection) { create(:signup_selection) }
-        let(:params) do
-          {
-            bulk_signup_message:
-              { message_type: "email", signup_selection_id: signup_selection.id, message: "We are now open" }
-          }
-        end
-
         it "creates and sends the bulk signup message" do
           expect {
-            put :create, params: params
-          }.to change(BulkSignupMessage, :count).by(1)
-          # TODO: .to have_enqueued_job(SendBulkSignupMessageJob).with(BulkSignupMessage)
-          # TODO: To redirect somewhere
+            expect {
+              put :create, params: params
+            }.to change(BulkSignupMessage, :count).by(1)
+          }.to have_enqueued_job(BulkAction::SendBulkSignupMessageJob).with(BulkSignupMessage.last)
+          expect(response).to redirect_to(Hub::SignupSelectionsController.to_path_helper(action: :index))
           record = BulkSignupMessage.last
           expect(record.signup_selection).to eq(signup_selection)
           expect(record.message_type).to eq("email")
           expect(record.message).to eq("We are now open")
+        end
+      end
+
+      context "with invalid params" do
+        let(:params) do
+          {
+            bulk_signup_message:
+              { message_type: "email", signup_selection_id: signup_selection.id }
+          }
+        end
+
+        it "renders new without enqueueing a job" do
+          expect {
+            expect {
+              put :create, params: params
+            }.not_to change(BulkSignupMessage, :count)
+          }.not_to have_enqueued_job(BulkAction::SendBulkSignupMessageJob)
+
+          expect(response).to render_template :new
         end
       end
     end

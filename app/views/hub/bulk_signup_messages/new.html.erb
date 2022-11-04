@@ -7,7 +7,7 @@
       <%= form_with model: @bulk_signup_message, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
         <%= f.hidden_field(:message_type, value: @message_type) %>
         <%= f.hidden_field(:signup_selection_id, value: @signup_selection.id) %>
-        <%= f.cfa_textarea(:message, "Send #{@message_type}", help_text: "Immediately send a message to the selected signups") %>
+        <%= f.cfa_textarea(:message, "Message", help_text: "Immediately send a message to the selected signups") %>
         <%= f.submit(t("general.submit")) %>
       <% end %>
     </div>
