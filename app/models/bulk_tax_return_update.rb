@@ -22,7 +22,7 @@
 #  fk_rails_...  (tax_return_selection_id => tax_return_selections.id)
 #
 class BulkTaxReturnUpdate < ApplicationRecord
-  has_one :user_notification, as: :notifiable
+  has_one :user_notification, as: :notifiable, dependent: :destroy
   belongs_to :tax_return_selection
   belongs_to :assigned_user, class_name: "User", optional: true
 
