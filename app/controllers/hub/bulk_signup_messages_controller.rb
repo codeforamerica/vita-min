@@ -27,13 +27,7 @@ module Hub
 
     def set_instance_variables(params)
       @signup_selection = SignupSelection.accessible_by(current_ability).find(params[:signup_selection_id]) if params[:signup_selection_id].present?
-      @message_type =
-        case params[:message_type]
-        when "email"
-          "email"
-        when "text_message"
-          "text message"
-        end
+      @message_type = params[:message_type] if BulkSignupMessage.message_types.keys.include?(params[:message_type])
 
       if @message_type.nil? || @signup_selection.nil?
         redirect_to Hub::SignupSelectionsController.to_path_helper(action: :index)

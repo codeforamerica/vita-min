@@ -4,15 +4,15 @@
   <strong>(<%= item.id_array.size %> signup(s))</strong>
   <ul style="padding-left: 30px;">
     <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_email"), new_hub_bulk_signup_message_path(signup_selection_id: item.id, message_type: :email)) %></li>
-    <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_text"), new_hub_bulk_signup_message_path(signup_selection_id: item.id, message_type: :text_message)) %></li>
+    <li><%= link_to(t("hub.bulk_message_csvs.bulk_message_csv.send_text"), new_hub_bulk_signup_message_path(signup_selection_id: item.id, message_type: :sms)) %></li>
   </ul>
   <ul style="padding-left: 30px;">
     <% item.bulk_signup_messages.each do |bulk_signup_message| %>
       <li>
         <% if bulk_signup_message.sending_complete? %>
-          Done contacting <%= bulk_signup_message.signup_count %> signups (<%= bulk_signup_message.failed_messages_count %> failed, <%= bulk_signup_message.succeeded_messages_count %> succeeded)
+          Done contacting <%= bulk_signup_message.signup_count %> signups over <%= bulk_signup_message.message_type %> (<%= bulk_signup_message.failed_messages_count %> failed, <%= bulk_signup_message.succeeded_messages_count %> succeeded)
         <% else %>
-          Contacting <%= bulk_signup_message.signup_count %> signups (<%= bulk_signup_message.pending_messages_count %> pending, <%= bulk_signup_message.failed_messages_count %> failed, <%= bulk_signup_message.succeeded_messages_count %> succeeded)
+          Contacting <%= bulk_signup_message.signup_count %> signups over <%= bulk_signup_message.message_type %> (<%= bulk_signup_message.pending_messages_count %> pending, <%= bulk_signup_message.failed_messages_count %> failed, <%= bulk_signup_message.succeeded_messages_count %> succeeded)
         <% end %>
       </li>
   <% end %>

@@ -2,7 +2,7 @@
   <div class="slab">
     <div class="grid">
       <h1><%= @main_heading %></h1>
-      <p> <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda" target="_blank" rel="noopener noreferrer"> Click here for instructions and important warnings on how to use this page </a></p>
+      <p>Type the message you want to send to the uploaded signups. The messages will send immediately.</p>
 
       <%= form_with model: @bulk_signup_message, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
         <%= f.hidden_field(:message_type, value: @message_type) %>

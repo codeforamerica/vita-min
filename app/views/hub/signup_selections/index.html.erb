@@ -2,9 +2,8 @@
   <div class="slab">
     <div class="grid">
       <h1><%= @main_heading %></h1>
-      <p>
-        <a href="https://www.notion.so/cfa/Bulk-Messaging-Read-Me-6559552f524340569c11583186d76bda" target="_blank" rel="noopener noreferrer">
-          Click here for instructions and important warnings on how to use this page </a></p>
+      <p>Make and upload a csv with one column with header named 'id' and each row contains a signup id. Choose GYR or GetCTC.</p>
+      <p>You'll see the file you uploaded and the number of signups at the bottom of the page. Click either the text or email link.</p>
 
       <h2>Upload</h2>
       <%= form_for @signup_selection, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
