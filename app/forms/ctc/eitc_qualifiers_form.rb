@@ -5,7 +5,8 @@ module Ctc
     validates :none_of_the_above, at_least_one_or_none_of_the_above_selected: true
 
     def save
-      @intake.update(attributes_for(:intake))
+      additional_attributes = { full_time_student_less_than_five_months: full_time_student_less_than_four_months }
+      @intake.update(attributes_for(:intake).merge(additional_attributes))
     end
 
     def at_least_one_selected
