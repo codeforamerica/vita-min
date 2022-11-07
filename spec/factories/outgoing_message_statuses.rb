@@ -18,6 +18,7 @@
 FactoryBot.define do
   factory :outgoing_message_status do
     sequence(:message_id) { |n| "msgid_#{n}" }
+    parent { build(:signup) }
 
     trait :sms do
       message_type { :sms }
