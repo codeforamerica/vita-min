@@ -18,10 +18,10 @@ describe Hub::FraudIndicators::RiskyDomainsController do
       it "assigns a list of all risky Fraud::Indicator::Domain objects" do
         get :index
 
-        expect(assigns(:signup_selections).length).to eq 2
-        expect(assigns(:signup_selections).pluck(:name)).to include "something-else.com"
-        expect(assigns(:signup_selections).pluck(:name)).to include "another-thing.com"
-        expect(assigns(:signup_selections).pluck(:name)).not_to include "something.com"
+        expect(assigns(:resources).length).to eq 2
+        expect(assigns(:resources).pluck(:name)).to include "something-else.com"
+        expect(assigns(:resources).pluck(:name)).to include "another-thing.com"
+        expect(assigns(:resources).pluck(:name)).not_to include "something.com"
       end
     end
   end

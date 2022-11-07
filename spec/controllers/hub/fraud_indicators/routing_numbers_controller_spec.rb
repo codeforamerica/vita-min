@@ -17,9 +17,9 @@ describe Hub::FraudIndicators::RoutingNumbersController do
       it "assigns a list of all risky Fraud::Indicator::RoutingNumber objects" do
         get :index
 
-        expect(assigns(:signup_selections).length).to eq 2
-        expect(assigns(:signup_selections).pluck(:routing_number)).to include "123456789"
-        expect(assigns(:signup_selections).pluck(:routing_number)).to include "222222222"
+        expect(assigns(:resources).length).to eq 2
+        expect(assigns(:resources).pluck(:routing_number)).to include "123456789"
+        expect(assigns(:resources).pluck(:routing_number)).to include "222222222"
       end
     end
   end
