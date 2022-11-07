@@ -8,8 +8,8 @@
 #
 # Indexes
 #
-#  index_bsmoes_on_bulk_signup_messages_id       (bulk_signup_message_id)
-#  index_bsmoes_on_outgoing_message_statuses_id  (outgoing_message_status_id)
+#  index_bsmoms_on_bulk_signup_messages_id       (bulk_signup_message_id)
+#  index_bsmoms_on_outgoing_message_statuses_id  (outgoing_message_status_id)
 #
 # Foreign Keys
 #

@@ -35,11 +35,14 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
 
     perform_enqueued_jobs
     visit current_path
-    expect(page).to have_text "We are still contacting 1 signups."
+    expect(page).to have_text "Contacting 1 signups (1 pending, 0 failed, 0 succeeded)"
     perform_enqueued_jobs # to finish sending
 
-    expect(page).to have_text "Done contacting 1 signups."
+    OutgoingMessageStatus.last.update(delivery_status: 'delivered') # pretend we got a webhook status update from mailgun
+    visit current_path
+    expect(page).to have_text "Done contacting 1 signups (0 failed, 1 succeeded)"
 
-    expect(OutgoingMessageStatus.pluck(:to)).to match_array([email_gyr_signup.email_address, email_ctc_signup.email_address])
+    expect(OutgoingMessageStatus.all.map { |oms| oms.parent.email_address }).to match_array([gyr_email_and_phone_signup.email_address])
   end
 end
+

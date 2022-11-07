@@ -25,8 +25,8 @@ class CreateDataForBulkSignupMessages < ActiveRecord::Migration[7.0]
     end
 
     create_table :bulk_signup_message_outgoing_message_statuses do |t|
-      t.references :bulk_signup_message, foreign_key: true, null: false, index: { name: :index_bsmoes_on_bulk_signup_messages_id }
-      t.references :outgoing_message_status, foreign_key: true, null: false, index: { name: :index_bsmoes_on_outgoing_message_statuses_id }
+      t.references :bulk_signup_message, foreign_key: true, null: false, index: { name: :index_bsmoms_on_bulk_signup_messages_id }
+      t.references :outgoing_message_status, foreign_key: true, null: false, index: { name: :index_bsmoms_on_outgoing_message_statuses_id }
     end
   end
 end

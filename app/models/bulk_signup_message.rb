@@ -21,19 +21,50 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class BulkSignupMessage < ApplicationRecord
-  enum message_type: { sms: 1, email: 2 }
+  enum message_type: { sms: 1, email: 2 }, _prefix: :message_type
 
   belongs_to :user
   belongs_to :signup_selection
+  has_many :bulk_signup_message_outgoing_message_statuses
+  has_many :outgoing_message_statuses, through: :bulk_signup_message_outgoing_message_statuses
 
   validates :message, presence: true
 
-  # TODO make these real
-  def status
-    "sending"
+  def succeeded_messages_count
+    outgoing_message_statuses.group(:delivery_status).count.select { |status, _count| successful_statuses.include?(status) }.values.sum
   end
 
-  def pending_to_send
+  def failed_messages_count
+    outgoing_message_statuses.group(:delivery_status).count.select { |status, _count| failed_statuses.include?(status) }.values.sum
+  end
+
+  def pending_messages_count
+    signup_count - succeeded_messages_count - failed_messages_count
+  end
+
+  def sending_complete?
+    pending_messages_count.zero?
+  end
+
+  def signup_count
     signup_selection.id_array.length
+  end
+
+  private
+
+  def successful_statuses
+    if message_type_sms?
+      TwilioService::SUCCESSFUL_STATUSES
+    else
+      OutgoingEmail::SUCCESSFUL_MAILGUN_STATUSES
+    end
+  end
+
+  def failed_statuses
+    if message_type_sms?
+      TwilioService::FAILED_STATUSES
+    else
+      OutgoingEmail::FAILED_MAILGUN_STATUSES
+    end
   end
 end

@@ -503,8 +503,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   create_table "bulk_signup_message_outgoing_message_statuses", force: :cascade do |t|
     t.bigint "bulk_signup_message_id", null: false
     t.bigint "outgoing_message_status_id", null: false
-    t.index ["bulk_signup_message_id"], name: "index_bsmoes_on_bulk_signup_messages_id"
-    t.index ["outgoing_message_status_id"], name: "index_bsmoes_on_outgoing_message_statuses_id"
+    t.index ["bulk_signup_message_id"], name: "index_bsmoms_on_bulk_signup_messages_id"
+    t.index ["outgoing_message_status_id"], name: "index_bsmoms_on_outgoing_message_statuses_id"
   end
 
   create_table "bulk_signup_messages", force: :cascade do |t|
