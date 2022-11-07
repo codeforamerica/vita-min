@@ -25,6 +25,7 @@ FactoryBot.define do
   factory :bulk_signup_message do
     signup_selection { build(:signup_selection) }
     user { build(:user) }
+    subject { message_type == 'email' ? "hello to you" : nil }
     message { "We are now open" }
     message_type { "email" }
   end
