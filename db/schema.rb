@@ -1076,6 +1076,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_195232) do
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
     t.integer "former_foster_youth", default: 0, null: false
+    t.integer "full_time_student_less_than_five_months", default: 0, null: false
     t.integer "full_time_student_less_than_four_months", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
