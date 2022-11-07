@@ -1888,7 +1888,7 @@ en:
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             cancelled:
               label: Cancelled
-              message: We will no longer attempt to efile this return with the IRS. To continue, use the signup_selections below to mail your return to the IRS.
+              message: We will no longer attempt to efile this return with the IRS. To continue, use the resources below to mail your return to the IRS.
             failed:
               label: Submission error
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
@@ -3066,7 +3066,7 @@ en:
         34_analytics: Analytics
         35_analytics_details_html: We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">HERE</a>. You can also email %{email_link} for additional information.
         36_additional_services: Additional Services and Resources
-        37_additional_services_details: We may provide additional links to signup_selections we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
+        37_additional_services_details: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
         38_how_we_protect: How we protect your information
         39_how_we_protect_list:
         - Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
@@ -3984,7 +3984,7 @@ en:
         information_sharing:
           choices:
             additional:
-              description: We may provide additional links to signup_selections we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
+              description: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
               header: Additional Services and Resources
             analytics:
               header: Analytics
