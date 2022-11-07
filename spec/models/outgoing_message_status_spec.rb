@@ -5,9 +5,15 @@
 #  id              :bigint           not null, primary key
 #  delivery_status :text
 #  message_type    :integer          not null
+#  parent_type     :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  message_id      :text
+#  parent_id       :bigint           not null
+#
+# Indexes
+#
+#  index_outgoing_message_statuses_on_parent  (parent_type,parent_id)
 #
 require 'rails_helper'
 

@@ -1319,7 +1319,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.text "delivery_status"
     t.text "message_id"
     t.integer "message_type", null: false
+    t.bigint "parent_id", null: false
+    t.string "parent_type", null: false
     t.datetime "updated_at", null: false
+    t.index ["parent_type", "parent_id"], name: "index_outgoing_message_statuses_on_parent"
   end
 
   create_table "outgoing_text_messages", force: :cascade do |t|
