@@ -28,7 +28,8 @@ module Hub
           @signup_selection.errors.add :upload, "Invalid CSV"
           render :index and return
         end
-      @signup_selection = SignupSelection.new(create_params.merge(id_array: id_array, filename: upload.original_filename))
+      validated_ids = Signup.where(id: id_array).pluck(:id)
+      @signup_selection = SignupSelection.new(create_params.merge(id_array: validated_ids, filename: upload.original_filename))
 
       if @signup_selection.save
         redirect_to action: :index

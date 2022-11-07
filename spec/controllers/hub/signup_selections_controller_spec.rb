@@ -15,13 +15,15 @@ describe Hub::SignupSelectionsController do
       File.unlink(@filename)
     end
 
-    let(:signup) { create(:signup) }
+    let(:signup1) { create(:signup) }
+    let(:signup2) { create(:signup) }
 
     context "with valid params" do
       let(:csv_content) { <<~CSV
         id
-        3
-        4
+        #{signup1.id}
+        #{signup2.id}
+        -906
       CSV
       }
 
@@ -30,7 +32,7 @@ describe Hub::SignupSelectionsController do
           put :create, params: { signup_selection: { upload: fixture_file_upload(@filename), signup_type: :GYR } }
         }.to change(SignupSelection, :count).by(1)
         record = SignupSelection.last
-        expect(record.id_array).to eq [3, 4]
+        expect(record.id_array).to match_array [signup1.id, signup2.id]
         expect(record.filename).to eq File.basename(@filename)
       end
     end
