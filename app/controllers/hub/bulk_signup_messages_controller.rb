@@ -37,7 +37,7 @@ module Hub
     end
 
     def create_params
-      params.require(:bulk_signup_message).permit(:signup_selection_id, :message, :message_type).merge(user: current_user)
+      params.require(:bulk_signup_message).permit(:signup_selection_id, :message, :message_type, :subject).merge(user: current_user)
     end
   end
 end

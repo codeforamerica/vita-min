@@ -42,6 +42,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
           to: signup.phone_number,
           body: bulk_signup_message.message,
           status_callback: twilio_update_status_path(outgoing_message_status.id, locale: nil),
+          outgoing_text_message: outgoing_message_status
         )
         expect(outgoing_message_status.message_type).to eq 'sms'
         expect(outgoing_message_status.message_id).to eq 'twilio_sid'
@@ -52,12 +53,17 @@ describe BulkAction::SendOneBulkSignupMessageJob do
     context 'with email signup' do
       let(:message_type) { 'email' }
 
+      before do
+        bulk_signup_message.update(subject: "Please come to our website")
+      end
+
       it 'sends an email and saves the mailgun message id' do
         expect {
           described_class.perform_now(signup, bulk_signup_message)
         }.to change(ActionMailer::Base.deliveries, :count).by(1)
         mail = ActionMailer::Base.deliveries.last
         expect(mail.body.encoded).to include bulk_signup_message.message
+        expect(mail.subject).to include bulk_signup_message.subject
         expect(mail.to).to eq [signup.email_address]
 
         message_status = OutgoingMessageStatus.last
@@ -68,19 +74,17 @@ describe BulkAction::SendOneBulkSignupMessageJob do
       context "subject & from address" do
         context "with a CTC signup" do
           let(:signup) { create :ctc_signup }
-          it "uses the default GetCTC subject & no-reply address" do
+          it "uses the default no-reply address" do
             described_class.perform_now(signup, bulk_signup_message)
             mail = ActionMailer::Base.deliveries.last
-            expect(mail.subject).to eq "Update from GetCTC"
             expect(mail.from).to eq ["no-reply@ctc.test.localhost"]
           end
         end
 
         context "with a GYR signup" do
-          it "uses the default GYR subject & no-reply address" do
+          it "uses the default no-reply address" do
             described_class.perform_now(signup, bulk_signup_message)
             mail = ActionMailer::Base.deliveries.last
-            expect(mail.subject).to eq "Update from GetYourRefund"
             expect(mail.from).to eq ["no-reply@test.localhost"]
           end
         end

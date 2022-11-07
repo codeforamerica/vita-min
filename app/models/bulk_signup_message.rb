@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  message             :text             not null
 #  message_type        :integer          not null
+#  subject             :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  signup_selection_id :bigint           not null
@@ -29,6 +30,7 @@ class BulkSignupMessage < ApplicationRecord
   has_many :outgoing_message_statuses, through: :bulk_signup_message_outgoing_message_statuses
 
   validates :message, presence: true
+  validates :subject, presence: true, if: -> { message_type == 'email' }
 
   def succeeded_messages_count
     outgoing_message_statuses.group(:delivery_status).count.select { |status, _count| successful_statuses.include?(status) }.values.sum

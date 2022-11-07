@@ -22,7 +22,7 @@ module BulkAction
           SignupFollowupMailer.new.followup(email_address: signup.email_address, message: OpenStruct.new(
             email_body: bulk_signup_message.message,
             service_type: service_info.service_type,
-            email_subject: I18n.t("messages.default_subject_with_service_name", service_name: service_info.service_name, locale: "en")
+            email_subject: bulk_signup_message.subject
           )).deliver.message_id
         end
       outgoing_message_status.update(message_id: message_id) if message_id.present?

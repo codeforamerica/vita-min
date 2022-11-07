@@ -31,6 +31,7 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
     click_on I18n.t("hub.bulk_message_csvs.bulk_message_csv.send_email")
     expect(page).to have_text "Sending email to 1 signup record(s)"
     fill_in "Message", with: "Naranja es la mejor"
+    fill_in "Subject", with: "my great email subject"
     click_on "Submit"
 
     perform_enqueued_jobs
@@ -44,6 +45,7 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
 
     expect(OutgoingMessageStatus.count).to eq 1
     expect(OutgoingMessageStatus.last.parent.email_address).to eq(gyr_email_and_phone_signup.email_address)
+    expect(BulkSignupMessage.last.subject).to eq 'my great email subject'
 
     click_on I18n.t("hub.bulk_message_csvs.bulk_message_csv.send_text")
     expect(page).to have_text "Sending sms to 1 signup record(s)"

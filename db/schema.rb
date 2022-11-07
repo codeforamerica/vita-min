@@ -512,6 +512,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.text "message", null: false
     t.integer "message_type", null: false
     t.bigint "signup_selection_id", null: false
+    t.text "subject"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["signup_selection_id"], name: "index_bulk_signup_messages_on_signup_selection_id"
