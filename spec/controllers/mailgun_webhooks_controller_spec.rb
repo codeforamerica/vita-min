@@ -86,15 +86,17 @@ RSpec.describe MailgunWebhooksController do
           allow(IntercomService).to receive(:create_intercom_message)
         end
 
-        it "forwards the message to intercom" do
-          expect do
-            post :create_incoming_email, params: params
-          end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
-          expect(IntercomService).to have_received(:create_intercom_message).with(
+        context "without a matching archived intake" do
+          it "forwards the message to intercom" do
+            expect do
+              post :create_incoming_email, params: params
+            end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
+            expect(IntercomService).to have_received(:create_intercom_message).with(
               email_address: sender_email,
               inform_of_handoff: false,
               body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
-          )
+            )
+          end
         end
 
         it "sends a metric to Datadog" do
@@ -117,6 +119,7 @@ RSpec.describe MailgunWebhooksController do
                  intake: create(:intake, email_address: sender_email),
                  tax_returns: tax_returns
         end
+        let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, email_address: sender_email }
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -257,6 +260,25 @@ RSpec.describe MailgunWebhooksController do
             expect(email.body_html).to be_nil
             expect(email.stripped_text).to be_nil
             expect(email.stripped_html).to be_nil
+          end
+        end
+
+        context "with a matching archived intake only" do
+          before do
+            client.intake.destroy!
+            allow(SendAutomatedMessage).to receive(:send_messages)
+          end
+
+          it "sends an automated message saying that replies are not monitored" do
+            post :create_incoming_email, params: params
+
+            expect(SendAutomatedMessage).to have_received(:send_messages).once.with({message: AutomatedMessage::UnmonitoredReplies, email: sender_email, client: archived_intake.client, locale: "en"})
+          end
+
+          it "sends a metric to Datadog" do
+            post :create_incoming_email, params: params
+
+            expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_emails.sent_replies_not_monitored")
           end
         end
       end
