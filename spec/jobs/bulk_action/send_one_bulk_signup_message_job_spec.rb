@@ -5,22 +5,28 @@ describe BulkAction::SendOneBulkSignupMessageJob do
     let(:signup) { create :signup }
     let(:bulk_signup_message) { create(:bulk_signup_message, message_type: message_type, signup_selection: build(:signup_selection, id_array: [signup.id]), message: "We are now open") }
 
-    context 'an email signup' do
-      let(:message_type) { 'email' }
+    context "when sending any kind of message" do
+      let(:message_type) { "sms" }
 
-      it 'sends an email and saves the mailgun message id' do
+      it "creates a pending outgoing message status & join record" do
         expect {
-          described_class.perform_now(signup, bulk_signup_message)
-        }.to change(OutgoingMessageStatus, :count).from(0).to(1)
+          expect {
+            described_class.perform_now(signup, bulk_signup_message)
+          }.to(change(OutgoingMessageStatus, :count).by(1))
+        }.to change(BulkSignupMessageOutgoingMessageStatus, :count).by(1)
 
-        message_status = OutgoingMessageStatus.last
-        expect(message_status.message_id).to eq 'mailgun-message-id'
-        expect(message_status.delivery_status).to eq 'pending'
-        expect(message_status.message_type).to eq 'email'
+        outgoing_message_status = OutgoingMessageStatus.last
+        expect(outgoing_message_status.message_type).to eq(message_type)
+        expect(outgoing_message_status.parent).to eq signup
+        expect(outgoing_message_status.delivery_status).to eq "pending"
+
+        join_record = BulkSignupMessageOutgoingMessageStatus.last
+        expect(join_record.outgoing_message_status).to eq outgoing_message_status
+        expect(join_record.bulk_signup_message).to eq bulk_signup_message
       end
     end
 
-    context 'an sms signup' do
+    context 'with an sms signup' do
       let(:message_type) { 'sms' }
       let(:twilio_double) { double TwilioService }
       before do
@@ -30,22 +36,54 @@ describe BulkAction::SendOneBulkSignupMessageJob do
       end
 
       it 'sends an sms and saves the twilio message id' do
-        expect {
-          described_class.perform_now(signup, bulk_signup_message)
-        }.to(change(OutgoingMessageStatus, :count).from(0).to(1))
+        described_class.perform_now(signup, bulk_signup_message)
         outgoing_message_status = OutgoingMessageStatus.last
-
         expect(TwilioService).to have_received(:send_text_message).with(
           to: signup.phone_number,
           body: bulk_signup_message.message,
           status_callback: twilio_update_status_path(outgoing_message_status.id, locale: nil),
         )
+        expect(outgoing_message_status.message_type).to eq 'sms'
+        expect(outgoing_message_status.message_id).to eq 'twilio_sid'
+        expect(outgoing_message_status.delivery_status).to eq 'pending'
+      end
+    end
+
+    context 'with email signup' do
+      let(:message_type) { 'email' }
+
+      it 'sends an email and saves the mailgun message id' do
+        expect {
+          described_class.perform_now(signup, bulk_signup_message)
+        }.to change(ActionMailer::Base.deliveries, :count).by(1)
+        mail = ActionMailer::Base.deliveries.last
+        expect(mail.body.encoded).to include bulk_signup_message.message
+        expect(mail.to).to eq [signup.email_address]
 
         message_status = OutgoingMessageStatus.last
-        expect(message_status.message_id).to eq 'twilio_sid'
-        expect(message_status.delivery_status).to eq 'pending'
-        expect(message_status.message_type).to eq 'sms'
-        expect(message_status.parent).to eq signup
+        expect(message_status.message_id).to eq mail.message_id
+        expect(message_status.message_type).to eq 'email'
+      end
+
+      context "subject & from address" do
+        context "with a CTC signup" do
+          let(:signup) { create :ctc_signup }
+          it "uses the default GetCTC subject & no-reply address" do
+            described_class.perform_now(signup, bulk_signup_message)
+            mail = ActionMailer::Base.deliveries.last
+            expect(mail.subject).to eq "Update from GetCTC"
+            expect(mail.from).to eq ["no-reply@ctc.test.localhost"]
+          end
+        end
+
+        context "with a GYR signup" do
+          it "uses the default GYR subject & no-reply address" do
+            described_class.perform_now(signup, bulk_signup_message)
+            mail = ActionMailer::Base.deliveries.last
+            expect(mail.subject).to eq "Update from GetYourRefund"
+            expect(mail.from).to eq ["no-reply@test.localhost"]
+          end
+        end
       end
     end
   end

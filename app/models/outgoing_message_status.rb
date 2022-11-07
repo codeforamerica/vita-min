@@ -17,6 +17,8 @@
 #
 class OutgoingMessageStatus < ApplicationRecord
   enum message_type: { sms: 1, email: 2 }
+  belongs_to :parent, polymorphic: true
+  validates :parent, presence: true
 
   def update_status_if_further(new_status)
     with_lock do

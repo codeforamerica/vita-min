@@ -500,6 +500,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
     t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
+  create_table "bulk_signup_message_outgoing_message_statuses", force: :cascade do |t|
+    t.bigint "bulk_signup_message_id", null: false
+    t.bigint "outgoing_message_status_id", null: false
+    t.index ["bulk_signup_message_id"], name: "index_bsmoes_on_bulk_signup_messages_id"
+    t.index ["outgoing_message_status_id"], name: "index_bsmoes_on_outgoing_message_statuses_id"
+  end
+
   create_table "bulk_signup_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "message", null: false
@@ -1751,6 +1758,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_130626) do
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "bulk_message_csvs", "tax_return_selections"
   add_foreign_key "bulk_message_csvs", "users"
+  add_foreign_key "bulk_signup_message_outgoing_message_statuses", "bulk_signup_messages"
+  add_foreign_key "bulk_signup_message_outgoing_message_statuses", "outgoing_message_statuses"
   add_foreign_key "bulk_signup_messages", "signup_selections"
   add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
