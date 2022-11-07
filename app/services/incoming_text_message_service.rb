@@ -9,11 +9,9 @@ class IncomingTextMessageService
 
     client_count = clients.count
     if client_count.zero?
+      SendOutgoingTextMessageWithoutClientJob.perform_later(phone_number: phone_number, body: AutomatedMessage::UnmonitoredReplies.new.sms_body)
       DatadogApi.increment("twilio.incoming_text_messages.client_not_found")
-      return IntercomService.create_intercom_message(
-        phone_number: phone_number,
-        body: params["Body"]
-      )
+      DatadogApi.increment("twilio.outgoing_text_messages.sent_replies_not_monitored")
     end
 
     event_name = client_count > 1 ? "client_found_multiple" : "client_found"

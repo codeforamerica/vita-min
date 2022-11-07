@@ -89,14 +89,10 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
       end
     end
 
-    context "without a matching client" do
-      before do
-        allow(IntercomService).to receive(:create_intercom_message)
-      end
-
-      it "forwards the message to intercom" do
+    context "without a matching client from the current years intake" do
+      it "sends a response not monitored message" do
         IncomingTextMessageService.process(incoming_message_params)
-        expect(IntercomService).to have_received(:create_intercom_message).with(phone_number: "+15005550006", body: "Hello, it me")
+        expect(SendOutgoingTextMessageWithoutClientJob).to have_been_enqueued
       end
 
       it "sends a metric to Datadog" do
@@ -104,6 +100,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
 
         expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.received")
         expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.client_not_found")
+        expect(DatadogApi).to have_received(:increment).with("twilio.outgoing_text_messages.sent_replies_not_monitored")
       end
     end
 
