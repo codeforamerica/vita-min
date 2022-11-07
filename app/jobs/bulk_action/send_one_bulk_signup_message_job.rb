@@ -15,6 +15,7 @@ module BulkAction
             to: signup.phone_number,
             body: bulk_signup_message.message,
             status_callback: twilio_update_status_path(outgoing_message_status.id, locale: nil),
+            outgoing_message_status: outgoing_message_status
           )&.sid
         when "email"
           service_info = MultiTenantService.new(signup.class.name == "CtcSignup" ? :ctc : :gyr)

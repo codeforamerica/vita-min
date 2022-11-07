@@ -273,6 +273,25 @@ describe TwilioService do
       )
       expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.sent"
     end
+
+    context "when twilio doesn't want to send a message" do
+      let(:outgoing_message_status) { create(:outgoing_message_status, message_type: :sms) }
+
+      before do
+        allow(fake_messages_resource).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
+      end
+
+      it "records twilio_error on the provided record" do
+        TwilioService.send_text_message(
+          to: "+15855551212",
+          body: "hello there",
+          status_callback: "http://example.com",
+          outgoing_text_message: outgoing_message_status
+        )
+
+        expect(outgoing_message_status.reload.delivery_status).to eq('twilio_error')
+      end
+    end
   end
 
   describe ".get_metadata" do

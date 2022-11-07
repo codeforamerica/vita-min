@@ -83,7 +83,14 @@ class TwilioService
 
       client.messages.create(arguments)
     rescue Twilio::REST::RestError => e
-      outgoing_text_message.update(twilio_status: "twilio_error") if outgoing_text_message
+      status_key =
+        if outgoing_text_message.is_a?(OutgoingMessageStatus)
+          :delivery_status
+        else
+          :twilio_status
+        end
+      outgoing_text_message&.update(status_key => "twilio_error")
+
       unless e.code == 21211 # Invalid 'To' Phone Number https://www.twilio.com/docs/api/errors/21211
         raise
       end
