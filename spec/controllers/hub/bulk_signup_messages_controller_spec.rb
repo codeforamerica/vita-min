@@ -35,7 +35,7 @@ describe Hub::BulkSignupMessagesController do
     let(:params) do
       {
         bulk_signup_message:
-          { message_type: "email", signup_selection_id: signup_selection.id, message: "We are now open" }
+          { message_type: "email", signup_selection_id: signup_selection.id, subject: "are we open?", message: "We are now open" }
       }
     end
     it_behaves_like :a_post_action_for_admins_only, action: :create # crashing b/c it needs params
