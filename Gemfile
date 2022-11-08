@@ -38,6 +38,7 @@ gem 'mixpanel-ruby'
 gem 'devise'
 gem 'devise-i18n'
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2'

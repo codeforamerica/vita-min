@@ -19,3 +19,12 @@ module Delayed
 end
 
 Delayed::Worker.plugins << Delayed::Plugins::AddExtraJobAttributes
+
+class CanAccessDelayedJobWeb
+  def self.matches?(request)
+    return true if Rails.env.development? || Rails.env.heroku?
+
+    current_user = request.env['warden'].user
+    current_user.present? && current_user.admin? && current_user.role.engineer?
+  end
+end
