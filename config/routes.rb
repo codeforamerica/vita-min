@@ -209,6 +209,8 @@ Rails.application.routes.draw do
         end
         resources :automated_messages, only: [:index]
         resources :bulk_message_csvs, only: [:index, :create]
+        resources :signup_selections, only: [:index, :create]
+        resources :bulk_signup_messages, only: [:new, :create]
         resources :verification_attempts, path: "verifications", only: [:index, :show, :update]
 
         resources :clients do
@@ -313,6 +315,7 @@ Rails.application.routes.draw do
 
     # Twilio webhook routes
     post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message
+    post "/webhooks/twilio/update_status/:id", to: "twilio_webhooks#update_status", as: :twilio_update_status
     post "/outbound_calls/:id", to: "twilio_webhooks#update_outbound_call", as: :outbound_calls_webhook
     post "/incoming_text_messages", to: "twilio_webhooks#create_incoming_text_message", as: :incoming_text_messages
     post "/outbound_calls/connect/:id", to: "twilio_webhooks#outbound_call_connect", as: :twilio_connect_to_client, defaults: { format: "xml" }

@@ -10,6 +10,13 @@ class TwilioWebhooksController < ActionController::Base
     head :ok
   end
 
+  def update_status
+    status = params["MessageStatus"]
+    DatadogApi.increment("twilio.outgoing_messages.updated.status.#{status}")
+    OutgoingMessageStatus.find_by(id: params[:id], message_type: :sms).update_status_if_further(status)
+    head :ok
+  end
+
   def update_outbound_call
     call = OutboundCall.find(params[:id])
     return unless call.present?
