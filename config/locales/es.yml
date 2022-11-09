@@ -2246,7 +2246,7 @@ es:
             info: Un ex joven de crianza calificado es alguien que estuvo en cuidado de crianza entre los 14 y los 17 años. Necesita haberle permitido que el programa de crianza compartiera su estado de ex joven de crianza.
             title: "¿Soy un ex joven de crianza calificado?"
           full_time_student: "¿Qué es un estudiante de tiempo completo?"
-          full_time_student_less_than_four_months: Fui estudiante a tiempo completo por menos de 5 meses
+          full_time_student_less_than_five_months: Fui estudiante a tiempo completo por menos de 5 meses
           full_time_student_reveal: Alguien que asistió a la escuela a tiempo completo durante al menos de cinco meses del año se considera un estudiante de tiempo completo para el año.
           homeless_youth: Fui un joven sin hogar calificado
           homeless_youth_reveal:
