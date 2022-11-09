@@ -32,8 +32,7 @@ module Hub
           [AutomatedMessage::VerificationAttemptDenied, {}],
           [AutomatedMessage::Ctc2022OpenMessage, {}],
           [AutomatedMessage::PuertoRicoOpenMessage, {}],
-          [AutomatedMessage::IntercomForwarding, {}],
-          [AutomatedMessage::UnmonitoredReplies, {}]
+          [AutomatedMessage::IntercomForwarding, {}]
       ]
 
       @messages = messages.map do |message|
