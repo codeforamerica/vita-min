@@ -14,7 +14,7 @@ module BulkAction
           TwilioService.send_text_message(
             to: signup.phone_number,
             body: bulk_signup_message.message,
-            status_callback: twilio_update_status_path(outgoing_message_status.id, locale: nil),
+            status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil),
             outgoing_text_message: outgoing_message_status
           )&.sid
         when "email"
