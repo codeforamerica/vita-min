@@ -10,13 +10,26 @@ class MailgunWebhooksController < ActionController::Base
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
     client_count = clients.count
     if client_count.zero?
-      DatadogApi.increment("mailgun.incoming_emails.client_not_found")
+      archived_intakes = Archived::Intake2021.where(email_address: sender_email)
+      if archived_intakes.present?
+        archived_intake = archived_intakes.first
+        SendAutomatedMessage.send_messages(
+          message: AutomatedMessage::UnmonitoredReplies,
+          email: sender_email,
+          client: archived_intake.client,
+          locale: archived_intake.locale || "en"
+        )
+        DatadogApi.increment("mailgun.outgoing_emails.sent_replies_not_monitored")
+      else
+        DatadogApi.increment("mailgun.incoming_emails.client_not_found")
 
-      IntercomService.create_intercom_message(
-        email_address: sender_email,
-        inform_of_handoff: false,
-        body: params["stripped-text"] || params["body-plain"]
-      )
+        IntercomService.create_intercom_message(
+          email_address: sender_email,
+          inform_of_handoff: false,
+          body: params["stripped-text"] || params["body-plain"]
+        )
+      end
+
       return head :ok
     elsif client_count == 1
       DatadogApi.increment("mailgun.incoming_emails.client_found")
