@@ -266,13 +266,12 @@ RSpec.describe MailgunWebhooksController do
         context "with a matching archived intake only" do
           before do
             client.intake.destroy!
-            allow(SendAutomatedMessage).to receive(:send_messages)
           end
 
           it "sends an automated message saying that replies are not monitored" do
-            post :create_incoming_email, params: params
-
-            expect(SendAutomatedMessage).to have_received(:send_messages).once.with({message: AutomatedMessage::UnmonitoredReplies, email: sender_email, client: archived_intake.client, locale: "en"})
+            expect {
+              post :create_incoming_email, params: params
+            }.to change(OutgoingEmail, :count).by(1)
           end
 
           it "sends a metric to Datadog" do

@@ -13,3 +13,13 @@ class SendOutgoingEmailJob < ApplicationJob
     low_priority
   end
 end
+
+
+#SendAutomatedMessage.new(client: client, message: message).send_messages
+# SendAutomatedMessage.send_messages(message: AutomatedMessage::UnmonitoredReplies, email: email_address, client: client, locale: "en")
+# Archived::Intake2021(16775)
+# Client.find(56451)
+# email_address = "ebarnard+testing@codeforamerica.org"
+#
+# SendAutomatedMessage.send_messages(message: AutomatedMessage::UnmonitoredReplies, email: email_address, client: client, locale: "en")
+#

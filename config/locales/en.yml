@@ -1440,7 +1440,7 @@ en:
         sms: 'Hello <<Client.PreferredName>>. We noticed you haven''t completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}'
     unmonitored_replies:
       email:
-        body: Replies not monitored. Write support@getyourrefund.org for assistance.
+        body: Replies not monitored. Write %{support_email} for assistance.
         subject: Replies not monitored
       sms:
         body: Replies not monitored. Write %{support_email} for assistance.
