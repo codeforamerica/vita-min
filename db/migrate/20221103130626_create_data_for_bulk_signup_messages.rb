@@ -2,7 +2,7 @@ class CreateDataForBulkSignupMessages < ActiveRecord::Migration[7.0]
   def change
     create_table :outgoing_message_statuses do |t|
       t.text :delivery_status
-      t.text :message_id # TODO: can this be null: false?
+      t.text :message_id
       t.integer :message_type, null: false
       t.references :parent, polymorphic: true, null: false
       t.timestamps
