@@ -57,7 +57,7 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
     expect(page).to have_text "Contacting 1 signups over sms (1 pending, 0 failed, 0 succeeded)"
     perform_enqueued_jobs # to finish sending
 
-    OutgoingMessageStatus.last.update(delivery_status: 'sent') # pretend we got a webhook status update from twilio
+    OutgoingMessageStatus.last.update_status_if_further('sent') # pretend we got a webhook status update from twilio
     visit current_path
     expect(page).to have_text "Done contacting 1 signups over sms (0 failed, 1 succeeded)"
 
@@ -65,4 +65,3 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
     expect(OutgoingMessageStatus.last.parent.phone_number).to eq(gyr_email_and_phone_signup.phone_number)
   end
 end
-

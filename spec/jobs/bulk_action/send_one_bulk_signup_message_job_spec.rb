@@ -8,7 +8,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
     context "when sending any kind of message" do
       let(:message_type) { "sms" }
 
-      it "creates a pending outgoing message status & join record" do
+      it "creates a outgoing message status & join record" do
         expect {
           expect {
             described_class.perform_now(signup, bulk_signup_message)
@@ -18,7 +18,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
         outgoing_message_status = OutgoingMessageStatus.last
         expect(outgoing_message_status.message_type).to eq(message_type)
         expect(outgoing_message_status.parent).to eq signup
-        expect(outgoing_message_status.delivery_status).to eq "pending"
+        expect(outgoing_message_status.delivery_status).to eq nil
 
         join_record = BulkSignupMessageOutgoingMessageStatus.last
         expect(join_record.outgoing_message_status).to eq outgoing_message_status
@@ -46,7 +46,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
         )
         expect(outgoing_message_status.message_type).to eq 'sms'
         expect(outgoing_message_status.message_id).to eq 'twilio_sid'
-        expect(outgoing_message_status.delivery_status).to eq 'pending'
+        expect(outgoing_message_status.delivery_status).to eq nil
       end
     end
 

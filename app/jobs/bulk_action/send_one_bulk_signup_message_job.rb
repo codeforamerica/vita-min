@@ -5,7 +5,7 @@ module BulkAction
     def perform(signup, bulk_signup_message)
       outgoing_message_status = BulkSignupMessageOutgoingMessageStatus.create!(
         bulk_signup_message: bulk_signup_message,
-        outgoing_message_status: OutgoingMessageStatus.new(parent: signup, message_type: bulk_signup_message.message_type, delivery_status: "pending")
+        outgoing_message_status: OutgoingMessageStatus.new(parent: signup, message_type: bulk_signup_message.message_type)
       ).outgoing_message_status
 
       message_id =

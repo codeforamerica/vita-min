@@ -3,7 +3,7 @@ class TwilioService
   SUCCESSFUL_STATUSES = ["sent", "delivered"].freeze
   IN_PROGRESS_STATUSES = ["accepted", "queued", "sending", nil].freeze
   ALL_KNOWN_STATUSES = FAILED_STATUSES + SUCCESSFUL_STATUSES + IN_PROGRESS_STATUSES
-  ORDERED_STATUSES = [nil, "twilio_error"] + %w(
+  ORDERED_STATUSES = [nil, "twilio_error"] + %w[
     queued
     accepted
     sending
@@ -12,7 +12,7 @@ class TwilioService
     delivered
     undelivered
     failed
-  ).freeze
+  ].freeze
 
   class << self
     def valid_request?(request)
