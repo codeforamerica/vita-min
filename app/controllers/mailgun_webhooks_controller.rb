@@ -96,7 +96,6 @@ class MailgunWebhooksController < ActionController::Base
   end
 
   def update_outgoing_email_status
-    # TODO: see if there's a nice way to always create OutgoingMessageStatus records
     message_id = params.dig("event-data", "message", "headers", "message-id")
     email_to_update = (
       OutgoingEmail.find_by(message_id: message_id) ||
