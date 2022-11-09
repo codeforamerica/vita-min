@@ -28,7 +28,8 @@ module Hub
           @signup_selection.errors.add :upload, "Invalid CSV"
           render :index and return
         end
-      validated_ids = Signup.where(id: id_array).pluck(:id)
+      signup_model = create_params[:signup_type] == "GYR" ? Signup : CtcSignup
+      validated_ids = signup_model.where(id: id_array).pluck(:id)
       @signup_selection = SignupSelection.new(create_params.merge(id_array: validated_ids, filename: upload.original_filename))
 
       if @signup_selection.save
