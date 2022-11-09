@@ -14,7 +14,7 @@
         </h1>
         <% unless open_for_ctc_intake? %>
           <p>
-            <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
+            <%= t("views.ctc_pages.home.subheader.launching_soon") %>
           </p>
         <% end %>
         <% if open_for_ctc_intake? %>
@@ -22,7 +22,7 @@
             <p class=<%= "spacing-below-35" unless i == p.length %>><%= p %></p>
           <% end %>
         <% else %>
-          <p><%= t("views.ctc_pages.home.subheader.claim_next_year_html") %></p>
+          <p><%= t("views.ctc_pages.home.subheader.learn_more") %></p>
         <% end %>
         <div>
           <% if open_for_ctc_intake? %>
