@@ -9,9 +9,11 @@ class IncomingTextMessageService
 
     client_count = clients.count
     if client_count.zero?
-      SendOutgoingTextMessageWithoutClientJob.perform_later(phone_number: phone_number, body: AutomatedMessage::UnmonitoredReplies.new.sms_body)
+      body = AutomatedMessage::UnmonitoredReplies.new.sms_body(support_email: Rails.configuration.email_from[:support][:gyr])
+      SendOutgoingTextMessageWithoutClientJob.perform_later(phone_number: phone_number, body: body)
       DatadogApi.increment("twilio.incoming_text_messages.client_not_found")
       DatadogApi.increment("twilio.outgoing_text_messages.sent_replies_not_monitored")
+      return
     end
 
     event_name = client_count > 1 ? "client_found_multiple" : "client_found"

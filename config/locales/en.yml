@@ -1443,7 +1443,7 @@ en:
         body: Replies not monitored. Write support@getyourrefund.org for assistance.
         subject: Replies not monitored
       sms:
-        body: Replies not monitored. Write support@getyourrefund.org for assistance.
+        body: Replies not monitored. Write %{support_email} for assistance.
     verification_attempt_denied:
       email:
         body: |

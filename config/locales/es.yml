@@ -1412,7 +1412,7 @@ es:
         body: Respuestas no supervisadas. Escriba support@getyourrefund.org para obtener ayuda.
         subject: Respuestas no supervisadas
       sms:
-        body: Respuestas no supervisadas. Escriba support@getyourrefund.org para obtener ayuda.
+        body: Respuestas no supervisadas. Escriba %{support_email} para obtener ayuda.
     verification_attempt_denied:
       email:
         body: |
