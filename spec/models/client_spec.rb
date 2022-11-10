@@ -104,8 +104,24 @@ describe Client do
       client.touch(:needs_to_flush_filterable_properties_set_at)
       described_class.refresh_filterable_properties
       expected_json = [
-        { "year" => 2019, "assigned_user_id" => user.id, "current_state" => "intake_before_consent", "service_type" => "online_intake" },
-        { "year" => 2020, "assigned_user_id" => nil, "current_state" => "file_needs_review", "service_type" => "online_intake" }
+        {
+          "active" => false,
+          "year" => 2019,
+          "assigned_user_id" => user.id,
+          "current_state" => "intake_before_consent",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => nil
+        },
+        {
+          "active" => true,
+          "year" => 2020,
+          "assigned_user_id" => nil,
+          "current_state" => "file_needs_review",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => "file"
+        }
       ]
       expect(client.reload.filterable_tax_return_properties).to eq(expected_json)
       expect(client.reload.filterable_tax_return_years).to eq([2019, 2020])
