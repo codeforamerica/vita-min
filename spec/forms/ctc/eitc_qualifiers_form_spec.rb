@@ -16,7 +16,7 @@ describe Ctc::EitcQualifiersForm do
         former_foster_youth: "no",
         homeless_youth: "yes",
         not_full_time_student: "no",
-        full_time_student_less_than_four_months: "yes"
+        full_time_student_less_than_five_months: "yes"
       }
     end
 
@@ -29,7 +29,8 @@ describe Ctc::EitcQualifiersForm do
       expect(intake.former_foster_youth).to eq "no"
       expect(intake.homeless_youth).to eq "yes"
       expect(intake.not_full_time_student).to eq "no"
-      expect(intake.full_time_student_less_than_four_months).to eq "yes"
+      expect(intake.full_time_student_less_than_five_months).to eq "yes"
+      expect(intake.full_time_student_less_than_five_months).to eq "yes"
     end
   end
 end

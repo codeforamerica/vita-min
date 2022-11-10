@@ -187,7 +187,7 @@ module Efile
 
       if intake.former_foster_youth_yes? || intake.homeless_youth_yes?
         age_at_end_of_tax_year(intake.primary) >= 18
-      elsif intake.not_full_time_student_yes? || intake.full_time_student_less_than_four_months_yes?
+      elsif intake.not_full_time_student_yes? || intake.full_time_student_less_than_five_months_yes?
         age_at_end_of_tax_year(intake.primary) >= 19
       else
         false

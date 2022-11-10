@@ -13,6 +13,7 @@
 #  experience_survey                           :integer          default("unfilled"), not null
 #  failed_attempts                             :integer          default(0), not null
 #  filterable_tax_return_assigned_users        :integer          is an Array
+#  filterable_tax_return_properties            :jsonb
 #  filterable_tax_return_service_types         :string           is an Array
 #  filterable_tax_return_states                :string           is an Array
 #  filterable_tax_return_years                 :integer          is an Array
@@ -46,6 +47,7 @@
 #
 #  index_clients_on_consented_to_service_at                      (consented_to_service_at)
 #  index_clients_on_filterable_tax_return_assigned_users         (filterable_tax_return_assigned_users) USING gin
+#  index_clients_on_filterable_tax_return_properties             (filterable_tax_return_properties) USING gin
 #  index_clients_on_filterable_tax_return_service_types          (filterable_tax_return_service_types) USING gin
 #  index_clients_on_filterable_tax_return_states                 (filterable_tax_return_states) USING gin
 #  index_clients_on_filterable_tax_return_years                  (filterable_tax_return_years) USING gin

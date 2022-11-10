@@ -86,17 +86,15 @@ RSpec.describe MailgunWebhooksController do
           allow(IntercomService).to receive(:create_intercom_message)
         end
 
-        context "without a matching archived intake" do
-          it "forwards the message to intercom" do
-            expect do
-              post :create_incoming_email, params: params
-            end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
-            expect(IntercomService).to have_received(:create_intercom_message).with(
-              email_address: sender_email,
-              inform_of_handoff: false,
-              body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
-            )
-          end
+        it "forwards the message to intercom" do
+          expect do
+            post :create_incoming_email, params: params
+          end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
+          expect(IntercomService).to have_received(:create_intercom_message).with(
+            email_address: sender_email,
+            inform_of_handoff: false,
+            body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
+          )
         end
 
         it "sends a metric to Datadog" do
@@ -262,25 +260,6 @@ RSpec.describe MailgunWebhooksController do
             expect(email.stripped_html).to be_nil
           end
         end
-
-        context "with a matching archived intake only" do
-          before do
-            client.intake.destroy!
-            allow(SendAutomatedMessage).to receive(:send_messages)
-          end
-
-          it "sends an automated message saying that replies are not monitored" do
-            post :create_incoming_email, params: params
-
-            expect(SendAutomatedMessage).to have_received(:send_messages).once.with({message: AutomatedMessage::UnmonitoredReplies, email: sender_email, client: archived_intake.client, locale: "en"})
-          end
-
-          it "sends a metric to Datadog" do
-            post :create_incoming_email, params: params
-
-            expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_emails.sent_replies_not_monitored")
-          end
-        end
       end
 
       context "with multiple matching clients" do
@@ -366,6 +345,15 @@ RSpec.describe MailgunWebhooksController do
         end
       end
 
+      context "when there is a matching OutgoingMessageStatus" do
+        let(:message_id) { "msg_id" }
+        let!(:outgoing_message_status) { create(:outgoing_message_status, :email, message_id: message_id) }
+        it "updates the record with the status" do
+          post :update_outgoing_email_status, params: params
+          expect(outgoing_message_status.reload.delivery_status).to eq "opened"
+        end
+      end
+
       context "when there is no message with a matching mailgun id" do
         let(:message_id) { "something_not_matching" }
         it "fails gracefully + reports failure to datadog" do
@@ -376,6 +364,5 @@ RSpec.describe MailgunWebhooksController do
         end
       end
     end
-
   end
 end

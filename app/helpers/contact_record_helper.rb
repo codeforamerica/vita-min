@@ -3,8 +3,8 @@ module ContactRecordHelper
     status ||= "sending"
 
     icon = "icons/waiting.svg"
-    icon = "icons/exclamation.svg" if OutgoingTextMessage::FAILED_TWILIO_STATUSES.include?(status)
-    icon = "icons/check.svg" if OutgoingTextMessage::SUCCESSFUL_TWILIO_STATUSES.include?(status)
+    icon = "icons/exclamation.svg" if TwilioService::FAILED_STATUSES.include?(status)
+    icon = "icons/check.svg" if TwilioService::SUCCESSFUL_STATUSES.include?(status)
     image_tag(icon, alt: status, title: status, class: 'message__status')
   end
 

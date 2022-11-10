@@ -1,4 +1,4 @@
-# .pairs - configuration for 'git pair'
+# .pairs - configuration for 'git duet'
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
@@ -11,6 +11,8 @@ pairs:
   tg: Travis Grathwell
   ws: Whitney Schaefer
   nn: Nishi Nelson
+  ja: Jacky Alcine
+  lk: Lauren Kemperman
 email_addresses:
   jh: jheath@codeforamerica.org
   td: tdooner@codeforamerica.org
@@ -21,4 +23,6 @@ email_addresses:
   tg: tgrathwell@codeforamerica.org
   ws: wschaefer@codeforamerica.org
   nn: nnelson@codeforamerica.org
+  ja: jalcine@codeforamerica.org
+  lk: lkemperman@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects

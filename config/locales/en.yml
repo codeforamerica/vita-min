@@ -1440,10 +1440,10 @@ en:
         sms: 'Hello <<Client.PreferredName>>. We noticed you haven''t completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}'
     unmonitored_replies:
       email:
-        body: Replies not monitored. Write support@getyourrefund.org for assistance.
+        body: Replies not monitored. Write %{support_email} for assistance.
         subject: Replies not monitored
       sms:
-        body: Replies not monitored. Write support@getyourrefund.org for assistance.
+        body: Replies not monitored. Write %{support_email} for assistance.
     verification_attempt_denied:
       email:
         body: |
@@ -2276,7 +2276,7 @@ en:
             info: A qualified former foster youth is someone who was in foster care between the ages of 14 and 17. You must have allowed the foster care program to share your status as a former foster youth.
             title: Am I a qualified former foster youth?
           full_time_student: What is a full-time student?
-          full_time_student_less_than_four_months: I was a full time student for less than 4 months
+          full_time_student_less_than_five_months: I was a full time student for less than 5 months
           full_time_student_reveal: Someone who attended school full-time for at least five months of the year is considered a full-time student for the year.
           homeless_youth: I was a qualified homeless youth
           homeless_youth_reveal:
@@ -2960,7 +2960,7 @@ en:
             answer_html: No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         get_started: Get Started
-        get_your_refund_link: File taxes for free today with GetYourRefund
+        get_your_refund_link: Learn more about free tax filing with GetYourRefund
         navigator_resources:
           eitc_off_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
           eitc_on_html: <strong>Are you a community partner helping someone else access the CTC or EITC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
@@ -2971,8 +2971,7 @@ en:
           claim:
             eitc_off: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
             eitc_on: Use our simplified tax filing tool to claim your Child Tax Credit, Earned Income Tax Credit, and any missing amount of your third stimulus payment.
-          claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
-          launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
+          launching_soon_html: GetCTC is closed for 2022. Already filed? Check the status of your refund at <a href="https://www.irs.gov/refunds" rel="noopener nofollow" target="_blank">Where's My Refund</a>. If you want to learn more about the Child Tax Credit, the Earned Income Tax Credit, and missing stimulus payments you can check out our Frequently Asked Questions and get ready to file your taxes in 2023.
           time_estimate:
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
             eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim additional money with the EITC, you will need your W-2(s) from your employer.

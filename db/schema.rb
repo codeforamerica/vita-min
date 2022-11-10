@@ -501,6 +501,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.index ["user_id"], name: "index_bulk_message_csvs_on_user_id"
   end
 
+  create_table "bulk_signup_message_outgoing_message_statuses", force: :cascade do |t|
+    t.bigint "bulk_signup_message_id", null: false
+    t.bigint "outgoing_message_status_id", null: false
+    t.index ["bulk_signup_message_id"], name: "index_bsmoms_on_bulk_signup_messages_id"
+    t.index ["outgoing_message_status_id"], name: "index_bsmoms_on_outgoing_message_statuses_id"
+  end
+
+  create_table "bulk_signup_messages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "message", null: false
+    t.integer "message_type", null: false
+    t.bigint "signup_selection_id", null: false
+    t.text "subject"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["signup_selection_id"], name: "index_bulk_signup_messages_on_signup_selection_id"
+    t.index ["user_id"], name: "index_bulk_signup_messages_on_user_id"
+  end
+
   create_table "bulk_tax_return_updates", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.datetime "created_at", null: false
@@ -530,6 +549,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.integer "filterable_tax_return_assigned_users", array: true
+    t.jsonb "filterable_tax_return_properties"
     t.string "filterable_tax_return_service_types", array: true
     t.string "filterable_tax_return_states", array: true
     t.integer "filterable_tax_return_years", array: true
@@ -559,6 +579,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
     t.index ["filterable_tax_return_assigned_users"], name: "index_clients_on_filterable_tax_return_assigned_users", using: :gin
+    t.index ["filterable_tax_return_properties"], name: "index_clients_on_filterable_tax_return_properties", using: :gin
     t.index ["filterable_tax_return_service_types"], name: "index_clients_on_filterable_tax_return_service_types", using: :gin
     t.index ["filterable_tax_return_states"], name: "index_clients_on_filterable_tax_return_states", using: :gin
     t.index ["filterable_tax_return_years"], name: "index_clients_on_filterable_tax_return_years", using: :gin
@@ -1056,6 +1077,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
     t.integer "former_foster_youth", default: 0, null: false
+    t.integer "full_time_student_less_than_five_months", default: 0, null: false
     t.integer "full_time_student_less_than_four_months", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
@@ -1304,6 +1326,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
   end
 
+  create_table "outgoing_message_statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "delivery_status"
+    t.text "message_id"
+    t.integer "message_type", null: false
+    t.bigint "parent_id", null: false
+    t.string "parent_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_type", "parent_id"], name: "index_outgoing_message_statuses_on_parent"
+  end
+
   create_table "outgoing_text_messages", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
@@ -1343,6 +1376,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.string "type"
     t.datetime "updated_at", null: false
     t.index ["generated_at"], name: "index_reports_on_generated_at"
+  end
+
+  create_table "signup_selections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "filename", null: false
+    t.integer "id_array", null: false, array: true
+    t.integer "signup_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_signup_selections_on_user_id"
   end
 
   create_table "signups", force: :cascade do |t|
@@ -1720,6 +1763,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "bulk_message_csvs", "tax_return_selections"
   add_foreign_key "bulk_message_csvs", "users"
+  add_foreign_key "bulk_signup_message_outgoing_message_statuses", "bulk_signup_messages"
+  add_foreign_key "bulk_signup_message_outgoing_message_statuses", "outgoing_message_statuses"
+  add_foreign_key "bulk_signup_messages", "signup_selections"
+  add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
@@ -1749,6 +1796,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
   add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "recaptcha_scores", "clients"
+  add_foreign_key "signup_selections", "users"
   add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_routing_fractions", "state_routing_targets"

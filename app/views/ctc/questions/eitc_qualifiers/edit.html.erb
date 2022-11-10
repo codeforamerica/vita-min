@@ -9,7 +9,7 @@
       <%= f.cfa_checkbox(:former_foster_youth, t("views.ctc.questions.eitc_qualifiers.former_foster_youth"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:homeless_youth, t("views.ctc.questions.eitc_qualifiers.homeless_youth"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:not_full_time_student, t("views.ctc.questions.eitc_qualifiers.not_full_time_student"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:full_time_student_less_than_four_months, t("views.ctc.questions.eitc_qualifiers.full_time_student_less_than_four_months"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:full_time_student_less_than_five_months, t("views.ctc.questions.eitc_qualifiers.full_time_student_less_than_five_months"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
       <div class="reveal-shrink-wrapper spacing-above-10">
         <%= render('components/molecules/reveal', title: t("views.ctc.questions.eitc_qualifiers.former_foster_youth_reveal.title")) do %>

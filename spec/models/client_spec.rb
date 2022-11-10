@@ -13,6 +13,7 @@
 #  experience_survey                           :integer          default("unfilled"), not null
 #  failed_attempts                             :integer          default(0), not null
 #  filterable_tax_return_assigned_users        :integer          is an Array
+#  filterable_tax_return_properties            :jsonb
 #  filterable_tax_return_service_types         :string           is an Array
 #  filterable_tax_return_states                :string           is an Array
 #  filterable_tax_return_years                 :integer          is an Array
@@ -46,6 +47,7 @@
 #
 #  index_clients_on_consented_to_service_at                      (consented_to_service_at)
 #  index_clients_on_filterable_tax_return_assigned_users         (filterable_tax_return_assigned_users) USING gin
+#  index_clients_on_filterable_tax_return_properties             (filterable_tax_return_properties) USING gin
 #  index_clients_on_filterable_tax_return_service_types          (filterable_tax_return_service_types) USING gin
 #  index_clients_on_filterable_tax_return_states                 (filterable_tax_return_states) USING gin
 #  index_clients_on_filterable_tax_return_years                  (filterable_tax_return_years) USING gin
@@ -94,19 +96,57 @@ describe Client do
   describe ".refresh_filterable_properties" do
     let(:organization) { create(:organization) }
     let!(:client) { create(:client, vita_partner: organization) }
-    let!(:tr1) { create(:tax_return, year: 2019, client: client) }
-    let!(:tr2) { create(:tax_return, year: 2020, client: client) }
+    let(:user) { create(:user) }
+    let!(:tr1) { create(:tax_return, year: 2019, client: client, assigned_user: user) }
+    let!(:tr2) { create(:tax_return, :file_needs_review, year: 2020, client: client) }
+    let!(:tr3) { create(:tax_return, year: 2018, client: client) }
+
+    before do
+      # some (old?) tax returns don't have any transitions and a nil current_state
+      tr3.tax_return_transitions.destroy_all
+      tr3.update_column(:current_state, nil)
+    end
 
     it "denormalizes filterable properties onto any clients where needs_to_flush_filterable_properties_set_at is set" do
       client.touch(:needs_to_flush_filterable_properties_set_at)
       described_class.refresh_filterable_properties
-      expect(client.reload.filterable_tax_return_years).to eq([2019, 2020])
+      expected_json = [
+        {
+          "active" => false,
+          "year" => 2019,
+          "assigned_user_id" => user.id,
+          "current_state" => "intake_before_consent",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => nil
+        },
+        {
+          "active" => true,
+          "year" => 2020,
+          "assigned_user_id" => nil,
+          "current_state" => "file_needs_review",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => "file"
+        },
+        {
+          "active" => false,
+          "year" => 2018,
+          "assigned_user_id" => nil,
+          "current_state" => nil,
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => nil
+        }
+      ]
+      expect(client.reload.filterable_tax_return_properties).to eq(expected_json)
+      expect(client.reload.filterable_tax_return_years).to match_array([2018, 2019, 2020])
       expect(client.reload.vita_partner).to eq(organization) # only change intended columns
     end
 
     it "denormalizes filterable properties onto a provided list of client ids" do
       described_class.refresh_filterable_properties([client.id])
-      expect(client.reload.filterable_tax_return_years).to eq([2019, 2020])
+      expect(client.reload.filterable_tax_return_years).to match_array([2018, 2019, 2020])
       expect(client.reload.vita_partner).to eq(organization) # only change intended columns
     end
   end

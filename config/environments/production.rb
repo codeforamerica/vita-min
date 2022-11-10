@@ -9,7 +9,8 @@ Rails.application.configure do
   gyr_email_from_domain = "getyourrefund.org"
   config.email_from = {
     default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
-    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"}
+    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"},
+    support: {ctc: "support@#{ctc_email_from_domain}", gyr: "support@#{gyr_email_from_domain}"}
   }
   config.action_mailer.default_url_options = { host: 'www.getyourrefund.org' }
   config.action_mailer.asset_host = config.gyr_url
