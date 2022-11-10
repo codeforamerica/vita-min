@@ -73,7 +73,6 @@
 #  final_info                                           :string
 #  former_foster_youth                                  :integer          default("unfilled"), not null
 #  full_time_student_less_than_five_months              :integer          default("unfilled"), not null
-#  full_time_student_less_than_four_months              :integer          default("unfilled"), not null
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default("unfilled"), not null

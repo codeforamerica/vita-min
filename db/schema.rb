@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_231628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1078,7 +1078,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_225710) do
     t.string "final_info"
     t.integer "former_foster_youth", default: 0, null: false
     t.integer "full_time_student_less_than_five_months", default: 0, null: false
-    t.integer "full_time_student_less_than_four_months", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
     t.integer "had_dependents", default: 0, null: false
