@@ -2942,7 +2942,7 @@ es:
           claim:
             eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
             eitc_on: Use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier cantidad faltante de su tercer pago de estímulo.
-          launching_soon: GetCTC está cerrado para 2022. Si desea obtener más información sobre el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo faltantes, puede consultar nuestras Preguntas Frecuentes y prepararse para declarar sus impuestos en 2023.
+          launching_soon_html: GetCTC está cerrado para 2022. Si desea obtener más información sobre el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo faltantes, puede consultar nuestras Preguntas Frecuentes y prepararse para declarar sus impuestos en 2023.
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
