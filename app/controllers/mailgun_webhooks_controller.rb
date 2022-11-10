@@ -10,14 +10,13 @@ class MailgunWebhooksController < ActionController::Base
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
     client_count = clients.count
     if client_count.zero?
-      archived_intakes = Archived::Intake2021.where(email_address: sender_email)
-      if archived_intakes.present?
-        archived_intake = archived_intakes.first
-        SendAutomatedMessage.send_messages(
-          message: AutomatedMessage::UnmonitoredReplies,
-          email: sender_email,
-          client: archived_intake.client,
-          locale: archived_intake.locale || "en"
+      archived_intake = Archived::Intake2021.where(email_address: sender_email).first
+      if archived_intake.present?
+        locale = archived_intake.locale || "en"
+        archived_intake.client.outgoing_emails.create!(
+          to: sender_email,
+          subject: AutomatedMessage::UnmonitoredReplies.new.email_subject(locale: locale),
+          body: AutomatedMessage::UnmonitoredReplies.new.email_body(locale: locale, support_email: Rails.configuration.email_from[:support][:gyr])
         )
         DatadogApi.increment("mailgun.outgoing_emails.sent_replies_not_monitored")
       else
