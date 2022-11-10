@@ -2937,7 +2937,7 @@ es:
             answer_html: No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
         get_started: Empezar
-        get_your_refund_link: Declare sus impuestos gratis hoy mismo con GetYourRefund
+        get_your_refund_link: Obtenga más información sobre la declaración de impuestos gratuita con GetYourRefund
         navigator_resources:
           eitc_off_html: <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
           eitc_on_html: <strong>¿Es usted un socio comunitario que ayuda a otra persona a acceder al CTC o al EITC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
@@ -2948,8 +2948,7 @@ es:
           claim:
             eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
             eitc_on: Use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier cantidad faltante de su tercer pago de estímulo.
-          claim_next_year_html: Puede solicitar su CTC, Crédito Tributario por Hijos, cuando presente sus impuestos en 2022. La declaración de impuestos simplificada con GetCTC estará disponible en mayo, o puede presentar una declaración completa hoy mismo utilizando GetYourRefund.
-          launching_soon_html: "<strong>¡GetCTC lanzará dentro de poco!</strong> Suscríbase para recibir un mensaje tan pronto como el portal de presentación simplificada esté listo."
+          launching_soon_html: GetCTC está cerrado para 2022. ¿Ya presentado? Verifique el estado de su reembolso en <a href="https://www.irs.gov/refunds" rel="noopener nofollow" target="_blank">Dónde está mi reembolso</a>. Si desea obtener más información sobre el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo faltantes, puede consultar nuestras Preguntas Frecuentes y prepararse para declarar sus impuestos en 2023.
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
