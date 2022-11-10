@@ -11,6 +11,7 @@ pairs:
   tg: Travis Grathwell
   ws: Whitney Schaefer
   nn: Nishi Nelson
+  ja: Jacky Alcine
 email_addresses:
   jh: jheath@codeforamerica.org
   td: tdooner@codeforamerica.org
@@ -21,4 +22,5 @@ email_addresses:
   tg: tgrathwell@codeforamerica.org
   ws: wschaefer@codeforamerica.org
   nn: nnelson@codeforamerica.org
+  ja: jalcine@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects
