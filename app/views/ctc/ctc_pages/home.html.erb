@@ -32,8 +32,6 @@
           <% if open_for_ctc_intake? %>
             <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
             <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
-          <% else %>
-            <p><%= t("views.ctc_pages.home.subheader.learn_more") %></p>
           <% end %>
         <div>
           <% if open_for_ctc_intake? %>

@@ -21,8 +21,6 @@
           <% t("views.ctc_pages.puerto_rico.hero").each_with_index do |p, i| %>
             <p class=<%= "spacing-below-35" unless i == p.length %>><%= p %></p>
           <% end %>
-        <% else %>
-          <p><%= t("views.ctc_pages.home.subheader.learn_more") %></p>
         <% end %>
         <div>
           <% if open_for_ctc_intake? %>
