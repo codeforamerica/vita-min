@@ -497,8 +497,8 @@ describe Efile::BenefitsEligibility do
           end
         end
 
-        context "they are not a full time student or were a full time student for 4 months or fewer" do
-          [:not_full_time_student, :full_time_student_less_than_four_months].each do |qualifier|
+        context "they are not a full time student or were a full time student for 5 months or fewer" do
+          [:not_full_time_student, :full_time_student_less_than_five_months].each do |qualifier|
             before do
               intake.update(qualifier => "yes")
             end
