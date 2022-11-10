@@ -44,7 +44,12 @@ class TaxReturnStateMachine
                         stages[stage].push(status)
                       end
                       stages
-                    end.freeze
+  end.freeze
+  STAGES_BY_STATE = STATES_BY_STAGE.invert.each_with_object({}) do |(states, stage), hsh|
+    states.each do |state|
+      hsh[state] = stage
+    end
+  end.freeze
 
   STAGES = STATES_BY_STAGE.keys.freeze
   EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold, :file_mailed].freeze
@@ -101,7 +106,7 @@ class TaxReturnStateMachine
   end
 
   def self.available_states_for(role_type:)
-    return STATES_BY_STAGE.slice("intake").merge({ "file" => [:file_not_filing, :file_hold] }.freeze) if role_type == GreeterRole::TYPE
+    return STATES_BY_STAGE.slice("intake").merge({ "file" => %w[file_not_filing file_hold] }.freeze) if role_type == GreeterRole::TYPE
 
     STATES_BY_STAGE
   end

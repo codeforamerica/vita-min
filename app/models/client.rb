@@ -120,6 +120,9 @@ class Client < ApplicationRecord
               service_type: tr.service_type,
               current_state: tr.current_state,
               assigned_user_id: tr.assigned_user_id,
+              stage: TaxReturnStateMachine::STAGES_BY_STATE[tr.current_state],
+              active: !TaxReturnStateMachine::EXCLUDED_FROM_SLA.include?(tr.current_state.to_sym),
+              greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
             }
           end,
           filterable_tax_return_assigned_users: client.tax_returns.map(&:assigned_user_id).uniq,
