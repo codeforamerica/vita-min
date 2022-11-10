@@ -179,6 +179,11 @@ Rails.application.routes.draw do
           mount Flipper::UI.app(Flipper) => '/flipper'
         end
 
+        # Delayed job web UI is admin access only
+        constraints CanAccessDelayedJobWeb do
+          mount DelayedJobWeb => "/delayed_job"
+        end
+
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do
