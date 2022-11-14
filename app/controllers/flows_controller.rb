@@ -79,10 +79,13 @@ class FlowsController < ApplicationController
     def self.for(type, controller)
       case type
       when :gyr
+        gyr_flow = GyrQuestionNavigation::FLOW.dup
+        doc_overview_index = GyrQuestionNavigation::FLOW.index(Questions::OverviewDocumentsController)
+        gyr_flow.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
-          controller_list: GyrQuestionNavigation::FLOW,
+          controller_list: gyr_flow,
           form: SampleGyrIntakeGenerator.new.form
         )
       when :ctc
