@@ -50,7 +50,7 @@ latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail 
 guessed_next_version="$(echo "$latest_version" | awk -F. -v OFS=. '{ ++$NF; print; }')"
 echo ""
 echo "Most recent version tag: ${latest_version}"
-echo -n "New tag name (e.g. '$guessed_next_version'): "
+echo -n "Default tag name: ['$guessed_next_version'] "
 read -r new_tag
 new_tag=${new_tag:-$guessed_next_version}
 
