@@ -914,4 +914,34 @@ describe Efile::BenefitsEligibility do
       end
     end
   end
+
+  describe "#qualified_for_eitc_pre_w2s?" do
+    context "when they pass tin type test, don't exceed the income limit, are 23, have no qcs and are not former foster care, homeless youth or fulltime student" do
+      before do
+        intake.update(exceeded_investment_income_limit: "no")
+        intake.update(primary_birth_date: 23.years.ago)
+
+        allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(false)
+      end
+      context "are a full time student less than five months" do
+        before do
+          intake.update(full_time_student_less_than_five_months: "yes")
+        end
+
+        it "returns true" do
+          expect(subject.qualified_for_eitc_pre_w2s?).to eq(true)
+        end
+      end
+
+      context "are not a full time student less than five months" do
+        before do
+          intake.update(full_time_student_less_than_five_months: "no")
+        end
+
+        it "returns true" do
+          expect(subject.qualified_for_eitc_pre_w2s?).to eq(false)
+        end
+      end
+    end
+  end
 end
