@@ -19,7 +19,7 @@ class VerificationAttempt < ApplicationRecord
   has_one_attached :selfie
   has_one_attached :photo_identification
 
-  has_many :transitions, class_name: "VerificationAttemptTransition", autosave: false
+  has_many :transitions, class_name: "VerificationAttemptTransition", autosave: false, dependent: :destroy
 
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: VerificationAttemptTransition,
