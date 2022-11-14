@@ -15,8 +15,7 @@ Details about the environments:
 - Demo - an acceptance testing and demonstration environment. It remains up to date with `main` thanks to continuous deployment.
   Unlike Staging, it is rarely used for experimentation.
 - Production - the public, visible environment. The Production environment
-  is the deploy target of the `release` branch. Like other environments,
-  the deployment is performed automatically.
+  is the deploy target of the `release` branch. 
   
 Links to the environments:
 
