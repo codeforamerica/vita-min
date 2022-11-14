@@ -21,7 +21,9 @@
               <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
               <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
 
-              <%= f.submit t("views.ctc_pages.signups.new.submit"), class: "button button--primary spacing-below-60" %>
+              <div class="form-group">
+                <%= f.submit t("views.ctc_pages.signups.new.submit"), class: "button button--primary spacing-below-60" %>
+              </div>
             <% end %>
           </div>
 

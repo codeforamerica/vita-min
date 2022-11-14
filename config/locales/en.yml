@@ -3127,16 +3127,14 @@ en:
           header: Thanks for signing up!
           title: Sign Up
         new:
-          header: |
-            GetCTC will open in May.
-            Sign up and we'll message you with updates.
+          header: Sign up for updates from GetCTC.
           puerto_rico_post_launch:
             header_html: |
               <a href='%{link}'>GetCTC is currently live</a> for residents of the 50 states and D.C.
               Puerto Rico residents can sign up below for updates.
             sub_header: Sign up below for updates and we’ll let you know as soon as GetCTC is available in Puerto Rico.
           sub_header_html: |
-            All you need to do is provide us with your name and either an email address or phone number, and we'll email or text you with updates about GetCTC. You can expect to receive notifications around May 2022.
+            All you need to do is provide us with your name and either an email address or phone number, and we'll email or text you with updates about GetCTC.
 
             If you can't wait until then, go to <a href="%{homepage_link}" target="_blank" rel="nofollow noopener">GetYourRefund.org</a> to get connected to other free filing resources.
           submit: Keep me updated
