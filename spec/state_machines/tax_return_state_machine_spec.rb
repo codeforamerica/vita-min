@@ -80,7 +80,7 @@ describe TaxReturnStateMachine do
     it "updates the filterable properties" do
       expect do
         tax_return.transition_to!(:file_accepted)
-      end.to change { tax_return.reload.client.filterable_tax_return_states }.from(['intake_before_consent']).to(['file_accepted'])
+      end.to change { tax_return.reload.client.filterable_tax_return_properties }.from([a_hash_including("current_state" => "intake_before_consent")]).to([a_hash_including("current_state" => "file_accepted")])
     end
 
     context "to file_accepted" do

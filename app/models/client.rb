@@ -12,11 +12,7 @@
 #  current_sign_in_ip                          :inet
 #  experience_survey                           :integer          default("unfilled"), not null
 #  failed_attempts                             :integer          default(0), not null
-#  filterable_tax_return_assigned_users        :integer          is an Array
 #  filterable_tax_return_properties            :jsonb
-#  filterable_tax_return_service_types         :string           is an Array
-#  filterable_tax_return_states                :string           is an Array
-#  filterable_tax_return_years                 :integer          is an Array
 #  first_unanswered_incoming_interaction_at    :datetime
 #  flagged_at                                  :datetime
 #  identity_verification_denied_at             :datetime
@@ -62,6 +58,12 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Client < ApplicationRecord
+  self.ignored_columns = [
+    :filterable_tax_return_assigned_users,
+    :filterable_tax_return_service_types,
+    :filterable_tax_return_states,
+    :filterable_tax_return_years
+  ]
   devise :lockable, :timeoutable, :trackable
 
   self.per_page = 25
@@ -125,10 +127,6 @@ class Client < ApplicationRecord
               greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
             }
           end,
-          filterable_tax_return_assigned_users: client.tax_returns.map(&:assigned_user_id).uniq,
-          filterable_tax_return_service_types: client.tax_returns.map(&:service_type).uniq,
-          filterable_tax_return_states: client.tax_returns.map(&:current_state).uniq,
-          filterable_tax_return_years: client.tax_returns.map(&:year).uniq,
           needs_to_flush_filterable_properties_set_at: nil
         }
       end

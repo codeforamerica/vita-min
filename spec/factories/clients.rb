@@ -12,11 +12,7 @@
 #  current_sign_in_ip                          :inet
 #  experience_survey                           :integer          default("unfilled"), not null
 #  failed_attempts                             :integer          default(0), not null
-#  filterable_tax_return_assigned_users        :integer          is an Array
 #  filterable_tax_return_properties            :jsonb
-#  filterable_tax_return_service_types         :string           is an Array
-#  filterable_tax_return_states                :string           is an Array
-#  filterable_tax_return_years                 :integer          is an Array
 #  first_unanswered_incoming_interaction_at    :datetime
 #  flagged_at                                  :datetime
 #  identity_verification_denied_at             :datetime
