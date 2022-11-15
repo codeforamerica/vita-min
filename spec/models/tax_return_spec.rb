@@ -60,7 +60,17 @@ describe TaxReturn do
 
       it "denormalizes tax return info onto the client" do
         tax_return = create :tax_return
-        expect(tax_return.client.reload.filterable_tax_return_years).to eq([tax_return.year])
+
+        expected_tax_return_properties = {
+          "active" => false,
+          "assigned_user_id" => nil,
+          "current_state" => "intake_before_consent",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => nil,
+          "year" => 2021
+        }
+        expect(tax_return.client.reload.filterable_tax_return_properties).to eq([expected_tax_return_properties])
       end
     end
   end
@@ -70,9 +80,18 @@ describe TaxReturn do
       it "denormalizes tax return info onto the client" do
         tax_return = create :tax_return
         client = tax_return.client
-        expect(client.reload.filterable_tax_return_years).to eq([tax_return.year])
+        expected_properties = {
+          "active" => false,
+          "assigned_user_id" => nil,
+          "current_state" => "intake_before_consent",
+          "greetable" => false,
+          "service_type" => "online_intake",
+          "stage" => nil,
+          "year" => 2021
+        }
+        expect(client.reload.filterable_tax_return_properties).to eq([expected_properties])
         tax_return.destroy
-        expect(client.reload.filterable_tax_return_years).to eq([])
+        expect(client.reload.filterable_tax_return_properties).to eq([])
       end
     end
   end
