@@ -86,15 +86,17 @@ RSpec.describe MailgunWebhooksController do
           allow(IntercomService).to receive(:create_intercom_message)
         end
 
-        it "forwards the message to intercom" do
-          expect do
-            post :create_incoming_email, params: params
-          end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
-          expect(IntercomService).to have_received(:create_intercom_message).with(
-            email_address: sender_email,
-            inform_of_handoff: false,
-            body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
-          )
+        context "without a matching archived intake" do
+          it "forwards the message to intercom" do
+            expect do
+              post :create_incoming_email, params: params
+            end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
+            expect(IntercomService).to have_received(:create_intercom_message).with(
+              email_address: sender_email,
+              inform_of_handoff: false,
+              body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
+            )
+          end
         end
 
         it "sends a metric to Datadog" do
@@ -258,6 +260,32 @@ RSpec.describe MailgunWebhooksController do
             expect(email.body_html).to be_nil
             expect(email.stripped_text).to be_nil
             expect(email.stripped_html).to be_nil
+          end
+        end
+
+        context "with a matching archived intake only" do
+          before do
+            client.intake.destroy!
+          end
+
+          it "sends an automated message saying that replies are not monitored" do
+            expect {
+              post :create_incoming_email, params: params
+            }.to change(OutgoingEmail, :count).by(1)
+
+            outgoing_email = OutgoingEmail.last
+            expect(outgoing_email.subject).to eq("Replies not monitored")
+            expect(outgoing_email.body).to eq("Replies not monitored. Write support@test.localhost for assistance.")
+            expect(outgoing_email.client).to eq client
+            expect(outgoing_email.user).to eq nil
+            expect(outgoing_email.to).to eq archived_intake.email_address
+            expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+          end
+
+          it "sends a metric to Datadog" do
+            post :create_incoming_email, params: params
+
+            expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_emails.sent_replies_not_monitored")
           end
         end
       end
