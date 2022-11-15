@@ -16,9 +16,9 @@ module Hub
       @page_title = "Clients who haven't received a response in #{day_param} business days"
       @breach_date = day_param.business_days.ago
       @client_sorter.filters[:sla_breach_date] = @breach_date
-      @tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.with_eager_loaded_associations.without_pagination).size
+      @tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.without_pagination).size
       @clients = @client_sorter.filtered_and_sorted_clients.first_unanswered_incoming_interaction_between(...@breach_date)
-      @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
+      @clients = @clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       render "hub/clients/index"
     end

@@ -16,7 +16,7 @@ module Hub
     def index
       @page_title = I18n.t("hub.clients.index.title")
 
-      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end
 
