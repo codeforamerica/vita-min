@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_231628) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_222450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -548,11 +548,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_231628) do
     t.inet "current_sign_in_ip"
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
-    t.integer "filterable_tax_return_assigned_users", array: true
     t.jsonb "filterable_tax_return_properties"
-    t.string "filterable_tax_return_service_types", array: true
-    t.string "filterable_tax_return_states", array: true
-    t.integer "filterable_tax_return_years", array: true
     t.datetime "first_unanswered_incoming_interaction_at", precision: nil
     t.datetime "flagged_at", precision: nil
     t.datetime "identity_verification_denied_at", precision: nil
@@ -578,11 +574,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_231628) do
     t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
-    t.index ["filterable_tax_return_assigned_users"], name: "index_clients_on_filterable_tax_return_assigned_users", using: :gin
     t.index ["filterable_tax_return_properties"], name: "index_clients_on_filterable_tax_return_properties", using: :gin
-    t.index ["filterable_tax_return_service_types"], name: "index_clients_on_filterable_tax_return_service_types", using: :gin
-    t.index ["filterable_tax_return_states"], name: "index_clients_on_filterable_tax_return_states", using: :gin
-    t.index ["filterable_tax_return_years"], name: "index_clients_on_filterable_tax_return_years", using: :gin
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
     t.index ["login_token"], name: "index_clients_on_login_token"
