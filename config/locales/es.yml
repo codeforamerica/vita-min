@@ -3897,7 +3897,8 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closing_banner_html: <strong>GetYourRefund reabrirá el 31 de enero.</strong> Si solo desea el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo, intente presentar su declaración de impuestos con <a href="%{url}">GetCTC</a>. Para obtener opciones gratuitas para presentar una declaración de impuestos completa este año, visite <a href="https://www.childtaxcredit.gov/triage-results/" target='_blank' rel='noopener noreferrer'>ChildTaxCredit.gov</a>.
+        closing_banner_html: <strong>GetYourRefund reabrirá el 31 de enero.</strong> %{link_to_ctc} Para obtener opciones gratuitas para presentar una declaración de impuestos completa este año, visite <a href="https://www.childtaxcredit.gov/triage-results/" target='_blank' rel='noopener noreferrer'>ChildTaxCredit.gov</a>.
+        closing_banner_link_to_getctc_html: Si solo desea el Crédito Tributario por Hijos, el Earned Income Tax Credit y los pagos de estímulo, intente realizar la presentación con <a href=%{url}>GetCTC</a>.
         closing_soon_banner: Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
