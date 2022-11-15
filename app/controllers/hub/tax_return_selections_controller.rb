@@ -30,7 +30,7 @@ module Hub
     end
 
     def new
-      @clients = Client.accessible_by(current_ability).with_eager_loaded_associations
+      @clients = Client.accessible_by(current_ability)
       @client_sorter = ClientSorter.new(@clients, current_user, params, {})
       @tr_ids = (new_params.dig(:create_tax_return_selection, :action_type) == "all-filtered-clients") ? TaxReturn.where(client: @client_sorter.filtered_and_sorted_clients.reorder(nil)).pluck(:id) : new_params[:tr_ids]
       @client_count = @clients.distinct.joins(:tax_returns).where(tax_returns: { id: @tr_ids }).size
