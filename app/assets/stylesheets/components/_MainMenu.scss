@@ -77,14 +77,19 @@
       width: 200px;
       overflow-wrap: break-word;
     }
+
+    p{
+      display: inline;
+    }
   }
 
   &.collapsed .menu-item {
     img {
+      margin-right: 0px;
       margin-bottom: 5px;
     }
 
-    div {
+    p{
       display: none;
     }
   }
