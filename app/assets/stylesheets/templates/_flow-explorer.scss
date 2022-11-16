@@ -66,7 +66,8 @@
 }
 
 .flow-explorer-card {
-  background-color: white;
+  background-color: $color-grey-light;
+  border: 1px solid $color-grey-medium;
   padding: $s25;
   border-radius: 10px;
 }
