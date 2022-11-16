@@ -107,7 +107,7 @@ class F13614cPdf
       had_disaster_loss: @intake.had_disaster_loss,
       received_irs_letter: @intake.received_irs_letter,
 
-      additional_comments: "#{@intake.additional_info} #{@intake.final_info}",
+      additional_comments: additional_comments,
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info)
@@ -151,17 +151,7 @@ class F13614cPdf
     answers = {}
     @dependents.first(3).each_with_index do |dependent, index|
       prefix = "dependent_#{index}"
-      {
-        name: dependent.full_name,
-        date_of_birth: strftime_date(dependent.birth_date),
-        relationship: dependent.relationship,
-        months_in_home: dependent.months_in_home.to_s,
-        disabled: yes_no_unfilled_to_YN(dependent.disabled),
-        resident: yes_no_unfilled_to_YN(dependent.north_american_resident),
-        citizen: dependent.on_visa_yes? ? "On Visa" : "",
-        student: yes_no_unfilled_to_YN(dependent.was_student),
-        marital_status: married_to_SM(dependent.was_married)
-      }.each do |key, value|
+      single_dependent_params(dependent).each do |key, value|
         full_key = "#{prefix}_#{key}".to_sym
         answers[full_key] = value
       end
@@ -193,6 +183,40 @@ class F13614cPdf
   end
 
   private
+
+  def single_dependent_params(dependent)
+    {
+      name: dependent.full_name,
+      date_of_birth: strftime_date(dependent.birth_date),
+      relationship: dependent.relationship,
+      months_in_home: dependent.months_in_home.to_s,
+      disabled: yes_no_unfilled_to_YN(dependent.disabled),
+      resident: yes_no_unfilled_to_YN(dependent.north_american_resident),
+      citizen: dependent.on_visa_yes? ? "On Visa" : "",
+      student: yes_no_unfilled_to_YN(dependent.was_student),
+      marital_status: married_to_SM(dependent.was_married)
+    }
+  end
+
+  def additional_comments
+    return "#{@intake.additional_info} #{@intake.final_info}" if @dependents.length <= 3
+
+    <<~COMMENT.strip
+      #{@intake.additional_info} #{@intake.final_info}
+
+      Additional Dependents:
+      #{
+        @dependents[3..].map do |dependent|
+          letters = ('a'..'i').to_a
+          dependent_values = single_dependent_params(dependent).values
+          tagged_vals = dependent_values.map do |val|
+            "(#{letters.shift}) #{val}"
+          end
+          tagged_vals.join(' ')
+        end.join("\n")
+      }
+    COMMENT
+  end
 
   def determine_direct_deposit(intake)
     return "yes" if intake.refund_payment_method_direct_deposit?
