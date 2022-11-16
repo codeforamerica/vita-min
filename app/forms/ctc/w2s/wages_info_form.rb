@@ -15,7 +15,8 @@ module Ctc
       )
 
       validates :wages_amount, gyr_numericality: { greater_than_or_equal_to: 0.5 }, presence: true
-      validates :federal_income_tax_withheld, gyr_numericality: { less_than: :wages_amount }, presence: true
+      validates :federal_income_tax_withheld, presence: true, gyr_numericality: true
+      validates :federal_income_tax_withheld, gyr_numericality: { less_than: :wages_amount }, if: -> { errors[:wages_amount].blank? }
 
       validates :box3_social_security_wages, gyr_numericality: true, allow_blank: true
       validates :box4_social_security_tax_withheld, gyr_numericality: true, allow_blank: true

@@ -36,15 +36,24 @@ describe Ctc::W2s::WagesInfoForm do
       expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
     end
 
-    it "allows federal_income_tax_withheld less than wages_amount" do
-      form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: '$9,000.01' })
-      expect(form).to be_valid
-    end
+    describe "relation of wages_amount to federal_income_tax_withheld" do
+      it "allows federal_income_tax_withheld less than wages_amount" do
+        form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: '$9,000.01' })
+        expect(form).to be_valid
+      end
 
-    it "disallows federal_income_tax_withheld greater than or equal to wages_amount" do
-      form = described_class.new(w2, { federal_income_tax_withheld: '100', wages_amount: '90' })
-      expect(form).not_to be_valid
-      expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
+      it "disallows federal_income_tax_withheld greater than or equal to wages_amount" do
+        form = described_class.new(w2, { federal_income_tax_withheld: '100', wages_amount: '90' })
+        expect(form).not_to be_valid
+        expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
+      end
+
+      it "does not get upset comparing the two if wages_amount is malformed" do
+        form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: '9000.' })
+        expect(form).not_to be_valid
+        expect(form.errors.attribute_names).to include(:wages_amount)
+        expect(form.errors.attribute_names).not_to include(:federal_income_tax_withheld)
+      end
     end
 
     it "requires :box3_social_security_wages, :box4_social_security_tax_withheld, :box5_medicare_wages_and_tip_amount, :box6_medicare_tax_withheld, :box7_social_security_tips_amount, :box8_allocated_tips, :box10_dependent_care_benefits to look like money" do
