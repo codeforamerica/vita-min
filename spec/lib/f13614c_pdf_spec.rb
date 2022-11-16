@@ -323,20 +323,6 @@ RSpec.describe F13614cPdf do
           on_visa: "yes",
           was_student: "no"
         )
-        create(
-          :dependent,
-          intake: intake,
-          first_name: "Polly",
-          last_name: "Pony",
-          relationship: "Baby",
-          birth_date: Date.new(2018, 8, 27),
-          months_in_home: 5,
-          was_married: "no",
-          disabled: "yes",
-          north_american_resident: "yes",
-          on_visa: "no",
-          was_student: "no",
-        )
       end
 
       it "returns a filled out pdf" do
@@ -487,6 +473,75 @@ RSpec.describe F13614cPdf do
            "received_stimulus_payment" => "yes",
            "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
         )
+      end
+
+      describe "#hash_for_pdf" do
+        describe 'additional comments field' do
+          context "when there are only 3 or less dependents" do
+            it "does not reference additional dependents" do
+              expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+                if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+              COMMENT
+            end
+          end
+
+          context "when there are 4 or more dependents" do
+            before do
+              create(
+                :dependent,
+                intake: intake,
+                first_name: "Polly",
+                last_name: "Pony",
+                relationship: "Baby",
+                birth_date: Date.new(2018, 8, 27),
+                months_in_home: 5,
+                was_married: "no",
+                disabled: "yes",
+                north_american_resident: "yes",
+                on_visa: "no",
+                was_student: "no",
+              )
+              create(
+                :dependent,
+                intake: intake,
+                first_name: "Patrick",
+                last_name: "Pony",
+                relationship: "Son",
+                birth_date: Date.new(2019, 3, 11),
+                months_in_home: 8,
+                was_married: "no",
+                disabled: "no",
+                north_american_resident: "yes",
+                on_visa: "no",
+                was_student: "no",
+              )
+            end
+
+            it "includes extra dependent information in the additional comments field" do
+              expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+                if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+                
+                Additional Dependents:
+                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
+                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+              COMMENT
+            end
+
+            context "when there is no additional_info or final_info present" do
+              before do
+                intake.update(additional_info: nil, final_info: nil)
+              end
+
+              it "includes extra dependent information with no leading whitespace" do
+                expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+                  Additional Dependents:
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+                COMMENT
+              end
+            end
+          end
+        end
       end
     end
   end
