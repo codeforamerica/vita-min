@@ -161,7 +161,7 @@ class ClientSorter
   end
 
   def clients_sort_column
-    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at, :last_outgoing_communication_at] + Client.sortable_intake_attributes
+    sortable_columns = [:id, :updated_at, :filterable_percentage_of_required_documents_uploaded, :first_unanswered_incoming_interaction_at, :last_outgoing_communication_at] + Client.sortable_intake_attributes
     sortable_columns.include?(@params[:column]&.to_sym) ? @params[:column] : @default_order.keys.first
   end
 

@@ -927,35 +927,6 @@ describe Intake do
     end
   end
 
-  describe "#number_of_required_documents_uploaded" do
-    let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
-    it "returns zero when no required documents are uploaded" do
-      expect(intake.number_of_required_documents_uploaded).to eq(0)
-    end
-
-    context "with uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
-
-      it "returns the number of uploaded documents" do
-        expect(intake.number_of_required_documents_uploaded).to eq(1)
-      end
-    end
-  end
-
-  describe "#number_of_required_documents" do
-    let(:health_and_wages_intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
-    let(:minimal_intake) { create(:intake, {}) }
-
-    it "returns at least three to include required documents" do
-      expect(minimal_intake.number_of_required_documents).to eq(3)
-    end
-
-    it "returns expected documents for particular intake forms" do
-      expect(health_and_wages_intake.number_of_required_documents).to eq(5)
-    end
-
-  end
-
   describe "#document_types_definitely_needed" do
     let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
 

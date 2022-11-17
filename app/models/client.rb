@@ -121,9 +121,9 @@ class Client < ApplicationRecord
               greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
             }
           end,
-          filterable_number_of_required_documents_uploaded: client.intake.number_of_required_documents_uploaded,
-          filterable_number_of_required_documents: client.intake.number_of_required_documents,
-          filterable_percentage_of_required_documents_uploaded: client.intake.number_of_required_documents_uploaded / client.intake.number_of_required_documents.to_f,
+          filterable_number_of_required_documents_uploaded: client.number_of_required_documents_uploaded,
+          filterable_number_of_required_documents: client.number_of_required_documents,
+          filterable_percentage_of_required_documents_uploaded: client.number_of_required_documents_uploaded / client.number_of_required_documents.to_f,
           needs_to_flush_filterable_properties_set_at: nil
         }
       end
@@ -338,5 +338,19 @@ class Client < ApplicationRecord
 
   def identity_decision_made?
     identity_verification_denied_at? || identity_verified_at?
+  end
+
+  def number_of_required_documents
+    return 1 if intake.is_ctc?
+
+    intake.relevant_document_types.select(&:needed_if_relevant?).count
+  end
+
+  def number_of_required_documents_uploaded
+    return 0 if intake.is_ctc?
+
+    intake.relevant_document_types.select(&:needed_if_relevant?).select do |document_type|
+      documents.where(document_type: document_type.key).present?
+    end.length
   end
 end
