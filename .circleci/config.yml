@@ -30,7 +30,9 @@ commands:
           command: |
             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update --allow-releaseinfo-change
-      - run: ./vendor/pdftk/install
+      - run:
+          name: install pdftk-java
+          command: ./vendor/pdftk/install
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
