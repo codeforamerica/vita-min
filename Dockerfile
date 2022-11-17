@@ -5,7 +5,7 @@ RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
 RUN apt-get update \
- && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript openjdk11-jre poppler-utils curl \
+ && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
@@ -27,10 +27,10 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-ADD ./vendor/pdftk
-RUN ./vendor/pdftk/install
+ADD ./vendor/pdftk /app/vendor/pdftk
+RUN /app/vendor/pdftk/install
 
-# pdftk requires Debian's Java 11, but gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
+# gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
 ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
     OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
 RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
