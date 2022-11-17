@@ -6,6 +6,7 @@ describe Ctc::Portal::SubmissionPdfsController do
   describe "#show" do
     let(:params) {{ id: 1 }}
     let(:client) { create :client_with_ctc_intake_and_return }
+    let!(:dependent) { create :qualifying_child, intake: client.intake }
     let(:back) { "http://test.host/en" }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
@@ -22,6 +23,7 @@ describe Ctc::Portal::SubmissionPdfsController do
 
       context "when the efile_submission id provided does not belong to the current client" do
         let(:efile_submission) { create :efile_submission }
+
         it "redirects and sets a flash message" do
           get :show, params: { id: efile_submission.id }
 
@@ -33,6 +35,9 @@ describe Ctc::Portal::SubmissionPdfsController do
       context "when the client has a submission" do
         let!(:efile_submission) do
           client.tax_returns.last.efile_submissions.create
+        end
+        before do
+          efile_submission.create_qualifying_dependents
         end
 
         context "when it can be generated" do
