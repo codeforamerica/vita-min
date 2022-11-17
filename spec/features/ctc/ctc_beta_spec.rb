@@ -46,6 +46,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot, active_job: true, re
   before do
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_call_original
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
+    allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(future)
     allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(future)
 
     allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
