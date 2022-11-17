@@ -390,6 +390,9 @@ class Intake::GyrIntake < Intake
     end
   end
 
+  after_save_commit { Client.refresh_filterable_properties([client_id]) }
+  after_destroy_commit { Client.refresh_filterable_properties([client_id]) }
+
   def probable_previous_year_intake
     return nil unless primary_last_four_ssn && primary_first_name && primary_last_name && primary_birth_date
 

@@ -548,6 +548,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.inet "current_sign_in_ip"
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
+    t.integer "filterable_number_of_required_documents", default: 3
+    t.integer "filterable_number_of_required_documents_uploaded", default: 0
+    t.decimal "filterable_percentage_of_required_documents_uploaded", precision: 5, scale: 2, default: "0.0"
     t.jsonb "filterable_tax_return_properties"
     t.datetime "first_unanswered_incoming_interaction_at", precision: nil
     t.datetime "flagged_at", precision: nil
