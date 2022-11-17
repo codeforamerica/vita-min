@@ -1107,4 +1107,36 @@ describe Intake do
       end
     end
   end
+
+  describe "#duplicates" do
+    let(:dupe_double) { double }
+    before do
+      allow(DeduplicationService).to receive(:duplicates).and_return dupe_double
+      allow(dupe_double).to receive(:or)
+    end
+
+    context "when hashed primary ssn is present" do
+      let(:intake) { create :intake, hashed_primary_ssn: "123456789" }
+      it "builds a query looking for duplicates" do
+        intake.duplicates
+        expect(DeduplicationService).to have_received(:duplicates).exactly(1).times.with(intake, :hashed_primary_ssn, from_scope: intake.class.accessible_intakes)
+      end
+    end
+
+    context "when hashed primary ssn is not present" do
+      let(:intake) { create :intake, hashed_primary_ssn: nil }
+      it "responds with an empty collection" do
+        expect(intake.duplicates).to be_empty
+        expect(DeduplicationService).not_to have_received(:duplicates)
+      end
+    end
+
+    context "when primary ssn starts with '12345'" do
+      let(:intake) { create :ctc_intake, primary_ssn: '123456789' }
+      it "will not find any duplicates" do
+        expect(intake.duplicates).to be_empty
+        expect(DeduplicationService).not_to have_received(:duplicates)
+      end
+    end
+  end
 end
