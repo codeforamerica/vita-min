@@ -48,13 +48,9 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 heroku/jvm
 
-      - name: Add apt buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 heroku-community/apt
-
       - name: Add heroku-buildpack-run buildpack
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 6 https://github.com/weibeld/heroku-buildpack-run.git
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 https://github.com/weibeld/heroku-buildpack-run.git
 
       - name: Add Heroku app to pipeline
         if: github.event.action == 'opened' || github.event.action == 'reopened'
