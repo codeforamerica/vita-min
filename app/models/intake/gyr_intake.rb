@@ -439,4 +439,14 @@ class Intake::GyrIntake < Intake
   def filing_jointly?
     filing_joint_yes?
   end
+
+  def number_of_required_documents
+    relevant_document_types.select(&:needed_if_relevant?).count
+  end
+
+  def number_of_required_documents_uploaded
+    relevant_document_types.select(&:needed_if_relevant?).select do |document_type|
+      documents.where(document_type: document_type.key).present?
+    end.length
+  end
 end
