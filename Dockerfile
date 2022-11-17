@@ -5,11 +5,12 @@ RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
 RUN apt-get update \
- && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev pdftk-java ghostscript poppler-utils curl \
+ && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript poppler-utils curl \
  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update && apt-get install -y nodejs yarn \
+ && curl -O https://mirrors.edge.kernel.org/ubuntu/pool/universe/p/pdftk-java/pdftk-java_3.3.2-1_all.deb && apt -y install ./pdftk-java_*_all.deb && rm pdftk-java_*_all.deb && \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
