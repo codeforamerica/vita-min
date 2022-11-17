@@ -25,7 +25,6 @@ commands:
     description: "Install system dependencies"
     steps:
       - run:
-          # Install recent pdftk, see Aptfile; install Chrome
           # Run apt update with --allow-releaseinfo-change because the CircleCI environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable
           name: install system dependencies
           command: |
