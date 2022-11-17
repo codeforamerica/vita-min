@@ -16,6 +16,11 @@ FileUtils.chdir APP_ROOT do
   puts "== Install Homebrew dependencies =="
   system! "brew bundle install"
 
+  puts "== Install pdftk =="
+  unless File.exists?("#{APP_ROOT}/vendor/pdftk/downloads/v3.3.3/pdftk-all.jar")
+    system! "vendor/pdftk/install"
+  end
+
   puts "== Ensuring homebrew node version is 16 =="
   system! "brew link node@16 || if /usr/local/bin/node --version | grep -q -v ^v16 ; then brew link --overwrite node@16 ; fi"
 

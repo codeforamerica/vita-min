@@ -1,8 +1,0 @@
-# For installing apt packages on Heroku
-
-# Dependencies for pdftk-java as described at https://launchpad.net/ubuntu/disco/i386/pdftk-java/3.0.2-2
-libbcprov-java
-libcommons-lang3-java
-
-# pdftk-java itself (change to apt package when 3.3.2 is available in Heroku buildpack)
-https://deb.debian.org/debian/pool/main/p/pdftk-java/pdftk-java_3.3.2-1_all.deb

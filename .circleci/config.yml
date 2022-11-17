@@ -30,8 +30,8 @@ commands:
           name: install system dependencies
           command: |
             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo apt-get update --allow-releaseinfo-change && \
-            sudo curl -O https://deb.debian.org/debian/pool/main/p/pdftk-java/pdftk-java_3.3.2-1_all.deb && sudo apt -y install ./pdftk-java_*_all.deb && sudo rm ./pdftk-java_*_all.deb
+            sudo apt-get update --allow-releaseinfo-change
+      - run: ./vendor/pdftk/install
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:

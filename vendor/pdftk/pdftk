@@ -1,0 +1,3 @@
+#!/bin/bash
+pdftk_downloads_dir="${BASH_SOURCE%/*}/downloads"
+exec java -jar "$pdftk_downloads_dir/v3.3.3/pdftk-all.jar" "$@"

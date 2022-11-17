@@ -5,12 +5,11 @@ RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
 RUN apt-get update \
- && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript poppler-utils curl \
+ && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript openjdk11-jre poppler-utils curl \
  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update && apt-get install -y nodejs yarn \
- && curl -O https://mirrors.edge.kernel.org/ubuntu/pool/universe/p/pdftk-java/pdftk-java_3.3.2-1_all.deb && apt -y install ./pdftk-java_*_all.deb && rm pdftk-java_*_all.deb && \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
@@ -27,6 +26,9 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && chmod +x "$SUPERCRONIC" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+
+ADD ./vendor/pdftk
+RUN ./vendor/pdftk/install
 
 # pdftk requires Debian's Java 11, but gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
 ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
