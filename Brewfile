@@ -1,7 +1,7 @@
 brew "gh"
 brew "ghostscript"
 brew "imagemagick"
-brew "pdftk-java"
+brew "java"
 brew "pipx"
 brew "poppler"
 brew "postgis"
