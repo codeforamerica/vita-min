@@ -52,9 +52,9 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 heroku-community/apt
 
-      - name: Add pdftk-java buildpack
+      - name: Add heroku-buildpack-run buildpack
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 6 https://github.com/codeforamerica/heroku-pdftk-java-buildpack.git
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 6 https://github.com/weibeld/heroku-buildpack-run.git
 
       - name: Add Heroku app to pipeline
         if: github.event.action == 'opened' || github.event.action == 'reopened'

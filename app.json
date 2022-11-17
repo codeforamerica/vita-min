@@ -28,7 +28,7 @@
       "url": "heroku-community/apt"
     },
     {
-      "url": "https://github.com/weibeld/heroku-buildpack-run.git"
+      "url": "https://github.com/codeforamerica/heroku-pdftk-java-buildpack.git"
     }
   ],
   "env": {
