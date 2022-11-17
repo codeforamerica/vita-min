@@ -105,7 +105,7 @@ class Client < ApplicationRecord
           where(id: client_ids)
         end
 
-      attributes = where(id: client_ids).includes(:tax_returns).map do |client|
+      attributes = where(id: client_ids).includes(:tax_returns, :documents).map do |client|
         {
           id: client.id,
           created_at: client.created_at,
