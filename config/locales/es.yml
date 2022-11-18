@@ -761,6 +761,7 @@ es:
         primary_contact_info: Información de contacto
         routing_method: Método de enrutamiento inicial
         source_param: Fuente param
+        edit_13614c: Editar 13614-C
         spouse_contact_info: Información de contacto de su cónyuge
         tax_info: Información de impuestos
         texting_phone: Número de celular
@@ -773,6 +774,9 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
+      edit_13614c_form:
+        fields:
+          first_name: "Nombre de pila"
     coalitions:
       edit:
         title: Editar Coalición
