@@ -3,6 +3,10 @@ class DependentsController < ApplicationController
 
   helper_method :next_path
 
+  def self.flow_explorer_actions
+    [:index, :new]
+  end
+
   def index
     @dependents = current_intake.dependents
   end

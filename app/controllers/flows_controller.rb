@@ -61,16 +61,6 @@ class FlowsController < ApplicationController
 
   private
 
-  def screenshot_path(controller)
-    screenshot_filename = "#{controller.name}.png"
-    if Rails.env.development? && File.exist?(Rails.root.join('public', 'assets', 'flow_screenshots', I18n.locale.to_s, screenshot_filename))
-      "/assets/flow_screenshots/#{I18n.locale}/#{screenshot_filename}"
-    else
-      "https://vita-min-flow-explorer-screenshots.s3.us-west-1.amazonaws.com/#{I18n.locale}/#{screenshot_filename}"
-    end
-  end
-  helper_method :screenshot_path
-
   class FlowParams
     attr_reader :reference_object
     attr_reader :controllers
@@ -80,8 +70,13 @@ class FlowsController < ApplicationController
       case type
       when :gyr
         gyr_flow = GyrQuestionNavigation::FLOW.dup
-        doc_overview_index = GyrQuestionNavigation::FLOW.index(Questions::OverviewDocumentsController)
+
+        doc_overview_index = gyr_flow.index(Questions::OverviewDocumentsController)
         gyr_flow.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
+
+        had_dependents_index = gyr_flow.index(Questions::HadDependentsController)
+        gyr_flow.insert(had_dependents_index + 1, DependentsController)
+
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
@@ -132,15 +127,18 @@ class FlowsController < ApplicationController
       @reference_object = reference_object
     end
 
-    def decorated
+    def controller_actions
       @controllers.map do |controller_class|
-        DecoratedController.new(controller_class, @current_controller)
-      end
+        controller_class.flow_explorer_actions.map do |controller_action|
+          DecoratedController.new(controller_class, controller_action, @current_controller)
+        end
+      end.flatten
     end
 
     class DecoratedController < Delegator
-      def initialize(controller_class, current_controller)
+      def initialize(controller_class, controller_action, current_controller)
         @controller_class = controller_class
+        @controller_action = controller_action
         @current_controller = current_controller
       end
 
@@ -148,11 +146,35 @@ class FlowsController < ApplicationController
         @controller_class
       end
 
+      def screenshot_filename
+        if @controller_action == :edit
+          "#{@controller_class}.png"
+        else
+          "#{@controller_class}-#{@controller_action}.png"
+        end
+      end
+
+      def pretty_name
+        if @controller_action == :edit
+          @controller_class.to_s
+        else
+          "#{@controller_class}##{@controller_action}"
+        end
+      end
+
+      def screenshot_path
+        if Rails.env.development? && File.exist?(Rails.root.join('public', 'assets', 'flow_screenshots', I18n.locale.to_s, screenshot_filename))
+          "/assets/flow_screenshots/#{I18n.locale}/#{screenshot_filename}"
+        else
+          "https://vita-min-flow-explorer-screenshots.s3.us-west-1.amazonaws.com/#{I18n.locale}/#{screenshot_filename}"
+        end
+      end
+
       def controller_url
         @controller_url ||= begin
           url_params = {
             controller: controller_path,
-            action: navigation_entry_action,
+            action: @controller_action,
             _recall: {},
           }.merge(navigation_entry_params(@current_controller))
           if controller_path.start_with?('ctc') && MultiTenantService.new(:ctc).host.present?
@@ -167,19 +189,16 @@ class FlowsController < ApplicationController
         end
       end
 
-      def navigation_entry_action
-        :edit
-      end
-
       def navigation_entry_params(_)
         {}
       end
 
-      def navigation_entry_action_title(i18n_params = {})
+      def page_title(i18n_params = {})
         possible_paths = %W(
           #{i18n_base_path}.title
           #{i18n_base_path}.title_html
           #{i18n_base_path}.page_title
+          #{i18n_base_path}.#{@controller_action}.title
         )
 
         existing_path = possible_paths.find { |path| I18n.exists?(path) }
