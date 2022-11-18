@@ -1,15 +1,13 @@
-
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <h1><%= @title %></h1>
-  <p>Last client 13614-C update:  Nov 16 7:49 PM</p>
+  <p>Last client 13614-C update: Nov 16 7:49 PM</p>
   <h2>Part I – Your Personal Information</h2>
-  <%= form_with model: @form, url: [:hub, @client], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+  <%= form_with model: @form, url: update_13614c_form_hub_client_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
     <%= f.cfa_input_field(:primary_first_name, t("hub.clients.edit_13614c_form.fields.first_name")) %>
     <button class="button button--cta" type="submit">
       <%= t("general.save") %>
     </button>
-    <% end %>
-
+  <% end %>
 <% end %>

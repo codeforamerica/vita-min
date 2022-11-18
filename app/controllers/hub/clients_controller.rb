@@ -126,7 +126,7 @@ module Hub
     end
 
     def update_13614c_form
-
+      redirect_to hub_client_path(id: @client)
     end
 
     # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page

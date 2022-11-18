@@ -44,7 +44,12 @@ RSpec.describe "a user editing a clients 13614c form" do
       click_on 'Save'
 
       expect(page).to have_text "Basic Info"
-    end
 
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      expect(page).to have_text "Emily"
+    end
   end
 end
