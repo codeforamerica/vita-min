@@ -105,7 +105,7 @@ class Client < ApplicationRecord
           where(id: client_ids)
         end
 
-      attributes = where(id: client_ids).includes(:tax_returns, :documents).map do |client|
+      attributes = where(id: client_ids).includes(:intake, :tax_returns, :documents).map do |client|
         {
           id: client.id,
           created_at: client.created_at,
@@ -341,13 +341,13 @@ class Client < ApplicationRecord
   end
 
   def number_of_required_documents
-    return 1 if intake.is_ctc?
+    return 1 if intake.blank? || intake.is_ctc?
 
     intake.relevant_document_types.select(&:needed_if_relevant?).count
   end
 
   def number_of_required_documents_uploaded
-    return 0 if intake.is_ctc?
+    return 0 if intake.blank? || intake.is_ctc?
 
     intake.relevant_document_types.select(&:needed_if_relevant?).select do |document_type|
       documents.where(document_type: document_type.key).present?
