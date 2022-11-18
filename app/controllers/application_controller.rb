@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     "views.#{controller_path.tr('/', '.')}"
   end
 
+  def self.flow_explorer_actions
+    [:edit]
+  end
+
   def self.to_path_helper(options = {})
     action = options.delete(:action) || :edit
     Rails.application.routes.url_helpers.url_for({

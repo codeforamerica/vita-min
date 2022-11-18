@@ -9,7 +9,7 @@ class FlowExplorerScreenshots
         no_screenshot = args.last.is_a?(Hash) && args.last.dig(:no_screenshot)
         args.pop if no_screenshot
         orig.bind(self).call(*args)
-        FlowExplorerScreenshots.create_flow_explorer_screenshot unless no_screenshot
+        FlowExplorerScreenshots.new.create_flow_explorer_screenshot unless no_screenshot
       end
     end
 
@@ -22,31 +22,39 @@ class FlowExplorerScreenshots
           # Capybara only allows calling .switch_to_window (which is used to capture the spanish screenshots)
           # if we're not in a `within` block
           if Capybara.current_scope.is_a?(Capybara::Node::Document)
-            FlowExplorerScreenshots.create_flow_explorer_screenshot
+            FlowExplorerScreenshots.new.create_flow_explorer_screenshot
           end
         end
       end
     end
   end
 
-  private
-
-  def self.create_flow_explorer_screenshot
+  def initialize
     recognized_path = Rails.application.routes.recognize_path(Capybara.page.current_path)
-    controller_class = (recognized_path[:controller].camelize + 'Controller').constantize rescue nil
-    if controller_class && recognized_path[:action].to_sym == :edit
+    @controller_class = (recognized_path[:controller].camelize + 'Controller').constantize rescue nil
+    @controller_action = recognized_path[:action].to_sym
+  end
+
+  def create_flow_explorer_screenshot
+    if @controller_class&.flow_explorer_actions&.include?(@controller_action)
       if ENV['FLOW_EXPLORER_LOCALE'].present?
-        create_controller_card_screenshot(controller_class, locale: ENV['FLOW_EXPLORER_LOCALE'].to_sym)
+        create_controller_card_screenshot(locale: ENV['FLOW_EXPLORER_LOCALE'].to_sym)
       else
-        create_controller_card_screenshot(controller_class, locale: :en, switch_locale: true)
-        create_controller_card_screenshot(controller_class, locale: :es, switch_locale: true)
+        create_controller_card_screenshot(locale: :en, switch_locale: true)
+        create_controller_card_screenshot(locale: :es, switch_locale: true)
       end
     end
   end
 
-  def self.create_controller_card_screenshot(controller_class, locale:, switch_locale: false)
+  private
+
+  def screenshot_filename
+    FlowsController::DecoratedController.new(@controller_class, @controller_action).screenshot_filename
+  end
+
+  def create_controller_card_screenshot(locale:, switch_locale: false)
     FileUtils.mkdir_p(Rails.root.join("public/assets/flow_screenshots/#{locale}"))
-    screenshot_path = Rails.root.join("public/assets/flow_screenshots/#{locale}/#{controller_class}.png")
+    screenshot_path = Rails.root.join("public/assets/flow_screenshots/#{locale}/#{screenshot_filename}")
     if File.exist?(screenshot_path) && File.mtime(screenshot_path) > 3.hours.ago
       return
     end
