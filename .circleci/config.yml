@@ -25,13 +25,14 @@ commands:
     description: "Install system dependencies"
     steps:
       - run:
+          # Run apt update with --allow-releaseinfo-change because the CircleCI environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable
           name: install system dependencies
           command: |
-            # The CircleCI environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo apt-get update --allow-releaseinfo-change && \
-            sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get update --allow-releaseinfo-change
+      - run:
+          name: install pdftk-java
+          command: ./vendor/pdftk/install
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
