@@ -618,6 +618,10 @@ en:
     client_channel:
       please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
     clients:
+      edit_13614c_form:
+        title: "13614-C"
+        fields:
+          first_name: "First Name"
       bulk_action:
         count_html: You have selected <strong><span id="take-action-count">%{count}</span> return(s)</strong>
       count:
@@ -752,6 +756,7 @@ en:
         primary_contact_info: Primary Contact Info
         routing_method: Initial Routing Method
         source_param: Source Param
+        edit_13614c: Edit 13614-C
         spouse_contact_info: Spouse Contact Info
         tax_info: Tax Info
         texting_phone: Phone For Texting

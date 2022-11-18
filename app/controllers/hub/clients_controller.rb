@@ -121,6 +121,14 @@ module Hub
       redirect_to(hub_client_path(id: @client))
     end
 
+    def edit_13614c_form
+      @form = Update13614cFormPage1.from_client(@client)
+    end
+
+    def update_13614c_form
+
+    end
+
     # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page
     # Used to link to client pages when identifying duplicated data
     def resource_to_client_redirect
