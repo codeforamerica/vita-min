@@ -57,7 +57,7 @@ RSpec.describe "a user editing a clients intake fields" do
     scenario "I can update available fields", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
-        click_on "Edit"
+        click_on "Edit info"
       end
 
       within "#primary-info" do
@@ -70,7 +70,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).not_to have_text "Bennet Basil"
 
       within ".client-profile" do
-        click_on "Edit"
+        click_on "Edit info"
       end
 
       within "#primary-info" do
@@ -212,7 +212,7 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       within ".client-profile" do
-        click_on "Edit"
+        click_on "Edit info"
       end
 
       expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142-86-2222"
@@ -236,7 +236,7 @@ RSpec.describe "a user editing a clients intake fields" do
     it "creates a system note for client profile change" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
-        click_on "Edit"
+        click_on "Edit info"
       end
 
       within "#primary-info" do

@@ -26,6 +26,15 @@ RSpec.describe "a user editing a clients 13614c form" do
                             preferred_name: "Colleen Cauliflower",
                             email_notification_opt_in: "yes",
                             timezone: "America/Chicago",
+                            was_blind: "no",
+                            was_full_time_student: "unsure",
+                            claimed_by_another: "unsure",
+                            had_disability: "unsure",
+                            spouse_was_blind: "no",
+                            spouse_had_disability: "no",
+                            spouse_was_full_time_student: "no",
+                            issued_identity_pin: "unsure",
+                            lived_with_spouse: "unsure",
                             dependents: [
                               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
                             ])
@@ -49,7 +58,8 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      expect(page).to have_text "Emily"
+      expect(page).to have_text "Part I – Your Personal Information"
+      expect(page).to have_field('First Name', with: 'Emily')
     end
   end
 end

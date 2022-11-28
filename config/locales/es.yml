@@ -640,6 +640,26 @@ es:
         delete_client: Eliminar cliente
         delete_confirmation: "¿Estás seguro de que deseas eliminar toda la información asociada con %{name}?"
         title: Editar Perfil del cliente
+      edit_13614c_form:
+        fields:
+          apt: Departamento
+          blind: Legalmente ciego
+          claimed_by_another: "¿Alguien puede reclamarlo a usted oa su cónyuge como dependiente?"
+          contact_number: Número de contacto
+          dob: Fecha de nacimiento
+          email_optional: Correo electrónico (Opcional)
+          first_name: Nombre de pila
+          had_disability: Total y permanentemente deshabilitado
+          issued_identity_pin: "¿Usted, su cónyuge o sus dependientes han sido víctimas de robo de identidad relacionado con los impuestos o se les ha emitido un PIN de protección de identidad?"
+          last_name: Apellido
+          lived_with_spouse: B. ¿Vivió usted con su cónyuge durante alguna parte de los últimos seis meses de 2021?
+          middle_initial: Inicial del segundo nombre
+          spouse_dob: Fecha de nacimiento del cónyuge
+          spouse_first_name: Nombre del cónyuge
+          was_full_time_student: Estudiante de tiempo completo
+        last_year_were_you: 'El año pasado, fuiste:'
+        title: 13614-C
+        what_was_your_marital_status: Al 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
@@ -745,6 +765,7 @@ es:
         basic_info: Información básica
         date_of_birth: Fecha de nacimiento
         date_of_birth_help: mm/dd/yyyy
+        edit_13614c: Editar 13614-C
         email: Email
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
@@ -761,7 +782,6 @@ es:
         primary_contact_info: Información de contacto
         routing_method: Método de enrutamiento inicial
         source_param: Fuente param
-        edit_13614c: Editar 13614-C
         spouse_contact_info: Información de contacto de su cónyuge
         tax_info: Información de impuestos
         texting_phone: Número de celular
@@ -774,9 +794,6 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
-      edit_13614c_form:
-        fields:
-          first_name: "Nombre de pila"
     coalitions:
       edit:
         title: Editar Coalición

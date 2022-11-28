@@ -50,7 +50,8 @@ module Hub
     def save
       return false unless valid?
 
-      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
+      @client.intake.update(attributes_for(:intake))
+      # @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
     end
   end
 end
