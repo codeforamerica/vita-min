@@ -51,6 +51,7 @@ module Hub
       return false unless valid?
 
       @client.intake.update(attributes_for(:intake))
+      @client.touch(:last_13614c_update_at)
       # @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
     end
   end

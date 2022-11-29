@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients 13614c form" do
+  around do |example|
+    Timecop.freeze(DateTime.strptime('2021-03-04 5:10 PST', '%F %R %Z'))
+    example.run
+    Timecop.return
+  end
+
   context "as an admin user" do
     let(:organization) { create(:organization, name: "Assigned Org") }
     let!(:new_site) { create(:site, name: "Other Site") }
@@ -60,6 +66,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(page).to have_text "Part I – Your Personal Information"
       expect(page).to have_field('First Name', with: 'Emily')
+      expect(page).to have_text('Last client 13614-C update: Mar 4 5:10 AM')
     end
   end
 end

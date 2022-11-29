@@ -2,7 +2,7 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <h1><%= @title %></h1>
-  <p>Last client 13614-C update: Nov 16 7:49 PM</p>
+  <p>Last client 13614-C update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
   <h2>Part I – Your Personal Information</h2>
   <hr>
   <%= form_with model: @form,
