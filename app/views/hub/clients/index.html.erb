@@ -103,11 +103,11 @@
             <td class="index-table__cell client-attribute__needs-response">
               <%= render "shared/urgent_icon", client: client %>
             </td>
-            <%= tag.th(
+            <%= tag.td(
               scope: "row",
               class: "index-table__row-header index-table__row-header--sticky index-table__header--tooltip-z-positioning #{'index-table__row-header--tooltip-has-text' unless @message_summaries[client.id].nil?} client-attribute__name",
             ) do %>
-              <%= tag.span(
+              <%= tag.strong(
                 class: "tooltip",
                 data: { position: "right" },
                 title: @message_summaries[client.id] ? render("shared/message_summary", message_summary: @message_summaries[client.id]) : t(".no_message")) do %>

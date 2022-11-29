@@ -93,6 +93,25 @@ module FeatureHelpers
     end
   end
 
+  def table_contents(element_or_doc)
+    rows = []
+    if element_or_doc.class.name.start_with?('Nokogiri')
+      nokotable = element_or_doc
+    else
+      result_table_text = element_or_doc["outerHTML"]
+      nokotable = Nokogiri::HTML(result_table_text)
+    end
+
+    nokotable.css('tr').each do |row|
+      cell_tag = row.css('th').any? ? 'th' : 'td'
+      rows << (row.css(cell_tag).map(&:text).map(&:strip))
+    end
+
+    return [] if rows.size < 2
+
+    rows[1..].map { |row| Hash[rows[0].zip(row)] }
+  end
+
   def changes_table_contents(selector)
     contents = {}
 

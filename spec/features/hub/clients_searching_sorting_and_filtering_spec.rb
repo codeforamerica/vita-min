@@ -34,14 +34,22 @@ RSpec.describe "searching, sorting, and filtering clients" do
         visit hub_clients_path
 
         expect(page).to have_text "All Clients"
-        within ".client-table" do
-          # Default sort order
-          expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[3]).to have_text(marty_ctc.preferred_name)
-          expect(page.all('.client-row')[4]).to have_text(betty_intake_in_progress.preferred_name)
-        end
+
+        # Default sort order
+        expected_rows = [
+          {
+            "Name" => a_string_including(alan_intake_in_progress.preferred_name),
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+          }, {
+            "Name" => a_string_including(betty_intake_in_progress.preferred_name),
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         # search for client
         fill_in "Search", with: "Zach"
@@ -127,36 +135,58 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
-        within ".client-table" do
-          expect(page.all('.client-row').length).to eq 3
 
-          # Sort one direction
-          click_link "sort-preferred_name"
-          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
-          expect(page.all('.client-row')[0]).to have_text(marty_ctc.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[2]).to have_text(zach_prep_ready_for_call.preferred_name)
+        # Sort one direction
+        click_link "sort-preferred_name"
+        expected_rows = [
+          {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
-          # Sort opposite direction
-          click_link "sort-preferred_name"
-          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
-          expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
+        # Sort opposite direction
+        click_link "sort-preferred_name"
+        expected_rows = [
+          {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
-          #zach, betty, patty (oldest to youngest created at)
-          click_link "sort-created_at"
-          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
-          expect(page.all('.client-row')[0]).to have_text(marty_ctc.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
+        #zach, betty, patty (oldest to youngest created at)
+        click_link "sort-created_at"
+        expected_rows = [
+          {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
-          click_link "sort-created_at"
-          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
-          expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name)
-        end
+        click_link "sort-created_at"
+        expected_rows = [
+          {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
+
         within ".filter-form" do
           click_link "Clear"
         end
@@ -168,12 +198,25 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # sort by state of residence ASC
         click_link "sort-state_of_residence"
-        expect(page.all('.client-row').length).to eq 5 # make sure filter is retained
-        expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name) # AL
-        expect(page.all('.client-row')[1]).to have_text(alan_intake_in_progress.preferred_name) # CA
-        expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name) # ME
-        expect(page.all('.client-row')[3]).to have_text(betty_intake_in_progress.preferred_name) # TX
-        expect(page.all('.client-row')[4]).to have_text(zach_prep_ready_for_call.preferred_name) # WI
+        expected_rows = [
+          {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+            "State" => "AL"
+          }, {
+            "Name" => a_string_including(alan_intake_in_progress.preferred_name),
+            "State" => "CA"
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+            "State" => "ME"
+          }, {
+            "Name" => a_string_including(betty_intake_in_progress.preferred_name),
+            "State" => "TX"
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+            "State" => "WI"
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         # sort by state of residence DESC
         click_link "sort-state_of_residence"
@@ -182,32 +225,50 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # return to default sort order
         click_link "sort-last_outgoing_communication_at"
-        expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("7 days")
         expect(page.all('.client-row')[0]).to have_css(".text--red-bold")
-        expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         expect(page.all('.client-row')[1]).to have_css(".text--red-bold")
-        expect(page.all('.client-row')[1]).to have_text("4 days")
-        expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[2]).to have_text("1 day")
-        expect(page.all('.client-row')[3]).to have_text(marty_ctc.preferred_name)
-        expect(page.all('.client-row')[3]).to have_text("1 day")
         expect(page.all('.client-row')[4]).not_to have_css(".text--red-bold")
-        expect(page.all('.client-row')[4]).to have_text(betty_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[4]).to have_text("1 day")
+        expected_rows = [
+          {
+            "Name" => a_string_including(alan_intake_in_progress.preferred_name),
+            "Last contact" => "7 days"
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+            "Last contact" => "4 days"
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+            "Last contact" => "1 day"
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+            "Last contact" => "1 day"
+          }, {
+            "Name" => a_string_including(betty_intake_in_progress.preferred_name),
+            "Last contact" => "1 day"
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         # sort by "waiting on" puts updates at the bottom and orders responses by first_unanswered_incoming_interaction_at
         click_link "sort-first_unanswered_incoming_interaction_at"
-        expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("Response")
-        expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[1]).to have_text("Response")
-        expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[2]).to have_text("Response")
-        expect(page.all('.client-row')[3]).to have_text(marty_ctc.preferred_name)
-        expect(page.all('.client-row')[3]).to have_text("Response")
-        expect(page.all('.client-row')[4]).to have_text(zach_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[4]).to have_text("Update")
+        expected_rows = [
+          {
+            "Name" => a_string_including(alan_intake_in_progress.preferred_name),
+            "Waiting on" => "Response"
+          }, {
+            "Name" => a_string_including(betty_intake_in_progress.preferred_name),
+            "Waiting on" => "Response"
+          }, {
+            "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
+            "Waiting on" => "Response"
+          }, {
+            "Name" => a_string_including(marty_ctc.preferred_name),
+            "Waiting on" => "Response"
+          }, {
+            "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
+            "Waiting on" => "Update"
+          },
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         # sort by "waiting on" in reverse puts updates at the top
         click_link "sort-first_unanswered_incoming_interaction_at"
