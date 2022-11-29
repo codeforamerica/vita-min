@@ -1609,8 +1609,11 @@ RSpec.describe Hub::ClientsController do
         sign_in user
       end
 
-      it "updates the clients intake with the 13614c data and creates a system note" do
-        put :update_13614c_form, params: params
+      it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        expect do
+          put :update_13614c_form, params: params
+        end.to have_enqueued_job(GenerateF13614cPdfJob)
+
         client.reload
         expect(client.intake.primary.first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
