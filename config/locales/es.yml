@@ -663,6 +663,7 @@ es:
           was_married: Soltero o casado a partir del 31/12/21
           was_student: Estudiante de tiempo completo el año pasado
         last_year_were_you: 'El año pasado, fuiste:'
+        last_year_was_your_spouse: 'Last year, was your spouse:'
         title: 13614-C
         what_was_your_marital_status: Al 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
       edit_take_action:

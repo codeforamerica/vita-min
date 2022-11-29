@@ -641,7 +641,7 @@ en:
           dob: DOB
           email_optional: Email (Optional)
           first_name: First Name
-          had_disability: Totally and permnanetly disabled
+          had_disability: Totally and permanently disabled
           issued_identity_pin: Have you, your spouse, or dependents been a victim of tax related identity theft or been issued an Identity Protection PIN?
           last_name: Last Name
           lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2021?
@@ -654,6 +654,7 @@ en:
           was_married: Single or Married as of 12/31/21
           was_student: Full-time Student last year
         last_year_were_you: 'Last year, were you:'
+        last_year_was_your_spouse: 'Last year, was your spouse:'
         title: 13614-C
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_take_action:

@@ -15,6 +15,7 @@ module LinkToAddFieldsHelper
       link_to_add_field_id: id,
       link_to_add_field: fields.delete("\n")
     )
+    options[:data][:link_to_add_field_target] = options[:target] if options[:target]
     link_to name, '#', options
   end
 

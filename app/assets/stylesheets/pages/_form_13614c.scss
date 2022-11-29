@@ -1,0 +1,48 @@
+.form_13614c {
+  .form-group {
+    display: inline-block;
+
+    .select {
+      width: auto;
+    }
+  }
+
+  .hub-form__row {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  p {
+    max-width: none;
+  }
+
+  .date-text-fields {
+    white-space: nowrap;
+  }
+
+  #dependents-table {
+    border-collapse: collapse;
+    th, td {
+      padding: 0 9px;
+      border-right: 1px solid grey;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  #dependents-table th {
+    vertical-align: top;
+    text-align: left;
+    &.th-small {
+      width: 100px;
+    }
+  }
+
+  #primary-additional-info, #spouse-additional-info {
+    .form-question {
+      width: 250px;
+      white-space: nowrap;
+    }
+  }
+}
