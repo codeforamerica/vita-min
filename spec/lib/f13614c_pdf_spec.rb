@@ -17,7 +17,7 @@ RSpec.describe F13614cPdf do
           "city" => "",
           "state" => "",
           "zip_code" => "",
-          "apt" => nil,
+          "apt" => "",
 
           "never_married" => "",
           "married" => "",
@@ -343,7 +343,7 @@ RSpec.describe F13614cPdf do
            "is_on_visa" => "yes",
 
            "street_address" => "789 Garden Green Ln",
-           "apt" => nil,
+           "apt" => "",
            "city" => "Gardenia",
            "state" => "NJ",
            "zip_code" => "08052",

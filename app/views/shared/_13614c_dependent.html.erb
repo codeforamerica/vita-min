@@ -13,7 +13,7 @@
             dependent_relationship_options(current_relationship: f.object.relationship),
             include_blank: true
           ) %></td>
-  <td><%= f.cfa_select :months_in_home, "", months_in_home_options_for_select %></td>
+  <td><%= f.cfa_select :months_in_home, "", 1..12 %></td>
   <td><%= f.cfa_select :north_american_resident, "", short_yes_no_unsure_options_for_select %></td>
   <td><%= f.cfa_select :was_married, "", [
     ["", "unfilled"],

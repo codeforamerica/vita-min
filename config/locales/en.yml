@@ -653,8 +653,8 @@ en:
           was_full_time_student: Full Time Student
           was_married: Single or Married as of 12/31/21
           was_student: Full-time Student last year
-        last_year_were_you: 'Last year, were you:'
         last_year_was_your_spouse: 'Last year, was your spouse:'
+        last_year_were_you: 'Last year, were you:'
         title: 13614-C
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_take_action:
