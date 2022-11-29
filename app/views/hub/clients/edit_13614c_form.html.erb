@@ -79,6 +79,18 @@
       </div>
     </div>
 
+    <div id="dependents-fields">
+      <h3>List the names below of:</h3>
+      <%= error_message(@form, :dependents_attributes) %>
+      <div>
+        <%= f.fields_for :dependents do |ff| %>
+          <%= render "shared/13614c_dependent", f: ff %>
+        <% end %>
+        <%= link_to_add_fields t("views.shared.dependents_fields.add_dependent"), f, :dependents, { class: "button button--small" }, partial: "shared/13614c_dependent" %>
+
+      </div>
+    </div>
+
     <button class="button button--cta" type="submit">
       <%= t("general.save") %>
     </button>

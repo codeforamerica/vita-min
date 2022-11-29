@@ -1,0 +1,25 @@
+<div class="dependent-form">
+  <%= f.hidden_field :id %>
+  <%= f.cfa_input_field :first_name, t("hub.clients.edit_13614c_form.fields.first_name"), classes: ["form-width--long"] %>
+  <%= f.cfa_input_field :last_name, t("hub.clients.edit_13614c_form.fields.first_name"), classes: ["form-width--long"] %>
+
+  <%= f.vita_min_date_text_fields(
+          :birth_date,
+          t("hub.clients.edit_13614c_form.fields.dob"),
+          ) %>
+    <%= f.cfa_select(
+            :relationship,
+            "Relationship",
+            dependent_relationship_options(current_relationship: f.object.relationship),
+            include_blank: true
+    ) %>
+  <%= f.cfa_select :months_in_home, t("hub.clients.edit_13614c_form.fields.months_in_home"), months_in_home_options_for_select %>
+  <%= f.cfa_select :north_american_resident, t("hub.clients.edit_13614c_form.fields.north_american_resident"), yes_no_unsure_options_for_select %>
+  <%= f.cfa_select :was_married, t("hub.clients.edit_13614c_form.fields.was_married"), yes_no_unsure_options_for_select %>
+  <%= f.cfa_select :was_student, t("hub.clients.edit_13614c_form.fields.was_student"), yes_no_unsure_options_for_select %>
+  <%= f.cfa_select :disabled, t("hub.clients.edit_13614c_form.fields.disabled"), yes_no_unsure_options_for_select %>
+
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small"} %>
+  <hr/>
+</div>

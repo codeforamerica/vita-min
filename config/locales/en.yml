@@ -637,6 +637,7 @@ en:
           blind: Legally blind
           claimed_by_another: Can anyone claim you or your spouse as a dependent?
           contact_number: Contact Number
+          disabled: Totally and Permanently Disabled
           dob: DOB
           email_optional: Email (Optional)
           first_name: First Name
@@ -645,9 +646,13 @@ en:
           last_name: Last Name
           lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2021?
           middle_initial: M.I.
+          months_in_home: "# of mos. lived in home last year:"
+          north_american_resident: 'Resident of US, CAN or MEX last year:'
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name
           was_full_time_student: Full Time Student
+          was_married: Single or Married as of 12/31/21
+          was_student: Full-time Student last year
         last_year_were_you: 'Last year, were you:'
         title: 13614-C
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?

@@ -17,7 +17,6 @@ module Hub
                        :email_address,
                        :phone_number,
                        :had_disability,
-                       # :sms_phone_number, TODO: verify we don't need this
                        :was_full_time_student,
                        :primary_birth_date,
                        :street_address,
@@ -50,9 +49,8 @@ module Hub
     def save
       return false unless valid?
 
-      @client.intake.update(attributes_for(:intake))
+      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
       @client.touch(:last_13614c_update_at)
-      # @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
     end
   end
 end

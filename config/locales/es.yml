@@ -646,6 +646,7 @@ es:
           blind: Legalmente ciego
           claimed_by_another: "¿Alguien puede reclamarlo a usted oa su cónyuge como dependiente?"
           contact_number: Número de contacto
+          disabled: Total y permanentemente discapacitado
           dob: Fecha de nacimiento
           email_optional: Correo electrónico (Opcional)
           first_name: Nombre de pila
@@ -654,9 +655,13 @@ es:
           last_name: Apellido
           lived_with_spouse: B. ¿Vivió usted con su cónyuge durante alguna parte de los últimos seis meses de 2021?
           middle_initial: Inicial del segundo nombre
+          months_in_home: "# de meses vividos en casa el año pasado:"
+          north_american_resident: 'Residente de EE. UU., CAN o MEX el año pasado:'
           spouse_dob: Fecha de nacimiento del cónyuge
           spouse_first_name: Nombre del cónyuge
           was_full_time_student: Estudiante de tiempo completo
+          was_married: Soltero o casado a partir del 31/12/21
+          was_student: Estudiante de tiempo completo el año pasado
         last_year_were_you: 'El año pasado, fuiste:'
         title: 13614-C
         what_was_your_marital_status: Al 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
