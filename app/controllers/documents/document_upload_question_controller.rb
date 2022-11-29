@@ -84,11 +84,8 @@ module Documents
       document_path(self.class.to_param, params)
     end
 
-    def set_filer_names
-      @names = [current_intake.primary.first_and_last_name]
-      if current_intake.filing_joint_yes?
-        @names << current_intake.spouse_name_or_placeholder
-      end
+    def set_required_person_names
+      @names = self.class.document_type.required_persons(current_intake).map(&:first_and_last_name)
     end
   end
 end

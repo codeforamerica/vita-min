@@ -20,6 +20,10 @@ module DocumentTypes
       def provide_doc_help?
         true
       end
+
+      def needed_for_spouse
+        true
+      end
     end
   end
 end

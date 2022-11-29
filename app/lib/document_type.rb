@@ -58,6 +58,25 @@ class DocumentType
     def to_s
       label
     end
+
+    def needed_for_spouse
+      false
+    end
+
+    def needed_for_dependents
+      false
+    end
+
+    def required_persons(intake)
+      result = [intake.primary]
+      if needed_for_spouse && intake.filing_joint_yes?
+        result << intake.spouse
+      end
+      if needed_for_dependents && intake.dependents.present?
+        result.concat(intake.dependents)
+      end
+      result
+    end
   end
 end
 

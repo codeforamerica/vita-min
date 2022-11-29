@@ -1,6 +1,6 @@
 module Documents
   class SsnItinsController < DocumentUploadQuestionController
-    before_action :set_household_names, only: [:edit, :update]
+    before_action :set_required_person_names, only: [:edit, :update]
 
     def self.document_type
       DocumentTypes::SsnItin
@@ -18,16 +18,6 @@ module Documents
     def has_all_required_docs?
       [DocumentTypes::Identity.key, DocumentTypes::Selfie.key, DocumentTypes::SsnItin.key].all? do |key|
         current_intake.documents.pluck(:document_type).include?(key)
-      end
-    end
-
-    def set_household_names
-      @names = [current_intake.primary.first_and_last_name]
-      if current_intake.filing_joint_yes?
-        @names << current_intake.spouse_name_or_placeholder
-      end
-      if current_intake.dependents.present?
-        @names += current_intake.dependents.map(&:full_name)
       end
     end
   end

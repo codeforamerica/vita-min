@@ -343,14 +343,16 @@ class Client < ApplicationRecord
   def number_of_required_documents
     return 1 if intake.blank? || intake.is_ctc?
 
-    intake.relevant_document_types.select(&:needed_if_relevant?).count
+    intake.relevant_document_types.select(&:needed_if_relevant?).map do |document_type|
+      document_type.required_persons(intake).length
+    end.sum
   end
 
   def number_of_required_documents_uploaded
     return 0 if intake.blank? || intake.is_ctc?
 
-    intake.relevant_document_types.select(&:needed_if_relevant?).select do |document_type|
-      documents.where(document_type: document_type.key).present?
-    end.length
+    intake.relevant_document_types.select(&:needed_if_relevant?).map do |document_type|
+      [document_type.required_persons(intake).length, documents.select { |d| d.document_type == document_type.key }.length].min
+    end.sum
   end
 end

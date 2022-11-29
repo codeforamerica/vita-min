@@ -1,6 +1,6 @@
 module Documents
   class SelfiesController < DocumentUploadQuestionController
-    before_action :set_filer_names, only: [:edit, :update]
+    before_action :set_required_person_names, only: [:edit, :update]
 
     def self.document_type
       DocumentTypes::Selfie

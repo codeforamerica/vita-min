@@ -844,6 +844,42 @@ describe Client do
     end
   end
 
+  describe "#number_of_required_documents" do
+    context "for a single filer" do
+      let(:minimal_intake) { create(:intake, {}) }
+
+      it "includes the documents that are required for everyone" do
+        expect(minimal_intake.client.number_of_required_documents).to eq(3)
+      end
+    end
+
+    context "filing jointly" do
+      let(:joint_intake) { create(:intake, filing_joint: "yes") }
+
+      it "returns at least six, for the three required documents for each filer" do
+        expect(joint_intake.client.number_of_required_documents).to eq(6)
+      end
+    end
+
+    context "filing with dependents" do
+      let(:dependents_intake) { create(:intake, {}) }
+      let!(:dependent1) { create :dependent, intake: dependents_intake }
+      let!(:dependent2) { create :dependent, intake: dependents_intake }
+
+      it "requires an additional document (SSN) for each dependent" do
+        expect(dependents_intake.client.number_of_required_documents).to eq(5)
+      end
+    end
+
+    context "when answering questions that require additional forms" do
+      let(:health_and_wages_intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+
+      it "returns expected documents for particular intake forms" do
+        expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
+      end
+    end
+  end
+
   describe "#number_of_required_documents_uploaded" do
     let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
     it "returns zero when no required documents are uploaded" do
@@ -851,25 +887,33 @@ describe Client do
     end
 
     context "with uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
-
       it "returns the number of uploaded documents" do
+        expect do
+          create :document, intake: intake, document_type: DocumentTypes::Selfie.key
+        end.to change { intake.reload.client.number_of_required_documents_uploaded }.from(0).to(1)
+
         expect(intake.client.number_of_required_documents_uploaded).to eq(1)
       end
+
+      context "when multiple documents are required of the same type" do
+        let(:dependents_intake) { create(:intake, {}) }
+        let!(:dependent1) { create :dependent, intake: dependents_intake }
+        let!(:dependent2) { create :dependent, intake: dependents_intake }
+
+        it "counts all documents up to the # required but no more" do
+          # One SsnItin for the primary filer and each dependent
+          expect do
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+          end.to change { dependents_intake.reload.client.number_of_required_documents_uploaded }.from(0).to(3)
+
+          # Additional SsnItin do not contribute
+          expect do
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+          end.not_to change { dependents_intake.reload.client.number_of_required_documents_uploaded }
+        end
+      end
     end
-  end
-
-  describe "#number_of_required_documents" do
-    let(:health_and_wages_intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
-    let(:minimal_intake) { create(:intake, {}) }
-
-    it "returns at least three to include required documents" do
-      expect(minimal_intake.client.number_of_required_documents).to eq(3)
-    end
-
-    it "returns expected documents for particular intake forms" do
-      expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
-    end
-
   end
 end

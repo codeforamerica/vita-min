@@ -114,6 +114,7 @@ class Dependent < ApplicationRecord
     parts << suffix if suffix.present?
     parts.compact.join(' ')
   end
+  alias_method :first_and_last_name, :full_name
 
   def error_summary
     if errors.present?
