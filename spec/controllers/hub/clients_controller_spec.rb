@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
+  include FeatureHelpers
+
   let!(:organization) { create :organization, allows_greeters: false }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
@@ -798,12 +800,24 @@ RSpec.describe Hub::ClientsController do
 
           it "shows whether a client is waiting for a response or update" do
             get :index
+            table_rows = table_contents(Nokogiri::HTML.parse(response.body).css('.client-table'))
 
-            html = Nokogiri::HTML.parse(response.body)
-            expect(html.at_css("#client-#{client_update.id}").children[17].text).to eq("Update")
-            expect(html.at_css("#client-#{client_response_min.id}").children[17].text).to eq("Response")
-            expect(html.at_css("#client-#{client_response_hours.id}").children[17].text).to eq("Response")
-            expect(html.at_css("#client-#{client_response_days.id}").children[17].text).to eq("Response")
+            expected_rows = [
+              {
+                'Client ID' => client_update.id.to_s,
+                'Waiting on' => 'Update',
+              }, {
+                'Client ID' => client_response_min.id.to_s,
+                'Waiting on' => 'Response'
+              }, {
+                'Client ID' => client_response_hours.id.to_s,
+                'Waiting on' => 'Response'
+              }, {
+                'Client ID' => client_response_days.id.to_s,
+                'Waiting on' => 'Response',
+              }
+            ]
+            expect(table_rows.sort_by { |row| row['Client ID'] }).to match_rows(expected_rows)
           end
         end
       end
