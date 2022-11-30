@@ -10,7 +10,7 @@ module RelationshipsHelper
   end
 
   def relationship_label(relationship)
-    return nil if relationship.nil?
+    return nil if relationship.blank?
 
     I18n.t("general.dependent_relationships.#{relationship}", default: relationship)
   end
