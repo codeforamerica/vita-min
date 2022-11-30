@@ -373,7 +373,7 @@ class Intake < ApplicationRecord
 
   def duplicates
     return itin_duplicates if itin_applicant?
-    return self.class.none if primary_ssn.present? && primary_ssn.start_with?('12345')
+    return self.class.none if Rails.configuration.allow_magic_ssn && primary_ssn.present? && primary_ssn.start_with?('12345')
     return self.class.none unless hashed_primary_ssn.present?
 
     DeduplicationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
