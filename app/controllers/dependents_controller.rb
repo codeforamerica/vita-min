@@ -3,7 +3,11 @@ class DependentsController < ApplicationController
 
   helper_method :next_path
 
-  def self.flow_explorer_actions
+  def self.show?(intake)
+    intake.had_dependents_yes?
+  end
+
+  def self.navigation_actions
     [:index, :new]
   end
 
