@@ -1618,8 +1618,8 @@ RSpec.describe Hub::ClientsController do
         expect(client.intake.primary.first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
         first_dependent.reload
-        # expect(first_dependent.first_name).to eq "Updated Dependent"
-        # expect(client.intake.dependents.count).to eq 2
+        expect(first_dependent.first_name).to eq "Updated Dependent"
+        expect(client.intake.dependents.count).to eq 2
         expect(response).to redirect_to hub_client_path(id: client.id)
         system_note = SystemNote::ClientChange.last
         expect(system_note.client).to eq(client)
