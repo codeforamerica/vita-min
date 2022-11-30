@@ -1133,6 +1133,11 @@ describe Intake do
 
     context "when primary ssn starts with '12345'" do
       let(:intake) { create :ctc_intake, primary_ssn: '123456789' }
+
+      before do
+        allow(Rails.configuration).to receive(:allow_magic_ssn).and_return(true)
+      end
+
       it "will not find any duplicates" do
         expect(intake.duplicates).to be_empty
         expect(DeduplicationService).not_to have_received(:duplicates)
