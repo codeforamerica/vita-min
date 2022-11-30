@@ -26,7 +26,9 @@
         </li>
 
         <li>
-          <%= link_to variation == "ctc" ? "https://www.getyourrefund.org/en/faq/child_tax_credit" : faq_path do %>
+          <%= link_to variation == "ctc" ?
+                        url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: "section_index", section_key: :child_tax_credit) :
+                        faq_path do %>
           <%= t("general.faq") %>
             <% end %>
         </li>
