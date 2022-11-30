@@ -141,7 +141,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
-  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, :documents, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
   scope :has_active_tax_returns, -> do
     includes(:intake, tax_returns: :tax_return_transitions)
@@ -341,18 +341,24 @@ class Client < ApplicationRecord
   end
 
   def number_of_required_documents
-    return 1 if intake.blank? || intake.is_ctc?
-
-    intake.relevant_document_types.select(&:needed_if_relevant?).map do |document_type|
-      document_type.required_persons(intake).length
-    end.sum
+    required_document_counts.map { |_type, counts| counts[:required_count] }.sum
   end
 
   def number_of_required_documents_uploaded
-    return 0 if intake.blank? || intake.is_ctc?
+    required_document_counts.map { |_type, counts| counts[:clamped_provided_count] }.sum
+  end
 
-    intake.relevant_document_types.select(&:needed_if_relevant?).map do |document_type|
-      [document_type.required_persons(intake).length, documents.select { |d| d.document_type == document_type.key }.length].min
-    end.sum
+  def required_document_counts
+    return {} if intake.blank? || intake.is_ctc?
+
+    intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
+      required_count = document_type.required_persons(intake).length
+      provided_count = documents.select { |d| d.document_type == document_type.key }.length
+      result[document_type.to_s] = {
+        required_count: required_count,
+        provided_count: provided_count,
+        clamped_provided_count: [required_count, provided_count].min
+      }
+    end
   end
 end

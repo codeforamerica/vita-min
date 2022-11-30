@@ -257,16 +257,12 @@ RSpec.describe Hub::TakeActionForm do
 
   describe "#contact_method_options" do
     let(:form) { Hub::TakeActionForm.new(client, current_user) }
-    before do
-      allow(I18n).to receive(:t).with("general.email").and_return("Email message")
-      allow(I18n).to receive(:t).with("general.text_message").and_return("Text message")
-    end
 
     context "with a client opted-in to just email" do
       let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com" }
 
       it "shows only email as a contact option" do
-        expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}])
+        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email')}])
       end
     end
 
@@ -274,7 +270,7 @@ RSpec.describe Hub::TakeActionForm do
       let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com", sms_notification_opt_in: "yes" }
 
       it "shows only text message as a contact option" do
-        expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}, {value: "text_message", label: "Text message"}])
+        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email')}, {value: "text_message", label: I18n.t('general.text_message')}])
       end
     end
 
@@ -282,7 +278,7 @@ RSpec.describe Hub::TakeActionForm do
       let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "" }
 
       it "does not show email address as a contact option" do
-        expect(form.contact_method_options).not_to include({ value: "email", label: "Email message" })
+        expect(form.contact_method_options).not_to include({ value: "email", label: I18n.t('general.email') })
       end
     end
 
