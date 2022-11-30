@@ -36,7 +36,7 @@ class FlowExplorerScreenshots
   end
 
   def create_flow_explorer_screenshot
-    if @controller_class&.flow_explorer_actions&.include?(@controller_action)
+    if @controller_class&.navigation_actions&.include?(@controller_action)
       if ENV['FLOW_EXPLORER_LOCALE'].present?
         create_controller_card_screenshot(locale: ENV['FLOW_EXPLORER_LOCALE'].to_sym)
       else

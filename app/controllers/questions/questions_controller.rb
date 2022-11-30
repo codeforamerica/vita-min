@@ -38,12 +38,12 @@ module Questions
 
     def next_path
       next_step = form_navigation.next
-      next_step&.to_path_helper
+      next_step&.to_path_helper(action: next_step.navigation_actions.first)
     end
 
     def prev_path
       prev_step = form_navigation&.prev
-      prev_step&.to_path_helper
+      prev_step&.to_path_helper(action: prev_step.navigation_actions.first)
     end
 
     def has_unsure_option?

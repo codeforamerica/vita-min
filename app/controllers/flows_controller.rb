@@ -74,9 +74,6 @@ class FlowsController < ApplicationController
         doc_overview_index = gyr_flow.index(Questions::OverviewDocumentsController)
         gyr_flow.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
 
-        had_dependents_index = gyr_flow.index(Questions::HadDependentsController)
-        gyr_flow.insert(had_dependents_index + 1, DependentsController)
-
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
@@ -129,7 +126,7 @@ class FlowsController < ApplicationController
 
     def controller_actions
       @controllers.map do |controller_class|
-        controller_class.flow_explorer_actions.map do |controller_action|
+        controller_class.navigation_actions.map do |controller_action|
           DecoratedController.new(controller_class, controller_action, @current_controller)
         end
       end.flatten

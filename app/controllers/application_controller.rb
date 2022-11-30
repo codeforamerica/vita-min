@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     "views.#{controller_path.tr('/', '.')}"
   end
 
-  def self.flow_explorer_actions
+  def self.navigation_actions
     [:edit]
   end
 

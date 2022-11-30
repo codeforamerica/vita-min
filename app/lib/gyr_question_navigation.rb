@@ -81,7 +81,7 @@ class GyrQuestionNavigation
       # Dependents
       Questions::HadDependentsController,
 
-      # DependentsController (if they had dependents)
+      DependentsController,
 
       # Dependent related questions
       Questions::DependentCareController,
