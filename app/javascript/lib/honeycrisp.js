@@ -148,6 +148,7 @@ var immediateUpload = (function() {
         $formInputs.each(function(index, formInput) {
             var $form = $(formInput).closest('form');
             $form.find("button[type=submit]").hide();
+            $form.find("input[type=submit]").hide();
             $form.find('label[for=' + formInput.id + ']').show();
             $(formInput).addClass('file-upload__input');
         }).change(function(event) {
