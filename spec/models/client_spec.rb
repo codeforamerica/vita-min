@@ -18,6 +18,7 @@
 #  identity_verification_denied_at             :datetime
 #  identity_verified_at                        :datetime
 #  in_progress_survey_sent_at                  :datetime
+#  last_13614c_update_at                       :datetime
 #  last_incoming_interaction_at                :datetime
 #  last_internal_or_outgoing_interaction_at    :datetime
 #  last_outgoing_communication_at              :datetime

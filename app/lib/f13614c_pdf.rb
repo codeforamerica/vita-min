@@ -21,6 +21,7 @@ class F13614cPdf
   def hash_for_pdf
     answers = {
       street_address: @intake.street_address,
+      apt: @intake.street_address2,
       city: @intake.city,
       state: @intake.state&.upcase,
       zip_code: @intake.zip_code,
@@ -119,7 +120,7 @@ class F13614cPdf
   def primary_info
     {
       first_name: @intake.primary.first_name,
-      middle_initial: nil,
+      middle_initial: @intake.primary.middle_initial,
       last_name: @intake.primary.last_name,
       date_of_birth: strftime_date(@intake.primary.birth_date),
       phone_number: @intake.formatted_phone_number,
@@ -135,7 +136,7 @@ class F13614cPdf
   def spouse_info
     {
       spouse_first_name: @intake.spouse.first_name,
-      spouse_middle_initial: nil,
+      spouse_middle_initial: @intake.spouse.middle_initial,
       spouse_last_name: @intake.spouse.last_name,
       spouse_date_of_birth: strftime_date(@intake.spouse.birth_date),
       spouse_job_title: nil,

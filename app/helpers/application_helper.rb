@@ -85,6 +85,31 @@ module ApplicationHelper
     ["I", "II", "III", "IV", "V", "Jr", "Sr"]
   end
 
+  def yes_no_unsure_options_for_select
+    [
+      ["", "unfilled"],
+      [I18n.t("general.affirmative"), "yes"],
+      [I18n.t("general.negative"), "no"],
+      [I18n.t("general.unsure"), "unsure"],
+    ]
+  end
+def short_yes_no_unsure_options_for_select
+    [
+      ["", "unfilled"],
+      ['Y', "yes"],
+      ['N', "no"],
+      ['?', "unsure"],
+    ]
+  end
+
+  def yes_no_options_for_select
+    [
+      ["", "unfilled"],
+      [I18n.t("general.affirmative"), "yes"],
+      [I18n.t("general.negative"), "no"],
+    ]
+  end
+
   def submission_status_icon(status)
     case status
     when "intake_in_progress", "fraud_hold"

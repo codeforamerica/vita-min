@@ -1554,4 +1554,120 @@ RSpec.describe Hub::ClientsController do
       end
     end
   end
+
+  describe "#update_13614c_form" do
+    let(:client) { create :client, vita_partner: organization, intake: intake }
+
+    let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", dependents: [build(:dependent), build(:dependent)] }
+    let(:first_dependent) { intake.dependents.first }
+    let(:params) {
+      {
+        id: client.id,
+        hub_update13614c_form_page1: {
+          primary_first_name: "Updated",
+          primary_last_name: "Name",
+          married: intake.married,
+          separated: intake.separated,
+          widowed: intake.widowed,
+          lived_with_spouse: intake.lived_with_spouse,
+          divorced: intake.divorced,
+          divorced_year: intake.divorced_year,
+          separated_year: intake.separated_year,
+          widowed_year: intake.widowed_year,
+          email_address: intake.email_address,
+          phone_number: intake.phone_number,
+          street_address: intake.street_address,
+          city: intake.city,
+          state: intake.state,
+          zip_code: intake.zip_code,
+          spouse_first_name: intake.spouse.first_name,
+          spouse_last_name: intake.spouse.last_name,
+          spouse_email_address: intake.spouse_email_address,
+          dependents_attributes: {
+            "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+            "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+            "2" => { id: intake.dependents.last.id, _destroy: "1" }
+          },
+          was_blind: "no",
+          was_full_time_student: "unfilled",
+          spouse_was_blind: "no",
+          claimed_by_another: "unfilled",
+          had_disability: "unfilled",
+          spouse_had_disability: "unfilled",
+          issued_identity_pin: "unfilled",
+          spouse_was_full_time_student: "unfilled",
+        }
+      }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :update_13614c_form
+
+    context "with a signed in user" do
+      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+      before do
+        sign_in user
+      end
+
+      it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        expect do
+          put :update_13614c_form, params: params
+        end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+        client.reload
+        expect(client.intake.primary.first_name).to eq "Updated"
+        expect(client.legal_name).to eq "Updated Name"
+        first_dependent.reload
+        expect(first_dependent.first_name).to eq "Updated Dependent"
+        expect(client.intake.dependents.count).to eq 2
+        expect(response).to redirect_to hub_client_path(id: client.id)
+        system_note = SystemNote::ClientChange.last
+        expect(system_note.client).to eq(client)
+        expect(system_note.user).to eq(user)
+        expect(system_note.data['changes']).to match({
+                                                       "primary_last_name" => [intake.primary.last_name, "Name"],
+                                                       "primary_first_name" => [intake.primary.first_name, "Updated"],
+                                                     })
+      end
+
+      context "with invalid params" do
+        let(:params) {
+          {
+            id: client.id,
+            hub_update13614c_form_page1: {
+              primary_first_name: "",
+            }
+          }
+        }
+
+        it "renders edit" do
+          put :update_13614c_form, params: params
+
+          expect(response).to render_template :edit_13614c_form
+        end
+      end
+
+      context "with invalid dependent params" do
+        let(:params) {
+          {
+            id: client.id,
+            hub_update13614c_form_page1: {
+              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+            }
+          }
+        }
+
+        it "renders edit" do
+          put :update_13614c_form, params: params
+
+          expect(response).to render_template :edit_13614c_form
+        end
+
+        it "displays a flash message" do
+          put :update_13614c_form, params: params
+          expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+        end
+      end
+    end
+  end
 end

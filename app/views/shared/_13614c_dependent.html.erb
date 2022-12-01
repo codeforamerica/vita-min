@@ -1,0 +1,30 @@
+<tr class="dependent-form">
+  <%= f.hidden_field :id %>
+  <td><%= f.cfa_input_field :first_name, "", classes: ["form-width--long"] %></td>
+  <td><%= f.cfa_input_field :last_name, "", classes: ["form-width--long"] %></td>
+
+  <td><%= f.vita_min_date_text_fields(
+            :birth_date,
+            "",
+          ) %></td>
+  <td><%= f.cfa_select(
+            :relationship,
+            "",
+            dependent_relationship_options(current_relationship: f.object.relationship),
+            include_blank: true
+          ) %></td>
+  <td><%= f.cfa_select :months_in_home, "", 1..12 %></td>
+  <td><%= f.cfa_select :north_american_resident, "", short_yes_no_unsure_options_for_select %></td>
+  <td><%= f.cfa_select :was_married, "", [
+    ["", "unfilled"],
+    ['S', "no"],
+    ['M', "yes"],
+  ] %></td>
+  <td><%= f.cfa_select :was_student, "", short_yes_no_unsure_options_for_select %></td>
+  <td><%= f.cfa_select :disabled, "", short_yes_no_unsure_options_for_select %></td>
+
+  <td>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small" } %>
+  </td>
+</tr>

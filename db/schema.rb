@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_222450) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -554,6 +554,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_222450) do
     t.datetime "identity_verification_denied_at", precision: nil
     t.datetime "identity_verified_at", precision: nil
     t.datetime "in_progress_survey_sent_at", precision: nil
+    t.datetime "last_13614c_update_at", precision: nil
     t.datetime "last_incoming_interaction_at", precision: nil
     t.datetime "last_internal_or_outgoing_interaction_at", precision: nil
     t.datetime "last_outgoing_communication_at", precision: nil

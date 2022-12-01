@@ -1,0 +1,119 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="form_13614c slab slab--not-padded">
+    <h1><%= @title %></h1>
+    <p>Last client 13614-C
+      update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
+    <h2>Part I – Your Personal Information</h2>
+    <hr>
+    <%= form_with model: @form,
+                  url: update_13614c_form_hub_client_path,
+                  method: :put, local: true, builder: VitaMinFormBuilder,
+                  html: { class: 'form-card' } do |f| %>
+      <div id="primary-info" class="hub-form__row">
+        <%= f.cfa_input_field(:primary_first_name, t(".fields.first_name")) %>
+        <%= f.cfa_input_field(:primary_middle_initial, t(".fields.middle_initial"), classes: ["form-width--short"]) %>
+        <%= f.cfa_input_field(:primary_last_name, t(".fields.last_name")) %>
+        <%= f.cfa_input_field(:phone_number, t(".fields.contact_number"), classes: ["form-width--phone"]) %>
+      </div>
+
+      <div id="spouse-info" class="hub-form__row">
+        <%= f.cfa_input_field(:spouse_first_name, t(".fields.spouse_first_name")) %>
+        <%= f.cfa_input_field(:spouse_middle_initial, t(".fields.middle_initial"), classes: ["form-width--short"]) %>
+        <%= f.cfa_input_field(:spouse_last_name, t(".fields.last_name")) %>
+      </div>
+
+      <div id="address-fields" class="hub-form__row">
+        <%= f.cfa_input_field(:street_address, t("hub.clients.fields.mailing_address")) %>
+        <%= f.cfa_input_field(:street_address2, t(".fields.apt")) %>
+        <%= f.cfa_input_field(:city, t("general.city")) %>
+        <%= f.cfa_select(:state, t("general.state"), States.name_value_pairs, include_blank: true) %>
+        <%= f.cfa_input_field(:zip_code, t("general.zip_code"), classes: ["form-width--zip"]) %>
+      </div>
+
+      <div id="primary-additional-info" class="hub-form__row">
+        <%= f.vita_min_date_text_fields(
+              :primary_birth_date,
+              t(".fields.dob"),
+            ) %>
+        <label class="form-question last-year-label"> <%= t('.last_year_were_you') %> </label>
+        <%= f.cfa_select(:was_full_time_student, t(".fields.was_full_time_student"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_disability, t(".fields.had_disability"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:was_blind, t(".fields.blind"), yes_no_unsure_options_for_select) %>
+      </div>
+
+      <div id="spouse-additional-info" class="hub-form__row">
+        <%= f.vita_min_date_text_fields(
+              :spouse_birth_date,
+              t(".fields.spouse_dob"),
+            ) %>
+
+        <label class="form-question last-year-label"> <%= t('.last_year_was_your_spouse') %> </label>
+
+        <%= f.cfa_select(:spouse_was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+      </div>
+
+      <div class="hub-form__row">
+        <%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_unsure_options_for_select) %>
+      </div>
+      <div class="hub-form__row">
+        <%= f.cfa_select(:issued_identity_pin, t(".fields.issued_identity_pin"), yes_no_unsure_options_for_select) %>
+      </div>
+      <div class="hub-form__row">
+        <%= f.cfa_input_field(:email_address, t(".fields.email_optional")) %>
+      </div>
+
+      <div id="marital-status-fields">
+        <h2>Part II – Marital Status and Household Information</h2>
+        <hr>
+        <h3><%= t(".what_was_your_marital_status", current_tax_year: TaxReturn.current_tax_year) %></h3>
+        <div class="hub-form__row">
+          <%= f.hub_checkbox(:married, t("general.married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_select(:lived_with_spouse, t(".fields.lived_with_spouse"), yes_no_unsure_options_for_select) %>
+        </div>
+        <div class="hub-form__row">
+          <%= f.hub_checkbox(:divorced, t("general.divorced"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_input_field(:divorced_year, "#{t("general.divorced")} #{t("general.year")}", classes: ["form-width--short"]) %>
+        </div>
+        <div class="hub-form__row">
+          <%= f.hub_checkbox(:separated, t("general.separated"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_input_field(:separated_year, "#{t("general.separated")} #{t("general.year")}", classes: ["form-width--short"]) %>
+        </div>
+        <div class="hub-form__row">
+          <%= f.hub_checkbox(:widowed, t("general.widowed"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_input_field(:widowed_year, "#{t("general.widowed")} #{t("general.year")}", classes: ["form-width--short"]) %>
+        </div>
+      </div>
+
+      <div id="dependents-fields">
+        <h3>List the names below of:</h3>
+        <%= error_message(@form, :dependents_attributes) %>
+        <table id="dependents-table">
+          <tr>
+            <th><%= t("hub.clients.edit_13614c_form.fields.first_name") %></th>
+            <th><%= t("hub.clients.edit_13614c_form.fields.last_name") %></th>
+            <th><%= t("hub.clients.edit_13614c_form.fields.dob") %></th>
+            <th>Relationship</th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.months_in_home") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.north_american_resident") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.was_married") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.was_student") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.disabled") %></th>
+            <th></th>
+          </tr>
+          <%= f.fields_for :dependents do |ff| %>
+            <%= render "shared/13614c_dependent", f: ff %>
+          <% end %>
+        </table>
+        <%= link_to_add_fields t("views.shared.dependents_fields.add_dependent"), f, :dependents, { class: "button button--small", target: '#dependents-table tbody' }, partial: "shared/13614c_dependent" %>
+      </div>
+
+      <button class="button button--cta" type="submit">
+        <%= t("general.save") %>
+      </button>
+    <% end %>
+  </div>
+<% end %>

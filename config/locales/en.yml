@@ -631,6 +631,32 @@ en:
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
         title: Edit Client Profile
+      edit_13614c_form:
+        fields:
+          apt: Apt.
+          blind: Legally blind
+          claimed_by_another: Can anyone claim you or your spouse as a dependent?
+          contact_number: Contact Number
+          disabled: Totally and Permanently Disabled
+          dob: DOB
+          email_optional: Email (Optional)
+          first_name: First Name
+          had_disability: Totally and permanently disabled
+          issued_identity_pin: Have you, your spouse, or dependents been a victim of tax related identity theft or been issued an Identity Protection PIN?
+          last_name: Last Name
+          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2021?
+          middle_initial: M.I.
+          months_in_home: "# of mos. lived in home last year:"
+          north_american_resident: 'Resident of US, CAN or MEX last year:'
+          spouse_dob: Spouse's DOB
+          spouse_first_name: Spouse’s First Name
+          was_full_time_student: Full Time Student
+          was_married: Single or Married as of 12/31/21
+          was_student: Full-time Student last year
+        last_year_was_your_spouse: 'Last year, was your spouse:'
+        last_year_were_you: 'Last year, were you:'
+        title: 13614-C
+        what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -736,6 +762,7 @@ en:
         basic_info: Basic Info
         date_of_birth: Date of birth
         date_of_birth_help: mm/dd/yyyy
+        edit_13614c: Edit 13614-C
         email: Email
         filing_status: Filing Status
         intake_language: Intake Language

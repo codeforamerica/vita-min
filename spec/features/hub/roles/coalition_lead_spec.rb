@@ -53,7 +53,7 @@ RSpec.feature "Coalition lead role" do
       end
 
       within ".client-profile" do
-        click_on "Edit"
+        click_on "Edit info"
       end
 
       within "#primary-info" do
