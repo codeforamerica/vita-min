@@ -1485,7 +1485,7 @@ en:
       new:
         one_form_of_contact: 'Please enter one form of contact below:'
         send_code: Send code
-        title: To view your progress, we’ll send you a secure code.
+        title: We’ll send you a secure code to sign in
     messages:
       create:
         message_sent: Message sent!

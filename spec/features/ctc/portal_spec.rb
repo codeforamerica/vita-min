@@ -5,7 +5,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     def log_in_to_ctc_portal
       visit "/en/portal/login"
 
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+      expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
       fill_in "Email address", with: "mango@example.com"
       click_on "Send code"
 
@@ -37,7 +37,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     scenario "they get the no match found email" do
       visit "/en/portal/login"
 
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+      expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
       fill_in "Email address", with: "mango@example.com"
       click_on "Send code"
 
