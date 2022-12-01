@@ -33,8 +33,8 @@
     </ul>
     <p><%= t("views.ctc.questions.file_full_return.help_text_eitc") %></p>
   <% else %>
-    <p><%= t("views.ctc.questions.file_full_return.help_text1", current_tax_year: current_tax_year) %></p>
-    <p><%= t("views.ctc.questions.file_full_return.help_text2", current_tax_year: current_tax_year) %></p>
+    <p><%= t("views.ctc.questions.file_full_return.help_text1", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %></p>
+    <p><%= t("views.ctc.questions.file_full_return.help_text2", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %></p>
   <% end %>
 
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.file_full_return.reveal.title")) do %>

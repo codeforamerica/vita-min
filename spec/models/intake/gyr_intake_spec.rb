@@ -360,7 +360,7 @@ describe Intake::GyrIntake do
 
       context "when there is another accessible intake with the same ssn" do
         let!(:dupe) {
-          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
+          (create :tax_return, :gyr_year, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
         }
         let(:intake) { create :intake, primary_ssn: "123456789" }
         it "returns that as a duplicate" do
@@ -402,6 +402,49 @@ describe Intake::GyrIntake do
 
       it "returns nil" do
         expect(intake.probable_previous_year_intake).to eq nil
+      end
+    end
+  end
+  describe "#most_recent_filing_year" do
+    let(:intake) { create :intake }
+    let!(:client) { create :client, tax_returns: [], intake: intake }
+
+    context "with unfilled filing years" do
+      it "returns current tax year" do
+        expect(intake.most_recent_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year
+      end
+    end
+
+    context "with multiple years" do
+      let!(:client) { create :client, tax_returns: [
+        create(:tax_return, year: 2019),
+        create(:tax_return, year: 2018)
+      ], intake: intake }
+
+      it "returns most recent" do
+        expect(intake.most_recent_filing_year).to eq(2019)
+      end
+    end
+  end
+
+  describe "#year_before_most_recent_filing_year" do
+    let(:intake) { create :intake }
+    let!(:client) { create :client, tax_returns: [], intake: intake }
+
+    context "with unfilled filing years" do
+      it "returns prior tax year" do
+        expect(intake.year_before_most_recent_filing_year).to eq 2021
+      end
+    end
+
+    context "when a year is selected" do
+      let!(:client) { create :client, tax_returns: [
+        create(:tax_return, year: 2019),
+        create(:tax_return, year: 2018)
+      ], intake: intake }
+
+      it "returns the year before most recent filing year" do
+        expect(intake.year_before_most_recent_filing_year).to eq 2018
       end
     end
   end

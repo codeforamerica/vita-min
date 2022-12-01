@@ -20,7 +20,7 @@
 FactoryBot.define do
   factory :efile_submission do
     transient do
-      tax_year { TaxReturn.current_tax_year }
+      tax_year { MultiTenantService.new(:ctc).current_tax_year }
       filing_status { "single" }
       metadata { {} }
     end

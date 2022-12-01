@@ -1,7 +1,7 @@
 <% if current_intake.filing_jointly? %>
-  <% content_for :form_question, t("views.ctc.questions.investment_income.married_title",current_tax_year: current_tax_year) %>
+  <% content_for :form_question, t("views.ctc.questions.investment_income.married_title",current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 <% else %>
-  <% content_for :form_question, t("views.ctc.questions.investment_income.title",current_tax_year: current_tax_year) %>
+  <% content_for :form_question, t("views.ctc.questions.investment_income.title",current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 <% end %>
 
 <% content_for :form_help_text do %>

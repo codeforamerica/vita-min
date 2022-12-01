@@ -72,6 +72,7 @@ RSpec.describe "a user viewing a client" do
 
       it "can view intake information" do
         visit hub_client_path(id: client.id)
+        puts TaxReturn.all.map &:year
         expect(page).to have_content(archived_intake.preferred_name)
         expect(page).to have_content(archived_dependent_1.full_name)
         expect(page).to have_content(archived_dependent_2.full_name)

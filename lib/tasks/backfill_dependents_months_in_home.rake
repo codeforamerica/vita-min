@@ -20,7 +20,7 @@ namespace :dependents do
       batch.each do |dependent|
         next if dependent.months_in_home.nil? || dependent.months_in_home.to_i > 11 || dependent.intake.drop_off?
 
-        months_in_home = if dependent.born_in_final_6_months_of_tax_year?(TaxReturn.current_tax_year)
+        months_in_home = if dependent.born_in_final_6_months_of_tax_year?(MultiTenantService.new(:ctc).current_tax_year)
                            12
                          else
                            dependent.months_in_home.to_i + 1

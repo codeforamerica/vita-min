@@ -10,7 +10,7 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true, requi
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     choose I18n.t('views.ctc.questions.main_home.options.military_facility')
     click_on I18n.t('general.continue')
 

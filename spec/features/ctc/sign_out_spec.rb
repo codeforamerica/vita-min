@@ -20,7 +20,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.continue')
     choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
     expect(page).to have_text(I18n.t("views.ctc.questions.income_qualifier.subtitle"))
     click_on I18n.t('general.affirmative')

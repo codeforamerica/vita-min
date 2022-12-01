@@ -25,8 +25,8 @@
       <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.primary_ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
       <div class="tight-checkboxes">
-        <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        <%= f.cfa_checkbox(:was_blind, t("views.ctc.questions.legal_consent.primary_was_blind", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces", current_tax_year: MultiTenantService.new(:ctc).current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:was_blind, t("views.ctc.questions.legal_consent.primary_was_blind", current_tax_year: MultiTenantService.new(:ctc).current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       </div>
       <%= recaptcha_v3(action: 'legal_consent') %>
     </div>

@@ -18,8 +18,8 @@ RSpec.feature "Add a tax return for an existing client" do
       click_on "Add tax year"
 
       expect(page).to have_selector("h1", text: "Add tax year for Bart Simpson")
-      expect(page).to have_select("Tax year", options: (TaxReturn.filing_years - [2019]).map(&:to_s))
-      select "2018", from: "Tax year"
+      expect(page).to have_select("Tax year", options: (MultiTenantService.new(:gyr).filing_years - [2019]).map(&:to_s))
+      select "2020", from: "Tax year"
       select "Org Lead", from: "Assigned user"
       select "Basic", from: "Certification level"
       select "Greeter - info requested", from: "Status"
@@ -29,7 +29,7 @@ RSpec.feature "Add a tax return for an existing client" do
       new_tax_return = TaxReturn.last
       within "#tax-return-#{new_tax_return.id}" do
         expect(page).to have_selector(".certification-label", text: "BAS")
-        expect(page).to have_text "2018"
+        expect(page).to have_text "2020"
         expect(page).to have_text "Org Lead"
         expect(page).to have_text "Greeter - info requested"
       end
@@ -38,9 +38,9 @@ RSpec.feature "Add a tax return for an existing client" do
     context "when there are no more tax return years to create objects for" do
       before do
         # 2019 already created above
-        create :tax_return, client: client, year: 2018
-        create :tax_return, client: client
-        create :tax_return, client: client, year: 2017
+        create :tax_return, client: client, year: 2020
+        create :tax_return, client: client, year: 2021
+        create :tax_return, client: client, year: MultiTenantService.new(:gyr).current_tax_year
       end
 
       scenario "it does not show the button on the client show page" do
@@ -49,6 +49,5 @@ RSpec.feature "Add a tax return for an existing client" do
         expect(page).not_to have_text "Add tax year"
       end
     end
-
   end
 end

@@ -11,7 +11,7 @@ module Questions
     end
 
     def load_possible_filing_years
-      @possible_filing_years = TaxReturn.filing_years
+      @possible_filing_years = MultiTenantService.new(:gyr).filing_years # TODO: this uses reference to TaxReturn.current_tax_year :(
     end
   end
 end

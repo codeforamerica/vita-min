@@ -157,7 +157,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
+        let!(:tax_return) { create :tax_return, :gyr_year, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
         it "sends a Mixpanel event" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep", { additional_data: "1234"})
@@ -189,7 +189,7 @@ describe MixpanelService do
       end
 
       context "when the event is triggered by the system" do
-        let!(:tax_return) { create :tax_return, :intake_before_consent, certification_level: "basic", client: client }
+        let!(:tax_return) { create :tax_return, :gyr_year, :intake_before_consent, certification_level: "basic", client: client }
 
         it "handles the lack of a last_changed_by user" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")
@@ -221,7 +221,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
+        let!(:tax_return) { create :tax_return, :gyr_year, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
 
         it "sends a status_change event" do
@@ -263,7 +263,7 @@ describe MixpanelService do
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do
-          let(:tax_return) { create :tax_return, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
+          let(:tax_return) { create :tax_return, :gyr_year, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
           before do
             TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return: tax_return).update(created_at: 28.hours.ago)
@@ -303,7 +303,7 @@ describe MixpanelService do
         end
 
         context "when the event is triggered by the system" do
-          let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
+          let(:tax_return) { create :tax_return, :gyr_year, certification_level: "basic", client: client }
 
           before do
             tax_return.transition_to(:prep_ready_for_prep)
@@ -333,7 +333,7 @@ describe MixpanelService do
         end
 
         context "when ready_for_prep_at has not been set" do
-          let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
+          let(:tax_return) { create :tax_return,:gyr_year, certification_level: "basic", client: client }
 
           before do
             tax_return.update_column(:created_at, 2.days.ago)
@@ -364,7 +364,7 @@ describe MixpanelService do
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do
-          let(:tax_return) { create :tax_return, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
+          let(:tax_return) { create :tax_return, :gyr_year, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
           before do
             TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return_id: tax_return.id).update(created_at: 28.hours.ago)
@@ -407,6 +407,8 @@ describe MixpanelService do
 
     describe '#data_from(obj)' do
       let(:state_of_residence) { 'CA' }
+      let(:primary_birth_year) { 1993 }
+      let(:spouse_birth_year) { 1992 }
       let(:vita_partner) { create(:organization, name: "test_partner") }
       let(:intake) do
         create(
@@ -423,8 +425,8 @@ describe MixpanelService do
           needs_help_2020: "no",
           needs_help_2019: "yes",
           needs_help_2018: "no",
-          primary_birth_date: Date.new(1993, 3, 12),
-          spouse_birth_date: Date.new(1992, 5, 3),
+          primary_birth_date: Date.new(primary_birth_year, 3, 12),
+          spouse_birth_date: Date.new(spouse_birth_year, 5, 3),
           vita_partner: vita_partner,
           timezone: "America/Los_Angeles",
           satisfaction_face: "neutral",
@@ -440,6 +442,7 @@ describe MixpanelService do
           triage_vita_income_ineligible: "no",
         )
       end
+
 
       let(:intake2) { create :intake }
 
@@ -482,8 +485,8 @@ describe MixpanelService do
                                            intake_source: "beep",
                                            intake_referrer: "http://boop.horse/mane",
                                            intake_referrer_domain: "boop.horse",
-                                           primary_filer_age: "28",
-                                           spouse_age: "29",
+                                           primary_filer_age: (MultiTenantService.new(:gyr).current_tax_year - primary_birth_year).to_s,
+                                           spouse_age: (MultiTenantService.new(:gyr).current_tax_year - spouse_birth_year).to_s,
                                            with_general_navigator: true,
                                            with_incarcerated_navigator: false,
                                            with_limited_english_navigator: true,
@@ -518,7 +521,8 @@ describe MixpanelService do
           let(:intake) do
             build(
               :intake,
-              needs_help_2021: "yes",
+              # TODO: add needs_help_2022: "yes"
+              needs_help_2021: "no",
               needs_help_2020: "no",
               needs_help_2019: "no",
               needs_help_2018: "no",

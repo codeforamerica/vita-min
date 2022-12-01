@@ -1,14 +1,14 @@
 require "rails_helper"
 
 describe Efile::DependentEligibility::QualifyingChild do
-  subject { described_class.new(dependent, TaxReturn.current_tax_year) }
-  let(:intake) { create(:ctc_intake, client: create(:client, :with_return)) }
+  subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year) }
+  let(:intake) { create(:ctc_intake, client: create(:client, :with_ctc_return)) }
 
   context "when passing an EfileSubmissionDependent who already has their qualification persisted on the record" do
     let(:dependent) { EfileSubmissionDependent.create(efile_submission: (create :efile_submission), dependent: (create :dependent), qualifying_child: true) }
     it "does not run the qualifying logic again because they are 'prequalified'" do
-      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).qualifies?).to eq true
-      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).is_prequalified_submission_dependent?).to eq true
+      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, MultiTenantService.new(:ctc).current_tax_year).qualifies?).to eq true
+      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, MultiTenantService.new(:ctc).current_tax_year).is_prequalified_submission_dependent?).to eq true
     end
   end
 
@@ -66,7 +66,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     # A special age test that disqualifies people when they're born AFTER the tax year
     context "when < 0" do
       let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake }
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year + 1, 1, 1) }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year + 1, 1, 1) }
 
       context "even when disabled" do
         let(:permanently_totally_disabled) { "yes" }
@@ -86,7 +86,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     let(:dependent) { create :qualifying_child, permanently_totally_disabled: permanently_totally_disabled, full_time_student: full_time_student, birth_date: birth_date, intake: intake }
 
     context "when < 19" do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) - 18.years }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year, 1, 1) - 18.years }
 
       context "when not a full time student and not disabled" do
         let(:permanently_totally_disabled) { "no" }
@@ -99,7 +99,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     end
 
     context "when > 19, < 24" do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) - 23.years }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year, 1, 1) - 23.years }
 
       context "when not a full time student, not disabled" do
         let(:permanently_totally_disabled) { "no" }
@@ -130,7 +130,7 @@ describe Efile::DependentEligibility::QualifyingChild do
       end
     end
     context "when > 24 " do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) - 25.years }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year, 1, 1) - 25.years }
 
       context "when not a full time student and not disabled" do
         let(:permanently_totally_disabled) { "no" }
@@ -169,7 +169,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   end
 
   describe "additional_puerto_rico_rules_test" do
-    let(:intake) { create(:ctc_intake, home_location: home_location, client: create(:client, :with_return)) }
+    let(:intake) { create(:ctc_intake, home_location: home_location, client: create(:client, :with_ctc_return)) }
     let(:birth_date) { Date.new(2019, 1, 1) }
     let(:tin_type) { "ssn" }
     let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake, tin_type: tin_type }
@@ -278,7 +278,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   describe "residence_test" do
     let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake }
     context "when dependent was born in last 6 months of the tax year" do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year, 7, 1) }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year, 7, 1) }
       it "returns true" do
         expect(subject.test_results[:residence_test]).to eq true
         expect(subject.qualifies?).to eq true
@@ -288,7 +288,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     context "when lived in the home for more than 6 months?" do
       let(:dependent) { create :qualifying_child, months_in_home: 7, intake: intake }
 
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year + 10, 7, 1) }
+      let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year + 10, 7, 1) }
       it "returns true" do
         expect(subject.test_results[:residence_test]).to eq true
         expect(subject.qualifies?).to eq true

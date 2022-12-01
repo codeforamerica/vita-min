@@ -49,7 +49,7 @@ module Ctc
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent).merge(birth_date: birth_date))
-        @dependent.months_in_home = 12 if @dependent.born_in_final_6_months_of_tax_year?(TaxReturn.current_tax_year)
+        @dependent.months_in_home = 12 if @dependent.born_in_final_6_months_of_tax_year?(MultiTenantService.new(:ctc).current_tax_year)
         @dependent.save!
 
         if attributes_for(:recaptcha)[:recaptcha_score].present?

@@ -118,34 +118,4 @@ describe Dependent do
       expect(error.reload.dependent_id).to eq nil
     end
   end
-
-  describe "#mixpanel_data" do
-    let(:dependent) do
-      build(
-        :dependent,
-        birth_date: Date.new(TaxReturn.current_tax_year - 5, 6, 15),
-        relationship: "Nibling",
-        months_in_home: 12,
-        was_student: "no",
-        on_visa: "no",
-        ssn: "123-12-1234",
-        north_american_resident: "yes",
-        disabled: "no",
-        was_married: "no"
-      )
-    end
-
-    it "returns the expected hash" do
-      expect(dependent.mixpanel_data).to eq({
-        dependent_age_at_end_of_tax_year: "5",
-        dependent_under_6: "yes",
-        dependent_months_in_home: "12",
-        dependent_was_student: "no",
-        dependent_on_visa: "no",
-        dependent_north_american_resident: "yes",
-        dependent_disabled: "no",
-        dependent_was_married: "no"
-      })
-    end
-  end
 end

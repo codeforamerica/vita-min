@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Efile::DependentEligibility::Base do
   let(:dependent) { create :dependent }
-  subject { described_class.new(dependent, TaxReturn.current_tax_year) }
+  subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year) }
 
   context "without rules defined" do
     it "raises an error that you need rules" do
@@ -28,7 +28,7 @@ describe Efile::DependentEligibility::Base do
       let(:dependent) { create :qualifying_child, birth_date: birth_date }
 
       context "when born on Jan 1 of the tax year" do
-        let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) }
+        let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year, 1, 1) }
 
         it "is 0" do
           expect(subject.age).to eq(0)
@@ -36,7 +36,7 @@ describe Efile::DependentEligibility::Base do
       end
 
       context "when born on Dec 31 of the previous year" do
-        let(:birth_date) { Date.new(TaxReturn.current_tax_year - 1, 12, 31) }
+        let(:birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year - 1, 12, 31) }
 
         it "is 1" do
           expect(subject.age).to eq(1)
@@ -50,7 +50,7 @@ describe Efile::DependentEligibility::Base do
       end
 
       context "with except" do
-        subject { described_class.new(dependent, TaxReturn.current_tax_year, except: :second_false_rule) }
+        subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year, except: :second_false_rule) }
         it "does not consider the rules that are sent in the only param" do
           expect(subject.disqualifiers).to eq [:false_rule]
         end
@@ -65,7 +65,7 @@ describe Efile::DependentEligibility::Base do
       end
 
       context "when except excluding with rules that return false" do
-        subject { described_class.new(dependent, TaxReturn.current_tax_year, except: [:second_false_rule, :false_rule]) }
+        subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year, except: [:second_false_rule, :false_rule]) }
         it "returns true" do
           expect(subject.qualifies?).to eq true
         end

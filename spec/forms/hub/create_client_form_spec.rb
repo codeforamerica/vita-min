@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::CreateClientForm do
   describe "#new" do
     it "initializes with empty tax_return objects for each valid filing year" do
-      expect(described_class.new.tax_returns.map(&:year)).to eq(TaxReturn.filing_years)
+      expect(described_class.new.tax_returns.map(&:year)).to eq(MultiTenantService.new(:gyr).filing_years)
     end
   end
 

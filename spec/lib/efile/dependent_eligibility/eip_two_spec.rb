@@ -8,7 +8,7 @@ describe Efile::DependentEligibility::EipTwo do
     end
 
     it "uses the passed in object instead of instantiating a new one" do
-      described_class.new((create :dependent), TaxReturn.current_tax_year, child_eligibility: child_eligibility)
+      described_class.new((create :dependent), MultiTenantService.new(:ctc).current_tax_year, child_eligibility: child_eligibility) # E-file -> CTC
       expect(child_eligibility).to have_received(:qualifies?)
     end
   end

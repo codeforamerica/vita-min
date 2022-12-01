@@ -4,7 +4,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
-  <%= t("views.ctc.offboarding.actc_without_dependents.subtitle_html", current_tax_year: current_tax_year) %>
+  <%= t("views.ctc.offboarding.actc_without_dependents.subtitle_html", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 
   <div class="spacing-above-60">
     <%= link_to t("views.ctc.offboarding.actc_without_dependents.file_with_gyr"),

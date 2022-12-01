@@ -195,7 +195,7 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
         end
 
         within ".tax-return-list" do
-          expect(page).to have_text TaxReturn.current_tax_year
+          expect(page).to have_text MultiTenantService.new(:ctc).current_tax_year
           expect(page).to have_text I18n.t('hub.tax_returns.status.intake_in_progress')
         end
       end

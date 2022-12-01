@@ -4,18 +4,18 @@ def begin_intake
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
   click_on I18n.t('general.continue')
 
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
   choose I18n.t('views.ctc.questions.main_home.options.military_facility')
   click_on I18n.t('general.continue')
 
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: current_tax_year))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
   click_on I18n.t('general.affirmative')
 
   expect(page).to have_text(I18n.t('views.ctc.questions.income_qualifier.subtitle'))
   click_on I18n.t('general.affirmative')
 
   within "h1" do
-    expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+    expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
   end
   click_on I18n.t('general.continue')
 
@@ -27,10 +27,10 @@ def begin_intake
   click_on I18n.t('general.continue')
 
   # =========== ELIGIBILITY ===========
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
   click_on I18n.t('general.negative')
 
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
   click_on I18n.t('general.negative')
 end
 

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::Dependents::RelativeFinancialSupportController do
-  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_ctc_return) }
   let(:dependent) { create :qualifying_relative, intake: intake, relationship: "other", residence_lived_with_all_year: "yes" }
 
   before do

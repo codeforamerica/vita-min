@@ -8,9 +8,9 @@ describe Efile::BenefitsEligibility do
   before do
     allow_any_instance_of(Efile::BenefitsEligibility).to receive(:rrc_eligible_filer_count).and_return 1
     intake.dependents.destroy_all
-    create :qualifying_child, intake: intake, birth_date: Date.new(TaxReturn.current_tax_year - 3, 01, 01)
-    create :qualifying_child, intake: intake, birth_date: Date.new(TaxReturn.current_tax_year - 12, 01, 01)
-    create :qualifying_child, intake: intake, permanently_totally_disabled: "yes", birth_date: Date.new(TaxReturn.current_tax_year - 30, 01, 01)
+    create :qualifying_child, intake: intake, birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year - 3, 01, 01)
+    create :qualifying_child, intake: intake, birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year - 12, 01, 01)
+    create :qualifying_child, intake: intake, permanently_totally_disabled: "yes", birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year - 30, 01, 01)  # E-File -> CTC
     create :qualifying_relative, intake: intake
   end
 
@@ -235,7 +235,7 @@ describe Efile::BenefitsEligibility do
     end
 
     context "when filing status is single" do
-      let(:client) { create :client, :with_return, filing_status: :single, intake: create(:ctc_intake, primary_tin_type: tin_type) }
+      let(:client) { create :client, :with_ctc_return, filing_status: :single, intake: create(:ctc_intake, primary_tin_type: tin_type) }
       let(:tin_type) { :itin }
 
       context "when the primary is using an ITIN" do
@@ -254,7 +254,7 @@ describe Efile::BenefitsEligibility do
     end
 
     context "when filing with a spouse" do
-      let(:client) { create :client, :with_return, filing_status: :married_filing_jointly }
+      let(:client) { create :client, :with_ctc_return, filing_status: :married_filing_jointly }
       let(:spouse_military) { "no" }
       let(:primary_military) { "no" }
       let(:primary_tin_type) { "itin" }
@@ -634,7 +634,7 @@ describe Efile::BenefitsEligibility do
 
     context "without dependents" do
       context "born at least 24 years ago" do
-        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 24, 12, 31) }
+        let(:primary_birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year - 24, 12, 31) }
 
         it "is false" do
           expect(subject.youngish_without_eitc_dependents?).to eq false
@@ -642,7 +642,7 @@ describe Efile::BenefitsEligibility do
       end
 
       context "born less than 18 years ago" do
-        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 17, 1, 2) }
+        let(:primary_birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year - 17, 1, 2) }
 
         it "is false" do
           expect(subject.youngish_without_eitc_dependents?).to eq false
@@ -650,7 +650,7 @@ describe Efile::BenefitsEligibility do
       end
 
       context "born between 18 and 24 years ago" do
-        let(:primary_birth_date) { Date.new(TaxReturn.current_tax_year - 20, 1, 2) }
+        let(:primary_birth_date) { Date.new(MultiTenantService.new(:ctc).current_tax_year - 20, 1, 2) }
 
         it "is true" do
           expect(subject.youngish_without_eitc_dependents?).to eq true
@@ -799,7 +799,7 @@ describe Efile::BenefitsEligibility do
     let(:filing_status) { "single" }
 
     before do
-      intake.update(primary_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - primary_age_at_end_of_tax_year)
+      intake.update(primary_birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year, 12, 31) - primary_age_at_end_of_tax_year)
       intake.default_tax_return.update(filing_status: filing_status)
     end
 
@@ -823,7 +823,7 @@ describe Efile::BenefitsEligibility do
       let(:filing_status) { "married_filing_jointly" }
 
       before do
-        intake.update(spouse_birth_date: Date.new(TaxReturn.current_tax_year, 12, 31) - spouse_age_at_end_of_tax_year)
+        intake.update(spouse_birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year, 12, 31) - spouse_age_at_end_of_tax_year)
       end
 
       context "primary and spouse were younger than 24 at the start of the tax year" do

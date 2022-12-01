@@ -357,7 +357,7 @@ class Intake::GyrIntake < Intake
   enum sold_a_home: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_a_home
   enum sold_assets: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_assets
   enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
-  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_was_full_time_student
+  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
@@ -392,6 +392,18 @@ class Intake::GyrIntake < Intake
 
   after_save_commit { Client.refresh_filterable_properties([client_id]) }
   after_destroy_commit { Client.refresh_filterable_properties([client_id]) }
+
+  def self.current_tax_year
+    Rails.application.config.gyr_current_tax_year.to_i
+  end
+
+  def most_recent_filing_year
+    filing_years.first || MultiTenantService.new(:gyr).current_tax_year
+  end
+
+  def year_before_most_recent_filing_year
+    most_recent_filing_year && most_recent_filing_year - 1
+  end
 
   def probable_previous_year_intake
     return nil unless primary_last_four_ssn && primary_first_name && primary_last_name && primary_birth_date

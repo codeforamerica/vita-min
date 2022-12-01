@@ -11,7 +11,7 @@
         <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?) %>
         <ul class="list--bulleted">
           <% t("views.ctc.questions.use_gyr.puerto_rico.why_ineligible_reveal.content.list",
-                current_tax_year: current_tax_year,
+                current_tax_year: MultiTenantService.new(:ctc).current_tax_year,
                 single_deduction: number_to_currency(standard_deductions[:single]),
                 joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
             <li><%= item %></li>
@@ -37,7 +37,7 @@
         <% standard_deductions = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?) %>
         <ul class="list--bulleted">
           <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list",
-                current_tax_year: current_tax_year,
+                current_tax_year: MultiTenantService.new(:ctc).current_tax_year,
                 single_deduction: number_to_currency(standard_deductions[:single]),
                 joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly])).each do |item| %>
             <li><%= item %></li>

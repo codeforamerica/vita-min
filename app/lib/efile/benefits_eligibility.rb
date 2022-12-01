@@ -162,7 +162,7 @@ module Efile
     end
 
     def any_eligible_ctc_dependents?
-      intake.dependents.filter { |d| Efile::DependentEligibility::ChildTaxCredit.new(d, TaxReturn.current_tax_year).qualifies? }.present?
+      intake.dependents.filter { |d| Efile::DependentEligibility::ChildTaxCredit.new(d, MultiTenantService.new(:ctc).current_tax_year).qualifies? }.present?
     end
 
     private

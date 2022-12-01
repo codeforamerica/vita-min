@@ -1,4 +1,4 @@
-<% @main_heading = t("views.ctc.questions.eitc_qualifiers.title", current_tax_year: current_tax_year) %>
+<% @main_heading = t("views.ctc.questions.eitc_qualifiers.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :card do %>

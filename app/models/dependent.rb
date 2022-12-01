@@ -127,37 +127,24 @@ class Dependent < ApplicationRecord
     relationship_info.irs_enum
   end
 
-  def qualifying_child?(tax_year = TaxReturn.current_tax_year)
+  def qualifying_child?(tax_year = MultiTenantService.new(:ctc).current_tax_year)
     Efile::DependentEligibility::QualifyingChild.new(self, tax_year).qualifies?
   end
 
-  def qualifying_relative?(tax_year = TaxReturn.current_tax_year)
+  def qualifying_relative?(tax_year = MultiTenantService.new(:ctc).current_tax_year)
     Efile::DependentEligibility::QualifyingRelative.new(self, tax_year).qualifies?
   end
 
-  def qualifying_ctc?(tax_year = TaxReturn.current_tax_year)
+  def qualifying_ctc?(tax_year = MultiTenantService.new(:ctc).current_tax_year)
     Efile::DependentEligibility::ChildTaxCredit.new(self, tax_year).qualifies?
   end
 
-  def qualifying_eip3?(tax_year = TaxReturn.current_tax_year)
+  def qualifying_eip3?(tax_year = MultiTenantService.new(:ctc).current_tax_year)
     Efile::DependentEligibility::EipThree.new(self, tax_year).qualifies?
   end
 
-  def qualifying_eitc?(tax_year = TaxReturn.current_tax_year)
+  def qualifying_eitc?(tax_year = MultiTenantService.new(:ctc).current_tax_year)
     Efile::DependentEligibility::EarnedIncomeTaxCredit.new(self, tax_year).qualifies?
-  end
-
-  def mixpanel_data
-    {
-      dependent_age_at_end_of_tax_year: age_during(TaxReturn.current_tax_year).to_s,
-      dependent_under_6: age_during(TaxReturn.current_tax_year) < 6 ? "yes" : "no",
-      dependent_months_in_home: months_in_home.to_s,
-      dependent_was_student: was_student,
-      dependent_on_visa: on_visa,
-      dependent_north_american_resident: north_american_resident,
-      dependent_disabled: disabled,
-      dependent_was_married: was_married,
-    }
   end
 
   delegate :qualifying_child_relationship?, :qualifying_relative_relationship?, to: :relationship_info
