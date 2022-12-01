@@ -58,13 +58,23 @@ FactoryBot.define do
     consented_to_service_at { DateTime.current }
     efile_security_informations { [build(:efile_security_information)] }
 
-    trait :with_return do
+    trait :with_ctc_return do
       transient do
         tax_return_state { "intake_in_progress" }
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+        create :tax_return, :ctc_year, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+      end
+    end
+
+    trait :with_gyr_return do
+      transient do
+        tax_return_state { "intake_in_progress" }
+        filing_status { "single" }
+      end
+      after(:create) do |client, evaluator|
+        create :tax_return, :gyr_year, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
       end
     end
 

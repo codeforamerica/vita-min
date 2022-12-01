@@ -6,7 +6,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <h1 class="h2"><%= @main_question %></h1>
-    <p><%= t("views.ctc.questions.confirm_dependents.subtitle", current_tax_year: TaxReturn.current_tax_year) %></p>
+    <p><%= t("views.ctc.questions.confirm_dependents.subtitle", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %></p>
 
     <div class="review-box spacing-below-35">
       <div data-automation="ctc-dependents">

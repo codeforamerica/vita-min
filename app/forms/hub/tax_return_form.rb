@@ -36,7 +36,7 @@ module Hub
     end
 
     def remaining_years
-      TaxReturn.filing_years - tax_return_years
+      MultiTenantService.new(:gyr).filing_years - tax_return_years
     end
   end
 end

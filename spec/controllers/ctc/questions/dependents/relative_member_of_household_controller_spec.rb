@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::Dependents::RelativeMemberOfHouseholdController do
-  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_ctc_return) }
   let(:dependent) { create :qualifying_relative, intake: intake, relationship: "other" }
 
   before do

@@ -286,8 +286,8 @@ class Intake::GyrIntake < Intake
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
-  enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
-  enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
+  enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2, not_well: 3, not_at_all: 4, prefer_not_to_answer: 5 }, _prefix: :demographic_english_conversation
+  enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2, not_well: 3, not_at_all: 4, prefer_not_to_answer: 5 }, _prefix: :demographic_english_reading
   enum demographic_disability: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_disability
   enum demographic_veteran: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_veteran
   enum demographic_primary_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_primary_ethnicity
@@ -357,7 +357,7 @@ class Intake::GyrIntake < Intake
   enum sold_a_home: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_a_home
   enum sold_assets: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_assets
   enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
-  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_was_full_time_student
+  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
@@ -388,6 +388,18 @@ class Intake::GyrIntake < Intake
     elsif completed_at.present?
       InteractionTrackingService.record_internal_interaction(client) # user updated completed intake
     end
+  end
+
+  def self.current_tax_year
+    Rails.application.config.gyr_current_tax_year.to_i
+  end
+
+  def most_recent_filing_year
+    filing_years.first || MultiTenantService.new(:gyr).current_tax_year
+  end
+
+  def year_before_most_recent_filing_year
+    most_recent_filing_year && most_recent_filing_year - 1
   end
 
   def probable_previous_year_intake

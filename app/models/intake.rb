@@ -407,10 +407,6 @@ class Intake < ApplicationRecord
     false
   end
 
-  def default_tax_year
-    TaxReturn.current_tax_year
-  end
-
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     PhoneParser.formatted_phone_number(phone_number)
@@ -461,10 +457,6 @@ class Intake < ApplicationRecord
     new_token
   end
 
-  def most_recent_filing_year
-    filing_years.first || TaxReturn.current_tax_year
-  end
-
   def filing_years
     tax_returns.pluck(:year).sort.reverse
   end
@@ -475,10 +467,6 @@ class Intake < ApplicationRecord
 
   def include_bank_details?
     refund_payment_method_direct_deposit? || balance_pay_from_bank_yes?
-  end
-
-  def year_before_most_recent_filing_year
-    most_recent_filing_year && most_recent_filing_year - 1
   end
 
   def contact_info_filtered_by_preferences
@@ -501,7 +489,7 @@ class Intake < ApplicationRecord
   end
 
   def needs_help_with_backtaxes?
-    TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
+    MultiTenantService.new(:gyr).backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
   end
 
   def update_or_create_13614c_document(filename)

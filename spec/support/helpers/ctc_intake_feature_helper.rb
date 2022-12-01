@@ -14,7 +14,7 @@ module CtcIntakeFeatureHelper
       click_on I18n.t('general.continue')
     end
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     choose I18n.t('views.ctc.questions.main_home.options.foreign_address')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
@@ -130,7 +130,7 @@ module CtcIntakeFeatureHelper
     select I18n.t('general.tin.ssn')
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
-    check I18n.t('views.ctc.questions.spouse_info.spouse_was_blind', current_tax_year: TaxReturn.current_tax_year)
+    check I18n.t('views.ctc.questions.spouse_info.spouse_was_blind', current_tax_year: MultiTenantService.new(:ctc).current_tax_year)
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
     if home_location == "puerto_rico"
@@ -188,7 +188,7 @@ module CtcIntakeFeatureHelper
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
@@ -227,7 +227,7 @@ module CtcIntakeFeatureHelper
 
     # Skips qualifiers page because the dependent is only 5
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
@@ -260,7 +260,7 @@ module CtcIntakeFeatureHelper
 
     # Skips qualifies page because the dependent is younger than 19
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Red', current_tax_year: TaxReturn.current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Red', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Red', current_tax_year: current_tax_year))

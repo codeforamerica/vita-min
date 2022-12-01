@@ -329,7 +329,7 @@ class Archived::Intake::CtcIntake2021 < Archived::Intake2021
   end
 
   def default_tax_return
-    tax_returns.find_by(year: TaxReturn.current_tax_year)
+    tax_returns.find_by(year: 2020)
   end
 
   # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP

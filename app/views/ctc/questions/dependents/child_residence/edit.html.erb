@@ -1,11 +1,11 @@
-<% @main_heading = t("views.ctc.questions.dependents.child_residence.title", name: @form.dependent.first_name&.upcase_first, current_tax_year: current_tax_year) %>
+<% @main_heading = t("views.ctc.questions.dependents.child_residence.title", name: @form.dependent.first_name&.upcase_first, current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card__stacked-checkboxes" } do |f| %>
     <h1 class="form-question"><%= @main_heading %></h1>
 
-    <p><%= t("views.ctc.questions.dependents.child_residence.help_text", current_tax_year: current_tax_year) %></p>
+    <p><%= t("views.ctc.questions.dependents.child_residence.help_text", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %></p>
 
     <%= f.cfa_select(:months_in_home, "", months_in_home_options_for_select) %>
 

@@ -335,6 +335,10 @@ module Archived
       2020
     end
 
+    def backtax_years
+      [2019, 2018, 2017, 2016]
+    end
+
     # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
     def formatted_phone_number
       PhoneParser.formatted_phone_number(phone_number)
@@ -398,7 +402,7 @@ module Archived
     end
 
     def most_recent_filing_year
-      filing_years.first || TaxReturn.current_tax_year
+      filing_years.first || default_tax_year
     end
 
     def filing_years
@@ -429,11 +433,11 @@ module Archived
     end
 
     def had_dependents_under?(yrs)
-      dependents.any? { |dependent| dependent.age_during(2020) < yrs }
+      dependents.any? { |dependent| dependent.age_during(default_tax_year) < yrs }
     end
 
     def needs_help_with_backtaxes?
-      TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
+      backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
     end
 
     def update_or_create_13614c_document(filename)

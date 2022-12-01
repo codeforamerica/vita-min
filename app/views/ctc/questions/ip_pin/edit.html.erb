@@ -19,7 +19,7 @@
         <%= f.cfa_checkbox(:has_spouse_ip_pin, current_intake.spouse.first_and_last_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
       <%= f.fields_for :dependents do |ff| %>
-        <% if Efile::DependentEligibility::Eligibility.new(ff.object, TaxReturn.current_tax_year).test_results.values.any? %>
+        <% if Efile::DependentEligibility::Eligibility.new(ff.object, MultiTenantService.new(:ctc).current_tax_year).test_results.values.any? %>
           <%= ff.cfa_checkbox(:has_ip_pin, ff.object.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
         <% end %>
       <% end %>

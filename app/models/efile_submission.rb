@@ -35,7 +35,7 @@ class EfileSubmission < ApplicationRecord
 
   scope :most_recent_by_current_year_tax_return, lambda {
     joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions
-                                WHERE efile_submissions.tax_return_id = tax_returns.id) AND year = ?", TaxReturn.current_tax_year)
+                                WHERE efile_submissions.tax_return_id = tax_returns.id) AND year = ?", MultiTenantService.new(:ctc).current_tax_year)
   }
 
   default_scope { order(id: :asc) }
@@ -54,7 +54,7 @@ class EfileSubmission < ApplicationRecord
     EfileSubmissionStateMachine.states.each { |state| result[state] = 0 }
     ActiveRecord::Base.connection.execute(<<~SQL).each { |row| result[row['to_state']] = row['count'] }
       SELECT to_state, COUNT(*) FROM "efile_submissions"
-      JOIN tax_returns ON ( efile_submissions.tax_return_id = tax_returns.id AND tax_returns.year = #{TaxReturn.current_tax_year} )
+      JOIN tax_returns ON ( efile_submissions.tax_return_id = tax_returns.id AND tax_returns.year = #{MultiTenantService.new(:ctc).current_tax_year} )
       LEFT OUTER JOIN efile_submission_transitions AS most_recent_efile_submission_transition ON (
         efile_submissions.id = most_recent_efile_submission_transition.efile_submission_id AND 
         most_recent_efile_submission_transition.most_recent = TRUE

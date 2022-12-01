@@ -40,7 +40,6 @@
 #
 FactoryBot.define do
   factory :tax_return do
-    year { TaxReturn.current_tax_year }
     # when creating a client, also create an intake, since tax returns are made after intake begins
     client { create(:intake).client }
     filing_status { "single" }
@@ -56,6 +55,14 @@ FactoryBot.define do
           Client.refresh_filterable_properties([tax_return.client_id])
         end
       end
+    end
+
+    trait :gyr_year do
+      year { MultiTenantService.new(:gyr).current_tax_year }
+    end
+
+    trait :ctc_year do
+      year { MultiTenantService.new(:ctc).current_tax_year }
     end
 
     trait :ready_to_sign do

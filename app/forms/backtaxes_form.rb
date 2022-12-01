@@ -3,6 +3,7 @@ class BacktaxesForm < QuestionsForm
   validate :at_least_one_year
 
   def save
+    # TODO: Enable 2022
     # some of the needs_help fields are not shown, based on what years the client has filed
     # but the intake does not allow nil values
     needs_help_params = {
@@ -28,6 +29,6 @@ class BacktaxesForm < QuestionsForm
       needs_help_2019 == "yes" ||
       needs_help_2020 == "yes" ||
       needs_help_2021 == "yes"
-    errors.add(:needs_help_2018, I18n.t("forms.errors.at_least_one_year")) unless chose_one
+    errors.add(:needs_help_2019, I18n.t("forms.errors.at_least_one_year")) unless chose_one
   end
 end

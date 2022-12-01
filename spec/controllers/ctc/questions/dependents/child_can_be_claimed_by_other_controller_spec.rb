@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
-  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_ctc_return) }
   let(:dependent) { create :dependent, intake: intake }
 
   before do

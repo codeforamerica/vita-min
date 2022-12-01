@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :include_analytics?, :include_optimizely?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
+  helper_method :include_analytics?, :include_optimizely?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -48,14 +48,6 @@ class ApplicationController < ActionController::Base
 
   def current_intake
     current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
-  end
-
-  def current_tax_year
-    TaxReturn.current_tax_year.to_i
-  end
-
-  def prior_tax_year
-    current_tax_year - 1
   end
 
   def intake_from_completed_session

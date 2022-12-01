@@ -82,7 +82,7 @@ class MixpanelService
         path << '?'
         path << querystring.split('&').map do |pair|
           k, v = pair.split('=')
-          [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v ) ? '***' : v)].join('=')
+          [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v) ? '***' : v)].join('=')
         end.join('&')
       end
       path
@@ -243,8 +243,8 @@ class MixpanelService
         intake_source: intake.source,
         intake_referrer: intake.referrer,
         intake_referrer_domain: intake.referrer_domain,
-        primary_filer_age: age_from_date_of_birth(intake.primary.birth_date).to_s,
-        spouse_age: age_from_date_of_birth(intake.spouse.birth_date).to_s,
+        primary_filer_age: intake_age(intake, intake.primary.birth_date).to_s,
+        spouse_age: intake_age(intake, intake.spouse.birth_date).to_s,
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
@@ -316,27 +316,26 @@ class MixpanelService
       days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
 
       MixpanelService.instance.run(
-          distinct_id: tax_return.client.intake.visitor_id,
-          event_name: event_name,
-          data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
-              {
-                  days_since_ready_for_prep: days_since_ready_for_prep,
-                  hours_since_ready_for_prep: hours_since_ready_for_prep,
-                  days_since_tax_return_created: days_since_tax_return_created,
-                  hours_since_tax_return_created: hours_since_tax_return_created
-              }
-          )
+        distinct_id: tax_return.client.intake.visitor_id,
+        event_name: event_name,
+        data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
+          {
+            days_since_ready_for_prep: days_since_ready_for_prep,
+            hours_since_ready_for_prep: hours_since_ready_for_prep,
+            days_since_tax_return_created: days_since_tax_return_created,
+            hours_since_tax_return_created: hours_since_tax_return_created
+          }
+        )
       )
     end
 
     private
 
-    def age_from_date_of_birth(date_of_birth)
-      if date_of_birth.present?
-        TaxReturn.current_tax_year - date_of_birth.year
-      else
-        nil
-      end
+    def intake_age(intake, date_of_birth)
+      return nil unless date_of_birth.present?
+
+      year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
+      year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
     end
   end
 end

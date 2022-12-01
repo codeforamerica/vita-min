@@ -18,23 +18,23 @@ describe InitialTaxReturnsService do
     end
 
     context "when a tax return for a selected year already exists" do
-      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2018 }
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2019 }
 
       before do
-        intake.update(needs_help_2018: "yes")
+        intake.update(needs_help_2019: "yes")
       end
 
       it "uses the existing tax return object and does not crash" do
         subject.create!
 
         expect(intake.tax_returns.count).to eq 3
-        expect(intake.tax_returns.pluck(:year)).to match_array([2018, 2021, 2020])
-        expect(intake.tax_returns.find_by(year: 2018)).to eq tax_return
+        expect(intake.tax_returns.pluck(:year)).to match_array([2019, 2020, 2021])
+        expect(intake.tax_returns.find_by(year: 2019)).to eq tax_return
       end
     end
 
     context "when a tax return had existed for a specific year but the needs_help_xxxx value is now false" do
-      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2021 }
 
       before do
         intake.update(needs_help_2021: "no")

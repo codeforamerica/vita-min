@@ -103,16 +103,8 @@ class TaxReturn < ApplicationRecord
     efile_submissions.count.nonzero?
   end
 
-  def self.current_tax_year
-    Rails.application.config.current_tax_year.to_i
-  end
-
-  def self.backtax_years
-    filing_years.without(current_tax_year)
-  end
-
-  def self.filing_years
-    Array((current_tax_year - 3)..current_tax_year).reverse.freeze
+  def is_ctc?
+    intake.is_ctc
   end
 
   def self.service_type_options

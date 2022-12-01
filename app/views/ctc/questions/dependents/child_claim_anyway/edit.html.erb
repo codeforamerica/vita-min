@@ -7,7 +7,7 @@
 
     <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p1", name: @form.dependent.first_name&.titleize) %></p>
     <ul class="list--bulleted">
-      <% t("views.ctc.questions.dependents.child_claim_anyway.help_text.list", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize).each do |item| %>
+      <% t("views.ctc.questions.dependents.child_claim_anyway.help_text.list", current_tax_year: MultiTenantService.new(:ctc).current_tax_year, name: @form.dependent.first_name&.titleize).each do |item| %>
         <li> <%= item %> </li>
       <% end %>
     </ul>
@@ -19,7 +19,7 @@
     <% end %>
 
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.title")) do %>
-      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p1", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize) %> </p>
+      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p1", current_tax_year: MultiTenantService.new(:ctc).current_tax_year, name: @form.dependent.first_name&.titleize) %> </p>
       <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p2", name: @form.dependent.first_name&.titleize) %> </p>
     <% end %>
 

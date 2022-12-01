@@ -4,7 +4,7 @@ RSpec.describe "efile submissions" do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
-      let(:current_tax_year) { TaxReturn.current_tax_year }
+      let(:current_tax_year) { MultiTenantService.new(:ctc).current_tax_year }
       let!(:new_submission) { create :efile_submission, irs_submission_id: "12345200202011234567", tax_return: create(:tax_return, year: current_tax_year) }
       let!(:old_submission) { create :efile_submission, irs_submission_id: "12345200202011234568", tax_return: create(:tax_return, year: current_tax_year - 1) }
       let!(:rejected_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, year: current_tax_year)) }

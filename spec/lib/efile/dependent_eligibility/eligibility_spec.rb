@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Efile::DependentEligibility::Eligibility do
-  let(:dependent) { create :dependent, intake: create(:ctc_intake, client: create(:client, :with_return)) }
+  let(:dependent) { create :dependent, intake: create(:ctc_intake, client: create(:client, :with_ctc_return)) }
   before do
     allow_any_instance_of(Efile::DependentEligibility::QualifyingChild).to receive(:qualifies?).and_return true
     allow_any_instance_of(Efile::DependentEligibility::ChildTaxCredit).to receive(:qualifies?).and_return true
@@ -19,7 +19,7 @@ describe Efile::DependentEligibility::Eligibility do
   context ".test_results" do
     it "returns a hash with the eligibility results" do
       expect(
-          Efile::DependentEligibility::Eligibility.new(dependent, TaxReturn.current_tax_year).test_results
+          Efile::DependentEligibility::Eligibility.new(dependent, MultiTenantService.new(:ctc).current_tax_year).test_results
       ).to eq ({
           qualifying_child: true,
           qualifying_relative: false,
@@ -35,7 +35,7 @@ describe Efile::DependentEligibility::Eligibility do
   context "#benefit_payments" do
     it "should return a hash with all of the payments broken down by program" do
       expect(
-          Efile::DependentEligibility::Eligibility.new(dependent, TaxReturn.current_tax_year).benefit_amounts
+          Efile::DependentEligibility::Eligibility.new(dependent, MultiTenantService.new(:ctc).current_tax_year).benefit_amounts
       ).to eq ({
           ctc: 3600,
           eip3: 1400,
@@ -48,7 +48,7 @@ describe Efile::DependentEligibility::Eligibility do
   context "#total_benefit_amount" do
     it "should be the sum of each benefit's payments" do
       expect(
-          Efile::DependentEligibility::Eligibility.new(dependent, TaxReturn.current_tax_year).total_benefit_amount
+          Efile::DependentEligibility::Eligibility.new(dependent, MultiTenantService.new(:ctc).current_tax_year).total_benefit_amount
       ).to eq 5000
     end
   end

@@ -1,4 +1,4 @@
-<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_spouse_prior_year_agi.spouse_prior_year_agi", prior_tax_year: prior_tax_year) %></h2>
+<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_spouse_prior_year_agi.spouse_prior_year_agi", prior_tax_year: MultiTenantService.new(:ctc).prior_tax_year) %></h2>
 <div class="review-box__space-between spouse-prior-year-agi">
   <div>
     <%= number_to_currency(intake.spouse_prior_year_agi_amount) %>

@@ -1,5 +1,5 @@
 <% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
-<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: @filing_count) %>
+<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year, count: @filing_count) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :card do %>

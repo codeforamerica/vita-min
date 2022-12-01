@@ -382,8 +382,12 @@ class Intake::CtcIntake < Intake
     true
   end
 
+  def self.current_tax_year
+    Rails.application.config.ctc_current_tax_year.to_i
+  end
+
   def default_tax_return
-    tax_returns.find_by(year: TaxReturn.current_tax_year)
+    tax_returns.find_by(year: self.class.current_tax_year)
   end
 
   # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP

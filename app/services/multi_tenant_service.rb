@@ -2,6 +2,7 @@ class MultiTenantService
   attr_accessor :service_type
 
   SERVICE_TYPES = [:gyr, :ctc]
+
   def initialize(service_type)
     @service_type = service_type.to_sym
     raise(ArgumentError, "Unsupported service_type: #{service_type}") unless SERVICE_TYPES.include? @service_type
@@ -49,4 +50,29 @@ class MultiTenantService
       Rails.configuration.action_mailer.mailgun_settings
     end
   end
+
+  def current_tax_year
+    if service_type == :ctc
+      Rails.configuration.ctc_current_tax_year
+    else
+      Rails.configuration.gyr_current_tax_year
+    end
+  end
+
+  def prior_tax_year
+    current_tax_year - 1
+  end
+
+  def filing_years
+    if service_type == :ctc
+      [current_tax_year]
+    else
+      ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze
+    end
+  end
+
+  def backtax_years
+    filing_years.without(current_tax_year)
+  end
+
 end

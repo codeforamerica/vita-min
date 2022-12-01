@@ -291,7 +291,7 @@ class FlowsController < ApplicationController
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z"
         }],
-        tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: true, filing_status: 'single' }],
+        tax_returns_attributes: [{ year: MultiTenantService.new(:ctc).current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
 
       if type == :married_filing_jointly
@@ -426,7 +426,7 @@ class FlowsController < ApplicationController
       }
       client = Client.create!(
         intake_attributes: intake_attributes,
-        tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: false }],
+        tax_returns_attributes: [{ year: MultiTenantService.new(:gyr).current_tax_year, is_ctc: false }],
       )
 
       if type == :married_filing_jointly

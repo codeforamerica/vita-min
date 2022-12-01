@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ctc::Questions::W2s::MiscInfoController do
   let(:w2) { create(:w2, intake: intake) }
-  let(:intake) { create :ctc_intake, :claiming_eitc, client: create(:client, :with_return) }
+  let(:intake) { create :ctc_intake, :claiming_eitc, client: create(:client, :with_ctc_return) }
   let(:box12a_code) { 'F' }
 
   before do

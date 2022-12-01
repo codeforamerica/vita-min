@@ -11,7 +11,7 @@
           :filed_prior_tax_year,
           collection: [
               { value: :filed_full, label: t("views.ctc.questions.filed_prior_tax_year.puerto_rico.filed_full") },
-              { value: :did_not_file, label: t("views.ctc.questions.filed_prior_tax_year.puerto_rico.did_not_file", current_tax_year: current_tax_year, prior_tax_year: prior_tax_year) }
+              { value: :did_not_file, label: t("views.ctc.questions.filed_prior_tax_year.puerto_rico.did_not_file", current_tax_year: MultiTenantService.new(:ctc).current_tax_year, prior_tax_year: prior_tax_year) }
           ]
       )
   %>

@@ -4,9 +4,9 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <p class="text--bold"><%= t("views.ctc.questions.restrictions.list_title", current_tax_year: current_tax_year)%></p>
+  <p class="text--bold"><%= t("views.ctc.questions.restrictions.list_title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year)%></p>
   <ul class="list--bulleted">
-    <% t("views.ctc.questions.restrictions.list", current_tax_year: TaxReturn.current_tax_year).each do |list| %>
+    <% t("views.ctc.questions.restrictions.list", current_tax_year: MultiTenantService.new(:ctc).current_tax_year).each do |list| %>
       <li><%= list %></li>
     <% end %>
   </ul>
