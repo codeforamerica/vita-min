@@ -156,7 +156,7 @@ RSpec.feature "Logging in" do
       scenario "getting redirected to the page client was trying to access after login" do
         visit portal_tax_return_authorize_signature_path(locale: "es", tax_return_id: tax_return.id)
 
-        expect(page).to have_text "Te enviaremos un código seguro para iniciar sesión"
+        expect(page).to have_text I18n.t("portal.client_logins.new.title", locale: "es")
         fill_in "Dirección de correo electrónico", with: client.intake.email_address
 
         perform_enqueued_jobs do
