@@ -1,10 +1,12 @@
 # == Schema Information
 #
-# Table name: archived_intakes_2021
+# Table name: intakes
 #
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
+#  advance_ctc_amount_received                          :integer
+#  advance_ctc_entry_method                             :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
@@ -17,6 +19,7 @@
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
+#  claim_eitc                                           :integer          default(0), not null
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
@@ -43,6 +46,7 @@
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
 #  demographic_spouse_white                             :boolean
 #  demographic_veteran                                  :integer          default(0), not null
+#  disallowed_ctc                                       :boolean
 #  divorced                                             :integer          default(0), not null
 #  divorced_year                                        :string
 #  eip1_amount_received                                 :integer
@@ -50,6 +54,8 @@
 #  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
+#  eip3_amount_received                                 :integer
+#  eip3_entry_method                                    :integer          default(0), not null
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -57,6 +63,7 @@
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
+#  exceeded_investment_income_limit                     :integer          default(0)
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
@@ -64,12 +71,15 @@
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
+#  former_foster_youth                                  :integer          default(0), not null
+#  full_time_student_less_than_five_months              :integer          default(0), not null
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default(0), not null
 #  had_disability                                       :integer          default(0), not null
 #  had_disability_income                                :integer          default(0), not null
 #  had_disaster_loss                                    :integer          default(0), not null
+#  had_disqualifying_non_w2_income                      :integer
 #  had_farm_income                                      :integer          default(0), not null
 #  had_gambling_income                                  :integer          default(0), not null
 #  had_hsa                                              :integer          default(0), not null
@@ -85,12 +95,17 @@
 #  had_tax_credit_disallowed                            :integer          default(0), not null
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
+#  had_w2s                                              :integer          default(0), not null
 #  had_wages                                            :integer          default(0), not null
+#  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  home_location                                        :integer
+#  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
+#  irs_language_preference                              :integer
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
@@ -100,14 +115,17 @@
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
+#  need_itin_help                                       :integer          default(0), not null
 #  needs_help_2016                                      :integer          default(0), not null
 #  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
+#  not_full_time_student                                :integer          default(0), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default(0), not null
 #  paid_charitable_contributions                        :integer          default(0), not null
@@ -118,14 +136,16 @@
 #  paid_retirement_contributions                        :integer          default(0), not null
 #  paid_school_supplies                                 :integer          default(0), not null
 #  paid_student_loan_interest                           :integer          default(0), not null
+#  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default(0), not null
+#  phone_number_type                                    :string
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
-#  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_ip_pin                                       :text
@@ -139,6 +159,7 @@
 #  primary_ssn                                          :text
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -168,7 +189,6 @@
 #  spouse_active_armed_forces                           :integer          default(0)
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
-#  spouse_can_be_claimed_as_dependent                   :integer          default(0)
 #  spouse_consented_to_service                          :integer          default(0), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
@@ -196,8 +216,16 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  triage_filing_frequency                              :integer          default(0), not null
+#  triage_filing_status                                 :integer          default(0), not null
+#  triage_income_level                                  :integer          default(0), not null
+#  triage_vita_income_ineligible                        :integer          default(0), not null
 #  type                                                 :string
+#  urbanization                                         :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
+#  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
+#  usps_address_late_verification_attempts              :integer          default(0)
+#  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null
@@ -211,9 +239,11 @@
 #  with_limited_english_navigator                       :boolean          default(FALSE)
 #  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
-#  created_at                                           :datetime
-#  updated_at                                           :datetime
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  primary_drivers_license_id                           :bigint
+#  spouse_drivers_license_id                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
@@ -226,38 +256,33 @@
 #
 # Indexes
 #
-#  index_arcint_2021_on_canonical_email_address                (canonical_email_address)
-#  index_arcint_2021_on_client_id                              (client_id)
-#  index_arcint_2021_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
-#  index_arcint_2021_on_email_address                          (email_address)
-#  index_arcint_2021_on_email_domain                           (email_domain)
-#  index_arcint_2021_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
-#  index_arcint_2021_on_phone_number                           (phone_number)
-#  index_arcint_2021_on_probable_previous_year_intake_fields   (primary_birth_date,primary_first_name,primary_last_name)
-#  index_arcint_2021_on_searchable_data                        (searchable_data) USING gin
-#  index_arcint_2021_on_sms_phone_number                       (sms_phone_number)
-#  index_arcint_2021_on_spouse_email_address                   (spouse_email_address)
-#  index_arcint_2021_on_type                                   (type)
-#  index_arcint_2021_on_vita_partner_id                        (vita_partner_id)
+#  index_intakes_on_canonical_email_address                (canonical_email_address)
+#  index_intakes_on_client_id                              (client_id)
+#  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
+#  index_intakes_on_email_address                          (email_address)
+#  index_intakes_on_email_domain                           (email_domain)
+#  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
+#  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
+#  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
+#  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
+#  index_intakes_on_searchable_data                        (searchable_data) USING gin
+#  index_intakes_on_sms_phone_number                       (sms_phone_number)
+#  index_intakes_on_spouse_drivers_license_id              (spouse_drivers_license_id)
+#  index_intakes_on_spouse_email_address                   (spouse_email_address)
+#  index_intakes_on_type                                   (type)
+#  index_intakes_on_vita_partner_id                        (vita_partner_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
-module Archived
-  class Intake2021 < ApplicationRecord
-    self.table_name = 'archived_intakes_2021'
 
-    def self.discriminate_class_for_record(record)
-      if record['type'] == 'Intake::CtcIntake'
-        Archived::Intake::CtcIntake2021
-      elsif record['type'] == 'Intake::GyrIntake'
-        Archived::Intake::GyrIntake2021
-      else
-        self
-      end
-    end
+module Archived
+  class Intake2022 < ApplicationRecord
+    self.table_name = 'archived_intakes_2022'
+    self.ignored_columns = ["primary_consented_to_service_at"]
 
     include PgSearch::Model
 
@@ -269,7 +294,10 @@ module Archived
 
     has_many :documents, dependent: :destroy
     has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2021', foreign_key: 'archived_intakes_2021_id'
-    belongs_to :client, optional: true
+    has_many :completed_w2s, -> { order(created_at: :asc).where.not(completed_at: nil) }, class_name: 'W2', inverse_of: :intake, dependent: :destroy
+    has_many :w2s_including_incomplete, -> { order(created_at: :asc) }, class_name: 'W2', inverse_of: :intake, dependent: :destroy
+    has_one :triage
+    belongs_to :client, inverse_of: :intake, optional: true
     has_many :tax_returns, through: :client
     has_one :vita_partner, through: :client
     accepts_nested_attributes_for :dependents, allow_destroy: true
@@ -287,13 +315,28 @@ module Archived
       self.needs_to_flush_searchable_data_set_at = Time.current
       if email_address.present?
         self.email_domain = email_address.split('@').last.downcase
-        self.canonical_email_address = compute_canonical_email_address
+        self.canonical_email_address = CanonicalEmail.get(email_address)
       end
+      if primary_ssn_changed?
+        self.primary_last_four_ssn = primary_ssn&.last(4)
+        self.hashed_primary_ssn = DeduplicationService.sensitive_attribute_hashed(self, :primary_ssn)
+      end
+      self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
+    end
+
+    after_save do
+      if primary_consented_to_service_previously_changed?(to: "yes")
+        client.update(consented_to_service_at: updated_at)
+      end
+    end
+
+    before_destroy do
+      dependents.with_deleted.each(&:destroy!)
     end
 
     encrypts :primary_last_four_ssn, :spouse_last_four_ssn, :primary_ssn, :spouse_ssn, :bank_account_number, :primary_ip_pin, :primary_signature_pin, :spouse_signature_pin, :spouse_ip_pin
 
-    enum already_filed: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_filed
+    enum already_filed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_filed
     enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
     enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
     enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
@@ -303,6 +346,7 @@ module Archived
     enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
     enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
     enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
+    enum irs_language_preference: { english: 0, spanish: 1, korean: 2, vietnamese: 3, russian: 4, arabic: 5, haitian_creole: 6, tagalog: 7, portuguese: 8, polish: 9, farsi: 10, french: 11, japanese: 12, gujarati: 13, punjabi: 14, khmer: 15, urdu: 16, bengali: 17, italian: 18, chinese_traditional: 19, chinese_simplified: 20 }, _prefix: :irs_language_preference
 
     NAVIGATOR_TYPES = {
       general: {
@@ -327,12 +371,46 @@ module Archived
       }
     }
 
+    scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
+
+    def duplicates
+      return itin_duplicates if itin_applicant?
+      return self.class.none unless hashed_primary_ssn.present?
+
+      DeduplicationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+    end
+
+    # TODO: Delegate to client once backfill is run
+    def primary_consented_to_service_at
+      client.consented_to_service_at || read_attribute(:primary_consented_to_service_at)
+    end
+
+    def irs_language_preference_code
+      return nil unless irs_language_preference
+      preference_int = self.class.irs_language_preferences[irs_language_preference]
+      "%03d" % preference_int
+    end
+
+    def itin_duplicates
+      if email_address.present? && sms_phone_number.present?
+        DeduplicationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Archived::Intake::GyrIntake2022.accessible_intakes).or(
+          DeduplicationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Archived::Intake::GyrIntake2022.accessible_intakes)
+        )
+      elsif email_address.present?
+        DeduplicationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Archived::Intake::GyrIntake2022.accessible_intakes)
+      elsif sms_phone_number.present?
+        DeduplicationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Archived::Intake::GyrIntake2022.accessible_intakes)
+      else
+        self.class.none
+      end
+    end
+
     def is_ctc?
       false
     end
 
     def default_tax_year
-      2020
+      2022
     end
 
     # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
@@ -347,18 +425,6 @@ module Archived
     # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
     def standardized_sms_phone_number
       PhoneParser.normalize(sms_phone_number)
-    end
-
-    def primary_full_name
-      parts = [primary_first_name, primary_last_name]
-      parts << primary_suffix if primary_suffix.present?
-      parts.join(' ')
-    end
-
-    def spouse_full_name
-      parts = [spouse_first_name, spouse_last_name]
-      parts << spouse_suffix if spouse_suffix.present?
-      parts.join(' ')
     end
 
     def referrer_domain
@@ -376,10 +442,15 @@ module Archived
         dependents.where(was_student: "yes").any?
     end
 
+    def spouse_name_or_placeholder
+      return I18n.t("models.intake.your_spouse") unless spouse.first_name.present?
+      spouse.first_and_last_name
+    end
+
     def student_names
       names = []
-      names << primary_full_name if was_full_time_student_yes?
-      names << spouse.full_name if spouse_was_full_time_student_yes?
+      names << primary.first_and_last_name if was_full_time_student_yes?
+      names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
       names += dependents.where(was_student: "yes").map(&:full_name)
       names
     end
@@ -393,7 +464,7 @@ module Archived
     end
 
     def most_recent_filing_year
-      filing_years.first || 2021
+      filing_years.first || 2022
     end
 
     def filing_years
@@ -401,7 +472,7 @@ module Archived
     end
 
     def filer_count
-      filing_joint_yes? ? 2 : 1
+      filing_jointly? ? 2 : 1
     end
 
     def include_bank_details?
@@ -423,8 +494,12 @@ module Archived
       (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
     end
 
+    def persisted_dependents
+      dependents.select(&:persisted?)
+    end
+
     def had_dependents_under?(yrs)
-      dependents.any? { |dependent| dependent.age_during(2020) < yrs }
+      persisted_dependents.any? { |dependent| dependent.age_during(2020) < yrs }
     end
 
     def needs_help_with_backtaxes?
@@ -432,7 +507,7 @@ module Archived
     end
 
     def update_or_create_13614c_document(filename)
-      pdf = F13614cPdf.new(self).output_file
+      pdf = F13614cPdf.new(self)
       ClientPdfDocument.create_or_update(
         output_file: pdf.output_file,
         document_type: pdf.document_type,
@@ -451,8 +526,18 @@ module Archived
       )
     end
 
+    def address
+      Address.new(
+        zip_code: zip_code,
+        street_address: street_address,
+        street_address2: street_address2,
+        city: city,
+        state: state
+      )
+    end
+
     def set_navigator(param)
-      _, navigator_type = NAVIGATOR_TYPES.find { | _, type| type[:param] == param }
+      _, navigator_type = NAVIGATOR_TYPES.find { |_, type| type[:param] == param }
       return unless navigator_type
 
       self.update(navigator_type[:field_name] => true)
@@ -475,23 +560,79 @@ module Archived
     def self.refresh_search_index(limit: 10_000)
       now = Time.current
       ids = where('needs_to_flush_searchable_data_set_at < ?', now)
-        .limit(limit)
-        .pluck(:id)
+              .limit(limit)
+              .pluck(:id)
 
       where(id: ids)
         .where('needs_to_flush_searchable_data_set_at < ?', now)
         .update_all(<<-SQL)
-        searchable_data = to_tsvector('simple', array_to_string(ARRAY[#{searchable_fields.map { |f| "#{f}::text"}.join(",\n") }], ' ', '')),
+        searchable_data = to_tsvector('simple', array_to_string(ARRAY[#{searchable_fields.map { |f| "#{f}::text" }.join(",\n") }], ' ', '')),
         needs_to_flush_searchable_data_set_at = NULL
       SQL
     end
 
-    def compute_canonical_email_address
-      if email_domain == 'gmail.com'
-        username, domain = email_address.split('@')
-        [username.gsub('.', ''), domain].join('@').downcase
+    def itin_applicant?
+      need_itin_help_yes?
+    end
+
+    def filers
+      if filing_jointly?
+        [primary, spouse]
       else
-        email_address.downcase
+        [primary]
+      end
+    end
+
+    def primary
+      Person.new(self, :primary)
+    end
+
+    def spouse
+      Person.new(self, :spouse)
+    end
+
+    class Person
+      attr_reader :first_name
+      attr_reader :middle_initial
+      attr_reader :last_name
+      attr_reader :birth_date
+      attr_reader :suffix
+      attr_reader :tin_type
+      attr_reader :ssn
+      attr_reader :active_armed_forces
+
+      def initialize(intake, primary_or_spouse)
+        if primary_or_spouse == :primary
+          @first_name = intake.primary_first_name
+          @middle_initial = intake.primary_middle_initial
+          @last_name = intake.primary_last_name
+          @birth_date = intake.primary_birth_date
+          @suffix = intake.primary_suffix
+          @tin_type = intake.primary_tin_type
+          @ssn = intake.primary_ssn
+          @active_armed_forces = intake.primary_active_armed_forces
+        elsif primary_or_spouse == :spouse
+          @first_name = intake.spouse_first_name
+          @middle_initial = intake.spouse_middle_initial
+          @last_name = intake.spouse_last_name
+          @birth_date = intake.spouse_birth_date
+          @suffix = intake.spouse_suffix
+          @tin_type = intake.spouse_tin_type
+          @ssn = intake.spouse_ssn
+          @active_armed_forces = intake.spouse_active_armed_forces
+        end
+      end
+
+      def first_and_last_name
+        parts = [@first_name, @last_name]
+        parts << @suffix if @suffix.present?
+        parts.join(' ')
+      end
+
+      def full_name
+        parts = [@first_name, @middle_initial, @last_name]
+        parts << @suffix if @suffix.present?
+        parts.join(' ')
       end
     end
   end
