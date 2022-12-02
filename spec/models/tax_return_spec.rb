@@ -963,9 +963,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1957 for tax year 2021" do
+    context "when born on/after Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 2))
+        tax_return.intake.update(primary_birth_date: Date.new(2022 - 64, 1, 2))
       end
 
       it "returns false" do
@@ -977,9 +977,9 @@ describe TaxReturn do
   describe "#spouse_age_65_or_old" do
     let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
 
-    context "when born before Jan 2, 1957 for tax year 2021" do
+    context "when born before Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 1))
+        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 1))
       end
 
       it "returns true" do
@@ -987,9 +987,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1957 for tax year 2021" do
+    context "when born on/after Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 2))
+        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 2))
       end
 
       it "returns false" do
@@ -999,7 +999,8 @@ describe TaxReturn do
   end
 
   describe "#standard_deduction" do
-    let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
+    # TODO(2022 prep): Switch standard deduction
+    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly, year: 2021 }
     before do
       allow(AppliedStandardDeduction).to receive(:new).with(tax_return: tax_return).and_call_original
     end
@@ -1031,7 +1032,7 @@ describe TaxReturn do
   end
 
   describe "under_submission_limit?" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :ctc_tax_return }
 
     context "when the tax return has been resubmitted 19 times" do
       let!(:efile_submissions) { create_list :efile_submission, 19, tax_return: tax_return }
