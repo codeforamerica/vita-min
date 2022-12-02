@@ -82,10 +82,6 @@ FactoryBot.define do
       end
     end
 
-    factory :client_with_tax_return_state do
-      with_return
-    end
-
     trait :with_empty_consent do
       after(:build) do |client|
         create :consent,
