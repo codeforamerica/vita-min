@@ -424,7 +424,7 @@ describe Client do
         doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
         create_list :dependent, 2, intake: intake
-        tax_return = create :tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
+        tax_return = create :gyr_tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
         tax_return_assignment = create :tax_return_assignment, tax_return: tax_return
         create :user_notification, user: user, notifiable: tax_return_assignment
         submission = create :efile_submission, :investigating, tax_return: tax_return
@@ -528,12 +528,12 @@ describe Client do
     let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
 
     context "when there are other GYR clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:ctc_client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_dupe_email) { create :client, :with_gyr_return, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:ctc_client_dupe_email) { create :client, :with_ctc_return, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client, :with_gyr_return, intake: create(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client, :with_gyr_return, intake: create(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client, :with_gyr_return, intake: create(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client, :with_gyr_return, intake: create(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching GYR clients" do
         it "returns the GYR clients ids" do
@@ -551,12 +551,12 @@ describe Client do
     end
 
     context "when there are other CTC clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:gyr_client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_dupe_email) { create :client, :with_ctc_return, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:gyr_client_dupe_email) { create :client, :with_gyr_return, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client, :with_ctc_return, intake: create(:ctc_intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client, :with_ctc_return, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client, :with_ctc_return, intake: create(:ctc_intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client, :with_ctc_return, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching CTC clients" do
         it "returns the CTC clients ids" do
@@ -590,8 +590,8 @@ describe Client do
     end
 
     context "with empty contact info fields" do
-      let!(:client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
-      let!(:other_blank_client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
+      let!(:client) { create :client, :with_gyr_return, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
+      let!(:other_blank_client) { create :client, :with_gyr_return, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
 
       it "does not match on nil values" do
         expect(client.clients_with_dupe_contact_info(true)).to eq []
@@ -606,10 +606,10 @@ describe Client do
     let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
     let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let!(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
-    let!(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_online) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_inaccessible_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
 
     context "GYR client" do
       let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
@@ -778,7 +778,7 @@ describe Client do
     before do
       create :tax_return, year: 2019, assigned_user: assigned_user_a, client: client
       create :tax_return, year: 2018, assigned_user: assigned_user_b, client: client
-      create :tax_return, assigned_user: assigned_user_a, client: client
+      create :gyr_tax_return, assigned_user: assigned_user_a, client: client
     end
 
     context "with valid data" do
