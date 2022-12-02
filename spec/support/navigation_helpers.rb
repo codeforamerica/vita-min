@@ -1,6 +1,6 @@
 module NavigationHelpers
   def authenticate_client(client)
-    expect(page).to have_text "To view your progress, we’ll send you a secure code"
+    expect(page).to have_text I18n.t("portal.client_logins.new.title")
     fill_in "Email address", with: client.intake.email_address
     click_on "Send code"
     expect(page).to have_text "Let’s verify that code!"

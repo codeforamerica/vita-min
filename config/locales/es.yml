@@ -1481,7 +1481,7 @@ es:
       new:
         one_form_of_contact: 'Por favor ingrese un formulario de contacto a continuación:'
         send_code: Enviar código
-        title: Le mandaremos un código seguro para que pueda ver su progreso.
+        title: Te enviaremos un código seguro para iniciar sesión
     messages:
       create:
         message_sent: "¡Mensaje enviado!"

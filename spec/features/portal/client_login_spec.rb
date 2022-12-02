@@ -24,7 +24,7 @@ RSpec.feature "Logging in" do
         scenario "requesting a verification code with an email address and signing in with a client id" do
           visit new_portal_client_login_path
 
-          expect(page).to have_text "To view your progress, we’ll send you a secure code"
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
           fill_in "Email address", with: client.intake.email_address
           perform_enqueued_jobs do
             click_on "Send code"
@@ -57,7 +57,7 @@ RSpec.feature "Logging in" do
         scenario "requesting a verification code with a phone number and signing in with the last four of a social" do
           visit new_portal_client_login_path
 
-          expect(page).to have_text "To view your progress, we’ll send you a secure code"
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
           fill_in "Cell phone number", with: "(500) 555-0006"
 
           perform_enqueued_jobs do
@@ -83,7 +83,7 @@ RSpec.feature "Logging in" do
         scenario "getting locked out due to too many wrong verification codes" do
           visit new_portal_client_login_path
 
-          expect(page).to have_text "To view your progress, we’ll send you a secure code"
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
           fill_in "Cell phone number", with: "(500) 555-0006"
 
           perform_enqueued_jobs do
@@ -156,7 +156,7 @@ RSpec.feature "Logging in" do
       scenario "getting redirected to the page client was trying to access after login" do
         visit portal_tax_return_authorize_signature_path(locale: "es", tax_return_id: tax_return.id)
 
-        expect(page).to have_text "Le mandaremos un código seguro para que pueda ver su progreso."
+        expect(page).to have_text I18n.t("portal.client_logins.new.title", locale: "es")
         fill_in "Dirección de correo electrónico", with: client.intake.email_address
 
         perform_enqueued_jobs do

@@ -383,6 +383,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # going back to another page after submit redirects to client login, does not reset current_step
     visit "/questions/work-situations"
     expect(intake.reload.current_step).to end_with("/questions/demographic-primary-ethnicity")
-    expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+    expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
   end
 end
