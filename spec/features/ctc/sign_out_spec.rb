@@ -41,7 +41,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: MultiTenantService.new(:ctc).prior_tax_year)
     click_on I18n.t('general.continue')
     click_on I18n.t('views.ctc.questions.contact_preference.email')
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
