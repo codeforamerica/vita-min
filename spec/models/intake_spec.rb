@@ -732,7 +732,7 @@ describe Intake do
       ], intake: intake }
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq([2021, 2019])
+        expect(intake.filing_years).to eq([2022, 2019])
       end
     end
   end
