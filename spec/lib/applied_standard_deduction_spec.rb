@@ -152,7 +152,7 @@ describe AppliedStandardDeduction do
   end
 
   describe "additional age deduction" do
-    let(:tax_return) { create :tax_return, filing_status: filing_status, client: create(:client, intake: create(:intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date)) }
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: create(:intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date)) }
     let(:filing_status) { "single" }
     let(:primary_birth_date) { younger_than_65 }
     let(:spouse_birth_date) { younger_than_65 }
