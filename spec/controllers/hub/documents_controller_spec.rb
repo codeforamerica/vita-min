@@ -161,7 +161,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#new" do
-    let!(:tax_return_1) { create :tax_return, client: client }
+    let!(:tax_return_1) { create :gyr_tax_return, client: client }
     let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
     let(:params) do
       { client_id: client.id }
@@ -178,7 +178,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         get :new, params: params
 
         tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
-        expect(tax_return_select).to have_text TaxReturn.current_tax_year
+        expect(tax_return_select).to have_text MultiTenantService.new(:gyr).current_tax_year
         expect(tax_return_select).to have_text "2019"
       end
     end
@@ -195,7 +195,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       before do
         sign_in user
-        create :tax_return, client: client
+        create :tax_return, client: client, year: 2021
         create :tax_return, client: client, year: 2019
       end
 
@@ -210,7 +210,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
   describe "#update" do
     let(:new_display_name) { "New Display Name" }
-    let(:new_tax_return) { create :tax_return, client: client }
+    let(:new_tax_return) { create :gyr_tax_return, client: client }
     let(:new_doc_type) { DocumentTypes::Employment }
     let(:document) { create :document, client: client, uploaded_by: client }
     let(:params) do
