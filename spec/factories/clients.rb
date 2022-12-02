@@ -2,43 +2,46 @@
 #
 # Table name: clients
 #
-#  id                                          :bigint           not null, primary key
-#  attention_needed_since                      :datetime
-#  completion_survey_sent_at                   :datetime
-#  consented_to_service_at                     :datetime
-#  ctc_experience_survey_sent_at               :datetime
-#  ctc_experience_survey_variant               :integer
-#  current_sign_in_at                          :datetime
-#  current_sign_in_ip                          :inet
-#  experience_survey                           :integer          default("unfilled"), not null
-#  failed_attempts                             :integer          default(0), not null
-#  filterable_tax_return_properties            :jsonb
-#  first_unanswered_incoming_interaction_at    :datetime
-#  flagged_at                                  :datetime
-#  identity_verification_denied_at             :datetime
-#  identity_verified_at                        :datetime
-#  in_progress_survey_sent_at                  :datetime
-#  last_13614c_update_at                       :datetime
-#  last_incoming_interaction_at                :datetime
-#  last_internal_or_outgoing_interaction_at    :datetime
-#  last_outgoing_communication_at              :datetime
-#  last_seen_at                                :datetime
-#  last_sign_in_at                             :datetime
-#  last_sign_in_ip                             :inet
-#  locked_at                                   :datetime
-#  login_requested_at                          :datetime
-#  login_token                                 :string
-#  message_tracker                             :jsonb
-#  needs_to_flush_filterable_properties_set_at :datetime
-#  previous_sessions_active_seconds            :integer
-#  restricted_at                               :datetime
-#  routing_method                              :integer
-#  sign_in_count                               :integer          default(0), not null
-#  still_needs_help                            :integer          default("unfilled"), not null
-#  triggered_still_needs_help_at               :datetime
-#  created_at                                  :datetime         not null
-#  updated_at                                  :datetime         not null
-#  vita_partner_id                             :bigint
+#  id                                                   :bigint           not null, primary key
+#  attention_needed_since                               :datetime
+#  completion_survey_sent_at                            :datetime
+#  consented_to_service_at                              :datetime
+#  ctc_experience_survey_sent_at                        :datetime
+#  ctc_experience_survey_variant                        :integer
+#  current_sign_in_at                                   :datetime
+#  current_sign_in_ip                                   :inet
+#  experience_survey                                    :integer          default("unfilled"), not null
+#  failed_attempts                                      :integer          default(0), not null
+#  filterable_number_of_required_documents              :integer          default(3)
+#  filterable_number_of_required_documents_uploaded     :integer          default(0)
+#  filterable_percentage_of_required_documents_uploaded :decimal(5, 2)    default(0.0)
+#  filterable_tax_return_properties                     :jsonb
+#  first_unanswered_incoming_interaction_at             :datetime
+#  flagged_at                                           :datetime
+#  identity_verification_denied_at                      :datetime
+#  identity_verified_at                                 :datetime
+#  in_progress_survey_sent_at                           :datetime
+#  last_13614c_update_at                                :datetime
+#  last_incoming_interaction_at                         :datetime
+#  last_internal_or_outgoing_interaction_at             :datetime
+#  last_outgoing_communication_at                       :datetime
+#  last_seen_at                                         :datetime
+#  last_sign_in_at                                      :datetime
+#  last_sign_in_ip                                      :inet
+#  locked_at                                            :datetime
+#  login_requested_at                                   :datetime
+#  login_token                                          :string
+#  message_tracker                                      :jsonb
+#  needs_to_flush_filterable_properties_set_at          :datetime
+#  previous_sessions_active_seconds                     :integer
+#  restricted_at                                        :datetime
+#  routing_method                                       :integer
+#  sign_in_count                                        :integer          default(0), not null
+#  still_needs_help                                     :integer          default("unfilled"), not null
+#  triggered_still_needs_help_at                        :datetime
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
+#  vita_partner_id                                      :bigint
 #
 # Indexes
 #
