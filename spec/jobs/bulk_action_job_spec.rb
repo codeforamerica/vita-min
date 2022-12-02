@@ -16,7 +16,7 @@ describe BulkActionJob do
       let(:sms_phone_number) { "+14155551212" }
 
       context "with a client needing an email & text" do
-        let!(:selected_client) { create :client, intake: intake, tax_returns: [(build :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+        let!(:selected_client) { create :client, intake: intake, tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
         let(:intake) { build :intake, email_address: email, email_notification_opt_in: "yes", sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes", locale: locale }
         let(:locale) { "en" }
 
