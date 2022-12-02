@@ -2,43 +2,46 @@
 #
 # Table name: clients
 #
-#  id                                          :bigint           not null, primary key
-#  attention_needed_since                      :datetime
-#  completion_survey_sent_at                   :datetime
-#  consented_to_service_at                     :datetime
-#  ctc_experience_survey_sent_at               :datetime
-#  ctc_experience_survey_variant               :integer
-#  current_sign_in_at                          :datetime
-#  current_sign_in_ip                          :inet
-#  experience_survey                           :integer          default("unfilled"), not null
-#  failed_attempts                             :integer          default(0), not null
-#  filterable_tax_return_properties            :jsonb
-#  first_unanswered_incoming_interaction_at    :datetime
-#  flagged_at                                  :datetime
-#  identity_verification_denied_at             :datetime
-#  identity_verified_at                        :datetime
-#  in_progress_survey_sent_at                  :datetime
-#  last_13614c_update_at                       :datetime
-#  last_incoming_interaction_at                :datetime
-#  last_internal_or_outgoing_interaction_at    :datetime
-#  last_outgoing_communication_at              :datetime
-#  last_seen_at                                :datetime
-#  last_sign_in_at                             :datetime
-#  last_sign_in_ip                             :inet
-#  locked_at                                   :datetime
-#  login_requested_at                          :datetime
-#  login_token                                 :string
-#  message_tracker                             :jsonb
-#  needs_to_flush_filterable_properties_set_at :datetime
-#  previous_sessions_active_seconds            :integer
-#  restricted_at                               :datetime
-#  routing_method                              :integer
-#  sign_in_count                               :integer          default(0), not null
-#  still_needs_help                            :integer          default("unfilled"), not null
-#  triggered_still_needs_help_at               :datetime
-#  created_at                                  :datetime         not null
-#  updated_at                                  :datetime         not null
-#  vita_partner_id                             :bigint
+#  id                                                   :bigint           not null, primary key
+#  attention_needed_since                               :datetime
+#  completion_survey_sent_at                            :datetime
+#  consented_to_service_at                              :datetime
+#  ctc_experience_survey_sent_at                        :datetime
+#  ctc_experience_survey_variant                        :integer
+#  current_sign_in_at                                   :datetime
+#  current_sign_in_ip                                   :inet
+#  experience_survey                                    :integer          default("unfilled"), not null
+#  failed_attempts                                      :integer          default(0), not null
+#  filterable_number_of_required_documents              :integer          default(3)
+#  filterable_number_of_required_documents_uploaded     :integer          default(0)
+#  filterable_percentage_of_required_documents_uploaded :decimal(5, 2)    default(0.0)
+#  filterable_tax_return_properties                     :jsonb
+#  first_unanswered_incoming_interaction_at             :datetime
+#  flagged_at                                           :datetime
+#  identity_verification_denied_at                      :datetime
+#  identity_verified_at                                 :datetime
+#  in_progress_survey_sent_at                           :datetime
+#  last_13614c_update_at                                :datetime
+#  last_incoming_interaction_at                         :datetime
+#  last_internal_or_outgoing_interaction_at             :datetime
+#  last_outgoing_communication_at                       :datetime
+#  last_seen_at                                         :datetime
+#  last_sign_in_at                                      :datetime
+#  last_sign_in_ip                                      :inet
+#  locked_at                                            :datetime
+#  login_requested_at                                   :datetime
+#  login_token                                          :string
+#  message_tracker                                      :jsonb
+#  needs_to_flush_filterable_properties_set_at          :datetime
+#  previous_sessions_active_seconds                     :integer
+#  restricted_at                                        :datetime
+#  routing_method                                       :integer
+#  sign_in_count                                        :integer          default(0), not null
+#  still_needs_help                                     :integer          default("unfilled"), not null
+#  triggered_still_needs_help_at                        :datetime
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
+#  vita_partner_id                                      :bigint
 #
 # Indexes
 #
@@ -102,7 +105,7 @@ class Client < ApplicationRecord
           where(id: client_ids)
         end
 
-      attributes = where(id: client_ids).includes(:tax_returns).map do |client|
+      attributes = where(id: client_ids).includes(:tax_returns, :documents, intake: :dependents).map do |client|
         {
           id: client.id,
           created_at: client.created_at,
@@ -118,6 +121,9 @@ class Client < ApplicationRecord
               greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
             }
           end,
+          filterable_number_of_required_documents_uploaded: client.number_of_required_documents_uploaded,
+          filterable_number_of_required_documents: client.number_of_required_documents,
+          filterable_percentage_of_required_documents_uploaded: client.number_of_required_documents_uploaded / client.number_of_required_documents.to_f,
           needs_to_flush_filterable_properties_set_at: nil
         }
       end
@@ -135,7 +141,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
-  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, :documents, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
   scope :has_active_tax_returns, -> do
     includes(:intake, tax_returns: :tax_return_transitions)
@@ -332,5 +338,27 @@ class Client < ApplicationRecord
 
   def identity_decision_made?
     identity_verification_denied_at? || identity_verified_at?
+  end
+
+  def number_of_required_documents
+    required_document_counts.map { |_type, counts| counts[:required_count] }.sum
+  end
+
+  def number_of_required_documents_uploaded
+    required_document_counts.map { |_type, counts| counts[:clamped_provided_count] }.sum
+  end
+
+  def required_document_counts
+    return {} if intake.blank? || intake.is_ctc?
+
+    intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
+      required_count = document_type.required_persons(intake).length
+      provided_count = documents.select { |d| d.document_type == document_type.key }.length
+      result[document_type.to_s] = {
+        required_count: required_count,
+        provided_count: provided_count,
+        clamped_provided_count: [required_count, provided_count].min
+      }
+    end
   end
 end

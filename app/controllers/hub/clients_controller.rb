@@ -224,6 +224,17 @@ module Hub
         !!@client.intake
       end
 
+      def required_documents_tooltip
+        return nil if @intake.is_ctc?
+
+        lines = ["Total: #{@client.filterable_number_of_required_documents_uploaded} / #{@client.filterable_number_of_required_documents}"]
+        lines << [""]
+        @client.required_document_counts.select { |document_type, counts| counts[:required_count] > 0 }.map do |document_type, counts|
+          lines << "#{document_type}: #{counts[:clamped_provided_count]} / #{counts[:required_count]}"
+        end
+        lines.join("\n")
+      end
+
       def hub_status_updatable
         @client.intake && !@client.online_ctc?
       end

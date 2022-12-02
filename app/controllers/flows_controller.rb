@@ -441,6 +441,7 @@ class FlowsController < ApplicationController
         filing_joint: 'no',
       }
       client = Client.create!(
+        consented_to_service_at: Time.zone.now,
         intake_attributes: intake_attributes,
         tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: false }],
       )

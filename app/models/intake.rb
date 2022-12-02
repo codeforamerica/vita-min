@@ -606,6 +606,7 @@ class Intake < ApplicationRecord
     attr_reader :active_armed_forces
 
     def initialize(intake, primary_or_spouse)
+      @primary_or_spouse = primary_or_spouse
       if primary_or_spouse == :primary
         @first_name = intake.primary_first_name
         @middle_initial = intake.primary_middle_initial
@@ -628,6 +629,8 @@ class Intake < ApplicationRecord
     end
 
     def first_and_last_name
+      return I18n.t("models.intake.your_spouse") if @primary_or_spouse == :spouse && @first_name.blank?
+
       parts = [@first_name, @last_name]
       parts << @suffix if @suffix.present?
       parts.join(' ')

@@ -281,6 +281,19 @@
 require "rails_helper"
 
 describe Intake::GyrIntake do
+  describe "touch behavior" do
+    context "when a property is changed on the intake" do
+      it "denormalizes required document info onto the client" do
+        intake = create :intake
+
+        client = intake.client.reload
+        expect(client.filterable_percentage_of_required_documents_uploaded).to eq(0)
+        expect(client.filterable_number_of_required_documents_uploaded).to eq(0)
+        expect(client.filterable_number_of_required_documents).to eq(3)
+      end
+    end
+  end
+
   describe ".accessible_intakes" do
     context "a consented intake" do
       let!(:intake) { create :intake, primary_consented_to_service: "yes" }

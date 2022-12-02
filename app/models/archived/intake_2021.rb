@@ -376,15 +376,10 @@ module Archived
         dependents.where(was_student: "yes").any?
     end
 
-    def spouse_name_or_placeholder
-      return I18n.t("models.intake.your_spouse") unless spouse_first_name.present?
-      spouse_full_name
-    end
-
     def student_names
       names = []
       names << primary_full_name if was_full_time_student_yes?
-      names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
+      names << spouse.full_name if spouse_was_full_time_student_yes?
       names += dependents.where(was_student: "yes").map(&:full_name)
       names
     end

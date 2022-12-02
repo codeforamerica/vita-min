@@ -2,43 +2,46 @@
 #
 # Table name: clients
 #
-#  id                                          :bigint           not null, primary key
-#  attention_needed_since                      :datetime
-#  completion_survey_sent_at                   :datetime
-#  consented_to_service_at                     :datetime
-#  ctc_experience_survey_sent_at               :datetime
-#  ctc_experience_survey_variant               :integer
-#  current_sign_in_at                          :datetime
-#  current_sign_in_ip                          :inet
-#  experience_survey                           :integer          default("unfilled"), not null
-#  failed_attempts                             :integer          default(0), not null
-#  filterable_tax_return_properties            :jsonb
-#  first_unanswered_incoming_interaction_at    :datetime
-#  flagged_at                                  :datetime
-#  identity_verification_denied_at             :datetime
-#  identity_verified_at                        :datetime
-#  in_progress_survey_sent_at                  :datetime
-#  last_13614c_update_at                       :datetime
-#  last_incoming_interaction_at                :datetime
-#  last_internal_or_outgoing_interaction_at    :datetime
-#  last_outgoing_communication_at              :datetime
-#  last_seen_at                                :datetime
-#  last_sign_in_at                             :datetime
-#  last_sign_in_ip                             :inet
-#  locked_at                                   :datetime
-#  login_requested_at                          :datetime
-#  login_token                                 :string
-#  message_tracker                             :jsonb
-#  needs_to_flush_filterable_properties_set_at :datetime
-#  previous_sessions_active_seconds            :integer
-#  restricted_at                               :datetime
-#  routing_method                              :integer
-#  sign_in_count                               :integer          default(0), not null
-#  still_needs_help                            :integer          default("unfilled"), not null
-#  triggered_still_needs_help_at               :datetime
-#  created_at                                  :datetime         not null
-#  updated_at                                  :datetime         not null
-#  vita_partner_id                             :bigint
+#  id                                                   :bigint           not null, primary key
+#  attention_needed_since                               :datetime
+#  completion_survey_sent_at                            :datetime
+#  consented_to_service_at                              :datetime
+#  ctc_experience_survey_sent_at                        :datetime
+#  ctc_experience_survey_variant                        :integer
+#  current_sign_in_at                                   :datetime
+#  current_sign_in_ip                                   :inet
+#  experience_survey                                    :integer          default("unfilled"), not null
+#  failed_attempts                                      :integer          default(0), not null
+#  filterable_number_of_required_documents              :integer          default(3)
+#  filterable_number_of_required_documents_uploaded     :integer          default(0)
+#  filterable_percentage_of_required_documents_uploaded :decimal(5, 2)    default(0.0)
+#  filterable_tax_return_properties                     :jsonb
+#  first_unanswered_incoming_interaction_at             :datetime
+#  flagged_at                                           :datetime
+#  identity_verification_denied_at                      :datetime
+#  identity_verified_at                                 :datetime
+#  in_progress_survey_sent_at                           :datetime
+#  last_13614c_update_at                                :datetime
+#  last_incoming_interaction_at                         :datetime
+#  last_internal_or_outgoing_interaction_at             :datetime
+#  last_outgoing_communication_at                       :datetime
+#  last_seen_at                                         :datetime
+#  last_sign_in_at                                      :datetime
+#  last_sign_in_ip                                      :inet
+#  locked_at                                            :datetime
+#  login_requested_at                                   :datetime
+#  login_token                                          :string
+#  message_tracker                                      :jsonb
+#  needs_to_flush_filterable_properties_set_at          :datetime
+#  previous_sessions_active_seconds                     :integer
+#  restricted_at                                        :datetime
+#  routing_method                                       :integer
+#  sign_in_count                                        :integer          default(0), not null
+#  still_needs_help                                     :integer          default("unfilled"), not null
+#  triggered_still_needs_help_at                        :datetime
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
+#  vita_partner_id                                      :bigint
 #
 # Indexes
 #
@@ -837,6 +840,79 @@ describe Client do
         expect do
           client.accumulate_total_session_durations
         end.not_to change { client.reload.previous_sessions_active_seconds }
+      end
+    end
+  end
+
+  describe "#number_of_required_documents" do
+    context "for a single filer" do
+      let(:minimal_intake) { create(:intake, {}) }
+
+      it "includes the documents that are required for everyone" do
+        expect(minimal_intake.client.number_of_required_documents).to eq(3)
+      end
+    end
+
+    context "filing jointly" do
+      let(:joint_intake) { create(:intake, filing_joint: "yes") }
+
+      it "returns at least six, for the three required documents for each filer" do
+        expect(joint_intake.client.number_of_required_documents).to eq(6)
+      end
+    end
+
+    context "filing with dependents" do
+      let(:dependents_intake) { create(:intake, {}) }
+      let!(:dependent1) { create :dependent, intake: dependents_intake }
+      let!(:dependent2) { create :dependent, intake: dependents_intake }
+
+      it "requires an additional document (SSN) for each dependent" do
+        expect(dependents_intake.client.number_of_required_documents).to eq(5)
+      end
+    end
+
+    context "when answering questions that require additional forms" do
+      let(:health_and_wages_intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+
+      it "returns expected documents for particular intake forms" do
+        expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
+      end
+    end
+  end
+
+  describe "#number_of_required_documents_uploaded" do
+    let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+    it "returns zero when no required documents are uploaded" do
+      expect(intake.client.number_of_required_documents_uploaded).to eq(0)
+    end
+
+    context "with uploaded documents" do
+      it "returns the number of uploaded documents" do
+        expect do
+          create :document, intake: intake, document_type: DocumentTypes::Selfie.key
+        end.to change { intake.reload.client.number_of_required_documents_uploaded }.from(0).to(1)
+
+        expect(intake.client.number_of_required_documents_uploaded).to eq(1)
+      end
+
+      context "when multiple documents are required of the same type" do
+        let(:dependents_intake) { create(:intake, {}) }
+        let!(:dependent1) { create :dependent, intake: dependents_intake }
+        let!(:dependent2) { create :dependent, intake: dependents_intake }
+
+        it "counts all documents up to the # required but no more" do
+          # One SsnItin for the primary filer and each dependent
+          expect do
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+          end.to change { dependents_intake.reload.client.number_of_required_documents_uploaded }.from(0).to(3)
+
+          # Additional SsnItin do not contribute
+          expect do
+            create :document, intake: dependents_intake, document_type: DocumentTypes::SsnItin.key
+          end.not_to change { dependents_intake.reload.client.number_of_required_documents_uploaded }
+        end
       end
     end
   end
