@@ -6,7 +6,7 @@ class ReplacementParametersService
   def initialize(body:, client:, preparer: nil, tax_return: nil, locale: nil)
     @body = body
     @client = client
-    @intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
+    @intake = client.most_recent_intake
     @tax_return = tax_return
     @preparer_user = preparer
     @locale = locale || "en"

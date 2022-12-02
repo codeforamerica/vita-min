@@ -4,11 +4,7 @@ class ContactRecordPresenter
   def initialize(contact_record)
     @contact_record = contact_record
     if contact_record.respond_to?(:client) && contact_record.client.respond_to?(:intake)
-      if contact_record.client.intake
-        @intake = contact_record.client.intake
-      else
-        @intake = Archived::Intake2021.find_by(client: contact_record.client)
-      end
+      @intake = contact_record.client.most_recent_intake
     end
   end
 

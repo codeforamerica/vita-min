@@ -10,7 +10,10 @@ class MailgunWebhooksController < ActionController::Base
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
     client_count = clients.count
     if client_count.zero?
-      archived_intake = Archived::Intake2021.where(email_address: sender_email).first
+      archived_intake = Client.archived_intake_models.find do |klass|
+        intake = where(email_address: sender_email).first
+        return intake if intake.present?
+      end
       if archived_intake.present?
         locale = archived_intake.locale || "en"
         archived_intake.client.outgoing_emails.create!(

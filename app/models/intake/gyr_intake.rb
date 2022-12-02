@@ -396,8 +396,10 @@ class Intake::GyrIntake < Intake
   def probable_previous_year_intake
     return nil unless primary_last_four_ssn && primary_first_name && primary_last_name && primary_birth_date
 
-    previous_options = Archived::Intake2021.where(type: "Intake::GyrIntake", primary_birth_date: primary_birth_date, primary_first_name: primary_first_name, primary_last_name: primary_last_name)
-    previous_options&.find { |po| po.primary_last_four_ssn.to_s == primary_last_four_ssn.to_s } # last_four_ssn is encrypted, so we need to manually loop
+    Client.archived_intake_models.find do |klass|
+      intakes = klass.where(type: "Intake::GyrIntake", primary_birth_date: primary_birth_date, primary_first_name: primary_first_name, primary_last_name: primary_last_name)
+      intakes&.find { |po| po.primary_last_four_ssn.to_s == primary_last_four_ssn.to_s } # last_four_ssn is encrypted, so we need to manually loop
+    end
   end
 
   def relevant_document_types

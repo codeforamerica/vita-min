@@ -203,7 +203,19 @@ class Client < ApplicationRecord
   end
 
   def self.archived_intake_models
+    # put most recent year first
     [Archived::Intake2022, Archived::Intake2021]
+  end
+
+  def most_recent_intake
+    intake || most_recent_archived_intake
+  end
+
+  def most_recent_archived_intake
+    Client.archived_intake_models.each do |klass|
+      intake = klass.find_by(client: self)
+      return intake if intake.present?
+    end
   end
 
   scope :without_pagination, -> do
