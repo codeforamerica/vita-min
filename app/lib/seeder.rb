@@ -443,6 +443,38 @@ class Seeder
       ],
     )
 
+    has_archived_intake = find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "HasArchived",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      sms_phone_number: "+14135554444",
+      email_address: "has_archived@example.com",
+      tax_return_attributes: [{ year: 2023, current_state: "intake_ready", filing_status: "single" }],
+      )
+
+    find_or_create_intake_and_client(
+      Archived::Intake2021,
+      primary_first_name: "HasArchived",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      sms_phone_number: "+14135554444",
+      email_address: "has_archived@example.com",
+      client: has_archived_intake.client,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+      )
+
+    find_or_create_intake_and_client(
+      Archived::Intake2022,
+      primary_first_name: "HasArchived",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      sms_phone_number: "+14135554444",
+      email_address: "has_archived@example.com",
+      client: has_archived_intake.client,
+      tax_return_attributes: [{ year: 2022, current_state: "intake_ready", filing_status: "single" }],
+      )
+
     Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
@@ -488,7 +520,7 @@ class Seeder
       end
     end
 
-    unless intake.w2s_including_incomplete.present?
+    unless intake_type == Archived::Intake2021 && intake.w2s_including_incomplete.present?
       w2_attributes&.each do |w2|
         intake.w2s_including_incomplete.create!(w2)
       end

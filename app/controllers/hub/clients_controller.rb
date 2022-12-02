@@ -204,9 +204,15 @@ module Hub
         __setobj__(client)
         @intake = client.intake
         unless @intake
-          @intake = Archived::Intake2021.find_by(client_id: @client.id)
+          @intake = Client.archived_intake_models.find do |intake_model|
+            intake = intake_model.find_by(client_id: @client.id)
+            return intake unless intake.nil?
+          end
           @archived = true if @intake
         end
+
+        # @intake = client.most_recent_intake
+        # @archived = true if @intake.class == Intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true

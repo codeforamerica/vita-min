@@ -183,17 +183,31 @@ class Client < ApplicationRecord
   end
 
   scope :with_insufficient_contact_info, -> do
-    intake_ok, archived_intake_ok = [Intake, Archived::Intake2021].map do |klass|
-      can_use_email = klass.where(client: all, email_notification_opt_in: "yes").where.not(email_address: nil).where.not(email_address: "")
-      can_use_sms = klass.where(client: all, sms_notification_opt_in: "yes").where.not(sms_phone_number: nil).where.not(sms_phone_number: "")
+    # Compiles a list of IDs of intakes (archived and not) that have opted in to communications and returns the inverse list as a query
+    intakes_with_contact_info_queries = intake_models.map do |intake_class|
+      can_use_email = intake_class.where(client: all, email_notification_opt_in: "yes").where.not(email_address: nil).where.not(email_address: "")
+      can_use_sms = intake_class.where(client: all, sms_notification_opt_in: "yes").where.not(sms_phone_number: nil).where.not(sms_phone_number: "")
       where(id: can_use_email.or(can_use_sms).select("client_id"))
     end
 
-    where.not(id: intake_ok.or(archived_intake_ok))
+    all_intakes_with_contact_info_query = intakes_with_contact_info_queries.shift
+    intakes_with_contact_info_queries.each do |query|
+      all_intakes_with_contact_info_query = all_intakes_with_contact_info_query.or(query)
+    end
+
+    where.not(id: all_intakes_with_contact_info_query)
   end
 
   scope :accessible_to_user, ->(user) do
     accessible_by(Ability.new(user))
+  end
+
+  def self.intake_models
+    [Intake] + archived_intake_models
+  end
+
+  def self.archived_intake_models
+    [Archived::Intake2022, Archived::Intake2021]
   end
 
   scope :without_pagination, -> do
@@ -208,8 +222,7 @@ class Client < ApplicationRecord
       "es" => 0
     }
 
-    intake_models = [Intake, Archived::Intake2021]
-    intake_models.each do |klass|
+    Client.intake_models.each do |klass|
       counts = klass.where(client: all).group(:locale).count
       result["en"] += counts.fetch("en", 0) + counts.fetch(nil, 0)
       result["es"] += counts.fetch("es", 0)
