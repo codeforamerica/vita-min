@@ -301,6 +301,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t("general.edit").downcase
         end
 
+        prior_tax_year = MultiTenantService.new(:ctc).prior_tax_year
         fill_in I18n.t('views.ctc.portal.prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "1234"
         click_on I18n.t("general.save")
 
