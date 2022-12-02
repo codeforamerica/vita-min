@@ -98,7 +98,7 @@ describe TaxReturn do
 
   describe "#record_expected_payments!" do
     context "when the return is accepted" do
-      let(:tax_return) { create :tax_return, :ctc_year }
+      let(:tax_return) { create :ctc_tax_return }
       let(:efile_submission) { create :efile_submission, :transmitted, tax_return: tax_return }
 
       before do

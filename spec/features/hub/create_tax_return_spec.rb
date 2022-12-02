@@ -40,7 +40,7 @@ RSpec.feature "Add a tax return for an existing client" do
         # 2019 already created above
         create :tax_return, client: client, year: 2020
         create :tax_return, client: client, year: 2021
-        create :tax_return, client: client, year: MultiTenantService.new(:gyr).current_tax_year
+        create :gyr_tax_return, client: client
       end
 
       scenario "it does not show the button on the client show page" do

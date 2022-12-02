@@ -5,7 +5,7 @@ RSpec.describe SurveyMessages::CtcExperienceSurvey do
     let(:ctc_experience_survey_sent_at) { nil }
     let(:service_type) { 'online_intake' }
     let!(:client) do
-      (create :tax_return, status, service_type: service_type, client: build(:client, ctc_experience_survey_sent_at: ctc_experience_survey_sent_at, intake: build(:ctc_intake, primary_consented_to_service: "yes"))).client
+      (create :ctc_tax_return, status, service_type: service_type, client: build(:client, ctc_experience_survey_sent_at: ctc_experience_survey_sent_at, intake: build(:ctc_intake, primary_consented_to_service: "yes"))).client
     end
     let(:status) { :file_accepted }
     let(:expected_send_time) { 25.hours.from_now }

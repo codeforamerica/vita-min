@@ -5,7 +5,7 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
     let!(:ctc_client) { create :client, intake: (create :ctc_intake) }
     let!(:gyr_client) { create :client, intake: (create :intake), vita_partner: orange_org }
     let!(:gyr_intake) { gyr_client.intake }
-    let!(:tax_return) { create :tax_return, :file_ready_to_file, assigned_user: admin_user, client: gyr_client }
+    let!(:tax_return) { create :gyr_tax_return, :file_ready_to_file, assigned_user: admin_user, client: gyr_client }
 
     let!(:admin_user) { create :admin_user }
     let!(:greeter_user) { create :greeter_user }
@@ -19,7 +19,7 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
       let!(:sage_site) { create(:site, name: "Sage Site", parent_organization: papaya_org) }
       let!(:gyr_client_exempted) { create :client, intake: (create :intake), vita_partner: sage_site }
       let!(:gyr_client_exempted_2) { create :client, intake: (create :intake), vita_partner: sage_site }
-      let!(:tax_return_exempted) { create :tax_return, :intake_in_progress, assigned_user: admin_user, client: gyr_client_exempted }
+      let!(:tax_return_exempted) { create :gyr_tax_return, :intake_in_progress, assigned_user: admin_user, client: gyr_client_exempted }
 
       it "only delete non-exempted clients and their associated records" do
         expect do
@@ -77,7 +77,7 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
 
     context "users with assigned tax returns of exempted clients" do
       let!(:tax_return_2) { create :tax_return, :file_ready_to_file, assigned_user: site_coordinator_user, client: gyr_client, year: 2020 }
-      let!(:tax_return_3) { create :tax_return, :file_ready_to_file, assigned_user: greeter_user }
+      let!(:tax_return_3) { create :gyr_tax_return, :file_ready_to_file, assigned_user: greeter_user }
 
       it "deletes non-admin users" do
         described_class.perform_now([gyr_client.id])

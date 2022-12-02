@@ -131,7 +131,7 @@ RSpec.describe FlowsController do
       context "with a current_intake" do
         before do
           client = create(:ctc_intake).client
-          create(:tax_return, client: client)
+          create(:ctc_tax_return, client: client)
           sign_in client
         end
 

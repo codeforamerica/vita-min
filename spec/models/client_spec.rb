@@ -69,10 +69,10 @@ describe Client do
     let(:client_archived_intake) { create :client, intake: nil }
 
     before do
-      create :tax_return, :intake_before_consent, client: client_before_consent
-      create :tax_return, :intake_in_progress, client: client_in_progress
-      create :tax_return, :file_accepted, client: client_file_accepted
-      create :tax_return, :file_not_filing, client: client_file_not_filing
+      create :gyr_tax_return, :intake_before_consent, client: client_before_consent
+      create :gyr_tax_return, :intake_in_progress, client: client_in_progress
+      create :gyr_tax_return, :file_accepted, client: client_file_accepted
+      create :gyr_tax_return, :file_not_filing, client: client_file_not_filing
       create :tax_return, :intake_before_consent, year: 2019, client: client_multiple
       create :tax_return, :prep_ready_for_prep, year: 2018, client: client_multiple
       create :tax_return, :prep_ready_for_prep, year: 2020, client: client_archived_intake
@@ -712,7 +712,7 @@ describe Client do
 
   describe "#forward_message_to_intercom?" do
     context "an online CTC client" do
-      let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, service_type: "online_intake")] }
+      let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:ctc_tax_return, service_type: "online_intake")] }
 
       it "returns false" do
         expect(client.forward_message_to_intercom?).to eq(false)

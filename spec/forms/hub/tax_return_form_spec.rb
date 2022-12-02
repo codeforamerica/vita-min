@@ -6,7 +6,7 @@ describe Hub::TaxReturnForm do
 
     context "with no params" do
       let(:params) { {} }
-      let(:tax_return) { create :tax_return, :intake_in_progress, service_type: service_type }
+      let(:tax_return) { create :gyr_tax_return, :intake_in_progress, service_type: service_type }
       let(:client) { tax_return.client }
 
       context "if existing tax returns were drop off" do
@@ -29,7 +29,7 @@ describe Hub::TaxReturnForm do
     context "when explicit service_type is passed as a param" do
       subject { described_class.new(client, { service_type: "custom" }) }
       let(:params) { {} }
-      let(:tax_return) { create :tax_return, :intake_in_progress, service_type: "drop_off" }
+      let(:tax_return) { create :gyr_tax_return, :intake_in_progress, service_type: "drop_off" }
       let(:client) { tax_return.client }
 
       it "does not overwrite it" do

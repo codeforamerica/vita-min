@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::PhoneVerificationController, requires_default_vita_partners: true do
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale), tax_returns: [build(:tax_return, :intake_before_consent)] }
+  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale), tax_returns: [build(:ctc_tax_return, :intake_before_consent)] }
   let(:intake) { client.intake }
   let(:locale) { "en" }
 

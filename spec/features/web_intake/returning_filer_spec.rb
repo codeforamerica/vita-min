@@ -11,7 +11,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
       primary_consented_to_service: "yes",
       primary_ssn: gyr_ssn,
       preferred_name: 'Maeby',
-      client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
+      client: build(:client, tax_returns: [build(:gyr_tax_return, service_type: "online_intake")])
     )
   end
   let(:ctc_ssn) { "123-45-6788" }

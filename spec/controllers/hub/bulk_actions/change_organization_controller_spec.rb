@@ -45,7 +45,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
       before { sign_in user }
 
       context "with valid params" do
-        let!(:selected_client) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:selected_client) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
 
         it "creates a notification and enqueues a job to do the rest" do
           expect do

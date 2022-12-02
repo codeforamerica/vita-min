@@ -5,7 +5,7 @@ RSpec.describe Ctc::Questions::NoDependentsAdvanceCtcPaymentsController do
     let!(:intake) { create :ctc_intake }
 
     before do
-      create :tax_return, client: intake.client
+      create :ctc_tax_return, client: intake.client
     end
 
     context "with an intake that has created dependents" do

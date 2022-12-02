@@ -8,7 +8,7 @@ describe TaxReturnAssignmentService do
   end
 
   describe ".assign" do
-    let(:tax_return) { create :tax_return, assigned_user: (create :site_coordinator_user) }
+    let(:tax_return) { create :gyr_tax_return, assigned_user: (create :site_coordinator_user) }
     let(:assigned_user) { create :team_member_user }
     let(:assigned_by) { create :user }
 
@@ -26,7 +26,7 @@ describe TaxReturnAssignmentService do
       end
 
       context "when assigned user has a different vita partner than the clients" do
-        let(:tax_return) { create :tax_return, assigned_user: (create :user), client: create(:client, vita_partner: old_site) }
+        let(:tax_return) { create :gyr_tax_return, assigned_user: (create :user), client: create(:client, vita_partner: old_site) }
         let(:assigned_user) { create :user, role: create(:team_member_role, site: new_site) }
         let(:new_site) { create :site }
         let(:old_site) { create :site }
@@ -48,7 +48,7 @@ describe TaxReturnAssignmentService do
   end
 
   describe ".send_notifications" do
-    let(:tax_return) { create :tax_return, assigned_user: (create :site_coordinator_user) }
+    let(:tax_return) { create :gyr_tax_return, assigned_user: (create :site_coordinator_user) }
     let(:assigned_user) { create :team_member_user }
     let(:assigned_by) { create :user }
 

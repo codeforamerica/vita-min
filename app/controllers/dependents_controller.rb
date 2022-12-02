@@ -26,7 +26,7 @@ class DependentsController < ApplicationController
   def update
     @dependent = current_intake.dependents.find(params[:id])
     if @dependent.update(dependent_params)
-      send_mixpanel_event(event_name: "dependent_updated", data: @dependent.mixpanel_data)
+      send_mixpanel_event(event_name: "dependent_updated", data: mixpanel_data(@dependent))
       redirect_to dependents_path
     else
       send_mixpanel_validation_error(@dependent.errors)

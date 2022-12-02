@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Portal::DependentsController do
   let(:intake) { create :ctc_intake, client: client }
-  let(:client) { create :client, tax_returns: [(create :tax_return)] }
+  let(:client) { create :client, tax_returns: [(create :ctc_tax_return)] }
   let(:dependent) do
     create(
       :qualifying_child,

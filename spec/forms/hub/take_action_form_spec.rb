@@ -9,7 +9,7 @@ RSpec.describe Hub::TakeActionForm do
 
   describe "validations" do
     context "when tax_return_id is not part of clients tax returns" do
-      let(:form_params) {{ tax_return_id: create(:tax_return).id }}
+      let(:form_params) {{ tax_return_id: create(:gyr_tax_return).id }}
 
       it "add an error to the object" do
         expect(form).not_to be_valid

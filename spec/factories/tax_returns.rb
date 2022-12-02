@@ -57,11 +57,11 @@ FactoryBot.define do
       end
     end
 
-    trait :gyr_year do
+    factory :gyr_tax_return do
       year { MultiTenantService.new(:gyr).current_tax_year }
     end
 
-    trait :ctc_year do
+    factory :ctc_tax_return do
       year { MultiTenantService.new(:ctc).current_tax_year }
     end
 
