@@ -88,7 +88,7 @@ describe Portal::UploadDocumentsController do
         end
 
         context "when client's tax returns are in not ready or needs doc help" do
-          let!(:not_ready_tax_return) { create :tax_return, :intake_in_progress, client: client }
+          let!(:not_ready_tax_return) { create :gyr_tax_return, :intake_in_progress, client: client }
           let!(:needs_doc_help_tax_return) { create :tax_return, :intake_needs_doc_help, year: 2020, client: client }
           let!(:in_review_tax_return) { create :tax_return, :intake_reviewing, year: 2019, client: client }
 
