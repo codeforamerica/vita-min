@@ -1460,7 +1460,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when tax returns have any other status or a mix of statuses" do
           let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { create :tax_return, filing_status: "head_of_household" }
+          let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
 
           it "returns true" do
             expect(presenter.requires_spouse_info?).to be_truthy
