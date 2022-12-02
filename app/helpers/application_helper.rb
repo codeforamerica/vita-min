@@ -126,4 +126,12 @@ def short_yes_no_unsure_options_for_select
       "icons/sending.svg"
     end
   end
+
+  def ctc_current_tax_year
+    MultiTenantService.new(:ctc).current_tax_year
+  end
+
+  def ctc_prior_tax_year
+    MultiTenantService.new(:ctc).prior_tax_year
+  end
 end
