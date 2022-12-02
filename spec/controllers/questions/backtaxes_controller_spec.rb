@@ -13,7 +13,8 @@ RSpec.describe Questions::BacktaxesController do
     it "sets possible_filing_years to all filing years" do
       get :edit
 
-      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years)
+      # TODO(TY2022): Support 2022
+      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years - [2022])
     end
   end
 
