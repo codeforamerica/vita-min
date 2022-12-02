@@ -49,7 +49,7 @@ class FlowExplorerScreenshots
   private
 
   def screenshot_filename
-    FlowsController::DecoratedController.new(@controller_class, @controller_action).screenshot_filename
+    FlowsController::DecoratedControllerList::DecoratedController.new(@controller_class, @controller_action, nil).screenshot_filename
   end
 
   def create_controller_card_screenshot(locale:, switch_locale: false)
