@@ -6,7 +6,7 @@ describe TransitionNotFilingService do
       let(:client) { create :client, intake: (create :intake) }
 
       context "when previous status is intake_in_progress" do
-        let(:tax_return) { create :tax_return, :intake_in_progress, client: client }
+        let(:tax_return) { create :ctc_tax_return, :intake_in_progress, client: client }
 
         before do
           tax_return.transition_to(:file_not_filing)
@@ -19,7 +19,7 @@ describe TransitionNotFilingService do
       end
 
       context "when previous status is anything else" do
-        let(:tax_return) { create :tax_return, :intake_needs_doc_help, client: client }
+        let(:tax_return) { create :ctc_tax_return, :intake_needs_doc_help, client: client }
         before do
           tax_return.transition_to(:file_not_filing)
         end
@@ -31,7 +31,7 @@ describe TransitionNotFilingService do
       end
 
       context "when there is no previous state transitions" do
-        let!(:tax_return) { create :tax_return, :file_not_filing, client: client }
+        let!(:tax_return) { create :ctc_tax_return, :file_not_filing, client: client }
 
         it "does not change status" do
           expect(client.tax_returns.map(&:current_state)).to eq ["file_not_filing"]

@@ -64,7 +64,7 @@ FactoryBot.define do
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, :ctc_year, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+        create :ctc_tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
       end
     end
 
@@ -74,7 +74,7 @@ FactoryBot.define do
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, :gyr_year, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+        create :gyr_tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
       end
     end
 
@@ -100,7 +100,7 @@ FactoryBot.define do
     end
 
     factory :client_with_intake_and_return do
-      with_return
+      with_ctc_return
       transient do
         preferred_name { "Maeby" }
       end
@@ -110,7 +110,7 @@ FactoryBot.define do
     end
 
     factory :client_with_ctc_intake_and_return do
-      with_return
+      with_ctc_return
       vita_partner do
         ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
         VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)

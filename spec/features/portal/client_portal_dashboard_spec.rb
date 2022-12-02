@@ -5,7 +5,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
-             tax_returns: [create(:tax_return, :intake_in_progress)]
+             tax_returns: [create(:gyr_tax_return, :intake_in_progress)]
     end
 
     before do

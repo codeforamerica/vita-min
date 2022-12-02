@@ -7,7 +7,7 @@ describe Portal::SpouseSignForm8879 do
   let(:params) { {} }
 
   describe "validations" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     let(:valid_params) {
       {
         spouse_accepts_terms: "yes",
@@ -51,7 +51,7 @@ describe Portal::SpouseSignForm8879 do
   end
 
   describe "#sign" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     let(:params) { { spouse_accepts_terms: 'yes', spouse_confirms_identity: 'yes', ip: fake_ip } }
 
     context "when the form fails validation" do

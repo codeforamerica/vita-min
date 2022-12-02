@@ -11,7 +11,7 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
     let(:site) { create :site, parent_organization: organization }
     let(:second_site) { create :site, parent_organization: organization }
     let(:organization) { create :organization }
-    let!(:tax_return) { create :tax_return, client: client, assigned_user: assigned_user }
+    let!(:tax_return) { create :gyr_tax_return, client: client, assigned_user: assigned_user }
 
     let!(:assigned_user) { create :user, role: create(:team_member_role, site: site) }
     let!(:team_member) { create :user, role: create(:team_member_role, site: site) }

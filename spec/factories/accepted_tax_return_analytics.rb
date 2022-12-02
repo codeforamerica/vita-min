@@ -23,7 +23,7 @@
 FactoryBot.define do
   factory :accepted_tax_return_analytics do
     trait :with_tax_return do
-      tax_return { create(:tax_return) }
+      tax_return { create(:ctc_tax_return) }
       outstanding_ctc_amount_cents { 90000 }
       ctc_amount_cents { 245000 }
       advance_ctc_amount_cents { 150000 }

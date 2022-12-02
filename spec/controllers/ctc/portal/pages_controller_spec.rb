@@ -15,7 +15,7 @@ describe Ctc::Portal::PagesController do
 
   end
   let!(:w2) { create :w2, wages_amount: wages_amount, intake: intake }
-  let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return)] }
+  let!(:client) { create :client, intake: intake, tax_returns: [create(:ctc_tax_return)] }
 
   before do
     allow(subject).to receive(:open_for_eitc_intake?).and_return true

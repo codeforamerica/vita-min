@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SurveyMessages::GyrCompletionSurvey do
   describe ".clients_to_survey" do
     let!(:client) do
-      (create :tax_return, :intake_in_progress, client: build(:client, completion_survey_sent_at: completion_survey_sent_at, intake: build(:intake, primary_consented_to_service: "yes"))).client
+      (create :gyr_tax_return, :intake_in_progress, client: build(:client, completion_survey_sent_at: completion_survey_sent_at, intake: build(:intake, primary_consented_to_service: "yes"))).client
     end
     let(:completion_survey_sent_at) { nil }
     let(:status) { nil }

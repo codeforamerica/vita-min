@@ -12,7 +12,7 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
   let!(:client) {
     create :client, intake: intake, tax_returns: [tax_return]
   }
-  let!(:tax_return) { create :tax_return, filing_status: "married_filing_jointly" }
+  let!(:tax_return) { create :ctc_tax_return, filing_status: "married_filing_jointly" }
 
   describe "#save" do
     let!(:form_attributes) do

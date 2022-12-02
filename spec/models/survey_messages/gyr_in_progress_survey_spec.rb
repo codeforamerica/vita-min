@@ -6,7 +6,7 @@ RSpec.describe SurveyMessages::GyrInProgressSurvey do
     let(:status) { :intake_in_progress }
     let(:in_progress_survey_sent_at) { nil }
     let!(:client) do
-      (create :tax_return, status, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service: "yes"))).client
+      (create :gyr_tax_return, status, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service: "yes"))).client
     end
 
     context "clients who should get the survey" do

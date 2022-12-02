@@ -2,7 +2,7 @@
 <% if current_intake.puerto_rico_filing? %>
   <%= render 'ctc/questions/spouse_filed_prior_tax_year/pr_edit' %>
 <% else %>
-  <% content_for :page_title, t("views.ctc.questions.spouse_filed_prior_tax_year.title", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %>
+  <% content_for :page_title, t("views.ctc.questions.spouse_filed_prior_tax_year.title", prior_tax_year: MultiTenantService.new(:ctc).prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %>
   <% content_for :card do %>
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
       <h1 class="h2"><%= content_for(:page_title) %></h1>
@@ -17,7 +17,7 @@
                     { value: :filed_together, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_together") },
                     { value: :filed_non_filer_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_non_filer_separate") },
                     { value: :filed_full_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate") },
-                    { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.did_not_file", prior_tax_year: prior_tax_year) },
+                    { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.did_not_file", prior_tax_year: MultiTenantService.new(:ctc).prior_tax_year) },
                 ]
             )
         %>

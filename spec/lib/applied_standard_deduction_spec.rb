@@ -68,7 +68,7 @@ describe AppliedStandardDeduction do
   end
 
   describe "additional blind deduction" do
-    let(:tax_return) { create :tax_return, filing_status: filing_status, client: create(:client, intake: create(:intake, was_blind: was_blind, spouse_was_blind: spouse_was_blind)) }
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: create(:intake, was_blind: was_blind, spouse_was_blind: spouse_was_blind)) }
     let(:filing_status) { "single" }
     let(:was_blind) { "yes" }
     let(:spouse_was_blind) { "no" }

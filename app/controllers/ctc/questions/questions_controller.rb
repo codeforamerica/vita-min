@@ -7,6 +7,10 @@ module Ctc
 
       private
 
+      def set_ctc_year
+        @c
+      end
+
       def redirect_if_completed_intake_present
         if current_intake && current_intake.completed_at.present?
           redirect_to ctc_completed_intake_path

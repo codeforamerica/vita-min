@@ -211,8 +211,8 @@ describe BulkActionJob do
     end
 
     context "when creating a note" do
-      let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-      let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
       let(:note_body) { "An internal note with some text in it" }
       let(:params) do
         { note_body: note_body }
@@ -246,7 +246,7 @@ describe BulkActionJob do
     end
 
     context "when changing organization" do
-      let!(:selected_client) { create :client, intake: (create :intake), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+      let!(:selected_client) { create :client, intake: (create :intake), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
       let(:new_vita_partner) { create :site, parent_organization: organization }
       let(:params) do
         { vita_partner_id: new_vita_partner.id.to_s }
@@ -274,7 +274,7 @@ describe BulkActionJob do
       end
 
       context "when user only has access to update some clients" do
-        let!(:inaccessible_selected_client) { create :client, intake: (create :intake), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: create(:organization) }
+        let!(:inaccessible_selected_client) { create :client, intake: (create :intake), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: create(:organization) }
 
         before do
           # prove we did the setup good
@@ -319,10 +319,10 @@ describe BulkActionJob do
     end
 
     context "when changing the assignee or status" do
-      let(:tax_return_1) { create :tax_return, :file_ready_to_file, assigned_user: team_member, client: client }
+      let(:tax_return_1) { create :gyr_tax_return, :file_ready_to_file, assigned_user: team_member, client: client }
       let(:tax_return_2) { create :tax_return, :review_signature_requested, assigned_user: team_member, client: client, year: 2019 }
       let(:tax_return_3) { create :tax_return, :review_signature_requested, assigned_user: site_coordinator, client: client, year: 2018 }
-      let(:unselected_tax_return) { create :tax_return, :file_efiled, assigned_user: team_member }
+      let(:unselected_tax_return) { create :gyr_tax_return, :file_efiled, assigned_user: team_member }
       let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
 
       let(:new_status) { "review_ready_for_call" }

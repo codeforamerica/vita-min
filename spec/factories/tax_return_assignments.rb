@@ -21,6 +21,6 @@
 FactoryBot.define do
   factory :tax_return_assignment do
     assigner { build(:user) }
-    tax_return { build(:tax_return) }
+    tax_return { build(:gyr_tax_return) }
   end
 end

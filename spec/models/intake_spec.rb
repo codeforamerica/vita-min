@@ -728,7 +728,7 @@ describe Intake do
     context "with a couple filing years selected" do
       let!(:client) { create :client, tax_returns: [
         create(:tax_return, year: 2019),
-        create(:tax_return)
+        create(:gyr_tax_return)
       ], intake: intake }
 
       it "returns them as an array" do

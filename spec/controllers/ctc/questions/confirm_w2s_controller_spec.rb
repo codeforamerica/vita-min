@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ctc::Questions::ConfirmW2sController do
   describe "#update" do
-    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return)]) }
+    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:ctc_tax_return)]) }
 
     before do
       sign_in intake.client

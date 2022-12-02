@@ -347,7 +347,7 @@ describe Intake::GyrIntake do
 
       context "when there is another accessible intake with the same ssn" do
         let!(:dupe) {
-          (create :tax_return, :gyr_year, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
+          (create :gyr_tax_return, :gyr_year, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
         }
         let(:intake) { create :intake, primary_ssn: "123456789" }
         it "returns that as a duplicate" do

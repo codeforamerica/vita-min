@@ -20,4 +20,10 @@ describe ApplicationHelper do
       expect(mask(nil)).to eq nil
     end
   end
+
+  describe "#ctc_current_tax_year" do
+    it "fails temporarily WIP" do
+      1 / 0 # FIXME
+    end
+  end
 end

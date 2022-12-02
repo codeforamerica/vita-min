@@ -82,7 +82,7 @@ describe Document do
       let(:document) { build :document, client: client, tax_return: tax_return }
 
       context "with a tax return for a different client" do
-        let(:tax_return) { create :tax_return }
+        let(:tax_return) { create :gyr_tax_return }
 
         it "is not valid" do
           expect(document).not_to be_valid
@@ -91,7 +91,7 @@ describe Document do
       end
 
       context "with a tax return for the same client" do
-        let(:tax_return) { create :tax_return, client: client }
+        let(:tax_return) { create :gyr_tax_return, client: client }
 
         it "is valid" do
           expect(document).to be_valid
@@ -147,7 +147,7 @@ describe Document do
       let(:w7coa) { build :document, document_type: DocumentTypes::FormW7Coa.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
 
       context "with a tax return" do
-        let(:tax_return) { create :tax_return, client: client }
+        let(:tax_return) { create :gyr_tax_return, client: client }
 
         it "some document types are valid" do
           expect(final_tax_doc).to be_valid

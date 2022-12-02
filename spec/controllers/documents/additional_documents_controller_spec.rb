@@ -7,7 +7,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
   before { sign_in intake.client }
 
   describe "#edit" do
-    let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
+    let!(:tax_return) { create :gyr_tax_return, :intake_in_progress, client: intake.client }
 
     context "with no docs that might be needed" do
       it "does not show an extra list of docs" do

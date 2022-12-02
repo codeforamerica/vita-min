@@ -47,8 +47,8 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
           let(:inaccessible_org) { create :organization }
           let(:intake1) { create(:intake, :with_contact_info) }
           let(:intake2) { create(:intake, :with_contact_info) }
-          let(:accessible_tax_return) { create(:tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
-          let(:inaccessible_tax_return) { create(:tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
+          let(:accessible_tax_return) { create(:gyr_tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
+          let(:inaccessible_tax_return) { create(:gyr_tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
           let!(:accessible_client) { create :client, intake: intake1, tax_returns: [accessible_tax_return], vita_partner: organization }
           let!(:inaccessible_client) { create :client, intake: intake2, tax_returns: [inaccessible_tax_return], vita_partner: inaccessible_org }
 
@@ -66,7 +66,7 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
 
         context "with only clients who don't have sufficient contact info" do
           before do
-            client = create :client, vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])]
+            client = create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])]
             create :intake, client: client, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil
           end
 

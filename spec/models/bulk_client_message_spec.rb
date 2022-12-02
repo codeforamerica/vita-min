@@ -22,33 +22,33 @@ require "rails_helper"
 RSpec.describe BulkClientMessage, type: :model do
   let(:one_success) do
     client = create(:outgoing_text_message, twilio_status: "delivered").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let(:two_successes) do
     client = create(:outgoing_text_message, twilio_status: "sent").client
     create(:outgoing_email, client: client, mailgun_status: "opened").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let(:one_fail) do
     client = create(:outgoing_text_message, twilio_status: "failed").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let(:one_fail_one_success) do
     client = create(:outgoing_text_message, twilio_status: "sent").client
     create(:outgoing_email, client: client, mailgun_status: "permanent_fail").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let(:no_messages) do
-    create(:tax_return, client: (create :client))
+    create(:gyr_tax_return, client: (create :client))
   end
   let(:in_progress) do
     client = create(:outgoing_email, mailgun_status: "sending").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let(:one_nil_status_one_fail) do
     client = create(:outgoing_text_message, twilio_status: nil).client
     create(:outgoing_email, client: client, mailgun_status: "permanent_fail").client
-    create(:tax_return, client: client)
+    create(:gyr_tax_return, client: client)
   end
   let!(:tax_return_selection) do
     create :tax_return_selection, tax_returns: [one_success, two_successes, one_fail, one_fail_one_success, no_messages, in_progress, one_nil_status_one_fail]

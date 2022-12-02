@@ -13,7 +13,8 @@ RSpec.describe DependentsController do
   end
 
   describe "#index" do
-    let(:birth_year) { MultiTenantService.new(:gyr).current_tax_year - 9 }
+    puts
+    let(:birth_year) { MultiTenantService.new(:gyr).current_tax_year - 9 } # TODO: where does -9 come from ?
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
@@ -24,7 +25,7 @@ RSpec.describe DependentsController do
       context "with existing dependents" do
         render_views
         let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(birth_year, 4, 21), intake: intake}
-        let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
+        let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(birth_year, 4, 21), intake: intake}
 
         it "renders information about each dependent" do
           get :index

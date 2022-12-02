@@ -519,6 +519,8 @@ RSpec.describe ApplicationController do
     end
 
     context "with a current intake" do
+      let(:primary_birth_year) { 1993 }
+      let(:spouse_birth_year ) { 1992 }
       let(:intake) do
         build(
           :intake,
@@ -526,8 +528,8 @@ RSpec.describe ApplicationController do
           referrer: "http://coolwebsite.horse/tax-help/vita",
           had_disability: "yes",
           spouse_had_disability: "no",
-          primary_birth_date: Date.new(1993, 5, 16),
-          spouse_birth_date: Date.new(1992, 11, 4),
+          primary_birth_date: Date.new(primary_birth_year, 5, 16),
+          spouse_birth_date: Date.new(spouse_birth_year, 11, 4),
           visitor_id: "current_intake_visitor_id"
         )
       end
@@ -546,8 +548,8 @@ RSpec.describe ApplicationController do
             intake_source: "horse-ad-campaign-26",
             intake_referrer: "http://coolwebsite.horse/tax-help/vita",
             intake_referrer_domain: "coolwebsite.horse",
-            primary_filer_age: "28",
-            spouse_age: "29",
+            primary_filer_age: (MultiTenantService.new(:gyr).current_tax_year - primary_birth_year).to_s,
+            spouse_age: (MultiTenantService.new(:gyr).current_tax_year - spouse_birth_year).to_s,
             primary_filer_disabled: "yes",
             spouse_disabled: "no",
           )

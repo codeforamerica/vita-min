@@ -11,7 +11,7 @@ describe FilingStatusHelper do
 
     context "when ever married is no" do
       let(:client) { create :client, intake: (create :intake, ever_married: "no") }
-      let!(:tax_return) { create :tax_return, filing_status: nil, client: client }
+      let!(:tax_return) { create :gyr_tax_return, filing_status: nil, client: client }
       it "returns a span including Single" do
         expect(helper.marital_status(client)).to eq "<span>Single</span>"
       end
@@ -27,14 +27,14 @@ describe FilingStatusHelper do
 
   describe "#filing_status_tax_return" do
     context "with no filing status" do
-      let(:tax_return) { create :tax_return, filing_status: nil }
+      let(:tax_return) { create :gyr_tax_return, filing_status: nil }
       it "returns nil" do
         expect(helper.filing_status_tax_return(tax_return)).to eq nil
       end
     end
 
     context "with filing status and note" do
-      let(:tax_return) { create :tax_return, filing_status: "head_of_household", filing_status_note: "Or maybe single?" }
+      let(:tax_return) { create :gyr_tax_return, filing_status: "head_of_household", filing_status_note: "Or maybe single?" }
       it "returns info about filing status, tax year, and note" do
         expect(helper.filing_status_tax_return(tax_return)).to include "Or maybe single?"
         expect(helper.filing_status_tax_return(tax_return)).to include "Head of household"
@@ -46,7 +46,7 @@ describe FilingStatusHelper do
   describe "#filing_status" do
     context "a client without tax return filing statuses" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
-      let!(:tax_return) { create :tax_return, filing_status: nil, client: client }
+      let!(:tax_return) { create :gyr_tax_return, filing_status: nil, client: client }
       it "falls back to filing status on intake" do
         expect(helper.filing_status(client)).to eq("Filing jointly")
       end

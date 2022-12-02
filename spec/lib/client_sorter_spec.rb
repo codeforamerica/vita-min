@@ -26,14 +26,14 @@ RSpec.describe ClientSorter do
   describe "#filtered_and_sorted_clients" do
     context "when user is a greeter" do
       let(:subject) { described_class.new(Client, user, params, {}) }
-      let!(:assigned_tax_return) { create :tax_return, :prep_ready_for_prep, assigned_user: user }
+      let!(:assigned_tax_return) { create :gyr_tax_return, :prep_ready_for_prep, assigned_user: user }
       let(:user_role) { build(:greeter_role) }
       let(:params) do
         {}
       end
 
       context "there are greetable clients" do
-        let!(:greetable_tax_return) { create :tax_return, :intake_ready }
+        let!(:greetable_tax_return) { create :gyr_tax_return, :intake_ready }
 
         it "limits to greetable clients and assigned clients" do
           result = subject.filtered_and_sorted_clients.to_a
@@ -153,8 +153,8 @@ RSpec.describe ClientSorter do
 
     context "with a selected assigned user id" do
       let(:subject) { described_class.new(Client, user, params, {}) }
-      let!(:assigned_tax_return) { create :tax_return, :intake_ready, assigned_user_id: user.id }
-      let!(:unassigned_tax_return) { create :tax_return, :intake_ready }
+      let!(:assigned_tax_return) { create :gyr_tax_return, :intake_ready, assigned_user_id: user.id }
+      let!(:unassigned_tax_return) { create :gyr_tax_return, :intake_ready }
       let(:user) { create :user }
       let(:params) {
         {
@@ -169,9 +169,9 @@ RSpec.describe ClientSorter do
 
     context "with a selected assigned user id AND assigned to me selected" do
       let(:subject) { described_class.new(Client, user, params, {}) }
-      let!(:assigned_tax_return) { create :tax_return, :intake_ready, assigned_user_id: user.id }
-      let!(:unassigned_tax_return) { create :tax_return, :intake_ready }
-      let!(:assigned_to_me_tax_return) { create :tax_return, :intake_ready, assigned_user_id: current_user.id }
+      let!(:assigned_tax_return) { create :gyr_tax_return, :intake_ready, assigned_user_id: user.id }
+      let!(:unassigned_tax_return) { create :gyr_tax_return, :intake_ready }
+      let!(:assigned_to_me_tax_return) { create :gyr_tax_return, :intake_ready, assigned_user_id: current_user.id }
       let(:user) { create :user }
       let(:current_user) { create :user }
       let(:params) {

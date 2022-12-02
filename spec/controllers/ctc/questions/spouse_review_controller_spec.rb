@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::SpouseReviewController do
-  let(:intake) { create :ctc_intake, client: create(:client, tax_returns: [(create :tax_return, filing_status: "married_filing_jointly")]) }
+  let(:intake) { create :ctc_intake, client: create(:client, tax_returns: [(create :ctc_tax_return, filing_status: "married_filing_jointly")]) }
 
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_ctc_clients_only, action: :edit

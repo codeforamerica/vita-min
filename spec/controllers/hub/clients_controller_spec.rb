@@ -317,7 +317,7 @@ RSpec.describe Hub::ClientsController do
         let!(:lucille) { create :client, vita_partner: organization, consented_to_service_at: nil, intake: create(:intake, preferred_name: "Lucille") }
         let!(:lucille_2018_return) { create(:tax_return, :intake_before_consent, client: lucille, year: 2018, assigned_user: assigned_user) }
         let!(:bob_loblaw) { create :client, consented_to_service_at: nil, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
-        let!(:bob_loblaw_online_intake_return) { create :tax_return, :ctc_year, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
+        let!(:bob_loblaw_online_intake_return) { create :ctc_tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
 
         it "does not show a client who has not consented" do
           get :index
@@ -416,7 +416,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when there are clients with no current intakes (clients from previous tax years)" do
           let!(:former_year_client) { create :client, vita_partner: organization, intake: build(:intake, :filled_out) }
-          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, assigned_user: assigned_user }
+          let!(:former_year_tax_return) { create :gyr_tax_return, :intake_in_progress, client: former_year_client, assigned_user: assigned_user }
 
           before do
             # In reality this intake would be moved to the `archived_intakes_2021` table, but removing it from the DB is good enough for our purposes
@@ -612,7 +612,7 @@ RSpec.describe Hub::ClientsController do
 
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
-        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client }
+        let!(:tax_return_2022) { create :gyr_tax_return, :intake_in_progress, client: client }
         let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
         before { client.update(vita_partner: organization, consented_to_service_at: DateTime.current) }
         render_views
@@ -628,8 +628,8 @@ RSpec.describe Hub::ClientsController do
 
       context "filtering" do
         context "with a status filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_ready)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_ready)], intake: (build :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress" }
@@ -638,8 +638,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :prep_ready_for_prep)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :prep_ready_for_prep)], intake: (build :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -667,9 +667,9 @@ RSpec.describe Hub::ClientsController do
 
         context "filtering by organization/site" do
           let(:site) { create :site, parent_organization: organization }
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
 
           it "includes clients who are assigned to those vita partners" do
             get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
@@ -681,7 +681,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by needs response" do
-          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: build(:intake) }
+          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: build(:intake) }
 
           it "filters in" do
             get :index, params: { flagged: true }
@@ -1319,7 +1319,7 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#resource_to_client_redirect" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     let(:params) { { id: tax_return.id, resource: "tax_return" } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :resource_to_client_redirect
 
@@ -1327,7 +1327,7 @@ RSpec.describe Hub::ClientsController do
       before { sign_in user }
 
       context "when the resource is a tax return" do
-        let(:tax_return) { create :tax_return }
+        let(:tax_return) { create :gyr_tax_return }
         let(:client) { tax_return.client }
 
         it "redirects to the associated client" do
@@ -1437,7 +1437,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when all tax returns are filing single" do
           let(:tr_2019) { build :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { build :tax_return, filing_status: "single" }
+          let(:tr_2020) { build :tax_return, filing_status: "single", year: 2020 }
 
           it "returns false" do
             expect(presenter.requires_spouse_info?).to be_falsey
