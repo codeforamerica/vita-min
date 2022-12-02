@@ -1,26 +1,26 @@
 # == Schema Information
 #
-# Table name: bank_accounts
+# Table name: archived_bank_accounts_2022
 #
-#  id                    :bigint           not null, primary key
-#  account_number        :text
-#  account_type          :integer
-#  bank_name             :string
-#  hashed_account_number :string
-#  routing_number        :string
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  intake_id             :bigint
+#  id                       :bigint           not null, primary key
+#  account_number           :text
+#  account_type             :integer
+#  bank_name                :string
+#  hashed_account_number    :string
+#  routing_number           :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  archived_intakes_2022_id :bigint
 #
 # Indexes
 #
-#  index_bank_accounts_on_hashed_account_number  (hashed_account_number)
-#  index_bank_accounts_on_intake_id              (intake_id)
-#  index_bank_accounts_on_routing_number         (routing_number)
+#  index_archived_bank_accounts_2022_on_archived_intakes_2022_id  (archived_intakes_2022_id)
+#  index_archived_bank_accounts_2022_on_hashed_account_number     (hashed_account_number)
+#  index_archived_bank_accounts_2022_on_routing_number            (routing_number)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (intake_id => intakes.id)
+#  fk_rails_...  (archived_intakes_2022_id => archived_intakes_2022.id)
 #
 
 class Archived::BankAccount2022 < ApplicationRecord

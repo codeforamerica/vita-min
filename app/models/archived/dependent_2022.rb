@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: dependents
+# Table name: archived_dependents_2022
 #
 #  id                                           :bigint           not null, primary key
 #  below_qualifying_relative_income_requirement :integer          default("unfilled")
@@ -39,16 +39,16 @@
 #  was_student                                  :integer          default("unfilled"), not null
 #  created_at                                   :datetime         not null
 #  updated_at                                   :datetime         not null
-#  intake_id                                    :bigint           not null
+#  archived_intakes_2022_id                     :bigint           not null
 #
 # Indexes
 #
-#  index_dependents_on_creation_token  (creation_token)
-#  index_dependents_on_intake_id       (intake_id)
+#  index_archived_dependents_2022_on_archived_intakes_2022_id  (archived_intakes_2022_id)
+#  index_archived_dependents_2022_on_creation_token            (creation_token)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (intake_id => intakes.id)
+#  fk_rails_...  (archived_intakes_2022_id => archived_intakes_2022.id)
 #
 
 class Archived::Dependent2022 < ApplicationRecord
