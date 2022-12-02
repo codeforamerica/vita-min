@@ -38,7 +38,7 @@ describe FilingStatusHelper do
       it "returns info about filing status, tax year, and note" do
         expect(helper.filing_status_tax_return(tax_return)).to include "Or maybe single?"
         expect(helper.filing_status_tax_return(tax_return)).to include "Head of household"
-        expect(helper.filing_status_tax_return(tax_return)).to include "2021"
+        expect(helper.filing_status_tax_return(tax_return)).to include "#{MultiTenantService.new(:gyr).current_tax_year}"
       end
     end
   end
