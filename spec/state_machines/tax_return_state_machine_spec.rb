@@ -25,7 +25,7 @@ describe TaxReturnStateMachine do
     end
 
     context "when there are no transitions" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :gyr_tax_return }
       it "responds with nil" do
         expect(tax_return.current_state).to eq "intake_before_consent"
         expect(tax_return.previous_transition).to eq nil
@@ -33,7 +33,7 @@ describe TaxReturnStateMachine do
     end
 
     context "when there is only one transition" do
-      let(:tax_return) { create :tax_return, :intake_in_progress }
+      let(:tax_return) { create :gyr_tax_return, :intake_in_progress }
       it "responds with nil" do
         expect(tax_return.current_state).to eq "intake_in_progress"
         expect(tax_return.previous_transition).to eq nil
@@ -41,7 +41,7 @@ describe TaxReturnStateMachine do
     end
 
     context "when there are multiple transitions" do
-      let(:tax_return) { create :tax_return, :prep_ready_for_prep }
+      let(:tax_return) { create :gyr_tax_return, :prep_ready_for_prep }
 
       before do
         tax_return.transition_to(:file_efiled)
