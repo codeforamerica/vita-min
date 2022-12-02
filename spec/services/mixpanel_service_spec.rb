@@ -157,7 +157,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, :gyr_year, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
+        let!(:tax_return) { create :gyr_tax_return, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
         it "sends a Mixpanel event" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep", { additional_data: "1234"})
@@ -189,7 +189,7 @@ describe MixpanelService do
       end
 
       context "when the event is triggered by the system" do
-        let!(:tax_return) { create :tax_return, :gyr_year, :intake_before_consent, certification_level: "basic", client: client }
+        let!(:tax_return) { create :gyr_tax_return, :intake_before_consent, certification_level: "basic", client: client }
 
         it "handles the lack of a last_changed_by user" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")
@@ -221,7 +221,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, :gyr_year, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
+        let!(:tax_return) { create :gyr_tax_return, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
 
         it "sends a status_change event" do
@@ -263,7 +263,7 @@ describe MixpanelService do
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do
-          let(:tax_return) { create :tax_return, :gyr_year, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
+          let(:tax_return) { create :gyr_tax_return, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
           before do
             TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return: tax_return).update(created_at: 28.hours.ago)
@@ -303,7 +303,7 @@ describe MixpanelService do
         end
 
         context "when the event is triggered by the system" do
-          let(:tax_return) { create :tax_return, :gyr_year, certification_level: "basic", client: client }
+          let(:tax_return) { create :gyr_tax_return, certification_level: "basic", client: client }
 
           before do
             tax_return.transition_to(:prep_ready_for_prep)
@@ -364,7 +364,7 @@ describe MixpanelService do
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do
-          let(:tax_return) { create :tax_return, :gyr_year, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
+          let(:tax_return) { create :gyr_tax_return, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
           before do
             TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return_id: tax_return.id).update(created_at: 28.hours.ago)
