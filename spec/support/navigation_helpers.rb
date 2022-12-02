@@ -84,6 +84,7 @@ module NavigationHelpers
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
+    prior_tax_year = MultiTenantService.new(:ctc).prior_tax_year
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
