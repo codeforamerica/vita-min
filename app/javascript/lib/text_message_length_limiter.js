@@ -4,17 +4,19 @@ export function limitTextMessageLength() {
     const textMessageFormButton = textMessageInput.form.querySelector("input[type='submit']");
     const messageLengthDisableRadioButton = document.querySelector(".message-length-limiter-disable");
 
-    setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton.checked);
+    setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton);
     textMessageInput.addEventListener('input', function() {
-        setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton.checked);
+        setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton);
     });
-    messageLengthDisableRadioButton.closest('radiogroup').addEventListener('change', function() {
-        setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton.checked);
-    });
+    if (messageLengthDisableRadioButton != null) {
+        messageLengthDisableRadioButton.closest('radiogroup').addEventListener('change', function() {
+            setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton);
+        });
+    };
 }
 
-function setLengthProperties(length, component, textMessageFormButton, disable) {
-    if (disable == true) {
+function setLengthProperties(length, component, textMessageFormButton, disableRadioButton) {
+    if (disableRadioButton != null && disableRadioButton.checked == true) {
         component.classList.add('hidden');
         textMessageFormButton.disabled = false;
     } else {
