@@ -333,7 +333,7 @@ describe MixpanelService do
         end
 
         context "when ready_for_prep_at has not been set" do
-          let(:tax_return) { create :tax_return,:gyr_year, certification_level: "basic", client: client }
+          let(:tax_return) { create :gyr_tax_return, certification_level: "basic", client: client }
 
           before do
             tax_return.update_column(:created_at, 2.days.ago)
