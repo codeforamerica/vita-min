@@ -79,6 +79,8 @@ module VitaMin
     config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
+    config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
+
 
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"

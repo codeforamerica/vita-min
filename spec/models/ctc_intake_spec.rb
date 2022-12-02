@@ -250,32 +250,9 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     end
   end
 
-  describe "#duplicates" do
-    let(:dupe_double) { double }
-    before do
-      allow(DeduplicationService).to receive(:duplicates).and_return dupe_double
-      allow(dupe_double).to receive(:or)
-    end
-
-    context "when hashed primary ssn is present" do
-      let(:intake) { create :ctc_intake, hashed_primary_ssn: "123456789" }
-      it "builds a query looking for duplicates" do
-        intake.duplicates
-        expect(DeduplicationService).to have_received(:duplicates).exactly(1).times.with(intake, :hashed_primary_ssn, from_scope: described_class.accessible_intakes)
-      end
-    end
-
-    context "when hashed primary ssn is not present" do
-      let(:intake) { create :ctc_intake, hashed_primary_ssn: nil }
-      it "responds with an empty collection" do
-        expect(intake.duplicates).to eq described_class.none
-      end
-    end
-  end
-
   describe "#any_ip_pins?" do
     context "when any member of household has an IP PIN" do
-      let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ssn: '111-22-3333', ip_pin: 123456) ] }
+      let(:intake) { create :ctc_intake, dependents: [create(:dependent, ssn: '111-22-3333', ip_pin: 123456)] }
 
       it "returns true" do
         expect(intake.any_ip_pins?).to eq true
@@ -295,9 +272,9 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     let(:spouse_filed_prior_tax_year) { :unfilled }
     let(:intake) {
       build :ctc_intake,
-        spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
-        primary_prior_year_agi_amount: 123,
-        spouse_prior_year_agi_amount: 987
+            spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
+            primary_prior_year_agi_amount: 123,
+            spouse_prior_year_agi_amount: 987
     }
 
     context "did not file" do
@@ -381,10 +358,10 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     context "normalize spaces in names" do
       let(:intake) {
         build :ctc_intake,
-          primary_first_name: "Anna  Marie",
-          primary_last_name: "Apple   Mango",
-          spouse_first_name: "Roberta    Margaret",
-          spouse_last_name: "Raspberry   Melon"
+              primary_first_name: "Anna  Marie",
+              primary_last_name: "Apple   Mango",
+              spouse_first_name: "Roberta    Margaret",
+              spouse_last_name: "Raspberry   Melon"
       }
 
       it "makes sure names with spaces only have one space between each name" do
