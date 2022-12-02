@@ -35,7 +35,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Ask about backtaxes
     expect(intake.reload.current_step).to end_with("/questions/backtaxes")
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-    # TODO: Create 2022 return instead
+    # TODO(TY2022): Create 2022 return instead
     pseudo_current_tax_year = 2021
     check "#{pseudo_current_tax_year}"
     check "#{MultiTenantService.new(:gyr).current_tax_year - 3}"
@@ -43,7 +43,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Start with current year
     expect(page).to have_selector("h1", text: "Let's get started")
-    expect(page).to have_text("We’ll start by asking about your situation in #{MultiTenantService.new(:gyr).current_tax_year}.")
+    expect(page).to have_text("We’ll start by asking about your situation in #{pseudo_current_tax_year}.")
     click_on "Continue"
 
     # Interview time preferences

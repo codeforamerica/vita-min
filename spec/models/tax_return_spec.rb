@@ -999,7 +999,7 @@ describe TaxReturn do
   end
 
   describe "#standard_deduction" do
-    # TODO(2022 prep): Switch standard deduction
+    # TODO(TY2022): Switch standard deduction
     let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly, year: 2021 }
     before do
       allow(AppliedStandardDeduction).to receive(:new).with(tax_return: tax_return).and_call_original

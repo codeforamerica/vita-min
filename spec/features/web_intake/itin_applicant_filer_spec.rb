@@ -30,11 +30,13 @@ RSpec.feature "A client who wants help getting an ITIN" do
       # don't show SSN/ITIN page
 
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year}"
+      # TODO(TY2022): Create 2022 return instead
+      pseudo_current_tax_year = 2021
+      check "#{pseudo_current_tax_year}"
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Let's get started")
-      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
+      expect(page).to have_text("We’ll start by asking about your situation in #{pseudo_current_tax_year}.")
       click_on "Continue"
 
       # next page is interview time preferences
@@ -122,11 +124,13 @@ RSpec.feature "A client who wants help getting an ITIN" do
       # don't show SSN/ITIN page
 
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year}"
+      # TODO(TY2022): Create 2022 return instead
+      pseudo_current_tax_year = 2021
+      check "#{pseudo_current_tax_year}"
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Let's get started")
-      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
+      expect(page).to have_text("We’ll start by asking about your situation in #{pseudo_current_tax_year}.")
       click_on "Continue"
 
       # next page is interview time preferences

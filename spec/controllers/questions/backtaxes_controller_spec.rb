@@ -44,7 +44,7 @@ RSpec.describe Questions::BacktaxesController do
         expect(intake.needs_help_2019).to eq "yes"
         expect(intake.needs_help_2020).to eq "no"
         expect(intake.needs_help_2021).to eq "yes"
-        # TODO: expect(intake.needs_help_2022).to eq "yes"
+        # TODO(TY2022): expect(intake.needs_help_2022).to eq "yes"
       end
     end
 
@@ -65,7 +65,6 @@ RSpec.describe Questions::BacktaxesController do
 
         expect(response).to render_template(:edit)
         expect(response).to be_ok
-        # puts response.body
         expect(response.body).to include "Please pick at least one year."
       end
     end
