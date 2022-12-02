@@ -1,10 +1,10 @@
-<% @main_question = t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.title", spouse_first_name: current_intake.spouse.first_name, prior_tax_year: prior_tax_year) %>
+<% @main_question = t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.title", spouse_first_name: current_intake.spouse.first_name, prior_tax_year: ctc_prior_tax_year) %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
-  <p><%= t("views.ctc.questions.spouse_filed_prior_tax_year.help_text", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %></p>
+  <p><%= t("views.ctc.questions.spouse_filed_prior_tax_year.help_text", prior_tax_year: ctc_prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %></p>
   <p class="text--small text--bold"><%= t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.note") %></p>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_radio_set(
@@ -12,7 +12,7 @@
             collection: [
                 { value: :filed_together, label: t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.filed_together", spouse_first_name: current_intake.spouse.first_name)},
                 { value: :filed_full_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.filed_full", spouse_first_name: current_intake.spouse.first_name) },
-                { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.did_not_file", spouse_first_name: current_intake.spouse.first_name, current_tax_year: MultiTenantService.new(:ctc).current_tax_year, prior_tax_year: prior_tax_year) }
+                { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.puerto_rico.did_not_file", spouse_first_name: current_intake.spouse.first_name, current_tax_year: MultiTenantService.new(:ctc).current_tax_year, prior_tax_year: ctc_prior_tax_year) }
             ]
         )
     %>

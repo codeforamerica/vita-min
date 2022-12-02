@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.portal.spouse_prior_tax_year_agi.edit.title", prior_tax_year: prior_tax_year) %>
+<% @main_question = t("views.ctc.portal.spouse_prior_tax_year_agi.edit.title", prior_tax_year: ctc_prior_tax_year) %>
 
 <% content_for :page_title, @main_question %>
 
@@ -6,11 +6,11 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <p>
-    <%= t("views.ctc.portal.spouse_prior_tax_year_agi.edit.help_text", prior_tax_year: prior_tax_year) %>
+    <%= t("views.ctc.portal.spouse_prior_tax_year_agi.edit.help_text", prior_tax_year: ctc_prior_tax_year) %>
   </p>
   <div class="amount-collection">
     <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, class: 'amount-collection-form' do |f| %>
-      <%= f.cfa_input_field(:spouse_prior_year_agi_amount, t("views.ctc.portal.spouse_prior_tax_year_agi.edit.label", prior_tax_year: prior_tax_year), prefix: "$") %>
+      <%= f.cfa_input_field(:spouse_prior_year_agi_amount, t("views.ctc.portal.spouse_prior_tax_year_agi.edit.label", prior_tax_year: ctc_prior_tax_year), prefix: "$") %>
 
       <%= f.button :submit, class: "button button--wide button--spouse spacing-above-60" do %>
         <%= t("general.save") %>

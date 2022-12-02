@@ -589,4 +589,12 @@ module CtcIntakeFeatureHelper
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")
   end
+
+  def current_tax_year
+    MultiTenantService.new(:ctc).current_tax_year
+  end
+
+  def prior_tax_year
+    MultiTenantService.new(:ctc).prior_tax_year
+  end
 end
