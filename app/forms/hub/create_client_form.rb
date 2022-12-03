@@ -108,6 +108,7 @@ module Hub
 
     def default_intake_attributes
       {
+        needs_help_2018: "unfilled", # TODO(TY2022): Remove this column
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",
