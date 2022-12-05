@@ -55,22 +55,22 @@ RSpec.describe Hub::CreateClientForm do
         primary_tin_type: "ssn",
         tax_returns_attributes: {
           "0" => {
-            year: "2020",
+            year: "2022",
             is_hsa: "1",
             certification_level: "basic"
           },
           "1" => {
-            year: "2019",
+            year: "2021",
             is_hsa: "0",
             certification_level: "basic"
           },
           "2" => {
-            year: "2018",
+            year: "2020",
             is_hsa: "1",
             certification_level: "basic"
           },
           "3" => {
-            year: "2017",
+            year: "2019",
             is_hsa: "0",
             certification_level: "advanced"
           },
@@ -153,9 +153,10 @@ RSpec.describe Hub::CreateClientForm do
         intake = Intake.last
         expect(intake.needs_help_2020).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
-        expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2021).to eq "yes"
-        expect(tax_returns.map(&:year)).to match_array [2020, 2019, 2018]
+        # TODO(TY2022): Expect needs_help_2022 to eq("yes")
+        expect(tax_returns.map(&:year)).to match_array [2021, 2020, 2019]
+        # TODO(TY2022): Expect to create 2022 return
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
@@ -310,7 +311,7 @@ RSpec.describe Hub::CreateClientForm do
       context "tax returns attributes" do
         context "when there are some blank required fields" do
           before do
-            params[:tax_returns_attributes]["0"][:certification_level] = ""
+            params[:tax_returns_attributes]["1"][:certification_level] = ""
           end
 
           it "is not valid" do
@@ -327,10 +328,10 @@ RSpec.describe Hub::CreateClientForm do
 
       context "when no tax return years are selected for prep" do
         before do
-          params[:needs_help_2018] = "no"
           params[:needs_help_2019] = "no"
           params[:needs_help_2020] = "no"
           params[:needs_help_2021] = "no"
+          # TODO(TY2022): Send needs_help_2022 param as well
         end
 
         it "is not valid" do
