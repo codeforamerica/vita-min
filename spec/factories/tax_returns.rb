@@ -53,7 +53,7 @@ FactoryBot.define do
         after :create do |tax_return, evaluator|
           create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
           tax_return.update_columns(current_state: state)
-          Client.refresh_filterable_properties([tax_return.client_id])
+          SearchIndexer.refresh_filterable_properties([tax_return.client_id])
         end
       end
     end

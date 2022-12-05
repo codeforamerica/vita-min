@@ -96,44 +96,6 @@ class Client < ApplicationRecord
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
 
-  def self.refresh_filterable_properties(client_ids = nil, limit = 1000)
-    ActiveRecord::Base.transaction do
-      client_ids =
-        if client_ids.nil?
-          where('needs_to_flush_filterable_properties_set_at < ?', Time.current).limit(limit).pluck(:id)
-        else
-          where(id: client_ids)
-        end
-
-      attributes = where(id: client_ids).includes(:tax_returns, :documents, intake: :dependents).map do |client|
-        {
-          id: client.id,
-          created_at: client.created_at,
-          updated_at: client.updated_at,
-          filterable_tax_return_properties: client.tax_returns.map do |tr|
-            {
-              year: tr.year,
-              service_type: tr.service_type,
-              current_state: tr.current_state,
-              assigned_user_id: tr.assigned_user_id,
-              stage: TaxReturnStateMachine::STAGES_BY_STATE[tr.current_state],
-              active: tr.current_state.present? && !TaxReturnStateMachine::EXCLUDED_FROM_SLA.include?(tr.current_state&.to_sym),
-              greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
-            }
-          end,
-          filterable_number_of_required_documents_uploaded: client.number_of_required_documents_uploaded,
-          filterable_number_of_required_documents: client.number_of_required_documents,
-          filterable_percentage_of_required_documents_uploaded: client.number_of_required_documents_uploaded / client.number_of_required_documents.to_f,
-          needs_to_flush_filterable_properties_set_at: nil
-        }
-      end
-      return unless attributes.present?
-
-      attributes_to_update = attributes.first.keys - [:id, :created_at, :updated_at]
-      Client.upsert_all(attributes, record_timestamps: false, update_only: attributes_to_update)
-    end
-  end
-
   def self.sortable_intake_attributes
     [:created_at, :state_of_residence] + delegated_intake_attributes
   end
