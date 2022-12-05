@@ -368,7 +368,7 @@ class Intake::GyrIntake < Intake
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
   enum spouse_issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :spouse_issued_identity_pin
   enum spouse_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_us_citizen
-  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_was_full_time_student
+  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
   enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
