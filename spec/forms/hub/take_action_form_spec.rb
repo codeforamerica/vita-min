@@ -262,7 +262,7 @@ RSpec.describe Hub::TakeActionForm do
       let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com" }
 
       it "shows only email as a contact option" do
-        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email')}])
+        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email'), input_html: { class: 'message-length-limiter-disable' }}])
       end
     end
 
@@ -270,7 +270,7 @@ RSpec.describe Hub::TakeActionForm do
       let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com", sms_notification_opt_in: "yes" }
 
       it "shows only text message as a contact option" do
-        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email')}, {value: "text_message", label: I18n.t('general.text_message')}])
+        expect(form.contact_method_options).to eq([{value: "email", label: I18n.t('general.email'), input_html: { class: 'message-length-limiter-disable'}}, {value: "text_message", label: I18n.t('general.text_message')}])
       end
     end
 

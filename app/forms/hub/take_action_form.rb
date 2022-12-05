@@ -40,7 +40,7 @@ module Hub
       # Clients who went through online intake always have a contact method,
       # but drop-off clients might not have opted-in to sms or email.
       methods = []
-      methods << { value: "email", label: I18n.t("general.email") } if client.intake.email_notification_opt_in_yes? && client.intake.email_address.present?
+      methods << { value: "email", label: I18n.t("general.email"), input_html: { class: "message-length-limiter-disable" } } if client.intake.email_notification_opt_in_yes? && client.intake.email_address.present?
       methods << { value: "text_message", label: I18n.t("general.text_message") } if client.intake.sms_notification_opt_in_yes?
       methods
     end
