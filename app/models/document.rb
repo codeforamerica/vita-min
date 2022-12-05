@@ -69,8 +69,8 @@ class Document < ApplicationRecord
       HeicToJpgJob.perform_later(id)
     end
   end
-  after_save_commit { Client.refresh_filterable_properties([client_id]) }
-  after_destroy_commit { Client.refresh_filterable_properties([client_id]) }
+  after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
+  after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304

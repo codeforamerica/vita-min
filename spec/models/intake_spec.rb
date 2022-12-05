@@ -458,7 +458,7 @@ describe Intake do
       let!(:other_intake) { create :intake, id: 555, client: other_client, primary_first_name: "Geoffrey", primary_last_name: "Foster", preferred_name: "Jeff", spouse_first_name: "Jennifer", spouse_last_name: "Frosty", email_address: "jeff@example.com", sms_phone_number: "+15005550008", phone_number: "+15005550009" }
 
       before do
-        described_class.refresh_search_index
+        SearchIndexer.refresh_search_index
       end
 
       it "can match on each required field" do

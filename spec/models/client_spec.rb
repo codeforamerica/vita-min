@@ -105,7 +105,7 @@ describe Client do
 
     it "denormalizes filterable properties onto any clients where needs_to_flush_filterable_properties_set_at is set" do
       client.touch(:needs_to_flush_filterable_properties_set_at)
-      described_class.refresh_filterable_properties
+      SearchIndexer.refresh_filterable_properties
       expected_json = [
         {
           "active" => false,

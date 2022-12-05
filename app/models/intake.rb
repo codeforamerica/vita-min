@@ -556,20 +556,6 @@ class Intake < ApplicationRecord
     names.join(', ')
   end
 
-  def self.refresh_search_index(limit: 10_000)
-    now = Time.current
-    ids = where('needs_to_flush_searchable_data_set_at < ?', now)
-      .limit(limit)
-      .pluck(:id)
-
-    where(id: ids)
-      .where('needs_to_flush_searchable_data_set_at < ?', now)
-      .update_all(<<-SQL)
-        searchable_data = to_tsvector('simple', array_to_string(ARRAY[#{searchable_fields.map { |f| "#{f}::text"}.join(",\n") }], ' ', '')),
-        needs_to_flush_searchable_data_set_at = NULL
-      SQL
-  end
-
   def new_record_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
