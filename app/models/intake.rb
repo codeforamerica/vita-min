@@ -73,6 +73,7 @@
 #  final_info                                           :string
 #  former_foster_youth                                  :integer          default(0), not null
 #  full_time_student_less_than_five_months              :integer          default(0), not null
+#  got_married_during_tax_year                          :integer          default(0), not null
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default(0), not null
@@ -149,6 +150,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_ip_pin                                       :text
+#  primary_job_title                                    :string
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
@@ -159,6 +161,7 @@
 #  primary_ssn                                          :text
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  primary_us_citizen                                   :integer          default(0), not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -198,9 +201,11 @@
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_ip_pin                                        :text
 #  spouse_issued_identity_pin                           :integer          default(0), not null
+#  spouse_job_title                                     :string
 #  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_phone_number                                  :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
 #  spouse_signature_pin                                 :text
@@ -208,6 +213,7 @@
 #  spouse_ssn                                           :text
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
+#  spouse_us_citizen                                    :integer          default(0), not null
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
