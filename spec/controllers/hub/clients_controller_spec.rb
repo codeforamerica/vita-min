@@ -1404,7 +1404,7 @@ RSpec.describe Hub::ClientsController do
     end
 
     describe "#archived?" do
-      context "when there is a .intake" do
+      context "when there is an intake" do
         it "returns false" do
           expect(presenter.archived?).to be_falsey
         end

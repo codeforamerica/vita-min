@@ -211,8 +211,6 @@ module Hub
           @archived = true if @intake
         end
 
-        # @intake = client.most_recent_intake
-        # @archived = true if @intake.class == Intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
