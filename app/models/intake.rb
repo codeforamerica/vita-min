@@ -438,7 +438,7 @@ class Intake < ApplicationRecord
     was_full_time_student_yes? ||
       spouse_was_full_time_student_yes? ||
       had_student_in_family_yes? ||
-      dependents.where(was_student: "yes").any?
+      dependents.any?(&:was_student_yes?)
   end
 
   def spouse_name_or_placeholder
