@@ -67,14 +67,16 @@ class ClientSorter
       end
     elsif current_user&.greeter?
       tax_return_filters_expanded = [tax_return_filters.merge(greetable: true), tax_return_filters.merge(assigned_user_id: current_user.id)]
-    else
+    elsif tax_return_filters.present?
       tax_return_filters_expanded = [tax_return_filters]
     end
 
-    clients = tax_return_filters_expanded.map do |tax_return_filters|
-      clients.where("filterable_tax_return_properties @> ?::jsonb", [tax_return_filters].to_json)
-    end.reduce do |all_queries, this_query|
-      all_queries.or(this_query)
+    if tax_return_filters_expanded.present?
+      clients = tax_return_filters_expanded.map do |tax_return_filters|
+        clients.where("filterable_tax_return_properties @> ?::jsonb", [tax_return_filters].to_json)
+      end.reduce do |all_queries, this_query|
+        all_queries.or(this_query)
+      end
     end
 
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
