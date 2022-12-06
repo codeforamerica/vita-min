@@ -41,7 +41,7 @@
 
   #primary-additional-info, #spouse-additional-info {
     .form-question {
-      width: 250px;
+      min-width: 250px;
       white-space: nowrap;
     }
   }

@@ -637,6 +637,8 @@ en:
           blind: Legally blind
           claimed_by_another: Can anyone claim you or your spouse as a dependent?
           contact_number: Contact Number
+          primary_us_citizen: U.S. citizen?
+          spouse_us_citizen: Spouse U.S. citizen?
           disabled: Totally and Permanently Disabled
           dob: DOB
           email_optional: Email (Optional)
@@ -653,6 +655,10 @@ en:
           was_full_time_student: Full Time Student
           was_married: Single or Married as of 12/31/21
           was_student: Full-time Student last year
+          job_title: "Job Title"
+          spouse_job_title: "Spouse’s Job Title"
+          never_married: "Never Married"
+          got_married_during_tax_year: "A. If Yes, Did you get married in 2021?"
         last_year_was_your_spouse: 'Last year, was your spouse:'
         last_year_were_you: 'Last year, were you:'
         title: 13614-C
