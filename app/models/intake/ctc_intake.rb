@@ -1,4 +1,4 @@
-# == Schema Information
+self.current_tax_year# == Schema Information
 #
 # Table name: intakes
 #
@@ -381,11 +381,7 @@ class Intake::CtcIntake < Intake
   def is_ctc?
     true
   end
-
-  def self.current_tax_year
-    Rails.application.config.ctc_current_tax_year.to_i
-  end
-
+  
   def default_tax_return
     tax_returns.find_by(year: self.class.current_tax_year)
   end
