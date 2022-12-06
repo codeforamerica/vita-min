@@ -204,9 +204,9 @@ module Hub
         __setobj__(client)
         @intake = client.intake
         unless @intake
-          @intake = Client.archived_intake_models.find do |intake_model|
-            intake = intake_model.find_by(client_id: @client.id)
-            return intake unless intake.nil?
+          Client.archived_intake_models.find do |intake_model|
+            @intake = intake_model.find_by(client_id: @client.id)
+            break unless @intake.nil?
           end
           @archived = true if @intake
         end
