@@ -12,7 +12,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
   let(:tax_return_1) { create :gyr_tax_return, :file_ready_to_file, assigned_user: team_member, client: client }
   let(:tax_return_2) { create :tax_return, :review_signature_requested, assigned_user: team_member, client: client, year: 2019 }
   let(:tax_return_3) { create :tax_return, :review_signature_requested, assigned_user: site_coordinator, client: client, year: 2018 }
-  let(:unselected_tax_return) { create :ctc_tax_return, :file_efiled, assigned_user: team_member }
+  let(:unselected_tax_return) { create :gyr_tax_return, :file_efiled, assigned_user: team_member }
   let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
 
   describe "#edit" do
