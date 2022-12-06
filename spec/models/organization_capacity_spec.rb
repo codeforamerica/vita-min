@@ -18,7 +18,7 @@ describe OrganizationCapacity do
       context "for #{state} tax return state" do
         let(:organization) { create :organization }
         before do
-          create :client_with_tax_return_state, tax_return_state: state, vita_partner: organization,intake: create(:intake)
+          create :client_with_tax_return_state, tax_return_state: state, vita_partner: organization, intake: create(:intake)
         end
 
         unless TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY.include?(state)

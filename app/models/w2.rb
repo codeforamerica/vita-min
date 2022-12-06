@@ -47,6 +47,10 @@
 #  index_w2s_on_creation_token  (creation_token)
 #  index_w2s_on_intake_id       (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 class W2 < ApplicationRecord
   BOX12_OPTIONS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "Z", "AA", "BB", "DD", "EE", "FF", "GG", "HH"]
   BOX12_OFFBOARD_CODES = %w(A B K L M N R V W Z)

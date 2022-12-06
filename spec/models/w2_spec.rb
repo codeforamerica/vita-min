@@ -47,6 +47,10 @@
 #  index_w2s_on_creation_token  (creation_token)
 #  index_w2s_on_intake_id       (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 require 'rails_helper'
 
 describe 'W2' do

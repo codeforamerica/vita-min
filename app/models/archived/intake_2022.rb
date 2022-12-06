@@ -293,7 +293,7 @@ module Archived
     pg_search_scope :search, against: searchable_fields, using: { tsearch: { prefix: true, tsvector_column: 'searchable_data' } }
 
     has_many :documents, dependent: :destroy
-    has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2021', foreign_key: 'archived_intakes_2021_id'
+    has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2022', foreign_key: 'archived_intakes_2021_id'
     has_many :completed_w2s, -> { order(created_at: :asc).where.not(completed_at: nil) }, class_name: 'W2', inverse_of: :intake, dependent: :destroy
     has_many :w2s_including_incomplete, -> { order(created_at: :asc) }, class_name: 'W2', inverse_of: :intake, dependent: :destroy
     has_one :triage

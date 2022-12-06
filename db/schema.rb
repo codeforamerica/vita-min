@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_30_180737) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -749,6 +749,58 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_180737) do
     t.index ["spouse_email_address"], name: "index_arcint_2022_on_spouse_email_address"
     t.index ["type"], name: "index_arcint_2022_on_type"
     t.index ["vita_partner_id"], name: "index_arcint_2022_on_vita_partner_id"
+  end
+
+  create_table "archived_w2_box14s_2022", force: :cascade do |t|
+    t.bigint "archived_w2s_2022_id", null: false
+    t.datetime "created_at", null: false
+    t.decimal "other_amount", precision: 12, scale: 2
+    t.string "other_description"
+    t.datetime "updated_at", null: false
+    t.index ["archived_w2s_2022_id"], name: "index_archived_w2_box14s_2022_on_archived_w2s_2022_id"
+  end
+
+  create_table "archived_w2s_2022", force: :cascade do |t|
+    t.bigint "archived_intakes_2022_id"
+    t.decimal "box10_dependent_care_benefits", precision: 12, scale: 2
+    t.decimal "box11_nonqualified_plans", precision: 12, scale: 2
+    t.string "box12a_code"
+    t.decimal "box12a_value", precision: 12, scale: 2
+    t.string "box12b_code"
+    t.decimal "box12b_value", precision: 12, scale: 2
+    t.string "box12c_code"
+    t.decimal "box12c_value", precision: 12, scale: 2
+    t.string "box12d_code"
+    t.decimal "box12d_value", precision: 12, scale: 2
+    t.integer "box13_retirement_plan", default: 0
+    t.integer "box13_statutory_employee", default: 0
+    t.integer "box13_third_party_sick_pay", default: 0
+    t.decimal "box3_social_security_wages", precision: 12, scale: 2
+    t.decimal "box4_social_security_tax_withheld", precision: 12, scale: 2
+    t.decimal "box5_medicare_wages_and_tip_amount", precision: 12, scale: 2
+    t.decimal "box6_medicare_tax_withheld", precision: 12, scale: 2
+    t.decimal "box7_social_security_tips_amount", precision: 12, scale: 2
+    t.decimal "box8_allocated_tips", precision: 12, scale: 2
+    t.string "box_d_control_number"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.string "creation_token"
+    t.integer "employee", default: 0, null: false
+    t.string "employee_city"
+    t.string "employee_state"
+    t.string "employee_street_address"
+    t.string "employee_zip_code"
+    t.string "employer_city"
+    t.string "employer_ein"
+    t.string "employer_name"
+    t.string "employer_state"
+    t.string "employer_street_address"
+    t.string "employer_zip_code"
+    t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
+    t.datetime "updated_at", null: false
+    t.decimal "wages_amount", precision: 12, scale: 2
+    t.index ["archived_intakes_2022_id"], name: "index_archived_w2s_2022_on_archived_intakes_2022_id"
+    t.index ["creation_token"], name: "index_archived_w2s_2022_on_creation_token"
   end
 
   create_table "bank_accounts", force: :cascade do |t|
@@ -2075,6 +2127,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_180737) do
   add_foreign_key "archived_intakes_2021", "vita_partners"
   add_foreign_key "archived_intakes_2022", "clients"
   add_foreign_key "archived_intakes_2022", "vita_partners"
+  add_foreign_key "archived_w2_box14s_2022", "archived_w2s_2022"
   add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_action_notifications", "tax_return_selections"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
@@ -2142,7 +2195,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_180737) do
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
   add_foreign_key "w2_box14s", "w2s"
-  add_foreign_key "w2_state_fields_groups", "w2s"
+  add_foreign_key "w2_state_fields_groups", "archived_w2s_2022", column: "w2_id"
+  add_foreign_key "w2s", "intakes"
 
   create_view "organization_capacities", sql_definition: <<-SQL
       WITH organization_id_by_vita_partner_id AS (

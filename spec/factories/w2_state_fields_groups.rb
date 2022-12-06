@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (w2_id => w2s.id)
+#  fk_rails_...  (w2_id => archived_w2s_2022.id)
 #
 FactoryBot.define do
   factory :w2_state_fields_group do

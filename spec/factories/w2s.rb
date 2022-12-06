@@ -47,6 +47,10 @@
 #  index_w2s_on_creation_token  (creation_token)
 #  index_w2s_on_intake_id       (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 FactoryBot.define do
   factory :w2 do
     intake
