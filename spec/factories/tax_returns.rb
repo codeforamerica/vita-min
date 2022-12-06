@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: tax_returns
@@ -63,6 +62,8 @@ FactoryBot.define do
 
     factory :ctc_tax_return do
       year { MultiTenantService.new(:ctc).current_tax_year }
+      client { create(:ctc_intake).client }
+      is_ctc { true }
     end
 
     trait :ready_to_sign do
