@@ -1,4 +1,4 @@
-self.current_tax_year# == Schema Information
+# == Schema Information
 #
 # Table name: intakes
 #
