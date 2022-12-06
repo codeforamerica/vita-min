@@ -13,7 +13,7 @@ RSpec.describe DependentsController do
   end
 
   describe "#index" do
-    let(:birth_year) { MultiTenantService.new(:gyr).current_tax_year - 9 } # TODO: where does -9 come from ?
+    let(:birth_year) { MultiTenantService.new(:gyr).current_tax_year - 9 }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
