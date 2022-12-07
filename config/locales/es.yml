@@ -650,22 +650,24 @@ es:
           dob: Fecha de nacimiento
           email_optional: Correo electrónico (Opcional)
           first_name: Nombre de pila
+          got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2021?
           had_disability: Total y permanentemente deshabilitado
           issued_identity_pin: "¿Usted, su cónyuge o sus dependientes han sido víctimas de robo de identidad relacionado con los impuestos o se les ha emitido un PIN de protección de identidad?"
+          job_title: Título Profesional
           last_name: Apellido
           lived_with_spouse: B. ¿Vivió usted con su cónyuge durante alguna parte de los últimos seis meses de 2021?
           middle_initial: Inicial del segundo nombre
           months_in_home: "# de meses vividos en casa el año pasado:"
+          never_married: Nunca casado
           north_american_resident: 'Residente de EE. UU., CAN o MEX el año pasado:'
+          primary_us_citizen: Ciudadano estadounidense?
           spouse_dob: Fecha de nacimiento del cónyuge
           spouse_first_name: Nombre del cónyuge
+          spouse_job_title: Título profesional del cónyuge
+          spouse_us_citizen: "¿Cónyuge ciudadano estadounidense?"
           was_full_time_student: Estudiante de tiempo completo
           was_married: Soltero o casado a partir del 31/12/21
           was_student: Estudiante de tiempo completo el año pasado
-          job_title: "Título Profesional"
-          spouse_job_title: "Título profesional del cónyuge"
-          never_married: "Nunca casado"
-          got_married_during_tax_year: "A. En caso afirmativo, ¿se casó en 2021?"
         last_year_was_your_spouse: 'El año pasado, fue su cónyuge:'
         last_year_were_you: 'El año pasado, fuiste:'
         title: 13614-C
