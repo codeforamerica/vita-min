@@ -26,7 +26,7 @@ class DependentsController < ApplicationController
   def update
     @dependent = current_intake.dependents.find(params[:id])
     if @dependent.update(dependent_params)
-      send_mixpanel_event(event_name: "dependent_updated", data: @dependent.mixpanel_data)
+      send_mixpanel_event(event_name: "dependent_updated", data: mixpanel_data(@dependent))
       redirect_to dependents_path
     else
       send_mixpanel_validation_error(@dependent.errors)
@@ -38,7 +38,7 @@ class DependentsController < ApplicationController
     @dependent = Dependent.new(dependent_params.merge(intake: current_intake))
 
     if @dependent.save
-      send_mixpanel_event(event_name: "dependent_added", data: @dependent.mixpanel_data)
+      send_mixpanel_event(event_name: "dependent_added", data: mixpanel_data(@dependent))
       redirect_to dependents_path
     else
       send_mixpanel_validation_error(@dependent.errors)
@@ -69,6 +69,19 @@ class DependentsController < ApplicationController
   end
 
   private
+
+  def mixpanel_data(dependent)
+    {
+      dependent_age_at_end_of_tax_year: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year).to_s,
+      dependent_under_6: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year) < 6 ? "yes" : "no",
+      dependent_months_in_home: dependent.months_in_home.to_s,
+      dependent_was_student: dependent.was_student,
+      dependent_on_visa: dependent.on_visa,
+      dependent_north_american_resident: dependent.north_american_resident,
+      dependent_disabled: dependent.disabled,
+      dependent_was_married: dependent.was_married,
+    }
+  end
 
   def birth_date_param_keys
     [:birth_date_year, :birth_date_month, :birth_date_day]

@@ -55,11 +55,11 @@ describe TaxReturn do
   describe "touch behavior" do
     context "when the tax return is updated" do
       it_behaves_like "an internal interaction" do
-        let(:subject) { create :tax_return }
+        let(:subject) { create :gyr_tax_return }
       end
 
       it "denormalizes tax return info onto the client" do
-        tax_return = create :tax_return
+        tax_return = create :gyr_tax_return
 
         expected_tax_return_properties = {
           "active" => false,
@@ -68,7 +68,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => 2021
+          "year" => 2022
         }
         expect(tax_return.client.reload.filterable_tax_return_properties).to eq([expected_tax_return_properties])
       end
@@ -78,7 +78,7 @@ describe TaxReturn do
   describe "destroy behavior" do
     context "when the tax return is destroyed" do
       it "denormalizes tax return info onto the client" do
-        tax_return = create :tax_return
+        tax_return = create :gyr_tax_return
         client = tax_return.client
         expected_properties = {
           "active" => false,
@@ -87,7 +87,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => 2021
+          "year" => 2022
         }
         expect(client.reload.filterable_tax_return_properties).to eq([expected_properties])
         tax_return.destroy
@@ -98,7 +98,7 @@ describe TaxReturn do
 
   describe "#record_expected_payments!" do
     context "when the return is accepted" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :ctc_tax_return }
       let(:efile_submission) { create :efile_submission, :transmitted, tax_return: tax_return }
 
       before do
@@ -163,7 +163,7 @@ describe TaxReturn do
   end
 
   describe "#advance_to" do
-    let(:tax_return) { create :tax_return, old_state.to_sym }
+    let(:tax_return) { create :gyr_tax_return, old_state.to_sym }
 
     context "with a state that comes before the current state" do
       let(:old_state) { "intake_in_progress" }
@@ -189,14 +189,14 @@ describe TaxReturn do
 
   describe "#primary_has_signed_8879?" do
     context "when primary_signed_at and primary_signed_ip are present" do
-      let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
+      let(:tax_return) { create :gyr_tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
       it "returns true" do
         expect(tax_return.primary_has_signed_8879?).to be true
       end
     end
 
     context "when signed_at is empty" do
-      let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
+      let(:tax_return) { create :gyr_tax_return, primary_signed_at: nil, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
         expect(tax_return.primary_has_signed_8879?).to be false
@@ -204,7 +204,7 @@ describe TaxReturn do
     end
 
     context "when ip is empty" do
-      let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: nil, primary_signature: "Primary Taxpayer" }
+      let(:tax_return) { create :gyr_tax_return, primary_signed_at: DateTime.now, primary_signed_ip: nil, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
         expect(tax_return.primary_has_signed_8879?).to be false
@@ -214,14 +214,14 @@ describe TaxReturn do
 
   describe "#spouse_has_signed_8879?" do
     context "when spouse_signed_at and spouse_signed_ip are present" do
-      let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
+      let(:tax_return) { create :gyr_tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
       it "returns true" do
         expect(tax_return.spouse_has_signed_8879?).to be true
       end
     end
 
     context "when spouse_signed_at is empty" do
-      let(:tax_return) { create :tax_return, spouse_signed_at: nil, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
+      let(:tax_return) { create :gyr_tax_return, spouse_signed_at: nil, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
 
       it "returns false" do
         expect(tax_return.spouse_has_signed_8879?).to be false
@@ -229,7 +229,7 @@ describe TaxReturn do
     end
 
     context "when ip is empty" do
-      let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: nil, spouse_signature: "Spouse Name" }
+      let(:tax_return) { create :gyr_tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: nil, spouse_signature: "Spouse Name" }
 
       it "returns false" do
         expect(tax_return.spouse_has_signed_8879?).to be false
@@ -241,7 +241,7 @@ describe TaxReturn do
     context "the associated client intake is not filing joint" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
       let(:tax_return) {
-        create :tax_return,
+        create :gyr_tax_return,
                client: client
       }
       it "returns false" do
@@ -252,7 +252,7 @@ describe TaxReturn do
     context "the associated client intake is filing joint" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
       let(:tax_return) {
-        create :tax_return,
+        create :gyr_tax_return,
                client: client
       }
       it "returns true" do
@@ -262,7 +262,7 @@ describe TaxReturn do
   end
 
   describe "#ready_for_8879_signature?" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
 
     context "when signed 8879 already exists" do
       before do
@@ -303,7 +303,7 @@ describe TaxReturn do
 
         context "when the primary has signed the tax return" do
           let(:tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    primary_signature: "Bob Pineapple",
                    primary_signed_ip: "127.0.0.1",
                    primary_signed_at: DateTime.current
@@ -319,7 +319,7 @@ describe TaxReturn do
 
         context "the primary has signed and there is an unsigned 8879 that the spouse needs to sign" do
           let(:tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    primary_signature: "Bob Pineapple",
                    primary_signed_ip: "127.0.0.1",
                    primary_signed_at: DateTime.current
@@ -340,7 +340,7 @@ describe TaxReturn do
 
         context "the spouse has signed and there is an unsigned 8879 that the primary needs to sign" do
           let(:tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    spouse_signature: "Jane Pineapple",
                    spouse_signed_ip: "127.0.0.99",
                    spouse_signed_at: DateTime.current
@@ -364,7 +364,7 @@ describe TaxReturn do
         context "the spouse signature is not required for filing status" do
           let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
           let(:spouse_not_required_tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    client: client
           }
           before do
@@ -383,7 +383,7 @@ describe TaxReturn do
         context "spouse signature is required and the spouse hasn't signed yet" do
           let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
           let(:tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    client: client
           }
           it "returns true" do
@@ -393,7 +393,7 @@ describe TaxReturn do
 
         context "the spouse has signed" do
           let(:spouse_signed_tax_return) {
-            create :tax_return,
+            create :gyr_tax_return,
                    spouse_signature: "Jane Pineapple",
                    spouse_signed_ip: "127.0.0.99",
                    spouse_signed_at: DateTime.current
@@ -418,7 +418,7 @@ describe TaxReturn do
   describe "#completely_signed_8879?" do
     let(:filing_joint) { "no" }
     let(:intake) { create :intake, filing_joint: filing_joint }
-    let(:tax_return) { create :tax_return, client: create(:client, intake: intake) }
+    let(:tax_return) { create :gyr_tax_return, client: create(:client, intake: intake) }
 
     context "single filing" do
       context "primary signed" do
@@ -474,7 +474,7 @@ describe TaxReturn do
       let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
 
       context "when the return has not been signed" do
-        let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil, client: client }
+        let(:tax_return) { create :gyr_tax_return, primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil, client: client }
 
         it "return false" do
           expect(tax_return.ready_to_file?).to eq false
@@ -482,7 +482,7 @@ describe TaxReturn do
       end
 
       context "when the return has been signed" do
-        let(:tax_return) { create :tax_return, primary_signed_at: DateTime.current, primary_signed_ip: "127.0.1.1", primary_signature: "Joe Crabapple", client: client }
+        let(:tax_return) { create :gyr_tax_return, primary_signed_at: DateTime.current, primary_signed_ip: "127.0.1.1", primary_signature: "Joe Crabapple", client: client }
 
         it "return false" do
           expect(tax_return.ready_to_file?).to eq true
@@ -495,7 +495,7 @@ describe TaxReturn do
 
       context "the return has not been signed by the primary or the spouse" do
         let(:tax_return) {
-          create :tax_return,
+          create :gyr_tax_return,
                  primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil,
                  spouse_signed_at: nil, spouse_signed_ip: nil, spouse_signature: nil,
                  client: client
@@ -508,7 +508,7 @@ describe TaxReturn do
 
       context "the return has been signed by the primary but not the spouse" do
         let(:tax_return) {
-          create :tax_return,
+          create :gyr_tax_return,
                  primary_signed_at: DateTime.current, primary_signed_ip: "127.0.2.1", primary_signature: "Jill Kiwi",
                  spouse_signed_at: nil, spouse_signed_ip: nil, spouse_signature: nil,
                  client: client
@@ -521,7 +521,7 @@ describe TaxReturn do
 
       context "the return has been signed by the spouse but not the primary" do
         let(:tax_return) {
-          create :tax_return,
+          create :gyr_tax_return,
                  primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil,
                  spouse_signed_at: DateTime.current, spouse_signed_ip: "127.0.3.1", spouse_signature: "George Grapefruit",
                  client: client
@@ -534,7 +534,7 @@ describe TaxReturn do
 
       context "the return has been signed by both the primary and the spouse" do
         let(:tax_return) {
-          create :tax_return,
+          create :gyr_tax_return,
                  primary_signed_at: DateTime.current, primary_signed_ip: "127.0.4.1", primary_signature: "Abe Apple",
                  spouse_signed_at: DateTime.current, spouse_signed_ip: "127.0.5.1", spouse_signature: "Beatrice Blueberry",
                  client: client
@@ -551,14 +551,14 @@ describe TaxReturn do
     subject { tax_return.unsigned_8879s }
 
     context "when an unsigned form 8879 exists for the tax return" do
-      let(:tax_return) { create :tax_return, :ready_to_sign }
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign }
       it "returns form8879 unsigned document objects" do
         expect(subject.pluck(:document_type).uniq).to eq ["Form 8879 (Unsigned)"]
       end
     end
 
     context "when an unsigned form 8879 exists but it is archived" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :gyr_tax_return }
       before do
         create :document, :pdf, document_type: DocumentTypes::UnsignedForm8879.key, archived: true, tax_return: tax_return, client: tax_return.client
       end
@@ -568,7 +568,7 @@ describe TaxReturn do
     end
 
     context "when unsigned 8879s do not exist" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :gyr_tax_return }
 
       it "is empty" do
         expect(subject).to be_empty
@@ -580,14 +580,14 @@ describe TaxReturn do
     subject { tax_return.signed_8879s }
 
     context "when a signed form 8879 exists" do
-      let(:tax_return) { create :tax_return, :ready_to_file_solo }
+      let(:tax_return) { create :gyr_tax_return, :ready_to_file_solo }
       it "returns the signed document objects" do
         expect(subject.pluck(:document_type).uniq).to eq ["Form 8879 (Signed)"]
       end
     end
 
     context "when a signed form 8879 exists but it is archived" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :gyr_tax_return }
       before do
         create :document, :pdf, document_type: DocumentTypes::CompletedForm8879.key, archived: true, tax_return: tax_return, client: tax_return.client
       end
@@ -597,7 +597,7 @@ describe TaxReturn do
     end
 
     context "when a signed form 8879 does not exist" do
-      let(:tax_return) { create :tax_return }
+      let(:tax_return) { create :gyr_tax_return }
       it "returns nil" do
         expect(subject).to be_empty
       end
@@ -605,7 +605,7 @@ describe TaxReturn do
   end
 
   describe "#final_tax_documents" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     subject { tax_return.final_tax_documents }
 
     context "with final tax documents" do
@@ -630,7 +630,7 @@ describe TaxReturn do
   end
 
   describe "#sign_primary!" do
-    let(:tax_return) { create :tax_return, :ready_to_sign }
+    let(:tax_return) { create :gyr_tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
@@ -914,7 +914,7 @@ describe TaxReturn do
   end
 
   describe "#ready_for_prep_at" do
-    let(:tax_return) { create :tax_return, :intake_ready }
+    let(:tax_return) { create :gyr_tax_return, :intake_ready }
 
     context "when there is a tax return transition to read for prep" do
       let(:current_timestamp) { DateTime.new }
@@ -936,13 +936,13 @@ describe TaxReturn do
   end
 
   describe "filing_status_code" do
-    let(:tax_return) { create :tax_return, filing_status: "single" }
+    let(:tax_return) { create :gyr_tax_return, filing_status: "single" }
     it "returns the integer corresponding to the enum string value" do
       expect(tax_return.filing_status_code).to eq 1
     end
 
     context "when filing status is nil" do
-      let(:tax_return) { create :tax_return, filing_status: nil }
+      let(:tax_return) { create :gyr_tax_return, filing_status: nil }
 
       it "returns nil" do
         expect(tax_return.filing_status_code).to be_nil
@@ -951,7 +951,7 @@ describe TaxReturn do
   end
 
   describe "#primary_age_65_or_older?" do
-    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
 
     context "when born before Jan 2, 1957 for tax year 2021" do
       before do
@@ -963,9 +963,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1957 for tax year 2021" do
+    context "when born on/after Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 2))
+        tax_return.intake.update(primary_birth_date: Date.new(2022 - 64, 1, 2))
       end
 
       it "returns false" do
@@ -975,11 +975,11 @@ describe TaxReturn do
   end
 
   describe "#spouse_age_65_or_old" do
-    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
 
-    context "when born before Jan 2, 1957 for tax year 2021" do
+    context "when born before Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 1))
+        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 1))
       end
 
       it "returns true" do
@@ -987,9 +987,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1957 for tax year 2021" do
+    context "when born on/after Jan 2, 1958 for tax year 2022" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 2))
+        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 2))
       end
 
       it "returns false" do
@@ -999,7 +999,8 @@ describe TaxReturn do
   end
 
   describe "#standard_deduction" do
-    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly }
+    # TODO(TY2022): Switch standard deduction
+    let(:tax_return) { create :tax_return, filing_status: :married_filing_jointly, year: 2021 }
     before do
       allow(AppliedStandardDeduction).to receive(:new).with(tax_return: tax_return).and_call_original
     end
@@ -1012,26 +1013,26 @@ describe TaxReturn do
 
   describe ".filing_years" do
     before do
-      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
     end
 
     it "provides an array of available filing years, which is the current tax year and three previous years" do
-      expect(TaxReturn.filing_years).to eq [2021, 2020, 2019, 2018]
+      expect(MultiTenantService.new(:gyr).filing_years).to eq [2021, 2020, 2019, 2018]
     end
   end
 
   describe ".backtax_years" do
     before do
-      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
     end
 
     it "excludes the current filing year from backtaxes" do
-      expect(TaxReturn.backtax_years).to eq [2020, 2019, 2018]
+      expect(MultiTenantService.new(:gyr).backtax_years).to eq [2020, 2019, 2018]
     end
   end
 
   describe "under_submission_limit?" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :ctc_tax_return }
 
     context "when the tax return has been resubmitted 19 times" do
       let!(:efile_submissions) { create_list :efile_submission, 19, tax_return: tax_return }

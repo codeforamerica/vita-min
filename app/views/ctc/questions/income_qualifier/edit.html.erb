@@ -1,6 +1,6 @@
 <% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
-<% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
-<% @main_heading = t("views.ctc.questions.income_qualifier.title", standard_deduction: number_to_currency(standard_deduction), current_tax_year: current_tax_year, count: @filing_count) %>
+<% standard_deduction = StandardDeductions.base_deductions(tax_year: MultiTenantService.new(:ctc).current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
+<% @main_heading = t("views.ctc.questions.income_qualifier.title", standard_deduction: number_to_currency(standard_deduction), current_tax_year: MultiTenantService.new(:ctc).current_tax_year, count: @filing_count) %>
 
 <%= content_for :page_title, @main_heading %>
 <% content_for :card do %>

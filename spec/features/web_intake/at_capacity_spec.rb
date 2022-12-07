@@ -23,8 +23,10 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on "Continue"
 
+      # TODO(TY2022): Create 2022 return instead
+      pseudo_current_tax_year = 2021
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year}"
+      check "#{pseudo_current_tax_year}"
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Let's get started")

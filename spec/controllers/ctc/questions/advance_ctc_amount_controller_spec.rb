@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::AdvanceCtcAmountController do
   let!(:intake) { create :ctc_intake, client: client, advance_ctc_amount_received: nil, advance_ctc_entry_method: 'unfilled', dependents: [build(:qualifying_child)] }
-  let(:client) { create :client, tax_returns: [build(:tax_return)] }
+  let(:client) { create :client, tax_returns: [build(:ctc_tax_return)] }
 
   before do
     sign_in intake.client

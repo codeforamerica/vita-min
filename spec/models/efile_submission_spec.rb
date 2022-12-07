@@ -430,7 +430,7 @@ describe EfileSubmission do
       it "generates and stores the 1040 and 8812 combined PDF" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
         expect(Irs8812Ty2021Pdf).to have_received(:new)
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
@@ -448,7 +448,7 @@ describe EfileSubmission do
         expect(Irs1040Pdf).to have_received(:new)
         expect(Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year} - 789.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year} - 789.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil
@@ -480,7 +480,7 @@ describe EfileSubmission do
         expect(Irs1040ScheduleLepPdf).to have_received(:new)
         expect(Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
-        expect(doc.display_name).to eq("IRS 1040 - TY#{TaxReturn.current_tax_year}.pdf")
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil

@@ -3,7 +3,7 @@ require "rails_helper"
 describe DependentFlowService do
   let(:controller_name) { "Ctc::Questions::Dependents::InfoController" }
   let(:dependent) { create :qualifying_child }
-  subject { described_class.new(dependent, TaxReturn.current_tax_year, controller_name) }
+  subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year, controller_name) }
 
   describe ".show?" do
     context "when dependent is nil" do

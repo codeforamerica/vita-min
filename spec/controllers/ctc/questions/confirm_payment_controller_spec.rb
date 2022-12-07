@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::ConfirmPaymentController do
   let(:intake) { create :ctc_intake }
-  let!(:tax_return) { create :tax_return, client: intake.client }
+  let!(:tax_return) { create :ctc_tax_return, client: intake.client }
 
   before do
     sign_in intake.client

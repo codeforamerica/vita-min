@@ -71,7 +71,7 @@ describe Site do
       before do
         10.times do
           client = create :client, vita_partner: site, intake: create(:intake)
-          create :tax_return, :intake_ready, client: client
+          create :gyr_tax_return, :intake_ready, client: client
         end
       end
 
@@ -84,7 +84,7 @@ describe Site do
       before do
         2.times do
           client = create :client, vita_partner: site
-          create :tax_return, :intake_ready, client: client
+          create :gyr_tax_return, :intake_ready, client: client
         end
       end
 

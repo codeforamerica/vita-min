@@ -26,16 +26,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       choose I18n.t('views.ctc.questions.main_home.options.foreign_address')
       click_on I18n.t('general.continue')
       expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
       click_on I18n.t('general.back')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
       expect(page).to have_text(I18n.t("views.ctc.questions.income_qualifier.subtitle"))
@@ -43,7 +43,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
       expect(page).to have_selector(".toolbar", text: "GetCTC")
       within "h1" do
-        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       end
       click_on I18n.t('general.continue')
       click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
@@ -53,10 +53,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
       click_on I18n.t('general.continue')
 
       # =========== ELIGIBILITY ===========
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
       # =========== BASIC INFO ===========
@@ -92,13 +92,13 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     end
 
     scenario "client can file with GYR" do
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.affirmative")
 
       expect(page).to have_text(I18n.t('views.ctc.offboarding.actc_without_dependents.title'))
@@ -109,14 +109,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     end
 
     scenario "client can add more dependents to continue CTC" do
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
 
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
 
       click_on I18n.t("general.affirmative")
 
@@ -128,14 +128,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     end
 
     scenario "client who did not receive advance ctc is not offboarded" do
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('views.ctc.questions.had_dependents.continue')
 
       expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
 
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
+      expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
 
       click_on I18n.t("general.negative")
 
@@ -143,7 +143,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     end
 
     scenario "people who remove their last dependent are sent into the offboarding flow" do
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
 
       click_on I18n.t('views.ctc.questions.had_dependents.add')
 
@@ -164,10 +164,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
       # Skips qualifiers page because the dependent is only 5
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t('general.continue')
 

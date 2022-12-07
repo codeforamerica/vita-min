@@ -37,7 +37,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(assigns(:client)).to eq client
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
         expect(assigns(:form).tax_return_years).to eq [2018]
-        expect(assigns(:form).remaining_years).to eq TaxReturn.filing_years - [2018]
+        expect(assigns(:form).remaining_years).to eq MultiTenantService.new(:gyr).filing_years - [2018]
       end
     end
   end

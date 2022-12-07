@@ -509,7 +509,7 @@ RSpec.describe Hub::UsersController do
       end
 
       context "when the user has sent a message to a client and has assigned tax returns" do
-        let!(:tax_return) { create :tax_return, assigned_user: user }
+        let!(:tax_return) { create :gyr_tax_return, assigned_user: user }
         before { create :outgoing_text_message, user: user }
 
         it "suspends the user and unassigns them from all tax returns" do
@@ -551,7 +551,7 @@ RSpec.describe Hub::UsersController do
       end
 
       context "when the user has assigned tax returns" do
-        let!(:tax_return) { create :tax_return, assigned_user: user }
+        let!(:tax_return) { create :gyr_tax_return, assigned_user: user }
 
         it "suspends the user and unassigns them from all tax returns" do
           patch :suspend, params: params

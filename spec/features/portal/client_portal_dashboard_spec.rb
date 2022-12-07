@@ -5,7 +5,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
-             tax_returns: [create(:tax_return, :intake_in_progress)]
+             tax_returns: [create(:gyr_tax_return, :intake_in_progress)]
     end
 
     before do
@@ -73,7 +73,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_preparing)]
+             tax_returns: [(create :gyr_tax_return, :prep_preparing)]
     end
 
     before do
@@ -87,8 +87,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Your tax team is preparing the return"
       end
@@ -99,7 +99,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_info_requested)]
+             tax_returns: [(create :gyr_tax_return, :prep_info_requested)]
     end
 
     before do
@@ -113,8 +113,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Submit requested tax documents"
       end
@@ -125,7 +125,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, current_step: "/en/questions/asset-loss"),
-             tax_returns: [(create :tax_return, :intake_greeter_info_requested)]
+             tax_returns: [(create :gyr_tax_return, :intake_greeter_info_requested)]
     end
 
     before do
@@ -147,7 +147,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :review_reviewing)]
+             tax_returns: [(create :gyr_tax_return, :review_reviewing)]
     end
 
     before do
@@ -161,11 +161,11 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Your tax team is waiting to discuss your final #{TaxReturn.current_tax_year} return with you"
+        expect(page).to have_text "Your tax team is waiting to discuss your final #{MultiTenantService.new(:gyr).current_tax_year} return with you"
       end
     end
   end
@@ -174,7 +174,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_not_filing)]
+             tax_returns: [(create :gyr_tax_return, :file_not_filing)]
     end
 
     before do
@@ -189,8 +189,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
         expect(page).not_to have_text "Completed quality review"
@@ -203,7 +203,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, current_step: "/en/questions/asset-loss"),
-             tax_returns: [(create :tax_return, :file_hold)]
+             tax_returns: [(create :gyr_tax_return, :file_hold)]
     end
 
     before do
@@ -215,8 +215,8 @@ RSpec.feature "a client on their portal" do
     scenario "shows that the return is on hold" do
       visit portal_root_path
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
         expect(page).not_to have_text "Completed quality review"
@@ -229,7 +229,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, filing_joint: "yes"),
-             tax_returns: [(create :tax_return, :review_signature_requested)]
+             tax_returns: [(create :gyr_tax_return, :review_signature_requested)]
     end
 
     before do
@@ -249,13 +249,13 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for #{TaxReturn.current_tax_year}"
-        expect(page).to have_link "Add final primary taxpayer signature for #{TaxReturn.current_tax_year}"
-        expect(page).to have_link "Add final spouse signature for #{TaxReturn.current_tax_year}"
+        expect(page).to have_text "Completed quality review for #{MultiTenantService.new(:gyr).current_tax_year}"
+        expect(page).to have_link "Add final primary taxpayer signature for #{MultiTenantService.new(:gyr).current_tax_year}"
+        expect(page).to have_link "Add final spouse signature for #{MultiTenantService.new(:gyr).current_tax_year}"
       end
     end
   end
@@ -264,7 +264,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed)]
+             tax_returns: [(create :gyr_tax_return, :file_efiled, :primary_has_signed)]
     end
 
     before do
@@ -282,12 +282,12 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Completed review"
 
 
-      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
-      within "#tax-year-#{TaxReturn.current_tax_year}" do
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for #{TaxReturn.current_tax_year}"
-        expect(page).to have_text "Final signature added for #{TaxReturn.current_tax_year}"
-        expect(page).to have_link("Download final tax papers #{TaxReturn.current_tax_year}")
+        expect(page).to have_text "Completed quality review for #{MultiTenantService.new(:gyr).current_tax_year}"
+        expect(page).to have_text "Final signature added for #{MultiTenantService.new(:gyr).current_tax_year}"
+        expect(page).to have_link("Download final tax papers #{MultiTenantService.new(:gyr).current_tax_year}")
       end
     end
   end
@@ -365,7 +365,7 @@ RSpec.feature "a client on their portal" do
   context "with an ITIN client ready to mail their forms" do
     let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", need_itin_help: "yes" }
     let(:client) { create :client, intake: intake }
-    let(:tax_return) { create :tax_return, :file_mailed, client: client }
+    let(:tax_return) { create :gyr_tax_return, :file_mailed, client: client }
 
     before do
       create(:document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: client)
@@ -377,10 +377,10 @@ RSpec.feature "a client on their portal" do
     it "shows where to mail the final tax documents and W7" do
       visit portal_root_path
       expect(page).to have_text("Welcome back Martha!")
-      expect(page).to have_text("2021 Tax Return")
+      expect(page).to have_text("#{MultiTenantService.new(:gyr).current_tax_year} Tax Return")
       expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
-      within "#tax-year-2021" do
-        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
+      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
+        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: MultiTenantService.new(:gyr).current_tax_year)
         expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
       end
     end
@@ -402,11 +402,11 @@ RSpec.feature "a client on their portal" do
         login_as client, scope: :client
         visit portal_root_path
         expect(page).to have_text("Welcome back Martha!")
-        expect(page).to have_text("2021 Tax Return")
+        expect(page).to have_text("#{MultiTenantService.new(:gyr).current_tax_year} Tax Return")
         expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
         expect(page).to have_text(I18n.t('portal.portal.itin_instructions.caa.in_person'))
-        within "#tax-year-2021" do
-          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
+        within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
+          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: MultiTenantService.new(:gyr).current_tax_year)
           expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
           expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7_coa')
         end
@@ -418,7 +418,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
         intake: (create :ctc_intake),
-        tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, is_ctc: true)]
+        tax_returns: [(create :ctc_tax_return, :file_efiled, :primary_has_signed, is_ctc: true)]
     end
 
     before do

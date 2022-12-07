@@ -416,7 +416,7 @@ RSpec.describe ClientMessagingService do
   end
 
   describe ".send_system_message_to_all_opted_in_contact_methods", active_job: true do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     let(:automated_message_double) { double }
     before do
       allow(SendAutomatedMessage).to receive(:new).and_return(automated_message_double)

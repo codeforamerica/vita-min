@@ -20,7 +20,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.continue')
     choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title',current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
     expect(page).to have_text(I18n.t("views.ctc.questions.income_qualifier.subtitle"))
     click_on I18n.t('general.affirmative')
@@ -41,7 +41,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: MultiTenantService.new(:ctc).prior_tax_year)
     click_on I18n.t('general.continue')
     click_on I18n.t('views.ctc.questions.contact_preference.email')
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"

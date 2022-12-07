@@ -381,9 +381,9 @@ class Intake::CtcIntake < Intake
   def is_ctc?
     true
   end
-
+  
   def default_tax_return
-    tax_returns.find_by(year: TaxReturn.current_tax_year)
+    tax_returns.find_by(year: MultiTenantService.new(:ctc).current_tax_year)
   end
 
   # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP

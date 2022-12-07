@@ -319,7 +319,7 @@ RSpec.describe Hub::ClientsController do
         let!(:lucille) { create :client, vita_partner: organization, consented_to_service_at: nil, intake: create(:intake, preferred_name: "Lucille") }
         let!(:lucille_2018_return) { create(:tax_return, :intake_before_consent, client: lucille, year: 2018, assigned_user: assigned_user) }
         let!(:bob_loblaw) { create :client, consented_to_service_at: nil, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
-        let!(:bob_loblaw_online_intake_return) { create :tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
+        let!(:bob_loblaw_online_intake_return) { create :ctc_tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
 
         it "does not show a client who has not consented" do
           get :index
@@ -418,7 +418,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when there are clients with no current intakes (clients from previous tax years)" do
           let!(:former_year_client) { create :client, vita_partner: organization, intake: build(:intake, :filled_out) }
-          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, assigned_user: assigned_user }
+          let!(:former_year_tax_return) { create :gyr_tax_return, :intake_in_progress, client: former_year_client, assigned_user: assigned_user }
 
           before do
             # In reality this intake would be moved to the `archived_intakes_2021` table, but removing it from the DB is good enough for our purposes
@@ -436,8 +436,8 @@ RSpec.describe Hub::ClientsController do
       context "sorting and ordering" do
         context "with client as sort param" do
           let(:params) { { column: "preferred_name" } }
-          let!(:alex) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
-          let!(:ben) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
+          let!(:alex) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
+          let!(:ben) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by name asc" do
             params[:order] = "asc"
@@ -463,8 +463,8 @@ RSpec.describe Hub::ClientsController do
 
         context "with id as sort param" do
           let(:params) { { column: "id" } }
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
+          let!(:first_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
+          let!(:second_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by id asc" do
             params[:order] = "asc"
@@ -489,8 +489,8 @@ RSpec.describe Hub::ClientsController do
 
         context "with updated_at as sort param" do
           let(:params) { { column: "updated_at" } }
-          let!(:one) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
-          let!(:two) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
+          let!(:one) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
+          let!(:two) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by updated_at asc" do
             params[:order] = "asc"
@@ -515,8 +515,8 @@ RSpec.describe Hub::ClientsController do
 
         context "with locale as sort param" do
           let(:params) { { column: "locale" } }
-          let!(:spanish) { create :client, :with_return, vita_partner: organization, intake: create(:intake, locale: "es") }
-          let!(:english) { create :client, :with_return, vita_partner: organization, intake: create(:intake, locale: "en") }
+          let!(:spanish) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, locale: "es") }
+          let!(:english) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake, locale: "en") }
 
           it "orders clients by locale asc" do
             params[:order] = "asc"
@@ -541,8 +541,8 @@ RSpec.describe Hub::ClientsController do
 
         context "with first_unanswered_incoming_interaction_at as sort param" do
           let(:params) { { column: "first_unanswered_incoming_interaction_at" } }
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago, last_outgoing_communication_at: 5.day.ago }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 3.days.ago, last_outgoing_communication_at: 5.days.ago }
+          let!(:first_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago, last_outgoing_communication_at: 5.day.ago }
+          let!(:second_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 3.days.ago, last_outgoing_communication_at: 5.days.ago }
 
           it "orders clients by first_unanswered_incoming_interaction_at asc" do
             params[:order] = "asc"
@@ -566,8 +566,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with no or bad params" do
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 1.day.ago }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 2.days.ago }
+          let!(:first_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 1.day.ago }
+          let!(:second_id) { create :client, :with_gyr_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 2.days.ago }
 
           it "defaults to sorting by last_outgoing_communication_at, asc by default" do
             get :index
@@ -614,7 +614,7 @@ RSpec.describe Hub::ClientsController do
 
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
-        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client }
+        let!(:tax_return_2022) { create :gyr_tax_return, :intake_in_progress, client: client }
         let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
         before { client.update(vita_partner: organization, consented_to_service_at: DateTime.current) }
         render_views
@@ -624,14 +624,14 @@ RSpec.describe Hub::ClientsController do
 
           html = Nokogiri::HTML.parse(response.body)
           expect(html.css(".tax-return-list__year").first).to have_text("2019")
-          expect(html.css(".tax-return-list__year").last).to have_text(TaxReturn.current_tax_year)
+          expect(html.css(".tax-return-list__year").last).to have_text(MultiTenantService.new(:gyr).current_tax_year)
         end
       end
 
       context "filtering" do
         context "with a status filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_ready)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_ready)], intake: (build :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress" }
@@ -640,8 +640,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :prep_ready_for_prep)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :prep_ready_for_prep)], intake: (build :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -669,9 +669,9 @@ RSpec.describe Hub::ClientsController do
 
         context "filtering by organization/site" do
           let(:site) { create :site, parent_organization: organization }
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
 
           it "includes clients who are assigned to those vita partners" do
             get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
@@ -683,7 +683,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by needs response" do
-          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: build(:intake) }
+          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :gyr_tax_return, :intake_in_progress)], intake: build(:intake) }
 
           it "filters in" do
             get :index, params: { flagged: true }
@@ -775,10 +775,10 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "last contact" do
-          let!(:client_less_than_one_business_day) { create :client, :with_return, last_outgoing_communication_at: 1.hour.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_one_business_day) { create :client, :with_return, last_outgoing_communication_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_three_business_days) { create :client, :with_return, last_outgoing_communication_at: 3.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_four_business_days) { create :client, :with_return, last_outgoing_communication_at: 4.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_less_than_one_business_day) { create :client, :with_gyr_return, last_outgoing_communication_at: 1.hour.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_one_business_day) { create :client, :with_gyr_return, last_outgoing_communication_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_three_business_days) { create :client, :with_gyr_return, last_outgoing_communication_at: 3.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_four_business_days) { create :client, :with_gyr_return, last_outgoing_communication_at: 4.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
 
           it "shows the number of business days since a client was contacted" do
             get :index
@@ -793,10 +793,10 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "waiting on response or update" do
-          let!(:client_update) { create :client, :with_return, first_unanswered_incoming_interaction_at: nil, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_response_min) { create :client, :with_return, first_unanswered_incoming_interaction_at: 32.minutes.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_response_hours) { create :client, :with_return, first_unanswered_incoming_interaction_at: 5.hours.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
-          let!(:client_response_days) { create :client, :with_return, first_unanswered_incoming_interaction_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_update) { create :client, :with_gyr_return, first_unanswered_incoming_interaction_at: nil, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_min) { create :client, :with_gyr_return, first_unanswered_incoming_interaction_at: 32.minutes.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_hours) { create :client, :with_gyr_return, first_unanswered_incoming_interaction_at: 5.hours.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_days) { create :client, :with_gyr_return, first_unanswered_incoming_interaction_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
 
           it "shows whether a client is waiting for a response or update" do
             get :index
@@ -1333,7 +1333,7 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#resource_to_client_redirect" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
     let(:params) { { id: tax_return.id, resource: "tax_return" } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :resource_to_client_redirect
 
@@ -1341,7 +1341,7 @@ RSpec.describe Hub::ClientsController do
       before { sign_in user }
 
       context "when the resource is a tax return" do
-        let(:tax_return) { create :tax_return }
+        let(:tax_return) { create :gyr_tax_return }
         let(:client) { tax_return.client }
 
         it "redirects to the associated client" do
@@ -1451,7 +1451,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when all tax returns are filing single" do
           let(:tr_2019) { build :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { build :tax_return, filing_status: "single" }
+          let(:tr_2020) { build :tax_return, filing_status: "single", year: 2020 }
 
           it "returns false" do
             expect(presenter.requires_spouse_info?).to be_falsey
@@ -1460,7 +1460,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when tax returns have any other status or a mix of statuses" do
           let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-          let(:tr_2020) { create :tax_return, filing_status: "head_of_household" }
+          let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
 
           it "returns true" do
             expect(presenter.requires_spouse_info?).to be_truthy

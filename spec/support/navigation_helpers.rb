@@ -46,11 +46,11 @@ module NavigationHelpers
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     choose I18n.t('views.ctc.questions.main_home.options.fifty_states')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
@@ -64,10 +64,10 @@ module NavigationHelpers
     click_on I18n.t('general.continue')
 
     # =========== ELIGIBILITY ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
@@ -84,6 +84,7 @@ module NavigationHelpers
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
+    prior_tax_year = MultiTenantService.new(:ctc).prior_tax_year
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')

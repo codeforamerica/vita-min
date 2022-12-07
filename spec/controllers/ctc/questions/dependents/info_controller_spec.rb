@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::Questions::Dependents::InfoController do
-  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_ctc_return) }
   let(:message_verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
 
   before do
@@ -90,7 +90,7 @@ describe Ctc::Questions::Dependents::InfoController do
         end
 
         context "when dependent was born after the tax year" do
-          let(:birth_year) { TaxReturn.current_tax_year + 1 } # Filing year is 2021, children born in 2022 don't qualify
+          let(:birth_year) { MultiTenantService.new(:ctc).current_tax_year + 1 } # Filing year is 2021, children born in 2022 don't qualify
           it "sends the client to the offboarding page" do
             post :update, params: params
             expect(response).to redirect_to does_not_qualify_ctc_questions_dependent_path(id: params[:id])

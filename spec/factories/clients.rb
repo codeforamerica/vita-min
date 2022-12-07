@@ -62,18 +62,24 @@ FactoryBot.define do
     consented_to_service_at { DateTime.current }
     efile_security_informations { [build(:efile_security_information)] }
 
-    trait :with_return do
+    trait :with_ctc_return do
       transient do
         tax_return_state { "intake_in_progress" }
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+        create :ctc_tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
       end
     end
 
-    factory :client_with_tax_return_state do
-      with_return
+    trait :with_gyr_return do
+      transient do
+        tax_return_state { "intake_in_progress" }
+        filing_status { "single" }
+      end
+      after(:create) do |client, evaluator|
+        create :gyr_tax_return, evaluator.tax_return_state, client: client, filing_status: evaluator.filing_status
+      end
     end
 
     trait :with_empty_consent do
@@ -94,7 +100,7 @@ FactoryBot.define do
     end
 
     factory :client_with_intake_and_return do
-      with_return
+      with_ctc_return
       transient do
         preferred_name { "Maeby" }
       end
@@ -104,7 +110,7 @@ FactoryBot.define do
     end
 
     factory :client_with_ctc_intake_and_return do
-      with_return
+      with_ctc_return
       vita_partner do
         ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
         VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)

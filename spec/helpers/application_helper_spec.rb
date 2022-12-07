@@ -20,4 +20,28 @@ describe ApplicationHelper do
       expect(mask(nil)).to eq nil
     end
   end
+
+  describe "#ctc_current_tax_year" do
+    let(:fake_multitenant_service) { double(MultiTenantService) }
+    before do
+      allow(MultiTenantService).to receive(:new).with(:ctc).and_return(fake_multitenant_service)
+      allow(fake_multitenant_service).to receive(:current_tax_year).and_return(2018)
+    end
+
+    it "returns the GetCTC current tax year" do
+      expect(ctc_current_tax_year).to eq(2018)
+    end
+  end
+
+  describe "#ctc_prior_tax_year" do
+    let(:fake_multitenant_service) { double(MultiTenantService) }
+    before do
+      allow(MultiTenantService).to receive(:new).with(:ctc).and_return(fake_multitenant_service)
+      allow(fake_multitenant_service).to receive(:prior_tax_year).and_return(2017)
+    end
+
+    it "returns the GetCTC prior tax year" do
+      expect(ctc_prior_tax_year).to eq(2017)
+    end
+  end
 end

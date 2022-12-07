@@ -1,11 +1,11 @@
 <% @filing_count = current_intake.default_tax_return.filing_status_single? ? 1 : 2 %>
-<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: @filing_count) %>
+<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year, count: @filing_count) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <% standard_deduction = StandardDeductions.base_deductions(tax_year: current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
+  <% standard_deduction = StandardDeductions.base_deductions(tax_year: MultiTenantService.new(:ctc).current_tax_year, puerto_rico_filing: current_intake.puerto_rico_filing?)[current_intake.default_tax_return.filing_status] %>
   <ul class="checkmark-list teal">
     <% if current_intake.puerto_rico_filing? %>
       <% t("views.ctc.questions.income.puerto_rico.list", standard_deduction: number_to_currency(standard_deduction), count: @filing_count).each do |income_qualifications| %>

@@ -4,7 +4,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe "#assignment_email" do
     let(:assigning_user) { create :user }
     let(:assigned_user) { create :user }
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :gyr_tax_return }
 
     it "delivers the email with the right subject and body" do
       email = UserMailer.assignment_email(

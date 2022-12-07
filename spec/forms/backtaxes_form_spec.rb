@@ -7,7 +7,6 @@ RSpec.describe BacktaxesForm do
     let(:valid_params) do
       {
         needs_help_2021: "yes",
-        needs_help_2018: "no",
         needs_help_2019: "yes",
         needs_help_2020: "yes",
       }
@@ -19,10 +18,10 @@ RSpec.describe BacktaxesForm do
       form.save
       intake.reload
 
+      # TODO: Add 2022
       expect(intake.needs_help_2021).to eq "yes"
       expect(intake.needs_help_2020).to eq "yes"
       expect(intake.needs_help_2019).to eq "yes"
-      expect(intake.needs_help_2018).to eq "no"
     end
 
     context "Mixpanel tracking" do
@@ -36,7 +35,6 @@ RSpec.describe BacktaxesForm do
 
       it "sends intake_started to Mixpanel" do
         form = BacktaxesForm.new(intake, {
-          needs_help_2018: "no",
           needs_help_2019: "yes",
           needs_help_2020: "yes",
           needs_help_2021: "yes",

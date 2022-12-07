@@ -1,4 +1,4 @@
-<% content_for :page_title, t('views.ctc.questions.main_home.title', current_tax_year: current_tax_year) %>
+<% content_for :page_title, t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 
 <% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, data: { efile_security_information: true, form_name: form_name }, html: { class: "form-card" } do |f| %>

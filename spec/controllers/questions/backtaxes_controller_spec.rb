@@ -13,7 +13,8 @@ RSpec.describe Questions::BacktaxesController do
     it "sets possible_filing_years to all filing years" do
       get :edit
 
-      expect(assigns(:possible_filing_years)).to eq TaxReturn.filing_years
+      # TODO(TY2022): Support 2022
+      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years - [2022])
     end
   end
 
@@ -30,10 +31,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2018: "yes",
             needs_help_2019: "yes",
             needs_help_2020: "no",
-            needs_help_2021: "yes"
+            needs_help_2021: "yes",
+            needs_help_2022: "yes",
           }
         }
       end
@@ -41,9 +42,10 @@ RSpec.describe Questions::BacktaxesController do
       it "saves answers to the intake" do
         post :update, params: params
 
-        expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
+        expect(intake.needs_help_2020).to eq "no"
         expect(intake.needs_help_2021).to eq "yes"
+        # TODO(TY2022): expect(intake.needs_help_2022).to eq "yes"
       end
     end
 
@@ -51,10 +53,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2018: "no",
             needs_help_2019: "no",
             needs_help_2020: "no",
-            needs_help_2021: "no"
+            needs_help_2021: "no",
+            needs_help_2022: "no",
           }
         }
       end
@@ -63,6 +65,7 @@ RSpec.describe Questions::BacktaxesController do
         post :update, params: params
 
         expect(response).to render_template(:edit)
+        expect(response).to be_ok
         expect(response.body).to include "Please pick at least one year."
       end
     end

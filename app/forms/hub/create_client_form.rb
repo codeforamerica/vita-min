@@ -68,7 +68,7 @@ module Hub
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
 
     def initialize(attributes = {})
-      @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
+      @tax_returns = MultiTenantService.new(:gyr).filing_years.map { |year| TaxReturn.new(year: year) }
       super(attributes)
     end
 
@@ -108,6 +108,7 @@ module Hub
 
     def default_intake_attributes
       {
+        needs_help_2018: "unfilled", # TODO(TY2022): Remove this column
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",

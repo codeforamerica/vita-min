@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
   include CtcIntakeFeatureHelper
-  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, filing_status: :married_filing_jointly)] }
+  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:ctc_tax_return, filing_status: :married_filing_jointly)] }
 
   before do
     login_as client, scope: :client
@@ -20,10 +20,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t('general.continue')
 
@@ -49,10 +49,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('views.ctc.questions.dependents.child_qualifiers.full_time_student', name: "Jessie")
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t('general.continue')
 
@@ -74,7 +74,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.affirmative")
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.relative_qualifiers.title"))
@@ -99,10 +99,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.other'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_member_of_household.title', name: "Jessie", current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_member_of_household.title', name: "Jessie", current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.affirmative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.affirmative")
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.relative_qualifiers.title"))
@@ -131,20 +131,20 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('views.ctc.questions.dependents.child_qualifiers.permanently_totally_disabled', name: "Jessie")
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       # Too old for CTC, but still qualify for other credits
       within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
@@ -155,7 +155,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "an older child who is a student" do
-      dependent_birth_year = TaxReturn.current_tax_year - 22
+      dependent_birth_year = MultiTenantService.new(:ctc).current_tax_year - 22
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
@@ -164,20 +164,20 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('views.ctc.questions.dependents.child_qualifiers.full_time_student', name: "Jessie")
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       # Too old for CTC, but still qualify for other credits
       within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
@@ -198,10 +198,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('general.none_of_these')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: "Jessie")
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: "Jessie")
       click_on I18n.t("general.continue")
@@ -216,19 +216,19 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "an infant born within the last 6 months of the tax year" do
-      fill_in_dependent_info(TaxReturn.current_tax_year)
+      fill_in_dependent_info(MultiTenantService.new(:ctc).current_tax_year)
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: "Jessie", current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: "Jessie", current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: "Jessie", current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: "Jessie", current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.affirmative")
 
       within "#dependent_#{Dependent.last.id}" do
         expect(page).to have_content("Jessie M Pepper")
-        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{TaxReturn.current_tax_year}")
+        expect(page).to have_selector("div", text: "#{I18n.t('views.ctc.questions.confirm_dependents.birthday')}: 11/1/#{MultiTenantService.new(:ctc).current_tax_year}")
         expect_dependent_to_have_ctc_indicator
         expect_dependent_to_have_stimulus_indicator
       end
@@ -239,10 +239,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.negative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_residence.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       select I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven")
       click_on I18n.t('general.continue')
 
@@ -268,10 +268,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.stepchild'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: "Jessie")
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: "Jessie")
       click_on I18n.t("general.continue")
@@ -292,10 +292,10 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.stepchild'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: "Jessie")
       check I18n.t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: "Jessie")
       click_on I18n.t("general.continue")
@@ -317,7 +317,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.relative_financial_support.title", name: "Jessie", current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.relative_financial_support.title", name: "Jessie", current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name: "Jessie"))
@@ -331,11 +331,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "a child who paid for over half their support" do
-      fill_in_dependent_info(TaxReturn.current_tax_year - 14)
+      fill_in_dependent_info(MultiTenantService.new(:ctc).current_tax_year - 14)
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.does_not_qualify_ctc.title', name: 'Jessie'))
@@ -351,7 +351,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "a child that was born after the current tax year" do
-      fill_in_dependent_info(TaxReturn.current_tax_year + 1)
+      fill_in_dependent_info(MultiTenantService.new(:ctc).current_tax_year + 1)
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 

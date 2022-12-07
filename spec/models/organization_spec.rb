@@ -84,7 +84,7 @@ describe Organization do
       before do
         organization.capacity_limit.times do
           client = create :client, vita_partner: organization, intake: create(:intake)
-          create :tax_return, :intake_ready, client: client
+          create :gyr_tax_return, :intake_ready, client: client
         end
       end
 
@@ -98,7 +98,7 @@ describe Organization do
         before do
           (organization.capacity_limit + 1).times do
             client = create :client, vita_partner: organization, intake: create(:intake)
-            create :tax_return, :prep_ready_for_prep, client: client
+            create :gyr_tax_return, :prep_ready_for_prep, client: client
           end
         end
 
@@ -114,7 +114,7 @@ describe Organization do
         before do
           (organization.capacity_limit + 1).times do
             client = create :client, vita_partner: [site_1, site_2, organization].sample, intake: create(:intake)
-            create :tax_return, :review_reviewing, client: client
+            create :gyr_tax_return, :review_reviewing, client: client
           end
         end
 
@@ -129,7 +129,7 @@ describe Organization do
         before do
           (organization.capacity_limit - 1).times do
             client = create :client, vita_partner: organization
-            create :tax_return, client: client
+            create :gyr_tax_return, client: client
           end
         end
 
@@ -142,12 +142,12 @@ describe Organization do
         before do
           (organization.capacity_limit / 2).times do
             client = create :client, vita_partner: organization
-            create :tax_return, out_of_range_statuses.sample.to_sym, client: client
+            create :gyr_tax_return, out_of_range_statuses.sample.to_sym, client: client
           end
 
           (organization.capacity_limit / 2).times do
             client = create :client, vita_partner: organization
-            create :tax_return, in_range_statuses.sample.to_sym, client: client
+            create :gyr_tax_return, in_range_statuses.sample.to_sym, client: client
           end
         end
 
@@ -162,7 +162,7 @@ describe Organization do
       before do
         20.times do
           client = create :client, vita_partner: organization
-          create :tax_return, :intake_ready, client: client
+          create :gyr_tax_return, :intake_ready, client: client
         end
       end
 

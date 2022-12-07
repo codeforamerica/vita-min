@@ -5,7 +5,7 @@ RSpec.describe Hub::CtcClientsController do
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#edit" do
-    let(:client) { create :client, :with_return, intake: (create :ctc_intake) }
+    let(:client) { create :client, :with_ctc_return, intake: (create :ctc_intake) }
     let(:params) {
       { id: client.id }
     }
@@ -25,7 +25,7 @@ RSpec.describe Hub::CtcClientsController do
   end
 
   describe "#update" do
-    let!(:client) { create :client, :with_return, intake: intake }
+    let!(:client) { create :client, :with_ctc_return, intake: intake }
 
     let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, email_address: "cher@example.com", primary_last_name: "Cherimoya" }
     let(:first_dependent) { intake.dependents.first }

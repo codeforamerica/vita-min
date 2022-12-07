@@ -66,7 +66,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     end
 
     context "intake is in progress" do
-      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return)]), email_address: "mango@example.com" }
+      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:ctc_tax_return)]), email_address: "mango@example.com" }
       before do
         intake.update(current_step: "/en/questions/spouse-info")
       end
@@ -85,7 +85,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     context "efile submission is status new" do
       before do
         intake.update(current_step: "/en/questions/spouse-info")
-        create(:efile_submission, tax_return: create(:tax_return, client: intake.client))
+        create(:efile_submission, tax_return: create(:ctc_tax_return, client: intake.client))
       end
 
       scenario "a client sees and can click on a link to continue their intake" do
@@ -99,7 +99,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status preparing" do
       before do
-        create(:efile_submission, :preparing, tax_return: create(:tax_return, client: intake.client))
+        create(:efile_submission, :preparing, tax_return: create(:ctc_tax_return, client: intake.client))
       end
 
       scenario "a client sees and can click on a link to continue their intake" do
@@ -113,7 +113,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status failed" do
       before do
-        create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client))
+        create(:efile_submission, :failed, tax_return: create(:ctc_tax_return, client: intake.client))
       end
 
       scenario "a client sees their submission status" do
@@ -127,7 +127,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status investigating" do
       before do
-        es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client))
+        es = create(:efile_submission, :failed, tax_return: create(:ctc_tax_return, client: intake.client))
         es.transition_to!(:investigating)
       end
 
@@ -142,7 +142,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status transmitted" do
       before do
-        create(:efile_submission, :transmitted, tax_return: create(:tax_return, client: intake.client))
+        create(:efile_submission, :transmitted, tax_return: create(:ctc_tax_return, client: intake.client))
       end
 
       scenario "a client sees their submission status" do
@@ -156,7 +156,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status accepted, there is a 1040 to download" do
       before do
-        es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client))
+        es = create(:efile_submission, :accepted, tax_return: create(:ctc_tax_return, client: intake.client))
         create(:document, document_type: DocumentTypes::Form1040.key, tax_return: es.tax_return, client: es.tax_return.client)
       end
 
@@ -199,7 +199,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           dependents: [qualifying_child, dependent_to_delete, dependent_that_cannot_be_deleted],
         )
       end
-      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client)) }
+      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:ctc_tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client)) }
       let!(:w2) { create :w2, intake: intake }
 
       scenario "a client can correct their information" do
@@ -301,6 +301,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t("general.edit").downcase
         end
 
+        prior_tax_year = MultiTenantService.new(:ctc).prior_tax_year
         fill_in I18n.t('views.ctc.portal.prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "1234"
         click_on I18n.t("general.save")
 
@@ -650,7 +651,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
     context "efile submission is status cancelled" do
       before do
-        es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client))
+        es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:ctc_tax_return, client: intake.client))
         es.transition_to!(:cancelled)
       end
 

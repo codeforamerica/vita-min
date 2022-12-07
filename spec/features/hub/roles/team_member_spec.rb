@@ -17,7 +17,7 @@ RSpec.feature "Team member role" do
       create :client,
              vita_partner: vita_partner,
              intake: (create :intake, :filled_out, preferred_name: "Jerry Jujube", primary_consented_to_service: "yes", state_of_residence: "CA"),
-             tax_returns: [(create :tax_return, :intake_in_progress)]
+             tax_returns: [(create :gyr_tax_return, :intake_in_progress)]
     }
     let!(:abigail_invisible) {
       create :client,

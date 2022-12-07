@@ -8,8 +8,8 @@ RSpec.describe Hub::BulkActionForm do
   describe "#valid?" do
     describe "#no_missing_message_locales" do
       context "when clients with both locales exist but one is missing" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
@@ -25,8 +25,8 @@ RSpec.describe Hub::BulkActionForm do
       end
 
       context "with clients using both locales and no message bodies submitted for any locale" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
@@ -41,7 +41,7 @@ RSpec.describe Hub::BulkActionForm do
       end
 
       context "with clients who prefer only one locale and a message for that locale" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
@@ -77,8 +77,8 @@ RSpec.describe Hub::BulkActionForm do
     context "default message body" do
       let(:intake_en) { create(:intake, locale: "en", preferred_name: "Luna Lemon") }
       let(:intake_es) { create(:intake, locale: "es", preferred_name: "Robby Radish") }
-      let!(:client_en) { create :client, intake: intake_en, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
-      let!(:client_es) { create :client, intake: intake_es, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:client_en) { create :client, intake: intake_en, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:client_es) { create :client, intake: intake_es, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
 
       context "when a message body is provided" do
         let(:form_params) do

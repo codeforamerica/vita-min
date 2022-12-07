@@ -5,7 +5,7 @@ describe "Site Coordinator" do
   let(:user) { create :site_coordinator_user, site: site }
   let(:client) { create :client, vita_partner: site}
   let!(:intake) { create :intake, client: client }
-  let!(:tax_return) { create :tax_return, client: client, assigned_user: nil }
+  let!(:tax_return) { create :gyr_tax_return, client: client, assigned_user: nil }
   let!(:team_member) { create :team_member_user, site: site }
 
   before { login_as user }

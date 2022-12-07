@@ -69,7 +69,7 @@
       <div id="marital-status-fields">
         <h2>Part II – Marital Status and Household Information</h2>
         <hr>
-        <h3><%= t(".what_was_your_marital_status", current_tax_year: TaxReturn.current_tax_year) %></h3>
+        <h3><%= t(".what_was_your_marital_status", current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></h3>
         <div class="hub-form__row">
           <%= f.hub_checkbox(:married, t("general.married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
           <%= f.cfa_select(:lived_with_spouse, t(".fields.lived_with_spouse"), yes_no_unsure_options_for_select) %>

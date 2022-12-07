@@ -1,5 +1,5 @@
 <% if current_intake.puerto_rico_filing? %>
-  <% content_for :form_question, t("views.ctc.questions.already_filed.puerto_rico.title", current_tax_year: current_tax_year) %>
+  <% content_for :form_question, t("views.ctc.questions.already_filed.puerto_rico.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
   <% content_for :form_help_text do %>
     <%= t("views.ctc.questions.already_filed.puerto_rico.help_text_html") %>
     <div class="reveal-shrink-wrapper spacing-above-15">
@@ -14,6 +14,6 @@
     </div>
   <% end %>
 <% else %>
-  <% content_for :form_question, t("views.ctc.questions.already_filed.title", current_tax_year: current_tax_year) %>
+  <% content_for :form_question, t("views.ctc.questions.already_filed.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
   <% content_for :form_help_text, t("views.ctc.questions.already_filed.help_text_html") %>
 <% end %>

@@ -42,7 +42,7 @@ RSpec.describe "a user editing a user" do
       end
 
       scenario "deleting a user" do
-        create(:tax_return, assigned_user: user_to_edit) # ensure soft delete
+        create(:gyr_tax_return, assigned_user: user_to_edit) # ensure soft delete
 
         visit edit_hub_user_path(id: user_to_edit)
         click_on "Delete"

@@ -1,14 +1,14 @@
-<% @main_question = t("views.ctc.questions.spouse_prior_tax_year_agi.title", prior_tax_year: prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %>
+<% @main_question = t("views.ctc.questions.spouse_prior_tax_year_agi.title", prior_tax_year: ctc_prior_tax_year, spouse_first_name: current_intake.spouse.first_name) %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
-  <%= t("views.ctc.questions.spouse_prior_tax_year_agi.help_text_html", prior_tax_year: prior_tax_year) %>
+  <%= t("views.ctc.questions.spouse_prior_tax_year_agi.help_text_html", prior_tax_year: ctc_prior_tax_year) %>
   <div class="amount-collection">
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, class: 'amount-collection-form' do |f| %>
-      <%= f.cfa_input_field(:spouse_prior_year_agi_amount, t("views.ctc.questions.prior_tax_year_agi.label", prior_tax_year: prior_tax_year), prefix: "$") %>
+      <%= f.cfa_input_field(:spouse_prior_year_agi_amount, t("views.ctc.questions.prior_tax_year_agi.label", prior_tax_year: ctc_prior_tax_year), prefix: "$") %>
 
       <%= f.button :submit, class: "button button--wide button--primary spacing-above-60" do %>
         <%= t("general.continue") %>

@@ -1,11 +1,11 @@
-<% @main_question = t("views.ctc.offboarding.already_filed.title", current_tax_year: current_tax_year) %>
+<% @main_question = t("views.ctc.offboarding.already_filed.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= @main_question %></h1>
 
-  <% t("views.ctc.offboarding.already_filed.content_html", current_tax_year: current_tax_year).each do |paragraph| %>
+  <% t("views.ctc.offboarding.already_filed.content_html", current_tax_year: MultiTenantService.new(:ctc).current_tax_year).each do |paragraph| %>
     <p>
       <%= paragraph %>
     </p>

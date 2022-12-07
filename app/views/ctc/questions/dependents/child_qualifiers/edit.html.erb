@@ -8,7 +8,7 @@
     <h1 class="h2"><%= @main_question %></h1>
 
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <p><strong><%= t("views.ctc.questions.dependents.child_qualifiers.help_text", current_tax_year: current_tax_year) %></strong></p>
+      <p><strong><%= t("views.ctc.questions.dependents.child_qualifiers.help_text", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %></strong></p>
       <%= f.cfa_checkbox(:full_time_student, t("views.ctc.questions.dependents.child_qualifiers.full_time_student", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:permanently_totally_disabled, t("views.ctc.questions.dependents.child_qualifiers.permanently_totally_disabled", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <hr/>

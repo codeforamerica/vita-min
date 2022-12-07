@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.no_dependents_advance_ctc_payments.title", current_tax_year: current_tax_year) %>
+<% @main_question = t("views.ctc.questions.no_dependents_advance_ctc_payments.title", current_tax_year: MultiTenantService.new(:ctc).current_tax_year) %>
 
 <% content_for :page_title, @main_question %>
 

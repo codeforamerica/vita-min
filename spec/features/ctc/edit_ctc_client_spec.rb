@@ -9,7 +9,7 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
     let!(:client) {
       create :client,
              vita_partner: organization,
-             tax_returns: [create(:tax_return, filing_status: "married_filing_jointly")],
+             tax_returns: [create(:ctc_tax_return, filing_status: "married_filing_jointly")],
              intake: create(:ctc_intake,
                             :with_ssns,
                             email_address: "colleen@example.com",
@@ -195,7 +195,7 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
         end
 
         within ".tax-return-list" do
-          expect(page).to have_text TaxReturn.current_tax_year
+          expect(page).to have_text MultiTenantService.new(:ctc).current_tax_year
           expect(page).to have_text I18n.t('hub.tax_returns.status.intake_in_progress')
         end
       end

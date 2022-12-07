@@ -9,13 +9,13 @@ describe Efile::DependentEligibility::ChildTaxCredit do
     end
 
     it "uses the passed in object instead of instantiating a new one" do
-      described_class.new((create :dependent), TaxReturn.current_tax_year, child_eligibility: child_eligibility)
+      described_class.new((create :dependent), MultiTenantService.new(:ctc).current_tax_year, child_eligibility: child_eligibility)
       expect(child_eligibility).to have_received(:qualifies?)
     end
   end
 
   context "when not passing in an eligibility object" do
-    let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+    let(:intake) { create :ctc_intake, client: create(:client, :with_ctc_return) }
     let(:dependent) { create :dependent, intake: intake }
     let(:child_eligibility) { double }
     before do
@@ -23,23 +23,23 @@ describe Efile::DependentEligibility::ChildTaxCredit do
     end
 
     it "instantiates a new eligibility object" do
-      described_class.new(dependent, TaxReturn.current_tax_year)
+      described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year)
       expect(child_eligibility).not_to have_received(:qualifies?)
     end
   end
 
   context "when the intake says that ctc is disallowed" do
-    let(:intake) { create :ctc_intake, client: (create :client, :with_return), disallowed_ctc: true }
+    let(:intake) { create :ctc_intake, client: (create :client, :with_ctc_return), disallowed_ctc: true }
     let(:dependent) { create :qualifying_child, intake: intake }
     it "makes the dependent disqualified" do
-      subject = described_class.new(dependent, TaxReturn.current_tax_year)
+      subject = described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year)
       expect(subject.qualifies?).to eq false
       expect(subject.disqualifiers).to include :disallowed_test
     end
   end
 
   context "prequalifying attribute" do
-    subject { described_class.new(efile_submission_dependent, TaxReturn.current_tax_year) }
+    subject { described_class.new(efile_submission_dependent, MultiTenantService.new(:ctc).current_tax_year) }
     before do
       allow(subject).to receive(:run_tests).and_call_original
     end

@@ -75,7 +75,7 @@ RSpec.describe Documents::IdsController do
     end
 
     context "when upload is valid" do
-      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
+      let!(:tax_return) { create :gyr_tax_return, :intake_in_progress, client: intake.client }
       let(:params) do
         {
           document_type_upload_form: {

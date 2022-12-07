@@ -5,7 +5,7 @@ module Ctc
         after_action :remember_last_edited_dependent_id
 
         def self.show?(dependent)
-          DependentFlowService.new(dependent, TaxReturn.current_tax_year, self.name).show?
+          DependentFlowService.new(dependent, MultiTenantService.new(:ctc).current_tax_year, self.name).show?
         end
 
         def self.resource_name

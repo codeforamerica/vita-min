@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ctc::Questions::SimplifiedFilingIncomeOffboardingController do
   describe '#show' do
-    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:tax_return, filing_status: filing_status)]) }
+    let(:intake) { create :ctc_intake, client: build(:client, tax_returns: [build(:ctc_tax_return, filing_status: filing_status)]) }
     let(:filing_status) { "single" }
 
     context 'eitc environment variable is disabled' do

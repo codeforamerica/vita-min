@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Questions::OptionalConsentController do
   let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga" }
-  let!(:tax_return) { create :tax_return, client: intake.client }
+  let!(:tax_return) { create :gyr_tax_return, client: intake.client }
 
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit

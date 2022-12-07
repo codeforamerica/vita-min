@@ -20,10 +20,14 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let!(:vita_partner_other) { create :organization, name: "Some Other Org", allows_greeters: true }
       let!(:vita_partner_ctc) { create :organization, name: "CTC Org", processes_ctc: true }
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23), tax_returns: [(create :tax_return, :intake_in_progress, year: 2019, assigned_user: user)] }
-      let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: nil, tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2018)] }
+      let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: nil, tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2020)] }
       let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1), tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2019, assigned_user: user)] }
-      let!(:marty_ctc) { create :client, vita_partner: vita_partner_ctc, intake: (create :ctc_intake, preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"), last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5), tax_returns: [(create :tax_return, :prep_ready_for_prep)] }
-      let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, :intake_in_progress, year: 2018, assigned_user: mona_user)] }
+      let!(:marty_ctc) {
+        c = create(:client, vita_partner: vita_partner_ctc, intake: (create :ctc_intake, preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"), last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5))
+        create(:ctc_tax_return, :prep_ready_for_prep, client: c)
+        c
+      }
+      let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, :intake_in_progress, year: 2020, assigned_user: mona_user)] }
 
       before do
         allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
@@ -325,11 +329,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          select "2018", from: "year"
+          select "2020", from: "year"
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_checked_field("assigned_to_me")
-          expect(page).to have_select("year", selected: "2018")
+          expect(page).to have_select("year", selected: "2020")
         end
         expect(page).not_to have_css ".client-table"
         expect(page).to have_css ".empty-clients"

@@ -204,7 +204,7 @@ describe Ctc::Dependents::InfoForm do
       before do
         params[:birth_date_day] = 7
         params[:birth_date_month] = 7
-        params[:birth_date_year] = TaxReturn.current_tax_year
+        params[:birth_date_year] = MultiTenantService.new(:ctc).current_tax_year
       end
 
       it "sets months_in_home to 12" do

@@ -105,7 +105,7 @@ describe Fraud::Indicator do
       end
 
       it "calls the indicator_type method on the class with passed reference" do
-        indicator.execute(client: create(:client), tax_return: create(:tax_return), efile_submission: create(:efile_submission), intake: create(:ctc_intake), bank_account: create(:bank_account))
+        indicator.execute(client: create(:client), tax_return: create(:ctc_tax_return), efile_submission: create(:efile_submission), intake: create(:ctc_intake), bank_account: create(:bank_account))
         expect(indicator).to have_received(:average_under).with({
                                                               client: an_instance_of(Client),
                                                               efile_submission: an_instance_of(EfileSubmission),
@@ -327,7 +327,7 @@ describe Fraud::Indicator do
   end
 
   describe "#missing_relationship" do
-    let(:tax_return) { create :tax_return }
+    let(:tax_return) { create :ctc_tax_return }
     let(:efile_submission) { create :efile_submission }
     let(:fraud_indicator) { described_class.create(name: "no_transitions", points: 5, indicator_type: "missing_relationship", query_model_name: "EfileSubmission", reference: "tax_return", indicator_attributes: ["efile_submission_transitions"]) }
 
