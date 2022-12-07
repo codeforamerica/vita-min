@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_221903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -758,6 +758,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
     t.string "other_description"
     t.datetime "updated_at", null: false
     t.index ["archived_w2s_2022_id"], name: "index_archived_w2_box14s_2022_on_archived_w2s_2022_id"
+  end
+
+  create_table "archived_w2_state_fields_groups_2022", force: :cascade do |t|
+    t.bigint "archived_w2s_2022_id", null: false
+    t.string "box15_employer_state_id_number"
+    t.string "box15_state"
+    t.decimal "box16_state_wages", precision: 12, scale: 2
+    t.decimal "box17_state_income_tax", precision: 12, scale: 2
+    t.decimal "box18_local_wages", precision: 12, scale: 2
+    t.decimal "box19_local_income_tax", precision: 12, scale: 2
+    t.string "box20_locality_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_w2s_2022_id"], name: "index_arc_w2_sfg_2022_on_arc_w2_2022_id"
   end
 
   create_table "archived_w2s_2022", force: :cascade do |t|
@@ -2128,6 +2142,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
   add_foreign_key "archived_intakes_2022", "clients"
   add_foreign_key "archived_intakes_2022", "vita_partners"
   add_foreign_key "archived_w2_box14s_2022", "archived_w2s_2022"
+  add_foreign_key "archived_w2_state_fields_groups_2022", "archived_w2s_2022"
   add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_action_notifications", "tax_return_selections"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
@@ -2195,7 +2210,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
   add_foreign_key "w2_box14s", "w2s"
-  add_foreign_key "w2_state_fields_groups", "archived_w2s_2022", column: "w2_id"
+  add_foreign_key "w2_state_fields_groups", "w2s"
   add_foreign_key "w2s", "intakes"
 
   create_view "organization_capacities", sql_definition: <<-SQL
@@ -2210,7 +2225,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_221058) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN archived_intakes_2022 ON ((archived_intakes_2022.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
+            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (w2_id => archived_w2s_2022.id)
+#  fk_rails_...  (w2_id => w2s.id)
 #
 class W2StateFieldsGroup < ApplicationRecord
   belongs_to :w2
