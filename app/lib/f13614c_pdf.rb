@@ -203,10 +203,8 @@ class F13614cPdf
   def dependents_info
     answers = {}
     @dependents.first(3).each_with_index do |dependent, index|
-      prefix = "dependent_#{index}"
       single_dependent_params(dependent, index: index + 1).each do |key, value|
-        full_key = "#{prefix}_#{key}".to_sym
-        answers[full_key] = value
+        answers[key] = value
       end
     end
     answers
@@ -293,8 +291,10 @@ class F13614cPdf
           letters = ('a'..'i').to_a
           dependent_values = single_dependent_params(dependent, index: 0).values
           tagged_vals = dependent_values.map do |val|
-            "(#{letters.shift}) #{val}"
-          end
+            letter = letters.shift
+            next unless letter # TODO: what to do about those last five columns?
+            "(#{letter}) #{val}"
+          end.compact
           tagged_vals.join(' ')
         end.join("\n")
       }

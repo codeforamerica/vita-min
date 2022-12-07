@@ -234,53 +234,53 @@ RSpec.describe F13614cPdf do
           "form1[0].page1[0].q1_As_of_December[0].q1b_Live_With[0].no[0]" => "Off",
           "form1[0].page1[0].q1_As_of_December[0].divorced[0]" => "",
           "form1[0].page1[0].q1_As_of_December[0].Date_Of_Final[0]" => "2015",
-          "form1[0].page1[0].q1_As_of_December[0].legally_separated[0]" => "Off",
+          "form1[0].page1[0].q1_As_of_December[0].legally_separated[0]" => "",
           "form1[0].page1[0].q1_As_of_December[0].Date_Of_Separate[0]" => "2016",
           "form1[0].page1[0].q1_As_of_December[0].widowed[0]" => "",
           "form1[0].page1[0].q1_As_of_December[0].Year_Of_Death[0]" => "2017",
           "form1[0].page1[0].additionalSpace[0].additional_space[0]" => "",
-          "form1[0].page1[0].namesOf[0].Row1[0].name[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].dateBirth[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].relationship[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].months[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].USCitizen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].residentOf[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].singleMarried[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].student[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].disabled[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].claimedBySomeone[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].providedMoreThen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].hadIncomeLess[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].supportPerson[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row1[0].maintainedHome[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].name[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].dateBirth[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].relationship[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].months[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].USCitizen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].residentOf[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].singleMarried[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].student[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].disabled[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].claimedBySomeone[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].providedMoreThen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].hadIncomeLess[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].supportPerson[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row2[0].maintainedHome[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].name[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].dateBirth[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].relationship[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].months[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].USCitizen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].residentOf[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].singleMarried[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].student[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].disabled[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].claimedBySomeone[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].providedMoreThen[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].hadIncomeLess[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].supportPerson[0]" => nil,
-          "form1[0].page1[0].namesOf[0].Row3[0].maintainedHome[0]" => nil,
+          "form1[0].page1[0].namesOf[0].Row1[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].dateBirth[0]" => "3/2/2005",
+          "form1[0].page1[0].namesOf[0].Row1[0].disabled[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row1[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].months[0]" => "12",
+          "form1[0].page1[0].namesOf[0].Row1[0].name[0]" => "Percy Pony",
+          "form1[0].page1[0].namesOf[0].Row1[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].relationship[0]" => "Child",
+          "form1[0].page1[0].namesOf[0].Row1[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row1[0].singleMarried[0]" => "S",
+          "form1[0].page1[0].namesOf[0].Row1[0].student[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row1[0].supportPerson[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].dateBirth[0]" => "12/10/2001",
+          "form1[0].page1[0].namesOf[0].Row2[0].disabled[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row2[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].months[0]" => "4",
+          "form1[0].page1[0].namesOf[0].Row2[0].name[0]" => "Parker Pony",
+          "form1[0].page1[0].namesOf[0].Row2[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].relationship[0]" => "Some kid at my house",
+          "form1[0].page1[0].namesOf[0].Row2[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row2[0].singleMarried[0]" => "M",
+          "form1[0].page1[0].namesOf[0].Row2[0].student[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row2[0].supportPerson[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].USCitizen[0]" => "On Visa",
+          "form1[0].page1[0].namesOf[0].Row3[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].dateBirth[0]" => "10/15/2010",
+          "form1[0].page1[0].namesOf[0].Row3[0].disabled[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row3[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].months[0]" => "12",
+          "form1[0].page1[0].namesOf[0].Row3[0].name[0]" => "Penny Pony",
+          "form1[0].page1[0].namesOf[0].Row3[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].relationship[0]" => "Progeny",
+          "form1[0].page1[0].namesOf[0].Row3[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row3[0].singleMarried[0]" => "S",
+          "form1[0].page1[0].namesOf[0].Row3[0].student[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row3[0].supportPerson[0]" => "",
           "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].yes[0]" => "1",
           "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].no[0]" => "Off",
           "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].unsure[0]" => "Off",
@@ -505,8 +505,8 @@ RSpec.describe F13614cPdf do
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
                 
                 Additional Dependents:
-                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
-                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y
+                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N
               COMMENT
             end
 
@@ -518,8 +518,8 @@ RSpec.describe F13614cPdf do
               it "includes extra dependent information with no leading whitespace" do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N
                 COMMENT
               end
             end
