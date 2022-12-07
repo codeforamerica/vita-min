@@ -46,7 +46,7 @@ class F13614cPdf
     answers.merge!(
       "form1[0].page1[0].q1_As_of_December[0].divorced[0]" => yes_no_unfilled_to_checkbox(@intake.divorced),
       "form1[0].page1[0].q1_As_of_December[0].Date_Of_Final[0]" => @intake.divorced_year,
-      "form1[0].page1[0].q1_As_of_December[0].q1_As_of_December[0].legally_separated[0]" => yes_no_unfilled_to_checkbox(@intake.separated),
+      "form1[0].page1[0].q1_As_of_December[0].legally_separated[0]" => yes_no_unfilled_to_checkbox(@intake.separated),
       "form1[0].page1[0].q1_As_of_December[0].Date_Of_Separate[0]" => @intake.separated_year,
       "form1[0].page1[0].q1_As_of_December[0].widowed[0]" => yes_no_unfilled_to_checkbox(@intake.widowed),
       "form1[0].page1[0].q1_As_of_December[0].Year_Of_Death[0]" => @intake.widowed_year,
@@ -161,7 +161,7 @@ class F13614cPdf
       "form1[0].page1[0].q4_Your_Date_Birth[0]" => strftime_date(@intake.primary.birth_date),
       "form1[0].page1[0].q1_Telephone_Number[0]" => @intake.formatted_phone_number,
       "form1[0].page1[0].q5_Your_Job_Title[0]" => @intake.primary_job_title,
-      "form1[0].page1[0].is_on_visa[0]" => yes_no_unfilled_to_checkbox(@intake.was_on_visa),
+      # "form1[0].page1[0].is_on_visa[0]" => yes_no_unfilled_to_checkbox(@intake.was_on_visa),
     }.merge(
       yes_no_checkboxes("form1[0].page1[0].q1_Are_You_A[0]", @intake.primary_us_citizen),
       yes_no_checkboxes("form1[0].page1[0].q6_Are_You[0].q6a_Full_Time_Student[0]", @intake.was_full_time_student),
@@ -191,7 +191,7 @@ class F13614cPdf
       "form1[0].page1[0].q2_Telephone_Number[0]" => @intake.spouse_phone_number,
       "form1[0].page1[0].q7_Spouse_Date_Birth[0]" => strftime_date(@intake.spouse.birth_date),
       "form1[0].page1[0].q8_Spouse_Job_Title[0]" => @intake.spouse_job_title,
-      "form1[0].page1[0].spouse_is_on_visa[0]" => yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
+      # "form1[0].page1[0].spouse_is_on_visa[0]" => yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
     }.merge(
       yes_no_checkboxes("form1[0].page1[0].q2_Is_Your_Spouse[0]", @intake.spouse_us_citizen),
       yes_no_checkboxes("form1[0].page1[0].q9_Is_Your_Spouse[0].q9a_Full_Time_Student[0]", @intake.spouse_was_full_time_student),
@@ -268,7 +268,7 @@ class F13614cPdf
       "form1[0].page1[0].namesOf[0].Row#{index}[0].dateBirth[0]" => strftime_date(dependent.birth_date),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].relationship[0]" => dependent.relationship,
       "form1[0].page1[0].namesOf[0].Row#{index}[0].months[0]" => dependent.months_in_home.to_s,
-      "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => dependent.on_visa_yes? ? "On Visa" : "",
+      "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => dependent.on_visa_yes? ? "On Visa" : "", # TODO: not this
       "form1[0].page1[0].namesOf[0].Row#{index}[0].residentOf[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].singleMarried[0]" => married_to_SM(dependent.was_married),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].student[0]" => yes_no_unfilled_to_YN(dependent.was_student),
