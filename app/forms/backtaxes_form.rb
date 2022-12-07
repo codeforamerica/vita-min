@@ -1,5 +1,5 @@
 class BacktaxesForm < QuestionsForm
-  set_attributes_for :intake, :needs_help_2018, :needs_help_2019, :needs_help_2020, :needs_help_2021
+  set_attributes_for :intake, :needs_help_previous_year_3, :needs_help_previous_year_2, :needs_help_previous_year_1, :needs_help_current_year
   validate :at_least_one_year
 
   def save
@@ -7,10 +7,10 @@ class BacktaxesForm < QuestionsForm
     # some of the needs_help fields are not shown, based on what years the client has filed
     # but the intake does not allow nil values
     needs_help_params = {
-      needs_help_2018: needs_help_2018.nil? ? "unfilled" : needs_help_2018,
-      needs_help_2019: needs_help_2019.nil? ? "unfilled" : needs_help_2019,
-      needs_help_2020: needs_help_2020.nil? ? "unfilled" : needs_help_2020,
-      needs_help_2021: needs_help_2021.nil? ? "unfilled" : needs_help_2021
+      needs_help_previous_year_3: needs_help_previous_year_3.nil? ? "unfilled" : needs_help_previous_year_3,
+      needs_help_previous_year_2: needs_help_previous_year_2.nil? ? "unfilled" : needs_help_previous_year_2,
+      needs_help_previous_year_1: needs_help_previous_year_1.nil? ? "unfilled" : needs_help_previous_year_1,
+      needs_help_current_year: needs_help_current_year.nil? ? "unfilled" : needs_help_current_year
     }
     @intake.update(attributes_for(:intake).merge(needs_help_params))
 
@@ -25,10 +25,10 @@ class BacktaxesForm < QuestionsForm
   private
 
   def at_least_one_year
-    chose_one = needs_help_2018 == "yes" ||
-      needs_help_2019 == "yes" ||
-      needs_help_2020 == "yes" ||
-      needs_help_2021 == "yes"
-    errors.add(:needs_help_2019, I18n.t("forms.errors.at_least_one_year")) unless chose_one
+    chose_one = needs_help_previous_year_3 == "yes" ||
+      needs_help_previous_year_2 == "yes" ||
+      needs_help_previous_year_1 == "yes" ||
+      needs_help_current_year == "yes"
+    errors.add(:needs_help_previous_year_3, I18n.t("forms.errors.at_least_one_year")) unless chose_one
   end
 end

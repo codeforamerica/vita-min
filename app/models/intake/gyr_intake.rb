@@ -123,6 +123,10 @@
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  needs_help_2021                                      :integer          default("unfilled"), not null
+#  needs_help_current_year                              :integer
+#  needs_help_previous_year_1                           :integer
+#  needs_help_previous_year_2                           :integer
+#  needs_help_previous_year_3                           :integer
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
@@ -339,6 +343,10 @@ class Intake::GyrIntake < Intake
   enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
   enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
   enum needs_help_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2021
+  enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
+  enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
+  enum needs_help_previous_year_1: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_1
+  enum needs_help_current_year: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_current_year
   enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
   enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_alimony

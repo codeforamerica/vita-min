@@ -36,16 +36,10 @@ RSpec.describe BacktaxesForm do
 
       it "sends intake_started to Mixpanel" do
         form = BacktaxesForm.new(intake, {
-<<<<<<< HEAD
-          needs_help_2019: "yes",
-          needs_help_2020: "yes",
-          needs_help_2021: "yes",
-=======
           needs_help_previous_year_3: "no",
           needs_help_previous_year_2: "yes",
           needs_help_previous_year_1: "yes",
           needs_help_current_year: "yes",
->>>>>>> 5c1be02e2 (update tests for backtaxes)
         })
         expect(form).to be_valid
         form.save
