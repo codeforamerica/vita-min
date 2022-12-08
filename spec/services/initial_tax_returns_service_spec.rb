@@ -1,8 +1,11 @@
 require "rails_helper"
 
+# TODO(TY2022): Update this class to create 2022 tax returns (if that gets really tough maaaaaybe don't but we definitely gotta eventually)
+# TODO(TY2022): Any time the code looks at needs_help_2021 it is 99% certainly wrong
+
 describe InitialTaxReturnsService do
   describe "#create!" do
-    let(:intake) { create :intake, needs_help_2021: "yes", needs_help_2020: "yes" }
+    let(:intake) { create :intake, needs_help_previous_year_1: "yes", needs_help_previous_year_2: "yes" }
 
     before do
       allow(BaseService).to receive(:ensure_transaction).and_yield
@@ -21,7 +24,7 @@ describe InitialTaxReturnsService do
       let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2019 }
 
       before do
-        intake.update(needs_help_2019: "yes")
+        intake.update(needs_help_previous_year_3: "yes")
       end
 
       it "uses the existing tax return object and does not crash" do
@@ -37,7 +40,7 @@ describe InitialTaxReturnsService do
       let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2021 }
 
       before do
-        intake.update(needs_help_2021: "no")
+        intake.update(needs_help_previous_year_1: "no")
       end
 
       it "keeps the tax return associated" do

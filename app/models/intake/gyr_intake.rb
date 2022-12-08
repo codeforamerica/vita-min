@@ -420,9 +420,9 @@ class Intake::GyrIntake < Intake
 
   def most_recent_needs_help_or_filing_year
     return filing_years.first if filing_years.first.present?
-    return 2021 if needs_help_2021_yes?
-    return 2020 if needs_help_2020_yes?
-    return 2019 if needs_help_2019_yes?
+    return MultiTenantService.new(:gyr).current_tax_year - 1 if needs_help_previous_year_1_yes?
+    return MultiTenantService.new(:gyr).current_tax_year - 2 if needs_help_previous_year_2_yes?
+    return MultiTenantService.new(:gyr).current_tax_year - 3 if needs_help_previous_year_3_yes?
 
     MultiTenantService.new(:gyr).current_tax_year
   end
