@@ -14,7 +14,7 @@ RSpec.describe Questions::BacktaxesController do
       get :edit
 
       # TODO(TY2022): Support 2022
-      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years - [2022])
+      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years)
     end
   end
 
