@@ -6,10 +6,6 @@ class PublicPagesController < ApplicationController
     true
   end
 
-  def include_optimizely?
-    true
-  end
-
   def redirect_locale_home
     redirect_to root_path
   end
