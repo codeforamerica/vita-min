@@ -82,10 +82,6 @@ module Ctc
       @in_intake_flow = true
     end
 
-    def include_optimizely?
-      true
-    end
-
     private
 
     def markdown_content_from_file(file_name)
