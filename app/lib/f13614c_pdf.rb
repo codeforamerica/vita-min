@@ -73,7 +73,6 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0]", @intake.had_social_security_income, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q14_Income_or_Loss[0]", @intake.had_rental_income, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q15_Other_Income[0]", collective_yes_no_unsure(@intake.had_other_income, @intake.had_gambling_income), include_unsure: true),
-      # TODO: @intake.other_income_types used to be here, will we do something else with that field? Is it still being captured in Intake?
 
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0]", @intake.paid_alimony, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0]", nil),
@@ -266,12 +265,12 @@ class F13614cPdf
       "form1[0].page1[0].namesOf[0].Row#{index}[0].dateBirth[0]" => strftime_date(dependent.birth_date),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].relationship[0]" => dependent.relationship,
       "form1[0].page1[0].namesOf[0].Row#{index}[0].months[0]" => dependent.months_in_home.to_s,
-      "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => dependent.on_visa_yes? ? "On Visa" : "", # TODO: not this
+      "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => dependent.on_visa_yes? ? "On Visa" : "",
       "form1[0].page1[0].namesOf[0].Row#{index}[0].residentOf[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].singleMarried[0]" => married_to_SM(dependent.was_married),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].student[0]" => yes_no_unfilled_to_YN(dependent.was_student),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].disabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
-      "form1[0].page1[0].namesOf[0].Row#{index}[0].claimedBySomeone[0]" => yes_no_unfilled_to_YN(dependent.cant_be_claimed_by_other),
+      "form1[0].page1[0].namesOf[0].Row#{index}[0].claimedBySomeone[0]" => yes_no_unfilled_to_YN(dependent.can_be_claimed_by_other),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].providedMoreThen[0]" => yes_no_unfilled_to_YN(dependent.provided_over_half_own_support),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].hadIncomeLess[0]" => yes_no_unfilled_to_YN(dependent.below_qualifying_relative_income_requirement),
       "form1[0].page1[0].namesOf[0].Row#{index}[0].supportPerson[0]" => yes_no_unfilled_to_YN(dependent.filer_provided_over_half_support),
@@ -290,12 +289,17 @@ class F13614cPdf
         @dependents[3..].map do |dependent|
           letters = ('a'..'i').to_a
           dependent_values = single_dependent_params(dependent, index: 0).values
-          tagged_vals = dependent_values.map do |val|
+          cvp_values = []
+          tagged_values = []
+          dependent_values.each do |val|
             letter = letters.shift
-            next unless letter # TODO: what to do about those last five columns?
-            "(#{letter}) #{val}"
+            if letter
+              tagged_values << "(#{letter}) #{val}"
+            else
+              cvp_values << val
+            end
           end.compact
-          tagged_vals.join(' ')
+          "#{tagged_values.join(' ')} CVP: #{cvp_values.join('/')}"
         end.join("\n")
       }
     COMMENT

@@ -469,7 +469,7 @@ RSpec.describe F13614cPdf do
           end
 
           context "when there are 4 or more dependents" do
-            before do
+            let!(:polly) do
               create(
                 :dependent,
                 intake: intake,
@@ -484,6 +484,8 @@ RSpec.describe F13614cPdf do
                 on_visa: "no",
                 was_student: "no",
               )
+            end
+            let!(:patrick) do
               create(
                 :dependent,
                 intake: intake,
@@ -520,6 +522,28 @@ RSpec.describe F13614cPdf do
                   Additional Dependents:
                   (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y
                   (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N
+                COMMENT
+              end
+            end
+
+            context "when a hub user has filled out the CVP information" do
+              before do
+                polly.update(
+                  can_be_claimed_by_other: 'yes',
+                  provided_over_half_own_support: 'no',
+                  below_qualifying_relative_income_requirement: 'yes',
+                  filer_provided_over_half_support: 'no',
+                  filer_provided_over_half_housing_support: 'yes',
+                )
+              end
+
+              it "includes the CVP information after all the lettered dependent columns" do
+                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
+                  if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+
+                  Additional Dependents:
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
                 COMMENT
               end
             end
