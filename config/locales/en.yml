@@ -634,12 +634,16 @@ en:
       edit_13614c_form:
         fields:
           apt: Apt.
+          below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
           blind: Legally blind
+          can_be_claimed_by_other: Is this person a qualifying child/relative of any other person?
           claimed_by_another: Can anyone claim you or your spouse as a dependent?
           contact_number: Contact Number
           disabled: Totally and Permanently Disabled
           dob: DOB
           email_optional: Email (Optional)
+          filer_provided_over_half_housing_support: Did the taxpayer(s) pay more than half the cost of maintaining a home for this person?
+          filer_provided_over_half_support: Did the taxpayer(s) provide more than 50% of support for this person?
           first_name: First Name
           got_married_during_tax_year: A. If Yes, Did you get married in 2021?
           had_disability: Totally and permanently disabled
@@ -652,6 +656,7 @@ en:
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
           primary_us_citizen: U.S. citizen?
+          provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name
           spouse_job_title: Spouse’s Job Title

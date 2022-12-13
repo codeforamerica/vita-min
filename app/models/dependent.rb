@@ -118,6 +118,14 @@ class Dependent < ApplicationRecord
   end
   alias_method :first_and_last_name, :full_name
 
+  def can_be_claimed_by_other
+    flip_yes_no_unfilled(cant_be_claimed_by_other)
+  end
+
+  def can_be_claimed_by_other=(value)
+    self.cant_be_claimed_by_other = flip_yes_no_unfilled(value)
+  end
+
   def error_summary
     if errors.present?
       concatenated_message_strings = errors.messages.map { |key, messages| messages.join(" ") }.join(" ")
@@ -180,5 +188,16 @@ class Dependent < ApplicationRecord
 
   def remove_error_associations
     EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
+  end
+
+  def flip_yes_no_unfilled(value)
+    case value
+    when "yes"
+      "no"
+    when "no"
+      "yes"
+    else
+      value
+    end
   end
 end
