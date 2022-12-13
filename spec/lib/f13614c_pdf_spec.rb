@@ -448,7 +448,7 @@ RSpec.describe F13614cPdf do
           "form1[0].page3[0].q15[0].not_answer[0]" => "",
           "form1[0].page3[0].q15[0].no_spouse[0]" => "",
           "form1[0].page3[0].Additional_Comments[0].Additional_Comments[1]" =>
-            "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
+            "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.\rOther income types: garden gnoming",
           "form1[0].page4[0].primary_taxpayer[0]" => nil,
           "form1[0].page4[0].Date[0]" => nil,
           "form1[0].page4[0].seconde_taxpayer[0]" => nil,
@@ -464,6 +464,7 @@ RSpec.describe F13614cPdf do
             it "does not reference additional dependents" do
               expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+                Other income types: garden gnoming
               COMMENT
             end
           end
@@ -505,7 +506,7 @@ RSpec.describe F13614cPdf do
             it "includes extra dependent information in the additional comments field" do
               expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                
+                Other income types: garden gnoming
                 Additional Dependents:
                 (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
                 (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
@@ -519,6 +520,7 @@ RSpec.describe F13614cPdf do
 
               it "includes extra dependent information with no leading whitespace" do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
+                  Other income types: garden gnoming
                   Additional Dependents:
                   (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
                   (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
@@ -540,7 +542,7 @@ RSpec.describe F13614cPdf do
               it "includes the CVP information after all the lettered dependent columns" do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                   if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-
+                  Other income types: garden gnoming
                   Additional Dependents:
                   (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
                   (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////

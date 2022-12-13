@@ -279,30 +279,33 @@ class F13614cPdf
   end
 
   def additional_comments
-    return "#{@intake.additional_info} #{@intake.final_info}" if @dependents.length <= 3
+    parts = []
 
-    <<~COMMENT.strip
-        #{@intake.additional_info} #{@intake.final_info}
+    parts << "#{@intake.additional_info} #{@intake.final_info}" if @intake.additional_info.present? || @intake.final_info.present?
 
-        Additional Dependents:
-        #{
-        @dependents[3..].map do |dependent|
-          letters = ('a'..'i').to_a
-          dependent_values = single_dependent_params(dependent, index: 0).values
-          cvp_values = []
-          tagged_values = []
-          dependent_values.each do |val|
-            letter = letters.shift
-            if letter
-              tagged_values << "(#{letter}) #{val}"
-            else
-              cvp_values << val
-            end
-          end.compact
-          "#{tagged_values.join(' ')} CVP: #{cvp_values.join('/')}"
-        end.join("\n")
+    parts << "Other income types: #{@intake.other_income_types}" if @intake.other_income_types.present?
+
+    parts << <<~COMMENT.strip if @dependents.length > 3
+      Additional Dependents:
+      #{
+      @dependents[3..].map do |dependent|
+        letters = ('a'..'i').to_a
+        dependent_values = single_dependent_params(dependent, index: 0).values
+        cvp_values = []
+        tagged_values = []
+        dependent_values.each do |val|
+          letter = letters.shift
+          if letter
+            tagged_values << "(#{letter}) #{val}"
+          else
+            cvp_values << val
+          end
+        end.compact
+        "#{tagged_values.join(' ')} CVP: #{cvp_values.join('/')}"
+      end.join("\n")
       }
     COMMENT
+    parts.join("\n")
   end
 
   def determine_direct_deposit(intake)
