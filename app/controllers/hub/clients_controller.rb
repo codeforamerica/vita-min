@@ -133,7 +133,6 @@ module Hub
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         redirect_to hub_client_path(id: @client.id)
       else
-        puts @form.errors.full_messages
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form
       end

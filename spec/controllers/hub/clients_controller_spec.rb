@@ -1563,7 +1563,7 @@ RSpec.describe Hub::ClientsController do
     let(:params) {
       {
         id: client.id,
-        hub_update13614c_form_page1: {
+        hub_update13614c_form: {
           primary_first_name: "Updated",
           primary_last_name: "Name",
           never_married: intake.ever_married_yes? ? "no" : "yes",
@@ -1638,7 +1638,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
             id: client.id,
-            hub_update13614c_form_page1: {
+            hub_update13614c_form: {
               primary_first_name: "",
             }
           }
@@ -1655,7 +1655,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
             id: client.id,
-            hub_update13614c_form_page1: {
+            hub_update13614c_form: {
               dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
             }
           }
