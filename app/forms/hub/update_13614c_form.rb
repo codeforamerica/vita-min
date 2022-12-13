@@ -1,5 +1,5 @@
 module Hub
-  class Update13614cFormPage1 < ClientForm
+  class Update13614cForm < ClientForm
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
