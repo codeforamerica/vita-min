@@ -41,6 +41,7 @@ module Hub
                        :needs_help_2020,
                        :needs_help_2019,
                        :needs_help_2018,
+                       :needs_help_current_year,
                        :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,

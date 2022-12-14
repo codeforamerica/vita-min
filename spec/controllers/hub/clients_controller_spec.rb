@@ -82,6 +82,7 @@ RSpec.describe Hub::ClientsController do
           needs_help_2020: "yes",
           needs_help_2019: "yes",
           needs_help_2018: "yes",
+          needs_help_current_year: "yes",
           signature_method: "online",
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,

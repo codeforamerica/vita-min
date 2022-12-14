@@ -21,6 +21,7 @@ module Hub
     end
 
     def new
+      @current_year = MultiTenantService.new(:gyr).current_tax_year
       @form = CreateClientForm.new
     end
 

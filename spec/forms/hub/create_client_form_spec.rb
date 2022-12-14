@@ -47,6 +47,7 @@ RSpec.describe Hub::CreateClientForm do
         needs_help_2019: "yes",
         needs_help_2018: "yes",
         needs_help_2021: "yes",
+        needs_help_current_year: "yes",
         state_of_residence: "CA",
         service_type: "drop_off",
         signature_method: "online",
@@ -154,8 +155,8 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_2020).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
         expect(intake.needs_help_2021).to eq "yes"
-        # TODO(TY2022): Expect needs_help_2022 to eq("yes")
-        expect(tax_returns.map(&:year)).to match_array [2021, 2020, 2019]
+        expect(intake.needs_help_current_year).to eq "yes"
+        expect(tax_returns.map(&:year)).to match_array [2022, 2021, 2020, 2019]
         # TODO(TY2022): Expect to create 2022 return
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]

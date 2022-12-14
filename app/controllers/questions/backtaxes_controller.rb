@@ -11,7 +11,6 @@ module Questions
     end
 
     def load_possible_filing_years
-      # TODO(TY2022): Once BacktaxesForm supports 2022, include 2022 in this list
       @possible_filing_years = MultiTenantService.new(:gyr).filing_years
     end
   end
