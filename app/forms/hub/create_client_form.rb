@@ -42,6 +42,9 @@ module Hub
                        :needs_help_2019,
                        :needs_help_2018,
                        :needs_help_current_year,
+                       # :needs_help_previous_year_1,
+                       # :needs_help_previous_year_2,
+                       # :needs_help_previous_year_3,
                        :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
@@ -75,7 +78,6 @@ module Hub
 
     def save(current_user)
       return false unless valid?
-
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake).merge(default_intake_attributes),
@@ -118,7 +120,7 @@ module Hub
     end
 
     def create_tax_return_for_year?(year)
-      attributes_for(:intake)["needs_help_#{year}".to_sym] == "yes"
+      attributes_for(:intake)["needs_help_#{year}".to_sym] == "yes" || attributes_for(:intake)["needs_help_current_year".to_sym] == "yes"
     end
 
     def tax_return_required_fields_valid
