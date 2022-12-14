@@ -61,7 +61,7 @@ gem 'ice_nine'
 gem 'business_time'
 gem 'scenic'
 gem 'rubyzip'
-gem 'intercom', '~> 4.1'
+gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman', '~> 9.0'
 gem 'redcarpet'
 gem 'platform-api'
