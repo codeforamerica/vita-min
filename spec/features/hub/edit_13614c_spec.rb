@@ -43,12 +43,21 @@ RSpec.describe "a user editing a clients 13614c form" do
                             lived_with_spouse: "unsure",
                             dependents: [
                               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
-                            ])
+                            ],
+                            # page 2
+                            job_count: 2,
+                            had_tips: "yes",
+                            had_interest_income: "no",
+                            had_local_tax_refund: "unsure",
+                            paid_alimony: "yes",
+                            had_self_employment_income: "no",
+                            has_crypto_income: "unsure"
+             )
 
     }
     before { login_as user }
 
-    scenario "I can see and update the 13614c form" do
+    scenario "I can see and update the 13614c page 1 form" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
@@ -83,6 +92,29 @@ RSpec.describe "a user editing a clients 13614c form" do
       within "#dependents-fields" do
         expect(find_field("hub_update13614c_form[dependents_attributes][0][first_name]").value).to eq "Laura"
       end
+    end
+
+    scenario "I can see and update the 13614c page 2 form" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      click_on "2"
+      # TODO: replace with i8tn key
+      expect(page).to have_text "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
+
+      within "#income-fields" do
+        expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
+      end
+
+      # within "#expenses-fields" do
+      #
+      # end
+      #
+      # within "#life-events-fields" do
+      #
+      # end
     end
   end
 end

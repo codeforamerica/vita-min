@@ -125,6 +125,10 @@ module Hub
       @form = Update13614cForm.from_client(@client)
     end
 
+    def edit_13614c_form_page2
+      @form = Update13614cFormPage2.from_client(@client)
+    end
+
     def update_13614c_form
       @form = Update13614cForm.new(@client, update_13614c_form_page1_params)
 
@@ -136,6 +140,9 @@ module Hub
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form
       end
+    end
+
+    def update_13614c_form_page2
     end
 
     # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page

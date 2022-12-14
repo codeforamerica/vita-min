@@ -1,0 +1,17 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  < class="form_13614c slab slab--not-padded">
+    <h1><%= @title %></h1>
+
+    <%= form_with model: @form,
+                  url: update_13614c_form_page2_hub_client_path,
+                  method: :put, local: true, builder: VitaMinFormBuilder,
+                  html: { class: 'form-card' } do |f| %>
+      <div id="income-fields" class="hub-form__row">
+        <%= f.cfa_input_field(:job_count, t(".fields.job_count")) %>
+
+      </div>
+    <% end %>
+  </div>
+<% end %>

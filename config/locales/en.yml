@@ -802,6 +802,10 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
+      edit_13614c_form_page2:
+        title: "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
+        fields:
+          job_count: "If yes, how many jobs did you have last year?"
     coalitions:
       edit:
         title: Edit Coalition
