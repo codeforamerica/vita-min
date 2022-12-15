@@ -6,167 +6,6 @@ RSpec.describe F13614cPdf do
   let(:intake_pdf) { described_class.new(intake) }
 
   describe "#output_file" do
-    context "with an empty intake record" do
-      let(:intake) { create :intake, current_step: nil }
-
-      it "returns a pdf with default fields and values" do
-        output_file = intake_pdf.output_file
-        result = non_preparer_fields(output_file.path)
-        expect(result).to include(
-          "street_address" => "",
-          "city" => "",
-          "state" => "",
-          "zip_code" => "",
-          "apt" => "",
-
-          "never_married" => "",
-          "married" => "",
-          "lived_with_spouse" => "unfilled",
-          "divorced" => "",
-          "divorced_date" => "",
-          "legally_separated" => "",
-          "separated_date" => "",
-          "widowed" => "",
-          "widowed_date" => "",
-
-          "issued_pin" => "unfilled",
-          "email_address" => "",
-
-          "first_name" => "",
-          "middle_initial" => "",
-          "last_name" => "",
-          "date_of_birth" => "",
-          "phone_number" => "",
-          "job_title" => "",
-          "is_citizen" => "",
-          "is_disabled" => "unfilled",
-          "is_student" => "unfilled",
-          "is_blind" => "unfilled",
-          "is_on_visa" => "",
-
-          "spouse_first_name" => "",
-          "spouse_middle_initial" => "",
-          "spouse_last_name" => "",
-          "spouse_date_of_birth" => "",
-          "spouse_job_title" => "",
-          "spouse_is_blind" => "unfilled",
-          "spouse_is_disabled" => "unfilled",
-          "spouse_is_citizen" => "",
-          "spouse_is_student" => "unfilled",
-          "spouse_is_on_visa" => "",
-
-          "dependent_1_name" => nil,
-          "dependent_1_date_of_birth" => nil,
-          "dependent_1_relationship" => nil,
-          "dependent_1_months_in_home" => nil,
-          "dependent_1_marital_status" => nil,
-          "dependent_1_citizen" => nil,
-          "dependent_1_resident" => nil,
-          "dependent_1_student" => nil,
-          "dependent_1_disabled" => nil,
-          "dependent_2_name" => nil,
-          "dependent_2_date_of_birth" => nil,
-          "dependent_2_relationship" => nil,
-          "dependent_2_months_in_home" => nil,
-          "dependent_2_marital_status" => nil,
-          "dependent_2_resident" => nil,
-          "dependent_2_student" => nil,
-          "dependent_2_disabled" => nil,
-          "dependent_2_citizen" => nil,
-          "dependent_0_name" => nil,
-          "dependent_0_date_of_birth" => nil,
-          "dependent_0_relationship" => nil,
-          "dependent_0_months_in_home" => nil,
-          "dependent_0_marital_status" => nil,
-          "dependent_0_citizen" => nil,
-          "dependent_0_resident" => nil,
-          "dependent_0_student" => nil,
-          "dependent_0_disabled" => nil,
-
-          "demographic_english_conversation" => nil,
-          "demographic_english_reading" => nil,
-          "demographic_household_disability" => nil,
-          "demographic_household_veteran" => nil,
-          "demographic_primary_race_american_indian_alaska_native" => nil,
-          "demographic_primary_race_asian" => nil,
-          "demographic_primary_race_black_african_american" => nil,
-          "demographic_primary_race_native_hawaiian_pacific_islander" => nil,
-          "demographic_primary_race_white" => nil,
-          "demographic_primary_race_prefer_not_to_answer_race" => nil,
-          "demographic_spouse_race_american_indian_alaska_native" => nil,
-          "demographic_spouse_race_asian" => nil,
-          "demographic_spouse_race_black_african_american" => nil,
-          "demographic_spouse_race_native_hawaiian_pacific_islander" => nil,
-          "demographic_spouse_race_white" => nil,
-          "demographic_spouse_race_prefer_not_to_answer_race" => nil,
-          "demographic_primary_ethnicity" => nil,
-          "demographic_spouse_ethnicity" => nil,
-
-          "had_wages" => "unfilled",
-          "job_count" => "",
-          "had_tips" => "unfilled",
-          "had_scholarships" => "",
-          "had_interest_income" => "unfilled",
-          "had_local_tax_income" => "unfilled",
-          "received_alimony" => "unfilled",
-          "had_self_employment_income" => "unfilled",
-          "had_unreported_income" => "",
-          "had_asset_sale_income_loss" => "unfilled",
-          "had_disability_income" => "unfilled",
-          "had_retirement_income" => "unfilled",
-          "had_unemployment_income" => "unfilled",
-          "had_social_security_income" => "unfilled",
-          "had_rental_income" => "unfilled",
-          "had_other_income" => "unfilled",
-
-          "paid_alimony" => "unfilled",
-          "have_alimony_recipient_ssn" => "",
-          "paid_post_secondary_expenses" => "unfilled",
-          "paid_retirement_contributions" => "unfilled",
-          "paid_into_traditional_ira" => "",
-          "paid_into_401k" => "",
-          "paid_into_other_retirement_account" => "",
-          "paid_into_roth_ira" => "",
-
-          "had_misc_expenses" => "unfilled",
-          "paid_local_tax"  => "",
-          "paid_mortgage_interest" => "",
-          "paid_medical_expenses" => "",
-          "paid_charitable_contributions" => "",
-          "paid_dependent_care" => "unfilled",
-          "paid_school_supplies" => "unfilled",
-          "paid_self_employment_expenses" => "",
-          "paid_student_loan_interest" => "unfilled",
-
-          "had_hsa" => "unfilled",
-          "had_debt_forgiven" => "unfilled",
-          "adopted_child" => "unfilled",
-          "had_tax_credit_disallowed" => "unfilled",
-          "bought_energy_efficient_items" => "unfilled",
-          "received_homebuyer_credit" => "unfilled",
-          "made_estimated_tax_payments" => "unfilled",
-          "filed_capital_loss_carryover" => "",
-          "bought_health_insurance" => "unfilled",
-          "received_stimulus_payment" => "unfilled",
-          "received_advance_ctc_payment" => "",
-          "eip1_amount_received" => "",
-          "eip2_amount_received" => "",
-          "eip3_amount_received" => "",
-          "advance_ctc_amount_received" =>  "",
-          "other_written_communication_language" => "no",
-          "preferred_written_language" => "",
-          "direct_deposit" => "unfilled",
-          "savings_purchase_bond" => "unfilled",
-          "savings_split_refund" => "unfilled",
-          "balance_due_transfer" => "unfilled",
-          "had_disaster_loss" => "unfilled",
-          "received_irs_letter" => "unfilled",
-          "additional_comments" => "",
-          "claimed_by_another" => "unfilled"
-        )
-      end
-    end
-
     context "with a complete intake record" do
       let(:intake) do
         create(
@@ -325,168 +164,313 @@ RSpec.describe F13614cPdf do
         )
       end
 
-      it "returns a filled out pdf" do
+      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+        expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
+        form_fields = PdfForms.new.get_fields(intake_pdf.output_file)
+
+        page4_fields = [
+          "form1[0].page4[0].Date1[0]",
+          "form1[0].page4[0].Date[0]",
+          "form1[0].page4[0].primary_taxpayer[0]",
+          "form1[0].page4[0].seconde_taxpayer[0]",
+        ]
+        all_fields_in_pdf = form_fields.map(&:name)
+        expect(all_fields_in_pdf - page4_fields).to match_array(intake_pdf.hash_for_pdf.keys)
+      end
+
+      it "fills out answers from the DB into the pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
-           "advance_ctc_amount_received" => "500",
-           "first_name" => "Hoofie",
-           "middle_initial" => "",
-           "last_name" => "Heifer",
-           "date_of_birth" => "4/19/1961",
-           "spouse_first_name" => "Hattie",
-           "spouse_middle_initial" => "",
-           "spouse_last_name" => "Heifer",
-           "spouse_date_of_birth" => "11/1/1959",
-           "claimed_by_another" => "no",
-           "spouse_is_on_visa" => "",
-           "is_on_visa" => "yes",
-
-           "street_address" => "789 Garden Green Ln",
-           "apt" => "",
-           "city" => "Gardenia",
-           "state" => "NJ",
-           "zip_code" => "08052",
-           "phone_number" => "(415) 816-1286",
-           "email_address" => "hoofie@heifer.horse",
-           "is_student" => "no",
-           "spouse_is_student" => "yes",
-           "is_blind" => "no",
-           "spouse_is_blind" => "no",
-           "is_disabled" => "yes",
-           "spouse_is_disabled" => "no",
-           "is_citizen" => "",
-           "spouse_is_citizen" => "",
-           "issued_pin" => "no",
-           "job_title" => "",
-
-
-           "direct_deposit" => "yes",
-           "savings_split_refund" => "no",
-           "savings_purchase_bond" => "yes",
-           "balance_due_transfer" => "no",
-
-           "never_married" => "",
-           "married" => "yes",
-           "lived_with_spouse" => "yes",
-           "divorced" => "",
-           "divorced_date" => "2015",
-           "legally_separated" => "",
-           "separated_date" => "2016",
-           "widowed" => "",
-           "widowed_date" => "2017",
-           "married_during_tax_year" => "",
-           "other_income_types" => "garden gnoming",
-           "other_written_communication_language" => "no",
-           "eip1_amount_received" => "500",
-           "eip2_amount_received" => "1500",
-           "eip3_amount_received" => "2500",
-           "had_misc_expenses" => "yes",
-
-           #
-           "dependent_0_name" => "Percy Pony",
-           "dependent_0_date_of_birth" => "3/2/2005",
-           "dependent_0_relationship" => "Child",
-           "dependent_0_months_in_home" => "12",
-           "dependent_0_marital_status" => "S",
-           "dependent_0_citizen" => "",
-           "dependent_0_resident" => "Y",
-           "dependent_0_student" => "N",
-           "dependent_0_disabled" => "N",
-           "dependent_1_name" => "Parker Pony",
-           "dependent_1_date_of_birth" => "12/10/2001",
-           "dependent_1_relationship" => "Some kid at my house",
-           "dependent_1_months_in_home" => "4",
-           "dependent_1_marital_status" => "M",
-           "dependent_1_resident" => "Y",
-           "dependent_1_student" => "Y",
-           "dependent_1_disabled" => "N",
-           "dependent_1_citizen" => "",
-           "dependent_2_name" => "Penny Pony",
-           "dependent_2_date_of_birth" => "10/15/2010",
-           "dependent_2_relationship" => "Progeny",
-           "dependent_2_months_in_home" => "12",
-           "dependent_2_marital_status" => "S",
-           "dependent_2_citizen" => "On Visa",
-           "dependent_2_resident" => "Y",
-           "dependent_2_student" => "N",
-           "dependent_2_disabled" => "Y",
-         #
-           "demographic_english_conversation" => "well",
-           "demographic_english_reading" => "not_well",
-           "demographic_household_disability" => "yes",
-           "demographic_household_veteran" => "no",
-           "demographic_primary_race_american_indian_alaska_native" => "",
-           "demographic_primary_race_asian" => "",
-           "demographic_primary_race_black_african_american" => "",
-           "demographic_primary_race_native_hawaiian_pacific_islander" => "yes",
-           "demographic_primary_race_white" => "yes",
-           "demographic_primary_race_prefer_not_to_answer_race" => "",
-           "demographic_spouse_race_american_indian_alaska_native" => "yes",
-           "demographic_spouse_race_asian" => "",
-           "demographic_spouse_race_black_african_american" => "",
-           "demographic_spouse_race_native_hawaiian_pacific_islander" => "",
-           "demographic_spouse_race_white" => "",
-           "demographic_spouse_race_prefer_not_to_answer_race" => "",
-           "demographic_primary_ethnicity" => "not_hispanic_latino",
-           "demographic_spouse_ethnicity" => "not_hispanic_latino",
-         #
-           "had_wages" => "yes",
-           "job_count" => "5",
-           "had_tips" => "yes",
-           "had_retirement_income" => "yes",
-           "had_social_security_income" => "yes",
-           "had_unemployment_income" => "yes",
-           "had_disability_income" => "no",
-           "had_interest_income" => "yes",
-           "had_asset_sale_income_loss" => "yes",
-           "received_alimony" => "yes",
-           "received_advance_ctc_payment" => "yes",
-           "had_rental_income" => "yes",
-           "had_local_tax_income" => "yes",
-           "had_self_employment_income" => "yes",
-           "had_other_income" => "yes",
-           "paid_mortgage_interest" => "",
-           "paid_local_tax"  => "yes",
-           "paid_medical_expenses" => "yes",
-           "paid_charitable_contributions" => "",
-           "paid_student_loan_interest" => "yes",
-           "paid_dependent_care" => "unfilled",
-           "paid_retirement_contributions" => "unsure",
-           "paid_school_supplies" => "yes",
-           "paid_alimony" => "yes",
-           "paid_post_secondary_expenses" => "no",
-           "paid_into_401k" => "",
-           "paid_into_other_retirement_account" => "",
-           "paid_into_roth_ira" => "",
-           "paid_into_traditional_ira" => "",
-           "had_hsa" => "no",
-           "bought_health_insurance" => "yes",
-           "received_homebuyer_credit" => "yes",
-           "bought_energy_efficient_items" => "unsure",
-           "had_debt_forgiven" => "yes",
-           "had_disaster_loss" => "yes",
-           "adopted_child" => "no",
-           "had_tax_credit_disallowed" => "yes",
-           "received_irs_letter" => "no",
-           "made_estimated_tax_payments" => "unsure",
-           "received_stimulus_payment" => "yes",
-           "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
+          "form1[0].page1[0].q1_Your_First_Name[0]" => "Hoofie",
+          "form1[0].page1[0].q1_Your_Middle_Initial[0]" => "",
+          "form1[0].page1[0].q1_Your_Last_Name[0]" => "Heifer",
+          "form1[0].page1[0].q1_Telephone_Number[0]" => "(415) 816-1286",
+          "form1[0].page1[0].q1_Are_You_A[0].yes[0]" => "Off",
+          "form1[0].page1[0].q1_Are_You_A[0].no[0]" => "Off",
+          "form1[0].page1[0].q2_Spouse_First_Name[0]" => "Hattie",
+          "form1[0].page1[0].q2_Spouse_Middle_Initial[0]" => "",
+          "form1[0].page1[0].q2_Spouse_Last_Name[0]" => "Heifer",
+          "form1[0].page1[0].q2_Telephone_Number[0]" => "",
+          "form1[0].page1[0].q2_Is_Your_Spouse[0].yes[0]" => "Off",
+          "form1[0].page1[0].q2_Is_Your_Spouse[0].no[0]" => "Off",
+          "form1[0].page1[0].q3_Mailing_Address[0]" => "789 Garden Green Ln",
+          "form1[0].page1[0].p3_Apartment_Number[0]" => "",
+          "form1[0].page1[0].q3_City[0]" => "Gardenia",
+          "form1[0].page1[0].q3_State[0]" => "NJ",
+          "form1[0].page1[0].q3_ZIP_Code[0]" => "08052",
+          "form1[0].page1[0].q4_Your_Date_Birth[0]" => "4/19/1961",
+          "form1[0].page1[0].q5_Your_Job_Title[0]" => "",
+          "form1[0].page1[0].q6_Are_You[0].q6a_Full_Time_Student[0].yes[0]" => "Off",
+          "form1[0].page1[0].q6_Are_You[0].q6a_Full_Time_Student[0].no[0]" => "1",
+          "form1[0].page1[0].q6_Are_You[0].q6b_Totally_Permanently_Disabled[0].yes[0]" =>
+            "1",
+          "form1[0].page1[0].q6_Are_You[0].q6b_Totally_Permanently_Disabled[0].no[0]" =>
+            "Off",
+          "form1[0].page1[0].q6_Are_You[0].q6c_Legally_Blind[0].yes[0]" => "Off",
+          "form1[0].page1[0].q6_Are_You[0].q6c_Legally_Blind[0].no[0]" => "1",
+          "form1[0].page1[0].q7_Spouse_Date_Birth[0]" => "11/1/1959",
+          "form1[0].page1[0].q8_Spouse_Job_Title[0]" => "",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9a_Full_Time_Student[0].yes[0]" => "1",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9a_Full_Time_Student[0].no[0]" =>
+            "Off",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9b_Totally_Permanently_Disabled[0].yes[0]" =>
+            "Off",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9b_Totally_Permanently_Disabled[0].no[0]" =>
+            "1",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9c_Legally_Blind[0].yes[0]" => "Off",
+          "form1[0].page1[0].q9_Is_Your_Spouse[0].q9c_Legally_Blind[0].no[0]" => "1",
+          "form1[0].page1[0].q10_Can_Anyone_Claim[0].yes[0]" => "Off",
+          "form1[0].page1[0].q10_Can_Anyone_Claim[0].no[0]" => "1",
+          "form1[0].page1[0].q10_Can_Anyone_Claim[0].unsure[0]" => "Off",
+          "form1[0].page1[0].q11_Have_You_Or[0].yes[0]" => "Off",
+          "form1[0].page1[0].q11_Have_You_Or[0].no[0]" => "1",
+          "form1[0].page1[0].q12_Email_Address[0]" => "hoofie@heifer.horse",
+          "form1[0].page1[0].q1_As_of_December[0].never_married[0]" => "",
+          "form1[0].page1[0].q1_As_of_December[0].married[0]" => "1",
+          "form1[0].page1[0].q1_As_of_December[0].q1a_Get_Married[0].yes[0]" => "Off",
+          "form1[0].page1[0].q1_As_of_December[0].q1a_Get_Married[0].no[0]" => "Off",
+          "form1[0].page1[0].q1_As_of_December[0].q1b_Live_With[0].yes[0]" => "1",
+          "form1[0].page1[0].q1_As_of_December[0].q1b_Live_With[0].no[0]" => "Off",
+          "form1[0].page1[0].q1_As_of_December[0].divorced[0]" => "",
+          "form1[0].page1[0].q1_As_of_December[0].Date_Of_Final[0]" => "2015",
+          "form1[0].page1[0].q1_As_of_December[0].legally_separated[0]" => "",
+          "form1[0].page1[0].q1_As_of_December[0].Date_Of_Separate[0]" => "2016",
+          "form1[0].page1[0].q1_As_of_December[0].widowed[0]" => "",
+          "form1[0].page1[0].q1_As_of_December[0].Year_Of_Death[0]" => "2017",
+          "form1[0].page1[0].additionalSpace[0].additional_space[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].dateBirth[0]" => "3/2/2005",
+          "form1[0].page1[0].namesOf[0].Row1[0].disabled[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row1[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].months[0]" => "12",
+          "form1[0].page1[0].namesOf[0].Row1[0].name[0]" => "Percy Pony",
+          "form1[0].page1[0].namesOf[0].Row1[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].relationship[0]" => "Child",
+          "form1[0].page1[0].namesOf[0].Row1[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row1[0].singleMarried[0]" => "S",
+          "form1[0].page1[0].namesOf[0].Row1[0].student[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row1[0].supportPerson[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].dateBirth[0]" => "12/10/2001",
+          "form1[0].page1[0].namesOf[0].Row2[0].disabled[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row2[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].months[0]" => "4",
+          "form1[0].page1[0].namesOf[0].Row2[0].name[0]" => "Parker Pony",
+          "form1[0].page1[0].namesOf[0].Row2[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].relationship[0]" => "Some kid at my house",
+          "form1[0].page1[0].namesOf[0].Row2[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row2[0].singleMarried[0]" => "M",
+          "form1[0].page1[0].namesOf[0].Row2[0].student[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row2[0].supportPerson[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].USCitizen[0]" => "On Visa",
+          "form1[0].page1[0].namesOf[0].Row3[0].claimedBySomeone[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].dateBirth[0]" => "10/15/2010",
+          "form1[0].page1[0].namesOf[0].Row3[0].disabled[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row3[0].hadIncomeLess[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].maintainedHome[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].months[0]" => "12",
+          "form1[0].page1[0].namesOf[0].Row3[0].name[0]" => "Penny Pony",
+          "form1[0].page1[0].namesOf[0].Row3[0].providedMoreThen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row3[0].relationship[0]" => "Progeny",
+          "form1[0].page1[0].namesOf[0].Row3[0].residentOf[0]" => "Y",
+          "form1[0].page1[0].namesOf[0].Row3[0].singleMarried[0]" => "S",
+          "form1[0].page1[0].namesOf[0].Row3[0].student[0]" => "N",
+          "form1[0].page1[0].namesOf[0].Row3[0].supportPerson[0]" => "",
+          "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q1_Wages_Or_Salary[0].Number_of_Jobs[0]" => "5",
+          "form1[0].page2[0].Part_3[0].q2_Tip_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q2_Tip_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q2_Tip_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q3_Scholarships[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q3_Scholarships[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q3_Scholarships[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q4_Interest_Dividends_From[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q4_Interest_Dividends_From[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q4_Interest_Dividends_From[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q5_Refund_Of_State[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q5_Refund_Of_State[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q5_Refund_Of_State[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q6_Alimony_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q6_Alimony_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q6_Alimony_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q7_Self-Employment_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q7_Self-Employment_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q7_Self-Employment_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q9_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q9_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q9_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q10_Disability_Income[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q10_Disability_Income[0].no[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q10_Disability_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q11_Retirement_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q11_Retirement_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q11_Retirement_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q12_Unemployment_Compensation[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q12_Unemployment_Compensation[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q12_Unemployment_Compensation[0].unsure[0]" =>
+            "Off",
+          "form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q14_Income_or_Loss[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q14_Income_or_Loss[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q14_Income_or_Loss[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q15_Other_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_3[0].q15_Other_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_3[0].q15_Other_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q1_Alimony[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q1_Alimony[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q1_Alimony[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].unsure[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].IRA[0]" => "",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].Roth_IRA[0]" => "",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0]._401K[0]" => "",
+          "form1[0].page2[0].Part_4[0].q2_Contributions[0].Other[0]" => "",
+          "form1[0].page2[0].Part_4[0].q3_Post_Secondary[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q3_Post_Secondary[0].no[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q3_Post_Secondary[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].medical[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].mortgage[0]" => "",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].taxes[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q4_Deductions[0].charitable[0]" => "",
+          "form1[0].page2[0].Part_4[0].q5_Child_Or_Dependent[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q5_Child_Or_Dependent[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q5_Child_Or_Dependent[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q8_Student_Loan_Interest[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_4[0].q8_Student_Loan_Interest[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_4[0].q8_Student_Loan_Interest[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q1_Have_A_Health[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q1_Have_A_Health[0].no[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q1_Have_A_Health[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q2_Have_Debt_From[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q2_Have_Debt_From[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q2_Have_Debt_From[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q3_Adopt_A_Child[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q3_Adopt_A_Child[0].no[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q3_Adopt_A_Child[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].Which_Tax_Year[0]" => "",
+          "form1[0].page2[0].Part_5[0].q5_Purchase_And_Install[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q5_Purchase_And_Install[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q5_Purchase_And_Install[0].unsure[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].unsure[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].How_Much[0]" => "",
+          "form1[0].page2[0].Part_5[0].q8_File_A_Federal[0].yes[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q8_File_A_Federal[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q8_File_A_Federal[0].unsure[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q9_have_health[0].yes[0]" => "1",
+          "form1[0].page2[0].Part_5[0].q9_have_health[0].no[0]" => "Off",
+          "form1[0].page2[0].Part_5[0].q9_have_health[0].unsure[0]" => "Off",
+          "form1[0].page3[0].q1[0].yes[0]" => "Off",
+          "form1[0].page3[0].q1[0].no[0]" => "1",
+          "form1[0].page3[0].q1[0].Which_Language[0]" => "",
+          "form1[0].page3[0].q2[0].you[0]" => "",
+          "form1[0].page3[0].q2[0].spouse[0]" => "",
+          "form1[0].page3[0].q3[0].Direct_Deposit[0].yes[0]" => "1",
+          "form1[0].page3[0].q3[0].Direct_Deposit[0].no[0]" => "Off",
+          "form1[0].page3[0].q3[0].Savings_Bonds[0].yes[0]" => "1",
+          "form1[0].page3[0].q3[0].Savings_Bonds[0].no[0]" => "Off",
+          "form1[0].page3[0].q3[0].Different_Accounts[0].yes[0]" => "Off",
+          "form1[0].page3[0].q3[0].Different_Accounts[0].no[0]" => "1",
+          "form1[0].page3[0].q4[0].yes[0]" => "Off",
+          "form1[0].page3[0].q4[0].no[0]" => "1",
+          "form1[0].page3[0].q5[0].yes[0]" => "1",
+          "form1[0].page3[0].q5[0].no[0]" => "Off",
+          "form1[0].page3[0].q5[0].If_Yes_Where[0]" => "",
+          "form1[0].page3[0].q6[0].yes[0]" => "Off",
+          "form1[0].page3[0].q6[0].no[0]" => "1",
+          "form1[0].page3[0].q7[0].yes[0]" => "Off",
+          "form1[0].page3[0].q7[0].no[0]" => "Off",
+          "form1[0].page3[0].q8[0].very_well[0]" => "",
+          "form1[0].page3[0].q8[0].well[0]" => "1",
+          "form1[0].page3[0].q8[0].not_well[0]" => "",
+          "form1[0].page3[0].q8[0].not_at_all[0]" => "",
+          "form1[0].page3[0].q8[0].not_answer[0]" => "",
+          "form1[0].page3[0].q9[0].very_well[0]" => "",
+          "form1[0].page3[0].q9[0].well[0]" => "",
+          "form1[0].page3[0].q9[0].not_well[0]" => "1",
+          "form1[0].page3[0].q9[0].not_at_all[0]" => "",
+          "form1[0].page3[0].q9[0].not_answer[0]" => "",
+          "form1[0].page3[0].q10[0].yes[0]" => "1",
+          "form1[0].page3[0].q10[0].no[0]" => "",
+          "form1[0].page3[0].q10[0].not_answer[0]" => "",
+          "form1[0].page3[0].q11[0].yes[0]" => "",
+          "form1[0].page3[0].q11[0].no[0]" => "1",
+          "form1[0].page3[0].q11[0].not_answer[0]" => "",
+          "form1[0].page3[0].q12[0].american_indian[0]" => "",
+          "form1[0].page3[0].q12[0].asian[0]" => "",
+          "form1[0].page3[0].q12[0].black_african[0]" => "",
+          "form1[0].page3[0].q12[0].native_hawaiian[0]" => "1",
+          "form1[0].page3[0].q12[0].white[0]" => "1",
+          "form1[0].page3[0].q12[0].not_answer[0]" => "",
+          "form1[0].page3[0].q13[0].american_indian[0]" => "1",
+          "form1[0].page3[0].q13[0].asian[0]" => "",
+          "form1[0].page3[0].q13[0].black_african[0]" => "",
+          "form1[0].page3[0].q13[0].native_hawaiian[0]" => "",
+          "form1[0].page3[0].q13[0].white[0]" => "",
+          "form1[0].page3[0].q13[0].not_answer[0]" => "",
+          "form1[0].page3[0].q13[0].no_spouse[0]" => "",
+          "form1[0].page3[0].q14[0].hispanic_latino[0]" => "",
+          "form1[0].page3[0].q14[0].not_hispanic_latino[0]" => "1",
+          "form1[0].page3[0].q14[0].not_answer[0]" => "",
+          "form1[0].page3[0].q15[0].hispanic_latino[0]" => "",
+          "form1[0].page3[0].q15[0].not_hispanic_latino[0]" => "1",
+          "form1[0].page3[0].q15[0].not_answer[0]" => "",
+          "form1[0].page3[0].q15[0].no_spouse[0]" => "",
+          "form1[0].page3[0].Additional_Comments[0].Additional_Comments[1]" =>
+            "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.\rOther income types: garden gnoming",
+          "form1[0].page4[0].primary_taxpayer[0]" => nil,
+          "form1[0].page4[0].Date[0]" => nil,
+          "form1[0].page4[0].seconde_taxpayer[0]" => nil,
+          "form1[0].page4[0].Date1[0]" => nil
         )
-      end
+  end
 
       describe "#hash_for_pdf" do
         describe 'additional comments field' do
+          let(:additional_comments_key) { "form1[0].page3[0].Additional_Comments[0].Additional_Comments[1]" }
+
           context "when there are only 3 or less dependents" do
             it "does not reference additional dependents" do
-              expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+                Other income types: garden gnoming
               COMMENT
             end
           end
 
           context "when there are 4 or more dependents" do
-            before do
+            let!(:polly) do
               create(
                 :dependent,
                 intake: intake,
@@ -501,6 +485,8 @@ RSpec.describe F13614cPdf do
                 on_visa: "no",
                 was_student: "no",
               )
+            end
+            let!(:patrick) do
               create(
                 :dependent,
                 intake: intake,
@@ -518,12 +504,12 @@ RSpec.describe F13614cPdf do
             end
 
             it "includes extra dependent information in the additional comments field" do
-              expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                
+                Other income types: garden gnoming
                 Additional Dependents:
-                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
-                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
+                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
               COMMENT
             end
 
@@ -533,10 +519,33 @@ RSpec.describe F13614cPdf do
               end
 
               it "includes extra dependent information with no leading whitespace" do
-                expect(intake_pdf.hash_for_pdf[:additional_comments]).to eq(<<~COMMENT.strip)
+                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
+                  Other income types: garden gnoming
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) Y (f) Y (g)  (h) N (i) S
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g)  (h) N (i) S
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
+                COMMENT
+              end
+            end
+
+            context "when a hub user has filled out the CVP information" do
+              before do
+                polly.update(
+                  can_be_claimed_by_other: 'yes',
+                  provided_over_half_own_support: 'no',
+                  below_qualifying_relative_income_requirement: 'yes',
+                  filer_provided_over_half_support: 'no',
+                  filer_provided_over_half_housing_support: 'yes',
+                )
+              end
+
+              it "includes the CVP information after all the lettered dependent columns" do
+                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
+                  if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
+                  Other income types: garden gnoming
+                  Additional Dependents:
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
                 COMMENT
               end
             end

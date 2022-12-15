@@ -122,18 +122,17 @@ module Hub
     end
 
     def edit_13614c_form
-      @form = Update13614cFormPage1.from_client(@client)
+      @form = Update13614cForm.from_client(@client)
     end
 
     def update_13614c_form
-      @form = Update13614cFormPage1.new(@client, update_13614c_form_page1_params)
+      @form = Update13614cForm.new(@client, update_13614c_form_page1_params)
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         redirect_to hub_client_path(id: @client.id)
       else
-        puts @form.errors.full_messages
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form
       end
@@ -163,7 +162,7 @@ module Hub
       params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)
     end
     def update_13614c_form_page1_params
-      params.require(Update13614cFormPage1.form_param).permit(Update13614cFormPage1.permitted_params)
+      params.require(Update13614cForm.form_param).permit(Update13614cForm.permitted_params)
     end
 
     def create_client_form_params

@@ -1,5 +1,5 @@
 module Hub
-  class Update13614cFormPage1 < ClientForm
+  class Update13614cForm < ClientForm
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
@@ -19,6 +19,8 @@ module Hub
                        :had_disability,
                        :was_full_time_student,
                        :primary_birth_date,
+                       :primary_job_title,
+                       :primary_us_citizen,
                        :street_address,
                        :city,
                        :state,
@@ -31,7 +33,12 @@ module Hub
                        :spouse_was_blind,
                        :spouse_birth_date,
                        :spouse_had_disability,
-                       :spouse_was_full_time_student
+                       :spouse_job_title,
+                       :spouse_phone_number,
+                       :spouse_was_full_time_student,
+                       :spouse_us_citizen,
+                       :never_married,
+                       :got_married_during_tax_year
 
     attr_accessor :client
 
@@ -46,10 +53,20 @@ module Hub
       new(client, existing_attributes(intake).slice(*attribute_keys))
     end
 
+    def self.existing_attributes(intake)
+      result = super
+      result[:never_married] = result.delete(:ever_married) == 'yes' ? 'no' : 'yes'
+      result
+    end
+
     def save
       return false unless valid?
 
-      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
+      modified_attributes = attributes_for(:intake)
+      modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
+      modified_attributes[:dependents_attributes] = formatted_dependents_attributes
+
+      @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
     end
   end

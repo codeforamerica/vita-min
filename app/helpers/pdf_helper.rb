@@ -1,15 +1,15 @@
 module PdfHelper
 
   def yes_no_unfilled_to_checkbox(value)
-    value == "yes" ? "yes" : nil
+    value == "yes" ? "1" : nil
   end
 
   def yes_no_unfilled_to_opposite_checkbox(value)
-    value == "no" ? "yes" : nil
+    value == "no" ? "1" : nil
   end
 
   def bool_checkbox(value)
-    value ? "yes" : nil
+    value ? "1" : nil
   end
 
   def xml_value_to_bool(node, type)

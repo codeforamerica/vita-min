@@ -10,6 +10,7 @@
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
 #  filed_joint_return                           :integer          default("unfilled"), not null
+#  filer_provided_over_half_housing_support     :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null

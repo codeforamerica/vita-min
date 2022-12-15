@@ -1558,15 +1558,17 @@ RSpec.describe Hub::ClientsController do
   describe "#update_13614c_form" do
     let(:client) { create :client, vita_partner: organization, intake: intake }
 
-    let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", dependents: [build(:dependent), build(:dependent)] }
+    let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", ever_married: "yes", dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
     let(:params) {
       {
         id: client.id,
-        hub_update13614c_form_page1: {
+        hub_update13614c_form: {
           primary_first_name: "Updated",
           primary_last_name: "Name",
+          never_married: intake.ever_married_yes? ? "no" : "yes",
           married: intake.married,
+          got_married_during_tax_year: "unfilled",
           separated: intake.separated,
           widowed: intake.widowed,
           lived_with_spouse: intake.lived_with_spouse,
@@ -1580,9 +1582,11 @@ RSpec.describe Hub::ClientsController do
           city: intake.city,
           state: intake.state,
           zip_code: intake.zip_code,
+          primary_us_citizen: "unfilled",
           spouse_first_name: intake.spouse.first_name,
           spouse_last_name: intake.spouse.last_name,
           spouse_email_address: intake.spouse_email_address,
+          spouse_us_citizen: "unfilled",
           dependents_attributes: {
             "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
             "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
@@ -1634,7 +1638,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
             id: client.id,
-            hub_update13614c_form_page1: {
+            hub_update13614c_form: {
               primary_first_name: "",
             }
           }
@@ -1651,7 +1655,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
             id: client.id,
-            hub_update13614c_form_page1: {
+            hub_update13614c_form: {
               dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
             }
           }

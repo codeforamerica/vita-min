@@ -10,6 +10,7 @@
 #  creation_token                               :string
 #  disabled                                     :integer          default("unfilled"), not null
 #  filed_joint_return                           :integer          default("unfilled"), not null
+#  filer_provided_over_half_housing_support     :integer          default("unfilled"), not null
 #  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
@@ -82,6 +83,7 @@ class Dependent < ApplicationRecord
   enum below_qualifying_relative_income_requirement: { unfilled: 0, yes: 1, no: 2 }, _prefix: :below_qualifying_relative_income_requirement
   enum filer_provided_over_half_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filer_provided_over_half_support
   enum residence_lived_with_all_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_lived_with_all_year
+  enum filer_provided_over_half_housing_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filer_provided_over_half_housing_support
 
   before_destroy :remove_error_associations
 
@@ -115,6 +117,14 @@ class Dependent < ApplicationRecord
     parts.compact.join(' ')
   end
   alias_method :first_and_last_name, :full_name
+
+  def can_be_claimed_by_other
+    flip_yes_no_unfilled(cant_be_claimed_by_other)
+  end
+
+  def can_be_claimed_by_other=(value)
+    self.cant_be_claimed_by_other = flip_yes_no_unfilled(value)
+  end
 
   def error_summary
     if errors.present?
@@ -178,5 +188,16 @@ class Dependent < ApplicationRecord
 
   def remove_error_associations
     EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
+  end
+
+  def flip_yes_no_unfilled(value)
+    case value
+    when "yes"
+      "no"
+    when "no"
+      "yes"
+    else
+      value
+    end
   end
 end

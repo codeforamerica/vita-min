@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_215443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -661,6 +661,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.string "creation_token"
     t.integer "disabled", default: 0, null: false
     t.integer "filed_joint_return", default: 0, null: false
+    t.integer "filer_provided_over_half_housing_support", default: 0, null: false
     t.integer "filer_provided_over_half_support", default: 0
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
@@ -1074,6 +1075,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.string "final_info"
     t.integer "former_foster_youth", default: 0, null: false
     t.integer "full_time_student_less_than_five_months", default: 0, null: false
+    t.integer "got_married_during_tax_year", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
     t.integer "had_dependents", default: 0, null: false
@@ -1151,6 +1153,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
     t.text "primary_ip_pin"
+    t.string "primary_job_title"
     t.text "primary_last_four_ssn"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1161,6 +1164,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.text "primary_ssn"
     t.string "primary_suffix"
     t.integer "primary_tin_type"
+    t.integer "primary_us_citizen", default: 0, null: false
     t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -1201,9 +1205,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.integer "spouse_had_disability", default: 0, null: false
     t.text "spouse_ip_pin"
     t.integer "spouse_issued_identity_pin", default: 0, null: false
+    t.string "spouse_job_title"
     t.text "spouse_last_four_ssn"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.string "spouse_phone_number"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
     t.text "spouse_signature_pin"
@@ -1211,6 +1217,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_000127) do
     t.text "spouse_ssn"
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
+    t.integer "spouse_us_citizen", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.integer "spouse_was_on_visa", default: 0, null: false

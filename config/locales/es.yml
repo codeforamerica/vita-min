@@ -643,22 +643,33 @@ es:
       edit_13614c_form:
         fields:
           apt: Departamento
+          below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $4,400 de ingresos?"
           blind: Legalmente ciego
+          can_be_claimed_by_other: "¿Es esta persona un hijo/pariente calificado de otra persona?"
           claimed_by_another: "¿Alguien puede reclamarlo a usted oa su cónyuge como dependiente?"
           contact_number: Número de contacto
           disabled: Total y permanentemente discapacitado
           dob: Fecha de nacimiento
           email_optional: Correo electrónico (Opcional)
+          filer_provided_over_half_housing_support: "¿Pagaron los contribuyentes más de la mitad del costo de mantenimiento de una vivienda para esta persona?"
+          filer_provided_over_half_support: "¿Los contribuyentes proporcionaron más del 50 % de la manutención de esta persona?"
           first_name: Nombre de pila
+          got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2021?
           had_disability: Total y permanentemente deshabilitado
           issued_identity_pin: "¿Usted, su cónyuge o sus dependientes han sido víctimas de robo de identidad relacionado con los impuestos o se les ha emitido un PIN de protección de identidad?"
+          job_title: Título Profesional
           last_name: Apellido
           lived_with_spouse: B. ¿Vivió usted con su cónyuge durante alguna parte de los últimos seis meses de 2021?
           middle_initial: Inicial del segundo nombre
           months_in_home: "# de meses vividos en casa el año pasado:"
+          never_married: Nunca casado
           north_american_resident: 'Residente de EE. UU., CAN o MEX el año pasado:'
+          primary_us_citizen: Ciudadano estadounidense?
+          provided_over_half_own_support: "¿Esta persona proporcionó más del 50 % de su propia manutención?"
           spouse_dob: Fecha de nacimiento del cónyuge
           spouse_first_name: Nombre del cónyuge
+          spouse_job_title: Título profesional del cónyuge
+          spouse_us_citizen: "¿Cónyuge ciudadano estadounidense?"
           was_full_time_student: Estudiante de tiempo completo
           was_married: Soltero o casado a partir del 31/12/21
           was_student: Estudiante de tiempo completo el año pasado
