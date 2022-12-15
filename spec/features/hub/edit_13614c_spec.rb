@@ -102,7 +102,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       click_on "2"
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
-      expect(page).to have_text "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
+      expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
