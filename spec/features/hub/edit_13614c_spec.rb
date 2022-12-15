@@ -137,6 +137,25 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
       expect(page).to have_text I18n.t("general.changes_saved")
 
+
+      intake = client.intake.reload
+
+      puts intake.paid_alimony
+      expect(intake.had_wages_yes?).to eq true
+      expect(intake.had_tips_no?).to eq true
+      expect(intake.had_interest_income_yes?).to eq true
+      expect(intake.had_local_tax_refund_yes?).to eq true
+      expect(intake.paid_alimony_no?).to eq true
+      expect(intake.had_self_employment_income_unsure?).to eq true
+      expect(intake.has_crypto_income_no?).to eq true
+      expect(intake.had_asset_sale_income_unsure?).to eq true
+      expect(intake.had_disability_income_no?).to eq true
+      expect(intake.had_retirement_income_yes?).to eq true
+      expect(intake.had_unemployment_income_yes?).to eq true
+      expect(intake.had_social_security_income_no?).to eq true
+      expect(intake.had_rental_income_no?).to eq true
+      expect(intake.had_other_income_unsure?).to eq true
+
       # TODO: check database for correctly updated answers?
     end
   end
