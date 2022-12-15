@@ -120,7 +120,7 @@ RSpec.describe Hub::AssignedClientsController do
         it "assigns message_summaries" do
           get :index
           expect(assigns(:message_summaries)).to eq(fake_message_summaries)
-          expect(RecentMessageSummaryService).to have_received(:messages).with([assigned_to_me.id, assigned_to_me_two_trs.id])
+          expect(RecentMessageSummaryService).to have_received(:messages).with(a_collection_containing_exactly(assigned_to_me.id, assigned_to_me_two_trs.id))
         end
       end
 
