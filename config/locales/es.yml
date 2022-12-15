@@ -640,7 +640,7 @@ es:
         delete_client: Eliminar cliente
         delete_confirmation: "¿Estás seguro de que deseas eliminar toda la información asociada con %{name}?"
         title: Editar Perfil del cliente
-      edit_13614c_form:
+      edit_13614c_form_page1:
         fields:
           apt: Departamento
           below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $4,400 de ingresos?"

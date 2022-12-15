@@ -68,15 +68,15 @@ RSpec.describe "a user editing a clients 13614c form" do
         fill_in 'First Name', with: 'Emily'
       end
       within "#dependents-fields" do
-        expect(find_field("hub_update13614c_form[dependents_attributes][0][first_name]").value).to eq "Lara"
+        expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][first_name]").value).to eq "Lara"
 
-        fill_in "hub_update13614c_form_dependents_attributes_0_first_name", with: "Laura"
-        fill_in "hub_update13614c_form_dependents_attributes_0_last_name", with: "Peaches"
-        fill_in "hub_update13614c_form_dependents_attributes_0_birth_date_month", with: "12"
-        fill_in "hub_update13614c_form_dependents_attributes_0_birth_date_day", with: "1"
-        fill_in "hub_update13614c_form_dependents_attributes_0_birth_date_year", with: "2008"
-        select "9", from: "hub_update13614c_form_dependents_attributes_0_months_in_home"
-        select "Y", from: "hub_update13614c_form_dependents_attributes_0_north_american_resident"
+        fill_in "hub_update13614c_form_page1_dependents_attributes_0_first_name", with: "Laura"
+        fill_in "hub_update13614c_form_page1_dependents_attributes_0_last_name", with: "Peaches"
+        fill_in "hub_update13614c_form_page1_dependents_attributes_0_birth_date_month", with: "12"
+        fill_in "hub_update13614c_form_page1_dependents_attributes_0_birth_date_day", with: "1"
+        fill_in "hub_update13614c_form_page1_dependents_attributes_0_birth_date_year", with: "2008"
+        select "9", from: "hub_update13614c_form_page1_dependents_attributes_0_months_in_home"
+        select "Y", from: "hub_update13614c_form_page1_dependents_attributes_0_north_american_resident"
       end
       click_on 'Save'
 
@@ -89,7 +89,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_field('First Name', with: 'Emily')
       expect(page).to have_text('Last client 13614-C update: Mar 4 5:10 AM')
       within "#dependents-fields" do
-        expect(find_field("hub_update13614c_form[dependents_attributes][0][first_name]").value).to eq "Laura"
+        expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][first_name]").value).to eq "Laura"
       end
     end
 

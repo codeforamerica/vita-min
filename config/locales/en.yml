@@ -631,7 +631,7 @@ en:
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
         title: Edit Client Profile
-      edit_13614c_form:
+      edit_13614c_form_page1:
         fields:
           apt: Apt.
           below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
@@ -668,6 +668,36 @@ en:
         last_year_were_you: 'Last year, were you:'
         title: 13614-C
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
+      edit_13614c_form_page2:
+        fields:
+          adopted_child: 3. (A) Adopt a child?
+          bought_energy_efficient_items: 5. (A) Purchase and install energy-efficient home items?
+          had_asset_sale_income: 9. (A) Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
+          had_debt_forgiven: 2. (A) Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
+          had_disability_income: 10. (B) Disability income?
+          had_hsa: 1. (A) Have a Health Savings Account?
+          had_interest_income: '4. (B) Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
+          had_local_tax_refund: 5. (B) Refund or state/local income taxes?
+          had_other_income: 16. (B) Other income?
+          had_rental_income: 15. (M) Income (or loss) from Rental Property?
+          had_retirement_income: 11. (A) Retirement income or payments from Pensions. Annuities, and or IRA?
+          had_self_employment_income: 7. (A) Self-Employment income?
+          had_social_security_income: 13. (B) Social Security or Railroad Retirement Benefits?
+          had_tax_credit_disallowed: 4. (B) Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
+          had_tips: 2. (A) Tip Income?
+          had_unemployment_income: 12. (B) Unemployment Compensation?
+          had_wages: 1. (B) Wages or Salary? (Form W-2)
+          has_crypto_income: 8. (A) Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
+          job_count: If yes, how many jobs did you have last year?
+          made_estimated_tax_payments: 11. (B) Receive Advanced Child Tax Credit payments?
+          paid_alimony: 6. (B) Alimony income or separate maintenance payments?
+          paid_dependent_care: 5. (B) Child or dependent care expenses such as daycare?
+          paid_retirement_contributions: 2. Contributions or repayments to a retirement account?
+          paid_school_supplies: 6. (B) For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?
+          paid_student_loan_interest: 8. (B) Student loan interest?
+          received_alimony: 1. (B) Alimony income or separate maintenance payments?
+          received_homebuyer_credit: 6. (A) Receive the First Time Homebuyers Credit in 2008?
+        title: Part III - Income - Last Year, Did You (or Your Spouse) Receive
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -802,36 +832,6 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
-      edit_13614c_form_page2:
-        title: "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
-        fields:
-          job_count: "If yes, how many jobs did you have last year?"
-          had_wages: "1. (B) Wages or Salary? (Form W-2)"
-          had_tips: "2. (A) Tip Income?"
-          had_interest_income: "4. (B) Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?"
-          had_local_tax_refund: "5. (B) Refund or state/local income taxes?"
-          paid_alimony: "6. (B) Alimony income or separate maintenance payments?"
-          had_self_employment_income: "7. (A) Self-Employment income?"
-          has_crypto_income: "8. (A) Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?"
-          had_asset_sale_income: "9. (A) Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?"
-          had_disability_income: "10. (B) Disability income?"
-          had_retirement_income: "11. (A) Retirement income or payments from Pensions. Annuities, and or IRA?"
-          had_unemployment_income: "12. (B) Unemployment Compensation?"
-          had_social_security_income: "13. (B) Social Security or Railroad Retirement Benefits?"
-          had_rental_income: "15. (M) Income (or loss) from Rental Property?"
-          had_other_income: "16. (B) Other income?"
-          paid_retirement_contributions: "2. Contributions or repayments to a retirement account?"
-          paid_dependent_care: "5. (B) Child or dependent care expenses such as daycare?"
-          received_alimony: "1. (B) Alimony income or separate maintenance payments?"
-          paid_school_supplies: "6. (B) For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?"
-          paid_student_loan_interest: "8. (B) Student loan interest?"
-          had_hsa: "1. (A) Have a Health Savings Account?"
-          had_debt_forgiven: "2. (A) Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?"
-          adopted_child: "3. (A) Adopt a child?"
-          had_tax_credit_disallowed: "4. (B) Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?"
-          bought_energy_efficient_items: "5. (A) Purchase and install energy-efficient home items?"
-          received_homebuyer_credit: "6. (A) Receive the First Time Homebuyers Credit in 2008?"
-          made_estimated_tax_payments: "11. (B) Receive Advanced Child Tax Credit payments?"
     coalitions:
       edit:
         title: Edit Coalition
