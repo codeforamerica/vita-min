@@ -677,20 +677,20 @@ en:
           had_disability_income: 10. (B) Disability income?
           had_hsa: 1. (A) Have a Health Savings Account?
           had_interest_income: '4. (B) Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
-          had_local_tax_refund: 5. (B) Refund or state/local income taxes?
+          had_local_tax_refund: Refund or state/local income taxes?
           had_other_income: 16. (B) Other income?
           had_rental_income: 15. (M) Income (or loss) from Rental Property?
           had_retirement_income: 11. (A) Retirement income or payments from Pensions. Annuities, and or IRA?
-          had_self_employment_income: 7. (A) Self-Employment income?
+          had_self_employment_income: Self-Employment income?
           had_social_security_income: 13. (B) Social Security or Railroad Retirement Benefits?
           had_tax_credit_disallowed: 4. (B) Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
           had_tips: 2. (A) Tip Income?
           had_unemployment_income: 12. (B) Unemployment Compensation?
           had_wages: 1. (B) Wages or Salary? (Form W-2)
-          has_crypto_income: 8. (A) Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
+          has_crypto_income: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
           job_count: If yes, how many jobs did you have last year?
           made_estimated_tax_payments: 11. (B) Receive Advanced Child Tax Credit payments?
-          paid_alimony: 6. (B) Alimony income or separate maintenance payments?
+          paid_alimony: Alimony income or separate maintenance payments?
           paid_dependent_care: 5. (B) Child or dependent care expenses such as daycare?
           paid_retirement_contributions: 2. Contributions or repayments to a retirement account?
           paid_school_supplies: 6. (B) For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?

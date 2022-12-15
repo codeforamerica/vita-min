@@ -811,6 +811,23 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
+      edit_13614c_form_page2:
+        fields:
+          had_wages: "¿Sueldo o Salario? (Formulario W-2)"
+          job_count: "En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?"
+          had_tips: "¿Ingreso de propinas?"
+          had_interest_income: "74 / 5,000 Translation results Translation result ¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
+          had_local_tax_refund: "¿Reembolso o impuestos estatales/locales sobre la renta?"
+          paid_alimony: "48 / 5,000 Translation results Translation result ¿Renta de pensión alimenticia o pagos separados de manutención?"
+          had_self_employment_income: "¿Ingresos de trabajo por cuenta propia?"
+          has_crypto_income: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
+          had_asset_sale_income: "¿Ingresos (o pérdidas) por la venta o el intercambio de acciones, bonos, moneda virtual o bienes inmuebles?"
+          had_unemployment_income: "¿Compensacion por desempleo?"
+          had_disability_income: "ingreso por discapacidad?"
+          had_retirement_income: "Rentas de Jubilación o pagos de Pensiones. ¿Anualidades o IRA?"
+          had_social_security_income: "¿Beneficios de jubilación del seguro social o del ferrocarril?"
+          had_rental_income: "¿Ingresos (o pérdidas) de la propiedad de alquiler?"
+          had_other_income: "¿Otros ingresos?"
     coalitions:
       edit:
         title: Editar Coalición

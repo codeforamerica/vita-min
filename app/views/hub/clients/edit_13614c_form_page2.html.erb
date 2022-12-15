@@ -13,22 +13,22 @@
         <%= f.cfa_select(:had_wages, t(".fields.had_wages"), yes_no_unsure_options_for_select) %>
         <%= f.cfa_input_field(:job_count, t(".fields.job_count")) %>
         <%= f.cfa_select(:had_tips, t(".fields.had_tips"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_interest_income, t(".fields.had_interest_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_local_tax_refund, t(".fields.had_local_tax_refund"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:paid_alimony, t(".fields.paid_alimony"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_self_employment_income, t(".fields.had_self_employment_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:has_crypto_income, t(".fields.has_crypto_income"),  [
+        <%= f.cfa_select(:had_interest_income, "4. (B) #{t(".fields.had_interest_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_local_tax_refund, "5. (B) #{t(".fields.had_local_tax_refund")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_alimony, "6. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:has_crypto_income, "8. (A) #{t(".fields.has_crypto_income")}",  [
           ["", nil],
           [I18n.t("general.affirmative"), true],
           [I18n.t("general.negative"), false],
         ]) %>
-        <%= f.cfa_select(:had_asset_sale_income, t(".fields.had_asset_sale_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_disability_income, t(".fields.had_disability_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_retirement_income, t(".fields.had_retirement_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_unemployment_income, t(".fields.had_unemployment_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_social_security_income, t(".fields.had_social_security_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_rental_income, t(".fields.had_rental_income"), yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_other_income, t(".fields.had_other_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_asset_sale_income, "9. (A) #{t(".fields.had_asset_sale_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_disability_income, "10. (B) #{t(".fields.had_disability_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_retirement_income, "11. (A) #{t(".fields.had_retirement_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_unemployment_income, "12. (B) #{t(".fields.had_unemployment_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_social_security_income, "13. (B) #{t(".fields.had_social_security_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_rental_income, "14. (M) #{t(".fields.had_rental_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_other_income, "15. (B) #{t(".fields.had_other_income")}", yes_no_unsure_options_for_select) %>
       </div>
 
     <div id="expenses-fields" class="hub-form__row">
