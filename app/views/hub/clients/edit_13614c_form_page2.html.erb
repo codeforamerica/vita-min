@@ -9,9 +9,30 @@
                   method: :put, local: true, builder: VitaMinFormBuilder,
                   html: { class: 'form-card' } do |f| %>
       <div id="income-fields" class="hub-form__row">
+        <%= f.cfa_select(:had_wages, t(".fields.had_wages"), yes_no_unsure_options_for_select) %>
         <%= f.cfa_input_field(:job_count, t(".fields.job_count")) %>
-
+        <%= f.cfa_select(:had_tips, t(".fields.had_tips"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_interest_income, t(".fields.had_interest_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_local_tax_refund, t(".fields.had_local_tax_refund"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_alimony, t(".fields.paid_alimony"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_self_employment_income, t(".fields.had_self_employment_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:has_crypto_income, t(".fields.has_crypto_income"),  [
+          ["", nil],
+          [I18n.t("general.affirmative"), true],
+          [I18n.t("general.negative"), false],
+        ]) %>
+        <%= f.cfa_select(:had_asset_sale_income, t(".fields.had_asset_sale_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_disability_income, t(".fields.had_disability_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_retirement_income, t(".fields.had_retirement_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_unemployment_income, t(".fields.had_unemployment_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_social_security_income, t(".fields.had_social_security_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_rental_income, t(".fields.had_rental_income"), yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_other_income, t(".fields.had_other_income"), yes_no_unsure_options_for_select) %>
       </div>
+
+      <button class="button button--cta" type="submit">
+        <%= t("general.save") %>
+      </button>
     <% end %>
   </div>
 <% end %>

@@ -101,11 +101,26 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
 
       click_on "2"
-      # TODO: replace with i8tn key
-      expect(page).to have_text "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
+        # TODO: add more expectations for existing fields?
+
+        select "Yes", from: "hub_update13614c_form_page2_had_wages"
+        select "No", from: "hub_update13614c_form_page2_had_tips"
+        select "Yes", from: "hub_update13614c_form_page2_had_interest_income"
+        select "Yes", from: "hub_update13614c_form_page2_had_local_tax_refund"
+        select "No", from: "hub_update13614c_form_page2_paid_alimony"
+        select "I don't know", from: "hub_update13614c_form_page2_had_self_employment_income"
+        select "No", from: "hub_update13614c_form_page2_has_crypto_income"
+        select "I don't know", from: "hub_update13614c_form_page2_had_asset_sale_income"
+        select "No", from: "hub_update13614c_form_page2_had_disability_income"
+        select "Yes", from: "hub_update13614c_form_page2_had_retirement_income"
+        select "Yes", from: "hub_update13614c_form_page2_had_unemployment_income"
+        select "No", from: "hub_update13614c_form_page2_had_social_security_income"
+        select "No", from: "hub_update13614c_form_page2_had_rental_income"
+        select "I don't know", from: "hub_update13614c_form_page2_had_other_income"
       end
 
       # within "#expenses-fields" do
@@ -115,6 +130,13 @@ RSpec.describe "a user editing a clients 13614c form" do
       # within "#life-events-fields" do
       #
       # end
+
+      click_on I18n.t("general.save")
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
+      expect(page).to have_text I18n.t("general.changes_saved")
+
+      # TODO: check database for correctly updated answers?
     end
   end
 end

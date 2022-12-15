@@ -1,9 +1,8 @@
 # Intake mapping
 # # # Part III - Income
-
 # 1. job_count
 # 2. had_tips
-# 3. ? TODO: add field for scholarships
+# 3. TODO: add field for scholarships
 # 4. had_interest_income
 # 5. had_local_tax_refund
 # 6. paid_alimony
@@ -13,18 +12,24 @@
 # 10. had_disability_income
 # 11. had_retirement_income
 # 12. had_unemployment_income
-# 13. had_social_security_or_retirement OR had_social_security
-# 14. had_rental_income
-# 15. had_other_income
+# 13. had_social_security_income
+# 14. alimony income or separate maintenance payments
+# 15. had_rental_income
+# 16. had_other_income
 
 # # # Part IV - Expenses
-# 1. paid_alimony, ?
-# 2. paid_retirement_contributions, ?
-# 3. ?
-# 4. ?, ?, paid_mortgage_interest, paid_charitable_contributions
+# 1. paid_alimony,
+#   TODO: add field for has_ssn_of_alimony_recipient
+# 2. paid_retirement_contributions
+#   TODO: add field for retirement contribution type
+# 3. TODO: add field for secondary education expenses
+# 4. TODO: add field for medical and dental expenses
+#    TODO: add field for (A) Taxes (State, Real Estate, Personal Property, Sales)
+#    paid_mortgage_interest
+#    paid_charitable_contributions
 # 5. paid_dependent_care
 # 6. paid_school_supplies
-# 7. ?
+# 7. TODO: add field for self employment expenses
 # 8. paid_student_loan_interest
 
 # # # Part V - Life  Events
@@ -35,43 +40,30 @@
 # 5. bought_energy_efficient_items
 # 6. received_homebuyer_credit
 # 7. made_estimated_tax_payments (y/n), made_estimated_tax_payments $$
-# 8. ? #TODO: add this field for capital_loss_carryover
-# 9. ? #TODO: marketplace_health_insurance
+# 8. TODO: add field for capital_loss_carryover
+# 9. TODO: add field for had_marketplace_health_insurance
 
 module Hub
-  class Update13614cFormPage2 < ClientForm
-    set_attributes_for :intake, :job_count
-                       # :primary_first_name,
-                       # :primary_last_name,
-                       # :primary_middle_initial,
-                       # :married,
-                       # :separated,
-                       # :widowed,
-                       # :lived_with_spouse,
-                       # :divorced,
-                       # :divorced_year,
-                       # :separated_year,
-                       # :widowed_year,
-                       # :claimed_by_another,
-                       # :issued_identity_pin,
-                       # :email_address,
-                       # :phone_number,
-                       # :had_disability,
-                       # :was_full_time_student,
-                       # :primary_birth_date,
-                       # :street_address,
-                       # :city,
-                       # :state,
-                       # :zip_code,
-                       # :street_address2,
-                       # :spouse_first_name,
-                       # :spouse_last_name,
-                       # :spouse_middle_initial,
-                       # :was_blind,
-                       # :spouse_was_blind,
-                       # :spouse_birth_date,
-                       # :spouse_had_disability,
-                       # :spouse_was_full_time_student
+  class Update13614cFormPage2 < Form
+    include FormAttributes
+
+    set_attributes_for :intake,
+                       :had_wages,
+                       :job_count,
+                       :had_tips,
+                       :had_interest_income,
+                       :had_local_tax_refund,
+                       :paid_alimony,
+                       :had_self_employment_income,
+                       :has_crypto_income,
+                       :had_asset_sale_income,
+                       :had_disability_income,
+                       :had_retirement_income,
+                       :had_unemployment_income,
+                       :had_social_security_income,
+                       :had_rental_income,
+                       :had_other_income
+
     attr_accessor :client
 
     def initialize(client, params = {})
@@ -86,10 +78,10 @@ module Hub
     end
 
     def save
-      # return false unless valid?
-      #
-      # @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
-      # @client.touch(:last_13614c_update_at)
+      return false unless valid?
+
+      @client.intake.update(attributes_for(:intake))
+      @client.touch(:last_13614c_update_at)
     end
   end
 end

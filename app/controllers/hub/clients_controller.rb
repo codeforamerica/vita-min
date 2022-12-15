@@ -143,6 +143,12 @@ module Hub
     end
 
     def update_13614c_form_page2
+      @form = Update13614cFormPage2.new(@client, update_13614c_form_page2_params)
+
+      if @form.valid? && @form.save
+        flash[:notice] = I18n.t("general.changes_saved")
+        render :edit_13614c_form_page2
+      end
     end
 
     # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page
@@ -168,8 +174,13 @@ module Hub
     def update_client_form_params
       params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)
     end
+
     def update_13614c_form_page1_params
       params.require(Update13614cForm.form_param).permit(Update13614cForm.permitted_params)
+    end
+
+    def update_13614c_form_page2_params
+      params.require(Update13614cFormPage2.form_param).permit(Update13614cFormPage2.attribute_names)
     end
 
     def create_client_form_params

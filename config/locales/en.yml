@@ -806,6 +806,20 @@ en:
         title: "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
         fields:
           job_count: "If yes, how many jobs did you have last year?"
+          had_wages: "1. (B) Wages or Salary? (Form W-2)"
+          had_tips: "2. (A) Tip Income?"
+          had_interest_income: "4. (B) Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?"
+          had_local_tax_refund: "5. (B) Refund or state/local income taxes?"
+          paid_alimony: "6. (B) Alimony income or separate maintenance payments?"
+          had_self_employment_income: "7. (A) Self-Employment income?"
+          has_crypto_income: "8. (A) Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?"
+          had_asset_sale_income: "9. (A) Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?"
+          had_disability_income: "10. (B) Disability income?"
+          had_retirement_income: "11. (A) Retirement income or payments from Pensions. Annuities, and or IRA?"
+          had_unemployment_income: "12. (B) Unemployment Compensation?"
+          had_social_security_income: "13. (B) Social Security or Railroad Retirement Benefits?"
+          had_rental_income: "15. (M) Income (or loss) from Rental Property?"
+          had_other_income: "16. (B) Other income?"
     coalitions:
       edit:
         title: Edit Coalition
