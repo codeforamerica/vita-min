@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_215443) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -611,15 +611,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_215443) do
     t.datetime "use_consented_at", precision: nil
     t.string "user_agent"
     t.index ["client_id"], name: "index_consents_on_client_id"
-  end
-
-  create_table "ctc_intake_capacities", force: :cascade do |t|
-    t.integer "capacity", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["created_at"], name: "index_ctc_intake_capacities_on_created_at"
-    t.index ["user_id"], name: "index_ctc_intake_capacities_on_user_id"
   end
 
   create_table "ctc_signups", force: :cascade do |t|
@@ -1773,7 +1764,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_215443) do
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
-  add_foreign_key "ctc_intake_capacities", "users"
   add_foreign_key "dependents", "intakes"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
