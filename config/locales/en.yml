@@ -820,6 +820,18 @@ en:
           had_social_security_income: "13. (B) Social Security or Railroad Retirement Benefits?"
           had_rental_income: "15. (M) Income (or loss) from Rental Property?"
           had_other_income: "16. (B) Other income?"
+          paid_retirement_contributions: "2. Contributions or repayments to a retirement account?"
+          paid_dependent_care: "5. (B) Child or dependent care expenses such as daycare?"
+          received_alimony: "1. (B) Alimony income or separate maintenance payments?"
+          paid_school_supplies: "6. (B) For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?"
+          paid_student_loan_interest: "8. (B) Student loan interest?"
+          had_hsa: "1. (A) Have a Health Savings Account?"
+          had_debt_forgiven: "2. (A) Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?"
+          adopted_child: "3. (A) Adopt a child?"
+          had_tax_credit_disallowed: "4. (B) Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?"
+          bought_energy_efficient_items: "5. (A) Purchase and install energy-efficient home items?"
+          received_homebuyer_credit: "6. (A) Receive the First Time Homebuyers Credit in 2008?"
+          made_estimated_tax_payments: "11. (B) Receive Advanced Child Tax Credit payments?"
     coalitions:
       edit:
         title: Edit Coalition

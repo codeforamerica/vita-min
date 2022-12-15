@@ -80,10 +80,9 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
       click_on 'Save'
 
-      expect(page).to have_text "Basic Info"
-
-      within ".client-profile" do
-        click_on "Edit 13614-C"
+      # Stay on current page upon save
+      within(".flash--notice") do
+        expect(page).to have_text "Changes saved"
       end
 
       expect(page).to have_text "Part I – Your Personal Information"
@@ -102,6 +101,8 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       click_on "2"
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
+
+      expect(page).to have_text "Part III - Income - Last Year, Did You (or Your Spouse) Receive"
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
@@ -123,9 +124,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "I don't know", from: "hub_update13614c_form_page2_had_other_income"
       end
 
-      # within "#expenses-fields" do
-      #
-      # end
+      within "#expenses-fields" do
+        select "Yes", from: "hub_update13614c_form_page2_paid_alimony"
+      end
       #
       # within "#life-events-fields" do
       #

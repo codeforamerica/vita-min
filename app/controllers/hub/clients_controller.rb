@@ -135,7 +135,10 @@ module Hub
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
-        redirect_to hub_client_path(id: @client.id)
+        # TODO: save from page 1 should not redirect - only notice that changes are saved
+        flash[:notice] = "Changes saved"
+        render :edit_13614c_form
+        # redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form

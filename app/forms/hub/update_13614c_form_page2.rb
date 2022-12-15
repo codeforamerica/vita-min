@@ -18,8 +18,7 @@
 # 16. had_other_income
 
 # # # Part IV - Expenses
-# 1. paid_alimony,
-#   TODO: add field for has_ssn_of_alimony_recipient
+# 1. received_alimony, TODO: add field for has_ssn_of_alimony_recipient
 # 2. paid_retirement_contributions
 #   TODO: add field for retirement contribution type
 # 3. TODO: add field for secondary education expenses
@@ -39,7 +38,7 @@
 # 4. had_tax_credit_disallowed
 # 5. bought_energy_efficient_items
 # 6. received_homebuyer_credit
-# 7. made_estimated_tax_payments (y/n), made_estimated_tax_payments $$
+# 7. made_estimated_tax_payments (y/n), TODO: add made_estimated_tax_payments_amount
 # 8. TODO: add field for capital_loss_carryover
 # 9. TODO: add field for had_marketplace_health_insurance
 
