@@ -122,15 +122,15 @@ module Hub
     end
 
     def edit_13614c_form
-      @form = Update13614cForm.from_client(@client)
+      @form = Update13614cFormPage1.from_client(@client)
     end
 
     def edit_13614c_form_page2
       @form = Update13614cFormPage2.from_client(@client)
     end
 
-    def update_13614c_form
-      @form = Update13614cForm.new(@client, update_13614c_form_page1_params)
+    def update_13614c_form_page1
+      @form = Update13614cFormPage1.new(@client, update_13614c_form_page1_params)
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
@@ -179,7 +179,7 @@ module Hub
     end
 
     def update_13614c_form_page1_params
-      params.require(Update13614cForm.form_param).permit(Update13614cForm.permitted_params)
+      params.require(Update13614cFormPage1.form_param).permit(Update13614cFormPage1.permitted_params)
     end
 
     def update_13614c_form_page2_params

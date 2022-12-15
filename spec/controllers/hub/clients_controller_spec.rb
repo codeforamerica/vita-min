@@ -1602,7 +1602,7 @@ RSpec.describe Hub::ClientsController do
         }
       }
 
-      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page1
 
       context "with a signed in user" do
         let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
@@ -1613,7 +1613,7 @@ RSpec.describe Hub::ClientsController do
 
       it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
         expect do
-          put :update_13614c_form, params: params
+          put :update_13614c_form_page1, params: params
         end.to have_enqueued_job(GenerateF13614cPdfJob)
 
         client.reload
@@ -1643,7 +1643,7 @@ RSpec.describe Hub::ClientsController do
         }
 
         it "renders edit" do
-          put :update_13614c_form, params: params
+          put :update_13614c_form_page1, params: params
 
           expect(response).to render_template :edit_13614c_form
         end
@@ -1660,7 +1660,7 @@ RSpec.describe Hub::ClientsController do
         }
 
         it "renders edit" do
-          put :update_13614c_form, params: params
+          put :update_13614c_form_page1, params: params
 
           expect(response).to render_template :edit_13614c_form
         before do
@@ -1670,7 +1670,7 @@ RSpec.describe Hub::ClientsController do
 
         it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
           expect do
-            put :update_13614c_form, params: params
+            put :update_13614c_form_page1, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
           client.reload
@@ -1700,7 +1700,7 @@ RSpec.describe Hub::ClientsController do
           }
 
           it "renders edit" do
-            put :update_13614c_form, params: params
+            put :update_13614c_form_page1, params: params
 
             expect(response).to render_template :edit_13614c_form
           end
@@ -1717,13 +1717,13 @@ RSpec.describe Hub::ClientsController do
           }
 
           it "renders edit" do
-            put :update_13614c_form, params: params
+            put :update_13614c_form_page1, params: params
 
             expect(response).to render_template :edit_13614c_form
           end
 
           it "displays a flash message" do
-            put :update_13614c_form, params: params
+            put :update_13614c_form_page1, params: params
             expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
           end
         end
