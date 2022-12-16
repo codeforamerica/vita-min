@@ -3,13 +3,17 @@
 <% content_for :card do %>
   <div class="form_13614c slab slab--not-padded">
     <h1><%= @title %></h1>
+    <div id = "form_13614c-page-links">
+      <%= link_to "1", edit_13614c_form_page1_hub_client_path %> | 2 | <%= link_to "3", "#" %>
+    </div>
+    <h2><%= t(".part_3_title") %></h2>
+    <hr>
 
     <%= form_with model: @form,
                   url: update_13614c_form_page2_hub_client_path,
                   method: :put, local: true, builder: VitaMinFormBuilder,
                   html: { class: 'form-card' } do |f| %>
       <div id="income-fields" class="hub-form__row">
-        <h2><%= t(".part_3_title") %></h2>
         <%= f.cfa_select(:had_wages, "1. (B) #{t(".fields.had_wages")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_input_field(:job_count, t(".fields.job_count")) %>
         <%= f.cfa_select(:had_tips, "2. (A) #{t(".fields.had_tips")}", yes_no_unsure_options_for_select) %>
@@ -33,6 +37,7 @@
 
     <div id="expenses-fields" class="hub-form__row">
       <h2><%= t(".part_4_title") %></h2>
+      <hr>
       <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %>
       <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %>
       <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", yes_no_unsure_options_for_select) %>
