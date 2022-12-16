@@ -43,7 +43,7 @@
         <% end %>
       </ul>
 
-      <h4><%= link_to 'Get CTC', url_for(host: MultiTenantService.new(:ctc).host, controller: :session_toggles) %></h4>
+      <h4><%= link_to 'GetCTC', url_for(host: MultiTenantService.new(:ctc).host, controller: :session_toggles) %></h4>
       <ul class="list--bulleted">
         <% @ctc_times.each do |toggle_time| %>
           <li><%= toggle_time.past?(app_time) ? '🏛️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %></li>
