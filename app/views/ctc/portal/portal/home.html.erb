@@ -51,7 +51,7 @@
               <% end %>
             </div>
 
-            <% if open_for_ctc_edits? %>
+            <% if open_for_ctc_read_write? %>
               <div class="review-box__cta-button-container spacing-above-35">
                 <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
               </div>
@@ -69,11 +69,11 @@
         </div>
       </div>
       <div class="spacing-above-35">
-        <% if open_for_ctc_edits? %>
+        <% if open_for_ctc_read_write? %>
           <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
         <% end %>
       </div>
-      <% if open_for_ctc_edits? && @current_step %>
+      <% if open_for_ctc_read_write? && @current_step %>
         <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
       <% end %>
       <% if @submission.present? %>

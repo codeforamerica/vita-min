@@ -77,7 +77,7 @@ module VitaMin
     config.eitc_soft_launch = Time.find_zone("America/New_York").parse("2022-09-30 09:00:00")
     config.eitc_full_launch = Time.find_zone("America/New_York").parse("2022-10-11 09:00:00")
     config.ctc_end_of_intake = Time.find_zone("America/New_York").parse("2022-11-16 23:59:00")
-    config.ctc_end_of_edits = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
+    config.ctc_end_of_read_write = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
     config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2023-01-15 23:59:00")
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)

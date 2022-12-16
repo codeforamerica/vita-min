@@ -129,7 +129,7 @@ RSpec.configure do |config|
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_login?).and_return(true)
-    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_edits?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_read_write?).and_return(true)
     allow(Rails.configuration).to receive(:end_of_login).and_return(2.days.from_now)
     # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
     allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }

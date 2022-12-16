@@ -16,7 +16,7 @@ class SessionTogglesController < ApplicationController
       SessionToggleTime.new(name: 'EITC soft launch', property: :eitc_soft_launch),
       SessionToggleTime.new(name: 'EITC full launch', property: :eitc_full_launch),
       SessionToggleTime.new(name: 'End of intake', property: :ctc_end_of_intake),
-      SessionToggleTime.new(name: 'End of edits', property: :ctc_end_of_edits),
+      SessionToggleTime.new(name: 'End of read-write access', property: :ctc_end_of_read_write),
       SessionToggleTime.new(name: 'End of login', property: :ctc_end_of_login),
     ]
     @toggle = SessionToggle.new(session, 'app_time')

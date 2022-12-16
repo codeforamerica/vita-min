@@ -238,7 +238,7 @@ describe Ctc::Portal::PortalController do
     context "when GetCTC is not open for edits" do
       before do
         sign_in client, scope: :client
-        allow(subject).to receive(:open_for_ctc_edits?).and_return(false)
+        allow(subject).to receive(:open_for_ctc_read_write?).and_return(false)
       end
 
       it "redirects to home" do

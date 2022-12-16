@@ -319,10 +319,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_ctc_login?
 
-  def open_for_ctc_edits?
-    app_time <= Rails.configuration.ctc_end_of_edits
+  def open_for_ctc_read_write?
+    app_time <= Rails.configuration.ctc_end_of_read_write
   end
-  helper_method :open_for_ctc_edits?
+  helper_method :open_for_ctc_read_write?
 
   private
 
