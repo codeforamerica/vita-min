@@ -92,4 +92,12 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       redirect_to ctc_portal_verification_attempt_path and return
     end
   end
+
+  private
+
+  def redirect_if_closed_for_edits
+    return if open_for_ctc_edits?
+
+    redirect_back(fallback_location: Ctc::Portal::PortalController.to_path_helper(action: :home))
+  end
 end
