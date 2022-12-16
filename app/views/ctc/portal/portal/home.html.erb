@@ -68,13 +68,13 @@
           <% end %>
         </div>
       </div>
-      <% if open_for_ctc_edits? %>
-        <div class="spacing-above-35">
+      <div class="spacing-above-35">
+        <% if open_for_ctc_edits? %>
           <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
-        </div>
-        <% if @current_step %>
-          <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
         <% end %>
+      </div>
+      <% if open_for_ctc_edits? && @current_step %>
+        <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
       <% end %>
       <% if @submission.present? %>
         <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
