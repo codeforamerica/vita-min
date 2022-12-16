@@ -123,9 +123,8 @@ RSpec.feature "A client who wants help getting an ITIN" do
       # don't show SSN/ITIN page
 
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      # TODO(TY2022): Create 2022 return instead
-      pseudo_current_tax_year = 2021
-      check "#{pseudo_current_tax_year}"
+      current_tax_year = MultiTenantService.new(:gyr).current_tax_year
+      check "#{current_tax_year}"
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Let's get started")

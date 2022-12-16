@@ -40,7 +40,6 @@ module Hub
                        :needs_help_2021,
                        :needs_help_2020,
                        :needs_help_2019,
-                       :needs_help_2018,
                        :needs_help_current_year,
                        # :needs_help_previous_year_1,
                        # :needs_help_previous_year_2,
@@ -111,7 +110,7 @@ module Hub
 
     def default_intake_attributes
       {
-        needs_help_2018: "unfilled", # TODO(TY2022): Remove this column
+        needs_help_previous_year_3: "unfilled",
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",

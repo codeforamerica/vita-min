@@ -43,14 +43,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
 
-    # TODO(TY2022): Create 2022 return instead
-    pseudo_current_tax_year = 2021
+    current_tax_year = MultiTenantService.new(:gyr).current_tax_year
 
     screenshot_after do
       # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
       check "#{MultiTenantService.new(:gyr).current_tax_year - 3}"
-      check "#{pseudo_current_tax_year}"
+      check "#{current_tax_year}"
     end
     click_on "Continue"
 

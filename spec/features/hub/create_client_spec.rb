@@ -96,7 +96,6 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "spicypeter@pepper.com"
 
       within ".tax-return-list" do
-        # TODO(TY2022): expect(page).to have_text "2022"
         expect(page).to have_text "2020"
         expect(page).to have_text "2019"
         expect(page).to have_text "2022"
