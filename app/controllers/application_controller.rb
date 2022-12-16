@@ -340,6 +340,7 @@ class ApplicationController < ActionController::Base
       SessionToggle.new(session, 'app_time').value || Time.current
     end
   end
+  helper_method :app_time
 
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
