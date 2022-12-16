@@ -3,6 +3,7 @@ class Ctc::Portal::VerificationAttemptsController < Ctc::Portal::BaseAuthenticat
   helper_method :prev_path, :illustration_path, :illustration_folder
   before_action :load_verification_attempt
   before_action :redirect_if_cant_update_attempt
+  skip_before_action :redirect_if_read_only, only: [:edit, :paper_file]
 
   def edit
     @is_resubmission = current_client.verification_attempts.not_in_state(:new).exists?

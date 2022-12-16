@@ -1053,6 +1053,40 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#open_for_ctc_read_write?" do
+    around do |example|
+      freeze_time do
+        example.run
+      end
+    end
+
+    let(:past) { 1.minute.ago }
+    let(:future) { Time.now + 1.minute }
+    before do
+      allow_any_instance_of(described_class).to receive(:open_for_ctc_read_write?).and_call_original
+    end
+
+    context "when edits are closed" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_read_write).and_return(past)
+      end
+
+      it "returns false" do
+        expect(subject.open_for_ctc_read_write?).to eq false
+      end
+    end
+
+    context "when edits are open" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_read_write).and_return(future)
+      end
+
+      it "returns true" do
+        expect(subject.open_for_ctc_read_write?).to eq true
+      end
+    end
+  end
+
   describe '#show_offseason_banner?' do
     context "when open for intake" do
       before do

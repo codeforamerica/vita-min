@@ -35,22 +35,19 @@
       <% end %>
 
       <p>Relevant times in this environment:</p>
-      <h4>Get Your Refund</h4>
+      <span>(🏛️ means the past, 🔮 means the future)</span>
+      <h4><%= link_to 'Get Your Refund', url_for(host: MultiTenantService.new(:gyr).host, controller: :session_toggles) %></h4>
       <ul class="list--bulleted">
-        <li>Start of unique-links only intake: <%= timestamp(Rails.configuration.start_of_unique_links_only_intake) %></li>
-        <li>Start of open intake: <%= timestamp(Rails.configuration.start_of_open_intake) %></li>
-        <li>End of intake: <%= timestamp(Rails.configuration.end_of_intake) %></li>
-        <li>End of login: <%= timestamp(Rails.configuration.end_of_login) %></li>
+        <% @gyr_times.each do |toggle_time| %>
+          <li><%= toggle_time.past?(app_time) ? '🏛️️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %></li>
+        <% end %>
       </ul>
 
-      <h4>Get CTC</h4>
+      <h4><%= link_to 'GetCTC', url_for(host: MultiTenantService.new(:ctc).host, controller: :session_toggles) %></h4>
       <ul class="list--bulleted">
-        <li>Soft launch: <%= timestamp(Rails.configuration.ctc_soft_launch) %></li>
-        <li>Full launch: <%= timestamp(Rails.configuration.ctc_full_launch) %></li>
-        <li>EITC soft launch: <%= timestamp(Rails.configuration.eitc_soft_launch) %></li>
-        <li>EITC full launch: <%= timestamp(Rails.configuration.eitc_full_launch) %></li>
-        <li>End of intake: <%= timestamp(Rails.configuration.ctc_end_of_intake) %></li>
-        <li>End of login: <%= timestamp(Rails.configuration.ctc_end_of_login) %></li>
+        <% @ctc_times.each do |toggle_time| %>
+          <li><%= toggle_time.past?(app_time) ? '🏛️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %></li>
+        <% end %>
       </ul>
     </div>
   </div>

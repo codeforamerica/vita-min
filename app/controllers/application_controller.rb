@@ -319,6 +319,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_ctc_login?
 
+  def open_for_ctc_read_write?
+    app_time <= Rails.configuration.ctc_end_of_read_write
+  end
+  helper_method :open_for_ctc_read_write?
+
   private
 
   def locale
@@ -335,6 +340,7 @@ class ApplicationController < ActionController::Base
       SessionToggle.new(session, 'app_time').value || Time.current
     end
   end
+  helper_method :app_time
 
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)

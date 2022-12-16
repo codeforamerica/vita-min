@@ -3,6 +3,7 @@ module Ctc
     class QuestionsController < ::Questions::QuestionsController
       helper_method :wrapping_layout
       before_action :redirect_if_completed_intake_present
+      before_action :redirect_if_read_only
       skip_before_action :redirect_in_offseason
 
       private
@@ -11,6 +12,12 @@ module Ctc
         if current_intake && current_intake.completed_at.present?
           redirect_to ctc_completed_intake_path
         end
+      end
+
+      def redirect_if_read_only
+        return if open_for_ctc_read_write?
+
+        redirect_back(fallback_location: Ctc::Portal::PortalController.to_path_helper(action: :home))
       end
 
       def wrapping_layout

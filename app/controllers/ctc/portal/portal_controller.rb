@@ -3,6 +3,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   before_action :load_current_submission
   before_action :ensure_current_submission, except: [:home]
   before_action :redirect_if_identity_verification_needed, only: [:home]
+  skip_before_action :redirect_if_read_only, only: [:home]
 
   def home
     if @submission.nil?
