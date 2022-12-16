@@ -1,4 +1,5 @@
 class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedController
+  skip_before_action :redirect_if_read_only
   include FilesConcern
 
   def show
