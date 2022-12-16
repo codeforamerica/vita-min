@@ -93,6 +93,30 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
     end
 
+    scenario "When I cancel from 13614c page 2, my progress is not saved and I get routed back to the client hub", js: true do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      click_on "2"
+
+      within "#income-fields" do
+        select "Yes", from: "hub_update13614c_form_page2_had_wages"
+      end
+
+      # delete_link = find_link I18n.t("general.cancel")
+      # expect(delete_link[:confirm]).to eq 'Are you sure you want to do that?'
+      page.accept_alert 'Are you sure you want to do that?' do
+        click_on I18n.t("general.cancel")
+      end
+      expect(page).to have_text("Edit 13614-C") # navigated back to client profile
+      intake = client.intake.reload
+      expect(intake.had_wages_yes?).to eq false # check that we did not persist information
+
+
+    end
+
     scenario "I can see and update the 13614c page 2 form" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
@@ -103,8 +127,6 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
-      # TODO: add more expectations for existing fields?
-      # TODO: skill filling some out to see that they default to unfilled?
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"

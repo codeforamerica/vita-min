@@ -1795,7 +1795,6 @@ RSpec.describe Hub::ClientsController do
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
           expect(response).to render_template :edit_13614c_form_page2
 
-          # TODO: add expectation for system note
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
@@ -1815,9 +1814,6 @@ RSpec.describe Hub::ClientsController do
           # TODO: add expectation for last_13614c_update_at
         end
 
-        # context "with invalid params" do
-        #   # TODO: add test for totally invalid params? anything can be nil so this might be unnecessary
-        # end
       end
     end
   end

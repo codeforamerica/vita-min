@@ -154,6 +154,10 @@ module Hub
       end
     end
 
+    def cancel_13614c_page2
+      redirect_to hub_client_path(id: @client.id)
+    end
+
     # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page
     # Used to link to client pages when identifying duplicated data
     def resource_to_client_redirect

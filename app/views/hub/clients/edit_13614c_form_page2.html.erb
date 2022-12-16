@@ -54,6 +54,8 @@
       <button class="button button--cta" type="submit">
         <%= t("general.save") %>
       </button>
+      <%= link_to t("general.cancel"), cancel_13614c_page2_hub_client_path, class: "button button--danger",
+                  data: { confirm: "Are you sure you want to do that?" } %>
     <% end %>
   </div>
 <% end %>
