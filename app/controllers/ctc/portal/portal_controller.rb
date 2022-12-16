@@ -3,7 +3,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   before_action :load_current_submission
   before_action :ensure_current_submission, except: [:home]
   before_action :redirect_if_identity_verification_needed, only: [:home]
-  before_action :redirect_if_read_only, except: [:home]
+  skip_before_action :redirect_if_read_only, only: [:home]
 
   def home
     if @submission.nil?
@@ -91,13 +91,5 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     if !current_client.identity_decision_made? && current_client.verification_attempts.reviewing.empty?
       redirect_to ctc_portal_verification_attempt_path and return
     end
-  end
-
-  private
-
-  def redirect_if_read_only
-    return if open_for_ctc_read_write?
-
-    redirect_back(fallback_location: Ctc::Portal::PortalController.to_path_helper(action: :home))
   end
 end
