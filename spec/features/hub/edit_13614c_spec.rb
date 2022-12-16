@@ -105,16 +105,12 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
       end
 
-      # delete_link = find_link I18n.t("general.cancel")
-      # expect(delete_link[:confirm]).to eq 'Are you sure you want to do that?'
       page.accept_alert 'Are you sure you want to do that?' do
         click_on I18n.t("general.cancel")
       end
       expect(page).to have_text("Edit 13614-C") # navigated back to client profile
       intake = client.intake.reload
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
-
-
     end
 
     scenario "I can see and update the 13614c page 2 form" do
