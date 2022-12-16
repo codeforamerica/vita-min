@@ -1063,7 +1063,7 @@ RSpec.describe ApplicationController do
     let(:past) { 1.minute.ago }
     let(:future) { Time.now + 1.minute }
     before do
-      allow_any_instance_of(described_class).to receive(:open_for_ctc_login?).and_call_original
+      allow_any_instance_of(described_class).to receive(:open_for_ctc_edits?).and_call_original
     end
 
     context "when edits are closed" do
