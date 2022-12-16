@@ -103,16 +103,17 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
+      # TODO: add more expectations for existing fields?
+      # TODO: skill filling some out to see that they default to unfilled?
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
-        # TODO: add more expectations for existing fields?
 
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
         select "No", from: "hub_update13614c_form_page2_had_tips"
         select "Yes", from: "hub_update13614c_form_page2_had_interest_income"
         select "Yes", from: "hub_update13614c_form_page2_had_local_tax_refund"
-        select "No", from: "hub_update13614c_form_page2_paid_alimony"
+        select "No", from: "hub_update13614c_form_page2_received_alimony"
         select "I don't know", from: "hub_update13614c_form_page2_had_self_employment_income"
         select "No", from: "hub_update13614c_form_page2_has_crypto_income"
         select "I don't know", from: "hub_update13614c_form_page2_had_asset_sale_income"
@@ -126,28 +127,34 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       within "#expenses-fields" do
         select "Yes", from: "hub_update13614c_form_page2_paid_alimony"
+        select "No", from: "hub_update13614c_form_page2_paid_retirement_contributions"
+        select "Yes", from: "hub_update13614c_form_page2_paid_dependent_care"
+        select "I don't know", from: "hub_update13614c_form_page2_paid_school_supplies"
+        select "No", from: "hub_update13614c_form_page2_paid_student_loan_interest"
       end
-      #
-      # within "#life-events-fields" do
-      #
-      # end
+
+      within "#life-events-fields" do
+        select "Yes", from: "hub_update13614c_form_page2_had_hsa"
+        select "No", from: "hub_update13614c_form_page2_had_debt_forgiven"
+        select "No", from: "hub_update13614c_form_page2_adopted_child"
+        select "I don't know", from: "hub_update13614c_form_page2_had_tax_credit_disallowed"
+        select "No", from: "hub_update13614c_form_page2_bought_energy_efficient_items"
+        select "No", from: "hub_update13614c_form_page2_received_homebuyer_credit"
+        select "No", from: "hub_update13614c_form_page2_made_estimated_tax_payments"
+      end
 
       click_on I18n.t("general.save")
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
       expect(page).to have_text I18n.t("general.changes_saved")
 
-
       intake = client.intake.reload
-
-      puts intake.paid_alimony
       expect(intake.had_wages_yes?).to eq true
       expect(intake.had_tips_no?).to eq true
       expect(intake.had_interest_income_yes?).to eq true
       expect(intake.had_local_tax_refund_yes?).to eq true
-      expect(intake.paid_alimony_no?).to eq true
       expect(intake.had_self_employment_income_unsure?).to eq true
-      expect(intake.has_crypto_income_no?).to eq true
+      expect(intake.has_crypto_income).to eq false
       expect(intake.had_asset_sale_income_unsure?).to eq true
       expect(intake.had_disability_income_no?).to eq true
       expect(intake.had_retirement_income_yes?).to eq true
@@ -156,7 +163,19 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_rental_income_no?).to eq true
       expect(intake.had_other_income_unsure?).to eq true
 
-      # TODO: check database for correctly updated answers?
+      expect(intake.paid_alimony_yes?).to eq true
+      expect(intake.paid_retirement_contributions_no?).to eq true
+      expect(intake.paid_dependent_care_yes?).to eq true
+      expect(intake.paid_school_supplies_unsure?).to eq true
+      expect(intake.paid_student_loan_interest_no?).to eq true
+
+      expect(intake.had_hsa_yes?).to eq true
+      expect(intake.had_debt_forgiven_no?).to eq true
+      expect(intake.adopted_child_no?).to eq true
+      expect(intake.had_tax_credit_disallowed_unsure?).to eq true
+      expect(intake.bought_energy_efficient_items_no?).to eq true
+      expect(intake.received_homebuyer_credit_no?).to eq true
+      expect(intake.made_estimated_tax_payments_no?).to eq true
     end
   end
 end

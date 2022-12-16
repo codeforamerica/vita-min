@@ -1561,7 +1561,7 @@ RSpec.describe Hub::ClientsController do
     let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", ever_married: "yes", dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
 
-    describe "#update_13614c_form" do
+    describe "#update_13614c_form_page1" do
       let(:params) {
         {
           id: client.id,
@@ -1711,82 +1711,105 @@ RSpec.describe Hub::ClientsController do
           end
         end
       end
+    end
 
-      describe "#update_13614c_form_page2" do
-        let(:params) {
-          {
-            id: client.id,
-            hub_update13614c_form_page2: {
-              job_count: "3",
-              had_wages: "yes",
-              had_tips: "unfilled",
-              had_interest_income: "unfilled",
-              had_local_tax_refund: "unfilled",
-              paid_alimony: "unfilled",
-              had_self_employment_income: "unfilled",
-              has_crypto_income: false,
-              had_asset_sale_income: "unfilled",
-              had_disability_income: "no",
-              had_retirement_income: "no",
-              had_unemployment_income: "yes",
-              had_social_security_income: "unsure",
-              had_rental_income: "unsure",
-              had_other_income: "no",
-            }
+    describe "#update_13614c_form_page2" do
+      let(:params) {
+        {
+          id: client.id,
+          hub_update13614c_form_page2: {
+            job_count: "3",
+            had_wages: "yes",
+            had_tips: "unfilled",
+            had_interest_income: "unfilled",
+            had_local_tax_refund: "unfilled",
+            received_alimony: "unfilled",
+            had_self_employment_income: "unfilled",
+            has_crypto_income: false,
+            had_asset_sale_income: "unfilled",
+            had_disability_income: "no",
+            had_retirement_income: "no",
+            had_unemployment_income: "yes",
+            had_social_security_income: "unsure",
+            had_rental_income: "unsure",
+            had_other_income: "no",
+            paid_alimony: "unfilled",
+            paid_retirement_contributions: "unfilled",
+            paid_dependent_care: "unfilled",
+            paid_school_supplies: "unfilled",
+            paid_student_loan_interest: "unfilled",
+            had_hsa: "unfilled",
+            had_debt_forgiven: "unfilled",
+            adopted_child: "unfilled",
+            had_tax_credit_disallowed: "unfilled",
+            bought_energy_efficient_items: "unfilled",
+            received_homebuyer_credit: "unfilled",
+            made_estimated_tax_payments: "unfilled"
           }
         }
+      }
 
-        it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page2
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page2
 
-        context "with a signed in user" do
-          let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
-          before do
-            sign_in user
-          end
+        before do
+          sign_in user
+        end
 
-          it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
-            # TODO: add expectation for pdf job
-            # expect do
-              put :update_13614c_form_page2, params: params
-            # end.to have_enqueued_job(GenerateF13614cPdfJob)
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+          # TODO: add expectation for pdf job
+          # expect do
+          put :update_13614c_form_page2, params: params
+          # end.to have_enqueued_job(GenerateF13614cPdfJob)
 
-              intake = client.intake.reload
-              expect(intake.job_count).to eq 3
-              expect(intake.had_wages_yes?).to eq true
-              expect(intake.had_tips_unfilled?).to eq true
-              expect(intake.had_interest_income_unfilled?).to eq true
-              expect(intake.had_local_tax_refund_unfilled?).to eq true
-              expect(intake.paid_alimony_unfilled?).to eq true
-              expect(intake.had_self_employment_income_unfilled?).to eq true
-              expect(intake.has_crypto_income).to eq false
-              expect(intake.had_asset_sale_income_unfilled?).to eq true
-              expect(intake.had_disability_income_no?).to eq true
-              expect(intake.had_retirement_income_no?).to eq true
-              expect(intake.had_unemployment_income_yes?).to eq true
-              expect(intake.had_social_security_income_unsure?).to eq true
-              expect(intake.had_rental_income_unsure?).to eq true
-              expect(intake.had_other_income_no?).to eq true
-            # TODO: add expectation for rest of params (parts IV and V)
+          intake = client.intake.reload
+          expect(intake.job_count).to eq 3
+          expect(intake.had_wages_yes?).to eq true
+          expect(intake.had_tips_unfilled?).to eq true
+          expect(intake.had_interest_income_unfilled?).to eq true
+          expect(intake.had_local_tax_refund_unfilled?).to eq true
+          expect(intake.paid_alimony_unfilled?).to eq true
+          expect(intake.had_self_employment_income_unfilled?).to eq true
+          expect(intake.has_crypto_income).to eq false
+          expect(intake.had_asset_sale_income_unfilled?).to eq true
+          expect(intake.had_disability_income_no?).to eq true
+          expect(intake.had_retirement_income_no?).to eq true
+          expect(intake.had_unemployment_income_yes?).to eq true
+          expect(intake.had_social_security_income_unsure?).to eq true
+          expect(intake.had_rental_income_unsure?).to eq true
+          expect(intake.had_other_income_no?).to eq true
+          expect(intake.paid_alimony_unfilled?).to eq true
+          expect(intake.paid_retirement_contributions_unfilled?).to eq true
+          expect(intake.paid_dependent_care_unfilled?).to eq true
+          expect(intake.paid_school_supplies_unfilled?).to eq true
+          expect(intake.paid_student_loan_interest_unfilled?).to eq true
+          expect(intake.had_hsa_unfilled?).to eq true
+          expect(intake.had_debt_forgiven_unfilled?).to eq true
+          expect(intake.adopted_child_unfilled?).to eq true
+          expect(intake.had_tax_credit_disallowed_unfilled?).to eq true
+          expect(intake.bought_energy_efficient_items_unfilled?).to eq true
+          expect(intake.received_homebuyer_credit_unfilled?).to eq true
+          expect(intake.made_estimated_tax_payments_unfilled?).to eq true
 
-              expect(flash[:notice]).to eq I18n.t("general.changes_saved")
-              expect(response).to render_template :edit_13614c_form_page2
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to render_template :edit_13614c_form_page2
 
-            # TODO: add expectation for system note
-            # system_note = SystemNote::ClientChange.last
-            # expect(system_note.client).to eq(client)
-            # expect(system_note.user).to eq(user)
-            # expect(system_note.data['changes']).to match({
-            #                                                "primary_last_name" => [intake.primary.last_name, "Name"],
-            #                                                "primary_first_name" => [intake.primary.first_name, "Updated"],
-            #                                              })
+          # TODO: add expectation for system note
+          # system_note = SystemNote::ClientChange.last
+          # expect(system_note.client).to eq(client)
+          # expect(system_note.user).to eq(user)
+          # expect(system_note.data['changes']).to match({
+          #                                                "primary_last_name" => [intake.primary.last_name, "Name"],
+          #                                                "primary_first_name" => [intake.primary.first_name, "Updated"],
+          #                                              })
 
-            # TODO: add expectation for last_13614c_update_at
-          end
+          # TODO: add expectation for last_13614c_update_at
+        end
 
-          context "with invalid params" do
+        context "with invalid params" do
           # TODO: add test for totally invalid params? anything can be nil so this might be unnecessary
-          end
         end
       end
     end

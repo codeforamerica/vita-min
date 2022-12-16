@@ -52,7 +52,7 @@ module Hub
                        :had_tips,
                        :had_interest_income,
                        :had_local_tax_refund,
-                       :paid_alimony,
+                       :received_alimony,
                        :had_self_employment_income,
                        :has_crypto_income,
                        :had_asset_sale_income,
@@ -61,7 +61,19 @@ module Hub
                        :had_unemployment_income,
                        :had_social_security_income,
                        :had_rental_income,
-                       :had_other_income
+                       :had_other_income,
+                       :paid_alimony,
+                       :paid_retirement_contributions,
+                       :paid_dependent_care,
+                       :paid_school_supplies,
+                       :paid_student_loan_interest,
+                       :had_hsa,
+                       :had_debt_forgiven,
+                       :adopted_child,
+                       :had_tax_credit_disallowed,
+                       :bought_energy_efficient_items,
+                       :received_homebuyer_credit,
+                       :made_estimated_tax_payments
 
     attr_accessor :client
 

@@ -699,7 +699,7 @@ es:
           has_crypto_income: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
           job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
           made_estimated_tax_payments: "¿Recibir pagos avanzados de crédito fiscal por hijos?"
-          paid_alimony: 48 / 5,000 Translation results Translation result ¿Renta de pensión alimenticia o pagos separados de manutención?
+          paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"
           paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
           paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
           paid_school_supplies: "¿Para los suministros utilizados como educador elegible, como un maestro, un ayudante de maestro, un consejero, etc.?"

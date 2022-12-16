@@ -33,7 +33,7 @@
 
     <div id="expenses-fields" class="hub-form__row">
       <h2><%= t(".part_4_title") %></h2>
-      <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.received_alimony")}", yes_no_unsure_options_for_select) %>
+      <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %>
       <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %>
       <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", yes_no_unsure_options_for_select) %>
       <%= f.cfa_select(:paid_school_supplies, "6. (B) #{t(".fields.paid_school_supplies")}", yes_no_unsure_options_for_select) %>
