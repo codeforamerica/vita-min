@@ -7,6 +7,10 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
     before { login_as user }
 
+    around do |example|
+      Time.use_zone(user.timezone) { example.run }
+    end
+
     context "without clients" do
       scenario "I should see the empty message" do
         visit hub_clients_path
