@@ -319,6 +319,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_ctc_login?
 
+  def open_for_ctc_edits?
+    app_time <= Rails.configuration.ctc_end_of_edits
+  end
+  helper_method :open_for_ctc_edits?
+
   private
 
   def locale

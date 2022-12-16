@@ -14,7 +14,7 @@ describe Ctc::Portal::PortalController do
 
       context "when the client has a fraud held submission and has not yet been verified" do
         before do
-          client.tax_returns.first.update(efile_submissions: [ create(:efile_submission, :fraud_hold)])
+          client.tax_returns.first.update(efile_submissions: [create(:efile_submission, :fraud_hold)])
           allow(client).to receive(:identity_verified_at).and_return nil
         end
 
@@ -40,7 +40,7 @@ describe Ctc::Portal::PortalController do
 
       context "when an efile submission exists" do
         before do
-          client.tax_returns.first.update(efile_submissions: [ create(:efile_submission, :rejected) ])
+          client.tax_returns.first.update(efile_submissions: [create(:efile_submission, :rejected)])
         end
 
         it "renders with the submission status and nil current step" do
@@ -91,14 +91,14 @@ describe Ctc::Portal::PortalController do
       let(:submission) { create(:efile_submission, :rejected, tax_return: client.tax_returns.first) }
       let(:params) do
         { ctc_resubmit_form:
-          { "device_id"=>"2ED97833F3E12B652F96140884F867927DA6E12F",
-            "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-            "browser_language"=>"en-US",
-            "platform"=>"MacIntel",
-            "client_system_time"=>"Tue Aug 31 2021 11:46:22 GMT-0500 (Central Daylight Time)",
-            "timezone_offset"=>"+300",
-            "timezone" => "America/Chicago"
-          }
+            { "device_id" => "2ED97833F3E12B652F96140884F867927DA6E12F",
+              "user_agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+              "browser_language" => "en-US",
+              "platform" => "MacIntel",
+              "client_system_time" => "Tue Aug 31 2021 11:46:22 GMT-0500 (Central Daylight Time)",
+              "timezone_offset" => "+300",
+              "timezone" => "America/Chicago"
+            }
         }
       end
       before do
@@ -112,7 +112,7 @@ describe Ctc::Portal::PortalController do
         expect {
           put :resubmit, params: params
         }.to change(client.efile_security_informations, :count).by(1)
-         .and change(client.efile_submissions, :count).by(1)
+                                                               .and change(client.efile_submissions, :count).by(1)
 
         client.reload
         expect(client.efile_security_informations.last.ip_address).to be_present
@@ -125,9 +125,9 @@ describe Ctc::Portal::PortalController do
         system_note = SystemNote::CtcPortalAction.last
         expect(system_note.client).to eq(client)
         expect(system_note.data).to match({
-          'model' => submission.to_global_id.to_s,
-          'action' => 'resubmitted'
-        })
+                                            'model' => submission.to_global_id.to_s,
+                                            'action' => 'resubmitted'
+                                          })
         expect(submission.last_transition_to(:resubmitted)).to be_present
         expect(submission.current_state).to eq("resubmitted") # transitions to resubmitted and then to bundling
         expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :home)

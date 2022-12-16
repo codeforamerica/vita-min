@@ -51,9 +51,11 @@
               <% end %>
             </div>
 
-            <div class="review-box__cta-button-container spacing-above-35">
-              <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
-            </div>
+            <% if open_for_ctc_edits? %>
+              <div class="review-box__cta-button-container spacing-above-35">
+                <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
+              </div>
+            <% end %>
           <% else %>
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           <% end %>
@@ -64,13 +66,15 @@
               <%= I18n.t("views.ctc.portal.home.imperfect_return_indicator_text") %>
             </div>
           <% end %>
-          </div>
+        </div>
       </div>
-      <div class="spacing-above-35">
-        <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
-      </div>
-      <% if @current_step %>
-        <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
+      <% if open_for_ctc_edits? %>
+        <div class="spacing-above-35">
+          <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
+        </div>
+        <% if @current_step %>
+          <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
+        <% end %>
       <% end %>
       <% if @submission.present? %>
         <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
