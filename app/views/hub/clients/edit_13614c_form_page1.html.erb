@@ -7,7 +7,7 @@
       update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
     <h2>Part I – Your Personal Information</h2>
     <div id = "form_13614c-page-links">
-      1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path %> | <%= link_to "3", "#" %>
+      1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
     </div>
     <hr>
     <%= form_with model: @form,
@@ -135,6 +135,12 @@
       <button class="button button--cta" type="submit">
         <%= t("general.save") %>
       </button>
+      <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
+                  data: { confirm: "Are you sure you want to do that?" } %>
     <% end %>
+
+    <div id = "form_13614c-page-links">
+      1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
+    </div>
   </div>
 <% end %>

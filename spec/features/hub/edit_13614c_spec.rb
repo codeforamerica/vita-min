@@ -93,17 +93,44 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
     end
 
+    # TODO: investigate: test fails when whole file is run, passes alone??
+    scenario "When I click to another page without saving, my progress is not saved and I get a confirmation dialogue before proceeding", js: true do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      within "#primary-info" do
+        fill_in 'First Name', with: 'Bloop'
+      end
+
+      page.accept_alert "Are you sure you want to do that?" do
+        click_on "2", match: :first
+      end
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
+      expect(client.intake.reload.primary_first_name).to eq "Colleen"
+    end
+
     scenario "When I cancel from 13614c page 2, my progress is not saved and I get routed back to the client hub", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2"
+      page.accept_alert "Are you sure you want to do that?" do
+        click_on "2", match: :first
+      end
 
       within "#income-fields" do
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
       end
+
+      page.dismiss_prompt 'Are you sure you want to do that?' do
+        click_on I18n.t("general.cancel")
+      end
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
 
       page.accept_alert 'Are you sure you want to do that?' do
         click_on I18n.t("general.cancel")
@@ -113,13 +140,15 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
     end
 
-    scenario "I can see and update the 13614c page 2 form" do
+    scenario "I can see and update the 13614c page 2 form", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2"
+      page.accept_alert "Are you sure you want to do that?" do
+        click_on "2", match: :first
+      end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"

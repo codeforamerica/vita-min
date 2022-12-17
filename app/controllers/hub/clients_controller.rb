@@ -154,7 +154,7 @@ module Hub
       end
     end
 
-    def cancel_13614c_page2
+    def cancel_13614c
       redirect_to hub_client_path(id: @client.id)
     end
 
