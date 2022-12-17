@@ -5,11 +5,15 @@
     <h1><%= @title %></h1>
     <p>Last client 13614-C
       update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
-    <h2>Part I – Your Personal Information</h2>
-    <div id = "form_13614c-page-links">
-      1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
+
+    <div style="display: flex; justify-content: space-between;">
+      <h2>Part I – Your Personal Information</h2>
+
+      <div id = "form_13614c-page-links">
+        1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
+      </div>
     </div>
-    <hr>
+    <hr style="margin-top: 0;"/>
     <%= form_with model: @form,
                   url: update_13614c_form_page1_hub_client_path,
                   method: :put, local: true, builder: VitaMinFormBuilder,
@@ -80,7 +84,7 @@
 
       <div id="marital-status-fields">
         <h2>Part II – Marital Status and Household Information</h2>
-        <hr>
+        <hr style="margin-top: 0;"/>
         <h3><%= t(".what_was_your_marital_status", current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></h3>
         <div class="hub-form__row">
           <%= f.hub_checkbox(:never_married, t(".fields.never_married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
@@ -132,15 +136,20 @@
         <%= link_to_add_fields t("views.shared.dependents_fields.add_dependent"), f, :dependents, { class: "button button--small", target: '#dependents-table tbody' }, partial: "shared/13614c_dependent" %>
       </div>
 
-      <button class="button button--cta" type="submit">
-        <%= t("general.save") %>
-      </button>
-      <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
-                  data: { confirm: "Are you sure you want to do that?" } %>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <button class="button button--cta" type="submit">
+            <%= t("general.save") %>
+          </button>
+          <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
+                      data: { confirm: "Are you sure you want to do that?" } %>
+        </div>
+
+        <div id = "form_13614c-page-links">
+          1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
+        </div>
+      </div>
     <% end %>
 
-    <div id = "form_13614c-page-links">
-      1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: "Are you sure you want to do that?" } %> | <%= link_to "3", "#" %>
-    </div>
   </div>
 <% end %>
