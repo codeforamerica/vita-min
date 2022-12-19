@@ -146,7 +146,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       check "I had a permanent disability"
       check "I was legally blind"
       check "I was a full-time student in a college or a trade school"
-      check "I was in the US on a Visa"
+      check "I was a US citizen"
     end
     click_on "Continue"
 
