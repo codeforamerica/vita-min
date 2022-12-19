@@ -672,20 +672,20 @@ en:
         fields:
           adopted_child: Adopt a child?
           bought_energy_efficient_items: Purchase and install energy-efficient home items?
-          had_asset_sale_income: 9. (A) Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
+          had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
           had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
-          had_disability_income: 10. (B) Disability income?
+          had_disability_income: Disability income?
           had_hsa: Have a Health Savings Account?
-          had_interest_income: '4. (B) Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
+          had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
           had_local_tax_refund: Refund or state/local income taxes?
-          had_other_income: 16. (B) Other income?
-          had_rental_income: 15. (M) Income (or loss) from Rental Property?
-          had_retirement_income: 11. (A) Retirement income or payments from Pensions. Annuities, and or IRA?
+          had_other_income: Other income?
+          had_rental_income: Income (or loss) from Rental Property?
+          had_retirement_income: Retirement income or payments from Pensions. Annuities, and or IRA?
           had_self_employment_income: Self-Employment income?
-          had_social_security_income: 13. (B) Social Security or Railroad Retirement Benefits?
+          had_social_security_income: Social Security or Railroad Retirement Benefits?
           had_tax_credit_disallowed: Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
           had_tips: Tip Income?
-          had_unemployment_income: 12. (B) Unemployment Compensation?
+          had_unemployment_income: Unemployment Compensation?
           had_wages: Wages or Salary? (Form W-2)
           has_crypto_income: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
           job_count: If yes, how many jobs did you have last year?
