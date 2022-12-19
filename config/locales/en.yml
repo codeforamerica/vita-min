@@ -269,6 +269,7 @@ en:
     coalition: Coalition
     coalition_lead: Coalition lead
     confirm: Confirm
+    confirm_exit_without_saving: Navigating away from this page will not save your changes. Continue anyway?
     contact_methods:
       email: email
       sms_phone_number: text

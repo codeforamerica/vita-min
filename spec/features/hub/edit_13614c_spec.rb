@@ -104,7 +104,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         fill_in 'First Name', with: 'Bloop'
       end
 
-      page.accept_alert "Are you sure you want to do that?" do
+      page.accept_alert I18n.t("general.confirm_exit_without_saving") do
         click_on "2", match: :first
       end
 
@@ -118,7 +118,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      page.accept_alert "Are you sure you want to do that?" do
+      page.accept_alert I18n.t("general.confirm_exit_without_saving") do
         click_on "2", match: :first
       end
 
@@ -146,7 +146,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      page.accept_alert "Are you sure you want to do that?" do
+      page.accept_alert I18n.t("general.confirm_exit_without_saving") do
         click_on "2", match: :first
       end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")

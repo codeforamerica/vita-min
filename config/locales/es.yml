@@ -269,6 +269,7 @@ es:
     coalition: Coalición
     coalition_lead: Líder de coalición
     confirm: Confirmar
+    confirm_exit_without_saving: Salir de esta página no guardará los cambios. ¿continuar de todos modos?
     contact_methods:
       email: email
       sms_phone_number: mensaje de texto
