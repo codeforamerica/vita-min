@@ -112,7 +112,8 @@ module Hub
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",
-        completed_at: DateTime.now
+        completed_at: DateTime.now,
+        product_year: MultiTenantService.new(:gyr).current_product_year
       }
     end
 

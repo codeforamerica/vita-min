@@ -161,6 +161,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default("unfilled"), not null
+#  product_year                                         :integer          not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null

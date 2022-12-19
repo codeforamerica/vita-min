@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_205356) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1160,6 +1160,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_205356) do
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
+    t.integer "product_year", null: false
     t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false

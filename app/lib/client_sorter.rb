@@ -1,7 +1,7 @@
 class ClientSorter
   QUICK_FILTERS = [
-    [{last_contact: "approaching_sla", active_returns: true}, "Approaching SLA"],
-    [{last_contact: "breached_sla", active_returns: true}, "Breached SLA"]
+    [{ last_contact: "approaching_sla", active_returns: true }, "Approaching SLA"],
+    [{ last_contact: "breached_sla", active_returns: true }, "Breached SLA"]
   ]
 
   attr_reader :current_user
@@ -36,8 +36,8 @@ class ClientSorter
               else
                 @clients.after_consent
               end
-    # Force an inner join to `intakes` to exclude clients from previous years
-    clients = clients.joins(:intake)
+    # Filter on product_year to only show clients who used this-year's product
+    clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake", product_year: MultiTenantService.new(:ctc).current_product_year).or(Intake.where(type: "Intake::GyrIntake", product_year: MultiTenantService.new(:gyr).current_product_year)))
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 

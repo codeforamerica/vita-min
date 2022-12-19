@@ -161,6 +161,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
+#  product_year                                         :integer          not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -372,7 +373,7 @@ class Intake < ApplicationRecord
     }
   }
 
-  scope :accessible_intakes, -> { where(primary_consented_to_service: "yes") }
+  scope :accessible_intakes, -> { where(primary_consented_to_service: "yes", product_year: MultiTenantService.new(:gyr).current_product_year) }
 
   def duplicates
     return itin_duplicates if itin_applicant?

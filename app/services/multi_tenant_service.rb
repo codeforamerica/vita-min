@@ -75,4 +75,7 @@ class MultiTenantService
     filing_years.without(current_tax_year)
   end
 
+  def current_product_year
+    2022
+  end
 end
