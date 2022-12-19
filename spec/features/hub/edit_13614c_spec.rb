@@ -126,13 +126,13 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
       end
 
-      page.dismiss_prompt 'Are you sure you want to do that?' do
+      page.dismiss_prompt I18n.t('general.confirm_exit_without_saving') do
         click_on I18n.t("general.cancel")
       end
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
 
-      page.accept_alert 'Are you sure you want to do that?' do
+      page.accept_alert I18n.t('general.confirm_exit_without_saving') do
         click_on I18n.t("general.cancel")
       end
       expect(page).to have_text("Edit 13614-C") # navigated back to client profile
