@@ -4466,7 +4466,7 @@ en:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_on_visa: I was in the US on a Visa
+          was_citizen: I was a US citizen
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
