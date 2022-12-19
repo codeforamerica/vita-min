@@ -107,7 +107,6 @@ module Hub
 
     def default_intake_attributes
       {
-        needs_help_previous_year_3: "unfilled",
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",
@@ -116,7 +115,8 @@ module Hub
     end
 
     def create_tax_return_for_year?(year)
-      attributes_for(:intake)["needs_help_#{year}".to_sym] == "yes" || attributes_for(:intake)["needs_help_current_year".to_sym] == "yes"
+      current_year = MultiTenantService.new(:gyr).current_tax_year
+      attributes_for(:intake)["needs_help_previous_year_#{current_year.to_i - year.to_i}".to_sym] == "yes" || attributes_for(:intake)["needs_help_current_year".to_sym] == "yes"
     end
 
     def tax_return_required_fields_valid

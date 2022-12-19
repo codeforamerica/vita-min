@@ -31,7 +31,7 @@
                     <%= ff.hidden_field :year %>
                     <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
                   <% else %>
-                    <span><%= f.hub_checkbox("needs_help_#{ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
+                    <span><%= f.hub_checkbox("needs_help_previous_year_#{@current_year - ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
                     <%= ff.hidden_field :year %>
                     <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
                   <% end %>

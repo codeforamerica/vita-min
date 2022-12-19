@@ -43,10 +43,9 @@ RSpec.describe Hub::CreateClientForm do
         spouse_was_blind: "yes",
         filing_joint: "yes",
         timezone: "America/Chicago",
-        needs_help_2020: "yes",
-        needs_help_2019: "yes",
-        needs_help_2018: "yes",
-        needs_help_2021: "yes",
+        needs_help_previous_year_3: "yes",
+        needs_help_previous_year_2: "yes",
+        needs_help_previous_year_1: "yes",
         needs_help_current_year: "yes",
         state_of_residence: "CA",
         service_type: "drop_off",
@@ -152,9 +151,9 @@ RSpec.describe Hub::CreateClientForm do
         end.to change(TaxReturn, :count).by 4
         tax_returns = Client.last.tax_returns
         intake = Intake.last
-        expect(intake.needs_help_2020).to eq "yes"
-        expect(intake.needs_help_2019).to eq "yes"
-        expect(intake.needs_help_2021).to eq "yes"
+        expect(intake.needs_help_previous_year_2).to eq "yes"
+        expect(intake.needs_help_previous_year_3).to eq "yes"
+        expect(intake.needs_help_previous_year_1).to eq "yes"
         expect(intake.needs_help_current_year).to eq "yes"
         expect(tax_returns.map(&:year)).to match_array [2022, 2021, 2020, 2019]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
@@ -328,9 +327,9 @@ RSpec.describe Hub::CreateClientForm do
 
       context "when no tax return years are selected for prep" do
         before do
-          params[:needs_help_2019] = "no"
-          params[:needs_help_2020] = "no"
-          params[:needs_help_2021] = "no"
+          params[:needs_help_previous_year_3] = "no"
+          params[:needs_help_previous_year_2] = "no"
+          params[:needs_help_previous_year_1] = "no"
           params[:needs_help_current_year] = "no"
         end
 
