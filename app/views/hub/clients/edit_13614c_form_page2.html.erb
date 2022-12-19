@@ -77,10 +77,48 @@
       <div id="expenses-fields">
         <h2><%= t(".part_4_title") %></h2>
         <hr style="margin-top: 0;" />
-        <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %><br/>
-        <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %><br/>
+        <div class="grid">
+          <div class="grid__item width-one-half">
+          <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %><br/>
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for recepient ssn
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__item width-one-half">
+          <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %><br/>
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for retirement account types
+          </div>
+        </div>
+        <br />
+        placeholder for 3
+        <br />
+        <br />
+        <div class="grid">
+          <div class="grid__item width-one-half">
+            placeholder for 4
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for which tax year
+          </div>
+        </div>
+
+        <br />
+
         <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", yes_no_unsure_options_for_select) %><br/>
         <%= f.cfa_select(:paid_school_supplies, "6. (B) #{t(".fields.paid_school_supplies")}", yes_no_unsure_options_for_select) %><br/>
+        <div class="grid">
+          <div class="grid__item width-one-half">
+            placeholder for 7
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for how much
+          </div>
+        </div>
+        <br />
         <%= f.cfa_select(:paid_student_loan_interest, "8. (B) #{t(".fields.paid_student_loan_interest")}", yes_no_unsure_options_for_select) %>
       </div>
 
@@ -93,6 +131,11 @@
         <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %><br/>
         <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", yes_no_unsure_options_for_select) %><br/>
         <%= f.cfa_select(:received_homebuyer_credit, "6. (A) #{t(".fields.received_homebuyer_credit")}", yes_no_unsure_options_for_select) %><br/>
+        placeholder for 7 <br />
+        placeholder for 8 <br />
+        placeholder for 9 <br />
+        placeholder for 10 <br />
+        <br />
         <%= f.cfa_select(:made_estimated_tax_payments, "11. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
       </div>
 
