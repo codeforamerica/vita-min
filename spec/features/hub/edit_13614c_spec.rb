@@ -93,7 +93,6 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
     end
 
-    # TODO: investigate: test fails when whole file is run, passes alone??
     scenario "When I click to another page without saving, my progress is not saved and I get a confirmation dialogue before proceeding", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
@@ -105,7 +104,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
 
       page.accept_alert I18n.t("general.confirm_exit_without_saving") do
-        click_on "2", match: :first
+        click_on "2", id: "top-pagination-link"
       end
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
@@ -119,7 +118,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
 
       page.accept_alert I18n.t("general.confirm_exit_without_saving") do
-        click_on "2", match: :first
+        click_on "2", id: "top-pagination-link"
       end
 
       within "#income-fields" do
