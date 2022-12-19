@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_205356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -993,6 +993,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
     t.index ["created_at"], name: "index_incoming_text_messages_on_created_at"
   end
 
+  create_table "intake_archives", force: :cascade do |t|
+    t.integer "needs_help_2017"
+  end
+
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
@@ -1778,6 +1782,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
+  add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -1824,7 +1829,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
+            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

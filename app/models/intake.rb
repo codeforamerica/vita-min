@@ -118,7 +118,6 @@
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
 #  needs_help_2016                                      :integer          default(0), not null
-#  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
@@ -286,8 +285,6 @@
 #
 
 class Intake < ApplicationRecord
-  self.ignored_columns = ["primary_consented_to_service_at"]
-
   include PgSearch::Model
 
   def self.searchable_fields
@@ -530,7 +527,7 @@ class Intake < ApplicationRecord
   end
 
   def set_navigator(param)
-    _, navigator_type = NAVIGATOR_TYPES.find { | _, type| type[:param] == param }
+    _, navigator_type = NAVIGATOR_TYPES.find { |_, type| type[:param] == param }
     return unless navigator_type
 
     self.update(navigator_type[:field_name] => true)
@@ -622,4 +619,12 @@ class Intake < ApplicationRecord
       parts.join(' ')
     end
   end
+
+  def self.archived_columns
+    ["needs_help_2017"]
+  end
+  delegate *archived_columns, to: :intake_archive, allow_nil: true
+  has_one :intake_archive, foreign_key: :id
+
+  self.ignored_columns = ["primary_consented_to_service_at"] + archived_columns
 end
