@@ -12,6 +12,20 @@
     align-items: flex-start;
   }
 
+  .form-question-13614-page2 {
+    .form-group:has(> .select) {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      align-items: center;
+
+      .select {
+        margin-right: 1.9rem;
+        width: 7.5rem;
+      }
+    }
+  }
+
   p {
     max-width: none;
   }
