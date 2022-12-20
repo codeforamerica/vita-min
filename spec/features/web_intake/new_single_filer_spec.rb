@@ -37,7 +37,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
     current_tax_year = MultiTenantService.new(:gyr).current_tax_year
     check "#{current_tax_year}"
-    check "#{MultiTenantService.new(:gyr).current_tax_year - 3}"
+    check "#{current_tax_year - 3}"
     click_on "Continue"
 
     # Start with current year

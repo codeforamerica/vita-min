@@ -43,6 +43,7 @@ RSpec.describe Questions::BacktaxesController do
 
         expect(intake.needs_help_previous_year_3).to eq "yes"
         expect(intake.needs_help_previous_year_2).to eq "yes"
+        expect(intake.needs_help_previous_year_1).to eq "no"
         expect(intake.needs_help_current_year).to eq "yes"
       end
     end

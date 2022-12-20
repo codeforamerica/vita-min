@@ -447,7 +447,7 @@ describe Intake::GyrIntake do
         end
 
         it "gives the highest needs_help year number" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year-2
+          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year - 2
         end
       end
 

@@ -48,7 +48,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{MultiTenantService.new(:gyr).current_tax_year - 3}"
+      check "#{current_tax_year - 3}"
       check "#{current_tax_year}"
     end
     click_on "Continue"
