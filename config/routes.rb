@@ -223,8 +223,11 @@ Rails.application.routes.draw do
           get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
           patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
           patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
-          get "/edit_13614c_form", to: "clients#edit_13614c_form", on: :member, as: :edit_13614c_form
-          put "/update_13614c_form", to: "clients#update_13614c_form", on: :member, as: :update_13614c_form
+          get "/edit_13614c_form_page1", to: "clients#edit_13614c_form_page1", on: :member, as: :edit_13614c_form_page1
+          get "/edit_13614c_form_page2", to: "clients#edit_13614c_form_page2", on: :member
+          put "/update_13614c_form_page1", to: "clients#update_13614c_form_page1", on: :member
+          put "/update_13614c_form_page2", to: "clients#update_13614c_form_page2", on: :member
+          get "/cancel_13614c", to: "clients#cancel_13614c", on: :member
           get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
           get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
           get "/show_secret", to: "clients/secrets#show", on: :member

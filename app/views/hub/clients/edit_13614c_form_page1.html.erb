@@ -5,10 +5,17 @@
     <h1><%= @title %></h1>
     <p>Last client 13614-C
       update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
-    <h2>Part I – Your Personal Information</h2>
-    <hr>
+
+    <div style="display: flex; justify-content: space-between;">
+      <h2>Part I – Your Personal Information</h2>
+
+      <div id = "form_13614c-page-links">
+        1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: t("general.confirm_exit_without_saving") }, id: "top-pagination-link" %> | <%= link_to "3", "#" %>
+      </div>
+    </div>
+    <hr style="margin-top: 0;"/>
     <%= form_with model: @form,
-                  url: update_13614c_form_hub_client_path,
+                  url: update_13614c_form_page1_hub_client_path,
                   method: :put, local: true, builder: VitaMinFormBuilder,
                   html: { class: 'form-card' } do |f| %>
       <div id="primary-info" class="hub-form__row">
@@ -77,7 +84,7 @@
 
       <div id="marital-status-fields">
         <h2>Part II – Marital Status and Household Information</h2>
-        <hr>
+        <hr style="margin-top: 0;"/>
         <h3><%= t(".what_was_your_marital_status", current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></h3>
         <div class="hub-form__row">
           <%= f.hub_checkbox(:never_married, t(".fields.never_married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
@@ -106,20 +113,20 @@
         <%= error_message(@form, :dependents_attributes) %>
         <table id="dependents-table">
           <tr>
-            <th><%= t("hub.clients.edit_13614c_form.fields.first_name") %></th>
-            <th><%= t("hub.clients.edit_13614c_form.fields.last_name") %></th>
-            <th><%= t("hub.clients.edit_13614c_form.fields.dob") %></th>
+            <th><%= t("hub.clients.edit_13614c_form_page1.fields.first_name") %></th>
+            <th><%= t("hub.clients.edit_13614c_form_page1.fields.last_name") %></th>
+            <th><%= t("hub.clients.edit_13614c_form_page1.fields.dob") %></th>
             <th>Relationship</th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.months_in_home") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.north_american_resident") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.was_married") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.was_student") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.disabled") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.can_be_claimed_by_other") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.provided_over_half_own_support") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.below_qualifying_relative_income_requirement") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.filer_provided_over_half_support") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form.fields.filer_provided_over_half_housing_support") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.months_in_home") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.north_american_resident") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.was_married") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.was_student") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.disabled") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.can_be_claimed_by_other") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.provided_over_half_own_support") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.below_qualifying_relative_income_requirement") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_support") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_housing_support") %></th>
             <th></th>
           </tr>
           <%= f.fields_for :dependents do |ff| %>
@@ -129,9 +136,20 @@
         <%= link_to_add_fields t("views.shared.dependents_fields.add_dependent"), f, :dependents, { class: "button button--small", target: '#dependents-table tbody' }, partial: "shared/13614c_dependent" %>
       </div>
 
-      <button class="button button--cta" type="submit">
-        <%= t("general.save") %>
-      </button>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <button class="button button--cta" type="submit">
+            <%= t("general.save") %>
+          </button>
+          <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
+                      data: { confirm: t("general.confirm_exit_without_saving") } %>
+        </div>
+
+        <div id = "form_13614c-page-links">
+          1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, data: { confirm: t("general.confirm_exit_without_saving") } %> | <%= link_to "3", "#" %>
+        </div>
+      </div>
     <% end %>
+
   </div>
 <% end %>
