@@ -47,6 +47,7 @@ RSpec.describe "a user editing a clients 13614c form" do
                             # page 2
                             job_count: 2,
                             had_tips: "yes",
+                            made_estimated_tax_payments: "yes",
                             had_interest_income: "no",
                             had_local_tax_refund: "unsure",
                             paid_alimony: "yes",
@@ -155,38 +156,39 @@ RSpec.describe "a user editing a clients 13614c form" do
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
 
-        select "Yes", from: "hub_update13614c_form_page2_had_wages"
-        select "No", from: "hub_update13614c_form_page2_had_tips"
-        select "Yes", from: "hub_update13614c_form_page2_had_interest_income"
-        select "Yes", from: "hub_update13614c_form_page2_had_local_tax_refund"
-        select "No", from: "hub_update13614c_form_page2_received_alimony"
-        select "I don't know", from: "hub_update13614c_form_page2_had_self_employment_income"
-        select "No", from: "hub_update13614c_form_page2_has_crypto_income"
-        select "I don't know", from: "hub_update13614c_form_page2_had_asset_sale_income"
-        select "No", from: "hub_update13614c_form_page2_had_disability_income"
-        select "Yes", from: "hub_update13614c_form_page2_had_retirement_income"
-        select "Yes", from: "hub_update13614c_form_page2_had_unemployment_income"
-        select "No", from: "hub_update13614c_form_page2_had_social_security_income"
-        select "No", from: "hub_update13614c_form_page2_had_rental_income"
-        select "I don't know", from: "hub_update13614c_form_page2_had_other_income"
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
+        select "3", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.job_count")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
+        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_crypto_income")
+        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_unemployment_income")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_social_security_income")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income")
+        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_other_income")
       end
 
       within "#expenses-fields" do
-        select "Yes", from: "hub_update13614c_form_page2_paid_alimony"
-        select "No", from: "hub_update13614c_form_page2_paid_retirement_contributions"
-        select "Yes", from: "hub_update13614c_form_page2_paid_dependent_care"
-        select "I don't know", from: "hub_update13614c_form_page2_paid_school_supplies"
-        select "No", from: "hub_update13614c_form_page2_paid_student_loan_interest"
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_alimony")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_retirement_contributions")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
+        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_student_loan_interest")
       end
 
       within "#life-events-fields" do
-        select "Yes", from: "hub_update13614c_form_page2_had_hsa"
-        select "No", from: "hub_update13614c_form_page2_had_debt_forgiven"
-        select "No", from: "hub_update13614c_form_page2_adopted_child"
-        select "I don't know", from: "hub_update13614c_form_page2_had_tax_credit_disallowed"
-        select "No", from: "hub_update13614c_form_page2_bought_energy_efficient_items"
-        select "No", from: "hub_update13614c_form_page2_received_homebuyer_credit"
-        select "No", from: "hub_update13614c_form_page2_made_estimated_tax_payments"
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_hsa")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_debt_forgiven")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.adopted_child")
+        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tax_credit_disallowed")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_energy_efficient_items")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_homebuyer_credit")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
       end
 
       click_on I18n.t("general.save")
@@ -196,7 +198,9 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       intake = client.intake.reload
       expect(intake.had_wages_yes?).to eq true
+      expect(intake.job_count).to eq 3
       expect(intake.had_tips_no?).to eq true
+      expect(intake.made_estimated_tax_payments_no?).to eq true
       expect(intake.had_interest_income_yes?).to eq true
       expect(intake.had_local_tax_refund_yes?).to eq true
       expect(intake.had_self_employment_income_unsure?).to eq true

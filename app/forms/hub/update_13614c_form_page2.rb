@@ -35,12 +35,12 @@
 # 1. had_hsa
 # 2. had_debt_forgiven
 # 3. adopted_child
-# 4. had_tax_credit_disallowed
+# 4. had_tax_credit_disallowed, TODO: add field for had_tax_credit_disallowed year
 # 5. bought_energy_efficient_items
 # 6. received_homebuyer_credit
 # 7. made_estimated_tax_payments (y/n), TODO: add made_estimated_tax_payments_amount
 # 8. TODO: add field for capital_loss_carryover
-# 9. TODO: add field for had_marketplace_health_insurance
+# 9. bought_health_insurance
 
 module Hub
   class Update13614cFormPage2 < Form

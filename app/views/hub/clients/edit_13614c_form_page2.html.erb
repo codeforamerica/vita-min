@@ -23,7 +23,7 @@
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:had_wages, "1. (B) #{t(".fields.had_wages")}", yes_no_unsure_options_for_select) %>
-            <%= f.cfa_input_field(:job_count, t(".fields.job_count")) %>
+            <%= f.cfa_select(:job_count, t(".fields.job_count"), (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
 
           <div class="grid__item width-one-half">
@@ -57,9 +57,6 @@
         <div class="grid">
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_local_tax_refund, "5. (B) #{t(".fields.had_local_tax_refund")}", yes_no_unsure_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-half">
-            placeholder for 16
           </div>
         </div>
         <%= f.cfa_select(:received_alimony, "6. (B) #{t(".fields.received_alimony")}", yes_no_unsure_options_for_select) %>
@@ -128,15 +125,26 @@
         <%= f.cfa_select(:had_hsa, "1. (A) #{t(".fields.had_hsa")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:had_debt_forgiven, "2. (A) #{t(".fields.had_debt_forgiven")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:adopted_child, "3. (A) #{t(".fields.adopted_child")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %>
+        <div class="grid">
+          <div class="grid__item width-one-half">
+            <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for which tax year
+          </div>
+        </div>
         <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:received_homebuyer_credit, "6. (A) #{t(".fields.received_homebuyer_credit")}", yes_no_unsure_options_for_select) %>
-        placeholder for 7 <br />
+        <div class="grid">
+          <div class="grid__item width-one-half">
+            <%= f.cfa_select(:made_estimated_tax_payments, "7. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half">
+            placeholder for how much
+          </div>
+        </div>
         placeholder for 8 <br />
         placeholder for 9 <br />
-        placeholder for 10 <br />
-        <br />
-        <%= f.cfa_select(:made_estimated_tax_payments, "11. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
       </div>
 
       <div style="display: flex; justify-content: space-between;">

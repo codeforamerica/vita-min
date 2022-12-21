@@ -699,7 +699,7 @@ es:
           had_wages: "¿Sueldo o Salario? (Formulario W-2)"
           has_crypto_income: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
           job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
-          made_estimated_tax_payments: "¿Recibir pagos avanzados de crédito fiscal por hijos?"
+          made_estimated_tax_payments: "¿Hacer pagos de impuestos estimados o aplicar el reembolso del año pasado al impuesto de este año?"
           paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"
           paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
           paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
