@@ -256,7 +256,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           click_on I18n.t('general.edit').downcase
         end
 
-        expect(page).not_to have_text I18n.t('views.ctc.questions.dependents.tin.remove_person')
+        expect(page).to have_text I18n.t('views.ctc.questions.dependents.tin.remove_person')
 
         fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
         click_on I18n.t('general.save')

@@ -138,8 +138,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in I18n.t("views.questions.arp_payments.labels.stimulus_1"), with: 800
     fill_in I18n.t("views.questions.arp_payments.labels.stimulus_2"), with: 1000
     fill_in I18n.t("views.questions.arp_payments.labels.stimulus_3"), with: 0
-    fill_in I18n.t("views.questions.arp_payments.labels.child_tax_credit"), with: 0
-    check I18n.t("views.questions.arp_payments.labels.ctc_unsure")
     check I18n.t("views.questions.arp_payments.labels.stimulus_unsure")
     click_on "Continue"
 
