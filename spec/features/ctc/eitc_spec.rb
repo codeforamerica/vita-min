@@ -73,8 +73,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t('views.ctc.questions.had_dependents.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.continue')
-    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
-    click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.eitc_qualifiers.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
     check I18n.t('general.none_of_the_above')
@@ -103,7 +101,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     click_on I18n.t("views.ctc.questions.w2s.dont_add_w2")
     expect(page).to have_selector("p", text: I18n.t("views.ctc.questions.eitc_no_w2_offboarding.help_text"))
     click_on I18n.t("views.ctc.questions.eitc_no_w2_offboarding.buttons.continue_without")
-    fill_in_advance_child_tax_credit
     fill_in_recovery_rebate_credit
     fill_in_bank_info
     fill_in_ip_pins

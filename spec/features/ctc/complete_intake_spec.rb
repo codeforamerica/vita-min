@@ -13,7 +13,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_basic_info
     fill_in_spouse_info
     fill_in_dependents
-    fill_in_advance_child_tax_credit
     fill_in_recovery_rebate_credit
     fill_in_bank_info
     fill_in_ip_pins
@@ -56,7 +55,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     fill_in_eligibility
     fill_in_basic_info
     fill_in_dependents(head_of_household: true)
-    fill_in_advance_child_tax_credit
     fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
     fill_in_bank_info
     fill_in_ip_pins
@@ -175,9 +173,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.continue')
-
-    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
-    click_on I18n.t("general.negative")
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))

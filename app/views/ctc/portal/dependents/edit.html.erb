@@ -31,11 +31,9 @@
         </div>
 
         <%= f.continue t("general.save") %>
-        <% if eligibility_without_dependent.ctc_amount >= eligibility_without_dependent.advance_ctc_amount_received %>
-          <%= link_to({ action: :confirm_remove }, class: "button button--wide button--danger text--centered") do %>
-            <%= image_tag("remove-minus.svg", alt: "") %>
-            <%= t("views.ctc.questions.dependents.tin.remove_person") %>
-          <% end %>
+        <%= link_to({ action: :confirm_remove }, class: "button button--wide button--danger text--centered") do %>
+          <%= image_tag("remove-minus.svg", alt: "") %>
+          <%= t("views.ctc.questions.dependents.tin.remove_person") %>
         <% end %>
       <% end %>
     </div>

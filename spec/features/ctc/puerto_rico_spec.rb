@@ -69,25 +69,6 @@ RSpec.feature "Puerto Rico", :flow_explorer_screenshot, active_job: true, requir
     click_on "No, continue"
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
 
-    # =========== Modified ADVANCE CHILD TAX CREDIT ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.puerto_rico.title'))
-    click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_received.title"))
-
-    click_on I18n.t('general.back')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.puerto_rico.title'))
-    click_on I18n.t('general.affirmative')
-
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_amount.title"))
-    fill_in I18n.t('views.ctc.questions.advance_ctc_amount.form_title'), with: "1000"
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_received.title"))
-    expect(page).to have_text I18n.t('views.ctc.questions.advance_ctc_received.total_adv_ctc', amount: "$1,000")
-    expect(page).to have_text "$2,600"
-    click_on I18n.t('general.continue')
-
     # Skips RRC Questions
     fill_in_bank_info
     fill_in_ip_pins

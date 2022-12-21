@@ -19,7 +19,6 @@ RSpec.feature "CTC Intake", active_job: true, requires_default_vita_partners: tr
       fill_in_basic_info
       fill_in_spouse_info
       fill_in_dependents
-      fill_in_advance_child_tax_credit
       fill_in_recovery_rebate_credit
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
@@ -50,7 +49,6 @@ RSpec.feature "CTC Intake", active_job: true, requires_default_vita_partners: tr
       fill_in_eligibility
       fill_in_basic_info
       fill_in_dependents(head_of_household: true)
-      fill_in_advance_child_tax_credit
       fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
@@ -83,7 +81,6 @@ RSpec.feature "CTC Intake", active_job: true, requires_default_vita_partners: tr
       fill_in_eligibility
       fill_in_basic_info
       fill_in_dependents(head_of_household: true)
-      fill_in_advance_child_tax_credit
       fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
@@ -137,7 +134,6 @@ RSpec.feature "CTC Intake", active_job: true, requires_default_vita_partners: tr
       fill_in_eligibility
       fill_in_basic_info
       fill_in_dependents(head_of_household: true)
-      fill_in_advance_child_tax_credit
       fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))

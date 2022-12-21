@@ -125,7 +125,7 @@ class EfileSubmissionStateMachine
 
     benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-      child_tax_credit_advance: benefits.advance_ctc_amount_received,
+      child_tax_credit_advance: benefits.advance_ctc_amount_received, # todo: remove?
       recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
       third_stimulus_amount: benefits.eip3_amount,
     })

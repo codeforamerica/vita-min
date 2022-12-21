@@ -52,7 +52,6 @@ class CtcQuestionNavigation
 
     # No Dependents
     Ctc::Questions::NoDependentsController,
-    Ctc::Questions::NoDependentsAdvanceCtcPaymentsController,
 
     Ctc::Questions::EitcQualifiersController,
 
@@ -73,13 +72,6 @@ class CtcQuestionNavigation
     Ctc::Questions::SimplifiedFilingIncomeOffboardingController,
     Ctc::Questions::NonW2IncomeController,
     Ctc::Questions::EitcIncomeOffboardingController,
-
-    # RRC
-    # => Adv. CTC
-    Ctc::Questions::AdvanceCtcController,
-    Ctc::Questions::AdvanceCtcAmountController,
-    Ctc::Questions::AdvanceCtcClaimedController,
-    Ctc::Questions::AdvanceCtcReceivedController,
 
     # => EIP
     Ctc::Questions::StimulusPaymentsController,

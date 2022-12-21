@@ -326,7 +326,6 @@ class FlowsController < ApplicationController
       if with_dependents
         client.intake.update(
           had_dependents: 'yes',
-          advance_ctc_amount_received: 600
         )
         client.intake.dependents.create(
           first_name: 'Childy',

@@ -1973,50 +1973,6 @@ es:
         account_number:
           account_number: Número de cuenta
           account_number_confirmation: Confirme su número de cuenta
-        advance_ctc:
-          adv_ctc_time_frame: Estos pagos habrían llegado mensualmente en la segunda mitad del año, entre julio y diciembre de 2021.
-          find_reveal:
-            content:
-              p1: Si no está seguro de cuánto recibió, puede buscar el monto en la carta 6419 del IRS, que debería haber recibido a principios de este año, o puede consultar sus registros bancarios del año pasado.
-              p2: Si está casado, usted y su cónyuge habrían recibido cada uno una Carta 6419 por separado. Sume las dos cantidades de ambas cartas e ingrese el total.
-            title: "¿Dónde puedo encontrar esta cantidad?"
-          no_did_not_receive: No recibí ningún pago
-          no_received_different: Recibí una cantidad diferente
-          puerto_rico:
-            need_to_report: Si recibió algún pago por adelantado del Crédito Tributario por Hijos en 2021, tendrá que notarlo aquí, o su reembolso se retrasará.
-            rare_to_receive: Es raro que las familias en Puerto Rico hayan recibido pagos adelantados, pero es posible.
-            title: "¿Recibió algún pago por adelantado del Crédito Tributario por Hijos del IRS en 2021?"
-          question: "¿Recibió esta cantidad?"
-          title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos en 2021?"
-          total_adv_ctc: 'Estimamos que usted habrá recibido:'
-          total_adv_ctc_details_html: 'por estos dependientes:'
-          yes_received: Recibí esta cantidad
-        advance_ctc_amount:
-          details_html: |
-            <p>Estos pagos se habrían recibido mensualmente entre julio y diciembre de 2021.</p>
-            <p>Si ingrese un monto incorrecto, el IRS lo corregirá automáticamente, pero es posible que su pago se retrase.</p>
-          find_reveal:
-            content:
-              p1: Si no está seguro de cuánto recibió, puede buscar el monto en la carta 6419 del IRS, que debería haber recibido a principios de este año, o puede consultar sus registros bancarios del año pasado.
-              p2: Si está casado, usted y su cónyuge habrían recibido cada uno una Carta 6419 por separado. Sume las dos cantidades de ambas cartas e ingrese el total.
-            title: "¿Dónde puedo encontrar esta cantidad?"
-          form_title: Pagos adelantados del Crédito Tributario por Hijos recibido
-          title: Ingresa la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió.
-        advance_ctc_claimed:
-          buttons:
-            add: Agregar más dependientes
-            correct: Corregir la cantidad que recibí
-            no_file: No necesito presentar una declaración de impuestos
-          content:
-          - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
-          - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
-          title: Ya no hay más Crédito Tributario por Hijos para reclamar.
-        advance_ctc_received:
-          already_received: Cantidad que recibió
-          ctc_owed_details: Si la cantidad que ha anotado es incorrecta, su reembolso de impuestos podría retrasarse mientras el IRS hace las correcciones en su declaración.
-          ctc_owed_title: 'Tiene derecho a recibir esta cantidad adicional:'
-          title: Muy bien. Hemos calculado su Crédito Tributario por Hijos.
-          total_adv_ctc: 'Total del Pago por Adelantado del Crédito Tributario por Hijos: %{amount}'
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>

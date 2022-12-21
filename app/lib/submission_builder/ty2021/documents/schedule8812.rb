@@ -37,7 +37,7 @@ module SubmissionBuilder
               xml.RCTCTaxLiabiltyLimitAmt 0 unless home_location_puerto_rico #14c
               xml.ODCAfterTaxLiabilityLimitAmt 0 unless home_location_puerto_rico #14d
               xml.CTCODCAfterTaxLiabilityLmtAmt benefits_eligibility.ctc_amount #14e (=5)
-              xml.AggregateAdvncCTCAmt benefits_eligibility.advance_ctc_amount_received #14f
+              xml.AggregateAdvncCTCAmt benefits_eligibility.advance_ctc_amount_received #14f # todo: do we remove this?
               xml.NetCTCODCAfterLimitAmt benefits_eligibility.outstanding_ctc_amount #14g
               xml.NonrefundableODCAmt 0 unless home_location_puerto_rico #14h
               xml.RefundableCTCAmt benefits_eligibility.outstanding_ctc_amount #14i

@@ -328,8 +328,6 @@ module CtcIntakeFeatureHelper
     click_on I18n.t('views.ctc.questions.had_dependents.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.no_dependents.title'))
     click_on I18n.t('general.continue')
-    expect(page).to have_text(I18n.t('views.ctc.questions.no_dependents_advance_ctc_payments.title', current_tax_year: current_tax_year))
-    click_on I18n.t('general.negative')
   end
 
   def fill_in_w2(employee_name, filing_status: 'single', wages: 123.45, delete_instead_of_submit: false, box_12a: "F")
@@ -397,23 +395,6 @@ module CtcIntakeFeatureHelper
     else
       click_on I18n.t('views.ctc.questions.w2s.misc_info.submit')
     end
-  end
-
-  def fill_in_advance_child_tax_credit
-    # =========== ADVANCE CHILD TAX CREDIT ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.title', adv_ctc_estimate: 1800))
-    expect(page).to have_text("$1800")
-    expect(page).to have_text("Jessie M Pepper")
-    click_on I18n.t('views.ctc.questions.advance_ctc.no_received_different')
-
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_amount.title"))
-    fill_in I18n.t('views.ctc.questions.advance_ctc_amount.form_title'), with: "1000"
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_received.title"))
-    expect(page).to have_text I18n.t('views.ctc.questions.advance_ctc_received.total_adv_ctc', amount: "$1,000")
-    expect(page).to have_text "$2,600"
-    click_on I18n.t('general.continue')
   end
 
   def fill_in_recovery_rebate_credit(third_stimulus_amount: "$4,200")
@@ -555,10 +536,10 @@ module CtcIntakeFeatureHelper
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
-    expect(page).to have_selector("p", text:  "$2,600") if dependent
+    expect(page).to have_selector("p", text:  "$3,600") if dependent
 
     if home_location == "puerto_rico"
-      expect(page).not_to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
+      expect(page).not_to have_selector("p", text: I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
     else
       expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
       expect(page).to have_selector("p", text:  married_filing_jointly ? "$2,400" : "$1,000")
