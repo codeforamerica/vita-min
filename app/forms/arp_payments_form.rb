@@ -7,7 +7,6 @@ class ArpPaymentsForm < QuestionsForm
                      :advance_ctc_amount_received,
                      :received_advance_ctc_payment
   validate :eip_amounts_present_or_unsure
-  validate :advance_ctc_amount_present_or_unsure
   validates :eip1_amount_received, gyr_numericality: { only_integer: true }, unless: -> { eip1_amount_received.blank? }
   validates :eip2_amount_received, gyr_numericality: { only_integer: true }, unless: -> { eip2_amount_received.blank? }
   validates :eip3_amount_received, gyr_numericality: { only_integer: true }, unless: -> { eip3_amount_received.blank? }
