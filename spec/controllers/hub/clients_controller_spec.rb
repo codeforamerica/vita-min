@@ -880,7 +880,7 @@ RSpec.describe Hub::ClientsController do
     let(:client) { create :client, vita_partner: organization, intake: (build :intake) }
     let(:params) {
                    { id: client.id }
-                 }
+    }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -948,7 +948,7 @@ RSpec.describe Hub::ClientsController do
                        spouse_was_blind: "no",
                      }
                    }
-                 }
+    }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :update
 
@@ -1002,7 +1002,7 @@ RSpec.describe Hub::ClientsController do
                            primary_first_name: "",
                          }
                        }
-                     }
+        }
 
         it "renders edit" do
           post :update, params: params
@@ -1019,7 +1019,7 @@ RSpec.describe Hub::ClientsController do
                            dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
                          }
                        }
-                     }
+        }
 
         it "renders edit" do
           post :update, params: params
@@ -1555,122 +1555,265 @@ RSpec.describe Hub::ClientsController do
     end
   end
 
-  describe "#update_13614c_form" do
+  context "updating 13614c" do
     let(:client) { create :client, vita_partner: organization, intake: intake }
 
     let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", ever_married: "yes", dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
-    let(:params) {
-      {
-        id: client.id,
-        hub_update13614c_form: {
-          primary_first_name: "Updated",
-          primary_last_name: "Name",
-          never_married: intake.ever_married_yes? ? "no" : "yes",
-          married: intake.married,
-          got_married_during_tax_year: "unfilled",
-          separated: intake.separated,
-          widowed: intake.widowed,
-          lived_with_spouse: intake.lived_with_spouse,
-          divorced: intake.divorced,
-          divorced_year: intake.divorced_year,
-          separated_year: intake.separated_year,
-          widowed_year: intake.widowed_year,
-          email_address: intake.email_address,
-          phone_number: intake.phone_number,
-          street_address: intake.street_address,
-          city: intake.city,
-          state: intake.state,
-          zip_code: intake.zip_code,
-          primary_us_citizen: "unfilled",
-          spouse_first_name: intake.spouse.first_name,
-          spouse_last_name: intake.spouse.last_name,
-          spouse_email_address: intake.spouse_email_address,
-          spouse_us_citizen: "unfilled",
-          dependents_attributes: {
-            "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
-            "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
-            "2" => { id: intake.dependents.last.id, _destroy: "1" }
-          },
-          was_blind: "no",
-          was_full_time_student: "unfilled",
-          spouse_was_blind: "no",
-          claimed_by_another: "unfilled",
-          had_disability: "unfilled",
-          spouse_had_disability: "unfilled",
-          issued_identity_pin: "unfilled",
-          spouse_was_full_time_student: "unfilled",
+
+    describe "#update_13614c_form_page1" do
+      let(:params) {
+        {
+          id: client.id,
+          hub_update13614c_form_page1: {
+            primary_first_name: "Updated",
+            primary_last_name: "Name",
+            never_married: intake.ever_married_yes? ? "no" : "yes",
+            married: intake.married,
+            got_married_during_tax_year: "unfilled",
+            separated: intake.separated,
+            widowed: intake.widowed,
+            lived_with_spouse: intake.lived_with_spouse,
+            divorced: intake.divorced,
+            divorced_year: intake.divorced_year,
+            separated_year: intake.separated_year,
+            widowed_year: intake.widowed_year,
+            email_address: intake.email_address,
+            phone_number: intake.phone_number,
+            street_address: intake.street_address,
+            city: intake.city,
+            state: intake.state,
+            zip_code: intake.zip_code,
+            primary_us_citizen: "unfilled",
+            spouse_first_name: intake.spouse.first_name,
+            spouse_last_name: intake.spouse.last_name,
+            spouse_email_address: intake.spouse_email_address,
+            spouse_us_citizen: "unfilled",
+            dependents_attributes: {
+              "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+              "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+              "2" => { id: intake.dependents.last.id, _destroy: "1" }
+            },
+            was_blind: "no",
+            was_full_time_student: "unfilled",
+            spouse_was_blind: "no",
+            claimed_by_another: "unfilled",
+            had_disability: "unfilled",
+            spouse_had_disability: "unfilled",
+            issued_identity_pin: "unfilled",
+            spouse_was_full_time_student: "unfilled",
+          }
         }
       }
-    }
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :update_13614c_form
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page1
 
-    context "with a signed in user" do
-      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
-      before do
-        sign_in user
-      end
+        before do
+          sign_in user
+        end
 
-      it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
-        expect do
-          put :update_13614c_form, params: params
-        end.to have_enqueued_job(GenerateF13614cPdfJob)
+        it "updates the clients intake with the 13614c page 1 data, creates a system note, and regenerates the pdf" do
+          expect do
+            put :update_13614c_form_page1, params: params
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
 
-        client.reload
-        expect(client.intake.primary.first_name).to eq "Updated"
-        expect(client.legal_name).to eq "Updated Name"
-        first_dependent.reload
-        expect(first_dependent.first_name).to eq "Updated Dependent"
-        expect(client.intake.dependents.count).to eq 2
-        expect(response).to redirect_to hub_client_path(id: client.id)
-        system_note = SystemNote::ClientChange.last
-        expect(system_note.client).to eq(client)
-        expect(system_note.user).to eq(user)
-        expect(system_note.data['changes']).to match({
-                                                       "primary_last_name" => [intake.primary.last_name, "Name"],
-                                                       "primary_first_name" => [intake.primary.first_name, "Updated"],
-                                                     })
-      end
+          client.reload
+          expect(client.intake.primary.first_name).to eq "Updated"
+          expect(client.legal_name).to eq "Updated Name"
+          first_dependent.reload
+          expect(first_dependent.first_name).to eq "Updated Dependent"
+          expect(client.intake.dependents.count).to eq 2
+          # TODO: expect notice
+          # expect(response).to redirect_to hub_client_path(id: client.id)
+          system_note = SystemNote::ClientChange.last
+          expect(system_note.client).to eq(client)
+          expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({
+                                                         "primary_last_name" => [intake.primary.last_name, "Name"],
+                                                         "primary_first_name" => [intake.primary.first_name, "Updated"],
+                                                       })
+        end
 
-      context "with invalid params" do
-        let(:params) {
-          {
-            id: client.id,
-            hub_update13614c_form: {
-              primary_first_name: "",
+        context "with invalid params" do
+          let(:params) {
+            {
+              id: client.id,
+              hub_update13614c_form_page1: {
+                primary_first_name: "",
+              }
             }
           }
-        }
 
-        it "renders edit" do
-          put :update_13614c_form, params: params
+          it "renders edit" do
+            put :update_13614c_form_page1, params: params
 
-          expect(response).to render_template :edit_13614c_form
+            expect(response).to render_template :edit_13614c_form_page1
+          end
         end
-      end
 
-      context "with invalid dependent params" do
-        let(:params) {
-          {
-            id: client.id,
-            hub_update13614c_form: {
-              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+        context "with invalid dependent params" do
+          let(:params) {
+            {
+              id: client.id,
+              hub_update13614c_form_page1: {
+                dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+              }
             }
           }
+
+          it "renders edit" do
+            put :update_13614c_form_page1, params: params
+
+            expect(response).to render_template :edit_13614c_form_page1
+
+          end
+
+          context "with invalid params" do
+            let(:params) {
+              {
+                id: client.id,
+                hub_update13614c_form_page1: {
+                  primary_first_name: "",
+                }
+              }
+            }
+
+            it "renders edit" do
+              put :update_13614c_form_page1, params: params
+
+              expect(response).to render_template :edit_13614c_form_page1
+            end
+          end
+
+          context "with invalid dependent params" do
+            let(:params) {
+              {
+                id: client.id,
+                hub_update13614c_form_page1: {
+                  dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+                }
+              }
+            }
+
+            it "renders edit" do
+              put :update_13614c_form_page1, params: params
+
+              expect(response).to render_template :edit_13614c_form_page1
+            end
+
+            it "displays a flash message" do
+              put :update_13614c_form_page1, params: params
+              expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+            end
+          end
+        end
+      end
+    end
+
+    describe "#update_13614c_form_page2" do
+      let(:params) {
+        {
+          id: client.id,
+          hub_update13614c_form_page2: {
+            job_count: "3",
+            had_wages: "yes",
+            had_tips: "unfilled",
+            had_interest_income: "unfilled",
+            had_local_tax_refund: "unfilled",
+            received_alimony: "unfilled",
+            had_self_employment_income: "unfilled",
+            has_crypto_income: false,
+            had_asset_sale_income: "unfilled",
+            had_disability_income: "no",
+            had_retirement_income: "no",
+            had_unemployment_income: "yes",
+            had_social_security_income: "unsure",
+            had_rental_income: "unsure",
+            had_other_income: "no",
+            paid_alimony: "unfilled",
+            paid_retirement_contributions: "unfilled",
+            paid_dependent_care: "unfilled",
+            paid_school_supplies: "unfilled",
+            paid_student_loan_interest: "unfilled",
+            had_hsa: "unfilled",
+            had_debt_forgiven: "unfilled",
+            adopted_child: "unfilled",
+            had_tax_credit_disallowed: "unfilled",
+            bought_energy_efficient_items: "unfilled",
+            received_homebuyer_credit: "unfilled",
+            made_estimated_tax_payments: "unfilled"
+          }
         }
+      }
 
-        it "renders edit" do
-          put :update_13614c_form, params: params
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page2
 
-          expect(response).to render_template :edit_13614c_form
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
         end
 
-        it "displays a flash message" do
-          put :update_13614c_form, params: params
-          expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+          expect do
+            put :update_13614c_form_page2, params: params
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          client.reload
+          expect(client.intake.job_count).to eq 3
+          expect(client.intake.had_wages_yes?).to eq true
+          expect(client.intake.had_tips_unfilled?).to eq true
+          expect(client.intake.had_interest_income_unfilled?).to eq true
+          expect(client.intake.had_local_tax_refund_unfilled?).to eq true
+          expect(client.intake.paid_alimony_unfilled?).to eq true
+          expect(client.intake.had_self_employment_income_unfilled?).to eq true
+          expect(client.intake.has_crypto_income).to eq false
+          expect(client.intake.had_asset_sale_income_unfilled?).to eq true
+          expect(client.intake.had_disability_income_no?).to eq true
+          expect(client.intake.had_retirement_income_no?).to eq true
+          expect(client.intake.had_unemployment_income_yes?).to eq true
+          expect(client.intake.had_social_security_income_unsure?).to eq true
+          expect(client.intake.had_rental_income_unsure?).to eq true
+          expect(client.intake.had_other_income_no?).to eq true
+          expect(client.intake.paid_alimony_unfilled?).to eq true
+          expect(client.intake.paid_retirement_contributions_unfilled?).to eq true
+          expect(client.intake.paid_dependent_care_unfilled?).to eq true
+          expect(client.intake.paid_school_supplies_unfilled?).to eq true
+          expect(client.intake.paid_student_loan_interest_unfilled?).to eq true
+          expect(client.intake.had_hsa_unfilled?).to eq true
+          expect(client.intake.had_debt_forgiven_unfilled?).to eq true
+          expect(client.intake.adopted_child_unfilled?).to eq true
+          expect(client.intake.had_tax_credit_disallowed_unfilled?).to eq true
+          expect(client.intake.bought_energy_efficient_items_unfilled?).to eq true
+          expect(client.intake.received_homebuyer_credit_unfilled?).to eq true
+          expect(client.intake.made_estimated_tax_payments_unfilled?).to eq true
+
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to render_template :edit_13614c_form_page2
+
+          system_note = SystemNote::ClientChange.last
+          expect(system_note.client).to eq(client)
+          expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({
+                                                         "had_disability_income" => [intake.had_disability_income, "no"],
+                                                         "bought_energy_efficient_items" => [intake.bought_energy_efficient_items, "unfilled"],
+                                                         "had_other_income" => [intake.had_other_income, "no"],
+                                                         "had_rental_income" => [intake.had_rental_income, "unsure"],
+                                                         "had_retirement_income" => [intake.had_retirement_income, "no"],
+                                                         "had_social_security_income" => [intake.had_social_security_income, "unsure"],
+                                                         "had_unemployment_income" => [intake.had_unemployment_income, "yes"],
+                                                         "had_wages" => [intake.had_wages, "yes"],
+                                                         "job_count" => [intake.job_count, 3]
+
+                                                       })
+
+          # TODO: add expectation for last_13614c_update_at
         end
+
       end
     end
   end

@@ -269,6 +269,7 @@ en:
     coalition: Coalition
     coalition_lead: Coalition lead
     confirm: Confirm
+    confirm_exit_without_saving: Navigating away from this page will not save your changes. Continue anyway?
     contact_methods:
       email: email
       sms_phone_number: text
@@ -631,7 +632,7 @@ en:
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
         title: Edit Client Profile
-      edit_13614c_form:
+      edit_13614c_form_page1:
         fields:
           apt: Apt.
           below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
@@ -666,8 +667,40 @@ en:
           was_student: Full-time Student last year
         last_year_was_your_spouse: 'Last year, was your spouse:'
         last_year_were_you: 'Last year, were you:'
-        title: 13614-C
+        title: 13614-C page 1
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
+      edit_13614c_form_page2:
+        fields:
+          adopted_child: Adopt a child?
+          bought_energy_efficient_items: Purchase and install energy-efficient home items?
+          had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
+          had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
+          had_disability_income: Disability income?
+          had_hsa: Have a Health Savings Account?
+          had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
+          had_local_tax_refund: Refund or state/local income taxes?
+          had_other_income: Other income?
+          had_rental_income: Income (or loss) from Rental Property?
+          had_retirement_income: Retirement income or payments from Pensions. Annuities, and or IRA?
+          had_self_employment_income: Self-Employment income?
+          had_social_security_income: Social Security or Railroad Retirement Benefits?
+          had_tax_credit_disallowed: Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
+          had_tips: Tip Income?
+          had_unemployment_income: Unemployment Compensation?
+          had_wages: Wages or Salary? (Form W-2)
+          job_count: If yes, how many jobs did you have last year?
+          made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
+          paid_alimony: Alimony or separate maintenance payments?
+          paid_dependent_care: Child or dependent care expenses such as daycare?
+          paid_retirement_contributions: Contributions or repayments to a retirement account?
+          paid_school_supplies: For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?
+          paid_student_loan_interest: Student loan interest?
+          received_alimony: Alimony income or separate maintenance payments?
+          received_homebuyer_credit: Receive the First Time Homebuyers Credit in 2008?
+        part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
+        part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
+        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
+        title: 13614C page 2
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
