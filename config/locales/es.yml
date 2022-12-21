@@ -697,7 +697,6 @@ es:
           had_tips: "¿Ingreso de propinas?"
           had_unemployment_income: "¿Compensacion por desempleo?"
           had_wages: "¿Sueldo o Salario? (Formulario W-2)"
-          has_crypto_income: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
           job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
           made_estimated_tax_payments: "¿Hacer pagos de impuestos estimados o aplicar el reembolso del año pasado al impuesto de este año?"
           paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"

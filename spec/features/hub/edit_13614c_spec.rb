@@ -52,7 +52,6 @@ RSpec.describe "a user editing a clients 13614c form" do
                             had_local_tax_refund: "unsure",
                             paid_alimony: "yes",
                             had_self_employment_income: "no",
-                            has_crypto_income: "unsure"
              )
 
     }
@@ -163,7 +162,6 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_crypto_income")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
@@ -204,7 +202,6 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_interest_income_yes?).to eq true
       expect(intake.had_local_tax_refund_yes?).to eq true
       expect(intake.had_self_employment_income_unsure?).to eq true
-      expect(intake.has_crypto_income).to eq false
       expect(intake.had_asset_sale_income_unsure?).to eq true
       expect(intake.had_disability_income_no?).to eq true
       expect(intake.had_retirement_income_yes?).to eq true

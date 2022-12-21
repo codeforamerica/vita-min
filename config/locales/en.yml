@@ -688,7 +688,6 @@ en:
           had_tips: Tip Income?
           had_unemployment_income: Unemployment Compensation?
           had_wages: Wages or Salary? (Form W-2)
-          has_crypto_income: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
           job_count: If yes, how many jobs did you have last year?
           made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
           paid_alimony: Alimony or separate maintenance payments?

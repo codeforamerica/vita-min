@@ -7,7 +7,7 @@
 # 5. had_local_tax_refund
 # 6. paid_alimony
 # 7. had_self_employment_income
-# 8. has_crypto_income
+# 8. TODO: add field for cash/check/digital assets
 # 9. had_asset_sale_income
 # 10. had_disability_income
 # 11. had_retirement_income
@@ -54,7 +54,6 @@ module Hub
                        :had_local_tax_refund,
                        :received_alimony,
                        :had_self_employment_income,
-                       :has_crypto_income,
                        :had_asset_sale_income,
                        :had_disability_income,
                        :had_retirement_income,
