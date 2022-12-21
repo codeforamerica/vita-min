@@ -2538,9 +2538,6 @@ en:
             title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect other cash payments.
-        no_dependents_advance_ctc_payments:
-          subtitle: These payments would have arrived between July and December 2021.
-          title: Did you receive any monthly Advance Child Tax Credit payments in %{current_tax_year}?
         non_w2_income:
           additional_income:
             list:
@@ -4193,15 +4190,12 @@ en:
           other: In %{year}, did you or your spouse adopt a child?
       arp_payments:
         errors:
-          advance_child_tax_credit: Please enter a value for advance child tax credit, or tell us you're unsure. If you did not receive CTC or it is not applicable to you, enter 0.
           eip: Please enter values for each stimulus payment, or tell us you're unsure of how much you received.
         help_text_html:
         - Starting April 2020, three stimulus payments, formerly known as Economic Impact Payments, have been issued as part of the American Rescue Plan.
         - Additionally, families with children under 17 years old have been issued CTC payments.
         - "<strong>Please share your payment info below!</strong> If you did not receive a payment, enter 0."
         labels:
-          child_tax_credit: Advance Child Tax Credit
-          ctc_unsure: I am unsure of my Advance Child Tax Credit amount
           stimulus_1: Stimulus 1
           stimulus_2: Stimulus 2
           stimulus_3: Stimulus 3

@@ -2510,9 +2510,6 @@ es:
             title: No recibirá el Crédito Tributario por Hijos.
           subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
           title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar cobrando otros pagos en efectivo.
-        no_dependents_advance_ctc_payments:
-          subtitle: Estos pagos habrían llegado entre julio y diciembre de 2021.
-          title: "¿Recibió algún pago mensual por adelantado del Crédito Tributario por Hijos en %{current_tax_year}?"
         non_w2_income:
           additional_income:
             list:
@@ -4181,15 +4178,12 @@ es:
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
       arp_payments:
         errors:
-          advance_child_tax_credit: Favor de ingresar el monto del pago por adelantado del Crédito Tributario por Hijos, o díganos que no está seguro. Si no recibió el CTC o no aplica a usted, ingrese el 0.
           eip: 'Favor de ingresar los montos de cada pago de estímulo, o díganos que no está seguro cuánto recibió. '
         help_text_html:
         - A partir de abril 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de Rescate Estadounidense.
         - Además, se les han enviado los pagos de Crédito Tributario por Hijos o CTC a familias con hijos menores de 17 años de edad.
         - "<strong>Favor de compartir la información de su pagos a continuación.</strong>Si no recibió un pago, ingrese 0."
         labels:
-          child_tax_credit: Crédito Tributario por Hijos Anticipado
-          ctc_unsure: No estoy seguro de la cantidad de mi Crédito Tributario por Hijos Anticipado
           stimulus_1: Estímulo 1
           stimulus_2: Estímulo 2
           stimulus_3: Estímulo 3

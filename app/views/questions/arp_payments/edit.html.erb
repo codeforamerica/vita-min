@@ -17,8 +17,6 @@
         <%= f.cfa_input_field :eip3_amount_received, t("views.questions.arp_payments.labels.stimulus_3"), type: "number", prefix: "$" %>
       </div>
       <%= f.simplified_cfa_checkbox :received_stimulus_payment, t("views.questions.arp_payments.labels.stimulus_unsure"), options: { checked_value: "unsure", unchecked_value: "unfilled" } %>
-      <%= f.simplified_cfa_checkbox :received_advance_ctc_payment, t("views.questions.arp_payments.labels.ctc_unsure"), options: { checked_value: "unsure", unchecked_value: "unfilled" } %>
-
     </div>
 
     <div class="spacing-above-60">
