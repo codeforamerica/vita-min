@@ -133,16 +133,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     check I18n.t("general.none_of_the_above")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: I18n.t("views.questions.arp_payments.title"))
-    expect { track_progress }.to change { @current_progress }.by_at_least(1)
-    fill_in I18n.t("views.questions.arp_payments.labels.stimulus_1"), with: 800
-    fill_in I18n.t("views.questions.arp_payments.labels.stimulus_2"), with: 1000
-    fill_in I18n.t("views.questions.arp_payments.labels.stimulus_3"), with: 0
-    fill_in I18n.t("views.questions.arp_payments.labels.child_tax_credit"), with: 0
-    check I18n.t("views.questions.arp_payments.labels.ctc_unsure")
-    check I18n.t("views.questions.arp_payments.labels.stimulus_unsure")
-    click_on "Continue"
-
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     expect { track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "No"
