@@ -47,8 +47,9 @@ environments.
 
 ### Deploying to Staging Directly
 
-TODO: elaborate on this process, with instructions on force-pushing and
-recovery.
+1. Add git remote add `git remote add staging git@beta.aptible.com:vita-min-staging/vita-min-staging.git`
+2. If you have not set up ssh to aptible, add your key via [Aptible/ssh keys](https://dashboard.aptible.com/settings/protected/ssh) and paste your ssh `pbcopy < $HOME/.ssh/id_rsa.pub` (or other *.pub key)
+3. Push to staging which triggers a deploy, must push to main or won't deploy, use force flag if staging is not in sync with your branch `git push staging HEAD:main -f`
 
 At times, you will want to push code to Demo or Staging without going
 through the automated deploy process. Manual deployment should be limited
