@@ -43,10 +43,10 @@ RSpec.describe Hub::CreateClientForm do
         spouse_was_blind: "yes",
         filing_joint: "yes",
         timezone: "America/Chicago",
-        needs_help_2020: "yes",
-        needs_help_2019: "yes",
-        needs_help_2018: "yes",
-        needs_help_2021: "yes",
+        needs_help_previous_year_3: "yes",
+        needs_help_previous_year_2: "yes",
+        needs_help_previous_year_1: "yes",
+        needs_help_current_year: "yes",
         state_of_residence: "CA",
         service_type: "drop_off",
         signature_method: "online",
@@ -148,15 +148,14 @@ RSpec.describe Hub::CreateClientForm do
       it "creates tax returns for each tax_return where _create is true" do
         expect do
           described_class.new(params).save(current_user)
-        end.to change(TaxReturn, :count).by 3
+        end.to change(TaxReturn, :count).by 4
         tax_returns = Client.last.tax_returns
         intake = Intake.last
-        expect(intake.needs_help_2020).to eq "yes"
-        expect(intake.needs_help_2019).to eq "yes"
-        expect(intake.needs_help_2021).to eq "yes"
-        # TODO(TY2022): Expect needs_help_2022 to eq("yes")
-        expect(tax_returns.map(&:year)).to match_array [2021, 2020, 2019]
-        # TODO(TY2022): Expect to create 2022 return
+        expect(intake.needs_help_previous_year_2).to eq "yes"
+        expect(intake.needs_help_previous_year_3).to eq "yes"
+        expect(intake.needs_help_previous_year_1).to eq "yes"
+        expect(intake.needs_help_current_year).to eq "yes"
+        expect(tax_returns.map(&:year)).to match_array [2022, 2021, 2020, 2019]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
@@ -178,7 +177,7 @@ RSpec.describe Hub::CreateClientForm do
             distinct_id: Client.last.intake.visitor_id,
             event_name: "drop_off_submitted",
             data: fake_mixpanel_data
-          ).exactly(3).times
+          ).exactly(4).times
 
           expect(MixpanelService).to have_received(:data_from).with([Client.last, tax_returns[0], current_user])
           expect(MixpanelService).to have_received(:data_from).with([Client.last, tax_returns[1], current_user])
@@ -328,10 +327,10 @@ RSpec.describe Hub::CreateClientForm do
 
       context "when no tax return years are selected for prep" do
         before do
-          params[:needs_help_2019] = "no"
-          params[:needs_help_2020] = "no"
-          params[:needs_help_2021] = "no"
-          # TODO(TY2022): Send needs_help_2022 param as well
+          params[:needs_help_previous_year_3] = "no"
+          params[:needs_help_previous_year_2] = "no"
+          params[:needs_help_previous_year_1] = "no"
+          params[:needs_help_current_year] = "no"
         end
 
         it "is not valid" do

@@ -1,5 +1,5 @@
 <% content_for :form_question, t("views.questions.itemizing.title", year: current_intake.most_recent_filing_year) %>
-<% standard_deductions = StandardDeductions.base_deductions(tax_year: 2021) # TODO: Update for 2022 %>
+<% standard_deductions = StandardDeductions.base_deductions(tax_year: MultiTenantService.new(:gyr).current_tax_year) %>
 <% content_for :form_help_text, t("views.questions.itemizing.help_text",
                                   count: current_intake.filer_count,
                                   joint_deduction: number_to_currency(standard_deductions[:married_filing_jointly]),

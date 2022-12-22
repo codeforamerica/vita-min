@@ -1120,6 +1120,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
+    t.integer "needs_help_current_year", default: 0, null: false
+    t.integer "needs_help_previous_year_1", default: 0, null: false
+    t.integer "needs_help_previous_year_2", default: 0, null: false
+    t.integer "needs_help_previous_year_3", default: 0, null: false
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
