@@ -123,6 +123,10 @@
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  needs_help_2021                                      :integer          default("unfilled"), not null
+#  needs_help_current_year                              :integer          default("unfilled"), not null
+#  needs_help_previous_year_1                           :integer          default("unfilled"), not null
+#  needs_help_previous_year_2                           :integer          default("unfilled"), not null
+#  needs_help_previous_year_3                           :integer          default("unfilled"), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
@@ -439,11 +443,11 @@ describe Intake::GyrIntake do
     context "when there are no tax returns" do
       context "when client has said which years they need help" do
         before do
-          intake.update(needs_help_2019: "yes", needs_help_2020: "yes")
+          intake.update(needs_help_previous_year_3: "yes", needs_help_previous_year_2: "yes")
         end
 
         it "gives the highest needs_help year number" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq(2020)
+          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year - 2
         end
       end
 

@@ -13,8 +13,7 @@ RSpec.describe Questions::BacktaxesController do
     it "sets possible_filing_years to all filing years" do
       get :edit
 
-      # TODO(TY2022): Support 2022
-      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years - [2022])
+      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years)
     end
   end
 
@@ -31,10 +30,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2019: "yes",
-            needs_help_2020: "no",
-            needs_help_2021: "yes",
-            needs_help_2022: "yes",
+            needs_help_previous_year_3: "yes",
+            needs_help_previous_year_2: "yes",
+            needs_help_previous_year_1: "no",
+            needs_help_current_year: "yes"
           }
         }
       end
@@ -42,10 +41,10 @@ RSpec.describe Questions::BacktaxesController do
       it "saves answers to the intake" do
         post :update, params: params
 
-        expect(intake.needs_help_2019).to eq "yes"
-        expect(intake.needs_help_2020).to eq "no"
-        expect(intake.needs_help_2021).to eq "yes"
-        # TODO(TY2022): expect(intake.needs_help_2022).to eq "yes"
+        expect(intake.needs_help_previous_year_3).to eq "yes"
+        expect(intake.needs_help_previous_year_2).to eq "yes"
+        expect(intake.needs_help_previous_year_1).to eq "no"
+        expect(intake.needs_help_current_year).to eq "yes"
       end
     end
 
@@ -53,10 +52,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2019: "no",
-            needs_help_2020: "no",
-            needs_help_2021: "no",
-            needs_help_2022: "no",
+            needs_help_previous_year_3: "no",
+            needs_help_previous_year_2: "no",
+            needs_help_previous_year_1: "no",
+            needs_help_current_year: "no"
           }
         }
       end

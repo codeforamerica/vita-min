@@ -37,10 +37,10 @@ module Hub
                        :interview_timing_preference,
                        :timezone,
                        :vita_partner_id,
-                       :needs_help_2021,
-                       :needs_help_2020,
-                       :needs_help_2019,
-                       :needs_help_2018,
+                       :needs_help_current_year,
+                       :needs_help_previous_year_1,
+                       :needs_help_previous_year_2,
+                       :needs_help_previous_year_3,
                        :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
@@ -74,7 +74,6 @@ module Hub
 
     def save(current_user)
       return false unless valid?
-
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake).merge(default_intake_attributes),
@@ -108,7 +107,6 @@ module Hub
 
     def default_intake_attributes
       {
-        needs_help_2018: "unfilled", # TODO(TY2022): Remove this column
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",
@@ -117,7 +115,8 @@ module Hub
     end
 
     def create_tax_return_for_year?(year)
-      attributes_for(:intake)["needs_help_#{year}".to_sym] == "yes"
+      current_year = MultiTenantService.new(:gyr).current_tax_year
+      attributes_for(:intake)["needs_help_previous_year_#{current_year.to_i - year.to_i}".to_sym] == "yes" || attributes_for(:intake)["needs_help_current_year".to_sym] == "yes"
     end
 
     def tax_return_required_fields_valid

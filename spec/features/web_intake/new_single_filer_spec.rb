@@ -35,15 +35,14 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Ask about backtaxes
     expect(intake.reload.current_step).to end_with("/questions/backtaxes")
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-    # TODO(TY2022): Create 2022 return instead
-    pseudo_current_tax_year = 2021
-    check "#{pseudo_current_tax_year}"
-    check "#{MultiTenantService.new(:gyr).current_tax_year - 3}"
+    current_tax_year = MultiTenantService.new(:gyr).current_tax_year
+    check "#{current_tax_year}"
+    check "#{current_tax_year - 3}"
     click_on "Continue"
 
     # Start with current year
     expect(page).to have_selector("h1", text: "Let's get started")
-    expect(page).to have_text("We’ll start by asking about your situation in #{pseudo_current_tax_year}.")
+    expect(page).to have_text("We’ll start by asking about your situation in #{current_tax_year}.")
     click_on "Continue"
 
     # Interview time preferences
@@ -105,7 +104,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on I18n.t("views.questions.consent.cta")
 
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.pluck(:year).sort).to eq [MultiTenantService.new(:gyr).current_tax_year - 3, pseudo_current_tax_year]
+    expect(intake.client.tax_returns.pluck(:year).sort).to eq [MultiTenantService.new(:gyr).current_tax_year - 3, current_tax_year]
 
     # Optional consent form
     expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
@@ -128,7 +127,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Primary filer personal information
-    expect(page).to have_selector("h1", text: "Select any situations that were true for you in #{pseudo_current_tax_year}")
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in #{current_tax_year}")
     expect(track_progress).to eq(0)
     check I18n.t("general.none_of_the_above")
     click_on "Continue"
@@ -143,47 +142,47 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Dependents
     expect(intake.reload.current_step).to end_with("/questions/had-dependents")
-    expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{pseudo_current_tax_year}?")
+    expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{current_tax_year}?")
     click_on "No"
 
     # Related to dependents
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay any child or dependent care expenses?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any child or dependent care expenses?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you adopt a child?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you adopt a child?")
     click_on "No"
 
     # Students
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, was someone in your family a college or other post high school student?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, was someone in your family a college or other post high school student?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay any student loan interest?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any student loan interest?")
     click_on "No"
 
     # Income from working
     expect(intake.reload.current_step).to end_with("/questions/job-count")
-    select "3 jobs", from: "In #{pseudo_current_tax_year}, how many jobs did you have?"
+    select "3 jobs", from: "In #{current_tax_year}, how many jobs did you have?"
     click_on "Continue"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you live or work in any other states besides Virginia?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you live or work in any other states besides Virginia?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Tell us about your work in #{pseudo_current_tax_year}")
+    expect(page).to have_selector("h1", text: "Tell us about your work in #{current_tax_year}")
     click_on "Continue"
 
     # Income from benefits
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you receive any disability benefits?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive any disability benefits?")
     click_on "No"
 
     # Investment income/loss
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have any income from interest or dividends?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have any income from interest or dividends?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you sell any stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you sell any stocks, bonds, or real estate?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have any income from the sale of stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have any income from the sale of stocks, bonds, or real estate?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your #{pseudo_current_tax_year - 1} return?")
+    expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your #{current_tax_year - 1} return?")
     click_on "Yes"
 
     # Retirement income/contributions
     expect(intake.reload.current_step).to end_with("/questions/social-security-or-retirement")
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have Social Security income, retirement income, or retirement contributions?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have Social Security income, retirement income, or retirement contributions?")
     click_on "No"
 
     # check for gating logic
@@ -192,58 +191,58 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(intake.reload.paid_retirement_contributions).to eq "no"
 
     # Other income
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you receive any other money?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive any other money?")
     click_on "Yes"
     fill_in "What were the other types of income that you received?", with: "cash from gardening"
     click_on "Continue"
 
     # Health insurance
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you purchase health insurance through the marketplace or exchange?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you purchase health insurance through the marketplace or exchange?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have a Health Savings Account?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have a Health Savings Account?")
     click_on "No"
 
     # Itemizing
-    expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{pseudo_current_tax_year}?")
+    expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{current_tax_year}?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay any medical, dental, or prescription expenses?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any medical, dental, or prescription expenses?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you make any charitable contributions?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you make any charitable contributions?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have any income from gambling winnings, including the lottery?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have any income from gambling winnings, including the lottery?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay any state, local, real estate, sales, or other taxes?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any state, local, real estate, sales, or other taxes?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you receive a state or local income tax refund?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive a state or local income tax refund?")
     click_on "Yes"
 
     # Related to home ownership
     expect(page).to have_selector("h1", text: "Have you ever owned a home?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you sell a home?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you sell a home?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you pay any mortgage interest?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any mortgage interest?")
     click_on "No"
     expect(page).to have_selector("h1", text: "Did you receive the First Time Homebuyer Credit in 2008?")
     click_on "Yes"
 
     # Miscellaneous
     expect(intake.reload.current_step).to end_with("/questions/disaster-loss")
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have a loss related to a declared Federal Disaster Area?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have a loss related to a declared Federal Disaster Area?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you have debt cancelled or forgiven by a lender?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have debt cancelled or forgiven by a lender?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you receive any letter or bill from the IRS?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive any letter or bill from the IRS?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you make any estimated tax payments or apply your #{pseudo_current_tax_year - 1} refund to your #{pseudo_current_tax_year} taxes?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you make any estimated tax payments or apply your #{current_tax_year - 1} refund to your #{current_tax_year} taxes?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "Did you report a business loss on your #{pseudo_current_tax_year - 1} tax return?")
+    expect(page).to have_selector("h1", text: "Did you report a business loss on your #{current_tax_year - 1} tax return?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{pseudo_current_tax_year}, did you purchase energy efficient home items?")
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you purchase energy efficient home items?")
     click_on "Yes"
 
     # Payment info
