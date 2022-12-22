@@ -46,7 +46,6 @@ class GyrQuestionNavigation
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,
       # Primary filer personal information
       Questions::LifeSituationsController,
-      Questions::ArpPaymentsController,
       Questions::IssuedIdentityPinController,
 
       # Marital Status
