@@ -9,7 +9,7 @@ class ClientSorter
   attr_reader :sort_column
   attr_reader :sort_order
 
-  def initialize(clients, current_user, params, cookie_filters)
+  def initialize(clients, current_user, params, cookie_filters, use_product_year = true)
     @clients = clients
     @current_user = current_user
     @params = params
@@ -18,6 +18,7 @@ class ClientSorter
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
     @filters = filters_from(filter_source)
+    @use_product_year = use_product_year
   end
 
   def active_filters
@@ -37,7 +38,9 @@ class ClientSorter
                 @clients.after_consent
               end
     # Filter on product_year to only show clients who used this-year's product
-    clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake", product_year: MultiTenantService.new(:ctc).current_product_year).or(Intake.where(type: "Intake::GyrIntake", product_year: MultiTenantService.new(:gyr).current_product_year)))
+    if @use_product_year
+      clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake", product_year: MultiTenantService.new(:ctc).current_product_year).or(Intake.where(type: "Intake::GyrIntake", product_year: MultiTenantService.new(:gyr).current_product_year)))
+    end
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 
