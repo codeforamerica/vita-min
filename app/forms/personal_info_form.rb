@@ -33,7 +33,7 @@ class PersonalInfoForm < QuestionsForm
   def save
     state = ZipCodes.details(zip_code)[:state]
     client = Client.create!(
-      intake_attributes: attributes_for(:intake).merge(type: @intake.type, state_of_residence: state)
+      intake_attributes: attributes_for(:intake).merge(type: @intake.type, state_of_residence: state, product_year: MultiTenantService.new(:gyr).current_product_year)
     )
     @intake = client.intake
 
