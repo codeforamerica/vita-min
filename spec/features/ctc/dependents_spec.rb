@@ -39,7 +39,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "a child over 18 who qualifies as a dependent by being a student" do
-      dependent_birth_year = 20.years.ago.year
+      dependent_birth_year = MultiTenantService.new(:ctc).current_tax_year - 20
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
 
