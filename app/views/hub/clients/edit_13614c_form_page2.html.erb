@@ -40,7 +40,7 @@
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-            placeholder for 3
+            <%= f.cfa_select(:had_scholarships, "3. (B) #{t(".fields.had_scholarships")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_rental_income, "14. (M) #{t(".fields.had_rental_income")}", yes_no_unsure_options_for_select) %>
@@ -61,9 +61,7 @@
         </div>
         <%= f.cfa_select(:received_alimony, "6. (B) #{t(".fields.received_alimony")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", yes_no_unsure_options_for_select) %>
-        placeholder for 8
-        <br />
-        <br />
+        <%= f.cfa_select(:had_cash_check_digital_assets, "8. (A)  #{t(".fields.had_cash_check_digital_assets")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:had_asset_sale_income, "9. (A) #{t(".fields.had_asset_sale_income")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:had_disability_income, "10. (B) #{t(".fields.had_disability_income")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:had_retirement_income, "11. (A) #{t(".fields.had_retirement_income")}", yes_no_unsure_options_for_select) %>
@@ -77,27 +75,40 @@
           <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            placeholder for recepient ssn
+            <%= f.cfa_select(:has_ssn_of_alimony_recipient, t(".fields.has_ssn_of_alimony_recipient"), yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
           <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            placeholder for retirement account types
+          <div class="grid__item width-one-half checkbox-set">
+            <div class="checkbox-column">
+              <%= f.hub_checkbox(:contributed_to_ira, "IRA (A)", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:contributed_to_401k, "401K (B)", options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
+            <div class="checkbox-column">
+              <%= f.hub_checkbox(:contributed_to_roth_ira, "Roth IRA (B)", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:contributed_to_other_retirement_account, "Other", options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
           </div>
         </div>
         <br />
-        placeholder for 3
-        <br />
+        <%= f.cfa_select(:paid_post_secondary_educational_expenses, "3. (B) #{t(".fields.paid_post_secondary_educational_expenses")}", yes_no_unsure_options_for_select) %>
         <br />
         <div class="grid">
-          <div class="grid__item width-one-half">
-            placeholder for 4
+          <div class="grid__item width-one-third">
+            <%= f.cfa_select(:paid_misc_expenses, "4. #{t(".fields.paid_misc_expenses")}", yes_no_unsure_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            placeholder for which tax year
+          <div class="grid__item width-two-thirds checkbox-set">
+            <div class="checkbox-column">
+              <%= f.hub_checkbox(:misc_expenses_medical_and_dental, "(A) #{t(".fields.misc_expenses_medical_and_dental")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:misc_expenses_mortgage_interest, "(A) #{t(".fields.misc_expenses_mortgage_interest")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
+            <div class="checkbox-column">
+              <%= f.hub_checkbox(:misc_expenses_taxes, "(A) #{t(".fields.misc_expenses_taxes")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:misc_expenses_charitable_contributions, "(B) #{t(".fields.misc_expenses_charitable_contributions")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
           </div>
         </div>
 
@@ -105,15 +116,7 @@
 
         <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:paid_school_supplies, "6. (B) #{t(".fields.paid_school_supplies")}", yes_no_unsure_options_for_select) %>
-        <div class="grid">
-          <div class="grid__item width-one-half">
-            placeholder for 7
-          </div>
-          <div class="grid__item width-one-half">
-            placeholder for how much
-          </div>
-        </div>
-        <br />
+        <%= f.cfa_select(:paid_self_employment_expenses, "7. (A) #{t(".fields.paid_self_employment_expenses")}", yes_no_unsure_options_for_select) %>
         <%= f.cfa_select(:paid_student_loan_interest, "8. (B) #{t(".fields.paid_student_loan_interest")}", yes_no_unsure_options_for_select) %>
       </div>
 
@@ -128,7 +131,7 @@
             <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            placeholder for which tax year
+            <%= f.cfa_input_field(:tax_credit_disallowed_year, "4. (B) #{t(".fields.tax_credit_disallowed_year")}", classes: ["form-width--short"]) %>
           </div>
         </div>
         <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", yes_no_unsure_options_for_select) %>
@@ -138,12 +141,12 @@
             <%= f.cfa_select(:made_estimated_tax_payments, "7. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            placeholder for how much
+            <%= f.cfa_input_field(:made_estimated_tax_payments_amount, t(".fields.made_estimated_tax_payments_amount"), classes: ["form-width--short"]) %>
           </div>
         </div>
-        placeholder for 8
+        <%= f.cfa_select(:had_capital_loss_carryover, "8. (A) #{t(".fields.had_capital_loss_carryover")}", yes_no_unsure_options_for_select) %>
         <br />
-        placeholder for 9
+        <%= f.cfa_select(:bought_health_insurance, "9. (A) #{t(".fields.bought_health_insurance")}", yes_no_unsure_options_for_select) %>
         <br />
         <br />
       </div>

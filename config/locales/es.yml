@@ -682,7 +682,10 @@ es:
         fields:
           adopted_child: "¿Adoptar un niño?"
           bought_energy_efficient_items: "¿Comprar e instalar artículos para el hogar de bajo consumo?"
+          bought_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el formulario 1095-A]"
           had_asset_sale_income: "¿Ingresos (o pérdidas) por la venta o el intercambio de acciones, bonos, moneda virtual o bienes inmuebles?"
+          had_capital_loss_carryover: ¿Presentar una declaración federal el año pasado que contenga una "pérdida de capital remanente" en el Anexo D del Formulario 1040?
+          had_cash_check_digital_assets: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
           had_debt_forgiven: "¿Ha cancelado/perdonado una tarjeta de crédito, un préstamo estudiantil o una deuda hipotecaria por parte de un prestamista o tiene una ejecución hipotecaria?"
           had_disability_income: ingreso por discapacidad?
           had_hsa: "¿Tiene una Cuenta de Ahorro para la Salud?"
@@ -691,21 +694,32 @@ es:
           had_other_income: "¿Otros ingresos?"
           had_rental_income: "¿Ingresos (o pérdidas) de la propiedad de alquiler?"
           had_retirement_income: Rentas de Jubilación o pagos de Pensiones. ¿Anualidades o IRA?
+          had_scholarships: "¿Becas?"
           had_self_employment_income: "¿Ingresos de trabajo por cuenta propia?"
           had_social_security_income: "¿Beneficios de jubilación del seguro social o del ferrocarril?"
           had_tax_credit_disallowed: "¿Han sido rechazados el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos o el Crédito de la Oportunidad Estadounidense en un año anterior?"
           had_tips: "¿Ingreso de propinas?"
           had_unemployment_income: "¿Compensacion por desempleo?"
           had_wages: "¿Sueldo o Salario? (Formulario W-2)"
+          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el SSN del destinatario?
           job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
           made_estimated_tax_payments: "¿Hacer pagos de impuestos estimados o aplicar el reembolso del año pasado al impuesto de este año?"
+          made_estimated_tax_payments_amount: Si es así, ¿cuánto?
+          misc_expenses_charitable_contributions: Contribuciones caritativas
+          misc_expenses_medical_and_dental: Médico y dental (incluidas las primas de seguro)
+          misc_expenses_mortgage_interest: Interés hipotecario (Formulario 1098)
+          misc_expenses_taxes: Impuestos (Estatales, Bienes Raíces, Bienes Muebles, Ventas)
           paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"
           paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
+          paid_misc_expenses: "¿Cualquiera de los siguientes?"
+          paid_post_secondary_educational_expenses: "¿Gastos universitarios o de educación postsecundaria para usted, su cónyuge o sus dependientes?"
           paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
           paid_school_supplies: "¿Para los suministros utilizados como educador elegible, como un maestro, un ayudante de maestro, un consejero, etc.?"
+          paid_self_employment_expenses: "¿Gastos relacionados con los ingresos del trabajo por cuenta propia o cualquier otro ingreso que haya recibido?"
           paid_student_loan_interest: "¿Intereses de préstamos estudiantiles?"
           received_alimony: "¿Renta de pensión alimenticia o pagos separados de manutención?"
           received_homebuyer_credit: Recibir el crédito para compradores de vivienda por primera vez en 2008?
+          tax_credit_disallowed_year: En caso afirmativo, ¿para qué año fiscal?
         part_3_title: Parte III - Ingresos - El año pasado, ¿Recibió usted (o su cónyuge)
         part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)
         part_5_title: Parte V - Acontecimientos de la vida - El año pasado, ¿usted (o su cónyuge)

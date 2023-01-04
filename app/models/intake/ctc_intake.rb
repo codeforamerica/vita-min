@@ -26,6 +26,10 @@
 #  completed_yes_no_questions_at                        :datetime
 #  consented_to_legal                                   :integer          default("unfilled"), not null
 #  continued_at_capacity                                :boolean          default(FALSE)
+#  contributed_to_401k                                  :integer          default(0), not null
+#  contributed_to_ira                                   :integer          default(0), not null
+#  contributed_to_other_retirement_account              :integer          default(0), not null
+#  contributed_to_roth_ira                              :integer          default(0), not null
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
@@ -75,6 +79,8 @@
 #  full_time_student_less_than_five_months              :integer          default("unfilled"), not null
 #  got_married_during_tax_year                          :integer          default(0), not null
 #  had_asset_sale_income                                :integer          default(0), not null
+#  had_capital_loss_carryover                           :integer          default(0), not null
+#  had_cash_check_digital_assets                        :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
 #  had_dependents                                       :integer          default("unfilled"), not null
 #  had_disability                                       :integer          default(0), not null
@@ -89,6 +95,7 @@
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
 #  had_retirement_income                                :integer          default(0), not null
+#  had_scholarships                                     :integer          default(0), not null
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
 #  had_social_security_or_retirement                    :integer          default(0), not null
@@ -101,6 +108,7 @@
 #  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default("unfilled"), not null
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
+#  has_ssn_of_alimony_recipient                         :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default("unfilled"), not null
@@ -112,7 +120,12 @@
 #  lived_with_spouse                                    :integer          default(0), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
+#  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default(0), not null
+#  misc_expenses_charitable_contributions               :integer          default(0), not null
+#  misc_expenses_medical_and_dental                     :integer          default(0), not null
+#  misc_expenses_mortgage_interest                      :integer          default(0), not null
+#  misc_expenses_taxes                                  :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -136,9 +149,12 @@
 #  paid_dependent_care                                  :integer          default(0), not null
 #  paid_local_tax                                       :integer          default(0), not null
 #  paid_medical_expenses                                :integer          default(0), not null
+#  paid_misc_expenses                                   :integer          default(0), not null
 #  paid_mortgage_interest                               :integer          default(0), not null
+#  paid_post_secondary_educational_expenses             :integer          default(0), not null
 #  paid_retirement_contributions                        :integer          default(0), not null
 #  paid_school_supplies                                 :integer          default(0), not null
+#  paid_self_employment_expenses                        :integer          default(0), not null
 #  paid_student_loan_interest                           :integer          default(0), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
@@ -225,6 +241,7 @@
 #  state_of_residence                                   :string
 #  street_address                                       :string
 #  street_address2                                      :string
+#  tax_credit_disallowed_year                           :integer
 #  timezone                                             :string
 #  triage_filing_frequency                              :integer          default(0), not null
 #  triage_filing_status                                 :integer          default(0), not null

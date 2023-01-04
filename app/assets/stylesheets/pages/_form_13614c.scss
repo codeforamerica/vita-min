@@ -1,4 +1,26 @@
 .form_13614c {
+  .checkbox-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox-set {
+    display: flex;
+
+    .checkbox-group {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-right: 1.5rem;
+
+      .checkbox--gyr {
+        input[type="checkbox"] {
+          min-width: 2rem;
+          min-height: 2rem;
+        }
+      }
+    }
+  }
+
   .form-group {
     display: inline-block;
 

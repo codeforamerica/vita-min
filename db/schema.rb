@@ -1028,6 +1028,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.datetime "completed_yes_no_questions_at", precision: nil
     t.integer "consented_to_legal", default: 0, null: false
     t.boolean "continued_at_capacity", default: false
+    t.integer "contributed_to_401k", default: 0, null: false
+    t.integer "contributed_to_ira", default: 0, null: false
+    t.integer "contributed_to_other_retirement_account", default: 0, null: false
+    t.integer "contributed_to_roth_ira", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
@@ -1078,6 +1082,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "full_time_student_less_than_five_months", default: 0, null: false
     t.integer "got_married_during_tax_year", default: 0, null: false
     t.integer "had_asset_sale_income", default: 0, null: false
+    t.integer "had_capital_loss_carryover", default: 0, null: false
+    t.integer "had_cash_check_digital_assets", default: 0, null: false
     t.integer "had_debt_forgiven", default: 0, null: false
     t.integer "had_dependents", default: 0, null: false
     t.integer "had_disability", default: 0, null: false
@@ -1092,6 +1098,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "had_other_income", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
     t.integer "had_retirement_income", default: 0, null: false
+    t.integer "had_scholarships", default: 0, null: false
     t.integer "had_self_employment_income", default: 0, null: false
     t.integer "had_social_security_income", default: 0, null: false
     t.integer "had_social_security_or_retirement", default: 0, null: false
@@ -1104,6 +1111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.boolean "has_crypto_income", default: false
     t.integer "has_primary_ip_pin", default: 0, null: false
     t.integer "has_spouse_ip_pin", default: 0, null: false
+    t.integer "has_ssn_of_alimony_recipient", default: 0, null: false
     t.string "hashed_primary_ssn"
     t.integer "home_location"
     t.integer "homeless_youth", default: 0, null: false
@@ -1115,7 +1123,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "lived_with_spouse", default: 0, null: false
     t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
+    t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.integer "misc_expenses_charitable_contributions", default: 0, null: false
+    t.integer "misc_expenses_medical_and_dental", default: 0, null: false
+    t.integer "misc_expenses_mortgage_interest", default: 0, null: false
+    t.integer "misc_expenses_taxes", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -1140,9 +1153,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "paid_dependent_care", default: 0, null: false
     t.integer "paid_local_tax", default: 0, null: false
     t.integer "paid_medical_expenses", default: 0, null: false
+    t.integer "paid_misc_expenses", default: 0, null: false
     t.integer "paid_mortgage_interest", default: 0, null: false
+    t.integer "paid_post_secondary_educational_expenses", default: 0, null: false
     t.integer "paid_retirement_contributions", default: 0, null: false
     t.integer "paid_school_supplies", default: 0, null: false
+    t.integer "paid_self_employment_expenses", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
     t.string "phone_carrier"
     t.string "phone_number"
@@ -1231,6 +1247,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.string "state_of_residence"
     t.string "street_address"
     t.string "street_address2"
+    t.integer "tax_credit_disallowed_year"
     t.string "timezone"
     t.integer "triage_filing_frequency", default: 0, null: false
     t.integer "triage_filing_status", default: 0, null: false
