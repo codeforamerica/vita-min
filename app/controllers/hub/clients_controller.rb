@@ -26,6 +26,7 @@ module Hub
     end
 
     def create
+      @current_year = MultiTenantService.new(:gyr).current_tax_year
       @form = CreateClientForm.new(create_client_form_params)
       assigned_vita_partner = VitaPartner.find_by(id: create_client_form_params["vita_partner_id"])
 

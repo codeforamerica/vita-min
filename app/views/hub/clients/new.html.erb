@@ -26,12 +26,13 @@
 
               <%= f.fields_for :tax_returns do |ff| %>
                 <div class="hub-form__row">
-                  <% if ff.object.year == @current_year %>
-                    <span><%= f.hub_checkbox("needs_help_current_year", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
+                  <% tr_year = ff.object.year.to_i %>
+                  <% if tr_year == @current_year %>
+                    <span><%= f.hub_checkbox("needs_help_current_year", tr_year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
                     <%= ff.hidden_field :year %>
                     <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
-                  <% else %>
-                    <span><%= f.hub_checkbox("needs_help_previous_year_#{@current_year - ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
+                  <% elsif tr_year.present? %>
+                    <span><%= f.hub_checkbox("needs_help_previous_year_#{@current_year - tr_year}", tr_year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
                     <%= ff.hidden_field :year %>
                     <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
                   <% end %>

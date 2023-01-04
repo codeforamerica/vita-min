@@ -116,7 +116,11 @@ module Hub
 
     def create_tax_return_for_year?(year)
       current_year = MultiTenantService.new(:gyr).current_tax_year
-      attributes_for(:intake)["needs_help_previous_year_#{current_year.to_i - year.to_i}".to_sym] == "yes" || attributes_for(:intake)["needs_help_current_year".to_sym] == "yes"
+      if current_year.to_i == year.to_i
+        attributes_for(:intake)[:needs_help_current_year] == "yes"
+      else
+        attributes_for(:intake)["needs_help_previous_year_#{current_year.to_i - year.to_i}".to_sym] == "yes"
+      end
     end
 
     def tax_return_required_fields_valid

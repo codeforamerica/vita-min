@@ -66,7 +66,6 @@ RSpec.feature "Creating new drop off clients" do
       check "2020"
       check "2019"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_0_certification_level"
-      select "Basic", from: "hub_create_client_form_tax_returns_attributes_1_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_2_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_3_certification_level"
 
@@ -97,6 +96,7 @@ RSpec.feature "Creating new drop off clients" do
 
       within ".tax-return-list" do
         expect(page).to have_text "2020"
+        expect(page).not_to have_text "2021"
         expect(page).to have_text "2019"
         expect(page).to have_text "2022"
       end
