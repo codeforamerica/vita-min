@@ -275,7 +275,7 @@ RSpec.describe MailgunWebhooksController do
 
             outgoing_email = OutgoingEmail.last
             expect(outgoing_email.subject).to eq("Replies not monitored")
-            expect(outgoing_email.body).to eq("Replies not monitored. Write support@test.localhost for assistance.")
+            expect(outgoing_email.body).to eq("Replies not monitored. Write support@test.localhost for assistance. To check on your refund status, go to <a href=\"https://www.irs.gov/refunds\">Where's My Refund?</a> To access your tax record, get <a href=\"https://www.irs.gov/individuals/get-transcript\">your transcript.</a>")
             expect(outgoing_email.client).to eq client
             expect(outgoing_email.user).to eq nil
             expect(outgoing_email.to).to eq archived_intake.email_address
