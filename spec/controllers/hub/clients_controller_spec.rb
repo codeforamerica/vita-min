@@ -1744,7 +1744,25 @@ RSpec.describe Hub::ClientsController do
             had_tax_credit_disallowed: "unfilled",
             bought_energy_efficient_items: "unfilled",
             received_homebuyer_credit: "unfilled",
-            made_estimated_tax_payments: "unfilled"
+            made_estimated_tax_payments: "unfilled",
+            had_scholarships: "unfilled",
+            had_cash_check_digital_assets: "unfilled",
+            has_ssn_of_alimony_recipient: "unfilled",
+            contributed_to_ira: "unfilled",
+            contributed_to_roth_ira: "unfilled",
+            contributed_to_401k: "unfilled",
+            contributed_to_other_retirement_account: "unfilled",
+            paid_post_secondary_educational_expenses: "unfilled",
+            paid_misc_expenses: "unfilled",
+            misc_expenses_medical_and_dental: "unfilled",
+            misc_expenses_mortgage_interest: "unfilled",
+            misc_expenses_taxes: "unfilled",
+            misc_expenses_charitable_contributions: "unfilled",
+            paid_self_employment_expenses: "unfilled",
+            tax_credit_disallowed_year: nil,
+            made_estimated_tax_payments_amount: nil,
+            had_capital_loss_carryover: "unfilled",
+            bought_health_insurance: "unfilled"
           }
         }
       }
