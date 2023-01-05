@@ -4809,32 +4809,18 @@ en:
         filing_years:
           title: 'Filing years:'
         id_documents:
-          ctc: ID numbers
           diy: ID numbers
           full_service: Photo
           title: Social Security Card or ITIN paperwork
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
-          ctc_html: |
-            under $12,550
-            <div class="service-set__subtitle">(under $25,100 filing jointly)</div>
           diy: under $73,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
-        most_tax_credits: Most tax credits
         required_information: Required information
         services:
-          ctc:
-            coming_soon: Coming May 2022
-            cta:
-              closed: Sign up for GetCTC
-              open: Choose GetCTC
-            service_description:
-              eitc_off: File quickly on your own to collect your stimulus payments and Child Tax Credit.
-              eitc_on: File quickly on your own to collect your Earned Income Tax Credit (EITC), stimulus payments and Child Tax Credit.
-            service_name: GetCTC
           diy:
             cta: Choose File Myself
             service_description: File quickly on your own for 2021.
@@ -4850,11 +4836,9 @@ en:
         stimulus_payments: Stimulus Payments
         support_via_gyr: available through GetYourRefund
         tax_documents:
-          ctc: Not required, but may help you claim more benefits
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         time_to_file:
-          ctc: 15 minutes
           diy: 45 minutes
           full_service: 2-3 weeks
           subtitle: IRS payment processing times vary 3-6 weeks
