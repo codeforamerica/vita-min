@@ -1620,14 +1620,16 @@ RSpec.describe Hub::ClientsController do
             put :update_13614c_form_page1, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to render_template :edit_13614c_form_page1
+
           client.reload
           expect(client.intake.primary.first_name).to eq "Updated"
           expect(client.legal_name).to eq "Updated Name"
           first_dependent.reload
           expect(first_dependent.first_name).to eq "Updated Dependent"
           expect(client.intake.dependents.count).to eq 2
-          # TODO: expect notice
-          # expect(response).to redirect_to hub_client_path(id: client.id)
+
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
@@ -1635,6 +1637,8 @@ RSpec.describe Hub::ClientsController do
                                                          "primary_last_name" => [intake.primary.last_name, "Name"],
                                                          "primary_first_name" => [intake.primary.first_name, "Updated"],
                                                        })
+
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
         context "with invalid params" do
@@ -1781,6 +1785,9 @@ RSpec.describe Hub::ClientsController do
             put :update_13614c_form_page2, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to render_template :edit_13614c_form_page2
+
           client.reload
           expect(client.intake.job_count).to eq 3
           expect(client.intake.had_wages_yes?).to eq true
@@ -1817,9 +1824,6 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
           expect(client.intake.bought_health_insurance_unfilled?).to eq true
 
-          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
-          expect(response).to render_template :edit_13614c_form_page2
-
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
@@ -1835,7 +1839,7 @@ RSpec.describe Hub::ClientsController do
                                                          "job_count" => [intake.job_count, 3],
                                                          "paid_local_tax" => [intake.paid_local_tax, "yes"]
                                                        })
-          # TODO: add expectation for last_13614c_update_at
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
       end
