@@ -696,13 +696,13 @@ en:
           job_count: If yes, how many jobs did you have last year?
           made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
           made_estimated_tax_payments_amount: If so how much?
-          misc_expenses_charitable_contributions: Charitable Contributions
-          misc_expenses_medical_and_dental: Medical & Dental (including insurance premiums)
-          misc_expenses_mortgage_interest: Mortgage Interest (Form 1098)
-          misc_expenses_taxes: Taxes (State, Real Estate, Personal Property, Sales)
           paid_alimony: Alimony or separate maintenance payments?
+          paid_charitable_contributions: Charitable Contributions
           paid_dependent_care: Child or dependent care expenses such as daycare?
+          paid_local_tax: Taxes (State, Real Estate, Personal Property, Sales)
+          paid_medical_expenses: Medical & Dental (including insurance premiums)
           paid_misc_expenses: Any of the following?
+          paid_mortgage_interest: Mortgage Interest (Form 1098)
           paid_post_secondary_educational_expenses: College or post secondary educational expenses for yourself, spouse or dependents?
           paid_retirement_contributions: Contributions or repayments to a retirement account?
           paid_school_supplies: For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?

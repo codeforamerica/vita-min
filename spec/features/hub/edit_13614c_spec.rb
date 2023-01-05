@@ -177,11 +177,12 @@ RSpec.describe "a user editing a clients 13614c form" do
         check "Roth IRA (B)"
         check "Other"
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
+        # TODO: replace with wants_to_itemize?
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_misc_expenses")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.misc_expenses_medical_and_dental")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.misc_expenses_mortgage_interest")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.misc_expenses_taxes")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.misc_expenses_charitable_contributions")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_medical_expenses")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_mortgage_interest")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_local_tax")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_charitable_contributions")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_self_employment_expenses")
@@ -233,11 +234,12 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.contributed_to_401k_yes?).to eq true
       expect(intake.contributed_to_other_retirement_account_yes?).to eq true
       expect(intake.paid_post_secondary_educational_expenses_no?).to eq true
+      # TODO: replace with wants_to_itemize?
       expect(intake.paid_misc_expenses_yes?).to eq true
-      expect(intake.misc_expenses_medical_and_dental_yes?).to eq true
-      expect(intake.misc_expenses_mortgage_interest_yes?).to eq true
-      expect(intake.misc_expenses_taxes_yes?).to eq true
-      expect(intake.misc_expenses_charitable_contributions_yes?).to eq true
+      expect(intake.paid_local_tax_yes?).to eq true
+      expect(intake.paid_mortgage_interest_yes?).to eq true
+      expect(intake.paid_medical_expenses_yes?).to eq true
+      expect(intake.paid_charitable_contributions_yes?).to eq true
       expect(intake.paid_dependent_care_yes?).to eq true
       expect(intake.paid_school_supplies_unsure?).to eq true
       expect(intake.paid_self_employment_expenses_no?).to eq true

@@ -705,13 +705,13 @@ es:
           job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
           made_estimated_tax_payments: "¿Hacer pagos de impuestos estimados o aplicar el reembolso del año pasado al impuesto de este año?"
           made_estimated_tax_payments_amount: Si es así, ¿cuánto?
-          misc_expenses_charitable_contributions: Contribuciones caritativas
-          misc_expenses_medical_and_dental: Médico y dental (incluidas las primas de seguro)
-          misc_expenses_mortgage_interest: Interés hipotecario (Formulario 1098)
-          misc_expenses_taxes: Impuestos (Estatales, Bienes Raíces, Bienes Muebles, Ventas)
           paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"
+          paid_charitable_contributions: Contribuciones caritativas
           paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
+          paid_local_tax: Impuestos (Estatales, Bienes Raíces, Bienes Muebles, Ventas)
+          paid_medical_expenses: Médico y dental (incluidas las primas de seguro)
           paid_misc_expenses: "¿Cualquiera de los siguientes?"
+          paid_mortgage_interest: Interés hipotecario (Formulario 1098)
           paid_post_secondary_educational_expenses: "¿Gastos universitarios o de educación postsecundaria para usted, su cónyuge o sus dependientes?"
           paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
           paid_school_supplies: "¿Para los suministros utilizados como educador elegible, como un maestro, un ayudante de maestro, un consejero, etc.?"

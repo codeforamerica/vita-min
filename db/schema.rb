@@ -1125,10 +1125,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
-    t.integer "misc_expenses_charitable_contributions", default: 0, null: false
-    t.integer "misc_expenses_medical_and_dental", default: 0, null: false
-    t.integer "misc_expenses_mortgage_interest", default: 0, null: false
-    t.integer "misc_expenses_taxes", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -1153,7 +1149,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.integer "paid_dependent_care", default: 0, null: false
     t.integer "paid_local_tax", default: 0, null: false
     t.integer "paid_medical_expenses", default: 0, null: false
-    t.integer "paid_misc_expenses", default: 0, null: false
     t.integer "paid_mortgage_interest", default: 0, null: false
     t.integer "paid_post_secondary_educational_expenses", default: 0, null: false
     t.integer "paid_retirement_contributions", default: 0, null: false

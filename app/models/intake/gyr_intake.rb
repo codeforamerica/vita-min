@@ -122,10 +122,6 @@
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default("unfilled"), not null
-#  misc_expenses_charitable_contributions               :integer          default("unfilled"), not null
-#  misc_expenses_medical_and_dental                     :integer          default("unfilled"), not null
-#  misc_expenses_mortgage_interest                      :integer          default("unfilled"), not null
-#  misc_expenses_taxes                                  :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -149,7 +145,6 @@
 #  paid_dependent_care                                  :integer          default("unfilled"), not null
 #  paid_local_tax                                       :integer          default("unfilled"), not null
 #  paid_medical_expenses                                :integer          default("unfilled"), not null
-#  paid_misc_expenses                                   :integer          default("unfilled"), not null
 #  paid_mortgage_interest                               :integer          default("unfilled"), not null
 #  paid_post_secondary_educational_expenses             :integer          default("unfilled"), not null
 #  paid_retirement_contributions                        :integer          default("unfilled"), not null
@@ -424,11 +419,6 @@ class Intake::GyrIntake < Intake
   enum contributed_to_401k: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_401k
   enum contributed_to_other_retirement_account: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_other_retirement_account
   enum paid_post_secondary_educational_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_post_secondary_educational_expenses
-  enum paid_misc_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_misc_expenses
-  enum misc_expenses_medical_and_dental: { unfilled: 0, yes: 1, no: 2 }, _prefix: :misc_expenses_medical_and_dental
-  enum misc_expenses_mortgage_interest: { unfilled: 0, yes: 1, no: 2 }, _prefix: :misc_expenses_mortgage_interest
-  enum misc_expenses_taxes: { unfilled: 0, yes: 1, no: 2 }, _prefix: :misc_expenses_taxes
-  enum misc_expenses_charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :misc_expenses_charitable_contributions
   enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
   enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
 

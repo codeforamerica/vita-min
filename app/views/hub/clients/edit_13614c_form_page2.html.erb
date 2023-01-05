@@ -98,16 +98,17 @@
         <br />
         <div class="grid">
           <div class="grid__item width-one-third">
+            # TODO: replace with wants_to_itemize?
             <%= f.cfa_select(:paid_misc_expenses, "4. #{t(".fields.paid_misc_expenses")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-two-thirds checkbox-set">
             <div class="checkbox-column">
-              <%= f.hub_checkbox(:misc_expenses_medical_and_dental, "(A) #{t(".fields.misc_expenses_medical_and_dental")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= f.hub_checkbox(:misc_expenses_mortgage_interest, "(A) #{t(".fields.misc_expenses_mortgage_interest")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:paid_medical_expenses, "(A) #{t(".fields.paid_medical_expenses")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:paid_mortgage_interest, "(A) #{t(".fields.paid_mortgage_interest")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
             </div>
             <div class="checkbox-column">
-              <%= f.hub_checkbox(:misc_expenses_taxes, "(A) #{t(".fields.misc_expenses_taxes")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= f.hub_checkbox(:misc_expenses_charitable_contributions, "(B) #{t(".fields.misc_expenses_charitable_contributions")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:paid_local_tax, "(A) #{t(".fields.paid_local_tax")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.hub_checkbox(:paid_charitable_contributions, "(B) #{t(".fields.paid_charitable_contributions")}", options: { checked_value: "yes", unchecked_value: "no" }) %>
             </div>
           </div>
         </div>

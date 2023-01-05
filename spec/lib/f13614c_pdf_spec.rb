@@ -129,12 +129,8 @@ RSpec.describe F13614cPdf do
           eip1_amount_received: 500,
           eip2_amount_received: 1500,
           eip3_amount_received: 2500,
-          # paid_misc_expenses: "unfilled",
-          # TODO: uh oh we might already have these
-          # misc_expenses_medical_and_dental: "unfilled",
-          # misc_expenses_mortgage_interest: "unfilled",
-          # misc_expenses_taxes: "unfilled",
-          # misc_expenses_charitable_contributions: "unfilled",
+          # TODO: replace with wants_to_itemize?
+          paid_misc_expenses: "unfilled",
         )
       end
       before do

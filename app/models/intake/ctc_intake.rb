@@ -122,10 +122,6 @@
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default(0), not null
-#  misc_expenses_charitable_contributions               :integer          default(0), not null
-#  misc_expenses_medical_and_dental                     :integer          default(0), not null
-#  misc_expenses_mortgage_interest                      :integer          default(0), not null
-#  misc_expenses_taxes                                  :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -149,7 +145,6 @@
 #  paid_dependent_care                                  :integer          default(0), not null
 #  paid_local_tax                                       :integer          default(0), not null
 #  paid_medical_expenses                                :integer          default(0), not null
-#  paid_misc_expenses                                   :integer          default(0), not null
 #  paid_mortgage_interest                               :integer          default(0), not null
 #  paid_post_secondary_educational_expenses             :integer          default(0), not null
 #  paid_retirement_contributions                        :integer          default(0), not null

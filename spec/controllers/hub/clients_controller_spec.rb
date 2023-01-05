@@ -1753,11 +1753,12 @@ RSpec.describe Hub::ClientsController do
             contributed_to_401k: "unfilled",
             contributed_to_other_retirement_account: "unfilled",
             paid_post_secondary_educational_expenses: "unfilled",
+            # TODO: replace with wants_to_itemize?
             paid_misc_expenses: "unfilled",
-            misc_expenses_medical_and_dental: "unfilled",
-            misc_expenses_mortgage_interest: "unfilled",
-            misc_expenses_taxes: "unfilled",
-            misc_expenses_charitable_contributions: "unfilled",
+            paid_local_tax: "yes",
+            paid_mortgage_interest: "unfilled",
+            paid_medical_expenses: "unfilled",
+            paid_charitable_contributions: "unfilled",
             paid_self_employment_expenses: "unfilled",
             tax_credit_disallowed_year: nil,
             made_estimated_tax_payments_amount: nil,
@@ -1809,6 +1810,13 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.bought_energy_efficient_items_unfilled?).to eq true
           expect(client.intake.received_homebuyer_credit_unfilled?).to eq true
           expect(client.intake.made_estimated_tax_payments_unfilled?).to eq true
+          expect(client.intake.paid_local_tax_yes?).to eq true
+          expect(client.intake.paid_mortgage_interest_unfilled?).to eq true
+          expect(client.intake.paid_medical_expenses_unfilled?).to eq true
+          expect(client.intake.paid_charitable_contributions_unfilled?).to eq true
+          expect(client.intake.paid_self_employment_expenses_unfilled?).to eq true
+          expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
+          expect(client.intake.bought_health_insurance_unfilled?).to eq true
 
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
           expect(response).to render_template :edit_13614c_form_page2
@@ -1825,10 +1833,9 @@ RSpec.describe Hub::ClientsController do
                                                          "had_social_security_income" => [intake.had_social_security_income, "unsure"],
                                                          "had_unemployment_income" => [intake.had_unemployment_income, "yes"],
                                                          "had_wages" => [intake.had_wages, "yes"],
-                                                         "job_count" => [intake.job_count, 3]
-
+                                                         "job_count" => [intake.job_count, 3],
+                                                         "paid_local_tax" => [intake.paid_local_tax, "yes"]
                                                        })
-
           # TODO: add expectation for last_13614c_update_at
         end
 
