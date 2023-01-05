@@ -131,7 +131,9 @@
             <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_input_field(:tax_credit_disallowed_year, "4. (B) #{t(".fields.tax_credit_disallowed_year")}", classes: ["form-width--short"]) %>
+            <div class="input--display-row">
+              <%= f.cfa_input_field(:tax_credit_disallowed_year, "4. (B) #{t(".fields.tax_credit_disallowed_year")}", classes: ["form-width--short"]) %>
+            </div>
           </div>
         </div>
         <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", yes_no_unsure_options_for_select) %>
@@ -141,7 +143,9 @@
             <%= f.cfa_select(:made_estimated_tax_payments, "7. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_input_field(:made_estimated_tax_payments_amount, t(".fields.made_estimated_tax_payments_amount"), classes: ["form-width--short"]) %>
+            <div class="input--display-row">
+              <%= f.cfa_input_field(:made_estimated_tax_payments_amount, t(".fields.made_estimated_tax_payments_amount"), classes: ["form-width--short"]) %>
+            </div>
           </div>
         </div>
         <%= f.cfa_select(:had_capital_loss_carryover, "8. (A) #{t(".fields.had_capital_loss_carryover")}", yes_no_unsure_options_for_select) %>

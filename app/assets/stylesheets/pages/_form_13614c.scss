@@ -21,6 +21,17 @@
     }
   }
 
+  .input--display-row {
+    .form-group {
+      display: flex;
+      align-items: center;
+
+      .form-question {
+        margin-right: 1.9rem;
+      }
+    }
+  }
+
   .form-group {
     display: inline-block;
 
