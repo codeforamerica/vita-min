@@ -88,8 +88,7 @@ class F13614cPdf
 
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q3_Post_Secondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-      # TODO: replace with wants_to_itemize?
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q4_Deductions[0]", collective_yes_no_unsure(@intake.paid_local_tax, @intake.paid_mortgage_interest, @intake.paid_medical_expenses, @intake.paid_charitable_contributions), include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q4_Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
     )
     answers.merge!(
       "form1[0].page2[0].Part_4[0].q4_Deductions[0].taxes[0]" => yes_no_unfilled_to_checkbox(@intake.paid_local_tax),

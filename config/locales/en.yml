@@ -701,7 +701,6 @@ en:
           paid_dependent_care: Child or dependent care expenses such as daycare?
           paid_local_tax: Taxes (State, Real Estate, Personal Property, Sales)
           paid_medical_expenses: Medical & Dental (including insurance premiums)
-          paid_misc_expenses: Any of the following?
           paid_mortgage_interest: Mortgage Interest (Form 1098)
           paid_post_secondary_educational_expenses: College or post secondary educational expenses for yourself, spouse or dependents?
           paid_retirement_contributions: Contributions or repayments to a retirement account?
@@ -711,6 +710,7 @@ en:
           received_alimony: Alimony income or separate maintenance payments?
           received_homebuyer_credit: Receive the First Time Homebuyers Credit in 2008?
           tax_credit_disallowed_year: If yes, for which tax year?
+          wants_to_itemize: Any of the following?
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
         part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
         part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)

@@ -37,6 +37,7 @@ module Hub
                        :contributed_to_401k,
                        :contributed_to_other_retirement_account,
                        :paid_post_secondary_educational_expenses,
+                       :wants_to_itemize,
                        :paid_local_tax,
                        :paid_mortgage_interest,
                        :paid_medical_expenses,

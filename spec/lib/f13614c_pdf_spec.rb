@@ -56,6 +56,7 @@ RSpec.describe F13614cPdf do
           reported_self_employment_loss: "yes",
           had_other_income: "yes",
           other_income_types: "garden gnoming",
+          wants_to_itemize: "yes",
           paid_mortgage_interest: "no",
           paid_local_tax: "yes",
           paid_medical_expenses: "yes",
@@ -129,8 +130,6 @@ RSpec.describe F13614cPdf do
           eip1_amount_received: 500,
           eip2_amount_received: 1500,
           eip3_amount_received: 2500,
-          # TODO: replace with wants_to_itemize?
-          paid_misc_expenses: "unfilled",
         )
       end
       before do

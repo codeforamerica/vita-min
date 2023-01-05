@@ -710,7 +710,6 @@ es:
           paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
           paid_local_tax: Impuestos (Estatales, Bienes Raíces, Bienes Muebles, Ventas)
           paid_medical_expenses: Médico y dental (incluidas las primas de seguro)
-          paid_misc_expenses: "¿Cualquiera de los siguientes?"
           paid_mortgage_interest: Interés hipotecario (Formulario 1098)
           paid_post_secondary_educational_expenses: "¿Gastos universitarios o de educación postsecundaria para usted, su cónyuge o sus dependientes?"
           paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
@@ -720,6 +719,7 @@ es:
           received_alimony: "¿Renta de pensión alimenticia o pagos separados de manutención?"
           received_homebuyer_credit: Recibir el crédito para compradores de vivienda por primera vez en 2008?
           tax_credit_disallowed_year: En caso afirmativo, ¿para qué año fiscal?
+          wants_to_itemize: "¿Cualquiera de los siguientes?"
         part_3_title: Parte III - Ingresos - El año pasado, ¿Recibió usted (o su cónyuge)
         part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)
         part_5_title: Parte V - Acontecimientos de la vida - El año pasado, ¿usted (o su cónyuge)

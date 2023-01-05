@@ -1753,8 +1753,7 @@ RSpec.describe Hub::ClientsController do
             contributed_to_401k: "unfilled",
             contributed_to_other_retirement_account: "unfilled",
             paid_post_secondary_educational_expenses: "unfilled",
-            # TODO: replace with wants_to_itemize?
-            paid_misc_expenses: "unfilled",
+            wants_to_itemize: "unfilled",
             paid_local_tax: "yes",
             paid_mortgage_interest: "unfilled",
             paid_medical_expenses: "unfilled",

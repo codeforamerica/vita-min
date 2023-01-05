@@ -177,8 +177,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         check "Roth IRA (B)"
         check "Other"
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
-        # TODO: replace with wants_to_itemize?
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_misc_expenses")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.wants_to_itemize")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_medical_expenses")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_mortgage_interest")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_local_tax")
@@ -234,8 +233,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.contributed_to_401k_yes?).to eq true
       expect(intake.contributed_to_other_retirement_account_yes?).to eq true
       expect(intake.paid_post_secondary_educational_expenses_no?).to eq true
-      # TODO: replace with wants_to_itemize?
-      expect(intake.paid_misc_expenses_yes?).to eq true
+      expect(intake.wants_to_itemize_yes?).to eq true
       expect(intake.paid_local_tax_yes?).to eq true
       expect(intake.paid_mortgage_interest_yes?).to eq true
       expect(intake.paid_medical_expenses_yes?).to eq true
