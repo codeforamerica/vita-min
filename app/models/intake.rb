@@ -311,6 +311,7 @@ class Intake < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
+  validates_presence_of :product_year
 
   before_validation do
     self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
