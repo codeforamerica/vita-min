@@ -60,12 +60,12 @@ class F13614cPdf
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q2_Tip_Income[0]", @intake.had_tips, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q3_Scholarships[0]", nil, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q3_Scholarships[0]", @intake.had_scholarships, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q4_Interest_Dividends_From[0]", @intake.had_interest_income, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q5_Refund_Of_State[0]", @intake.had_local_tax_refund, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q6_Alimony_Income[0]", @intake.received_alimony, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q7_Self-Employment_Income[0]", @intake.had_self_employment_income, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0]", nil, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q9_Income[0]", collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss, @intake.sold_a_home), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q10_Disability_Income[0]", @intake.had_disability_income, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q11_Retirement_Income[0]", @intake.had_retirement_income, include_unsure: true),
@@ -75,19 +75,19 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q15_Other_Income[0]", collective_yes_no_unsure(@intake.had_other_income, @intake.had_gambling_income), include_unsure: true),
 
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0]", @intake.paid_alimony, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0]", nil),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0]", @intake.has_ssn_of_alimony_recipient),
 
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q2_Contributions[0]", @intake.paid_retirement_contributions, include_unsure: true),
     )
     answers.merge!(
-      "form1[0].page2[0].Part_4[0].q2_Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(nil),
-      "form1[0].page2[0].Part_4[0].q2_Contributions[0].Roth_IRA[0]" => yes_no_unfilled_to_checkbox(nil),
-      "form1[0].page2[0].Part_4[0].q2_Contributions[0]._401K[0]" => yes_no_unfilled_to_checkbox(nil),
-      "form1[0].page2[0].Part_4[0].q2_Contributions[0].Other[0]" => yes_no_unfilled_to_checkbox(nil),
+      "form1[0].page2[0].Part_4[0].q2_Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
+      "form1[0].page2[0].Part_4[0].q2_Contributions[0].Roth_IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_roth_ira),
+      "form1[0].page2[0].Part_4[0].q2_Contributions[0]._401K[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_401k),
+      "form1[0].page2[0].Part_4[0].q2_Contributions[0].Other[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_other_retirement_account),
     )
 
     answers.merge!(
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q3_Post_Secondary[0]", @intake.had_student_in_family, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q3_Post_Secondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q4_Deductions[0]", collective_yes_no_unsure(@intake.paid_local_tax, @intake.paid_mortgage_interest, @intake.paid_medical_expenses, @intake.paid_charitable_contributions), include_unsure: true),
     )
     answers.merge!(
@@ -99,7 +99,7 @@ class F13614cPdf
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q5_Child_Or_Dependent[0]", @intake.paid_dependent_care, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0]", @intake.paid_school_supplies, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0]", nil, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0]", @intake.paid_self_employment_expenses, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q8_Student_Loan_Interest[0]", @intake.paid_student_loan_interest, include_unsure: true),
 
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q1_Have_A_Health[0]", @intake.had_hsa, include_unsure: true),
@@ -108,7 +108,7 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0]", @intake.had_tax_credit_disallowed, include_unsure: true),
     )
     answers.merge!(
-      "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].Which_Tax_Year[0]" => nil,
+      "form1[0].page2[0].Part_5[0].q4_Have_Earned_Income[0].Which_Tax_Year[0]" => @intake.tax_credit_disallowed_year,
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q5_Purchase_And_Install[0]", @intake.bought_energy_efficient_items || "unfilled", include_unsure: true), # no default in db
@@ -116,10 +116,10 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0]", @intake.made_estimated_tax_payments, include_unsure: true),
     )
     answers.merge!(
-      "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].How_Much[0]" => nil,
+      "form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0].How_Much[0]" => @intake.made_estimated_tax_payments_amount,
     )
     answers.merge!(
-      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q8_File_A_Federal[0]", nil, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q8_File_A_Federal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q9_have_health[0]", @intake.bought_health_insurance, include_unsure: true),
     )
     answers.merge!(
