@@ -4839,32 +4839,18 @@ es:
         filing_years:
           title: 'Años en que se hicieron declaraciones:'
         id_documents:
-          ctc: Números de identificación o ID en inglés
           diy: Números de identificación o ID en inglés
           full_service: Foto
           title: Tarjeta de Seguro Social o documentos de Número de Identificación Personal (ITIN en inglés)
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          ctc_html: |
-            menos de $12,550
-            <div class="service-set__subtitle">(menos de $25,100 al declarar conjuntamente)</div>
           diy: menos de $73,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN en inglés)
-        most_tax_credits: La mayoría de los créditos tributarios
         required_information: Información obligatoria
         services:
-          ctc:
-            coming_soon: A partir de mayo de 2022
-            cta:
-              closed: Regístrese para recibir GetCTC
-              open: Elija GetCTC
-            service_description:
-              eitc_off: Presente su declaración rápidamente por su cuenta para recoger sus pagos de estímulo y el Crédito Tributario por Hijos.
-              eitc_on: Presente su declaración rápidamente por su cuenta para recoger su Crédito Tributario por Ingreso del Trabajo (EITC), pagos de estímulo y Crédito Tributario por Hijos.
-            service_name: GetCTC
           diy:
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para 2021.
@@ -4880,11 +4866,9 @@ es:
         stimulus_payments: Pagos de estímulo
         support_via_gyr: disponible a través de GetYourRefund
         tax_documents:
-          ctc: No es obligatorio, pero puede ayudarle a reclamar más beneficios
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         time_to_file:
-          ctc: 15 minutos
           diy: 45 minutos
           full_service: De 2 a 3 semanas
           subtitle: Los plazos de tramitación de los pagos del IRS varían de 3-6 semanas
