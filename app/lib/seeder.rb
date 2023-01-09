@@ -453,7 +453,7 @@ class Seeder
 
   def find_or_create_intake_and_client(intake_type, attributes)
     attributes[:preferred_name] = attributes[:primary_first_name] if attributes[:preferred_name].blank?
-    attributes[:product_year] = 2022 if attributes[:product_year].blank?
+    attributes[:product_year] = Rails.configuration.product_year if attributes[:product_year].blank?
 
     attributes[:visitor_id] = SecureRandom.hex(26)
 
