@@ -155,6 +155,10 @@ CREATE VIEW analytics.incoming_emails AS
     SELECT id, attachment_count, client_id, created_at, received_at, updated_at
     FROM public.incoming_emails;
 
+CREATE VIEW analytics.intake_archives AS
+SELECT id, needs_help_2017
+FROM public.intake_archives;
+
 CREATE VIEW analytics.intakes AS
     SELECT id, adopted_child, already_applied_for_stimulus, already_filed, balance_pay_from_bank,
            bank_account_type, bought_energy_efficient_items, bought_health_insurance, city,
@@ -174,7 +178,7 @@ CREATE VIEW analytics.intakes AS
            had_self_employment_income, had_social_security_income, had_social_security_or_retirement,
            had_student_in_family, had_tax_credit_disallowed, had_tips, had_unemployment_income, had_wages, home_location,
            income_over_limit, issued_identity_pin, job_count, lived_with_spouse, locale,
-           made_estimated_tax_payments, married, multiple_states, needs_help_2016, needs_help_2017, needs_help_2018,
+           made_estimated_tax_payments, married, multiple_states, needs_help_2016, needs_help_2018,
            needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
            paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
            paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,

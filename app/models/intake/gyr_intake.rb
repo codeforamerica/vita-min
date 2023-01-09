@@ -118,7 +118,6 @@
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default("unfilled"), not null
 #  needs_help_2016                                      :integer          default("unfilled"), not null
-#  needs_help_2017                                      :integer          default("unfilled"), not null
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
@@ -166,6 +165,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default("unfilled"), not null
+#  product_year                                         :integer          not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null

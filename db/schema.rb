@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -993,6 +993,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
     t.index ["created_at"], name: "index_incoming_text_messages_on_created_at"
   end
 
+  create_table "intake_archives", force: :cascade do |t|
+    t.integer "needs_help_2017"
+  end
+
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
@@ -1160,6 +1164,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
+    t.integer "product_year", null: false
     t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -1782,6 +1787,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_230435) do
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
+  add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
