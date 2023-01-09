@@ -47,6 +47,7 @@ class SearchIndexer
               greetable: TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten.include?(tr.current_state)
             }
           end,
+          filterable_product_year: client.intake.product_year,
           filterable_number_of_required_documents_uploaded: client.number_of_required_documents_uploaded,
           filterable_number_of_required_documents: client.number_of_required_documents,
           filterable_percentage_of_required_documents_uploaded: client.number_of_required_documents_uploaded / client.number_of_required_documents.to_f,

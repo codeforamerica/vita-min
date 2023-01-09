@@ -65,6 +65,7 @@ gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman', '~> 9.0'
 gem 'redcarpet'
 gem 'platform-api'
+gem 'data_migrate'
 gem 'strong_migrations'
 gem 'fraud-gem', git: 'https://github.com/codeforamerica/fraud-gem.git', tag: 'v1.0.5', require: ["fraud_gem"]
 

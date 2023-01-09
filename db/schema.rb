@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -551,6 +551,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
     t.integer "filterable_number_of_required_documents", default: 3
     t.integer "filterable_number_of_required_documents_uploaded", default: 0
     t.decimal "filterable_percentage_of_required_documents_uploaded", precision: 5, scale: 2, default: "0.0"
+    t.integer "filterable_product_year"
     t.jsonb "filterable_tax_return_properties"
     t.datetime "first_unanswered_incoming_interaction_at", precision: nil
     t.datetime "flagged_at", precision: nil
@@ -578,6 +579,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_230651) do
     t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
     t.index ["consented_to_service_at"], name: "index_clients_on_consented_to_service_at"
+    t.index ["filterable_product_year", "filterable_percentage_of_required_documents_uploaded"], name: "index_clients_on_fpy_and_required_docs_uploaded", where: "(consented_to_service_at IS NOT NULL)"
+    t.index ["filterable_product_year", "first_unanswered_incoming_interaction_at"], name: "index_clients_on_fpy_and_first_uii_at", where: "(consented_to_service_at IS NOT NULL)"
+    t.index ["filterable_product_year", "in_progress_survey_sent_at"], name: "index_clients_on_fpy_and_in_progress_survey_sent_at", where: "(consented_to_service_at IS NOT NULL)"
+    t.index ["filterable_product_year", "last_outgoing_communication_at"], name: "index_clients_on_fpy_and_last_outgoing_communication_at", where: "(consented_to_service_at IS NOT NULL)"
+    t.index ["filterable_product_year", "updated_at"], name: "index_clients_on_fpy_and_updated_at", where: "(consented_to_service_at IS NOT NULL)"
     t.index ["filterable_tax_return_properties"], name: "index_clients_on_filterable_tax_return_properties", using: :gin
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
