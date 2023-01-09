@@ -39,7 +39,7 @@ class ClientSorter
               end
     # Filter on product_year to only show clients who used this-year's product
     if @use_product_year
-      clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake", product_year: MultiTenantService.new(:ctc).current_product_year).or(Intake.where(type: "Intake::GyrIntake", product_year: MultiTenantService.new(:gyr).current_product_year)))
+      clients = clients.where(filterable_product_year: Rails.configuration.product_year)
     end
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
