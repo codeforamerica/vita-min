@@ -276,7 +276,7 @@ class FlowsController < ApplicationController
 
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
-        product_year: 2022,
+        product_year: Rails.configuration.product_year,
         visitor_id: SecureRandom.hex(26),
         filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
@@ -421,7 +421,7 @@ class FlowsController < ApplicationController
 
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
-        product_year: 2022,
+        product_year: Rails.configuration.product_year,
         visitor_id: SecureRandom.hex(26),
         filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
