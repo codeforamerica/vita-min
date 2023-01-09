@@ -118,7 +118,6 @@
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
 #  needs_help_2016                                      :integer          default(0), not null
-#  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
@@ -166,6 +165,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
+#  product_year                                         :integer          not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -342,9 +342,9 @@ describe Intake do
     end
 
     context "mandatory fields" do
-      it "requires visitor_id" do
+      it "requires visitor_id and product_year" do
         expect(Intake.new).not_to be_valid
-        expect(Intake.new(visitor_id: "present")).to be_valid
+        expect(Intake.new(visitor_id: "present", product_year: 2022)).to be_valid
       end
     end
   end
@@ -426,36 +426,38 @@ describe Intake do
 
   end
 
+  let(:required_fields) { { visitor_id: "visitor_id", product_year: 2022 } }
+
   describe "canonical_email_address" do
     it "is persisted when the intake is saved" do
-      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", visitor_id: "visitor_id")
+      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", **required_fields)
       expect(example_intake.canonical_email_address).to eq('a.real.email@example.com')
 
-      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", visitor_id: "visitor_id")
+      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", **required_fields)
       expect(gmail_intake.canonical_email_address).to eq('arealemail@gmail.com')
     end
   end
 
   describe "email_address" do
     it "searches case-insensitively" do
-      intake = Intake.create!(email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      intake = Intake.create!(email_address: "eXample@EXAMPLE.COM", **required_fields)
       expect(Intake.where(email_address: "example@example.com")).to include(intake)
     end
   end
 
   describe "email_domain" do
     it "is persisted when the intake is saved" do
-      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", visitor_id: "visitor_id")
+      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", **required_fields)
       expect(example_intake.email_domain).to eq('example.com')
 
-      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", visitor_id: "visitor_id")
+      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", **required_fields)
       expect(gmail_intake.email_domain).to eq('gmail.com')
     end
   end
 
   describe "spouse_email_address" do
     it "searches case-insensitively" do
-      intake = Intake.create!(spouse_email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      intake = Intake.create!(spouse_email_address: "eXample@EXAMPLE.COM", **required_fields)
       expect(Intake.where(spouse_email_address: "example@example.com")).to include(intake)
     end
   end

@@ -15,6 +15,7 @@
 #  filterable_number_of_required_documents              :integer          default(3)
 #  filterable_number_of_required_documents_uploaded     :integer          default(0)
 #  filterable_percentage_of_required_documents_uploaded :decimal(5, 2)    default(0.0)
+#  filterable_product_year                              :integer
 #  filterable_tax_return_properties                     :jsonb
 #  first_unanswered_incoming_interaction_at             :datetime
 #  flagged_at                                           :datetime
@@ -47,6 +48,11 @@
 #
 #  index_clients_on_consented_to_service_at                      (consented_to_service_at)
 #  index_clients_on_filterable_tax_return_properties             (filterable_tax_return_properties) USING gin
+#  index_clients_on_fpy_and_first_uii_at                         (filterable_product_year,first_unanswered_incoming_interaction_at) WHERE (consented_to_service_at IS NOT NULL)
+#  index_clients_on_fpy_and_in_progress_survey_sent_at           (filterable_product_year,in_progress_survey_sent_at) WHERE (consented_to_service_at IS NOT NULL)
+#  index_clients_on_fpy_and_last_outgoing_communication_at       (filterable_product_year,last_outgoing_communication_at) WHERE (consented_to_service_at IS NOT NULL)
+#  index_clients_on_fpy_and_required_docs_uploaded               (filterable_product_year,filterable_percentage_of_required_documents_uploaded) WHERE (consented_to_service_at IS NOT NULL)
+#  index_clients_on_fpy_and_updated_at                           (filterable_product_year,updated_at) WHERE (consented_to_service_at IS NOT NULL)
 #  index_clients_on_in_progress_survey_sent_at                   (in_progress_survey_sent_at)
 #  index_clients_on_last_outgoing_communication_at               (last_outgoing_communication_at)
 #  index_clients_on_login_token                                  (login_token)

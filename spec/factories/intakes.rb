@@ -262,6 +262,7 @@ FactoryBot.define do
   end
 
   factory :ctc_intake, class: Intake::CtcIntake do
+    product_year { Rails.configuration.product_year }
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     primary_birth_date { Date.new(1988, 12, 20) }
     spouse_birth_date { Date.new(1976, 12, 20) }
@@ -278,6 +279,7 @@ FactoryBot.define do
   end
 
   factory :intake, class: Intake::GyrIntake do
+    product_year { Rails.configuration.product_year }
     had_wages { :unfilled }
     client { create :client, consented_to_service_at: nil }
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }

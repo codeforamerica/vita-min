@@ -118,7 +118,6 @@
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
 #  needs_help_2016                                      :integer          default(0), not null
-#  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
@@ -166,6 +165,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
+#  product_year                                         :integer          not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -323,7 +323,7 @@ class Intake::CtcIntake < Intake
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)
     navigator_verified = where.not(navigator_has_verified_client_identity: nil)
-    sms_verified.or(email_verified).or(navigator_verified)
+    sms_verified.or(email_verified).or(navigator_verified).where(product_year: Rails.configuration.product_year)
   end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   belongs_to :primary_drivers_license, class_name: "DriversLicense", optional: true
@@ -391,7 +391,7 @@ class Intake::CtcIntake < Intake
   def is_ctc?
     true
   end
-  
+
   def default_tax_return
     tax_returns.find_by(year: MultiTenantService.new(:ctc).current_tax_year)
   end
