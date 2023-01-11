@@ -160,7 +160,7 @@ module Hub
     end
 
     def update_13614c_form_page3
-      @form = Update13614cFormPage3.new(@client, update_13614c_form_page2_params)
+      @form = Update13614cFormPage3.new(@client, update_13614c_form_page3_params)
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)

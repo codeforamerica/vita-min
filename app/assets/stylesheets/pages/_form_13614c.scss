@@ -59,6 +59,22 @@
     }
   }
 
+  .form-question-13614-page3 {
+    .grid__item {
+      display: flex;
+    }
+
+    .form-group:has(> .select) {
+      display: flex;
+      align-items: center;
+
+      .select {
+        margin-right: 1.9rem;
+        width: 7.5rem;
+      }
+    }
+  }
+
   p {
     max-width: none;
   }
