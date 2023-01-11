@@ -464,7 +464,7 @@ class FlowsController < ApplicationController
         )
         default_attributes = {
           months_in_home: 12,
-          on_visa: 'no',
+          us_citizen: 'yes',
           was_married: 'no',
           was_student: 'no',
           north_american_resident: 'no',

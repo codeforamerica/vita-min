@@ -50,7 +50,7 @@ RSpec.describe DependentsController do
           relationship: "Nibling",
           months_in_home: "12",
           was_student: "no",
-          on_visa: "no",
+          us_citizen: "no",
           north_american_resident: "yes",
           disabled: "no",
           was_married: "no"
@@ -78,7 +78,7 @@ RSpec.describe DependentsController do
         expect(dependent.relationship).to eq "Nibling"
         expect(dependent.months_in_home).to eq 12
         expect(dependent.was_student).to eq "no"
-        expect(dependent.on_visa).to eq "no"
+        expect(dependent.us_citizen).to eq "no"
         expect(dependent.north_american_resident).to eq "yes"
         expect(dependent.disabled).to eq "no"
         expect(dependent.was_married).to eq "no"
@@ -94,7 +94,7 @@ RSpec.describe DependentsController do
             dependent_under_6: "yes",
             dependent_months_in_home: "12",
             dependent_was_student: "no",
-            dependent_on_visa: "no",
+            dependent_us_citizen: "no",
             dependent_north_american_resident: "yes",
             dependent_disabled: "no",
             dependent_was_married: "no",
@@ -115,7 +115,7 @@ RSpec.describe DependentsController do
               relationship: "Nibling",
               months_in_home: "12",
               was_student: "no",
-              on_visa: "no",
+              was_not_citizen: "no",
               north_american_resident: "yes",
               disabled: "no",
               was_married: "no"
@@ -202,7 +202,7 @@ RSpec.describe DependentsController do
           relationship: "Nibling",
           months_in_home: "12",
           was_student: "no",
-          on_visa: "no",
+          us_citizen: "no",
           north_american_resident: "yes",
           disabled: "no",
           was_married: "no"
@@ -228,7 +228,7 @@ RSpec.describe DependentsController do
         expect(dependent.relationship).to eq "Nibling"
         expect(dependent.months_in_home).to eq 12
         expect(dependent.was_student).to eq "no"
-        expect(dependent.on_visa).to eq "no"
+        expect(dependent.us_citizen).to eq "no"
         expect(dependent.north_american_resident).to eq "yes"
         expect(dependent.disabled).to eq "no"
         expect(dependent.was_married).to eq "no"
@@ -244,7 +244,7 @@ RSpec.describe DependentsController do
             dependent_under_6: "yes",
             dependent_months_in_home: "12",
             dependent_was_student: "no",
-            dependent_on_visa: "no",
+            dependent_us_citizen: "no",
             dependent_north_american_resident: "yes",
             dependent_disabled: "no",
             dependent_was_married: "no",
@@ -267,7 +267,7 @@ RSpec.describe DependentsController do
               relationship: "Nibling",
               months_in_home: "12",
               was_student: "no",
-              on_visa: "no",
+              was_not_citizen: "no",
               north_american_resident: "yes",
               disabled: "no",
               was_married: "no"

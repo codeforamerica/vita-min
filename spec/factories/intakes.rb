@@ -155,8 +155,8 @@ FactoryBot.define do
     received_irs_letter { "no" }
     made_estimated_tax_payments { "no" }
     additional_info { "This is some critical information I'd like my tax preparer to know during intake process." }
-    was_on_visa { "yes" }
-    spouse_was_on_visa { "no" }
+    primary_us_citizen { "yes" }
+    spouse_us_citizen { "no" }
     was_full_time_student { "no" }
     spouse_was_full_time_student { "yes" }
     was_blind { "yes" }

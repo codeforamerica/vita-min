@@ -146,7 +146,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       check "I had a permanent disability"
       check "I was legally blind"
       check "I was a full-time student in a college or a trade school"
-      check "I was in the US on a Visa"
+      check "I was not a US citizen"
     end
     click_on "Continue"
 
@@ -265,7 +265,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "2005", from: "Year"
       fill_in "Relationship to you", with: "Nibling"
       select "2", from: "How many months did they live in your home in #{current_tax_year}?"
-      check "Is this person here on a VISA?"
+      check "Not a US citizen"
       check "Married as of 12/31/#{current_tax_year}"
       click_on "Save this person"
       expect(page).to have_text("Gallagher Gnome")

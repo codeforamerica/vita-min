@@ -36,6 +36,7 @@
 #  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
+#  us_citizen                                   :integer          default("unfilled"), not null
 #  was_married                                  :integer          default("unfilled"), not null
 #  was_student                                  :integer          default("unfilled"), not null
 #  created_at                                   :datetime         not null

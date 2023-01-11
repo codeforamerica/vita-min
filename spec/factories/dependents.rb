@@ -36,6 +36,7 @@
 #  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
+#  us_citizen                                   :integer          default("unfilled"), not null
 #  was_married                                  :integer          default("unfilled"), not null
 #  was_student                                  :integer          default("unfilled"), not null
 #  created_at                                   :datetime         not null
@@ -60,7 +61,7 @@ FactoryBot.define do
     birth_date { Date.new(2011, 3, 5) }
     relationship { "daughter" }
     north_american_resident { "yes" }
-    on_visa { "no" }
+    us_citizen { "yes" }
     months_in_home { 11 }
     was_married { "no" }
     was_student { "yes" }

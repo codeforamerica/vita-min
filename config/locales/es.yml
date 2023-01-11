@@ -3229,11 +3229,11 @@ es:
         months_in_home: "¿Cuántos meses vivieron en tu hogar en %{year}?"
         months_in_home_help: Seleccione 12 si nacieron o se murieron en %{year}.
         north_american_resident: Vivió fuera de los EE.UU., México o Canadá
-        on_visa: "¿Tiene esta persona una visa para estar en el país?"
         relationship: Su relación con usted
         save_cta: Guarde a esta persona
         title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
         was_married: Casado/a desde 12/31/%{year}
+        was_not_citizen: No era ciudadano de los Estados Unidos
         was_student: Estudiante de educación superior de tiempo completo
       index:
         add_person: Agregue a una persona
@@ -4474,7 +4474,7 @@ es:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego 
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_on_visa: Yo estaba en los Estados Unidos con una visa
+          was_not_citizen: Yo no era un ciudadanos de los Estados Unidos
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
@@ -4675,7 +4675,7 @@ es:
           had_disability: Mi cónyuge tenía una discapacidad permanente
           was_blind: Mi cónyuge era legalmente ciego
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_on_visa: Mi cónyuge era en los Estados Unidos con una visa
+          was_not_citizen: Ellos no eran ciudadanos de los Estados Unidos
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.

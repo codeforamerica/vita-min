@@ -96,12 +96,12 @@ RSpec.describe F13614cPdf do
           demographic_spouse_white: false,
           demographic_veteran: "no",
           was_full_time_student: "no",
-          was_on_visa: "yes",
+          primary_us_citizen: "no",
           had_disability: "yes",
           was_blind: "no",
           issued_identity_pin: "no",
           spouse_was_full_time_student: "yes",
-          spouse_was_on_visa: "unfilled",
+          spouse_us_citizen: "yes",
           spouse_had_disability: "no",
           spouse_was_blind: "no",
           spouse_issued_identity_pin: "no",
@@ -131,7 +131,7 @@ RSpec.describe F13614cPdf do
           was_married: "no",
           disabled: "no",
           north_american_resident: "yes",
-          on_visa: "no",
+          us_citizen: "yes",
           was_student: "no"
         )
         create(
@@ -145,7 +145,7 @@ RSpec.describe F13614cPdf do
           was_married: "yes",
           disabled: "no",
           north_american_resident: "yes",
-          on_visa: "no",
+          us_citizen: "yes",
           was_student: "yes"
         )
         create(
@@ -159,7 +159,7 @@ RSpec.describe F13614cPdf do
           was_married: "no",
           disabled: "yes",
           north_american_resident: "yes",
-          on_visa: "yes",
+          us_citizen: "no",
           was_student: "no"
         )
       end
@@ -187,12 +187,12 @@ RSpec.describe F13614cPdf do
           "form1[0].page1[0].q1_Your_Last_Name[0]" => "Heifer",
           "form1[0].page1[0].q1_Telephone_Number[0]" => "(415) 816-1286",
           "form1[0].page1[0].q1_Are_You_A[0].yes[0]" => "Off",
-          "form1[0].page1[0].q1_Are_You_A[0].no[0]" => "Off",
+          "form1[0].page1[0].q1_Are_You_A[0].no[0]" => "1",
           "form1[0].page1[0].q2_Spouse_First_Name[0]" => "Hattie",
           "form1[0].page1[0].q2_Spouse_Middle_Initial[0]" => "",
           "form1[0].page1[0].q2_Spouse_Last_Name[0]" => "Heifer",
           "form1[0].page1[0].q2_Telephone_Number[0]" => "",
-          "form1[0].page1[0].q2_Is_Your_Spouse[0].yes[0]" => "Off",
+          "form1[0].page1[0].q2_Is_Your_Spouse[0].yes[0]" => "1",
           "form1[0].page1[0].q2_Is_Your_Spouse[0].no[0]" => "Off",
           "form1[0].page1[0].q3_Mailing_Address[0]" => "789 Garden Green Ln",
           "form1[0].page1[0].p3_Apartment_Number[0]" => "",
@@ -239,7 +239,7 @@ RSpec.describe F13614cPdf do
           "form1[0].page1[0].q1_As_of_December[0].widowed[0]" => "",
           "form1[0].page1[0].q1_As_of_December[0].Year_Of_Death[0]" => "2017",
           "form1[0].page1[0].additionalSpace[0].additional_space[0]" => "",
-          "form1[0].page1[0].namesOf[0].Row1[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row1[0].USCitizen[0]" => "Y",
           "form1[0].page1[0].namesOf[0].Row1[0].claimedBySomeone[0]" => "",
           "form1[0].page1[0].namesOf[0].Row1[0].dateBirth[0]" => "3/2/2005",
           "form1[0].page1[0].namesOf[0].Row1[0].disabled[0]" => "N",
@@ -253,7 +253,7 @@ RSpec.describe F13614cPdf do
           "form1[0].page1[0].namesOf[0].Row1[0].singleMarried[0]" => "S",
           "form1[0].page1[0].namesOf[0].Row1[0].student[0]" => "N",
           "form1[0].page1[0].namesOf[0].Row1[0].supportPerson[0]" => "",
-          "form1[0].page1[0].namesOf[0].Row2[0].USCitizen[0]" => "",
+          "form1[0].page1[0].namesOf[0].Row2[0].USCitizen[0]" => "Y",
           "form1[0].page1[0].namesOf[0].Row2[0].claimedBySomeone[0]" => "",
           "form1[0].page1[0].namesOf[0].Row2[0].dateBirth[0]" => "12/10/2001",
           "form1[0].page1[0].namesOf[0].Row2[0].disabled[0]" => "N",
@@ -267,7 +267,7 @@ RSpec.describe F13614cPdf do
           "form1[0].page1[0].namesOf[0].Row2[0].singleMarried[0]" => "M",
           "form1[0].page1[0].namesOf[0].Row2[0].student[0]" => "Y",
           "form1[0].page1[0].namesOf[0].Row2[0].supportPerson[0]" => "",
-          "form1[0].page1[0].namesOf[0].Row3[0].USCitizen[0]" => "On Visa",
+          "form1[0].page1[0].namesOf[0].Row3[0].USCitizen[0]" => "N",
           "form1[0].page1[0].namesOf[0].Row3[0].claimedBySomeone[0]" => "",
           "form1[0].page1[0].namesOf[0].Row3[0].dateBirth[0]" => "10/15/2010",
           "form1[0].page1[0].namesOf[0].Row3[0].disabled[0]" => "Y",
@@ -482,7 +482,7 @@ RSpec.describe F13614cPdf do
                 was_married: "no",
                 disabled: "yes",
                 north_american_resident: "yes",
-                on_visa: "no",
+                us_citizen: "no",
                 was_student: "no",
               )
             end
@@ -498,7 +498,7 @@ RSpec.describe F13614cPdf do
                 was_married: "no",
                 disabled: "no",
                 north_american_resident: "yes",
-                on_visa: "no",
+                us_citizen: "no",
                 was_student: "no",
               )
             end
@@ -508,8 +508,8 @@ RSpec.describe F13614cPdf do
                 if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
                 Other income types: garden gnoming
                 Additional Dependents:
-                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
-                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
+                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
+                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
               COMMENT
             end
 
@@ -522,8 +522,8 @@ RSpec.describe F13614cPdf do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                   Other income types: garden gnoming
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: ////
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
                 COMMENT
               end
             end
@@ -544,8 +544,8 @@ RSpec.describe F13614cPdf do
                   if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
                   Other income types: garden gnoming
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e)  (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e)  (f) Y (g) S (h) N (i) N CVP: ////
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
                 COMMENT
               end
             end

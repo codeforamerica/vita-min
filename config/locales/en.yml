@@ -3252,11 +3252,11 @@ en:
         months_in_home: How many months did they live in your home in %{year}?
         months_in_home_help: Select 12 if their birth or death was in %{year}.
         north_american_resident: Lived outside of the US, Mexico, or Canada
-        on_visa: Is this person here on a VISA?
         relationship: Relationship to you
         save_cta: Save this person
         title: Tell us about your dependent. Please provide a few more details.
         was_married: Married as of 12/31/%{year}
+        was_not_citizen: Not a US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person
@@ -4466,7 +4466,7 @@ en:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_on_visa: I was in the US on a Visa
+          was_not_citizen: I was not a US citizen
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
@@ -4652,7 +4652,7 @@ en:
           had_disability: They had a permanent disability
           was_blind: They were legally blind
           was_full_time_student: They were a full-time student in a college or a trade school
-          was_on_visa: They were in the US on a Visa
+          was_not_citizen: They were not a US citizen
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.

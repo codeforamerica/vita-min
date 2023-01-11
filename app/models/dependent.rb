@@ -36,6 +36,7 @@
 #  ssn                                          :text
 #  suffix                                       :string
 #  tin_type                                     :integer
+#  us_citizen                                   :integer          default("unfilled"), not null
 #  was_married                                  :integer          default("unfilled"), not null
 #  was_student                                  :integer          default("unfilled"), not null
 #  created_at                                   :datetime         not null
@@ -62,6 +63,7 @@ class Dependent < ApplicationRecord
 
   enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
   enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa
+  enum us_citizen: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :us_citizen
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
   enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
