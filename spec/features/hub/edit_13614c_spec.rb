@@ -103,7 +103,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         fill_in 'First Name', with: 'Bloop'
       end
 
-      click_on "2", id: "top-pagination-link"
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
       expect(client.intake.reload.primary_first_name).to eq "Colleen"
@@ -115,7 +117,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2", id: "top-pagination-link"
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
 
       within "#income-fields" do
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
@@ -142,7 +146,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2", match: :first
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"

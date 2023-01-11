@@ -131,6 +131,10 @@ module Hub
       @form = Update13614cFormPage2.from_client(@client)
     end
 
+    def edit_13614c_form_page3
+      @form = Update13614cFormPage3.from_client(@client)
+    end
+
     def update_13614c_form_page1
       @form = Update13614cFormPage1.new(@client, update_13614c_form_page1_params)
 
@@ -152,6 +156,17 @@ module Hub
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
         render :edit_13614c_form_page2
+      end
+    end
+
+    def update_13614c_form_page3
+      @form = Update13614cFormPage3.new(@client, update_13614c_form_page2_params)
+
+      if @form.valid? && @form.save
+        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
+        GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
+        flash[:notice] = I18n.t("general.changes_saved")
+        render :edit_13614c_form_page3
       end
     end
 
@@ -189,6 +204,10 @@ module Hub
 
     def update_13614c_form_page2_params
       params.require(Update13614cFormPage2.form_param).permit(Update13614cFormPage2.attribute_names)
+    end
+
+    def update_13614c_form_page3_params
+      params.require(Update13614cFormPage3.form_param).permit(Update13614cFormPage3.attribute_names)
     end
 
     def create_client_form_params

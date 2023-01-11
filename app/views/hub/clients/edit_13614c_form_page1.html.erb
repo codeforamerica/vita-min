@@ -9,9 +9,7 @@
     <div style="display: flex; justify-content: space-between;">
       <h2>Part I – Your Personal Information</h2>
 
-      <div id = "form_13614c-page-links">
-        1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path, id: "top-pagination-link" %> | <%= link_to "3", "#" %>
-      </div>
+      <%= render '13614c_page_links', current_page: 1 %>
     </div>
     <hr style="margin-top: 0;"/>
     <%= form_with model: @form,
@@ -145,9 +143,7 @@
                       data: { confirm: t("general.confirm_exit_without_saving") } %>
         </div>
 
-        <div id = "form_13614c-page-links">
-          1 | <%= link_to "2", edit_13614c_form_page2_hub_client_path %> | <%= link_to "3", "#" %>
-        </div>
+        <%= render '13614c_page_links', current_page: 1 %>
       </div>
     <% end %>
 
