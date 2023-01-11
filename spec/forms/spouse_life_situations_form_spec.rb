@@ -7,8 +7,9 @@ RSpec.describe SpouseLifeSituationsForm do
     {
       spouse_had_disability: "no",
       spouse_was_blind: "no",
-      spouse_was_on_visa: "no",
-      spouse_was_full_time_student: "no"
+      spouse_not_us_citizen: "no",
+      spouse_was_full_time_student: "no",
+      no_life_situations_apply: "yes",
     }
   end
 
@@ -16,8 +17,9 @@ RSpec.describe SpouseLifeSituationsForm do
     {
         spouse_had_disability: "yes",
         spouse_was_blind: "yes",
-        spouse_was_on_visa: "yes",
-        spouse_was_full_time_student: "yes"
+        spouse_not_us_citizen: "yes",
+        spouse_was_full_time_student: "yes",
+        no_life_situations_apply: "no",
     }
   end
 
@@ -28,7 +30,7 @@ RSpec.describe SpouseLifeSituationsForm do
       intake.reload
 
       expect(intake.spouse_had_disability).to eq "no"
-      expect(intake.spouse_was_on_visa).to eq "no"
+      expect(intake.spouse_us_citizen).to eq "yes"
       expect(intake.spouse_was_blind).to eq "no"
       expect(intake.spouse_was_full_time_student).to eq "no"
     end
@@ -39,7 +41,7 @@ RSpec.describe SpouseLifeSituationsForm do
       intake.reload
 
       expect(intake.spouse_had_disability).to eq "yes"
-      expect(intake.spouse_was_on_visa).to eq "yes"
+      expect(intake.spouse_us_citizen).to eq "no"
       expect(intake.spouse_was_blind).to eq "yes"
       expect(intake.spouse_was_full_time_student).to eq "yes"
     end

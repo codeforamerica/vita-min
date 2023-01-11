@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -686,6 +686,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_211326) do
     t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "us_citizen", default: 0, null: false
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
