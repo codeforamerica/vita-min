@@ -4853,7 +4853,7 @@ es:
         services:
           diy:
             cta: Elegir declarar por cuenta propia
-            service_description: Declare rápidamente por su cuenta para 2021.
+            service_description: Declare rápidamente por su cuenta para %{year}.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
           full_service:
             cta: Elija GetYourRefund

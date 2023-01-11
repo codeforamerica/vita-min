@@ -4823,7 +4823,7 @@ en:
         services:
           diy:
             cta: Choose File Myself
-            service_description: File quickly on your own for 2021.
+            service_description: File quickly on your own for %{year}.
             service_name: File Myself
           full_service:
             cta: Choose GetYourRefund
