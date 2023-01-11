@@ -140,7 +140,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
     end
 
-    scenario "I can see and update the 13614c page 2 form", js: true do
+    scenario "I can see and update the 13614c page 2 form" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
@@ -260,6 +260,31 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.made_estimated_tax_payments_amount).to eq 3000
       expect(intake.had_capital_loss_carryover_no?).to eq true
       expect(intake.bought_health_insurance_no?).to eq true
+    end
+
+    scenario "I can see and update the 13614c page 3 form" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      within '.form_13614c-page-links', match: :first do
+        click_on "3"
+      end
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.additional_info_title")
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.receive_written_communication")
+      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.preferred_written_language"), with: "Chinese"
+
+      click_on I18n.t("general.save")
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
+      expect(page).to have_text I18n.t("general.changes_saved")
+
+      intake = client.intake.reload
+      expect(intake.preferred_written_language).to eq "Chinese"
     end
   end
 end

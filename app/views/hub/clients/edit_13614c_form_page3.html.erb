@@ -6,6 +6,24 @@
     <p>Last client 13614-C
       update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
 
+    <div>
+      <div style="display: flex; justify-content: space-between;">
+        <h2><%= t(".additional_info_title") %></h2>
+
+        <%= render '13614c_page_links', current_page: 2 %>
+      </div>
+
+      <hr style="margin-top: 0;"/>
+
+      <div class="grid">
+        <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+        </div>
+
+        <div class="grid__item width-one-half">
+        </div>
+      </div>
+    </div>
+
     <%= form_with model: @form,
                   url: update_13614c_form_page3_hub_client_path,
                   method: :put, local: true, builder: VitaMinFormBuilder,
