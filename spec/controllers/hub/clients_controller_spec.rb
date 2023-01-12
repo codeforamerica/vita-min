@@ -1620,14 +1620,16 @@ RSpec.describe Hub::ClientsController do
             put :update_13614c_form_page1, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to render_template :edit_13614c_form_page1
+
           client.reload
           expect(client.intake.primary.first_name).to eq "Updated"
           expect(client.legal_name).to eq "Updated Name"
           first_dependent.reload
           expect(first_dependent.first_name).to eq "Updated Dependent"
           expect(client.intake.dependents.count).to eq 2
-          # TODO: expect notice
-          # expect(response).to redirect_to hub_client_path(id: client.id)
+
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
@@ -1635,6 +1637,8 @@ RSpec.describe Hub::ClientsController do
                                                          "primary_last_name" => [intake.primary.last_name, "Name"],
                                                          "primary_first_name" => [intake.primary.first_name, "Updated"],
                                                        })
+
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
         context "with invalid params" do
@@ -1744,7 +1748,25 @@ RSpec.describe Hub::ClientsController do
             had_tax_credit_disallowed: "unfilled",
             bought_energy_efficient_items: "unfilled",
             received_homebuyer_credit: "unfilled",
-            made_estimated_tax_payments: "unfilled"
+            made_estimated_tax_payments: "unfilled",
+            had_scholarships: "unfilled",
+            had_cash_check_digital_assets: "unfilled",
+            has_ssn_of_alimony_recipient: "unfilled",
+            contributed_to_ira: "unfilled",
+            contributed_to_roth_ira: "unfilled",
+            contributed_to_401k: "unfilled",
+            contributed_to_other_retirement_account: "unfilled",
+            paid_post_secondary_educational_expenses: "unfilled",
+            wants_to_itemize: "unfilled",
+            paid_local_tax: "yes",
+            paid_mortgage_interest: "unfilled",
+            paid_medical_expenses: "unfilled",
+            paid_charitable_contributions: "unfilled",
+            paid_self_employment_expenses: "unfilled",
+            tax_credit_disallowed_year: nil,
+            made_estimated_tax_payments_amount: nil,
+            had_capital_loss_carryover: "unfilled",
+            bought_health_insurance: "unfilled"
           }
         }
       }
@@ -1762,6 +1784,9 @@ RSpec.describe Hub::ClientsController do
           expect do
             put :update_13614c_form_page2, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to render_template :edit_13614c_form_page2
 
           client.reload
           expect(client.intake.job_count).to eq 3
@@ -1791,9 +1816,13 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.bought_energy_efficient_items_unfilled?).to eq true
           expect(client.intake.received_homebuyer_credit_unfilled?).to eq true
           expect(client.intake.made_estimated_tax_payments_unfilled?).to eq true
-
-          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
-          expect(response).to render_template :edit_13614c_form_page2
+          expect(client.intake.paid_local_tax_yes?).to eq true
+          expect(client.intake.paid_mortgage_interest_unfilled?).to eq true
+          expect(client.intake.paid_medical_expenses_unfilled?).to eq true
+          expect(client.intake.paid_charitable_contributions_unfilled?).to eq true
+          expect(client.intake.paid_self_employment_expenses_unfilled?).to eq true
+          expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
+          expect(client.intake.bought_health_insurance_unfilled?).to eq true
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
@@ -1807,11 +1836,10 @@ RSpec.describe Hub::ClientsController do
                                                          "had_social_security_income" => [intake.had_social_security_income, "unsure"],
                                                          "had_unemployment_income" => [intake.had_unemployment_income, "yes"],
                                                          "had_wages" => [intake.had_wages, "yes"],
-                                                         "job_count" => [intake.job_count, 3]
-
+                                                         "job_count" => [intake.job_count, 3],
+                                                         "paid_local_tax" => [intake.paid_local_tax, "yes"]
                                                        })
-
-          # TODO: add expectation for last_13614c_update_at
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
       end

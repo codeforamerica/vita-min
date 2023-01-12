@@ -153,10 +153,12 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
         select "3", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.job_count")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_scholarships")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_cash_check_digital_assets")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
@@ -168,9 +170,21 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       within "#expenses-fields" do
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_alimony")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_ssn_of_alimony_recipient")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_retirement_contributions")
+        check "IRA (A)"
+        check "401K (B)"
+        check "Roth IRA (B)"
+        check "Other"
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
+        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.wants_to_itemize")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_medical_expenses")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_mortgage_interest")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_local_tax")
+        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_charitable_contributions")
         select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_self_employment_expenses")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_student_loan_interest")
       end
 
@@ -179,9 +193,13 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_debt_forgiven")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.adopted_child")
         select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tax_credit_disallowed")
+        fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.tax_credit_disallowed_year"), with: "2018"
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_energy_efficient_items")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_homebuyer_credit")
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
+        fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments_amount"), with: "3,000"
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_capital_loss_carryover")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_health_insurance")
       end
 
       click_on I18n.t("general.save")
@@ -193,10 +211,12 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq true
       expect(intake.job_count).to eq 3
       expect(intake.had_tips_no?).to eq true
+      expect(intake.had_scholarships_no?).to eq true
       expect(intake.made_estimated_tax_payments_no?).to eq true
       expect(intake.had_interest_income_yes?).to eq true
       expect(intake.had_local_tax_refund_yes?).to eq true
       expect(intake.had_self_employment_income_unsure?).to eq true
+      expect(intake.had_cash_check_digital_assets_no?).to eq true
       expect(intake.had_asset_sale_income_unsure?).to eq true
       expect(intake.had_disability_income_no?).to eq true
       expect(intake.had_retirement_income_yes?).to eq true
@@ -206,18 +226,34 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_other_income_unsure?).to eq true
 
       expect(intake.paid_alimony_yes?).to eq true
+      expect(intake.has_ssn_of_alimony_recipient_yes?).to eq true
       expect(intake.paid_retirement_contributions_no?).to eq true
+      expect(intake.contributed_to_ira_yes?).to eq true
+      expect(intake.contributed_to_roth_ira_yes?).to eq true
+      expect(intake.contributed_to_401k_yes?).to eq true
+      expect(intake.contributed_to_other_retirement_account_yes?).to eq true
+      expect(intake.paid_post_secondary_educational_expenses_no?).to eq true
+      expect(intake.wants_to_itemize_yes?).to eq true
+      expect(intake.paid_local_tax_yes?).to eq true
+      expect(intake.paid_mortgage_interest_yes?).to eq true
+      expect(intake.paid_medical_expenses_yes?).to eq true
+      expect(intake.paid_charitable_contributions_yes?).to eq true
       expect(intake.paid_dependent_care_yes?).to eq true
       expect(intake.paid_school_supplies_unsure?).to eq true
+      expect(intake.paid_self_employment_expenses_no?).to eq true
       expect(intake.paid_student_loan_interest_no?).to eq true
 
       expect(intake.had_hsa_yes?).to eq true
       expect(intake.had_debt_forgiven_no?).to eq true
       expect(intake.adopted_child_no?).to eq true
       expect(intake.had_tax_credit_disallowed_unsure?).to eq true
+      expect(intake.tax_credit_disallowed_year).to eq 2018
       expect(intake.bought_energy_efficient_items_no?).to eq true
       expect(intake.received_homebuyer_credit_no?).to eq true
       expect(intake.made_estimated_tax_payments_no?).to eq true
+      expect(intake.made_estimated_tax_payments_amount).to eq 3000
+      expect(intake.had_capital_loss_carryover_no?).to eq true
+      expect(intake.bought_health_insurance_no?).to eq true
     end
   end
 end

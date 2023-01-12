@@ -138,7 +138,6 @@ module Hub
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = "Changes saved"
-        # redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")
       end

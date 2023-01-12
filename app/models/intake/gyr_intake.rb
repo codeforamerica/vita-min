@@ -26,6 +26,10 @@
 #  completed_yes_no_questions_at                        :datetime
 #  consented_to_legal                                   :integer          default(0), not null
 #  continued_at_capacity                                :boolean          default(FALSE)
+#  contributed_to_401k                                  :integer          default("unfilled"), not null
+#  contributed_to_ira                                   :integer          default("unfilled"), not null
+#  contributed_to_other_retirement_account              :integer          default("unfilled"), not null
+#  contributed_to_roth_ira                              :integer          default("unfilled"), not null
 #  current_step                                         :string
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
@@ -75,6 +79,8 @@
 #  full_time_student_less_than_five_months              :integer          default(0), not null
 #  got_married_during_tax_year                          :integer          default("unfilled"), not null
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
+#  had_capital_loss_carryover                           :integer          default("unfilled"), not null
+#  had_cash_check_digital_assets                        :integer          default("unfilled"), not null
 #  had_debt_forgiven                                    :integer          default("unfilled"), not null
 #  had_dependents                                       :integer          default("unfilled"), not null
 #  had_disability                                       :integer          default("unfilled"), not null
@@ -89,6 +95,7 @@
 #  had_other_income                                     :integer          default("unfilled"), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_retirement_income                                :integer          default("unfilled"), not null
+#  had_scholarships                                     :integer          default("unfilled"), not null
 #  had_self_employment_income                           :integer          default("unfilled"), not null
 #  had_social_security_income                           :integer          default("unfilled"), not null
 #  had_social_security_or_retirement                    :integer          default("unfilled"), not null
@@ -101,6 +108,7 @@
 #  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
+#  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
@@ -112,6 +120,7 @@
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
+#  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
@@ -137,8 +146,10 @@
 #  paid_local_tax                                       :integer          default("unfilled"), not null
 #  paid_medical_expenses                                :integer          default("unfilled"), not null
 #  paid_mortgage_interest                               :integer          default("unfilled"), not null
+#  paid_post_secondary_educational_expenses             :integer          default("unfilled"), not null
 #  paid_retirement_contributions                        :integer          default("unfilled"), not null
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
+#  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
@@ -225,6 +236,7 @@
 #  state_of_residence                                   :string
 #  street_address                                       :string
 #  street_address2                                      :string
+#  tax_credit_disallowed_year                           :integer
 #  timezone                                             :string
 #  triage_filing_frequency                              :integer          default("unfilled"), not null
 #  triage_filing_status                                 :integer          default("unfilled"), not null
@@ -399,6 +411,17 @@ class Intake::GyrIntake < Intake
   enum triage_filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :triage_filing_status
   enum triage_filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :triage_filing_frequency
   enum triage_vita_income_ineligible: { unfilled: 0, yes: 1, no: 2 }, _prefix: :triage_vita_income_ineligible
+  enum had_scholarships: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_scholarships
+  enum had_cash_check_digital_assets: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_cash_check_digital_assets
+  enum has_ssn_of_alimony_recipient: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ssn_of_alimony_recipient
+  enum contributed_to_ira: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_ira
+  enum contributed_to_roth_ira: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_roth_ira
+  enum contributed_to_401k: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_401k
+  enum contributed_to_other_retirement_account: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_other_retirement_account
+  enum paid_post_secondary_educational_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_post_secondary_educational_expenses
+  enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
+  enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
+
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client, set_flag: false) # client completed intake
