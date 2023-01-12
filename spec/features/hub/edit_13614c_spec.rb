@@ -77,6 +77,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         fill_in "hub_update13614c_form_page1_dependents_attributes_0_birth_date_year", with: "2008"
         select "9", from: "hub_update13614c_form_page1_dependents_attributes_0_months_in_home"
         select "Y", from: "hub_update13614c_form_page1_dependents_attributes_0_north_american_resident"
+        select "Y", from: "hub_update13614c_form_page1_dependents_attributes_0_us_citizen"
       end
       click_on 'Save'
 

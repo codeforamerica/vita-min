@@ -662,6 +662,7 @@ en:
           spouse_first_name: Spouse’s First Name
           spouse_job_title: Spouse’s Job Title
           spouse_us_citizen: Spouse U.S. citizen?
+          us_citizen: US citizen
           was_full_time_student: Full Time Student
           was_married: Single or Married as of 12/31/21
           was_student: Full-time Student last year

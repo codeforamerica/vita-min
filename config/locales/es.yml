@@ -671,6 +671,7 @@ es:
           spouse_first_name: Nombre del cónyuge
           spouse_job_title: Título profesional del cónyuge
           spouse_us_citizen: "¿Cónyuge ciudadano estadounidense?"
+          us_citizen: Ciudadana estadounidense
           was_full_time_student: Estudiante de tiempo completo
           was_married: Soltero o casado a partir del 31/12/21
           was_student: Estudiante de tiempo completo el año pasado
