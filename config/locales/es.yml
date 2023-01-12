@@ -1475,23 +1475,6 @@ es:
             %{survey_link}
           subject: Sus comentarios sobre GetCTC
         sms: "¡Gracias por presentar sus impuestos con GetCTC! ¡Quisiéramos pedirle sus comentarios sobre su experiencia para poder mejorar nuestro servicio! ¿Podría decirnos cómo le fue? Por favor tome nuestra encuesta de 5 minutos aquí: %{survey_link}\n"
-      in_progress:
-        email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>>
-
-            ¡Revisaremos todo con usted por teléfono!
-
-            Si tiene alguna pregunta, puede responder a este mensaje.
-
-            Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
-
-            ¡Estamos aquí para ayudar!
-            Su equipo de impuestos en GetYourRefund
-          subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
-        sms: 'Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}'
     unmonitored_replies:
       email:
         body: Respuestas no supervisadas. Escriba %{support_email} para obtener ayuda. Para verificar su reembolso, vaya a <a href="https://www.irs.gov/es/refunds">¿dónde está mi reembolso?</a> Para <a href="https://www.irs.gov/es/individuals/get-transcript">obtener una copia de sus impuestos, vaya a obtenga su registro tributario.</a>
