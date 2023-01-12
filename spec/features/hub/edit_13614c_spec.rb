@@ -314,6 +314,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("general.changes_saved")
 
       intake = client.intake.reload
+      expect(intake.receive_written_communication).to eq "yes"
       expect(intake.preferred_written_language).to eq "Chinese"
       expect(intake.presidential_campaign_fund_donation).to eq "primary"
       expect(intake.refund_payment_method).to eq "direct_deposit"

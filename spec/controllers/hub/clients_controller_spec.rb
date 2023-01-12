@@ -1850,6 +1850,7 @@ RSpec.describe Hub::ClientsController do
           id: client.id,
           hub_update13614c_form_page3: {
             preferred_written_language: "Greek",
+            receive_written_communication: intake.receive_written_communication,
             refund_payment_method: intake.refund_payment_method,
             savings_purchase_bond: intake.savings_purchase_bond,
             savings_split_refund: intake.savings_split_refund,

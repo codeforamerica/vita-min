@@ -1184,6 +1184,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_234349) do
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
     t.integer "product_year", null: false
+    t.integer "receive_written_communication", default: 0, null: false
     t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false

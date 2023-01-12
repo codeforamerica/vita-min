@@ -179,6 +179,7 @@
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default("unfilled"), not null
 #  product_year                                         :integer          not null
+#  receive_written_communication                        :integer          default("unfilled"), not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
@@ -424,6 +425,7 @@ class Intake::GyrIntake < Intake
   enum paid_post_secondary_educational_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_post_secondary_educational_expenses
   enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
   enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
+  enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
 

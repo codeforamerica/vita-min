@@ -159,7 +159,7 @@
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
 #  preferred_written_language                           :string
-#  presidential_campaign_fund_donation                  :integer          default("unfilled"), not null
+#  presidential_campaign_fund_donation                  :integer          default(0), not null
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -179,6 +179,7 @@
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
 #  product_year                                         :integer          not null
+#  receive_written_communication                        :integer          default(0), not null
 #  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -186,7 +187,7 @@
 #  received_stimulus_payment                            :integer          default(0), not null
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
-#  register_to_vote                                     :integer          default("unfilled"), not null
+#  register_to_vote                                     :integer          default(0), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
 #  reported_self_employment_loss                        :integer          default(0), not null
 #  requested_docs_token                                 :string
