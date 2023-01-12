@@ -45,12 +45,17 @@
     align-items: flex-start;
   }
 
-  .form-question-13614-page2 {
+  .form-question-13614-page2, .form-question-13614-page3 {
     .form-group:has(> .select) {
       display: flex;
+      align-items: center;
+    }
+  }
+
+  .form-question-13614-page2 {
+    .form-group:has(> .select) {
       flex-direction: row-reverse;
       justify-content: flex-end;
-      align-items: center;
 
       .select {
         margin-right: 1.9rem;
@@ -64,13 +69,23 @@
       display: flex;
     }
 
-    .form-group:has(> .select) {
+    .form-group {
+      margin-right: 5rem;
+    }
+
+    .form-group:has(> input) {
       display: flex;
       align-items: center;
+      white-space: nowrap;
 
+      input {
+        margin-left: 1.9rem;
+      }
+    }
+
+    .form-group:has(> .select) {
       .select {
-        margin-right: 1.9rem;
-        width: 7.5rem;
+        margin-left: 1.9rem;
       }
     }
   }
