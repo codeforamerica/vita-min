@@ -103,7 +103,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         fill_in 'First Name', with: 'Bloop'
       end
 
-      click_on "2", id: "top-pagination-link"
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.part_3_title")
       expect(client.intake.reload.primary_first_name).to eq "Colleen"
@@ -115,7 +117,9 @@ RSpec.describe "a user editing a clients 13614c form" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2", id: "top-pagination-link"
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
 
       within "#income-fields" do
         select "Yes", from: "hub_update13614c_form_page2_had_wages"
@@ -136,13 +140,15 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
     end
 
-    scenario "I can see and update the 13614c page 2 form", js: true do
+    scenario "I can see and update the 13614c page 2 form" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
       end
 
-      click_on "2", match: :first
+      within '.form_13614c-page-links', match: :first do
+        click_on "2"
+      end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
@@ -254,6 +260,80 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.made_estimated_tax_payments_amount).to eq 3000
       expect(intake.had_capital_loss_carryover_no?).to eq true
       expect(intake.bought_health_insurance_no?).to eq true
+    end
+
+    scenario "I can see and update the 13614c page 3 form" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      within '.form_13614c-page-links', match: :first do
+        click_on "3"
+      end
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.additional_info_title")
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_receive_written_communication")
+      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_preferred_written_language"), with: "Chinese"
+      select "You", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q2_presidential_campaign_fund")
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_direct_deposit")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_savings_bond")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_split")
+
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q4_pay_due_balance_directly")
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area")
+      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area_where"), with: "Paradise"
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q6_letter_from_irs")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q7_register_to_vote")
+
+      select "Very well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q8_speak_and_understand_english")
+      select "Well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q9_read_english")
+
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q10_household_disability")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q11_veteran")
+
+      within ".primary-demographic-race" do
+        check "Asian"
+        check "White"
+      end
+      within ".spouse-demographic-race" do
+        check "Black or African American"
+      end
+
+      select "Not Hispanic or Latino", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q14_primary_ethnicity")
+      select "Hispanic or Latino", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q15_spouse_ethnicity")
+
+      click_on I18n.t("general.save")
+
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
+      expect(page).to have_text I18n.t("general.changes_saved")
+
+      intake = client.intake.reload
+      expect(intake.receive_written_communication).to eq "yes"
+      expect(intake.preferred_written_language).to eq "Chinese"
+      expect(intake.presidential_campaign_fund_donation).to eq "primary"
+      expect(intake.refund_payment_method).to eq "direct_deposit"
+      expect(intake.savings_purchase_bond).to eq "no"
+      expect(intake.savings_split_refund).to eq "yes"
+      expect(intake.balance_pay_from_bank).to eq "no"
+      expect(intake.had_disaster_loss).to eq "yes"
+      expect(intake.had_disaster_loss_where).to eq "Paradise"
+      expect(intake.received_irs_letter).to eq "yes"
+      expect(intake.register_to_vote).to eq "no"
+      expect(intake.demographic_english_conversation).to eq "very_well"
+      expect(intake.demographic_english_reading).to eq "well"
+      expect(intake.demographic_disability).to eq "no"
+      expect(intake.demographic_veteran).to eq "yes"
+      expect(intake.demographic_primary_asian).to be_truthy
+      expect(intake.demographic_primary_white).to be_truthy
+      expect(intake.demographic_spouse_black_african_american).to be_truthy
+      expect(intake.demographic_primary_ethnicity).to eq "not_hispanic_latino"
+      expect(intake.demographic_spouse_ethnicity).to eq "hispanic_latino"
     end
   end
 end

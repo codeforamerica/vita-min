@@ -130,6 +130,31 @@ RSpec.describe F13614cPdf do
           eip1_amount_received: 500,
           eip2_amount_received: 1500,
           eip3_amount_received: 2500,
+          receive_written_communication: "yes",
+          preferred_written_language: "Greek",
+          presidential_campaign_fund_donation: "primary",
+          had_disaster_loss_where: "Athens",
+          # TODO: check that these fields are already filled out or fill them out
+          # received_irs_letter
+          # register_to_vote
+          # demographic_english_conversation
+          # demographic_english_reading
+          # demographic_disability
+          # demographic_veteran
+          # demographic_primary_american_indian_alaska_native
+          # demographic_primary_asian
+          # demographic_primary_black_african_american
+          # demographic_primary_native_hawaiian_pacific_islander
+          # demographic_primary_white
+          # demographic_primary_prefer_not_to_answer_race
+          # demographic_spouse_american_indian_alaska_native
+          # demographic_spouse_asian
+          # demographic_spouse_black_african_american
+          # demographic_spouse_native_hawaiian_pacific_islander
+          # demographic_spouse_white
+          # demographic_spouse_prefer_not_to_answer_race
+          # demographic_primary_ethnicity
+          # demographic_spouse_ethnicity
         )
       end
       before do
@@ -404,11 +429,11 @@ RSpec.describe F13614cPdf do
           "form1[0].page2[0].Part_5[0].q9_have_health[0].yes[0]" => "1",
           "form1[0].page2[0].Part_5[0].q9_have_health[0].no[0]" => "Off",
           "form1[0].page2[0].Part_5[0].q9_have_health[0].unsure[0]" => "Off",
-          "form1[0].page3[0].q1[0].yes[0]" => "Off",
-          "form1[0].page3[0].q1[0].no[0]" => "1",
-          "form1[0].page3[0].q1[0].Which_Language[0]" => "",
-          "form1[0].page3[0].q2[0].you[0]" => "",
-          "form1[0].page3[0].q2[0].spouse[0]" => "",
+          "form1[0].page3[0].q1[0].yes[0]" => "1",
+          "form1[0].page3[0].q1[0].no[0]" => "Off",
+          "form1[0].page3[0].q1[0].Which_Language[0]" => "Greek",
+          "form1[0].page3[0].q2[0].you[0]" => "1",
+          "form1[0].page3[0].q2[0].spouse[0]" => "Off",
           "form1[0].page3[0].q3[0].Direct_Deposit[0].yes[0]" => "1",
           "form1[0].page3[0].q3[0].Direct_Deposit[0].no[0]" => "Off",
           "form1[0].page3[0].q3[0].Savings_Bonds[0].yes[0]" => "1",
@@ -419,7 +444,7 @@ RSpec.describe F13614cPdf do
           "form1[0].page3[0].q4[0].no[0]" => "1",
           "form1[0].page3[0].q5[0].yes[0]" => "1",
           "form1[0].page3[0].q5[0].no[0]" => "Off",
-          "form1[0].page3[0].q5[0].If_Yes_Where[0]" => "",
+          "form1[0].page3[0].q5[0].If_Yes_Where[0]" => "Athens",
           "form1[0].page3[0].q6[0].yes[0]" => "Off",
           "form1[0].page3[0].q6[0].no[0]" => "1",
           "form1[0].page3[0].q7[0].yes[0]" => "Off",

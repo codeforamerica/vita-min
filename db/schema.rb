@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_11_234349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1090,6 +1090,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
     t.integer "had_disability", default: 0, null: false
     t.integer "had_disability_income", default: 0, null: false
     t.integer "had_disaster_loss", default: 0, null: false
+    t.string "had_disaster_loss_where"
     t.integer "had_disqualifying_non_w2_income"
     t.integer "had_farm_income", default: 0, null: false
     t.integer "had_gambling_income", default: 0, null: false
@@ -1163,6 +1164,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
     t.string "preferred_interview_language"
     t.string "preferred_name"
     t.string "preferred_written_language"
+    t.integer "presidential_campaign_fund_donation", default: 0, null: false
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
@@ -1183,6 +1185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
     t.integer "product_year", null: false
+    t.integer "receive_written_communication", default: 0, null: false
     t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -1190,6 +1193,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_220223) do
     t.integer "received_stimulus_payment", default: 0, null: false
     t.string "referrer"
     t.integer "refund_payment_method", default: 0, null: false
+    t.integer "register_to_vote", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
     t.string "requested_docs_token"

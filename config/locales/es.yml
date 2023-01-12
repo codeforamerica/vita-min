@@ -440,6 +440,7 @@ es:
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
     please_select_at_least_one_option: Favor de seleccionar por lo menos una opción.
+    prefer_not_to_answer: Prefiero no responder
     privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
@@ -723,6 +724,30 @@ es:
         part_3_title: Parte III - Ingresos - El año pasado, ¿Recibió usted (o su cónyuge)
         part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)
         part_5_title: Parte V - Acontecimientos de la vida - El año pasado, ¿usted (o su cónyuge)
+        title: 13614C
+      edit_13614c_form_page3:
+        additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Planilla
+        fields:
+          q10_household_disability: "¿Tienen ellos o algún miembro de su hogar una discapacidad?"
+          q11_veteran: "¿Veterano de las Fuerzas Armadas de EE. UU.?"
+          q12_primary_race: "¿Carrera?"
+          q13_spouse_race: "¿La raza del cónyuge?"
+          q14_primary_ethnicity: "¿Etnicidad?"
+          q15_spouse_ethnicity: "¿Etnicidad del cónyuge?"
+          q1_preferred_written_language: En caso afirmativo, ¿en qué idioma?
+          q1_receive_written_communication: "¿Recibir comunicaciones escritas del IRS en un idioma que no sea inglés?"
+          q2_presidential_campaign_fund: Fondo de Campaña de Elecciones Presidenciales $3 para ir a este fondo
+          q3_refund_payment_method: 'Si le corresponde un reembolso, le gustaría:'
+          q3_refund_payment_method_direct_deposit: a. Depósito directo
+          q3_refund_payment_method_savings_bond: b. Comprar bonos de ahorro de EE. UU.
+          q3_refund_payment_method_split: c. Reembolso dividido entre diferentes cuentas
+          q4_pay_due_balance_directly: Si tienen un saldo adeudado, ¿les gustaría realizar un pago directamente desde su cuenta bancaria?
+          q5_federal_disaster_area: "¿Declarado viviendo en un área de desastre federal?"
+          q5_federal_disaster_area_where: En caso afirmativo, ¿dónde?
+          q6_letter_from_irs: "¿Recibió una carta del IRS?"
+          q7_register_to_vote: "¿Registrarse para votar?"
+          q8_speak_and_understand_english: "¿Puede mantener una conversación en inglés, entendiendo y hablando?"
+          q9_read_english: "¿Puedes leer un periódico o un libro en inglés?"
         title: 13614C
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
