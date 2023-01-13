@@ -3,6 +3,7 @@ require_relative "../lib/middleware/cleanup_request_host_headers"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
 require_relative "../lib/middleware/reject_invalid_params"
 
+require "logger"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -24,6 +25,19 @@ Bundler.require(*Rails.groups)
 
 module VitaMin
   class Application < Rails::Application
+    # Support Rails credentials key rotations https://abuisman.com/posts/rails/zero-downtime-credential-updates/
+    if ENV.key?("RAILS_MASTER_KEY_NEW")
+      logger = Logger.new($stdout)
+      credential_path = Rails.root.join("config/credentials/#{Rails.env}.yml.enc")
+      begin
+        Rails.application.encrypted(credential_path, env_key: 'RAILS_MASTER_KEY_NEW').read
+        ENV["RAILS_MASTER_KEY"] = ENV.delete("RAILS_MASTER_KEY_NEW")
+        logger.info "application.rb: Using the new credential key, it works!"
+      rescue ActiveSupport::MessageEncryptor::InvalidMessage
+        logger.info "application.rb: Using the old key"
+      end
+    end
+
     config.load_defaults 7.0
 
     config.active_record.enumerate_columns_in_select_statements = true
@@ -83,7 +97,6 @@ module VitaMin
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
-
 
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
