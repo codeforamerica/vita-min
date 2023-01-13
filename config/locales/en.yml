@@ -1708,13 +1708,6 @@ en:
         ctc: Child Tax Credit
         eitc: Earned Income Tax Credit
         missing_stimulus: Missing third stimulus payment
-      ctc_tile:
-        choose_ctc: Choose GetCTC
-        description: File quickly online on your own!
-        sign_up_for_ctc: Sign up for GetCTC
-        timeframe: 15 minutes to file
-        title: GetCTC
-        warning_html: "* You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are <u>required</u> to file a full tax return.\n"
       diy_tile:
         choose_diy: Choose File Myself
         description: Collect the largest refund! File quickly on your own.
@@ -1727,18 +1720,6 @@ en:
         title: GetYourRefund
         warning: "* You are required to show copies of your Social Security card or ITIN paperwork"
       refund: Refund
-    triage_ctc:
-      edit:
-        collect_your: 'Collect your:'
-        collectables:
-          ctc: Child Tax Credit
-          missing_stimulus: Missing Stimulus Payments
-        comparison:
-          ctc:
-            description: File quickly on your own!
-            timeframe: 15 minutes to file, available April 2022
-        sign_up_for_ctc: Sign up for GetCTC
-        title: We have two free options that may work for you!
     triage_diy:
       edit:
         title: We recommend filing with our free File Myself option!
@@ -1750,9 +1731,6 @@ en:
     triage_gyr:
       edit:
         title: We recommend filing for free with GetYourRefund!
-    triage_gyr_ctc:
-      edit:
-        title: We have two free options that may work for you!
     triage_gyr_diy:
       edit:
         title: We have two free options that may work for you!
@@ -4738,9 +4716,6 @@ en:
         find_right_service: We’ll ask a few questions, to find the right service for you!
         help_text: 'We provide multiple tax filing options to households that qualify:'
         list:
-          ctc:
-            eitc_off_html: "<strong>GetCTC</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
-            eitc_on_html: "<strong>GetCTC</strong> Our quick online option lets you collect any Federal stimulus payments, Earned Income Tax Credit and the Child Tax Credit on your own."
           diy_html: "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
           gyr_html: "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         title: Welcome to our free service!
