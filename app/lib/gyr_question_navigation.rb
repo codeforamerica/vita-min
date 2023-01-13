@@ -7,8 +7,6 @@ class GyrQuestionNavigation
       Questions::TriageIncomeLevelController,
       Questions::TriageGyrController,
       Questions::TriageDiyController,
-      Questions::TriageExpressController,
-      Questions::TriageGyrExpressController,
       Questions::TriageDoNotQualifyController,
       Questions::TriageGyrDiyController,
       Questions::TriageGyrIdsController,
