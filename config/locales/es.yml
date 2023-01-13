@@ -1651,13 +1651,6 @@ es:
         ctc: Crédito Tributario por Hijos
         eitc: Crédito tributario por ingresos del trabajo
         missing_stimulus: Falta el tercer pago de estímulo
-      ctc_tile:
-        choose_ctc: Elija GetCTC
-        description: También mejor conocido como “File Myself” en inglés. Declare rápidamente por su cuenta para 2021.
-        sign_up_for_ctc: Regístrese para recibir GetCTC
-        timeframe: 15 minutos para declarar
-        title: GetCTC
-        warning_html: "* No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si <u>debe</u> presentar una declaración de impuestos completa.\n"
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
@@ -1670,18 +1663,6 @@ es:
         title: GetYourRefund
         warning: "* Es necesario que muestre copias de su tarjeta de la Seguridad Social o de los documentos del Número de Identificación Personal (ITIN en inglés)."
       refund: Reembolso
-    triage_ctc:
-      edit:
-        collect_your: 'Cobre su:'
-        collectables:
-          ctc: Crédito Tributario por Hijos
-          missing_stimulus: Pagos de estímulo faltantes
-        comparison:
-          ctc:
-            description: "¡Declare rápido por cuenta propia!"
-            timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
-        sign_up_for_ctc: Regístrese para recibir GetCTC
-        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_diy:
       edit:
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
@@ -1693,9 +1674,6 @@ es:
     triage_gyr:
       edit:
         title: Le recomendamos presentar la solicitud de forma gratuita con GetYourRefund.
-    triage_gyr_ctc:
-      edit:
-        title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
     triage_gyr_diy:
       edit:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
@@ -4737,9 +4715,6 @@ es:
         find_right_service: "¡Le haremos algunas preguntas para encontrar el mejor servicio para usted!"
         help_text: 'Le brindamos opciones múltiples para presentar su declaración de impuestos a hogares que califiquen:'
         list:
-          ctc:
-            eitc_off_html: "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
-            eitc_on_html: "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite recoger cualquier pago de estímulo federal, Crédito Tributario por Ingresos del Trabajo y el Crédito Tributario por Hijos por su cuenta."
           diy_html: "<strong>File Myself</strong> Una opción rápida en línea le permite presentar y cobrar créditos fiscales por su cuenta."
           gyr_html: "<strong>GetYourRefund</strong> Nuestros especialistas en impuestos certificados lo ayudarán a presentar y recoger todos los créditos tributarios que se le deben."
         title: "¡Bienvenidos a nuestro servicio gratuito!"
