@@ -7,11 +7,7 @@ class TriageResultService
 
   def after_income_levels
     if intake.triage_income_level_zero?
-      if intake.need_itin_help_yes?
-        return route_to_gyr
-      elsif intake.need_itin_help_no?
-        return route_to_gyr_ctc_choice
-      end
+      return route_to_gyr
     end
 
     if inside_ctc_income_limit?
@@ -23,7 +19,7 @@ class TriageResultService
         end
       elsif intake.need_itin_help_no?
         if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr_ctc_choice
+          return route_to_gyr
         elsif intake.triage_vita_income_ineligible_yes?
           return route_to_diy
         end
