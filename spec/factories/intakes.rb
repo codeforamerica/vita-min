@@ -246,7 +246,8 @@ FactoryBot.define do
 
     after(:build) do |intake|
       # default any unsupplied enum values to 'no' if possible
-      intake.class.defined_enums.each_key do |key|
+      hub_only_enums = ["presidential_campaign_fund_donation"]
+      intake.class.defined_enums.except(*hub_only_enums).each_key do |key|
         if intake[key] == "unfilled"
           enum_keys = intake.class.send(key.pluralize).keys
           default_choices = %w(no prefer_not_to_answer neutral)

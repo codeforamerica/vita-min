@@ -47,8 +47,6 @@ module Hub
     end
 
     def save
-      return false unless valid?
-
       @client.intake.update(attributes_for(:intake))
       @client.touch(:last_13614c_update_at)
     end
