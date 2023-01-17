@@ -3989,8 +3989,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closing_banner_html: <strong>GetYourRefund will reopen January 31.</strong> %{link_to_ctc} For free options to file a full tax return this year, visit <a href="https://www.childtaxcredit.gov/triage-results/" target='_blank' rel='noopener noreferrer'>ChildTaxCredit.gov</a>.
-        closing_banner_link_to_getctc_html: If you only want the Child Tax Credit, Earned Income Tax Credit, and stimulus payments, try filing with <a href="%{url}">GetCTC</a>.
+        closed_banner: GetYourRefund will reopen January 31.
         closing_soon_banner: If your return is in progress, log in and submit your documents by October 8th.
         faq:
           faq_cta: Read our FAQ
