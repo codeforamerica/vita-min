@@ -1841,7 +1841,73 @@ RSpec.describe Hub::ClientsController do
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
+      end
+    end
 
+    describe "#update_13614c_form_page3" do
+      let(:params) {
+        {
+          id: client.id,
+          hub_update13614c_form_page3: {
+            preferred_written_language: "Greek",
+            receive_written_communication: intake.receive_written_communication,
+            refund_payment_method: intake.refund_payment_method,
+            savings_purchase_bond: intake.savings_purchase_bond,
+            savings_split_refund: intake.savings_split_refund,
+            balance_pay_from_bank: intake.balance_pay_from_bank,
+            had_disaster_loss: intake.had_disaster_loss,
+            received_irs_letter: intake.received_irs_letter,
+            presidential_campaign_fund_donation: intake.presidential_campaign_fund_donation,
+            had_disaster_loss_where: intake.had_disaster_loss_where,
+            register_to_vote: intake.register_to_vote,
+            demographic_english_conversation: intake.demographic_english_conversation,
+            demographic_english_reading: intake.demographic_english_reading,
+            demographic_disability: intake.demographic_disability,
+            demographic_veteran: intake.demographic_veteran,
+            demographic_primary_american_indian_alaska_native: intake.demographic_primary_american_indian_alaska_native,
+            demographic_primary_asian: intake.demographic_primary_asian,
+            demographic_primary_black_african_american: intake.demographic_primary_black_african_american,
+            demographic_primary_native_hawaiian_pacific_islander: intake.demographic_primary_native_hawaiian_pacific_islander,
+            demographic_primary_white: intake.demographic_primary_white,
+            demographic_primary_prefer_not_to_answer_race: intake.demographic_primary_prefer_not_to_answer_race,
+            demographic_spouse_american_indian_alaska_native: intake.demographic_spouse_american_indian_alaska_native,
+            demographic_spouse_asian: intake.demographic_spouse_asian,
+            demographic_spouse_black_african_american: intake.demographic_spouse_black_african_american,
+            demographic_spouse_native_hawaiian_pacific_islander: intake.demographic_spouse_native_hawaiian_pacific_islander,
+            demographic_spouse_white: intake.demographic_spouse_white,
+            demographic_spouse_prefer_not_to_answer_race: intake.demographic_spouse_prefer_not_to_answer_race,
+            demographic_primary_ethnicity: intake.demographic_primary_ethnicity,
+            demographic_spouse_ethnicity: intake.demographic_spouse_ethnicity,
+          }
+        }
+      }
+
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page3
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+          expect do
+            put :update_13614c_form_page3, params: params
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to render_template :edit_13614c_form_page3
+
+          client.reload
+          expect(client.intake.preferred_written_language).to eq "Greek"
+
+          system_note = SystemNote::ClientChange.last
+          expect(system_note.client).to eq(client)
+          expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({ "preferred_written_language" => [intake.preferred_written_language, "Greek"] })
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
       end
     end
   end

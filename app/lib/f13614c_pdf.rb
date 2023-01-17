@@ -128,8 +128,8 @@ class F13614cPdf
     )
     answers.merge!(
       "form1[0].page3[0].q1[0].Which_Language[0]" => @intake.preferred_written_language,
-      "form1[0].page3[0].q2[0].you[0]" => nil,
-      "form1[0].page3[0].q2[0].spouse[0]" => nil,
+      "form1[0].page3[0].q2[0].you[0]" => (@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) ? "1" : "Off",
+      "form1[0].page3[0].q2[0].spouse[0]" => (@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) ? "1" : "Off",
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page3[0].q3[0].Direct_Deposit[0]", determine_direct_deposit(@intake)),
@@ -139,11 +139,11 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page3[0].q5[0]", @intake.had_disaster_loss),
     )
     answers.merge!(
-      "form1[0].page3[0].q5[0].If_Yes_Where[0]" => nil,
+      "form1[0].page3[0].q5[0].If_Yes_Where[0]" => @intake.had_disaster_loss_where,
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page3[0].q6[0]", @intake.received_irs_letter),
-      yes_no_checkboxes("form1[0].page3[0].q7[0]", nil),
+      yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
     )
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(

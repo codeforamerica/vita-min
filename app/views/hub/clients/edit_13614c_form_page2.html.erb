@@ -14,9 +14,7 @@
         <div style="display: flex; justify-content: space-between;">
           <h2><%= t(".part_3_title") %></h2>
 
-          <div id = "form_13614c-page-links">
-            <%= link_to "1", edit_13614c_form_page1_hub_client_path, id: "top-pagination-link" %> | 2 | <%= link_to "3", "#" %>
-          </div>
+          <%= render '13614c_page_links', current_page: 2 %>
         </div>
         <hr style="margin-top: 0;"/>
 
@@ -164,9 +162,7 @@
                       data: { confirm: t("general.confirm_exit_without_saving") } %>
         </div>
 
-        <div id="form_13614c-page-links">
-          <%= link_to "1", edit_13614c_form_page1_hub_client_path %> | 2 | <%= link_to "3", "#" %>
-        </div>
+        <%= render '13614c_page_links', current_page: 2 %>
       </div>
     <% end %>
   </div>
