@@ -235,7 +235,6 @@
 #  spouse_us_citizen                                    :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
-#  spouse_was_on_visa                                   :integer          default("unfilled"), not null
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
@@ -257,7 +256,6 @@
 #  wants_to_itemize                                     :integer          default("unfilled"), not null
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
-#  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
 #  with_general_navigator                               :boolean          default(FALSE)
@@ -354,6 +352,7 @@ class Intake::GyrIntake < Intake
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
   enum needs_help_2016: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2016
+  # why is this enum still here if the column is archived?
   enum needs_help_2017: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2017
   enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
   enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019

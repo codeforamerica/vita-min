@@ -235,7 +235,6 @@
 #  spouse_us_citizen                                    :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
-#  spouse_was_on_visa                                   :integer          default("unfilled"), not null
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
@@ -257,7 +256,6 @@
 #  wants_to_itemize                                     :integer          default("unfilled"), not null
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
-#  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
 #  with_general_navigator                               :boolean          default(FALSE)
