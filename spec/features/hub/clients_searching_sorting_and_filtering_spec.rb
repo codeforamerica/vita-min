@@ -22,15 +22,9 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let(:vita_partner) { create :organization, name: "Alan's Org" }
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }
       let!(:vita_partner_other) { create :organization, name: "Some Other Org", allows_greeters: true }
-      let!(:vita_partner_ctc) { create :organization, name: "CTC Org", processes_ctc: true }
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23), tax_returns: [(create :tax_return, :intake_in_progress, year: 2019, assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: nil, tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2020)] }
       let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1), tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2019, assigned_user: user)] }
-      let!(:marty_ctc) {
-        c = create(:client, vita_partner: vita_partner_ctc, intake: (create :ctc_intake, preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"), last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5))
-        create(:ctc_tax_return, :prep_ready_for_prep, client: c)
-        c
-      }
       let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, :intake_in_progress, year: 2020, assigned_user: mona_user)] }
 
       before do
@@ -51,8 +45,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
-          }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
           }, {
             "Name" => a_string_including(betty_intake_in_progress.preferred_name),
           },
@@ -148,8 +140,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_link "sort-preferred_name"
         expected_rows = [
           {
-            "Name" => a_string_including(marty_ctc.preferred_name),
-          }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
           }, {
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
@@ -164,8 +154,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
-          }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
           },
         ]
         expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
@@ -174,8 +162,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_link "sort-created_at"
         expected_rows = [
           {
-            "Name" => a_string_including(marty_ctc.preferred_name),
-          }, {
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
@@ -189,8 +175,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
           }, {
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
-          }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
           },
         ]
         expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
@@ -201,7 +185,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page).to have_select("status", selected: "")
 
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 5
+          expect(page.all('.client-row').length).to eq 4
         end
 
         # sort by state of residence ASC
@@ -214,9 +198,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Name" => a_string_including(alan_intake_in_progress.preferred_name),
             "State" => "CA"
           }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
-            "State" => "ME"
-          }, {
             "Name" => a_string_including(betty_intake_in_progress.preferred_name),
             "State" => "TX"
           }, {
@@ -228,7 +209,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # sort by state of residence DESC
         click_link "sort-state_of_residence"
-        expect(page.all('.client-row').length).to eq 5 # make sure filter is retained
+        expect(page.all('.client-row').length).to eq 4 # make sure filter is retained
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
 
         # return to default sort order
@@ -245,9 +226,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Last contact" => "4 days"
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
-            "Last contact" => "1 day"
-          }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
             "Last contact" => "1 day"
           }, {
             "Name" => a_string_including(betty_intake_in_progress.preferred_name),
@@ -267,9 +245,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
             "Waiting on" => "Response"
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
-            "Waiting on" => "Response"
-          }, {
-            "Name" => a_string_including(marty_ctc.preferred_name),
             "Waiting on" => "Response"
           }, {
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
@@ -302,7 +277,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
         end
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 5
+          expect(page.all('.client-row').length).to eq 4
         end
         within ".filter-form" do
           select "2019", from: "year"
@@ -318,7 +293,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
         end
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 5
+          expect(page.all('.client-row').length).to eq 4
         end
         within ".filter-form" do
           check "assigned_to_me"
@@ -350,7 +325,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
         within ".client-table" do
           expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(marty_ctc.preferred_name)
           expect(page).to have_text(betty_intake_in_progress.preferred_name)
           expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
@@ -370,20 +344,13 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
         end
 
-        # filter for CTC clients
+        # filter for CTC clients which returns nothing because we only have CTC clients from past years
         within ".filter-form" do
           click_link "Clear"
           check "ctc_client"
           click_button "Filter results"
         end
-        within ".client-table" do
-          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page).not_to have_text(betty_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(patty_prep_ready_for_call.preferred_name)
-
-          expect(page).to have_text(marty_ctc.preferred_name)
-        end
+        expect(page).not_to have_selector(".client-table")
       end
     end
 
@@ -391,7 +358,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let(:user) { create :admin_user }
 
       before do
-        create(:client_with_intake_and_return, last_outgoing_communication_at: 0.days.ago, )
+        create(:client_with_intake_and_return, last_outgoing_communication_at: 0.days.ago)
         5.times do
           create(:client_with_intake_and_return, last_outgoing_communication_at: 2.business_days.ago)
         end

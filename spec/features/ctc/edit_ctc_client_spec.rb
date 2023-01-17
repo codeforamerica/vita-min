@@ -188,11 +188,7 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
 
         login_as user
 
-        visit hub_clients_path
-
-        within ".client-table" do
-          click_on new_client.intake.preferred_name
-        end
+        visit hub_client_path(id: new_client)
 
         within ".tax-return-list" do
           expect(page).to have_text MultiTenantService.new(:ctc).current_tax_year

@@ -22,7 +22,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
   end
   include CtcPortalHelper
 
-  let!(:intake) { create :ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes" }
+  let(:only_product_year_that_supports_login) { 2022 }
+  let!(:intake) { create :ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes", product_year: only_product_year_that_supports_login }
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
@@ -66,7 +67,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     end
 
     context "intake is in progress" do
-      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:ctc_tax_return)]), email_address: "mango@example.com" }
+      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:ctc_tax_return)]), email_address: "mango@example.com", product_year: only_product_year_that_supports_login }
       before do
         intake.update(current_step: "/en/questions/spouse-info")
       end
@@ -196,6 +197,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
           claim_eitc: "yes",
           exceeded_investment_income_limit: "no",
+          product_year: only_product_year_that_supports_login,
           dependents: [qualifying_child, dependent_to_delete, dependent_that_cannot_be_deleted],
         )
       end
@@ -386,11 +388,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
         login_as create :admin_user
 
-        visit hub_clients_path
-
-        within ".client-table" do
-          click_on intake.preferred_name
-        end
+        visit hub_client_path(id: intake.client)
 
         click_on I18n.t('hub.clients.navigation.client_notes')
 
@@ -483,6 +481,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
             email_address: "mango@example.com",
             email_notification_opt_in: "yes",
             refund_payment_method: "check",
+            product_year: only_product_year_that_supports_login,
           )
         end
 
@@ -558,11 +557,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
         login_as create :admin_user
 
-        visit hub_clients_path
-
-        within ".client-table" do
-          click_on intake.preferred_name
-        end
+        visit hub_client_path(id: intake.client)
 
         click_on I18n.t('hub.clients.navigation.client_notes')
 

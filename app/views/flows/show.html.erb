@@ -60,6 +60,14 @@
               </label>
             </div>
           <% end %>
+          <% if f.object.submission_accepted != nil %>
+            <div class="form-group">
+              <label>
+                <%= f.check_box :submission_accepted %>
+                Submission Accepted?
+              </label>
+            </div>
+          <% end %>
         </div>
         <% @sample_types.each do |app_type| %>
           <%= submit_tag "#{app_type.to_s.titleize} ✨", name: "submit_#{app_type}", class: 'button button--small', method: :put %>

@@ -9,7 +9,7 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
     context "As a client logging in twice on CTC questions" do
       let(:hashed_verification_code) { "hashed_verification_code" }
       let(:double_hashed_verification_code) { "double_hashed_verification_code" }
-      let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
+      let(:fake_time) { Time.utc(2022, 2, 6, 0, 0, 0) }
       before do
         allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
       end
