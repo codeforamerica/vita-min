@@ -239,8 +239,9 @@ class FlowsController < ApplicationController
     attr_accessor :claiming_eitc
     attr_accessor :with_dependents
     attr_accessor :submission_rejected
+    attr_accessor :submission_accepted
 
-    def initialize(first_name:, last_name:, sms_phone_number:, email_address:, claiming_eitc: nil, with_dependents: nil, submission_rejected: nil)
+    def initialize(first_name:, last_name:, sms_phone_number:, email_address:, claiming_eitc: nil, with_dependents: nil, submission_rejected: nil, submission_accepted: nil)
       @first_name = first_name
       @last_name = last_name
       @sms_phone_number = sms_phone_number
@@ -248,6 +249,7 @@ class FlowsController < ApplicationController
       @claiming_eitc = claiming_eitc
       @with_dependents = with_dependents
       @submission_rejected = submission_rejected
+      @submission_accepted = submission_accepted
     end
   end
 
@@ -260,7 +262,8 @@ class FlowsController < ApplicationController
         email_address: "testuser+#{Time.now.to_i.to_s(36)}@example.com",
         claiming_eitc: false,
         with_dependents: false,
-        submission_rejected: false
+        submission_rejected: false,
+        submission_accepted: false
       )
     end
 
@@ -273,10 +276,11 @@ class FlowsController < ApplicationController
       with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
       claiming_eitc = params[:flows_controller_sample_intake_form][:claiming_eitc] == "1"
       submission_rejected = params[:flows_controller_sample_intake_form][:submission_rejected] == "1"
+      submission_accepted = params[:flows_controller_sample_intake_form][:submission_accepted] == "1"
 
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
-        product_year: Rails.configuration.product_year,
+        product_year: 2022,
         visitor_id: SecureRandom.hex(26),
         filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
@@ -381,12 +385,14 @@ class FlowsController < ApplicationController
         )
       end
 
-      if submission_rejected
+      if submission_rejected || submission_accepted
         efile_submission = client.tax_returns.last.efile_submissions.create!
         efile_submission.efile_submission_transitions.create!(to_state: :preparing, sort_key: 1, most_recent: false)
         efile_submission.efile_submission_transitions.create!(to_state: :bundling, sort_key: 2, most_recent: false)
         efile_submission.efile_submission_transitions.create!(to_state: :queued, sort_key: 3, most_recent: false)
+      end
 
+      if submission_rejected
         retryable_error = EfileError.where(auto_cancel: false, auto_wait: false, expose: true).last
         fail_transition = efile_submission.efile_submission_transitions.create!(
           to_state: :failed,
@@ -395,6 +401,11 @@ class FlowsController < ApplicationController
           metadata: { error_code: retryable_error.code, raw_response: "Fake state transition from the Flow Explorer" }
         )
         fail_transition.efile_errors << retryable_error
+      end
+
+      if submission_accepted
+        efile_submission.efile_submission_transitions.create!(to_state: :transmitted, sort_key: 4, most_recent: false)
+        efile_submission.efile_submission_transitions.create!(to_state: :accepted, sort_key: 5, most_recent: true)
       end
 
       client.intake

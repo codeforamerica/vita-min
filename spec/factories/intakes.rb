@@ -263,7 +263,7 @@ FactoryBot.define do
   end
 
   factory :ctc_intake, class: Intake::CtcIntake do
-    product_year { Rails.configuration.product_year }
+    product_year { 2022 }
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     primary_birth_date { Date.new(1988, 12, 20) }
     spouse_birth_date { Date.new(1976, 12, 20) }
