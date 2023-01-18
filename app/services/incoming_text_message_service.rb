@@ -46,7 +46,16 @@ class IncomingTextMessageService
 
       TransitionNotFilingService.run(client)
 
-      IntercomService.create_intercom_message_from_sms(contact_record, inform_of_handoff: true) if client.forward_message_to_intercom?
+      if client.forward_message_to_intercom?
+        IntercomService.create_intercom_message(
+          email_address: nil,
+          phone_number: contact_record.from_phone_number,
+          body: contact_record.body,
+          client: contact_record.client,
+          has_documents: contact_record.documents.present?
+        )
+        IntercomService.inform_client_of_handoff(email_address: nil, phone_number: contact_record.from_phone_number, client: contact_record.client)
+      end
 
       ClientChannel.broadcast_contact_record(contact_record)
     end
