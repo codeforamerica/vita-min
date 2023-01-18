@@ -1,0 +1,36 @@
+<div class="slab">
+  <div class="grid">
+
+    <h1>GREETINGS, ENGINEER</h1>
+
+    <table>
+      <tr>
+        <th>status</th>
+        <th>timestamp</th>
+        <th>name</th>
+      </tr>
+
+      <% DataMigrate::DataMigrator.migrations_status.each do |migration| %>
+        <tr>
+          <td><%= migration[0] %></td>
+          <td><%= migration[1] %></td>
+          <td><%= migration[2] %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <% if @existing_job %>
+      <% if @existing_job.locked_at %>
+        <strong>Migrating, has been running for <%= time_ago_in_words @existing_job.locked_at %></strong>
+      <% elsif @existing_job.failed_at %>
+        <strong>Last migration failed, go check it out</strong>
+      <% else %>
+        <strong>Migrating, queued <%= time_ago_in_words @existing_job.run_at %> ago</strong>
+      <% end %>
+    <% elsif DataMigrate::DataMigrator.migrations_status.any? { |row| row[0] == 'down' } %>
+      <%= form_with url: { action: :migrate }, local: true, method: "put" do |f| %>
+        <%= f.submit "Run all pending migrations" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
