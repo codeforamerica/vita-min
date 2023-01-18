@@ -3,14 +3,14 @@ require 'intercom'
 class IntercomService
   def self.create_intercom_message(email_address:, phone_number:, body:, client:, has_documents:)
     # spec:
-    # when body is blank, exit early and do nothing
-    # when documents present, add a message to the body
-    # when client is provided, search for intercom client that way
-    # when client is not provided and email is, search for intercom client that way
-    # when client & email missing, search for Intercom client by email
-    # when contact info has a matching Intercom contact and it has a matching intercom conversation, send the message there
-    # when contact info has a matching Intercom contact and no matching intercom conversation, create a new convo with that contact
-    # when contact info has no matching contact Intercom contact, create a new contact then make a convo with that contact
+    # - [X] when body is blank, exit early and do nothing
+    # - [X] when contact info has no matching contact Intercom contact, create a new contact then make a convo with that contact
+    # - [ ] when contact info has a matching Intercom contact and no matching intercom conversation, create a new convo with that contact
+    # - [ ] when contact info has a matching Intercom contact and it has a matching intercom conversation, send the message there
+    # - [ ] when documents present, add a message to the body
+    # - [ ] when client is provided, search for intercom client that way
+    # - [ ] when client is not provided and email is, search for intercom client that way
+    # - [ ] when client & email missing, search for Intercom client by email
     if has_documents && client.present?
       body = [body, "[client sent an attachment, see #{Rails.application.routes.url_helpers.hub_client_documents_url(client_id: client.id)}]"].compact.join(' ')
     end
@@ -23,9 +23,10 @@ class IntercomService
     else
       contact = existing_contact || create_or_update_intercom_contact(client: client, email_address: email_address, phone_number: phone_number)
 
-      create_new_intercom_thread(contact&.id, body)
+      create_new_intercom_thread(contact, body)
     end
   end
+
   def self.inform_client_of_handoff(client:, phone_number:, email_address:)
     # TODO: add spec
     return if client.blank?
