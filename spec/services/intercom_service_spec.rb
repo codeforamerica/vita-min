@@ -2,12 +2,81 @@ require 'rails_helper'
 
 RSpec.describe IntercomService do
   let(:fake_intercom) { instance_double(Intercom::Client) }
+  let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
   let(:client) { create(:client, intake: create(:intake, email_address: "beep@example.com")) }
+  let(:contact_role) { "user" }
+  let(:fake_contact) { OpenStruct.new(id: "9999", type: "contact", role: contact_role, flat_store: nil) }
 
   before do
-    described_class.instance_variable_set(:@intercom, nil)
-    @test_environment_credentials.merge!(intercom: {intercom_access_token: "fake_access_token"})
+    allow(fake_intercom).to receive(:messages).and_return(double)
+    allow(fake_intercom.messages).to receive(:create)
+
+    allow(fake_intercom).to receive(:contacts).and_return(fake_contacts)
+    allow(fake_intercom.contacts).to receive(:search)
+    allow(fake_intercom.contacts).to receive(:create).and_return(fake_contact)
+
+    @test_environment_credentials.merge!(intercom: { intercom_access_token: "fake_access_token" })
     allow(Intercom::Client).to receive(:new).with(token: "fake_access_token").and_return(fake_intercom)
+  end
+
+  describe ".create_intercom_message" do
+    # TODO: Rename to .create_message ?
+
+    context "when body is blank" do
+      it "does not send a message in Intercom" do
+        described_class.create_intercom_message(body: "", email_address: "example@example.com", phone_number: "+1-555-555-1212", client: nil, has_documents: false)
+        expect(fake_intercom.messages).not_to have_received(:create)
+      end
+    end
+
+    context "when there is no pre-existing Intercom user" do
+      let(:contact_role) { "lead" }
+      it "creates a new Intercom user and creates a new message from them" do
+        described_class.create_intercom_message(body: "hi i want some help getting my refund thx have a nice day", email_address: "example@example.com", phone_number: "+1-555-555-1212", client: nil, has_documents: false)
+        expect(fake_intercom.contacts).to have_received(:create).with(
+          {
+            role: "lead",
+            phone: "+1-555-555-1212",
+            email: "example@example.com",
+          }
+        )
+        expect(fake_intercom.messages).to have_received(:create).with(
+          body: "hi i want some help getting my refund thx have a nice day",
+          from: { id: "9999", type: contact_role } # TODO: Are we sure this is required and correct for create?
+        )
+      end
+
+      context "when a client is provided" do
+        let(:client) { create(:client) }
+        let(:contact_role) { "user" }
+
+        it "creates a new Intercom user w/ client ID & name & creates a new message from them" do
+          described_class.create_intercom_message(body: "hi i want some help getting my refund thx have a nice day", email_address: "example@example.com", phone_number: "+1-555-555-1212", client: client, has_documents: false)
+          expect(fake_intercom.contacts).to have_received(:create).with(
+            {
+              role: contact_role,
+              phone: "+1-555-555-1212",
+              email: "example@example.com",
+              external_id: client.id.to_s,
+              client: client.id.to_s,
+              name: client.legal_name,
+            }
+          )
+          expect(fake_intercom.messages).to have_received(:create).with(
+            body: "hi i want some help getting my refund thx have a nice day",
+            from: { id: "9999", type: contact_role } # TODO: Are we sure this is required for create?
+          )
+          # TODO: Test that we send them a message
+        end
+      end
+    end
+
+    context "sending a message" do
+      # TODO: Happy path
+      # TODO: when documents present, add a message to the body
+    end
+
+
   end
 
   describe "#create_intercom_message_from_portal_message" do
@@ -15,12 +84,9 @@ RSpec.describe IntercomService do
     let(:incoming_portal_message) { create :incoming_portal_message, client: client, body: "Hello" }
 
     context "with no existing contact with client id" do
-      let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
 
       before do
         allow(described_class).to receive(:contact_from_client).with(client).and_return(nil)
-        fake_contact = OpenStruct.new(id: 'fake_new_contact_id')
-        allow(fake_intercom).to receive(:contacts).and_return(fake_contacts)
         allow(fake_contacts).to receive(:create).and_return(fake_contact)
         allow(fake_contacts).to receive(:search).and_return([])
         allow(described_class).to receive(:create_new_intercom_thread)
