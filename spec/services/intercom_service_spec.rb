@@ -28,7 +28,15 @@ RSpec.describe IntercomService do
       end
 
       it "creates a new contact, message and conversation for the client id, and sends forwarding messages" do
-        described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)
+        portal_message = incoming_portal_message
+        client = portal_message.client
+        IntercomService.create_intercom_message(
+          client: client,
+          body: portal_message.body,
+          inform_of_handoff: true,
+          email_address: client.intake.email_address,
+          phone_number: client.intake.sms_phone_number
+        )
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "Hello")
         expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
                                                                                       client: incoming_portal_message.client,
@@ -45,7 +53,15 @@ RSpec.describe IntercomService do
         end
 
         it "uses the existing contact from the intercom side" do
-          described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)
+          portal_message = incoming_portal_message
+          client = portal_message.client
+          IntercomService.create_intercom_message(
+            client: client,
+            body: portal_message.body,
+            inform_of_handoff: true,
+            email_address: client.intake.email_address,
+            phone_number: client.intake.sms_phone_number
+          )
           expect(described_class).to have_received(:create_new_intercom_thread).with("abcdefg", incoming_portal_message.body)
           expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
                                                                                      message: AutomatedMessage::IntercomForwarding,
@@ -65,7 +81,15 @@ RSpec.describe IntercomService do
       end
 
       it "replies to the existing thread" do
-        described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)
+        portal_message = incoming_portal_message
+        client = portal_message.client
+        IntercomService.create_intercom_message(
+          client: client,
+          body: portal_message.body,
+          inform_of_handoff: true,
+          email_address: client.intake.email_address,
+          phone_number: client.intake.sms_phone_number
+        )
         expect(described_class).to have_received(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", "Hello")
       end
     end
@@ -77,7 +101,16 @@ RSpec.describe IntercomService do
       end
 
       it "does not send an intercom message" do
-        expect(described_class.create_intercom_message_from_portal_message(incoming_portal_message, inform_of_handoff: true)).to eq nil
+        portal_message = incoming_portal_message
+        client = portal_message.client
+        create_intercom_message_from_portal_message_value = IntercomService.create_intercom_message(
+          client: client,
+          body: portal_message.body,
+          inform_of_handoff: true,
+          email_address: client.intake.email_address,
+          phone_number: client.intake.sms_phone_number
+        )
+        expect(create_intercom_message_from_portal_message_value).to eq nil
 
         expect(fake_intercom).not_to have_received(:contacts)
       end
@@ -97,7 +130,14 @@ RSpec.describe IntercomService do
       end
 
       it "creates a new contact, message and conversation for email, and sends forwarding message" do
-        described_class.create_intercom_message_from_email(incoming_email, inform_of_handoff: true)
+        incoming_email = incoming_email
+        IntercomService.create_intercom_message(
+          client: incoming_email.client,
+          inform_of_handoff: true,
+          body: incoming_email.body,
+          email_address: incoming_email.sender,
+          has_documents: incoming_email.attachment_count.nonzero?
+        )
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "hi i would like some help")
         expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
                                                                                     email: true,
@@ -117,7 +157,14 @@ RSpec.describe IntercomService do
       end
 
       it "replies to the contacts' conversation thread" do
-        described_class.create_intercom_message_from_email(incoming_email, inform_of_handoff: true)
+        incoming_email = incoming_email
+        IntercomService.create_intercom_message(
+          client: incoming_email.client,
+          inform_of_handoff: true,
+          body: incoming_email.body,
+          email_address: incoming_email.sender,
+          has_documents: incoming_email.attachment_count.nonzero?
+        )
         expect(described_class).to have_received(:reply_to_existing_intercom_thread).with("fak3_1d", "hi i would like some help")
       end
     end
@@ -131,7 +178,14 @@ RSpec.describe IntercomService do
       end
 
       it "creates a new message for existing contact" do
-        described_class.create_intercom_message_from_email(incoming_email, inform_of_handoff: true)
+        incoming_email = incoming_email
+        IntercomService.create_intercom_message(
+          client: incoming_email.client,
+          inform_of_handoff: true,
+          body: incoming_email.body,
+          email_address: incoming_email.sender,
+          has_documents: incoming_email.attachment_count.nonzero?
+        )
         expect(described_class).to have_received(:create_new_intercom_thread).with("fak3_1d", "hi i would like some help")
       end
     end
@@ -156,7 +210,15 @@ RSpec.describe IntercomService do
       end
 
       it "creates a new contact, message and conversation for phone number, and sends forwarding message" do
-        described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+        incoming_sms = incoming_text_message
+        IntercomService.create_intercom_message(
+          email_address: nil,
+          phone_number: incoming_sms.from_phone_number,
+          body: incoming_sms.body,
+          client: incoming_sms.client,
+          inform_of_handoff: true,
+          has_documents: incoming_sms.documents.present?
+        )
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", sms_body)
         expect(SendAutomatedMessage).to have_received(:send_messages).once.with({
                                                                                     sms: true,
@@ -174,7 +236,15 @@ RSpec.describe IntercomService do
         end
 
         it "uses the existing contact from the intercom side" do
-          described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+          incoming_sms = incoming_text_message
+          IntercomService.create_intercom_message(
+            email_address: nil,
+            phone_number: incoming_sms.from_phone_number,
+            body: incoming_sms.body,
+            client: incoming_sms.client,
+            inform_of_handoff: true,
+            has_documents: incoming_sms.documents.present?
+          )
           expect(described_class).to have_received(:create_new_intercom_thread).with("abcdefg", sms_body)
           expect(SendAutomatedMessage).to have_received(:send_messages).once
         end
@@ -187,14 +257,30 @@ RSpec.describe IntercomService do
           let(:sms_body) { nil }
 
           it "mentions that there's a document and links to the client document tab" do
-            described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+            incoming_sms = incoming_text_message
+            IntercomService.create_intercom_message(
+              email_address: nil,
+              phone_number: incoming_sms.from_phone_number,
+              body: incoming_sms.body,
+              client: incoming_sms.client,
+              inform_of_handoff: true,
+              has_documents: incoming_sms.documents.present?
+            )
             expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "[client sent an attachment, see #{hub_client_documents_url(client_id: client.id)}]")
           end
         end
 
         context 'when the sms body was not blank' do
           it "mentions that there's a document and links to the client document tab" do
-            described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+            incoming_sms = incoming_text_message
+            IntercomService.create_intercom_message(
+              email_address: nil,
+              phone_number: incoming_sms.from_phone_number,
+              body: incoming_sms.body,
+              client: incoming_sms.client,
+              inform_of_handoff: true,
+              has_documents: incoming_sms.documents.present?
+            )
             expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "halp [client sent an attachment, see #{hub_client_documents_url(client_id: client.id)}]")
           end
         end
@@ -211,7 +297,15 @@ RSpec.describe IntercomService do
       end
 
       it "replies to the existing thread for phone number" do
-        described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+        incoming_sms = incoming_text_message
+        IntercomService.create_intercom_message(
+          email_address: nil,
+          phone_number: incoming_sms.from_phone_number,
+          body: incoming_sms.body,
+          client: incoming_sms.client,
+          inform_of_handoff: true,
+          has_documents: incoming_sms.documents.present?
+        )
         expect(described_class).to have_received(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", "halp")
       end
     end

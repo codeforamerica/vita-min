@@ -11,7 +11,18 @@ module Portal
         flash_message = "#{I18n.t("portal.messages.create.message_sent")} #{helpers.client_contact_preference(current_client, no_tags: true)}"
         flash[:notice] = flash_message
         TransitionNotFilingService.run(current_client)
-        IntercomService.create_intercom_message_from_portal_message(@message, inform_of_handoff: true) if current_client.forward_message_to_intercom?
+        portal_message = @message
+        client = portal_message.client
+        if current_client.forward_message_to_intercom?
+          IntercomService.create_intercom_message(
+            client: client,
+            body: portal_message.body,
+            email_address: client.intake.email_address,
+            phone_number: client.intake.sms_phone_number,
+            has_documents: false
+          )
+          IntercomService.inform_client_of_handoff(client: client, email_address: client.intake.email_address, phone_number: client.intake.sms_phone_number)
+        end
         redirect_to portal_root_path
       else
         flash[:alert] = I18n.t("general.error.form_failed")
