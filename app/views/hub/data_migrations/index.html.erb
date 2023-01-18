@@ -20,10 +20,13 @@
     </table>
 
     <% if @existing_job %>
-      <% if @existing_job.locked_at %>
+      <% if @existing_job.failed_at %>
+        <strong>Last migration failed, go check it out:</strong>
+        <pre style="white-space: pre-line">
+          <%= @existing_job.last_error %>
+        </pre>
+      <% elsif @existing_job.locked_at %>
         <strong>Migrating, has been running for <%= time_ago_in_words @existing_job.locked_at %></strong>
-      <% elsif @existing_job.failed_at %>
-        <strong>Last migration failed, go check it out</strong>
       <% else %>
         <strong>Migrating, queued <%= time_ago_in_words @existing_job.run_at %> ago</strong>
       <% end %>
