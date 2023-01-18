@@ -118,7 +118,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       click_on "2", id: "top-pagination-link"
 
       within "#income-fields" do
-        select "Yes", from: "hub_update13614c_form_page2_had_wages"
+        select "Y", from: "hub_update13614c_form_page2_had_wages"
       end
 
       page.dismiss_prompt I18n.t('general.confirm_exit_without_saving') do
@@ -150,56 +150,56 @@ RSpec.describe "a user editing a clients 13614c form" do
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
 
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
         select "3", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.job_count")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_scholarships")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_cash_check_digital_assets")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_unemployment_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_social_security_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_other_income")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_scholarships")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
+        select "?", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_cash_check_digital_assets")
+        select "?", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_unemployment_income")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_social_security_income")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income")
+        select "?", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_other_income")
       end
 
       within "#expenses-fields" do
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_alimony")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_ssn_of_alimony_recipient")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_retirement_contributions")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_alimony")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_ssn_of_alimony_recipient")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_retirement_contributions")
         check "IRA (A)"
         check "401K (B)"
         check "Roth IRA (B)"
         check "Other"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.wants_to_itemize")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.wants_to_itemize")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_medical_expenses")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_mortgage_interest")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_local_tax")
         check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_charitable_contributions")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_self_employment_expenses")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_student_loan_interest")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
+        select "?", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_self_employment_expenses")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_student_loan_interest")
       end
 
       within "#life-events-fields" do
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_hsa")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_debt_forgiven")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.adopted_child")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tax_credit_disallowed")
+        select "Y", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_hsa")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_debt_forgiven")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.adopted_child")
+        select "?", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tax_credit_disallowed")
         fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.tax_credit_disallowed_year"), with: "2018"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_energy_efficient_items")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_homebuyer_credit")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_energy_efficient_items")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_homebuyer_credit")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
         fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments_amount"), with: "3,000"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_capital_loss_carryover")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_health_insurance")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_capital_loss_carryover")
+        select "N", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_health_insurance")
       end
 
       click_on I18n.t("general.save")

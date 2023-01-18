@@ -22,49 +22,49 @@
 
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:had_wages, "1. (B) #{t(".fields.had_wages")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_wages, "1. (B) #{t(".fields.had_wages")}", short_yes_no_unsure_options_for_select) %>
             <%= f.cfa_select(:job_count, t(".fields.job_count"), (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
 
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_unemployment_income, "12. (B) #{t(".fields.had_unemployment_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_unemployment_income, "12. (B) #{t(".fields.had_unemployment_income")}", short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_tips, "2. (A) #{t(".fields.had_tips")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_tips, "2. (A) #{t(".fields.had_tips")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_social_security_income, "13. (B) #{t(".fields.had_social_security_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_social_security_income, "13. (B) #{t(".fields.had_social_security_income")}", short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_scholarships, "3. (B) #{t(".fields.had_scholarships")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_scholarships, "3. (B) #{t(".fields.had_scholarships")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_rental_income, "14. (M) #{t(".fields.had_rental_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_rental_income, "14. (M) #{t(".fields.had_rental_income")}", short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_interest_income, "4. (B) #{t(".fields.had_interest_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_interest_income, "4. (B) #{t(".fields.had_interest_income")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_other_income, "15. (B) #{t(".fields.had_other_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_other_income, "15. (B) #{t(".fields.had_other_income")}", short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_local_tax_refund, "5. (B) #{t(".fields.had_local_tax_refund")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_local_tax_refund, "5. (B) #{t(".fields.had_local_tax_refund")}", short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
-        <%= f.cfa_select(:received_alimony, "6. (B) #{t(".fields.received_alimony")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_cash_check_digital_assets, "8. (A)  #{t(".fields.had_cash_check_digital_assets")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_asset_sale_income, "9. (A) #{t(".fields.had_asset_sale_income")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_disability_income, "10. (B) #{t(".fields.had_disability_income")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_retirement_income, "11. (A) #{t(".fields.had_retirement_income")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:received_alimony, "6. (B) #{t(".fields.received_alimony")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_cash_check_digital_assets, "8. (A)  #{t(".fields.had_cash_check_digital_assets")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_asset_sale_income, "9. (A) #{t(".fields.had_asset_sale_income")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_disability_income, "10. (B) #{t(".fields.had_disability_income")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_retirement_income, "11. (A) #{t(".fields.had_retirement_income")}", short_yes_no_unsure_options_for_select) %>
       </div>
 
       <div id="expenses-fields">
@@ -72,15 +72,15 @@
         <hr style="margin-top: 0;" />
         <div class="grid">
           <div class="grid__item width-one-half">
-          <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", yes_no_unsure_options_for_select) %>
+          <%= f.cfa_select(:paid_alimony, "1. (B) #{t(".fields.paid_alimony")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:has_ssn_of_alimony_recipient, t(".fields.has_ssn_of_alimony_recipient"), yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:has_ssn_of_alimony_recipient, t(".fields.has_ssn_of_alimony_recipient"), short_yes_no_unsure_options_for_select) %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
-          <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", yes_no_unsure_options_for_select) %>
+          <%= f.cfa_select(:paid_retirement_contributions, "2. #{t(".fields.paid_retirement_contributions")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half checkbox-set">
             <div class="checkbox-column">
@@ -94,11 +94,11 @@
           </div>
         </div>
         <br />
-        <%= f.cfa_select(:paid_post_secondary_educational_expenses, "3. (B) #{t(".fields.paid_post_secondary_educational_expenses")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_post_secondary_educational_expenses, "3. (B) #{t(".fields.paid_post_secondary_educational_expenses")}", short_yes_no_unsure_options_for_select) %>
         <br />
         <div class="grid">
           <div class="grid__item width-one-third">
-            <%= f.cfa_select(:wants_to_itemize, "4. #{t(".fields.wants_to_itemize")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:wants_to_itemize, "4. #{t(".fields.wants_to_itemize")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-two-thirds checkbox-set">
             <div class="checkbox-column">
@@ -114,21 +114,21 @@
 
         <br />
 
-        <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:paid_school_supplies, "6. (B) #{t(".fields.paid_school_supplies")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:paid_self_employment_expenses, "7. (A) #{t(".fields.paid_self_employment_expenses")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:paid_student_loan_interest, "8. (B) #{t(".fields.paid_student_loan_interest")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_dependent_care, "5. (B) #{t(".fields.paid_dependent_care")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_school_supplies, "6. (B) #{t(".fields.paid_school_supplies")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_self_employment_expenses, "7. (A) #{t(".fields.paid_self_employment_expenses")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:paid_student_loan_interest, "8. (B) #{t(".fields.paid_student_loan_interest")}", short_yes_no_unsure_options_for_select) %>
       </div>
 
       <div id="life-events-fields">
         <h2><%= t(".part_5_title") %></h2>
         <hr style="margin-top: 0;"/>
-        <%= f.cfa_select(:had_hsa, "1. (A) #{t(".fields.had_hsa")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_debt_forgiven, "2. (A) #{t(".fields.had_debt_forgiven")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:adopted_child, "3. (A) #{t(".fields.adopted_child")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_hsa, "1. (A) #{t(".fields.had_hsa")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_debt_forgiven, "2. (A) #{t(".fields.had_debt_forgiven")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:adopted_child, "3. (A) #{t(".fields.adopted_child")}", short_yes_no_unsure_options_for_select) %>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_tax_credit_disallowed, "4. (B) #{t(".fields.had_tax_credit_disallowed")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             <div class="input--display-row">
@@ -136,11 +136,11 @@
             </div>
           </div>
         </div>
-        <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:received_homebuyer_credit, "6. (A) #{t(".fields.received_homebuyer_credit")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:bought_energy_efficient_items, "5. (A) #{t(".fields.bought_energy_efficient_items")}", short_yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:received_homebuyer_credit, "6. (A) #{t(".fields.received_homebuyer_credit")}", short_yes_no_unsure_options_for_select) %>
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:made_estimated_tax_payments, "7. (B) #{t(".fields.made_estimated_tax_payments")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:made_estimated_tax_payments, "7. (B) #{t(".fields.made_estimated_tax_payments")}", short_yes_no_unsure_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             <div class="input--display-row">
@@ -148,9 +148,9 @@
             </div>
           </div>
         </div>
-        <%= f.cfa_select(:had_capital_loss_carryover, "8. (A) #{t(".fields.had_capital_loss_carryover")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_capital_loss_carryover, "8. (A) #{t(".fields.had_capital_loss_carryover")}", short_yes_no_unsure_options_for_select) %>
         <br />
-        <%= f.cfa_select(:bought_health_insurance, "9. (A) #{t(".fields.bought_health_insurance")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:bought_health_insurance, "9. (A) #{t(".fields.bought_health_insurance")}", short_yes_no_unsure_options_for_select) %>
         <br />
         <br />
       </div>
