@@ -1532,23 +1532,6 @@ en:
             Take our 5 minute survey here: %{survey_link}
           subject: Your feedback on GetCTC
         sms: 'Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
-      in_progress:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>>
-
-            We'll review everything with you on the phone!
-
-            If you have any questions, you can reply to this message.
-
-            Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
-
-            We're here to help!
-            Your Tax Team at GetYourRefund
-          subject: Welcome to GetYourRefund.org. You're almost there!
-        sms: 'Hello <<Client.PreferredName>>. We noticed you haven''t completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}'
     unmonitored_replies:
       email:
         body: Replies not monitored. Write %{support_email} for assistance. To check on your refund status, go to <a href="https://www.irs.gov/refunds">Where's My Refund?</a> To access your tax record, get <a href="https://www.irs.gov/individuals/get-transcript">your transcript.</a>
