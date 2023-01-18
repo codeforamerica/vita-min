@@ -1,9 +1,9 @@
 <div class="slab">
   <div class="grid">
 
-    <h1>GREETINGS, ENGINEER</h1>
+    <h1>Data migrations status</h1>
 
-    <table>
+    <table class="data-table">
       <tr>
         <th>status</th>
         <th>timestamp</th>
@@ -31,6 +31,8 @@
       <%= form_with url: { action: :migrate }, local: true, method: "put" do |f| %>
         <%= f.submit "Run all pending migrations" %>
       <% end %>
+    <% else %>
+      All data migrations up to date 👍
     <% end %>
   </div>
 </div>
