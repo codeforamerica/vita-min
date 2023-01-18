@@ -2,8 +2,10 @@
 #
 # Table name: intake_archives
 #
-#  id              :bigint           not null, primary key
-#  needs_help_2017 :integer
+#  id                 :bigint           not null, primary key
+#  needs_help_2017    :integer
+#  spouse_was_on_visa :integer
+#  was_on_visa        :integer
 #
 # Foreign Keys
 #
@@ -12,4 +14,6 @@
 class IntakeArchive < ApplicationRecord
   belongs_to :intake, foreign_key: :id
   enum needs_help_2017: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2017
+  enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
+  enum was_on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_on_visa
 end

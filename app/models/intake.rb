@@ -235,7 +235,6 @@
 #  spouse_us_citizen                                    :integer          default(0), not null
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
-#  spouse_was_on_visa                                   :integer          default(0), not null
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
@@ -257,7 +256,6 @@
 #  wants_to_itemize                                     :integer          default(0), not null
 #  was_blind                                            :integer          default(0), not null
 #  was_full_time_student                                :integer          default(0), not null
-#  was_on_visa                                          :integer          default(0), not null
 #  widowed                                              :integer          default(0), not null
 #  widowed_year                                         :string
 #  with_general_navigator                               :boolean          default(FALSE)
@@ -643,7 +641,7 @@ class Intake < ApplicationRecord
   end
 
   def self.archived_columns
-    ["needs_help_2017"]
+    ["needs_help_2017", "was_on_visa", "spouse_was_on_visa"]
   end
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id
