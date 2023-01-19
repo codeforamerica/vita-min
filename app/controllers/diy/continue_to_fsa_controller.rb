@@ -18,7 +18,7 @@ module Diy
       if gyr_sources.include?(source)
         "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
       elsif ctc_sources.include?(source)
-        "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+        "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2021&sidn=31096682"
       else
         EnvironmentCredentials.dig(:tax_slayer_link)
       end
