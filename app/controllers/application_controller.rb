@@ -237,12 +237,12 @@ class ApplicationController < ActionController::Base
     super
     payload[:level] =
       case payload[:status]
-      when (200..399)
-        "INFO"
       when (400..499)
         "WARN"
-      else
+      when (500..599)
         "ERROR"
+      else
+        "INFO"
       end
     payload[:request_details] = {
       current_user_id: current_user&.id,
