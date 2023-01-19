@@ -106,7 +106,7 @@ class MailgunWebhooksController < ActionController::Base
             client: contact_record.client,
             body: contact_record.body,
             email_address: contact_record.sender,
-            has_documents: contact_record.attachment_count&.nonzero?
+            has_documents: (contact_record&.attachment_count || 0).nonzero?
           )
           IntercomService.inform_client_of_handoff(send_sms: false, client: contact_record.client, send_email: true)
         end

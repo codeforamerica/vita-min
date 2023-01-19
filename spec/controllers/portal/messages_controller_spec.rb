@@ -4,7 +4,8 @@ describe Portal::MessagesController do
   let(:client) { create :client, intake: (create :intake, email_address: "exampleton@example.com", email_notification_opt_in: "yes") }
   before do
     sign_in client, scope: :client
-    allow(IntercomService).to receive(:create_intercom_message_from_portal_message)
+    allow(IntercomService).to receive(:create_message)
+    allow(IntercomService).to receive(:inform_client_of_handoff)
   end
 
   describe "#new" do
@@ -38,7 +39,8 @@ describe Portal::MessagesController do
 
         expect(response).to redirect_to portal_root_path
         expect(flash[:notice]).to eq "Message sent! Responses will be sent by email to exampleton@example.com."
-        expect(IntercomService).to have_received(:create_intercom_message_from_portal_message).with(client.incoming_portal_messages.last, inform_of_handoff: true)
+        expect(IntercomService).to have_received(:create_message).with(body: client.incoming_portal_messages.last.body, client: client, email_address: client.intake.email_address, phone_number: nil, has_documents: false)
+        expect(IntercomService).to have_received(:inform_client_of_handoff).with(client: client, send_sms: false, send_email: true)
         expect(TransitionNotFilingService).to have_received(:run).with(client)
       end
     end

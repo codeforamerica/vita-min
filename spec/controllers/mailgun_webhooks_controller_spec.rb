@@ -93,8 +93,10 @@ RSpec.describe MailgunWebhooksController do
             end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
             expect(IntercomService).to have_received(:create_message).with(
               email_address: sender_email,
-              inform_of_handoff: false,
-              body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."
+              body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.",
+              phone_number: nil,
+              client: nil,
+              has_documents: false
             )
           end
         end
@@ -208,14 +210,16 @@ RSpec.describe MailgunWebhooksController do
 
           before do
             AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
-            allow(IntercomService).to receive(:create_intercom_message_from_email)
-
+            allow(IntercomService).to receive(:create_message)
+            allow(IntercomService).to receive(:inform_client_of_handoff)
           end
 
           context "with a body" do
             it "creates intercom message for the client" do
               post :create_incoming_email, params: params
-              expect(IntercomService).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+
+              expect(IntercomService).to have_received(:create_message).with(body: IncomingEmail.last.body, email_address: client.intake.email_address, has_documents: nil, phone_number: nil, client: client)
+              expect(IntercomService).to have_received(:inform_client_of_handoff).with(send_sms: false, send_email: true, client: client)
             end
           end
 
@@ -223,7 +227,7 @@ RSpec.describe MailgunWebhooksController do
             before do
               allow_any_instance_of(IncomingEmail).to receive(:body).and_return ""
               allow(Sentry).to receive(:capture_message)
-              allow(IntercomService).to receive(:create_intercom_message_from_email)
+              allow(IntercomService).to receive(:create_message)
             end
 
             it "sends a message to Sentry" do
@@ -233,18 +237,18 @@ RSpec.describe MailgunWebhooksController do
 
             it "does not create an intercom message for the client" do
               post :create_incoming_email, params: params
-              expect(IntercomService).not_to have_received(:create_intercom_message_from_email)
+              expect(IntercomService).not_to have_received(:create_message)
             end
           end
         end
 
         context "doesn't have tax return status in file_accepted, file_mailed or file_not_filing" do
           before do
-            allow(IntercomService).to receive(:create_intercom_message_from_email)
+            allow(IntercomService).to receive(:create_message)
           end
           it "does not create an intercom message for the client" do
             post :create_incoming_email, params: params
-            expect(IntercomService).not_to have_received(:create_intercom_message_from_email)
+            expect(IntercomService).not_to have_received(:create_message)
           end
         end
 
