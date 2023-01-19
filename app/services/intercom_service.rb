@@ -20,14 +20,12 @@ class IntercomService
         body: body
       )
     else
-      contact ||= create_intercom_contact(client: client, email_address: email_address, phone_number: phone_number)
-
+      contact ||= upsert_contact(client: client, email_address: email_address, phone_number: phone_number)
       create_new_intercom_thread(contact, body)
     end
   end
 
   def self.inform_client_of_handoff(client:, send_sms:, send_email:)
-    # TODO: add spec
     return if client.blank?
 
     SendAutomatedMessage.send_messages(
@@ -79,18 +77,7 @@ class IntercomService
     contacts&.first
   end
 
-  def self.create_intercom_contact(client:, phone_number:, email_address:)
-    begin
-      intercom.contacts.create(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
-    rescue Intercom::MultipleMatchingUsersError => e
-      # TODO: Test this case
-      intercom_contact_id = e.message.match(/id=(\S+)/)[1]
-      update_intercom_contact(intercom_contact_id, client: client, phone_number: phone_number, email_address: email_address)
-    end
-  end
-
-
-  def self.create_or_update_intercom_contact(client:, phone_number:, email_address:)
+  def self.upsert_contact(client:, phone_number:, email_address:)
     intercom_contact = contact_from_client(client) || contact_from_email(email_address) || contact_from_sms(phone_number)
 
     if intercom_contact.present?
@@ -99,7 +86,6 @@ class IntercomService
       begin
         intercom.contacts.create(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
       rescue Intercom::MultipleMatchingUsersError => e
-        # TODO: Test this case
         intercom_contact_id = e.message.match(/id=(\S+)/)[1]
         update_intercom_contact(intercom_contact_id, client: client, phone_number: phone_number, email_address: email_address)
       end
@@ -122,8 +108,6 @@ class IntercomService
     attributes[:external_id] = client.id.to_s if client.present?
     attributes[:client] = client.id.to_s if client.present?
     attributes[:name] = client&.legal_name if client.present?
-    puts "Client.present: #{client.present?}"
-    puts attributes
     attributes
   end
 
@@ -134,7 +118,6 @@ class IntercomService
   end
 
   def self.most_recent_conversation(contact_id)
-    puts "Looking for conversations with #{contact_id}"
     intercom.conversations.search(
       {
         "sort_field": "updated_at",

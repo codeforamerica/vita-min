@@ -26,7 +26,6 @@ RSpec.describe IntercomService do
   end
 
   describe ".create_message" do
-
     context "when documents are attached" do
       let(:client) { create(:client) }
       it "appends a link to the message body" do
@@ -44,7 +43,7 @@ RSpec.describe IntercomService do
       end
     end
 
-    context "when body is blank" do
+    context "when the body is blank" do
       it "does not send a message in Intercom" do
         described_class.create_message(body: "", email_address: "example@example.com", phone_number: "+1-555-555-1212", client: nil, has_documents: false)
         expect(fake_intercom.messages).not_to have_received(:create)
