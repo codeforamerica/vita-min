@@ -39,6 +39,18 @@ RSpec.describe Diy::ContinueToFsaController do
         end
       end
 
+      context "GetCTC cohort" do
+        before do
+          session[:source] = "taxes-2022"
+        end
+
+        it "shows the right TS link" do
+          get :edit
+
+          expect(assigns(:taxslayer_link)).to eq "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+        end
+      end
+
       context "clients with no special source" do
         before do
           allow(EnvironmentCredentials).to receive(:dig).with(:tax_slayer_link).and_return "https://example.com/taxslayer"
