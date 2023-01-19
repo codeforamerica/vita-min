@@ -12,7 +12,18 @@
 
       <% DataMigrate::DataMigrator.migrations_status.each do |migration| %>
         <tr>
-          <td><%= migration[0] %></td>
+          <td>
+            <%=
+              case migration[0]
+              when 'up'
+                'migrated'
+              when 'down'
+                'pending migration'
+              else
+                migration[0]
+              end
+            %>
+          </td>
           <td><%= migration[1] %></td>
           <td><%= migration[2] %></td>
         </tr>
