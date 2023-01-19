@@ -14,7 +14,7 @@ RSpec.describe MailgunWebhooksController do
       basic_auth_name: "validuser",
       basic_auth_password: 'p@sswrd!',
     })
-    allow(IntercomService).to receive(:create_intercom_message).and_return nil
+    allow(IntercomService).to receive(:create_message).and_return nil
   end
 
   describe "#create_incoming_email" do
@@ -83,7 +83,7 @@ RSpec.describe MailgunWebhooksController do
         before do
           allow(DateTime).to receive(:now).and_return(current_time)
           allow(DatadogApi).to receive(:increment)
-          allow(IntercomService).to receive(:create_intercom_message)
+          allow(IntercomService).to receive(:create_message)
         end
 
         context "without a matching archived intake" do
@@ -91,7 +91,7 @@ RSpec.describe MailgunWebhooksController do
             expect do
               post :create_incoming_email, params: params
             end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
-            expect(IntercomService).to have_received(:create_intercom_message).with(
+            expect(IntercomService).to have_received(:create_message).with(
               email_address: sender_email,
               inform_of_handoff: false,
               body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file."

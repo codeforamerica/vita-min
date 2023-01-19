@@ -14,14 +14,14 @@ module Portal
         portal_message = @message
         client = portal_message.client
         if current_client.forward_message_to_intercom?
-          IntercomService.create_intercom_message(
+          IntercomService.create_message(
             client: client,
             body: portal_message.body,
             email_address: client.intake.email_address,
             phone_number: client.intake.sms_phone_number,
             has_documents: false
           )
-          IntercomService.inform_client_of_handoff(client: client, email_address: client.intake.email_address, phone_number: client.intake.sms_phone_number)
+          IntercomService.inform_client_of_handoff(client: client, send_email: client.intake.email_address.present?, send_sms: client.intake.sms_phone_number.present?)
         end
         redirect_to portal_root_path
       else

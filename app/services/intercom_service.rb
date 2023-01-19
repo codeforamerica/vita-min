@@ -1,40 +1,39 @@
 require 'intercom'
 
 class IntercomService
-  def self.create_intercom_message(email_address:, phone_number:, body:, client:, has_documents:)
-    # spec:
-    # - [X] when body is blank, exit early and do nothing
-    # - [X] when contact info has no matching contact Intercom contact, create a new contact then make a convo with that contact
-    # - [ ] when contact info has a matching Intercom contact and no matching intercom conversation, create a new convo with that contact
-    # - [ ] when contact info has a matching Intercom contact and it has a matching intercom conversation, send the message there
-    # - [ ] when documents present, add a message to the body
-    # - [ ] when client is provided, search for intercom client that way
-    # - [ ] when client is not provided and email is, search for intercom client that way
-    # - [ ] when client & email missing, search for Intercom client by email
+  def self.create_message(email_address:, phone_number:, body:, client:, has_documents:)
     if has_documents && client.present?
       body = [body, "[client sent an attachment, see #{Rails.application.routes.url_helpers.hub_client_documents_url(client_id: client.id)}]"].compact.join(' ')
     end
     return nil if body.blank?
 
-    existing_contact = contact_from_client(client) || contact_from_email(email_address) || contact_from_sms(phone_number)
+    contact = contact_from_client(client) || contact_from_email(email_address) || contact_from_sms(phone_number)
 
-    if existing_contact.present? && most_recent_conversation(existing_contact.id).present?
-      reply_to_existing_intercom_thread(existing_contact.id, body)
+    if contact.present? && most_recent_conversation(contact.id).present?
+      # Per https://developers.intercom.com/intercom-api-reference/reference/reply-to-a-conversation
+      # type is always user and message_type is always comment.
+      intercom.conversations.reply(
+        id: 'last',
+        intercom_user_id: contact.id,
+        type: 'user',
+        message_type: 'comment',
+        body: body
+      )
     else
-      contact = existing_contact || create_or_update_intercom_contact(client: client, email_address: email_address, phone_number: phone_number)
+      contact ||= create_intercom_contact(client: client, email_address: email_address, phone_number: phone_number)
 
       create_new_intercom_thread(contact, body)
     end
   end
 
-  def self.inform_client_of_handoff(client:, phone_number:, email_address:)
+  def self.inform_client_of_handoff(client:, send_sms:, send_email:)
     # TODO: add spec
     return if client.blank?
 
     SendAutomatedMessage.send_messages(
       message: AutomatedMessage::IntercomForwarding,
-      sms: phone_number.present?,
-      email: email_address.present?,
+      sms: send_sms,
+      email: send_email,
       client: client
     )
   end
@@ -80,6 +79,17 @@ class IntercomService
     contacts&.first
   end
 
+  def self.create_intercom_contact(client:, phone_number:, email_address:)
+    begin
+      intercom.contacts.create(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
+    rescue Intercom::MultipleMatchingUsersError => e
+      # TODO: Test this case
+      intercom_contact_id = e.message.match(/id=(\S+)/)[1]
+      update_intercom_contact(intercom_contact_id, client: client, phone_number: phone_number, email_address: email_address)
+    end
+  end
+
+
   def self.create_or_update_intercom_contact(client:, phone_number:, email_address:)
     intercom_contact = contact_from_client(client) || contact_from_email(email_address) || contact_from_sms(phone_number)
 
@@ -89,6 +99,7 @@ class IntercomService
       begin
         intercom.contacts.create(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
       rescue Intercom::MultipleMatchingUsersError => e
+        # TODO: Test this case
         intercom_contact_id = e.message.match(/id=(\S+)/)[1]
         update_intercom_contact(intercom_contact_id, client: client, phone_number: phone_number, email_address: email_address)
       end
@@ -122,16 +133,8 @@ class IntercomService
     intercom.messages.create({ from: { type: contact.role, id: contact.id }, body: body })
   end
 
-  def self.reply_to_existing_intercom_thread(contact_id, body)
-    intercom.conversations.reply_to_last(
-      intercom_user_id: contact_id,
-      type: 'lead',
-      message_type: 'comment',
-      body: body
-    )
-  end
-
   def self.most_recent_conversation(contact_id)
+    puts "Looking for conversations with #{contact_id}"
     intercom.conversations.search(
       {
         "sort_field": "updated_at",

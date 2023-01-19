@@ -22,7 +22,7 @@ class MailgunWebhooksController < ActionController::Base
       else
         DatadogApi.increment("mailgun.incoming_emails.client_not_found")
 
-        IntercomService.create_intercom_message(
+        IntercomService.create_message(
           client: nil,
           phone_number: nil,
           email_address: sender_email,
@@ -101,14 +101,14 @@ class MailgunWebhooksController < ActionController::Base
         Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
       else
         if client.forward_message_to_intercom?
-          IntercomService.create_intercom_message(
+          IntercomService.create_message(
             phone_number: nil,
             client: contact_record.client,
             body: contact_record.body,
             email_address: contact_record.sender,
             has_documents: contact_record.attachment_count&.nonzero?
           )
-          IntercomService.inform_client_of_handoff(phone_number: nil, client: contact_record.client, email_address: contact_record.sender)
+          IntercomService.inform_client_of_handoff(send_sms: false, client: contact_record.client, send_email: true)
         end
       end
 
