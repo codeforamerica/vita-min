@@ -235,6 +235,15 @@ class ApplicationController < ActionController::Base
 
   def append_info_to_payload(payload)
     super
+    payload[:level] =
+      case payload[:status]
+      when (400..499)
+        "WARN"
+      when (500..599)
+        "ERROR"
+      else
+        "INFO"
+      end
     payload[:request_details] = {
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
