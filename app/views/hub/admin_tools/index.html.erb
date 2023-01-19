@@ -6,45 +6,30 @@
     <div class="grid">
       <h1><%= @main_heading %></h1>
 
-      <%= link_to Hub::AdminTogglesController.to_path_helper(action: :index, name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM), class: "button button--small" do %>
-        Intercom Message Forwarding
-      <% end %>
-
-      <%= link_to hub_state_routings_path, class: "button button--small" do %>
-        Routing
-      <% end %>
-
-      <%= link_to hub_automated_messages_path, class: "button button--small" do %>
-        Automated Messages
-      <% end %>
-
-      <%= link_to hub_metrics_path, class: "button button--small" do %>
-        SLA Breaches
-      <% end %>
-
-      <%= link_to hub_fraud_indicators_path, class: "button button--small" do %>
-        Fraud Indicators
-      <% end %>
-
-      <%= link_to hub_efile_submissions_path, class: "button button--small" do %>
-        E-file Dashboard
-      <% end %>
-
-      <%= link_to hub_efile_errors_path, class: "button button--small" do %>
-        E-file Errors
-      <% end %>
-
-      <%= link_to hub_verification_attempts_path, class: "button button--small" do %>
-        Client Verification
-      <% end %>
-
-      <%= link_to hub_bulk_message_csvs_path, class: "button button--small" do %>
-        Bulk messaging clients CSV upload
-      <% end %>
-
-      <%= link_to hub_signup_selections_path, class: "button button--small" do %>
-        Bulk messaging signups CSV upload
-      <% end %>
+      <table>
+        <%
+          [
+            [Hub::AdminTogglesController.to_path_helper(action: :index, name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM), "Intercom Message Forwarding"],
+            [hub_state_routings_path, "Routing"],
+            [hub_automated_messages_path, "Automated Messages"],
+            [hub_metrics_path, "SLA Breaches"],
+            [hub_fraud_indicators_path, "Fraud Indicators"],
+            [hub_efile_submissions_path, "E-file Dashboard"],
+            [hub_efile_errors_path, "E-file Errors"],
+            [hub_verification_attempts_path, "Client Verification"],
+            [hub_bulk_message_csvs_path, "Bulk messaging clients CSV upload"],
+            [hub_signup_selections_path, "Bulk messaging signups CSV upload"],
+          ].sort_by { |(_path, title)| title }.each do |(path, title)|
+        %>
+          <tr>
+            <td>
+              <%= link_to path, class: 'button button--small', style: 'display: block;' do %>
+                <%= title %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
