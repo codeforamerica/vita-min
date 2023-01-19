@@ -176,6 +176,14 @@ jobs:
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
     parallelism: 1
+  check-github-user:
+    executor: ruby_executor
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
+      - run: ssh git@github.com
+
 workflows:
   version: 2
   ci-and-deploy:
@@ -216,3 +224,6 @@ workflows:
                 - main
     jobs:
       - flow_explorer_screenshots
+  github-user:
+    jobs:
+      - check-github-user
