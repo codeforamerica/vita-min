@@ -101,19 +101,6 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    config.logger = ActiveSupport::Logger.new(STDOUT)
-    config.logger.formatter = proc do | severity, timestamp, _progname, message |
-      data = {
-        level: severity,
-        time: timestamp,
-        message: message
-      }
-      "#{data.to_json}\n"
-    end
-    Rails.logger = config.logger
-  end
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
