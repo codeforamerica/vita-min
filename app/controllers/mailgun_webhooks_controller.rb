@@ -97,16 +97,17 @@ class MailgunWebhooksController < ActionController::Base
 
       TransitionNotFilingService.run(client)
 
-      if contact_record&.body&.blank? && contact_record&.attachment_count&.zero? && client.forward_message_to_intercom?
-        Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
-      else
-        if client.forward_message_to_intercom?
+      has_documents = (contact_record.attachment_count || 0).nonzero?
+      if client.forward_message_to_intercom?
+        if contact_record.body.blank? && !has_documents
+          Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
+        else
           IntercomService.create_message(
             phone_number: nil,
             client: contact_record.client,
             body: contact_record.body,
             email_address: contact_record.sender,
-            has_documents: (contact_record&.attachment_count || 0).nonzero?
+            has_documents: has_documents
           )
           IntercomService.inform_client_of_handoff(send_sms: false, client: contact_record.client, send_email: true)
         end
