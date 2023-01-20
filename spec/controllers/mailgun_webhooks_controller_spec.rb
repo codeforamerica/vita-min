@@ -89,7 +89,7 @@ RSpec.describe MailgunWebhooksController do
         context "without a matching archived intake" do
           it "forwards the message to intercom" do
             expect do
-              post :create_incoming_email, params: params.merge({"stripped-text" => "Hi Alice,\n\nThis is Bob."})
+              post :create_incoming_email, params: params.merge({ "stripped-text" => "Hi Alice,\n\nThis is Bob." })
             end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
             expect(IntercomService).to have_received(:create_message).with(
               email_address: sender_email,
