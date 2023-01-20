@@ -85,7 +85,7 @@ RSpec.describe IntercomService do
           )
           expect(fake_intercom.messages).to have_received(:create).with(
             body: "hi i want some help getting my refund thx have a nice day",
-            from: { id: "9999", type: contact_role } # TODO: Are we sure this is required for create?
+            from: { id: "9999", type: contact_role }
           )
         end
       end

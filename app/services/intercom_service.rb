@@ -12,16 +12,17 @@ class IntercomService
     if contact.present? && most_recent_conversation(contact.id).present?
       # Per https://developers.intercom.com/intercom-api-reference/reference/reply-to-a-conversation
       # type is always user and message_type is always comment.
-      intercom.conversations.reply(
-        id: 'last',
-        intercom_user_id: contact.id,
-        type: 'user',
-        message_type: 'comment',
-        body: body
-      )
+      intercom_api(:conversations,
+                   :reply,
+                   { id: 'last',
+                     intercom_user_id: contact.id,
+                     type: 'user',
+                     message_type: 'comment',
+                     body: body })
     else
       contact ||= upsert_contact(client: client, email_address: email_address, phone_number: phone_number)
-      create_new_intercom_thread(contact, body)
+      # Using contact.role as type per https://developers.intercom.com/intercom-api-reference/reference/create-a-message
+      intercom_api(:messages, :create, { from: { type: contact.role, id: contact.id }, body: body })
     end
   end
 
@@ -41,40 +42,37 @@ class IntercomService
   def self.contact_from_email(email)
     return unless email.present?
 
-    contacts = intercom.contacts.search(
+    intercom_api(:contacts, :search, {
       "query": {
         "field": 'email',
         "operator": '=',
         "value": email
       }
-    )
-    contacts&.first
+    })&.first
   end
 
   def self.contact_from_sms(phone_number)
     return unless phone_number.present?
 
-    contacts = intercom.contacts.search(
+    intercom_api(:contacts, :search, {
       "query": {
         "field": 'phone',
         "operator": '=',
         "value": phone_number
       }
-    )
-    contacts&.first
+    })&.first
   end
 
   def self.contact_from_client(client)
     return unless client.present?
 
-    contacts = intercom.contacts.search(
+    intercom_api(:contacts, :search, {
       "query": {
         "field": 'external_id',
         "operator": '=',
         "value": client.id&.to_s
       }
-    )
-    contacts&.first
+    })&.first
   end
 
   def self.upsert_contact(client:, phone_number:, email_address:)
@@ -84,7 +82,7 @@ class IntercomService
       update_intercom_contact(intercom_contact, client: client, phone_number: phone_number, email_address: email_address)
     else
       begin
-        intercom.contacts.create(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
+        intercom_api(:contacts, :create, intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
       rescue Intercom::MultipleMatchingUsersError => e
         intercom_contact_id = e.message.match(/id=(\S+)/)[1]
         update_intercom_contact(intercom_contact_id, client: client, phone_number: phone_number, email_address: email_address)
@@ -94,7 +92,7 @@ class IntercomService
 
   def self.update_intercom_contact(contact, client:, phone_number:, email_address:)
     contact.from_hash(intercom_contact_attributes(client: client, phone_number: phone_number, email_address: email_address))
-    intercom.contacts.save(contact)
+    intercom_api(:contacts, :save, contact)
     contact
   end
 
@@ -111,27 +109,32 @@ class IntercomService
     attributes
   end
 
-  def self.create_new_intercom_thread(contact, body)
-    # Read https://web.archive.org/web/20230118155416/https://forum.intercom.com/s/question/0D55c00005vHaPsCAK/create-conversation-for-lead-throws-an-error-user-not-found
-    # to learn more about why this approach was used (using contact.role vs explicitly setting one).
-    intercom.messages.create({ from: { type: contact.role, id: contact.id }, body: body })
-  end
-
   def self.most_recent_conversation(contact_id)
-    intercom.conversations.search(
-      {
-        "sort_field": "updated_at",
-        "sort_order": "descending",
-        "query": {
-          "field": 'contact_ids',
-          "operator": 'IN',
-          "value": [contact_id]
-        }
-      }
-    ).first
+    intercom_api(:conversations,
+                 :search,
+                 {
+                   "sort_field": "updated_at",
+                   "sort_order": "descending",
+                   "query": {
+                     "field": 'contact_ids',
+                     "operator": 'IN',
+                     "value": [contact_id]
+                   }
+                 }).first
   end
 
   def self.intercom
     @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
+  end
+
+  def self.intercom_api(collection, verb, params)
+    if Rails.env.development?
+      Rails.logger.debug("Calling Intercom: #{collection}.#{verb}(#{params})")
+    end
+    result = intercom.send(collection).send(verb, params)
+    if Rails.env.development?
+      Rails.logger.debug("Intercom provided response: #{result.inspect}")
+    end
+    result
   end
 end
