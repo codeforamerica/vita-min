@@ -185,6 +185,12 @@ Rails.application.routes.draw do
         end
 
         resources :metrics, only: [:index]
+        resources :data_migrations, only: [:index] do
+          collection do
+            put :migrate
+          end
+        end
+        resources :intentional_log, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit

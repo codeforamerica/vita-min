@@ -1,0 +1,52 @@
+<div class="slab">
+  <div class="grid">
+
+    <h1>Data migrations status</h1>
+
+    <table class="data-table">
+      <tr>
+        <th>status</th>
+        <th>timestamp</th>
+        <th>name</th>
+      </tr>
+
+      <% DataMigrate::DataMigrator.migrations_status.each do |migration| %>
+        <tr>
+          <td>
+            <%=
+              case migration[0]
+              when 'up'
+                'migrated'
+              when 'down'
+                'pending migration'
+              else
+                migration[0]
+              end
+            %>
+          </td>
+          <td><%= migration[1] %></td>
+          <td><%= migration[2] %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <% if @existing_job %>
+      <% if @existing_job.failed_at %>
+        <strong>Last migration failed, go check it out:</strong>
+        <pre style="white-space: pre-line">
+          <%= @existing_job.last_error %>
+        </pre>
+      <% elsif @existing_job.locked_at %>
+        <strong>Migrating, has been running for <%= time_ago_in_words @existing_job.locked_at %></strong>
+      <% else %>
+        <strong>Migrating, queued <%= time_ago_in_words @existing_job.run_at %> ago</strong>
+      <% end %>
+    <% elsif DataMigrate::DataMigrator.migrations_status.any? { |row| row[0] == 'down' } %>
+      <%= form_with url: { action: :migrate }, local: true, method: "put" do |f| %>
+        <%= f.submit "Run all pending migrations" %>
+      <% end %>
+    <% else %>
+      All data migrations up to date 👍
+    <% end %>
+  </div>
+</div>

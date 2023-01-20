@@ -103,6 +103,15 @@ Rails.application.configure do
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     config.logger = ActiveSupport::Logger.new(STDOUT)
+    config.logger.formatter = proc do | severity, timestamp, _progname, message |
+      data = {
+        level: severity,
+        time: timestamp,
+        message: message
+      }
+      "#{data.to_json}\n"
+    end
+    Rails.logger = config.logger
   end
 
   # Do not dump schema after migrations.

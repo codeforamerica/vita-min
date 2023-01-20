@@ -14,4 +14,10 @@ module AccessControllable
       end
     end
   end
+
+  def require_engineer
+    unless current_user.present? && current_user.admin? && current_user.role.engineer?
+      redirect_to root_path
+    end
+  end
 end
