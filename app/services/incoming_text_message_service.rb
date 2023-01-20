@@ -5,7 +5,7 @@ class IncomingTextMessageService
     phone_number = PhoneParser.normalize(params["From"])
     DatadogApi.increment("twilio.incoming_text_messages.received")
 
-    clients = Client.joins(:intake).where(intakes: { phone_number: phone_number}).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number}))
+    clients = Client.joins(:intake).where(intakes: { phone_number: phone_number }).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number }))
 
     client_count = clients.count
     if client_count.zero?
@@ -28,10 +28,10 @@ class IncomingTextMessageService
           client: client,
           document_type: DocumentTypes::TextMessageAttachment.key,
           upload: {
-              io: StringIO.new(attachment[:body]),
-              filename: attachment[:filename],
-              content_type: attachment[:content_type],
-              identify: false
+            io: StringIO.new(attachment[:body]),
+            filename: attachment[:filename],
+            content_type: attachment[:content_type],
+            identify: false
           }
         )
       end
@@ -46,7 +46,16 @@ class IncomingTextMessageService
 
       TransitionNotFilingService.run(client)
 
-      IntercomService.create_intercom_message_from_sms(contact_record, inform_of_handoff: true) if client.forward_message_to_intercom?
+      if client.forward_message_to_intercom?
+        IntercomService.create_message(
+          email_address: nil,
+          phone_number: contact_record.from_phone_number,
+          body: contact_record.body,
+          client: contact_record.client,
+          has_documents: contact_record.documents.present?
+        )
+        IntercomService.inform_client_of_handoff(send_email: false, send_sms: true, client: contact_record.client)
+      end
 
       ClientChannel.broadcast_contact_record(contact_record)
     end

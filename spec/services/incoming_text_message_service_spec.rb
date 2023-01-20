@@ -33,7 +33,8 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
       allow(DateTime).to receive(:now).and_return current_time
       allow(ClientChannel).to receive(:broadcast_contact_record)
       allow(DatadogApi).to receive(:increment)
-      allow(IntercomService).to receive(:create_intercom_message_from_sms)
+      allow(IntercomService).to receive(:create_message)
+      allow(IntercomService).to receive(:inform_client_of_handoff)
       allow(TransitionNotFilingService).to receive(:run)
     end
 
@@ -76,7 +77,8 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
         it "creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(IntercomService).to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
+          expect(IntercomService).to have_received(:create_message).with(body: IncomingTextMessage.last.body, client: client, has_documents: false, email_address: nil, phone_number: client.intake.phone_number)
+          expect(IntercomService).to have_received(:inform_client_of_handoff).with(client: client, send_sms: true, send_email: false)
         end
       end
 
@@ -84,7 +86,8 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
         it "doesn't creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(IntercomService).not_to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
+          expect(IntercomService).not_to have_received(:inform_client_of_handoff)
+          expect(IntercomService).not_to have_received(:create_message)
         end
       end
     end
