@@ -89,11 +89,11 @@ RSpec.describe MailgunWebhooksController do
         context "without a matching archived intake" do
           it "forwards the message to intercom" do
             expect do
-              post :create_incoming_email, params: params
+              post :create_incoming_email, params: params.merge({"stripped-text" => "Hi Alice,\n\nThis is Bob."})
             end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
             expect(IntercomService).to have_received(:create_message).with(
               email_address: sender_email,
-              body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.",
+              body: "Hi Alice,\n\nThis is Bob.",
               phone_number: nil,
               client: nil,
               has_documents: false
@@ -218,8 +218,26 @@ RSpec.describe MailgunWebhooksController do
             it "creates intercom message for the client" do
               post :create_incoming_email, params: params
 
-              expect(IntercomService).to have_received(:create_message).with(body: IncomingEmail.last.body, email_address: client.intake.email_address, has_documents: nil, phone_number: nil, client: client)
+              expect(IntercomService).to have_received(:create_message).with(body: IncomingEmail.last.body, email_address: client.intake.email_address, has_documents: false, phone_number: nil, client: client)
               expect(IntercomService).to have_received(:inform_client_of_handoff).with(send_sms: false, send_email: true, client: client)
+            end
+
+            context "and with an attachment" do
+              it "tells Intercom there are documents" do
+                expect do
+                  post :create_incoming_email, params: params.update({
+                                                                       "attachment-count": 1,
+                                                                       "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/document_bundle.pdf", "application/pdf"),
+                                                                     })
+                end.to change(IncomingEmail, :count).by(1).and change(Client, :count).by(0)
+                expect(IntercomService).to have_received(:create_message).with(
+                  email_address: sender_email,
+                  body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.",
+                  phone_number: nil,
+                  client: client,
+                  has_documents: true
+                )
+              end
             end
           end
 

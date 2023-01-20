@@ -97,7 +97,7 @@ class MailgunWebhooksController < ActionController::Base
 
       TransitionNotFilingService.run(client)
 
-      has_documents = (contact_record.attachment_count || 0).nonzero?
+      has_documents = (contact_record.attachment_count || 0) != 0
       if client.forward_message_to_intercom?
         if contact_record.body.blank? && !has_documents
           Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
