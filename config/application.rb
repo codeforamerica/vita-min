@@ -100,5 +100,27 @@ module VitaMin
 
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
+
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      Rails.logger = ActiveSupport::Logger.new(STDOUT)
+      Rails.logger.formatter = proc do |severity, timestamp, _progname, message|
+        log_line =
+          begin
+            # Per Ruby Logger docs, message is the Object the user passed to the log message; not necessarily a String
+            parsed_message = JSON.parse(message)
+            if parsed_message.is_a? Hash
+              parsed_message
+            else
+              { message: message }
+            end
+          rescue JSON::ParserError
+            { message: message }
+          end.merge(
+            level: severity,
+            time: timestamp,
+          )
+        "#{log_line.to_json}\n"
+      end
+    end
   end
 end
