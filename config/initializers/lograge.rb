@@ -3,7 +3,7 @@ Rails.application.configure do
   config.lograge.enabled = true
 
   # This specifies to log in JSON format
-  config.lograge.formatter = Lograge::Formatters::Json.new
+  config.lograge.formatter = Lograge::Formatters::Raw.new
 
   ## Disables log coloration
   config.colorize_logging = false
