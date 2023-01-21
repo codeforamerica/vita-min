@@ -105,15 +105,10 @@ module VitaMin
       Rails.logger = ActiveSupport::Logger.new(STDOUT)
       Rails.logger.formatter = proc do |severity, timestamp, _progname, message|
         log_line =
-          begin
-            # Per Ruby Logger docs, message is the Object the user passed to the log message; not necessarily a String
-            parsed_message = JSON.parse(message)
-            if parsed_message.is_a? Hash
-              parsed_message
-            else
-              { message: message }
-            end
-          rescue JSON::ParserError
+          if message.is_a? Hash
+            # When messages go through lograge, they arrive here as a Hash
+            message
+          else
             { message: message }
           end.merge(
             level: severity,
