@@ -33,21 +33,37 @@ describe OrganizationCapacity do
       end
     end
 
-    context "when intake associated with client is archived" do
-      let(:organization) { create :organization }
-      before do
-        client = create :client, :with_gyr_return, tax_return_state: :prep_ready_for_prep, vita_partner: organization
-        create :archived_2021_gyr_intake, client: client
+    context "archiving" do
+      context "when intake associated with client is archived in the old way" do
+        let(:organization) { create :organization }
+        before do
+          client = create :client, :with_gyr_return, tax_return_state: :prep_ready_for_prep, vita_partner: organization
+          create :archived_2021_gyr_intake, client: client
+        end
+
+        it "does not include the client in the client count" do
+          expect(described_class.find(organization.id).active_client_count).to eq 0
+        end
       end
 
-      it "does not include the client in the client count" do
-        expect(described_class.find(organization.id).active_client_count).to eq 0
+      context "when intake associated with client is archived in the new way" do
+        let(:organization) { create :organization }
+        before do
+          client = create :client, :with_gyr_return, tax_return_state: :prep_ready_for_prep, vita_partner: organization
+          create :intake, client: client, product_year: 2022
+        end
+
+        it "does not include the client in the client count" do
+          expect(described_class.find(organization.id).active_client_count).to eq 0
+        end
       end
     end
 
     context "when intake associated with client is not archived" do
       let(:organization) { create :organization }
-      let(:intake) { create :intake }
+      # The organization_capacities view checks product year based on current year because we don't have access
+      # to rails config :(
+      let(:intake) { create :intake, product_year: Time.zone.now.year }
       before do
         create :client, :with_gyr_return, tax_return_state: :prep_ready_for_prep, vita_partner: organization, intake: intake
       end
