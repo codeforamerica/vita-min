@@ -118,7 +118,6 @@ RSpec.configure do |config|
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     @test_environment_credentials = {
-      db_encryption_key: '12345678901234567890123456789012',
       duplicate_hashing_key: "secret",
       previous_duplicate_hashing_key: "",
       irs: {
