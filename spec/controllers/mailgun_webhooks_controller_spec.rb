@@ -53,7 +53,8 @@ RSpec.describe MailgunWebhooksController do
       }
     end
     let(:sender_email) { "bob@example.com" }
-    let(:from) { "Bob <#{sender_email}>" }
+    let(:actual_email) {"bob+test-suffix@example.com"}
+    let(:from) { "Bob <#{actual_email}>" }
     let(:subject) { "Re: Update from GetYourRefund" }
 
     context "without valid HTTP basic auth credentials" do
@@ -92,7 +93,7 @@ RSpec.describe MailgunWebhooksController do
               post :create_incoming_email, params: params.merge({ "stripped-text" => "Hi Alice,\n\nThis is Bob." })
             end.to change(IncomingEmail, :count).by(0).and change(Client, :count).by(0)
             expect(IntercomService).to have_received(:create_message).with(
-              email_address: sender_email,
+              email_address: actual_email,
               body: "Hi Alice,\n\nThis is Bob.",
               phone_number: nil,
               client: nil,
@@ -118,10 +119,10 @@ RSpec.describe MailgunWebhooksController do
         let(:tax_returns) { [(create :gyr_tax_return, :prep_preparing)] }
         let!(:client) do
           create :client,
-                 intake: create(:intake, email_address: sender_email),
+                 intake: create(:intake, email_address: actual_email),
                  tax_returns: tax_returns
         end
-        let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, email_address: sender_email }
+        let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, email_address: actual_email }
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -231,7 +232,7 @@ RSpec.describe MailgunWebhooksController do
                                                                      })
                 end.to change(IncomingEmail, :count).by(1).and change(Client, :count).by(0)
                 expect(IntercomService).to have_received(:create_message).with(
-                  email_address: sender_email,
+                  email_address: actual_email,
                   body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.",
                   phone_number: nil,
                   client: client,
@@ -313,8 +314,8 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "with multiple matching clients" do
-        let(:intake1) { create :intake, email_address: sender_email }
-        let(:intake2) { create :intake, email_address: sender_email }
+        let(:intake1) { create :intake, email_address: actual_email }
+        let(:intake2) { create :intake, email_address: actual_email }
         let!(:client1) { create :client, intake: intake1 }
         let!(:client2) { create :client, intake: intake2 }
 
