@@ -9,7 +9,6 @@ module Hub
 
     def index
       messages = [
-          [AutomatedMessage::GettingStarted, {}],
           [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
           [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
           [SurveyMessages::GyrCompletionSurvey, {}],
