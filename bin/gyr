@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+ENV["DISABLE_SPRING"] = "1"
+
+require File.expand_path('../cli/gyr_cli', File.dirname(__FILE__))
+
+GyrCli.start

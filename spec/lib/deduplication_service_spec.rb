@@ -39,7 +39,6 @@ describe DeduplicationService do
 
       context "when an old key is present" do
         before do
-          allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_call_original
           allow(EnvironmentCredentials).to receive(:dig).with(:duplicate_hashing_key).and_call_original
           allow(EnvironmentCredentials).to receive(:dig).with(:previous_duplicate_hashing_key).and_return "another_secret"
 
