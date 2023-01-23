@@ -10,7 +10,7 @@ class MailgunWebhooksController < ActionController::Base
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
     client_count = clients.count
     if client_count.zero?
-      archived_intake = Archived::Intake2021.where(email_address: sender_email).first
+      archived_intake = most_recent_intake(sender_email)
       if archived_intake.present?
         locale = archived_intake.locale || "en"
         archived_intake.client.outgoing_emails.create!(
@@ -147,5 +147,10 @@ class MailgunWebhooksController < ActionController::Base
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end
+  end
+
+  def most_recent_intake(email_address)
+    Archived::Intake2022.where(email_address: email_address).first or
+      Archived::Intake2021.where(email_address: email_address).first
   end
 end
