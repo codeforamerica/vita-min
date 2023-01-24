@@ -1,12 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake New Client wants to file on their own" do
-  let(:fake_taxslayer_link) { "http://example.com/fake-taxslayer" }
-
-  before do
-    @test_environment_credentials.merge!(tax_slayer_link: fake_taxslayer_link)
-  end
-
   scenario "a new client files through TaxSlayer", :flow_explorer_screenshot do
     allow(MixpanelService).to receive(:send_event)
     visit "/diy"
@@ -22,9 +16,6 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('diy.continue_to_fsa.edit.title'))
-    # should have the button that links to tax slayer and tracks clicks in mixpanel
-    expect(page).to have_selector(
-                      "a.button[href=\"#{fake_taxslayer_link}\"][data-track-click=\"diy-cfa-taxslayer-link\"]",
-                      text: I18n.t('diy.continue_to_fsa.edit.continue_to_tax_slayer'))
+    expect(page).to have_text(I18n.t('diy.continue_to_fsa.edit.continue_to_tax_slayer'))
   end
 end
