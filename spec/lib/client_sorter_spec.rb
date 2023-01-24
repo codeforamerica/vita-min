@@ -111,19 +111,6 @@ RSpec.describe ClientSorter do
       end
     end
 
-    context "with a provided language" do
-      let(:params) {
-        {
-          language: "de"
-        }
-      }
-
-      it "creates a query for the search and scopes to vita partner" do
-        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with('intakes.locale = :language OR intakes.preferred_interview_language = :language', language: "de")
-      end
-    end
-
     context "with service type selected" do
       context "online_intake" do
         let(:params) {
@@ -164,6 +151,22 @@ RSpec.describe ClientSorter do
 
       it "returns clients with tax returns assigned to the selected user" do
         expect(subject.filtered_and_sorted_clients.to_a).to match_array([assigned_tax_return.client])
+      end
+    end
+
+    context "with a language" do
+      let(:subject) { described_class.new(Client, user, params, {}) }
+      let!(:spanish_intake) { create(:gyr_tax_return, :intake_ready).intake.tap { |i| i.update(locale: :es) } }
+      let!(:german_intake) { create(:gyr_tax_return, :intake_ready).intake.tap { |i| i.update(locale: :de) } }
+      let(:user) { create :user }
+      let(:params) {
+        {
+          language: "de"
+        }
+      }
+
+      it "returns clients where the intake's language matches the provided language" do
+        expect(subject.filtered_and_sorted_clients.to_a).to match_array([german_intake.client])
       end
     end
 
