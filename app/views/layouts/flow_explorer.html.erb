@@ -13,6 +13,10 @@
   </head>
   <body class="flow-explorer-container">
     <div class="page-wrapper">
+      <div class="flash-alerts">
+        <%= render "shared/flash_alerts", flash: flash %>
+      </div>
+
       <%= yield %>
     </div>
     <div class="frame-wrapper">

@@ -20,17 +20,20 @@ class FlowsController < ApplicationController
     end
 
     type = params[:type].to_sym
+    intake = nil
     if type == :ctc
       intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
-      sign_in(intake.client)
-
-      redirect_to flow_path(id: :ctc)
     elsif type == :gyr
       intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
-      sign_in(intake.client)
-
-      redirect_to flow_path(id: :gyr)
     end
+
+    if intake
+      sign_in(intake.client)
+    else
+      flash[:alert] = "Unable to create intake, maybe your name or email or phone number was bad?"
+    end
+
+    redirect_to flow_path(id: type)
   end
 
   def show
@@ -271,7 +274,7 @@ class FlowsController < ApplicationController
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
       first_name = params[:flows_controller_sample_intake_form][:first_name]
       last_name = params[:flows_controller_sample_intake_form][:last_name]
-      sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
+      sms_phone_number = PhoneParser.normalize(params[:flows_controller_sample_intake_form][:sms_phone_number])
       email_address = params[:flows_controller_sample_intake_form][:email_address]
       with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
       claiming_eitc = params[:flows_controller_sample_intake_form][:claiming_eitc] == "1"
@@ -300,7 +303,7 @@ class FlowsController < ApplicationController
         zip_code: '90210',
         refund_payment_method: 'check',
       }
-      client = Client.create!(
+      client = Client.create(
         intake_attributes: intake_attributes,
         consented_to_service_at: Time.zone.now,
         efile_security_informations_attributes: [{
@@ -314,6 +317,9 @@ class FlowsController < ApplicationController
         }],
         tax_returns_attributes: [{ year: MultiTenantService.new(:ctc).current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
+      unless client.valid?
+        return
+      end
 
       if type == :married_filing_jointly
         client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
@@ -426,7 +432,7 @@ class FlowsController < ApplicationController
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
       first_name = params[:flows_controller_sample_intake_form][:first_name]
       last_name = params[:flows_controller_sample_intake_form][:last_name]
-      sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
+      sms_phone_number = PhoneParser.normalize(params[:flows_controller_sample_intake_form][:sms_phone_number])
       email_address = params[:flows_controller_sample_intake_form][:email_address]
       with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
 
@@ -453,11 +459,14 @@ class FlowsController < ApplicationController
         zip_code: '90210',
         filing_joint: 'no',
       }
-      client = Client.create!(
+      client = Client.create(
         consented_to_service_at: Time.zone.now,
         intake_attributes: intake_attributes,
         tax_returns_attributes: [{ year: MultiTenantService.new(:gyr).current_tax_year, is_ctc: false }],
       )
+      unless client.valid?
+        return
+      end
 
       if type == :married_filing_jointly
         client.intake.update(
