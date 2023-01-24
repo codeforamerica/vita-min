@@ -109,11 +109,8 @@ module VitaMin
             # When messages go through lograge, they arrive here as a Hash
             message
           else
-            { message: message }
-          end.merge(
-            level: severity,
-            time: timestamp,
-          )
+            { message: message, level: severity, time: timestamp }
+          end
         "#{log_line.to_json}\n"
       end
     end
