@@ -2,19 +2,21 @@ class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :authenticate_mailgun_request
 
+  REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
+
   def create_incoming_email
     # Mailgun param documentation:
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     DatadogApi.increment("mailgun.incoming_emails.received")
-    sender_email = params["sender"]
-    clients = Client.joins(:intake).where(intakes: { email_address: sender_email })
+    sender_email_address = parse_valid_email_address(from: params["from"], sender: params["sender"])
+    clients = Client.joins(:intake).where(intakes: { email_address: sender_email_address })
     client_count = clients.count
     if client_count.zero?
-      archived_intake = Archived::Intake2021.where(email_address: sender_email).first
+      archived_intake = most_recent_intake(sender_email_address)
       if archived_intake.present?
         locale = archived_intake.locale || "en"
         archived_intake.client.outgoing_emails.create!(
-          to: sender_email,
+          to: sender_email_address,
           subject: AutomatedMessage::UnmonitoredReplies.new.email_subject(locale: locale),
           body: AutomatedMessage::UnmonitoredReplies.new.email_body(locale: locale, support_email: Rails.configuration.email_from[:support][:gyr])
         )
@@ -25,7 +27,7 @@ class MailgunWebhooksController < ActionController::Base
         IntercomService.create_message(
           client: nil,
           phone_number: nil,
-          email_address: sender_email,
+          email_address: sender_email_address,
           body: params["stripped-text"] || params["body-plain"],
           has_documents: false
         )
@@ -42,7 +44,7 @@ class MailgunWebhooksController < ActionController::Base
       contact_record = IncomingEmail.create!(
         client: client,
         received_at: DateTime.now,
-        sender: sender_email,
+        sender: sender_email_address,
         to: params["To"],
         from: params["From"],
         recipient: params["recipient"],
@@ -140,6 +142,20 @@ class MailgunWebhooksController < ActionController::Base
 
   private
 
+  def parse_valid_email_address(from:, sender:)
+    if REGEX_FROM_ENVELOPE.match?(from)
+      provided_address = REGEX_FROM_ENVELOPE.match(from).named_captures["address"]
+      approved_domain = sender.split("@")[1]
+      if provided_address&.ends_with?("@#{approved_domain}")
+        provided_address
+      else
+        sender
+      end
+    else
+      sender
+    end
+  end
+
   def authenticate_mailgun_request
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = EnvironmentCredentials.dig(:mailgun, :basic_auth_name)
@@ -147,5 +163,9 @@ class MailgunWebhooksController < ActionController::Base
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end
+  end
+
+  def most_recent_intake(email_address)
+    Archived::Intake2021.where(email_address: email_address).first
   end
 end
