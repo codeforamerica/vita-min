@@ -1713,7 +1713,7 @@ es:
           label_html: |-
             ¿Cuál fue su nivel de ingresos?
 
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos por adelantado del Crédito Tributario por Hijos o Adv CTC, los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
           options:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
