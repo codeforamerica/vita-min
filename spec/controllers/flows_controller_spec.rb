@@ -78,6 +78,13 @@ RSpec.describe FlowsController do
         expect(controller.current_intake).to be_filing_joint_no
       end
 
+      it 'accepts phone numbers without country code' do
+        params = default_params.merge({ submit_single: 'Single ✨' })
+        params[:flows_controller_sample_intake_form][:sms_phone_number] = '5551112222'
+        post :generate, params: params
+        expect(controller.current_intake.sms_phone_number).to eq('+15551112222')
+      end
+
       it 'can generate a married filing jointly intake' do
         post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
         expect(controller.current_intake).to be_filing_joint_yes
