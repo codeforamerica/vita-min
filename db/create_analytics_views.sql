@@ -188,7 +188,7 @@ CREATE VIEW analytics.intakes AS
            savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
            sms_notification_opt_in, sold_a_home, sold_assets, source, spouse_consented_to_service,
            spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_tin_type, spouse_was_blind,
-           spouse_was_full_time_student, state, state_of_residence,
+           spouse_was_full_time_student, state, state_of_residence, triage_filing_status,
            updated_at, viewed_at_capacity, visitor_id, vita_partner_id, was_blind, was_full_time_student,
            widowed, type, zip_code
     FROM public.intakes;
