@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_17_223425) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_195432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1137,7 +1137,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_223425) do
     t.string "navigator_name"
     t.integer "need_itin_help", default: 0, null: false
     t.integer "needs_help_2016", default: 0, null: false
-    t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
@@ -1247,7 +1246,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_223425) do
     t.integer "spouse_us_citizen", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
-    t.integer "spouse_was_on_visa", default: 0, null: false
     t.string "state"
     t.string "state_of_residence"
     t.string "street_address"
@@ -1272,7 +1270,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_223425) do
     t.integer "wants_to_itemize", default: 0, null: false
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
-    t.integer "was_on_visa", default: 0, null: false
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
     t.boolean "with_drivers_license_photo_id", default: false
