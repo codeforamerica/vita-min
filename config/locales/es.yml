@@ -1458,18 +1458,18 @@ es:
       email:
         body: |
           Hola <<Client.PreferredName>>,
-  
+
           ¡Su información fiscal se ha enviado correctamente! Su ID de cliente es <<Client.ClientId>>. Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
-          
+
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
-        
+
           Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
-          
+
           Si tiene alguna pregunta, responda a este mensaje.
-          
+
           ¡Estamos aquí para ayudar!
           Su equipo de impuestos en GetYourRefund.org
-        subject: "Bienvenido a GetYourRefund/ ID de cliente"
+        subject: Bienvenido a GetYourRefund/ ID de cliente
       sms: |
         Hola <<Client.PreferredName>>, Su información fiscal se envió con éxito a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje.
         Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.

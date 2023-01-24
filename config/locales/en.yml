@@ -1467,15 +1467,15 @@ en:
       email:
         body: |
           Hello <<Client.PreferredName>>,
-  
+
           Your tax information has been successfully submitted! Your Client ID is <<Client.ClientId>>. This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
-          
+
           Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
-        
+
           Check your progress and add additional documents here: <<Client.LoginLink>>
-          
+
           If you have any questions, please reply to this message.
-          
+
           We’re here to help!
           Your tax team at GetYourRefund
         subject: Welcome to GetYourRefund/ Client ID
