@@ -9,10 +9,8 @@ module Hub
 
     def index
       messages = [
-        [AutomatedMessage::GettingStarted, {}],
         [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
         [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
-        [AutomatedMessage::InProgress, {}],
         [SurveyMessages::GyrCompletionSurvey, {}],
         [SurveyMessages::CtcExperienceSurvey, {}],
         [AutomatedMessage::DocumentsReminderLink, {}],
@@ -33,7 +31,8 @@ module Hub
         [AutomatedMessage::Ctc2022OpenMessage, {}],
         [AutomatedMessage::PuertoRicoOpenMessage, {}],
         [AutomatedMessage::IntercomForwarding, {}],
-        [AutomatedMessage::UnmonitoredReplies, {}]
+        [AutomatedMessage::UnmonitoredReplies, {}],
+        [AutomatedMessage::InProgress, {}],
       ]
 
       @messages = messages.map do |message|
