@@ -7,6 +7,6 @@ namespace :client_surveys do
 
   desc 'send client in progress surveys to eligible clients'
   task send_client_in_progress_surveys: [:environment] do
-    SurveyMessages::InProgressMessage.enqueue_surveys(Time.current)
+    SurveyMessages::InProgress.enqueue_surveys(Time.current)
   end
 end

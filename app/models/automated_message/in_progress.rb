@@ -1,5 +1,5 @@
 module AutomatedMessage
-  class InProgressMessage
+  class InProgress < ::AutomatedMessage::AutomatedMessage
 
     def self.clients_to_message(now)
       Client

@@ -24,7 +24,7 @@ describe Hub::AutomatedMessagesController do
         get :index
 
         shown_message_classes = assigns(:messages).map { |m| m.class.name }
-        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::CtcExperienceSurvey, SurveyMessages::GyrCompletionSurvey, SurveyMessages::InProgressMessage]).map(&:name)
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::CtcExperienceSurvey, SurveyMessages::GyrCompletionSurvey]).map(&:name)
 
         expect(shown_message_classes).to match_array(message_class_names)
       end
