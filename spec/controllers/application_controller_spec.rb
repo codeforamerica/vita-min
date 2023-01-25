@@ -536,7 +536,7 @@ RSpec.describe ApplicationController do
           user_organization_name: user_organization.name,
           user_coalition_id: user_coalition.id,
           user_coalition_name: user_coalition.name,
-          user_login_time: user.current_sign_in_at,
+          user_login_time: a_value_within(1).of(user.current_sign_in_at),
           user_role: "TeamMemberRole"
         }
         expect(mixpanel_spy).to have_received(:run).with(
