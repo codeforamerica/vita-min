@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe SendClientCompletionSurveyJob, type: :job do
+RSpec.describe SendClientInProgressMessageJob, type: :job do
   describe "#perform" do
     before do
+      allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
       allow(ClientMessagingService).to receive(:send_system_email)
       allow(ClientMessagingService).to receive(:send_system_text_message)
     end
@@ -12,7 +13,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
     context "sending the survey" do
       context "with a client who is opted-in to email notifications" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
         end
 
         context "when the client has not received this survey" do
@@ -21,11 +22,11 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_2uCOhUGqxJdG8Au"),
-              subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
+              body: a_string_including("qualtrics.com"),
+              subject: "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!",
               locale: "es"
             )
-            expect(client.reload.completion_survey_sent_at).to be_present
+            expect(client.reload.in_progress_survey_sent_at).to be_present
           end
         end
       end
@@ -33,7 +34,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
       context "with a client who is opted-in to sms notifications" do
         let(:client) { create(:intake, locale: "es").client }
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({sms_phone_number: "+14155551212"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ sms_phone_number: "+14155551212" })
         end
 
         context "when the client has not received this survey" do
@@ -42,18 +43,18 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_text_message).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_2uCOhUGqxJdG8Au"),
+              body: a_string_including("qualtrics.com"),
               locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_email)
-            expect(client.reload.completion_survey_sent_at).to be_present
+            expect(client.reload.in_progress_survey_sent_at).to be_present
           end
         end
       end
 
       context "with a client who is opted-in to email and sms notifications" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com", sms_phone_number: "+14155551212" })
         end
 
         context "when the client has not received this survey" do
@@ -62,34 +63,12 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
               client: client,
-              body: a_string_including("qualtrics.com/jfe/form/SV_2uCOhUGqxJdG8Au"),
-              subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
+              body: a_string_including("qualtrics.com"),
+              subject: "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!",
               locale: "es"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_text_message)
-            expect(client.reload.completion_survey_sent_at).to be_present
-          end
-        end
-      end
-
-      context "with a client with drop off tax returns" do
-        let!(:drop_off_return) { create :tax_return, client: client, year: 2018, service_type: "drop_off" }
-        before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
-        end
-
-        context "when the client has not received this survey" do
-          it "sends it by email" do
-            described_class.perform_now(client)
-
-            expect(ClientMessagingService).to have_received(:send_system_email).with(
-                client: client,
-                body: a_string_including("qualtrics.com/jfe/form/SV_1Ch7S3rTLOgzbFk"),
-                subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
-                locale: "es"
-            )
-            expect(ClientMessagingService).not_to have_received(:send_system_text_message)
-            expect(client.reload.completion_survey_sent_at).to be_present
+            expect(client.reload.in_progress_survey_sent_at).to be_present
           end
         end
       end
@@ -98,14 +77,14 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
     context "not sending the survey" do
       context "with a client who has already received this survey with contact methods available" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com"})
-          client.update(completion_survey_sent_at: DateTime.new(2021, 1, 1))
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
+          client.update(in_progress_survey_sent_at: DateTime.new(2021, 1, 1))
         end
 
         it "does not send it" do
           expect {
             described_class.perform_now(client)
-          }.not_to change { client.reload.completion_survey_sent_at }
+          }.not_to change { client.reload.in_progress_survey_sent_at }
 
           expect(ClientMessagingService).not_to have_received(:send_system_email)
           expect(ClientMessagingService).not_to have_received(:send_system_text_message)
@@ -120,9 +99,10 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
         it "does not send it" do
           expect {
             described_class.perform_now(client)
-          }.not_to change { client.reload.completion_survey_sent_at }
+          }.not_to change { client.reload.in_progress_survey_sent_at }
 
           expect(ClientMessagingService).not_to have_received(:send_system_email)
+          expect(ClientMessagingService).not_to have_received(:send_system_text_message)
         end
       end
     end

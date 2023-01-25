@@ -32,7 +32,9 @@ module SurveyMessages
     end
 
     def self.survey_link(client)
-      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_8iUfPTODxeBNogK?ExternalDataReference=#{client.id}"
+      is_drop_off_client = client.tax_returns.pluck(:service_type).any? "drop_off"
+      survey_code = is_drop_off_client ? "SV_1Ch7S3rTLOgzbFk" : "SV_2uCOhUGqxJdG8Au"
+      "https://codeforamerica.co1.qualtrics.com/jfe/form/#{survey_code}?ExternalDataReference=#{client.id}"
     end
 
     def sms_body(*args)

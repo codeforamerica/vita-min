@@ -12,6 +12,7 @@ module Hub
           [AutomatedMessage::GettingStarted, {}],
           [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
           [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
+          [SurveyMessages::InProgressMessage, {}],
           [SurveyMessages::GyrCompletionSurvey, {}],
           [SurveyMessages::CtcExperienceSurvey, {}],
           [AutomatedMessage::DocumentsReminderLink, {}],
