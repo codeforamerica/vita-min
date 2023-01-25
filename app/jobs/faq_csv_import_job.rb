@@ -25,6 +25,7 @@ class FaqCsvImportJob < ApplicationJob
         }
       end
       new_copy[section_key][row["Question Key"]] = q_a
+      I18n::Tasks
     end
 
     return new_copy
