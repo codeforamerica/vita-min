@@ -521,23 +521,30 @@ RSpec.describe ApplicationController do
       it "sends user data using mixpanel service" do
         get :index
 
+        @mixpanel_calls = []
+        allow(mixpanel_spy).to receive(:run) do |*args|
+          @mixpanel_calls << args[0]
+        end
+
         subject.send_mixpanel_event(event_name: "beep", data: { sound: "boop" })
 
+        expected_mixpanel_data = {
+          user_id: user.id,
+          user_site_id: user_site.id,
+          user_site_name: user_site.name,
+          user_organization_id: user_organization.id,
+          user_organization_name: user_organization.name,
+          user_coalition_id: user_coalition.id,
+          user_coalition_name: user_coalition.name,
+          user_login_time: user.current_sign_in_at,
+          user_role: "TeamMemberRole"
+        }
         expect(mixpanel_spy).to have_received(:run).with(
           distinct_id: "123",
           event_name: "beep",
-          data: hash_including(
-            user_id: user.id,
-            user_site_id: user_site.id,
-            user_site_name: user_site.name,
-            user_organization_id: user_organization.id,
-            user_organization_name: user_organization.name,
-            user_coalition_id: user_coalition.id,
-            user_coalition_name: user_coalition.name,
-            user_login_time: user.current_sign_in_at,
-            user_role: "TeamMemberRole"
-          )
+          data: anything
         )
+        expect(@mixpanel_calls[0][:data]).to include_hash(expected_mixpanel_data)
       end
     end
 
