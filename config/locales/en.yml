@@ -1478,9 +1478,9 @@ en:
 
           We’re here to help!
           Your tax team at GetYourRefund
-        subject: Welcome to GetYourRefund/ Client ID
+        subject: "Welcome to GetYourRefund: Client ID"
       sms: |
-        Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund**.** IMPORTANT**:** Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
+        Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
         Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
         Your tax team at GetYourRefund
     surveys:
