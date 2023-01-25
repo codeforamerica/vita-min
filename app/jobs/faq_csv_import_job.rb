@@ -5,6 +5,8 @@ require 'csv'
 # File.open('/tmp/test_faq.yml', 'w') {|f| f.write result.to_yaml }
 class FaqCsvImportJob < ApplicationJob
   def perform(faq_csv_content)
+    YAML::ENGINE.yamler = 'syck'
+
     [:en, :es].each do |locale|
       filename = "config/locales/#{locale}.yml"
       new_translations = self.class.updated_translations(
@@ -21,7 +23,11 @@ class FaqCsvImportJob < ApplicationJob
 
     hash_to_modify.each do |question_group_key, question_group|
       question_group.each do |question_key, _|
-        new_question_content = new_content[question_group_key][question_key]
+        begin
+          new_question_content = new_content[question_group_key.to_sym][question_key.to_sym]
+        rescue NoMethodError
+          pry
+        end
 
         if new_question_content == { unchanged: true }
           next
