@@ -1,5 +1,6 @@
 module AutomatedMessage
   class InProgress < ::AutomatedMessage::AutomatedMessage
+    SENT_AT_COLUMN = nil
 
     def self.clients_to_message(now)
       Client

@@ -4,11 +4,13 @@ class SurveySender
     return if best_contact_method.blank?
 
     # Avoid sending duplicate emails; use lock since there are multiple job workers
-    client.with_lock do
-      column_name = message_class::SENT_AT_COLUMN
-      return if client.send(column_name).present?
+    column_name = message_class::SENT_AT_COLUMN
+    if column_name.present?
+      client.with_lock do
+        return if client.send(column_name).present?
 
-      client.update!(column_name => Time.current)
+        client.update!(column_name => Time.current)
+      end
     end
 
     locale = client.intake.locale
