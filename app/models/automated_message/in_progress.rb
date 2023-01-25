@@ -1,9 +1,10 @@
 module AutomatedMessage
   class InProgress < ::AutomatedMessage::AutomatedMessage
-    SENT_AT_COLUMN = nil
+    SENT_AT_COLUMN = :in_progress_survey_sent_at
 
     def self.clients_to_message(now)
       Client
+        .where(in_progress_survey_sent_at: nil)
         .where("consented_to_service_at <= ?", now - 30.minutes)
         .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
     end

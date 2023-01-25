@@ -18,101 +18,31 @@ RSpec.describe AutomatedMessage::InProgress do
       ).client
     end
 
-    context "clients who should get the survey" do
-      context "with a client who has had tax returns in intake_in_progress for >10 days" do
-        context "with no inbound messages or documents" do
+    context "clients who should get the message" do
+      context "who has had tax returns in 'intake_in_progress' and has been created at least half an hour ago" do
+        context "who has not received a message before" do
           it "includes the client" do
-            expect(
-              described_class.clients_to_message(expected_send_time - 1.day)
-            ).to be_empty
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to include(client)
-          end
-        end
-
-        context "with a document added less than a day after intake creation" do
-          let!(:document) do
-            create :document,
-                   uploaded_by: client,
-                   client: client,
-                   created_at: client.intake.created_at + 10.minutes
-          end
-
-          it "includes the client" do
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to include(client)
+            expect(described_class.clients_to_message(expected_send_time)).to include(client)
           end
         end
       end
     end
 
-    context "clients who should not get the survey" do
-      context "with an intake that is a CTC intake" do
-        before { client.intake.update(type: "Intake::CtcIntake") }
-
-        it "does not include them" do
-          expect(
-            described_class.clients_to_message(expected_send_time)
-          ).to be_empty
+    context "clients who should not get the message" do
+      context "who has no tax returns in 'intake_in_progress'" do
+        let(:status) { :file_accepted }
+        it "does not includes the client" do
+          expect(described_class.clients_to_message(expected_send_time)).to be_empty
         end
       end
 
-      context "with a tax return that does not have a intake_in_progress status" do
-        let(:status) { "intake_ready" }
-        it "does not include them" do
-          expect(
-            described_class.clients_to_message(expected_send_time)
-          ).to be_empty
-        end
-      end
+      context "who has had tax returns in 'intake_in_progress' and has been created at most half an hour ago" do
+        let(:expected_send_time) { 5.minutes.from_now }
+        context "who has received a message before" do
+          let(:in_progress_survey_sent_at) { 1.minute.ago }
 
-      context "with a tax return that has been in progress for more than 10 days" do
-        context "with a client that has inbound text messages" do
-          let!(:inbound_text_message) do
-            create :incoming_text_message, client: client
-          end
-
-          it "does not include them" do
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to be_empty
-          end
-        end
-
-        context "for a client that has inbound email messages" do
-          let!(:inbound_email) { create :incoming_email, client: client }
-
-          it "does not include them" do
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to be_empty
-          end
-        end
-
-        context "with a client that has uploaded a document more than one day after intake creation" do
-          let!(:document) do
-            create :document,
-                   uploaded_by: client,
-                   client: client,
-                   created_at: client.intake.created_at + 1.day + 1.second
-          end
-
-          it "does not include them" do
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to be_empty
-          end
-        end
-
-        context "with a client who already received the survey" do
-          let(:in_progress_survey_sent_at) { DateTime.current }
-
-          it "is not included" do
-            expect(
-              described_class.clients_to_message(expected_send_time)
-            ).to be_empty
+          it "does not includes the client" do
+            expect(described_class.clients_to_message(expected_send_time)).to be_empty
           end
         end
       end
