@@ -7,7 +7,7 @@ module AutomatedMessage
         .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
     end
 
-    def self.enqueue_surveys(now)
+    def self.enqueue_messages(now)
       clients_to_message(now).find_each { |client| SendClientInProgressMessageJob.perform_later(client) }
     end
 
