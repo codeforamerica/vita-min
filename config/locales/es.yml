@@ -1459,7 +1459,7 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal se ha enviado correctamente! Su ID de cliente es <<Client.ClientId>>. Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+          ¡Su información fiscal se ha enviado correctamente! <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
 
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
 
