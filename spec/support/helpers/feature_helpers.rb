@@ -45,7 +45,6 @@ module FeatureHelpers
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
-        need_itin: false,
         triage_income_level: "1_to_12500",
         triage_filing_status: "single",
         triage_filing_frequency: "not_filed",
@@ -66,7 +65,6 @@ module FeatureHelpers
       fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
-      select options[:need_itin] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
       click_on I18n.t('general.continue')
     end
 
