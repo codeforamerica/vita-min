@@ -1405,6 +1405,29 @@ en:
 
         Best,
         The GetCTC.org Team
+    in_progress:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Your tax information has been successfully submitted! **Your Client ID is <<Client.ClientId>>.** This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+
+          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+
+          Check your progress and add additional documents here: <<Client.LoginLink>>
+
+          If you have any questions, please reply to this message.
+
+          We’re here to help!
+          Your tax team at GetYourRefund
+        subject: 'Welcome to GetYourRefund: Client ID'
+      sms:
+        body: |
+          Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund**.** IMPORTANT**:** Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
+
+          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
+
+          Your tax team at GetYourRefund
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -1521,29 +1544,6 @@ en:
       sms: |
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
-    in_progress:
-      email:
-        body: |
-          Hello <<Client.PreferredName>>,
-
-          Your tax information has been successfully submitted! **Your Client ID is <<Client.ClientId>>.** This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
-
-          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
-
-          Check your progress and add additional documents here: <<Client.LoginLink>>
-
-          If you have any questions, please reply to this message.
-
-          We’re here to help!
-          Your tax team at GetYourRefund
-        subject: "Welcome to GetYourRefund: Client ID"
-      sms:
-        body: |
-          Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund**.** IMPORTANT**:** Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
-
-          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
-
-          Your tax team at GetYourRefund
   models:
     intake:
       your_spouse: Your spouse
