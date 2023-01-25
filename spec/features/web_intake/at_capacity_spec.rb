@@ -14,7 +14,6 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       fill_in I18n.t("views.questions.personal_info.phone_number"), with: "555-555-1212"
       fill_in I18n.t("views.questions.personal_info.phone_number_confirmation"), with: "555-555-1212"
       fill_in I18n.t("views.questions.personal_info.zip_code"), with: "19143"
-      select "No", from: I18n.t("views.questions.personal_info.need_itin_help")
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Please provide your taxpayer identification information.")
