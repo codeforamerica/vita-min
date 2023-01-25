@@ -358,55 +358,6 @@ describe ReplacementParametersService do
       end
     end
 
-    context "getting started email" do
-      context "in english" do
-        let(:body) { I18n.t("messages.getting_started.email.body", locale: "en") }
-
-        it "replaces the replacement strings in the template" do
-          result = subject.process
-          expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your Client ID is #{client.id}"
-          expect(result).to include "http://test.host/en/portal/login"
-          expect(result).to include "<a href=\"mailto:hello@getyourrefund.org\">hello@getyourrefund.org</a>"
-        end
-      end
-
-      context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.email.body", locale: "es") }
-        let(:locale) { "es" }
-        it "replaces the replacement strings in the template" do
-          result = subject.process
-          expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su ID de cliente es #{client.id}."
-          expect(result).to include "agregue documentos adicionales aquí: http://test.host/es/portal/login"
-        end
-      end
-    end
-
-    context "getting started text message" do
-      context "in english" do
-        let(:body) { I18n.t("messages.getting_started.sms", locale: "en") }
-
-        it "replaces the replacement strings in the template" do
-          result = subject.process
-          expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your Client ID is #{client.id}"
-          expect(result).to include "http://test.host/en/portal/login"
-        end
-      end
-
-      context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.sms", locale: "es") }
-        let(:locale) { "es" }
-        it "replaces the replacement strings in the template" do
-          result = subject.process
-          expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su ID de cliente es #{client.id}."
-          expect(result).to include "agregue documentos adicionales aquí: http://test.host/es/portal/login"
-        end
-      end
-    end
-
     context "successfully submitted email" do
       context "in english" do
         let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "en") }

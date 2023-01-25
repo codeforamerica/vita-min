@@ -222,56 +222,5 @@ RSpec.describe Questions::ConsentController do
       expect(GenerateRequiredConsentPdfJob).to have_received(:perform_later).with(intake)
       expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
     end
-
-    context "messaging" do
-      before do
-        intake.update(email_notification_opt_in: "yes")
-        intake.update(sms_notification_opt_in: "yes")
-      end
-
-      context "when routing method is set to at capacity on the client" do
-        before do
-          allow_any_instance_of(Client).to receive(:routing_method_at_capacity?).and_return true
-        end
-
-        it "does send a message" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-              client: intake.client,
-              message: AutomatedMessage::GettingStarted,
-              locale: :en
-          )
-        end
-      end
-
-      context "when the intake locale is en" do
-        it "sends the 'getting started' message in english" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-            client: intake.client,
-            message: AutomatedMessage::GettingStarted,
-            locale: :en
-          )
-        end
-      end
-
-      context "when the locale is es" do
-        around do |example|
-          I18n.with_locale(:es) { example.run }
-        end
-
-        it "sends the 'getting started' message in spanish" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-            client: intake.client,
-            message: AutomatedMessage::GettingStarted,
-            locale: :es
-          )
-        end
-      end
-    end
   end
 end

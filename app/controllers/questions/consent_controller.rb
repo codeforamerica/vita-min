@@ -39,12 +39,6 @@ module Questions
         GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
       end
 
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: current_intake.client,
-        message: AutomatedMessage::GettingStarted,
-        locale: I18n.locale
-      )
-
       sign_in current_intake.client unless current_intake.client.routing_method_at_capacity?
     end
   end
