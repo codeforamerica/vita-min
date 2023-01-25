@@ -1744,7 +1744,7 @@ en:
           label_html: |-
             What was your income level?
 
-            <p class="text--small spacing-above-15">Your income level should not include Adv CTC payments, stimulus payments, public benefits, or SSI.</p>
+            <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
             12500_to_25000: "$12,500 - 25,000"
             1_to_12500: "$1 - 12,500"
