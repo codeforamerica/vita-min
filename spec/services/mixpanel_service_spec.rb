@@ -182,6 +182,8 @@ describe MixpanelService do
               user_organization_id: organization.id,
               user_coalition_name: coalition.name,
               user_coalition_id: coalition.id,
+              user_login_time: nil,
+              user_role: "TeamMemberRole",
               additional_data: "1234",
             }
           )
@@ -206,6 +208,8 @@ describe MixpanelService do
                 user_organization_id: organization.id,
                 user_coalition_name: coalition.name,
                 user_coalition_id: coalition.id,
+                user_login_time: nil,
+                user_role: "TeamMemberRole",
               }
             )
           )
@@ -247,6 +251,8 @@ describe MixpanelService do
               user_organization_id: organization.id,
               user_coalition_name: coalition.name,
               user_coalition_id: coalition.id,
+              user_login_time: nil,
+              user_role: "TeamMemberRole",
               from_status: "intake_before_consent"
             }
           )
@@ -293,6 +299,8 @@ describe MixpanelService do
                     user_organization_id: organization.id,
                     user_coalition_name: coalition.name,
                     user_coalition_id: coalition.id,
+                    user_login_time: nil,
+                    user_role: "TeamMemberRole",
                     days_since_ready_for_prep: 1,
                     hours_since_ready_for_prep: 28,
                     days_since_tax_return_created: 2,
@@ -326,6 +334,8 @@ describe MixpanelService do
                         user_organization_id: organization.id,
                         user_coalition_name: coalition.name,
                         user_coalition_id: coalition.id,
+                        user_login_time: nil,
+                        user_role: "TeamMemberRole",
                     }
                 )
             )
@@ -394,6 +404,8 @@ describe MixpanelService do
                     user_organization_id: organization.id,
                     user_coalition_name: coalition.name,
                     user_coalition_id: coalition.id,
+                    user_login_time: nil,
+                    user_role: "TeamMemberRole",
                     days_since_ready_for_prep: 1,
                     hours_since_ready_for_prep: 28,
                     days_since_tax_return_created: 2,
@@ -632,6 +644,8 @@ describe MixpanelService do
               user_site_id: nil,
               user_coalition_name: nil,
               user_coalition_id: nil,
+              user_login_time: nil,
+              user_role: "AdminRole",
             }
             expect(MixpanelService.data_from(user)).to eq(expected)
           end
@@ -649,6 +663,8 @@ describe MixpanelService do
               user_organization_id: nil,
               user_site_name: nil,
               user_site_id: nil,
+              user_login_time: nil,
+              user_role: "CoalitionLeadRole",
             }
             expect(MixpanelService.data_from(user)).to eq(expected)
           end
@@ -667,6 +683,8 @@ describe MixpanelService do
               user_organization_id: user.role.organization.id,
               user_site_name: nil,
               user_site_id: nil,
+              user_login_time: nil,
+              user_role: "OrganizationLeadRole",
             }
             expect(MixpanelService.data_from(user)).to eq(expected)
           end
@@ -686,7 +704,9 @@ describe MixpanelService do
               user_organization_name: organization.name,
               user_organization_id: organization.id,
               user_site_name: site.name,
-              user_site_id: site.id
+              user_site_id: site.id,
+              user_login_time: nil,
+              user_role: "SiteCoordinatorRole",
             }
             expect(MixpanelService.data_from(user)).to eq(expected)
           end
@@ -706,7 +726,9 @@ describe MixpanelService do
               user_organization_name: organization.name,
               user_organization_id: organization.id,
               user_site_name: site.name,
-              user_site_id: site.id
+              user_site_id: site.id,
+              user_login_time: nil,
+              user_role: "TeamMemberRole",
             }
             expect(MixpanelService.data_from(user)).to eq(expected)
           end

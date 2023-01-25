@@ -508,6 +508,39 @@ RSpec.describe ApplicationController do
       expect(@mixpanel_calls[0][:data]).to eq(expected_mixpanel_data)
     end
 
+    context "user is logged in" do
+      let(:user_coalition) { build(:coalition, name: "Tax Universe") }
+      let(:user_organization) { build(:organization, name: "Tax Collective", coalition: user_coalition) }
+      let(:user_site) { build(:site, name: "Tax Partners", parent_organization: user_organization) }
+      let(:user) { create(:team_member_user, site: user_site, current_sign_in_at: 5.minutes.ago) }
+
+      before do
+        sign_in user
+      end
+
+      it "sends user data using mixpanel service" do
+        get :index
+
+        subject.send_mixpanel_event(event_name: "beep", data: { sound: "boop" })
+
+        expect(mixpanel_spy).to have_received(:run).with(
+          distinct_id: "123",
+          event_name: "beep",
+          data: hash_including(
+            user_id: user.id,
+            user_site_id: user_site.id,
+            user_site_name: user_site.name,
+            user_organization_id: user_organization.id,
+            user_organization_name: user_organization.name,
+            user_coalition_id: user_coalition.id,
+            user_coalition_name: user_coalition.name,
+            user_login_time: user.current_sign_in_at,
+            user_role: "TeamMemberRole"
+          )
+        )
+      end
+    end
+
     context "with a request from a bot" do
       let(:user_agent_string) { "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" }
 

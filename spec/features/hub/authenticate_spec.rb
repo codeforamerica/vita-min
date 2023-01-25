@@ -4,6 +4,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
   let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword") }
 
   scenario "logging in and out" do
+    allow(MixpanelService).to receive(:send_event)
     # go to password-based sign in page
     visit new_user_session_path
 
@@ -19,6 +20,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # Should be redirected to home page
     expect(page).to have_text "You've been successfully signed out."
     expect(page).to have_text "Free tax filing"
+    expect(MixpanelService).to have_received(:send_event).with(a_hash_including(event_name: 'hub_user_login'))
   end
 
   scenario "getting locked out due to using the wrong password a lot" do
