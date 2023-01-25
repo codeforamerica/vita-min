@@ -18,14 +18,14 @@ class SurveySender
     when :email
       ClientMessagingService.send_system_email(
         client: client,
-        body: message.email_body(locale: locale, survey_link: message_class.survey_link(client)),
+        body: message.email_body(locale: locale, survey_link: message_class.survey_link(client), client: client),
         subject: message.email_subject(locale: locale),
         locale: locale
       )
     when :sms_phone_number
       ClientMessagingService.send_system_text_message(
         client: client,
-        body: message.sms_body(locale: locale, survey_link: message_class.survey_link(client)),
+        body: message.sms_body(locale: locale, survey_link: message_class.survey_link(client), client: client),
         locale: locale
       )
     end

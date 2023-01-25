@@ -26,7 +26,7 @@ module AutomatedMessage
     end
 
     def sms_body(*args)
-      I18n.t("messages.in_progress.sms", *args)
+      I18n.t("messages.in_progress.sms.body", *args)
     end
 
     def email_subject(*args)
