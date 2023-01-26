@@ -7,7 +7,7 @@ class FaqCsvImportService
   def self.perform_now(faq_csv_content, write: false)
     [:en, :es].each do |locale|
       filename = "config/locales/#{locale}.yml"
-      translation_data = YAML.load_file("config/locales/#{locale}.yml")
+      translation_data = YAML.safe_load(File.read("config/locales/#{locale}.yml"))
       translation_data = updated_translations(
         translation_data,
         "#{locale}.views.public_pages.faq.question_groups",
