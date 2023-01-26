@@ -3,7 +3,7 @@ require 'csv'
 # faq_csv = File.read("../../Downloads/faq.csv")
 # result = FaqCsvImportJob.perform_now(File.read("../../Downloads/faq.csv"))
 # File.open('/tmp/test_faq.yml', 'w') {|f| f.write result.to_yaml }
-class FaqCsvImportJob
+class FaqCsvImportService
   def self.perform_now(faq_csv_content, write: false)
     [:en, :es].each do |locale|
       filename = "config/locales/#{locale}.yml"

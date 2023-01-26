@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe FaqCsvImportJob do
+describe FaqCsvImportService do
   describe ".parse" do
     let(:en_csv) do
       <<~CSV
@@ -31,7 +31,7 @@ describe FaqCsvImportJob do
               "will_there_be_another_stimulus_payment" => "unchanged",
               "how_do_i_get_the_stimulus_payments" => {
                 "question" => "How do I get it",
-                "answer_html" => "<p>This is how</p><p>To get it</p>",
+                "answer_html" => "<p>This is how</p>\n<p>To get it</p>\n",
               }
             }
           }
@@ -50,7 +50,7 @@ describe FaqCsvImportJob do
               "will_there_be_another_stimulus_payment" => "unchanged",
               "how_do_i_get_the_stimulus_payments" => {
                 "question" => "¿How do I get it?",
-                "answer_html" => "<p>Este es</p><p>como you get it</p>",
+                "answer_html" => "<p>Este es</p>\n<p>como you get it</p>\n",
               }
             }
           }
