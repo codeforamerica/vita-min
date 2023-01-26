@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_24_195432) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_26_194012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "abandoned_pre_consent_intakes", force: :cascade do |t|
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.string "source"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "accepted_tax_return_analytics", force: :cascade do |t|
     t.bigint "advance_ctc_amount_cents"
