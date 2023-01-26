@@ -98,7 +98,7 @@
               <span class="form-question"><%= t(".filing_status") %>:</span>
               <div class="label-indented"><%= filing_status(@client) %></div>
             </div>
-            <% if @client.intake&.product_year < 2023 %>
+            <% if @client.intake&.product_year == 2022 %>
               <div class="field-display">
                 <span class="form-question"><%= t(".itin_help_required") %>:</span>
                 <div class="label-indented"><%= @client.needs_itin_help_text %></div>

@@ -325,6 +325,13 @@ module Hub
 
         Intake::Person.new(@intake, :spouse)
       end
+
+      def product_year
+        if @intake.is_a?(Archived::Intake2021)
+          return 2021
+        end
+        @intake.product_year
+      end
     end
   end
 end
