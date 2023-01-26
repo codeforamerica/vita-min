@@ -11,9 +11,6 @@ class PublicPagesController < ApplicationController
   end
 
   def home
-    @show_documents_deadline_banner = !open_for_gyr_intake? &&
-      open_for_gyr_logged_in_clients? &&
-      app_time <= Rails.configuration.end_of_login - 1.week
     # redirect to home hiding original source param
     if params[:source].present?
       vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
