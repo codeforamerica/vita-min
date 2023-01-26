@@ -26,12 +26,12 @@ describe FaqCsvImportJob do
       ).to(
         eq(
           {
-            stimulus: {
-              title: "Stimulus",
-              will_there_be_another_stimulus_payment: "unchanged",
-              how_do_i_get_the_stimulus_payments: {
-                question: "How do I get it",
-                answer_html: "<p>This is how</p><p>To get it</p>",
+            "stimulus" => {
+              "title" => "Stimulus",
+              "will_there_be_another_stimulus_payment" => "unchanged",
+              "how_do_i_get_the_stimulus_payments" => {
+                "question" => "How do I get it",
+                "answer_html" => "<p>This is how</p><p>To get it</p>",
               }
             }
           }
@@ -45,12 +45,12 @@ describe FaqCsvImportJob do
       ).to(
         eq(
           {
-            stimulus: {
-              title: "Stimulus",
-              will_there_be_another_stimulus_payment: "unchanged",
-              how_do_i_get_the_stimulus_payments: {
-                question: "¿How do I get it?",
-                answer_html: "<p>Este es</p><p>como you get it</p>",
+            "stimulus" => {
+              "title" => "Stimulus",
+              "will_there_be_another_stimulus_payment" => "unchanged",
+              "how_do_i_get_the_stimulus_payments" => {
+                "question" => "¿How do I get it?",
+                "answer_html" => "<p>Este es</p><p>como you get it</p>",
               }
             }
           }
@@ -62,37 +62,37 @@ describe FaqCsvImportJob do
   describe ".updated_translations" do
     let(:new_content) do
       {
-        stimulus: {
-          will_there_be_another_stimulus_payment: "unchanged",
-          how_many_stimulus_payments_were_there: {
-            question: "how many??",
-            answer_html: "500"
+        "stimulus" => {
+          "will_there_be_another_stimulus_payment" => "unchanged",
+          "how_many_stimulus_payments_were_there" => {
+            "question" => "how many??",
+            "answer_html" => "500"
           }
         }
       }
     end
     let(:initial_data) do
       {
-        faq: {
-          question_groups: {
-            stimulus: {
-              will_there_be_another_stimulus_payment: {
-                question: "Well?",
-                answer_html: "Nah",
+        "faq" => {
+          "question_groups" => {
+            "stimulus" => {
+              "will_there_be_another_stimulus_payment" => {
+                "question" => "Well?",
+                "answer_html" => "Nah",
               },
-              how_many_stimulus_payments_were_there: {
-                question: "How many",
-                answer_html: "5",
+              "how_many_stimulus_payments_were_there" => {
+                "question" => "How many",
+                "answer_html" => "5",
               },
-              what_about_a_question_we_remove: {
-                question: "trash this question?",
-                answer_html: "yup",
+              "what_about_a_question_we_remove" => {
+                "question" => "trash this question?",
+                "answer_html" => "yup",
               }
             },
-            clowns: {
-              a_question_about_clowns: {
-                question: "Why",
-                answer_html: "for charity",
+            "clowns" => {
+              "a_question_about_clowns" => {
+                "question" => "Why",
+                "answer_html" => "for charity",
               }
             }
           }
@@ -104,16 +104,16 @@ describe FaqCsvImportJob do
       expect(
         described_class.updated_translations(initial_data, "faq.question_groups", new_content)
       ).to eq({
-                faq: {
-                  question_groups: {
-                    stimulus: {
-                      how_many_stimulus_payments_were_there: {
-                        question: "how many??",
-                        answer_html: "500",
+                "faq" => {
+                  "question_groups" => {
+                    "stimulus" => {
+                      "how_many_stimulus_payments_were_there" => {
+                        "question" => "how many??",
+                        "answer_html" => "500",
                       },
-                      will_there_be_another_stimulus_payment: {
-                        question: "Well?",
-                        answer_html: "Nah",
+                      "will_there_be_another_stimulus_payment" => {
+                        "question" => "Well?",
+                        "answer_html" => "Nah",
                       },
                     }
                   }
