@@ -4,17 +4,24 @@ require 'csv'
 # result = FaqCsvImportJob.perform_now(File.read("../../Downloads/faq.csv"))
 # File.open('/tmp/test_faq.yml', 'w') {|f| f.write result.to_yaml }
 class FaqCsvImportJob < ApplicationJob
-  def perform(faq_csv_content)
-    YAML::ENGINE.yamler = 'syck'
-
+  def perform(faq_csv_content, write: false)
     [:en, :es].each do |locale|
       filename = "config/locales/#{locale}.yml"
+      puts 'parse_results'
+      # puts self.class.parse(faq_csv_content, locale).to_json
       new_translations = self.class.updated_translations(
         YAML.safe_load(File.read("config/locales/#{locale}.yml")).with_indifferent_access,
         "#{locale}.views.public_pages.faq.question_groups",
-        self.class.parse(faq_csv_content, locale)
+        self.class.parse(faq_csv_content, locale).with_indifferent_access
       )
-      File.write(filename, YAML.dump(new_translations))
+
+      val = YAML.dump(JSON.load(new_translations.to_json))
+      if write
+        File.write(filename, val)
+      else
+        val
+      end
+      nil
     end
   end
 
@@ -23,13 +30,13 @@ class FaqCsvImportJob < ApplicationJob
 
     hash_to_modify.each do |question_group_key, question_group|
       question_group.each do |question_key, _|
-        begin
-          new_question_content = new_content[question_group_key.to_sym][question_key.to_sym]
-        rescue NoMethodError
-          pry
+        if new_content[question_group_key].nil?
+          hash_to_modify.delete(question_group_key)
+          next
         end
+        new_question_content = new_content[question_group_key.to_sym][question_key.to_sym]
 
-        if new_question_content == { unchanged: true }
+        if new_question_content == "unchanged"
           next
         elsif new_question_content.nil?
           question_group.delete(question_key)
@@ -50,7 +57,7 @@ class FaqCsvImportJob < ApplicationJob
     CSV.parse(io, headers: true).each do |row|
       section_key = row["Section Key"].to_sym
       question_key = row["Question Key"].to_sym
-      answer_content = row["Answer #{lang_suffix}"]
+      answer_content = row["Answer #{lang_suffix}"] || ""
 
       # find or create section key
       if !new_copy[section_key].present?
@@ -59,16 +66,21 @@ class FaqCsvImportJob < ApplicationJob
         }
       end
 
+      # assign unchanged or new content
       new_copy[section_key][question_key] =
-        if row["Updated"] == "No"
-          {
-            unchanged: true
-          }
+        if row["Updated?"] == "No"
+          "unchanged"
+          # {
+          #   unchanged: true
+          # }
         else
+          # if (answer_content || "").split("\n").length > 1
           if answer_content.split("\n").length > 1
             answer_content = answer_content.split("\n").map { |content| "<p>" + content + "</p>" }.reject { |line| line == "<p></p>" }.join
           end
           {
+            # question: (row["Question #{lang_suffix}"] || "").strip,
+            # answer_html: (answer_content || "").strip
             question: row["Question #{lang_suffix}"].strip,
             answer_html: answer_content.strip
           }

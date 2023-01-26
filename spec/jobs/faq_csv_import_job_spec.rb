@@ -88,6 +88,12 @@ describe FaqCsvImportJob do
                 question: "trash this question?",
                 answer_html: "yup",
               }
+            },
+            clowns: {
+              a_question_about_clowns: {
+                question: "Why",
+                answer_html: "for charity",
+              }
             }
           }
         }
