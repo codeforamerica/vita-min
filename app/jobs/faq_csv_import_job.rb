@@ -70,17 +70,11 @@ class FaqCsvImportJob < ApplicationJob
       new_copy[section_key][question_key] =
         if row["Updated?"] == "No"
           "unchanged"
-          # {
-          #   unchanged: true
-          # }
         else
-          # if (answer_content || "").split("\n").length > 1
           if answer_content.split("\n").length > 1
             answer_content = answer_content.split("\n").map { |content| "<p>" + content + "</p>" }.reject { |line| line == "<p></p>" }.join
           end
           {
-            # question: (row["Question #{lang_suffix}"] || "").strip,
-            # answer_html: (answer_content || "").strip
             question: row["Question #{lang_suffix}"].strip,
             answer_html: answer_content.strip
           }

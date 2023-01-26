@@ -3671,11 +3671,7 @@ en:
               question: I’m under 19, should I file a tax return?
             title: Should I file a tax return?
             what_are_the_potential_benefits_of_filing_a_tax_return:
-              answer_html: |-
-                <p>Even if you make little income and are not required to file a tax return, you could qualify for payments from the IRS. You are especially likely to qualify for tax credits if you have children. In order to claim this money, you need to file a tax return.</p>
-                <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p>
-                <p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a> option.</p>
-                <p>
+              answer_html: <p><p>Even if you make little income and are not required to file a tax return, you could qualify for payments from the IRS. You are especially likely to qualify for tax credits if you have children. In order to claim this money, you need to file a tax return.</p></p><p><p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p></p><p><p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a> option.</p></p><p><p></p>
               question: What are the potential benefits of filing a tax return?
           state_returns:
             can_i_get_tax_credits_from_california:

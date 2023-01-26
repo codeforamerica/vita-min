@@ -4,7 +4,7 @@ describe FaqCsvImportJob do
   describe ".parse" do
     let(:en_csv) do
       <<~CSV
-        Section Key,Updated,Section Name (EN),Question Key,Question (EN),Answer (EN)
+        Section Key,Updated?,Section Name (EN),Question Key,Question (EN),Answer (EN)
         stimulus,No,Stimulus,will_there_be_another_stimulus_payment,ignored,ignored
         stimulus,Yes,Stimulus,how_do_i_get_the_stimulus_payments,How do I get it,"This is how
         To get it"
@@ -13,7 +13,7 @@ describe FaqCsvImportJob do
 
     let(:es_csv) do
       <<~CSV
-        Section Key,Updated,Section Name (ES),Question Key,Question (ES),Answer (ES)
+        Section Key,Updated?,Section Name (ES),Question Key,Question (ES),Answer (ES)
         stimulus,No,Stimulus,will_there_be_another_stimulus_payment,ignored,ignored
         stimulus,Yes,Stimulus,how_do_i_get_the_stimulus_payments,¿How do I get it?,"Este es
         como you get it"
@@ -28,7 +28,7 @@ describe FaqCsvImportJob do
           {
             stimulus: {
               title: "Stimulus",
-              will_there_be_another_stimulus_payment: { unchanged: true },
+              will_there_be_another_stimulus_payment: "unchanged",
               how_do_i_get_the_stimulus_payments: {
                 question: "How do I get it",
                 answer_html: "<p>This is how</p><p>To get it</p>",
@@ -47,7 +47,7 @@ describe FaqCsvImportJob do
           {
             stimulus: {
               title: "Stimulus",
-              will_there_be_another_stimulus_payment: { unchanged: true },
+              will_there_be_another_stimulus_payment: "unchanged",
               how_do_i_get_the_stimulus_payments: {
                 question: "¿How do I get it?",
                 answer_html: "<p>Este es</p><p>como you get it</p>",
@@ -63,7 +63,7 @@ describe FaqCsvImportJob do
     let(:new_content) do
       {
         stimulus: {
-          will_there_be_another_stimulus_payment: { unchanged: true },
+          will_there_be_another_stimulus_payment: "unchanged",
           how_many_stimulus_payments_were_there: {
             question: "how many??",
             answer_html: "500"
