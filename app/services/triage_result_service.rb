@@ -11,47 +11,23 @@ class TriageResultService
     end
 
     if inside_ctc_income_limit?
-      if intake.need_itin_help_yes?
-        if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr
-        elsif intake.triage_vita_income_ineligible_yes?
-          return route_to_does_not_qualify
-        end
-      elsif intake.need_itin_help_no?
-        if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr
-        elsif intake.triage_vita_income_ineligible_yes?
-          return route_to_diy
-        end
+      if intake.triage_vita_income_ineligible_no?
+        return route_to_gyr
+      elsif intake.triage_vita_income_ineligible_yes?
+        return route_to_diy
       end
     end
 
     if intake.triage_filing_status_single? && intake.triage_income_level_12500_to_25000?
-      if intake.need_itin_help_yes?
-        if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr
-        elsif intake.triage_vita_income_ineligible_yes?
-          return route_to_does_not_qualify
-        end
-      elsif intake.need_itin_help_no?
-        if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr_diy_choice
-        elsif intake.triage_vita_income_ineligible_yes?
-          return route_to_diy
-        end
+      if intake.triage_vita_income_ineligible_no?
+        return route_to_gyr_diy_choice
+      elsif intake.triage_vita_income_ineligible_yes?
+        return route_to_diy
       end
     end
 
     if intake.triage_income_level_25000_to_40000? || intake.triage_income_level_40000_to_65000?
-      if intake.need_itin_help_yes?
-        if intake.triage_vita_income_ineligible_no?
-          return route_to_gyr
-        elsif intake.triage_vita_income_ineligible_yes?
-          return route_to_does_not_qualify
-        end
-      elsif intake.need_itin_help_no?
-        return route_to_diy
-      end
+      return route_to_diy
     end
 
     if intake.triage_income_level_65000_to_73000?

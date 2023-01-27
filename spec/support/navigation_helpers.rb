@@ -27,7 +27,6 @@ module NavigationHelpers
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
-    select I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
     click_on I18n.t('general.continue')
   end
 

@@ -99,11 +99,6 @@ RSpec.feature "triage flow" do
       expected_controllers.map(&:to_path_helper)
     end
 
-    def need_itin_help
-      answer = row['need_itin_help'].strip
-      answer == 'Yes' ? true : false
-    end
-
     def income_level
       row['triage_income_level'].strip
     end
@@ -122,7 +117,6 @@ RSpec.feature "triage flow" do
     context test_case.context_name do
       it test_case.test_name, test_case.rspec_metadata do
         pages = answer_gyr_triage_questions(
-          need_itin: test_case.need_itin_help,
           triage_income_level: test_case.income_level,
           triage_filing_status: test_case.filing_status,
           triage_filing_frequency: "some_years",
