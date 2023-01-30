@@ -7,6 +7,6 @@ namespace :client_status_updates do
 
   desc 'send client in progress an automated message'
   task send_client_in_progress_automated_messages: [:environment] do
-    AutomatedMessage::InProgress.enqueue_messages(Time.current)
+    AutomatedMessage::InProgress.enqueue_messages(Time.now)
   end
 end

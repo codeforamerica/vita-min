@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe AutomatedMessage::InProgress do
   describe ".clients_to_message" do
-    let(:expected_send_time) { 30.minutes.from_now }
+    let(:expected_send_time) { 31.minutes.from_now }
     let(:status) { :intake_in_progress }
     let(:in_progress_survey_sent_at) { nil }
     let!(:client) do
@@ -25,12 +25,19 @@ RSpec.describe AutomatedMessage::InProgress do
             expect(described_class.clients_to_message(expected_send_time)).to include(client)
           end
         end
+        
+        context "who has recevied a message before" do
+          let(:in_progress_survey_sent_at) { 7.minutes.ago }
+          it "does not includes the client" do
+            expect(described_class.clients_to_message(expected_send_time)).not_to include(client)
+          end
+        end
       end
     end
 
     context "clients who should not get the message" do
       context "who has no tax returns in 'intake_in_progress'" do
-        let(:status) { :file_accepted }
+        let(:status) { :intake_ready }
         it "does not includes the client" do
           expect(described_class.clients_to_message(expected_send_time)).to be_empty
         end

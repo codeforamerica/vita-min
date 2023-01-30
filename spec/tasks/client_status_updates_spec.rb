@@ -62,7 +62,7 @@ describe "client_status_updates:send_client_in_progress_automated_messages" do
   around { |example| capture_output { example.run } }
 
   describe "AutomatedMessage::InProgress" do
-    let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
+    let(:fake_time) { Time.utc(2022, 1, 30, 9, 10, 0) }
     let!(:client) do
       Timecop
         .freeze(fake_time - 40.minutes) do
