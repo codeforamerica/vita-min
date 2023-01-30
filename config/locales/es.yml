@@ -77,7 +77,7 @@ es:
     continue_to_fsa:
       edit:
         continue_to_tax_slayer: Continuar a File Myself
-        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a diy@getyourrefund.org
         steps:
           description:
           - Para empezar declarando sus impuestos, haga clic en 'Continuar a File Myself' para ser redirigido al software gratuito de impuestos.
