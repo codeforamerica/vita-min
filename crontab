@@ -2,7 +2,6 @@
 * * * * * bundle exec rake search:refresh
 * * * * * bundle exec rake stats:track_metrics
 */5 * * * * bundle exec rake stats:monitor_delayed_efile_submissions
-*/5 * * * * bundle exec rake client_status_updates:send_completion_surveys
-*/20 * * * * bundle exec rake client_status_updates:send_client_in_progress_automated_messages
+*/5 * * * * bundle exec rake client_surveys:send_completion_surveys
 15 20 * * * bundle exec rake not_ready_reminders:remind
 */10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
