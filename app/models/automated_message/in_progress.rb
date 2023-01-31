@@ -5,7 +5,7 @@ module AutomatedMessage
     def self.clients_to_message(now)
       Client
         .where(in_progress_survey_sent_at: nil)
-        .where("consented_to_service_at BETWEEN ? AND ? ", 24.hours.ago, now - 30.minutes)
+        .where("consented_to_service_at BETWEEN ? AND ? ", now - 24.hours, now - 30.minutes)
         .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
     end
 
