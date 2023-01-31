@@ -26,7 +26,7 @@ RSpec.describe AutomatedMessage::InProgress do
           end
         end
         
-        context "who has recevied a message before" do
+        context "who has received a message before" do
           let(:in_progress_survey_sent_at) { 7.minutes.ago }
           it "does not includes the client" do
             expect(described_class.clients_to_message(expected_send_time)).not_to include(client)
@@ -46,8 +46,6 @@ RSpec.describe AutomatedMessage::InProgress do
       context "who has had tax returns in 'intake_in_progress' and has been created at most half an hour ago" do
         let(:expected_send_time) { 5.minutes.from_now }
         context "who has received a message before" do
-          let(:in_progress_survey_sent_at) { 1.minute.ago }
-
           it "does not includes the client" do
             expect(described_class.clients_to_message(expected_send_time)).to be_empty
           end
