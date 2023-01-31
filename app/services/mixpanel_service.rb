@@ -103,6 +103,7 @@ class MixpanelService
                    event_name:,
                    data: {},
                    subject: nil,
+                   user: nil,
                    request: nil,
                    source: nil,
                    path_exclusions: [])
@@ -111,6 +112,7 @@ class MixpanelService
       default_data.merge!(data_from(request, path_exclusions: path_exclusions))
       default_data.merge!(data_from(source))
       default_data.merge!(data_from(subject))
+      default_data.merge!(data_from(user))
 
       MixpanelService.instance.run(
         distinct_id: distinct_id,
@@ -287,6 +289,8 @@ class MixpanelService
         user_organization_id: organization&.id,
         user_coalition_name: coalition&.name,
         user_coalition_id: coalition&.id,
+        user_login_time: user.current_sign_in_at,
+        user_role: user.role_type
       }
     end
 

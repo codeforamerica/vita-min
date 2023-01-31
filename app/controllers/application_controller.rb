@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
 
   def sign_in(*args)
     super
+    send_mixpanel_event(event_name: "hub_user_login")
     session.delete("intake_id")
   end
 
@@ -227,6 +228,7 @@ class ApplicationController < ActionController::Base
       event_name: event_name,
       data: data,
       subject: subject || visitor_record,
+      user: current_user,
       request: request,
       source: self,
       path_exclusions: all_identifiers
