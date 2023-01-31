@@ -3448,22 +3448,11 @@ es:
         question_groups:
           child_and_dependent_care_credit:
             how_do_i_get_the_child_and_dependent_care_credit:
-              answer_html: |
-                <p>Para poder solicitar el crédito por Cuidado de Hijos y Dependientes, deber haber hecho lo siguiente:</p>
-                <ul class="list--bulleted">
-                <li>Pagado en 2021 por el cuidado de un hijo menor de 13 años que reúna los requisitos, o de un cónyuge o dependiente que no pueda cuidarse a sí mismo.</li>
-                <li>Necesitado estos cuidados para poder trabajar o buscar trabajo usted mismo. En un hogar biparental, ambos cónyuges deben haber estado trabajando o buscando trabajo (o ser estudiante a tiempo completo).</li>
-                </ul>
-                <p>Al presentar la declaración de impuestos, tendrá que indicar la cantidad que pagó, así como el nombre, el número de identificación del empleador (EIN) y la dirección del proveedor de cuidado. Si el cuidado de los niños fue proporcionado por un individuo, necesitará su nombre, Número de Seguro Social y dirección.</p>
+              answer_html: <p>Para reclamar el crédito por cuidado de niños y dependientes, debe tener:</p><ul class="list--bulleted"><li> Cuidado pagado en 2022 para un niño calificado menor de 13 años, o un cónyuge o dependiente que no puede cuidar de sí mismo.</li><li> Necesitaba este cuidado para poder trabajar o buscar trabajo usted mismo. En un hogar con dos padres, ambos cónyuges deben haber estado trabajando o buscando trabajo (o ser estudiantes a tiempo completo).</li></ul><p> Al presentar una declaración de impuestos, deberá informar el monto que pagó, así como el nombre del proveedor de atención, el número de identificación del empleador (EIN) y la dirección. Si su cuidado infantil fue proporcionado por una persona, necesitará su nombre, número de seguro social y dirección.</p><p> Puede reclamar este crédito presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>
               question: "¿Cómo puedo obtener el Crédito por Cuidado de Hijos y Dependientes, en inglés: Child and Dependent Care Credit?"
-            how_has_the_child_and_dependent_care_credit_changed:
-              answer_html: |
-                <p>El Crédito por Cuidado de Niños y Dependientes se amplió significativamente en 2021 y más familias que nunca califican para este beneficio fiscal. El monto máximo del crédito aumentó de $1,050 a $4,000 si solo tiene un dependiente que califica y aumentó de $2,100 a $8,000 para dos o más dependientes que califican.</p>
-                <p>El crédito es ahora "reembolsable", lo cual significa que puede obtenerlo incluso si tiene muy pocos ingresos y no debe ningunos impuestos.</p>
-              question: "¿De qué manera ha cambiado el Crédito por Cuidado de Hijos y Dependientes, en inglés, Child and Dependent Care Credit?"
             title: Crédito por Cuidado de Hijos y Dependientes, en inglés, Child and Dependent Care Credit
             what_is_the_child_and_dependent_care_credit:
-              answer_html: 'El Crédito por Cuidado de Niños y Dependientes, en inglés: Child and Dependent Care Credit, es un crédito tributario que ayuda a las familias a cubrir los gastos de cuidado de niños necesarios para trabajar o buscar trabajo. El crédito también está disponible para las familias que deben pagar por el cuidado de un cónyuge u otro pariente adulto que no es mental o físicamente capaz de cuidar de sí mismo. Las familias pueden solicitar hasta $4,000 por un hijo/dependiente o $8,000 por dos o más hijos/dependientes. Para la mayoría de las familias, el crédito cubre la mitad del costo del cuidado de los niños. Por ejemplo, si pagó $3,000 por el cuidado de un niño, puede reclamar $1,500. Si pagó $20,000 en gastos de cuidado de dos niños, podría reclamar $8,000. Para poder reclamar el crédito, debe declarar sus ingresos durante el año 2021.'
+              answer_html: "<p>El Crédito por Cuidado de Hijos y Dependientes es un crédito fiscal que ayuda a las familias a cubrir los gastos de cuidado de niños necesarios para trabajar o buscar trabajo. El crédito también está disponible para las familias que deben pagar por el cuidado de un cónyuge u otro pariente adulto que no sea mental o físicamente capaz de cuidar de sí mismo. Las familias pueden reclamar hasta $3,000 por un hijo/dependiente o $6,000 por dos o más hijos/dependientes. El crédito cubre del 20 al 35% del costo del cuidado de niños. El porcentaje se basa en su ingreso del trabajo y el ingreso bruto ajustado (si es casado y presenta una declaración conjunta, su cónyuge también debe estar trabajando para cumplir con los requisitos). Debe informar los ingresos del trabajo durante 2022 para reclamar el crédito.</p><p> Tenga en cuenta que los montos de este crédito han vuelto a sus montos originales para 2022.</p>"
               question: "¿Qué es el Crédito por Cuidado de Hijos y Dependientes?"
           child_tax_credit:
             am_i_eligible_for_child_tax_credit_if_i_dont:
@@ -3471,66 +3460,12 @@ es:
                 <p>Para tener derecho al Crédito Tributario por Hijos, cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal (ITIN en inglés).</p>
                 <p>Si actualmente no tiene un Número de Identificación Personal (ITIN) pero desea solicitar el Crédito Tributario por Hijos para sus hijos, puede solicitar un Número de Identificación Personal (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
               question: "¿Tengo derecho al Crédito Tributario por Hijos, Child Tax Credit en inglés, si no tengo número de Número de Seguro Social, Social Security Number, en inglés?"
-            do_i_have_to_report_my_advanced_child_tax_credit:
-              answer_html: |
-                <p>Cuando presente su declaración de impuestos de 2021, tendrá que informar al IRS de la cantidad que recibió en pagos de Crédito Tributario por Hijos.</p>
-                <p>Para la mayoría de las familias que recibieron pagos por adelantado, esta cantidad será de $1,800 para los niños pequeños, o de $1,500 para los niños mayores. Por ejemplo, si tiene un niño pequeño, se le deben $3,600 en total de CTC; si recibió $1,800 en pagos anticipados el año pasado, recibirá otros $1,800 este año.</p>
-                <p>El IRS le exige que informe cuánto recibió en pagos mensuales el año pasado cuando presente su declaración de impuestos. El IRS utilizará este número para calcular cuánto dinero más de CTC se le debe.</p>
-                <p>Si no recuerda cuánto recibió en pagos de CTC puede mirar los registros de su cuenta bancaria, consultar la carta que el IRS le envió en enero con esta información, o <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">entrar en su cuenta en línea del IRS5</a>.</p>
-                <p>Si no puede encontrar los números exactos de la cantidad de pagos de CTC que recibió en 2021, debe reportar su mejor estimación de cuánto recibió. No hay penalización por informar de una cifra equivocada, pero la cifra equivocada puede retrasar la tramitación de su reembolso por varios meses.</p>
-              question: "¿Tengo que reportar en mi declaración de impuestos los pagos adelantados del Crédito Tributario por Hijos, Advance Child Tax Credit en inglés, para el 2021?"
-            do_i_qualify_for_the_child_tax_credit_ctc:
-              answer_html: |
-                <p>La mayoría de las familias con hijos menores de 18 años tienen derecho al Crédito Tributario por Hijos. Para tener derecho al CTC:</p>
-                <ul class="list--bulleted">
-                <li>Para recibir la cantidad completa de dinero, debe ganar menos de $75,000 como padre soltero, o $150,000 como pareja casada. Si gana menos de $240,000 como padre o madre, o $440,000 como matrimonio, puede seguir recibiendo parte del CTC.</li>
-                <li>Debe haber vivido en Estados Unidos durante más de seis meses en 2021. (Si no es así, podría tener derecho a una cantidad menor de CTC.)</li>
-                <li>El hijo que solicita tiene que ser su hijo, su nieto, su hermano, su sobrino o su sobrino nieto. Los parientes de acogida, los parientes adoptivos y los medio parientes también cumplen los requisitos.</li>
-                <li>Su hijo necesita un Número de Seguro Social (SSN en inglés). Usted, el progenitor, necesita un SSN o un Número de Identificación Personal (ITIN en inglés).</li>
-                <li>Su hijo debe tener menos de 18 años a finales de 2021. (Nacido a partir del 1 de enero de 2004)</li>
-                <li>Su hijo tiene que haber vivido con usted durante al menos seis meses en 2021.</li>
-                <li>Su hijo no debe ser económicamente independiente, lo que significa que no puede haber pagado más de la mitad de sus propios gastos de subsistencia.</li>
-                <li>Usted debe ser la persona mejor situada para solicitar el hijo. En general, los padres pueden solicitar el hijo antes que las personas que no son sus padres; los padres que pasan más tiempo con el hijo pueden solicitarlo antes que los padres que pasan menos tiempo; y las personas que no son padres y que pasan más tiempo con el hijo pueden solicitarlo antes que las personas que pasan menos tiempo con el hijo</li>
-                </ul>
-              question: "¿Tengo derecho al Crédito Tributario por Hijos?"
-            how_do_i_claim_child_tax_credit_for_a_baby_in_2021:
-              answer_html: Ahora puede solicitar un bebé nacido en 2021 en su declaración de impuestos. Cuando añada un bebé nacido en 2021 a su declaración de la renta, obtendrá la totalidad del Crédito Tributario por Hijos para él, incluyendo lo que le faltó en los anticipos del año pasado.
-              question: "¿Cómo puedo solicitar el Crédito Tributario por Hijos para un bebé nacido en 2021?"
-            how_do_i_claim_child_tax_credit_for_a_baby_in_2022:
-              answer_html: |
-                <p>Todavía no puede declarar un bebé nacido en 2022; tendrá que esperar hasta 2023. Todos los años hacemos la declaración impuestos por los acontecimientos de vida ocurridos el año anterior. Ahora que estamos en 2022 hacemos la declaración de la renta de 2021 y sólo podemos incluir ingresos, hijos, matrimonios, etc. ocurridos en 2021.</p>
-                <p>Cuando declare sus impuestos el año próximo, podrá declarar los hijos que hayan nacido en 2022.</p>
-              question: "¿Cómo se solicita el Crédito Tributario por Hijos para un bebé nacido en 2022?"
-            how_do_i_get_my_child_tax_credit_ctc_payments:
-              answer_html: |
-                <p>Para poder obtener el Crédito Tributario por Hijos (CTC) tiene que presentar una declaración de impuestos.</p>
-                <p>Para presentar una declaración de impuestos sólo para el CTC y la tercer pago de estímulo puede utilizar <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a></p>
-                <p>Para presentar una declaración de impuestos completa para reclamar el CTC y todos los demás beneficios fiscales a los que tenga derecho puede utilizar <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a></p>
-                <p>Ya sea que haya o no haya recibido pagos mensuales de CTC el año pasado, y que haya o no haya recibido impuestos en los últimos años o en absoluto, presentar una declaración de impuestos este año es el siguiente paso correcto para obtener sus pagos de CTC.</p>
-                <p>Si recibió pagos mensuales por adelantado en 2021, entonces puede presentar una declaración de impuestos para obtener el resto de sus pagos (generalmente, $1,800 por hijo menor y $1,500 por hijo mayor). Si no recibió pagos mensuales en 2021 entonces puede presentar una declaración de impuestos para obtener el total de sus pagos de CTC (generalmente, $3,600 por hijo menor y $3,000 por hijo mayor).</p>
-              question: "¿Qué debo hacer para recibir los pagos del Crédito Tributario por Hijos?"
-            how_do_i_get_the_child_tax_credit_if_i:
-              answer_html: |
-                <p>A las familias que generalmente no declaran impuestos se les conoce a veces como "no declarantes o non filers". Frecuentemente, esto se refiere a las familias que ganan poco como para no tener que declarar impuestos, a veces porque obtienen sus ingresos de la discapacidad u otras prestaciones, en su lugar.</p>
-                <p>Todos los que tienen derecho a beneficios tributarios deben presentar una declaración de impuestos, incluso si usted se considera un "no declarante o non-filer". La presentación de la declaración de impuestos puede permitirle obtener prestaciones económicas, como el Crédito Tributario por Hijos, incluso si no acostumbra presentar la declaración de impuestos o no la ha presentado en mucho tiempo.</p>
-                <p>Las familias que no están obligadas a presentar la declaración de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto se ha llamado a veces "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de llenar y requiere mucha menos información. Puede presentar una declaración simplificada de forma gratuita hoy mismo con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
-              eitc_answer_html: |
-                <p>Las familias que generalmente no declaran impuestos a veces se denominan "no declarantes". Usualmente, esto se refiere a las familias que ganan tan poco dinero que no están obligadas a declarar impuestos, a veces porque obtienen sus ingresos por discapacidad o otros beneficios.</p>
-                <p> Todos los que son elegibles para los beneficios tributarios deben presentar una declaración de impuestos, incluso si se consideran "no declarantes". Presentando una declaración de impuestos podría obtener beneficios en efectivo como el Crédito Tributario por Hijos y el Crédito Tributario por Ingreso del Trabajo (EITC), incluso si normalmente no presenta una declaración de impuestos o no ha presentado una declaración de impuestos en mucho tiempo.</p>
-                <p>Las familias que no están obligadas a presentar declaraciones de impuestos tienen una opción adicional: pueden presentar una declaración de impuestos "simplificada". Esto a veces se ha llamado "formulario para no declarantes" o "herramienta para no declarantes". La declaración simplificada es técnicamente una declaración de impuestos, pero es mucho más fácil de completar y requiere menos información. Puede presentar una declaración simplificada gratis hoy con <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
-              question: "¿Cómo puedo obtener el Crédito Tributario por Hijos si soy no declarante?"
+            how_do_i_claim_child_tax_credit_for_a_baby_in_2023:
+              answer_html: "<p>No puede reclamar un bebé nacido en 2023 todavía; tendrá que esperar hasta 2024. Cuando presente su declaración de impuestos, solo puede incluir información para ese año fiscal. Aunque presente sus impuestos de 2022 en 2023, solo puede incluir ingresos, hijos, matrimonios, etc. que ocurrieron en 2022.</p><p> Cuando presente su declaración de impuestos el próximo año, puede reclamar a los niños que nacieron en 2023.</p>"
+              question: "¿Cómo puedo solicitar el Crédito Tributario por Hijos para un bebé nacido en 2023?"
             how_much_is_the_child_tax_credit_in_2022:
-              answer_html: |
-                <p>Puede ahora mismo presentar una declaración de impuestos para solicitar el Crédito Tributario por Hijos (CTC). El CTC para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años, y $3,000 por niño de 6-17 años.</p>
-                <p>Si recibió pagos mensuales de CTC el año pasado, sólo obtendrá la cantidad restante de CTC cuando presente la declaración de impuestos este año. Por lo tanto, si tiene un hijo de 2 años, y recibió seis meses de pagos de $300 el año pasado, ya recibió $1,800 de su CTC. Cuando presente la declaración en 2022, recibirá la otra mitad--otros $1,800.</p>
-                <p>Actualmente no hay más pagos mensuales del CTC durante 2022. Cuando presente la declaración, recibirá la cantidad restante en un solo pago.</p>
+              answer_html: "<p>Para 2022, el CTC ha vuelto a su diseño original como un crédito fiscal no reembolsable, lo que significa que solo reduce la responsabilidad fiscal de una persona hasta en $2,000 por niño elegible y no se paga como reembolso. Un crédito fiscal no reembolsable significa que no se emite como un reembolso sino que solo se aplica a los impuestos adeudados en esa declaración de impuestos.</p><p> Cuando presente su declaración de impuestos de 2022, el Crédito Tributario por Hijos estará en su declaración de impuestos como un crédito fiscal no reembolsable que reduce su obligación tributaria.</p>"
               question: "¿A cuánto equivale el Crédito Tributario por Hijos en 2022?"
-            i_got_letter_6419_from_the_irs_what_is_it:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para reclamar el resto del Crédito Tributario por Hijos este año, tendrá que reportar la cantidad que el IRS le pagó--por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
-              question: He recibido la carta 6419 del IRS. ¿Qué es?
-            i_have_student_debt_can_i_still_get_all_of:
-              answer_html: <p>Por ahora, sí. Debido a la pandemia de COVID-19, el Departamento de Educación ha dejado de aceptar cualquier pago de otras agencias federales para cubrir la deuda estudiantil pendiente. El Departamento ha dicho que esta política estará <a href="https://www.cnbc.com/2022/02/08/student-loan-borrowers-who-default-may-see-child-tax-credit-garnished.html" target="_blank" rel="noopener">en vigor hasta 2022</a>. Sin embargo, esta política <a href="https://www.ed.gov/news/press-releases/biden-harris-administration-extends-student-loan-pause-through-may-1-2022" target="_blank" rel="noopener">no es permanente</a>, y es posible que no siga así. Debe presentar su solicitud pronto para asegurarse de que su reembolso se emita antes de que se reanuden los pagos de la deuda estudiantil.</p>
-              question: Tengo una deuda de estudios, ¿puedo seguir recibiendo la totalidad del Crédito Tributario por Hijos?
             i_owe_back_child_support_can_i_still_get_all:
               answer_html: |
                 <p>Probablemente no.</p>
@@ -3538,47 +3473,15 @@ es:
                 <p>En particular, los pagos mensuales de la CTC emitidos en 2021 <em>no fueron</em> retirados para cubrir las deudas de manutención de los hijos. Sin embargo, cualquier cantidad que declare este año-ya sea la segunda mitad del crédito, o todo el crédito, se puede le pueden retirar.</p>
               question: Debo pagos de pensión alimenticia atrasada, ¿puedo obtener la totalidad del Crédito Tributario por Hijos?
             i_was_getting_child_tax_credit_monthly_payments_in_2021:
-              answer_html: |
-                <p>Los pagos mensuales del Crédito Tributario por Hijos (CTC) comenzaron en julio de 2021 en base a una ley que el Congreso aprobó a principios de año, que hizo importantes aumentos en el CTC. Desafortunadamente, esta ley sólo hizo los cambios para 2021. Como el Congreso no ha renovado la ampliación del CTC para 2022, actualmente no hay pagos mensuales. Pero, si es elegible, todavía puede recibir la segunda mitad de su pago en un solo pago presentando una declaración de impuestos de 2021.</p>
-                <p>Puede presentar la declaración de impuestos de forma gratuita con <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+              answer_html: "<p>Los pagos mensuales del Crédito Tributario por Hijos (CTC) comenzaron en julio de 2021 en base a una ley aprobada por el Congreso a principios de ese año, que hizo ampliaciones significativas al CTC. Desafortunadamente, esta ley solo aplicó para 2021. Debido a que el Congreso no renovó la expansión de CTC para 2022, no hubo pagos mensuales el año pasado. Sin embargo, si no recibió CTC en nuestra declaración de impuestos de 2021, aún puede ser elegible para reclamarlo presentando una enmienda para su declaración de 2021.</p><p> Puede presentar una declaración de impuestos de 2021 a través de nuestro servicio completo GetYourRefund.</p>"
               question: En 2021 estaba recibiendo los pagos mensuales del Crédito Tributario por Hijos. ¿Por qué no he recibido la mensualidad de CTC en 2022?
-            is_the_child_tax_credit_ctc_going_away:
-              answer_html: |
-                <p>La mayor parte no lo es, al menos todavía. Pero algunas partes sí.</p>
-                <p>En 2021, el Congreso amplió considerablemente el Crédito Tributario por Hijos (CTC). El CTC ahora tiene un valor de hasta $3,600 dólares por niño menor de seis años y $3,000 dólares por niño de 6-17 años.</p>
-                <p>Si recibió pagos mensuales el año pasado, sólo ha recibido la mitad de sus pagos y necesita presentar una declaración de impuestos de 2021 para obtener el resto de su dinero.</p>
-                <p>Si no recibió pagos mensuales el año pasado, puede obtener la totalidad del CTC, aunque gane poco o no gane nada.</p>
-                <p>Los cambios que hizo el Congreso fueron sólo por un año. Eso significa que, a menos que el Congreso actúe de nuevo, no habrá nuevas mensualidades para este año. También significa que, cuando presente la declaración el año que viene, el CTC se reducirá a $2,000 dólares por hijo, y es posible que no reciba tanto si tiene bajos ingresos.</p>
-              question: "¿Ya no habrá Crédito Tributario por Hijos?"
             title: Crédito Tributario por Hijos
-            what_do_i_do_if_someone_else_has_claimed_my:
-              answer_html: |
-                <p>Sólo se puede declarar a un hijo en una declaración de impuestos en un año fiscal determinado. A veces, dos hogares diferentes intentan reclamar al mismo hijo porque intentan compartir los pagos, los derechos de reclamación no están claros o hay mala fe.</p>
-                <p>Lo que debe hacer a continuación depende del momento en que otra persona declaró a su hijo.</p>
-                <p>Si alguien declaró a su hijo el año pasado (en 2021 en su declaración de impuestos de 2020) y le impidió recibir los pagos mensuales del Crédito Tributario por Hijos, lo más importante es presentar rápidamente este año. Si presenta la declaración de impuestos antes que la otra persona que declara a su hijo, recibirá el monto completo del CTC (incluyendo todas las mensualidades que dejó de recibir el año pasado).</p>
-                <p>Si intenta presentar una declaración de impuestos este año y descubre que alguien ya ha declarado a su hijo y desea disputar la declaración al IRS para recibir sus pagos, el proceso es más complicado. En primer lugar, tiene que enviar por correo una copia en papel de su declaración al IRS. A continuación, el IRS iniciará un proceso para determinar quién puede declarar a este dependiente. Este proceso puede ser difícil para usted y para quien haya declarado a su dependiente. Si quiere seguir este proceso, consulte aquí para más información: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. Un sitio de <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Voluntarios de Declaración de Impuestos, Volunteer Income Tax , en inglés</a> o el <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Servicio de Defensa del Contribuyente, Taxpayer Advocate Service, en inglés</a>pueden ayudarle con el proceso.</p>
-              question: "¿Qué puedo hacer si otra persona ha declarado a mi hijo para el Crédito Tributario por Hijos?"
-            what_if_i_dont_have_any_income_or_only_income:
-              answer_html: No necesita ningún ingreso para tener derecho al Crédito Tributario por Hijos (CTC) y recibir pagos de otros programas de prestaciones no afecta a su derecho. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.
-              question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
-            what_is_the_child_tax_credit_ctc:
-              answer_html: |
-                <p>El Crédito Tributario por Hijos es un impuesto que ayuda a las familias con los costos de la acogida/crianza de los hijos. Aunque el CTC existe desde hace más de dos décadas, se amplió considerablemente en 2021. Este año, puede obtener <strong>hasta $3,600 por cada hijo menor de seis años y $3,000 por cada hijo de 6-17 años</strong>.</p>
-                <p>El crédito es menor para las familias con un solo padre de familia que gane más de $75,000 y las parejas casadas que ganan más de $150,000. Casi todas las familias por debajo de esos niveles de ingresos reciben el importe completo. Usted tiene derecho a recibir la totalidad de los pagos del CTC aunque gane muy poco o nada, e incluso si no suele declarar impuestos.</p>
-              question: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
-            what_is_the_child_tax_credit_update_portal_ctc_up:
-              answer_html: |
-                <p>El <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener">portal de actualización de CTC (CTC UP)</a> permitió a las familias actualizar la información pertinente sobre sus pagos de Crédito Tributario por Hijos. El año pasado, CTC UP permitió a los usuarios optar por no recibir pagos anticipados de CTC, cambiar la información de pago y comprobar el estado general de elegibilidad. Debido a que los pagos mensuales se han detenido este año, no tendrá que utilizar el Portal de Actualización de CTC. Debe presentar una declaración de impuestos para reclamar el resto del CTC de este año.</p>
-                <p>Si necesita ver el monto de los pagos anticipados que recibió el año pasado, puede ir a <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">su cuenta en línea del IRS</a>.</p>
-              question: "¿Qué es el Portal de Actualización de Crédito Tributario por Hijos (CTC UP)?"
             why_did_my_spouse_and_i_get_two_different_letters:
-              answer_html: |
-                <p>Si el año pasado presentó la declaración de la impuestos junto con su cónyuge y solicitó el Crédito Tributario por Hijos (CTC), el IRS debería haberle entregado los pagos mensuales del CTC por su hijo. Incluso si usted y su cónyuge declararon sus impuestos juntos, el IRS consideró esos pagos como si fueran la mitad para usted y la mitad para su cónyuge. El IRS aplicó esta lógica en las cartas que envió sobre los pagos anticipados. Por ejemplo, si su familia recibió $1,500 en pagos de CTC, el IRS enviaría dos cartas, una a cada cónyuge, reportando $750 de pagos cada uno. Si vuelve a presentar una declaración conjunta para 2021, guarde ambas cartas y reporte el total de pagos de las cartas juntas.</p>
-                <p>Si usted y su cónyuge se han divorciado o han optado por declarar los impuestos por separado, cada uno debe reportar sólo el monto de los pagos de sus cartas individuales.</p>
+              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales del Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre cuánto le emitió el IRS en estos pagos mensuales. Si no presentó una declaración de 2021 pero recibió pagos del Crédito Tributario por Hijos en 2021, para reclamar el resto del Crédito Tributario por Hijos, deberá informar la cantidad que el IRS le pagó por adelantado, por lo que esta carta puede ser muy útil. La carta 6419 fue enviada en diciembre de 2021 o enero de 2022.
               question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes sobre nuestros anticipos del CTC?"
           documents:
             how_do_i_get_my_1099_employment_document:
-              answer_html: <p>Si usted recibió más de $600 en pagos por trabajar por cuenta propia de una empresa o individuo como parte de un contrato/trabajo independiente, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2022. Si no ha recibido este formulario, debe intentar comunicarse con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés, <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.</p>
+              answer_html: Si recibió más de $ 600 en compensación de no empleado de una empresa o individuo como parte de un contrato / trabajo independiente, la empresa o individuo debe emitir 1099-NEC antes del 31 de enero de 2023. Si no recibió este formulario, debe intentar comunicarse con la organización o persona para la que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en los paneles de sus contratistas en la aplicación móvil. Si no puede recuperar los formularios correctos, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" del IRS</a> .
               question: "¿Cómo puedo obtener mi documento de empleo 1099?"
             how_do_i_get_my_w2_employment_document:
               answer_html: <p>Los empleadores están obligados a enviar un W2 actual por correo o electrónicamente a todos los empleados W2 antes del 31 de enero de 2022. Si no ha recibido un W2 de su empleador, debe comunicarse con él directamente para solicitar una copia. Si no puede ponerse en contacto con su empleador, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" o "Wage and Income Transcript" en inglés al IRS</a>.</p>
@@ -3600,17 +3503,11 @@ es:
               question: "¿Por qué necesitan mi tarjeta de Seguro Social?"
           earned_income_tax_credit:
             how_has_the_earned_income_tax_credit_eitc_changed_this:
-              answer_html: |
-                <p>En 2021, el Congreso introdujo importantes reformas en el crédito tributario por Ingresos del Trabajo (EITC) para las personas sin hijos. Estos cambios se aplican al año fiscal 2021, lo que significa que se aplican a la declaración de impuestos que usted presenta en 2022. En primer lugar, el crédito es ahora mayor (antes sólo tenía un valor de aproximadamente $500, y ahora vale hasta aproximadamente $1,500). En segundo lugar, se han flexibilizado las normas de elegibilidad. Ahora, cualquier persona mayor de 19 años, si no es estudiante a tiempo completo, puede tener derecho al EITC. Los jóvenes que antes fueron acogidos en hogares de guarda o los que no tienen hogar pueden optar a los 18 años.</p>
-                <p>No hay cambios en el EITC para las personas con hijos, que sigue valiendo hasta unos $3,600 con un hijo, $6,000 con dos hijos, o $6,700 con tres hijos, dependiendo de los ingresos.</p>
-              eitc_answer_html: |
-                <p>En 2021, el Congreso realizó mejoras significativas al Crédito Tributario por Ingreso del Trabajo (EITC) para personas sin hijos. Estos cambios se aplican al año tributario 2021, lo que significa que se aplican a la declaración de impuestos que presente en 2022. En primer lugar, el crédito ahora es más grande (antes tenía un valor hasta alrededor de $500, ahora vale hasta $1,500). En segundo lugar, se relajaron las reglas de elegibilidad. Ahora, cualquier persona mayor de 19 años, si no es estudiante de tiempo completo, puede ser elegible para el EITC. Los ex jóvenes de crianza o los jóvenes sin hogar son elegibles a los 18 años.</p>
-                <p>No hay cambios en el EITC para las personas con hijos, que sigue valiendo hasta $3,600 con un hijo, $6,000 con dos hijos o $6,700 con tres hijos, dependiendo de los ingresos. Ahora puede reclamar el EITC presentando una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.</p>
+              answer_html: "<p>Para el año fiscal 2022, el EITC ha vuelto a su fórmula original, lo que significa que los montos de reembolso aumentados temporalmente y los tramos de edad que ampliaron la elegibilidad el año pasado han vuelto a los niveles previos a la pandemia.</p><p> La única revisión que se ha vuelto permanente es:</p><p> • Los hogares que tienen hijos dependientes con ITIN pueden calificar para el EITC, aunque a una cantidad reducida.</p><p> Puede reclamar el EITC presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>"
               question: "¿De qué manera ha cambiado este año el crédito tributario por ingresos del trabajo (EITC)?"
             title: Crédito tributario por ingresos del trabajo
             what_is_the_earned_income_tax_credit_eitc:
-              answer_html: El Crédito tributario por ingresos de trabajo (EITC) es una prestación disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con hijos que ganan menos de $42,000, y está disponible para la mayoría de las familias sin hijos que ganan menos de $21,000. Al igual que otros créditos fiscales, hay que solicitar el EITC presentando una declaración de impuestos.
-              eitc_answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC) es un beneficio disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con niños que ganan menos de $42,000, y está disponible para la mayoría de las familias sin niños que ganan menos de $21,000. Puede reclamar el EITC presentando una declaración completa o presentando una declaración simplificada a través de nuestro <a href="https://www.getctc.org/" target="_blank" rel="noopener">servicio GetCTC</a>.
+              answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un beneficio disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con niños que ganan menos de $49,622, y está disponible para la mayoría de las familias sin niños que ganan menos de $22,610. Debe reclamar el EITC presentando una declaración completa.
               question: "¿Qué es el Crédito tributario por ingresos del trabajo (EITC)?"
           getyourrefund_account_access:
             i_cant_sign_in:
@@ -3627,39 +3524,17 @@ es:
           how_does_getyourrefund_work:
             title: "¿Cómo funciona GetYourRefund?"
             what_is_file_myself_and_how_does_it_work:
-              answer_html: |
-                <p>File Myself, en el cual usted mismo declara sus impuestos, lo conecta con un software gratuito de presentación de impuestos en línea. Puede seguir chateando con los expertos en impuestos de GetYourRefund mientras utiliza el sitio web.</p>
-                <p>File Myself es una gran opción si sólo tiene que presentar los impuestos de 2021, si no tiene muchas preguntas y se siente seguro usando los sitios web por su cuenta. También es una gran opción para cualquier persona que no tenga una copia en papel de su tarjeta de Seguro Social (la cual se requiere para utilizar GetYourRefund de servicio completo, en inglés, Full Service). Necesitará acceder a sus otros documentos fiscales, como por ejemplo W2 o 1099. La mayoría de los declarantes pueden completar el proceso de File Myself en 45 minutos o menos, y puede reclamar todos sus beneficios fiscales estatales y federales.</p>
+              answer_html: "<p>File Myself lo conecta con un software gratuito de declaración de impuestos en línea. Puede continuar comunicándose con los expertos en impuestos de GetYourRefund mientras usa el sitio web.</p><p> File Myself es una excelente opción si solo tiene que presentar los impuestos de 2022, no tiene muchas preocupaciones sobre su situación fiscal y se siente seguro al usar sitios web por su cuenta. También es una excelente opción para cualquier persona que no tenga una copia impresa de su tarjeta de Seguro Social (que se requiere para usar el servicio completo GetYourRefund). Necesitará acceso a sus documentos fiscales como W2 o 1099. La mayoría de los contribuyentes pueden completar el proceso File Myself en 45 minutos o menos y usted puede reclamar todos sus beneficios fiscales estatales y federales.</p>"
               question: "¿Qué es File Myself y cómo funciona?"
             what_is_getyourrefund_deluxe_and_how_does_it_work:
-              answer_html: |
-                El servicio GetYourRefund Full Service/Virtual VITA le conecta con un preparador de impuestos certificado por el IRS del programa VITA de forma gratuita. Debería considerar GetYourRefund si tiene varios años de impuestos que declarar, no ha declarado impuestos antes, o tiene muchas preguntas sobre su declaración de impuestos y quiere apoyo personal. Este proceso suele durar entre 2-3 semanas, y puede reclamar todos sus beneficios fiscales estatales y federales.
-                Si elige el servicio completo de GetYourRefund/Virtual VITA:
-                1. Llene su información de impuestos en línea y suba todos los documentos de sus impuestos.
-                2. Un preparador de impuestos certificado por el IRS revisará su información y programará una llamada telefónica con usted.
-                3. Su preparador de impuestos preparará sus impuestos.
-                4. Un segundo preparador de impuestos completará una revisión de calidad de sus impuestos y le llamará para revisar cualquier información final y le dirá la cantidad de su reembolso.
-                5. Usted firmará sus formularios de impuestos en línea.
-                6. Enviaremos sus impuestos al IRS.
+              answer_html: <p>El servicio GetYourRefund Full Service/Virtual VITA lo conecta con un preparador de impuestos certificado por el IRS del programa VITA del IRS de forma gratuita. Debe considerar GetYourRefund si tiene que presentar varios años de impuestos, no ha presentado impuestos antes o tiene muchas preguntas sobre su declaración de impuestos y desea apoyo personal. Este proceso generalmente demora de 2 a 3 semanas y puede reclamar todos sus beneficios fiscales estatales y federales. A continuación se detallan los pasos para preparar sus impuestos de forma gratuita si elige GetYourRefund Full Service/Virtual VITA:</p><ul class="list--numbered"><li> Complete su información fiscal en línea y cargue todos sus documentos fiscales</li><li> Un preparador de impuestos certificado por el IRS revisará su información y programará una llamada telefónica con usted</li><li> Su preparador de impuestos preparará sus impuestos</li><li> Un segundo preparador de impuestos completará una revisión de calidad de su declaración y lo llamará para revisar cualquier información final y decirle el monto de su reembolso.</li><li> Firmará sus formularios de impuestos en línea</li><li> Su preparador de impuestos enviará sus impuestos al IRS</li></ul>
               question: "¿Qué es GetYourRefund y cómo funciona?"
-            what_is_getyourrefund_express_and_how_does_it_work:
-              answer_html: |
-                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta para no declarantes, es su opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y luego presentamos su declaración de impuestos directamente al IRS.</p>
-                <p>Puede utilizar GetCTC para reclamar el tercer pago de estímulo (Pago de Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario por Ingreso del Trabajo o los créditos fiscales estatales. Por lo general, sólo puede utilizar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
-                <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener su tercer pago de estímulo y el Crédito Tributario por Hijos, o si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de la Seguridad Social.</p>
-              eitc_answer_html: |
-                <p><a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>, también conocida como la herramienta nonfiler, es la opción de presentación más sencilla y rápida. Todo lo que tiene que hacer es responder algunas preguntas y luego presentaremos su declaración de impuestos directamente con el IRS.</p>
-                <p>Puede usar GetCTC para reclamar el tercer pago de estímulo, el Crédito Tributario por Hijos y el Crédito Tributario por Ingresos del Trabajo o créditos tributarios estatales. En general, solo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021. Los residentes de Puerto Rico tienen un límite de ingresos más alto y deben usar el sitio web <a href="https://www.getctc.org/puertorico" target="_blank" rel="noopener"> https://www.getctc.org/puertorico</a> para reclamar sus beneficios.</p>
-                <p>GetCTC es una excelente opción para usted si le faltan sus documentos tributarios o si le falta una copia impresa de su tarjeta de Seguro Social.</p>
-              question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para poder solicitar el resto del Crédito Tributario por Hijos en su declaración de impuestos de 2021, tendrá que reportar la cantidad que el IRS le pagó en anticipos - por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o en enero de 2022.
+              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales del Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre cuánto le emitió el IRS en estos pagos mensuales. Si aún no presentó una declaración de 2021, para reclamar el resto del Crédito Tributario por Hijos, deberá informar la cantidad que el IRS le pagó por adelantado. La carta 6419 fue enviada en diciembre de 2021 o enero de 2022.
               question: He recibido la carta 6419 del IRS. ¿Qué es?
             i_got_letter_6475_or_1444c_from_the_irs_what:
-              answer_html: |
-                <p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer pago de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en el tercer pago de estímulo.</p>
-                <p>Informar con precisión cuánto recibió en pagos de estímulo puede ayudarle a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero que falte, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
+              answer_html: "<p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer cheque de estímulo (Pago de impacto económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre cuánto le emitió el IRS en el tercer cheque de estímulo.</p><p> Si aún no ha presentado su declaración de 2021, informar con precisión cuánto recibió en cheques de estímulo puede ayudarlo a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero faltante, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado aproximadamente cuando se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>"
               question: Recibí la carta 6475 o 1444-C del IRS. ¿Qué es?
             i_got_notice_4883c_or_5071c_from_the_irs_what:
               answer_html: Los avisos 4883C y 5071C son cartas que el IRS envía si han recibido una declaración de impuestos para usted y les preocupa que pueda ser fraudulenta. Si usted presentó una declaración, tendrá que verificar su identidad, ya sea en línea o por teléfono, de acuerdo con las instrucciones de la carta. Si no presentó una declaración de impuestos, esta carta indica que un defraudador intentó presentar una declaración utilizando sus datos. Debe seguir las instrucciones para denunciar este fraude al IRS, para asegurarse de que sus futuros pagos no se vean afectados negativamente.
@@ -3668,9 +3543,6 @@ es:
               answer_html: El aviso CP09 o CP27 es una carta que el IRS le envía por si pudiera tener derecho al crédito tributario por ingresos del trabajo (EITC) que no hubiera solicitado al hacer la declaración de sus impuestos. Los avisos le piden que confirme algunos datos sobre usted y su hogar para poder pedir el crédito, el cual podría tener un valor de más de $6,000. Debe llenar el aviso fielmente y reenviarlo por correo al IRS.
               question: Recibí el aviso CP09 o CP27 del IRS. ¿Qué es?
             title: Recibí una carta del IRS. ¿Qué significa?
-            why_did_my_spouse_and_i_get_two_different_letters:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para poder solicitar el resto del Crédito Tributario por Hijos en su declaración de impuestos de 2021, tendrá que reportar la cantidad que el IRS le pagó en anticipos - por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o en enero de 2022.
-              question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes (carta 6419) sobre nuestros anticipos del CTC?"
           im_nervous_about_filing_and_claiming_tax_benefits:
             are_tax_credits_considered_in_public_charge_determinations:
               answer_html: No. Los créditos tributarios, incluidos el EITC, el CTC y los pagos de estímulo no se tienen en cuenta en la evaluación de la carga pública.
@@ -3708,14 +3580,7 @@ es:
               answer_html: Sí, las prestaciones por desempleo son ingresos sujetos a impuestos y deben declararse en la declaración de impuestos. El año pasado, el Congreso hizo una excepción y eximió las prestaciones por desempleo de impuestos, pero eso ya no aplica. Tenga en cuenta que los ingresos por desempleo no se consideran ingresos de trabajo a efectos del crédito tributario por ingresos de trabajo.
               question: "¿Se consideran ingresos mis beneficios por desempleo?"
             how_do_i_report_my_income_if_im_selfemployed:
-              answer_html: |
-                <p>Está obligado a declarar impuestos si obtiene más de $400 de<a href="http://getyourrefund.org/faq/income/what_do_you_mean_by_selfemployed" target="_blank" rel="noopener"> ingresos por cuenta propia</a>. Cuando presente su declaración de impuestos, deberá declarar los ingresos por cuenta propia. Los ingresos por trabajo por cuenta propia se declaran en el Anexo C. Este tipo de ingresos puede registrarse de varias maneras:</p>
-                <ul class="list--bulleted">
-                <li>Formulario 1099-NEC (Remuneración de trabajadores autónomos--en inglés, Nonemployee Compensation)</li>
-                <li>Formulario 1099-K (Transacción con tarjeta de pago y red de terceros--en inglés, Payment Card and Third-Party Network Transaction)</li>
-                <li>Controles de la aplicación y registros personales (está obligado a informar de todos los ingresos que ha obtenido, incluso si algunos de ellos no figuran en un formulario de impuestos)</li>
-                </ul>
-                <p>Es importante que lleve un control exhaustivo de todos sus ingresos y gastos si es autónomo, ya que es posible que las empresas o personas con las que trabaja no realicen un seguimiento de los mismos, pero aun así está obligado a declarar los ingresos y gastos en su declaración de impuestos.</p>
+              answer_html: <p>Debe declarar impuestos si gana más de $ 400 en ingresos de trabajo por cuenta propia. Informará los ingresos del trabajo por cuenta propia cuando presente su declaración de impuestos. Este tipo de ingreso puede registrarse de varias maneras, pero comúnmente en:</p><ul class="list--bulleted"><li> Formulario 1099-NEC (Compensación de no empleados)</li><li> Formulario 1099-K (Tarjeta de Pago y Transacción de Red de Terceros)</li><li> Tableros de aplicaciones y registros personales (debe informar todos los ingresos que obtuvo, incluso si algunos de ellos no figuran en un formulario de impuestos)</li></ul><p> Es importante realizar un seguimiento de cerca de todos sus ingresos y gastos si trabaja por cuenta propia porque es posible que las empresas o las personas con las que trabaja no los controlen. Sin embargo, aún debe informar los ingresos y gastos obtenidos a través del trabajo por cuenta propia en su declaración de impuestos.</p>
               question: "¿Cómo declaro mis ingresos si trabajo por cuenta propia?"
             title: Ingresos
             what_do_you_mean_by_selfemployed:
@@ -3738,9 +3603,7 @@ es:
               question: "¿Qué gastos puedo declarar si trabajo por cuenta propia?"
           itin_filing_for_people_without_a_social_security_number:
             how_do_i_get_an_itin:
-              answer_html: |
-                <p>Para obtener un Número de Identificación Personal (ITIN en inglés), tiene que presentar el formulario W-7 junto con su declaración de impuestos federales. Como parte de la solicitud, tendrá que proporcionar una prueba de identidad, utilizando copias originales de sus documentos (casi siempre un pasaporte). Puede enviar estos documentos por correo a la IRS, o solicitarlos en persona a través del IRS o de un "Agente de Aceptación Certificado", que puede examinar sus documentos en nombre del IRS. A veces es mejor solicitarlo en persona para no tener que enviar por correo los documentos originales.</p>
-                <p>Si utiliza <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>, su equipo de impuestos puede ayudarle a completar tanto su W-7 como su declaración de impuestos, y apoyarlo en el proceso de verificación de identidad.</p>
+              answer_html: <p>Para obtener un ITIN, debe presentar el Formulario W-7 junto con su declaración de impuestos federales. Como parte de la solicitud, deberá proporcionar una prueba de identidad, utilizando copias originales de sus documentos (por lo general, un pasaporte y un certificado de nacimiento). Puede enviar estos documentos por correo al IRS o solicitarlos en persona a través del IRS o a través de un "agente de aceptación certificado", que puede examinar y validar la autenticidad de sus documentos en nombre del IRS. A menudo es beneficioso presentar la solicitud en persona para que no tenga que enviar por correo sus documentos originales.</p><p> Si usa GetYourRefund, su equipo de impuestos puede ayudarlo a completar el W-7 y su declaración de impuestos, y brindarle orientación a través del proceso de verificación de identidad. Tenga en cuenta que no todos los equipos de impuestos pueden ayudarlo a solicitar y renovar un ITIN.</p>
               question: "¿Cómo puedo conseguir un Número de Identificación Personal (ITIN en inglés)?"
             if_i_file_my_taxes_can_ice_get_my_data:
               answer_html: |
@@ -3750,15 +3613,8 @@ es:
               question: Si declaro mis impuestos, ¿puede el ICE obtener mis datos?
             title: Solicitud de Número de Identificación Personal (ITIN en inglés) para personas sin número de Seguro Social
             what_is_an_itin_itin_number:
-              answer_html: Número de Identificación Personal (ITIN en inglés) es para las personas que no pueden obtener un Número de Seguro Social, normalmente debido a su estatus migratorio. El ITIN le permitirá aparecer en una declaración de impuestos y recibir beneficios fiscales para usted y su familia.
+              answer_html: Un número de identificación fiscal individual o ITIN es para personas que no son elegibles para obtener un número de seguro social, generalmente debido a su estado migratorio. Obtener un ITIN le permitirá presentar una declaración de impuestos y recibir ciertos beneficios fiscales para usted y su familia. Para solicitar un ITIN, debe haber obtenido ingresos en los EE. UU. para declarar en una declaración de impuestos federal.
               question: ¿Qué es un ITIN ["Número de Identificación Personal  (ITIN en inglés)"] y por qué debo obtenerlo?
-          nonfiler_portal:
-            title: Portal para quienes que no declaran impuestos o "No Declarantes"
-            where_is_the_nonfiler_portal_where_is_getctc:
-              answer_html: |
-                <p>En 2020 y 2021, el "portal para no declarantes" o "herramienta para no declarantes" del IRS permitió a las personas que no acostumbran hacer declaraciones presentar una declaración de impuestos simplificada para solicitar beneficios como los cheques de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
-                <p>Si previamente utilizó una herramienta para no declarantes, puede presentar una declaración de impuestos simplificada hoy utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
-              question: "¿Dónde está el portal para no declarantes? ¿Dónde está GetCTC?"
           paper_filing:
             how_do_i_paper_file:
               answer_html: |
@@ -3791,20 +3647,10 @@ es:
                 <p>Si vive principalmente en Puerto Rico y no tiene ingresos procedentes de fuera de la isla, por lo general tiene que presentar los impuestos ante la agencia tributaria de Puerto Rico (Departamento de Hacienda de Puerto Rico) y <em>no</em> ante el IRS. Algunos residentes de Puerto Rico están obligados a presentar sus declaraciones ante el IRS, por lo que debe consultar detenidamente las reglas para asegurarse de si esto se aplica a usted.</p>
                 <p>Al igual que en el caso de los beneficios fiscales en los 50 estados, si desea declarar un crédito tributario como el crédito tributario (EITC) o el Crédito Tributario por Hijos (CTC), tendrá que presentar una declaración de impuestos para declararlo, aunque diferentes créditos requieren diferentes declaraciones.</p>
               question: "¿Tengo que presentar una declaración de impuestos?"
-            how_do_i_get_the_ctc_in_puerto_rico:
-              answer_html: |
-                <p>Si desea solicitar el Crédito Tributario por Hijos (CTC) tendrá que proporcionar su información al IRS, aunque no tenga que presentar normalmente los impuestos de EE.UU. al IRS. Las instrucciones sobre cómo presentar el formulario 1040-PR para solicitar el crédito están <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">disponibles en el Instituto del Desarrollo de la Juventud</a>.</p>
-                <p>Una regla del IRS ha cambiado recientemente para que pronto pueda solicitar el Crédito Tributario por Hijos en línea en Puerto Rico. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Inscríbase</a> para recibir actualizaciones sobre los servicios de GetCTC para Puerto Rico.</p>
-              question: "¿Cómo puedo obtener el Crédito Tributario por Hijos (CTC) en Puerto Rico?"
             how_do_i_get_the_eitc_in_puerto_rico:
               answer_html: A diferencia del Crédito Tributario por Hijos(CTC), el Earned Income crédito tributario (EITC) en Puerto Rico es administrado por el Departamento de Hacienda de Puerto Rico, no por el IRS. Para declarar el EITC, tendrá que presentar una declaración de impuestos de Puerto Rico ante el Departamento.
               question: "¿Cómo puedo obtener el EITC en Puerto Rico?"
             title: Puerto Rico
-            what_payments_am_i_eligible_for:
-              answer_html: |
-                <p>Si usted vive en Puerto Rico, es probable que este año tenga derecho al Crédito Tributario por Hijos (CTC) por primera vez. Eso significa que, al igual que las familias de los cincuenta estados, puede obtener hasta $3,600 por niño menor de 6 años, y $3,000 por niño de 6-17 años.</p>
-                <p>Si trabaja y obtiene ingresos, también puede tener derecho al EITC de Puerto Rico, de hasta $2,000. El crédito tributario por Ingreso de trabajo de Puerto Rico (EITC) es administrado por el Departamento de Hacienda de Puerto Rico, y no por el IRS.</p>
-              question: "¿A qué pagos tengo derecho?"
           return_rejection_next_steps:
             the_irs_says_i_already_filed_what_do_i_do:
               answer_html: |
@@ -3822,10 +3668,7 @@ es:
               question: El IRS dice que alguien declaró a mi hijo. ¿Qué hago ahora?
             title: Declaración Denegada Próximos Pasos
             what_is_agi_and_how_do_i_find_it:
-              answer_html: |
-                <p>AGI son las siglas en inglés de "Adjusted Gross Income" o ingreso bruto ajustado. Si presenta su propia declaración electrónicamente, tendrá que proporcionar el AGI que declaró en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que usted es quien dice ser. Si presentó una declaración de impuestos el año pasado, debe poder encontrar su AGI en la línea 11 de su declaración de impuestos.</p>
-                <p>Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o software que le ayudó a presentar la declaración de impuestos. Si sigue sin poder conseguir una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos al IRS en su página <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">Get Transcript</a>.</p>
-                <p>Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2020. Si utilizó la herramienta para no declarantes del IRS o GetCTC en 2021, ingrese $1 como su AGI para 2020.</p>
+              answer_html: "<p>AGI significa Ingreso Bruto Ajustado. Si presenta electrónicamente su propia declaración, deberá proporcionar el AGI que informó en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que es quien dice ser. Si presentó una declaración de impuestos el año pasado, debería poder encontrar su AGI en la línea 11 de su declaración de impuestos.</p><p> Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o software que lo ayudó a presentar la declaración de impuestos. Si aún no puede obtener una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos del IRS en su página Obtener transcripción.</p><p> Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2022. Si utilizó nuestra herramienta GetCTC el año pasado, ingrese $1 como su AGI para 2021.</p>"
               question: "¿Qué es el AGI y cómo lo encuentro?"
             what_is_an_ip_pin_and_how_do_i_find:
               answer_html: |
@@ -3866,12 +3709,10 @@ es:
               question: Soy menor de 19 años. ¿Necesito declarar impuestos?
             title: "¿Necesito declarar impuestos?"
             what_are_the_potential_benefits_of_filing_a_tax_return:
-              answer_html: |
+              answer_html: |-
                 <p>Incluso si gana poco o ningún ingreso y no está obligado a presentar una declaración de impuestos, es probable que califique para pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que califique para los pagos si tiene hijos. Para reclamar este dinero, debe presentar una declaración de impuestos.</p>
                 <p>Presentando una declaración de impuestos también puede servir como documentación útil al solicitar otros beneficios, como ayuda financiera para la universidad o un préstamo hipotecario.</p>
                 <p>Puede presentar una declaración de impuestos completa y reclamar todos los beneficios tributarios relevantes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>.</p>
-
-                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada), entonces puede optar por esperar y presentar una declaración simplificada para reclamar solo el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo (EITC) y el tercer pago de estímulo utilizando <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -3891,18 +3732,10 @@ es:
             can_i_get_tax_credits_from_my_state:
               answer_html: Muchos estados tienen sus propios créditos fiscales, similares al crédito tributario por ingreso del trabajo (EITC), al Crédito Tributario por Hijos (CTC) y a las rebajas de calefacción y alquiler. A partir de este año, 30 estados, el Distrito de Columbia, Guam, Puerto Rico y algunos municipios tienen su propio EITC. Para declarar estos créditos, es necesario presentar una declaración estatal o local.
               question: "¿Puedo obtener créditos fiscales de mi estado?"
-            do_i_have_to_file_a_state_return_if_i:
-              answer_html: |
-                <p>Por lo general, muchos estados exigen que se presente una declaración de impuestos estatal además de la declaración de impuestos federal. Si llena un formulario para no declarantes (como GetCTC o un portal para no declarantes con el IRS), entonces podría no tener que presentar una declaración estatal, pero las leyes estatales varían, por lo que debe verificar nuevamente las reglas de su estado.</p>
-                <p>Muchos estados tienen sus propios créditos fiscales similares al crédito tributario por ingreso del trabajo (EITC), al Crédito Tributario por Hijos y a los reembolsos por calefacción y alquiler. Lo más fácil es presentar la declaración de impuestos del estado al mismo tiempo que la declaración de impuestos federales, si le es posible. Puede encontrar instrucciones y recursos específicos del estado en el sitio web del Departamento de Hacienda de su estado.</p>
-              question: "¿Tengo que presentar una declaración estatal si he presentado un formulario de no declarante?"
             title: Devoluciones estatales del IRS
           stimulus:
             how_do_i_get_the_stimulus_payments:
-              answer_html: |
-                <p>Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado recientemente sus declaraciones de impuestos, o que estaban inscritas en ciertos programas federales. Si no ha recibido ningún de los tres pagos de estímulo, tendrá que presentar una declaración de impuestos para declarar la cantidad que ha perdido. Los pagos de estímulo que le faltan se denominan Crédito de Reembolso por Recuperación, "Recovery Rebate Credit" en inglés.</p>
-                <p>Para declarar la totalidad o parte de su tercer pago de estímulo, necesita presentar una declaración de impuestos para 2021. Puede presentarla gratuitamente utilizando cualquier de nuestros servicios en <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>.</p>
-                <p>Para reclamar la totalidad o parte de su primer o segundo pago de estímulo, tiene que presentar una declaración de impuestos para 2020. Puede comprobar su derecho a presentar los impuestos atrasados de forma gratuita usando <a href="https://www.getyourrefund.org/questions/backtaxes" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+              answer_html: Consulte "¿Qué es un pago de impacto económico" y "¿Qué es un crédito de reembolso de recuperación?" para obtener información sobre los pagos de estímulo en 2022.
               question: "¿Cómo obtengo los pagos de estímulo?"
             how_many_stimulus_payments_were_there:
               answer_html: |
@@ -3914,22 +3747,18 @@ es:
               question: "¿Cuántos pagos de estímulo hubo?"
             title: Preguntas sobre los pagos de estímulo
             what_is_the_economic_impact_payment:
-              answer_html: El Pago por Impacto Económico o "Economic Impact Payment" en inglés es el nombre oficial de los pagos de estímulo. El primer pago se denomina a veces EIP1, el segundo EIP2 y el tercero EIP3.
+              answer_html: "<p>Pago de impacto económico (también conocido como EIP) es el nombre oficial de los pagos de estímulo que se emitieron en 2020 y 2021. El primer pago a veces se denomina EIP1, el segundo como EIP2 y el tercero como EIP3. No se emitieron pagos de EIP/estímulo en 2022, por lo que no puede reclamar ningún pago faltante en su declaración de impuestos de 2022.</p><p> Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, deberá presentar una declaración de impuestos para el año en que no lo recibió. Nuestros socios pueden ayudarlo a presentar una declaración del año anterior, ¡solo pregunte!</p>"
               question: ¿Qué es el Pago por impacto económico o "Economic Impact Payment" en inglés?
             what_is_the_recovery_rebate_credit:
-              answer_html: |
-                <p>El Crédito de Reembolso por Recuperación, "Recovery Rebate Credit" en inglés, es cualquier parte de los pagos de estímulo que usted declara en una declaración de impuestos.</p>
-                <p>Por ejemplo, si debería haber recibido $2800 del tercer pago pero sólo recibió $1400 en pagos automáticos el año pasado, podría declarar $1400 adicionales en su declaración de impuestos de este año como Crédito de Reembolso por Recuperación.</p>
+              answer_html: "<p>El Crédito de reembolso de recuperación (RRC, por sus siglas en inglés) fue un pago de estímulo en 2021 (y a veces también se lo denomina tercer pago de impacto económico o EIP3). Dado que el gobierno no emitió ningún pago de estímulo en 2022, no puede reclamar RRC/EIP en su declaración de impuestos de 2022.</p><p> Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, deberá presentar una declaración de impuestos para el año en que no lo recibió. Nuestros socios pueden ayudarlo a presentar una declaración del año anterior, ¡solo pregunte!</p>"
               question: ¿Qué es el Crédito de Reembolso por Recuperación o "Recovery Rebate Credit" en inglés?
             will_there_be_another_stimulus_payment:
               answer_html: En este momento, no hay pagos de estímulo adicionales programados.
               question: "¿Habrá otro pago de estímulo?"
           where_are_my_payments:
             how_do_i_check_the_status_of_my_payments:
-              answer_html: |
-                <p>Puede revisar el estado de su reembolso en <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">Where's My Refund</a>, 24 horas después de que sea aceptado por el IRS electrónicamente. Para verificar su información, se le pedirá que proporcione su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN en inglés), el estado de la declaración y la cantidad exacta del reembolso federal que se encuentra en la línea 35a de su declaración de impuestos federales.</p>
-                <p>Tenga en cuenta que este sitio del IRS sólo le permite llevar a cabo el seguimiento el estado de su reembolso federal de 2021.</p>
-              question: "¿Cómo puedo revisar el estado de mis pagos?"
+              answer_html: <p>Puede verificar el estado de su reembolso en <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">¿Dónde está mi reembolso</a> ? del IRS 24 horas después de que el IRS lo acepte electrónicamente. Para verificar su información, se le pedirá que proporcione su Número de Seguro Social (SSN) o Número de Identificación Personal del Contribuyente (ITIN), estado civil y monto exacto del reembolso federal que se encuentra en la Línea 35a de su declaración de impuestos federales.</p><p> Tenga en cuenta que este sitio del IRS le permite realizar un seguimiento del estado de sus reembolsos federales de 2022, 2021 y 2020.</p><p> No puede utilizar esta herramienta del IRS para realizar un seguimiento de las declaraciones que se presentaron en papel (enviadas por correo al IRS).</p><p> Si enmendó su declaración de impuestos, deberá usar la herramienta <a href="https://www.irs.gov/filing/wheres-my-amended-return" target="_blank" rel="noopener">¿Dónde está mi declaración enmendada</a> ? del IRS.</p>
+              question: "¿Cómo puedo revisar el estado de mi reembolso?"
             how_do_i_log_into_my_account_on_the_irs_website:
               answer_html: |
                 <p>La creación e inicio de sesión en su cuenta del IRS puede ayudarle a acceder a información importante necesaria para presentar una declaración de impuestos precisa este año, incluyendo la cantidad del Crédito Tributario por Hijos, o los pagos por estímulo recibidos. Puede ser un reto verificar su identidad para crear una cuenta del IRS. Para verificar su identidad necesitará una dirección de correo electrónico, su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN), una identificación con foto (licencia de conducir, identificación estatal, pasaporte o tarjeta de pasaporte) y un teléfono móvil con cámara o una computadora portátil/computadora de escritorio con cámara web.</p>
@@ -3952,13 +3781,11 @@ es:
             title: "¿Dónde están mis pagos?"
           who_should_i_include_on_my_tax_return:
             can_i_claim_my_parent:
-              answer_html: |
-                <p>En algunos casos, se puede declarar a un padre como dependiente en su declaración de impuestos. Por lo general, para poder declarar a un padre, éste tendría que haber ganado menos de $4,300 en 2021 y usted tendría que haber pagado al menos la mitad de sus gastos de manutención.</p>
-                <p>Declarar a un padre no le dará derecho al Crédito Tributario por Hijos (CTC), ni a un crédito tributario por ingreso de trabajo (EITC) adicional. Declarar a un padre podría aumentar su Crédito de Recuperación de Reembolso  (RRC) por falta de pagos por estímulo.</p>
+              answer_html: "<p>En algunos casos, puede reclamar a su padre como dependiente en su declaración de impuestos. En general, para reclamar a sus padres, deben haber ganado menos de $4,400 en 2022 y usted debe pagar al menos la mitad de sus gastos de manutención.</p><p> Reclamar a su padre no lo calificará para el Crédito Tributario por Hijos (CTC) o para el Crédito Tributario por Ingreso del Trabajo (EITC).</p>"
               question: "¿Puedo declarar a mi padre o a mi madre?"
             title: "¿A quién debo incluir en mi declaración de impuestos?"
             what_are_the_benefits_of_claiming_a_child_on_my:
-              answer_html: Dependiendo de su situación, podría obtener hasta unos $10,000 por cada hijo que pueda declarar en su declaración de impuestos. Al declarar a los niños en sus impuestos, podría establecer la elegibilidad para el Crédito Tributario por Hijos, y aumentar la cantidad de su crédito tributario por ingreso del trabajo (EITC) y su Crédito de Reembolso por Recuperación (RRC - también conocido como el tercer cheque por estímulo, a partir de 2021).
+              answer_html: "<p>Dependiendo de su situación, podría obtener beneficios adicionales por cada niño que sea elegible para reclamar en su declaración de impuestos. Cuando reclama hijos en sus impuestos, puede establecer la elegibilidad para el Crédito Tributario por Hijos (CTC) y aumentar la cantidad de su Crédito Tributario por Ingreso del Trabajo (EITC).</p><p> Puede reclamar estos créditos presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>"
               question: "¿Qué ventajas tiene declarar a un hijo en mi declaración de impuestos?"
             what_should_i_do_if_i_was_claimed_as_a:
               answer_html: |

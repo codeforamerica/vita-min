@@ -8,23 +8,11 @@ class FaqController < ApplicationController
       :what_is_the_recovery_rebate_credit
     ],
     child_tax_credit: [
-      :what_is_the_child_tax_credit_ctc,
-      :is_the_child_tax_credit_ctc_going_away,
-      :how_do_i_get_my_child_tax_credit_ctc_payments,
-      :do_i_have_to_report_my_advanced_child_tax_credit,
-      :what_do_i_do_if_someone_else_has_claimed_my,
-      :what_if_i_dont_have_any_income_or_only_income,
-      :i_got_letter_6419_from_the_irs_what_is_it,
       :how_much_is_the_child_tax_credit_in_2022,
-      :do_i_qualify_for_the_child_tax_credit_ctc,
       :i_was_getting_child_tax_credit_monthly_payments_in_2021,
-      :how_do_i_get_the_child_tax_credit_if_i,
-      :how_do_i_claim_child_tax_credit_for_a_baby_in_2021,
-      :how_do_i_claim_child_tax_credit_for_a_baby_in_2022,
+      :how_do_i_claim_child_tax_credit_for_a_baby_in_2023,
       :am_i_eligible_for_child_tax_credit_if_i_dont,
       :i_owe_back_child_support_can_i_still_get_all,
-      :i_have_student_debt_can_i_still_get_all_of,
-      :what_is_the_child_tax_credit_update_portal_ctc_up,
       :why_did_my_spouse_and_i_get_two_different_letters,
     ],
     who_should_i_include_on_my_tax_return: [
@@ -43,13 +31,9 @@ class FaqController < ApplicationController
     ],
     i_got_a_letter_from_the_irs: [
       :i_got_letter_6419_from_the_irs_what_is_it,
-      :why_did_my_spouse_and_i_get_two_different_letters,
       :i_got_letter_6475_or_1444c_from_the_irs_what,
       :i_got_notice_cp09_or_cp27_from_the_irs_what,
       :i_got_notice_4883c_or_5071c_from_the_irs_what,
-    ],
-    nonfiler_portal: [
-      :where_is_the_nonfiler_portal_where_is_getctc,
     ],
     im_nervous_about_filing_and_claiming_tax_benefits: [
       :what_do_i_do_if_im_audited_by_the_irs,
@@ -81,7 +65,6 @@ class FaqController < ApplicationController
     how_does_getyourrefund_work: [
       :what_is_getyourrefund_deluxe_and_how_does_it_work,
       :what_is_file_myself_and_how_does_it_work,
-      :what_is_getyourrefund_express_and_how_does_it_work, # Retaining Feb 2022 'express' name for now; see TriageGyrExpressController for history.
     ],
     should_i_file_a_tax_return: [
       :what_are_the_potential_benefits_of_filing_a_tax_return,
@@ -110,21 +93,17 @@ class FaqController < ApplicationController
     ],
     child_and_dependent_care_credit: [
       :what_is_the_child_and_dependent_care_credit,
-      :how_has_the_child_and_dependent_care_credit_changed,
       :how_do_i_get_the_child_and_dependent_care_credit,
     ],
     state_returns: [
-      :do_i_have_to_file_a_state_return_if_i,
       :can_i_get_tax_credits_from_my_state,
       :can_i_get_tax_credits_from_california,
     ],
     puerto_rico: [
       :do_i_have_to_file_a_tax_return,
-      :what_payments_am_i_eligible_for,
-      :how_do_i_get_the_ctc_in_puerto_rico,
       :how_do_i_get_the_eitc_in_puerto_rico,
     ]
-  }
+  }.freeze
 
   skip_before_action :check_maintenance_mode
 
