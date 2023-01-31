@@ -16,6 +16,8 @@ describe RemoveUnconsentedClientsJob do
       let!(:old_unconsented_ctc_intake_with_docs_doc) { create(:document, intake: old_unconsented_ctc_intake_with_docs, client: old_unconsented_ctc_intake_with_docs.client) }
 
       it 'deletes clients where primary has not consented were created more than 2 days ago' do
+        SearchIndexer.refresh_filterable_properties(Client.all)
+
         expect(Intake.all.map(&:id)).to match_array([
                                                       old_unconsented_gyr_intake,
                                                       old_unconsented_ctc_intake,
