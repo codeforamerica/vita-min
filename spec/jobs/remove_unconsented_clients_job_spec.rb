@@ -32,23 +32,23 @@ describe RemoveUnconsentedClientsJob do
         expect(Intake.all.map(&:id)).to match_array([new_unconsented_ctc_intake, old_consented_gyr_intake, old_unconsented_ctc_intake_with_message, old_unconsented_ctc_intake_with_docs].map(&:id))
 
         expect(AbandonedPreConsentIntake.pluck('id')).to match_array([old_unconsented_gyr_intake, old_unconsented_ctc_intake].map(&:id))
-        expect(AbandonedPreConsentIntake.find_by(id: old_unconsented_ctc_intake.id).attributes).to match hash_including(
-                                                                                                           'client_id' => old_unconsented_ctc_intake.client_id,
-                                                                                                           'intake_type' => 'Intake::CtcIntake',
-                                                                                                           'source' => 'llama'
-                                                                                                         )
+        expect(AbandonedPreConsentIntake.find_by(id: old_unconsented_ctc_intake.id).attributes).to include_hash(
+                                                                                                     'client_id' => old_unconsented_ctc_intake.client_id,
+                                                                                                     'intake_type' => 'Intake::CtcIntake',
+                                                                                                     'source' => 'llama'
+                                                                                                   )
 
-        expect(AbandonedPreConsentIntake.find_by(id: old_unconsented_gyr_intake.id).attributes).to match hash_including(
-                                                                                                        'client_id' => old_unconsented_gyr_intake.client_id,
-                                                                                                        'visitor_id' => old_unconsented_gyr_intake.visitor_id,
-                                                                                                        'referrer' => old_unconsented_gyr_intake.referrer,
-                                                                                                        'triage_filing_frequency' => old_unconsented_gyr_intake.triage_filing_frequency,
-                                                                                                        'triage_filing_status' => old_unconsented_gyr_intake.triage_filing_status,
-                                                                                                        'triage_income_level' => old_unconsented_gyr_intake.triage_income_level,
-                                                                                                        'triage_vita_income_ineligible' => old_unconsented_gyr_intake.triage_vita_income_ineligible,
-                                                                                                        'intake_type' => 'Intake::GyrIntake',
-                                                                                                        'source' => 'giraffe'
-                                                                                                      )
+        expect(AbandonedPreConsentIntake.find_by(id: old_unconsented_gyr_intake.id).attributes).to include_hash(
+                                                                                                     'client_id' => old_unconsented_gyr_intake.client_id,
+                                                                                                     'visitor_id' => old_unconsented_gyr_intake.visitor_id,
+                                                                                                     'referrer' => old_unconsented_gyr_intake.referrer,
+                                                                                                     'triage_filing_frequency' => old_unconsented_gyr_intake.triage_filing_frequency,
+                                                                                                     'triage_filing_status' => old_unconsented_gyr_intake.triage_filing_status,
+                                                                                                     'triage_income_level' => old_unconsented_gyr_intake.triage_income_level,
+                                                                                                     'triage_vita_income_ineligible' => old_unconsented_gyr_intake.triage_vita_income_ineligible,
+                                                                                                     'intake_type' => 'Intake::GyrIntake',
+                                                                                                     'source' => 'giraffe'
+                                                                                                   )
 
         # Oldschool archived clients/intakes are not deleted at this time
         expect(archived_intake.reload).to be
