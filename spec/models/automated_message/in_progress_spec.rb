@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe AutomatedMessage::InProgress do
   describe ".clients_to_message" do
-    let(:expected_send_time) { 31.minutes.from_now }
     let(:status) { :intake_in_progress }
     let(:in_progress_survey_sent_at) { nil }
+    let(:consented_to_service_at) { 30.minutes.ago }
     let!(:client) do
       (
         create :gyr_tax_return,
@@ -13,6 +13,7 @@ RSpec.describe AutomatedMessage::InProgress do
                  create(
                    :client,
                    in_progress_survey_sent_at: in_progress_survey_sent_at,
+                   consented_to_service_at: consented_to_service_at,
                    intake: create(:intake, primary_consented_to_service: "yes")
                  )
       ).client
@@ -21,15 +22,16 @@ RSpec.describe AutomatedMessage::InProgress do
     context "clients who should get the message" do
       context "who has had tax returns in 'intake_in_progress' and has been created at least half an hour ago" do
         context "who has not received a message before" do
+          let(:consented_to_service_at) { 30.minutes.ago }
           it "includes the client" do
-            expect(described_class.clients_to_message(expected_send_time)).to include(client)
+            expect(described_class.clients_to_message(Time.current)).to include(client)
           end
         end
         
         context "who has received a message before" do
           let(:in_progress_survey_sent_at) { 7.minutes.ago }
           it "does not includes the client" do
-            expect(described_class.clients_to_message(expected_send_time)).not_to include(client)
+            expect(described_class.clients_to_message(Time.current)).not_to include(client)
           end
         end
       end
@@ -39,16 +41,24 @@ RSpec.describe AutomatedMessage::InProgress do
       context "who has no tax returns in 'intake_in_progress'" do
         let(:status) { :intake_ready }
         it "does not includes the client" do
-          expect(described_class.clients_to_message(expected_send_time)).to be_empty
+          expect(described_class.clients_to_message(Time.current)).to be_empty
         end
       end
 
       context "who has had tax returns in 'intake_in_progress' and has been created at most half an hour ago" do
-        let(:expected_send_time) { 5.minutes.from_now }
+        let(:consented_to_service_at) { 5.minutes.ago }
         context "who has received a message before" do
           it "does not includes the client" do
-            expect(described_class.clients_to_message(expected_send_time)).to be_empty
+            expect(described_class.clients_to_message(Time.current)).to be_empty
           end
+        end
+      end
+
+      context "who has consented for more than a day ago" do
+        let(:consented_to_service_at) { 25.hours.ago }
+
+        it "does not include the client" do
+          expect(described_class.clients_to_message(Time.current)).to be_empty
         end
       end
     end
