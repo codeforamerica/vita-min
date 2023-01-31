@@ -145,12 +145,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{current_tax_year}?")
     click_on "No"
 
-    # Related to dependents
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any child or dependent care expenses?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you adopt a child?")
-    click_on "No"
-
     # Students
     expect(page).to have_selector("h1", text: "In #{current_tax_year}, was someone in your family a college or other post high school student?")
     click_on "Yes"

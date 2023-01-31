@@ -4,6 +4,10 @@ module Questions
 
     layout "yes_no_question"
 
+    def self.show?(intake)
+      intake.job_count&.> 0
+    end
+
     def edit
       @assumed_state_of_residency = States.name_for_key(current_intake.state)
       super
