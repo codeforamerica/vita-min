@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_26_194012) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_225607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -19,8 +19,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_194012) do
   create_table "abandoned_pre_consent_intakes", force: :cascade do |t|
     t.bigint "client_id"
     t.datetime "created_at", null: false
+    t.string "intake_type"
+    t.string "referrer"
     t.string "source"
+    t.integer "triage_filing_frequency"
+    t.integer "triage_filing_status"
+    t.integer "triage_income_level"
+    t.integer "triage_vita_income_ineligible"
     t.datetime "updated_at", null: false
+    t.string "visitor_id"
   end
 
   create_table "accepted_tax_return_analytics", force: :cascade do |t|
