@@ -10,7 +10,12 @@ module Portal
       @ask_for_answers = ask_for_answers?
       @itin_filer_ready_to_mail = current_intake.itin_applicant? && current_intake.tax_returns.any? { |tr| tr.current_state == 'file_mailed' }
       @can_submit_additional_documents = !@itin_filer_ready_to_mail
-      @current_step = current_intake.current_step if ask_for_answers?
+      if ask_for_answers?
+        @current_step = current_intake.current_step
+        if @current_step.in?(Questions::AtCapacityController.all_localized_paths)
+          @current_step = Questions::ConsentController.to_path_helper
+        end
+      end
       @document_count = current_client.documents.where(uploaded_by: current_client).count
       @tax_returns = show_tax_returns? ? current_client.tax_returns.order(year: :desc) : []
     end
