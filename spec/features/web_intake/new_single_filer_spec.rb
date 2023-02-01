@@ -145,12 +145,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{current_tax_year}?")
     click_on "No"
 
-    # Related to dependents
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any child or dependent care expenses?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you adopt a child?")
-    click_on "No"
-
     # Students
     expect(page).to have_selector("h1", text: "In #{current_tax_year}, was someone in your family a college or other post high school student?")
     click_on "Yes"
@@ -204,19 +198,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Itemizing
     expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{current_tax_year}?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any medical, dental, or prescription expenses?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you make any charitable contributions?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have any income from gambling winnings, including the lottery?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any state, local, real estate, sales, or other taxes?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive a state or local income tax refund?")
-    click_on "Yes"
 
     # Related to home ownership
     expect(page).to have_selector("h1", text: "Have you ever owned a home?")

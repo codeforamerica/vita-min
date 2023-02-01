@@ -293,6 +293,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Yes"
 
     # Income from working
+
+    # check that other states page doesn't show when job count is 0
+    select "No jobs", from: "In #{current_tax_year}, how many jobs did you or your spouse have?"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in #{current_tax_year}")
+    click_on "Go back"
+
     screenshot_after do
       select "3 jobs", from: "In #{current_tax_year}, how many jobs did you or your spouse have?"
     end
@@ -368,7 +375,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{current_tax_year}?")
     end
-    click_on "I don't know"
+    click_on "Yes"
     screenshot_after do
       expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse pay any medical, dental, or prescription expenses?")
     end
