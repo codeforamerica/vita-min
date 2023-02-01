@@ -3045,6 +3045,7 @@ en:
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
             eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim additional money with the EITC, you will need your W-2(s) from your employer.
         title: Claim Your Child Tax Credit
+        ctc_not_extended_notice: The Child Tax Credit was a tax benefit provided to families in 2021 and 2022 and was not renewed for 2023.
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
           heading: Most families can get thousands of dollars from the Child Tax Credit
