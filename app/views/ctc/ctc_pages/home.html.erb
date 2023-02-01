@@ -15,20 +15,16 @@
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.title") %>
         </h1>
-        <% unless open_for_ctc_intake? %>
-          <p>
-            <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
-          </p>
+        <p><%= link_to t("views.ctc_pages.home.sign_in_for_old_forms"), new_ctc_portal_client_login_path, id: "firstCta" %></p>
+        <% if open_for_ctc_intake? %>
+          <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
+          <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
         <% end %>
-          <% if open_for_ctc_intake? %>
-            <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
-            <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
-          <% end %>
         <div>
           <% if open_for_ctc_intake? %>
-            <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+            <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
-            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
+            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, class: "button button--primary" %>
           <% end %>
         </div>
         <% if open_for_ctc_login? %>

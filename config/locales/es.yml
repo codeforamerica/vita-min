@@ -3036,6 +3036,7 @@ es:
           eitc_on_html: <strong>¿Es usted un socio comunitario que ayuda a otra persona a acceder al CTC o al EITC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
+        sign_in_for_old_forms: Inicie sesión aquí para ver sus formularios de Crédito fiscal por hijos de 2021.
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim:
