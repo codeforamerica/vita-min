@@ -1,5 +1,6 @@
 class SurveySender
   def self.send_survey(client, message_class)
+    return if client.intake.nil?
     best_contact_method = ClientMessagingService.contact_methods(client).keys.first
     return if best_contact_method.blank?
 

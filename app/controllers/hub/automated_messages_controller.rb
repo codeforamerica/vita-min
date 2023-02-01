@@ -31,7 +31,8 @@ module Hub
         [AutomatedMessage::Ctc2022OpenMessage, {}],
         [AutomatedMessage::PuertoRicoOpenMessage, {}],
         [AutomatedMessage::IntercomForwarding, {}],
-        [AutomatedMessage::UnmonitoredReplies, {}]
+        [AutomatedMessage::UnmonitoredReplies, {}],
+        [AutomatedMessage::InProgress, {}],
       ]
 
       @messages = messages.map do |message|

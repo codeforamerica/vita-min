@@ -1395,6 +1395,30 @@ es:
         body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
         subject: La información ha enviado está en espera por ahora
       sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+    in_progress:
+      email:
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          ¡Su información fiscal se ha enviado correctamente! **Su ID de cliente es <<Client.ClientId>>.** Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+
+          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
+
+          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+
+          Si tiene alguna pregunta, responda a este mensaje.
+
+          ¡Estamos aquí para ayudar!
+
+          Su equipo de impuestos en GetYourRefund.org
+        subject: 'Bienvenido a GetYourRefund: ID de cliente'
+      sms:
+        body: |
+          Hola <<Client.PreferredName>>, Su información fiscal se envió con éxito a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje.
+
+          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
+
+          Su equipo de impuestos en GetYourRefund.org
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
