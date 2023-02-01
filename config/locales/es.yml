@@ -3045,7 +3045,7 @@ es:
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
-        title: Reclame su Crédito Tributario por Hijos
+        title: Una herramienta para reclamar el Child Tax Credit
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
           heading: La mayoría de las familias pueden obtener miles de dólares del Crédito Tributario por Hijos
