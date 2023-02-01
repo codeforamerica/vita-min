@@ -19,19 +19,33 @@ RSpec.describe AutomatedMessage::InProgress do
       ).client
     end
 
+    let!(:ctc_client_that_will_never_be_included) do
+      (
+        create :ctc_tax_return,
+               status,
+               client:
+                 create(
+                   :client,
+                   in_progress_survey_sent_at: in_progress_survey_sent_at,
+                   consented_to_service_at: consented_to_service_at,
+                   intake: create(:ctc_intake, primary_consented_to_service: "yes")
+                 )
+      ).client
+    end
+
     context "clients who should get the message" do
       context "who has had tax returns in 'intake_in_progress' and has been created at least half an hour ago" do
         context "who has not received a message before" do
           let(:consented_to_service_at) { 30.minutes.ago }
           it "includes the client" do
-            expect(described_class.clients_to_message(Time.current)).to include(client)
+            expect(described_class.clients_to_message(Time.current)).to match_array([client])
           end
         end
         
         context "who has received a message before" do
           let(:in_progress_survey_sent_at) { 7.minutes.ago }
           it "does not includes the client" do
-            expect(described_class.clients_to_message(Time.current)).not_to include(client)
+            expect(described_class.clients_to_message(Time.current)).to be_empty
           end
         end
       end
