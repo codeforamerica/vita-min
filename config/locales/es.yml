@@ -1400,11 +1400,9 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal se ha enviado correctamente! **Su ID de cliente es <<Client.ClientId>>.** Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+          Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Continúe donde lo dejó aquí <<Client.LoginLink>>
 
-          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
-
-          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+          <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
 
           Si tiene alguna pregunta, responda a este mensaje.
 
@@ -1414,9 +1412,7 @@ es:
         subject: 'Bienvenido a GetYourRefund: ID de cliente'
       sms:
         body: |
-          Hola <<Client.PreferredName>>, Su información fiscal se envió con éxito a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje.
-
-          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
+          Hola <<Client.PreferredName>>, no ha completado la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúa donde lo dejaste aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje. Si tiene alguna pregunta, responda a este mensaje.
 
           Su equipo de impuestos en GetYourRefund.org
     intercom_forwarding:
