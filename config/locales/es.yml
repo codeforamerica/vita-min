@@ -2951,7 +2951,6 @@ es:
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         closing_date: GetCTC permanecerá cerrado el 15 de noviembre.
         closing_date_not_open: GetCTC se encuentra por ahora cerrado por motivo de la temporada.
-        closing_soon_banner: Comience con GetCTC antes del 15 de noviembre para reclamar sus beneficios tributarios en 2022.
         closing_warning: "¡Presente su declaración hoy para solicitar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que solicitar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
@@ -3029,6 +3028,7 @@ es:
           will_it_affect_my_immigration_status:
             answer_html: No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
+        ctc_not_extended_notice: El Child Tax Credit fue un beneficio fiscal proporcionado a las familias en 2021 y 2022 y no se renovó para 2023.
         get_started: Empezar
         get_your_refund_link: Obtenga más información sobre la declaración de impuestos gratuita con GetYourRefund
         navigator_resources:
