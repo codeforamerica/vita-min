@@ -2948,6 +2948,7 @@ en:
           cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
           irs: IRS-approved official E-file provider.
           white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
+        body: For questions or help filing your taxes visit GetYourRefund. If you haven't filed yet this year, you might be eligible to claim cash benefits.
         closing_date: GetCTC will close on November 15.
         closing_date_not_open: GetCTC is currently closed for the season.
         closing_warning: File today to claim your advance Child Tax Credit and missed stimulus payments! If you miss this deadline, you will need to claim your full Child Tax Credit when you file taxes in early 2022.
@@ -3029,7 +3030,6 @@ en:
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         ctc_not_extended_notice: The Child Tax Credit was a tax benefit provided to families in 2021 and 2022 and was not renewed for 2023.
         get_started: Get Started
-        visit_gyr: Visit GetYourRefund
         navigator_resources:
           eitc_off_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
           eitc_on_html: <strong>Are you a community partner helping someone else access the CTC or EITC?</strong> <br>Visit our <a href="%{navigators_link}">resource page</a> for navigators.
@@ -3046,7 +3046,7 @@ en:
             eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
             eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim additional money with the EITC, you will need your W-2(s) from your employer.
         title: A tool to claim the Child Tax Credit
-        body: For questions or help filing your taxes visit GetYourRefund. If you haven't filed yet this year, you might be eligible to claim cash benefits.
+        visit_gyr: Visit GetYourRefund
         what_is:
           body: Putting cash in your family’s pocket for the things you need, even if you make little or no money.
           heading: Most families can get thousands of dollars from the Child Tax Credit
