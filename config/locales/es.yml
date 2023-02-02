@@ -4420,7 +4420,7 @@ es:
           one: En %{year}, ¿realizó algún pago de pensión alimenticia?
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
-        info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"
@@ -4559,11 +4559,7 @@ es:
         verification_code_label: Ingrese el código de 6 dígitos
         verify: Verifique
       welcome:
-        find_right_service: "¡Le haremos algunas preguntas para encontrar el mejor servicio para usted!"
-        help_text: 'Le brindamos opciones múltiples para presentar su declaración de impuestos a hogares que califiquen:'
-        list:
-          diy_html: "<strong>File Myself</strong> Una opción rápida en línea le permite presentar y cobrar créditos fiscales por su cuenta."
-          gyr_html: "<strong>GetYourRefund</strong> Nuestros especialistas en impuestos certificados lo ayudarán a presentar y recoger todos los créditos tributarios que se le deben."
+        content: GetYourRefund es un servicio virtual disponible para los hogares que califican. Le haremos algunas preguntas para encontrar la opción adecuada para usted.
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
