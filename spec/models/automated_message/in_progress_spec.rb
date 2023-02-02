@@ -36,7 +36,6 @@ RSpec.describe AutomatedMessage::InProgress do
     context "clients who should get the message" do
       context "who has had tax returns in 'intake_in_progress' and has been created at least half an hour ago" do
         context "who has not received a message before" do
-          let(:consented_to_service_at) { 30.minutes.ago }
           it "includes the client" do
             expect(described_class.clients_to_message(Time.current)).to match_array([client])
           end
@@ -47,6 +46,14 @@ RSpec.describe AutomatedMessage::InProgress do
           it "does not includes the client" do
             expect(described_class.clients_to_message(Time.current)).to be_empty
           end
+        end
+      end
+
+      context "who has had tax returns in 'intake_needs_doc_help' and has been created at least half an hour ago" do
+        let(:status) { :intake_needs_doc_help }
+
+        it "includes the client" do
+          expect(described_class.clients_to_message(Time.current)).to match_array([client])
         end
       end
     end
