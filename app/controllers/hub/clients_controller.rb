@@ -247,7 +247,10 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = client.intake
-        unless @intake
+        if @intake.present? && @intake.product_year != Rails.configuration.product_year
+          @archived = true
+        end
+        if @intake.blank?
           @intake = Archived::Intake2021.find_by(client_id: @client.id)
           @archived = true if @intake
         end

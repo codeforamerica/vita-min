@@ -80,6 +80,19 @@ RSpec.describe "a user viewing a client" do
       end
     end
 
+    context "for a client with an archived 2022 GYR intake" do
+      before do
+        intake.update(product_year: 2022)
+      end
+
+      it "will show a banner indicating the client is archived but will still show intake information" do
+        visit hub_client_path(id: client.id)
+
+        expect(page).to have_content I18n.t("hub.archived_client_warning")
+        expect(page).to have_content(intake.preferred_name)
+      end
+    end
+
     context "for a client that was accidentally disassociated from its intake due to a bug in march 2022" do
       let(:intake) { nil }
       let(:created_at) { Date.parse('2022-03-11') }
