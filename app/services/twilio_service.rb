@@ -1,6 +1,6 @@
 class TwilioService
   FAILED_STATUSES = ["undelivered", "failed", "delivery_unknown", "twilio_error"].freeze
-  SUCCESSFUL_STATUSES = ["sent", "delivered"].freeze
+  SUCCESSFUL_STATUSES = ["sent", "delivered"].freeze # should we set sent to in_progress before 72 hours? https://support.twilio.com/hc/en-us/articles/223134347-What-are-the-Possible-SMS-and-MMS-Message-Statuses-and-What-do-They-Mean-
   IN_PROGRESS_STATUSES = ["accepted", "queued", "sending", nil].freeze
   ALL_KNOWN_STATUSES = FAILED_STATUSES + SUCCESSFUL_STATUSES + IN_PROGRESS_STATUSES
   ORDERED_STATUSES = [nil, "twilio_error"] + %w[

@@ -30,6 +30,7 @@ class BulkClientMessage < ApplicationRecord
   IN_PROGRESS = "in-progress".freeze
 
   def flush_memoized_data
+    # todo: update cached data again after 72 hours to catch messages that go from "sent" to "undelivered" => https://support.twilio.com/hc/en-us/articles/223134347-What-are-the-Possible-SMS-and-MMS-Message-Statuses-and-What-do-They-Mean-
     if status != IN_PROGRESS
       update_column(:cached_data, cached_data.merge(memoized_data))
     end
@@ -59,7 +60,10 @@ class BulkClientMessage < ApplicationRecord
     failed_email_no_text = tax_return_selection.clients.where(outgoing_emails: outgoing_emails.failed).where.not(outgoing_text_messages: outgoing_text_messages)
     failed_text_no_email = tax_return_selection.clients.where(outgoing_text_messages: outgoing_text_messages.failed).where.not(outgoing_emails: outgoing_emails)
 
-    clients_with_no_messages.or(both_failed).or(failed_email_no_text).or(failed_text_no_email)
+    clients_with_no_messages = clients_with_no_messages.or(both_failed).or(failed_email_no_text).or(failed_text_no_email)
+    # update cached_data
+    memoized_data["clients_with_no_successfully_sent_messages_count"] = clients_with_no_messages.size if cacheable_count(:clients_with_no_successfully_sent_messages) != clients_with_no_messages.size
+    clients_with_no_messages
   end
 
   def clients_with_successfully_sent_messages
