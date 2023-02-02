@@ -12,6 +12,7 @@ describe RemoveUnconsentedClientsJob do
       let!(:new_unconsented_ctc_intake) { create(:intake, id: 16, source: 'porcupine', client: build(:client, created_at: 1.hour.ago, consented_to_service_at: nil)) }
       let!(:old_consented_gyr_intake) { create(:intake, id: 17, source: 'fox', primary_consented_to_service: "yes", client: build(:client, created_at: 3.days.ago, consented_to_service_at: DateTime.now)) }
 
+      let!(:old_unconsented_gyr_intake_archived_columns) { IntakeArchive.create(intake: old_unconsented_gyr_intake) }
       let!(:old_unconsented_ctc_intake_with_message_message) { create(:incoming_text_message, client: old_unconsented_ctc_intake_with_message.client) }
       let!(:old_unconsented_ctc_intake_with_docs_doc) { create(:document, intake: old_unconsented_ctc_intake_with_docs, client: old_unconsented_ctc_intake_with_docs.client) }
 
@@ -52,6 +53,13 @@ describe RemoveUnconsentedClientsJob do
 
         # Oldschool archived clients/intakes are not deleted at this time
         expect(archived_intake.reload).to be
+
+        # Intakes with incoming messages/docs and the associated messages/docs are left alone
+        expect(old_unconsented_ctc_intake_with_message_message.reload).to be
+        expect(old_unconsented_ctc_intake_with_docs_doc.reload).to be
+
+        # Archived columns associated with intakes are deleted
+        expect { old_unconsented_gyr_intake_archived_columns.reload }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
