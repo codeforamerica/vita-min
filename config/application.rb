@@ -98,6 +98,8 @@ module VitaMin
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
 
+    config.intercom_app_id = "rird6gz6"
+
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
 
