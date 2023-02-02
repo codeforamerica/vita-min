@@ -7,7 +7,7 @@ module AutomatedMessage
         .where(in_progress_survey_sent_at: nil)
         .includes(:intake).where(intake: { type: "Intake::GyrIntake" })
         .where("consented_to_service_at BETWEEN ? AND ? ", now - 24.hours, now - 30.minutes)
-        .includes(:tax_returns).where(tax_returns: { current_state: "intake_in_progress" })
+        .includes(:tax_returns).where(tax_returns: { current_state: %w[intake_in_progress intake_needs_doc_help] })
     end
 
     def self.enqueue_messages(now)
