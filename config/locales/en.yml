@@ -4438,7 +4438,7 @@ en:
           one: In %{year}, did you make any alimony payments?
           other: In %{year}, did you or your spouse make any alimony payments?
       personal_info:
-        info: Welcome, we're excited to help you. We need some basic information to get started.
+        info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
         phone_number: Phone number
         phone_number_confirmation: Confirm phone number
         preferred_name: What is your preferred first name?
@@ -4567,11 +4567,7 @@ en:
         verification_code_label: Enter 6 digit code
         verify: Verify
       welcome:
-        find_right_service: We’ll ask a few questions, to find the right service for you!
-        help_text: 'We provide multiple tax filing options to households that qualify:'
-        list:
-          diy_html: "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
-          gyr_html: "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        content: GetYourRefund is a virtual service available to households that qualify. We’ll ask a few questions to find the right option for you.
         title: Welcome to our free service!
       widowed:
         title: As of December 31, %{year}, were you widowed?
