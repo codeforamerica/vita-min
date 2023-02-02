@@ -16,6 +16,7 @@
           <%= t("views.ctc_pages.home.title") %>
         </h1>
         <p><%= link_to t("views.ctc_pages.home.sign_in_for_old_forms"), new_ctc_portal_client_login_path, id: "firstCta" %></p>
+        <p><%= t("views.ctc_pages.home.visit_gyr_text") %></p>
         <% if open_for_ctc_intake? %>
           <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
           <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
@@ -24,18 +25,10 @@
           <% if open_for_ctc_intake? %>
             <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
-            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, class: "button button--primary" %>
+            <%= link_to t("views.ctc_pages.home.get_your_refund_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr", class: "button button--primary" %>
+            <%#= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, class: "button button--primary" %>
           <% end %>
         </div>
-        <% if open_for_ctc_login? %>
-          <div class="spacing-below-60">
-            <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link" %></strong>
-          </div>
-        <% else %>
-          <div class="spacing-below-60">
-            <%= link_to t("views.ctc_pages.home.get_your_refund_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr" %>
-          </div>
-        <% end %>
       </div>
 
       <div class="grid-flex align-flex-end justify-flex-end">
