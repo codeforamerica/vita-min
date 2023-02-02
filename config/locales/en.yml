@@ -89,7 +89,6 @@ en:
         title: To access this site, please provide your e-mail address.
     file_yourself:
       edit:
-        assistance: Actually, I need assistance filing.
         info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
         right_option:
           description:

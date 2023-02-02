@@ -89,7 +89,6 @@ es:
         title: Para acceder a este sitio, indique su dirección de correo electrónico.
     file_yourself:
       edit:
-        assistance: De hecho, necesito ayuda para declarar.
         info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
         right_option:
           description:

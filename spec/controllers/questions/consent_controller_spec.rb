@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180", source: "SourceParam", zip_code: "80309", needs_help_2021: "yes", needs_help_2020: "yes" }
+  let(:intake) { create :intake, primary_tin_type: :ssn, primary_ssn: '555112222', preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180", source: "SourceParam", zip_code: "80309", needs_help_2021: "yes", needs_help_2020: "yes" }
   let(:client) { intake.client }
   let!(:routing_double) { double(routing_method: "zip_code", determine_partner: (create :organization) ) }
 
@@ -138,8 +138,9 @@ RSpec.describe Questions::ConsentController do
         end
 
         context "when a client has already been routed as at capacity" do
-          let(:client) { create :client, routing_method: "at_capacity" }
-          let(:intake) { create :intake, client: client }
+          before do
+            client.update(routing_method: "at_capacity")
+          end
 
           it "runs routing on them again" do
             post :update, params: params
@@ -149,8 +150,9 @@ RSpec.describe Questions::ConsentController do
         end
 
         context "when a client has already been routed (routing_method is present)" do
-          let(:client) { create :client, routing_method: "returning_client" }
-          let(:intake) { create :intake, client: client }
+          before do
+            client.update(routing_method: "returning_client")
+          end
 
           it "does not route again" do
             post :update, params: params
@@ -222,5 +224,11 @@ RSpec.describe Questions::ConsentController do
       expect(GenerateRequiredConsentPdfJob).to have_received(:perform_later).with(intake)
       expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
     end
+  end
+
+  it "requires a primary_ssn to visit :edit or :update" do
+    intake.update(primary_ssn: nil)
+
+    expect(get :edit).to redirect_to(Questions::WelcomeController.to_path_helper)
   end
 end
