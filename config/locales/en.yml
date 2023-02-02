@@ -4438,7 +4438,7 @@ en:
           one: In %{year}, did you make any alimony payments?
           other: In %{year}, did you or your spouse make any alimony payments?
       personal_info:
-        info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
+        info: We’re excited to help you. We need some basic information to get started.
         phone_number: Phone number
         phone_number_confirmation: Confirm phone number
         preferred_name: What is your preferred first name?

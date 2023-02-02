@@ -4420,7 +4420,7 @@ es:
           one: En %{year}, ¿realizó algún pago de pensión alimenticia?
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
-        info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"
