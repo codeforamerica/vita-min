@@ -7,11 +7,11 @@
 <%= render 'shared/facebook_pixel' %>
 <main role="main" class="ctc-home">
   <div class="slab slab--hero">
+    <div class="notice--warning spacing-below-0 grid-flex contained">
+      <%= t("views.ctc_pages.home.ctc_not_extended_notice") %>
+    </div>
     <div class="grid-flex contained column-row space-between">
       <div class="grid-flex column-column spacing-below-35">
-        <div class="notice--warning spacing-below-0">
-          <%= t("views.ctc_pages.home.ctc_not_extended_notice") %>
-        </div>
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.title") %>
         </h1>
