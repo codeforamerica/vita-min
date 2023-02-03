@@ -3039,7 +3039,13 @@ en:
         sign_in_for_old_forms: Sign in here to view your 2021 Child Tax Credit forms.
         sign_up_for_updates: Sign up for GetCTC updates
         subheader:
+          claim:
+            eitc_off: If you don't usually file taxes, use our simplified tax filing tool to claim your Child Tax Credit and any missing amount of your third stimulus payment.
+            eitc_on: Use our simplified tax filing tool to claim your Child Tax Credit, Earned Income Tax Credit, and any missing amount of your third stimulus payment.
           launching_soon_html: GetCTC is closed for 2022. Already filed? Check the status of your refund at <a href="https://www.irs.gov/refunds" rel="noopener nofollow" target="_blank">Where's My Refund</a>. If you want to learn more about the Child Tax Credit, the Earned Income Tax Credit, and missing stimulus payments you can check out our Frequently Asked Questions and get ready to file your taxes in 2023.
+          time_estimate:
+            eitc_off: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+            eitc_on: This form usually takes about 15 minutes to complete, and tax documents are not required. If you want to claim additional money with the EITC, you will need your W-2(s) from your employer.
         title: A tool to claim the Child Tax Credit
         visit_gyr: Visit GetYourRefund
         what_is:
