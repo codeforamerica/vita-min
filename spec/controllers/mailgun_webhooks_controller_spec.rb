@@ -233,7 +233,7 @@ RSpec.describe MailgunWebhooksController do
                 end.to change(IncomingEmail, :count).by(1).and change(Client, :count).by(0)
                 expect(IntercomService).to have_received(:create_message).with(
                   email_address: actual_email,
-                  body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.",
+                  body: "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.\nThanks,\nBob",
                   phone_number: nil,
                   client: client,
                   has_documents: true

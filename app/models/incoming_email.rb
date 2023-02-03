@@ -36,7 +36,7 @@ class IncomingEmail < ApplicationRecord
   after_create { InteractionTrackingService.record_incoming_interaction(client) }
 
   def body
-    stripped_text || body_plain
+    stripped_text.present? ? [stripped_text, stripped_signature].map(&:presence).compact.join("\n") : body_plain
   end
 
   def datetime
