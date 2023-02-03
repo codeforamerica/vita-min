@@ -30,6 +30,46 @@
 require 'rails_helper'
 
 describe IncomingEmail do
+  describe '#body' do
+    context 'when stripped_text and stripped_signature are present' do
+      let(:subject) do
+        build(
+          :incoming_email,
+          stripped_text: "My name is Tax Person",
+          stripped_signature: "Sincerely, Tax Person",
+          body_plain: "My name is Tax Person\nSincerely, Tax Person\nA lot of other stuff we don't care about"
+        )
+      end
+
+      it 'returns stripped_text and stripped_signature smashed together' do
+        expect(subject.body).to eq("My name is Tax Person\nSincerely, Tax Person")
+      end
+    end
+
+    context 'when stripped_text is present but stripped_signature is blank' do
+      let(:subject) do
+        build(
+          :incoming_email,
+          stripped_text: "My name is Tax Person",
+          stripped_signature: '',
+          body_plain: "My name is Tax Person\nA lot of other stuff we don't care about"
+        )
+      end
+
+      it 'returns stripped_text' do
+        expect(subject.body).to eq("My name is Tax Person")
+      end
+    end
+
+    context 'when stripped_text is absent' do
+      let(:subject) { build(:incoming_email, stripped_text: nil, stripped_signature: nil, body_plain: "I love sending emails to websites") }
+
+      it 'returns body_plain' do
+        expect(subject.body).to eq("I love sending emails to websites")
+      end
+    end
+  end
+
   context "interaction tracking" do
     it_behaves_like "an incoming interaction" do
       let(:subject) { build(:incoming_email) }
