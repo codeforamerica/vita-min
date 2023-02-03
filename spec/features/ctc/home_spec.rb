@@ -49,4 +49,32 @@ RSpec.feature "Visit CTC home page" do
       expect(page).to have_text I18n.t("views.ctc_pages.home.get_started")
     end
   end
+
+  context "when someone signs up for updates for IRS portal opening" do
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return false
+    end
+
+    it "saves their contact information" do
+      visit "/en/puertorico"
+      expect(page).to have_text I18n.t("views.ctc_pages.puerto_rico.title")
+      click_on I18n.t("views.ctc_pages.home.sign_up_for_updates")
+
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header").split("\n").first
+      fill_in I18n.t("general.name"), with: "Interested Person"
+      fill_in I18n.t("general.email_address"), with: "remindme@example.com"
+      fill_in I18n.t("general.phone_number"), with: "4153334444"
+      click_on I18n.t('views.ctc_pages.signups.new.submit')
+
+      sign_up_attributes = CtcSignup.last.attributes
+      expect(sign_up_attributes).to include('name' => "Interested Person")
+      expect(sign_up_attributes).to include('email_address' => 'remindme@example.com')
+      expect(sign_up_attributes).to include('phone_number' => '+14153334444')
+
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.body")
+      click_on I18n.t('views.ctc_pages.signups.confirmation.button')
+      expect(page).to have_text I18n.t('views.ctc_pages.home.title')
+    end
+  end
 end
