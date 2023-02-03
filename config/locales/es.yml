@@ -4523,8 +4523,8 @@ es:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
       student:
-        help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
-        title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?
+        help_text: Los gastos pueden ser para colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional. Debe tener un Formulario 1098-T.
+        title: En el %{year}, ¿alguien en su hogar tuvo algún gasto para la universidad o la educación postsecundaria?
       student_loan_interest:
         help_text: Responda "Sí" si está realizando pagos de algún préstamo educativo.
         title:

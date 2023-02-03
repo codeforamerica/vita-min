@@ -72,7 +72,6 @@ RSpec.describe F13614cPdf do
           paid_self_employment_expenses: "no",
           paid_school_supplies: "yes",
           paid_alimony: "yes",
-          had_student_in_family: "no",
           sold_a_home: "no",
           had_hsa: "no",
           bought_health_insurance: "yes",

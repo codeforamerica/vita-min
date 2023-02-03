@@ -100,7 +100,6 @@
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
 #  had_social_security_or_retirement                    :integer          default(0), not null
-#  had_student_in_family                                :integer          default(0), not null
 #  had_tax_credit_disallowed                            :integer          default(0), not null
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
@@ -615,7 +614,7 @@ describe Intake do
     end
 
     context "when they said someone was a student" do
-      let(:intake) { create :intake, had_student_in_family: "yes" }
+      let(:intake) { create :intake, was_full_time_student: "yes" }
 
       it "returns true" do
         expect(intake.any_students?).to eq true

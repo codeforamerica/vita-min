@@ -4533,8 +4533,8 @@ en:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
       student:
-        help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
-        title: In %{year}, was someone in your family a college or other post high school student?
+        help_text: Expenses could be for community college, technical school, professional development classes, higher education, and vocational education. You should have a Form 1098-T.
+        title: In %{year}, did anyone in your household have any expenses for College or post secondary education?
       student_loan_interest:
         help_text: Answer "Yes" if you are making student loan payments.
         title:
