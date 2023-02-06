@@ -1670,15 +1670,12 @@ es:
       already_started: "¿Ya iniciado? Iniciar sesión"
   questions:
     triage:
-      collect_your: 'Cobre su:'
-      collectables:
-        additional_credits: Créditos estatales adicionales
-        ctc: Crédito Tributario por Hijos
-        eitc: Crédito tributario por ingresos del trabajo
-        missing_stimulus: Falta el tercer pago de estímulo
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
+        list:
+          file: File for 2022 only
+          income: 'Income: under $73,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -1690,7 +1687,6 @@ es:
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo ITIN
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: Archivo con ayuda
-      refund: Reembolso
     triage_diy:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
