@@ -56,8 +56,8 @@ RSpec.feature "Visit CTC home page" do
     end
 
     it "saves their contact information" do
-      visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.title")
+      visit "/en/puertorico"
+      expect(page).to have_text I18n.t("views.ctc_pages.puerto_rico.title")
       click_on I18n.t("views.ctc_pages.home.sign_up_for_updates")
 
       expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header").split("\n").first

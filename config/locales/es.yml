@@ -2944,9 +2944,9 @@ es:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
+        body: Para preguntas o ayuda con la declaración de impuestos, visite GetYourRefund. Si aún no ha presentado su solicitud este año, es posible que sea elegible para reclamar beneficios en efectivo.
         closing_date: GetCTC permanecerá cerrado el 15 de noviembre.
         closing_date_not_open: GetCTC se encuentra por ahora cerrado por motivo de la temporada.
-        closing_soon_banner: Comience con GetCTC antes del 15 de noviembre para reclamar sus beneficios tributarios en 2022.
         closing_warning: "¡Presente su declaración hoy para solicitar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que solicitar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           am_i_eligible_for_child_tax_credit_if_i_dont: "¿Soy elegible si no tengo un SSN?"
@@ -3024,6 +3024,7 @@ es:
           will_it_affect_my_immigration_status:
             answer_html: No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
+        ctc_not_extended_notice: El Crédito Tributario Anticipado por Hijos fue un beneficio tributario proporcionado a las familias en 2021 y 2022 y no se renovó para 2023.
         get_started: Empezar
         get_your_refund_link: Obtenga más información sobre la declaración de impuestos gratuita con GetYourRefund
         navigator_resources:
@@ -3031,6 +3032,7 @@ es:
           eitc_on_html: <strong>¿Es usted un socio comunitario que ayuda a otra persona a acceder al CTC o al EITC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
+        sign_in_for_old_forms: Inicie sesión aquí para ver sus formularios de Crédito fiscal por hijos anticipado de 2022.
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim:
@@ -3040,7 +3042,8 @@ es:
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
-        title: Reclame su Crédito Tributario por Hijos
+        title: Una herramienta para reclamar el Crédito Tributario Anticipado por Hijos
+        visit_gyr: Obtenga más información sobre la declaración de impuestos gratuita con GetYourRefund
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
           heading: La mayoría de las familias pueden obtener miles de dólares del Crédito Tributario por Hijos
