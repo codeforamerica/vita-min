@@ -2,7 +2,7 @@
   <div class="slab slab--flash flash--warning">
     <div class="grid-flex center-aligned">
       <%= image_tag("icons/warning-triangle.svg", class: "item-15r") %>
-      <span><%= t('hub.archived_client_warning') %></span>
+      <span><%= t('hub.archived_client_warning', year: @client.intake.product_year) %></span>
     </div>
   </div>
 <% end %>

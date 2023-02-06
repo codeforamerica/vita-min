@@ -443,6 +443,31 @@ class Seeder
       ],
     )
 
+    find_or_create_intake_and_client(
+      Archived::Intake::GyrIntake2021,
+      primary_first_name: "ArchivedGyr2021",
+      primary_last_name: "Adams",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 75.years.ago,
+      primary_tin_type: 'ssn',
+      email_address: "archived2021@example.com",
+      email_address_verified_at: Time.current,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+    )
+
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      product_year: 2022,
+      primary_first_name: "GyrPy2022",
+      primary_last_name: "Bingocard",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 75.years.ago,
+      primary_tin_type: 'ssn',
+      email_address: "archived2022@example.com",
+      email_address_verified_at: Time.current,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+    )
+
     Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
@@ -453,7 +478,7 @@ class Seeder
 
   def find_or_create_intake_and_client(intake_type, attributes)
     attributes[:preferred_name] = attributes[:primary_first_name] if attributes[:preferred_name].blank?
-    attributes[:product_year] = Rails.configuration.product_year if attributes[:product_year].blank?
+    attributes[:product_year] = Rails.configuration.product_year if attributes[:product_year].blank? && !intake_type.ancestors.include?(Archived::Intake2021)
 
     attributes[:visitor_id] = SecureRandom.hex(26)
 
@@ -463,7 +488,7 @@ class Seeder
       raise "Seeder must provide at least one of (#{finder_columns.join(', ')}) when making an intake"
     end
 
-    intake = intake_type.find_or_initialize_by(finder_attributes)
+    intake = intake_type.find_by(finder_attributes) || intake_type.new(finder_attributes)
     return intake if intake.persisted?
 
     client_attributes = attributes.delete(:client_attributes)
@@ -490,9 +515,11 @@ class Seeder
       end
     end
 
-    unless intake.w2s_including_incomplete.present?
-      w2_attributes&.each do |w2|
-        intake.w2s_including_incomplete.create!(w2)
+    unless intake_type.ancestors.include?(Archived::Intake2021)
+      unless intake.w2s_including_incomplete.present?
+        w2_attributes&.each do |w2|
+          intake.w2s_including_incomplete.create!(w2)
+        end
       end
     end
 

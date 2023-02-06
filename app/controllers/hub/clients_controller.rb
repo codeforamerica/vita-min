@@ -268,7 +268,7 @@ module Hub
       end
 
       def editable?
-        !!@client.intake
+        @client.intake.present? && @client.intake.product_year == Rails.configuration.product_year
       end
 
       def required_documents_tooltip
@@ -283,7 +283,7 @@ module Hub
       end
 
       def hub_status_updatable
-        @client.intake && !@client.online_ctc?
+        editable? && !@client.online_ctc?
       end
 
       def requires_spouse_info?

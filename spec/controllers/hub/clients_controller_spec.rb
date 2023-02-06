@@ -1383,7 +1383,8 @@ RSpec.describe Hub::ClientsController do
 
   describe "presenter" do
     let(:tax_returns) { [] }
-    let(:intake) { build(:intake) }
+    let(:product_year) { Rails.configuration.product_year }
+    let(:intake) { build(:intake, product_year: product_year) }
     let(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
     let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
 
@@ -1396,6 +1397,14 @@ RSpec.describe Hub::ClientsController do
 
       context "when there is no .intake" do
         let(:intake) { nil }
+
+        it "returns false" do
+          expect(presenter.editable?).to be_falsey
+        end
+      end
+
+      context "when the intake is for a prior product year" do
+        let(:product_year) { Rails.configuration.product_year - 1 }
 
         it "returns false" do
           expect(presenter.editable?).to be_falsey

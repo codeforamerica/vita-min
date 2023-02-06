@@ -534,7 +534,7 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   hub:
-    archived_client_warning: Este es un boleto de un año anterior. Esta información está archivada y solo debe usarse como referencia.
+    archived_client_warning: Este es un boleto del año %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
       index:
         title: Clientes Asignados
