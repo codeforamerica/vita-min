@@ -4534,7 +4534,7 @@ en:
         title: Let's get started
       student:
         help_text: Expenses could be for community college, technical school, professional development classes, higher education, and vocational education. You should have a Form 1098-T.
-        title: In %{year}, did anyone in your household have any expenses for College or post secondary education?
+        title: In %{year}, did anyone in your household have any expenses for college or post secondary education?
       student_loan_interest:
         help_text: Answer "Yes" if you are making student loan payments.
         title:
