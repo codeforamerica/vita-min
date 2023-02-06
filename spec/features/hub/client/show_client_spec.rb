@@ -88,7 +88,7 @@ RSpec.describe "a user viewing a client" do
       it "will show a banner indicating the client is archived but will still show intake information" do
         visit hub_client_path(id: client.id)
 
-        expect(page).to have_content I18n.t("hub.archived_client_warning")
+        expect(page).to have_content I18n.t("hub.archived_client_warning", year: 2022)
         expect(page).to have_content(intake.preferred_name)
       end
     end
