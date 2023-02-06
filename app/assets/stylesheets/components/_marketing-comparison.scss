@@ -2,17 +2,12 @@
   border: 1px solid $color-grey-medium;
   border-radius: 10px;
   padding: 20px 10px 20px 10px;
-  background-color: #F7F5F4;
   clear: both;
 
   .bottom-section {
     display: flex;
     padding-bottom: 20px;
     font-size: 1.6rem;
-  }
-
-  .spacer {
-    flex-grow: 1;
   }
 
   .list--bulleted {
@@ -46,22 +41,12 @@
       padding-right: 1rem;
     }
   }
+}
 
-  .refund-indicator {
-    align-self: flex-end;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: $font-weight-bold;
+.diy-tile {
+  background: #F5F5FF;
+}
 
-    .symbols {
-      text-align: center;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
-  }
-
-  .text--red-details {
-    font-weight: bold;
-    color: #D70A40;
-  }
+.gyr-tile {
+  background: #E8FDF7;
 }

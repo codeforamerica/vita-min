@@ -1682,14 +1682,18 @@ es:
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
-        choose_gyr: Elija GetYourRefund
-        description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
+        choose_gyr: Elija Archivo con ayuda
+        description: Presente su declaración con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
+        list:
+          file: Archivo para 2019-2022
+          income: 'Ingresos: menos de $66,000'
+          ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo ITIN
         timeframe: De 2-3 semanas para declarar sus impuestos
-        title: GetYourRefund
-        warning: "* Es necesario que muestre copias de su tarjeta de la Seguridad Social o de los documentos del Número de Identificación Personal (ITIN en inglés)."
+        title: Archivo con ayuda
       refund: Reembolso
     triage_diy:
       edit:
+        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
     triage_do_not_qualify:
       edit:
@@ -1698,9 +1702,11 @@ es:
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
-        title: Le recomendamos presentar la solicitud de forma gratuita con GetYourRefund.
+        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
+        title: "¡Recomendamos utilizar nuestra opción gratuita Archivo con ayuda!"
     triage_gyr_diy:
       edit:
+        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
