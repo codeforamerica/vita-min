@@ -77,7 +77,7 @@ es:
     continue_to_fsa:
       edit:
         continue_to_tax_slayer: Continuar a File Myself
-        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a diy@getyourrefund.org
+        guide_html: Consulte nuestra Guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a>, para declarar por cuenta propia, y para obtener instrucciones paso a paso, consejos y buenas prácticas. Si se queda atorado o tiene alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a diy@getyourrefund.org.
         steps:
           description:
           - Para empezar declarando sus impuestos, haga clic en 'Continuar a File Myself' para ser redirigido al software gratuito de impuestos.
@@ -89,7 +89,6 @@ es:
         title: Para acceder a este sitio, indique su dirección de correo electrónico.
     file_yourself:
       edit:
-        assistance: De hecho, necesito ayuda para declarar.
         info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
         right_option:
           description:
@@ -269,7 +268,7 @@ es:
     coalition: Coalición
     coalition_lead: Líder de coalición
     confirm: Confirmar
-    confirm_exit_without_saving: Salir de esta página no guardará los cambios. ¿continuar de todos modos?
+    confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
     contact_methods:
       email: email
       sms_phone_number: mensaje de texto
@@ -644,111 +643,111 @@ es:
         title: Editar Perfil del cliente
       edit_13614c_form_page1:
         fields:
-          apt: Departamento
+          apt: Apt.
           below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $4,400 de ingresos?"
-          blind: Legalmente ciego
-          can_be_claimed_by_other: "¿Es esta persona un hijo/pariente calificado de otra persona?"
-          claimed_by_another: "¿Alguien puede reclamarlo a usted oa su cónyuge como dependiente?"
+          blind: Legalmente invidente/ciego
+          can_be_claimed_by_other: "¿Es esta persona que califica como hijo o familiar de otra persona?"
+          claimed_by_another: "¿Puede alguien declarar a usted o a su cónyuge como dependiente?"
           contact_number: Número de contacto
-          disabled: Total y permanentemente discapacitado
-          dob: Fecha de nacimiento
-          email_optional: Correo electrónico (Opcional)
-          filer_provided_over_half_housing_support: "¿Pagaron los contribuyentes más de la mitad del costo de mantenimiento de una vivienda para esta persona?"
-          filer_provided_over_half_support: "¿Los contribuyentes proporcionaron más del 50 % de la manutención de esta persona?"
-          first_name: Nombre de pila
+          disabled: Discapacidad total y permanente
+          dob: 'DOB, en español: Fecha de nacimiento'
+          email_optional: Correo electrónico (opcional)
+          filer_provided_over_half_housing_support: "¿El contribuyente o contribuyentes aportaron más de la mitad de los gastos de vivienda de esta persona?"
+          filer_provided_over_half_support: "¿El contribuyente o contribuyentes aportaron más del 50% de la manutención de esta persona?"
+          first_name: Primer Nombre
           got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2021?
-          had_disability: Total y permanentemente deshabilitado
-          issued_identity_pin: "¿Usted, su cónyuge o sus dependientes han sido víctimas de robo de identidad relacionado con los impuestos o se les ha emitido un PIN de protección de identidad?"
-          job_title: Título Profesional
+          had_disability: Discapacidad total y permanente
+          issued_identity_pin: "¿Usted, su cónyuge o las personas a su cargo han sido víctimas de un robo de identidad relacionado con los impuestos o han recibido un PIN de protección de identidad?"
+          job_title: Título del puesto
           last_name: Apellido
-          lived_with_spouse: B. ¿Vivió usted con su cónyuge durante alguna parte de los últimos seis meses de 2021?
-          middle_initial: Inicial del segundo nombre
-          months_in_home: "# de meses vividos en casa el año pasado:"
-          never_married: Nunca casado
-          north_american_resident: 'Residente de EE. UU., CAN o MEX el año pasado:'
-          primary_us_citizen: Ciudadano estadounidense?
-          provided_over_half_own_support: "¿Esta persona proporcionó más del 50 % de su propia manutención?"
-          spouse_dob: Fecha de nacimiento del cónyuge
-          spouse_first_name: Nombre del cónyuge
-          spouse_job_title: Título profesional del cónyuge
-          spouse_us_citizen: "¿Cónyuge ciudadano estadounidense?"
-          us_citizen: Ciudadana estadounidense
-          was_full_time_student: Estudiante de tiempo completo
-          was_married: Soltero o casado a partir del 31/12/21
-          was_student: Estudiante de tiempo completo el año pasado
-        last_year_was_your_spouse: 'El año pasado, fue su cónyuge:'
-        last_year_were_you: 'El año pasado, fuiste:'
-        title: 13614-C
-        what_was_your_marital_status: Al 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
+          lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2021?
+          middle_initial: Inicial de su segundo nombre
+          months_in_home: "# o número de meses que vivió en su casa el año pasado:"
+          never_married: Nunca se ha casado
+          north_american_resident: 'Residente en EE.UU., Canadá o México el año pasado:'
+          primary_us_citizen: "¿Ciudadano estadounidense?"
+          provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
+          spouse_dob: Fecha de nacimiento de su cónyuge
+          spouse_first_name: Nombre legal de su cónyuge
+          spouse_job_title: Puesto de trabajo del cónyuge
+          spouse_us_citizen: "¿El cónyuge es ciudadano de EE.UU.?"
+          us_citizen: Ciudadano de los Estados Unidos
+          was_full_time_student: Estudiante a tiempo completo
+          was_married: Soltero o casado a partir del 12/31/2021
+          was_student: Estudiante a tiempo completo el año pasado
+        last_year_was_your_spouse: 'El año pasado, ¿fue su cónyuge:'
+        last_year_were_you: 'El año pasado, ¿fue su usted:'
+        title: 13614-C página 1
+        what_was_your_marital_status: Para el 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
       edit_13614c_form_page2:
         fields:
-          adopted_child: "¿Adoptar un niño?"
-          bought_energy_efficient_items: "¿Comprar e instalar artículos para el hogar de bajo consumo?"
+          adopted_child: "¿Adoptó a un niño?"
+          bought_energy_efficient_items: "¿Compró e instaló artículos domésticos eficientes desde el punto de vista energético?"
           bought_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el formulario 1095-A]"
-          had_asset_sale_income: "¿Ingresos (o pérdidas) por la venta o el intercambio de acciones, bonos, moneda virtual o bienes inmuebles?"
-          had_capital_loss_carryover: ¿Presentar una declaración federal el año pasado que contenga una "pérdida de capital remanente" en el Anexo D del Formulario 1040?
-          had_cash_check_digital_assets: "¿Pagos en efectivo/cheque/moneda virtual u otros bienes o servicios por cualquier trabajo realizado que no se haya informado en los formularios W-2 o 1099?"
-          had_debt_forgiven: "¿Ha cancelado/perdonado una tarjeta de crédito, un préstamo estudiantil o una deuda hipotecaria por parte de un prestamista o tiene una ejecución hipotecaria?"
-          had_disability_income: ingreso por discapacidad?
-          had_hsa: "¿Tiene una Cuenta de Ahorro para la Salud?"
-          had_interest_income: '74 / 5,000 Translation results Translation result ¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?'
-          had_local_tax_refund: "¿Reembolso o impuestos estatales/locales sobre la renta?"
+          had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
+          had_capital_loss_carryover: '¿Presentó el año pasado una declaración federal de impuestos que contenía un "traslado de pérdidas de capital",  en inglés: "capital loss carryover" en el Formulario 1040, Anexo D?'
+          had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, u otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
+          had_debt_forgiven: "¿Ha cancelado/perdonado un prestamista la deuda de una tarjeta de crédito, un préstamo estudiantil o una hipoteca, o ha sufrido una ejecución hipotecaria?"
+          had_disability_income: "¿Ingresos por discapacidad?"
+          had_hsa: "¿Tiene una cuenta de ahorro para gastos médicos?"
+          had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
+          had_local_tax_refund: "¿Reembolso o impuestos estatales o locales?"
           had_other_income: "¿Otros ingresos?"
-          had_rental_income: "¿Ingresos (o pérdidas) de la propiedad de alquiler?"
-          had_retirement_income: Rentas de Jubilación o pagos de Pensiones. ¿Anualidades o IRA?
+          had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
+          had_retirement_income: "¿Ingresos de jubilación o pagos de Pensiones, Anualidades, y o IRA--en español: Cuenta Individual de Jubilación?"
           had_scholarships: "¿Becas?"
-          had_self_employment_income: "¿Ingresos de trabajo por cuenta propia?"
-          had_social_security_income: "¿Beneficios de jubilación del seguro social o del ferrocarril?"
-          had_tax_credit_disallowed: "¿Han sido rechazados el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos o el Crédito de la Oportunidad Estadounidense en un año anterior?"
-          had_tips: "¿Ingreso de propinas?"
-          had_unemployment_income: "¿Compensacion por desempleo?"
-          had_wages: "¿Sueldo o Salario? (Formulario W-2)"
-          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el SSN del destinatario?
-          job_count: En caso afirmativo, ¿cuántos trabajos tuvo el año pasado?
-          made_estimated_tax_payments: "¿Hacer pagos de impuestos estimados o aplicar el reembolso del año pasado al impuesto de este año?"
+          had_self_employment_income: "¿Ingresos por trabajo autónomo?"
+          had_social_security_income: "¿Seguro Social o beneficios de Jubilación Ferroviaria?"
+          had_tax_credit_disallowed: "¿Le han negado el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos o el Crédito de Oportunidad Americana en un año anterior?"
+          had_tips: "¿Ingresos por propinas?"
+          had_unemployment_income: "¿Indemnización por desempleo?"
+          had_wages: "¿Sueldo o salario? (Formulario W-2)"
+          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el Número de Seguro Social o SSN del beneficiario?
+          job_count: En caso afirmativo, ¿cuántos empleos tuvo el año pasado?
+          made_estimated_tax_payments: "¿Hizo pagos de impuestos estimados o aplicó el reembolso del año pasado a los impuestos de este año?"
           made_estimated_tax_payments_amount: Si es así, ¿cuánto?
-          paid_alimony: "¿Pensiones alimenticias o pagos separados de manutención?"
-          paid_charitable_contributions: Contribuciones caritativas
-          paid_dependent_care: "¿Gastos de cuidado de niños o dependientes, como guardería?"
-          paid_local_tax: Impuestos (Estatales, Bienes Raíces, Bienes Muebles, Ventas)
-          paid_medical_expenses: Médico y dental (incluidas las primas de seguro)
-          paid_mortgage_interest: Interés hipotecario (Formulario 1098)
-          paid_post_secondary_educational_expenses: "¿Gastos universitarios o de educación postsecundaria para usted, su cónyuge o sus dependientes?"
-          paid_retirement_contributions: "¿Aportaciones o reembolsos a una cuenta de jubilación?"
-          paid_school_supplies: "¿Para los suministros utilizados como educador elegible, como un maestro, un ayudante de maestro, un consejero, etc.?"
-          paid_self_employment_expenses: "¿Gastos relacionados con los ingresos del trabajo por cuenta propia o cualquier otro ingreso que haya recibido?"
+          paid_alimony: "¿Pensión alimenticia o pensión por separación?"
+          paid_charitable_contributions: Contribuciones de beneficencia/Caridad
+          paid_dependent_care: "¿Gastos de cuidado de hijos o dependientes, como guardería?"
+          paid_local_tax: Impuestos (estatales, bienes inmuebles, bienes personales, ventas)
+          paid_medical_expenses: Seguro médico y dental (incluyendo cuotas de seguro)
+          paid_mortgage_interest: Intereses hipotecarios (formulario 1098)
+          paid_post_secondary_educational_expenses: "¿Gastos de educación universitaria o postsecundaria para usted, su cónyuge o las personas a su cargo?"
+          paid_retirement_contributions: "¿Contribuciones o reembolsos a una cuenta de jubilación?"
+          paid_school_supplies: "¿Para materiales utilizados como educador elegible, como profesor, ayudante de profesor, orientador, etc.?"
+          paid_self_employment_expenses: "¿Gastos relacionados con los ingresos por trabajo autónomo o cualquier otro ingreso que haya percibido?"
           paid_student_loan_interest: "¿Intereses de préstamos estudiantiles?"
-          received_alimony: "¿Renta de pensión alimenticia o pagos separados de manutención?"
-          received_homebuyer_credit: Recibir el crédito para compradores de vivienda por primera vez en 2008?
-          tax_credit_disallowed_year: En caso afirmativo, ¿para qué año fiscal?
-          wants_to_itemize: "¿Cualquiera de los siguientes?"
-        part_3_title: Parte III - Ingresos - El año pasado, ¿Recibió usted (o su cónyuge)
-        part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)
-        part_5_title: Parte V - Acontecimientos de la vida - El año pasado, ¿usted (o su cónyuge)
+          received_alimony: "¿Pensión alimenticia o pensión de separación?"
+          received_homebuyer_credit: "¿Recibió el crédito First Time Homebuyers Credit, en español: compradores de vivienda por primera vez en 2008?"
+          tax_credit_disallowed_year: De ser así, ¿para qué año tributario fue?
+          wants_to_itemize: "¿Alguno de los siguientes?"
+        part_3_title: Parte III - Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
+        part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)?
+        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
         title: 13614-C
       edit_13614c_form_page3:
-        additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Planilla
+        additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Declaración
         fields:
-          q10_household_disability: "¿Tienen ellos o algún miembro de su hogar una discapacidad?"
-          q11_veteran: "¿Veterano de las Fuerzas Armadas de EE. UU.?"
-          q12_primary_race: "¿Carrera?"
-          q13_spouse_race: "¿La raza del cónyuge?"
+          q10_household_disability: "¿Tienen ellos o algún miembro de su familia alguna discapacidad?"
+          q11_veteran: "¿Veterano de las Fuerzas Armadas de EE.UU.?"
+          q12_primary_race: "¿Raza?"
+          q13_spouse_race: "¿Raza del cónyuge?"
           q14_primary_ethnicity: "¿Etnicidad?"
-          q15_spouse_ethnicity: "¿Etnicidad del cónyuge?"
-          q1_preferred_written_language: En caso afirmativo, ¿en qué idioma?
-          q1_receive_written_communication: "¿Recibir comunicaciones escritas del IRS en un idioma que no sea inglés?"
-          q2_presidential_campaign_fund: Fondo de Campaña de Elecciones Presidenciales $3 para ir a este fondo
-          q3_refund_payment_method: 'Si le corresponde un reembolso, le gustaría:'
+          q15_spouse_ethnicity: "¿Origen étnico del cónyuge?"
+          q1_preferred_written_language: Si la respuesta es afirmativa, ¿en qué lengua?
+          q1_receive_written_communication: "¿Recibe comunicaciones escritas del IRS en un idioma distinto del inglés?"
+          q2_presidential_campaign_fund: Fondo de la Campaña Electoral Presidencial $3 para este fondo
+          q3_refund_payment_method: 'Si se le debe un reembolso, ¿le gustaría:'
           q3_refund_payment_method_direct_deposit: a. Depósito directo
-          q3_refund_payment_method_savings_bond: b. Comprar bonos de ahorro de EE. UU.
-          q3_refund_payment_method_split: c. Reembolso dividido entre diferentes cuentas
-          q4_pay_due_balance_directly: Si tienen un saldo adeudado, ¿les gustaría realizar un pago directamente desde su cuenta bancaria?
-          q5_federal_disaster_area: "¿Declarado viviendo en un área de desastre federal?"
-          q5_federal_disaster_area_where: En caso afirmativo, ¿dónde?
+          q3_refund_payment_method_savings_bond: b. Compra de bonos de ahorro de EE.UU.
+          q3_refund_payment_method_split: c. Dividir el reembolso entre diferentes cuentas
+          q4_pay_due_balance_directly: Si tiene un saldo pendiente, ¿le gustaría pagar directamente desde su cuenta bancaria?
+          q5_federal_disaster_area: "¿Ha sido declarado residente en una zona catastrófica federal?"
+          q5_federal_disaster_area_where: Si es así, ¿en qué lugar?
           q6_letter_from_irs: "¿Recibió una carta del IRS?"
-          q7_register_to_vote: "¿Registrarse para votar?"
-          q8_speak_and_understand_english: "¿Puede mantener una conversación en inglés, entendiendo y hablando?"
-          q9_read_english: "¿Puedes leer un periódico o un libro en inglés?"
+          q7_register_to_vote: "¿Registrarse/registrado para votar?"
+          q8_speak_and_understand_english: "¿Puede llevar una conversación en inglés, y tanto entenderlo como hablarlo?"
+          q9_read_english: "¿Puede leer un periódico o un libro en inglés?"
         title: 13614-C
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
@@ -1400,11 +1399,9 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal se ha enviado correctamente! **Su ID de cliente es <<Client.ClientId>>.** Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+          Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Continúe donde lo dejó aquí <<Client.LoginLink>>
 
-          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
-
-          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+          <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
 
           Si tiene alguna pregunta, responda a este mensaje.
 
@@ -1414,9 +1411,7 @@ es:
         subject: 'Bienvenido a GetYourRefund: ID de cliente'
       sms:
         body: |
-          Hola <<Client.PreferredName>>, Su información fiscal se envió con éxito a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje.
-
-          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
+          Hola <<Client.PreferredName>>, no ha completado la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúa donde lo dejaste aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje. Si tiene alguna pregunta, responda a este mensaje.
 
           Su equipo de impuestos en GetYourRefund.org
     intercom_forwarding:
@@ -1483,21 +1478,21 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal se ha enviado correctamente! <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>  Este es un dato importante de su cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
 
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
 
-          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+          Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
 
-          Si tiene alguna pregunta, responda a este mensaje.
+          Si tiene alguna duda, responda a este mensaje.
 
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetYourRefund.org
+          ¡Estamos aquí para ayudarle!
+          Su equipo fiscal en GetYourRefund
         subject: 'Bienvenido a GetYourRefund: ID de cliente'
       sms: |
-        Hola <<Client.PreferredName>>, Su información fiscal se envió con éxito a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje.
-        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
-        Su equipo de impuestos en GetYourRefund.org
+        Hola <<Client.PreferredName>>, Su información fiscal ha sido enviada correctamente a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje.
+        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
+        Su equipo fiscal en GetYourRefund
     surveys:
       completion:
         email:
@@ -1524,10 +1519,10 @@ es:
         sms: "¡Gracias por presentar sus impuestos con GetCTC! ¡Quisiéramos pedirle sus comentarios sobre su experiencia para poder mejorar nuestro servicio! ¿Podría decirnos cómo le fue? Por favor tome nuestra encuesta de 5 minutos aquí: %{survey_link}\n"
     unmonitored_replies:
       email:
-        body: Respuestas no supervisadas. Escriba %{support_email} para obtener ayuda. Para verificar su reembolso, vaya a <a href="https://www.irs.gov/es/refunds">¿dónde está mi reembolso?</a> Para <a href="https://www.irs.gov/es/individuals/get-transcript">obtener una copia de sus impuestos, vaya a obtenga su registro tributario.</a>
-        subject: Respuestas no supervisadas
+        body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda. Para verificar el estado de su reembolso, visite <a href="https://www.irs.gov/refunds">¿Dónde está mi reembolso?</a> Para acceder a su historial fiscal, obtenga <a href="https://www.irs.gov/individuals/get-transcript">su transcripción.</a>
+        subject: Estas respuestas no se supervisan
       sms:
-        body: Respuestas no supervisadas. Escriba %{support_email} para obtener ayuda.
+        body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda.
     verification_attempt_denied:
       email:
         body: |
@@ -1569,7 +1564,7 @@ es:
       new:
         one_form_of_contact: 'Por favor ingrese un formulario de contacto a continuación:'
         send_code: Enviar código
-        title: Te enviaremos un código seguro para iniciar sesión
+        title: Le enviaremos un código seguro para iniciar sesión
     messages:
       create:
         message_sent: "¡Mensaje enviado!"
@@ -1734,7 +1729,7 @@ es:
           label_html: |-
             ¿Cuál fue su nivel de ingresos?
 
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o SSI, en español: Seguridad de Ingreso Suplementario.</p>
           options:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
@@ -3043,7 +3038,7 @@ es:
           claim:
             eitc_off: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos y cualquier cantidad faltante de su tercer pago de estímulo.
             eitc_on: Use nuestra herramienta de declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijos, Crédito Tributario por Ingreso del Trabajo y cualquier cantidad faltante de su tercer pago de estímulo.
-          launching_soon_html: GetCTC está cerrado para 2022. ¿Ya presentado? Verifique el estado de su reembolso en <a href="https://www.irs.gov/refunds" rel="noopener nofollow" target="_blank">Dónde está mi reembolso</a>. Si desea obtener más información sobre el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo faltantes, puede consultar nuestras Preguntas Frecuentes y prepararse para declarar sus impuestos en 2023.
+          launching_soon_html: GetCTC está cerrado para 2022. ¿Ya ha presentado su solicitud? Consulte el estado de su reembolso en <a href="https://www.irs.gov/refunds" rel="noopener nofollow" target="_blank">¿Dónde está mi reembolso</a>. Si desea obtener más información sobre el Crédito Tributario por Hijos, el Crédito Tributario por Ingreso del Trabajo y los pagos de estímulo que faltan, puede consultar nuestras Preguntas Frecuentes y prepararse para presentar sus impuestos en 2023.
           time_estimate:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
@@ -3200,16 +3195,16 @@ es:
           header: Gracias por registrarte!
           title: Regístrate
         new:
-          header: Regístrese para recibir actualizaciones de GetCTC.
+          header: Suscríbase para recibir actualizaciones de GetCTC.
           puerto_rico_post_launch:
             header_html: |
               <a href='%{link}'>GetCTC está actualmente en vivo</a>para residentes de los 50 estados y D.C.
               Los residentes de Puerto Rico pueden registrarse a continuación para recibir actualizaciones.
             sub_header: Regístrese a continuación para recibir actualizaciones y le informaremos tan pronto como GetCTC esté disponible en Puerto Rico.
           sub_header_html: |
-            Lo único que tiene que hacer es indicarnos su nombre y una dirección de correo electrónico o un número de teléfono, y le enviaremos un correo electrónico o un mensaje de texto con actualizaciones sobre GetCTC.
+            Lo único que necesita hacer es indicarnos su nombre y una dirección de correo electrónico o un número de teléfono, y le enviaremos un correo electrónico o un mensaje de texto con información actualizada sobre GetCTC.
 
-            Si no puede esperar hasta entonces, visite <a href="%{homepage_link}" target="_blank" rel="nofollow noopener">GetYourRefund.org</a> para conectarse a otros recursos de declaración gratuitos.
+            Si no desea esperar hasta entonces, visite <a href="%{homepage_link}" target="_blank" rel="nofollow noopener">GetYourRefund.org</a> para ponerse en contacto con otros recursos de presentación gratuitos.
           submit: Manténganme actualizado
           title: Regístrate
       stimulus_home:
@@ -3258,7 +3253,7 @@ es:
         save_cta: Guarde a esta persona
         title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
         was_married: Casado/a desde 12/31/%{year}
-        was_not_citizen: No era ciudadano de los Estados Unidos
+        was_not_citizen: No es ciudadano estadounidense
         was_student: Estudiante de educación superior de tiempo completo
       index:
         add_person: Agregue a una persona
@@ -3820,7 +3815,7 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closed_banner: GetYourRefund reabrirá el 31 de enero.
+        closed_banner: GetYourRefund reabrirá sus servicios el 31 de enero.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
@@ -4324,7 +4319,7 @@ es:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego 
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: Yo no era un ciudadanos de los Estados Unidos
+          was_not_citizen: No era ciudadano estadounidense
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
@@ -4427,7 +4422,7 @@ es:
           one: En %{year}, ¿realizó algún pago de pensión alimenticia?
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
-        info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"
@@ -4521,7 +4516,7 @@ es:
           had_disability: Mi cónyuge tenía una discapacidad permanente
           was_blind: Mi cónyuge era legalmente ciego
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: Ellos no eran ciudadanos de los Estados Unidos
+          was_not_citizen: No eran ciudadanos estadounidenses
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
@@ -4566,11 +4561,7 @@ es:
         verification_code_label: Ingrese el código de 6 dígitos
         verify: Verifique
       welcome:
-        find_right_service: "¡Le haremos algunas preguntas para encontrar el mejor servicio para usted!"
-        help_text: 'Le brindamos opciones múltiples para presentar su declaración de impuestos a hogares que califiquen:'
-        list:
-          diy_html: "<strong>File Myself</strong> Una opción rápida en línea le permite presentar y cobrar créditos fiscales por su cuenta."
-          gyr_html: "<strong>GetYourRefund</strong> Nuestros especialistas en impuestos certificados lo ayudarán a presentar y recoger todos los créditos tributarios que se le deben."
+        content: GetYourRefund es un servicio virtual disponible para los hogares que califican. Le haremos algunas preguntas para encontrar la opción adecuada para usted.
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?

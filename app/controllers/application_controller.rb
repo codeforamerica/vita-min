@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     }.merge(default_url_options).merge(options))
   end
 
+  def self.all_localized_paths
+    Rails.configuration.i18n.available_locales.map { |locale| to_path_helper(locale: locale) }
+  end
+
   def canonical_url(locale=I18n.locale)
     # Leave the locale out of canonical URLs in the default locale (works ok either way but needs to be consistent)
     url_for(only_path: false, locale: locale)

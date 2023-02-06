@@ -1,7 +1,13 @@
 class RemoveUnconsentedClientsJob < ApplicationJob
   def perform(created_before: 14.days.ago)
-    clients_to_remove(created_before).find_in_batches do |clients|
-      ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([<<~SQL, clients.pluck('id')]))
+    result = ActiveRecord::Base.connection.execute("SELECT pg_try_advisory_lock(1675448731) as lock_acquired")
+    raise "#{self.class.name} lock already held" unless result[0]["lock_acquired"]
+
+    loop do
+      client_batch = clients_to_remove(created_before).order(created_at: :desc).limit(1000)
+      break if client_batch.length.zero?
+
+      ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([<<~SQL, client_batch.pluck('id')]))
         INSERT INTO abandoned_pre_consent_intakes(id, client_id, created_at, updated_at, source, visitor_id, referrer, intake_type, triage_filing_frequency, triage_filing_status, triage_income_level, triage_vita_income_ineligible)
           (SELECT id, client_id, created_at, updated_at, source, visitor_id, referrer, type as intake_type, triage_filing_frequency, triage_filing_status, triage_income_level, triage_vita_income_ineligible from intakes WHERE client_id IN (?))
         ON CONFLICT (id) DO
@@ -18,8 +24,10 @@ class RemoveUnconsentedClientsJob < ApplicationJob
             triage_income_level=EXCLUDED.triage_income_level,
             triage_vita_income_ineligible=EXCLUDED.triage_vita_income_ineligible
       SQL
-      clients.each(&:destroy)
+      client_batch.each(&:destroy)
     end
+  ensure
+    ActiveRecord::Base.connection.execute("SELECT pg_advisory_unlock(1675448731)")
   end
 
   private

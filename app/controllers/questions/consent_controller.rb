@@ -2,6 +2,7 @@ module Questions
   class ConsentController < QuestionsController
     include AnonymousIntakeConcern
     layout "intake"
+    before_action :check_required_attributes
 
     def illustration_path; end
 
@@ -40,6 +41,14 @@ module Questions
       end
 
       sign_in current_intake.client unless current_intake.client.routing_method_at_capacity?
+    end
+
+    private
+
+    def check_required_attributes
+      if current_intake.primary_ssn.blank?
+        redirect_to Questions::WelcomeController.to_path_helper
+      end
     end
   end
 end
