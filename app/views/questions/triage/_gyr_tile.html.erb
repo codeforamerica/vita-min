@@ -13,7 +13,7 @@
   <div class="bottom-section">
     <div>
       <ul class="list--bulleted">
-        <li><%= t('.list.file') %></li>
+        <li><%= t('.list.file', current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></li>
         <li><%= t('.list.income') %></li>
         <li><%= t('.list.ssn') %></li>
       </ul>

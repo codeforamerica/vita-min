@@ -1674,15 +1674,15 @@ es:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
         list:
-          file: File for 2022 only
-          income: 'Income: under $73,000'
+          file: Archivo solo para %{current_tax_year}
+          income: 'Ingresos: menos de $73,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
         choose_gyr: Elija Archivo con ayuda
         description: Presente su declaración con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
-          file: Archivo para 2019-2022
+          file: Archivo para 2019-%{current_tax_year}
           income: 'Ingresos: menos de $66,000'
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo ITIN
         timeframe: De 2-3 semanas para declarar sus impuestos

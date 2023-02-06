@@ -7,7 +7,7 @@
   <div class="bottom-section">
     <div>
       <ul class="list--bulleted">
-        <li><%= t('questions.triage.diy_tile.list.file') %></li>
+        <li><%= t('questions.triage.diy_tile.list.file', current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></li>
         <li><%= t('questions.triage.diy_tile.list.income') %></li>
       </ul>
     </div>

@@ -1681,7 +1681,7 @@ en:
         choose_diy: Choose File Myself
         description: File quickly on your own.
         list:
-          file: File for 2022 only
+          file: File for %{current_tax_year} only
           income: 'Income: under $73,000'
         timeframe: 45 minutes to file
         title: File Myself
@@ -1689,7 +1689,7 @@ en:
         choose_gyr: Choose File with Help
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
-          file: File for 2019-2022
+          file: File for 2019-%{current_tax_year}
           income: 'Income: under $66,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
