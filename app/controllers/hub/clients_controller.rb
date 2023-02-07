@@ -247,7 +247,10 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = client.intake
-        unless @intake
+        if @intake.present? && @intake.product_year != Rails.configuration.product_year
+          @archived = true
+        end
+        if @intake.blank?
           @intake = Archived::Intake2021.find_by(client_id: @client.id)
           @archived = true if @intake
         end
@@ -265,7 +268,7 @@ module Hub
       end
 
       def editable?
-        !!@client.intake
+        @client.intake.present? && @client.intake.product_year == Rails.configuration.product_year
       end
 
       def required_documents_tooltip
@@ -280,7 +283,7 @@ module Hub
       end
 
       def hub_status_updatable
-        @client.intake && !@client.online_ctc?
+        editable? && !@client.online_ctc?
       end
 
       def requires_spouse_info?

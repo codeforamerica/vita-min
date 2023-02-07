@@ -38,7 +38,7 @@
     </div>
   <% end %>
   <% if @client.intake.is_ctc? %>
-    <% if @client.archived? %>
+    <% if dependent.class == Archived::Dependent2021 %>
       <%= render 'hub/dependents/archived_2021_ctc_dependent_detail', dependent: dependent %>
     <% else %>
       <%= render 'hub/dependents/dependent_detail', dependent: dependent %>
