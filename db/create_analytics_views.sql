@@ -155,6 +155,10 @@ CREATE VIEW analytics.incoming_emails AS
     SELECT id, attachment_count, client_id, created_at, received_at, updated_at
     FROM public.incoming_emails;
 
+CREATE VIEW analytics.incoming_portal_messages AS
+    SELECT id, created_at, client_id
+    FROM public.incoming_portal_messages;
+
 CREATE VIEW analytics.intake_archives AS
 SELECT id, needs_help_2017
 FROM public.intake_archives;
