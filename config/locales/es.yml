@@ -2104,7 +2104,7 @@ es:
           visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
           visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el pago de estímulo
         bank_account:
-          title: Proporcione sus datos bancarios a continuación
+          title: Proporcione sus datos bancarios.
         cell_phone_number:
           confirm_label: Confirmar número de celular
           label: Número de celular
@@ -3265,9 +3265,6 @@ es:
         document_list_title: 'Basado en sus respuestas previas, es possible que tenga los siguientes documentos:'
         help_text: Si tiene otros documentos que puedan ser relevantes, por favor compártalos con nosotros. ¡Nos ayudará a preparar mejor sus impuestos!
         title: Por favor comparta cualquier documento adicional.
-      care_provider_statements:
-        help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
-        title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
       employment:
         help_text_html: "<strong>Hace falta una prueba de su empleo. Por favor, provea un (1) documento para cada empleo en que ha trabajado. El documento puede ser cualquier de los enumerados aquí:</strong>"
         personal_log: Registro personal
@@ -3276,45 +3273,9 @@ es:
       form1095as:
         help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que compró un seguro de salud en el mercado. Es posible necesite descargarlo a través del mercado o del intercambio de su estado. Más información acerca del formulario está disponible %{more_info_link}."
         title: Adjunte sus 1095-A
-      form1098es:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que pagó intereses de préstamos estudiantiles. En general, se puede obtener este documento desde un portal de préstamos en línea y que no le es enviado por correo."
-        title: Adjunte sus formularios 1098-E
-      form1098s:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas. Más información acerca de este formulario está disponible %{more_info_link}."
-        title: Adjunte sus formularios 1098
-      form1098ts:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que lograste finalizar la educación superior (escuela técnica, colegio, universidad). Este formulario es su declaración de matrícula. Más información acerca de este formulario se encuentra en la lista %{more_info_link}."
-        title: Adjunte sus formularios 1098-T
-      form1099as:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que un tiene una deuda perdonada. Este formulario se usa generalmente para informar la transferencia de propiedad embargada. Si no ha recibido un 1099-A y cree que debería de haberlo recibido, comuníquese con su banco o prestamista."
-        title: Adjunte sus formularios 1099-A
-      form1099bs:
-        help_text_html: Usted nos ha confirmado que recibió ingresos por la venta de inversiones o bienes inmuebles. Si ha específicamente recibido ingresos de acciones o bonos, <strong>debe tener este formulario.</strong> Si no ha recibido un 1099-B, comuníquese con su corredor de bolsa.
-        title: Adjunte sus formularios 1099-B
-      form1099cs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una deuda perdonada. Si ha prestado dinero de un prestamista comercial y al menos $ 600 de esa deuda ha sido cancelada o perdonada, muy probablemente le han enviado este formulario. Si no ha recibido un 1099-C y cree que debería de haberlo recibido, comuníquese con su prestamista."
-        title: Adjunte sus formularios 1099-C
-      form1099divs:
-        help_text_html: Nos ha confirmado que ha recibido ingresos de intereses o dividendos. Si ha recibido ingresos específicamente de dividendos, <strong>debe tener este formulario</strong>. Las compañías de inversión deben proporcionar a los contribuyentes un 1099-DIV antes del 31 de enero de cada año.
-        title: Adjunte sus formularios 1099-DIV
-      form1099gs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que recibió un reembolso de impuestos estatales o locales el año pasado. Los usos más comunes del 1099-G son para informar la compensación por desempleo y los reembolsos de impuestos estatales y locales."
-        title: Adjunte sus formularios 1099-G
-      form1099ints:
-        help_text_html: Nos ha confirmado que recibiste ingresos de intereses o dividendos. Si recibió ingresos específicos de intereses, <strong>es posible que tenga este formulario</strong> . Las compañías de inversión deben presentar 1099-INT antes del 31 de enero de cada año.
-        title: Adjunte sus formularios 1099-INT
       form1099rs:
         help_text_html: "<strong>Debería tener este formulario</strong> porque nos ha confirmado que recibió ingresos de una cuenta de jubilación, pensión o ingresos de anualidad. Este formulario es utilizado para informar distribuciones de anualidades, planes de participación en las ganancias, planes de jubilación, planes de pensiones - IRA, contratos de seguro o pensiones. El repartidor de su plan de jubilación debería de haberle enviado el formulario."
         title: Adjunte sus 1099-R
-      form1099sas:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una Cuenta de Ahorros de Salud (HSA). Este formulario es enviado para informar las distribuciones de ahorros de salud, ahorros médicos y cuentas de Medicare Advantage. La institución financiera que administra la cuenta es responsable por enviarle una copia."
-        title: Adjunte sus 1099-SA
-      form1099ss:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que recibió ingresos por la venta de inversiones o bienes inmuebles. Use el Formulario 1099-S para informar la venta o el intercambio de bienes inmuebles."
-        title: Adjunte sus 1099-S
-      form5498sas:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una Cuenta de Ahorros para la Salud (HSA). Este formulario acompaña las contribuciones hechas a las Cuentas de Ahorros para la Salud (HSA) y a las Cuentas de Ahorros Médicos (MSA)."
-        title: Adjunte sus formularios 5498-SA
       id_guidance:
         info: Para proteger su identidad y garantizar que su información personal sea precisa y segura, necesitamos verificar quién es usted.
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
@@ -3335,26 +3296,11 @@ es:
         note: 'Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos.'
         should_have: 'Debería tener los siguientes documentos:'
         title: "¡Ahora, vamos a recoger sus documentos de impuestos!"
-      ira_statements:
-        help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."
-        title: Adjunte sus declaraciones de algún plan de pensiones (IRA)
       overview:
         empty: Este tipo de documento no fue subido.
         finished: He compartido todos mis documentos
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
-      primary_ssn_itins:
-        help_text: El IRS require que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
-        title: Anexe una foto de su Tarjeta de Seguro Social o Número de Identificación Personal (ITIN en inglés)
-      prior_tax_returns:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que informó una pérdida por la venta de acciones, bonos o bienes inmuebles el año pasado. Es posible que tenga su retorno %{year}, que puede compartir abajo. Puede rastrear su retorno %{year} %{transcript_link}."
-        title: Adjunte su declaración de impuestos %{year}.
-      property_tax_statements:
-        help_text_html: "<strong>Es posible que tenga este documento</strong> porque dijo que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas."
-        title: Adjunte sus declaraciones de impuestos a la propiedad
-      rrb1099s:
-        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
-        title: Adjunte sus RRB-1099
       selfie_instructions:
         header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
         info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
@@ -3370,26 +3316,10 @@ es:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
         title: Comparta una foto de usted sosteniendo su tarjeta de identificación
-      spouse_ids:
-        help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
-        title: Adjunte una foto de la tarjeta de identificación de su cónyuge
-      spouse_ssn_itins:
-        help_text: El IRS nos exige que veamos un Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN en inglés) válido para los servicios de preparación de impuestos.
-        title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o Número de Identificación Personal (ITIN)
-      ssa1099s:
-        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si tuvo ingresos específicamente del Seguro Social, <strong>debe tener este formulario.</strong> Este es un formulario de impuestos que muestra la cantidad total de beneficios que recibió del Seguro Social en el año anterior. Puede obtener este formulario %{ssa_link}.
-        title: Adjunte sus SSA-1099
       ssn_itins:
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
         title: Adjunte fotos de la Tarjeta de Seguro Social o Número de Identificación Personal (ITIN en inglés)
-      student_account_statements:
-        help_text_html: "<strong>Es posible que tenga esta declaración</strong> porque dijo que está declarando impuestos de personas que son estudiantes de tiempo completo."
-        need_for: 'Comparta un imagen de la declaración de cuenta del alumno(a) para las siguientes personas:'
-        title: Adjunte sus declaraciones de cuenta de estudiante
-      w2gs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tenía ingresos de ganancias de apuestas o la lotería. Dependiendo de cuánto ganó, una institución de juegos de azar puede enviarle un formulario W2-G que registra sus ganancias y cualquier retención de impuestos del año anterior."
-        title: Adjunte sus W-2G
     layouts:
       admin:
         welcome_user_html: Bienvenido/a<strong class="user__name">%{name}</strong>

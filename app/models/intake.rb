@@ -463,14 +463,6 @@ class Intake < ApplicationRecord
     spouse.first_and_last_name
   end
 
-  def student_names
-    names = []
-    names << primary.first_and_last_name if was_full_time_student_yes?
-    names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
-    names += dependents.where(was_student: "yes").map(&:full_name)
-    names
-  end
-
   def get_or_create_spouse_auth_token
     return spouse_auth_token if spouse_auth_token.present?
 

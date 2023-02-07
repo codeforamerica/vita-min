@@ -2112,7 +2112,7 @@ en:
           visit_ctc_faq: Visit the Child Tax Credit FAQ
           visit_stimulus_faq: Visit the Stimulus FAQ
         bank_account:
-          title: Please provide your bank details below
+          title: Please provide your bank details.
         cell_phone_number:
           confirm_label: Confirm cell phone number
           label: Cell phone number
@@ -3264,9 +3264,6 @@ en:
         document_list_title: 'Based on your earlier answers, you might have the following:'
         help_text: If you have any other documents that might be relevant, please share them with us below. It will help us better prepare your taxes!
         title: Please share any additional documents.
-      care_provider_statements:
-        help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
-        title: Attach your statements from childcare facilities or individuals who provided care.
       employment:
         help_text_html: "<strong>We need proof of your employment. Please provide 1 document for each job you've worked. This can be any of the documents listed below:</strong>"
         personal_log: Personal log
@@ -3275,45 +3272,9 @@ en:
       form1095as:
         help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
         title: Attach your 1095-A's
-      form1098es:
-        help_text_html: "<strong>You might have this form</strong> because you said that you paid student loan interest. This document is usually accessed from a lender portal online and isn't mailed to you."
-        title: Attach your 1098-E's
-      form1098s:
-        help_text_html: "<strong>You might have this form</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes. More information on this form is available %{more_info_link}."
-        title: Attach your 1098's
-      form1098ts:
-        help_text_html: "<strong>You might have this form</strong> because you said that you pursued higher education (technical school, college, university). This form is your tuition statement. More information on this form is listed %{more_info_link}."
-        title: Attach your 1098-T's
-      form1099as:
-        help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. This form is typically used to report the transfer of foreclosed property. If you haven’t received a 1099-A and believe you should have, contact your bank or lender."
-        title: Attach your 1099-A's
-      form1099bs:
-        help_text_html: You said that you received income from the sale of investment or real estate. If you specifically received income from stocks or bonds, <strong>you should have this form.</strong> If you haven't received a 1099-B, contact your broker.
-        title: Attach your 1099-B's
-      form1099cs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. If you borrowed money from a commercial lender and at least $600 of that debt was cancelled or forgiven, they should have sent you this form. If you haven’t received a 1099-C and believe you should have, contact your lender."
-        title: Attach your 1099-C's
-      form1099divs:
-        help_text_html: You said that you received income from interest or dividends. If you specifically received income from dividends, <strong>you should have this form</strong>. Investment companies are required to provide taxpayers with a 1099-DIV by January 31 each year.
-        title: Attach your 1099-DIV's
-      form1099gs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you received a state or local income tax refund last year. The most common uses of the 1099-G are to report unemployment compensation and state and local income tax refunds."
-        title: Attach your 1099-G's
-      form1099ints:
-        help_text_html: You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year.
-        title: Attach your 1099-INT's
       form1099rs:
         help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
         title: Attach your 1099-R's
-      form1099sas:
-        help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form is sent to report distributions from health savings, medical savings, and Medicare Advantage accounts. The financial institution that manages the account is responsible for sending you a copy."
-        title: Attach your 1099-SA's
-      form1099ss:
-        help_text_html: "<strong>You might have this form</strong> because you said that you received income from the sale of investments or real estate. Use Form 1099-S to report the sale or exchange of real estate."
-        title: Attach your 1099-S's
-      form5498sas:
-        help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form tracks contributions to Health Savings Accounts (HSA) and Medical Savings Accounts (MSA)."
-        title: Attach your 5498-SA's
       id_guidance:
         info: To protect your identity and ensure that your personal information is accurate and secure, we need to verify who you are.
         multiple_forms: The IRS requires us to verify who you are with multiple forms of identity.
@@ -3332,26 +3293,11 @@ en:
         note: 'Note: If you have other documents, you will have a chance to share those as well.'
         should_have: 'You should have the following documents:'
         title: Now, let's collect your tax documents!
-      ira_statements:
-        help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
-        title: Attach your IRA Statements
       overview:
         empty: No documents of this type were uploaded.
         finished: I've shared all my documents
         schedule_appointment: When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
         title: Great work! Here's a list of what we've collected.
-      primary_ssn_itins:
-        help_text: The IRS requires us to see a valid SSN or ITIN for tax preparation services.
-        title: Attach a photo of your Social Security Card or ITIN
-      prior_tax_returns:
-        help_text_html: "<strong>You might have this form</strong> because you said that you reported a loss from the sale of stocks, bonds, or real estate last year. You might have your %{year} return, which you can share below. You can track down your %{year} return %{transcript_link}."
-        title: Attach your %{year} tax return.
-      property_tax_statements:
-        help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
-        title: Attach your Property Tax Statements
-      rrb1099s:
-        help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}.
-        title: Attach your RRB-1099's
       selfie_instructions:
         header: Confirm your identity with a photo of yourself holding your ID card
         info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
@@ -3367,26 +3313,10 @@ en:
         help_text: The IRS requires us to verify who you are for tax preparation services.
         need_for_html: 'We will need to see a <u>photo with ID</u> for:'
         title: Share a photo of yourself holding your ID card
-      spouse_ids:
-        help_text: The IRS also requires us to have a current drivers license, passport, or state ID for your spouse.
-        title: Attach a photo of your spouse's ID card
-      spouse_ssn_itins:
-        help_text: The IRS requires us to see a valid SSN or ITIN for tax preparation services.
-        title: Attach a photo of your spouse's Social Security Card or ITIN
-      ssa1099s:
-        help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Social Security, <strong>you should have this form.</strong> This is a tax form that shows the total amount of benefits you received from Social Security in the previous year. You can get this form %{ssa_link}.
-        title: Attach your SSA-1099's
       ssn_itins:
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
         title: Attach photos of Social Security Card or ITIN
-      student_account_statements:
-        help_text_html: "<strong>You might have this statement</strong> because you said that you are filing taxes for people who are full-time students."
-        need_for: 'Please share an image of the student account statement for the following people:'
-        title: Attach your student account statements
-      w2gs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
-        title: Attach your W-2G's
     layouts:
       admin:
         welcome_user_html: Welcome <strong class="user__name">%{name}</strong>
