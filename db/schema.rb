@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_225607) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_001126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1018,6 +1018,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_225607) do
   end
 
   create_table "intake_archives", force: :cascade do |t|
+    t.integer "had_student_in_family"
     t.integer "needs_help_2017"
     t.integer "spouse_was_on_visa"
     t.integer "was_on_visa"

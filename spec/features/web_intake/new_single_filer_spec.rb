@@ -146,7 +146,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "No"
 
     # Students
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, was someone in your family a college or other post high school student?")
+    expect(page).to have_selector("h1", text: I18n.t("views.questions.student.title", year: current_tax_year))
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any student loan interest?")
     click_on "No"

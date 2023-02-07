@@ -7,7 +7,7 @@ module Questions
     private
 
     def method_name
-      "had_student_in_family"
+      "paid_post_secondary_educational_expenses"
     end
   end
 end

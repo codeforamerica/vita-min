@@ -100,7 +100,6 @@
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
 #  had_social_security_or_retirement                    :integer          default(0), not null
-#  had_student_in_family                                :integer          default(0), not null
 #  had_tax_credit_disallowed                            :integer          default(0), not null
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
@@ -456,7 +455,6 @@ class Intake < ApplicationRecord
   def any_students?
     was_full_time_student_yes? ||
       spouse_was_full_time_student_yes? ||
-      had_student_in_family_yes? ||
       dependents.any?(&:was_student_yes?)
   end
 
@@ -641,7 +639,7 @@ class Intake < ApplicationRecord
   end
 
   def self.archived_columns
-    ["needs_help_2017", "was_on_visa", "spouse_was_on_visa"]
+    ["needs_help_2017", "was_on_visa", "spouse_was_on_visa", "had_student_in_family"]
   end
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id, dependent: :destroy

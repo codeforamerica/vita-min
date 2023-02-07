@@ -284,7 +284,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Student questions
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{current_tax_year}, was someone in your family a college or other post high school student?")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.student.title", year: current_tax_year))
     end
     click_on "Yes"
     screenshot_after do

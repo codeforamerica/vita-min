@@ -189,7 +189,6 @@ class F13614cPdf
       "form1[0].page1[0].q2_Telephone_Number[0]" => @intake.spouse_phone_number,
       "form1[0].page1[0].q7_Spouse_Date_Birth[0]" => strftime_date(@intake.spouse.birth_date),
       "form1[0].page1[0].q8_Spouse_Job_Title[0]" => @intake.spouse_job_title,
-      # "form1[0].page1[0].spouse_is_on_visa[0]" => yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
     }.merge(
       yes_no_checkboxes("form1[0].page1[0].q2_Is_Your_Spouse[0]", @intake.spouse_us_citizen),
       yes_no_checkboxes("form1[0].page1[0].q9_Is_Your_Spouse[0].q9a_Full_Time_Student[0]", @intake.spouse_was_full_time_student),

@@ -143,7 +143,6 @@ FactoryBot.define do
     paid_retirement_contributions { "yes" }
     paid_school_supplies { "unfilled" }
     paid_alimony { "no" }
-    had_student_in_family { "yes" }
     sold_a_home { "no" }
     had_hsa { "yes" }
     bought_health_insurance { "no" }
