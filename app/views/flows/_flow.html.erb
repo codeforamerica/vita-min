@@ -1,8 +1,19 @@
 <p>
   <% if flow_params.reference_object %>
     Showing pages reachable by reference object: <strong><%= flow_params.pretty_reference_object %></strong>.
-    <% if flow_params.reference_object.respond_to?(:client_id) %><br/>
-      <%= link_to 'View client in hub', url_for(host: MultiTenantService.new(:gyr).host, controller: "/hub/clients", action: 'show', id: flow_params.reference_object.client_id), target: "_blank" %>
+    <% if flow_params.reference_object.respond_to?(:client_id) %>
+      <div>
+        <%= link_to 'View client in hub',
+                    url_for(host: MultiTenantService.new(:gyr).host,
+                            controller: "/hub/clients", action: 'show',
+                            id: flow_params.reference_object.client_id),
+                    target: "_blank",
+                    class: "button button--small"
+        %>
+      </div>
+      <div class="spacing-below-15">
+        <%= link_to "View client portal", new_portal_client_login_path, class: "flow-explorer-link button button--small button--primary" %>
+      </div>
     <% end %>
   <% else %>
     <strong>Showing all pages.</strong>
