@@ -47,20 +47,25 @@ class Organization < VitaPartner
   alias_attribute :allows_greeters?, :allows_greeters
   scope :with_capacity, -> do
     with(
-      organization_id_by_vita_partner_id: VitaPartner.select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) AS organization_id'),
+      organization_id_by_vita_partner_id: VitaPartner.
+        select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) AS organization_id'),
       client_ids: TaxReturn.
         joins(:intake).
         select('client_id').
         where.not(current_state: TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY).
         where('intakes.product_year' => Rails.configuration.product_year),
-      partner_and_client_counts: Arel.sql(<<~PACC)
+      partner_and_client_counts: Arel.sql(<<~SQL)
         SELECT organization_id, count(clients.id) as active_client_count
         FROM organization_id_by_vita_partner_id
-                 LEFT OUTER JOIN clients ON organization_id_by_vita_partner_id.id = clients.vita_partner_id
-        WHERE clients.id IN (select client_id from client_ids) GROUP BY organization_id
-    PACC
-    ).joins('LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id')
-     .select('vita_partners.*', 'CASE WHEN partner_and_client_counts.active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.active_client_count END as active_client_count')
+        LEFT OUTER JOIN clients ON organization_id_by_vita_partner_id.id = clients.vita_partner_id
+        WHERE clients.id IN (select client_id from client_ids)
+        GROUP BY organization_id
+      SQL
+    ).joins(
+      'LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id'
+    ).select(
+      'vita_partners.*', 'CASE WHEN partner_and_client_counts.active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.active_client_count END as active_client_count'
+    )
   end
 
   def at_capacity?
