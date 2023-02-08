@@ -31,6 +31,8 @@
 class Organization < VitaPartner
   TYPE = "Organization"
 
+  attribute :active_client_count
+
   belongs_to :coalition, optional: true
   has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
@@ -43,6 +45,24 @@ class Organization < VitaPartner
 
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
+  scope :with_capacity, -> do
+    not_these_states = ['intake_before_consent', 'intake_in_progress', 'intake_greeter_info_requested', 'intake_needs_doc_help', 'file_mailed', 'file_accepted', 'file_not_filing', 'file_hold', 'file_fraud_hold']
+    with(
+      organization_id_by_vita_partner_id: VitaPartner.select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) AS organization_id'),
+      client_ids: TaxReturn.
+        joins(:intake).
+        select('client_id').
+        where.not(current_state: not_these_states).
+        where('intakes.product_year' => Rails.configuration.product_year),
+      partner_and_client_counts: Arel.sql(<<~PACC)
+        SELECT organization_id, count(clients.id) as active_client_count
+        FROM organization_id_by_vita_partner_id
+                 LEFT OUTER JOIN clients ON organization_id_by_vita_partner_id.id = clients.vita_partner_id
+        WHERE clients.id IN (select client_id from client_ids) GROUP BY organization_id
+    PACC
+    ).joins('LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id')
+     .select('vita_partners.*', 'CASE WHEN partner_and_client_counts.active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.active_client_count END as active_client_count')
+  end
 
   def at_capacity?
     !OrganizationCapacity.with_capacity.where(organization: self).exists?

@@ -4,9 +4,9 @@ module Hub
 
     def initialize(current_ability)
       @current_ability = current_ability
-      @organizations = Organization.accessible_by(current_ability).includes(:child_sites, :organization_capacity).load
+      @organizations = Organization.accessible_by(current_ability).includes(:child_sites).with_capacity.load
       @coalitions = Coalition.accessible_by(current_ability)
-      @state_routing_targets = StateRoutingTarget.where(target: @organizations).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
+      @state_routing_targets = StateRoutingTarget.where(target: Organization.accessible_by(current_ability)).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
     end
 
     Capacity = Struct.new(:current_count, :total_capacity) do
@@ -30,8 +30,8 @@ module Hub
       return unless current_ability.can?(:read, organization)
 
       Capacity.new(
-        organization.organization_capacity.active_client_count || 0,
-        organization.organization_capacity.capacity_limit || 0
+        organization.active_client_count || 0,
+        organization.capacity_limit || 0
       )
     end
 
