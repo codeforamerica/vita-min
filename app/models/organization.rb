@@ -46,13 +46,12 @@ class Organization < VitaPartner
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
   scope :with_capacity, -> do
-    not_these_states = ['intake_before_consent', 'intake_in_progress', 'intake_greeter_info_requested', 'intake_needs_doc_help', 'file_mailed', 'file_accepted', 'file_not_filing', 'file_hold', 'file_fraud_hold']
     with(
       organization_id_by_vita_partner_id: VitaPartner.select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) AS organization_id'),
       client_ids: TaxReturn.
         joins(:intake).
         select('client_id').
-        where.not(current_state: not_these_states).
+        where.not(current_state: TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY).
         where('intakes.product_year' => Rails.configuration.product_year),
       partner_and_client_counts: Arel.sql(<<~PACC)
         SELECT organization_id, count(clients.id) as active_client_count
