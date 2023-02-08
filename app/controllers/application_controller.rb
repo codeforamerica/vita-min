@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
-  after_action :track_page_view
+  after_action :track_page_view, :track_form_submission
 
   before_action do
     if defined?(Rack::MiniProfiler) && current_user&.admin?
@@ -198,6 +198,10 @@ class ApplicationController < ActionController::Base
 
   def track_page_view
     send_mixpanel_event(event_name: "page_view") if request.get?
+  end
+
+  def track_form_submission
+    send_mixpanel_event(event_name: "form_submission") if %w[POST PUT PATCH DELETE].include? request.request_method
   end
 
   def track_first_visit(page_name)

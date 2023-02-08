@@ -665,6 +665,28 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#track_form_submission" do
+    before do
+      allow(subject).to receive(:send_mixpanel_event)
+    end
+
+    context "with a POST request" do
+      it "sends a form submission event to mixpanel" do
+        put :index
+
+        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "form_submission")
+      end
+    end
+
+    context "with a GET request" do
+      it "does not send a form submission event to mixpanel" do
+        get :index
+
+        expect(subject).not_to have_received(:send_mixpanel_event).with(event_name: "form_submission")
+      end
+    end
+  end
+
   describe "#set_get_started_link" do
     context "locale is en" do
       it "generates a link to the beginning of the GYR flow" do
