@@ -93,9 +93,15 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return unless @zip_code.present?
 
-    eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
-      OrganizationCapacity.with_capacity
-    )
+    if ENV['NEW_ORGANIZATION_CAPACITY']
+      eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(:organization).where(
+        vita_partner_id: Organization.with_capacity.pluck('vita_partners.id')
+      )
+    else
+      eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
+        OrganizationCapacity.with_capacity
+      )
+    end
 
     vita_partner = eligible_with_capacity.first&.vita_partner
 
