@@ -201,7 +201,7 @@ class ApplicationController < ActionController::Base
   end
 
   def track_form_submission
-    send_mixpanel_event(event_name: "form_submission") if %w[POST PUT PATCH DELETE].include? request.request_method
+    send_mixpanel_event(event_name: "form_submission") if %w[POST PUT PATCH DELETE].include?(request.request_method) && (200..399).include?(response.status)
   end
 
   def track_first_visit(page_name)

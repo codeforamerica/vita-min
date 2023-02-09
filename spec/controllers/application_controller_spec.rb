@@ -10,6 +10,10 @@ RSpec.describe ApplicationController do
         format.js { head :ok }
       end
     end
+
+    def create
+      head :ok
+    end
   end
 
   describe "#include_analytics?" do
@@ -617,9 +621,9 @@ RSpec.describe ApplicationController do
 
     context "with a POST request" do
       it "does not send a page view event to mixpanel" do
-        post :index
+        post :create
 
-        expect(subject).not_to have_received(:send_mixpanel_event)
+        expect(subject).not_to have_received(:send_mixpanel_event).with(event_name: "page_view")
       end
     end
 
@@ -672,7 +676,7 @@ RSpec.describe ApplicationController do
 
     context "with a POST request" do
       it "sends a form submission event to mixpanel" do
-        put :index
+        put :create
 
         expect(subject).to have_received(:send_mixpanel_event).with(event_name: "form_submission")
       end
