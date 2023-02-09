@@ -5,7 +5,7 @@ describe('MixpanelEventTracking', () => {
     document.body.innerHTML = `
           <meta id="mixpanelData" data-controller-action="fake#action" 
                 data-full-path="/fake/path" data-send-mixpanel-beacon="true" />
-          <a data-track-click="fake-event" href="/en/welcome">A Link</a>
+          <a data-track-click="fake-event" data-track-attribute-is-welcoming="yup" href="/en/welcome">A Link</a>
           <a id="outboundLink" href="https://example.com/">Example link to somewhere radical and new</a>
         `;
     navigator.sendBeacon = jest.fn();
@@ -23,6 +23,7 @@ describe('MixpanelEventTracking', () => {
       document.querySelector("a").click();
       expect(navigator.sendBeacon).toBeCalled();
       expect(navigator.sendBeacon.mock.calls[0][1].get("event[data][href]")).toBeNull();
+      expect(navigator.sendBeacon.mock.calls[0][1].get("event[data][is_welcoming]")).toEqual("yup");
     });
   });
 
