@@ -20,9 +20,11 @@ const MixpanelEventTracking = (function () {
 
           for (const key in clickedElement.dataset) {
             const attributePrefix = "trackAttribute";
+
             if (key.startsWith(attributePrefix)) {
-              const propertyKey = key.substring(attributePrefix.length).toLowerCase();
-              eventData.append("event[data][" + propertyKey + "]", clickedElement.dataset[key]);
+              const snakeCasedPropertyName = key.substring(attributePrefix.length)
+                .split(/(?=[A-Z])/).join('_').toLowerCase();
+              eventData.append("event[data][" + snakeCasedPropertyName + "]", clickedElement.dataset[key]);
             }
           }
 
