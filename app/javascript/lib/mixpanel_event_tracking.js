@@ -1,39 +1,52 @@
 import "../vendor/navigator.sendbeacon.min.js";
 
 
-const AjaxMixpanelEvents = (function () {
-  const init = function () {
-      $("[data-track-click]").on("click", function (e, options) {
-        const pageData = document.querySelector("#mixpanelData").dataset;
-        const clickedElement = $(e.target).closest("a");
-        const dataAttributes = clickedElement.data();
-        const elementText = clickedElement.text().trim();
-        const eventName = "click_" + dataAttributes["trackClick"];
+const MixpanelEventTracking = (function () {
+    const addClickTrackingToOutboundLinks = function () {
+      const links = document.querySelectorAll("a[href]:not([href^='/']):not([href^='#']):not([href^='" + location.protocol + "//" + location.host + "'])");
+      links.forEach((link) => {
+        link.dataset.trackClick = "outbound_link";
+        link.dataset.trackClickHref = "true";
+      })
+    }
+    const listenForTrackedClicks = function () {
+      document.querySelectorAll("a[data-track-click]").forEach((link) => {
+        link.addEventListener("click", function (e, options) {
+          const pageData = document.querySelector("#mixpanelData").dataset;
+          const clickedElement = e.target;
+          const eventName = "click_" + clickedElement.dataset.trackClick;
 
-        const eventData = new FormData();
+          const eventData = new FormData();
 
-        $.each(dataAttributes, function (key, value) {
-          const attributePrefix = "trackAttribute";
-          if (key.indexOf(attributePrefix) === 0) {
-            const propertyKey = key.substring(attributePrefix.length).toLowerCase();
-            eventData.append("event[data]["+propertyKey+"]", value);
+          for (const key in clickedElement.dataset) {
+            const attributePrefix = "trackAttribute";
+            if (key.startsWith(attributePrefix)) {
+              const propertyKey = key.substring(attributePrefix.length).toLowerCase();
+              eventData.append("event[data][" + propertyKey + "]", clickedElement.dataset[key]);
+            }
+          }
+
+          eventData.append("event[event_name]", eventName);
+          eventData.append("event[controller_action]", pageData.controllerAction);
+          eventData.append("event[full_path]", pageData.fullPath);
+          eventData.append("event[data][call_to_action]", (clickedElement.innerText || "").trim());
+          if (clickedElement.dataset.trackClickHref === "true") {
+            eventData.append("event[data][href]", clickedElement.href);
+          }
+          eventData.append(Rails.csrfParam(), Rails.csrfToken());
+          if (pageData.sendMixpanelBeacon) {
+            navigator.sendBeacon("/ajax_mixpanel_events", eventData);
           }
         });
+      })
+    };
 
-        eventData.append("event[event_name]", eventName);
-        eventData.append("event[controller_action]", pageData.controllerAction);
-        eventData.append("event[full_path]", pageData.fullPath);
-        eventData.append("event[data][call_to_action]", elementText);
-        eventData.append(Rails.csrfParam(), Rails.csrfToken());
-        if (pageData.sendMixpanelBeacon) {
-          navigator.sendBeacon("/ajax_mixpanel_events", eventData);
-        }
-      });
-  };
-
-  return {
-    init: init
+    return {
+      listenForTrackedClicks,
+      addClickTrackingToOutboundLinks
+    }
   }
-})();
+)
+();
 
-export default AjaxMixpanelEvents;
+export default MixpanelEventTracking;

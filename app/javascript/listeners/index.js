@@ -16,12 +16,12 @@ import { limitTextMessageLength } from "../lib/text_message_length_limiter";
 import { initServiceComparisonComponent } from "../lib/service_comparison_component";
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
-import AjaxMixpanelEvents from "../lib/mixpanel_event_tracking";
+import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
 const Listeners =  (function(){
     return {
         init: function () {
             window.addEventListener("load", function() {
-                AjaxMixpanelEvents.init();
+                MixpanelEventTracking.listenForTrackedClicks();
                 const { controllerAction } = document.querySelector("#mixpanelData").dataset;
                 ClientMenuComponent();
 
