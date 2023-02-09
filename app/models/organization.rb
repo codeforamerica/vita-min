@@ -46,23 +46,24 @@ class Organization < VitaPartner
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
   scope :with_computed_client_count, -> do
+    clients_with_tax_returns_included_in_capacity = TaxReturn.
+      joins(:intake).
+      select('client_id').
+      where.not(current_state: TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY).
+      where('intakes.product_year' => Rails.configuration.product_year)
+
     with(
-      organization_id_by_vita_partner_id: VitaPartner.
-        select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) AS organization_id'),
-      client_ids: TaxReturn.
-        joins(:intake).
-        select('client_id').
-        where.not(current_state: TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY).
-        where('intakes.product_year' => Rails.configuration.product_year),
-      partner_and_client_counts: Arel.sql(<<~SQL)
-        SELECT organization_id, count(clients.id) as pacc_active_client_count
+      organization_id_by_vita_partner_id: VitaPartner.select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) as organization_id_for_capacity'),
+      client_ids: clients_with_tax_returns_included_in_capacity,
+      partner_and_client_counts: Arel.sql(<<~SQL),
+        SELECT organization_id_for_capacity, count(clients.id) as pacc_active_client_count
         FROM organization_id_by_vita_partner_id
         LEFT OUTER JOIN clients ON organization_id_by_vita_partner_id.id = clients.vita_partner_id
         WHERE clients.id IN (select client_id from client_ids)
-        GROUP BY organization_id
+        GROUP BY organization_id_for_capacity
       SQL
     ).joins(
-      'LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id'
+      'LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id_for_capacity'
     ).select(
       'vita_partners.*, CASE WHEN partner_and_client_counts.pacc_active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.pacc_active_client_count END as active_client_count'
     )
