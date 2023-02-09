@@ -76,7 +76,7 @@ RSpec.describe TwilioWebhooksController do
             "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
             "SmsStatus" => "delivered",
             "MessageStatus" => "delivered",
-            "To" => "+14083483513",
+            "To" => "+14085553513",
             "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
             "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
             "From" => "+15136133299",
@@ -99,6 +99,56 @@ RSpec.describe TwilioWebhooksController do
       it "signals Datadog" do
         post :update_outgoing_text_message, params: params
         expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.updated.status.delivered"
+      end
+
+      context "retrying failed queue overflow messages" do
+        let(:params) do
+          {
+            "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
+            "SmsStatus" => "failed",
+            "MessageStatus" => "failed",
+            "To" => "+14085553513",
+            "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
+            "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
+            "From" => "+15136133299",
+            "ApiVersion" => "2010-04-01",
+            "id" => existing_message.id,
+            "ErrorCode" => "30001",
+            "ErrorMessage" => "Queue overflow"
+          }
+        end
+
+        context "when the message has been retried less than 3 times" do
+          before do
+            existing_message.update(number_of_retries: 0, twilio_status: "sending")
+          end
+
+          it "updates the status of the existing message and tries to send it again" do
+            expect {
+              post :update_outgoing_text_message, params: params
+            }.to enqueue_job(SendOutgoingTextMessageJob).with(existing_message.id)
+
+            expect(response).to be_ok
+            expect(existing_message.reload.twilio_status).to eq "failed"
+            expect(existing_message.reload.number_of_retries).to eq 1
+          end
+        end
+
+        context "when the message has been retried 3 or more times" do
+          before do
+            existing_message.update(number_of_retries: 3, twilio_status: "failed")
+          end
+
+          it "does not try to send it again" do
+            expect {
+              post :update_outgoing_text_message, params: params
+            }.not_to enqueue_job(SendOutgoingTextMessageJob)
+
+            expect(response).to be_ok
+            expect(existing_message.reload.twilio_status).to eq "failed"
+            expect(existing_message.reload.number_of_retries).to eq 3
+          end
+        end
       end
     end
   end
@@ -124,7 +174,7 @@ RSpec.describe TwilioWebhooksController do
           "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
           "SmsStatus" => "delivered",
           "MessageStatus" => "delivered",
-          "To" => "+14083483513",
+          "To" => "+14085553513",
           "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
           "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
           "From" => "+15136133299",

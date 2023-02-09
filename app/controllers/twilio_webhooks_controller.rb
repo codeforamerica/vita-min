@@ -6,7 +6,13 @@ class TwilioWebhooksController < ActionController::Base
   def update_outgoing_text_message
     status = params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-    OutgoingTextMessage.find(params[:id]).update_status_if_further(status)
+    message = OutgoingTextMessage.find(params[:id])
+    message.update_status_if_further(status)
+
+    if params["ErrorCode"] == "30001" && message.number_of_retries < 3
+      message.update(number_of_retries: message.number_of_retries + 1)
+      SendOutgoingTextMessageJob.perform_later(message.id)
+    end
     head :ok
   end
 
