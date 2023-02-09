@@ -56,7 +56,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
         it "sends a mixpanel event with the completed intake in the session" do
           post :update, params: params
 
-          expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake))
+          expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake, event_name: "question_answered"))
         end
       end
     end
