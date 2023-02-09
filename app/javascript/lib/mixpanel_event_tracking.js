@@ -1,8 +1,8 @@
 import "../vendor/navigator.sendbeacon.min.js";
 
+
 const AjaxMixpanelEvents = (function () {
   const init = function () {
-    $(document).ready(function() {
       $("[data-track-click]").on("click", function (e, options) {
         const pageData = document.querySelector("#mixpanelData").dataset;
         const clickedElement = $(e.target).closest("a");
@@ -29,7 +29,6 @@ const AjaxMixpanelEvents = (function () {
           navigator.sendBeacon("/ajax_mixpanel_events", eventData);
         }
       });
-    });
   };
 
   return {
