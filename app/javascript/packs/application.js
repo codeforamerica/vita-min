@@ -7,7 +7,6 @@ import "@rails/actiontext"
 import "@yaireo/tagify/dist/tagify.css";
 import "jquery-ui";
 import Listeners from "../listeners";
-import AjaxMixpanelEvents from "../lib/mixpanel_event_tracking";
 
 // Setting globally isn't very webpack-y,
 // but we have things (views, test runner) in the app that require jquery on the window object.
@@ -19,7 +18,7 @@ ActiveStorage.start();
 
 import "../lib/honeycrisp";
 
-AjaxMixpanelEvents.init();
+
 Listeners.init();
 
 import jMaskGlobals from "jquery-mask-plugin";
