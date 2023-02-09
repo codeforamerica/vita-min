@@ -8,6 +8,7 @@ const AjaxMixpanelEvents = (function () {
         const clickedElement = $(e.target).closest("a");
         const dataAttributes = clickedElement.data();
         const elementText = clickedElement.text().trim();
+        const eventName = "click_" + dataAttributes["trackClick"];
 
         const eventData = new FormData();
 
@@ -19,10 +20,9 @@ const AjaxMixpanelEvents = (function () {
           }
         });
 
-        eventData.append("event[event_name]", "custom_click");
+        eventData.append("event[event_name]", eventName);
         eventData.append("event[controller_action]", pageData.controllerAction);
         eventData.append("event[full_path]", pageData.fullPath);
-        eventData.append("event[data][custom_event]", dataAttributes["trackClick"]);
         eventData.append("event[data][call_to_action]", elementText);
         eventData.append(Rails.csrfParam(), Rails.csrfToken());
         if (pageData.sendMixpanelBeacon) {
