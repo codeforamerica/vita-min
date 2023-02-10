@@ -35,7 +35,7 @@ module Hub
       return unless current_ability.can?(:read, organization)
 
       if ENV['NEW_ORGANIZATION_CAPACITY']
-        organization = organization(organization)
+        organization = organization(organization.id)
         Capacity.new(
           organization.active_client_count || 0,
           organization.capacity_limit || 0
