@@ -51,7 +51,7 @@ describe Hub::OrganizationsPresenter do
 
     describe "#organization_capacity" do
       it "returns the capacity figures" do
-        capacity = subject.organization_capacity(Organization.with_capacity.find(organization.id))
+        capacity = subject.organization_capacity(organization)
         expect(capacity.total_capacity).to eq 250
         expect(capacity.current_count).to eq 1
       end
@@ -102,7 +102,7 @@ describe Hub::OrganizationsPresenter do
     describe "#organization_capacity" do
       context "when there is access to the organization" do
         it "returns the capacity figures" do
-          capacity = subject.organization_capacity(Organization.with_capacity.find(organization.id))
+          capacity = subject.organization_capacity(organization)
           expect(capacity.total_capacity).to eq 250
           expect(capacity.current_count).to eq 1
         end
