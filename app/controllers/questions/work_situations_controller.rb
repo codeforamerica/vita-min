@@ -3,7 +3,7 @@ module Questions
     include AuthenticatedClientConcern
 
     def illustration_path
-      "job-count.svg"
+      "health-insurance.svg"
     end
   end
 end

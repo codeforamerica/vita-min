@@ -4223,8 +4223,14 @@ en:
       health_insurance:
         help_text: This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer.
         title:
-          one: In %{year}, did you purchase health insurance through the marketplace or exchange?
+          one: Tell us about your healthcare in %{year}.
           other: In %{year}, did you or your spouse purchase health insurance through the marketplace or exchange?
+        options:
+          marketplace_hi_html: I purchased health insurance through the marketplace.
+          employer_hi_html: I purchased health insurance through my employer.
+          medicaid_medicare_html: I had Medicaid/Medicare.
+          hsa_html: I had a Health Savings Account.
+          no_hi_html: I did not have health insurance last year.
       homebuyer_credit:
         help_text_html: If you are unsure, you can use %{irs_link} to check.
         irs_homebuyer_tool: this IRS tool
