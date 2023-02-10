@@ -112,7 +112,7 @@ class F13614cPdf
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q5_Purchase_And_Install[0]", @intake.bought_energy_efficient_items || "unfilled", include_unsure: true), # no default in db
-      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q6_Receive_The_First[0]", @intake.received_homebuyer_credit, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q6_Receive_The_First[0]", @intake.received_homebuyer_credit, include_unsure: true, gating_question_value: @intake.ever_owned_home),
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q7_Make_Estimated_Tax[0]", @intake.made_estimated_tax_payments, include_unsure: true),
     )
     answers.merge!(
@@ -168,7 +168,10 @@ class F13614cPdf
     )
   end
 
-  def yes_no_checkboxes(pdf_key_base, enum_value, include_unsure: false)
+  def yes_no_checkboxes(pdf_key_base, enum_value, include_unsure: false, gating_question_value: nil)
+    if gating_question_value == "no" && enum_value == "unfilled"
+      enum_value = "no"
+    end
     result = {
       "#{pdf_key_base}.yes[0]" => enum_value == "yes" ? "1" : "Off",
       "#{pdf_key_base}.no[0]" => enum_value == "no" ? "1" : "Off",
