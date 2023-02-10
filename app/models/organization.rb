@@ -65,13 +65,13 @@ class Organization < VitaPartner
     ).joins(
       'LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id_for_capacity'
     ).select(
-      'vita_partners.*, CASE WHEN partner_and_client_counts.pacc_active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.pacc_active_client_count END as active_client_count'
+      'vita_partners.*, COALESCE(partner_and_client_counts.pacc_active_client_count, 0) AS active_client_count'
     )
   end
 
   scope :with_capacity, -> do
     with_computed_client_count.where(capacity_limit: nil).or(
-      where('vita_partners.capacity_limit > ?', 0).where('CASE WHEN partner_and_client_counts.pacc_active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.pacc_active_client_count END < vita_partners.capacity_limit')
+      where('vita_partners.capacity_limit > ?', 0).where('COALESCE(partner_and_client_counts.pacc_active_client_count, 0) < vita_partners.capacity_limit')
     )
   end
 
