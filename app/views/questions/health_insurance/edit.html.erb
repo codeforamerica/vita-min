@@ -9,10 +9,10 @@
       <%=t('views.questions.work_situations.help_text') %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:had_wages, t('views.questions.health_insurance.options.marketplace_hi_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:bought_health_insurance, t('views.questions.health_insurance.options.marketplace_hi_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:had_self_employment_income, t('views.questions.health_insurance.options.employer_hi_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:had_unemployment_income, t('views.questions.health_insurance.options.medicaid_medicare_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:had_tips, t('views.questions.health_insurance.options.hsa_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:bought_health_insurance, t('views.questions.health_insurance.options.medicaid_medicare_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:had_hsa, t('views.questions.health_insurance.options.hsa_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:no_work_situations_apply, t("views.questions.health_insurance.options.no_hi_html"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
