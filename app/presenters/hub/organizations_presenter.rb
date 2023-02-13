@@ -2,10 +2,10 @@ module Hub
   class OrganizationsPresenter
     attr_reader :current_ability, :organizations, :target_entries, :coalitions, :state_routing_targets
 
-    def initialize(current_ability)
+    def initialize(current_ability, capacity_algorithm: ENV['NEW_ORGANIZATION_CAPACITY'] ? :cte : :view)
       @current_ability = current_ability
       accessible_organizations = Organization.accessible_by(current_ability)
-      if ENV['NEW_ORGANIZATION_CAPACITY']
+      if capacity_algorithm == :cte
         @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       else
         @organizations = accessible_organizations.includes(:child_sites, :organization_capacity).load

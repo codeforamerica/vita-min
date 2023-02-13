@@ -2,11 +2,12 @@ class PartnerRoutingService
   attr_accessor :routing_method
   TESTING_AT_CAPACITY_ZIP_CODE = "83011"
 
-  def initialize(intake: nil, source_param: nil, zip_code: nil)
+  def initialize(intake: nil, source_param: nil, zip_code: nil, capacity_algorithm: ENV['NEW_ORGANIZATION_CAPACITY'] ? :cte : :view)
     @source_param = source_param
     @zip_code = zip_code
     @intake = intake
     @routing_method = nil
+    @capacity_algorithm = capacity_algorithm
   end
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
@@ -93,7 +94,7 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return unless @zip_code.present?
 
-    if ENV['NEW_ORGANIZATION_CAPACITY']
+    if @capacity_algorithm == :cte
       eligible_with_capacity = Organization.with_capacity.joins(:serviced_zip_codes).
         where(vita_partner_zip_codes: { zip_code: @zip_code })
       vita_partner = eligible_with_capacity.first
@@ -117,7 +118,7 @@ class PartnerRoutingService
     in_state_routing_fractions = StateRoutingFraction.joins(:state_routing_target)
                                                      .where(state_routing_targets: { state_abbreviation: state })
     # get state routing fractions associated with organizations that have capacity
-    if ENV['NEW_ORGANIZATION_CAPACITY']
+    if @capacity_algorithm == :cte
       with_capacity_organization_fractions = in_state_routing_fractions
         .joins(:organization)
         .where(organization: Organization.with_capacity.pluck('id'))
@@ -131,7 +132,7 @@ class PartnerRoutingService
     # get state routing fractions associated with sites whose parent organizations have capacity
     site_fractions = in_state_routing_fractions.joins(:site)
     site_parent_ids = site_fractions.map(&:site).pluck(:parent_organization_id)
-    if ENV['NEW_ORGANIZATION_CAPACITY']
+    if @capacity_algorithm == :cte
       parents_with_capacity_ids = Organization.with_capacity.where(id: site_parent_ids).pluck(:id)
     else
       parents_with_capacity_ids = OrganizationCapacity.with_capacity.where(organization: site_parent_ids).pluck(:vita_partner_id)
