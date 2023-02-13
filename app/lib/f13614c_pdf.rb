@@ -107,16 +107,16 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q8_Cash_Check_Payments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q9_Income[0]", collective_yes_no_unsure(fetch_gated_value(@intake, :had_asset_sale_income), fetch_gated_value(@intake, :reported_asset_sale_loss), fetch_gated_value(@intake, :sold_a_home)), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q10_Disability_Income[0]", @intake.had_disability_income, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q11_Retirement_Income[0]", @intake.had_retirement_income, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q11_Retirement_Income[0]", fetch_gated_value(@intake, :had_retirement_income), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q12_Unemployment_Compensation[0]", @intake.had_unemployment_income, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0]", @intake.had_social_security_income, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_3[0].q13_Social_Security_Or[0]", fetch_gated_value(@intake, :had_social_security_income), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q14_Income_or_Loss[0]", @intake.had_rental_income, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_3[0].q15_Other_Income[0]", collective_yes_no_unsure(@intake.had_other_income, fetch_gated_value(@intake, :had_gambling_income)), include_unsure: true),
 
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q1_Alimony[0].If_Yes[0]", @intake.has_ssn_of_alimony_recipient),
 
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q2_Contributions[0]", @intake.paid_retirement_contributions, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q2_Contributions[0]", fetch_gated_value(@intake, :paid_retirement_contributions), include_unsure: true),
     )
     answers.merge!(
       "form1[0].page2[0].Part_4[0].q2_Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
@@ -137,7 +137,7 @@ class F13614cPdf
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q5_Child_Or_Dependent[0]", fetch_gated_value(@intake, :paid_dependent_care), include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0]", @intake.paid_school_supplies, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_4[0].q6_For_Supplies_Used[0]", fetch_gated_value(@intake, :paid_school_supplies), include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q7_Expenses_Related_To[0]", @intake.paid_self_employment_expenses, include_unsure: true),
       yes_no_checkboxes("form1[0].page2[0].Part_4[0].q8_Student_Loan_Interest[0]", @intake.paid_student_loan_interest, include_unsure: true),
 
