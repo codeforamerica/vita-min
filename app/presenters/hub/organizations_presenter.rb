@@ -12,6 +12,7 @@ module Hub
       end
       @coalitions = Coalition.accessible_by(current_ability)
       @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
+      @capacity_algorithm = capacity_algorithm
     end
 
     Capacity = Struct.new(:current_count, :total_capacity) do
@@ -34,7 +35,7 @@ module Hub
     def organization_capacity(organization)
       return unless current_ability.can?(:read, organization)
 
-      if ENV['NEW_ORGANIZATION_CAPACITY']
+      if @capacity_algorithm == :cte
         organization = organization(organization.id)
         Capacity.new(
           organization.active_client_count || 0,
