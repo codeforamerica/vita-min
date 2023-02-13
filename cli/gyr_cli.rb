@@ -34,10 +34,8 @@ class GyrCli < Thor
     user = User.find_by(role_type: 'AdminRole')
 
     old_org_presenter = Hub::OrganizationsPresenter.new(Ability.new(user), capacity_algorithm: :view)
-    old_partner_routing_service = PartnerRoutingService.new(capacity_algorithm: :view)
 
     new_org_presenter = Hub::OrganizationsPresenter.new(Ability.new(user), capacity_algorithm: :cte)
-    new_partner_routing_service = PartnerRoutingService.new(capacity_algorithm: :cte)
 
     all_results = []
     [
@@ -52,11 +50,7 @@ class GyrCli < Thor
           results[abbreviation] = {}
 
           (org_presenter.accessible_entities_for(abbreviation) || []).each do |entity|
-            if entity.is_a? Coalition
-              orgs = org_presenter.organizations_in_coalition(entity)
-            else
-              orgs = [entity]
-            end
+            orgs = entity.is_a?(Coalition) ? org_presenter.organizations_in_coalition(entity) : [entity]
 
             orgs.each do |org|
               results[abbreviation][org.id] = {name: org.name, capacity: org_presenter.organization_capacity(org)}
@@ -76,7 +70,7 @@ class GyrCli < Thor
 
         results.each do |state_or_unrouted, orgs_and_capacities|
           orgs_and_capacities.each do |org_id, data|
-            puts "#{org_id} #{data[:name]} #{data[:capacity].current_count} / #{data[:capacity].total_capacity}"
+            # puts "#{org_id} #{data[:name]} #{data[:capacity].current_count} / #{data[:capacity].total_capacity}"
           end
         end
       end
@@ -85,7 +79,23 @@ class GyrCli < Thor
       all_results << results
       puts
     end
-    puts "Did they match? #{all_results[0] == all_results[1]}"
+    puts "Did capacity calculations match? #{all_results[0] == all_results[1]}"
+
+    all_results = []
+    intake = OpenStruct.new(itin_applicant?: false, probable_previous_year_intake: nil)
+    random_zip_codes = ZipCodes.send(:zip_codes).keys.sample(100)
+    [:view, :cte].each do |capacity_algorithm|
+      results = {}
+      time_took = Benchmark.realtime do
+        random_zip_codes.each do |code|
+          s = PartnerRoutingService.new(intake: intake, zip_code: code, capacity_algorithm: capacity_algorithm)
+          results[code] = s.determine_partner
+        end
+      end
+      puts "routing '#{capacity_algorithm}' total time: #{time_took}"
+      all_results << results
+    end
+    puts "Did partner routes match? #{all_results[0] == all_results[1]}"
   end
 
   no_commands do

@@ -119,9 +119,10 @@ class PartnerRoutingService
                                                      .where(state_routing_targets: { state_abbreviation: state })
     # get state routing fractions associated with organizations that have capacity
     if @capacity_algorithm == :cte
+      organization_ids_with_capacity = Organization.with_capacity.pluck('id')
       with_capacity_organization_fractions = in_state_routing_fractions
         .joins(:organization)
-        .where(organization: Organization.with_capacity.pluck('id'))
+        .where(organization: organization_ids_with_capacity)
     else
       with_capacity_organization_fractions = in_state_routing_fractions
         .joins(organization: :organization_capacity)
@@ -133,7 +134,7 @@ class PartnerRoutingService
     site_fractions = in_state_routing_fractions.joins(:site)
     site_parent_ids = site_fractions.map(&:site).pluck(:parent_organization_id)
     if @capacity_algorithm == :cte
-      parents_with_capacity_ids = Organization.with_capacity.where(id: site_parent_ids).pluck(:id)
+      parents_with_capacity_ids = organization_ids_with_capacity.intersection(site_parent_ids)
     else
       parents_with_capacity_ids = OrganizationCapacity.with_capacity.where(organization: site_parent_ids).pluck(:vita_partner_id)
     end
