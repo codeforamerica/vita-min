@@ -18,7 +18,9 @@ module Hub
                        :phone_number,
                        :had_disability,
                        :was_full_time_student,
-                       :primary_birth_date,
+                       :primary_birth_date_year,
+                       :primary_birth_date_month,
+                       :primary_birth_date_day,
                        :primary_job_title,
                        :primary_us_citizen,
                        :street_address,
@@ -31,7 +33,9 @@ module Hub
                        :spouse_middle_initial,
                        :was_blind,
                        :spouse_was_blind,
-                       :spouse_birth_date,
+                       :spouse_birth_date_year,
+                       :spouse_birth_date_month,
+                       :spouse_birth_date_day,
                        :spouse_had_disability,
                        :spouse_job_title,
                        :spouse_phone_number,
@@ -56,6 +60,22 @@ module Hub
     def self.existing_attributes(intake)
       result = super
       result[:never_married] = result.delete(:ever_married) == 'yes' ? 'no' : 'yes'
+      if result[:primary_birth_date].present?
+        birth_date = result[:primary_birth_date]
+        result.merge!(
+          primary_birth_date_year: birth_date.year,
+          primary_birth_date_month: birth_date.month,
+          primary_birth_date_day: birth_date.day,
+        )
+        end
+      if result[:spouse_birth_date].present?
+        birth_date = result[:spouse_birth_date]
+        result.merge!(
+          spouse_birth_date_year: birth_date.year,
+          spouse_birth_date_month: birth_date.month,
+          spouse_birth_date_day: birth_date.day,
+        )
+      end
       result
     end
 
@@ -63,6 +83,11 @@ module Hub
       return false unless valid?
 
       modified_attributes = attributes_for(:intake)
+                              .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day, :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
+                              .merge(
+                                primary_birth_date: parse_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
+                                spouse_birth_date: parse_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
+                              )
       modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
       modified_attributes[:dependents_attributes] = formatted_dependents_attributes
 

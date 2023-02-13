@@ -1,6 +1,7 @@
 module Hub
   class ClientForm < Form
     include FormAttributes
+    include DateHelper
     # These are only really here for tests,
     # every leaf class of ClientForm has to define
     # their full set of attributes

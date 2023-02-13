@@ -67,6 +67,15 @@ RSpec.describe "a user editing a clients 13614c form" do
       within "#primary-info" do
         fill_in 'First Name', with: 'Emily'
       end
+
+      fill_in 'hub_update13614c_form_page1_primary_birth_date_month', with: '11'
+      fill_in 'hub_update13614c_form_page1_primary_birth_date_day', with: '30'
+      fill_in 'hub_update13614c_form_page1_primary_birth_date_year', with: '1999'
+
+      fill_in 'hub_update13614c_form_page1_spouse_birth_date_month', with: '10'
+      fill_in 'hub_update13614c_form_page1_spouse_birth_date_day', with: '20'
+      fill_in 'hub_update13614c_form_page1_spouse_birth_date_year', with: '1998'
+
       within "#dependents-fields" do
         expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][first_name]").value).to eq "Lara"
 
@@ -88,9 +97,20 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(page).to have_text "Part I – Your Personal Information"
       expect(page).to have_field('First Name', with: 'Emily')
+      expect(find_field("hub_update13614c_form_page1[primary_birth_date_year]").value).to eq "1999"
+      expect(find_field("hub_update13614c_form_page1[primary_birth_date_day]").value).to eq "30"
+      expect(find_field("hub_update13614c_form_page1[primary_birth_date_month]").value).to eq "11"
+
+      expect(find_field("hub_update13614c_form_page1[spouse_birth_date_year]").value).to eq "1998"
+      expect(find_field("hub_update13614c_form_page1[spouse_birth_date_day]").value).to eq "20"
+      expect(find_field("hub_update13614c_form_page1[spouse_birth_date_month]").value).to eq "10"
+
       expect(page).to have_text('Last client 13614-C update: Mar 4 5:10 AM')
       within "#dependents-fields" do
         expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][first_name]").value).to eq "Laura"
+        expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][birth_date_month]").value).to eq "12"
+        expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][birth_date_day]").value).to eq "1"
+        expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][birth_date_year]").value).to eq "2008"
       end
     end
 
