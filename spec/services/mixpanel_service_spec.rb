@@ -919,5 +919,16 @@ describe ApplicationController, type: :controller do
         )
       )
     end
+
+    context "when dropping events" do
+      context "for those not allowed" do
+        it "drops events coming from security metrics"
+        it "drops events coming from status checks"
+      end
+
+      context "for those permitted" do
+        it "sends an event"
+      end
+    end
   end
 end

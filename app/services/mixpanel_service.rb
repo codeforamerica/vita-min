@@ -107,6 +107,7 @@ class MixpanelService
                    request: nil,
                    source: nil,
                    path_exclusions: [])
+      return if should_event_be_dropped?(request)
       default_data = {}
       default_data[:locale] = I18n.locale.to_s
       default_data.merge!(data_from(request, path_exclusions: path_exclusions))
@@ -119,6 +120,12 @@ class MixpanelService
         event_name: event_name,
         data: default_data.merge(data),
       )
+    end
+
+    def should_event_be_dropped(request)
+      incoming_host = request.host
+
+      return if incoming_host
     end
 
     def send_tax_return_event(tax_return, event_name, additional_data = {})
