@@ -474,6 +474,44 @@ RSpec.describe F13614cPdf do
         )
   end
 
+      describe "gated questions" do
+        it "uses the actual value from the DB for the question answer when the gated question(s) is 'yes'" do
+          intake.update(
+            ever_owned_home: "yes",
+            wants_to_itemize: "no",
+            received_homebuyer_credit: "no",
+            paid_mortgage_interest: "unfilled"
+          )
+
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].yes[0]" => "Off",
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].no[0]" => "1",
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].unsure[0]" => "Off",
+            "form1[0].page2[0].Part_4[0].q4_Deductions[0].mortgage[0]" => "",
+          )
+
+          # 1. update received_homebuyer_credit answer and see that it is used because the gating question is 'yes'
+          # 2. update wants_to_itemize and paid_mortgage_interest to 'yes' and see that the answer to paid_mortgage_interest is
+          # used because both gating questions are now 'yes'
+          intake.update(
+            ever_owned_home: "yes",
+            wants_to_itemize: "yes",
+            received_homebuyer_credit: "yes",
+            paid_mortgage_interest: "yes"
+          )
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].yes[0]" => "1",
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].no[0]" => "Off",
+            "form1[0].page2[0].Part_5[0].q6_Receive_The_First[0].unsure[0]" => "Off",
+            "form1[0].page2[0].Part_4[0].q4_Deductions[0].mortgage[0]" => "1",
+          )
+        end
+      end
+
       describe "#hash_for_pdf" do
         describe 'additional comments field' do
           let(:additional_comments_key) { "form1[0].page3[0].Additional_Comments[0].Additional_Comments[1]" }
