@@ -1,5 +1,6 @@
 0 0 * * 0 bundle exec rake vita_providers:scrape_vita_providers
 * * * * * bundle exec rake search:refresh
+0 2 * * * bundle exec rake cleanup:remove_unconsented_clients
 * * * * * bundle exec rake stats:track_metrics
 */5 * * * * bundle exec rake client_status_updates:send_completion_surveys
 */20 * * * * bundle exec rake client_status_updates:send_client_in_progress_automated_messages
