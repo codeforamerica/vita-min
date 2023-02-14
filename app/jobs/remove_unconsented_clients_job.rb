@@ -1,6 +1,9 @@
 class RemoveUnconsentedClientsJob < ApplicationJob
+  BATCH_LIMIT = 5
+
   def perform(created_before: 14.days.ago)
     result = ActiveRecord::Base.connection.execute("SELECT pg_try_advisory_lock(1675448731) as lock_acquired")
+    batches = 0
     raise "#{self.class.name} lock already held" unless result[0]["lock_acquired"]
 
     loop do
@@ -25,9 +28,12 @@ class RemoveUnconsentedClientsJob < ApplicationJob
             triage_vita_income_ineligible=EXCLUDED.triage_vita_income_ineligible
       SQL
       client_batch.each(&:destroy)
+      batches += 1
+      break if batches >= BATCH_LIMIT
     end
   ensure
     ActiveRecord::Base.connection.execute("SELECT pg_advisory_unlock(1675448731)")
+    RemoveUnconsentedClientsJob.perform_later if batches >= BATCH_LIMIT
   end
 
   private
