@@ -24,6 +24,11 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
+      - name: Clean up unused old heroku apps
+        run: .github/remove_old_heroku_review_apps.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Heroku app
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund --stack heroku-20
