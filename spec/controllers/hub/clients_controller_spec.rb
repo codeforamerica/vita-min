@@ -362,6 +362,14 @@ RSpec.describe Hub::ClientsController do
           expect(tobias_2018_assignee).to have_text "Lindsay"
         end
 
+        it "loads all the non-suspended users" do
+          create :user, suspended_at: Time.current, role: create(:organization_lead_role, organization: organization)
+
+          get :index
+
+          expect(assigns(:users).count).to eq 1
+        end
+
         context "when a client is flagged" do
           before { tobias.touch(:flagged_at) }
 

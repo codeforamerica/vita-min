@@ -432,7 +432,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_users
-    @users = User.accessible_by(current_ability).order(name: :asc)
+    @users = User.active.accessible_by(current_ability).order(name: :asc)
   end
 
   def set_current_step
