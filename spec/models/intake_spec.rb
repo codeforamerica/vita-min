@@ -14,6 +14,7 @@
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bank_name                                            :string
 #  bank_routing_number                                  :string
+#  bought_employer_hi                                   :integer
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
@@ -93,6 +94,7 @@
 #  had_hsa                                              :integer          default(0), not null
 #  had_interest_income                                  :integer          default(0), not null
 #  had_local_tax_refund                                 :integer          default(0), not null
+#  had_medicaid_medicare                                :integer
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
 #  had_retirement_income                                :integer          default(0), not null
