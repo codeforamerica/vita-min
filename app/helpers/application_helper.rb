@@ -19,9 +19,11 @@ module ApplicationHelper
             { locale: locale, params: request.query_parameters },
             lang: locale,
             id: "locale_switcher_#{locale}",
-            "data-track-click": "intake-language-changed",
-            "data-track-attributes-to_locale": locale,
-            "data-track-attributes_from_locale": I18n.locale,
+            data: {
+              track_click: "intake-language-changed",
+              track_attribute_to_locale: locale,
+              track_attribute_from_locale: I18n.locale,
+            },
             **additional_attributes).html_safe
   end
 
