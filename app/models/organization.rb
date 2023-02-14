@@ -31,6 +31,8 @@
 class Organization < VitaPartner
   TYPE = "Organization"
 
+  attribute :active_client_count
+
   belongs_to :coalition, optional: true
   has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
@@ -43,6 +45,35 @@ class Organization < VitaPartner
 
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
+  scope :with_computed_client_count, -> do
+    clients_with_tax_returns_included_in_capacity = TaxReturn.
+      joins(:intake).
+      select('client_id').
+      where.not(current_state: TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY).
+      where('intakes.product_year' => Rails.configuration.product_year)
+
+    with(
+      organization_id_by_vita_partner_id: VitaPartner.select('id, (CASE WHEN parent_organization_id IS NULL THEN id ELSE parent_organization_id END) as organization_id_for_capacity'),
+      client_ids: clients_with_tax_returns_included_in_capacity,
+      partner_and_client_counts: Arel.sql(<<~SQL),
+        SELECT organization_id_for_capacity, count(clients.id) as pacc_active_client_count
+        FROM organization_id_by_vita_partner_id
+        LEFT OUTER JOIN clients ON organization_id_by_vita_partner_id.id = clients.vita_partner_id
+        WHERE clients.id IN (select client_id from client_ids)
+        GROUP BY organization_id_for_capacity
+      SQL
+    ).joins(
+      'LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id_for_capacity'
+    ).select(
+      'vita_partners.*, COALESCE(partner_and_client_counts.pacc_active_client_count, 0) AS active_client_count'
+    )
+  end
+
+  scope :with_capacity, -> do
+    with_computed_client_count.where(capacity_limit: nil).or(
+      where('vita_partners.capacity_limit > ?', 0).where('COALESCE(partner_and_client_counts.pacc_active_client_count, 0) < vita_partners.capacity_limit')
+    )
+  end
 
   def at_capacity?
     !OrganizationCapacity.with_capacity.where(organization: self).exists?

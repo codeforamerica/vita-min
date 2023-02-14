@@ -74,6 +74,8 @@ GEM
     activerecord (7.0.4.2)
       activemodel (= 7.0.4.2)
       activesupport (= 7.0.4.2)
+    activerecord-cte (0.3.0)
+      activerecord
     activerecord-postgis-adapter (8.0.1)
       activerecord (~> 7.0.0)
       rgeo-activerecord (~> 7.0.0)
@@ -652,6 +654,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-cte
   activerecord-postgis-adapter
   annotate
   auto_strip_attributes

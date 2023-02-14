@@ -10,6 +10,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
+gem "activerecord-cte" # Can be removed when we move to Rails 7.1
 
 # Adding this removes some deprecation warnings, caused by double-loading of the net-protocol library
 # (see https://github.com/ruby/net-imap/issues/16)

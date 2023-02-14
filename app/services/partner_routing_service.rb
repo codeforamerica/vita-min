@@ -2,11 +2,12 @@ class PartnerRoutingService
   attr_accessor :routing_method
   TESTING_AT_CAPACITY_ZIP_CODE = "83011"
 
-  def initialize(intake: nil, source_param: nil, zip_code: nil)
+  def initialize(intake: nil, source_param: nil, zip_code: nil, capacity_algorithm: ENV['NEW_ORGANIZATION_CAPACITY'] ? :cte : :view)
     @source_param = source_param
     @zip_code = zip_code
     @intake = intake
     @routing_method = nil
+    @capacity_algorithm = capacity_algorithm
   end
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
@@ -93,11 +94,16 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return unless @zip_code.present?
 
-    eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
-      OrganizationCapacity.with_capacity
-    )
-
-    vita_partner = eligible_with_capacity.first&.vita_partner
+    if @capacity_algorithm == :cte
+      eligible_with_capacity = Organization.with_capacity.joins(:serviced_zip_codes).
+        where(vita_partner_zip_codes: { zip_code: @zip_code })
+      vita_partner = eligible_with_capacity.first
+    else
+      eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
+        OrganizationCapacity.with_capacity
+      )
+      vita_partner = eligible_with_capacity.first&.vita_partner
+    end
 
     if vita_partner.present?
       @routing_method = :zip_code
@@ -112,15 +118,26 @@ class PartnerRoutingService
     in_state_routing_fractions = StateRoutingFraction.joins(:state_routing_target)
                                                      .where(state_routing_targets: { state_abbreviation: state })
     # get state routing fractions associated with organizations that have capacity
-    with_capacity_organization_fractions = in_state_routing_fractions
-                                             .joins(organization: :organization_capacity)
-                                             .merge(
-                                               OrganizationCapacity.with_capacity
-                                             )
+    if @capacity_algorithm == :cte
+      organization_ids_with_capacity = Organization.with_capacity.pluck('id')
+      with_capacity_organization_fractions = in_state_routing_fractions
+        .joins(:organization)
+        .where(organization: organization_ids_with_capacity)
+    else
+      with_capacity_organization_fractions = in_state_routing_fractions
+        .joins(organization: :organization_capacity)
+        .merge(
+          OrganizationCapacity.with_capacity
+        )
+    end
     # get state routing fractions associated with sites whose parent organizations have capacity
     site_fractions = in_state_routing_fractions.joins(:site)
     site_parent_ids = site_fractions.map(&:site).pluck(:parent_organization_id)
-    parents_with_capacity_ids = OrganizationCapacity.with_capacity.where(organization: site_parent_ids).pluck(:vita_partner_id)
+    if @capacity_algorithm == :cte
+      parents_with_capacity_ids = organization_ids_with_capacity.intersection(site_parent_ids)
+    else
+      parents_with_capacity_ids = OrganizationCapacity.with_capacity.where(organization: site_parent_ids).pluck(:vita_partner_id)
+    end
     with_capacity_site_fractions = site_fractions.where(site: { parent_organization_id: parents_with_capacity_ids })
 
     routing_ranges = WeightedRoutingService.new(with_capacity_site_fractions + with_capacity_organization_fractions).weighted_routing_ranges
