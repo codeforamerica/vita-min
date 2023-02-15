@@ -194,9 +194,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "Tell us about your healthcare in #{current_tax_year}.")
     check "I had Medicaid/Medicare."
     click_on "Continue"
-    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you have a Health Savings Account?")
-    click_on "No"
-    expect(intake.reload.had_medicaid_medicare).to eq "yes"
 
     # Itemizing
     expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{current_tax_year}?")

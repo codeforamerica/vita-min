@@ -366,10 +366,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse purchase health insurance through the marketplace or exchange?")
     end
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse have a Health Savings Account?")
-    end
-    click_on "Yes"
 
     # Itemizing
     screenshot_after do

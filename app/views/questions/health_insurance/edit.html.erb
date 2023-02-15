@@ -9,17 +9,13 @@
       <%=t('views.questions.work_situations.help_text') %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:bought_health_insurance, t('views.questions.health_insurance.options.marketplace_hi_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:bought_employer_health_insurance, t('views.questions.health_insurance.options.employer_hi_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:had_medicaid_medicare, t('views.questions.health_insurance.options.medicaid_medicare_html'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:had_hsa, t('views.questions.health_insurance.options.hsa_html', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:no_work_situations_apply, t("views.questions.health_insurance.options.no_hi_html"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:bought_health_insurance, t('views.questions.health_insurance.options.marketplace_health_insurance', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:bought_employer_health_insurance, t('views.questions.health_insurance.options.employer_health_insurance', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:had_medicaid_medicare, t('views.questions.health_insurance.options.medicaid_medicare'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:had_hsa, t('views.questions.health_insurance.options.hsa', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:no_health_insurance, t("views.questions.health_insurance.options.no_health_insurance"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
     <%= f.continue %>
   <% end %>
 <% end %>
-
-<%# content_for :form_question, t("views.questions.health_insurance.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filer_count) %>
-
-<%# content_for :form_help_text, t("views.questions.health_insurance.help_text") %>

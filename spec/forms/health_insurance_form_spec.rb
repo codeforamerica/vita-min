@@ -28,6 +28,8 @@ RSpec.describe HealthInsuranceForm do
       intake.reload
 
       expect(intake.bought_health_insurance).to eq "no"
+      expect(intake.bought_employer_health_insurance).to eq "no"
+      expect(intake.had_medicaid_medicare).to eq "no"
       expect(intake.had_hsa).to eq "no"
     end
 
@@ -37,6 +39,9 @@ RSpec.describe HealthInsuranceForm do
       intake.reload
 
       expect(intake.bought_health_insurance).to eq "yes"
+      expect(intake.bought_employer_health_insurance).to eq "no"
+      expect(intake.had_medicaid_medicare).to eq "no"
+      expect(intake.had_hsa).to eq "no"
     end
   end
 end
