@@ -1036,7 +1036,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_001126) do
     t.integer "bank_account_type", default: 0, null: false
     t.string "bank_name"
     t.string "bank_routing_number"
-    t.integer "bought_employer_hi", default: 0, null: false
+    t.integer "bought_employer_health_insurance", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
