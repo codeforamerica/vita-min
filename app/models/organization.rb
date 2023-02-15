@@ -34,7 +34,6 @@ class Organization < VitaPartner
   attribute :active_client_count
 
   belongs_to :coalition, optional: true
-  has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :state_routing_targets, as: :target

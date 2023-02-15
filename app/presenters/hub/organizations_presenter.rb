@@ -2,17 +2,12 @@ module Hub
   class OrganizationsPresenter
     attr_reader :current_ability, :organizations, :target_entries, :coalitions, :state_routing_targets
 
-    def initialize(current_ability, capacity_algorithm: ENV['NEW_ORGANIZATION_CAPACITY'] ? :cte : :view)
+    def initialize(current_ability)
       @current_ability = current_ability
       accessible_organizations = Organization.accessible_by(current_ability)
-      if capacity_algorithm == :cte
-        @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
-      else
-        @organizations = accessible_organizations.includes(:child_sites, :organization_capacity).load
-      end
+      @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
       @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
-      @capacity_algorithm = capacity_algorithm
     end
 
     Capacity = Struct.new(:current_count, :total_capacity) do
@@ -35,18 +30,11 @@ module Hub
     def organization_capacity(organization)
       return unless current_ability.can?(:read, organization)
 
-      if @capacity_algorithm == :cte
-        organization = organization(organization.id)
-        Capacity.new(
-          organization.active_client_count || 0,
-          organization.capacity_limit || 0
-        )
-      else
-        Capacity.new(
-          organization.organization_capacity.active_client_count || 0,
-          organization.organization_capacity.capacity_limit || 0
-        )
-      end
+      organization = organization(organization.id)
+      Capacity.new(
+        organization.active_client_count || 0,
+        organization.capacity_limit || 0
+      )
     end
 
     def coalition_capacity(coalition)
