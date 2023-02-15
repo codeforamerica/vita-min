@@ -12,6 +12,7 @@ class IntercomService
     if contact.present? && most_recent_conversation(contact.id).present?
       # Per https://developers.intercom.com/intercom-api-reference/reference/reply-to-a-conversation
       # type is always user and message_type is always comment.
+      Rails.logger.info("Replying to intercom conversation -- intercom contact id ##{contact.id}")
       intercom_api(:conversations,
                    :reply,
                    { id: 'last',
