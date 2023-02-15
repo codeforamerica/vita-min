@@ -1677,37 +1677,39 @@ en:
       already_started: Already started? Sign in
   questions:
     triage:
-      collect_your: 'Collect your:'
-      collectables:
-        additional_credits: Additional State Credits
-        ctc: Child Tax Credit
-        eitc: Earned Income Tax Credit
-        missing_stimulus: Missing third stimulus payment
       diy_tile:
         choose_diy: Choose File Myself
-        description: Collect the largest refund! File quickly on your own.
+        description: File quickly on your own.
+        list:
+          file: File for %{current_tax_year} only
+          income: 'Income: under $73,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
-        choose_gyr: Choose GetYourRefund
-        description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
+        choose_gyr: Choose File with Help
+        description: File confidently with assistance from our IRS-certified volunteers.
+        list:
+          file: File for 2019-%{current_tax_year}
+          income: 'Income: under $66,000'
+          ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
-        title: GetYourRefund
-        warning: "* You are required to show copies of your Social Security card or ITIN paperwork"
-      refund: Refund
+        title: File with Help
     triage_diy:
       edit:
-        title: We recommend filing with our free File Myself option!
+        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
+        title: We recommend using our free File Myself option!
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
+        help_text: Our free service is available to households earning less than $73,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
-        title: We recommend filing for free with GetYourRefund!
+        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
+        title: We recommend using our free File with Help option!
     triage_gyr_diy:
       edit:
+        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!
         title: We have two free options that may work for you!
     triage_gyr_ids:
       edit:

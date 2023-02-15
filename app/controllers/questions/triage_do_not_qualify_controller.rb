@@ -11,7 +11,7 @@ module Questions
     private
 
     def illustration_path
-      'ineligible.svg'
+      'error.svg'
     end
 
     def form_class; NullForm; end

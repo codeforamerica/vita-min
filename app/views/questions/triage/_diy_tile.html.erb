@@ -1,4 +1,4 @@
-<div class="marketing-comparison">
+<div class="marketing-comparison diy-tile">
   <h2><%= t('.title') %></h2>
   <p><%= t('.description') %></p>
   <div class="timeframe">
@@ -6,18 +6,10 @@
   </div>
   <div class="bottom-section">
     <div>
-      <div><%= t('questions.triage.collect_your') %></div>
       <ul class="list--bulleted">
-        <li><%= t('questions.triage.collectables.missing_stimulus') %></li>
-        <li><%= t('questions.triage.collectables.ctc') %></li>
-        <li><%= t('questions.triage.collectables.eitc') %></li>
-        <li><%= t('questions.triage.collectables.additional_credits') %></li>
+        <li><%= t('questions.triage.diy_tile.list.file', current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></li>
+        <li><%= t('questions.triage.diy_tile.list.income') %></li>
       </ul>
-    </div>
-    <div class="spacer"></div>
-    <div class="refund-indicator">
-      <div class="spacing-below-10"><%= t('questions.triage.refund') %></div>
-      <div class="symbols"><%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %></div>
     </div>
   </div>
   <div class="spacing-above-35">
