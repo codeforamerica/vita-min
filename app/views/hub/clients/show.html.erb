@@ -166,7 +166,7 @@
                   <% end %>
                 <% else %>
                   <% tax_return = @client.intake.default_tax_return %>
-                  <% if tax_return %>
+                  <% if tax_return && !@client.archived? %>
                     <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
                     <div class="field-display">
                       <span class="form-question"> Outstanding RRC: </span>
