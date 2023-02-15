@@ -17,6 +17,7 @@ FactoryBot.define do
     trait :filled_out do
       locale { "es" }
       referrer { "https://www.gallopingacrosstheplains.horse/tax-help" }
+      sequence(:email_address) { |n| "diy_intake_#{n}@example.com" }
       source { "horse-help" }
     end
   end

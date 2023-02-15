@@ -17,5 +17,7 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
 
     expect(page).to have_selector("h1", text: I18n.t('diy.continue_to_fsa.edit.title'))
     expect(page).to have_text(I18n.t('diy.continue_to_fsa.edit.continue_to_tax_slayer'))
+    experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment_id: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
+    expect(experiment_particpant.treatment.to_sym).to be_in(ExperimentService::CONFIG[ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT].keys)
   end
 end
