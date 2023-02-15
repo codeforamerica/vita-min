@@ -63,7 +63,18 @@ jobs:
 
       - name: Copy environment variables to Heroku app
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku config -a base-pr-app-to-copy-env-vars --shell | grep -v DATABASE_URL | xargs heroku config:set -a ${{ env.HEROKU_APP_NAME }}
+        run: |
+          heroku config:set -a ${{ env.HEROKU_APP_NAME }} \
+            RAILS_ENV=heroku \
+            RACK_ENV=production \
+            LOG_LEVEL=info \
+            RAILS_SERVE_STATIC_FILES=enabled \
+            RAILS_MASTER_KEY_NEW=${{ secrets.RAILS_MASTER_KEY_NEW }} \
+            BUNDLE_GITHUB__COM=${{ secrets.BUNDLE_GITHUB__COM }} \
+            FRAUD_INDICATORS_KEY=${{ secrets.FRAUD_INDICATORS_KEY }} \
+            HEROKU_DNS_AWS_ACCESS_KEY_ID=${{ secrets.HEROKU_DNS_AWS_ACCESS_KEY_ID }} \
+            HEROKU_DNS_SECRET_ACCESS_KEY=${{ secrets.HEROKU_DNS_SECRET_ACCESS_KEY }} \
+            HEROKU_PLATFORM_KEY=${{ secrets.HEROKU_PLATFORM_KEY }}
 
       - name: Create database
         if: github.event.action == 'opened' || github.event.action == 'reopened'
