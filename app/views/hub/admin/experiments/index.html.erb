@@ -1,6 +1,26 @@
 <div class="slab">
   <div class="grid">
 
+    <h1>Experiments</h1>
+
+    <table class="data-table">
+      <tr>
+        <th>id</th>
+        <th>key</th>
+        <th>name</th>
+        <th>enabled</th>
+      </tr>
+
+      <% @experiments.each do |experiment| %>
+        <tr>
+          <td><%= experiment.id %></td>
+          <td><%= experiment.key %></td>
+          <td><%= experiment.name %></td>
+          <td><%= experiment.enabled %></td>
+        </tr>
+      <% end %>
+    </table>
+
     <h1>Experiment participants</h1>
 
     <table class="data-table">

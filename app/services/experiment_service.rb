@@ -1,19 +1,25 @@
 class ExperimentService
-  DIY_SUPPORT_LEVEL_EXPERIMENT = "DIY high and low level support experiment"
+  DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
 
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
-      low: 1,
-      high: 1
+      name: "DIY high and low support experiment",
+      alternatives: {
+        low: 1,
+        high: 1
+      }
     }
   }
 
-  def self.find_or_assign_treatment(experiment_id:, record:)
-    participant = ExperimentParticipant.find_by(experiment_id: experiment_id, record: record)
+  def self.find_or_assign_treatment(key:, record:)
+    experiment = Experiment.find_by!(key: key)
+    return unless experiment.enabled
+
+    participant = ExperimentParticipant.find_by(experiment: experiment, record: record)
     return participant.treatment if participant
 
-    treatment = TreatmentChooser.new(CONFIG[experiment_id]).choose
-    participant = ExperimentParticipant.create!(experiment_id: experiment_id, record: record, treatment: treatment)
+    treatment = TreatmentChooser.new(CONFIG[key][:alternatives]).choose
+    participant = ExperimentParticipant.create!(experiment: experiment, record: record, treatment: treatment)
     participant.treatment
   end
 
@@ -32,6 +38,15 @@ class ExperimentService
       random_outcome = rand
       @use_probabilities.each do |value, max_prob|
         return value if random_outcome < max_prob
+      end
+    end
+  end
+
+  def self.ensure_experiments_exist_in_database
+    CONFIG.each do |key, _details|
+      experiment = Experiment.find_or_create_by(key: key)
+      if experiment.name.blank?
+        experiment.update(name: CONFIG[key][:name])
       end
     end
   end

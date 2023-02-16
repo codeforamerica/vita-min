@@ -211,7 +211,7 @@ Rails.application.routes.draw do
         end
 
         namespace :admin do
-          resources :experiment_participants, only: [:index]
+          resources :experiments, only: [:index]
         end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do

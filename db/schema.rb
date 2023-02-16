@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_15_220806) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_191645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -876,12 +876,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_15_220806) do
 
   create_table "experiment_participants", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "experiment_id"
+    t.bigint "experiment_id"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.string "treatment"
     t.datetime "updated_at", null: false
+    t.index ["experiment_id"], name: "index_experiment_participants_on_experiment_id"
     t.index ["record_type", "record_id"], name: "index_experiment_participants_on_record"
+  end
+
+  create_table "experiments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: false
+    t.string "key"
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 
   create_table "faq_surveys", force: :cascade do |t|

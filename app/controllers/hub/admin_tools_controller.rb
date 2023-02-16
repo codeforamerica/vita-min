@@ -13,7 +13,7 @@ module Hub
         [hub_verification_attempts_path, "Client Verification"],
         [hub_bulk_message_csvs_path, "Bulk messaging clients CSV upload"],
         [hub_signup_selections_path, "Bulk messaging signups CSV upload"],
-        [hub_admin_experiment_participants_path, "Experiment Participants"],
+        [hub_admin_experiments_path, "Experiments"],
       ]
       @deprecated_actions = [
         [hub_fraud_indicators_path, "Fraud Indicators"],

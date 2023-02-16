@@ -4,7 +4,7 @@ module Diy
 
     def edit
       ExperimentService.find_or_assign_treatment(
-        experiment_id: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
+        key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
         record: DiyIntake.find(session[:diy_intake_id])
       )
       @taxslayer_link = "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
