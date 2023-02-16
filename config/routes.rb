@@ -210,6 +210,10 @@ Rails.application.routes.draw do
           end
         end
 
+        namespace :admin do
+          resources :experiment_participants, only: [:index]
+        end
+
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
           patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
         end
