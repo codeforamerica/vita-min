@@ -12,9 +12,8 @@ class ExperimentService
   }
 
   def self.find_or_assign_treatment(key:, record:)
-    experiment = Experiment.find_by!(key: key)
-    return unless experiment.enabled
-
+    experiment = Experiment.find_by(key: key)
+    return unless experiment&.enabled
     participant = ExperimentParticipant.find_by(experiment: experiment, record: record)
     return participant.treatment if participant
 

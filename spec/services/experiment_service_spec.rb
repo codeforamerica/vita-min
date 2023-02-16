@@ -1,12 +1,17 @@
-require 'rspec'
+require 'rails_helper'
 
 describe ExperimentService do
   describe '#find_or_assign_treatment' do
+    let!(:experiment) { Experiment.create!(key: 'experiment_a', enabled: true) }
+
     before do
       stub_const("ExperimentService::CONFIG", {
-        'experiment_a' => {
-          'treatment_x' => 1,
-          'treatment_y' => 3
+        experiment.key => {
+          name: "Experiment A",
+          alternatives: {
+            'treatment_x' => 1,
+            'treatment_y' => 3
+          }
         }
       })
     end
@@ -21,7 +26,7 @@ describe ExperimentService do
       end
 
       1000.times do
-        ExperimentService.find_or_assign_treatment(experiment_id: 'experiment_a', record: DiyIntake.new)
+        ExperimentService.find_or_assign_treatment(key: experiment.key, record: DiyIntake.new)
       end
       expect(@treatments.length).to eq(1000)
       treatment_counts = @treatments.each_with_object(Hash.new(0)) { |treatment, hash| hash[treatment] += 1 }

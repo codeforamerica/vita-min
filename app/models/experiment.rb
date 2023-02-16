@@ -9,5 +9,9 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_experiments_on_key  (key) UNIQUE
+#
 class Experiment < ApplicationRecord
 end
