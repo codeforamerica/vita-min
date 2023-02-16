@@ -191,8 +191,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Health insurance
-    expect(page).to have_selector("h1", text: "Tell us about your healthcare in #{current_tax_year}.")
-    check "have Medicaid/Medicare."
+    expect(page).to have_selector("h1", text: "Tell us about your health insurance in #{current_tax_year}.")
+    check "I had Medicaid/Medicare"
     click_on "Continue"
 
     # Itemizing
