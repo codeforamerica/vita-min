@@ -4221,17 +4221,26 @@ en:
           one: Would you like to claim anyone for %{year}?
           other: Would you or your spouse like to claim anyone for %{year}?
       health_insurance:
-        employer_health_insurance: purchase health insurance through my employer
-        help_text:
-          one: 'Select all the options that apply. Did you:'
-          other: 'Select all the options that apply. Did you or your spouse:'
-        hsa: have a Health Savings Account
-        marketplace_health_insurance: purchase health insurance through the marketplace
-        medicaid_medicare: have Medicaid/Medicare
-        no_health_insurance: not have health insurance last year
+        help_text: Select all the options that apply.
+        options:
+          employer_health_insurance:
+            one: I purchased health insurance through my employer
+            other: My spouse or I purchased health insurance through an employer
+          hsa:
+            one: I had a Health Savings Account
+            other: My spouse or I had a Health Savings Account
+          marketplace_health_insurance:
+            one: I purchased health insurance through the marketplace
+            other: My spouse or I purchased health insurance through the marketplace
+          medicaid_medicare:
+            one: I had Medicaid/Medicare
+            other: My spouse or I had Medicaid/Medicare
+          no_health_insurance:
+            one: I did not have health insurance last year
+            other: My spouse or I did not have health insurance
         title:
-          one: Tell us about what kind of health insurance you had in %{year}.
-          other: Tell us about what kind of health insurance you and your spouse had in %{year}.
+          one: Tell us about your health insurance in %{year}.
+          other: Tell us about you and your spouse's health insurance in %{year}.
       homebuyer_credit:
         help_text_html: If you are unsure, you can use %{irs_link} to check.
         irs_homebuyer_tool: this IRS tool

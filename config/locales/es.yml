@@ -4190,11 +4190,27 @@ es:
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
       health_insurance:
         help_text:
-          one: "Seleccione todas las opciones que correspondan. Acaso usted:"
-          other: "Seleccione todas las opciones que correspondan. ¿Usted o su cónyuge:"
+          one: Seleccione todas las opciones que correspondan.
+          other: Seleccione todas las opciones que correspondan.
+        options:
+          employer_health_insurance:
+            one: Compré un seguro de salud a través de mi empleador
+            other: Mi cónyuge o yo compramos un seguro de salud a través de un empleador
+          hsa:
+            one: Tenía una Cuenta de Ahorro de Salud
+            other: Mi cónyuge o yo teníamos una Cuenta de Ahorros para la Salud
+          marketplace_health_insurance:
+            one: Compré un seguro de salud a través del mercado
+            other: Mi cónyuge o yo compramos un seguro de salud a través del mercado
+          medicaid_medicare:
+            one: Tenía Medicaid/Medicare
+            other: Mi cónyuge o yo teníamos Medicaid/Medicare
+          no_health_insurance:
+            one: No tenía seguro de salud el año pasado.
+            other: Mi cónyuge o yo no teníamos seguro médico
         title:
-          one: Cuéntenos qué tipo de seguro de salud tuvo en %{year}.
-          other: Cuéntenos qué tipo de seguro de salud tenían usted y su cónyuge en %{year}.
+          one: Cuéntanos sobre tu seguro de salud en %{year}.
+          other: Cuéntenos sobre su seguro médico y el de su cónyuge en %{year}.
       homebuyer_credit:
         help_text_html: Si no está seguro, puede usar %{irs_link} para comprobarlo.
         irs_homebuyer_tool: esta herramienta del IRS
