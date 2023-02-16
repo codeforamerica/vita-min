@@ -4189,17 +4189,12 @@ es:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
       health_insurance:
-        employer_health_insurance: comprar un seguro de salud a través de mi empleador.
         help_text:
-          one: Seleccione todas las opciones que correspondan. Acaso tú
-          other: Seleccione todas las opciones que correspondan. ¿Usted o su cónyuge
-        hsa: tener una Cuenta de Ahorro de Salud
-        marketplace_health_insurance: comprar un seguro de salud a través del mercado
-        medicaid_medicare: tiene Medicaid/Medicare
-        no_health_insurance: no tener seguro de salud el año pasado
+          one: "Seleccione todas las opciones que correspondan. Acaso usted:"
+          other: "Seleccione todas las opciones que correspondan. ¿Usted o su cónyuge:"
         title:
-          one: Cuéntenos qué tipo de atención médica tuvo en %{year}.
-          other: Cuéntenos qué tipo de atención médica tenían usted y su cónyuge en %{year}.
+          one: Cuéntenos qué tipo de seguro de salud tuvo en %{year}.
+          other: Cuéntenos qué tipo de seguro de salud tenían usted y su cónyuge en %{year}.
       homebuyer_credit:
         help_text_html: Si no está seguro, puede usar %{irs_link} para comprobarlo.
         irs_homebuyer_tool: esta herramienta del IRS
