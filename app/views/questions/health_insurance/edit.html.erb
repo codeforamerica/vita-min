@@ -6,7 +6,7 @@
       <%= content_for(:page_title) %>
     </h1>
     <p>
-      <%=t('views.questions.health_insurance.help_text', :count => current_intake.filer_count) + ':' %>
+      <%= t('views.questions.health_insurance.help_text', :count => current_intake.filer_count) %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <%= f.cfa_checkbox(:bought_health_insurance, t('views.questions.health_insurance.marketplace_health_insurance', :count => current_intake.filer_count), options: { checked_value: "yes", unchecked_value: "no" }) %>

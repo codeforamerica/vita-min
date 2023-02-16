@@ -4223,15 +4223,15 @@ en:
       health_insurance:
         employer_health_insurance: purchase health insurance through my employer.
         help_text:
-          one: Select all the options that apply. Did you
-          other: Select all the options that apply. Did you or your spouse
-        hsa: have a Health Savings Account.
-        marketplace_health_insurance: purchase health insurance through the marketplace.
-        medicaid_medicare: have Medicaid/Medicare.
-        no_health_insurance: not have health insurance last year.
+          one: 'Select all the options that apply. Did you:'
+          other: 'Select all the options that apply. Did you or your spouse:'
+        hsa: have a Health Savings Account
+        marketplace_health_insurance: purchase health insurance through the marketplace
+        medicaid_medicare: have Medicaid/Medicare
+        no_health_insurance: not have health insurance last year
         title:
-          one: Tell us about your healthcare in %{year}.
-          other: What kind of healthcare did you and your spouse have in %{year}?
+          one: Tell us about what kind of healthcare you had in %{year}.
+          other: Tell us about what kind of healthcare you and your spouse had in %{year}.
       homebuyer_credit:
         help_text_html: If you are unsure, you can use %{irs_link} to check.
         irs_homebuyer_tool: this IRS tool

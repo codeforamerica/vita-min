@@ -4193,12 +4193,13 @@ es:
         help_text:
           one: Seleccione todas las opciones que correspondan. Acaso tú
           other: Seleccione todas las opciones que correspondan. ¿Usted o su cónyuge
-        hsa: tener una Cuenta de Ahorro de Salud.
-        marketplace_health_insurance: comprar un seguro de salud a través del mercado.
-        medicaid_medicare: tiene Medicaid/Medicare.
-        no_health_insurance: no tener seguro de salud el año pasado.
+        hsa: tener una Cuenta de Ahorro de Salud
+        marketplace_health_insurance: comprar un seguro de salud a través del mercado
+        medicaid_medicare: tiene Medicaid/Medicare
+        no_health_insurance: no tener seguro de salud el año pasado
         title:
-          many: En %{year}, ¿Compró usted o su pareja un seguro médico a través del mercado o el intercambio?
+          one: Cuéntenos qué tipo de atención médica tuvo en %{year}.
+          other: Cuéntenos qué tipo de atención médica tenían usted y su cónyuge en %{year}.
       homebuyer_credit:
         help_text_html: Si no está seguro, puede usar %{irs_link} para comprobarlo.
         irs_homebuyer_tool: esta herramienta del IRS
