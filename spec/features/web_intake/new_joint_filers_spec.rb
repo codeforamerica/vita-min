@@ -363,9 +363,10 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Health insurance
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse purchase health insurance through the marketplace or exchange?")
+      expect(page).to have_selector("h1", text: "What kind of healthcare did you and your spouse have in #{current_tax_year}?")
     end
-    click_on "Yes"
+    check "have Medicaid/Medicare."
+    click_on "Continue"
 
     # Itemizing
     screenshot_after do

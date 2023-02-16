@@ -4221,27 +4221,23 @@ en:
           one: Would you like to claim anyone for %{year}?
           other: Would you or your spouse like to claim anyone for %{year}?
       health_insurance:
-        help_text: This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer.
+        employer_health_insurance: purchase health insurance through my employer.
+        help_text:
+          one: Select all the options that apply. Did you
+          other: Select all the options that apply. Did you or your spouse
+        hsa: have a Health Savings Account.
+        marketplace_health_insurance: purchase health insurance through the marketplace.
+        medicaid_medicare: have Medicaid/Medicare.
+        no_health_insurance: not have health insurance last year.
         title:
           one: Tell us about your healthcare in %{year}.
-          other: In %{year}, did you or your spouse purchase health insurance through the marketplace or exchange?
-        options:
-          marketplace_health_insurance: I purchased health insurance through the marketplace.
-          employer_health_insurance: I purchased health insurance through my employer.
-          medicaid_medicare: I had Medicaid/Medicare.
-          hsa: I had a Health Savings Account.
-          no_health_insurance: I did not have health insurance last year.
+          other: What kind of healthcare did you and your spouse have in %{year}?
       homebuyer_credit:
         help_text_html: If you are unsure, you can use %{irs_link} to check.
         irs_homebuyer_tool: this IRS tool
         title:
           one: Did you receive the First Time Homebuyer Credit in 2008?
           other: Did you or your spouse receive the First Time Homebuyer Credit in 2008?
-      hsa:
-        help_text: Answer "Yes" if you received a 1099-SA or 5498-SA. This does not include Flexible Spending Accounts.
-        title:
-          one: In %{year}, did you have a Health Savings Account?
-          other: In %{year}, did you or your spouse have a Health Savings Account?
       interest_income:
         help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
         title:

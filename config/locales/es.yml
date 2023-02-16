@@ -4189,11 +4189,16 @@ es:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
       health_insurance:
-        help_text: Esto incluye un seguro medico privado comprado a través de un sitio web del gobierno. Esto no incluye Medicaid, Medicare o seguro médico comprado a través de su empleador.
+        employer_health_insurance: comprar un seguro de salud a través de mi empleador.
+        help_text:
+          one: Seleccione todas las opciones que correspondan. Acaso tú
+          other: Seleccione todas las opciones que correspondan. ¿Usted o su cónyuge
+        hsa: tener una Cuenta de Ahorro de Salud.
+        marketplace_health_insurance: comprar un seguro de salud a través del mercado.
+        medicaid_medicare: tiene Medicaid/Medicare.
+        no_health_insurance: no tener seguro de salud el año pasado.
         title:
           many: En %{year}, ¿Compró usted o su pareja un seguro médico a través del mercado o el intercambio?
-          one: En %{year}, ¿compró un seguro de salud a través del mercado o intercambio?
-          other: En %{year}, ¿Compró usted o su pareja un seguro médico a través del mercado o el intercambio?
       homebuyer_credit:
         help_text_html: Si no está seguro, puede usar %{irs_link} para comprobarlo.
         irs_homebuyer_tool: esta herramienta del IRS
@@ -4201,12 +4206,6 @@ es:
           many: "¿Recibió usted o su pareja el Crédito para Compradores de Vivienda por primera vez en el 2008?"
           one: "¿Recibió el crédito para compradores de vivienda por primera vez en 2008?"
           other: "¿Recibió usted o su pareja el Crédito para Compradores de Vivienda por primera vez en el 2008?"
-      hsa:
-        help_text: Responda "Sí" si recibió un 1099-SA o 5498-SA. Esto no incluye cuentas de gastos flexibles.
-        title:
-          many: En el %{year}, ¿Tenía usted o su pareja una cuenta de ahorro para la salud?
-          one: En %{year}, ¿tenía una cuenta de ahorro de salud?
-          other: En el %{year}, ¿Tenía usted o su pareja una cuenta de ahorro para la salud?
       interest_income:
         help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
         title:

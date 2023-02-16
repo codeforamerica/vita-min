@@ -192,7 +192,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Health insurance
     expect(page).to have_selector("h1", text: "Tell us about your healthcare in #{current_tax_year}.")
-    check "I had Medicaid/Medicare."
+    check "have Medicaid/Medicare."
     click_on "Continue"
 
     # Itemizing
