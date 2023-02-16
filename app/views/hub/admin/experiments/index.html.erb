@@ -9,6 +9,7 @@
         <th>key</th>
         <th>name</th>
         <th>enabled</th>
+        <th></th>
       </tr>
 
       <% @experiments.each do |experiment| %>
@@ -17,6 +18,7 @@
           <td><%= experiment.key %></td>
           <td><%= experiment.name %></td>
           <td><%= experiment.enabled %></td>
+          <td><%= link_to "Edit", edit_hub_admin_experiment_path(experiment) %></td>
         </tr>
       <% end %>
     </table>

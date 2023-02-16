@@ -211,7 +211,7 @@ Rails.application.routes.draw do
         end
 
         namespace :admin do
-          resources :experiments, only: [:index]
+          resources :experiments, only: [:index, :edit, :update]
           resources :experiment_participants, only: [:edit, :update]
         end
 

@@ -10,7 +10,6 @@ module Hub
 
       def update
         if @experiment_participant.update(experiment_participant_params)
-          @experiment_participant.save
           flash[:notice] = I18n.t("general.changes_saved")
           redirect_to hub_admin_experiments_path
         else
