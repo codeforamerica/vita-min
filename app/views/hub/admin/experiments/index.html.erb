@@ -35,6 +35,7 @@
           <td><%= participant.experiment_id %></td>
           <td><%= participant.record_type %>#<%= participant.record_id %></td>
           <td><%= participant.treatment %></td>
+          <td><%= link_to "Edit", edit_hub_admin_experiment_participant_path(participant) %></td>
         </tr>
       <% end %>
     </table>
