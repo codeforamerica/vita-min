@@ -17,7 +17,7 @@ jobs:
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
 
       - name: Login to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@v3.12.13
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_email: wschaefer@codeforamerica.org
