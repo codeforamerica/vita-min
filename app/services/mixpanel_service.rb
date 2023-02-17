@@ -127,6 +127,8 @@ class MixpanelService
     EC2_COMPUTE_DOMAIN_REGEX = /^ec2-(.*)\.compute-1\.amazonaws.com$/i.freeze
 
     def should_event_be_dropped?(request)
+      return :hund if request.query_parameters[:source]
+
       incoming_ip = request.remote_ip
       incoming_host = request.host
 

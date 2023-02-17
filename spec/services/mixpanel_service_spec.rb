@@ -955,11 +955,7 @@ describe ApplicationController, type: :controller do
         end
 
         it "drops events coming from status checks" do
-          # TODO: Get IP ranges and hostnames used for status checks
-          # TODO: Confirm that we drop calls to Mixpanel.
-          # @request.remote_addr = ip_address.to_string
-
-          get :index
+          get :index, params: { source: :hund }
 
           expect(fake_tracker).not_to have_received(:track)
         end
