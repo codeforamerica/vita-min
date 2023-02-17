@@ -8,7 +8,7 @@ module Hub
 
       def index
         @experiments = Experiment.all
-        @experiment_participants = ExperimentParticipant.all
+        @experiment_participants = ExperimentParticipant.page(params[:page]).load
       end
 
       def edit; end

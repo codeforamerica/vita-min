@@ -4,7 +4,7 @@ class ExperimentService
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
       name: "DIY high and low support experiment",
-      alternatives: {
+      treatment_weights: {
         low: 1,
         high: 1
       }
@@ -17,17 +17,17 @@ class ExperimentService
     participant = ExperimentParticipant.find_by(experiment: experiment, record: record)
     return participant.treatment if participant
 
-    treatment = TreatmentChooser.new(CONFIG[key][:alternatives]).choose
+    treatment = TreatmentChooser.new(CONFIG[key][:treatment_weights]).choose
     participant = ExperimentParticipant.create!(experiment: experiment, record: record, treatment: treatment)
     participant.treatment
   end
 
   class TreatmentChooser
-    def initialize(alternatives)
-      sum_of_probability = alternatives.values.reduce(0) { |a, b| a + b }
+    def initialize(treatment_weights)
+      sum_of_probability = treatment_weights.values.reduce(0) { |a, b| a + b }
       cumulative_probability = 0.0
       @use_probabilities = []
-      alternatives.each_with_index do |(value, probability), i|
+      treatment_weights.each_with_index do |(value, probability), i|
         probability = probability.to_f / sum_of_probability
         @use_probabilities << [value, cumulative_probability += probability]
       end

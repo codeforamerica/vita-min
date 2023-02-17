@@ -14,4 +14,7 @@
 #  index_experiments_on_key  (key) UNIQUE
 #
 class Experiment < ApplicationRecord
+  def treatment_weights
+    ExperimentService::CONFIG[key][:treatment_weights]
+  end
 end

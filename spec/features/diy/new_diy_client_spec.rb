@@ -23,7 +23,6 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
 
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)
-    allowed_treatment_names = ExperimentService::CONFIG[ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT][:alternatives].keys
-    expect(experiment_particpant.treatment.to_sym).to be_in(allowed_treatment_names)
+    expect(experiment_particpant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
   end
 end

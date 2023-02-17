@@ -8,7 +8,7 @@ describe ExperimentService do
       stub_const("ExperimentService::CONFIG", {
         experiment.key => {
           name: "Experiment A",
-          alternatives: {
+          treatment_weights: {
             'treatment_x' => 1,
             'treatment_y' => 3
           }
