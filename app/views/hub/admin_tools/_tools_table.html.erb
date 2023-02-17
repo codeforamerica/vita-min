@@ -1,0 +1,11 @@
+<table>
+  <% actions.sort_by { |(_path, title)| title }.each do |(path, title)| %>
+    <tr>
+      <td>
+        <%= link_to path, class: 'button button--small', style: 'display: block;' do %>
+          <%= title %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

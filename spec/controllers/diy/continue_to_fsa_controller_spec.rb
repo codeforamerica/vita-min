@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Diy::ContinueToFsaController do
   describe "#edit" do
-    let(:diy_intake_id) { 4 }
+    let(:diy_intake_id) { create(:diy_intake, :filled_out).id }
 
     before do
       session[:diy_intake_id] = diy_intake_id

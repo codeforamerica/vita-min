@@ -1,0 +1,36 @@
+<% @title = "Experiment ##{@experiment.id}" %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab slab--padded">
+    <div class="grid">
+      <div class="grid--item width-one-half">
+        <%= form_with model: [:hub, :admin, @experiment], method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+          <h1 class="form-card__title">
+            <%= @title %>
+          </h1>
+
+          <div class="field-display">
+            <span class="form-question">experiment id:</span>
+            <span class="form-class"><%= @experiment.id %></span>
+          </div>
+
+          <div class="field-display">
+            <span class="form-question">experiment key:</span>
+            <span class="form-class"><%= @experiment.key %></span>
+          </div>
+
+          <div class="field-display">
+            <span class="form-question">experiment name:</span>
+            <span class="form-class"><%= @experiment.name %></span>
+          </div>
+
+
+          <%= f.cfa_select(:enabled, "enabled", [true, false]) %>
+
+          <%= f.submit(t("general.save"), class: "button button--cta") %>
+          <%= link_to t("general.cancel"), hub_admin_experiments_path, class: "button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
