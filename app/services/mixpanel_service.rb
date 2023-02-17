@@ -107,7 +107,7 @@ class MixpanelService
                    request: nil,
                    source: nil,
                    path_exclusions: [])
-      return if should_event_be_dropped?(request) != :ok
+      return if request.present? and should_event_be_dropped?(request) != :ok
 
       default_data = {}
       default_data[:locale] = I18n.locale.to_s
