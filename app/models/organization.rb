@@ -75,7 +75,12 @@ class Organization < VitaPartner
   end
 
   def at_capacity?
-    !OrganizationCapacity.with_capacity.where(organization: self).exists?
+    return false if capacity_limit.nil?
+
+    if active_client_count.blank?
+      self.active_client_count = self.class.with_computed_client_count.find(id).active_client_count
+    end
+    active_client_count >= capacity_limit
   end
 
   def organization_leads
