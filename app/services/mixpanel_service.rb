@@ -128,12 +128,13 @@ class MixpanelService
 
     def should_event_be_dropped?(request)
       return :hund if request.query_parameters[:source]
+      return :ok if request.nil?
 
-      incoming_ip = request.remote_ip
+      incoming_ip = request.remote_ip or request.ip
       incoming_host = request.host
 
       return :non_public_aws if EC2_COMPUTE_DOMAIN_REGEX.match?(incoming_host)
-      return :aws_ec2_domain if SECURITY_METRICS_SUBNET.include?(incoming_ip)
+      return :aws_ec2_domain if incoming_ip.present? and SECURITY_METRICS_SUBNET.include?(incoming_ip)
 
       :ok
     end
