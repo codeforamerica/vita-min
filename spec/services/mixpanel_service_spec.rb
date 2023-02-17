@@ -797,7 +797,6 @@ describe ApplicationController, type: :controller do
   before do
     allow(fake_tracker).to receive(:track)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
-    include ActionDispatch::Integration::RequestHelpers
   end
 
   after do
