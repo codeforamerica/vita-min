@@ -32,6 +32,7 @@ RSpec.describe "a user editing a clients 13614c form" do
                             preferred_name: "Colleen Cauliflower",
                             email_notification_opt_in: "yes",
                             timezone: "America/Chicago",
+                            ever_married: "no",
                             was_blind: "no",
                             was_full_time_student: "unsure",
                             claimed_by_another: "unsure",
@@ -173,6 +174,9 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
       expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
+
+      # for questions that were gated, show that unfilled in database means no on the pdf
+      expect(page).to have_select("hub_update13614c_form_page2[received_alimony]", selected: "[No]")
 
       within "#income-fields" do
         expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"

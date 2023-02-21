@@ -95,7 +95,8 @@ module ApplicationHelper
       [I18n.t("general.unsure"), "unsure"],
     ]
   end
-def short_yes_no_unsure_options_for_select
+
+  def short_yes_no_unsure_options_for_select
     [
       ["", "unfilled"],
       ['Y', "yes"],
