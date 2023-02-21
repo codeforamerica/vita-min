@@ -12,7 +12,7 @@ module AutomatedMessage
       Rails.configuration.email_from[:noreply][:ctc]
     end
 
-    def sms_body(*args)
+    def sms_body(**args)
       <<~BODY
           GetCTC is officially open for you to e-file a simplified return to claim your Child Tax Credit and third stimulus payment. Go to getctc.org/live to file today.
 
@@ -20,11 +20,11 @@ module AutomatedMessage
         BODY
     end
 
-    def email_subject(*args)
+    def email_subject(**args)
       "GetCTC is open for tax filing! / ¡GetCTC está abierto para la declaración de impuestos!"
     end
 
-    def email_body(*args)
+    def email_body(**args)
       <<~BODY
         Thank you for signing up to receive updates about GetCTC! GetCTC is officially open to e-file a simplified tax return to claim your Child Tax Credit and third stimulus payment. Currently simplified filing is only available to people who lived in the United States (any of the 50 states or the District of Columbia) for at least 6 months in 2021.
         

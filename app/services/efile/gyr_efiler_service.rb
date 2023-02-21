@@ -30,7 +30,7 @@ module Efile
         config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
         # On macOS, "java" will show a confusing pop-up if you run it without a JVM installed. Check for that and exit early.
-        if File.exists?("/Library/Java/JavaVirtualMachines") && Dir.glob("/Library/Java/JavaVirtualMachines/*").empty?
+        if File.exist?("/Library/Java/JavaVirtualMachines") && Dir.glob("/Library/Java/JavaVirtualMachines/*").empty?
           raise Error.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
         end
         # /Library/Java/JavaVirtualMachines

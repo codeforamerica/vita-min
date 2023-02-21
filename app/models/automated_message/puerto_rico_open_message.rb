@@ -12,7 +12,7 @@ module AutomatedMessage
       Rails.configuration.email_from[:noreply][:ctc]
     end
 
-    def sms_body(*args)
+    def sms_body(**args)
       <<~BODY
           GetCTC is now open for residents of Puerto Rico to e-file a simplified return to claim the Child Tax Credit. Go to getctc.org/puertorico?s=live-pr to file today.
 
@@ -20,11 +20,11 @@ module AutomatedMessage
       BODY
     end
 
-    def email_subject(*args)
+    def email_subject(**args)
       "GetCTC is open in Puerto Rico! / ¡GetCTC está abierto en Puerto Rico!"
     end
 
-    def email_body(*args)
+    def email_body(**args)
       <<~BODY
         Thank you for signing up to receive updates about GetCTC! GetCTC is now open for residents of Puerto Rico to e-file a simplified tax return to claim the Child Tax Credit. GetCTC is still open for residents of the 50 states and D.C. to claim their Child Tax Credit and third stimulus payment.
 

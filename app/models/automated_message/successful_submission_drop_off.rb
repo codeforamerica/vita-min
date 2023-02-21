@@ -8,16 +8,16 @@ module AutomatedMessage
       true
     end
 
-    def sms_body(*args)
-      I18n.t("messages.successful_submission_drop_off.sms", *args)
+    def sms_body(**args)
+      I18n.t("messages.successful_submission_drop_off.sms", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.successful_submission_drop_off.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.successful_submission_drop_off.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.successful_submission_drop_off.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.successful_submission_drop_off.email.body", **args)
     end
   end
 end

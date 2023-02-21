@@ -38,7 +38,7 @@ module SubmissionBuilder
     end
 
     def self.build(*args)
-      new(*args).build
+      new(args[0], **(args[1] || {})).build
     end
 
     private

@@ -8,7 +8,7 @@ describe Ctc::Questions::ConfirmMailingAddressController do
 
   describe '#update' do
     it "redirects to ip_pin question" do
-      put :update, {}
+      put :update
       expect(response).to redirect_to questions_ip_pin_path
     end
   end

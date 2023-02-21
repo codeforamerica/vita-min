@@ -4,16 +4,16 @@ module AutomatedMessage
       'messages.successful_submission_online_intake'.freeze
     end
 
-    def sms_body(*args)
-      I18n.t("messages.successful_submission_online_intake.sms", *args)
+    def sms_body(**args)
+      I18n.t("messages.successful_submission_online_intake.sms", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.successful_submission_online_intake.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.successful_submission_online_intake.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.successful_submission_online_intake.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.successful_submission_online_intake.email.body", **args)
     end
   end
 end

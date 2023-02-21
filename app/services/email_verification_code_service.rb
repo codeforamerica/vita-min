@@ -24,7 +24,7 @@ class EmailVerificationCodeService
 
   private
 
-  def self.request_code(*args)
-    new(*args).request_code
+  def self.request_code(**args)
+    new(**args).request_code
   end
 end

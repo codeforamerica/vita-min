@@ -26,16 +26,16 @@ module AutomatedMessage
       true
     end
 
-    def sms_body(*args)
-      I18n.t("messages.in_progress.sms.body", *args)
+    def sms_body(**args)
+      I18n.t("messages.in_progress.sms.body", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.in_progress.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.in_progress.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.in_progress.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.in_progress.email.body", **args)
     end
   end
 end

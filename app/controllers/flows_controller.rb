@@ -204,7 +204,7 @@ class FlowsController < ApplicationController
         existing_path = possible_paths.find { |path| I18n.exists?(path) }
         if existing_path
           begin
-            I18n.t(existing_path, i18n_params)
+            I18n.t(existing_path, **i18n_params)
           rescue I18n::MissingInterpolationArgument => e
             e.string
           end
