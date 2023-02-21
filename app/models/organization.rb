@@ -77,10 +77,16 @@ class Organization < VitaPartner
   def at_capacity?
     return false if capacity_limit.nil?
 
-    if active_client_count.blank?
-      self.active_client_count = self.class.with_computed_client_count.find(id).active_client_count
-    end
     active_client_count >= capacity_limit
+  end
+
+  def active_client_count
+    return 0 unless persisted?
+
+    if read_attribute(:active_client_count).blank?
+      write_attribute(:active_client_count, self.class.with_computed_client_count.find(id).active_client_count)
+    end
+    read_attribute(:active_client_count)
   end
 
   def organization_leads
