@@ -17,6 +17,7 @@
 #  bought_employer_health_insurance                     :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
+#  bought_marketplace_health_insurance                  :integer
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
