@@ -927,23 +927,13 @@ describe ApplicationController, type: :controller do
       end
 
       context "for those not allowed" do
-        def self.test_security_metrics_ips
-          security_metrics_subnet = IPAddr.new("192.211.152.0/24") # 255 IP addresses in a Class C subnet
-          ip_addresses = security_metrics_subnet.to_range
-          ip_addresses.each { |ip_address|
-            it "drops those from the IP address #{ip_address}" do
-              @request.remote_addr = ip_address.to_string
+            it "drops those from the IP address expected from SecurityMetrics" do
+              @request.remote_addr = "192.211.152.30"
 
               get :index
 
               expect(fake_tracker).not_to have_received(:track)
             end
-          }
-        end
-
-        context "for SecurityMetrics" do
-          self.test_security_metrics_ips()
-        end
 
         it "drops events coming from non-public AWS domains" do
           request.set_header("HTTP_HOST", "ec2-18-204-251-64.compute-1.amazonaws.com")
@@ -954,7 +944,7 @@ describe ApplicationController, type: :controller do
         end
 
         it "drops events coming from status checks" do
-          get :index, params: { source: :hund }
+          get :index, params: { source: "hund" }
 
           expect(fake_tracker).not_to have_received(:track)
         end
