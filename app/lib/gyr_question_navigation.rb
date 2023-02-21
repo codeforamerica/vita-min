@@ -152,7 +152,7 @@ class GyrQuestionNavigation
       Questions::MailingAddressController,
 
       # Documents --> See DocumentNavigation
-      Questions::OverviewDocumentsController,
+      Documents::IdGuidanceController,
 
       Questions::FinalInfoController,
       Questions::SuccessfullySubmittedController,

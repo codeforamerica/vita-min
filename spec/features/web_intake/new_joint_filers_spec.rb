@@ -465,12 +465,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Overview: Documents
-      expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
-    end
-    click_on "Continue"
-
-    screenshot_after do
       # IRS guidance
       expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     end

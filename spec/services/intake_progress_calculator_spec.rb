@@ -30,14 +30,5 @@ describe IntakeProgressCalculator do
       expect(IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_yes))).to be < IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_no))
       expect(IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_no))).to eq IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_unfilled))
     end
-
-    context "with 211intake source" do
-      let(:attributes) { { source: "211intake" } }
-      let(:intake) { create :intake, **attributes }
-
-      it "does not show the progress bar when the currently viewed controller is not found in possible steps" do
-        expect(IntakeProgressCalculator.get_progress(Questions::OverviewDocumentsController, controller)).to eq -1
-      end
-    end
   end
 end

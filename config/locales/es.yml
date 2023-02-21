@@ -4399,15 +4399,6 @@ es:
           header: Obtenga su reembolso
           info: Si elige presentar sus impuestos, nuestros voluntarios de impuestos lo ayudarán a presentar su declaración electrónica.
         title: "¡Solo unos simples pasos para declarar sus impuestos!"
-      overview_documents:
-        documents_list:
-          employment_tax: Documentos de impuestos de empleo (W2, 1099, etc.)
-          header: 'En las próximas páginas, solicitaremos lo siguiente:'
-          id: Licencia de conducir actual, identificación estatal o pasaporte
-          other_tax: Cualquier otro documentos de impuestos
-          ssn_itn: Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
-        title: Reúna todos sus documentos y llévelos con usted.
-        valid_phone_email: También necesitaremos verificar que tenga un número de teléfono y un correo electrónico válidos.
       paid_alimony:
         help_text: Esto no incluye la manutención de los hijos.
         title:

@@ -251,12 +251,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "ZIP code", with: "94612"
     click_on "Continue"
 
-    # Overview: Documents
-    expect(intake.reload.current_step).to end_with("/questions/overview-documents")
-
-    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
-    click_on "Continue"
-
     # IRS guidance
     expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     click_on "Continue"

@@ -4368,15 +4368,6 @@ en:
           header: Get your refund
           info: If you choose to file your taxes, our tax volunteers will help you e-file.
         title: Just a few simple steps to file!
-      overview_documents:
-        documents_list:
-          employment_tax: Employment tax documents (W2's, 1099, etc)
-          header: 'In the next pages, we''ll be asking for the following:'
-          id: Current driver's license, state ID, or passport
-          other_tax: Any other official tax documents
-          ssn_itn: Social Security Number or ITIN
-        title: Collect all your documents and have them with you.
-        valid_phone_email: We will also need to verify that you have a valid phone number and e-mail.
       paid_alimony:
         help_text: This does not include child support.
         title:
