@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Questions::PhoneVerificationController, requires_default_vita_partners: true do
+  let(:sms_phone_number) { "+15125551234" }
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale) }
+  let(:client) { create :client, intake: (create :intake, sms_phone_number: sms_phone_number, visitor_id: visitor_id, locale: locale) }
   let(:intake) { client.intake }
   let(:locale) { "en" }
 
@@ -12,6 +13,16 @@ RSpec.describe Questions::PhoneVerificationController, requires_default_vita_par
   end
 
   context 'before rendering edit' do
+    context "if the sms phone number was blank" do
+      let(:sms_phone_number) { nil }
+
+      it "redirects back to the SMS phone number entry screen " do
+        expect(
+          get :edit, params: {}
+        ).to redirect_to(Questions::CellPhoneNumberController.to_path_helper)
+      end
+    end
+
     it "enqueues a job to send a verification code" do
       expect {
         get :edit, params: {}
