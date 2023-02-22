@@ -16,6 +16,8 @@ module Questions
     private
 
     def send_verification_code
+      return redirect_to Questions::CellPhoneNumberController.to_path_helper if current_intake.sms_phone_number.blank?
+
       RequestVerificationCodeTextMessageJob.perform_later(
         phone_number: current_intake.sms_phone_number,
         locale: I18n.locale,
