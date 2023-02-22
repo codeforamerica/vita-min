@@ -1056,6 +1056,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_225020) do
     t.integer "bank_account_type", default: 0, null: false
     t.string "bank_name"
     t.string "bank_routing_number"
+    t.integer "bought_employer_health_insurance", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
@@ -1137,6 +1138,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_225020) do
     t.integer "had_hsa", default: 0, null: false
     t.integer "had_interest_income", default: 0, null: false
     t.integer "had_local_tax_refund", default: 0, null: false
+    t.integer "had_medicaid_medicare", default: 0, null: false
     t.integer "had_other_income", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
     t.integer "had_retirement_income", default: 0, null: false
