@@ -310,6 +310,7 @@ class Intake::GyrIntake < Intake
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_health_insurance
   enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_employer_health_insurance
+  enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_marketplace_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
