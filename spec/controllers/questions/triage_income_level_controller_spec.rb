@@ -37,7 +37,7 @@ RSpec.describe Questions::TriageIncomeLevelController do
 
       context "when the TriageResultService has an opinion on where to go" do
         before do
-          allow(TriageResultService).to receive(:new).and_return(double(TriageResultService, after_income_levels: '/a/cool/url'))
+          allow(TriageResultService).to receive(:new).and_return(double(TriageResultService, after_income_levels_triaged_route: '/a/cool/url'))
         end
 
         it "goes whenever the TriageResultService says" do
