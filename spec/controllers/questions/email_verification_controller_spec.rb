@@ -1,8 +1,10 @@
 require "rails_helper"
 
 describe Questions::EmailVerificationController do
+  let(:email_address) { "email@example.com" }
+
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :intake, email_address: "email@example.com", visitor_id: visitor_id, locale: locale) }
+  let(:client) { create :client, intake: (build :intake, email_address: email_address, visitor_id: visitor_id, locale: locale) }
   let(:intake) { client.intake }
   let(:locale) { "en" }
 
@@ -12,11 +14,21 @@ describe Questions::EmailVerificationController do
   end
 
   context 'before rendering edit' do
+    context "if the email was blank" do
+      let(:email_address) { nil }
+
+      it "redirects back to the SMS phone number entry screen " do
+        expect(
+          get :edit, params: {}
+        ).to redirect_to(Questions::EmailAddressController.to_path_helper)
+      end
+    end
+
     it "enqueues a job to send a verification code" do
       expect {
         get :edit, params: {}
       }.to have_enqueued_job(RequestVerificationCodeEmailJob).with(hash_including(
-                                                                     email_address: "email@example.com",
+                                                                     email_address: email_address,
                                                                      locale: :en,
                                                                      visitor_id: visitor_id,
                                                                      service_type: :gyr,

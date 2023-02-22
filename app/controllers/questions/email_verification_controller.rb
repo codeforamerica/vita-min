@@ -16,6 +16,8 @@ module Questions
     private
 
     def send_verification_code
+      return redirect_to Questions::EmailAddressController.to_path_helper if current_intake.email_address.blank?
+
       RequestVerificationCodeEmailJob.perform_later(
         client_id: current_intake.client_id,
         email_address: current_intake.email_address,
