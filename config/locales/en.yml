@@ -4353,21 +4353,6 @@ en:
           other: What were the other types of income that you or your spouse received?
       other_states:
         title: In %{year}, did you live or work in any other states besides %{state}?
-      overview:
-        documents:
-          header: Submit documents
-          info: Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C).
-        info: Our form should take you about 30 minutes to complete.
-        phone_review:
-          header: Phone review
-          info: Your tax preparer will review everything with you over the phone.
-        questions:
-          header: Answer Questions
-          info: We'll ask you a series of questions about your finances.
-        refund:
-          header: Get your refund
-          info: If you choose to file your taxes, our tax volunteers will help you e-file.
-        title: Just a few simple steps to file!
       paid_alimony:
         help_text: This does not include child support.
         title:

@@ -4384,21 +4384,6 @@ es:
           other: "¿Cuáles fueron los otros tipos de ingresos que usted o su cónyuge recibieron?"
       other_states:
         title: En %{year}, ¿vivió o trabajó en otros estados además de %{state}?
-      overview:
-        documents:
-          header: Enviar documentos
-          info: Comparta todos los documentos necesarios (ID, W-2, 1099, 1095-A, B, C).
-        info: Nuestro formulario debe tardar unos 30 minutos en completarse.
-        phone_review:
-          header: Revisión telefónica
-          info: Su preparador de impuestos revisará todo con usted por teléfono.
-        questions:
-          header: Responder preguntas
-          info: Le haremos una serie de preguntas sobre sus finanzas.
-        refund:
-          header: Obtenga su reembolso
-          info: Si elige presentar sus impuestos, nuestros voluntarios de impuestos lo ayudarán a presentar su declaración electrónica.
-        title: "¡Solo unos simples pasos para declarar sus impuestos!"
       paid_alimony:
         help_text: Esto no incluye la manutención de los hijos.
         title:

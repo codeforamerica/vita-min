@@ -14,9 +14,6 @@ class GyrQuestionNavigation
       ## Main flow
       Questions::EnvironmentWarningController,
 
-      # Overview
-      Questions::OverviewController,
-
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
       Questions::SsnItinController,
