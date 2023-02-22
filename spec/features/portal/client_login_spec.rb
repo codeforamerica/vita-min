@@ -123,7 +123,7 @@ RSpec.feature "Logging in" do
 
         scenario "visiting sign-in link at its current url" do
           visit edit_portal_client_login_path(id: "raw_token", locale: "es")
-          fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
+          fill_in "ID de cliente o los 4 últimos de SSN/ITIN", with: "9876"
           click_on "Continuar"
 
           expect(page).to have_text("Bienvenido de nuevo Carrie!")
@@ -136,7 +136,7 @@ RSpec.feature "Logging in" do
 
           # Validate with Spanish
           visit "/es/portal/account/raw_token"
-          fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
+          fill_in "ID de cliente o los 4 últimos de SSN/ITIN", with: "9876"
           click_on "Continuar"
 
           expect(page).to have_text("Bienvenido de nuevo Carrie!")
@@ -170,7 +170,7 @@ RSpec.feature "Logging in" do
         fill_in "Ingrese el código de 6 dígitos", with: "000004"
         click_on "Verificar"
 
-        fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: client.id
+        fill_in "ID de cliente o los 4 últimos de SSN/ITIN", with: client.id
         click_on "Continuar"
 
         expect(page).to have_text "¡Entregue su firma electrónica/e-file final!"
