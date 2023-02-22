@@ -8,16 +8,16 @@ es:
             ssn:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   attributes:
-    confirm_primary_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN)
-    confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN) de su cónyuge
-    primary_ssn: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN)
-    spouse_ssn: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN) de su cónyuge
+    confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
+    confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
+    primary_ssn: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
+    spouse_ssn: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
-      removed_dependent: Eliminado %{full_name}.
+      removed_dependent: Eliminó %{full_name}.
     public_pages:
       partner_welcome_notice: "¡Gracias por visitarnos a través de %{partner_name}!"
     tax_returns_controller:
@@ -43,7 +43,7 @@ es:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
     invitations:
       edit:
-        email_label: Su email
+        email_label: Su correo electrónico
         name_label: "¿Cuál es tu nombre?"
         password_confirmation_label: Ingrese su nueva contraseña de nuevo
         password_label: Por favor elige una contraseña segura
@@ -65,7 +65,7 @@ es:
         might_have_been_replaced: Podría haber sido reemplazado por una invitación más nueva.
         title: No podemos encontrar esa invitación.
       send_instructions: Nosotras enviamos una invitación por email a %{email}.
-      updated: "¡Ya está todo listo para comenzar! ¡Usted has unido a un equipo increíble!"
+      updated: "¡Ya está todo listo para comenzar! ¡Te has unido a un equipo increíble!"
     mailer:
       invitation_instructions:
         accept: "¡Acepta la invitación y regístrate para ayudar!"
@@ -169,7 +169,7 @@ es:
       primary_last_name:
         blank: Por favor, ingrese su apellido.
       primary_ssn:
-        blank: Es necesario un Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN)
+        blank: Es necesario un Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       primary_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
       signature_method:
@@ -185,9 +185,9 @@ es:
       spouse_first_name:
         blank: Por favor ingrese el nombre de su cónyuge.
       spouse_last_name:
-        blank: Por favor, ingrese el apellido de su pareja.
+        blank: Por favor, ingrese el apellido de su cónyuge.
       spouse_ssn:
-        blank: Se requiere el Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN) del cónyuge
+        blank: Se requiere el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) del cónyuge
       spouse_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
       ssn_confirmation:
@@ -270,13 +270,13 @@ es:
     confirm: Confirmar
     confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
     contact_methods:
-      email: email
+      email: correo electrónico
       sms_phone_number: mensaje de texto
     contact_us: Contáctenos
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     ctc: GetCTC
-    ctc_client: CTC client
+    ctc_client: cliente de CTC
     date_of_birth: Fecha de nacimiento
     days:
       many: "%{count} días"
@@ -313,7 +313,7 @@ es:
     document_type: Clase de documento
     document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
-      email_attachment: Adjunto de email
+      email_attachment: Adjunto de correo electrónico
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
@@ -323,7 +323,7 @@ es:
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
       selfie: Selfie
-      ssn_or_itin: Número de Seguro Social (SSN en inglés) o Número de Identificación Personal (ITIN)
+      ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
       with_descriptions:
@@ -337,11 +337,11 @@ es:
         employment: Documentos de impuestos (W2, 1099-NEC, etc.)
         id: Identificación con foto
         ira_statements: Declaración de plan de pensión (IRA)
-        other: Cualquier otro documento fiscal que desee que consideremos
+        other: Cualquier otro documentos de impuestos que desee que consideremos
         prior_year_tax_return: Declaración de impuestos del año anterior
         property_tax_statment: Declaración de impuestos sobre la propiedad
         rrb-1099: RRB-1099 para beneficios de jubilación ferroviaria
-        selfie: Foto de usted sosteniendo su identificación con la foto cerca de su barbilla
+        selfie: Foto de usted sosteniendo su identificación con la foto cerca de su barbilla (para verificación de identidad)
         ssa-1099: SSA-1099 para beneficios de seguro social o ingresos por discapacidad
         ssn_or_itin: Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
         student_account_statement: Estado de cuenta del estudiante
@@ -349,7 +349,7 @@ es:
     drop_off: Entrega
     edit: Editar
     edit_info: Editar información
-    email: Email
+    email: Correo electrónico
     email_address: Dirección de correo electrónico
     enable_javascript: Habilite Javascript en su navegador o utilice un navegador diferente.
     error:
@@ -365,9 +365,9 @@ es:
     filing_status:
       head_of_household: Jefe de familia
       married_filing_jointly: Casado presentando conjunta
-      married_filing_separately: Casado que presenta una declaración por separado (MFS)
-      qualifying_widow: Viudo que reúne los requisitos (QW)
-      single: Soltero (S)
+      married_filing_separately: casado declarando por separado
+      qualifying_widow: Viudo calificado
+      single: Soltero
     filing_years: Años para declarar
     find_location: Buscar una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
@@ -405,7 +405,7 @@ es:
       ru: Ruso
       zh: Mandarín
     languages: Idiomas
-    last_four_ssn: Últimos 4 de SSN / ITIN
+    last_four_ssn: Últimos 4 de SSN)/ITIN
     less_than_one_day: "<1 día"
     lived_with_spouse: Vivieron con su cónyuge
     locked: Bloqueada
@@ -421,7 +421,7 @@ es:
     no_intake: Sin ingesta
     none: Ninguna
     none_of_the_above: Ninguna de las anteriores
-    none_of_these: Ninguno de éstos.
+    none_of_these: Ninguno de éstos
     not_at_all: De ningún modo
     not_well: No muy bien
     online: Firma electrónica
@@ -476,7 +476,7 @@ es:
     skip_questions: Saltar preguntas
     sms_phone_number: Número de celular
     sorry: "¡Ay, no! ¡Lo sentimos!"
-    spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
+    spouse_last_four_ssn: Últimos 4 de SSN/ITIN de su cónyuge
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Empiece a declarar
@@ -491,7 +491,7 @@ es:
     submit_question: Envíe una pregunta a GetYourRefund
     suspend_all: Suspender todo
     suspend_roles: Suspender usuarias
-    suspended: Suspendida
+    suspended: Suspendido
     take_action: Tomar acción
     take_picture: Sacar foto
     tax_return: Declaración de impuestos
@@ -500,11 +500,11 @@ es:
     text_message: Mensaje de texto
     timezone: Zona horaria
     tin:
-      atin: Número de Identificación Fiscal por Adopción (ATIN)
+      atin: Número de Identificación del Contribuyente para Adopciones (ATIN)
       itin: Número de Identificación Personal (ITIN)
       none: Ninguna de las anteriores
       ssn: Número de Seguro Social (SSN)
-      ssn_no_employment: Número de Seguro Social/SSN (No es válido para el empleo)
+      ssn_no_employment: Número de Seguro Social (SSN) (No es válido para el empleo)
     tin_type: Tipo de identificación
     today: Hoy
     type: Tipo
@@ -533,7 +533,7 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   hub:
-    archived_client_warning: Este es un boleto del año %{year}. Esta información está archivada y solo debe usarse como referencia.
+    archived_client_warning: Este es un boleto del año de producto %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
       index:
         title: Clientes Asignados
@@ -552,7 +552,7 @@ es:
       account_type: Tipo de cuenta
       bank_name: Nombre del banco
       checking: Cuenta Corriente
-      empty: N / A
+      empty: N/A
       info_displayed: Visualización de la información de la cuenta bancaria
       routing_number: Número de ruta bancaria
       routing_number_confirmation: Confirmar número de ruta bancaria
@@ -658,7 +658,7 @@ es:
           got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2021?
           had_disability: Discapacidad total y permanente
           issued_identity_pin: "¿Usted, su cónyuge o las personas a su cargo han sido víctimas de un robo de identidad relacionado con los impuestos o han recibido un PIN de protección de identidad?"
-          job_title: Título del puesto
+          job_title: Título de puesto
           last_name: Apellido
           lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2021?
           middle_initial: Inicial de su segundo nombre
@@ -686,7 +686,7 @@ es:
           bought_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el formulario 1095-A]"
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
           had_capital_loss_carryover: '¿Presentó el año pasado una declaración federal de impuestos que contenía un "traslado de pérdidas de capital",  en inglés: "capital loss carryover" en el Formulario 1040, Anexo D?'
-          had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, u otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
+          had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, o otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
           had_debt_forgiven: "¿Ha cancelado/perdonado un prestamista la deuda de una tarjeta de crédito, un préstamo estudiantil o una hipoteca, o ha sufrido una ejecución hipotecaria?"
           had_disability_income: "¿Ingresos por discapacidad?"
           had_hsa: "¿Tiene una cuenta de ahorro para gastos médicos?"
@@ -702,7 +702,7 @@ es:
           had_tips: "¿Ingresos por propinas?"
           had_unemployment_income: "¿Indemnización por desempleo?"
           had_wages: "¿Sueldo o salario? (Formulario W-2)"
-          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el Número de Seguro Social o SSN del beneficiario?
+          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el Número de Seguro Social (SSN) del beneficiario?
           job_count: En caso afirmativo, ¿cuántos empleos tuvo el año pasado?
           made_estimated_tax_payments: "¿Hizo pagos de impuestos estimados o aplicó el reembolso del año pasado a los impuestos de este año?"
           made_estimated_tax_payments_amount: Si es así, ¿cuánto?
@@ -723,7 +723,7 @@ es:
           wants_to_itemize: "¿Alguno de los siguientes?"
         part_3_title: Parte III - Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
         part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)?
-        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
+        part_5_title: 'Parte V - Eventos de la vida: el año pasado, ¿usted (o su cónyuge)'
         title: 13614-C
       edit_13614c_form_page3:
         additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Declaración
@@ -760,11 +760,11 @@ es:
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
       fields:
         blind: Estaba ciego
-        ctc_spouse_contact_info: Spouse information, if married filing jointly
-        filing_status: Estado civil para impuestos
+        ctc_spouse_contact_info: Información del cónyuge, si es casado presentando conjunta
+        filing_status: Estado civil para efectos de la declaración
         has_crypto_income: Recibió, vendió, intercambió o dispuso de otro modo de cualquier interés financiero en cualquier moneda virtual
         identity_verification:
-          title: Identity verification
+          title: Verificación de identidad
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
@@ -772,18 +772,18 @@ es:
         middle_initial: La inicial del segundo nombre (opcional)
         navigator:
           general: General
-          incarcerated: Incarcerated/reentry
-          limited_english: Limited English proficiency
-          title: Type of navigator used
-          unhoused: Unhoused
+          incarcerated: Encarcelado/reingreso
+          limited_english: Dominio limitado del inglés
+          title: Tipo de navegador utilizado
+          unhoused: Desarzonado
         payment_information: Información de pago
         photo_id:
-          drivers_license: Drivers License
-          error: Please select at least one photo ID type
-          other_state: Other State ID
-          passport: US Passport
-          title: Type of photo ID used
-          vita_approved: Identification approved by my VITA site
+          drivers_license: Licencia de conducir
+          error: Seleccione al menos un tipo de identificación con foto
+          other_state: Identificación de otro estado
+          passport: Pasaporte Estadounidense
+          title: Tipo de identificación con foto utilizada
+          vita_approved: Identificación aprobada por mi sitio VITA
         preferred_interview_language: Idioma preferido
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
@@ -796,20 +796,20 @@ es:
           source_param: URL directa
           state: Estado
           zip_code: Código postal
-        service_type: Service type
+        service_type: Tipo de servicio
         signature_method: Método para recoger
         signature_methods:
           in_person: En persona
-          online: Firma electrónica
+          online: En línea
         spouse_contact_info: Información de contacto de su cónyuge
         state_of_residence: Estado de residencia
         suffix: Suffix
         taxpayer_id:
           error: Please select at least one taxpayer ID type
           itin: carta del Número de Identificación Personal (ITIN)
-          social_security: Social Security card
-          title: Type of taxpayer ID used
-          vita_approved: Identification approved by my VITA site
+          social_security: Tarjeta de seguro Social
+          title: Tipo de identificación contribuyente usado
+          vita_approved: Identificación aprobada por mi sitio VITA
       index:
         apply_filters: Aplicar búsqueda / filtro para encontrar clientes coincidentes.
         assigned_to_me: Asignado a mí
@@ -824,7 +824,7 @@ es:
         filter: Filtrar resultados
         filters: Filtros
         no_clients: No hay clientes asignadas.
-        no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
+        no_filtered_clients: Ningún cliente coincide con los filtros seleccionados.
         no_message: No hay mensajes disponibles
         no_name_given: Nombre dejado en blanco
         organization: Organización/Sitio
@@ -835,7 +835,7 @@ es:
         unassigned: No asignado
       navigation:
         client_documents: Documentos
-        client_efile: E-file
+        client_efile: Presentación electrónica (de declaraciones)
         client_messages: Mensajes
         client_notes: Notas
         client_profile: Perfil del cliente
@@ -855,7 +855,7 @@ es:
         date_of_birth: Fecha de nacimiento
         date_of_birth_help: mm/dd/yyyy
         edit_13614c: Editar 13614-C
-        email: Email
+        email: Correo electrónico
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
@@ -864,7 +864,7 @@ es:
         mailing_address: Dirección postal
         marital_status: Estado civil
         navigator_types_empty: No se utiliza navegador
-        other_info: Other info
+        other_info: Otra información
         phone: Número de teléfono
         phone_interview_language: Idioma prefiere para la revisión
         preferred_name: Nombre preferido
@@ -878,7 +878,7 @@ es:
         account_unlocked: La cuenta de %{name} se ha desbloqueado.
       update_take_action:
         flash_message:
-          email: envió email
+          email: envió correo electrónico
           internal_note: guardó nota interna
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
@@ -890,7 +890,7 @@ es:
         title: Crear Coalición
     ctc_clients:
       edit:
-        title: Edit CTC Client Profile
+        title: Editar perfil de cliente de CTC
       new:
         assign_to_label: Asignado a
         save_and_add: Guardar y agregar otro
@@ -1008,13 +1008,15 @@ es:
       file_accepted: |
         ¡Hola <<Client.PreferredName>>!
 
-        ¡Se han aceptado sus declaraciones federales y estatales (si es aplicable) de <<TaxReturn.TaxYear>>! No recibirá más notificaciones.
+        ¡Se han aceptado sus declaraciones federales y estatales (si es aplicable) de <<TaxReturn.TaxYear>>!
 
         Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
 
-        Puede verificar el estado de su reembolso federal en línea en sitio del IRS' ¿Dónde está mi reembolso?: https://sa.www4.irs.gov/irfof/lang/es/irfofgetstatus.jsp
+        Puede verificar el estado de su reembolso federal en línea en sitio del IRS' ¿Dónde está mi reembolso?: https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp
 
-        ¡Gracias!
+        Gracias por confiar en GetYourRefund con sus impuestos <<TaxReturn.TaxYear>>.
+
+        Gracias,
         <<Preparer.FirstName>> en GetYourRefund
       file_efiled: |
         Hola <<Client.PreferredName>>,
@@ -1048,11 +1050,7 @@ es:
 
         Háganos saber si usted tiene alguna pregunta,
         Tu equipo de impuestos en GetYourRefund
-      intake_ready_for_call: |-
-        Hola <<Client.PreferredName>>!
-        He revisado su información y estamos listos para llamarle para hablar acerca de sus impuestos antes de que sea preparado su declaración.
-        Esté atento a una llamada telefónica en REPLACE ME desde <<GetYourRefund.PhoneNumber>>. Si este tiempo no funciona para usted, hágamelo saber y podemos reprogramarlo.
-        Muchas gracias, <<Preparer.FirstName>> en GetYourRefund
+      intake_ready_for_call: "Hola <<Client.PreferredName>>!\n\nRevisé su información fiscal para <<TaxReturn.TaxYear>>. El próximo paso es que revisemos su devolución en una llamada telefónica.\n\nEsté atento a una llamada telefónica en REPLACE ME desde <<GetYourRefund.PhoneNumber>>. \n\nSi este tiempo no funciona para usted, hágamelo saber y podemos reprogramarlo.\n\nMuchas gracias, \n<<Preparer.FirstName>> en GetYourRefund\n"
       intake_reviewing: |
         Hola <<Client.PreferredName>>!
 
@@ -1127,8 +1125,8 @@ es:
         ID: Necesito ayuda para encontrar mi(s) documento(s) de identificación.
       document_help: "%{name} asistencia con los documentos solicitados:"
       document_help_types:
-        cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
-        cant_obtain: No puedo obtener documentos de %{doc_type}.
+        cant_locate: Necesito ayuda para encontrar mis documento(s) de %{doc_type}.
+        cant_obtain: No puedo obtener documento(s) de %{doc_type}.
         doesnt_apply: No creo que este documento de %{doc_type} me aplique.
       not_ready_to_not_filing: Transición%{tax_year}declaración de impuestos de No listo a No presentar después de%{days}días de inacción por parte del Cliente.
     tax_return_selections:
@@ -1165,10 +1163,10 @@ es:
       new:
         assigned_user: Usuario asignado (opcional)
         certification_level: Nivel de certificación (opcional)
-        current_years: 'Años fiscales actuales:'
-        no_remaining_years: No hay años fiscales restantes para los que crear una declaración.
-        tax_year: Año fiscal
-        title: Nuevo año fiscal para %{name}
+        current_years: 'Años tributarios actuales:'
+        no_remaining_years: No hay años tributarios restantes para los que crear una declaración.
+        tax_year: Año tributario
+        title: Agregar año tributario para %{name}
       stage:
         file: Pasos finales
         intake: Admisión
@@ -1311,19 +1309,11 @@ es:
     efile:
       acceptance:
         email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS, y pueden empezar a procesar su reembolso.
-
-            Puede verificar el estado de su reembolso después de 24 horas en línea en sitio del IRS ¿Donde Está mi reembolso? https://sa.www4.irs.gov/irfof/lang/sp/irfofgetstatus.jsp
-
-            ¡Estamos aquí para ayudarle!
-            Su equipo de impuestos GetCTC.org
+          body: "Hola <<Client.PreferredName>>,\n\n¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS, y pueden empezar a procesar su reembolso.\n\nPuede verificar el estado de su reembolso después de 24 horas en línea en sitio del IRS ¿Donde Está mi reembolso?: \nhttps://www.irs.gov/es/refunds\n\n¡Estamos aquí para ayudarle!\nSu equipo de impuestos GetCTC.org\n"
           subject: "¡Gracias por declarar sus impuestos con GetCTC!"
         sms: |
           Hola <<Client.PreferredName>>, ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS.
-          Puede verificar el estado de su reembolso después de 24 horas en https://sa.www4.irs.gov/irfof/lang/sp/irfofgetstatus.jsp
+          Puede verificar el estado de su reembolso después de 24 horas en https://www.irs.gov/es/refunds
       failed:
         email:
           body: |
@@ -1396,24 +1386,24 @@ es:
       sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
-        body: |
+        body: |+
           Hola <<Client.PreferredName>>,
 
-          Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Continúe donde lo dejó aquí <<Client.LoginLink>>
+          Nos dimos cuenta de que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe donde se quedó aquí <<Client.LoginLink>>.
 
-          <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una parte importante de la información de la cuenta que puede ayudarlo cuando hable con sus representantes de chat y cuando inicie sesión en su cuenta.
+          <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Este es un dato importante de la cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
 
-          Si tiene alguna pregunta, responda a este mensaje.
+          Si tiene alguna pregunta, puede responder a este mensaje.
 
-          ¡Estamos aquí para ayudar!
+          ¡Estamos aquí para ayudarle!
+          Su Equipo de Asistencia de Preparación de Impuestos en GetYourRefund
 
-          Su equipo de impuestos en GetYourRefund.org
-        subject: 'Bienvenido a GetYourRefund: ID de cliente'
+        subject: 'Bienvenido a GetYourRefund: ID de Cliente'
       sms:
         body: |
-          Hola <<Client.PreferredName>>, no ha completado la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúa donde lo dejaste aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje. Si tiene alguna pregunta, responda a este mensaje.
+          Hola <<Client.PreferredName>> No ha terminado de llenar la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúe donde se quedó aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje. Si tiene alguna pregunta, responda a este mensaje.
 
-          Su equipo de impuestos en GetYourRefund.org
+          Su equipo fiscal en GetYourRefund
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
@@ -1516,7 +1506,7 @@ es:
             Por favor tome nuestra encuesta de 5 minutos aquí:
             %{survey_link}
           subject: Sus comentarios sobre GetCTC
-        sms: "¡Gracias por presentar sus impuestos con GetCTC! ¡Quisiéramos pedirle sus comentarios sobre su experiencia para poder mejorar nuestro servicio! ¿Podría decirnos cómo le fue? Por favor tome nuestra encuesta de 5 minutos aquí: %{survey_link}\n"
+        sms: "¡Gracias por presentar sus impuestos con GetCTC! ¡Quisiéramos pedirle sus comentarios sobre su experiencia para poder mejorar nuestro servicio! ¿Podría decirnos cómo le fue? Por favor tome nuestra encuesta de 5 minutos aquí: %{survey_link}"
     unmonitored_replies:
       email:
         body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda. Para verificar el estado de su reembolso, visite <a href="https://www.irs.gov/refunds">¿Dónde está mi reembolso?</a> Para acceder a su historial fiscal, obtenga <a href="https://www.irs.gov/individuals/get-transcript">su transcripción.</a>
@@ -1550,7 +1540,7 @@ es:
         title: Esta cuenta ha sido bloqueada
       edit:
         confirm_identity: Proteger su información fiscal es nuestra prioridad. Para continuar, confirme su identidad.
-        last_four_or_client_id: ID de cliente o los 4 últimos de SSN / ITIN
+        last_four_or_client_id: ID de cliente o los 4 últimos de SSN/ITIN
         title: Autenticación necesaria para continuar
       enter_verification_code:
         code_sent_to_html: 'Se ha enviado un mensaje con tu código a: <strong>%{address}</strong>'
@@ -1559,7 +1549,7 @@ es:
         verify: Verificar
       form:
         errors:
-          bad_input: ID de cliente o los 4 últimos de SSN / ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
           bad_verification_code: Código incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
       new:
         one_form_of_contact: 'Por favor ingrese un formulario de contacto a continuación:'
@@ -1672,44 +1662,44 @@ es:
     triage:
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
-        description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
+        description: Declare rápidamente por su cuenta.
         list:
-          file: Archivo solo para %{current_tax_year}
+          file: Declare solo para %{current_tax_year}
           income: 'Ingresos: menos de $73,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
-        choose_gyr: Elija Archivo con ayuda
-        description: Presente su declaración con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
+        choose_gyr: Elija Declare con Ayuda
+        description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
-          file: Archivo para 2019-%{current_tax_year}
+          file: Presente su declaración de impuestos para 2019 a %{current_tax_year}
           income: 'Ingresos: menos de $66,000'
-          ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo ITIN
+          ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
-        title: Archivo con ayuda
+        title: " Declare con Ayuda"
     triage_diy:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
+        title: "¡Recomendamos usar nuestra opción gratuita File Myself!"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Parece que está sobre el límite para presentar su declaración. Nuestros servicios gratuitos están disponibles para hogares que ganan menos de $73,000 al año.
+        help_text: Nuestro servicio gratuito está disponible para hogares que ganan menos de $73,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Recomendamos utilizar nuestra opción gratuita Archivo con ayuda!"
+        title: "¡Recomendamos utilizar nuestra opción gratuita Declare con Ayuda!"
     triage_gyr_diy:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
-        help_text_1: Le pediremos que suba una copia de su documento de identificación (licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal (ITIN en inglés).
-        help_text_2: En el caso de que no pueda conseguir estos documentos pero se sabe su número de SSN o Número de Identificación Personal (ITIN en inglés), le recomendamos presentar la solicitud con nuestra opción File Myself, o Declarar por cuenta propia en inglés.
+        help_text_1: Le pediremos que suba una copia de su documento de identificación (licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal (ITIN).
+        help_text_2: En el caso de que no pueda conseguir estos documentos pero se sabe su número de SSN o Número de Identificación Personal (ITIN), le recomendamos presentar la solicitud con nuestra opción File Myself, o Declarar por cuenta propia en inglés.
         no_diy: No. Voy a continuar con File Myself.
-        title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal (ITIN en inglés)?
+        title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal (ITIN)?
         yes_i_have_id: Sí, tengo mi tarjeta de identificación
     triage_income_level:
       edit:
@@ -1725,13 +1715,13 @@ es:
         filing_status:
           label: "¿Cómo desea presentar su declaración de impuestos?"
           options:
-            jointly: Declarar con mi cónyuge (declaración conjunta)
+            jointly: Declarar con mi cónyuge (presentación conjunta)
             single: Declarar independientemente (soltero)
         income_level:
           label_html: |-
             ¿Cuál fue su nivel de ingresos?
 
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o SSI, en español: Seguridad de Ingreso Suplementario.</p>
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
@@ -1746,7 +1736,7 @@ es:
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
-      header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
+      header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
         02_list:
@@ -1897,7 +1887,7 @@ es:
             <p>Aún podría beneficiarse al presentar una declaración de impuestos completa gratis usando GetYourRefund.</p>
           title: No puede continuar presentando con GetCTC.
         already_filed:
-          contact_ta: Contactar Defensores del Contribuyente (Taxpayer Advocate en inglés)
+          contact_ta: Contactar Defensores del Contribuyente
           contact_vita: Contactar un sitio de VITA
           content_html:
           - Para comprobar el estado de su declaración de impuestos de %{current_tax_year}, puede iniciar sesión en su <a href='https://www.irs.gov/payments/your-online-account'>cuenta en línea del IRS</a>.
@@ -2156,7 +2146,7 @@ es:
           client_not_collecting: No está cobrando ningún pago, por favor edite su declaración de impuestos.
           ctc_0_due_link: Solicitar a los hijos para el Crédito Tributario por Hijos
           ctc_due: Crédito Tributario por Hijos (CTC)
-          do_not_file: No declarar
+          do_not_file: No presente sus impuestos
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
           eitc: 'Crédito Tributario por Ingreso del Trabajo (EITC):'
           fed_income_tax_withholding: 'Impuesto Retenido:'
@@ -2233,7 +2223,7 @@ es:
             title: "¿Cuántos meses vivió %{name} con usted en %{current_tax_year}?"
           dependent_has_itin_reveal:
             content: Los dependientes con un Número de Identificación Personal (ITIN) no lo califican para el Crédito Tributario por Hijos o el tercer pago de estímulo. No obtiene ningún crédito fiscal al reclamarlos. Incluya solo a los dependientes con Números de Seguro Social o Números de Identificación de Contribuyente de Adopción.
-            title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN en inglés)"
+            title: "¿Qué pasa si mi dependiente tiene un Número de Identificación Personal (ITIN)"
           does_my_child_qualify_reveal:
             content:
               list_1:
@@ -2297,7 +2287,7 @@ es:
           tin:
             form_of_identity: Forma de identidad
             remove_person: Eliminar a esta persona
-            ssn_or_atin: Número de Seguro Social (SSN en inglés) o el Número de Identificación del Contribuyente para Adopciones (ATIN en inglés).
+            ssn_or_atin: Número de Seguro Social (SSN) o el Número de Identificación del Contribuyente para Adopciones (ATIN).
             ssn_or_atin_confirmation: Confirme su SSN o ATIN
         direct_deposit:
           my_bank_account:
@@ -2915,7 +2905,7 @@ es:
         compare_required_info:
           ctc:
             list:
-            - Numeros de Seguro Social o de Identificación Personal (ITIN en inglés)
+            - Numeros de Seguro Social o de Identificación Personal (ITIN)
           gyr:
             list:
             - Documentos de empleo
@@ -3021,7 +3011,7 @@ es:
               Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal (ITIN en inglés).
             question: No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?
           will_i_ever_have_to_pay_this_money_back:
-            answer_html: Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
+            answer_html: Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para presentación conjunta).
             question: "¿Tendré que devolver este dinero alguna vez?"
           will_it_affect_my_immigration_status:
             answer_html: No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
@@ -3034,7 +3024,7 @@ es:
           eitc_on_html: <strong>¿Es usted un socio comunitario que ayuda a otra persona a acceder al CTC o al EITC?</strong><br> Visite nuestra <a href="%{navigators_link}">página de recursos</a> para navegantes.
         need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         portal_sign_in_link: "¿Ya ha empezado? Inicie sesión."
-        sign_in_for_old_forms: Inicie sesión aquí para ver sus formularios de Crédito fiscal por hijos anticipado de 2022.
+        sign_in_for_old_forms: Inicie sesión aquí para ver sus formularios del Crédito Tributario Anticipado por Hijos de 2022.
         sign_up_for_updates: Suscríbase a las actualizaciones de GetCTC
         subheader:
           claim:
@@ -3045,7 +3035,7 @@ es:
             eitc_off: Este formulario por lo general toma unos 15 minutos en completarse y no necesitará ningún documento tributario.
             eitc_on: Este formulario suele tardar unos 15 minutos en completarse y no se requieren documentos tributarios. Si desea reclamar dinero adicional con el EITC, necesitará su formulario(s) W-2 de su empleador.
         title: Una herramienta para reclamar el Crédito Tributario Anticipado por Hijos
-        visit_gyr: Obtenga más información sobre la declaración de impuestos gratuita con GetYourRefund
+        visit_gyr: Visite GetYourRefund
         what_is:
           body: Meta dinero en el bolsillo de su familia cada mes para las cosas necesarias, aunque gane poco o nada.
           heading: La mayoría de las familias pueden obtener miles de dólares del Crédito Tributario por Hijos
@@ -3115,7 +3105,7 @@ es:
         17_disclose_to_others_details: No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con
         18_disclose_to_others_list_html:
         - Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
-        - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito de Impuestos por Hijos
+        - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito Tributario por Hijos
         - Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.
         - Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas para utilizar su información personal sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros a %{email_link}.
         19_require_third_parties: Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.
@@ -3378,11 +3368,20 @@ es:
         question_groups:
           child_and_dependent_care_credit:
             how_do_i_get_the_child_and_dependent_care_credit:
-              answer_html: <p>Para reclamar el crédito por cuidado de niños y dependientes, debe tener:</p><ul class="list--bulleted"><li> Cuidado pagado en 2022 para un niño calificado menor de 13 años, o un cónyuge o dependiente que no puede cuidar de sí mismo.</li><li> Necesitaba este cuidado para poder trabajar o buscar trabajo usted mismo. En un hogar con dos padres, ambos cónyuges deben haber estado trabajando o buscando trabajo (o ser estudiantes a tiempo completo).</li></ul><p> Al presentar una declaración de impuestos, deberá informar el monto que pagó, así como el nombre del proveedor de atención, el número de identificación del empleador (EIN) y la dirección. Si su cuidado infantil fue proporcionado por una persona, necesitará su nombre, número de seguro social y dirección.</p><p> Puede reclamar este crédito presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>
+              answer_html: |
+                <p>Para poder solicitar el Crédito por Cuidado de hijos y Dependientes, debe:</p>
+                <ul class="list--bulleted">
+                <li>Haber pagado por el cuidado en 2022 de un hijo menor de 13 años que cumpla los requisitos, o de un cónyuge o dependiente que no pueda cuidar de sí mismo.</li>
+                <li>Haber necesitado estos cuidados para poder trabajar o buscar trabajo usted mismo. En un hogar con ambos padres, ambos cónyuges deben haber estado trabajando o buscando trabajo (o ser estudiante a tiempo completo).</li>
+                </ul>
+                <p>Al presentar la declaración de impuestos, tendrá que declarar la cantidad que pagó, así como el nombre, el Número de Identificación del Empleador, en inglés: Employer Identification Number (EIN) y la dirección del cuidador. Si el cuidador es un particular, deberá indicar su nombre, Número de Seguro Social (SSN), en inglés: Social Security Number, y su dirección</p>.
+                <p>Puede solicitar estos créditos presentando la declaración de la renta de 2022 a través de nuestro servicio completo GetYourRefund.</p>
               question: "¿Cómo puedo obtener el Crédito por Cuidado de Hijos y Dependientes, en inglés: Child and Dependent Care Credit?"
             title: Crédito por Cuidado de Hijos y Dependientes, en inglés, Child and Dependent Care Credit
             what_is_the_child_and_dependent_care_credit:
-              answer_html: "<p>El Crédito por Cuidado de Hijos y Dependientes es un crédito fiscal que ayuda a las familias a cubrir los gastos de cuidado de niños necesarios para trabajar o buscar trabajo. El crédito también está disponible para las familias que deben pagar por el cuidado de un cónyuge u otro pariente adulto que no sea mental o físicamente capaz de cuidar de sí mismo. Las familias pueden reclamar hasta $3,000 por un hijo/dependiente o $6,000 por dos o más hijos/dependientes. El crédito cubre del 20 al 35% del costo del cuidado de niños. El porcentaje se basa en su ingreso del trabajo y el ingreso bruto ajustado (si es casado y presenta una declaración conjunta, su cónyuge también debe estar trabajando para cumplir con los requisitos). Debe informar los ingresos del trabajo durante 2022 para reclamar el crédito.</p><p> Tenga en cuenta que los montos de este crédito han vuelto a sus montos originales para 2022.</p>"
+              answer_html: |
+                <p>El Crédito por Cuidado de Hijos y Dependientes es un crédito tributario que ayuda a las familias a cubrir los gastos de cuidado de los hijos necesarios para trabajar o buscar trabajo. El crédito también está disponible para las familias que deben pagar por el cuidado de un cónyuge u otro pariente adulto que no es mental o físicamente capaz de cuidar de sí mismo. Las familias pueden solicitar hasta $3000 por un hijo/dependiente o $6000 por dos o más hijos/dependientes. El crédito cubre entre el 20 y el 35% del coste del cuidado de los hijos. El porcentaje se basa en los ingresos del trabajo y en los Ingresos Brutos Ajustados, en inglés: Adjusted Gross Income (si está casado y presenta conjuntamente, su cónyuge también debe trabajar para cumplir los requisitos). Para solicitar el crédito, debe declarar los ingresos del trabajo durante 2022.</p>
+                <p>Tenga en cuenta que las cantidades para este crédito han vuelto a sus cantidades originales para 2022.</p>
               question: "¿Qué es el Crédito por Cuidado de Hijos y Dependientes?"
           child_tax_credit:
             am_i_eligible_for_child_tax_credit_if_i_dont:
@@ -3391,10 +3390,14 @@ es:
                 <p>Si actualmente no tiene un Número de Identificación Personal (ITIN) pero desea solicitar el Crédito Tributario por Hijos para sus hijos, puede solicitar un Número de Identificación Personal (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
               question: "¿Tengo derecho al Crédito Tributario por Hijos, Child Tax Credit en inglés, si no tengo número de Número de Seguro Social, Social Security Number, en inglés?"
             how_do_i_claim_child_tax_credit_for_a_baby_in_2023:
-              answer_html: "<p>No puede reclamar un bebé nacido en 2023 todavía; tendrá que esperar hasta 2024. Cuando presente su declaración de impuestos, solo puede incluir información para ese año fiscal. Aunque presente sus impuestos de 2022 en 2023, solo puede incluir ingresos, hijos, matrimonios, etc. que ocurrieron en 2022.</p><p> Cuando presente su declaración de impuestos el próximo año, puede reclamar a los niños que nacieron en 2023.</p>"
-              question: "¿Cómo puedo solicitar el Crédito Tributario por Hijos para un bebé nacido en 2023?"
+              answer_html: |
+                <p>Aún no puede declarar a un bebé nacido en 2023; tendrá que esperar hasta 2024. Cuando se declaran los impuestos, sólo se puede incluir la información correspondiente a ese año tributario. Aunque presente sus impuestos de 2022 en 2023, sólo puede incluir ingresos, hijos, matrimonios, etc. ocurridos en 2022.</p>
+                <p>Cuando declare impuestos el próximo año, puede declarar a los hijos que nacieron en 2023.</p>
+              question: "¿Cómo declarar Crédito Tributario por Hijos para un niño nacido en 2023?"
             how_much_is_the_child_tax_credit_in_2022:
-              answer_html: "<p>Para 2022, el CTC ha vuelto a su diseño original como un crédito fiscal no reembolsable, lo que significa que solo reduce la responsabilidad fiscal de una persona hasta en $2,000 por niño elegible y no se paga como reembolso. Un crédito fiscal no reembolsable significa que no se emite como un reembolso sino que solo se aplica a los impuestos adeudados en esa declaración de impuestos.</p><p> Cuando presente su declaración de impuestos de 2022, el Crédito Tributario por Hijos estará en su declaración de impuestos como un crédito fiscal no reembolsable que reduce su obligación tributaria.</p>"
+              answer_html: |
+                <p>Para 2022, el CTC ha vuelto a su diseño original como un crédito tributario no reembolsable, lo que significa que sólo reduce la obligación tributaria de una persona hasta un máximo de $2000 por hijo elegible y no se paga como un reembolso. Un crédito tributario no reembolsable significa que no se emite como un reembolso, sino que sólo se aplica a los impuestos adeudados en esa declaración de impuestos.</p>
+                <p>Cuando presente su declaración de impuestos de 2022, el Crédito Tributario por Hijos figurará en su declaración de impuestos como un crédito tributario no reembolsable que reducirá su obligación tributaria.</p>
               question: "¿A cuánto equivale el Crédito Tributario por Hijos en 2022?"
             i_owe_back_child_support_can_i_still_get_all:
               answer_html: |
@@ -3403,15 +3406,17 @@ es:
                 <p>En particular, los pagos mensuales de la CTC emitidos en 2021 <em>no fueron</em> retirados para cubrir las deudas de manutención de los hijos. Sin embargo, cualquier cantidad que declare este año-ya sea la segunda mitad del crédito, o todo el crédito, se puede le pueden retirar.</p>
               question: Debo pagos de pensión alimenticia atrasada, ¿puedo obtener la totalidad del Crédito Tributario por Hijos?
             i_was_getting_child_tax_credit_monthly_payments_in_2021:
-              answer_html: "<p>Los pagos mensuales del Crédito Tributario por Hijos (CTC) comenzaron en julio de 2021 en base a una ley aprobada por el Congreso a principios de ese año, que hizo ampliaciones significativas al CTC. Desafortunadamente, esta ley solo aplicó para 2021. Debido a que el Congreso no renovó la expansión de CTC para 2022, no hubo pagos mensuales el año pasado. Sin embargo, si no recibió CTC en nuestra declaración de impuestos de 2021, aún puede ser elegible para reclamarlo presentando una enmienda para su declaración de 2021.</p><p> Puede presentar una declaración de impuestos de 2021 a través de nuestro servicio completo GetYourRefund.</p>"
+              answer_html: |
+                <p>Los pagos mensuales del Crédito Tributario por Hijos (CTC) comenzaron en julio de 2021 en base a una ley que el Congreso aprobó a principios de ese año, que hizo ampliaciones significativas al CTC. Lamentablemente, esta ley sólo se aplicaba a 2021. Como el Congreso no renovó la ampliación del CTC para 2022, no hubo pagos mensuales el año pasado. Sin embargo, si usted no recibió CTC con nuestra declaración de impuestos de 2021, todavía puede ser elegible para declararlo mediante la presentación de una enmienda para su declaración de 2021.</p>
+                <p>Puede presentar la declaración de impuestos de 2021 a través de nuestro servicio completo GetYourRefund.</p>
               question: En 2021 estaba recibiendo los pagos mensuales del Crédito Tributario por Hijos. ¿Por qué no he recibido la mensualidad de CTC en 2022?
             title: Crédito Tributario por Hijos
             why_did_my_spouse_and_i_get_two_different_letters:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales del Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre cuánto le emitió el IRS en estos pagos mensuales. Si no presentó una declaración de 2021 pero recibió pagos del Crédito Tributario por Hijos en 2021, para reclamar el resto del Crédito Tributario por Hijos, deberá informar la cantidad que el IRS le pagó por adelantado, por lo que esta carta puede ser muy útil. La carta 6419 fue enviada en diciembre de 2021 o enero de 2022.
+              answer_html: La llamada Letter 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Si usted no presentó una declaración de 2021 pero recibió pagos de Crédito Tributario por Hijos en 2021, para poder declarar el resto del Crédito Tributario por Hijos, tendrá que declarar la cantidad que el IRS le pagó por adelantado - así que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
               question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes sobre nuestros anticipos del CTC?"
           documents:
             how_do_i_get_my_1099_employment_document:
-              answer_html: Si recibió más de $ 600 en compensación de no empleado de una empresa o individuo como parte de un contrato / trabajo independiente, la empresa o individuo debe emitir 1099-NEC antes del 31 de enero de 2023. Si no recibió este formulario, debe intentar comunicarse con la organización o persona para la que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en los paneles de sus contratistas en la aplicación móvil. Si no puede recuperar los formularios correctos, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" del IRS</a> .
+              answer_html: Si usted recibió más de $600 en compensación de no empleado de una empresa o individuo como parte de un contrato/trabajo por cuenta propia, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2023. Si no recibió este formulario, debe intentar ponerse en contacto con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación móvil. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés:<a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.
               question: "¿Cómo puedo obtener mi documento de empleo 1099?"
             how_do_i_get_my_w2_employment_document:
               answer_html: <p>Los empleadores están obligados a enviar un W2 actual por correo o electrónicamente a todos los empleados W2 antes del 31 de enero de 2022. Si no ha recibido un W2 de su empleador, debe comunicarse con él directamente para solicitar una copia. Si no puede ponerse en contacto con su empleador, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" o "Wage and Income Transcript" en inglés al IRS</a>.</p>
@@ -3433,11 +3438,15 @@ es:
               question: "¿Por qué necesitan mi tarjeta de Seguro Social?"
           earned_income_tax_credit:
             how_has_the_earned_income_tax_credit_eitc_changed_this:
-              answer_html: "<p>Para el año fiscal 2022, el EITC ha vuelto a su fórmula original, lo que significa que los montos de reembolso aumentados temporalmente y los tramos de edad que ampliaron la elegibilidad el año pasado han vuelto a los niveles previos a la pandemia.</p><p> La única revisión que se ha vuelto permanente es:</p><p> • Los hogares que tienen hijos dependientes con ITIN pueden calificar para el EITC, aunque a una cantidad reducida.</p><p> Puede reclamar el EITC presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>"
+              answer_html: |
+                <p>Para el año tributario 2022, el EITC ha vuelto a su fórmula original, lo que significa que el aumento temporal de las cantidades de reembolso y los rangos de edad que ampliaron la elegibilidad el año pasado han vuelto a los niveles anteriores a la pandemia.</p>
+                <p>La única revisión que ha pasado a ser permanente es:</p>
+                <p>• Los hogares con hijos a cargo con ITIN pueden calificar para EITC, aunque a una cantidad reducida.</p>
+                <p>Puede declarar el EITC presentando la declaración de la renta de 2022 a través de nuestro servicio completo GetYourRefund.</p>
               question: "¿De qué manera ha cambiado este año el crédito tributario por ingresos del trabajo (EITC)?"
             title: Crédito tributario por ingresos del trabajo
             what_is_the_earned_income_tax_credit_eitc:
-              answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un beneficio disponible para las personas que obtienen ingresos del trabajo. La elegibilidad del EITC es complicada, pero está disponible para la mayoría de las familias con niños que ganan menos de $49,622, y está disponible para la mayoría de las familias sin niños que ganan menos de $22,610. Debe reclamar el EITC presentando una declaración completa.
+              answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC) es una prestación disponible para las personas que obtienen ingresos del trabajo. La elegibilidad para el EITC es complicada, pero está disponible para la mayoría de las familias con hijos que ganan menos de $49,622, y está disponible para la mayoría de las familias sin hijos que ganan menos de $22,610. Debe declarar el EITC presentando una declaración completa.
               question: "¿Qué es el Crédito tributario por ingresos del trabajo (EITC)?"
           getyourrefund_account_access:
             i_cant_sign_in:
@@ -3454,17 +3463,30 @@ es:
           how_does_getyourrefund_work:
             title: "¿Cómo funciona GetYourRefund?"
             what_is_file_myself_and_how_does_it_work:
-              answer_html: "<p>File Myself lo conecta con un software gratuito de declaración de impuestos en línea. Puede continuar comunicándose con los expertos en impuestos de GetYourRefund mientras usa el sitio web.</p><p> File Myself es una excelente opción si solo tiene que presentar los impuestos de 2022, no tiene muchas preocupaciones sobre su situación fiscal y se siente seguro al usar sitios web por su cuenta. También es una excelente opción para cualquier persona que no tenga una copia impresa de su tarjeta de Seguro Social (que se requiere para usar el servicio completo GetYourRefund). Necesitará acceso a sus documentos fiscales como W2 o 1099. La mayoría de los contribuyentes pueden completar el proceso File Myself en 45 minutos o menos y usted puede reclamar todos sus beneficios fiscales estatales y federales.</p>"
+              answer_html: |
+                <p>File Myself, en español: Declarar por cuenta propia, le conecta con un software gratuito de declaración de impuestos en línea. Puede seguir comunicándose con los expertos fiscales de GetYourRefund mientras utiliza el sitio web.</p>
+                <p>File Myself es una gran opción si sólo tiene que presentar los impuestos de 2022, no tiene muchas preocupaciones sobre su situación fiscal y se siente seguro utilizando sitios web por su cuenta. También es una gran opción para cualquiera que no tenga una copia en papel de su tarjeta de Seguro Social (que se requiere para utilizar GetYourRefund Full Service). Necesitará tener acceso a sus documentos tributarios, como los W2 o los 1099. La mayoría de los declarantes pueden completar el proceso File Myself en 45 minutos o menos y usted puede declarar todos sus beneficios tributarios estatales y federales.</p>
               question: "¿Qué es File Myself y cómo funciona?"
             what_is_getyourrefund_deluxe_and_how_does_it_work:
-              answer_html: <p>El servicio GetYourRefund Full Service/Virtual VITA lo conecta con un preparador de impuestos certificado por el IRS del programa VITA del IRS de forma gratuita. Debe considerar GetYourRefund si tiene que presentar varios años de impuestos, no ha presentado impuestos antes o tiene muchas preguntas sobre su declaración de impuestos y desea apoyo personal. Este proceso generalmente demora de 2 a 3 semanas y puede reclamar todos sus beneficios fiscales estatales y federales. A continuación se detallan los pasos para preparar sus impuestos de forma gratuita si elige GetYourRefund Full Service/Virtual VITA:</p><ul class="list--numbered"><li> Complete su información fiscal en línea y cargue todos sus documentos fiscales</li><li> Un preparador de impuestos certificado por el IRS revisará su información y programará una llamada telefónica con usted</li><li> Su preparador de impuestos preparará sus impuestos</li><li> Un segundo preparador de impuestos completará una revisión de calidad de su declaración y lo llamará para revisar cualquier información final y decirle el monto de su reembolso.</li><li> Firmará sus formularios de impuestos en línea</li><li> Su preparador de impuestos enviará sus impuestos al IRS</li></ul>
+              answer_html: |
+                <p>El servicio GetYourRefund Full Service/Virtual VITA le conecta gratuitamente con un preparador de impuestos certificado por el IRS del programa VITA del IRS. Le recomendamos que considere GetYourRefund si tiene varios años de impuestos por declarar, si no ha declarado impuestos antes o si tiene muchas preguntas sobre su declaración de impuestos y desea ayuda personal. Este proceso suele durar de 2-3 semanas, y puede declarar todos sus beneficios fiscales estatales y federales. A continuación se detallan los pasos para preparar sus impuestos de forma gratuita si elige GetYourRefund Full Service/Virtual VITA:</p>
+                <ul class="list--numbered">
+                <li>Llene su información fiscal en línea y cargue todos sus documentos fiscales</li>
+                <li>Un preparador de impuestos certificado por el IRS revisará su información y programará una llamada telefónica con usted</li>
+                <li>Su preparador de impuestos preparará sus impuestos</li>
+                <li>Un segundo preparador de impuestos completará una revisión de calidad de su declaración y lo llamará para revisar cualquier información final y decirle la cantidad de su reembolso</li>
+                <li>Usted firmará sus formularios de impuestos en línea</li>
+                <li>Su preparador de impuestos presentará sus impuestos al IRS</li>
+                </ul>
               question: "¿Qué es GetYourRefund y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
-              answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales del Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre cuánto le emitió el IRS en estos pagos mensuales. Si aún no presentó una declaración de 2021, para reclamar el resto del Crédito Tributario por Hijos, deberá informar la cantidad que el IRS le pagó por adelantado. La carta 6419 fue enviada en diciembre de 2021 o enero de 2022.
+              answer_html: La llamada Letter 6419 es una carta que el IRS envió a todas las personas que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Si todavía no ha presentado la declaración de 2021, para declarar el resto del Crédito Tributario por Hijos, tendrá que declarar la cantidad que el IRS le pagó por adelantado. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
               question: He recibido la carta 6419 del IRS. ¿Qué es?
             i_got_letter_6475_or_1444c_from_the_irs_what:
-              answer_html: "<p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer cheque de estímulo (Pago de impacto económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre cuánto le emitió el IRS en el tercer cheque de estímulo.</p><p> Si aún no ha presentado su declaración de 2021, informar con precisión cuánto recibió en cheques de estímulo puede ayudarlo a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero faltante, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado aproximadamente cuando se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>"
+              answer_html: |
+                <p>Las llamadas Letter 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer cheque de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre cuánto le emitió el IRS en el tercer cheque de estímulo.</p>
+                <p>Si aún no ha presentado su declaración de 2021, informar con exactitud cuánto recibió en cheques de estímulo puede ayudarle a usted y a su preparador de impuestos a declarar correctamente cualquier dinero faltante, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
               question: Recibí la carta 6475 o 1444-C del IRS. ¿Qué es?
             i_got_notice_4883c_or_5071c_from_the_irs_what:
               answer_html: Los avisos 4883C y 5071C son cartas que el IRS envía si han recibido una declaración de impuestos para usted y les preocupa que pueda ser fraudulenta. Si usted presentó una declaración, tendrá que verificar su identidad, ya sea en línea o por teléfono, de acuerdo con las instrucciones de la carta. Si no presentó una declaración de impuestos, esta carta indica que un defraudador intentó presentar una declaración utilizando sus datos. Debe seguir las instrucciones para denunciar este fraude al IRS, para asegurarse de que sus futuros pagos no se vean afectados negativamente.
@@ -3510,7 +3532,14 @@ es:
               answer_html: Sí, las prestaciones por desempleo son ingresos sujetos a impuestos y deben declararse en la declaración de impuestos. El año pasado, el Congreso hizo una excepción y eximió las prestaciones por desempleo de impuestos, pero eso ya no aplica. Tenga en cuenta que los ingresos por desempleo no se consideran ingresos de trabajo a efectos del crédito tributario por ingresos de trabajo.
               question: "¿Se consideran ingresos mis beneficios por desempleo?"
             how_do_i_report_my_income_if_im_selfemployed:
-              answer_html: <p>Debe declarar impuestos si gana más de $ 400 en ingresos de trabajo por cuenta propia. Informará los ingresos del trabajo por cuenta propia cuando presente su declaración de impuestos. Este tipo de ingreso puede registrarse de varias maneras, pero comúnmente en:</p><ul class="list--bulleted"><li> Formulario 1099-NEC (Compensación de no empleados)</li><li> Formulario 1099-K (Tarjeta de Pago y Transacción de Red de Terceros)</li><li> Tableros de aplicaciones y registros personales (debe informar todos los ingresos que obtuvo, incluso si algunos de ellos no figuran en un formulario de impuestos)</li></ul><p> Es importante realizar un seguimiento de cerca de todos sus ingresos y gastos si trabaja por cuenta propia porque es posible que las empresas o las personas con las que trabaja no los controlen. Sin embargo, aún debe informar los ingresos y gastos obtenidos a través del trabajo por cuenta propia en su declaración de impuestos.</p>
+              answer_html: |
+                <p>Está obligado a presentar impuestos si sus ingresos por trabajo por cuenta propia superan los $400. Usted declarará los ingresos por trabajo por cuenta propia al presentar su declaración de impuestos. Este tipo de ingresos puede registrarse de varias maneras, pero comúnmente en:</p>
+                <ul class="list--bulleted">
+                <li>Formulario 1099-NEC (Nonemployee Compensation, en español: Remuneración de no empleado)</li>
+                <li>Formulario 1099-K (Payment Card and Third-Party Network Transaction, en español: Transacciones con tarjetas de pago y redes de terceros)</li>
+                <li>App dashboards, en español: Cuadros de mando de la app y registros personales (está obligado a declarar todos los ingresos que haya obtenido, aunque algunos de ellos no figuren en un formulario tributario)</li>
+                </ul>
+                <p>Es importante que lleve un control exhaustivo de todos sus ingresos y gastos si trabaja por cuenta propia, ya que es posible que las empresas o personas con las que trabaja no lleven un control de los mismos. Es necesario, sin embargo, declarar los ingresos y los gastos obtenidos como trabajador por cuenta propia en su declaración de impuestos.</p>
               question: "¿Cómo declaro mis ingresos si trabajo por cuenta propia?"
             title: Ingresos
             what_do_you_mean_by_selfemployed:
@@ -3533,7 +3562,9 @@ es:
               question: "¿Qué gastos puedo declarar si trabajo por cuenta propia?"
           itin_filing_for_people_without_a_social_security_number:
             how_do_i_get_an_itin:
-              answer_html: <p>Para obtener un ITIN, debe presentar el Formulario W-7 junto con su declaración de impuestos federales. Como parte de la solicitud, deberá proporcionar una prueba de identidad, utilizando copias originales de sus documentos (por lo general, un pasaporte y un certificado de nacimiento). Puede enviar estos documentos por correo al IRS o solicitarlos en persona a través del IRS o a través de un "agente de aceptación certificado", que puede examinar y validar la autenticidad de sus documentos en nombre del IRS. A menudo es beneficioso presentar la solicitud en persona para que no tenga que enviar por correo sus documentos originales.</p><p> Si usa GetYourRefund, su equipo de impuestos puede ayudarlo a completar el W-7 y su declaración de impuestos, y brindarle orientación a través del proceso de verificación de identidad. Tenga en cuenta que no todos los equipos de impuestos pueden ayudarlo a solicitar y renovar un ITIN.</p>
+              answer_html: |
+                <p>Para obtener un Número de Identificación Personal (ITIN), tiene que presentar el formulario W-7 junto con su declaración de la renta federal. Como parte de la solicitud, tendrá que proporcionar una prueba de identidad, utilizando copias originales de sus documentos (la mayoría de las veces un pasaporte y un certificado de nacimiento). Puede enviar estos documentos por correo al IRS, o solicitarlos en persona a través del IRS o de un "Agente de Aceptación Certificado", que puede examinar y validar la autenticidad de sus documentos en nombre del IRS. A menudo es beneficioso hacer la solicitud en persona para no tener que enviar por correo los documentos originales.</p>
+                <p>Si utiliza GetYourRefund, es posible que su Equipo de Preparación de Impuestos pueda ayudarle a llenar tanto el formulario W-7 como su declaración de impuestos, y proporcionarle orientación a través del proceso de verificación de identidad. Tenga en cuenta que no todos los Equipo de Preparación de Impuestos pueden ayudarle a solicitar y renovar un Número de Identificación Personal (ITIN).</p>
               question: "¿Cómo puedo conseguir un Número de Identificación Personal (ITIN en inglés)?"
             if_i_file_my_taxes_can_ice_get_my_data:
               answer_html: |
@@ -3543,7 +3574,7 @@ es:
               question: Si declaro mis impuestos, ¿puede el ICE obtener mis datos?
             title: Solicitud de Número de Identificación Personal (ITIN en inglés) para personas sin número de Seguro Social
             what_is_an_itin_itin_number:
-              answer_html: Un número de identificación fiscal individual o ITIN es para personas que no son elegibles para obtener un número de seguro social, generalmente debido a su estado migratorio. Obtener un ITIN le permitirá presentar una declaración de impuestos y recibir ciertos beneficios fiscales para usted y su familia. Para solicitar un ITIN, debe haber obtenido ingresos en los EE. UU. para declarar en una declaración de impuestos federal.
+              answer_html: El Número de Identificación Fiscal Individual o ITIN es para las personas que no pueden obtener un Número de Seguro Social (SSN) —generalmente debido a su estatus migratorio. Obtener un Número de Identificación Personal (ITIN) le permitirá presentar una declaración de la renta y recibir ciertas ventajas fiscales para usted y su familia. Para poder solicitar un Número de Identificación Personal (ITIN), debe haber obtenido ingresos en EE. UU. para la declaración de impuestos federales.
               question: ¿Qué es un ITIN ["Número de Identificación Personal  (ITIN en inglés)"] y por qué debo obtenerlo?
           paper_filing:
             how_do_i_paper_file:
@@ -3598,7 +3629,10 @@ es:
               question: El IRS dice que alguien declaró a mi hijo. ¿Qué hago ahora?
             title: Declaración Denegada Próximos Pasos
             what_is_agi_and_how_do_i_find_it:
-              answer_html: "<p>AGI significa Ingreso Bruto Ajustado. Si presenta electrónicamente su propia declaración, deberá proporcionar el AGI que informó en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que es quien dice ser. Si presentó una declaración de impuestos el año pasado, debería poder encontrar su AGI en la línea 11 de su declaración de impuestos.</p><p> Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o software que lo ayudó a presentar la declaración de impuestos. Si aún no puede obtener una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos del IRS en su página Obtener transcripción.</p><p> Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2022. Si utilizó nuestra herramienta GetCTC el año pasado, ingrese $1 como su AGI para 2021.</p>"
+              answer_html: |
+                <p>AGI son las siglas en inglés de Adjusted Gross Income, en español: ingresos brutos ajustados. Si presenta electrónicamente su propia declaración, tendrá que facilitar el AGI que declaró en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que usted es quien dice ser. Si presentó una declaración de impuestos el año pasado, podrá encontrar su AGI en la línea 11 de su declaración de impuestos.</p>
+                <p>Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o programa informático que le ayudó a presentar la declaración de impuestos. Si sigue sin poder conseguir una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos al IRS en su página Obtener transcripción.</p>
+                <p>Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2022. Si utilizó nuestra herramienta GetCTC el año pasado, ingrese $1 como su AGI para 2021.</p>
               question: "¿Qué es el AGI y cómo lo encuentro?"
             what_is_an_ip_pin_and_how_do_i_find:
               answer_html: |
@@ -3639,10 +3673,10 @@ es:
               question: Soy menor de 19 años. ¿Necesito declarar impuestos?
             title: "¿Necesito declarar impuestos?"
             what_are_the_potential_benefits_of_filing_a_tax_return:
-              answer_html: |-
-                <p>Incluso si gana poco o ningún ingreso y no está obligado a presentar una declaración de impuestos, es probable que califique para pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que califique para los pagos si tiene hijos. Para reclamar este dinero, debe presentar una declaración de impuestos.</p>
-                <p>Presentando una declaración de impuestos también puede servir como documentación útil al solicitar otros beneficios, como ayuda financiera para la universidad o un préstamo hipotecario.</p>
-                <p>Puede presentar una declaración de impuestos completa y reclamar todos los beneficios tributarios relevantes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa en línea usted mismo, pruebe nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>.</p>
+              answer_html: |
+                <p>Aunque tenga pocos ingresos y no esté obligado a presentar la declaración de impuestos, podría calificar para recibir pagos del IRS. Es especialmente probable que tenga derecho a créditos fiscales si tiene hijos. Para declararlos, tiene que presentar una declaración de impuestos.</p>
+                <p>La declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad o un préstamo hipotecario.</p>
+                <p>Puede presentar una declaración de impuestos completa y solicitar todas las ventajas tributarias pertinentes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa por Internet usted mismo, puede elegir nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>, en español: Declarar por Cuenta Propia.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -3652,7 +3686,7 @@ es:
                 <ul class="list--bulleted">
                 <li>Tener al menos 18 años o un hijo que reúna los requisitos</li>
                 <li>Tener ingresos laborales imponibles</li>
-                <li>Tener un Número de Seguro Social o SSN <strong>o</strong>Número de Identificación Personal (ITIN en inglés) para usted, su cónyuge y cualquier hijo que califique</li>
+                <li>Tener un Número de Seguro Social o SSN <strong>o</strong>Número de Identificación Personal (ITIN) para usted, su cónyuge y cualquier hijo que califique</li>
                 <li>No debe presentar la declaración de casado por separado</li>
                 <li>Vivir en California durante más de la mitad del año</li>
                 <li>Estar dentro de ciertos límites de ingresos.</li>
@@ -3665,7 +3699,7 @@ es:
             title: Devoluciones estatales del IRS
           stimulus:
             how_do_i_get_the_stimulus_payments:
-              answer_html: Consulte "¿Qué es un pago de impacto económico" y "¿Qué es un crédito de reembolso de recuperación?" para obtener información sobre los pagos de estímulo en 2022.
+              answer_html: Consulte "¿Qué es un pago por impacto económico?" y "¿Qué es un Crédito de Reembolso por Recuperación (Recovery Rebate Credit)?" para obtener información sobre los pagos de estímulo en 2022.
               question: "¿Cómo obtengo los pagos de estímulo?"
             how_many_stimulus_payments_were_there:
               answer_html: |
@@ -3677,17 +3711,25 @@ es:
               question: "¿Cuántos pagos de estímulo hubo?"
             title: Preguntas sobre los pagos de estímulo
             what_is_the_economic_impact_payment:
-              answer_html: "<p>Pago de impacto económico (también conocido como EIP) es el nombre oficial de los pagos de estímulo que se emitieron en 2020 y 2021. El primer pago a veces se denomina EIP1, el segundo como EIP2 y el tercero como EIP3. No se emitieron pagos de EIP/estímulo en 2022, por lo que no puede reclamar ningún pago faltante en su declaración de impuestos de 2022.</p><p> Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, deberá presentar una declaración de impuestos para el año en que no lo recibió. Nuestros socios pueden ayudarlo a presentar una declaración del año anterior, ¡solo pregunte!</p>"
-              question: ¿Qué es el Pago por impacto económico o "Economic Impact Payment" en inglés?
+              answer_html: |
+                <p>Pago de Impacto Económico (también conocido como EIP) es el nombre oficial de los pagos de estímulo que se emitieron en 2020 y 2021. Al primer pago se le llama a veces EIP1, el segundo EIP2 y el tercero EIP3. No hubo pagos EIP/estímulo emitidos en 2022, por lo que no puede declarar ningún pago que falte en su declaración de impuestos de 2022.</p>
+                <p>Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, tendrá que presentar una declaración de impuestos para el año en que no lo recibió. Nuestros colaboradores pueden ayudarle a presentar la declaración del año anterior, ¡lo único que tiene necesita hacer es solicitarla!</p>
+              question: "¿Qué es un Pago por Impacto Económico (Economic Impact Payment en inglés)?"
             what_is_the_recovery_rebate_credit:
-              answer_html: "<p>El Crédito de reembolso de recuperación (RRC, por sus siglas en inglés) fue un pago de estímulo en 2021 (y a veces también se lo denomina tercer pago de impacto económico o EIP3). Dado que el gobierno no emitió ningún pago de estímulo en 2022, no puede reclamar RRC/EIP en su declaración de impuestos de 2022.</p><p> Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, deberá presentar una declaración de impuestos para el año en que no lo recibió. Nuestros socios pueden ayudarlo a presentar una declaración del año anterior, ¡solo pregunte!</p>"
-              question: ¿Qué es el Crédito de Reembolso por Recuperación o "Recovery Rebate Credit" en inglés?
+              answer_html: |
+                <p>El Crédito de Reembolso por Recuperación (Recovery Rebate Credit en inglés) (RRC) fue un pago de estímulo en 2021 (y a veces también se le conoce como el tercer Pago de Impacto Económico o EIP3). Dado que no hubo ningún pago de estímulo emitido por el gobierno en 2022, no puede declarar el RRC/EIP en su declaración de impuestos de 2022.</p>.
+                <p>Sin embargo, si te falta un pago de EIP/estímulo de 2021 o 2020, tendrá que presentar una declaración de impuestos para el año en el que no lo recibió. Nuestros colaboradores pueden ayudarle a presentar la declaración del año anterior, ¡solo tiene que solicitarla!</p>
+              question: "¿Qué es el Crédito de Reembolso por Recuperación (Recovery Rebate Credit)?"
             will_there_be_another_stimulus_payment:
               answer_html: En este momento, no hay pagos de estímulo adicionales programados.
               question: "¿Habrá otro pago de estímulo?"
           where_are_my_payments:
             how_do_i_check_the_status_of_my_payments:
-              answer_html: <p>Puede verificar el estado de su reembolso en <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">¿Dónde está mi reembolso</a> ? del IRS 24 horas después de que el IRS lo acepte electrónicamente. Para verificar su información, se le pedirá que proporcione su Número de Seguro Social (SSN) o Número de Identificación Personal del Contribuyente (ITIN), estado civil y monto exacto del reembolso federal que se encuentra en la Línea 35a de su declaración de impuestos federales.</p><p> Tenga en cuenta que este sitio del IRS le permite realizar un seguimiento del estado de sus reembolsos federales de 2022, 2021 y 2020.</p><p> No puede utilizar esta herramienta del IRS para realizar un seguimiento de las declaraciones que se presentaron en papel (enviadas por correo al IRS).</p><p> Si enmendó su declaración de impuestos, deberá usar la herramienta <a href="https://www.irs.gov/filing/wheres-my-amended-return" target="_blank" rel="noopener">¿Dónde está mi declaración enmendada</a> ? del IRS.</p>
+              answer_html: |
+                <p>Puede revisar el estado de su reembolso en la página del IRS <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">Where's My Refund</a> 24 horas después de que el IRS lo acepte electrónicamente. Para verificar su información, se le pedirá que proporcione su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN), estado civil para efectos de la declaración y la cantidad exacta del reembolso federal que se encuentra en la línea 35 de su declaración de impuestos federales.</p>
+                <p>Tenga en cuenta que este sitio del IRS le permite rastrear el estado de sus reembolsos federales de 2022, 2021 y 2020.</p>
+                <p>No se puede utilizar esta herramienta del IRS para rastrear las declaraciones que fueron presentadas en papel (enviadas por correo al IRS).</p>
+                <p>Si modificó su declaración de impuestos, tendrá que usar la herramienta <a href="https://www.irs.gov/filing/wheres-my-amended-return" target="_blank" rel="noopener">Where's My Amended Return</a> del IRS.</p>
               question: "¿Cómo puedo revisar el estado de mi reembolso?"
             how_do_i_log_into_my_account_on_the_irs_website:
               answer_html: |
@@ -3711,11 +3753,15 @@ es:
             title: "¿Dónde están mis pagos?"
           who_should_i_include_on_my_tax_return:
             can_i_claim_my_parent:
-              answer_html: "<p>En algunos casos, puede reclamar a su padre como dependiente en su declaración de impuestos. En general, para reclamar a sus padres, deben haber ganado menos de $4,400 en 2022 y usted debe pagar al menos la mitad de sus gastos de manutención.</p><p> Reclamar a su padre no lo calificará para el Crédito Tributario por Hijos (CTC) o para el Crédito Tributario por Ingreso del Trabajo (EITC).</p>"
+              answer_html: |
+                <p>En algunos casos, puede declarar a su padre o madre como dependiente en su declaración de impuestos. Por lo general, para poder declarar a su progenitor, éste debe haber ganado menos de $4,400 en 2022 y usted debe pagar al menos la mitad de sus gastos de manutención.</p>
+                <p>Declarar a su progenitor no le dará derecho al Crédito Tributario por Hijos (CTC) ni al Crédito Tributario por Ingreso del Trabajo (EITC).</p>
               question: "¿Puedo declarar a mi padre o a mi madre?"
             title: "¿A quién debo incluir en mi declaración de impuestos?"
             what_are_the_benefits_of_claiming_a_child_on_my:
-              answer_html: "<p>Dependiendo de su situación, podría obtener beneficios adicionales por cada niño que sea elegible para reclamar en su declaración de impuestos. Cuando reclama hijos en sus impuestos, puede establecer la elegibilidad para el Crédito Tributario por Hijos (CTC) y aumentar la cantidad de su Crédito Tributario por Ingreso del Trabajo (EITC).</p><p> Puede reclamar estos créditos presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>"
+              answer_html: |
+                <p>Dependiendo de su situación, podría obtener beneficios adicionales por cada hijo que tenga derecho a declarar en su declaración de impuestos. Cuando declara hijos en sus impuestos, podría establecer su elegibilidad para el Crédito Tributario por Hijos (CTC, por sus siglas en inglés) y aumentar el monto de su Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés).</p>
+                <p>Puede declarar estos créditos presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>
               question: "¿Qué ventajas tiene declarar a un hijo en mi declaración de impuestos?"
             what_should_i_do_if_i_was_claimed_as_a:
               answer_html: |
@@ -4004,7 +4050,7 @@ es:
             info_html:
             - Originalmente, las familias con estatus migratorio mixto no tenían derecho a la primera ronda de pagos. Sin embargo, ahora las familias con estatus mixto pueden solicitar tanto la primera como la segunda ronda de pagos en la declaración de impuestos de este año. Para la segunda ronda de pagos, si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes tiene un número de seguro social válido, el cónyuge con el número de seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo, el cónyuge que no tenga un número de seguro social válido no será elegible. Las mismas reglas ahora también se aplican para la primera ronda de pagos.
             - |-
-              Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación Personal (ITIN en inglés) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
+              Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación Personal (ITIN) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
                 href="https://www.irs.gov/es/node/41556"
                 rel="noopener nofollow"
                 target="_blank"
@@ -4189,26 +4235,30 @@ es:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
       health_insurance:
-        help_text:
-          one: Seleccione todas las opciones que correspondan.
-          other: Seleccione todas las opciones que correspondan.
+        help_text: Seleccione todas las opciones que correspondan.
         options:
           employer_health_insurance:
+            many: Mi cónyuge o yo compramos un seguro de salud a través de un empleador
             one: Compré un seguro de salud a través de mi empleador
             other: Mi cónyuge o yo compramos un seguro de salud a través de un empleador
           hsa:
+            many: Mi cónyuge o yo teníamos una Cuenta de Ahorros para la Salud
             one: Tenía una Cuenta de Ahorro de Salud
             other: Mi cónyuge o yo teníamos una Cuenta de Ahorros para la Salud
           marketplace_health_insurance:
+            many: Mi cónyuge o yo compramos un seguro de salud a través del mercado
             one: Compré un seguro de salud a través del mercado
             other: Mi cónyuge o yo compramos un seguro de salud a través del mercado
           medicaid_medicare:
+            many: Mi cónyuge o yo teníamos Medicaid/Medicare
             one: Tenía Medicaid/Medicare
             other: Mi cónyuge o yo teníamos Medicaid/Medicare
           no_health_insurance:
-            one: No tenía seguro de salud el año pasado.
-            other: Mi cónyuge o yo no teníamos seguro médico
+            many: Mi cónyuge o yo no teníamos seguro de salud
+            one: No tenía seguro de salud el año pasado
+            other: Mi cónyuge o yo no teníamos seguro de salud
         title:
+          many: Cuéntenos sobre su seguro médico y el de su cónyuge en %{year}.
           one: Cuéntanos sobre tu seguro de salud en %{year}.
           other: Cuéntenos sobre su seguro médico y el de su cónyuge en %{year}.
       homebuyer_credit:
@@ -4354,8 +4404,8 @@ es:
           employment_tax: Documentos de impuestos de empleo (W2, 1099, etc.)
           header: 'En las próximas páginas, solicitaremos lo siguiente:'
           id: Licencia de conducir actual, identificación estatal o pasaporte
-          other_tax: Cualquier otro documento fiscal oficial
-          ssn_itn: Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés)
+          other_tax: Cualquier otro documentos de impuestos
+          ssn_itn: Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
         title: Reúna todos sus documentos y llévelos con usted.
         valid_phone_email: También necesitaremos verificar que tenga un número de teléfono y un correo electrónico válidos.
       paid_alimony:
@@ -4469,7 +4519,7 @@ es:
         title: Empecemos
       student:
         help_text: Los gastos pueden ser para colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional. Debe tener un Formulario 1098-T.
-        title: En el %{year}, ¿alguien en su hogar tuvo algún gasto para la universidad o la educación postsecundaria?
+        title: En %{year}, ¿alguien en su hogar tuvo algún gasto para la universidad o la educación postsecundaria?
       student_loan_interest:
         help_text: Responda "Sí" si está realizando pagos de algún préstamo educativo.
         title:
@@ -4618,14 +4668,14 @@ es:
         id_documents:
           diy: Números de identificación o ID en inglés
           full_service: Foto
-          title: Tarjeta de Seguro Social o documentos de Número de Identificación Personal (ITIN en inglés)
+          title: Tarjeta de Seguro Social o documentos de Número de Identificación Personal (ITIN)
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
           diy: menos de $73,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
-        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN en inglés)
+        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         required_information: Información obligatoria
         services:
           diy:
@@ -4656,7 +4706,7 @@ es:
         triage_link_text: "¡Responda a unas preguntas sencillas y le recomendaremos el servicio más adecuado para usted!"
         vita: Equipo de impuestos VITA certificado por el IRS
       tax_return_list:
-        add_tax_year: Agregar año fiscal
+        add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
     vita_providers:
       index:
