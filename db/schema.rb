@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_011704) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_225020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -872,6 +872,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_011704) do
     t.index ["email_access_token_id"], name: "index_email_login_requests_on_email_access_token_id"
     t.index ["mailgun_id"], name: "index_email_login_requests_on_mailgun_id"
     t.index ["visitor_id"], name: "index_email_login_requests_on_visitor_id"
+  end
+
+  create_table "experiment_participants", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "experiment_id"
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.string "treatment"
+    t.datetime "updated_at", null: false
+    t.index ["experiment_id"], name: "index_experiment_participants_on_experiment_id"
+    t.index ["record_type", "record_id"], name: "index_experiment_participants_on_record"
+  end
+
+  create_table "experiments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: false
+    t.string "key"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_experiments_on_key", unique: true
   end
 
   create_table "faq_surveys", force: :cascade do |t|
@@ -1863,37 +1883,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_011704) do
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
   add_foreign_key "w2_box14s", "w2s"
   add_foreign_key "w2_state_fields_groups", "w2s"
-
-  create_view "organization_capacities", sql_definition: <<-SQL
-      WITH organization_id_by_vita_partner_id AS (
-           SELECT vita_partners_1.id,
-                  CASE
-                      WHEN (vita_partners_1.parent_organization_id IS NULL) THEN vita_partners_1.id
-                      ELSE vita_partners_1.parent_organization_id
-                  END AS organization_id
-             FROM vita_partners vita_partners_1
-          ), client_ids AS (
-           SELECT DISTINCT tax_returns.client_id
-             FROM (tax_returns
-               JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE (((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[])) AND ((intakes.product_year)::numeric = EXTRACT(year FROM now())))
-          ), partner_and_client_counts AS (
-           SELECT organization_id_by_vita_partner_id.organization_id,
-              count(clients.id) AS active_client_count
-             FROM (organization_id_by_vita_partner_id
-               LEFT JOIN clients ON ((organization_id_by_vita_partner_id.id = clients.vita_partner_id)))
-            WHERE (clients.id IN ( SELECT client_ids.client_id
-                     FROM client_ids))
-            GROUP BY organization_id_by_vita_partner_id.organization_id
-          )
-   SELECT vita_partners.id AS vita_partner_id,
-      vita_partners.capacity_limit,
-          CASE
-              WHEN (partner_and_client_counts.active_client_count IS NULL) THEN (0)::bigint
-              ELSE partner_and_client_counts.active_client_count
-          END AS active_client_count
-     FROM (vita_partners
-       LEFT JOIN partner_and_client_counts ON ((vita_partners.id = partner_and_client_counts.organization_id)))
-    WHERE (vita_partners.parent_organization_id IS NULL);
-  SQL
 end

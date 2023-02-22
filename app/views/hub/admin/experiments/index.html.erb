@@ -1,0 +1,68 @@
+<div class="slab">
+  <div class="grid">
+
+    <h1>Experiments</h1>
+
+    <table class="data-table">
+      <tr>
+        <th>id</th>
+        <th>key</th>
+        <th>name</th>
+        <th>treatment weights</th>
+        <th>enabled</th>
+        <th></th>
+      </tr>
+
+      <% @experiments.each do |experiment| %>
+        <tr>
+          <td><%= experiment.id %></td>
+          <td><%= experiment.key %></td>
+          <td><%= experiment.name %></td>
+          <td style="white-space: pre-line;"><%= experiment.treatment_weights.map { |key, weight| "#{key}: #{weight}" }.join("\n") %></td>
+          <td><%= experiment.enabled %></td>
+          <td><%= link_to "Edit", edit_hub_admin_experiment_path(experiment) %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h1>Experiment participants</h1>
+
+    <section class="slab slab--padded">
+      <div class="pagination-wrapper">
+        <div class="count-wrapper">
+          <div>
+            <%= page_entries_info @experiment_participants, model: "experiment participant" %>
+          </div>
+        </div>
+        <div>
+          <%= will_paginate(
+                @experiment_participants,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 1,
+                outer_window: 1,
+                param_name: "page",
+                ) %>
+        </div>
+      </div>
+    </section>
+
+    <table class="data-table">
+      <tr>
+        <th>experiment_id</th>
+        <th>record</th>
+        <th>treatment</th>
+        <th></th>
+      </tr>
+
+      <% @experiment_participants.each do |participant| %>
+        <tr>
+          <td><%= participant.experiment_id %></td>
+          <td><%= participant.record_type %>#<%= participant.record_id %></td>
+          <td><%= participant.treatment %></td>
+          <td><%= link_to "Edit", edit_hub_admin_experiment_participant_path(participant) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

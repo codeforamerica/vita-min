@@ -34,7 +34,6 @@ class Organization < VitaPartner
   attribute :active_client_count
 
   belongs_to :coalition, optional: true
-  has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :state_routing_targets, as: :target
@@ -76,7 +75,18 @@ class Organization < VitaPartner
   end
 
   def at_capacity?
-    !OrganizationCapacity.with_capacity.where(organization: self).exists?
+    return false if capacity_limit.nil?
+
+    active_client_count >= capacity_limit
+  end
+
+  def active_client_count
+    return 0 unless persisted?
+
+    if read_attribute(:active_client_count).blank?
+      write_attribute(:active_client_count, self.class.with_computed_client_count.find(id).active_client_count)
+    end
+    read_attribute(:active_client_count)
   end
 
   def organization_leads

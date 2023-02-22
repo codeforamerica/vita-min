@@ -17,14 +17,14 @@ jobs:
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
 
       - name: Login to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@v3.12.13
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_email: wschaefer@codeforamerica.org
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
-      - name: Clean up unused old heroku apps
+      - name: Clean up unused old heroku apps, including this one if it's being closed
         run: .github/remove_old_heroku_review_apps.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -81,15 +81,8 @@ jobs:
         run: heroku addons:create heroku-postgresql:mini --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
-        continue-on-error: true
-        id: add-remote
+        if: github.event.action != 'closed'
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
-
-      - name: Retry Add Heroku remote if failed while trying to close the PR and destroy the app
-        if: github.event.action == 'closed' && steps.add-remote.outcome=='failure'
-        run: |
-          sleep 10
-          heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Push to Heroku
         if: github.event.action != 'closed'
@@ -113,11 +106,3 @@ jobs:
           gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com<br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}` (optionally add `--tail`)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Pre-destroy - clean up the hostnames (GYR and CTC)
-        if: github.event.action == 'closed'
-        run: heroku run rails heroku:review_app_predestroy
-
-      - name: Destroy Heroku app
-        if: github.event.action == 'closed'
-        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
