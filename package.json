@@ -28,7 +28,7 @@
     "webpack-dev-server": "^3.11.3"
   },
   "engines": {
-    "node": ">=12.16"
+    "node": ">=12.16 <19.0.0"
   },
   "scripts": {
     "test": "jest"
