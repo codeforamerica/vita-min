@@ -57,7 +57,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
         end
 
         context "when the client has not received this survey" do
-          it "sends it by email" do
+          it "sends it by email and sms" do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
@@ -66,7 +66,11 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
               subject: I18n.t("messages.surveys.completion.email.subject", locale: "es"),
               locale: "es"
             )
-            expect(ClientMessagingService).not_to have_received(:send_system_text_message)
+            expect(ClientMessagingService).to have_received(:send_system_text_message).with(
+              client: client,
+              body: a_string_including("qualtrics.com/jfe/form/SV_8iUfPTODxeBNogK"),
+              locale: "es"
+            )
             expect(client.reload.completion_survey_sent_at).to be_present
           end
         end
