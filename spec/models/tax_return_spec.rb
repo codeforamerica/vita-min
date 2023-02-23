@@ -610,10 +610,10 @@ describe TaxReturn do
 
     context "with final tax documents" do
       before do
-        create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
-        create :document, document_type: DocumentTypes::Other, tax_return: tax_return, client: tax_return.client
-        create :document, document_type: DocumentTypes::Other, tax_return: tax_return, client: tax_return.client, archived: true
-        create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::Other.key, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::Other.key, tax_return: tax_return, client: tax_return.client, archived: true
+        create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: tax_return.client
       end
 
       it "returns all documents of type DocumentTypes::FinalTaxDocument associated with the tax return that are not archived" do

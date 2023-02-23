@@ -322,7 +322,7 @@ class Client < ApplicationRecord
     intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
       required_count = document_type.required_persons(intake).length
       provided_count = documents.select { |d| d.document_type == document_type.key }.length
-      result[document_type.to_s] = {
+      result[document_type.key] = {
         required_count: required_count,
         provided_count: provided_count,
         clamped_provided_count: [required_count, provided_count].min

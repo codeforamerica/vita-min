@@ -61,7 +61,9 @@ module Portal
     end
 
     def form_params
-      params.fetch(form_class.form_param, {}).permit(form_class.attribute_names).merge(document_type: document_type)
+      params.fetch(form_class.form_param, {}).permit(form_class.attribute_names).merge(
+        document_type: document_type.key
+      )
     end
 
     def find_or_create_document_request

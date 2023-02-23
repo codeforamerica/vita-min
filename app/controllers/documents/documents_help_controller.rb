@@ -11,7 +11,7 @@ module Documents
         client: current_intake.client,
         message: AutomatedMessage::DocumentsReminderLink,
         locale: I18n.locale,
-        body_args: { doc_type: document_type_from_param }
+        body_args: { doc_type: document_type_from_param.label }
       )
       flash[:notice] = I18n.t("documents.reminder_link.notice")
       redirect_to(next_path)
