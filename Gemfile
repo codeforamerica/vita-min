@@ -100,9 +100,9 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false
-  gem 'rubocop', '~> 0.82.0', require: false
-  gem 'rubocop-performance', '~> 1.5.2', require: false
-  gem 'rubocop-rspec', '~> 1.38.1', require: false
+  gem 'rubocop', '~> 1.46.0', require: false
+  gem 'rubocop-performance', '~> 1.16.0', require: false
+  gem 'rubocop-rspec', '~> 2.18.0', require: false
   gem 'i18n-tasks', require: false
   gem 'easy_translate'
   gem 'bundle-audit'
