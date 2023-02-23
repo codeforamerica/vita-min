@@ -235,7 +235,7 @@ es:
     admin_controls: Controles de administrador
     affirmative: Sí
     all_organizations: Todas organizaciones
-    and: y
+    and: "y"
     assign: Asignar
     assignee: Asignada a
     at_time: a las %{time}

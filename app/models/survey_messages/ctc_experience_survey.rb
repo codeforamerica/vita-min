@@ -37,16 +37,16 @@ module SurveyMessages
       "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_4Mi9xc5m8BUNmyW?&ExternalDataReference=#{client.id}&ctcNotFiling=#{ctc_not_filing_status}&expGroup=#{client.ctc_experience_survey_variant}"
     end
 
-    def sms_body(*args)
-      I18n.t("messages.surveys.ctc_experience.sms", *args)
+    def sms_body(**args)
+      I18n.t("messages.surveys.ctc_experience.sms", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.surveys.ctc_experience.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.surveys.ctc_experience.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.surveys.ctc_experience.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.surveys.ctc_experience.email.body", **args)
     end
   end
 end

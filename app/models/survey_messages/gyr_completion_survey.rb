@@ -35,16 +35,16 @@ module SurveyMessages
       "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_8iUfPTODxeBNogK?ExternalDataReference=#{client.id}"
     end
 
-    def sms_body(*args)
-      I18n.t("messages.surveys.completion.sms", *args)
+    def sms_body(**args)
+      I18n.t("messages.surveys.completion.sms", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.surveys.completion.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.surveys.completion.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.surveys.completion.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.surveys.completion.email.body", **args)
     end
   end
 end

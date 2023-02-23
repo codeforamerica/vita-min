@@ -8,12 +8,12 @@ module AutomatedMessage
       true
     end
 
-    def sms_body(*args)
-      I18n.t("messages.save_ctc_letter.sms", *args)
+    def sms_body(**args)
+      I18n.t("messages.save_ctc_letter.sms", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.save_ctc_letter.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.save_ctc_letter.email.subject", **args)
     end
 
     def email_body(locale: nil, body_args: {})

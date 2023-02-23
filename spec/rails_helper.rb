@@ -40,7 +40,7 @@ Capybara::Session.class_exec do
     if filling_in_ssn_without_dashes(args)
       raise ArgumentError.new("Looks like you're trying to fill_in '#{args[0]}' with '#{args[1][:with]}' -- SSN fields must include dashes in tests or else the test will flake")
     end
-    capybara_visit.bind(self).call(*args)
+    capybara_visit.bind(self).call(args[0], **args[1])
   end
 end
 

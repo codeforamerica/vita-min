@@ -940,7 +940,7 @@ RSpec.describe ApplicationController do
     context "when eitc hasn't launched" do
       context "when the eitc_beta cookie is set" do
         before do
-          get :index, { params: { eitc_beta: "1" } }
+          get :index, params: { eitc_beta: "1" }
         end
 
         around do |example|
@@ -959,7 +959,7 @@ RSpec.describe ApplicationController do
       context "when the eitc_beta cookie is set" do
         before do
           allow(Rails.application.config).to receive(:eitc_full_launch).and_return(Rails.configuration.eitc_soft_launch + 3.days)
-          get :index, { params: { eitc_beta: "1" } }
+          get :index, params: { eitc_beta: "1" }
         end
 
         around do |example|

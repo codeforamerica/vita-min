@@ -81,7 +81,7 @@ class TwilioService
 
       DatadogApi.increment("twilio.outgoing_text_messages.sent")
 
-      client.messages.create(arguments)
+      client.messages.create(**arguments)
     rescue Twilio::REST::RestError => e
       status_key =
         if outgoing_text_message.is_a?(OutgoingMessageStatus)

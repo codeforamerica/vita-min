@@ -17,7 +17,7 @@ FileUtils.chdir APP_ROOT do
   system! "brew bundle install"
 
   puts "== Install pdftk =="
-  unless File.exists?("#{APP_ROOT}/vendor/pdftk/downloads/v3.3.3/pdftk-all.jar")
+  unless File.exist?("#{APP_ROOT}/vendor/pdftk/downloads/v3.3.3/pdftk-all.jar")
     system! "vendor/pdftk/install"
   end
 

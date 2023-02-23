@@ -4,16 +4,16 @@ module AutomatedMessage
       'messages.unmonitored_replies'.freeze
     end
 
-    def sms_body(*args)
-      I18n.t("messages.unmonitored_replies.sms.body", *args)
+    def sms_body(**args)
+      I18n.t("messages.unmonitored_replies.sms.body", **args)
     end
 
-    def email_subject(*args)
-      I18n.t("messages.unmonitored_replies.email.subject", *args)
+    def email_subject(**args)
+      I18n.t("messages.unmonitored_replies.email.subject", **args)
     end
 
-    def email_body(*args)
-      I18n.t("messages.unmonitored_replies.email.body", *args)
+    def email_body(**args)
+      I18n.t("messages.unmonitored_replies.email.body", **args)
     end
   end
 end

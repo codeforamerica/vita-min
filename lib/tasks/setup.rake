@@ -12,7 +12,7 @@ namespace :setup do
     EFILE_SCHEMAS_FILENAMES.each do |filename|
       download_path = Rails.root.join('vendor', 'irs', filename)
       # If the file already exists, do not re-download.
-      next if File.exists?(download_path)
+      next if File.exist?(download_path)
 
       # On Circle CI, get AWS credentials from environment.
       # In staging, demo, and prod environment, get credentials from Rails credentials.
@@ -41,7 +41,7 @@ namespace :setup do
 
     EFILE_SCHEMAS_FILENAMES.each do |filename|
       download_path = Rails.root.join('vendor', 'irs', filename)
-      raise StandardError.new("Download #{filename} and place it in vendor/irs/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exists?(download_path)
+      raise StandardError.new("Download #{filename} and place it in vendor/irs/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exist?(download_path)
 
       Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
         Dir.chdir(unpack_path) do
@@ -62,7 +62,7 @@ namespace :setup do
       Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-config-#{Efile::GyrEfilerService::CURRENT_VERSION}.zip")
     ]
     # If the file already exists, do not re-download.
-    next if paths.all? { |p| File.exists?(p) }
+    next if paths.all? { |p| File.exist?(p) }
 
     # On Circle CI, get AWS credentials from environment.
     # In staging, demo, and prod environment, get credentials from Rails credentials.
