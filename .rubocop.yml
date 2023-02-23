@@ -15,3 +15,6 @@ AllCops:
     - 'tmp/**/*'
     - '.git/**/*'
   TargetRubyVersion: 3.2.1
+
+Layout/LineLength:
+  Enabled: false
