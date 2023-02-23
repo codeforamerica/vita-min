@@ -1855,7 +1855,6 @@ RSpec.describe Hub::ClientsController do
                                                          "had_wages" => [intake.had_wages, "yes"],
                                                          "job_count" => [intake.job_count, 3],
                                                          "paid_local_tax" => [intake.paid_local_tax, "yes"],
-                                                         "bought_health_insurance" => [intake.bought_health_insurance, "yes"],
                                                          "bought_marketplace_health_insurance" => [intake.bought_marketplace_health_insurance, "yes"]
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
