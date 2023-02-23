@@ -55,10 +55,6 @@ class DocumentType
       I18n.t("general.document_types.with_descriptions.#{to_param}", default: key, locale: locale)
     end
 
-    def to_s
-      label
-    end
-
     def needed_for_spouse
       false
     end

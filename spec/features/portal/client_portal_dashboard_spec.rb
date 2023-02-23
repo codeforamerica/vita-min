@@ -368,8 +368,8 @@ RSpec.feature "a client on their portal" do
     let(:tax_return) { create :gyr_tax_return, :file_mailed, client: client }
 
     before do
-      create(:document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: client)
-      create(:document, document_type: DocumentTypes::FormW7, client: client)
+      create(:document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client)
+      create(:document, document_type: DocumentTypes::FormW7.key, client: client)
 
       login_as client, scope: :client
     end
@@ -387,7 +387,7 @@ RSpec.feature "a client on their portal" do
 
     context "when the client was helped by a certifying acceptance agent", js: true do
       before do
-        create(:document, document_type: DocumentTypes::FormW7Coa, client: client)
+        create(:document, document_type: DocumentTypes::FormW7Coa.key, client: client)
 
         login_as create :admin_user
         visit hub_client_path(id: client.id)

@@ -23,7 +23,7 @@ class RequestedDocumentUploadForm < QuestionsForm
   def instantiate_document
     @upload.tempfile.rewind if @upload.present?
     @document = @documents_request.documents.new(
-      document_type: @document_type || DocumentTypes::RequestedLater,
+      document_type: @document_type || DocumentTypes::RequestedLater.key,
       client: @documents_request.client,
       uploaded_by: @documents_request.client,
       upload: @upload.present? ? {
