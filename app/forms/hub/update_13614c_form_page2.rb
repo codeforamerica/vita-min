@@ -64,7 +64,8 @@ module Hub
     def save
       return false unless valid?
 
-      @client.intake.update(attributes_for(:intake))
+      additional_attributes = { bought_marketplace_health_insurance: bought_health_insurance }
+      @client.intake.update(attributes_for(:intake).merge(additional_attributes))
       @client.touch(:last_13614c_update_at)
     end
   end
