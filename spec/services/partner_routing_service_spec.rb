@@ -66,8 +66,26 @@ describe PartnerRoutingService do
     end
 
     context "when a client is returning and it has a vita partner" do
-      let!(:this_year_intake) { create :intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client) }
-      let!(:last_year_intake) { create :archived_2021_gyr_intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client, vita_partner: vita_partner) }
+      let!(:this_year_intake) do
+        create(
+          :intake,
+          primary_birth_date: Date.new(1960, 5, 12),
+          primary_last_four_ssn: 1122,
+          primary_first_name: "Sean",
+          primary_last_name: "Strawberry",
+          client: build(:client)
+        )
+      end
+      let!(:archived_intake) do
+        create(
+          :archived_2021_gyr_intake,
+          primary_birth_date: Date.new(1960, 5, 12),
+          primary_last_four_ssn: 1122,
+          primary_first_name: "Sean",
+          primary_last_name: "Strawberry",
+          client: build(:client, vita_partner: vita_partner)
+        )
+      end
       subject { PartnerRoutingService.new(intake: this_year_intake) }
 
       before do
@@ -77,6 +95,51 @@ describe PartnerRoutingService do
       it "returns last years partner" do
         expect(subject.determine_partner).to eq vita_partner
         expect(subject.routing_method).to eq :returning_client
+      end
+
+      context "when they have vita partners from multiple product years" do
+        let(:prior_product_year_vita_partner) { create :organization }
+        let!(:prior_product_year_intake) do
+          create(
+            :intake,
+            product_year: Rails.configuration.product_year - 1,
+            primary_birth_date: Date.new(1960, 5, 12),
+            primary_last_four_ssn: 1122,
+            primary_first_name: "Sean",
+            primary_last_name: "Strawberry",
+            client: build(:client, vita_partner: prior_product_year_vita_partner)
+          )
+        end
+
+        it "prefers the vita partner from the most recent product year" do
+          expect(subject.determine_partner).to eq prior_product_year_vita_partner
+          expect(subject.routing_method).to eq :returning_client
+        end
+      end
+
+      context "when the vita partner is an org that is at capacity" do
+        before do
+          vita_partner.update(capacity_limit: 0)
+        end
+
+        it "continues on to subsequent methods" do
+          expect(subject.determine_partner).to eq nil
+          expect(subject.routing_method).to eq :at_capacity
+        end
+      end
+
+      context "when the vita partner is a site with a parent org that is at capacity" do
+        let(:organization) { create(:organization) }
+        let(:vita_partner) { create(:site, parent_organization: organization) }
+
+        before do
+          organization.update(capacity_limit: 0)
+        end
+
+        it "continues on to subsequent methods" do
+          expect(subject.determine_partner).to eq nil
+          expect(subject.routing_method).to eq :at_capacity
+        end
       end
     end
 
@@ -117,6 +180,22 @@ describe PartnerRoutingService do
         it "returns the referring partner" do
           expect(subject.determine_partner).to eq vita_partner
           expect(subject.routing_method).to eq :source_param
+        end
+
+        context "when they had a previous year partner" do
+          subject { PartnerRoutingService.new(intake: this_year_intake, source_param: code) }
+          let(:old_vita_partner) { create :organization, accepts_itin_applicants: false }
+          let!(:this_year_intake) { create :intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client) }
+          let!(:old_intake) { create :archived_2021_gyr_intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client, vita_partner: old_vita_partner) }
+
+          before do
+            allow_any_instance_of(VitaPartner).to receive(:active?).and_return true
+          end
+
+          it "prefers the vita partner from the source param" do
+            expect(subject.determine_partner).to eq vita_partner
+            expect(subject.routing_method).to eq :source_param
+          end
         end
       end
 

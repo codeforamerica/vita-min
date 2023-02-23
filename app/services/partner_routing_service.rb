@@ -21,11 +21,11 @@ class PartnerRoutingService
     from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
     return from_itin_enabled if from_itin_enabled.present?
 
-    from_previous_year_partner = previous_year_partner
-    return from_previous_year_partner if from_previous_year_partner.present?
-
     from_source_param = vita_partner_from_source_param if @source_param.present?
     return from_source_param if from_source_param.present?
+
+    from_previous_year_partner = previous_year_partner
+    return from_previous_year_partner if from_previous_year_partner.present?
 
     from_zip_code = vita_partner_from_zip_code if @zip_code.present?
     return from_zip_code if from_zip_code.present?
@@ -47,7 +47,7 @@ class PartnerRoutingService
 
     vita_partner = @intake.probable_previous_year_intake&.vita_partner
 
-    if vita_partner.present? && vita_partner.active?
+    if vita_partner.present? && vita_partner.active? && !vita_partner.at_capacity?
       @routing_method = :returning_client
       vita_partner
     end
