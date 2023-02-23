@@ -1783,7 +1783,7 @@ RSpec.describe Hub::ClientsController do
             tax_credit_disallowed_year: nil,
             made_estimated_tax_payments_amount: nil,
             had_capital_loss_carryover: "unfilled",
-            bought_health_insurance: "yes"
+            bought_marketplace_health_insurance: "yes"
           }
         }
       }
@@ -1839,7 +1839,6 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.paid_charitable_contributions_unfilled?).to eq true
           expect(client.intake.paid_self_employment_expenses_unfilled?).to eq true
           expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
-          expect(client.intake.bought_health_insurance_yes?).to eq true
           expect(client.intake.bought_marketplace_health_insurance_yes?).to eq true
 
           system_note = SystemNote::ClientChange.last

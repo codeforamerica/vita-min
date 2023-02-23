@@ -145,7 +145,7 @@ FactoryBot.define do
     paid_alimony { "no" }
     sold_a_home { "no" }
     had_hsa { "yes" }
-    bought_health_insurance { "no" }
+    bought_marketplace_health_insurance { "no" }
     received_homebuyer_credit { "yes" }
     had_debt_forgiven { "no" }
     had_disaster_loss { "yes" }

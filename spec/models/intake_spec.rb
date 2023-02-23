@@ -16,7 +16,6 @@
 #  bank_routing_number                                  :string
 #  bought_employer_health_insurance                     :integer          default(0), not null
 #  bought_energy_efficient_items                        :integer
-#  bought_health_insurance                              :integer          default(0), not null
 #  bought_marketplace_health_insurance                  :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
@@ -825,7 +824,7 @@ describe Intake do
   end
 
   describe "#document_types_definitely_needed" do
-    let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+    let(:intake) { create(:intake, bought_marketplace_health_insurance: "yes", had_wages: "yes") }
 
     it "returns list of must have documents" do
       expected_doc_types = [
@@ -952,7 +951,7 @@ describe Intake do
   end
 
   describe "#relevant_document_types" do
-    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_health_insurance: "no" }
+    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_marketplace_health_insurance: "no" }
 
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [
@@ -969,7 +968,7 @@ describe Intake do
   end
 
   describe "#relevant_intake_document_types" do
-    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_health_insurance: "no" }
+    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_marketplace_health_insurance: "no" }
 
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [

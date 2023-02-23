@@ -16,7 +16,6 @@
 #  bank_routing_number                                  :string
 #  bought_employer_health_insurance                     :integer          default(0), not null
 #  bought_energy_efficient_items                        :integer
-#  bought_health_insurance                              :integer          default(0), not null
 #  bought_marketplace_health_insurance                  :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
@@ -639,5 +638,5 @@ class Intake < ApplicationRecord
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id, dependent: :destroy
 
-  self.ignored_columns = ["primary_consented_to_service_at"] + archived_columns
+  self.ignored_columns = ["primary_consented_to_service_at", "bought_health_insurance"] + archived_columns
 end

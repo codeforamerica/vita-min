@@ -878,7 +878,7 @@ describe Client do
     end
 
     context "when answering questions that require additional forms" do
-      let(:health_and_wages_intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+      let(:health_and_wages_intake) { create(:intake, bought_marketplace_health_insurance: "yes", had_wages: "yes") }
 
       it "returns expected documents for particular intake forms" do
         expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
@@ -887,7 +887,8 @@ describe Client do
   end
 
   describe "#number_of_required_documents_uploaded" do
-    let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
+    let(:intake) { create(:intake) }
+
     it "returns zero when no required documents are uploaded" do
       expect(intake.client.number_of_required_documents_uploaded).to eq(0)
     end

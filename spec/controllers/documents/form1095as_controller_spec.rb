@@ -6,7 +6,7 @@ RSpec.describe Documents::Form1095asController do
 
   describe ".show?" do
     context "when they purchased health insurance" do
-      let(:attributes) { { bought_health_insurance: "yes" } }
+      let(:attributes) { { bought_marketplace_health_insurance: "yes" } }
       it "returns true" do
         expect(subject.class.show?(intake)).to eq true
       end
@@ -14,7 +14,7 @@ RSpec.describe Documents::Form1095asController do
 
     context "for other cases" do
       let(:attributes) do
-        { bought_health_insurance: "no" }
+        { bought_marketplace_health_insurance: "no" }
       end
 
       it "returns false" do

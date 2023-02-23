@@ -165,7 +165,7 @@ FROM public.intake_archives;
 
 CREATE VIEW analytics.intakes AS
     SELECT id, adopted_child, already_applied_for_stimulus, already_filed, balance_pay_from_bank,
-           bank_account_type, bought_energy_efficient_items, bought_health_insurance, city,
+           bank_account_type, bought_energy_efficient_items, bought_marketplace_health_insurance, city,
            claimed_by_another, client_id, completed_at, completed_yes_no_questions_at, continued_at_capacity,
            created_at, demographic_disability, demographic_english_conversation, demographic_english_reading,
            demographic_primary_american_indian_alaska_native, demographic_primary_asian,
