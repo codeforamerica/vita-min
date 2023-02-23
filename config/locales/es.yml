@@ -683,7 +683,7 @@ es:
         fields:
           adopted_child: "¿Adoptó a un niño?"
           bought_energy_efficient_items: "¿Compró e instaló artículos domésticos eficientes desde el punto de vista energético?"
-          bought_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el formulario 1095-A]"
+          bought_marketplace_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el formulario 1095-A]"
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
           had_capital_loss_carryover: '¿Presentó el año pasado una declaración federal de impuestos que contenía un "traslado de pérdidas de capital",  en inglés: "capital loss carryover" en el Formulario 1040, Anexo D?'
           had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, o otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"

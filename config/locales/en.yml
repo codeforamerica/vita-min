@@ -674,7 +674,7 @@ en:
         fields:
           adopted_child: Adopt a child?
           bought_energy_efficient_items: Purchase and install energy-efficient home items?
-          bought_health_insurance: Have health coverage through the Marketplace (Exchange)? [Provide Form 1095-A]
+          bought_marketplace_health_insurance: Have health coverage through the Marketplace (Exchange)? [Provide Form 1095-A]
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
           had_capital_loss_carryover: File a federal return last year containing a “capital loss carryover” on Form 1040 Schedule D?
           had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?

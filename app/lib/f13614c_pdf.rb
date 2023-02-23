@@ -159,7 +159,7 @@ class F13614cPdf
     )
     answers.merge!(
       yes_no_checkboxes("form1[0].page2[0].Part_5[0].q8_File_A_Federal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
-      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q9_have_health[0]", @intake.bought_health_insurance, include_unsure: true),
+      yes_no_checkboxes("form1[0].page2[0].Part_5[0].q9_have_health[0]", @intake.bought_marketplace_health_insurance, include_unsure: true),
     )
     answers.merge!(
       # Additional Information Section

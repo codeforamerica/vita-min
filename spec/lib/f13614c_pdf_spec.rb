@@ -15,7 +15,7 @@ RSpec.describe F13614cPdf do
           advance_ctc_amount_received: 500,
           balance_pay_from_bank: "no",
           bought_energy_efficient_items: "unsure",
-          bought_health_insurance: "yes",
+          bought_marketplace_health_insurance: "yes",
           city: "Gardenia",
           claimed_by_another: "no",
           contributed_to_401k: "yes",

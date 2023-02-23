@@ -230,7 +230,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
         fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments_amount"), with: "3,000"
         select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_capital_loss_carryover")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_health_insurance")
+        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_marketplace_health_insurance")
       end
 
       click_on I18n.t("general.save")
@@ -284,7 +284,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.made_estimated_tax_payments_no?).to eq true
       expect(intake.made_estimated_tax_payments_amount).to eq 3000
       expect(intake.had_capital_loss_carryover_no?).to eq true
-      expect(intake.bought_health_insurance_no?).to eq true
+      expect(intake.bought_marketplace_health_insurance_no?).to eq true
     end
 
     scenario "I can see and update the 13614c page 3 form" do

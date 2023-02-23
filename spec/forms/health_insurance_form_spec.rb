@@ -5,7 +5,7 @@ RSpec.describe HealthInsuranceForm do
 
   let(:no_insurance_params) do
     {
-      bought_health_insurance: "no",
+      bought_marketplace_health_insurance: "no",
       bought_employer_health_insurance: "no",
       had_medicaid_medicare: "no",
       had_hsa: "no"
@@ -14,7 +14,7 @@ RSpec.describe HealthInsuranceForm do
 
   let(:bought_insurance_params) do
     {
-      bought_health_insurance: "yes",
+      bought_marketplace_health_insurance: "yes",
       bought_employer_health_insurance: "no",
       had_medicaid_medicare: "no",
       had_hsa: "no"
@@ -27,7 +27,6 @@ RSpec.describe HealthInsuranceForm do
       form.save
       intake.reload
 
-      expect(intake.bought_health_insurance).to eq "no"
       expect(intake.bought_marketplace_health_insurance).to eq "no"
       expect(intake.bought_employer_health_insurance).to eq "no"
       expect(intake.had_medicaid_medicare).to eq "no"
@@ -39,7 +38,6 @@ RSpec.describe HealthInsuranceForm do
       form.save
       intake.reload
 
-      expect(intake.bought_health_insurance).to eq "yes"
       expect(intake.bought_marketplace_health_insurance).to eq "yes"
       expect(intake.bought_employer_health_insurance).to eq "no"
       expect(intake.had_medicaid_medicare).to eq "no"

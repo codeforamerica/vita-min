@@ -46,7 +46,7 @@ module Hub
                        :tax_credit_disallowed_year,
                        :made_estimated_tax_payments_amount,
                        :had_capital_loss_carryover,
-                       :bought_health_insurance
+                       :bought_marketplace_health_insurance
 
     attr_accessor :client
 
@@ -64,8 +64,7 @@ module Hub
     def save
       return false unless valid?
 
-      additional_attributes = { bought_marketplace_health_insurance: bought_health_insurance }
-      @client.intake.update(attributes_for(:intake).merge(additional_attributes))
+      @client.intake.update(attributes_for(:intake))
       @client.touch(:last_13614c_update_at)
     end
   end

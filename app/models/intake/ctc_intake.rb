@@ -16,7 +16,6 @@
 #  bank_routing_number                                  :string
 #  bought_employer_health_insurance                     :integer          default(0), not null
 #  bought_energy_efficient_items                        :integer
-#  bought_health_insurance                              :integer          default(0), not null
 #  bought_marketplace_health_insurance                  :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
 #  canonical_email_address                              :string
