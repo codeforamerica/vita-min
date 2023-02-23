@@ -107,6 +107,8 @@ class MixpanelService
                    request: nil,
                    source: nil,
                    path_exclusions: [])
+      return if should_event_be_dropped?(request)
+
       default_data = {}
       default_data[:locale] = I18n.locale.to_s
       default_data.merge!(data_from(request, path_exclusions: path_exclusions))
@@ -119,6 +121,22 @@ class MixpanelService
         event_name: event_name,
         data: default_data.merge(data),
       )
+    end
+
+    SECURITY_METRICS_SUBNET = IPAddr.new("192.211.152.0/24").freeze
+    EC2_COMPUTE_DOMAIN_REGEX = /^ec2-(.*)\.compute-1\.amazonaws.com$/i.freeze
+
+    def should_event_be_dropped?(request)
+      return false if request.nil?
+      return true if request.query_parameters[:source] == "hund"
+
+      incoming_ip = request.remote_ip or request.ip
+      incoming_host = request.host
+
+      return true if EC2_COMPUTE_DOMAIN_REGEX.match?(incoming_host)
+      return true if incoming_ip.present? and SECURITY_METRICS_SUBNET.include?(incoming_ip)
+
+      false
     end
 
     def send_tax_return_event(tax_return, event_name, additional_data = {})

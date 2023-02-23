@@ -803,27 +803,28 @@ describe ApplicationController, type: :controller do
     MixpanelService.instance.remove_instance_variable(:@tracker)
   end
 
-  describe "#send_event" do
-    controller do
-      skip_after_action :track_page_view
+  controller do
+    skip_after_action :track_page_view
 
-      def index
-        MixpanelService.send_event(distinct_id: '72347234', event_name: 'index_test_event', data: {}, source: self, request: request)
-        render plain: 'nope'
-      end
-
-      def req_test
-        request.env['HTTP_REFERER'] = "http://test.dev/9999998/rest"
-        MixpanelService.send_event(distinct_id: '72347235', event_name: 'req_test_event', data: {}, request: request, path_exclusions: all_identifiers)
-        render plain: 'nope'
-      end
-
-      def inst_test
-        session[:intake_id] = params[:intake_id]
-        MixpanelService.send_event(distinct_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
-        render plain: 'nope'
-      end
+    def index
+      MixpanelService.send_event(distinct_id: '72347234', event_name: 'index_test_event', data: {}, source: self, request: request)
+      render plain: 'nope'
     end
+
+    def req_test
+      request.env['HTTP_REFERER'] = "http://test.dev/9999998/rest"
+      MixpanelService.send_event(distinct_id: '72347235', event_name: 'req_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+      render plain: 'nope'
+    end
+
+    def inst_test
+      session[:intake_id] = params[:intake_id]
+      MixpanelService.send_event(distinct_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+      render plain: 'nope'
+    end
+  end
+
+  describe "#send_event" do
 
     it 'includes controller (source) information, if present' do
       get :index
@@ -918,6 +919,44 @@ describe ApplicationController, type: :controller do
           full_path: '/inst_test/***/rest',
         )
       )
+    end
+
+    context "when dropping events" do
+      before do
+        routes.draw { get "index" => "anonymous#index" }
+      end
+
+      context "for those not allowed" do
+            it "drops those from the IP address expected from SecurityMetrics" do
+              @request.remote_addr = "192.211.152.30"
+
+              get :index
+
+              expect(fake_tracker).not_to have_received(:track)
+            end
+
+        it "drops events coming from non-public AWS domains" do
+          request.set_header("HTTP_HOST", "ec2-18-204-251-64.compute-1.amazonaws.com")
+
+          get :index
+
+          expect(fake_tracker).not_to have_received(:track)
+        end
+
+        it "drops events coming from status checks" do
+          get :index, params: { source: "hund" }
+
+          expect(fake_tracker).not_to have_received(:track)
+        end
+      end
+
+      context "for those permitted" do
+        it "sends an event" do
+          get :index
+
+          expect(fake_tracker).to have_received(:track)
+        end
+      end
     end
   end
 end
