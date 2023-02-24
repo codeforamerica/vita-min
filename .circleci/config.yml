@@ -150,7 +150,7 @@ jobs:
       - install_system_dependencies
       - install_ruby_dependencies
       - setup_test_db
-      - run: bundle exec rake assets:precompile
+      - run: NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
       - run: bundle exec rake flow_explorer:capture_screenshots flow_explorer:upload_screenshots
   deploy_to_aptible--demo:
     executor: ruby_executor

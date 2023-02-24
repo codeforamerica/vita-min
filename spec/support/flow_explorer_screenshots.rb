@@ -17,7 +17,7 @@ class FlowExplorerScreenshots
       [:click_on, :click_button, :click_link].each do |capybara_method|
         orig = instance_method(capybara_method)
         define_method(capybara_method) do |*args|
-          orig.bind(self).call(*args)
+          orig.bind(self).call(args[0], **(args[1] || {}))
 
           # Capybara only allows calling .switch_to_window (which is used to capture the spanish screenshots)
           # if we're not in a `within` block
