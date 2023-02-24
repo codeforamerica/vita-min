@@ -118,7 +118,6 @@ class GyrQuestionNavigation
 
       # Health insurance
       Questions::HealthInsuranceController,
-      Questions::HsaController,
 
       # Itemizing
       Questions::ItemizingController,
