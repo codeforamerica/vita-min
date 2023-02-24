@@ -638,5 +638,5 @@ class Intake < ApplicationRecord
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id, dependent: :destroy
 
-  self.ignored_columns = ["primary_consented_to_service_at", "bought_health_insurance"] + archived_columns
+  self.ignored_columns = ["primary_consented_to_service_at"] + archived_columns
 end
