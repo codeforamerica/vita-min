@@ -3,9 +3,9 @@ class IntakeProgressCalculator
   starting_index = GyrQuestionNavigation::FLOW.index(Questions::LifeSituationsController)
   ending_index = GyrQuestionNavigation::FLOW.index(Questions::SuccessfullySubmittedController)
   question_steps = GyrQuestionNavigation::FLOW[starting_index..ending_index]
-  doc_id_index = DocumentNavigation::FLOW.index(Documents::IdsController)
+  last_page_before_docs_index = question_steps.index(Questions::MailingAddressController)
 
-  POSSIBLE_STEPS = question_steps.insert(doc_id_index + 1, *DocumentNavigation::FLOW)
+  POSSIBLE_STEPS = question_steps.insert(last_page_before_docs_index + 1, *DocumentNavigation::FLOW)
 
   def self.show_progress?(controller_class)
     POSSIBLE_STEPS.include? controller_class
