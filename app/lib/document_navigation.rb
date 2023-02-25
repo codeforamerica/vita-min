@@ -4,6 +4,7 @@ class DocumentNavigation
   include ControllerNavigation
 
   FLOW = [
+    Documents::IdGuidanceController,
     Documents::IdsController,
     Documents::SelfieInstructionsController,
     Documents::SelfiesController,

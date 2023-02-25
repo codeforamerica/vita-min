@@ -147,9 +147,7 @@ class GyrQuestionNavigation
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
       Questions::MailingAddressController,
-
-      # Documents --> See DocumentNavigation
-      Documents::IdGuidanceController,
+      # After this links to document flow --> See DocumentNavigation
 
       Questions::FinalInfoController,
       Questions::SuccessfullySubmittedController,

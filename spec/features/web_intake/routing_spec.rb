@@ -88,9 +88,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
 
-    expect(page).to have_text I18n.t('views.questions.overview.title')
-    click_on I18n.t('general.continue')
-
     fill_out_personal_information(zip_code: zip_code)
 
     expect(Intake.last.source).to eq "cobra"
@@ -115,10 +112,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   end
 
   scenario "routing by zip code" do
-    visit "/questions/overview"
-
-    expect(page).to have_text I18n.t('views.questions.overview.title')
-    click_on I18n.t('general.continue')
+    visit personal_info_questions_path
 
     fill_out_personal_information(zip_code: zip_code)
 
@@ -144,10 +138,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   end
 
   scenario "routing by state" do
-    visit "/questions/overview"
-
-    expect(page).to have_text I18n.t('views.questions.overview.title')
-    click_on I18n.t('general.continue')
+    visit personal_info_questions_path
 
     expect(page).to have_text I18n.t('views.questions.personal_info.title')
     fill_out_personal_information(zip_code: "28806")
@@ -182,10 +173,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     end
 
     scenario "routes to national partner" do
-      visit "/questions/overview"
-
-      expect(page).to have_text I18n.t('views.questions.overview.title')
-      click_on I18n.t('general.continue')
+      visit personal_info_questions_path
 
       expect(page).to have_text I18n.t('views.questions.personal_info.title')
       fill_out_personal_information(zip_code: "28806")
@@ -220,10 +208,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     end
 
     scenario "would have been routed by state, redirects to at capacity page" do
-      visit "/questions/overview"
-
-      expect(page).to have_text I18n.t('views.questions.overview.title')
-      click_on I18n.t('general.continue')
+      visit personal_info_questions_path
 
       expect(page).to have_text I18n.t('views.questions.personal_info.title')
       fill_out_personal_information(zip_code: "28806")
