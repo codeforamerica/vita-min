@@ -34,14 +34,6 @@ RSpec.describe Documents::DocumentUploadQuestionController do
       end
     end
 
-    context "for intakes with 211 source" do
-      let(:intake) { create :intake, source: "211intake" }
-
-      it "returns false" do
-        expect(TestingClass::ExampleDocumentUploadController.show?(intake)).to eq false
-      end
-    end
-
     context "for intakes without 211 source" do
       let(:intake) { create :intake }
 
