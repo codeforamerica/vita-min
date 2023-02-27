@@ -64,8 +64,4 @@ class SendAutomatedMessage
       sent_messages << sent_message if sent_message.present?
     end
   end
-
-  def self.send_messages(*args)
-    new(*args).send_messages
-  end
 end

@@ -30,12 +30,12 @@ class IntercomService
   def self.inform_client_of_handoff(client:, send_sms:, send_email:)
     return if client.blank?
 
-    SendAutomatedMessage.send_messages(
+    SendAutomatedMessage.new(
       message: AutomatedMessage::IntercomForwarding,
       sms: send_sms,
       email: send_email,
       client: client
-    )
+    ).send_messages
   end
 
   private
