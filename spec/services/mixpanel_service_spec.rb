@@ -927,13 +927,13 @@ describe ApplicationController, type: :controller do
       end
 
       context "for those not allowed" do
-            it "drops those from the IP address expected from SecurityMetrics" do
-              @request.remote_addr = "192.211.152.30"
+        it "drops those from the IP address expected from SecurityMetrics" do
+          @request.remote_addr = "192.211.152.30"
 
-              get :index
+          get :index
 
-              expect(fake_tracker).not_to have_received(:track)
-            end
+          expect(fake_tracker).not_to have_received(:track)
+        end
 
         it "drops events coming from non-public AWS domains" do
           request.set_header("HTTP_HOST", "ec2-18-204-251-64.compute-1.amazonaws.com")
@@ -945,6 +945,10 @@ describe ApplicationController, type: :controller do
 
         it "drops events coming from status checks" do
           get :index, params: { source: "hund" }
+
+          expect(fake_tracker).not_to have_received(:track)
+
+          get :index, params: { source: "hund.io" }
 
           expect(fake_tracker).not_to have_received(:track)
         end
