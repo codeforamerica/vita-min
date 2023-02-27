@@ -9,6 +9,9 @@ module Hub
     before_action :load_users, only: [:index]
     load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]
     before_action :setup_sortable_client, only: [:index]
+    # need to use the presenter for :update bc it has ITIN applicant methods that are used in the form
+    before_action :wrap_client_in_hub_presenter, only: [:show, :edit_take_action, :update, :update_take_action]
+    before_action :redirect_unless_client_is_hub_status_editable, only: [:edit_take_action]
     layout "hub"
 
     MAX_COUNT = 1000
@@ -45,10 +48,6 @@ module Hub
       redirect_to hub_clients_path
     end
 
-    def show
-      @client = HubClientPresenter.new(@client)
-    end
-
     def edit
       return render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
 
@@ -56,8 +55,6 @@ module Hub
     end
 
     def update
-      # need to use the presenter bc it has ITIN applicant methods that are used in the form
-      @client = HubClientPresenter.new(@client)
       @form = UpdateClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
@@ -98,8 +95,6 @@ module Hub
     end
 
     def update_take_action
-      @client = HubClientPresenter.new(@client)
-
       unless @client.hub_status_updatable
         return head :bad_request
       end
@@ -220,6 +215,14 @@ module Hub
 
     def filter_cookie_name
       FILTER_COOKIE_NAME
+    end
+
+    def wrap_client_in_hub_presenter
+      @client = HubClientPresenter.new(@client)
+    end
+
+    def redirect_unless_client_is_hub_status_editable
+      redirect_to hub_client_path(id: @client.id) unless @client.hub_status_updatable
     end
 
     class HubClientPresenter < SimpleDelegator
