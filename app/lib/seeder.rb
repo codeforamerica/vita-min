@@ -146,8 +146,12 @@ class Seeder
     )
     client = intake.client
 
-    Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
-    Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
+    document1 = Document.find_or_initialize_by(display_name: "My Employment", document_type: "Employment", client: client, intake: intake)
+    attach_upload_to_document(document1)
+    document2 = Document.find_or_initialize_by(display_name: "Identity Document", document_type: "ID", client: client, intake: intake)
+    attach_upload_to_document(document2)
+    document3 = Document.find_or_initialize_by(display_name: "An old document type", document_type: "F13614C / F15080 2020", client: client, intake: intake)
+    attach_upload_to_document(document3)
 
     unless client.outgoing_text_messages.present?
       OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you", user: user, sent_at: 3.days.ago, to_phone_number: "+14155551212")
@@ -524,6 +528,14 @@ class Seeder
     end
 
     intake
+  end
+
+  def attach_upload_to_document(document)
+    document.upload.attach(
+      io: File.open(Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")),
+      filename: "document_bundle.pdf"
+    ) unless document.upload.present?
+    document.save
   end
 
   def add_images_to_verification_attempt(verification_attempt)
