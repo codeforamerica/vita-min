@@ -1107,6 +1107,19 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
       end
 
+      context "with a client with an archived intake" do
+        before do
+          intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "redirects to the /show page for the client" do
+          get :edit_take_action, params: params
+
+          expect(response).to redirect_to(hub_client_path(id: client.id))
+        end
+      end
+
       context "without a selected tax return and status" do
         it "initializes the form without default values" do
           get :edit_take_action, params: params
