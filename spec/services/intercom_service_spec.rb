@@ -213,27 +213,30 @@ RSpec.describe IntercomService do
   end
 
   describe ".inform_client_of_handoff" do
+    let(:fake_send_automated_message) { instance_double(SendAutomatedMessage, send_messages: nil) }
+
     before do
-      allow(SendAutomatedMessage).to receive(:send_messages)
+      allow(SendAutomatedMessage).to receive(:new).and_return(fake_send_automated_message)
     end
 
     it "returns if no client is provided" do
       described_class.inform_client_of_handoff(client: nil, send_sms: nil, send_email: nil)
-      expect(SendAutomatedMessage).not_to have_received(:send_messages)
+      expect(SendAutomatedMessage).not_to have_received(:new)
     end
 
     it "sends an automated message" do
       client = create(:client)
       described_class.inform_client_of_handoff(client: client, send_sms: true, send_email: true)
       expect(SendAutomatedMessage).to(
-        have_received(:send_messages)
-          .with({
+        have_received(:new)
+          .with(
                   message: AutomatedMessage::IntercomForwarding,
                   sms: true,
                   email: true,
                   client: client
-                })
+                )
       )
+      expect(fake_send_automated_message).to have_received(:send_messages)
     end
   end
 end
