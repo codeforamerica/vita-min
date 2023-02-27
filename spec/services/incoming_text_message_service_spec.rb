@@ -90,6 +90,24 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
           expect(IntercomService).not_to have_received(:create_message)
         end
       end
+
+      context "has not yet consented to getting SMS" do
+        # FIXME: Check for a incrementation of relevant datadog counters
+
+        let!(:intake) { create(:intake, client: client, sms_phone_number: nil, phone_number: incoming_message_params["From"]) }
+
+        it "queues a job to send a reply informing of lack of monitoring" do
+          # FIXME: Confirm that a job of SendOutgoingTextMessageToNonConsentingClientJob was queued.
+          IncomingTextMessageService.process(incoming_message_params)
+          expect(SendOutgoingTextMessageToNonConsentingClientJob).to have_been_enqueued
+        end
+
+        it "does not add a new message to the hub" do
+          expect do
+            IncomingTextMessageService.process(incoming_message_params)
+          end.to_not change(IncomingTextMessage, :count)
+        end
+      end
     end
 
     context "without a matching client from the current years intake" do
