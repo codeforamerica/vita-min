@@ -165,6 +165,16 @@ class Seeder
       Note.create!(client: client, user: user, body: "This is an outgoing note :)", created_at: 2.days.ago)
     end
 
+    tax_return_2019 = client.tax_returns.where(year: 2019).first
+    unless AssignmentEmail.where(tax_return: tax_return_2019).any?
+      AssignmentEmail.create!(
+        assigned_user: additional_user,
+        assigning_user: user,
+        assigned_at: tax_return_2019.updated_at,
+        tax_return: tax_return_2019
+      )
+    end
+
     # Use this client for portal login; log in by email address & run rails jobs:work for the verification code; see SSN last 4 below
     _married_intake = find_or_create_intake_and_client(
       Intake::GyrIntake,

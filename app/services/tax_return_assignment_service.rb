@@ -30,12 +30,13 @@ class TaxReturnAssignmentService
           tax_return: @tax_return
         )
       )
-      UserMailer.assignment_email(
+      assignment_email = AssignmentEmail.create!(
         assigned_user: @assigned_user,
         assigning_user: @assigned_by,
         assigned_at: @tax_return.updated_at,
         tax_return: @tax_return
-      ).deliver_later
+      )
+      SendAssignmentEmailJob.perform_later(assignment_email.id)
     end
   end
 end
