@@ -14,7 +14,6 @@ class MixpanelService
     return if mixpanel_key.nil?
 
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      # FIXME: Add message to a Redis queue here.
       MixpanelService.queue_event(type, message)
     end
 
@@ -93,14 +92,14 @@ class MixpanelService
     end
 
     def queue_event(type, message)
-      self.redis_client.lpush(:mixpanel_events, {
+      redis_client.lpush(:mixpanel_events, {
         type: type,
         message: message
       })
     end
 
     def pop_event_from_queue
-      (_, _key, values) = self.redis_client.lpop(:mixpanel_events, 200)
+      (_, _key, values) = redis_client.lpop(:mixpanel_events, 200)
       for value in values
         json_value = JSON.parse(value)
         consumer = Mixpanel::BufferedConsumer.new
