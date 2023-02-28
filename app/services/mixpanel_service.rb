@@ -128,7 +128,11 @@ class MixpanelService
 
     def should_event_be_dropped?(request)
       return false if request.nil?
-      return true if request.query_parameters[:source] == "hund"
+      source = request.query_parameters[:source]
+
+      if source.present?
+        return true if source == "hund" or source == "hund.io"
+      end
 
       incoming_ip = request.remote_ip or request.ip
       incoming_host = request.host
