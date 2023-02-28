@@ -13,7 +13,11 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @tracker = Mixpanel::Tracker.new(mixpanel_key)
+    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+      # FIXME: Add message to a Redis queue here.
+      MixpanelService.queue_event(type, message)
+    end
+
     # silence local SSL errors
     if Rails.env.development?
       Mixpanel.config_http do |http|
@@ -86,6 +90,22 @@ class MixpanelService
         end.join('&')
       end
       path
+    end
+
+    def queue_event(type, message)
+      self.redis_client.lpush(:mixpanel_events, {
+        type: type,
+        message: message
+      })
+    end
+
+    def pop_event_from_queue
+      (_, _key, values) = self.redis_client.lpop(:mixpanel_events, 200)
+      for value in values
+        json_value = JSON.parse(value)
+        consumer = Mixpanel::BufferedConsumer.new
+        consumer.send!(json_value.type, json_value.message)
+      end
     end
 
     ##
@@ -362,6 +382,10 @@ class MixpanelService
 
       year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
+    end
+
+    private def redis_client
+      @redis ||= Redis.new(url: Rails.application.credentials.fetch(:redis, :url))
     end
   end
 end
