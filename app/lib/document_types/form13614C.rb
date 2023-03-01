@@ -8,7 +8,7 @@ module DocumentTypes
       end
 
       def key
-        "F13614C 2020"
+        "F13614C"
       end
 
       def blocks_progress?
