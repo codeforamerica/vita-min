@@ -12,6 +12,8 @@ describe Hub::AutomatedMessagesController do
         sign_in create(:admin_user)
       end
 
+      let!(:tax_return) { create :tax_return, :intake_in_progress, year: 2021 }
+
       render_views
 
       it "successfully renders messages that are sent to client in an automated way" do
