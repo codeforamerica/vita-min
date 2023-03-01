@@ -307,9 +307,8 @@ class Intake::GyrIntake < Intake
   enum adopted_child: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :adopted_child
   enum already_applied_for_stimulus: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_applied_for_stimulus
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_energy_efficient_items
-  enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_health_insurance
-  enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_employer_health_insurance
-  enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_marketplace_health_insurance
+  enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_employer_health_insurance
+  enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_marketplace_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
@@ -337,7 +336,7 @@ class Intake::GyrIntake < Intake
   enum had_hsa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_hsa
   enum had_interest_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_interest_income
   enum had_local_tax_refund: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_local_tax_refund
-  enum had_medicaid_medicare: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_medicaid_medicare
+  enum had_medicaid_medicare: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_medicaid_medicare
   enum had_other_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_other_income
   enum had_rental_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income
   enum had_retirement_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_retirement_income
