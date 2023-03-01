@@ -10,8 +10,8 @@ module Hub
     load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]
     before_action :setup_sortable_client, only: [:index]
     # need to use the presenter for :update bc it has ITIN applicant methods that are used in the form
-    before_action :wrap_client_in_hub_presenter, only: [:show, :edit_take_action, :update, :update_take_action]
-    before_action :redirect_unless_client_is_hub_status_editable, only: [:edit_take_action]
+    before_action :wrap_client_in_hub_presenter, only: [:show, :edit, :edit_take_action, :update, :update_take_action]
+    before_action :redirect_unless_client_is_hub_status_editable, only: [:edit, :edit_take_action, :update, :update_take_action]
     layout "hub"
 
     MAX_COUNT = 1000
@@ -95,10 +95,6 @@ module Hub
     end
 
     def update_take_action
-      unless @client.hub_status_updatable
-        return head :bad_request
-      end
-
       @take_action_form = Hub::TakeActionForm.new(@client, current_user, take_action_form_params)
       if @take_action_form.valid?
         action_list = TaxReturnService.handle_state_change(@take_action_form)

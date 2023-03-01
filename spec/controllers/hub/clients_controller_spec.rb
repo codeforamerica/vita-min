@@ -901,6 +901,19 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
         expect(assigns(:form)).to be_an_instance_of Hub::UpdateClientForm
       end
+
+      context "with a client with an archived intake" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "redirects to the /show page for the client" do
+          get :edit, params: params
+
+          expect(response).to redirect_to(hub_client_path(id: client.id))
+        end
+      end
     end
   end
 
@@ -1000,6 +1013,19 @@ RSpec.describe Hub::ClientsController do
           "with_incarcerated_navigator" => [false, nil],
           "with_limited_english_navigator" => [false, nil]
         })
+      end
+
+      context "with a client with an archived intake" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "redirects to the /show page for the client" do
+          post :update, params: { id: client.id }
+
+          expect(response).to redirect_to(hub_client_path(id: client.id))
+        end
       end
 
       context "with invalid params" do
@@ -1237,7 +1263,7 @@ RSpec.describe Hub::ClientsController do
 
         it "raises bad request" do
           post :update_take_action, params: params
-          expect(response).to be_bad_request
+          expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end
 
