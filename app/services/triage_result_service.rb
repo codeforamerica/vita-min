@@ -5,45 +5,26 @@ class TriageResultService
     @intake = intake
   end
 
-  def after_income_levels
+  def after_income_levels_triaged_route
     if intake.triage_income_level_zero?
       return route_to_gyr
-    end
-
-    if inside_ctc_income_limit?
-      if intake.triage_vita_income_ineligible_no?
-        return route_to_gyr
-      elsif intake.triage_vita_income_ineligible_yes?
-        return route_to_diy
+    elsif income_level_1_to_65000?
+      if intake.triage_vita_income_ineligible_yes?
+        route_to_diy
+      else
+        route_to_gyr_diy_choice
       end
-    end
-
-    if intake.triage_filing_status_single? && intake.triage_income_level_12500_to_25000?
-      if intake.triage_vita_income_ineligible_no?
-        return route_to_gyr_diy_choice
-      elsif intake.triage_vita_income_ineligible_yes?
-        return route_to_diy
-      end
-    end
-
-    if intake.triage_income_level_25000_to_40000? || intake.triage_income_level_40000_to_65000?
-      return route_to_diy
-    end
-
-    if intake.triage_income_level_65000_to_73000?
-      return route_to_diy
-    end
-
-    if intake.triage_income_level_over_73000?
-      return route_to_does_not_qualify
+    elsif intake.triage_income_level_65000_to_73000?
+      route_to_diy
+    elsif intake.triage_income_level_over_73000?
+      route_to_does_not_qualify
     end
   end
 
   private
 
-  def inside_ctc_income_limit?
-    intake.triage_income_level_1_to_12500? ||
-      (intake.triage_filing_status_jointly? && intake.triage_income_level_12500_to_25000?)
+  def income_level_1_to_65000?
+    intake.triage_income_level_1_to_12500? || intake.triage_income_level_12500_to_25000? || intake.triage_income_level_25000_to_40000? || intake.triage_income_level_40000_to_65000?
   end
 
   def route_to_does_not_qualify

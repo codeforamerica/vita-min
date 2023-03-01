@@ -1,11 +1,12 @@
 triage_income_level,triage_filing_status,triage_filing_frequency,triage_vita_income_ineligible,service,notes
-zero,single or jointly,Any,Any,GYR,taking out DIY for easier engineering lift
-1_to_12500,single or jointly,Any,Yes,DIY ,taking out CTC so one fewer page
-,,Any,No,GYR,taking out DIY for easier engineering lift
-12500_to_25000,single,Any,Yes,DIY,
+zero,single or jointly,Any,Any,GYR,we'll allow these people to connect with VITA partners through GYR for help with other potential state credits
+1_to_12500,single or jointly,Any,Yes,DIY,
 ,,Any,No,GYR-DIY,
-12500_to_25000,jointly,Any,Yes,DIY ,taking out CTC so one fewer page
-,,Any,No,GYR,taking out DIY for easier engineering lift
-25000_to_40000 or 40000_to_65000 ,single or jointly,Any,Any ,DIY," (not offering GYR, though they could select it via active choice)"
-65000_to_73000,single or jointly,Any,Any ,DIY ,
+12500_to_25000,single or jointly,Any,Yes,DIY,
+,,Any,No,GYR-DIY,
+12500_to_25000,single or jointly,Any,Yes,DIY,
+,,Any,No,GYR-DIY,
+25000_to_40000 or 40000_to_65000,single or jointly,Any,Yes,DIY,
+25000_to_40000 or 40000_to_65000,single or jointly,Any,No,GYR-DIY,
+65000_to_73000,single or jointly,Any,Any,DIY,
 over_73000,single or jointly,Any,Any,Does not qualify,
