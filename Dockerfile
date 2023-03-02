@@ -62,6 +62,8 @@ RUN set -a \
  && . ./.aptible.env \
  && bundle exec rake assets:precompile
 
+RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
+
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]
