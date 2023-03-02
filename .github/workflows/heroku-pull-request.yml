@@ -85,6 +85,15 @@ jobs:
         if: github.event.action != 'closed'
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
+      - name: Disable Reline autocomplete
+        if: github.event.action != 'closed'
+        run: |
+          echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > .irbrc && \
+            git add .irbrc && \
+            git config user.name "GitHub Actions" && \
+            git config user.email "nobody@example.com" && \
+            git commit -m "Disable Reline autocomplete"
+
       - name: Push to Heroku
         if: github.event.action != 'closed'
         run: git push heroku ${{ github.head_ref }}:main --force
