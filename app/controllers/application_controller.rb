@@ -385,7 +385,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_intake_after_triage
     if Rails.env.production?
-      redirect_to Questions::OverviewController.to_path_helper
+      redirect_to Questions::PersonalInfoController.to_path_helper
     else
       redirect_to Questions::EnvironmentWarningController.to_path_helper
     end

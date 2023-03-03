@@ -74,8 +74,8 @@ class FlowsController < ApplicationController
       when :gyr
         gyr_flow = GyrQuestionNavigation::FLOW.dup
 
-        doc_overview_index = gyr_flow.index(Questions::OverviewDocumentsController)
-        gyr_flow.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
+        last_page_before_docs_index = gyr_flow.index(Questions::MailingAddressController)
+        gyr_flow.insert(last_page_before_docs_index + 1, *DocumentNavigation::FLOW)
 
         FlowParams.new(
           controller: controller,

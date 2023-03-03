@@ -96,7 +96,7 @@ RSpec.describe DocumentNavigation do
     context "when current controller is the first" do
       it "returns nil" do
         navigation = described_class.new(FirstController.new)
-        expect(navigation.prev).to eq Questions::OverviewDocumentsController
+        expect(navigation.prev).to eq Documents::IdGuidanceController
       end
     end
   end

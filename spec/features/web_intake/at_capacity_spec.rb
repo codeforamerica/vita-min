@@ -5,10 +5,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
     def intake_up_to_at_capacity_page
       # at first, sees at capacity page when resuming.
       # After updating routing method, does not see at capacity page.
-      visit overview_questions_path
-      expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-      click_on "Continue"
-
+      visit personal_info_questions_path
       expect(page).to have_selector("h1", text: "First, let's get some basic information.")
       fill_in I18n.t("views.questions.personal_info.preferred_name"), with: "Gary"
       fill_in I18n.t("views.questions.personal_info.phone_number"), with: "555-555-1212"

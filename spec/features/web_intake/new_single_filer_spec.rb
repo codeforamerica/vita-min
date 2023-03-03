@@ -23,10 +23,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
 
-    # Overview
-    expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-    click_on "Continue"
-
     select "Social Security Number (SSN)", from: "Identification Type"
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
@@ -249,12 +245,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "City", with: "Anytown"
     select "California", from: "State"
     fill_in "ZIP code", with: "94612"
-    click_on "Continue"
-
-    # Overview: Documents
-    expect(intake.reload.current_step).to end_with("/questions/overview-documents")
-
-    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     click_on "Continue"
 
     # IRS guidance

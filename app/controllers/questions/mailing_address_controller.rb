@@ -5,5 +5,10 @@ module Questions
     def tracking_data
       {}
     end
+
+    def next_path
+      next_step = DocumentNavigation.first_for_intake(current_intake)
+      document_path(next_step.to_param)
+    end
   end
 end

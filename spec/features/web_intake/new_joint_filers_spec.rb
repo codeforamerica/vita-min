@@ -30,12 +30,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue to example"
 
     screenshot_after do
-      # Overview
-      expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-    end
-    click_on "Continue"
-
-    screenshot_after do
       # SSN or ITIN
       select "Social Security Number (SSN)", from: "Identification Type"
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
@@ -461,12 +455,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       fill_in "City", with: "Anytown"
       select "California", from: "State"
       fill_in "ZIP code", with: "94612"
-    end
-    click_on "Continue"
-
-    screenshot_after do
-      # Overview: Documents
-      expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     end
     click_on "Continue"
 

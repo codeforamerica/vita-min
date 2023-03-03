@@ -14,9 +14,6 @@ class GyrQuestionNavigation
       ## Main flow
       Questions::EnvironmentWarningController,
 
-      # Overview
-      Questions::OverviewController,
-
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
       Questions::SsnItinController,
@@ -150,9 +147,7 @@ class GyrQuestionNavigation
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
       Questions::MailingAddressController,
-
-      # Documents --> See DocumentNavigation
-      Questions::OverviewDocumentsController,
+      # After this links to document flow --> See DocumentNavigation
 
       Questions::FinalInfoController,
       Questions::SuccessfullySubmittedController,
