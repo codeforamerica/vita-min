@@ -608,53 +608,75 @@ describe Client do
 
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
-    let!(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
-    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
-    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
+    let(:product_year) { 2023 }
+    let!(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_accessible_ssn_match_old_product_year) { create :client, intake: create(:ctc_intake, product_year: product_year - 1, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
+    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let!(:gyr_client_accessible_ssn_match_online) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
-    let!(:gyr_client_inaccessible_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_online) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_old_product_year) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year - 1, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_inaccessible_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
 
     context "GYR client" do
-      let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
+      let!(:client) { create :client, filterable_product_year: product_year, intake: create(:intake, primary_ssn: primary_ssn, product_year: product_year) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
-        it "returns accessible CTC clients with the same ssn" do
-          expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
-          expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
+
+        context "with a product year of 2023" do
+          it "returns no CTC clients because the current product year for CTC is still 2022" do
+            expect(client.clients_with_dupe_ssn(display_type)).to be_empty
+          end
+        end
+
+        context "with a product year of 2022" do
+          let(:product_year) { 2022 }
+          it "returns accessible CTC clients with the same ssn for the current product year" do
+            expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
+            expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match_old_product_year, gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_old_product_year)
+          end
         end
       end
 
       context "looking for GYR matches" do
         let(:display_type) { Intake::GyrIntake }
-        it "returns accessible GYR clients with the same ssn" do
+        it "returns accessible GYR clients with the same ssn for the current product year" do
           expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
-          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_old_product_year, ctc_client_accessible_ssn_match, ctc_client_accessible_ssn_match_old_product_year)
         end
       end
     end
 
     context "CTC client" do
-      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn) }
+      let!(:client) { create :client, filterable_product_year: product_year, intake: create(:ctc_intake, primary_ssn: primary_ssn, product_year: product_year) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
 
-        it "returns accessible CTC clients with the same ssn" do
-          expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
-          expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
+        context "with a product year of 2023" do
+          it "returns no CTC clients because the current product year for CTC is still 2022" do
+            expect(client.clients_with_dupe_ssn(display_type)).to be_empty
+          end
+        end
+
+        context "with a product year of 2022" do
+          let(:product_year) { 2022 }
+          it "returns accessible CTC clients with the same ssn for the current product year" do
+            expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
+            expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match_old_product_year, gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_old_product_year)
+          end
         end
       end
 
       context "looking for GYR matches" do
         let(:display_type) { Intake::GyrIntake }
 
-        it "returns accessible GYR clients with the same ssn" do
+        it "returns accessible GYR clients with the same ssn for the current product year" do
           expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
-          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_old_product_year, ctc_client_accessible_ssn_match, ctc_client_accessible_ssn_match_old_product_year)
         end
       end
     end
