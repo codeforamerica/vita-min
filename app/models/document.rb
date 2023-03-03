@@ -86,7 +86,7 @@ class Document < ApplicationRecord
   end
 
   def document_type_label
-    document_type_class.label || document_type
+    document_type_class&.label || document_type
   end
 
   def set_display_name

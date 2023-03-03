@@ -32,7 +32,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         let!(:second_document) {
           create :document,
                  display_name: "another_file.pdf",
-                 document_type: "Employment",
+                 document_type: "F13614C / F15080 2020",
                  created_at: 3.hours.ago,
                  client: client
         }
@@ -65,7 +65,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           document_link = first_doc_element.at_css("a:contains(\"some_file.jpg\")")
           expect(document_link["href"]).to eq hub_client_document_path(client_id: client.id, id: first_document.id)
           second_doc_element = html.at_css("#document-#{second_document.id}")
-          expect(second_doc_element).to have_text("Employment")
+          expect(second_doc_element).to have_text("F13614C / F15080 2020")
           expect(second_doc_element).to have_text("another_file.pdf")
           third_doc_element = html.at_css("#document-#{third_document.id}")
           expect(third_doc_element).to have_text("Email attachment")
