@@ -9,11 +9,27 @@ require "singleton"
 class MixpanelService
   include Singleton
 
+  class Consumer
+    include Concurrent::Async
+    def initialize()
+      super()
+      @consumer = Mixpanel::BufferedConsumer.new()
+    end
+
+    def send(type:, message:)
+      @consumer.send!(type, message)
+    end
+  end
+
   def initialize
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @tracker = Mixpanel::Tracker.new(mixpanel_key)
+    @consumer = Consumer.new
+    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+      @consumer.async.send(type, message)
+    end
+
     # silence local SSL errors
     if Rails.env.development?
       Mixpanel.config_http do |http|
