@@ -107,8 +107,7 @@ class ClientSorter
   # see if there are any overlapping keys in the provided params and search/sort set
   def has_search_and_sort_params?
     overlapping_keys = (@params.keys.map(&:to_sym) & search_and_sort_params)
-    hash_params = @params.try(:to_unsafe_h) || @params
-    overlapping_keys.any? && hash_params.slice(*overlapping_keys).any? { |_, v| v.present? }
+    overlapping_keys.any?
   end
 
   def filtering_only_by?(filter_values)
