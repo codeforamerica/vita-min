@@ -61,6 +61,7 @@
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:demographic_english_conversation, "8. #{t(".fields.q8_speak_and_understand_english")}", [
+              ["", :unfilled],
               [t("general.very_well"), :very_well],
               [t("general.well"), :well],
               [t("general.not_well"), :not_well],
@@ -69,6 +70,7 @@
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:demographic_english_reading, "9. #{t(".fields.q9_read_english")}", [
+              ["", :unfilled],
               [t("general.very_well"), :very_well],
               [t("general.well"), :well],
               [t("general.not_well"), :not_well],
