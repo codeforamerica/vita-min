@@ -110,7 +110,11 @@ class Client < ApplicationRecord
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, :documents, tax_returns: [:assigned_user]) }
-  scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
+  scope :sla_tracked, -> do
+    distinct.joins(:tax_returns, :intake)
+            .where(intake: { product_year: Rails.configuration.product_year })
+            .where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA })
+  end
   scope :has_active_tax_returns, -> do
     includes(:intake, tax_returns: :tax_return_transitions)
       .where(
