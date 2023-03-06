@@ -316,7 +316,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q6_letter_from_irs")
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q7_register_to_vote")
 
-      select "Very well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q8_speak_and_understand_english")
+      # Deliberately don't fill in the conversational language question
       select "Well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q9_read_english")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q10_household_disability")
@@ -350,7 +350,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_disaster_loss_where).to eq "Paradise"
       expect(intake.received_irs_letter).to eq "yes"
       expect(intake.register_to_vote).to eq "no"
-      expect(intake.demographic_english_conversation).to eq "very_well"
+      expect(intake.demographic_english_conversation).to eq "unfilled"
       expect(intake.demographic_english_reading).to eq "well"
       expect(intake.demographic_disability).to eq "no"
       expect(intake.demographic_veteran).to eq "yes"
