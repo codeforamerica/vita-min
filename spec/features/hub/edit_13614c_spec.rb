@@ -355,6 +355,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.demographic_disability).to eq "no"
       expect(intake.demographic_veteran).to eq "yes"
       expect(intake.demographic_primary_asian).to be_truthy
+      expect(intake.demographic_primary_black_african_american).to be_falsey
       expect(intake.demographic_primary_white).to be_truthy
       expect(intake.demographic_spouse_black_african_american).to be_truthy
       expect(intake.demographic_primary_ethnicity).to eq "not_hispanic_latino"
