@@ -9,30 +9,13 @@ require "singleton"
 class MixpanelService
   include Singleton
 
-  class Consumer
-    include Concurrent::Async
-    def initialize
-      super
-      @consumer = Mixpanel::BufferedConsumer.new()
-    end
-
-    ##
-    # Sends the event using the underlying consumer.
-    # @param [String] type: The event type.
-    # @param [Hash] message: The event's payload.
-    ##
-    def send(type:, message:)
-      @consumer.send!(type, message)
-    end
-  end
-
   def initialize
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @consumer = Consumer.new
+    @consumer = Mixpanel::BufferedConsumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      @consumer.async.send(type: type, message: message)
+      make_future(type, message)
     end
 
     # silence local SSL errors
@@ -383,6 +366,15 @@ class MixpanelService
 
       year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
+    end
+
+    def make_future(event_name, event_message)
+      puts "tracker block: #{event_name} #{event_message}"
+      Concurrent::Future.execute do
+        @consumer.send!(event_name, event_message)
+      end
+    rescue StandardError => err
+      Rails.logger.error "Error tracking analytics event #{err}"
     end
   end
 end
