@@ -46,6 +46,17 @@ describe ExperimentService do
             ExperimentService.find_or_assign_treatment(key: experiment.key, record: intake, vita_partner_id: participating_vita_partner.id)
           }.to change(ExperimentParticipant, :count).by 1
         end
+
+        context "the vita partner is a site and its parent organization is participating" do
+          let(:site) { create :site, parent_organization: participating_vita_partner }
+          let(:intake) { create :intake, vita_partner: site }
+
+          it "assigns a treatment" do
+            expect {
+              ExperimentService.find_or_assign_treatment(key: experiment.key, record: intake, vita_partner_id: site.id)
+            }.to change(ExperimentParticipant, :count).by 1
+          end
+        end
       end
 
       context "the vita partner is not participating in the experiment" do
