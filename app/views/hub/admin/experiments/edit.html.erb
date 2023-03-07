@@ -24,7 +24,10 @@
             <span class="form-class"><%= f.object.name %></span>
           </div>
 
-          <%= f.hidden_field(:vita_partners, class: "multi-select-vita-partner") %>
+          <div class="field-display">
+            <label class="form-question">participating VITA partners:</label>
+            <%= f.hidden_field(:vita_partners, class: "multi-select-vita-partner") %>
+          </div>
 
           <%= f.cfa_select(:enabled, "enabled", [true, false]) %>
 
