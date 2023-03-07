@@ -31,7 +31,6 @@
 #  last_sign_in_ip                                      :inet
 #  locked_at                                            :datetime
 #  login_requested_at                                   :datetime
-#  login_token                                          :string
 #  message_tracker                                      :jsonb
 #  needs_to_flush_filterable_properties_set_at          :datetime
 #  previous_sessions_active_seconds                     :integer
@@ -512,24 +511,6 @@ describe Client do
           expect(described_class.by_contact_info(email_address: nil, phone_number: phone_number)).to include(client)
         end
       end
-    end
-  end
-
-  describe "#generate_login_link" do
-    let(:fake_time) { DateTime.new(2021, 1, 1) }
-    let(:client) { build(:client) }
-
-    before do
-      allow(Devise.token_generator).to receive(:generate).and_return(['raw_token', 'encrypted_token'])
-      allow(DateTime).to receive(:now).and_return(fake_time)
-    end
-
-    it "generates a new login URL" do
-      login_url = client.generate_login_link
-      expect(login_url).to eq("http://test.host/en/portal/login/raw_token")
-      expect(Devise.token_generator).to have_received(:generate).with(Client, :login_token)
-      expect(client.reload.login_token).to eq('encrypted_token')
-      expect(client.reload.login_requested_at).to eq(fake_time)
     end
   end
 
