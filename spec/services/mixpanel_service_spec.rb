@@ -102,13 +102,16 @@ describe MixpanelService do
           end
         }
 
-        if false then
-        it "sends them in a separate thread" do
+        before do
           MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
-          MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
-          expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
-          expect(fake_consumer).to have_received(:send!)
         end
+
+        if false then
+          it "sends them in a separate thread" do
+            MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+            expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
+            expect(fake_consumer).to have_received(:send!)
+          end
         end
       end
 
