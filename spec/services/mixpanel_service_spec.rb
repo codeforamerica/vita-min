@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe MixpanelService do
   let(:fake_tracker) { double('mixpanel tracker') }
+  let(:fake_consumer) { double('mixpanel consumer') }
 
   before do
     allow(fake_tracker).to receive(:track)
@@ -95,6 +96,33 @@ describe MixpanelService do
     end
 
     describe "#send_event" do
+      context "with async support" do
+        let(:fake_consumer) { double('mixpanel consumer') }
+        let(:fake_tracker) {
+          Mixpanel::Tracker.new("FAKE_KEY") do |type, message|
+            MixpanelService.instance.instance_variable_get(:@consumer).async.send(type, message)
+          end
+        }
+
+        before do
+          MixpanelService.instance.instance_variable_set(:@consumer, fake_consumer)
+          MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
+
+          allow(fake_consumer).to receive(:await)
+        end
+
+        after do
+          MixpanelService.instance.remove_instance_variable(:@tracker)
+          MixpanelService.instance.remove_instance_variable(:@consumer)
+        end
+
+        it "sends them async" do
+          MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+
+          expect(fake_consumer).to have_received(:send!).with(event_name, {})
+        end
+      end
+
       it 'tracks an event by name and id' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 

@@ -12,10 +12,15 @@ class MixpanelService
   class Consumer
     include Concurrent::Async
     def initialize
-      super()
+      super
       @consumer = Mixpanel::BufferedConsumer.new()
     end
 
+    ##
+    # Sends the event using the underlying consumer.
+    # @param [String] type: The event type.
+    # @param [Hash] message: The event's payload.
+    ##
     def send(type:, message:)
       @consumer.send!(type, message)
     end
@@ -27,7 +32,7 @@ class MixpanelService
 
     @consumer = Consumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      @consumer.async.send!(type, message)
+      @consumer.async.send(type: type, message: message)
     end
 
     # silence local SSL errors
