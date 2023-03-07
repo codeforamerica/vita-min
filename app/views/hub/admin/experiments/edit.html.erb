@@ -24,6 +24,7 @@
             <span class="form-class"><%= @experiment.name %></span>
           </div>
 
+          <%= f.text_field(:vita_partners, class: "multi-select-vita-partner") %>
 
           <%= f.cfa_select(:enabled, "enabled", [true, false]) %>
 
@@ -32,5 +33,11 @@
         <% end %>
       </div>
     </div>
+
+    <% content_for :script do %>
+      <script>
+          window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
+      </script>
+    <% end %>
   </div>
 <% end %>

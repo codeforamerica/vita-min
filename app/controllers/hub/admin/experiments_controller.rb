@@ -3,6 +3,7 @@ module Hub
     class ExperimentsController < ApplicationController
       include AccessControllable
       before_action :require_sign_in
+      before_action :load_vita_partners, only: [:edit]
       load_and_authorize_resource
       layout "hub"
 
@@ -14,7 +15,8 @@ module Hub
       def edit; end
 
       def update
-        if @experiment.update(experiment_params)
+        vita_partner_ids = JSON.parse(params[:experiment][:vita_partners]).pluck("id")
+        if @experiment.update(experiment_params.merge(vita_partner_ids: vita_partner_ids))
           flash[:notice] = I18n.t("general.changes_saved")
           redirect_to hub_admin_experiments_path
         else

@@ -35,6 +35,8 @@ class VitaPartner < ApplicationRecord
   has_many :intakes
   has_many :source_parameters
   has_many :state_routing_fractions
+  has_many :experiment_vita_partners
+  has_many :experiments, through: :experiment_vita_partners
 
   belongs_to :coalition, optional: true
   belongs_to :parent_organization, class_name: "Organization", optional: true
