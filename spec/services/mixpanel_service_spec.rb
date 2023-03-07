@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe MixpanelService do
   let(:fake_tracker) { double('mixpanel tracker') }
+
   before do
     allow(fake_tracker).to receive(:track)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
