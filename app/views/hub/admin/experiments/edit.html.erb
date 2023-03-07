@@ -4,27 +4,27 @@
   <div class="slab slab--padded">
     <div class="grid">
       <div class="grid--item width-one-half">
-        <%= form_with model: [:hub, :admin, @experiment], method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+        <%= form_with model: @experiment_form, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
           <h1 class="form-card__title">
             <%= @title %>
           </h1>
 
           <div class="field-display">
             <span class="form-question">experiment id:</span>
-            <span class="form-class"><%= @experiment.id %></span>
+            <span class="form-class"><%= f.object.id %></span>
           </div>
 
           <div class="field-display">
             <span class="form-question">experiment key:</span>
-            <span class="form-class"><%= @experiment.key %></span>
+            <span class="form-class"><%= f.object.key %></span>
           </div>
 
           <div class="field-display">
             <span class="form-question">experiment name:</span>
-            <span class="form-class"><%= @experiment.name %></span>
+            <span class="form-class"><%= f.object.name %></span>
           </div>
 
-          <%= f.text_field(:vita_partners, class: "multi-select-vita-partner") %>
+          <%= f.hidden_field(:vita_partners, class: "multi-select-vita-partner") %>
 
           <%= f.cfa_select(:enabled, "enabled", [true, false]) %>
 

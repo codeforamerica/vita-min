@@ -33,5 +33,30 @@ describe ExperimentService do
       expect(treatment_counts['treatment_x'] / @treatments.length.to_f).to be_within(0.1).of(0.25)
       expect(treatment_counts['treatment_y'] / @treatments.length.to_f).to be_within(0.1).of(0.75)
     end
+
+    context "a vita partner id is passed in" do
+      let(:participating_vita_partner) { create :organization, experiments: [experiment] }
+      let(:non_participating_vita_partner) { create :organization, experiments: [] }
+
+      context "the vita partner is participating in the experiment" do
+        let(:intake) { create :intake, vita_partner: participating_vita_partner }
+
+        it "assigns a treatment" do
+          expect {
+            ExperimentService.find_or_assign_treatment(key: experiment.key, record: intake, vita_partner_id: participating_vita_partner.id)
+          }.to change(ExperimentParticipant, :count).by 1
+        end
+      end
+
+      context "the vita partner is not participating in the experiment" do
+        let(:intake) { create :intake, vita_partner: non_participating_vita_partner }
+
+        it "does not assign a treatment, returns nil" do
+          expect {
+            ExperimentService.find_or_assign_treatment(key: experiment.key, record: intake, vita_partner_id: non_participating_vita_partner.id)
+          }.not_to change(ExperimentParticipant, :count)
+        end
+      end
+    end
   end
 end
