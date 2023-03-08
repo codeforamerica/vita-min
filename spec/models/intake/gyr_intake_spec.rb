@@ -496,23 +496,30 @@ describe Intake::GyrIntake do
     end
   end
 
-  describe "#previous_year_intakes" do
+  describe "#matching_previous_year_intakes" do
     let(:ssn) { "123456789" }
     let(:birth_date) { Date.parse("1989-08-22") }
     let(:intake) { create :intake, primary_tin_type: "ssn", primary_ssn: :ssn, primary_birth_date: birth_date }
-    let!(:intake_2021_matching) { create :archived_2021_gyr_intake, primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, intake: nil, tax_returns: [create(:gyr_tax_return, :file_efiled)]) }
+    let!(:intake_2021_all_matching) { create :archived_2021_gyr_intake, primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, intake: nil, tax_returns: [create(:gyr_tax_return, :file_efiled)]) }
     let!(:intake_2022_all_matching) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
+    let!(:intake_2021_non_matching_dob) { create :archived_2021_gyr_intake, primary_ssn: :ssn, primary_birth_date: Date.parse("1994-3-12"), client: create(:client, intake: nil, tax_returns: [create(:gyr_tax_return, :file_efiled)]) }
     let!(:intake_2022_non_matching_dob) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: Date.parse("1996-10-12"), client: create(:client, tax_returns: [create(:gyr_tax_return, :review_signature_requested)]) }
     let!(:intake_2022_non_matching_ssn) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :review_reviewing)]) }
-    let!(:intake_2022_non_tax_return_state) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :file_mailed)]) }
 
-    # when ssn vs itin
-    # with matching ssn, DOB and tax-return current state
     context "when a ssn applicant" do
       it "returns intakes from previous product years with matching SSN, DOB and with a qualifying tax return current state" do
-        expect(intake.previous_year_intakes.pluck(:id)).to match_array [intake_2022_all_matching.id, intake_2021_matching.id] #intake_2021_matching,
-        expect(intake.previous_year_intakes.pluck(:id)).not_to include [intake_2022_non_matching_dob.id, intake_2022_non_matching_ssn.id, intake_2022_non_tax_return_state.id]
+        expect(intake.matching_previous_year_intakes.pluck(:id)).to match_array [intake_2022_all_matching.id, intake_2021_all_matching.id]
       end
+    end
+  end
+
+  describe ".returning_matching_previous_year_intakes" do
+    let!(:intake_current_year) { create :intake, product_year: Rails.configuration.product_year }
+    let!(:intake_2022_bad_tax_return_state) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :file_mailed)]) }
+    let!(:intake_2022) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
+
+    it "returns intakes from the previous product years with INCLUDED_IN_PREVIOUS_YEAR_COMPLETED_INTAKES tax return states" do
+      expect(described_class.previous_year_completed_intakes).to match_array  [intake_2022]
     end
   end
 end
