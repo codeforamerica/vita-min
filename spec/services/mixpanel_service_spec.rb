@@ -115,6 +115,7 @@ describe MixpanelService do
 
       it 'tracks an event by name and id' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
       end
 
@@ -150,7 +151,8 @@ describe MixpanelService do
           path_exclusions: ['remove-me', 'immaterial']
         )
 
-        expect(fake_tracker).to have_received(:track).with(distinct_id, 
+        expect(fake_tracker).to have_received(:track).with(
+          distinct_id,
           event_name,
           hash_including(
             path: "/***/resource",
