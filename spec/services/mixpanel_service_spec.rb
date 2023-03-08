@@ -809,11 +809,11 @@ end
 # this section tests controller-specific features of mixpanel_service,
 # including the removal of identifying information in reports sent to mixpanel
 describe ApplicationController, type: :controller do
-  let(:fake_consumer) { double('mixpanel tracker') }
+  let(:fake_tracker) { double('mixpanel tracker') }
 
   before do
-    allow(fake_consumer).to receive(:track)
-    MixpanelService.instance.instance_variable_set(:@tracker, fake_consumer)
+    allow(fake_tracker).to receive(:track)
+    MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
   end
 
   after do
@@ -846,7 +846,7 @@ describe ApplicationController, type: :controller do
     it 'includes controller (source) information, if present' do
       get :index
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347234',
         'index_test_event',
         hash_including(
@@ -864,7 +864,7 @@ describe ApplicationController, type: :controller do
       params = { intake_id: 9999998, secretly_also_intake_id: 9999998 }
       get :req_test, params: params
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
@@ -880,7 +880,7 @@ describe ApplicationController, type: :controller do
       params = { id: 9999998, secretly_also_id: 9999998 }
       get :req_test, params: params
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
@@ -896,7 +896,7 @@ describe ApplicationController, type: :controller do
       params = { token: 9999998, secretly_also_token: 9999998 }
       get :req_test, params: params
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
@@ -912,7 +912,7 @@ describe ApplicationController, type: :controller do
       params = { ticket_id: 9999998, secretly_also_ticket_id: 9999998 }
       get :req_test, params: params
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
@@ -928,7 +928,7 @@ describe ApplicationController, type: :controller do
       routes.draw { get "inst_test/:intake_id/rest" => "anonymous#inst_test" }
       get :inst_test, params: { intake_id: intake.id }
 
-      expect(fake_tracker).to have_received(:track).with(distinct_id, 
+      expect(fake_tracker).to have_received(:track).with(
         '72347236',
         'inst_test_event',
         hash_including(
@@ -949,7 +949,7 @@ describe ApplicationController, type: :controller do
 
           get :index
 
-          expect(fake_consumer).not_to have_received(:track)
+          expect(fake_tracker).not_to have_received(:track)
         end
 
         it "drops events coming from non-public AWS domains" do
@@ -957,17 +957,17 @@ describe ApplicationController, type: :controller do
 
           get :index
 
-          expect(fake_consumer).not_to have_received(:track)
+          expect(fake_tracker).not_to have_received(:track)
         end
 
         it "drops events coming from status checks" do
           get :index, params: { source: "hund" }
 
-          expect(fake_consumer).not_to have_received(:track)
+          expect(fake_tracker).not_to have_received(:track)
 
           get :index, params: { source: "hund.io" }
 
-          expect(fake_consumer).not_to have_received(:track)
+          expect(fake_tracker).not_to have_received(:track)
         end
       end
 
@@ -975,7 +975,7 @@ describe ApplicationController, type: :controller do
         it "sends an event" do
           get :index
 
-          expect(fake_consumer).to have_received(:send!)
+          expect(fake_tracker).to have_received(:track)
         end
       end
     end
