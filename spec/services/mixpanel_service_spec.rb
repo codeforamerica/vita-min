@@ -96,22 +96,20 @@ describe MixpanelService do
 
     describe "#send_event" do
       context "asynchronously" do
-        let(:fake_tracker) {
+        let(:stubbed_tracker) {
           Mixpanel::Tracker.new("a_non_functional_mixpanel_key") do |type, message|
-            fake_consumer.send(type, message)
+            fake_consumer.send!(type, message)
           end
         }
 
         before do
-          MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
+          MixpanelService.instance.instance_variable_set(:@tracker, stubbed_tracker)
         end
 
-        if false then
-          it "sends them in a separate thread" do
-            MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
-            expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
-            expect(fake_consumer).to have_received(:send!)
-          end
+        it "sends them in a separate thread" do
+          puts MixpanelService.instance.instance_variable_get(:@tracker)
+          MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+          expect(fake_consumer).to have_received(:send!).with(:event, any_args)
         end
       end
 

@@ -15,7 +15,11 @@ class MixpanelService
 
     @consumer = Mixpanel::BufferedConsumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      make_future(type, message)
+      Concurrent::Future.execute do
+        @consumer.send!(type, message)
+      rescue StandardError => err
+        Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
+      end
     end
 
     # silence local SSL errors
@@ -359,6 +363,7 @@ class MixpanelService
       )
     end
 
+
     private
 
     def intake_age(intake, date_of_birth)
@@ -368,13 +373,5 @@ class MixpanelService
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
     end
 
-    def make_future(event_name, event_message)
-      puts "tracker block: #{event_name} #{event_message}"
-      Concurrent::Future.execute do
-        @consumer.send!(event_name, event_message)
-      end
-    rescue StandardError => err
-      Rails.logger.error "Error tracking analytics event #{err}"
-    end
   end
 end
