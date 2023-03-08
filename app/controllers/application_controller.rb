@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   def set_visitor_id
     if visitor_record&.visitor_id.present?
       cookies.permanent[:visitor_id] = { value: visitor_record.visitor_id, httponly: true }
-    elsif cookies[:visitor_id].present?
+    elsif !cookies[:visitor_id].nil? && /\A[0-9a-f]{52}\z/n.match(cookies[:visitor_id].force_encoding('BINARY'))
       visitor_id = cookies[:visitor_id]
     else
       visitor_id = SecureRandom.hex(26)

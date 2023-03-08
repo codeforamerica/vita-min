@@ -40,29 +40,29 @@ RSpec.describe ApplicationController do
 
       context "on cookie" do
         before do
-          cookies[:visitor_id] = "123"
+          cookies[:visitor_id] = ("f" * 52)
         end
 
         it "retains the existing visitor id" do
           get :index
 
-          expect(cookies[:visitor_id]).to eq "123"
+          expect(cookies[:visitor_id]).to eq ("f" * 52)
         end
       end
 
       context "on current_intake AND cookie" do
-        let(:intake) { create :intake, visitor_id: "123" }
+        let(:intake) { create :intake, visitor_id: ("a" * 52) }
 
         before do
           allow(subject).to receive(:current_intake).and_return(intake)
-          cookies[:visitor_id] = "456"
+          cookies[:visitor_id] = ("f" * 52)
         end
 
         it "gets the visitor id from the intake and sets it in the cookie" do
           get :index
 
-          expect(intake.visitor_id).to eq "123"
-          expect(cookies[:visitor_id]).to eq "123"
+          expect(intake.visitor_id).to eq ("a" * 52)
+          expect(cookies[:visitor_id]).to eq ("a" * 52)
         end
       end
     end
@@ -87,17 +87,32 @@ RSpec.describe ApplicationController do
         end
       end
     end
+
+    context "invalid visitor id in cookie" do
+      before do
+        cookies[:visitor_id] = ("f" * 51) + "\xC3"
+        allow(SecureRandom).to receive(:hex).with(26).and_call_original
+      end
+
+      it "generates and sets a valid visitor id cookie" do
+        get :index
+        expect(SecureRandom).to have_received(:hex).with(26)
+        expect(cookies[:visitor_id]).to be_a String
+        expect(cookies[:visitor_id].length).to eq(52)
+        expect(cookies[:visitor_id].last).not_to eq("\xC3")
+      end
+    end
   end
 
   describe "#visitor_id" do
     before do
-      cookies[:visitor_id] = "2"
+      cookies[:visitor_id] = "2" * 52
     end
 
     it "returns the id from the cookies if no current intake" do
       get :index
 
-      expect(subject.visitor_id).to eq "2"
+      expect(subject.visitor_id).to eq "2" * 52
     end
 
     context "with a current intake that has a visitor id" do
@@ -459,7 +474,7 @@ RSpec.describe ApplicationController do
 
     before do
       allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-      cookies[:visitor_id] = "123"
+      cookies[:visitor_id] = "a" * 52
       session[:source] = "vdss"
       session[:utm_state] = "CA"
       request.headers["HTTP_USER_AGENT"] = user_agent_string
@@ -505,7 +520,7 @@ RSpec.describe ApplicationController do
       }
 
       expect(mixpanel_spy).to have_received(:run).with(
-        distinct_id: "123",
+        distinct_id: "a" * 52,
         event_name: "beep",
         data: anything
       )
@@ -544,7 +559,7 @@ RSpec.describe ApplicationController do
           user_role: "TeamMemberRole"
         }
         expect(mixpanel_spy).to have_received(:run).with(
-          distinct_id: "123",
+          distinct_id: "a" * 52,
           event_name: "beep",
           data: anything
         )
@@ -564,7 +579,7 @@ RSpec.describe ApplicationController do
 
     context "with a current intake" do
       let(:primary_birth_year) { 1993 }
-      let(:spouse_birth_year ) { 1992 }
+      let(:spouse_birth_year) { 1992 }
       let(:intake) do
         build(
           :intake,
@@ -606,7 +621,7 @@ RSpec.describe ApplicationController do
         get :index, params: { locale: 'es' }
 
         expect(mixpanel_spy).to have_received(:run).with(
-          distinct_id: "123",
+          distinct_id: "a" * 52,
           event_name: "page_view",
           data: hash_including(locale: "es")
         )
@@ -1045,11 +1060,11 @@ RSpec.describe ApplicationController do
       end
 
       [
-          [true, true],
-          [false, false],
+        [true, true],
+        [false, false],
       ].each do |set_cookie, expected|
         context "when the ctc_beta cookie is #{set_cookie ? "set" : "not set"}" do
-          before {  request.cookies[:ctc_beta] = true if set_cookie }
+          before { request.cookies[:ctc_beta] = true if set_cookie }
 
           it "returns #{expected}" do
             expect(subject.open_for_ctc_intake?).to eq expected
@@ -1105,11 +1120,11 @@ RSpec.describe ApplicationController do
       end
 
       [
-          [true, true],
-          [false, false],
+        [true, true],
+        [false, false],
       ].each do |set_cookie, expected|
         context "when the ctc_beta cookie is #{set_cookie ? "set" : "not set"}" do
-          before {  request.cookies[:ctc_beta] = true if set_cookie }
+          before { request.cookies[:ctc_beta] = true if set_cookie }
 
           it "returns #{expected}" do
             expect(subject.open_for_ctc_login?).to eq expected
