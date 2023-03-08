@@ -363,7 +363,6 @@ class MixpanelService
       )
     end
 
-
     private
 
     def intake_age(intake, date_of_birth)
@@ -372,6 +371,5 @@ class MixpanelService
       year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
     end
-
   end
 end
