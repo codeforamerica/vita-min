@@ -6,6 +6,9 @@ RSpec.describe PersonalInfoForm do
   let(:valid_params) do
     {
       preferred_name: "Greta",
+      birth_date_year: "1983",
+      birth_date_month: "3",
+      birth_date_day: "12",
       phone_number: "8286065544",
       phone_number_confirmation: "828-606-5544",
       zip_code: "94107",
