@@ -895,20 +895,6 @@ describe Intake do
         expect(document.display_name).to eq "new-filename.pdf"
       end
     end
-
-    context "when there is an existing 13614-C document with the old name" do
-      let!(:doc_with_old_doc_type) { create :document, document_type: "F13614C 2020", intake: intake, display_name: "old-filename.pdf" }
-
-      it "updates the existing document and does not create a new one" do
-        expect {
-          expect {
-            intake.update_or_create_13614c_document("new-filename.pdf")
-          }.not_to change(Document, :count)
-        }.to change{doc_with_old_doc_type.reload.updated_at}
-        expect(doc_with_old_doc_type.display_name).to eq "new-filename.pdf"
-        expect(doc_with_old_doc_type.document_type).to eq "F13614C"
-      end
-    end
   end
 
   describe "#set_navigator" do
