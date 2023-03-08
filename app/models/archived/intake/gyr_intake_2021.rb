@@ -338,6 +338,8 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
 
+  scope :returning_previous_year_intakes, -> { joins(:tax_returns).where(tax_returns: {current_state: TaxReturnStateMachine::RETURNING_PREVIOUS_YEAR})}
+
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client) # client completed intake

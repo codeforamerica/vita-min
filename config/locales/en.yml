@@ -4362,7 +4362,7 @@ en:
         info: We’re excited to help you. We need some basic information to get started.
         phone_number: Phone number
         phone_number_confirmation: Confirm phone number
-        preferred_name: What is your preferred first name?
+        preferred_name: Preferred first name
         title: First, let's get some basic information.
         zip_code: ZIP code
       phone_number:

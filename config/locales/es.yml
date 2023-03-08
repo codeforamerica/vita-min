@@ -4394,7 +4394,7 @@ es:
         info: Estamos emocionados de ayudarte. Necesitamos información básica para empezar.
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
-        preferred_name: "¿Cuál primer nombre prefieres usar?"
+        preferred_name: "Primer nombre preferido"
         title: Primero, obtengamos información básica.
         zip_code: Código postal
       phone_number:
