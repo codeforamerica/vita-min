@@ -353,8 +353,6 @@ GEM
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     nenv (0.3.0)
-    net-http (0.2.2)
-      uri
     net-imap (0.2.3)
       digest
       net-protocol
@@ -619,7 +617,6 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
-    uri (0.10.0)
     valid_email2 (4.0.3)
       activemodel (>= 3.2)
       mail (~> 2.5)
@@ -711,7 +708,6 @@ DEPENDENCIES
   mailgun-ruby
   memory_profiler
   mixpanel-ruby
-  net-http
   nokogiri (>= 1.10.8)
   parallel_tests
   pdf-forms (~> 1.3.0)
@@ -755,7 +751,6 @@ DEPENDENCIES
   turbo_tests
   twilio-ruby
   tzinfo-data
-  uri (= 0.10.0)
   valid_email2
   warning
   web-console (>= 3.3.0)
