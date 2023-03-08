@@ -107,7 +107,6 @@ describe MixpanelService do
         end
 
         it "sends them in a separate thread" do
-          puts MixpanelService.instance.instance_variable_get(:@tracker)
           MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
           expect(fake_consumer).to have_received(:send!).with(:event, any_args)
         end
