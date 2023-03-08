@@ -22,7 +22,7 @@ RSpec.describe Questions::PersonalInfoController do
       before do
         session[:source] = "source_from_session"
         session[:referrer] = "referrer_from_session"
-        cookies[:visitor_id] = "some_visitor_id"
+        cookies[:visitor_id] = "a" * 52
       end
 
       context "without an intake in the session" do
@@ -37,7 +37,7 @@ RSpec.describe Questions::PersonalInfoController do
           expect(intake.source).to eq "source_from_session"
           expect(intake.referrer).to eq "referrer_from_session"
           expect(intake.locale).to eq "en"
-          expect(intake.visitor_id).to eq "some_visitor_id"
+          expect(intake.visitor_id).to eq "a" * 52
           expect(intake.timezone).to eq "America/New_York"
           expect(intake.preferred_name).to eq "Shep"
           expect(intake.zip_code).to eq "80309"
@@ -112,4 +112,3 @@ RSpec.describe Questions::PersonalInfoController do
     end
   end
 end
-

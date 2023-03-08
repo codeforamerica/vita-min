@@ -5,7 +5,7 @@ describe Ctc::Questions::OverviewController do
     let(:params) { {} }
 
     before do
-      cookies[:visitor_id] = "visitor_id"
+      cookies[:visitor_id] = "a" * 52
       allow(MixpanelService).to receive(:send_event)
     end
 
@@ -14,7 +14,7 @@ describe Ctc::Questions::OverviewController do
 
       expect(MixpanelService).to have_received(:send_event).with(hash_including(
         event_name: "ctc_started_flow",
-        distinct_id: "visitor_id",
+        distinct_id: "a" * 52,
       ))
     end
   end
