@@ -499,17 +499,15 @@ describe Intake::GyrIntake do
   describe "#matching_previous_year_intakes" do
     let(:ssn) { "123456789" }
     let(:birth_date) { Date.parse("1989-08-22") }
-    let(:intake) { create :intake, primary_tin_type: "ssn", primary_ssn: :ssn, primary_birth_date: birth_date }
+    let(:intake) { create :intake, primary_ssn: :ssn, primary_birth_date: birth_date }
     let!(:intake_2021_all_matching) { create :archived_2021_gyr_intake, primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, intake: nil, tax_returns: [create(:gyr_tax_return, :file_efiled)]) }
     let!(:intake_2022_all_matching) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
     let!(:intake_2021_non_matching_dob) { create :archived_2021_gyr_intake, primary_ssn: :ssn, primary_birth_date: Date.parse("1994-3-12"), client: create(:client, intake: nil, tax_returns: [create(:gyr_tax_return, :file_efiled)]) }
     let!(:intake_2022_non_matching_dob) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: Date.parse("1996-10-12"), client: create(:client, tax_returns: [create(:gyr_tax_return, :review_signature_requested)]) }
     let!(:intake_2022_non_matching_ssn) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :review_reviewing)]) }
 
-    context "when a ssn applicant" do
-      it "returns intakes from previous product years with matching SSN, DOB and with a qualifying tax return current state" do
-        expect(intake.matching_previous_year_intakes.pluck(:id)).to match_array [intake_2022_all_matching.id, intake_2021_all_matching.id]
-      end
+    it "returns intakes from previous product years with matching SSN, DOB and with a qualifying tax return current state" do
+      expect(intake.matching_previous_year_intakes).to match_array [intake_2022_all_matching, intake_2021_all_matching]
     end
   end
 
