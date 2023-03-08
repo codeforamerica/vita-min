@@ -52,8 +52,7 @@ class Document < ApplicationRecord
   validate :unsigned_form_8879_file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
-  # TODO: remove "F13614C 2020" after migration of old names to new names (when no documents with "F13614C 2020" document type)
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020", "F13614C 2020"] }, allow_blank: true
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
 
   before_save :set_display_name
 
