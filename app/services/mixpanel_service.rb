@@ -13,7 +13,15 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @tracker = Mixpanel::Tracker.new(mixpanel_key)
+    @consumer = Mixpanel::Consumer.new
+    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+      Concurrent::Future.execute do
+        @consumer.send!(type, message)
+      rescue StandardError => err
+        Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
+      end
+    end
+
     # silence local SSL errors
     if Rails.env.development?
       Mixpanel.config_http do |http|

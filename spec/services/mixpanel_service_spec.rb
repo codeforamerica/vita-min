@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 describe MixpanelService do
+  let(:fake_consumer) { double('mixpanel buffered consumer') }
   let(:fake_tracker) { double('mixpanel tracker') }
+
   before do
+    allow(fake_consumer).to receive(:send!)
     allow(fake_tracker).to receive(:track)
+    MixpanelService.instance.instance_variable_set(:@consumer, fake_consumer)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
   end
 
   after do
+    MixpanelService.instance.remove_instance_variable(:@consumer)
     MixpanelService.instance.remove_instance_variable(:@tracker)
   end
 
@@ -28,10 +33,6 @@ describe MixpanelService do
         }
       end
       let(:expected_params) { ['abcde', 'test_event', { test: 'OK' }] }
-
-      before do
-        allow(fake_tracker).to receive(:track)
-      end
 
       it 'calls the internal tracker with expected parameters' do
         MixpanelService.instance.run(**sent_params)
@@ -94,6 +95,23 @@ describe MixpanelService do
     end
 
     describe "#send_event" do
+      context "asynchronously" do
+        let(:stubbed_tracker) {
+          Mixpanel::Tracker.new("a_non_functional_mixpanel_key") do |type, message|
+            fake_consumer.send!(type, message)
+          end
+        }
+
+        before do
+          MixpanelService.instance.instance_variable_set(:@tracker, stubbed_tracker)
+        end
+
+        it "sends them in a separate thread" do
+          MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+          expect(fake_consumer).to have_received(:send!).with(:event, any_args)
+        end
+      end
+
       it 'tracks an event by name and id' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 
