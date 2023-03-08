@@ -19,7 +19,7 @@ shared_context :first_page_of_ctc_intake_update_context do |form_name:, addition
 
   before do
     request.remote_ip = ip_address
-    cookies[:visitor_id] = "visitor-id"
+    cookies.encrypted[:visitor_id] = "visitor-id"
     session[:source] = "some-source"
     session[:referrer] = "https://www.goggles.com/get-tax-refund"
   end

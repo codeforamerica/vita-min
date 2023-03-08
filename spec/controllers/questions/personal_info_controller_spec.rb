@@ -22,7 +22,7 @@ RSpec.describe Questions::PersonalInfoController do
       before do
         session[:source] = "source_from_session"
         session[:referrer] = "referrer_from_session"
-        cookies[:visitor_id] = "some_visitor_id"
+        cookies.encrypted[:visitor_id] = "some_visitor_id"
       end
 
       context "without an intake in the session" do
@@ -112,4 +112,3 @@ RSpec.describe Questions::PersonalInfoController do
     end
   end
 end
-

@@ -5,7 +5,7 @@ describe Ctc::Questions::OverviewController do
     let(:params) { {} }
 
     before do
-      cookies[:visitor_id] = "visitor_id"
+      cookies.encrypted[:visitor_id] = "visitor_id"
       allow(MixpanelService).to receive(:send_event)
     end
 

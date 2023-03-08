@@ -33,7 +33,7 @@ module FirstPageOfCtcIntakeConcern
 
   def current_intake
     @intake ||= Intake::CtcIntake.new(
-      visitor_id: cookies[:visitor_id],
+      visitor_id: cookies.encrypted[:visitor_id],
       source: session[:source],
       referrer: session[:referrer]
     )
