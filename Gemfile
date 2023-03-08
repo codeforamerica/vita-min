@@ -28,7 +28,7 @@ gem 'sentry-ruby'
 gem 'pdf-forms', '~> 1.3.0'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-route53'
-gem 'device_detector'
+gem 'device_detector', '~> 1.0.7' # 1.1+ causes test failures, investigate someday
 gem 'mixpanel-ruby'
 gem 'devise'
 gem 'devise-i18n'
