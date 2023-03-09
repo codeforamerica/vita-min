@@ -18,8 +18,7 @@ class ClientLoginService
     phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
     intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-    # Client.by_raw_login_token supports login links generated from mid-Jan through early March 2021.
-    (Client.where(intake: intake_matches) + Client.by_raw_login_token(raw_token)).uniq
+    Client.where(intake: intake_matches).uniq
   end
 
   def can_login_by_email_verification?(email_address)

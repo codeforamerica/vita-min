@@ -12,12 +12,6 @@ gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 gem "activerecord-cte" # Can be removed when we move to Rails 7.1
 
-# Adding this removes some deprecation warnings, caused by double-loading of the net-protocol library
-# (see https://github.com/ruby/net-imap/issues/16)
-# we *might* be able to remove this after upgrading to Ruby 3
-gem 'net-http'
-gem 'uri', '0.10.0' # force us to get the default version from Ruby 2.7
-
 # Use ActiveStorage variant
 gem 'image_processing'
 
@@ -34,7 +28,7 @@ gem 'sentry-ruby'
 gem 'pdf-forms', '~> 1.3.0'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-route53'
-gem 'device_detector'
+gem 'device_detector', '~> 1.0.7' # 1.1+ causes test failures, investigate someday
 gem 'mixpanel-ruby'
 gem 'devise'
 gem 'devise-i18n'

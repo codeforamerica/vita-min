@@ -92,6 +92,15 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
       end
     end
 
+    context "with a matching intake phone number that has not yet consented to service" do
+      let!(:non_consenting_client) { create(:client, consented_to_service_at: nil, intake: (build :intake, phone_number: "+15005550006")) }
+
+      it "sends a response not monitored message" do
+        IncomingTextMessageService.process(incoming_message_params)
+        expect(SendOutgoingTextMessageWithoutClientJob).to have_been_enqueued
+      end
+    end
+
     context "without a matching client from the current years intake" do
       it "sends a response not monitored message" do
         IncomingTextMessageService.process(incoming_message_params)

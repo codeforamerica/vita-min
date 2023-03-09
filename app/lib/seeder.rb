@@ -478,6 +478,7 @@ class Seeder
     Fraud::Indicators::Timezone.create(name: "Mexico/Tijuana", activated_at: nil)
     Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
+    SearchIndexer.refresh_search_index
   end
 
   def find_or_create_intake_and_client(intake_type, attributes)

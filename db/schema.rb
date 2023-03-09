@@ -1348,6 +1348,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_194919) do
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
+  create_table "internal_emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "mail_args", default: {}
+    t.string "mail_class"
+    t.string "mail_method"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false

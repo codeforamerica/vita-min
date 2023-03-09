@@ -5,7 +5,10 @@ class IncomingTextMessageService
     phone_number = PhoneParser.normalize(params["From"])
     DatadogApi.increment("twilio.incoming_text_messages.received")
 
-    clients = Client.joins(:intake).where(intakes: { phone_number: phone_number }).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number }))
+    consenting_clients = Client.after_consent.joins(:intake)
+    clients = consenting_clients.where(intakes: { phone_number: phone_number }).or(
+      consenting_clients.where(intakes: { sms_phone_number: phone_number })
+    )
 
     client_count = clients.count
     if client_count.zero?

@@ -31,7 +31,6 @@
 #  last_sign_in_ip                                      :inet
 #  locked_at                                            :datetime
 #  login_requested_at                                   :datetime
-#  login_token                                          :string
 #  message_tracker                                      :jsonb
 #  needs_to_flush_filterable_properties_set_at          :datetime
 #  previous_sessions_active_seconds                     :integer

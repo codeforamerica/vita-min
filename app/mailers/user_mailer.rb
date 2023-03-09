@@ -2,6 +2,7 @@ class UserMailer < ApplicationMailer
   default from: Rails.configuration.email_from[:noreply][:gyr]
 
   helper :time
+
   def assignment_email(
     assigned_user:,
     assigning_user:,

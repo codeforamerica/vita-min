@@ -31,7 +31,6 @@
 #  last_sign_in_ip                                      :inet
 #  locked_at                                            :datetime
 #  login_requested_at                                   :datetime
-#  login_token                                          :string
 #  message_tracker                                      :jsonb
 #  needs_to_flush_filterable_properties_set_at          :datetime
 #  previous_sessions_active_seconds                     :integer
@@ -64,6 +63,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Client < ApplicationRecord
+  self.ignored_columns = [:login_token]
   devise :lockable, :timeoutable, :trackable
 
   self.per_page = 25
@@ -110,7 +110,11 @@ class Client < ApplicationRecord
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, :documents, tax_returns: [:assigned_user]) }
-  scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
+  scope :sla_tracked, -> do
+    distinct.joins(:tax_returns, :intake)
+            .where(intake: { product_year: Rails.configuration.product_year })
+            .where.not(tax_returns: { current_state: TaxReturnStateMachine::EXCLUDED_FROM_SLA })
+  end
   scope :has_active_tax_returns, -> do
     includes(:intake, tax_returns: :tax_return_transitions)
       .where(
@@ -125,10 +129,6 @@ class Client < ApplicationRecord
 
   scope :first_unanswered_incoming_interaction_between, ->(range) do
     sla_tracked.where(first_unanswered_incoming_interaction_at: range)
-  end
-
-  scope :by_raw_login_token, ->(raw_token) do
-    where(login_token: Devise.token_generator.digest(Client, :login_token, raw_token))
   end
 
   scope :delegated_order, ->(column, direction) do
@@ -232,16 +232,6 @@ class Client < ApplicationRecord
     if attempts_exceeded?
       lock_access! unless access_locked?
     end
-  end
-
-  def generate_login_link
-    # Compute a new login URL. This invalidates any existing login URLs.
-    raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)
-    update(
-      login_token: encrypted_token,
-      login_requested_at: DateTime.now
-    )
-    Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
   end
 
   def qualifying_dependents(year)

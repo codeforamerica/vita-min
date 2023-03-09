@@ -2,6 +2,7 @@ require_relative "boot"
 require_relative "../lib/middleware/cleanup_request_host_headers"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
 require_relative "../lib/middleware/reject_invalid_params"
+require_relative "../lib/middleware/reject_badly_encoded_headers"
 
 require "logger"
 require "rails"
@@ -77,6 +78,7 @@ module VitaMin
     config.middleware.use Middleware::CleanupRequestHostHeaders
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
+    config.middleware.use Middleware::RejectBadlyEncodedHeaders
     config.gyr_current_tax_year = 2022
     config.ctc_current_tax_year = 2021
     config.product_year = 2023

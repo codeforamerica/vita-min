@@ -204,6 +204,25 @@ RSpec.describe MailgunWebhooksController do
             expect(documents.fifth.upload.blob.download).to eq(empty_file_message)
             expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
+
+          it 'excludes files with .mail extensions even if they have supported content_type' do
+            expect do
+              post :create_incoming_email, params: params.update({
+                                                                   "attachment-count": 2,
+                                                                   "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/email-attachment.mail", "image/png"),
+                                                                   "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/files/test-pattern.png", "image/jpeg"),
+                                                                 })
+            end.to change(Document, :count).by(1)
+
+            email = IncomingEmail.last
+            expect(email.client).to eq client
+
+            documents = client.documents.order(:id)
+            expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
+            expect(documents.first.contact_record).to eq email
+            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/files/test-pattern.png", "rb").read)
+            expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
+          end
         end
 
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do

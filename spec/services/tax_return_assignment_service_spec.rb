@@ -52,27 +52,28 @@ describe TaxReturnAssignmentService do
     let(:assigned_user) { create :team_member_user }
     let(:assigned_by) { create :user }
 
-    before do
-      allow(UserMailer).to receive_message_chain(:assignment_email, :deliver_later)
-    end
-
     context "when assigned_user_id is nil" do
       let(:assigned_user) { nil }
       it "creates a note, does not send email" do
-        expect { subject.send_notifications }.to change(SystemNote, :count).by(1)
-        expect(UserMailer).not_to have_received(:assignment_email)
+        expect {
+          subject.send_notifications
+        }.to change(SystemNote, :count).by(1)
+        expect(InternalEmail.count).to be_zero
       end
     end
 
     context "when assigned_user_id is present" do
-      it "creates a system note, and sends an email" do
-        expect { subject.send_notifications }.to change(SystemNote, :count).by(1)
-        expect(UserMailer).to have_received(:assignment_email).with(
-          assigned_user: assigned_user,
-          assigning_user: assigned_by,
-          tax_return: tax_return,
-          assigned_at: tax_return.updated_at
-        ).once
+      it "creates a system note, creates an InternalEmail, and enqueues a job to send the assignment email" do
+        expect {
+          subject.send_notifications
+        }.to change(SystemNote, :count).by(1)
+           .and change(InternalEmail, :count).by(1)
+                                             .and have_enqueued_job(SendInternalEmailJob)
+        mail_args = InternalEmail.last.deserialized_mail_args
+        expect(mail_args[:assigned_user]).to eq assigned_user
+        expect(mail_args[:assigning_user]).to eq assigned_by
+        expect(mail_args[:tax_return]).to eq tax_return
+        expect(mail_args[:assigned_at]).to eq tax_return.updated_at
       end
     end
   end

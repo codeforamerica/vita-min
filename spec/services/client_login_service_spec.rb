@@ -4,8 +4,7 @@ describe ClientLoginService do
   describe "#clients_for_token" do
     let(:service_type) { "online_intake" }
     let!(:tax_return) { create :gyr_tax_return, service_type: service_type }
-    let!(:client) { create :client, login_token: login_token, tax_returns: [tax_return] }
-    let(:login_token) { nil }
+    let!(:client) { create :client, tax_returns: [tax_return] }
 
     before do
       allow(Devise.token_generator).to receive(:digest).and_return("hashed_token")
@@ -13,14 +12,6 @@ describe ClientLoginService do
 
     context "service_type: :gyr" do
       subject { described_class.new(:gyr) }
-
-      context "with a client with a matching token" do
-        let(:login_token) { "hashed_token" }
-
-        it "returns the client" do
-          expect(subject.clients_for_token("raw_token")).to match_array [client]
-        end
-      end
 
       context "with a client matching a TextMessageAccessToken" do
         before do
