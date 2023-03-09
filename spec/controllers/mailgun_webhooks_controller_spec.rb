@@ -405,15 +405,6 @@ RSpec.describe MailgunWebhooksController do
         end
       end
 
-      context "when there is a matching AssignmentEmail" do
-        let(:message_id) { "msg_id" }
-        let!(:assignment_email) { create(:assignment_email, message_id: message_id) }
-        it "updates the record with the status" do
-          post :update_outgoing_email_status, params: params
-          expect(assignment_email.reload.mailgun_status).to eq "opened"
-        end
-      end
-
       context "when there is no message with a matching mailgun id" do
         let(:message_id) { "something_not_matching" }
         it "fails gracefully + reports failure to datadog" do

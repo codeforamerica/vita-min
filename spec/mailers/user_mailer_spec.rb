@@ -5,10 +5,12 @@ RSpec.describe UserMailer, type: :mailer do
     let(:assigning_user) { create :user }
     let(:assigned_user) { create :user }
     let(:tax_return) { create :gyr_tax_return }
-    let(:assignment_email) { create :assignment_email, assigning_user: assigning_user, assigned_user: assigned_user, tax_return: tax_return, assigned_at: tax_return.updated_at}
 
     it "delivers the email with the right subject and body" do
-      email = UserMailer.assignment_email(assignment_email)
+      email = UserMailer.assignment_email(assigned_user: assigned_user,
+                                          assigning_user: assigning_user,
+                                          tax_return: tax_return,
+                                          assigned_at: tax_return.updated_at)
       expect do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1

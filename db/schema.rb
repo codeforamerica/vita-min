@@ -440,21 +440,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_235926) do
     t.index ["vita_partner_id"], name: "index_arcint_2021_on_vita_partner_id"
   end
 
-  create_table "assignment_emails", force: :cascade do |t|
-    t.datetime "assigned_at", precision: nil
-    t.bigint "assigned_user_id"
-    t.bigint "assigning_user_id"
-    t.datetime "created_at", null: false
-    t.string "mailgun_status", default: "sending"
-    t.string "message_id"
-    t.datetime "sent_at", precision: nil
-    t.bigint "tax_return_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["assigned_user_id"], name: "index_assignment_emails_on_assigned_user_id"
-    t.index ["assigning_user_id"], name: "index_assignment_emails_on_assigning_user_id"
-    t.index ["tax_return_id"], name: "index_assignment_emails_on_tax_return_id"
-  end
-
   create_table "bank_accounts", force: :cascade do |t|
     t.text "account_number"
     t.integer "account_type"
@@ -1354,6 +1339,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_235926) do
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
+  create_table "internal_emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "mail_args", default: {}
+    t.string "mail_class"
+    t.string "mail_method"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
@@ -1830,9 +1823,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_235926) do
   add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"
   add_foreign_key "archived_intakes_2021", "vita_partners"
-  add_foreign_key "assignment_emails", "tax_returns"
-  add_foreign_key "assignment_emails", "users", column: "assigned_user_id"
-  add_foreign_key "assignment_emails", "users", column: "assigning_user_id"
   add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_action_notifications", "tax_return_selections"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"

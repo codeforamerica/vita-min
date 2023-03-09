@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe SendAssignmentEmailJob, type: :job do
+RSpec.describe SendInternalEmailJob, type: :job do
   describe "#perform" do
-    let(:assignment_email) { create :assignment_email }
+    let(:internal_email) { create :internal_email }
     let(:mailer) { double(UserMailer) }
     let(:message_id) { "some_fake_id"}
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
@@ -13,10 +13,9 @@ RSpec.describe SendAssignmentEmailJob, type: :job do
     end
 
     it "sends the message using deliver_now and persists the message_id & sent_at" do
-      Timecop.freeze(fake_time) { described_class.perform_now(assignment_email.id) }
-      expect(UserMailer).to have_received(:assignment_email).with(assignment_email)
-      expect(assignment_email.reload.message_id).to eq message_id
-      expect(assignment_email.sent_at).to eq fake_time
+      Timecop.freeze(fake_time) { described_class.perform_now(internal_email) }
+      expect(UserMailer).to have_received(:assignment_email).with(internal_email.deserialized_mail_args)
+      expect(internal_email.reload.outgoing_message_status.message_id).to eq message_id
     end
   end
 end
