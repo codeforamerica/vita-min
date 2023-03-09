@@ -94,14 +94,18 @@ class ApplicationController < ActionController::Base
   end
 
   def set_visitor_id
-    if visitor_record&.visitor_id.present?
-      cookies.permanent[:visitor_id] = { value: visitor_record.visitor_id, httponly: true }
-    elsif cookies[:visitor_id].present?
-      visitor_id = cookies[:visitor_id]
-    else
-      visitor_id = SecureRandom.hex(26)
-      cookies.permanent[:visitor_id] = { value: visitor_id, httponly: true }
-    end
+    visitor_id =
+      if visitor_record&.visitor_id.present?
+        visitor_record.visitor_id
+      elsif legacy_visitor_id_cookie.present?
+        legacy_visitor_id_cookie
+      elsif cookies.encrypted[:visitor_id].present?
+        cookies.encrypted[:visitor_id]
+      else
+        SecureRandom.hex(26)
+      end
+    cookies.encrypted.permanent[:visitor_id] = { value: visitor_id, httponly: true }
+
     # If we run into cases where the intake does not have an associated visitor_id persisted onto it,
     # let's make sure it gets updated onto the record.
     if visitor_record.present? && visitor_record.persisted? && visitor_record.visitor_id.blank?
@@ -110,7 +114,14 @@ class ApplicationController < ActionController::Base
   end
 
   def visitor_id
-    visitor_record&.visitor_id || cookies[:visitor_id]
+    visitor_record&.visitor_id || cookies.encrypted[:visitor_id]
+  end
+
+  def legacy_visitor_id_cookie
+    val = cookies[:visitor_id]
+    if !val.nil? && val.force_encoding("UTF-8").valid_encoding? && val.present? && val.length <= 52
+      val
+    end
   end
 
   def source

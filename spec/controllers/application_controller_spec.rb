@@ -34,19 +34,19 @@ RSpec.describe ApplicationController do
         it "gets the visitor id from the intake and sets it in the cookies" do
           get :index
 
-          expect(cookies[:visitor_id]).to eq "123"
+          expect(cookies.encrypted[:visitor_id]).to eq "123"
         end
       end
 
       context "on cookie" do
         before do
-          cookies[:visitor_id] = "123"
+          cookies.encrypted[:visitor_id] = "123"
         end
 
         it "retains the existing visitor id" do
           get :index
 
-          expect(cookies[:visitor_id]).to eq "123"
+          expect(cookies.encrypted[:visitor_id]).to eq "123"
         end
       end
 
@@ -55,14 +55,14 @@ RSpec.describe ApplicationController do
 
         before do
           allow(subject).to receive(:current_intake).and_return(intake)
-          cookies[:visitor_id] = "456"
+          cookies.encrypted[:visitor_id] = "456"
         end
 
         it "gets the visitor id from the intake and sets it in the cookie" do
           get :index
 
           expect(intake.visitor_id).to eq "123"
-          expect(cookies[:visitor_id]).to eq "123"
+          expect(cookies.encrypted[:visitor_id]).to eq "123"
         end
       end
     end
@@ -70,8 +70,8 @@ RSpec.describe ApplicationController do
     context "no visitor id" do
       it "generates and sets a visitor id cookie" do
         get :index
-        expect(cookies[:visitor_id]).to be_a String
-        expect(cookies[:visitor_id]).to be_present
+        expect(cookies.encrypted[:visitor_id]).to be_a String
+        expect(cookies.encrypted[:visitor_id]).to be_present
       end
 
       context "with current intake" do
@@ -83,7 +83,37 @@ RSpec.describe ApplicationController do
 
         it "saves the visitor id to the intake" do
           get :index
-          expect(intake.visitor_id).to eq cookies[:visitor_id]
+          expect(intake.visitor_id).to eq cookies.encrypted[:visitor_id]
+        end
+      end
+    end
+
+    context "when migrating from raw cookie to encrypted cookie" do
+      context "with a valid visitor_id value in the cookie" do
+        before do
+          cookies[:visitor_id] = "f" * 52
+          allow(SecureRandom).to receive(:hex).with(26).and_call_original
+        end
+
+        it "uses the legacy cookie value" do
+          get :index
+          expect(SecureRandom).not_to have_received(:hex)
+          expect(cookies.encrypted[:visitor_id]).to eq("f" * 52)
+        end
+      end
+
+      context "with invalid visitor_id in legacy cookie" do
+        before do
+          cookies[:visitor_id] = ("f" * 51) + "\xC3"
+          allow(SecureRandom).to receive(:hex).with(26).and_call_original
+        end
+
+        it "generates and sets a valid visitor id cookie" do
+          get :index
+          expect(SecureRandom).to have_received(:hex).with(26)
+          expect(cookies.encrypted[:visitor_id]).to be_a String
+          expect(cookies.encrypted[:visitor_id].length).to eq(52)
+          expect(cookies.encrypted[:visitor_id].last).not_to eq("\xC3")
         end
       end
     end
