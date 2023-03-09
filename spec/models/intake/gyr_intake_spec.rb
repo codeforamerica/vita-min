@@ -520,4 +520,22 @@ describe Intake::GyrIntake do
       expect(described_class.previous_year_completed_intakes).to match_array  [intake_2022]
     end
   end
+
+  describe "#triaged_intake?" do
+    context "when triage values are unfilled" do
+      let(:intake) { create :intake, triage_income_level: "unfilled", triage_filing_status: "unfilled", triage_filing_frequency: "unfilled", triage_vita_income_ineligible: "unfilled" }
+
+      it "returns false" do
+        expect(intake.triaged_intake?).to eq false
+      end
+    end
+
+    context "when triage values are not unfilled" do
+      let(:intake) { create :intake, triage_income_level: "zero", triage_filing_status: "single", triage_filing_frequency: "every_year", triage_vita_income_ineligible: "yes" }
+
+      it "returns true" do
+        expect(intake.triaged_intake?).to eq true
+      end
+    end
+  end
 end

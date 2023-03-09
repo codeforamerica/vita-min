@@ -4134,6 +4134,7 @@ es:
           title: "¡Bienvenido de nuevo %{name}!"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
+        birth_date: Fecha de nacimiento
         cta: Estoy de acuerdo
         primary_first_name: Primer nombre legal
         primary_last_name: Apellido legal
