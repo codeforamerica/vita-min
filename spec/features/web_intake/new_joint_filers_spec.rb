@@ -113,6 +113,9 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
       fill_in "Legal first name", with: "Gary"
       fill_in "Legal last name", with: "Gnome"
+      select "March", from: "Month"
+      select "5", from: "Day"
+      select "1971", from: "Year"
     end
     click_on "I agree"
     # create tax returns only after client has consented
