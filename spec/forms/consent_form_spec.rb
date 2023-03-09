@@ -35,7 +35,7 @@ RSpec.describe ConsentForm do
       end
 
       context "required params are missing" do
-        it "adds errors for each" do
+        it "adds errors for each; requires birth date" do
           form = ConsentForm.new(
             intake,
             {
@@ -73,7 +73,7 @@ RSpec.describe ConsentForm do
         allow(intake).to receive(:triaged_intake?).and_return(false)
       end
 
-      context "when all params are valid and don't include DOB parms" do
+      context "when all params are valid and don't include DOB params" do
         it "is valid" do
           form = ConsentForm.new(intake, valid_params_without_dob)
 
@@ -82,7 +82,7 @@ RSpec.describe ConsentForm do
       end
 
       context "required params are missing" do
-        it "adds errors for each" do
+        it "adds errors for each; does not require birth date" do
           form = ConsentForm.new(
             intake,
             {
@@ -97,6 +97,29 @@ RSpec.describe ConsentForm do
           expect(form).not_to be_valid
           expect(form.errors[:birth_date]).not_to be_present
           expect(form.errors[:primary_last_name]).to be_present
+        end
+      end
+
+      # this is an edge case that could happen if the client fills out triage-personal-info, bails, then starts
+      # intake with a link that skips triage. this would cause them to skip the personal info page, which asks for
+      # birth date, so at this point we would still need their birth date.
+      context "when the triage income levels questions are unfilled but the client still doesn't have a birth date" do
+        let(:dob) { nil }
+
+        it "requires birth date params" do
+          form = ConsentForm.new(
+            intake,
+            {
+              birth_date_year: nil,
+              birth_date_month: nil,
+              birth_date_day: nil,
+              primary_first_name: "Greta",
+              primary_last_name: "Gourd",
+            }
+          )
+
+          expect(form).not_to be_valid
+          expect(form.errors[:birth_date]).to be_present
         end
       end
     end
@@ -128,12 +151,11 @@ RSpec.describe ConsentForm do
         allow(intake).to receive(:triaged_intake?).and_return(false)
       end
 
-      it "parses & saves the correct data to the model record" do
+      it "saves the correct data to the model record; does not update birth date" do
         form = ConsentForm.new(intake, valid_params_without_dob)
-        form.save
-        intake.reload
-
-        expect(intake.primary.birth_date).to eq Date.new(1989, 8, 22)
+        expect {
+          form.save
+        }.not_to change(intake, :primary_birth_date)
       end
     end
   end
