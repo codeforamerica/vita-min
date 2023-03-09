@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
 
   def legacy_visitor_id_cookie
     val = cookies[:visitor_id]
-    if !val.nil? && val.valid_encoding? && val.present? && val.length <= 52
+    if !val.nil? && val.force_encoding("UTF-8").valid_encoding? && val.present? && val.length <= 52
       val
     end
   end
