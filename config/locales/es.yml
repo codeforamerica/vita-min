@@ -914,7 +914,7 @@ es:
         upload_by: Subido por
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
-    has_previous_year_intakes: Potenciales ingestas de GYR del año anterior detectadas
+    has_previous_year_intakes: Ingreso(s) del año anterior
     itin_applicant: Solicitante de Número de Identificación Personal (ITIN)
     last_client_update: 'Última actualización de cliente: '
     last_contact: último contacto
