@@ -4129,7 +4129,6 @@ en:
           title: Welcome back %{name}!
         title: Our team at %{partner_name} is here to help!
       consent:
-        birth_date: Date of birth
         cta: I agree
         primary_first_name: Legal first name
         primary_last_name: Legal last name

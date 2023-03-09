@@ -94,9 +94,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
     fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
     fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
-    select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
-    select "5", from: "consent_form_birth_date_day"
-    select "1971", from: "consent_form_birth_date_year"
     click_on I18n.t("views.questions.consent.cta")
 
     # create tax returns only after client has consented
