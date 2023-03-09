@@ -905,6 +905,7 @@ en:
         upload_by: Uploaded By
         upload_date: Upload Date
     has_duplicates: Potential duplicates detected
+    has_previous_year_intakes: Potential previous year GYR intakes detected
     itin_applicant: ITIN applicant
     last_client_update: 'Last client update: '
     last_contact: Last contact
