@@ -62,6 +62,8 @@ class MailgunWebhooksController < ActionController::Base
         next unless /^attachment-\d+$/.match?(key)
 
         attachment = params[key]
+        next if attachment.original_filename.ends_with? '.mail'
+
         attachment.tempfile.seek(0) # just in case we read the same file for multiple clients
         size = attachment.tempfile.size
 
