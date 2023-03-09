@@ -9,7 +9,7 @@ module Middleware
       begin
         req.params
       rescue Rack::QueryParser::InvalidParameterError
-        return [400, {"Content-Type": "text/plain"}, ["Bad params"]]
+        return [400, {"Content-Type" => "text/plain"}, ["Bad params"]]
       end
       @app.call(env)
     end
