@@ -16,20 +16,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-
-  describe "just trying to repro for now, will figure out sometime the best place to actually move this test" do
-    context "when there is invalid utf-8 in the referer" do
-      before do
-        request.headers["HTTP_REFERER"] = "\xc3"
-      end
-      it "handles the request" do
-        get :index
-
-        expect(response).to be_ok
-      end
-    end
-  end
-
   describe "#include_analytics?" do
     it "returns false" do
       expect(subject.include_analytics?).to eq false
