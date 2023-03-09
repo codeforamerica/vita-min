@@ -15,4 +15,5 @@
 #
 class FaqSurvey < ApplicationRecord
   enum answer: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :answer
+  validates_enum :answer
 end
