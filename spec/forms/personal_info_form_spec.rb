@@ -92,6 +92,7 @@ RSpec.describe PersonalInfoForm do
       expect(intake.type).to eq "Intake::GyrIntake"
       expect(intake.preferred_name).to eq "Greta"
       expect(intake.phone_number).to eq "+18286065544"
+      expect(intake.primary_birth_date).to eq Date.parse("1983-3-12")
       expect(intake.zip_code).to eq "94107"
       expect(intake.visitor_id).to eq "visitor_1"
       expect(intake.source).to eq "source"
@@ -126,12 +127,15 @@ RSpec.describe PersonalInfoForm do
   end
 
   describe "#existing_attributes" do
-    let(:populated_intake) { build :intake, phone_number: "+18286065544" }
+    let(:populated_intake) { build :intake, phone_number: "+18286065544", primary_birth_date: Date.parse("1996-10-12") }
 
     it "returns a hash with the date fields populated" do
       attributes = described_class.existing_attributes(populated_intake)
 
       expect(attributes[:phone_number]).to eq "+18286065544"
+      expect(attributes[:birth_date_year]).to eq 1996
+      expect(attributes[:birth_date_month]).to eq 10
+      expect(attributes[:birth_date_day]).to eq 12
     end
   end
 end

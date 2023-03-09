@@ -9,12 +9,12 @@ class TriagePersonalInfoForm < QuestionsForm
     :referrer,
     :locale,
     :visitor_id,
-    )
+  )
 
   set_attributes_for(
     :confirmation,
     :phone_number_confirmation,
-    )
+  )
 
   before_validation :normalize_phone_numbers
 

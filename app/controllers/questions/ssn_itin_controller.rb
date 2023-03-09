@@ -11,9 +11,5 @@ module Questions
     def tracking_data
       {}
     end
-
-    def after_update_success
-      #check if they are return clients
-    end
   end
 end
