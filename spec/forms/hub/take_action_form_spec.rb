@@ -40,7 +40,7 @@ RSpec.describe Hub::TakeActionForm do
 
       it "adds an error to the form" do
         expect(form).not_to be_valid
-        expect(form.errors[:status]).to include "is not a valid status"
+        expect(form.errors[:status]).to include "The provided tax status is not valid."
       end
     end
 

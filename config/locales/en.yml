@@ -224,6 +224,7 @@ en:
       tax_returns_attributes:
         certification_level: certification level
         is_hsa: is HSA
+      invalid_tax_status: The provided tax status is not valid.
   general:
     NA: N/A
     access_denied: You are not authorized to take this action.
