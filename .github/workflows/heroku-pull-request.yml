@@ -57,10 +57,6 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 https://github.com/weibeld/heroku-buildpack-run.git
 
-      - name: Add Heroku app to pipeline
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku pipelines:add vita-min --app=${{ env.HEROKU_APP_NAME }} --stage=development
-
       - name: Copy environment variables to Heroku app
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: |
