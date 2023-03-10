@@ -11,9 +11,15 @@ class ExperimentService
     }
   }
 
-  def self.find_or_assign_treatment(key:, record:)
+  def self.find_or_assign_treatment(key:, record:, vita_partner_id: nil)
     experiment = Experiment.find_by(key: key)
     return unless experiment&.enabled
+    if vita_partner_id.present?
+      vita_partner = VitaPartner.find(vita_partner_id)
+      ids_to_check = [vita_partner.id, vita_partner.parent_organization&.id].compact
+      return unless experiment.vita_partner_ids.intersect?(ids_to_check)
+    end
+
     participant = ExperimentParticipant.find_by(experiment: experiment, record: record)
     return participant.treatment if participant
 

@@ -3,12 +3,13 @@
 
     <h1>Experiments</h1>
 
-    <table class="data-table">
+    <table class="data-table experiments-table">
       <tr>
         <th>id</th>
         <th>key</th>
         <th>name</th>
         <th>treatment weights</th>
+        <th>participating VITA partners</th>
         <th>enabled</th>
         <th></th>
       </tr>
@@ -19,6 +20,7 @@
           <td><%= experiment.key %></td>
           <td><%= experiment.name %></td>
           <td style="white-space: pre-line;"><%= experiment.treatment_weights.map { |key, weight| "#{key}: #{weight}" }.join("\n") %></td>
+          <td><%= experiment.vita_partners.count %></td>
           <td><%= experiment.enabled %></td>
           <td><%= link_to "Edit", edit_hub_admin_experiment_path(experiment) %></td>
         </tr>
