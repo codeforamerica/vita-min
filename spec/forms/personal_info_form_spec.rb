@@ -6,6 +6,9 @@ RSpec.describe PersonalInfoForm do
   let(:valid_params) do
     {
       preferred_name: "Greta",
+      birth_date_year: "1983",
+      birth_date_month: "3",
+      birth_date_day: "12",
       phone_number: "8286065544",
       phone_number_confirmation: "828-606-5544",
       zip_code: "94107",
@@ -63,6 +66,18 @@ RSpec.describe PersonalInfoForm do
         expect(form.errors[:zip_code]).to be_present
       end
     end
+
+    context "when the date is not valid" do
+      let(:params) { valid_params.merge(birth_date_month: "2", birth_date_day: "31") }
+
+      it "adds a validation error" do
+        form = described_class.new(intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:birth_date]).to be_present
+        expect(form.errors[:birth_date]).to include "Please select a valid date"
+      end
+    end
   end
 
   describe "#save" do
@@ -80,7 +95,7 @@ RSpec.describe PersonalInfoForm do
       expect(client.intake).to eq(intake)
     end
 
-    it "saves the right attributes" do
+    it "parses & saves the right attributes" do
       form = described_class.new(intake, valid_params.merge(additional_params))
       form.valid?
       form.save
@@ -89,6 +104,7 @@ RSpec.describe PersonalInfoForm do
       expect(intake.type).to eq "Intake::GyrIntake"
       expect(intake.preferred_name).to eq "Greta"
       expect(intake.phone_number).to eq "+18286065544"
+      expect(intake.primary.birth_date).to eq Date.new(1983, 3, 12)
       expect(intake.zip_code).to eq "94107"
       expect(intake.visitor_id).to eq "visitor_1"
       expect(intake.source).to eq "source"
@@ -123,12 +139,15 @@ RSpec.describe PersonalInfoForm do
   end
 
   describe "#existing_attributes" do
-    let(:populated_intake) { build :intake, phone_number: "+18286065544" }
+    let(:populated_intake) { build :intake, phone_number: "+18286065544", primary_birth_date: Date.parse("1996-10-12") }
 
     it "returns a hash with the date fields populated" do
       attributes = described_class.existing_attributes(populated_intake)
 
       expect(attributes[:phone_number]).to eq "+18286065544"
+      expect(attributes[:birth_date_year]).to eq 1996
+      expect(attributes[:birth_date_month]).to eq 10
+      expect(attributes[:birth_date_day]).to eq 12
     end
   end
 end

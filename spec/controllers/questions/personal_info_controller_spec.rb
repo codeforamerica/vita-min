@@ -13,6 +13,9 @@ RSpec.describe Questions::PersonalInfoController do
             timezone: "America/New_York",
             zip_code: "80309",
             preferred_name: "Shep",
+            birth_date_year: "1983",
+            birth_date_month: "3",
+            birth_date_day: "12",
             phone_number: "+14156778899",
             phone_number_confirmation: "+14156778899",
           }
@@ -40,6 +43,7 @@ RSpec.describe Questions::PersonalInfoController do
           expect(intake.visitor_id).to eq "some_visitor_id"
           expect(intake.timezone).to eq "America/New_York"
           expect(intake.preferred_name).to eq "Shep"
+          expect(intake.primary_birth_date).to eq Date.parse("1983-3-12")
           expect(intake.zip_code).to eq "80309"
           expect(intake.phone_number).to eq "+14156778899"
         end

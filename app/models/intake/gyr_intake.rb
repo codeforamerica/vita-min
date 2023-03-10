@@ -429,6 +429,8 @@ class Intake::GyrIntake < Intake
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
 
+  scope :previous_year_completed_intakes, -> { where.not(product_year: Rails.configuration.product_year).joins(:tax_returns).where(tax_returns: {current_state: TaxReturnStateMachine::INCLUDED_IN_PREVIOUS_YEAR_COMPLETED_INTAKES})}
+
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client, set_flag: false) # client completed intake
@@ -439,6 +441,15 @@ class Intake::GyrIntake < Intake
 
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
+
+  def matching_previous_year_intakes
+    attrs = [:primary_birth_date, :hashed_primary_ssn]
+    DeduplicationService.duplicates(self, *attrs, from_scope: self.class.previous_year_completed_intakes)
+  end
+
+  def triaged_intake?
+    !(triage_income_level_unfilled? && triage_filing_status_unfilled? && triage_filing_frequency_unfilled? && triage_vita_income_ineligible_unfilled?)
+  end
 
   def self.current_tax_year
     Rails.application.config.gyr_current_tax_year.to_i

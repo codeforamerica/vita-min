@@ -41,9 +41,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     # Consent form
     fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
     fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
-    select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
-    select "5", from: "consent_form_birth_date_day"
-    select "1971", from: "consent_form_birth_date_year"
     click_on I18n.t("views.questions.consent.cta")
 
     if fill_out_optional_consent
