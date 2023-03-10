@@ -444,9 +444,7 @@ class Intake::GyrIntake < Intake
 
   def matching_previous_year_intakes
     attrs = [:primary_birth_date, :hashed_primary_ssn]
-    intakes = DeduplicationService.duplicates(self, *attrs, from_scope: self.class.previous_year_completed_intakes)
-    archived_intakes = DeduplicationService.duplicates(self, *attrs, from_scope: Archived::Intake::GyrIntake2021.completed_intakes)
-    intakes + archived_intakes
+    DeduplicationService.duplicates(self, *attrs, from_scope: self.class.previous_year_completed_intakes)
   end
 
   def triaged_intake?
