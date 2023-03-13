@@ -8,32 +8,14 @@ class ApplicationRecord < ActiveRecord::Base
     enum **enums
 
     enums.each do |enum_name, _|
-      enum_names_and_values = defined_enums[enum_name.to_s]
-      next if enum_names_and_values.nil?
-      attribute(enum_name, :enum) do |subtype|
-        LiberalEnumType.new(enum_name, public_send(enum_name.to_s.pluralize), subtype)
+      mapping = defined_enums[enum_name.to_s]
+      next if mapping.nil?
+      attribute(enum_name) do |subtype|
+        subtype = subtype.subtype if ActiveRecord::Enum::EnumType === subtype # rubocop:disable Style/CaseEquality
+        EnumTypeWithoutValidValueAssertion.new(enum_name, mapping, subtype)
       end
 
-      validates_inclusion_of enum_name, { in: enum_names_and_values.keys.map(&:to_s) + enum_names_and_values.values }
-    end
-  end
-
-  def self.validates_enum(*enums)
-    enums.each do |enum_attribute|
-      define_method(:"#{enum_attribute}=") do |value|
-        enum_info = self.class.send("#{enum_attribute.to_s.pluralize}")
-        if (enum_info.values + enum_info.keys).include?(value)
-          super value
-        else
-          self.instance_variable_set(:"@not_valid_#{enum_attribute}_type", true)
-        end
-      end
-
-      validate do
-        if self.instance_variable_get(:"@not_valid_#{enum_attribute}_type")
-          errors.add(enum_attribute, "Not a valid #{enum_attribute} type}")
-        end
-      end
+      validates_inclusion_of enum_name, { in: mapping.keys + mapping.values }
     end
   end
 end
