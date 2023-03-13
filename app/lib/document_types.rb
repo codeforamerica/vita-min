@@ -1,6 +1,9 @@
 module DocumentTypes
-  ALL_TYPES = [
+  IDENTITY_TYPES = [
     DocumentTypes::Identity,
+    DocumentTypes::Passport,
+  ].freeze
+  OTHER_TYPES = [
     DocumentTypes::Selfie,
     DocumentTypes::SsnItin,
     DocumentTypes::Employment,
@@ -42,6 +45,8 @@ module DocumentTypes
     DocumentTypes::FormW7,
     DocumentTypes::FormW7Coa
   ].freeze
+
+  ALL_TYPES = IDENTITY_TYPES + OTHER_TYPES
 
   HELP_TYPES = [
     :doesnt_apply,

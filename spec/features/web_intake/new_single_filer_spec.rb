@@ -6,7 +6,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
-  scenario "new client filing single without dependents" do
+  def intake_up_to_documents
     answer_gyr_triage_questions(choices: :defaults)
 
     # creates intake and triage
@@ -45,8 +45,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(intake.reload.current_step).to end_with("/questions/interview-scheduling")
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
     expect(page).to have_select(
-      "What is your preferred language for the review?", selected: "English"
-    )
+                      "What is your preferred language for the review?", selected: "English"
+                    )
     select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
 
@@ -246,6 +246,79 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     select "California", from: "State"
     fill_in "ZIP code", with: "94612"
     click_on "Continue"
+
+    intake
+  end
+
+  context "client is included in the no selfies experiment" do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :no_selfie
+    end
+
+    scenario "new client filing single without dependents" do
+      intake = intake_up_to_documents
+
+      # IRS guidance
+      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.tax_returns.map(&:current_state).uniq).to eq ["intake_ready"]
+    end
+  end
+
+  context "client is included in the expanded id experiment" do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id
+    end
+
+    scenario "new client filing single without dependents" do
+      intake = intake_up_to_documents
+
+      # IRS guidance
+      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      select I18n.t('general.document_types.passport'), from: I18n.t('general.document_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
+      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
+
+      expect(intake.reload.current_step).to end_with("/documents/selfies")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.tax_returns.map(&:current_state).uniq).to eq ["intake_ready"]
+      expect(intake.documents.map(&:document_type)).to include "Passport"
+    end
+  end
+
+  scenario "new client filing single without dependents" do
+    intake = intake_up_to_documents
 
     # IRS guidance
     expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")

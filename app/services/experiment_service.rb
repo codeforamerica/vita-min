@@ -1,5 +1,6 @@
 class ExperimentService
   DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
+  ID_VERIFICATION_EXPERIMENT = "id_verification_experiment"
 
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
@@ -7,6 +8,15 @@ class ExperimentService
       treatment_weights: {
         low: 1,
         high: 1
+      }
+    },
+    ID_VERIFICATION_EXPERIMENT => {
+      name: "Easier ID verification experiment",
+      treatment_weights: {
+        control: 1,
+        no_selfie: 1,
+        expanded_id: 1,
+        expanded_id_and_no_selfie: 1,
       }
     }
   }

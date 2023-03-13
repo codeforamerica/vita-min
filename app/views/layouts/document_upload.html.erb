@@ -57,6 +57,7 @@
 
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+            <%= f.cfa_select :document_type, t("general.document_type"), [%w[Passport Passport]], include_blank: true %>
             <div class="document-upload">
               <div class="file-upload">
                 <%= f.file_field(:upload, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>

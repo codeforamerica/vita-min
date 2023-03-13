@@ -2,6 +2,10 @@ module Documents
   class IdsController < DocumentUploadQuestionController
     before_action :set_required_person_names, only: [:edit, :update]
 
+    def self.displayed_document_types
+      DocumentTypes::IDENTITY_TYPES.map(&:key)
+    end
+
     def self.document_type
       DocumentTypes::Identity
     end

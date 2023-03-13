@@ -16,9 +16,11 @@ module Documents
     private
 
     def has_all_required_docs?
-      [DocumentTypes::Identity.key, DocumentTypes::Selfie.key, DocumentTypes::SsnItin.key].all? do |key|
-        current_intake.documents.pluck(:document_type).include?(key)
-      end
+      intake_doc_types = current_intake.documents.pluck(:document_type)
+      requires_one_of = DocumentTypes::IDENTITY_TYPES.map(&:key)
+      required_docs = [DocumentTypes::SsnItin.key]
+      required_docs << DocumentTypes::Selfie.key unless IdVerificationExperimentService.new(current_intake).skip_selfies?
+      requires_one_of.intersect?(intake_doc_types) && required_docs.all? {|key| intake_doc_types.include?(key) }
     end
   end
 end

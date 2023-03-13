@@ -1,10 +1,10 @@
 class DocumentTypeUploadForm < QuestionsForm
-  set_attributes_for :intake, :upload
+  set_attributes_for :intake, :upload, :document_type
   before_validation :instantiate_document
   validate :validate_document
 
   def initialize(document_type, *args, **kwargs)
-    @document_type = document_type
+    @default_document_type = document_type
     super(*args, **kwargs)
   end
 
@@ -19,7 +19,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def instantiate_document
     @upload.tempfile.rewind if @upload.present?
     @document = @intake.documents.new(
-      document_type: @document_type,
+      document_type: @document_type || @default_document_type,
       client: @intake.client,
       uploaded_by: @intake.client,
       upload: @upload.present? ? {

@@ -21,6 +21,17 @@ RSpec.describe Questions::ChatWithUsController do
         expect(response.body).to include("handles tax returns from")
         expect(response.body).to include("02143 (Somerville, Massachusetts)")
       end
+
+      it "assigns the intake to an Id Verification Experiment treatment group" do
+        ExperimentService.ensure_experiments_exist_in_database
+        Experiment.update_all(enabled: true)
+
+        get :edit
+
+        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
+        participant = ExperimentParticipant.find_by(experiment: experiment, record: intake)
+        expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
+      end
     end
 
     context "with an intake without a ZIP code" do
