@@ -1,6 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe Hub::Admin::ExperimentsController do
+  describe "#index" do
+    context "as an admin" do
+      let(:user) { create(:admin_user) }
+      let(:experiment) { create(:experiment) }
+      let(:organization) { create(:organization) }
+      before do
+        sign_in user
+      end
+
+      context "when showing all experiments" do
+        it "shows no experiment participant information" do
+          get :index
+          expect(assigns[:experiment_participants]).to be_nil
+        end
+      end
+    end
+  end
+
+  describe "#show" do
+    context "as an admin" do
+      let(:user) { create(:admin_user) }
+      let(:experiment) { create(:experiment) }
+      let!(:experiment_participant) { create(:experiment_participant, experiment: experiment, record: create(:intake))}
+
+      before do
+        sign_in user
+      end
+
+      it "shows experiment participant information" do
+        get :show, params: {id: experiment.id}
+        expect(assigns[:experiment_participants]).to eq([experiment_participant])
+      end
+    end
+  end
+
   describe "#update" do
     context "as an authenticated user" do
       let(:user) { create :admin_user }
