@@ -5,6 +5,8 @@ class MailgunWebhooksController < ActionController::Base
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
 
   def create_incoming_email
+    logo_bytes = File.binread(Rails.root.join('public', 'images', 'logo.png'))
+
     # Mailgun param documentation:
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     DatadogApi.increment("mailgun.incoming_emails.received")
@@ -64,8 +66,13 @@ class MailgunWebhooksController < ActionController::Base
         attachment = params[key]
         next if attachment.original_filename.ends_with? '.mail'
 
-        attachment.tempfile.seek(0) # just in case we read the same file for multiple clients
+        attachment.tempfile.seek(0) # allows re-reading the file for multiple clients
         size = attachment.tempfile.size
+        if size == logo_bytes.size
+          matches_logo = attachment.tempfile.read == logo_bytes
+          attachment.tempfile.seek(0)
+          next if matches_logo
+        end
 
         processed_attachments <<
           if (FileTypeAllowedValidator.mime_types(Document).include? attachment.content_type) && (size > 0)
