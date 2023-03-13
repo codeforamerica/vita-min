@@ -13,11 +13,8 @@
 #
 #  index_experiments_on_key  (key) UNIQUE
 #
-class Experiment < ApplicationRecord
-  has_many :experiment_vita_partners
-  has_many :vita_partners, through: :experiment_vita_partners
-
-  def treatment_weights
-    ExperimentService::CONFIG[key][:treatment_weights]
+FactoryBot.define do
+  factory :experiment do
+    enabled { true }
   end
 end

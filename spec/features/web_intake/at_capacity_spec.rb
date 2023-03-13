@@ -6,12 +6,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       # at first, sees at capacity page when resuming.
       # After updating routing method, does not see at capacity page.
       visit personal_info_questions_path
-      expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in I18n.t("views.questions.personal_info.preferred_name"), with: "Gary"
-      fill_in I18n.t("views.questions.personal_info.phone_number"), with: "555-555-1212"
-      fill_in I18n.t("views.questions.personal_info.phone_number_confirmation"), with: "555-555-1212"
-      fill_in I18n.t("views.questions.personal_info.zip_code"), with: "19143"
-      click_on "Continue"
+      fill_out_personal_information(name: "Gary", zip_code: "19143", birth_date: Date.parse("1983-10-12"), phone_number: "555-555-1212")
 
       expect(page).to have_selector("h1", text: "Please provide your taxpayer identification information.")
       select "Social Security Number (SSN)", from: "Identification Type"
@@ -52,9 +47,6 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
       fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
       fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
-      select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
-      select "5", from: "consent_form_birth_date_day"
-      select "1971", from: "consent_form_birth_date_year"
       click_on I18n.t("views.questions.consent.cta")
     end
   end)

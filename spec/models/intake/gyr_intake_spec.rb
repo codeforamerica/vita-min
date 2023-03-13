@@ -495,4 +495,45 @@ describe Intake::GyrIntake do
       end
     end
   end
+
+  describe "#matching_previous_year_intakes" do
+    let(:ssn) { "123456789" }
+    let(:birth_date) { Date.parse("1989-08-22") }
+    let(:intake) { create :intake, primary_ssn: :ssn, primary_birth_date: birth_date }
+    let!(:intake_2022_all_matching) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
+    let!(:intake_2022_non_matching_dob) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: Date.parse("1996-10-12"), client: create(:client, tax_returns: [create(:gyr_tax_return, :review_signature_requested)]) }
+    let!(:intake_2022_non_matching_ssn) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :review_reviewing)]) }
+
+    it "returns intakes from previous product years with matching SSN, DOB and with a qualifying tax return current state" do
+      expect(intake.matching_previous_year_intakes).to match_array [intake_2022_all_matching]
+    end
+  end
+
+  describe ".returning_matching_previous_year_intakes" do
+    let!(:intake_current_year) { create :intake, product_year: Rails.configuration.product_year }
+    let!(:intake_2022_bad_tax_return_state) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :file_mailed)]) }
+    let!(:intake_2022) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
+
+    it "returns intakes from the previous product years with INCLUDED_IN_PREVIOUS_YEAR_COMPLETED_INTAKES tax return states" do
+      expect(described_class.previous_year_completed_intakes).to match_array  [intake_2022]
+    end
+  end
+
+  describe "#triaged_intake?" do
+    context "when triage values are unfilled" do
+      let(:intake) { create :intake, triage_income_level: "unfilled", triage_filing_status: "unfilled", triage_filing_frequency: "unfilled", triage_vita_income_ineligible: "unfilled" }
+
+      it "returns false" do
+        expect(intake.triaged_intake?).to eq false
+      end
+    end
+
+    context "when triage values are not unfilled" do
+      let(:intake) { create :intake, triage_income_level: "zero", triage_filing_status: "single", triage_filing_frequency: "every_year", triage_vita_income_ineligible: "yes" }
+
+      it "returns true" do
+        expect(intake.triaged_intake?).to eq true
+      end
+    end
+  end
 end

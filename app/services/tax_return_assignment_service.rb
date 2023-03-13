@@ -30,12 +30,17 @@ class TaxReturnAssignmentService
           tax_return: @tax_return
         )
       )
-      UserMailer.assignment_email(
-        assigned_user: @assigned_user,
-        assigning_user: @assigned_by,
-        assigned_at: @tax_return.updated_at,
-        tax_return: @tax_return
-      ).deliver_later
+      internal_email = InternalEmail.create!(
+        mail_class: UserMailer,
+        mail_method: :assignment_email,
+        mail_args: ActiveJob::Arguments.serialize(
+          assigned_user: @assigned_user,
+          assigning_user: @assigned_by,
+          assigned_at: @tax_return.updated_at,
+          tax_return: @tax_return
+        )
+      )
+      SendInternalEmailJob.perform_later(internal_email)
     end
   end
 end

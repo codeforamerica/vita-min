@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_232409) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_194919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -885,6 +885,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_232409) do
     t.index ["record_type", "record_id"], name: "index_experiment_participants_on_record"
   end
 
+  create_table "experiment_vita_partners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "experiment_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["experiment_id"], name: "index_experiment_vita_partners_on_experiment_id"
+    t.index ["vita_partner_id"], name: "index_experiment_vita_partners_on_vita_partner_id"
+  end
+
   create_table "experiments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "enabled", default: false
@@ -1337,6 +1346,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_232409) do
     t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
     t.index ["type"], name: "index_intakes_on_type"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
+  end
+
+  create_table "internal_emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "mail_args", default: {}
+    t.string "mail_class"
+    t.string "mail_method"
+    t.datetime "updated_at", null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -1844,6 +1861,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_232409) do
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"
+  add_foreign_key "experiment_vita_partners", "experiments"
+  add_foreign_key "experiment_vita_partners", "vita_partners"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"

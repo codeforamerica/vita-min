@@ -40,6 +40,12 @@ RSpec.describe FaqController do
         get :show, params: { section_key: "stimuli", question_key: "how-many-toadstools-were-there" }
       end.to raise_error(ActionController::RoutingError)
     end
+
+    it "renders 404 for null byte params" do
+      expect do
+        get :show, params: { section_key: "stimuli", question_key: "\x00" }
+      end.to raise_error(ActionController::RoutingError)
+    end
   end
 
   describe "QUESTIONS" do

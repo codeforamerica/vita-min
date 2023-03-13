@@ -112,6 +112,7 @@ RSpec.describe "a user viewing a client" do
     let(:primary_ssn) { "1112223333" }
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, primary_ssn: primary_ssn) }
     let!(:intake_with_ssn_match) { create :intake, primary_consented_to_service: "yes", primary_ssn: primary_ssn, client: create(:client, :with_gyr_return, tax_return_state: "intake_ready") }
+    let!(:previous_year_intake_with_ssn_dob_match) { create :intake, product_year: Rails.configuration.product_year - 1, primary_consented_to_service: "yes", primary_ssn: primary_ssn, primary_birth_date: client.intake.primary_birth_date, client: create(:client, :with_gyr_return, tax_return_state: "prep_ready_for_prep") }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
@@ -168,6 +169,20 @@ RSpec.describe "a user viewing a client" do
 
       expect(page.current_path).to eq hub_client_path(id: intake_with_ssn_match.client.id)
       expect(intake_with_ssn_match.primary_ssn).to eq primary_ssn
+    end
+
+    scenario "can view potential previous year intakes" do
+      visit hub_client_path(id: client.id)
+      expect(client.intake.primary.ssn).to eq primary_ssn
+
+      within ".client-header" do
+        expect(page).to have_text(I18n.t('hub.has_previous_year_intakes'))
+        expect(page).to have_text "##{previous_year_intake_with_ssn_dob_match.client.id}"
+        click_on "##{previous_year_intake_with_ssn_dob_match.client.id}"
+      end
+
+      expect(page.current_path).to eq hub_client_path(id: previous_year_intake_with_ssn_dob_match.client.id)
+      expect(previous_year_intake_with_ssn_dob_match.primary_ssn).to eq primary_ssn
     end
   end
 end
