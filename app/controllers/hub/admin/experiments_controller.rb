@@ -17,7 +17,9 @@ module Hub
       end
 
       def update
-        vita_partner_ids = JSON.parse(params[:hub_admin_experiments_controller_experiment_form][:vita_partners]).pluck("id")
+        vita_partners = params[:hub_admin_experiments_controller_experiment_form][:vita_partners]
+        vita_partner_ids = vita_partners.blank? ? [] : JSON.parse(vita_partners).pluck("id")
+
         if @experiment.update(experiment_params.merge(vita_partner_ids: vita_partner_ids))
           flash[:notice] = I18n.t("general.changes_saved")
           redirect_to hub_admin_experiments_path
