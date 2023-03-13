@@ -206,6 +206,7 @@ es:
       hub:
         communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
+      invalid_tax_status: El estado de declaración de impuestos proporcionado no es válido.
       mailing_address:
         city: 'Error: Ciudad Inválida'
         invalid: 'Error: Dirección Inválida'
