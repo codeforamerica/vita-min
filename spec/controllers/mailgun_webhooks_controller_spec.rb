@@ -223,6 +223,27 @@ RSpec.describe MailgunWebhooksController do
             expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/files/test-pattern.png", "rb").read)
             expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
           end
+
+          it 'excludes files that match our logo exactly' do
+            expect do
+
+              post :create_incoming_email, params: params.update({
+                                                                   "attachment-count": 2,
+                                                                   "attachment-1" => Rack::Test::UploadedFile.new("public/images/logo.png", "image/png"),
+                                                                   "attachment-2" => Rack::Test::UploadedFile.new(StringIO.new("A" * File.size("public/images/logo.png")), "image/png", original_filename: "image001.png"),
+                                                                   "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/files/test-pattern.png", "image/png"),
+                                                                 })
+            end.to change(Document, :count).by(2)
+
+            email = IncomingEmail.last
+            expect(email.client).to eq client
+
+            documents = client.documents.order(:id)
+            expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
+            expect(documents.first.contact_record).to eq email
+            expect(documents.first.upload.blob.download).to eq("A" * File.size("public/images/logo.png"))
+            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/files/test-pattern.png", "rb").read)
+          end
         end
 
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
