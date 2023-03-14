@@ -16,6 +16,10 @@ module Documents
       end
     end
 
+    def form_params
+      super.merge(person: :primary)
+    end
+
     def after_update_success
       current_intake.tax_returns.each do |tax_return|
         tax_return.advance_to(:intake_needs_doc_help)

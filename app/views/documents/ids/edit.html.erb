@@ -1,9 +1,9 @@
 <% if IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
-  <% content_for :form_question, t("views.documents.ids.expanded_id.title", count: @names.length) %>
+  <% content_for :form_question, t("views.documents.ids.expanded_id.title") %>
 
   <% content_for :form_help_content do %>
     <p>
-      <%=t("views.documents.ids.expanded_id.help_text", count: @names.length) %>
+      <%=t("views.documents.ids.expanded_id.help_text") %>
     <p/>
     <p>
       <%=t("views.documents.ids.expanded_id.info") %>

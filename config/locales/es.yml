@@ -314,29 +314,29 @@ es:
     document_type: Clase de documento
     document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
+      drivers_license: licencia de conducir (EE. UU.)
       email_attachment: Adjunto de correo electrónico
+      employer_id: Identificación del empleador
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
+      employment_identification_document: EID (Documento de Identificación Laboral)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
+      military_id: identificación militar
       original_13614-C: Original 13614-C
       other: Otro
       passport: Pasaporte
-      drivers_license: licencia de conducir (EE. UU.)
-      state_id: identificación del estado (EE. UU.)
-      employer_id: Identificación del empleador
-      school_id: identificación de la escuela
-      military_id: identificación militar
-      visa: visado
-      tribal_id: tarjeta tribal mejorada o identificación tribal con foto de nativo americano
       permanent_resident_card: Tarjeta de residente permanente (tarjeta verde)
-      employment_identification_document: EID (Documento de Identificación Laboral)
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
+      school_id: identificación de la escuela
       selfie: Selfie
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
+      state_id: identificación del estado (EE. UU.)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
+      tribal_id: tarjeta tribal mejorada o identificación tribal con foto de nativo americano
+      visa: visado
       with_descriptions:
         1095-a: 1095-A para seguros médicos de mercado
         1098-t: 1098-T para matrícula estudiantil
@@ -1277,6 +1277,9 @@ es:
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+  layouts:
+    document_upload:
+      id_type: Tipo de Identificación
   messages:
     closing_soon:
       email:
@@ -3285,6 +3288,10 @@ es:
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
         title: Primero, necesitamos confirmar su información básica.
       ids:
+        expanded_id:
+          help_text: El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
+          info: Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto.
+          title: Adjunte fotos de su tarjeta de identificación
         help_text:
           many: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
@@ -3295,10 +3302,6 @@ es:
           many: Adjunte fotos de sus tarjetas de identificación
           one: Adjunte una foto de su tarjeta de identificación
           other: Adjunte fotos de sus tarjetas de identificación
-        expanded_id:
-          title: "Adjunte fotos de su tarjeta de identificación"
-          help_text: "El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS."
-          info: "Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto."
       intro:
         info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
         note: 'Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos.'
@@ -3324,6 +3327,9 @@ es:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
         title: Comparta una foto de usted sosteniendo su tarjeta de identificación
+      spouse_ids:
+        expanded_id:
+          title: Adjunte fotos de la tarjeta de identificación de su cónyuge
       ssn_itins:
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
@@ -4723,6 +4729,3 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
-  layouts:
-    document_upload:
-      id_type: "Tipo de Identificación"

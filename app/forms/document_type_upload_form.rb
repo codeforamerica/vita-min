@@ -1,5 +1,5 @@
 class DocumentTypeUploadForm < QuestionsForm
-  set_attributes_for :intake, :upload, :document_type
+  set_attributes_for :intake, :upload, :document_type, :person
   before_validation :instantiate_document
   validate :validate_document
 
@@ -19,6 +19,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def instantiate_document
     @upload.tempfile.rewind if @upload.present?
     @document = @intake.documents.new(
+      person: person || :unfilled,
       document_type: @document_type || @default_document_type,
       client: @intake.client,
       uploaded_by: @intake.client,

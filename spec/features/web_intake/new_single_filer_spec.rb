@@ -292,10 +292,10 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
       click_on "Continue"
 
-      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+      expect(page).to have_selector("h1", text: I18n.t("views.documents.ids.expanded_id.title"))
       expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
       expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
-      select I18n.t('general.document_types.passport'), from: I18n.t('general.document_type')
+      select I18n.t('general.document_types.passport'), from: I18n.t('layouts.document_upload.id_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       within ".doc-preview-container" do
         expect(page).to have_text "Passport"

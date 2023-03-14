@@ -6,6 +6,7 @@ class DocumentNavigation
   FLOW = [
     Documents::IdGuidanceController,
     Documents::IdsController,
+    Documents::SpouseIdsController,
     Documents::SelfieInstructionsController,
     Documents::SelfiesController,
     Documents::SsnItinsController,

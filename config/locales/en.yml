@@ -313,29 +313,29 @@ en:
     document_type: Document type
     document_types:
       care_provider_statement: Care Provider Statement
+      drivers_license: Driver's License (U.S.)
       email_attachment: Email attachment
+      employer_id: Employer ID
       employment: Employment tax documents (W2's, 1099, etc)
+      employment_identification_document: EID (Employment Identification Document)
       id: ID
       ira_statement: IRA Statement
+      military_id: Military ID
       original_13614-C: Original 13614-C
       other: Other
       passport: Passport
-      drivers_license: Driver's License (U.S.)
-      state_id: State ID (U.S.)
-      employer_id: Employer ID
-      school_id: School ID
-      military_id: Military ID
-      visa: Visa
-      tribal_id: Enhanced Tribal Card or Native American tribal photo ID
       permanent_resident_card: Permanent resident card (green card)
-      employment_identification_document: EID (Employment Identification Document)
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
+      school_id: School ID
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
+      state_id: State ID (U.S.)
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
+      tribal_id: Enhanced Tribal Card or Native American tribal photo ID
+      visa: Visa
       with_descriptions:
         1095-a: 1095-A for marketplace health insurance
         1098-t: 1098-T for student tuition
@@ -1279,6 +1279,9 @@ en:
       invitation:
         sent_at: Sent at %{datetime}
       title: Invitations
+  layouts:
+    document_upload:
+      id_type: ID Type
   messages:
     closing_soon:
       email:
@@ -3294,6 +3297,10 @@ en:
         multiple_forms: The IRS requires us to verify who you are with multiple forms of identity.
         title: First, we need to confirm your basic information.
       ids:
+        expanded_id:
+          help_text: The IRS requires us to see a current ID card. We will use your ID card to verify and protect your identity in accordance with IRS guidelines.
+          info: It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
+          title: Attach photos of your ID card
         help_text:
           one: The IRS requires us to see a current drivers license, passport, or state ID.
           other: The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse.
@@ -3302,10 +3309,6 @@ en:
         title:
           one: Attach a photo of your ID card
           other: Attach photos of ID cards
-        expanded_id:
-          title: "Attach photos of your ID card"
-          help_text: "The IRS requires us to see a current ID card. We will use your ID card to verify and protect your identity in accordance with IRS guidelines."
-          info: "It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo."
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
         note: 'Note: If you have other documents, you will have a chance to share those as well.'
@@ -3331,6 +3334,9 @@ en:
         help_text: The IRS requires us to verify who you are for tax preparation services.
         need_for_html: 'We will need to see a <u>photo with ID</u> for:'
         title: Share a photo of yourself holding your ID card
+      spouse_ids:
+        expanded_id:
+          title: Attach photos of your spouse’s ID card
       ssn_itins:
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
@@ -4674,6 +4680,3 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
-  layouts:
-    document_upload:
-      id_type: "ID Type"
