@@ -1,22 +1,35 @@
-<% content_for :form_question, t("views.documents.ids.title", count: @names.length) %>
+<% if IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
+  <% content_for :form_question, t("views.documents.ids.expanded_id.title", count: @names.length) %>
 
-<% content_for :form_help_content do %>
-  <p>
-    <%=t("views.documents.ids.help_text", count: @names.length) %>
-  <p/>
-  <p>
-    <%=t("views.documents.ids.info") %>
-  </p>
+  <% content_for :form_help_content do %>
+    <p>
+      <%=t("views.documents.ids.expanded_id.help_text", count: @names.length) %>
+    <p/>
+    <p>
+      <%=t("views.documents.ids.expanded_id.info") %>
+    </p>
+  <% end %>
+<% else %>
+  <% content_for :form_question, t("views.documents.ids.title", count: @names.length) %>
 
-  <div class="text--bold">
-    <p class="spacing-below-10">
-      <%=t("views.documents.ids.need_for") %>
+  <% content_for :form_help_content do %>
+    <p>
+      <%=t("views.documents.ids.help_text", count: @names.length) %>
+    <p/>
+    <p>
+      <%=t("views.documents.ids.info") %>
     </p>
 
-    <ul class="list--bulleted spacing-above-0 spacing-below-35">
-      <% @names.each do |name| %>
-        <li><%= name %></li>
-      <% end %>
-    </ul>
-  </div>
+    <div class="text--bold">
+      <p class="spacing-below-10">
+        <%=t("views.documents.ids.need_for") %>
+      </p>
+
+      <ul class="list--bulleted spacing-above-0 spacing-below-35">
+        <% @names.each do |name| %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <% end %>

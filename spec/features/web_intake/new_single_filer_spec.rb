@@ -278,7 +278,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
   end
 
-  context "client is included in the expanded id experiment" do
+  context "client is included in the expanded id experiment", js: true do
     before do
       ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
@@ -294,8 +294,12 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
       expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
       expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
       select I18n.t('general.document_types.passport'), from: I18n.t('general.document_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      within ".doc-preview-container" do
+        expect(page).to have_text "Passport"
+      end
       click_on "Continue"
 
       expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
@@ -317,102 +321,110 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
   end
 
-  scenario "new client filing single without dependents" do
-    intake = intake_up_to_documents
+  context "client is not in the selfie or expanded id experiments" do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id
+    end
 
-    # IRS guidance
-    expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
-    click_on "Continue"
+    scenario "new client filing single without dependents" do
+      intake = intake_up_to_documents
 
-    expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-    expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-    click_on "Continue"
+      # IRS guidance
+      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+      click_on "Continue"
 
-    expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
-    expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
+      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
 
-    expect(intake.reload.current_step).to end_with("/documents/selfies")
-    expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-    click_on "Continue"
+      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
+      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
-    expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
-    expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-    click_on "Continue"
+      expect(intake.reload.current_step).to end_with("/documents/selfies")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
 
-    # Documents: Intro
-    expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
-    click_on "Continue"
+      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Share your employment documents")
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      # Documents: Intro
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
+      click_on "Continue"
 
-    expect(page).to have_content("test-pattern.png")
-    expect(page).to have_link("Remove")
+      expect(page).to have_selector("h1", text: "Share your employment documents")
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      expect(page).to have_content("test-pattern.png")
+      expect(page).to have_link("Remove")
 
-    expect(page).to have_content("test-pattern.png")
-    expect(page).to have_content("picture_id.jpg")
-    click_on "Continue"
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
 
-    expect(page).to have_selector("h1", text: "Please share any additional documents.")
-    upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
-    expect(page).to have_content("test-pattern.png")
-    click_on "Continue"
+      expect(page).to have_content("test-pattern.png")
+      expect(page).to have_content("picture_id.jpg")
+      click_on "Continue"
 
-    expect(intake.reload.current_step).to end_with("/documents/overview")
-    expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-    click_on "I've shared all my documents"
+      expect(page).to have_selector("h1", text: "Please share any additional documents.")
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      expect(page).to have_content("test-pattern.png")
+      click_on "Continue"
 
-    # Final Information
-    expect(intake.reload.current_step).to end_with("/questions/final-info")
-    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    expect {
+      expect(intake.reload.current_step).to end_with("/documents/overview")
+      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+      click_on "I've shared all my documents"
+
+      # Final Information
+      expect(intake.reload.current_step).to end_with("/questions/final-info")
+      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
+      expect {
+        click_on "Submit"
+      }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
+
+      expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
+      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
+      click_on "Great!"
+
+      expect(intake.reload.current_step).to end_with("/questions/feedback")
+      fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
+      click_on "Continue"
+
+      # Demographic questions
+      expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
+      click_on "Continue"
+      expect(page).to have_text("How well would you say you can carry on a conversation in English?")
+      choose "Well"
+      click_on "Continue"
+      expect(page).to have_text("How well would you say you read a newspaper in English?")
+      choose "Not well"
+      click_on "Continue"
+      expect(page).to have_text("Do you or any member of your household have a disability?")
+      choose "No"
+      click_on "Continue"
+      expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
+      choose "Yes"
+      click_on "Continue"
+      expect(intake.reload.current_step).to end_with("/questions/demographic-primary-race")
+      expect(page).to have_selector("h1", text: "What is your race?")
+      check "Asian"
+      check "White"
+      click_on "Continue"
+      expect(page).to have_text("What is your ethnicity?")
+      choose "Not Hispanic or Latino"
       click_on "Submit"
-    }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
-    expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
-    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
-    click_on "Great!"
+      expect(page).to have_selector("h1", text: "Free tax filing")
 
-    expect(intake.reload.current_step).to end_with("/questions/feedback")
-    fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
-    click_on "Continue"
-
-    # Demographic questions
-    expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
-    click_on "Continue"
-    expect(page).to have_text("How well would you say you can carry on a conversation in English?")
-    choose "Well"
-    click_on "Continue"
-    expect(page).to have_text("How well would you say you read a newspaper in English?")
-    choose "Not well"
-    click_on "Continue"
-    expect(page).to have_text("Do you or any member of your household have a disability?")
-    choose "No"
-    click_on "Continue"
-    expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
-    choose "Yes"
-    click_on "Continue"
-    expect(intake.reload.current_step).to end_with("/questions/demographic-primary-race")
-    expect(page).to have_selector("h1", text: "What is your race?")
-    check "Asian"
-    check "White"
-    click_on "Continue"
-    expect(page).to have_text("What is your ethnicity?")
-    choose "Not Hispanic or Latino"
-    click_on "Submit"
-
-    expect(page).to have_selector("h1", text: "Free tax filing")
-
-    # going back to another page after submit redirects to client login, does not reset current_step
-    visit "/questions/work-situations"
-    expect(intake.reload.current_step).to end_with("/questions/demographic-primary-ethnicity")
-    expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
+      # going back to another page after submit redirects to client login, does not reset current_step
+      visit "/questions/work-situations"
+      expect(intake.reload.current_step).to end_with("/questions/demographic-primary-ethnicity")
+      expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
+    end
   end
 end

@@ -1,7 +1,16 @@
 module DocumentTypes
   IDENTITY_TYPES = [
     DocumentTypes::Identity,
+    DocumentTypes::DriversLicense,
+    DocumentTypes::EmployerId,
+    DocumentTypes::EmploymentIdentificationDocument,
+    DocumentTypes::MilitaryId,
     DocumentTypes::Passport,
+    DocumentTypes::PermanentResidentCard,
+    DocumentTypes::SchoolId,
+    DocumentTypes::StateId,
+    DocumentTypes::TribalId,
+    DocumentTypes::Visa,
   ].freeze
   OTHER_TYPES = [
     DocumentTypes::Selfie,

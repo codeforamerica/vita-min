@@ -10,6 +10,12 @@ module Documents
       DocumentTypes::Identity
     end
 
+    def selectable_document_types
+      if IdVerificationExperimentService.new(current_intake).show_expanded_id?
+        (DocumentTypes::IDENTITY_TYPES - [DocumentTypes::Identity]).map { |doc_type| [doc_type.translated_label(I18n.locale), doc_type.key] }
+      end
+    end
+
     def after_update_success
       current_intake.tax_returns.each do |tax_return|
         tax_return.advance_to(:intake_needs_doc_help)

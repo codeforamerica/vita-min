@@ -49,6 +49,15 @@
   position: relative;
 }
 
+form.file-selection-disabled {
+  .button {
+    @extend .button--disabled;
+  }
+  label img {
+    display: none;
+  }
+}
+
 .doc-preview {
   border: none;
   margin-bottom: 3.6rem;

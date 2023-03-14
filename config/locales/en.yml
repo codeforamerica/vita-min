@@ -320,6 +320,15 @@ en:
       original_13614-C: Original 13614-C
       other: Other
       passport: Passport
+      drivers_license: Driver's License (U.S.)
+      state_id: State ID (U.S.)
+      employer_id: Employer ID
+      school_id: School ID
+      military_id: Military ID
+      visa: Visa
+      tribal_id: Enhanced Tribal Card or Native American tribal photo ID
+      permanent_resident_card: Permanent resident card (green card)
+      employment_identification_document: EID (Employment Identification Document)
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
@@ -3293,6 +3302,10 @@ en:
         title:
           one: Attach a photo of your ID card
           other: Attach photos of ID cards
+        expanded_id:
+          title: "Attach photos of your ID card"
+          help_text: "The IRS requires us to see a current ID card. We will use your ID card to verify and protect your identity in accordance with IRS guidelines."
+          info: "It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo."
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
         note: 'Note: If you have other documents, you will have a chance to share those as well.'
@@ -4661,3 +4674,6 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
+  layouts:
+    document_upload:
+      id_type: "ID Type"

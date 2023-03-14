@@ -320,6 +320,16 @@ es:
       ira_statement: Declaración de plan de pensión (IRA)
       original_13614-C: Original 13614-C
       other: Otro
+      passport: Pasaporte
+      drivers_license: licencia de conducir (EE. UU.)
+      state_id: identificación del estado (EE. UU.)
+      employer_id: Identificación del empleador
+      school_id: identificación de la escuela
+      military_id: identificación militar
+      visa: visado
+      tribal_id: tarjeta tribal mejorada o identificación tribal con foto de nativo americano
+      permanent_resident_card: Tarjeta de residente permanente (tarjeta verde)
+      employment_identification_document: EID (Documento de Identificación Laboral)
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
@@ -3285,6 +3295,10 @@ es:
           many: Adjunte fotos de sus tarjetas de identificación
           one: Adjunte una foto de su tarjeta de identificación
           other: Adjunte fotos de sus tarjetas de identificación
+        expanded_id:
+          title: "Adjunte fotos de su tarjeta de identificación"
+          help_text: "El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS."
+          info: "Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto."
       intro:
         info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
         note: 'Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos.'
@@ -4709,3 +4723,6 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+  layouts:
+    document_upload:
+      id_type: "Tipo de Identificación"
