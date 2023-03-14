@@ -9,7 +9,12 @@ module Hub
 
       def index
         @experiments = Experiment.all
-        @experiment_participants = ExperimentParticipant.page(params[:page]).load
+      end
+
+      def show
+        @experiments = [@experiment]
+        @experiment_participants = ExperimentParticipant.where(experiment: @experiment).page(params[:page]).load
+        render :index
       end
 
       def edit
@@ -19,7 +24,6 @@ module Hub
       def update
         vita_partners = params[:hub_admin_experiments_controller_experiment_form][:vita_partners]
         vita_partner_ids = vita_partners.blank? ? [] : JSON.parse(vita_partners).pluck("id")
-
         if @experiment.update(experiment_params.merge(vita_partner_ids: vita_partner_ids))
           flash[:notice] = I18n.t("general.changes_saved")
           redirect_to hub_admin_experiments_path

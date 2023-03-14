@@ -33,7 +33,7 @@ class ExperimentService
       sum_of_probability = treatment_weights.values.reduce(0) { |a, b| a + b }
       cumulative_probability = 0.0
       @use_probabilities = []
-      treatment_weights.each_with_index do |(value, probability), i|
+      treatment_weights.each do |value, probability|
         probability = probability.to_f / sum_of_probability
         @use_probabilities << [value, cumulative_probability += probability]
       end

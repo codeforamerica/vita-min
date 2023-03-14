@@ -5,6 +5,7 @@ module Hub
       before_action :require_sign_in
       load_and_authorize_resource
       layout "hub"
+      before_action :redirect_on_prod, only: [:update]
 
       def edit; end
 
@@ -19,6 +20,10 @@ module Hub
       end
 
       private
+
+      def redirect_on_prod
+        redirect_to :edit if Rails.env.production?
+      end
 
       def experiment_participant_params
         params.require(:experiment_participant).permit(:treatment)
