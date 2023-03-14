@@ -35,6 +35,15 @@ RSpec.describe Hub::TakeActionForm do
       end
     end
 
+    context "when the status is unrecognized" do
+      let(:form_params) {{tax_return_id: tax_return.id, status: "file_acceplted"}}
+
+      it "adds an error to the form" do
+        expect(form).not_to be_valid
+        expect(form.errors[:status]).to include "The provided tax status is not valid."
+      end
+    end
+
     context "when REPLACE ME is included in the message body" do
       let(:form_params) {{ tax_return_id: tax_return.id, message_body: "REPLACE ME" }}
       it "add an error to the object" do

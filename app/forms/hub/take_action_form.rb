@@ -12,6 +12,7 @@ module Hub
                   :client
     attr_accessor :state_transition, :status
     validates_presence_of :status
+    validate :recognized_tax_return_status
     validate :belongs_to_client
     validate :state_has_changed
     validate :message_body_excludes_replace_me
@@ -98,6 +99,10 @@ module Hub
 
     def message_body_excludes_replace_me
       errors.add(:message_body, I18n.t("forms.errors.replace_me_text")) if message_body.include?("REPLACE ME")
+    end
+
+    def recognized_tax_return_status
+      errors.add(:status, I18n.t("forms.errors.invalid_tax_status")) unless TaxReturnStateMachine.states.include?(status)
     end
   end
 end
