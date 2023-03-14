@@ -502,7 +502,7 @@ class Intake::GyrIntake < Intake
     DocumentNavigation::FLOW.map do |doc_type_controller|
       doc_type = doc_type_controller.document_type
       doc_type if doc_type && doc_type.relevant_to?(self)
-    end.compact
+    end.compact.uniq
   end
 
   def document_types_definitely_needed

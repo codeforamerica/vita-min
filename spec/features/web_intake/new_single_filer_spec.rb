@@ -325,7 +325,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     before do
       ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
-      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id
+      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :control
     end
 
     scenario "new client filing single without dependents" do

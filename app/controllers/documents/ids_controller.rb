@@ -16,6 +16,10 @@ module Documents
       end
     end
 
+    def documents
+      current_intake.documents.of_type(self.class.displayed_document_types).where(person: :primary)
+    end
+
     def form_params
       super.merge(person: :primary)
     end
