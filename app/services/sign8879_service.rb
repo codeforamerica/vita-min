@@ -5,11 +5,11 @@ class Sign8879Service
       document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::UnsignedForm8879)
 
       document_writer.write(:primary_signature, tax_return.primary_signature)
-      document_writer.write(:primary_signed_on, tax_return.primary_signed_at.strftime("%m/%d/%Y"))
+      document_writer.write(:primary_signed_on, self.formatted_date(tax_return.primary_signed_at, tax_return.intake.timezone))
 
       if tax_return.spouse_has_signed_8879?
         document_writer.write(:spouse_signature, tax_return.spouse_signature)
-        document_writer.write(:spouse_signed_on, tax_return.spouse_signed_at.strftime("%m/%d/%Y"))
+        document_writer.write(:spouse_signed_on, self.formatted_date(tax_return.spouse_signed_at, tax_return.intake.timezone))
       end
 
       tempfile = document_writer.tempfile_output
@@ -29,6 +29,17 @@ class Sign8879Service
           identify: false
         }
       )
+    end
+  end
+
+  private
+
+  def self.formatted_date(date, timezone)
+    zone = Time.find_zone(timezone)
+    if zone.present?
+      date.in_time_zone(zone).strftime("%m/%d/%Y")
+    else
+      date.in_time_zone("America/Los_Angeles").strftime("%m/%d/%Y") + " (Pacific)"
     end
   end
 end
