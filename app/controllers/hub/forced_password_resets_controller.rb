@@ -1,5 +1,8 @@
-module Users
+module Hub
   class ForcedPasswordResetsController < ApplicationController
+    include AccessControllable
+
+    before_action :require_sign_in
     before_action :set_minimum_password_length
 
     layout "application"
