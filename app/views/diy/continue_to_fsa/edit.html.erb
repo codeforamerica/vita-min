@@ -1,32 +1,32 @@
 <% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 
-<main role="main">
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths">
-          <div class="question__illustration spacing-above-0">
-            <%= image_tag("questions/person-check.svg", alt: "") %>
-          </div>
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths">
+      <main role="main">
+        <div class="question__illustration spacing-above-0">
+          <%= image_tag("questions/person-check.svg", alt: "") %>
+        </div>
 
-          <h1 class="form-question">
-            <%= @main_heading %>
-          </h1>
+        <h1 class="form-question">
+          <%= @main_heading %>
+        </h1>
 
-          <div class="text--semibold spacing-below-35">
-            <ul class="checkmark-list teal">
-              <% t(".steps.description").each do |item| %>
-                <li>
-                  <%= item %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+        <div class="text--semibold spacing-below-35">
+          <ul class="checkmark-list teal">
+            <% t(".steps.description").each do |item| %>
+              <li>
+                <%= item %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
 
-          <p><%= t(".guide_html") %></p>
+        <p><%= t(".guide_html") %></p>
 
-          <%= link_to t(".continue_to_tax_slayer"), @taxslayer_link, class: "button button--primary text--centered button--wide spacing-above-60", "data-track-click": "diy-cfa-taxslayer-link" %>
-      </div>
+        <%= link_to t(".continue_to_tax_slayer"), @taxslayer_link, class: "button button--primary text--centered button--wide spacing-above-60", "data-track-click": "diy-cfa-taxslayer-link" %>
+      </main>
     </div>
-  </section>
-</main>
+  </div>
+</section>
