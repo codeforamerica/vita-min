@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-describe Hub::ForcedPasswordResetsController do
+RSpec.describe Hub::ForcedPasswordResetsController do
   let!(:organization) { create :organization, allows_greeters: false }
-  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
+  let(:hub_user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
+  let(:non_hub_user) { create(:user) }
 
   describe "#edit" do
     context "with a logged in user with hub access" do
-      before { sign_in user }
+      before { sign_in hub_user }
 
       it "shows the form for updating the password" do
         get :edit
@@ -17,7 +18,6 @@ describe Hub::ForcedPasswordResetsController do
 
     context "with a logged in non-hub user" do
       it "redirects back to the homepage" do
-        # FIXME: Make `non_hub_user` a non-hub user.
         sign_in non_hub_user
         get :edit
 
@@ -27,11 +27,12 @@ describe Hub::ForcedPasswordResetsController do
   end
 
   describe "#update" do
-    before { sign_in user }
+    before { sign_in hub_user }
 
     context "with mismatched password" do
       before do
         post :update, params: {user: { password: "one_form_of_pa$$word", password_confirmation: "another_failed_password" } }
+        hub_user.reload!
       end
 
       it "fails to update the user's password" do
@@ -39,8 +40,7 @@ describe Hub::ForcedPasswordResetsController do
       end
 
       it "does not update the last forced reset date" do
-        user.reload!
-        expect(user.forced_password_reset_at).to be_nil
+        expect(hub_user.forced_password_reset_at).to be_nil
       end
 
       it "does not redirect" do
@@ -50,15 +50,20 @@ describe Hub::ForcedPasswordResetsController do
 
     context "with matching password" do
       before do
-        post :update, params: {user: { password: "one_form_of_pa$$word", password_confirmation: "one_form_of_pa$$word" } }
+        post :update, params: {
+          user: {
+            password: "one_form_of_pa$$word", password_confirmation: "one_form_of_pa$$word"
+          }
+        }
+        hub_user.reload!
       end
 
       it "updates the user's password" do
-        expect(user.encrypted_password_previously_changed?).to be_true
+        expect(hub_user.encrypted_password_previously_changed?).to be_true
       end
 
       it "updates the last forced reset date" do
-        expect(user.forced_password_reset_at).not_to be_nil
+        expect(hub_user.forced_password_reset_at).not_to be_nil
       end
 
       it "redirects to the hub" do

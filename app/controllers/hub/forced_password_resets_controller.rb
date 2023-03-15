@@ -36,7 +36,7 @@ module Hub
     end
 
     def set_minimum_password_length
-      @minimum_password_length = User.password_length.min
+      @minimum_password_length = User.PASSWORD_LENGTH.min
     end
   end
 end
