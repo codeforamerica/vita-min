@@ -1667,6 +1667,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
     t.citext "email", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
+    t.datetime "forced_password_reset_at"
     t.datetime "invitation_accepted_at", precision: nil
     t.datetime "invitation_created_at", precision: nil
     t.integer "invitation_limit"
