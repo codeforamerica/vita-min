@@ -17,6 +17,8 @@ describe Hub::ForcedPasswordResetsController do
 
     context "with a logged in non-hub user" do
       it "redirects back to the homepage" do
+        # FIXME: Make `non_hub_user` a non-hub user.
+        sign_in non_hub_user
         get :edit
 
         expect(response).to redirect_to new_user_session_path

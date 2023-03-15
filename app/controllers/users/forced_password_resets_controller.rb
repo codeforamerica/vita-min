@@ -14,8 +14,9 @@ module Hub
     def update
       @user = current_user
 
-      if @user.valid_password?(user_params[:password])
+      if !@user.valid_password?(user_params[:password])
         @user.errors.add(:password, "Your new password should be different than your old password.")
+        render :edit
       else
         @user.assign_attributes(user_params)
         @user.forced_password_reset_at = Time.current
@@ -23,10 +24,9 @@ module Hub
         if @user.save
           bypass_sign_in(@user) # Devise signs out after a password change, don't do that
           @user.after_database_authentication
+          # FIXME: Go back to hub client search path?
         end
       end
-
-      respond_with @user, location: cbo_analytics_path(@user.cbo)
     end
 
     private
