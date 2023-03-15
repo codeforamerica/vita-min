@@ -318,14 +318,14 @@ es:
       email_attachment: Adjunto de correo electrónico
       employer_id: Identificación del empleador
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
-      employment_identification_document: EID (Documento de Identificación Laboral)
+      employment_authorization_document: Documento de Autorización de Empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       military_id: identificación militar
       original_13614-C: Original 13614-C
       other: Otro
       passport: Pasaporte
-      permanent_resident_card: Tarjeta de residente permanente (tarjeta verde)
+      green_card: Tarjeta verde
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
@@ -335,7 +335,7 @@ es:
       state_id: identificación del estado (EE. UU.)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
-      tribal_id: tarjeta tribal mejorada o identificación tribal con foto de nativo americano
+      tribal_id: Tarjeta de identificación tribal
       visa: visado
       with_descriptions:
         1095-a: 1095-A para seguros médicos de mercado

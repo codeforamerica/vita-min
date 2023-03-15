@@ -317,14 +317,14 @@ en:
       email_attachment: Email attachment
       employer_id: Employer ID
       employment: Employment tax documents (W2's, 1099, etc)
-      employment_identification_document: EID (Employment Identification Document)
+      employment_authorization_document: Employment Authorization Document
       id: ID
       ira_statement: IRA Statement
       military_id: Military ID
       original_13614-C: Original 13614-C
       other: Other
       passport: Passport
-      permanent_resident_card: Permanent resident card (green card)
+      green_card: Green Card
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
@@ -334,7 +334,7 @@ en:
       state_id: State ID (U.S.)
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
-      tribal_id: Enhanced Tribal Card or Native American tribal photo ID
+      tribal_id: Tribal ID card
       visa: Visa
       with_descriptions:
         1095-a: 1095-A for marketplace health insurance
