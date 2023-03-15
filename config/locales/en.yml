@@ -318,17 +318,27 @@ en:
       employer_id: Employer ID
       employment: Employment tax documents (W2's, 1099, etc)
       employment_authorization_document: Employment Authorization Document
+      green_card: Green Card
       id: ID
       ira_statement: IRA Statement
       military_id: Military ID
       original_13614-C: Original 13614-C
       other: Other
       passport: Passport
-      green_card: Green Card
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
       school_id: School ID
+      secondary_identification:
+        1099_for_id: Current year 1099
+        birth_certificate: Birth certificate
+        certificate_of_citizenship: Certificate of Citizenship
+        irs_transcript: IRS Transcript
+        itin: ITIN
+        ssa_1099_for_id: SSA-1099 form
+        ssa_notice: SSA Notice
+        ssn: Social security card
+        w2: Current year W-2
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
       state_id: State ID (U.S.)
@@ -3337,7 +3347,14 @@ en:
       spouse_ids:
         expanded_id:
           title: Attach photos of your spouse’s ID card
+      spouse_ssn_itins:
+        expanded_id:
+          title: Attach photos of an additional form of ID for your spouse
       ssn_itins:
+        expanded_id:
+          box: Please make sure that your name and identification number are clearly visible.
+          help_text: The IRS requires us to see an additional  form of identity. We use a second form of ID to verify and protect your identity in accordance with IRS guidelines.
+          title: Attach photos of an additional form of ID
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
         title: Attach photos of Social Security Card or ITIN

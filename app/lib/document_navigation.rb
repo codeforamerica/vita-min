@@ -10,6 +10,7 @@ class DocumentNavigation
     Documents::SelfieInstructionsController,
     Documents::SelfiesController,
     Documents::SsnItinsController,
+    Documents::SpouseSsnItinsController,
     Documents::IntroController,
     Documents::Form1095asController,
     Documents::EmploymentController,

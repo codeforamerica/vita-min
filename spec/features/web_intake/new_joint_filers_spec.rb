@@ -652,7 +652,14 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on "Continue"
 
       expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.expanded_id.title'))
+      select I18n.t('general.document_types.secondary_identification.birth_certificate'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/spouse-ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.spouse_ssn_itins.expanded_id.title'))
+      select I18n.t('general.document_types.secondary_identification.ssn'), from: I18n.t('layouts.document_upload.id_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       click_on "Continue"
 

@@ -835,7 +835,7 @@ describe Intake do
         DocumentTypes::Form1095A
       ]
 
-      expect(intake.document_types_definitely_needed).to eq expected_doc_types
+      expect(intake.document_types_definitely_needed).to match_array expected_doc_types
     end
 
     context "with already uploaded documents" do
@@ -849,7 +849,7 @@ describe Intake do
           DocumentTypes::Form1095A
         ]
 
-        expect(intake.document_types_definitely_needed).to eq expected_doc_types
+        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
       end
     end
   end
@@ -963,7 +963,7 @@ describe Intake do
         DocumentTypes::Form1099Int,
         DocumentTypes::Other,
       ]
-      expect(intake.relevant_document_types).to eq doc_types
+      expect(intake.relevant_document_types).to match_array doc_types
     end
   end
 
@@ -978,7 +978,7 @@ describe Intake do
         DocumentTypes::Employment,
         DocumentTypes::Other,
       ]
-      expect(intake.relevant_intake_document_types).to eq doc_types
+      expect(intake.relevant_intake_document_types).to match_array doc_types
     end
   end
 

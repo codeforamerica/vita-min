@@ -12,9 +12,20 @@ module DocumentTypes
     DocumentTypes::TribalId,
     DocumentTypes::Visa,
   ].freeze
+  SECONDARY_IDENTITY_TYPES = [
+    DocumentTypes::SsnItin,
+    DocumentTypes::SecondaryIdentification::BirthCertificate,
+    DocumentTypes::SecondaryIdentification::CertificateOfCitizenship,
+    DocumentTypes::SecondaryIdentification::Form1099,
+    DocumentTypes::SecondaryIdentification::IrsTranscript,
+    DocumentTypes::SecondaryIdentification::Itin,
+    DocumentTypes::SecondaryIdentification::Ssa1099,
+    DocumentTypes::SecondaryIdentification::SsaNotice,
+    DocumentTypes::SecondaryIdentification::Ssn,
+    DocumentTypes::SecondaryIdentification::W2,
+  ].freeze
   OTHER_TYPES = [
     DocumentTypes::Selfie,
-    DocumentTypes::SsnItin,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
     DocumentTypes::Form1040,
@@ -55,7 +66,7 @@ module DocumentTypes
     DocumentTypes::FormW7Coa
   ].freeze
 
-  ALL_TYPES = IDENTITY_TYPES + OTHER_TYPES
+  ALL_TYPES = IDENTITY_TYPES + SECONDARY_IDENTITY_TYPES + OTHER_TYPES
 
   HELP_TYPES = [
     :doesnt_apply,
