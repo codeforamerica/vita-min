@@ -1,13 +1,17 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake New Client wants to file on their own" do
+RSpec.feature "Client wants to file on their own" do
   scenario "a new client files through TaxSlayer", :flow_explorer_screenshot do
     ExperimentService.ensure_experiments_exist_in_database
     Experiment.update_all(enabled: true)
 
     allow(MixpanelService).to receive(:send_event)
     visit "/diy"
-    expect(page).to have_selector("h1", text: I18n.t('views.public_pages.diy_home.title'))
+    expect(page).to have_selector("h1", text: "File taxes on your own")
+    fill_in "Preferred first name", with: "Gary"
+    fill_in "Email", with: "example@example.com"
+    click_on I18n.t('general.continue')
+
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('diy.file_yourself.edit.title'))
