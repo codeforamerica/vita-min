@@ -659,6 +659,31 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(intake.tax_returns.map(&:current_state).uniq).to eq ["intake_ready"]
       expect(intake.documents.where(person: :primary).first.document_type).to eq "Passport"
       expect(intake.documents.where(person: :spouse).first.document_type).to eq "Visa"
+
+      # Documents: Intro
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Share your employment documents")
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      expect(page).to have_content("test-pattern.png")
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Attach your 1099-R's")
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      # Additional documents
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+      expect(page).to have_text "picture_id.jpg"
+      expect(page).to have_text "test-pattern.png"
+      click_on "I've shared all my documents"
     end
   end
 

@@ -9,6 +9,10 @@
       <% documents_by_type = @documents.group_by(&:document_type) %>
       <% document_type_keys.each do |type| %>
         <% documents = documents_by_type[type] || [] %>
+        <% if type == DocumentTypes::Identity.key %>
+          <% documents = DocumentTypes::IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
+        <% end %>
+
         <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__item-text">
           <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
         </h2>

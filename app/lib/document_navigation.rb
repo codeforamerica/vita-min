@@ -18,10 +18,9 @@ class DocumentNavigation
     Documents::OverviewController,
   ].freeze
 
-
-  CONTROLLER_BY_DOCUMENT_TYPE = FLOW
-    .find_all(&:document_type_key)
-    .index_by(&:document_type_key)
+  CONTROLLER_BY_DOCUMENT_TYPE = FLOW.each_with_object({}) do |klass, mapping|
+    mapping[klass.document_type_key] ||= klass if klass.document_type_key
+  end
 
   class << self
     def first_for_intake(intake)
