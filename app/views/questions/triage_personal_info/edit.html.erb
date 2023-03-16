@@ -9,7 +9,7 @@
     </p>
 
     <div class="form-card__content">
-      <%= f.hidden_field(:timezone) %>
+      <%= f.hidden_field(:timezone, data: { get_browser_timezone: true }) %>
       <%= f.cfa_input_field(:preferred_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.questions.personal_info.phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number_confirmation, t("views.questions.personal_info.phone_number_confirmation"), classes: ["form-width--long"]) %>
@@ -24,7 +24,10 @@
   <script>
       document.addEventListener("DOMContentLoaded", function() {
           var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          document.getElementById('personal_info_form_timezone').value = timezone;
+          let hiddenField = document.querySelector('[data-get-browser-timezone]');
+          if (hiddenField) {
+              hiddenField.value = timezone;
+          }
       });
   </script>
 <% end %>
