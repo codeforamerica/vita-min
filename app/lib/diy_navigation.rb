@@ -3,6 +3,7 @@ class DiyNavigation
 
   FLOW = [
            Diy::FileYourselfController,
+           # TODO: delete email controller
            Diy::EmailController,
            Diy::ContinueToFsaController
          ].freeze

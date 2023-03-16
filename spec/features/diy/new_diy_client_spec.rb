@@ -7,23 +7,28 @@ RSpec.feature "Client wants to file on their own" do
 
     allow(MixpanelService).to receive(:send_event)
     visit "/diy"
+    # TODO: Find out if we are keeping the /diy page
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: "File taxes on your own")
     fill_in "Preferred first name", with: "Gary"
     fill_in "Email", with: "example@example.com"
+    select "Yes", from: "Did you receive a 1099 tax form?"
+    select "I filed every year", from: "In the last 4 years, how often have you filed?"
+    # TODO: Replace with I18n keys
     click_on I18n.t('general.continue')
 
-    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: "Get support while you file on your own!")
 
-    expect(page).to have_selector("h1", text: I18n.t('diy.file_yourself.edit.title'))
-    click_on I18n.t('general.continue')
+    # TODO: Check taxslayer opens in new tab
+    # new_window = page.window_opened_by do
+    #   click_on I18n.t('general.continue')
+    # end
+    #
+    # page.within_window(new_window) do
+    #   puts URI.parse(current_url)
+    # end
 
-    expect(page).to have_selector("h1", text: I18n.t('diy.email.edit.title'))
-    fill_in I18n.t("views.questions.email_address.email_address"), with: "example@example.com"
-    fill_in I18n.t("views.questions.email_address.email_address_confirmation"), with: "example@example.com"
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('diy.continue_to_fsa.edit.title'))
-    expect(page).to have_text(I18n.t('diy.continue_to_fsa.edit.continue_to_tax_slayer'))
 
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)

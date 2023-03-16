@@ -1,6 +1,4 @@
-.document-intro-list {
-  margin-bottom: 5rem;
-
+.document-list {
   ul {
     margin: 0;
 
@@ -10,16 +8,16 @@
   }
 }
 
-.document-intro-list__icon-wrapper {
+.document-list__icon-wrapper {
   flex-shrink: 0;
   margin-right: 3rem;
   margin-top: 0.2rem;
 }
 
-.document-intro-list__icon {
+.document-list__icon {
   width: 1.6rem;
 }
 
-.document-intro-list__item-text {
+.document-list__item-text {
   margin: 0;
 }

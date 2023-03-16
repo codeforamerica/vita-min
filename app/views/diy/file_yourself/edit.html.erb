@@ -4,9 +4,6 @@
   <div class="grid">
     <div class="grid__item question-wrapper">
       <main role="main">
-        <div class="back grid">
-          <%= link_to t("general.back"), :back %>
-        </div>
         <div class="question__illustration spacing-above-0">
           <%= image_tag("questions/person-check.svg", alt: "") %>
         </div>
@@ -14,20 +11,35 @@
         <h1 class="form-question">
           <%= content_for :page_title %>
         </h1>
-        <p><%=t(".info") %></p>
+        <% t(".info").each do |para| %>
+          <p><%= para %> </p>
+        <% end %>
 
-        <div class="text--semibold spacing-below-35">
-          <p><%= t(".right_option.header") %></p>
-          <ul class="checkmark-list purple">
-            <% t(".right_option.description", current_tax_year: MultiTenantService.new(:gyr).current_tax_year).each do |item| %>
-            <li>
-              <%= item %>
-            </li>
-            <% end %>
-          </ul>
-        </div>
+        <%= form_with model: @diy_intake, url: diy_file_yourself_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+          <div class="form-card__content">
+            <%= f.cfa_input_field(:preferred_first_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
+            <%= f.cfa_select(
+                  :received_1099,
+                  t(".received_1099.label"),
+                  yes_no_options_for_select,
+                  help_text: t(".received_1099.help_text")
+                ) %>
+            <%= f.cfa_select(
+                  :filing_frequency,
+                  t("questions.triage_income_level.edit.filing_frequency.label_html"),
+                  [
+                    [t("questions.triage_income_level.edit.filing_frequency.options.every_year"), :every_year],
+                    [t("questions.triage_income_level.edit.filing_frequency.options.some_years"), :some_years],
+                    [t("questions.triage_income_level.edit.filing_frequency.options.not_filed"), :not_filed],
+                  ],
+                  include_blank: true,
 
-        <%= link_to t("general.continue"), diy_email_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
+                ) %>
+          </div>
+
+          <%= f.continue %>
+        <% end %>
       </main>
     </div>
   </div>
