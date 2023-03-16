@@ -24,7 +24,7 @@ RSpec.describe Questions::SsnItinController do
   end
 
   describe "#update" do
-    let(:intake) { create :intake, source: "SourceParam" }
+    let(:intake) { create :intake, source: "SourceParam", primary_birth_date: 25.years.ago }
     let(:params) do
       {
         ssn_itin_form: {
@@ -69,6 +69,19 @@ RSpec.describe Questions::SsnItinController do
         error_messages = assigns(:form).errors.messages
         expect(error_messages[:primary_ssn].first).to eq "An SSN or ITIN is required."
         expect(error_messages[:primary_tin_type].first).to eq "Identification type is required."
+      end
+    end
+
+    context "there is a matching_previous_year_intake" do
+      let!(:matching_previous_year_intake) do
+        _intake = build(:intake, primary_ssn: "123455678", primary_birth_date: intake.primary_birth_date, product_year: Rails.configuration.product_year - 1)
+        create(:client, :with_gyr_return, tax_return_state: :file_accepted, intake: _intake).intake
+      end
+
+      it "saves it onto the intake" do
+        post :update, params: params
+
+        expect(intake.reload.matching_previous_year_intake).to eq matching_previous_year_intake
       end
     end
   end

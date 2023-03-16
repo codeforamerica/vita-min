@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1182,6 +1182,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.bigint "matching_previous_year_intake_id"
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -1340,6 +1341,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
+    t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
@@ -1874,6 +1876,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"

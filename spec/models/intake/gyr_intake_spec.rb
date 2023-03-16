@@ -267,6 +267,7 @@
 #  created_at                                           :datetime         not null
 #  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  matching_previous_year_intake_id                     :bigint
 #  primary_drivers_license_id                           :bigint
 #  spouse_drivers_license_id                            :bigint
 #  visitor_id                                           :string
@@ -287,6 +288,7 @@
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
+#  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
@@ -301,6 +303,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
+#  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 require "rails_helper"
@@ -509,7 +512,7 @@ describe Intake::GyrIntake do
     end
   end
 
-  describe ".returning_matching_previous_year_intakes" do
+  describe ".previous_year_completed_intakes" do
     let!(:intake_current_year) { create :intake, product_year: Rails.configuration.product_year }
     let!(:intake_2022_bad_tax_return_state) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :file_mailed)]) }
     let!(:intake_2022) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }

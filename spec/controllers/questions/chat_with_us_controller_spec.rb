@@ -5,19 +5,21 @@ RSpec.describe Questions::ChatWithUsController do
 
   let(:vita_partner) { create :organization, name: "Fake Partner" }
   let(:zip_code) { nil }
-  let(:intake) { create :intake, vita_partner: vita_partner, zip_code: zip_code }
+  let(:intake) { create :intake, vita_partner: vita_partner, zip_code: zip_code, primary_birth_date: 25.years.ago, primary_ssn: '123456789' }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#edit" do
-    let(:experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+    let(:id_experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+    let(:returning_client_experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
 
     before do
       ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
-      experiment.experiment_vita_partners.create(vita_partner: vita_partner)
+      id_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
+      returning_client_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
     end
 
     context "with an intake with a ZIP code" do
@@ -28,27 +30,6 @@ RSpec.describe Questions::ChatWithUsController do
 
         expect(response.body).to include("handles tax returns from")
         expect(response.body).to include("02143 (Somerville, Massachusetts)")
-      end
-
-      context "an intake with a vita partner that is in the experiment" do
-        it "assigns the intake to an Id Verification Experiment treatment group" do
-          get :edit
-
-          participant = ExperimentParticipant.find_by(experiment: experiment, record: intake)
-          expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
-        end
-      end
-
-      context "an intake with a vita partner that is not in the experiment" do
-        before do
-          intake.update(vita_partner: create(:organization))
-        end
-
-        it "does not put the intake in the experiment" do
-          get :edit
-
-          expect(ExperimentParticipant.where(experiment: experiment, record: intake)).to be_empty
-        end
       end
     end
 
@@ -81,6 +62,81 @@ RSpec.describe Questions::ChatWithUsController do
         expect(response).to be_ok
         expect(response.body).not_to include("Welcome back Nancy")
         expect(response.body).to include("Our team at #{vita_partner.name} is here to help!")
+      end
+    end
+
+    context "ID experiment" do
+      context "an intake with a vita partner that is in the experiment" do
+        it "assigns the intake to an Id Verification Experiment treatment group" do
+          get :edit
+
+          participant = ExperimentParticipant.find_by(experiment: id_experiment, record: intake)
+          expect(participant.treatment.to_sym).to be_in(id_experiment.treatment_weights.keys)
+        end
+      end
+
+      context "an intake with a vita partner that is not in the experiment" do
+        before do
+          intake.update(vita_partner: create(:organization))
+        end
+
+        it "does not put the intake in the experiment" do
+          get :edit
+
+          expect(ExperimentParticipant.where(experiment: id_experiment, record: intake)).to be_empty
+        end
+      end
+
+      context "an intake that is already in the returning client treatment group" do
+        before do
+          intake.update(matching_previous_year_intake: create(:intake))
+          returning_client_treatment_chooser = instance_double(ExperimentService::TreatmentChooser, choose: :skip_identity_documents)
+          allow(ExperimentService::TreatmentChooser).to receive(:new).and_call_original
+          allow(ExperimentService::TreatmentChooser).to receive(:new).with(ExperimentService::CONFIG[ExperimentService::RETURNING_CLIENT_EXPERIMENT][:treatment_weights]).and_return returning_client_treatment_chooser
+        end
+
+        it "does not try to put client in experiment" do
+          get :edit
+
+          expect(ExperimentParticipant.where(experiment: id_experiment, record: intake)).to be_empty
+        end
+      end
+    end
+
+    context "returning client experiment" do
+      context "the client has a matching prior year client" do
+        before do
+          intake.update(matching_previous_year_intake: create(:intake))
+        end
+
+        context "an intake with a vita partner that is in the experiment" do
+          it "assigns the intake to a Returning Client Experiment treatment group" do
+            get :edit
+
+            participant = ExperimentParticipant.find_by(experiment: returning_client_experiment, record: intake)
+            expect(participant.treatment.to_sym).to be_in(returning_client_experiment.treatment_weights.keys)
+          end
+        end
+
+        context "an intake with a vita partner that is not in the experiment" do
+          before do
+            intake.update(vita_partner: create(:organization))
+          end
+
+          it "does not put the intake in the experiment" do
+            get :edit
+
+            expect(ExperimentParticipant.where(experiment: returning_client_experiment, record: intake)).to be_empty
+          end
+        end
+      end
+
+      context "the client does not have a matching prior year client" do
+        it "does not assign the intake to a Returning Client Experiment treatment group" do
+          get :edit
+
+          expect(ExperimentParticipant.where(experiment: returning_client_experiment, record: intake)).to be_empty
+        end
       end
     end
   end
