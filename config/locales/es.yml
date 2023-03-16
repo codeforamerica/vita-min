@@ -107,6 +107,9 @@ es:
         need_help_find: Necesito ayuda para encontrar este documento.
         reminder_link: Enviar un enlace de recordatorio para este documento.
         title: Ayuda de documentos
+    overview:
+      edit:
+        additional_form_of_id: Forma adicional de identificación
     reminder_link:
       email:
         body: |

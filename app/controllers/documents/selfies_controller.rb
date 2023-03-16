@@ -2,10 +2,6 @@ module Documents
   class SelfiesController < DocumentUploadQuestionController
     before_action :set_required_person_names, only: [:edit, :update]
 
-    def self.show?(intake)
-      !IdVerificationExperimentService.new(intake).skip_selfies?
-    end
-
     def self.document_type
       DocumentTypes::Selfie
     end
