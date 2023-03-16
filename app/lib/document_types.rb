@@ -1,16 +1,16 @@
 module DocumentTypes
   IDENTITY_TYPES = [
     DocumentTypes::Identity,
-    DocumentTypes::DriversLicense,
-    DocumentTypes::EmployerId,
-    DocumentTypes::EmploymentAuthorizationDocument,
-    DocumentTypes::GreenCard,
-    DocumentTypes::MilitaryId,
-    DocumentTypes::Passport,
-    DocumentTypes::SchoolId,
-    DocumentTypes::StateId,
-    DocumentTypes::TribalId,
-    DocumentTypes::Visa,
+    DocumentTypes::PrimaryIdentification::DriversLicense,
+    DocumentTypes::PrimaryIdentification::EmployerId,
+    DocumentTypes::PrimaryIdentification::EmploymentAuthorizationDocument,
+    DocumentTypes::PrimaryIdentification::GreenCard,
+    DocumentTypes::PrimaryIdentification::MilitaryId,
+    DocumentTypes::PrimaryIdentification::Passport,
+    DocumentTypes::PrimaryIdentification::SchoolId,
+    DocumentTypes::PrimaryIdentification::StateId,
+    DocumentTypes::PrimaryIdentification::TribalId,
+    DocumentTypes::PrimaryIdentification::Visa,
   ].freeze
   SECONDARY_IDENTITY_TYPES = [
     DocumentTypes::SsnItin,

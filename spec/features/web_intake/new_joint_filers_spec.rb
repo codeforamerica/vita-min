@@ -617,7 +617,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: I18n.t('views.documents.ids.expanded_id.title'))
       expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
       expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
-      select I18n.t('general.document_types.drivers_license'), from: I18n.t('layouts.document_upload.id_type')
+      select I18n.t('general.document_types.primary_identification.drivers_license'), from: I18n.t('layouts.document_upload.id_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       within ".doc-preview-container" do
         expect(page).to have_text "Driver's License (U.S.)"
@@ -626,7 +626,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
         end
         expect(page).not_to have_text "Driver's License (U.S.)"
       end
-      select I18n.t('general.document_types.passport'), from: I18n.t('layouts.document_upload.id_type')
+      select I18n.t('general.document_types.primary_identification.passport'), from: I18n.t('layouts.document_upload.id_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       expect(page).not_to have_text "I don't have this right now"
       click_on "Continue"
@@ -634,7 +634,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "Attach photos of your spouse’s ID card")
       expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
       expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
-      select I18n.t('general.document_types.visa'), from: I18n.t('layouts.document_upload.id_type')
+      select I18n.t('general.document_types.primary_identification.visa'), from: I18n.t('layouts.document_upload.id_type')
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       within ".doc-preview-container" do
         expect(page).not_to have_text "Passport"

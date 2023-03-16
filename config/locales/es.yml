@@ -314,22 +314,26 @@ es:
     document_type: Clase de documento
     document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
-      drivers_license: licencia de conducir (EE. UU.)
       email_attachment: Adjunto de correo electrónico
-      employer_id: Identificación del empleador
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
-      employment_authorization_document: Documento de Autorización de Empleo
-      green_card: Tarjeta verde
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
-      military_id: identificación militar
       original_13614-C: Original 13614-C
       other: Otro
-      passport: Pasaporte
+      primary_identification:
+        drivers_license: licencia de conducir (EE. UU.)
+        employer_id: Identificación del empleador
+        employment_authorization_document: Documento de Autorización de Empleo
+        green_card: Tarjeta verde
+        military_id: identificación militar
+        passport: Pasaporte
+        school_id: identificación de la escuela
+        state_id: identificación del estado (EE. UU.)
+        tribal_id: Tarjeta de identificación tribal
+        visa: visado
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
-      school_id: identificación de la escuela
       secondary_identification:
         1099_for_id: Año actual 1099
         birth_certificate: Certificado de nacimiento
@@ -342,11 +346,8 @@ es:
         w2: Año actual W-2
       selfie: Selfie
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
-      state_id: identificación del estado (EE. UU.)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
-      tribal_id: Tarjeta de identificación tribal
-      visa: visado
       with_descriptions:
         1095-a: 1095-A para seguros médicos de mercado
         1098-t: 1098-T para matrícula estudiantil

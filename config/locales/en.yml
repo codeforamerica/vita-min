@@ -313,22 +313,26 @@ en:
     document_type: Document type
     document_types:
       care_provider_statement: Care Provider Statement
-      drivers_license: Driver's License (U.S.)
       email_attachment: Email attachment
-      employer_id: Employer ID
       employment: Employment tax documents (W2's, 1099, etc)
-      employment_authorization_document: Employment Authorization Document
-      green_card: Green Card
       id: ID
       ira_statement: IRA Statement
-      military_id: Military ID
       original_13614-C: Original 13614-C
       other: Other
-      passport: Passport
+      primary_identification:
+        drivers_license: Driver's License (U.S.)
+        employer_id: Employer ID
+        employment_authorization_document: Employment Authorization Document
+        green_card: Green Card
+        military_id: Military ID
+        passport: Passport
+        school_id: School ID
+        state_id: State ID (U.S.)
+        tribal_id: Tribal ID card
+        visa: Visa
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
-      school_id: School ID
       secondary_identification:
         1099_for_id: Current year 1099
         birth_certificate: Birth certificate
@@ -341,11 +345,8 @@ en:
         w2: Current year W-2
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
-      state_id: State ID (U.S.)
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
-      tribal_id: Tribal ID card
-      visa: Visa
       with_descriptions:
         1095-a: 1095-A for marketplace health insurance
         1098-t: 1098-T for student tuition
