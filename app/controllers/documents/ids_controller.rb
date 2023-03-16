@@ -17,11 +17,19 @@ module Documents
     end
 
     def documents
-      current_intake.documents.of_type(self.class.displayed_document_types).where(person: :primary)
+      if IdVerificationExperimentService.new(current_intake).show_expanded_id?
+        super.where(person: :primary)
+      else
+        super
+      end
     end
 
     def form_params
-      super.merge(person: :primary)
+      if IdVerificationExperimentService.new(current_intake).show_expanded_id?
+        super.merge(person: :primary)
+      else
+        super
+      end
     end
 
     def after_update_success

@@ -10,6 +10,14 @@ module Documents
       DocumentTypes::SsnItin
     end
 
+    def documents
+      if IdVerificationExperimentService.new(current_intake).show_expanded_id?
+        super.where(person: :primary)
+      else
+        super
+      end
+    end
+
     def selectable_document_types
       if IdVerificationExperimentService.new(current_intake).show_expanded_id?
         (DocumentTypes::SECONDARY_IDENTITY_TYPES - [DocumentTypes::SsnItin]).map { |doc_type| [doc_type.translated_label(I18n.locale), doc_type.key] }
@@ -21,6 +29,18 @@ module Documents
       current_intake.tax_returns.each do |tax_return|
         tax_return.transition_to(transition_to) if tax_return.current_state.to_sym != transition_to
       end
+    end
+
+    def form_params
+      if IdVerificationExperimentService.new(current_intake).show_expanded_id?
+        super.merge(person: :primary)
+      else
+        super
+      end
+    end
+
+    def illustration_path
+      'ssn-itins.svg'
     end
 
     private
