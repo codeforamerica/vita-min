@@ -28,22 +28,44 @@ RSpec.describe Diy::FileYourselfController do
         allow(subject).to receive(:visitor_id).and_return "blop"
       end
 
-      it "creates a new diy intake and stores the id in the session" do
-        expect do
-          post :update, params: params
-        end.to change(DiyIntake, :count).by(1)
+      context "without a diy intake in the session" do
+        it "creates a new diy intake and stores the id in the session" do
+          expect do
+            post :update, params: params
+          end.to change(DiyIntake, :count).by(1)
 
-        diy_intake = DiyIntake.last
-        expect(session[:diy_intake_id]).to eq diy_intake.id
-        expect(diy_intake.email_address).to eq "example@example.com"
-        expect(diy_intake.preferred_first_name).to eq "Robot"
-        expect(diy_intake.received_1099).to eq "yes"
-        expect(diy_intake.filing_frequency).to eq "some_years"
+          diy_intake = DiyIntake.last
+          expect(session[:diy_intake_id]).to eq diy_intake.id
 
-        expect(diy_intake.source).to eq "beep"
-        expect(diy_intake.referrer).to eq "boop"
-        expect(diy_intake.visitor_id).to eq "blop"
-        expect(diy_intake.locale).to eq "en"
+          expect(diy_intake.source).to eq "beep"
+          expect(diy_intake.referrer).to eq "boop"
+          expect(diy_intake.visitor_id).to eq "blop"
+          expect(diy_intake.locale).to eq "en"
+        end
+      end
+
+      context "with a diy intake in the session" do
+        let(:existing_diy_intake) { create :diy_intake, source: "existing_source", referrer: "existing_referrer", locale: "en", visitor_id: "existing_visitor_id" }
+        let(:file_yourself_form_double) { instance_double(FileYourselfForm) }
+        before do
+          session[:diy_intake_id] = existing_diy_intake.id
+          allow(FileYourselfForm).to receive(:new).and_return file_yourself_form_double
+          allow(file_yourself_form_double).to receive(:save)
+        end
+
+        it "updates the intake from the session except source, referrer, etc" do
+          expect do
+            post :update, params: params
+          end.not_to change(DiyIntake, :count)
+
+          expect(FileYourselfForm).to have_received(:new).with(existing_diy_intake, params: hash_including(params))
+          expect(file_yourself_form_double).to have_received(:save)
+
+          expect(existing_diy_intake.source).to eq "existing_source"
+          expect(existing_diy_intake.referrer).to eq "existing_referrer"
+          expect(existing_diy_intake.visitor_id).to eq "existing_visitor_id"
+          expect(existing_diy_intake.locale).to eq "en"
+        end
       end
 
       it "redirects to the tax slayer link page" do

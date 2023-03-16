@@ -50,41 +50,46 @@ RSpec.describe FileYourselfForm do
       end
 
       context "missing params" do
-          let(:invalid_params) do
-            {
-              diy_intake: {
-                email_address: nil,
-                preferred_first_name: nil,
-                received_1099: nil,
-                filing_frequency: nil,
-              }
+        let(:invalid_params) do
+          {
+            diy_intake: {
+              email_address: nil,
+              preferred_first_name: nil,
+              received_1099: nil,
+              filing_frequency: nil,
             }
-          end
+          }
+        end
 
-          it "adds an error for each" do
-            form = described_class.new(diy_intake, invalid_params.merge(additional_params))
+        it "adds an error for each" do
+          form = described_class.new(diy_intake, invalid_params.merge(additional_params))
 
-            expect(form).not_to be_valid
-            expect(form.errors[:email_address]).to be_present
-            expect(form.errors[:preferred_first_name]).to be_present
-            expect(form.errors[:received_1099]).to be_present
-            expect(form.errors[:filing_frequency]).to be_present
-          end
+          expect(form).not_to be_valid
+          expect(form.errors[:email_address]).to be_present
+          expect(form.errors[:preferred_first_name]).to be_present
+          expect(form.errors[:received_1099]).to be_present
+          expect(form.errors[:filing_frequency]).to be_present
+        end
       end
     end
   end
 
   describe "#save" do
-    it "makes a new diy intake" do
-    end
+    context "when creating a new record" do
+      it "saves the right attributes to the new record" do
+        form = described_class.new(diy_intake, valid_params.merge(additional_params))
+        form.save
 
-    it "parses & saves the right attributes" do
-      form = described_class.new(diy_intake, valid_params.merge(additional_params))
-      form.valid?
-      form.save
-
-      intake = DiyIntake.last
-      expect(intake.something).to eq "something"
+        diy_intake.reload
+        expect(diy_intake.email_address).to eq "example@example.com"
+        expect(diy_intake.preferred_first_name).to eq "Robot"
+        expect(diy_intake.received_1099).to eq "yes"
+        expect(diy_intake.filing_frequency).to eq "some_years"
+        expect(diy_intake.source).to eq "source"
+        expect(diy_intake.referrer).to eq "referrer"
+        expect(diy_intake.visitor_id).to eq "visitor_1"
+        expect(diy_intake.locale).to eq "es"
+      end
     end
   end
 end

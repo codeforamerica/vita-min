@@ -1,14 +1,12 @@
 module Diy
   class FileYourselfController < BaseController
     def edit
-      @diy_intake = DiyIntake.new
+      @form = FileYourselfForm.new
     end
 
     def update
-      @diy_intake = DiyIntake.new(create_params)
+      @form = FileYourselfForm.new(DiyIntake.find(session[:diy_intake_id]) || DiyIntake.new, create_params)
 
-      # TODO: is this janky? answer: i think yes
-      return render :edit unless params[:diy_intake].keys.all? { |param| params[:diy_intake][param].present? }
       return render :edit unless @diy_intake.save
 
       session[:diy_intake_id] = @diy_intake.id
