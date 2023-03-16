@@ -6,8 +6,8 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource except: [:new, :create]
     # on new/create, authorize through client but initialize tax return object
-    authorize_resource :client, parent: false, only: [:new, :create]
     before_action :load_client, only: [:new, :create]
+    authorize_resource :client, parent: false, only: [:new, :create]
     before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update]
 
@@ -63,7 +63,7 @@ module Hub
     private
 
     def load_client
-      @client = Client.find(params[:client_id])
+      @client = Client.accessible_to_user(current_user).find(params[:client_id])
     end
 
     def load_assignable_users
