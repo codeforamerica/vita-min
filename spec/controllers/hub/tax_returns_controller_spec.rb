@@ -8,6 +8,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let!(:organization_lead) { create :organization_lead_user, organization: organization }
   let!(:site_coordinator) { create :site_coordinator_user, site: site, name: "Barbara" }
   let!(:team_member) { create :team_member_user, site: site, name: "Aaron" }
+  let!(:unauthorized_team_member) { create :team_member_user }
 
   let(:currently_assigned_coalition_lead) { create :coalition_lead_user, coalition: coalition }
   let(:user) { currently_assigned_coalition_lead }
@@ -24,6 +25,18 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     end
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    context "an unauthorized user" do
+      before do
+        sign_in unauthorized_team_member
+      end
+
+      it "is not allowed to access the page" do
+        expect do
+          get :new, params: params
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
 
     context "an authenticated user" do
       let(:user) { create :admin_user }
