@@ -1,6 +1,5 @@
 require "rails_helper"
 
-# TODO: move some of these expectations over to the form spec
 RSpec.describe Diy::FileYourselfController do
   describe "#edit" do
     it "is 200 OK 👍" do
@@ -14,7 +13,7 @@ RSpec.describe Diy::FileYourselfController do
     context "with valid params" do
       let(:params) do
         {
-          diy_intake: {
+          file_yourself_form: {
             email_address: "example@example.com",
             preferred_first_name: "Robot",
             received_1099: "yes",
@@ -45,12 +44,9 @@ RSpec.describe Diy::FileYourselfController do
       end
 
       context "with a diy intake in the session" do
-        let(:existing_diy_intake) { create :diy_intake, source: "existing_source", referrer: "existing_referrer", locale: "en", visitor_id: "existing_visitor_id" }
-        let(:file_yourself_form_double) { instance_double(FileYourselfForm) }
+        let(:existing_diy_intake) { create :diy_intake, :filled_out, source: "existing_source", referrer: "existing_referrer", locale: "en", visitor_id: "existing_visitor_id" }
         before do
           session[:diy_intake_id] = existing_diy_intake.id
-          allow(FileYourselfForm).to receive(:new).and_return file_yourself_form_double
-          allow(file_yourself_form_double).to receive(:save)
         end
 
         it "updates the intake from the session except source, referrer, etc" do
@@ -58,8 +54,11 @@ RSpec.describe Diy::FileYourselfController do
             post :update, params: params
           end.not_to change(DiyIntake, :count)
 
-          expect(FileYourselfForm).to have_received(:new).with(existing_diy_intake, params: hash_including(params))
-          expect(file_yourself_form_double).to have_received(:save)
+          existing_diy_intake.reload
+          expect(existing_diy_intake.email_address).to eq "example@example.com"
+          expect(existing_diy_intake.preferred_first_name).to eq "Robot"
+          expect(existing_diy_intake.received_1099).to eq "yes"
+          expect(existing_diy_intake.filing_frequency).to eq "some_years"
 
           expect(existing_diy_intake.source).to eq "existing_source"
           expect(existing_diy_intake.referrer).to eq "existing_referrer"
@@ -75,16 +74,16 @@ RSpec.describe Diy::FileYourselfController do
       end
     end
 
-    context "without invalid params" do
+    context "with invalid params" do
       let(:invalid_params) do
-          {
-            diy_intake: {
-              email_address: nil,
-              preferred_first_name: "Robot",
-              received_1099: "yes",
-              filing_frequency: "some_years",
-            }
+        {
+          file_yourself_form: {
+            email_address: nil,
+            preferred_first_name: "Robot",
+            received_1099: "yes",
+            filing_frequency: "some_years",
           }
+        }
       end
 
       it "returns 200 and doesn't make a diy intake record" do

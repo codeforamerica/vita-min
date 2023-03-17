@@ -76,27 +76,23 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        continue_to_tax_slayer: Continuar a File Myself
-        guide_html: Consulte nuestra Guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a>, para declarar por cuenta propia, y para obtener instrucciones paso a paso, consejos y buenas prácticas. Si se queda atorado o tiene alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a diy@getyourrefund.org.
-        steps:
-          description:
-          - Para empezar declarando sus impuestos, haga clic en 'Continuar a File Myself' para ser redirigido al software gratuito de impuestos.
-          - No haga clic en 'atrás' ni abandone el software hasta que cree un nombre de usuario y una contraseña.
-          - Comience a ingresar su información y solicite ayuda cuando la necesite.
-        title: "¡Declare impuestos por su cuenta!"
+        chat_with_us: Chatea con nosotros
+        continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
+        email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
+        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra <a href="%{file_myself_guide_link}" target="_blank">Guía de autoarchivo</a>.
+        help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
+        title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
     email:
       edit:
         title: Para acceder a este sitio, indique su dirección de correo electrónico.
     file_yourself:
       edit:
-        info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
-        right_option:
-          description:
-          - Solo está declarando para %{current_tax_year} (no para años anteriores)
-          - Le resulta cómodo usar servicios de declaración de impuestos en línea
-          - Su situación fiscal es simple/clara
-          - Necesita una solución rápida
-          header: 'Esta es la opción adecuada para usted si:'
+        info:
+        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que se le deben!
+        - Para comenzar, necesitaremos recopilar información básica.
+        received_1099:
+          help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
+          label: "¿Recibió un formulario de impuestos 1099?"
         title: "¡Declare aquí sus impuestos usted mismo!"
   documents:
     documents_help:

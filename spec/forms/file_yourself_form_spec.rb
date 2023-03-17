@@ -75,21 +75,19 @@ RSpec.describe FileYourselfForm do
   end
 
   describe "#save" do
-    context "when creating a new record" do
-      it "saves the right attributes to the new record" do
-        form = described_class.new(diy_intake, valid_params.merge(additional_params))
-        form.save
+    it "saves the right attributes to the record" do
+      form = described_class.new(diy_intake, valid_params.merge(additional_params))
+      form.save
 
-        diy_intake.reload
-        expect(diy_intake.email_address).to eq "example@example.com"
-        expect(diy_intake.preferred_first_name).to eq "Robot"
-        expect(diy_intake.received_1099).to eq "yes"
-        expect(diy_intake.filing_frequency).to eq "some_years"
-        expect(diy_intake.source).to eq "source"
-        expect(diy_intake.referrer).to eq "referrer"
-        expect(diy_intake.visitor_id).to eq "visitor_1"
-        expect(diy_intake.locale).to eq "es"
-      end
+      diy_intake.reload
+      expect(diy_intake.email_address).to eq "example@example.com"
+      expect(diy_intake.preferred_first_name).to eq "Robot"
+      expect(diy_intake.received_1099).to eq "yes"
+      expect(diy_intake.filing_frequency).to eq "some_years"
+      expect(diy_intake.source).to eq "source"
+      expect(diy_intake.referrer).to eq "referrer"
+      expect(diy_intake.visitor_id).to eq "visitor_1"
+      expect(diy_intake.locale).to eq "es"
     end
   end
 end

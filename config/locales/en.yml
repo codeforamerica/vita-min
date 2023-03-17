@@ -76,11 +76,11 @@ en:
   diy:
     continue_to_fsa:
       edit:
+        chat_with_us: Chat with us
+        continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
+        email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
         file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
         help_text: If you get stuck or have a question, we can help!
-        chat_with_us: Chat with us
-        email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
         title: Get support while you file on your own!
     email:
       edit:
@@ -88,18 +88,11 @@ en:
     file_yourself:
       edit:
         info:
-          - File taxes online on your own using our partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
-          - To get started, we’ll need to collect some basic information.
+        - File taxes online on your own using our partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+        - To get started, we’ll need to collect some basic information.
         received_1099:
-          label: Did you receive a 1099 tax form?
           help_text: If you were self employed or worked as an independent contractor, you may have gotten a 1099 form.
-        right_option:
-          description:
-          - You are only filing for %{current_tax_year} (not previous years)
-          - You’re comfortable using online tax services
-          - Your tax situation is simple/straightforward
-          - You need a quick option
-          header: 'This is the right option for you if:'
+          label: Did you receive a 1099 tax form?
         title: File taxes on your own
   documents:
     documents_help:

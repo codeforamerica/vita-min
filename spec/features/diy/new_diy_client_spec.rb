@@ -19,16 +19,7 @@ RSpec.feature "Client wants to file on their own" do
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: "Get support while you file on your own!")
-
-    # TODO: Check taxslayer opens in new tab
-    # new_window = page.window_opened_by do
-    #   click_on I18n.t('general.continue')
-    # end
-    #
-    # page.within_window(new_window) do
-    #   puts URI.parse(current_url)
-    # end
-
+    expect(page).to have_selector('a[href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"][target="_blank"]')
 
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)
