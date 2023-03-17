@@ -507,7 +507,14 @@ class Intake::GyrIntake < Intake
 
   def document_types_definitely_needed
     relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
-      documents.where(document_type: document_type.key).present?
+      document_types = if document_type == DocumentTypes::Identity
+                         DocumentTypes::IDENTITY_TYPES.map(&:key)
+                       elsif document_type == DocumentTypes::SsnItin
+                         DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:key)
+                       else
+                         document_type.key
+                       end
+      documents.where(document_type: document_types).present?
     end
   end
 
