@@ -12,6 +12,14 @@ RSpec.describe Questions::ChatWithUsController do
   end
 
   describe "#edit" do
+    let(:experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+      experiment.experiment_vita_partners.create(vita_partner: vita_partner)
+    end
+
     context "with an intake with a ZIP code" do
       let(:zip_code) { "02143" }
 
@@ -22,15 +30,25 @@ RSpec.describe Questions::ChatWithUsController do
         expect(response.body).to include("02143 (Somerville, Massachusetts)")
       end
 
-      it "assigns the intake to an Id Verification Experiment treatment group" do
-        ExperimentService.ensure_experiments_exist_in_database
-        Experiment.update_all(enabled: true)
+      context "an intake with a vita partner that is in the experiment" do
+        it "assigns the intake to an Id Verification Experiment treatment group" do
+          get :edit
 
-        get :edit
+          participant = ExperimentParticipant.find_by(experiment: experiment, record: intake)
+          expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
+        end
+      end
 
-        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-        participant = ExperimentParticipant.find_by(experiment: experiment, record: intake)
-        expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
+      context "an intake with a vita partner that is not in the experiment" do
+        before do
+          intake.update(vita_partner: create(:organization))
+        end
+
+        it "does not put the intake in the experiment" do
+          get :edit
+
+          expect(ExperimentParticipant.where(experiment: experiment, record: intake)).to be_empty
+        end
       end
     end
 
