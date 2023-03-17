@@ -6,7 +6,6 @@ class FileYourselfForm < Form
   validates :email_address, 'valid_email_2/email': true, presence: true
   validates :preferred_first_name, presence: true
   validates :received_1099, presence: true
-  # TODO: Validate that this check works i.e. Rails sends empty string
   validates :filing_frequency, presence: true
 
   def initialize(diy_intake = nil, params = {})
