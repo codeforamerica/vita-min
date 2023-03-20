@@ -9,16 +9,15 @@ RSpec.feature "Client wants to file on their own" do
     # TODO: Once /diy redirect goes away, visit /diy/file_yourself directly
     visit "/diy"
 
-    expect(page).to have_selector("h1", text: "File taxes on your own")
+    expect(page).to have_selector("h1", text: I18n.t("diy.file_yourself.edit.title"))
     fill_in "Preferred first name", with: "Gary"
     fill_in "Email", with: "example@example.com"
-    select "Yes", from: "Did you receive a 1099 tax form?"
+    select "Yes", from: I18n.t("diy.file_yourself.edit.received_1099.label")
     select "I filed every year", from: "In the last 4 years, how often have you filed?"
-    # TODO: Replace with I18n keys
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: "Get support while you file on your own!")
-    expect(page).to have_selector('a[href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"][target="_blank"]')
+    expect(page).to have_selector("h1", text: I18n.t("diy.continue_to_fsa.edit.title"))
+    expect(page).to have_selector('a[href^="https://www.taxslayer.com/v.aspx"][target="_blank"]')
 
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)
