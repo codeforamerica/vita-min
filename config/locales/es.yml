@@ -2357,7 +2357,7 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref"> sin cargo en GetYourRefund. </a>
+            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref"> sin cargo en GetYourRefund. </a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -3674,7 +3674,7 @@ es:
               answer_html: |
                 <p>Aunque tenga pocos ingresos y no esté obligado a presentar la declaración de impuestos, podría calificar para recibir pagos del IRS. Es especialmente probable que tenga derecho a créditos fiscales si tiene hijos. Para declararlos, tiene que presentar una declaración de impuestos.</p>
                 <p>La declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad o un préstamo hipotecario.</p>
-                <p>Puede presentar una declaración de impuestos completa y solicitar todas las ventajas tributarias pertinentes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa por Internet usted mismo, puede elegir nuestra opción <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a>, en español: Declarar por Cuenta Propia.</p>
+                <p>Puede presentar una declaración de impuestos completa y solicitar todas las ventajas tributarias pertinentes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa por Internet usted mismo, puede elegir nuestra opción <a href="https://www.getyourrefund.org/en/diy/file_yourself" target="_blank" rel="noopener">File Myself</a>, en español: Declarar por Cuenta Propia.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:

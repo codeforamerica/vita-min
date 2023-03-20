@@ -30,7 +30,6 @@ RSpec.describe "GYR offseason redirects", type: :request do
   describe "diy pages" do
     it_behaves_like :a_normal_page_when_intake_is_open, Diy::FileYourselfController
     it_behaves_like :a_normal_page_when_intake_is_closed, Diy::FileYourselfController
-    it_behaves_like :a_normal_page_when_intake_is_closed, PublicPagesController, action: :diy
     it_behaves_like :a_redirect_home_when_login_is_closed, Diy::FileYourselfController
   end
 end

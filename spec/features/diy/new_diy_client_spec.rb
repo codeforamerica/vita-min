@@ -6,9 +6,8 @@ RSpec.feature "Client wants to file on their own" do
     Experiment.update_all(enabled: true)
 
     allow(MixpanelService).to receive(:send_event)
+    # TODO: Once /diy redirect goes away, visit /diy/file_yourself directly
     visit "/diy"
-    # TODO: Find out if we are keeping the /diy page
-    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: "File taxes on your own")
     fill_in "Preferred first name", with: "Gary"

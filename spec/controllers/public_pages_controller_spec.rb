@@ -157,7 +157,7 @@ RSpec.describe PublicPagesController do
   describe "#diy" do
     it "renders successfully" do
       get :diy
-      expect(response).to be_ok
+      expect(response).to redirect_to("/en/diy/file_yourself")
     end
   end
 
