@@ -73,7 +73,7 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy
-    # TODO: Delete this controller action after this redirect has been deployed for a day
+    # TODO(diy-cleanup): Delete this controller action after this redirect has been deployed for a day
     redirect_to Diy::FileYourselfController.to_path_helper
   end
 
