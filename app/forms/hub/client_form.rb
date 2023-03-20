@@ -14,6 +14,7 @@ module Hub
         :spouse_first_name,
         :spouse_last_name,
         :email_address,
+        :spouse_email_address,
         :sms_notification_opt_in,
         :email_notification_opt_in,
         :signature_method
@@ -32,6 +33,7 @@ module Hub
     end
 
     validates :email_address, 'valid_email_2/email': true
+    validates :spouse_email_address, 'valid_email_2/email': true
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
     validates :primary_first_name, presence: true, allow_blank: false, legal_name: true
