@@ -72,7 +72,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
     it "allows the client to choose DIY" do
       click_on I18n.t("views.questions.at_capacity.continue_to_diy")
 
-      expect(page).to have_selector("h1", text: "To access this site, please provide your e-mail address.")
+      expect(page).to have_selector("h1", text: "File taxes on your own")
       expect(Intake.last.continued_at_capacity).to be_falsey
     end
 

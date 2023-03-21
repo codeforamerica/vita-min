@@ -1,32 +1,55 @@
 <% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 
-<section class="slab slab--white">
-  <div class="grid">
-    <div class="grid__item width-three-fourths">
-      <main role="main">
-        <div class="question__illustration spacing-above-0">
-          <%= image_tag("questions/person-check.svg", alt: "") %>
-        </div>
-
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
         <h1 class="form-question">
           <%= @main_heading %>
         </h1>
 
-        <div class="text--semibold spacing-below-35">
-          <ul class="checkmark-list teal">
-            <% t(".steps.description").each do |item| %>
-              <li>
-                <%= item %>
-              </li>
-            <% end %>
+        <div class="document-list">
+          <ul>
+            <li class="spacing-above-25">
+              <div class="document-list__icon-wrapper">
+                <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
+              </div>
+              <div class="document-list__item-text">
+                <%= t(".file_myself_guide_html", file_myself_guide_link: "https://files.codeforamerica.org/2023/03/07165831/2023-file-myself-with-getyourrefund-client-guide.pdf") %>
+              </div>
+            </li>
           </ul>
         </div>
 
-        <p><%= t(".guide_html") %></p>
+        <hr class="spacing-above-25 spacing-below-25"/>
 
-        <%= link_to t(".continue_to_tax_slayer"), @taxslayer_link, class: "button button--primary text--centered button--wide spacing-above-60", "data-track-click": "diy-cfa-taxslayer-link" %>
-      </main>
+        <div><%= t(".help_text") %></div>
+
+        <div class="document-list">
+          <ul>
+            <li class="spacing-above-25">
+              <div class="document-list__icon-wrapper">
+                <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
+              </div>
+              <div class="document-list__item-text">
+                <a class="open-intercom button--link"><%= t(".chat_with_us") %></a>
+              </div>
+            </li>
+            <li class="spacing-above-25">
+              <div class="document-list__icon-wrapper">
+                <%= image_tag "envelope.svg", alt: "", class: "document-list__icon" %>
+              </div>
+              <div class="document-list__item-text">
+                <%= t(".email_us_html") %>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="text--small text--italic spacing-above-60 spacing-below-15"><%= t(".continue_help_text") %></div>
+        <%= link_to t("general.continue"), @taxslayer_link, target: "_blank", class: "button button--primary text--centered button--wide", "data-track-click": "diy-cfa-taxslayer-link" %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>

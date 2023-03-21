@@ -8,7 +8,7 @@
     <%= t("views.documents.intro.info") %>
   </p>
 
-  <div class="document-intro-list">
+  <div class="document-list spacing-below-60">
     <% if current_intake.document_types_definitely_needed.present? %>
       <h2 class="h3">
         <strong><%= t("views.documents.intro.should_have") %></strong>
@@ -16,10 +16,10 @@
       <ul>
         <% current_intake.document_types_definitely_needed.each do |type| %>
           <li class="spacing-above-25">
-            <div class="document-intro-list__icon-wrapper">
-              <%= image_tag "paper.svg", alt: "", class: "document-intro-list__icon" %>
+            <div class="document-list__icon-wrapper">
+              <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
             </div>
-            <h3 class="document-intro-list__item-text">
+            <h3 class="document-list__item-text">
               <%= type.label %>
             </h3>
           </li>

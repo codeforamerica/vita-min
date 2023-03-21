@@ -76,28 +76,24 @@ en:
   diy:
     continue_to_fsa:
       edit:
-        continue_to_tax_slayer: Continue to File Myself
-        guide_html: See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at diy@getyourrefund.org
-        steps:
-          description:
-          - To start filing, click 'Continue to File Myself' to be routed to the free tax software.
-          - Do not click 'back' or navigate away from the software until you create a username and password.
-          - Start entering your information and ask for help when you need it.
-        title: File taxes on your own!
+        chat_with_us: Chat with us
+        continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
+        email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
+        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
+        help_text: If you get stuck or have a question, we can help!
+        title: Get support while you file on your own!
     email:
       edit:
         title: To access this site, please provide your e-mail address.
     file_yourself:
       edit:
-        info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
-        right_option:
-          description:
-          - You are only filing for %{current_tax_year} (not previous years)
-          - You’re comfortable using online tax services
-          - Your tax situation is simple/straightforward
-          - You need a quick option
-          header: 'This is the right option for you if:'
-        title: File your taxes yourself!
+        info:
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $73,000 to file taxes and collect the tax credits you are owed!
+        - To get started, we’ll need to collect some basic information.
+        received_1099:
+          help_text: If you were self employed or worked as an independent contractor, you may have gotten a 1099 form.
+          label: Did you receive a 1099 tax form?
+        title: File taxes on your own
   documents:
     documents_help:
       show:
@@ -2404,7 +2400,7 @@ en:
             body_html:
             - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
             - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy?source=gctc_ref">free at GetYourRefund.</a>
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref">free at GetYourRefund.</a>
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
@@ -3726,7 +3722,7 @@ en:
               answer_html: |
                 <p>Even if you make little income and are not required to file a tax return, you could qualify for payments from the IRS. You are especially likely to qualify for tax credits if you have children. In order to claim this money, you need to file a tax return.</p>
                 <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p>
-                <p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy" target="_blank" rel="noopener">File Myself</a> option.</p>
+                <p>You can file a full tax return and claim all relevant tax benefits with the help of a tax preparer using <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. To file a full tax return online yourself, try our <a href="https://www.getyourrefund.org/en/diy/file_yourself" target="_blank" rel="noopener">File Myself</a> option.</p>
               question: What are the potential benefits of filing a tax return?
           state_returns:
             can_i_get_tax_credits_from_california:

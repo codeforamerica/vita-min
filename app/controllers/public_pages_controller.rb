@@ -73,7 +73,8 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy
-    redirect_to root_path unless open_for_gyr_logged_in_clients?
+    # TODO(diy-cleanup): Delete this controller action after this redirect has been deployed for a day
+    redirect_to Diy::FileYourselfController.to_path_helper
   end
 
   def pki_validation

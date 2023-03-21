@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_14_223205) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_15_180648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -713,7 +713,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_223205) do
   create_table "diy_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "filing_frequency", default: 0, null: false
     t.string "locale"
+    t.string "preferred_first_name"
+    t.integer "received_1099", default: 0, null: false
     t.string "referrer"
     t.string "source"
     t.datetime "updated_at", null: false
