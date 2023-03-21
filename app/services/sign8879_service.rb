@@ -35,11 +35,7 @@ class Sign8879Service
   private
 
   def self.formatted_date(date, timezone)
-    zone = Time.find_zone(timezone)
-    if zone.present?
-      date.in_time_zone(zone).strftime("%m/%d/%Y")
-    else
-      date.in_time_zone("America/Los_Angeles").strftime("%m/%d/%Y") + " (Pacific)"
-    end
+    zone = timezone.present? ? Time.find_zone(timezone) : Time.find_zone("America/Los_Angeles")
+    date.in_time_zone(zone).strftime("%m/%d/%Y (#{date.in_time_zone(zone).zone})")
   end
 end

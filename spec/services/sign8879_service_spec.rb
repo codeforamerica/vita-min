@@ -11,7 +11,7 @@ describe Sign8879Service do
                                           timezone: intake_timezone
                           )
     }
-    let(:time_signed_past_midnight_eastern) { DateTime.new(2023, 3, 14, 1, 0, 0, Time.now.in_time_zone('America/New_York').formatted_offset) }
+    let(:time_signed_past_midnight_eastern) { DateTime.new(2023, 4, 14, 1, 0, 0, "-04:00") } # default date during daylight savings
     let(:tax_return) { create :tax_return,
                               year: 2019,
                               client: client,
@@ -19,7 +19,7 @@ describe Sign8879Service do
                               primary_signed_ip: IPAddr.new,
                               primary_signed_at: time_signed_past_midnight_eastern
     }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, created_at: DateTime.new(2023, 3, 10), uploaded_by: (create :user), upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, created_at: DateTime.new(2023, 4, 10), uploaded_by: (create :user), upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
 
     before do
       allow(tax_return).to receive(:filing_jointly?).and_return false
@@ -35,19 +35,41 @@ describe Sign8879Service do
     end
 
     context "writing today's date (mm/dd/yyyy)" do
-      context "when intake has a timezone" do
-        it "uses the client's timezone to find the date" do
-          Sign8879Service.create(tax_return)
-          expect(document_service_double).to have_received(:write).with(:primary_signed_on, "03/14/2023")
+      context "during daylight savings" do
+        context "when intake has a timezone" do
+          it "uses the client's timezone to find the date" do
+            Sign8879Service.create(tax_return)
+            expect(document_service_double).to have_received(:write).with(:primary_signed_on, "04/14/2023 (EDT)")
+          end
+        end
+
+        context "when we can't get the timezone" do
+          let(:intake_timezone) { nil }
+
+          it "uses pacific time" do
+            Sign8879Service.create(tax_return)
+            expect(document_service_double).to have_received(:write).with(:primary_signed_on, "04/13/2023 (PDT)")
+          end
         end
       end
 
-      context "when we can't get the timezone" do
-        let(:intake_timezone) { nil }
+      context "not during daylight savings" do
+        let(:time_signed_past_midnight_eastern) { DateTime.new(2023, 12, 14, 1, 0, 0, "-04:00") } # EST offset
 
-        it "uses pacific time" do
-          Sign8879Service.create(tax_return)
-          expect(document_service_double).to have_received(:write).with(:primary_signed_on, "03/13/2023 (Pacific)")
+        context "when intake has a timezone" do
+          it "uses the client's timezone to find the date" do
+            Sign8879Service.create(tax_return)
+            expect(document_service_double).to have_received(:write).with(:primary_signed_on, "12/14/2023 (EST)")
+          end
+        end
+
+        context "when we can't get the timezone" do
+          let(:intake_timezone) { nil }
+
+          it "uses pacific time" do
+            Sign8879Service.create(tax_return)
+            expect(document_service_double).to have_received(:write).with(:primary_signed_on, "12/13/2023 (PST)")
+          end
         end
       end
     end
@@ -73,7 +95,7 @@ describe Sign8879Service do
         Sign8879Service.create(tax_return)
 
         expect(document_service_double).to have_received(:write).with(:spouse_signature, "Spouse Taxpayer")
-        expect(document_service_double).to have_received(:write).with(:spouse_signed_on, "03/14/2023")
+        expect(document_service_double).to have_received(:write).with(:spouse_signed_on, "04/14/2023 (EDT)")
       end
     end
 
