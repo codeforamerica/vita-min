@@ -9,8 +9,19 @@
       <% documents_by_type = @documents.group_by(&:document_type) %>
       <% document_type_keys.each do |type| %>
         <% documents = documents_by_type[type] || [] %>
+        <% if type == DocumentTypes::Identity.key %>
+          <% documents = DocumentTypes::IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
+        <% end %>
+        <% if type == DocumentTypes::SsnItin.key %>
+          <% documents = DocumentTypes::SECONDARY_IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
+        <% end %>
+
         <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__item-text">
-          <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+          <% if type == DocumentTypes::SsnItin.key && IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
+            <%= t(".additional_form_of_id") %>
+          <% else %>
+            <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+          <% end %>
         </h2>
 
         <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>

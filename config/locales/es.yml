@@ -107,6 +107,9 @@ es:
         need_help_find: Necesito ayuda para encontrar este documento.
         reminder_link: Enviar un enlace de recordatorio para este documento.
         title: Ayuda de documentos
+    overview:
+      edit:
+        additional_form_of_id: Forma adicional de identificación
     reminder_link:
       email:
         body: |
@@ -320,9 +323,30 @@ es:
       ira_statement: Declaración de plan de pensión (IRA)
       original_13614-C: Original 13614-C
       other: Otro
+      primary_identification:
+        drivers_license: licencia de conducir (EE. UU.)
+        employer_id: Identificación del empleador
+        employment_authorization_document: Documento de Autorización de Empleo
+        green_card: Tarjeta verde
+        military_id: identificación militar
+        passport: Pasaporte
+        school_id: identificación de la escuela
+        state_id: identificación del estado (EE. UU.)
+        tribal_id: Tarjeta de identificación tribal
+        visa: visado
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
+      secondary_identification:
+        1099_for_id: Año actual 1099
+        birth_certificate: Certificado de nacimiento
+        certificate_of_citizenship: Certificado de Ciudadanía
+        irs_transcript: Transcripción del IRS
+        itin: ITIN
+        ssa_1099_for_id: Formulario SSA-1099
+        ssa_notice: Aviso SSA
+        ssn: Tarjeta de seguridad social
+        w2: Año actual W-2
       selfie: Selfie
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       student_account_statement: Estado de cuenta del estudiante
@@ -1267,6 +1291,9 @@ es:
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+  layouts:
+    document_upload:
+      id_type: Tipo de Identificación
   messages:
     closing_soon:
       email:
@@ -3275,6 +3302,10 @@ es:
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
         title: Primero, necesitamos confirmar su información básica.
       ids:
+        expanded_id:
+          help_text: El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
+          info: Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto.
+          title: Adjunte fotos de su tarjeta de identificación
         help_text:
           many: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
@@ -3310,7 +3341,17 @@ es:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
         title: Comparta una foto de usted sosteniendo su tarjeta de identificación
+      spouse_ids:
+        expanded_id:
+          title: Adjunte fotos de la tarjeta de identificación de su cónyuge
+      spouse_ssn_itins:
+        expanded_id:
+          title: Adjunte fotos de una forma adicional de identificación para su cónyuge
       ssn_itins:
+        expanded_id:
+          box: Asegúrese de que su nombre y número de identificación estén claramente visibles.
+          help_text: El IRS requiere que veamos una forma adicional de identidad. Usamos una segunda forma de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
+          title: Adjunte fotos de una forma adicional de identificación
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
         title: Adjunte fotos de la Tarjeta de Seguro Social o Número de Identificación Personal (ITIN en inglés)

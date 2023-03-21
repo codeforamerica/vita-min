@@ -2,6 +2,10 @@ module Documents
   class IntroController < DocumentUploadQuestionController
     layout "intake"
 
+    def self.show?(intake)
+      intake.document_types_definitely_needed.any?
+    end
+
     def edit
       data = MixpanelService.data_from([current_intake.client, current_intake])
 

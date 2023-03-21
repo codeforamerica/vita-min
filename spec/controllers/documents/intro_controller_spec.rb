@@ -6,6 +6,26 @@ RSpec.describe Documents::IntroController do
   let(:intake) { create :intake, visitor_id: "visitor_id", **attributes }
   before { sign_in intake.client }
 
+  describe ".show?" do
+    context "when there are any document_types_definitely_needed" do
+      it "returns true" do
+        expect(subject.class.show?(intake)).to eq true
+      end
+    end
+
+    context "when there are no document_types_definitely_needed" do
+      before do
+        create :document, intake: intake, document_type: DocumentTypes::Identity.key
+        create :document, intake: intake, document_type: DocumentTypes::SsnItin.key
+        create :document, intake: intake, document_type: DocumentTypes::Selfie.key
+      end
+
+      it "returns false" do
+        expect(subject.class.show?(intake)).to eq false
+      end
+    end
+  end
+
   describe "#edit" do
     context "with a set of answers on an intake" do
       let(:attributes) { { had_wages: "yes", had_retirement_income: "yes" } }

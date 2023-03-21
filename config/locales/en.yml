@@ -107,6 +107,9 @@ en:
         need_help_find: I need help finding this document.
         reminder_link: Send a reminder link for this document.
         title: Document help
+    overview:
+      edit:
+        additional_form_of_id: Additional form of ID
     reminder_link:
       email:
         body: |
@@ -319,9 +322,30 @@ en:
       ira_statement: IRA Statement
       original_13614-C: Original 13614-C
       other: Other
+      primary_identification:
+        drivers_license: Driver's License (U.S.)
+        employer_id: Employer ID
+        employment_authorization_document: Employment Authorization Document
+        green_card: Green Card
+        military_id: Military ID
+        passport: Passport
+        school_id: School ID
+        state_id: State ID (U.S.)
+        tribal_id: Tribal ID card
+        visa: Visa
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
+      secondary_identification:
+        1099_for_id: Current year 1099
+        birth_certificate: Birth certificate
+        certificate_of_citizenship: Certificate of Citizenship
+        irs_transcript: IRS Transcript
+        itin: ITIN
+        ssa_1099_for_id: SSA-1099 form
+        ssa_notice: SSA Notice
+        ssn: Social security card
+        w2: Current year W-2
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
@@ -1269,6 +1293,9 @@ en:
       invitation:
         sent_at: Sent at %{datetime}
       title: Invitations
+  layouts:
+    document_upload:
+      id_type: ID Type
   messages:
     closing_soon:
       email:
@@ -3284,6 +3311,10 @@ en:
         multiple_forms: The IRS requires us to verify who you are with multiple forms of identity.
         title: First, we need to confirm your basic information.
       ids:
+        expanded_id:
+          help_text: The IRS requires us to see a current ID card. We will use your ID card to verify and protect your identity in accordance with IRS guidelines.
+          info: It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
+          title: Attach photos of your ID card
         help_text:
           one: The IRS requires us to see a current drivers license, passport, or state ID.
           other: The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse.
@@ -3317,7 +3348,17 @@ en:
         help_text: The IRS requires us to verify who you are for tax preparation services.
         need_for_html: 'We will need to see a <u>photo with ID</u> for:'
         title: Share a photo of yourself holding your ID card
+      spouse_ids:
+        expanded_id:
+          title: Attach photos of your spouse’s ID card
+      spouse_ssn_itins:
+        expanded_id:
+          title: Attach photos of an additional form of ID for your spouse
       ssn_itins:
+        expanded_id:
+          box: Please make sure that your name and identification number are clearly visible.
+          help_text: The IRS requires us to see an additional  form of identity. We use a second form of ID to verify and protect your identity in accordance with IRS guidelines.
+          title: Attach photos of an additional form of ID
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
         title: Attach photos of Social Security Card or ITIN

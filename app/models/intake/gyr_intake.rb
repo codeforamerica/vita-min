@@ -502,12 +502,19 @@ class Intake::GyrIntake < Intake
     DocumentNavigation::FLOW.map do |doc_type_controller|
       doc_type = doc_type_controller.document_type
       doc_type if doc_type && doc_type.relevant_to?(self)
-    end.compact
+    end.compact.uniq
   end
 
   def document_types_definitely_needed
     relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
-      documents.where(document_type: document_type.key).present?
+      document_types = if document_type == DocumentTypes::Identity
+                         DocumentTypes::IDENTITY_TYPES.map(&:key)
+                       elsif document_type == DocumentTypes::SsnItin
+                         DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:key)
+                       else
+                         document_type.key
+                       end
+      documents.where(document_type: document_types).present?
     end
   end
 

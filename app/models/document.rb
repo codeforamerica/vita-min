@@ -7,6 +7,7 @@
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
+#  person               :integer          default("unfilled"), not null
 #  uploaded_by_type     :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -55,6 +56,8 @@ class Document < ApplicationRecord
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
 
   before_save :set_display_name
+
+  enum person: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :person
 
   default_scope { order(created_at: :asc) }
 

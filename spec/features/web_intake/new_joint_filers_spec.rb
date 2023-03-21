@@ -6,7 +6,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
-  scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
+  def intake_up_to_documents
     answer_gyr_triage_questions(screenshot_method: self.method(:screenshot_after), choices: :defaults)
 
     # creates intake and triage
@@ -148,7 +148,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     end
     click_on "No"
-
 
     # Marital status
     screenshot_after do
@@ -457,6 +456,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       fill_in "ZIP code", with: "94612"
     end
     click_on "Continue"
+    intake
+  end
+
+  scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
+    intake = intake_up_to_documents
 
     screenshot_after do
       # IRS guidance
@@ -595,4 +599,100 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
   end
+
+  context "client is included in the expanded id experiment", js: true do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+      Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
+      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id
+    end
+
+    scenario "new client filing joint taxes with spouse and without dependents" do
+      intake = intake_up_to_documents
+
+      # IRS guidance
+      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ids.expanded_id.title'))
+      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
+      select I18n.t('general.document_types.primary_identification.drivers_license'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      within ".doc-preview-container" do
+        expect(page).to have_text "Driver's License (U.S.)"
+        page.accept_alert 'Are you sure you want to remove "picture_id.jpg"?' do
+          click_on 'Remove'
+        end
+        expect(page).not_to have_text "Driver's License (U.S.)"
+      end
+      select I18n.t('general.document_types.primary_identification.passport'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      expect(page).not_to have_text "I don't have this right now"
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Attach photos of your spouse’s ID card")
+      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
+      expect(page).to have_field('document_type_upload_form_upload', disabled: true, visible: :all)
+      select I18n.t('general.document_types.primary_identification.visa'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      within ".doc-preview-container" do
+        expect(page).not_to have_text "Passport"
+        expect(page).to have_text "Visa"
+      end
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
+      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
+
+      expect(intake.reload.current_step).to end_with("/documents/selfies")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.expanded_id.title'))
+      select I18n.t('general.document_types.secondary_identification.birth_certificate'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.reload.current_step).to end_with("/documents/spouse-ssn-itins")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.spouse_ssn_itins.expanded_id.title'))
+      select I18n.t('general.document_types.secondary_identification.ssn'), from: I18n.t('layouts.document_upload.id_type')
+      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(intake.tax_returns.map(&:current_state).uniq).to eq ["intake_ready"]
+      expect(intake.documents.where(person: :primary).first.document_type).to eq "Passport"
+      expect(intake.documents.where(person: :spouse).first.document_type).to eq "Visa"
+
+      # Documents: Intro
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Share your employment documents")
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      expect(page).to have_content("test-pattern.png")
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Attach your 1099-R's")
+      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      click_on "Continue"
+
+      # Additional documents
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+      expect(page).to have_text "picture_id.jpg"
+      expect(page).to have_text "test-pattern.png"
+      click_on "I've shared all my documents"
+    end
+  end
+
 end

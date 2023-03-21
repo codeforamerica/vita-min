@@ -835,7 +835,7 @@ describe Intake do
         DocumentTypes::Form1095A
       ]
 
-      expect(intake.document_types_definitely_needed).to eq expected_doc_types
+      expect(intake.document_types_definitely_needed).to match_array expected_doc_types
     end
 
     context "with already uploaded documents" do
@@ -849,7 +849,49 @@ describe Intake do
           DocumentTypes::Form1095A
         ]
 
-        expect(intake.document_types_definitely_needed).to eq expected_doc_types
+        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
+      end
+    end
+
+    context "in the skip selfies experiment" do
+      before do
+        ExperimentService.ensure_experiments_exist_in_database
+        Experiment.update_all(enabled: true)
+        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
+        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
+      end
+
+      it "doesn't include selfies" do
+        expected_doc_types = [
+          DocumentTypes::Identity,
+          DocumentTypes::SsnItin,
+          DocumentTypes::Employment,
+          DocumentTypes::Form1095A
+        ]
+
+        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
+      end
+    end
+
+    context "in the expanded id type experiment with other doc types uploaded" do
+      let!(:primary_id_document) { create :document, intake: intake, document_type: "Passport" }
+      let!(:secondary_id_document) { create :document, intake: intake, document_type: "Birth Certificate" }
+
+      before do
+        ExperimentService.ensure_experiments_exist_in_database
+        Experiment.update_all(enabled: true)
+        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
+        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :expanded_id)
+      end
+
+      it "doesn't include Identity or SsnItin" do
+        expected_doc_types = [
+          DocumentTypes::Selfie,
+          DocumentTypes::Employment,
+          DocumentTypes::Form1095A
+        ]
+
+        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
       end
     end
   end
@@ -963,7 +1005,7 @@ describe Intake do
         DocumentTypes::Form1099Int,
         DocumentTypes::Other,
       ]
-      expect(intake.relevant_document_types).to eq doc_types
+      expect(intake.relevant_document_types).to match_array doc_types
     end
   end
 
@@ -978,7 +1020,7 @@ describe Intake do
         DocumentTypes::Employment,
         DocumentTypes::Other,
       ]
-      expect(intake.relevant_intake_document_types).to eq doc_types
+      expect(intake.relevant_intake_document_types).to match_array doc_types
     end
   end
 
