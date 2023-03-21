@@ -1,8 +1,31 @@
 module DocumentTypes
-  ALL_TYPES = [
+  IDENTITY_TYPES = [
     DocumentTypes::Identity,
-    DocumentTypes::Selfie,
+    DocumentTypes::PrimaryIdentification::DriversLicense,
+    DocumentTypes::PrimaryIdentification::EmployerId,
+    DocumentTypes::PrimaryIdentification::EmploymentAuthorizationDocument,
+    DocumentTypes::PrimaryIdentification::GreenCard,
+    DocumentTypes::PrimaryIdentification::MilitaryId,
+    DocumentTypes::PrimaryIdentification::Passport,
+    DocumentTypes::PrimaryIdentification::SchoolId,
+    DocumentTypes::PrimaryIdentification::StateId,
+    DocumentTypes::PrimaryIdentification::TribalId,
+    DocumentTypes::PrimaryIdentification::Visa,
+  ].freeze
+  SECONDARY_IDENTITY_TYPES = [
     DocumentTypes::SsnItin,
+    DocumentTypes::SecondaryIdentification::BirthCertificate,
+    DocumentTypes::SecondaryIdentification::CertificateOfCitizenship,
+    DocumentTypes::SecondaryIdentification::Form1099,
+    DocumentTypes::SecondaryIdentification::IrsTranscript,
+    DocumentTypes::SecondaryIdentification::Itin,
+    DocumentTypes::SecondaryIdentification::Ssa1099,
+    DocumentTypes::SecondaryIdentification::SsaNotice,
+    DocumentTypes::SecondaryIdentification::Ssn,
+    DocumentTypes::SecondaryIdentification::W2,
+  ].freeze
+  OTHER_TYPES = [
+    DocumentTypes::Selfie,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
     DocumentTypes::Form1040,
@@ -42,6 +65,8 @@ module DocumentTypes
     DocumentTypes::FormW7,
     DocumentTypes::FormW7Coa
   ].freeze
+
+  ALL_TYPES = IDENTITY_TYPES + SECONDARY_IDENTITY_TYPES + OTHER_TYPES
 
   HELP_TYPES = [
     :doesnt_apply,

@@ -9,7 +9,7 @@
           </div>
         <% end %>
         <%= render "shared/progress_bar" %>
-        <main role="main">
+        <main role="main" class="form-card--long">
           <% if illustration_path.present? %>
             <div class="question__illustration">
               <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
@@ -38,6 +38,9 @@
                   </div>
                   <div class="doc-preview__info">
                     <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
+                    <% if @selectable_document_types %>
+                      <div class="text--small spacing-below-0"><%= document.document_type_label %></div>
+                    <% end %>
                     <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("views.layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}")  }) do %>
                       <%=t("general.remove") %>
                     <% end %>
@@ -57,9 +60,16 @@
 
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+            <% if @selectable_document_types %>
+              <%= f.cfa_select :document_type, t(".id_type"), @selectable_document_types, include_blank: true %>
+            <% end %>
             <div class="document-upload">
               <div class="file-upload">
-                <%= f.file_field(:upload, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+                <% file_input_data = { "upload-immediately" => true } %>
+                <% if @selectable_document_types %>
+                  <% file_input_data.merge!("requires-value-for" => 'document_type_upload_form_document_type') %>
+                <% end %>
+                <%= f.file_field(:upload, class: "form__documentuploader file-input", data: file_input_data) %>
                 <%= f.label(:upload, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
@@ -97,7 +107,7 @@
                 <%=t("general.continue") %>
               </button>
             <% end %>
-            <% unless document_type.skip_dont_have? %>
+            <% unless document_type.skip_dont_have? || (@documents.present? && @selectable_document_types) %>
               <%= link_to (document_type.provide_doc_help? ? documents_help_path(doc_type: document_type.to_param, next_path: next_path) : next_path), class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
                 <%=t("views.layouts.document_upload.dont_have") %>
               <% end %>

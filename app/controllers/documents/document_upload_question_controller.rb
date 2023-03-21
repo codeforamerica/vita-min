@@ -13,7 +13,8 @@ module Documents
     def edit
       return if document_type.nil?
 
-      @documents = current_intake.documents.of_type(self.class.displayed_document_types)
+      @selectable_document_types = selectable_document_types
+      @documents = documents
       @form = form_class.new(document_type_key, current_intake, form_params)
     end
 
@@ -29,6 +30,18 @@ module Documents
       else
         track_validation_error
         render :edit
+      end
+    end
+
+    def destroy
+      document = current_intake.documents.find_by(id: params[:id])
+
+      if document.present?
+        document.destroy
+
+        redirect_to action: :edit
+      else
+        redirect_to overview_documents_path
       end
     end
 
@@ -49,8 +62,12 @@ module Documents
 
     private
 
+    def documents
+      current_intake.documents.of_type(self.class.displayed_document_types)
+    end
+
     def destroy_document_path(document)
-      document_path(document)
+      self.class.to_path_helper(action: :destroy, id: document.id)
     end
 
     def form_name
@@ -81,6 +98,9 @@ module Documents
 
     def current_path(params = {})
       document_path(self.class.to_param, params)
+    end
+
+    def selectable_document_types
     end
 
     def set_required_person_names

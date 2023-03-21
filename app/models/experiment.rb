@@ -14,6 +14,7 @@
 #  index_experiments_on_key  (key) UNIQUE
 #
 class Experiment < ApplicationRecord
+  has_many :experiment_participants
   has_many :experiment_vita_partners
   has_many :vita_partners, through: :experiment_vita_partners
 

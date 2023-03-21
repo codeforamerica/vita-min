@@ -79,10 +79,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :documents, only: [:destroy], controller: :documents do
+      resources :documents do
         collection do
           DocumentNavigation.controllers.uniq.each do |controller_class|
-            { get: :edit, put: :update }.each do |method, action|
+            { get: :edit, put: :update, delete: :destroy }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
                     controller: controller_class.controller_path,

@@ -14,7 +14,7 @@ RSpec.describe Documents::IdsController do
   before { sign_in intake.client }
 
   describe "#edit" do
-    it_behaves_like :a_required_document_controller
+    it_behaves_like :a_required_document_controller, person: :primary
 
     context "when they are filing jointly" do
       let(:attributes) { { filing_joint: "yes" } }
@@ -24,7 +24,7 @@ RSpec.describe Documents::IdsController do
           intake.update(
             spouse_first_name: "Greta",
             spouse_last_name: "Gnome",
-            )
+          )
         end
 
         it "shows the spouse name" do
@@ -61,7 +61,7 @@ RSpec.describe Documents::IdsController do
       let(:params) do
         {
           document_type_upload_form: {
-              upload: fixture_file_upload("test-pattern.html")
+            upload: fixture_file_upload("test-pattern.html")
           }
         }
       end
@@ -84,10 +84,54 @@ RSpec.describe Documents::IdsController do
         }
       end
 
+      context "when participating in the expanded ids experiment" do
+        before do
+          ExperimentService.ensure_experiments_exist_in_database
+          Experiment.update_all(enabled: true)
+          experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
+          experiment.experiment_participants.create(record: intake, treatment: :expanded_id)
+        end
+
+        it "persists the document as belonging to the 'primary' person" do
+          post :update, params: params
+          expect(Document.last).to be_person_primary
+        end
+      end
+
       it "updates the tax return status(es) to intake_needs_doc_help" do
         post :update, params: params
 
         expect(tax_return.reload.current_state).to eq "intake_needs_doc_help"
+      end
+    end
+  end
+
+  context "#delete" do
+    let!(:document) { create :document, intake: intake }
+
+    let(:params) do
+      { id: document.id }
+    end
+
+    it "allows them to delete their own document and redirects back" do
+      expect do
+        delete :destroy, params: params
+      end.to change(Document, :count).by(-1)
+
+      expect(response).to redirect_to ids_documents_path
+    end
+
+    context "with a document id that does not exist" do
+      let(:params) do
+        { id: 123874619823764 }
+      end
+
+      it "simply redirects to the documents overview page" do
+        expect do
+          delete :destroy, params: params
+        end.not_to change(Document, :count)
+
+        expect(response).to redirect_to(overview_documents_path)
       end
     end
   end
