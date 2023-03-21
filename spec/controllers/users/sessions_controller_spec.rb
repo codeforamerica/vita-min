@@ -48,6 +48,8 @@ RSpec.describe Users::SessionsController do
       expect(response).to redirect_to hub_assigned_clients_path
     end
 
+    it "signs in the user and redirects to reset password if pending"
+
     context "with 'after_login_path' set in the session" do
       before { session[:after_login_path] = hub_clients_path }
 
