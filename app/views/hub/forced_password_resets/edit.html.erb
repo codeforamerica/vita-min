@@ -7,10 +7,10 @@
           <p class="text--help">It’s important that you keep this password secure and do not share it with anyone.
             Please keep all client information safe and confidential.</p>
         </div>
-        <%= gyr_form_for(@user, url: { action: :update }, html: { method: :put }) do |f| %>
+        <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
           <div class="form-card__content">
-            <%= f.gcf_input_field(:password, "New password", type: "password", classes: ["form-width--med"], notes: ["This should be at least #{@minimum_password_length} characters."]) %>
-            <%= f.gcf_input_field(:password_confirmation, "Confirm new password", type: "password", classes: ["form-width--med"]) %>
+            <%= f.cfa_input_field(:password, "New password", type: "password", classes: ["form-width--med"]) %>
+            <%= f.cfa_input_field(:password_confirmation, "Confirm new password", type: "password", classes: ["form-width--med"]) %>
             <div class="form-card__footer">
               <%= f.continue "Update" %>
             </div>
