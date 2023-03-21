@@ -63,6 +63,12 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+    attributes:
+      password:
+        insecure: "The password provided was not secure enough. Please try increasing its complexity."
+        incorrect_size: "The provided password was not of the correct length."
+        must_be_different: "The provided password was not different from the existing one."
+        not_matching: "The passwords provided did not match."
   views:
     ctc:
       questions:
