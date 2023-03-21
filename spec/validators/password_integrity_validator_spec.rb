@@ -23,7 +23,7 @@ describe PasswordIntegrityValidator do
     end
     context "with a valid password" do
       before do
-        subject.password = "aPr3tTEA_Complex"
+        subject.password = "Strong_Passphrase3"
       end
 
       it "is valid" do

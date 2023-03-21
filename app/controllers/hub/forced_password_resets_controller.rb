@@ -24,6 +24,7 @@ module Hub
         if @user.save
           bypass_sign_in(@user) # Devise signs out after a password change, don't do that
           @user.after_database_authentication
+          redirect_to after_sign_in_path_for(@user)
           # FIXME: Go back to hub client search path?
         end
       end

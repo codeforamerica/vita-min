@@ -430,8 +430,12 @@ class ApplicationController < ActionController::Base
     ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 
-  def after_sign_in_path_for(_user)
-    @after_login_path || hub_assigned_clients_path
+  def after_sign_in_path_for(user)
+    if !user.admin? && user.forced_password_reset_at.nil?
+      edit_hub_forced_password_resets_path
+    else
+      @after_login_path || hub_assigned_clients_path
+    end
   end
 
   def set_time_zone
