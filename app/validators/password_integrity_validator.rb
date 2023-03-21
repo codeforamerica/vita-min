@@ -2,6 +2,8 @@
 require 'zxcvbn'
 class PasswordIntegrityValidator < ActiveModel::EachValidator
   def validate_each(record, attr_name, value)
+    return if record.admin?
+
     password_test = Zxcvbn.test(value, [record.email, record.phone_number, record.name])
 
     # Scoring of the test is a range of 0 - 4
@@ -13,5 +15,6 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
     # (from https://github.com/dropbox/zxcvbn#usage)
 
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) if password_test.score <= 2
+    record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size")) unless User.PASSWORD_LENGTH.member?(value.length)
   end
 end
