@@ -5,7 +5,7 @@ module Hub
     before_action :require_sign_in
     before_action :set_minimum_password_length
 
-    layout "application"
+    layout "hub"
 
     def edit
       @user = current_user
@@ -14,20 +14,22 @@ module Hub
     def update
       @user = current_user
 
-      if !@user.valid_password?(user_params[:password])
-        @user.errors.add(:password, "Your new password should be different than your old password.")
-        render :edit
+      if @user.valid_password?(user_params[:password])
+        @user.errors.add(:password, I18n.t("errors.attributes.password.must_be_different"))
+      elsif user_params[:password] != user_params[:password_confirmation]
+        @user.errors.add(:password, I18n.t("errors.attributes.password.not_matching"))
       else
         @user.assign_attributes(user_params)
-        @user.forced_password_reset_at = Time.current
+        @user.forced_password_reset_at = DateTime.now
 
         if @user.save
           bypass_sign_in(@user) # Devise signs out after a password change, don't do that
           @user.after_database_authentication
-          redirect_to after_sign_in_path_for(@user)
-          # FIXME: Go back to hub client search path?
+          return redirect_to after_sign_in_path_for(@user)
         end
       end
+
+      render :edit
     end
 
     private

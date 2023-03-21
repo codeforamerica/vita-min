@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Hub::ForcedPasswordResetsController do
   let!(:organization) { create :organization, allows_greeters: false }
   let(:hub_admin_user) { create(:user, role_type: "AdminRole", timezone: "America/Los_Angeles") }
-  let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole") }
+  let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole", forced_password_reset_at: nil) }
 
   describe "#edit" do
     context "with a logged in user with non-admin hub access" do
@@ -15,24 +15,34 @@ RSpec.describe Hub::ForcedPasswordResetsController do
         expect(response).to have_rendered(:edit)
       end
     end
-
-    # context "with a logged in non-hub user" do
-    #   it "redirects back to the homepage" do
-    #     sign_in non_hub_admin_user
-    #     get :edit
-    #
-    #     expect(response).to redirect_to new_user_session_path
-    #   end
-    # end
   end
 
   describe "#update" do
     before { sign_in non_hub_admin_user }
 
+    context "with the same password" do
+      before do
+        put :update, params: {user: { password: non_hub_admin_user.password, password_confirmation: "another_failed_password" } }
+        non_hub_admin_user.reload
+      end
+
+      it "fails to update the user's password" do
+        expect(response.body).to include I18n.t("errors.attributes.password.must_be_different")
+      end
+
+      it "does not update the last forced reset date" do
+        expect(non_hub_admin_user.forced_password_reset_at).to be_nil
+      end
+
+      it "does not redirect" do
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
     context "with mismatched password" do
       before do
-        post :update, params: {user: { password: "one_form_of_pa$$word", password_confirmation: "another_failed_password" } }
-        non_hub_admin_user.reload!
+        put :update, params: {user: { password: non_hub_admin_user.password + "new", password_confirmation: "another_failed_password" } }
+        non_hub_admin_user.reload
       end
 
       it "fails to update the user's password" do
@@ -48,18 +58,18 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
     end
 
-    context "with matching password" do
+    context "with new matching password" do
       before do
-        post :update, params: {
+        put :update, params: {
           user: {
             password: "one_form_of_pa$$word", password_confirmation: "one_form_of_pa$$word"
           }
         }
-        non_hub_admin_user.reload!
+        non_hub_admin_user.reload
       end
 
       it "updates the user's password" do
-        expect(non_hub_admin_user.encrypted_password_previously_changed?).to be_true
+        expect(non_hub_admin_user.encrypted_password_changed?).to be true
       end
 
       it "updates the last forced reset date" do
@@ -67,7 +77,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "redirects to the hub" do
-        expect(response).to redirect_to hub_client_path
+        expect(response).to redirect_to hub_assigned_clients_path
       end
     end
   end
