@@ -22,4 +22,8 @@ class DiyIntake < ApplicationRecord
   enum filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :filing_frequency
 
   validates :email_address, presence: true, 'valid_email_2/email': { mx: true }, confirmation: true
+  
+  def self.should_carry_over_params_from?(intake)
+    intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
+  end
 end
