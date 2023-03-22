@@ -23,6 +23,12 @@ describe PasswordIntegrityValidator do
         expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
       end
 
+      it "is not valid if it uses a commonly used password" do
+        subject.password = "password123"
+        expect(subject).not_to be_valid
+        expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
+      end
+
       it "is not valid for overly long passwords" do
         subject.password = "fake".ljust(129, "fake")
         expect(subject).not_to be_valid

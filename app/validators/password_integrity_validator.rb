@@ -14,6 +14,7 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
     #   4: very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)
     # (from https://github.com/dropbox/zxcvbn#usage)
 
+    # NOTE: Add note of feedback from `password_test.feedback`?
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) if password_test.score <= 2
     record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size")) unless User.PASSWORD_LENGTH.member?(value.length)
   end

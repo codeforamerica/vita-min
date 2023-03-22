@@ -48,7 +48,7 @@ FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "gary.gardengnome#{n}@example.com" }
     sequence(:name) { |n| "Gary Gnome the #{n}th" }
-    password { "userExamplePassword" }
+    password { "$user3xample_Password" }
     forced_password_reset_at { DateTime.now }
     role { build(:greeter_role) }
 
