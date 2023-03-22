@@ -47,9 +47,13 @@ describe PasswordIntegrityValidator do
         subject.admin = true
       end
 
-      it "does not run validations"
-      
+      it "does not run validations" do
+        subject.password = "forceV"
+        expect(subject).to be_valid
+        expect(subject.errors[:password].length).to eq(0)
+      end
     end
+
     context "with a valid password" do
       before do
         subject.password = "Strong_Passphrase3"
