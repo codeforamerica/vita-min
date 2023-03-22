@@ -74,51 +74,51 @@ class Seeder
       vita_partner: first_site,
     )
 
+    strong_shared_password = "The-Force,Vita77"
+
     # organization lead user
     user = User.where(email: "skywalker@example.com").first_or_initialize
     user.update(
       name: "Luke Skywalker",
-      password: "theforcevita")
+      password: strong_shared_password)
     user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != OrganizationLeadRole::TYPE
 
     # site coordinator user
     user = User.where(email: "cucumber@example.com").first_or_initialize
     user.update(
       name: "Cindy Cucumber",
-      password: "theforcevita")
+      password: strong_shared_password)
     user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
 
     # site team member user
     user = User.where(email: "melon@example.com").first_or_initialize
     user.update(
       name: "Marty Melon",
-      password: "theforcevita")
+      password: strong_shared_password)
     user.update(role: TeamMemberRole.create(site: first_site)) if user.role_type != TeamMemberRole::TYPE
 
     # coalition lead user
     user = User.where(email: "lemon@example.com").first_or_initialize
     user.update(
       name: "Lola Lemon",
-      password: "theforcevita")
+      password: strong_shared_password)
     user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
 
     # additional user
-    additional_user = User.where(email: "princess@example.com").first_or_initialize
-    additional_user.update(
-      name: "Lea Amidala Organa",
-      password: "theforcevita")
+    additional_user = User.where(email: "princess@example.com").first_or_initialize(password: strong_shared_password)
+    additional_user.update(name: "Lea Amidala Organa")
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
     admin_user = User.where(email: "admin@example.com").first_or_initialize
     admin_user.update(
       name: "Admin Amdapynurian",
-      password: "theforcevita")
+      password: strong_shared_password)
     admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
     greeter_user = User.where(email: "greeter@example.com").first_or_initialize
     greeter_user.update(
       name: "Greeter Greg (GYR Greeter)",
-      password: "theforcevita"
+      password: strong_shared_password
     )
 
     greeter_user.update(role: GreeterRole.create) if greeter_user.role_type != GreeterRole::TYPE
