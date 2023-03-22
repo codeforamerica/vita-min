@@ -157,6 +157,11 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
+      password:
+        incorrect_size: The provided password was not of the correct length.
+        insecure: The password provided was not secure enough. Please try increasing its complexity.
+        must_be_different: The new password was the same as the current password.
+        not_matching: The passwords provided did not match.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:

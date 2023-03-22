@@ -157,6 +157,11 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
+      password:
+        incorrect_size: La contraseña proporcionada no tenía la longitud correcta.
+        insecure: La contraseña proporcionada no era lo suficientemente segura. Intente aumentar su complejidad.
+        must_be_different: La nueva contraseña era la misma que la contraseña actual.
+        not_matching: Las contraseñas proporcionadas no coinciden.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
