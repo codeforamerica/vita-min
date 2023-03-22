@@ -5,6 +5,7 @@ module Hub
     before_action :require_sign_in
     before_action :set_minimum_password_length
     before_action :redirect_if_is_admin_user
+    before_action :redirect_if_password_has_been_forcibly_reset
 
     layout "hub"
 
@@ -45,6 +46,10 @@ module Hub
 
     def redirect_if_is_admin_user
       redirect_to after_sign_in_path_for(current_user) if current_user.present? and current_user.admin?
+    end
+
+    def redirect_if_password_has_been_forcibly_reset
+      redirect_to after_sign_in_path_for(current_user) if current_user.forced_password_reset_at.present?
     end
   end
 end
