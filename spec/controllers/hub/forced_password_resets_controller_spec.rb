@@ -54,7 +54,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "fails to update the user's password" do
-        expect(response.body).to include "Your new password should be different than your old password."
+        expect(response.body).to include I18n.t("errors.attributes.password.must_be_different")
       end
 
       it "does not update the last forced reset date" do
