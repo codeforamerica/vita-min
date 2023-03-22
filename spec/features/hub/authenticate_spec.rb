@@ -81,4 +81,22 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # Show our specific custom error message
     expect(page).to have_text("Oops, we're sorry, but something went wrong")
   end
+
+  scenario "non-admin user is forced to reset password" do
+    user.update!(forced_password_reset_at: nil)
+    expect(user.reload.forced_password_reset_at).to be_nil
+
+    visit new_user_session_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_on "Sign in"
+
+    expect(page).to have_text("Please update your password.")
+
+    fill_in "New password", with: user.password + "new"
+    fill_in "Confirm new password", with: user.password + "new"
+    click_on "Update"
+
+    expect(page).not_to have_text("Please update your password.")
+  end
 end
