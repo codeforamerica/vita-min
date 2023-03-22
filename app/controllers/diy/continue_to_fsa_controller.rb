@@ -4,18 +4,11 @@ module Diy
 
     def edit
       intake = DiyIntake.find(session[:diy_intake_id])
-      treatment = if intake.received_1099_yes?
-        ExperimentService.find_or_assign_treatment(
-          key: ExperimentService::DIY_1099_SUPPORT_LEVEL_EXPERIMENT,
-          record: intake
-        )
-      else
-        ExperimentService.find_or_assign_treatment(
-          key: ExperimentService::DIY_W2_SUPPORT_LEVEL_EXPERIMENT,
-          record: intake
-        )
-      end
-      @taxslayer_link = DiySupportExperimentService.taxslayer_link(treatment)
+      treatment = ExperimentService.find_or_assign_treatment(
+        key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
+        record: intake
+      )
+      @taxslayer_link = DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?)
     end
 
     private

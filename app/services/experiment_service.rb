@@ -1,22 +1,14 @@
 class ExperimentService
   ID_VERIFICATION_EXPERIMENT = "id_verification_experiment"
-  DIY_1099_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_1099_experiment"
-  DIY_W2_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_w2_experiment"
+  DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
 
   CONFIG = {
-    DIY_1099_SUPPORT_LEVEL_EXPERIMENT => {
-      name: "DIY high and low support experiment 1099",
+    DIY_SUPPORT_LEVEL_EXPERIMENT => {
+      name: "DIY high and low support experiment",
       treatment_weights: {
-        low_support_1099: 1,
-        high_support_1099: 1
-      }
-    },
-    DIY_W2_SUPPORT_LEVEL_EXPERIMENT => {
-      name: "DIY high and low support experiment W2",
-      treatment_weights: {
-        low_support_w2: 1,
-        high_support_w2: 1
-      }
+        low: 1,
+        high: 1
+      },
     },
     ID_VERIFICATION_EXPERIMENT => {
       name: "Easier ID verification experiment",
