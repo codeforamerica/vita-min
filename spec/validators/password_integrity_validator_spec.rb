@@ -3,7 +3,7 @@ require "rails_helper"
 
 class MockModel
   include ActiveModel::Validations
-  attr_accessor :password, :email, :phone_number, :name
+  attr_accessor :password, :email, :phone_number, :name, :admin
 
   validates_with PasswordIntegrityValidator, attributes: :password
 
@@ -42,6 +42,14 @@ describe PasswordIntegrityValidator do
        end
     end
 
+    context "with an admin" do
+      before do
+        subject.admin = true
+      end
+
+      it "does not run validations"
+      
+    end
     context "with a valid password" do
       before do
         subject.password = "Strong_Passphrase3"
