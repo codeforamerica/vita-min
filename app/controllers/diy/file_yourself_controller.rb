@@ -28,6 +28,9 @@ module Diy
 
     def create_params
       form_params = params.fetch(:file_yourself_form, {}).permit(FileYourselfForm.attribute_names)
+      if DiyIntake.should_carry_over_params_from?(current_intake)
+        form_params.merge!(preferred_first_name: current_intake.preferred_name, filing_frequency: current_intake.triage_filing_frequency)
+      end
       if session[:diy_intake_id]
         existing_diy_intake = DiyIntake.find(session[:diy_intake_id])
         form_params.merge(
