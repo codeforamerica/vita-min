@@ -15,7 +15,8 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
     # (from https://github.com/dropbox/zxcvbn#usage)
 
     # NOTE: Add note of feedback from `password_test.feedback`?
-    record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) if password_test.score <= 2
-    record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size")) unless User.PASSWORD_LENGTH.member?(value.length)
+    puts JSON.pretty_generate(password_test.feedback.suggestions) if Rails.env.development?
+    record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure", feedback: password_test.feedback.suggestions)) if password_test.score <= 2
+    record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size")) unless User.PASSWORD_LENGTH.member?(value&.length)
   end
 end
