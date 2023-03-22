@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Logging in and out to the volunteer portal" do
-  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword") }
+  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "someotherword88!!") }
 
   scenario "logging in and out" do
     allow(MixpanelService).to receive(:send_event)
@@ -10,7 +10,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     expect(page).to have_text "Sign in"
     fill_in "Email", with: "german@flowers.orange"
-    fill_in "Password", with: "goodPassword"
+    fill_in "Password", with: "someotherword88!!"
     click_on "Sign in"
 
     # Expect to be redirected to dashboard
@@ -63,11 +63,11 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     reset_password_link = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
     visit(reset_password_link)
     expect(page).to have_text "Change your password"
-    fill_in "New password", with: "newPassword"
-    fill_in "Confirm new password", with: "newPassword"
+    fill_in "New password", with: "notQuiteGoodPa55word88!!"
+    fill_in "Confirm new password", with: "notQuiteGoodPa55word88!!"
     click_on "Change my password"
 
-    expect(user.reload.valid_password?("newPassword")).to eq(true)
+    expect(user.reload.valid_password?("notQuiteGoodPa55word88!!")).to eq(true)
   end
 
   scenario "resetting password with old/outdated/invalid link" do
