@@ -3,6 +3,7 @@ require 'zxcvbn'
 class PasswordIntegrityValidator < ActiveModel::EachValidator
   def validate_each(record, attr_name, value)
     return if record.admin?
+    return if value.nil? and record.encrypted_password.present?
 
     password_test = Zxcvbn.test(value, [record.email, record.phone_number, record.name])
 
