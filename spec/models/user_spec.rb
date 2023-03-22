@@ -113,12 +113,6 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
         end
       end
     end
-
-    context "when updating passwords" do
-      it "requires a strong password"
-      it "enforces the minimum password length"
-      it "validates a password"
-    end
   end
 
   describe "#accessible_coalitions" do

@@ -48,7 +48,17 @@ RSpec.describe Users::SessionsController do
       expect(response).to redirect_to hub_assigned_clients_path
     end
 
-    it "signs in the user and redirects to reset password if pending"
+    render_views
+
+    it "signs in the user and redirects to reset password if pending" do
+      non_admin_user = create :organization_lead_user, forced_password_reset_at: nil
+
+      expect do
+        post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
+      end.to change(subject, :current_user).from(nil).to(non_admin_user)
+
+      expect(response).to redirect_to edit_hub_forced_password_resets_path
+    end
 
     context "with 'after_login_path' set in the session" do
       before { session[:after_login_path] = hub_clients_path }

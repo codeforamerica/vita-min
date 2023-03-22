@@ -357,8 +357,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "Cher Cherimoya",
-            password: "secret password",
-            password_confirmation: "secret password",
+            password: "Unsteady-Doorframe4-Evade",
+            password_confirmation: "Unsteady-Doorframe4-Evade",
             invitation_token: raw_invitation_token,
             timezone: "America/Los_Angeles",
           }
