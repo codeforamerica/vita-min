@@ -11,8 +11,16 @@ RSpec.describe Hub::ForcedPasswordResetsController do
 
       it "shows the form for updating the password" do
         get :edit
-
         expect(response).to have_rendered(:edit)
+      end
+    end
+
+    context "with a logged in user with admin hub access" do
+      before { sign_in hub_admin_user }
+
+      it "redirects to the expected page post-sign-in" do
+        get :edit
+        expect(response).to redirect_to hub_assigned_clients_path
       end
     end
   end

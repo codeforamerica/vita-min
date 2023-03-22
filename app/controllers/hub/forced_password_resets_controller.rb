@@ -4,6 +4,7 @@ module Hub
 
     before_action :require_sign_in
     before_action :set_minimum_password_length
+    before_action :redirect_if_is_admin_user
 
     layout "hub"
 
@@ -40,6 +41,10 @@ module Hub
 
     def set_minimum_password_length
       @minimum_password_length = User.PASSWORD_LENGTH.min
+    end
+
+    def redirect_if_is_admin_user
+      redirect_to after_sign_in_path_for(current_user) if current_user.present? and current_user.admin?
     end
   end
 end
