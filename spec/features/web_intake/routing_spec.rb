@@ -69,6 +69,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: zip_code, vita_partner: expected_zip_code_vita_partner }
   let(:state_routing_target) { create(:state_routing_target, target: expected_state_vita_partner.coalition, state_abbreviation: "NC") }
   let!(:state_routing_fraction) { create(:state_routing_fraction, state_routing_target: state_routing_target, routing_fraction: 0.2, vita_partner: expected_state_vita_partner) }
+  let(:current_tax_year) { MultiTenantService.new(:gyr).current_tax_year }
 
   scenario "routing by source param" do
     visit "/cobra"
@@ -97,7 +98,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check "2020"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -123,7 +124,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check "2020"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -151,7 +152,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check "2020"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -185,7 +186,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       check "2020"
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -221,7 +222,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       check "2020"
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
