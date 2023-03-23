@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe IntercomService do
   let(:fake_intercom) { instance_double(Intercom::Client) }
   let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
-  let(:fake_conversations) { instance_double(Intercom::Service::Conversation) }
+  let(:fake_conversation_service) { instance_double(Intercom::Service::Conversation) }
+  let(:fake_conversation) { instance_double(Intercom::Conversation) }
   let(:client) { create(:client, intake: create(:intake, email_address: "beep@example.com")) }
   let(:contact_role) { "user" }
   let(:fake_contact) { OpenStruct.new(id: "9999", type: "contact", role: contact_role, flat_store: nil) }
@@ -17,7 +18,8 @@ RSpec.describe IntercomService do
     allow(fake_intercom.contacts).to receive(:search)
     allow(fake_intercom.contacts).to receive(:create).and_return(fake_contact)
 
-    allow(fake_intercom).to receive(:conversations).and_return(fake_conversations)
+    allow(fake_intercom).to receive(:conversations).and_return(fake_conversation_service)
+    allow(fake_conversation_service).to receive(:search).and_return([])
     allow(fake_intercom.conversations).to receive(:reply)
 
     @test_environment_credentials.merge!(intercom: { intercom_access_token: "fake_access_token" })
@@ -176,15 +178,16 @@ RSpec.describe IntercomService do
     end
 
     context "when replying to an existing Intercom thread" do
-      before do
-        allow(fake_intercom.conversations).to receive(:search).and_return [fake_conversations]
-        allow(fake_intercom.contacts).to receive(:search).and_return [fake_contact]
-      end
+      context "when a client is provided and they have an Intercom contact and conversation" do
+        before do
+          allow(fake_conversation_service).to receive(:search).and_return([fake_conversation])
+          allow(fake_conversation).to receive(:id).and_return(9999)
+          allow(fake_intercom.contacts).to receive(:search).and_return [fake_contact]
+        end
 
-      context "when a client is provided and they have an Intercom contact" do
         let(:client) { create(:intake).client }
 
-        it "uses that existing Intercom contact" do
+        it "uses that existing Intercom contact and most recent conversation" do
           described_class.create_message(body: "hi i want some help getting my refund thx have a nice day", email_address: nil, phone_number: nil, client: client, has_documents: false)
           expect(fake_intercom.contacts).to have_received(:search).once
           expect(fake_intercom.contacts).to have_received(:search).with(
@@ -199,7 +202,7 @@ RSpec.describe IntercomService do
           expect(fake_intercom.conversations).to(
             have_received(:reply).with(
               {
-                id: 'last',
+                id: 9999,
                 intercom_user_id: fake_contact.id,
                 type: 'user',
                 message_type: 'comment',

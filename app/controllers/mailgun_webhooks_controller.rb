@@ -113,14 +113,20 @@ class MailgunWebhooksController < ActionController::Base
         if contact_record.body.blank? && !has_documents
           Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
         else
-          IntercomService.create_message(
-            phone_number: nil,
-            client: contact_record.client,
-            body: contact_record.body,
-            email_address: contact_record.sender,
-            has_documents: has_documents
-          )
-          IntercomService.inform_client_of_handoff(send_sms: false, client: contact_record.client, send_email: true)
+          Sentry.with_scope do |scope|
+            scope.set_tags(
+              incoming_email_id: contact_record.id,
+              resolution_steps: "Forwarding the message to intercom failed, so manually re-run the code in this block on rails c."
+            ) # sometimes create_message has been flaky
+            IntercomService.create_message(
+              phone_number: nil,
+              client: contact_record.client,
+              body: contact_record.body,
+              email_address: contact_record.sender,
+              has_documents: has_documents
+            )
+            IntercomService.inform_client_of_handoff(send_sms: false, client: contact_record.client, send_email: true)
+          end
         end
       end
 
