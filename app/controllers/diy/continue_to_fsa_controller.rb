@@ -3,11 +3,12 @@ module Diy
     before_action :require_diy_intake
 
     def edit
-      ExperimentService.find_or_assign_treatment(
+      intake = DiyIntake.find(session[:diy_intake_id])
+      treatment = ExperimentService.find_or_assign_treatment(
         key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
-        record: DiyIntake.find(session[:diy_intake_id])
+        record: intake
       )
-      @taxslayer_link = "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+      @taxslayer_link = DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?)
     end
 
     private
