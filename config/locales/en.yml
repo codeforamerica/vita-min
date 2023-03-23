@@ -333,15 +333,15 @@ en:
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
       secondary_identification:
-        1099_for_id: Current year 1099
-        birth_certificate: Birth certificate
+        1099_for_id: Current Year 1099
+        birth_certificate: Birth Certificate
         certificate_of_citizenship: Certificate of Citizenship
         irs_transcript: IRS Transcript
         itin: ITIN
-        ssa_1099_for_id: SSA-1099 form
+        ssa_1099_for_id: SSA-1099 Form
         ssa_notice: SSA Notice
-        ssn: Social security card
-        w2: Current year W-2
+        ssn: Social Security Card
+        w2: Current Year W-2
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
