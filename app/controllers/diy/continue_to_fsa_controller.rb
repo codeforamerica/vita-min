@@ -11,6 +11,18 @@ module Diy
       @taxslayer_link = DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?)
     end
 
+    def click_fsa_link
+      intake = DiyIntake.find(session[:diy_intake_id])
+      treatment = ExperimentParticipant.find_by(
+        experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
+        record: intake
+      )&.treatment
+      if treatment == 'high'
+        SendDiySupportEmailJob.perform_later(intake)
+      end
+      redirect_to DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?), allow_other_host: true
+    end
+
     private
 
     def require_diy_intake

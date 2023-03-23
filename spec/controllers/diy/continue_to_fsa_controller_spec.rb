@@ -83,4 +83,66 @@ RSpec.describe Diy::ContinueToFsaController do
       end
     end
   end
+
+  describe "#click_fsa_link" do
+    let(:diy_intake) { create(:diy_intake, :filled_out) }
+
+    before do
+      session[:diy_intake_id] = diy_intake&.id
+    end
+
+    context "with a diy intake id in the session" do
+      it "redirects to taxslayer" do
+        get :click_fsa_link
+
+        expect(response).to redirect_to "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+      end
+
+      context "when they are in the high treatment group of the experiment" do
+        before do
+          ExperimentService.ensure_experiments_exist_in_database
+          Experiment.update_all(enabled: true)
+          ExperimentParticipant.create(
+            experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
+            record: diy_intake,
+            treatment: :high
+          )
+        end
+
+        it "sends them a support email" do
+          expect do
+            get :click_fsa_link
+          end.to have_enqueued_job(SendDiySupportEmailJob)
+        end
+      end
+
+      context "when they are in the low treatment group of the experiment" do
+        before do
+          ExperimentService.ensure_experiments_exist_in_database
+          Experiment.update_all(enabled: true)
+          ExperimentParticipant.create(
+            experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
+            record: diy_intake,
+            treatment: :low
+          )
+        end
+
+        it "does not send them a support email" do
+          expect do
+            get :click_fsa_link
+          end.not_to have_enqueued_job
+        end
+      end
+    end
+
+    context "without a valid diy intake id in the session" do
+      let(:diy_intake) { nil }
+
+      it "redirects to file yourself page" do
+        get :edit
+
+        expect(response).to redirect_to diy_file_yourself_path
+      end
+    end
+  end
 end

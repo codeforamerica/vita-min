@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_23_223907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -708,6 +708,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
+  end
+
+  create_table "diy_intake_emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "diy_intake_id"
+    t.string "mailgun_status", default: "sending"
+    t.string "message_id"
+    t.datetime "sent_at", precision: nil
+    t.datetime "updated_at", null: false
+    t.index ["diy_intake_id"], name: "index_diy_intake_emails_on_diy_intake_id"
   end
 
   create_table "diy_intakes", force: :cascade do |t|
