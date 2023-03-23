@@ -32,6 +32,18 @@ RSpec.describe Diy::ContinueToFsaController do
         Experiment.update_all(enabled: true)
       end
 
+      context "experiment is not enabled" do
+        before do
+          Experiment.update_all(enabled: false)
+        end
+
+        it "returns the original taxslayer link" do
+          get :edit
+
+          expect(assigns(:taxslayer_link)).to eq("https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934")
+        end
+      end
+
       context "client received a 1099" do
         let(:experiment) { Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT) }
         let(:taxslayer_links_1099) { [
