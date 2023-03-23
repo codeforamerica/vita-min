@@ -1,5 +1,7 @@
 class DiySupportExperimentService
   def self.taxslayer_link(treatment, received_1099)
+    return "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934" unless treatment
+
     if received_1099
       if treatment == 'high'
         "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=23062996"
