@@ -334,14 +334,14 @@ es:
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
       secondary_identification:
-        1099_for_id: Año actual 1099
-        birth_certificate: Certificado de nacimiento
+        1099_for_id: Año Actual 1099
+        birth_certificate: Certificado de Nacimiento
         certificate_of_citizenship: Certificado de Ciudadanía
         irs_transcript: Transcripción del IRS
         itin: ITIN
         ssa_1099_for_id: Formulario SSA-1099
         ssa_notice: Aviso SSA
-        ssn: Tarjeta de seguridad social
+        ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
       selfie: Selfie
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
