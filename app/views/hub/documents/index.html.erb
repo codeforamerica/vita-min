@@ -47,7 +47,7 @@
         <% @documents.each do |document| %>
           <tr id="document-<%= document.id %>" class="index-table__row">
             <td class="index-table__cell">
-              <% id_type = DocumentTypes::IDENTITY_TYPES.map(&:key).include?(document.document_type_label) ? "ID - " : "" %>
+              <% id_type = DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) ? "ID - " : "" %>
               <% id_type = "SSN - " if DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
               <%=  id_type + document.document_type_label %>
             </td>
