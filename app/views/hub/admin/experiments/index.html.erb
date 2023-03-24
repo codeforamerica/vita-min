@@ -59,7 +59,11 @@
 
         <% @experiment_participants.each do |participant| %>
           <tr>
-            <td><%= participant.record_type %>#<%= participant.record_id %></td>
+            <% if participant.record_type == "Intake" %>
+              <td>Client#<%= participant.record.client_id %></td>
+            <% else %>
+              <td><%= participant.record_type %>#<%= participant.record_id %></td>
+            <% end %>
             <td><%= participant.treatment %></td>
             <% unless Rails.env.production? %><td><%= link_to "Edit", edit_hub_admin_experiment_participant_path(participant) %></td><% end %>
           </tr>

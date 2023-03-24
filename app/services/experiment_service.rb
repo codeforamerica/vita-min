@@ -1,6 +1,7 @@
 class ExperimentService
   ID_VERIFICATION_EXPERIMENT = "id_verification_experiment"
   DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
+  RETURNING_CLIENT_EXPERIMENT = "returning_client_experiment"
 
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
@@ -17,6 +18,13 @@ class ExperimentService
         no_selfie: 1,
         expanded_id: 1,
         expanded_id_and_no_selfie: 1,
+      }
+    },
+    RETURNING_CLIENT_EXPERIMENT => {
+      name: "Returning client experiment to skip all identity verification",
+      treatment_weights: {
+        control: 1,
+        skip_identity_documents: 1
       }
     }
   }
