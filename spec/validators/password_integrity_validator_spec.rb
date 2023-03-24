@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-class MockModel
-  include ActiveModel::Validations
-  attr_accessor :password, :email, :phone_number, :name, :admin
-
-  validates_with PasswordIntegrityValidator, attributes: :password
-
-  def admin?
-    @admin || false
-  end
-end
-
 describe PasswordIntegrityValidator do
-  subject { MockModel.new }
+  before do
+    @validatable = Class.new do
+      include ActiveModel::Validations
+      attr_accessor :password, :email, :phone_number, :name, :admin
+
+      validates_with PasswordIntegrityValidator, attributes: :password
+
+      def admin?
+        @admin || false
+      end
+    end
+  end
+  subject { @validatable.new }
 
   describe "#validate_each" do
     context "with an invalid password" do

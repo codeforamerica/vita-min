@@ -158,8 +158,8 @@ en:
       last_name:
         blank: Please enter a last name.
       password:
-        incorrect_size: The provided password was not of the correct length.
-        insecure: The password provided was not secure enough. Please try increasing its complexity.
+        incorrect_size: Password must be between 10 and 128 characters long.
+        insecure: The password provided was not secure enough. Please try adding another uncommon word or two.
         must_be_different: The new password was the same as the current password.
         not_matching: The passwords provided did not match.
       phone_number:

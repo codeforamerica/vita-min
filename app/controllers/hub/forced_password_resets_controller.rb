@@ -15,7 +15,6 @@ module Hub
 
     def update
       @user = current_user
-
       if @user.valid_password?(user_params[:password])
         @user.errors.add(:password, I18n.t("errors.attributes.password.must_be_different"))
       elsif user_params[:password] != user_params[:password_confirmation]

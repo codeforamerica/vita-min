@@ -1,22 +1,20 @@
 <div class="slab">
-  <div class="grid">
-    <div class="grid__item width-one-half shift-one-fourth">
-      <div class="form-card form-card--compact">
-        <div class="form-card__header">
-          <h1 class="form-card__title">Please update your password. </h1>
-          <p class="text--help">It’s important that you keep this password secure and do not share it with anyone.
-            Please keep all client information safe and confidential.</p>
-        </div>
-        <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
-          <div class="form-card__content">
-            <%= f.cfa_input_field(:password, "New password", type: "password", classes: ["form-width--med"]) %>
-            <%= f.cfa_input_field(:password_confirmation, "Confirm new password", type: "password", classes: ["form-width--med"]) %>
-            <div class="form-card__footer">
-              <%= f.continue "Update" %>
-            </div>
-          </div>
-        <% end %>
+  <div class="grid__item width-one-half shift-one-fourth">
+    <div class="form-card form-card--compact">
+      <div class="form-card__header">
+        <h1 class="form-card__title">Please update your password. </h1>
+        <p class="text--help">It’s important that you keep this password secure and do not share it with anyone.
+          Please keep all client information safe and confidential.</p>
       </div>
+      <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
+        <div class="form-card__content">
+          <%= f.cfa_input_field(:password, "New password", type: "password", classes: ['form-width--long', 'password']) %>
+          <%= f.cfa_input_field(:password_confirmation, "Confirm new password", type: "password", classes: ['form-width--long', 'password']) %>
+          <div class="form-card__footer">
+            <%= f.continue "Update" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

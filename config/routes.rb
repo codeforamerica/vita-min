@@ -306,10 +306,6 @@ Rails.application.routes.draw do
           get "/edit_role", to: "users#edit_role", on: :member, as: :edit_role
           patch "/update_role", to: "users#update_role", on: :member, as: :update_role
         end
-
-        # scope module: :hub do
-        #   resource :forced_password_resets, only: [:edit, :update], path_names: { edit: ''}
-        # end
         resources :user_notifications, only: [:index], path: "/notifications" do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end

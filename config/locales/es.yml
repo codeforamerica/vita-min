@@ -158,8 +158,8 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
       password:
-        incorrect_size: La contraseña proporcionada no tenía la longitud correcta.
-        insecure: La contraseña proporcionada no era lo suficientemente segura. Intente aumentar su complejidad.
+        incorrect_size: La contraseña debe tener entre 10 y 128 caracteres.
+        insecure: La contraseña proporcionada no era lo suficientemente segura. Intente agregar una o dos palabras poco comunes.
         must_be_different: La nueva contraseña era la misma que la contraseña actual.
         not_matching: Las contraseñas proporcionadas no coinciden.
       phone_number:

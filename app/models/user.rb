@@ -53,7 +53,6 @@ class User < ApplicationRecord
   ], using: { tsearch: { prefix: true } }
 
   self.per_page = 25
-  # PASSWORD_LENGTH = 10..128
 
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true
