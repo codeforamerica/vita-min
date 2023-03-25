@@ -10,7 +10,7 @@
           <div class="logo-text">The Hub</div>
         </div>
 
-        <% if current_user %>
+        <% if current_user&.forced_password_reset_at? || current_user&.admin? %>
           <%= render "hub/components/menu_item",
                      link: hub_clients_path,
                      item_label: "All Clients",
@@ -42,11 +42,13 @@
       </div>
       <% if current_user %>
         <div class="bottom">
-          <%= render "hub/components/menu_item",
-                     link: hub_user_profile_path,
-                     item_label: current_user&.name,
-                     icon_path: image_path("icons/my-profile.svg")
-          %>
+          <% if current_user&.forced_password_reset_at? || current_user&.admin? %>
+            <%= render "hub/components/menu_item",
+                       link: hub_user_profile_path,
+                       item_label: current_user&.name,
+                       icon_path: image_path("icons/my-profile.svg")
+            %>
+          <% end %>
           <%= render "hub/components/menu_item",
                      link: destroy_client_session_path,
                      link_method: "delete",
