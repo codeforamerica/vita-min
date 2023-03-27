@@ -16,6 +16,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @after_login_path = session.delete("after_login_path")
+    # FIXME: Check if password is strong enough for a non-admin and force redirect here
     super
   end
 
