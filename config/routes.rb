@@ -116,10 +116,12 @@ Rails.application.routes.draw do
                 via: :put
         end
       end
+      get "/diy", to: redirect { Diy::FileYourselfController.to_path_helper }
+      get "/diy/email", to: redirect { Diy::FileYourselfController.to_path_helper }
+
       unless Rails.env.production?
         get "/pending", to: "public_pages#pending"
       end
-      get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
       get "/maintenance", to: "public_pages#maintenance"

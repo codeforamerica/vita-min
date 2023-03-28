@@ -82,9 +82,6 @@ en:
         file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
         help_text: If you get stuck or have a question, we can help!
         title: Get support while you file on your own!
-    email:
-      edit:
-        title: To access this site, please provide your e-mail address.
     file_yourself:
       edit:
         info:
@@ -3400,12 +3397,6 @@ en:
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
           subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
         title: About Us
-      diy_home:
-        body: |
-          This is our quickest option to file your taxes and collect the tax credits you are owed! By clicking continue, you will be taken to our partner’s website to continue filing on your own. The process is simple, quick, and easy.
-
-          You must earn less than $73,000 a year to be eligible for this service.
-        title: File taxes on your own for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
