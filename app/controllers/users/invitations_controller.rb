@@ -98,4 +98,10 @@ class Users::InvitationsController < Devise::InvitationsController
   def get_user_by_invitation_token
     self.resource = resource_class.find_by_invitation_token(raw_invitation_token, true)
   end
+
+  def accept_resource
+    resource = resource_class.accept_invitation!(update_resource_params)
+    resource.update!(forced_password_reset_at: DateTime.now)
+    resource
+  end
 end

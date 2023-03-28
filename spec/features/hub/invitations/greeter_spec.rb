@@ -71,6 +71,7 @@ RSpec.feature "Inviting greeters" do
       fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
       click_on "Get started"
 
+      # expect(page).to have_text "Please update your password."
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Gavin Ginger"
       expect(page).to have_text "Greeter"
