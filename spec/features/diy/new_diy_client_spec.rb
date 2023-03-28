@@ -6,8 +6,7 @@ RSpec.feature "Client wants to file on their own" do
     Experiment.update_all(enabled: true)
 
     allow(MixpanelService).to receive(:send_event)
-    # TODO(diy-cleanup): Once /diy redirect goes away, visit /diy/file_yourself directly
-    visit "/diy"
+    visit "/diy/file_yourself"
 
     expect(page).to have_selector("h1", text: I18n.t("diy.file_yourself.edit.title"))
     fill_in "Preferred first name", with: "Gary"

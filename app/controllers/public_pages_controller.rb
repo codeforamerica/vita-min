@@ -72,11 +72,6 @@ class PublicPagesController < ApplicationController
 
   def sms_terms; end
 
-  def diy
-    # TODO(diy-cleanup): Delete this controller action after this redirect has been deployed for a day
-    redirect_to Diy::FileYourselfController.to_path_helper
-  end
-
   def pki_validation
     # Used for Identrust annual EV certificate validation
     website_text =

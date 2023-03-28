@@ -154,13 +154,6 @@ RSpec.describe PublicPagesController do
     end
   end
 
-  describe "#diy" do
-    it "renders successfully" do
-      get :diy
-      expect(response).to redirect_to("/en/diy/file_yourself")
-    end
-  end
-
   describe "#volunteers" do
     render_views
 
