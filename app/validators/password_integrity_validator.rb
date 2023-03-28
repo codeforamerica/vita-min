@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'zxcvbn'
 class PasswordIntegrityValidator < ActiveModel::EachValidator
   def validate_each(record, attr_name, value)
     return if record.admin?
