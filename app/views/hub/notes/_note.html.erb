@@ -20,7 +20,7 @@
     <% elsif note.is_a?(SystemNote::CtcPortalUpdate) || (note.is_a?(SystemNote::ClientChange) && note.data.present?) %>
       <%= render "system_note_model_update", note: note %>
     <% else %>
-      <%= format_text(note.body) %>
+      <%= note_body(note.body) %>
     <% end %>
   </div>
 </div>
