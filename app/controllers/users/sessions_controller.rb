@@ -16,8 +16,11 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @after_login_path = session.delete("after_login_path")
-    # FIXME: Check if password is strong enough for a non-admin and force redirect here
-    super
+
+    super do |user|
+      return redirect_to edit_hub_forced_password_resets_path unless PasswordIntegrityValidator.is_strong_enough?(params[:user][:password], user)
+      redirect_to after_sign_in_path_for(user)
+    end
   end
 
   rescue_from 'ArgumentError' do |error|
