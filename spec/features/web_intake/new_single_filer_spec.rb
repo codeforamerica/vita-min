@@ -41,8 +41,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Start with current year
-    expect(page).to have_selector("h1", text: "Let's get started")
-    expect(page).to have_text("We’ll start by asking about your situation in #{current_tax_year}.")
+    expect(page).to have_selector("h1", text: I18n.t("views.questions.start_with_current_year.title", year: current_tax_year))
     click_on "Continue"
 
     # Interview time preferences
@@ -195,6 +194,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Itemizing
     expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{current_tax_year}?")
     click_on "No"
+
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any state, local, real estate, sales, or other taxes?")
+    click_on "Yes"
+    expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you receive a state or local income tax refund?")
+    click_on "Yes"
 
     # Related to home ownership
     expect(page).to have_selector("h1", text: "Have you ever owned a home?")

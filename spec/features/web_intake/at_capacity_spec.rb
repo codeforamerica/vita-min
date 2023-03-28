@@ -19,7 +19,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       check "#{current_tax_year}"
       click_on "Continue"
 
-      expect(page).to have_selector("h1", text: "Let's get started")
+      expect(page).to have_selector("h1", text: I18n.t('views.questions.start_with_current_year.title', year: current_tax_year))
       click_on "Continue"
 
       expect(page).to have_select("What is your preferred language for the review?", selected: "English")

@@ -4529,9 +4529,8 @@ es:
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
       start_with_current_year:
-        info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
-        title: Empecemos
+        title: Comenzaremos preguntando sobre su situación en el %{year}.
       student:
         help_text: Los gastos pueden ser para colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional. Debe tener un Formulario 1098-T.
         title: En %{year}, ¿alguien en su hogar tuvo algún gasto para la universidad o la educación postsecundaria?

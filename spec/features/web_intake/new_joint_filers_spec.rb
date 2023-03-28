@@ -48,7 +48,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Let's get started")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.start_with_current_year.title", year: current_tax_year))
     end
     click_on "Continue"
 
