@@ -381,8 +381,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "",
-            password: "secret password",
-            password_confirmation: "secret password",
+            password: "secretTunnel-pa$$word-sokka",
+            password_confirmation: "secretTunnel-pa$$word-sokka",
             invitation_token: raw_invitation_token
           }
         }

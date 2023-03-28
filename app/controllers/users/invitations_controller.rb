@@ -101,7 +101,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def accept_resource
     resource = resource_class.accept_invitation!(update_resource_params)
-    resource.update!(forced_password_reset_at: DateTime.now)
+    resource.update(forced_password_reset_at: DateTime.now)
     resource
   end
 end
