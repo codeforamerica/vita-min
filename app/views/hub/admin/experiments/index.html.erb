@@ -54,6 +54,7 @@
         <tr>
           <th>record</th>
           <th>treatment</th>
+          <% if @experiment.key == "diy_high_and_low_experiment" %><th>1099</th><% end %>
           <% unless Rails.env.production? %><th></th><% end %>
         </tr>
 
@@ -65,6 +66,7 @@
               <td><%= participant.record_type %>#<%= participant.record_id %></td>
             <% end %>
             <td><%= participant.treatment %></td>
+            <% if @experiment.key == "diy_high_and_low_experiment" %><td><%= participant.record.received_1099 %></td><% end %>
             <% unless Rails.env.production? %><td><%= link_to "Edit", edit_hub_admin_experiment_participant_path(participant) %></td><% end %>
           </tr>
         <% end %>
