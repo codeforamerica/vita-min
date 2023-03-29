@@ -50,14 +50,28 @@ RSpec.describe Users::SessionsController do
 
     render_views
 
-    it "signs in the user and redirects to reset password if pending" do
-      non_admin_user = create :organization_lead_user, forced_password_reset_at: nil
+    context "for non-admin users needing to reset their password" do
+      it "does not redirect to change the password if it's strong enough" do
+        non_admin_user = create :organization_lead_user, forced_password_reset_at: DateTime.now, password: "NotStrongButNotWeakAtAll"
 
-      expect do
-        post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
-      end.to change(subject, :current_user).from(nil).to(non_admin_user)
+        expect do
+          post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
+        end.to change(subject, :current_user).from(nil).to(non_admin_user)
 
-      expect(response).to redirect_to edit_hub_forced_password_resets_path
+        expect(response).not_to redirect_to edit_hub_forced_password_resets_path
+        non_admin_user.reload
+        expect(non_admin_user.forced_password_reset_at).not_to be_nil
+      end
+
+      it "redirects if they have yet to reset their password" do
+        non_admin_user = create :organization_lead_user, :user_with_weak_password
+
+        expect do
+          post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
+        end.to change(subject, :current_user).from(nil).to(non_admin_user)
+
+        expect(response).to redirect_to edit_hub_forced_password_resets_path
+      end
     end
 
     context "with 'after_login_path' set in the session" do

@@ -83,18 +83,18 @@ RSpec.feature "Logging in and out to the volunteer portal" do
   end
 
   scenario "non-admin user is forced to reset password" do
-    user.update!(forced_password_reset_at: nil)
-    expect(user.reload.forced_password_reset_at).to be_nil
+    user.assign_attributes(forced_password_reset_at: nil)
+    user.save(validate: false)
 
     visit new_user_session_path
     fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
+    fill_in "Password", with: "someotherword88!!"
     click_on "Sign in"
 
     expect(page).to have_text("Please update your password.")
 
-    fill_in "New password", with: user.password + "new"
-    fill_in "Confirm new password", with: user.password + "new"
+    fill_in "New password", with: "someotherword88!!"
+    fill_in "Confirm new password", with: "someotherword88!!"
     click_on "Update"
 
     expect(page).not_to have_text("Please update your password.")

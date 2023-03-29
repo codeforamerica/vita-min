@@ -441,7 +441,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if !user.admin? && user.forced_password_reset_at.nil?
+    if !user.admin? && user.instance_variable_get(:@needs_to_redirect_to_force_password_change).present?
+      user.remove_instance_variable(:@needs_to_redirect_to_force_password_change)
       edit_hub_forced_password_resets_path
     else
       @after_login_path || hub_assigned_clients_path

@@ -17,5 +17,5 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
 
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) unless PasswordIntegrityValidator.is_strong_enough?(value, record)
     record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size", minimum_password_length: User.PASSWORD_LENGTH.begin)) unless User.PASSWORD_LENGTH.member?(value&.length)
-  end
+end
 end

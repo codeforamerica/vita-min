@@ -18,8 +18,15 @@ class Users::SessionsController < Devise::SessionsController
     @after_login_path = session.delete("after_login_path")
 
     super do |user|
-      return redirect_to edit_hub_forced_password_resets_path unless PasswordIntegrityValidator.is_strong_enough?(params[:user][:password], user)
-      redirect_to after_sign_in_path_for(user)
+      if !user.admin? and user.forced_password_reset_at.nil?
+        if PasswordIntegrityValidator.is_strong_enough?(params[:user][:password], user)
+          user.update!(forced_password_reset_at: DateTime.now)
+        else
+          user.instance_variable_set(:@needs_to_redirect_to_force_password_change, true)
+        end
+      end
+
+      user
     end
   end
 
