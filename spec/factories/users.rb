@@ -52,6 +52,11 @@ FactoryBot.define do
     forced_password_reset_at { DateTime.now }
     role { build(:greeter_role) }
 
+    trait :user_with_weak_password do
+      password { "password" }
+      to_create { |user| user.save(validate: false) }
+    end
+
     factory :organization_lead_user do
       sequence(:email) { |n| "org.lead#{n}@example.com" }
       sequence(:name) { |n| "Org Lead the #{n}th" }
