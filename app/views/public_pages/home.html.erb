@@ -12,6 +12,9 @@
       </div>
     </div>
   <% end %>
+  <% if open_for_gyr_intake? %>
+    <%= render 'shared/document_deadline_warning' %>
+  <% end %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>

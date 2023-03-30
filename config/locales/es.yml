@@ -4650,6 +4650,8 @@ es:
       dependents_fields:
         add_dependent: Agregar dependiente
         remove: Eliminado
+      document_deadline_warning:
+        body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
