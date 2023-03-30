@@ -1,8 +1,10 @@
 Hi <%= @first_name %>
 
-This is GetYourRefund. Thank you for choosing our free <%= link_to "File Myself", diy_url %> option! Need help while completing your return? See our <a href="https://files.codeforamerica.org/2023/03/07165831/2023-file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide and Video Tutorials</a> for step-by-step instructions, tips, and best practices.
+This is GetYourRefund. Thank you for choosing our free File Myself option! Need help while completing your return?
 
-If you get stuck or have a question, chat with us here or email us at <a href="mailto:diy@getyourrefund.org">dou@getyourrefund.org</a>
+See our File Myself Guide and Video Tutorials for step-by-step instructions, tips, and best practices: https://files.codeforamerica.org/2023/03/07165831/2023-file-myself-with-getyourrefund-client-guide.pdf
+
+If you get stuck or have a question, chat with us here <<%= faq_question_url(section_key: :how_does_getyourrefund_work, question_key: :what_is_file_myself_and_how_does_it_work, anchor: :open_intercom) %>> or email us at diy@getyourrefund.org
 
 We’re here to help,
 GetYourRefund

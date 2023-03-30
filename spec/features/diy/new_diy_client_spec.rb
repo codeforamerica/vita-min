@@ -4,9 +4,10 @@ RSpec.feature "Client wants to file on their own" do
   before do
     ExperimentService.ensure_experiments_exist_in_database
     Experiment.update_all(enabled: true)
+    allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :high
   end
 
-  scenario "a new client files through TaxSlayer", :flow_explorer_screenshot do
+  scenario "a new client in the high-support experiment files through TaxSlayer", :flow_explorer_screenshot do
     allow(MixpanelService).to receive(:send_event)
     visit "/diy/file_yourself"
 
@@ -18,7 +19,10 @@ RSpec.feature "Client wants to file on their own" do
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("diy.continue_to_fsa.edit.title"))
-    expect(page).to have_selector('a[href^="https://www.taxslayer.com/v.aspx"][target="_blank"]')
+    expect(find_link(I18n.t("general.continue"))[:target]).to eq("_blank")
+    expect do
+      click_on I18n.t("general.continue")
+    end.to have_enqueued_job(SendInternalEmailJob)
 
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)

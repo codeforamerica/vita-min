@@ -4,11 +4,10 @@ module Diy
 
     def edit
       intake = DiyIntake.find(session[:diy_intake_id])
-      treatment = ExperimentService.find_or_assign_treatment(
+      ExperimentService.find_or_assign_treatment(
         key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
         record: intake
       )
-      @taxslayer_link = DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?)
     end
 
     def click_fsa_link

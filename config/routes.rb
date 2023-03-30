@@ -118,7 +118,7 @@ Rails.application.routes.draw do
       end
       get "/diy", to: redirect { Diy::FileYourselfController.to_path_helper }
       get "/diy/email", to: redirect { Diy::FileYourselfController.to_path_helper }
-      match "/#{Diy::ContinueToFsaController.controller_path}", action: :click_fsa_link, controller: Diy::ContinueToFsaController.controller_path, via: :get
+      get "/click_fsa_link", action: :click_fsa_link, controller: Diy::ContinueToFsaController.controller_path, as: :click_fsa_link
 
       unless Rails.env.production?
         get "/pending", to: "public_pages#pending"
