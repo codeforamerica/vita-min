@@ -929,4 +929,68 @@ describe Client do
       end
     end
   end
+
+  describe "#required_document_counts" do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+    end
+
+    let(:treatment) { "control" }
+    let(:experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+    let!(:experiment_participant) do
+      create :experiment_participant,
+             experiment: experiment,
+             treatment: treatment,
+             record: client.intake
+    end
+    let!(:client) { create :client, intake: create(:intake) }
+
+    context "client is in the Id Verification Experiment" do
+      context "has control treatment" do
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to match(hash_including("Selfie"))
+        end
+      end
+
+      context "has no_selfie treatment" do
+        let(:treatment) { "no_selfie" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to match(hash_including("Selfie"))
+        end
+      end
+
+      context "has expanded_id treatment" do
+        let(:treatment) { "expanded_id" }
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to match(hash_including("Selfie"))
+        end
+      end
+
+      context "has expanded_id_and_no_selfie treatment" do
+        let(:treatment) { "expanded_id_and_no_selfie" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to match(hash_including("Selfie"))
+        end
+      end
+    end
+
+    context "client is in the Id Verification Experiment" do
+      let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
+
+      context "has control treatment" do
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to match(hash_including("Selfie"))
+        end
+      end
+
+      context "has skip_identity_documents treatment" do
+        let(:treatment) { "skip_identity_documents" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to match(hash_including("Selfie"))
+        end
+      end
+    end
+  end
+
 end
