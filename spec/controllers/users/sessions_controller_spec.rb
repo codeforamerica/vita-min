@@ -64,7 +64,7 @@ RSpec.describe Users::SessionsController do
       end
 
       it "redirects if they have yet to reset their password" do
-        non_admin_user = create :organization_lead_user, :user_with_weak_password
+        non_admin_user = create :organization_lead_user, :user_with_weak_password, forced_password_reset_at: nil
 
         expect do
           post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }

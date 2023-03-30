@@ -93,8 +93,8 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     expect(page).to have_text("Please update your password.")
 
-    fill_in "New password", with: "someotherword88!!"
-    fill_in "Confirm new password", with: "someotherword88!!"
+    fill_in "New password", with: "UseAStronger!Password2023"
+    fill_in "Confirm new password", with: "UseAStronger!Password2023"
     click_on "Update"
 
     expect(page).not_to have_text("Please update your password.")
