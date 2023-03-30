@@ -112,7 +112,7 @@ RSpec.describe Diy::ContinueToFsaController do
         it "sends them a support email" do
           expect do
             get :click_fsa_link
-          end.to have_enqueued_job(SendDiySupportEmailJob)
+          end.to have_enqueued_job(SendInternalEmailJob)
         end
       end
 

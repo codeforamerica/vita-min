@@ -22,7 +22,7 @@ module Diy
           mail_class: DiyIntakeEmailMailer,
           mail_method: :high_support_message,
           mail_args: ActiveJob::Arguments.serialize(
-            diy_intake: diy_intake
+            diy_intake: intake
           )
         )
         SendInternalEmailJob.perform_later(internal_email)

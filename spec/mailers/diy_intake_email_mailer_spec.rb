@@ -3,10 +3,9 @@ require "rails_helper"
 RSpec.describe DiyIntakeEmailMailer, type: :mailer do
   describe "#high_support_message" do
     let(:diy_intake) { create :diy_intake, :filled_out }
-    let(:diy_intake_email) { create :diy_intake_email, diy_intake: diy_intake }
 
     it "delivers the email with the right subject and body" do
-      email = DiyIntakeEmailMailer.high_support_message(diy_intake_email: diy_intake_email)
+      email = DiyIntakeEmailMailer.high_support_message(diy_intake: diy_intake)
       expect do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
