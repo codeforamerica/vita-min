@@ -1,24 +1,14 @@
 class DiyIntakeEmailMailer < ApplicationMailer
-  def message(diy_intake_email:)
-    # @outgoing_email = outgoing_email
-    # attachment = outgoing_email.attachment
-    #
-    # is_ctc = (@outgoing_email.client.intake || Archived::Intake2021.where(client_id: @outgoing_email.client.id).first).is_ctc?
-    # service = MultiTenantService.new(is_ctc ? :ctc : :gyr)
-    # @service_type = service.service_type
-    #
-    # @body = outgoing_email.body
-    # @subject = outgoing_email.subject
-    # if attachment.present?
-    #   attachments[attachment.filename.to_s] = attachment.blob.download
-    # end
-    #
-    # DatadogApi.increment("mailgun.outgoing_emails.sent")
-    #
-    # attachments.inline['logo.png'] = service.email_logo
+
+  def high_support_message(diy_intake_email:)
+    service = MultiTenantService.new(:gyr)
+    attachments.inline['logo.png'] = service.email_logo
+    @first_name = diy_intake_email.diy_intake.preferred_first_name
+    subject = "We’re here to help you file your taxes with File Myself!"
+
     mail(
       to: diy_intake_email.diy_intake.email_address,
-      subject: @subject,
+      subject: subject,
       from: service.default_email,
       delivery_method_options: service.delivery_method_options
     )
