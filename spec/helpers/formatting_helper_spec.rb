@@ -1,24 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe FormattingHelper do
-  describe '#format_text' do
-    context "with replacement parameters to display" do
-      let(:body) {
-        <<~BODY
-          <<Replacement.Param>> in a message
-        BODY
-      }
-      let(:output) do
-        <<~BODY
-          <p><< Replacement.Param>> in a message
-          </p>
-        BODY
-      end
-      it "can gracefully display the replacement parameter" do
-        expect(helper.format_text(body)).to eq output.chomp
-      end
-    end
-
+  describe "#note_body" do
     context "with open and close brackets that contain text that isn't parseable as a tag" do
       let(:body) do
         <<~BODY
@@ -34,7 +17,7 @@ describe FormattingHelper do
       end
 
       it "handles without failing and shows original text" do
-        expect(helper.format_text(body)).to eq output.chomp
+        expect(helper.note_body(body)).to eq output.chomp
       end
     end
 
@@ -46,12 +29,12 @@ describe FormattingHelper do
       }
       let(:output) do
         <<~BODY
-          <p><span data-user-id='3' class='user-tag'>@Marty Melon (Admin)</span> in a message
+          <p><span class="user-tag">@Marty Melon (Admin)</span> in a message
           </p>
         BODY
       end
       it "replaces the tag with a span including the name and prefix, with id in the data of the span" do
-        expect(helper.format_text(body)).to eq output.chomp
+        expect(helper.note_body(body)).to eq output.chomp
       end
     end
 
@@ -64,12 +47,12 @@ describe FormattingHelper do
       }
       let(:output) do
         <<~BODY
-          <p><span data-user-id='3' class='user-tag'>@Marty Melon</span> in a message
+          <p><span class="user-tag">@Marty Melon</span> in a message
           </p>
         BODY
       end
       it "replaces the tag with a span including the name and prefix, with id in the data of the span" do
-        expect(helper.format_text(body)).to eq output.chomp
+        expect(helper.note_body(body)).to eq output.chomp
       end
     end
 
@@ -79,23 +62,48 @@ describe FormattingHelper do
           [[{\"id\":3,\"name_with_role\":\"Marty Melon (Admin)\", \"value\":3,\"prefix\":\"@\"}]] in a message
 
           with [[{\"id\":2,\"name_with_role\":\"Luna Lemon (Greeter)\", \"value\":2,\"prefix\":\"@\"}]] too
-
-          <<Replace.Link>> <<Replace.Link>> [[Something Else]]
         BODY
       }
 
       let(:output) do
         <<~OUTPUT
-          <p><span data-user-id='3' class='user-tag'>@Marty Melon (Admin)</span> in a message</p>
+          <p><span class="user-tag">@Marty Melon (Admin)</span> in a message</p>
 
-          <p>with <span data-user-id='2' class='user-tag'>@Luna Lemon (Greeter)</span> too</p>
-
-          <p><< Replace.Link>> << Replace.Link>> [[Something Else]]
-          </p>
+          <p>with <span class="user-tag">@Luna Lemon (Greeter)</span> too</p>
         OUTPUT
       end
       it "parses replacements and tags but leaves other contents within brackets alone" do
-        expect(helper.format_text(body)).to eq output.chomp
+        expect(helper.note_body(body.chomp)).to eq output.chomp
+      end
+
+      context "with unrelated HTML" do
+        let(:body) {
+          <<~BODY
+          [[{\"id\":3,\"name_with_role\":\"Marty Melon (Admin)\", \"value\":3,\"prefix\":\"@\"}]] in a message
+
+          with [[{\"id\":2,\"name_with_role\":\"Luna Lemon (Greeter)\", \"value\":2,\"prefix\":\"@\"}]] too
+
+          <h1>harmless header tag is included</h1>
+
+          <script>dangerous tag is definitely gone</script>
+          BODY
+        }
+
+        let(:output) do
+          <<~OUTPUT
+          <p><span class="user-tag">@Marty Melon (Admin)</span> in a message</p>
+
+          <p>with <span class="user-tag">@Luna Lemon (Greeter)</span> too</p>
+
+          <p><h1>harmless header tag is included</h1></p>
+
+          <p>dangerous tag is definitely gone</p>
+          OUTPUT
+        end
+
+        it "keeps our HTML and sanitizes other HTML" do
+          expect(helper.note_body(body.chomp)).to eq output.chomp
+        end
       end
     end
   end
