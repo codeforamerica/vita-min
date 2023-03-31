@@ -557,6 +557,7 @@ es:
     03_if_you_get_stuck: Si te quedas atascado o tienes alguna pregunta, chatea con nosotros %{chat_with_us_link} o envíanos un correo electrónico a %{email_us_link}.
     04_we_re_here_to_help: Estamos aquí para ayudar,
     file_myself_guide_and_video_tutorials: Guía de File Myself y videotutoriales
+    subject: "¡Estamos aquí para ayudarlo a declarar sus impuestos con File Myself!"
   hub:
     archived_client_warning: Este es un boleto del año de producto %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:

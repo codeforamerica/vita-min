@@ -10,7 +10,7 @@ RSpec.describe DiyIntakeEmailMailer, type: :mailer do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-      expect(email.subject).to eq "We’re here to help you file your taxes with File Myself!"
+      expect(email.subject).to eq I18n.t("high_support_mailer.subject", locale: :es)
       expect(email.from).to eq ["hello@test.localhost"]
       expect(email.to).to eq [diy_intake.email_address]
     end
