@@ -6,14 +6,14 @@
   <%= I18n.t("high_support_mailer.02_this_is_gyr",
              diy_link: link_to(I18n.t('questions.triage.diy_tile.title'), diy_url),
              guide_link: link_to(I18n.t("high_support_mailer.file_myself_guide_and_video_tutorials"), "https://files.codeforamerica.org/2023/03/07165831/2023-file-myself-with-getyourrefund-client-guide.pdf"),
-      ) %>
+      ).html_safe %>
 </p>
 
 <p>
   <%= I18n.t("high_support_mailer.03_if_you_get_stuck",
-             chat_with_us_link: link_to(I18n.t("general.here"), faq_question_url(section_key: :how_does_getyourrefund_work, question_key: :what_is_file_myself_and_how_does_it_work, anchor: :open_intercom)),
+             chat_with_us_link: link_to(I18n.t("general.here"), faq_question_url(section_key: :how_does_getyourrefund_work, question_key: :what_is_file_myself_and_how_does_it_work, utm_state: :diy_support, anchor: :open_intercom)),
              email_us_link: '<a href="mailto:diy@getyourrefund.org">diy@getyourrefund.org</a>',
-      )
+      ).html_safe
   %>
 </p>
 

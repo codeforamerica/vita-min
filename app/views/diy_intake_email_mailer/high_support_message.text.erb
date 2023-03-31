@@ -6,7 +6,7 @@
     ) %>
 
 <%= I18n.t("high_support_mailer.03_if_you_get_stuck",
-           chat_with_us_link: "#{I18n.t("general.here")} <#{faq_question_url(section_key: :how_does_getyourrefund_work, question_key: :what_is_file_myself_and_how_does_it_work, anchor: :open_intercom)}>",
+           chat_with_us_link: "#{I18n.t("general.here")} <#{faq_question_url(section_key: :how_does_getyourrefund_work, question_key: :what_is_file_myself_and_how_does_it_work, utm_state: :diy_support, anchor: :open_intercom)}>",
            email_us_link: 'diy@getyourrefund.org',
     )
 %>
