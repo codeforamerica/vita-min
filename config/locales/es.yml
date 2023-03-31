@@ -551,6 +551,12 @@ es:
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
+  high_support_mailer:
+    01_hi: Hola %{first_name},
+    02_this_is_gyr: Esto es GetYourRefund. ¡Gracias por elegir nuestra opción gratuita %{diy_link}! ¿Necesita ayuda mientras completa su declaración? Consulte nuestro %{guide_link} para obtener instrucciones paso a paso, consejos y mejores prácticas.
+    03_if_you_get_stuck: Si te quedas atascado o tienes alguna pregunta, chatea con nosotros %{chat_with_us_link} o envíanos un correo electrónico a %{email_us_link}.
+    04_we_re_here_to_help: Estamos aquí para ayudar,
+    file_myself_guide_and_video_tutorials: Guía de File Myself y videotutoriales
   hub:
     archived_client_warning: Este es un boleto del año de producto %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
