@@ -17,7 +17,6 @@ module Diy
         record: diy_intake
       )&.treatment
       if treatment == 'high'
-
         mailer_class_and_method = {
           mail_class: 'DiyIntakeEmailMailer',
           mail_method: 'high_support_message',
