@@ -9,6 +9,10 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  idx_internal_emails_mail_info  (mail_class,mail_method,mail_args)
+#
 FactoryBot.define do
   factory :internal_email do
     mail_class { "UserMailer" }

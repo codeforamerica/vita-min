@@ -70,6 +70,18 @@ RSpec.describe Diy::ContinueToFsaController do
                                                 .and have_enqueued_job(SendInternalEmailJob)
             expect(response).to redirect_to("https://example.com/redirect_result")
           end
+
+          context "when clicking the link twice" do
+            it "sends only one email" do
+              expect do
+                get :click_fsa_link
+              end.to change(InternalEmail, :count).by(1)
+
+              expect do
+                get :click_fsa_link
+              end.to change(InternalEmail, :count).by(0)
+            end
+          end
         end
 
         context "when they are in the low treatment group of the experiment" do

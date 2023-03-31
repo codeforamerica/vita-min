@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_233044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1360,6 +1360,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
     t.string "mail_class"
     t.string "mail_method"
     t.datetime "updated_at", null: false
+    t.index ["mail_class", "mail_method", "mail_args"], name: "idx_internal_emails_mail_info"
   end
 
   create_table "notes", force: :cascade do |t|

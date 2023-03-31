@@ -17,14 +17,17 @@ module Diy
         record: diy_intake
       )&.treatment
       if treatment == 'high'
-        internal_email = InternalEmail.create!(
-          mail_class: DiyIntakeEmailMailer,
-          mail_method: :high_support_message,
-          mail_args: ActiveJob::Arguments.serialize(
-            diy_intake: diy_intake
-          )
-        )
-        SendInternalEmailJob.perform_later(internal_email)
+
+        mailer_class_and_method = {
+          mail_class: 'DiyIntakeEmailMailer',
+          mail_method: 'high_support_message',
+        }
+        mail_args = ActiveJob::Arguments.serialize(diy_intake: diy_intake)
+
+        if InternalEmail.where(mailer_class_and_method).where("mail_args::jsonb = ?::jsonb", JSON.dump(mail_args)).none?
+          internal_email = InternalEmail.create!(mailer_class_and_method.merge(mail_args: mail_args))
+          SendInternalEmailJob.perform_later(internal_email)
+        end
       end
       redirect_to DiySupportExperimentService.taxslayer_link(treatment.to_s, diy_intake.received_1099_yes?), allow_other_host: true
     end
