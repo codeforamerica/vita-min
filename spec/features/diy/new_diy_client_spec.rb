@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.feature "Client wants to file on their own" do
   before do
-    ExperimentService.ensure_experiments_exist_in_database
     Experiment.update_all(enabled: true)
     allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :high
   end

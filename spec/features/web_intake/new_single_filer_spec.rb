@@ -284,7 +284,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
   context "client is included in the no selfies experiment" do
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
       allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :no_selfie
@@ -313,7 +312,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
   context "client is included in the expanded id experiment", js: true do
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
       allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id
@@ -358,7 +356,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
   context "client is not in the selfie or expanded id experiments" do
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
       allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :control
@@ -473,7 +470,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     let(:returning_client_experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
 
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       returning_client_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
       allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :skip_identity_documents

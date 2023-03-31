@@ -26,7 +26,6 @@ RSpec.describe Documents::SpouseIdsController do
 
       context "when participating in the expanded ids experiment" do
         before do
-          ExperimentService.ensure_experiments_exist_in_database
           Experiment.update_all(enabled: true)
           experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
           experiment.experiment_participants.create(record: intake, treatment: :expanded_id)
