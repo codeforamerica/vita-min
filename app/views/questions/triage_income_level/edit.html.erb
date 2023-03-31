@@ -5,7 +5,7 @@
     <%= content_for(:page_title) %>
   </h1>
 
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long spacing-below-0" } do |f| %>
     <%= f.cfa_select(
         :triage_filing_status,
         t(".filing_status.label"),
@@ -49,8 +49,6 @@
         include_blank: true
       ) %>
 
-    <div class="spacing-above-60">
-      <%= f.continue %>
-    </div>
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-0 spacing-above-60" %>
   <% end %>
 <% end %>
