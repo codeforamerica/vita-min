@@ -550,6 +550,13 @@ en:
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
+  high_support_mailer:
+    01_hi: Hi %{first_name},
+    02_this_is_gyr: This is GetYourRefund. Thank you for choosing our free %{diy_link} option! Need help while completing your return? See our %{guide_link} for step-by-step instructions, tips, and best practices.
+    03_if_you_get_stuck: If you get stuck or have a question, chat with us %{chat_with_us_link} or email us at %{email_us_link}.
+    04_we_re_here_to_help: We’re here to help,
+    file_myself_guide_and_video_tutorials: File Myself Guide and Video Tutorials
+    subject: We’re here to help you file your taxes with File Myself!
   hub:
     archived_client_warning: This is a ticket from product year %{year}. This information is archived and should only be used for reference.
     assigned_clients:
@@ -1847,13 +1854,6 @@ en:
         If you did not initiate this request, please let us know.
 
         Your tax team at %{service_name}.org
-  high_support_mailer:
-    01_hi: "Hi %{first_name},"
-    02_this_is_gyr: "This is GetYourRefund. Thank you for choosing our free %{diy_link} option! Need help while completing your return? See our %{guide_link} for step-by-step instructions, tips, and best practices."
-    file_myself_guide_and_video_tutorials: "File Myself Guide and Video Tutorials"
-    03_if_you_get_stuck: "If you get stuck or have a question, chat with us %{chat_with_us_link} or email us at %{email_us_link}."
-    04_we_re_here_to_help: "We’re here to help,"
-    subject: "We’re here to help you file your taxes with File Myself!"
   verification_code_sms:
     no_match_ctc: |
       Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC, you can try to sign in with your email address instead %{url}/portal/login.
