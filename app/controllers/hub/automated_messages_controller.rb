@@ -18,7 +18,7 @@ module Hub
         "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: :en, service_type: :gyr, verification_code: '000000').with_code,
         "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: :en, service_type: :gyr),
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(
-          diy_intake: DiyIntake.last,
+          diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname"),
         )
       }
 
