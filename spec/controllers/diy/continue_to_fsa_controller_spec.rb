@@ -34,7 +34,6 @@ RSpec.describe Diy::ContinueToFsaController do
         let(:experiments_enabled) { false }
 
         it "returns the original taxslayer link" do
-          binding.pry
           get :edit
 
           expect(assigns(:taxslayer_link)).to eq("https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934")
