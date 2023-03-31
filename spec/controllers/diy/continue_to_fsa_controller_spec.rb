@@ -3,9 +3,12 @@ require "rails_helper"
 RSpec.describe Diy::ContinueToFsaController do
   describe "#edit" do
     let(:diy_intake) { create(:diy_intake, :filled_out) }
+    let(:experiments_enabled) { true }
 
     before do
       session[:diy_intake_id] = diy_intake&.id
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: experiments_enabled)
     end
 
     context "with a diy intake id in the session" do
@@ -27,17 +30,11 @@ RSpec.describe Diy::ContinueToFsaController do
     end
 
     context "showing specific a TaxSlayer link" do
-      before do
-        ExperimentService.ensure_experiments_exist_in_database
-        Experiment.update_all(enabled: true)
-      end
-
       context "experiment is not enabled" do
-        before do
-          Experiment.update_all(enabled: false)
-        end
+        let(:experiments_enabled) { false }
 
         it "returns the original taxslayer link" do
+          binding.pry
           get :edit
 
           expect(assigns(:taxslayer_link)).to eq("https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934")
@@ -92,16 +89,16 @@ RSpec.describe Diy::ContinueToFsaController do
     end
 
     context "with a diy intake id in the session" do
-      it "redirects to taxslayer" do
-        get :click_fsa_link
+      context "redirecting based on experiment enabling" do
+        it "redirects to taxslayer" do
+          get :click_fsa_link
 
-        expect(response).to redirect_to "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+          expect(response).to redirect_to "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+        end
       end
 
       context "when they are in the high treatment group of the experiment" do
         before do
-          ExperimentService.ensure_experiments_exist_in_database
-          Experiment.update_all(enabled: true)
           ExperimentParticipant.create(
             experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
             record: diy_intake,

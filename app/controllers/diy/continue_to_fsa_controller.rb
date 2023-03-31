@@ -3,30 +3,30 @@ module Diy
     before_action :require_diy_intake
 
     def edit
-      intake = DiyIntake.find(session[:diy_intake_id])
+      diy_intake = DiyIntake.find(session[:diy_intake_id])
       ExperimentService.find_or_assign_treatment(
         key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT,
-        record: intake
+        record: diy_intake
       )
     end
 
     def click_fsa_link
-      intake = DiyIntake.find(session[:diy_intake_id])
+      diy_intake = DiyIntake.find(session[:diy_intake_id])
       treatment = ExperimentParticipant.find_by(
         experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
-        record: intake
+        record: diy_intake
       )&.treatment
       if treatment == 'high'
         internal_email = InternalEmail.create!(
           mail_class: DiyIntakeEmailMailer,
           mail_method: :high_support_message,
           mail_args: ActiveJob::Arguments.serialize(
-            diy_intake: intake
+            diy_intake: diy_intake
           )
         )
         SendInternalEmailJob.perform_later(internal_email)
       end
-      redirect_to DiySupportExperimentService.taxslayer_link(treatment, intake.received_1099_yes?), allow_other_host: true
+      redirect_to DiySupportExperimentService.taxslayer_link(treatment, diy_intake.received_1099_yes?), allow_other_host: true
     end
 
     private

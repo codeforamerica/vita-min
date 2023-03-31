@@ -1,4 +1,5 @@
 class SendInternalEmailJob < ApplicationJob
+  queue_as :default
   retry_on Mailgun::CommunicationError
 
   def perform(internal_email)
