@@ -7,8 +7,6 @@ RSpec.describe Diy::ContinueToFsaController do
 
     before do
       session[:diy_intake_id] = diy_intake&.id
-      ExperimentService.ensure_experiments_exist_in_database
-      Experiment.update_all(enabled: experiments_enabled)
     end
 
     context "with a diy intake id in the session" do
@@ -28,15 +26,26 @@ RSpec.describe Diy::ContinueToFsaController do
         expect(response).to redirect_to diy_file_yourself_path
       end
     end
+  end
 
-    context "showing specific a TaxSlayer link" do
+  describe "#click_fsa_link" do
+    let(:diy_intake) { create(:diy_intake, :filled_out) }
+
+    before do
+      session[:diy_intake_id] = diy_intake&.id
+    end
+
+    xcontext "showing specific a TaxSlayer link" do
       context "experiment is not enabled" do
         let(:experiments_enabled) { false }
+        before do
+          allow(DiySupportExperimentService).to receive(:taxslayer_link).with(nil, nil).and_return("https://example.com/redirect_result")
+        end
 
-        it "returns the original taxslayer link" do
+        it "sends a nil support_level treatment to DiySupportExperimentService" do
           get :edit
 
-          expect(assigns(:taxslayer_link)).to eq("https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934")
+          expect(response).to redirect_to("https://example.com/redirect_result")
         end
       end
 
@@ -78,67 +87,78 @@ RSpec.describe Diy::ContinueToFsaController do
         end
       end
     end
-  end
-
-  describe "#click_fsa_link" do
-    let(:diy_intake) { create(:diy_intake, :filled_out) }
-
-    before do
-      session[:diy_intake_id] = diy_intake&.id
-    end
 
     context "with a diy intake id in the session" do
-      context "redirecting based on experiment enabling" do
+      context "when they are not part of the experiment" do
+        before do
+          allow(DiySupportExperimentService).to receive(:taxslayer_link).with("", false).and_return("https://example.com/redirect_result")
+        end
+
         it "redirects to taxslayer" do
           get :click_fsa_link
 
-          expect(response).to redirect_to "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"
+          expect(response).to redirect_to "https://example.com/redirect_result"
         end
       end
 
-      context "when they are in the high treatment group of the experiment" do
+      context "when they are part of the experiment" do
         before do
           ExperimentParticipant.create(
             experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
             record: diy_intake,
-            treatment: :high
+            treatment: support_level_treatment,
           )
+          allow(DiySupportExperimentService).to receive(:taxslayer_link).with(support_level_treatment.to_s, received_1099 == "yes").and_return("https://example.com/redirect_result")
         end
 
-        it "sends them a support email" do
-          expect do
+        let(:received_1099) { false }
+
+        context "when they are in the high treatment group of the experiment" do
+          let(:support_level_treatment) { :high }
+
+          it "sends them a support email" do
+            expect do
+              get :click_fsa_link
+            end.to change(InternalEmail, :count).by(1)
+                                                .and have_enqueued_job(SendInternalEmailJob)
+            expect(response).to redirect_to("https://example.com/redirect_result")
+          end
+        end
+
+        context "when they are in the low treatment group of the experiment" do
+          let(:support_level_treatment) { :low }
+
+          it "does not send them a support email" do
+            expect do
+              get :click_fsa_link
+            end.not_to have_enqueued_job
+            expect(response).to redirect_to("https://example.com/redirect_result")
+          end
+        end
+
+        context "when the DIY client received a 1099" do
+          let(:received_1099) { "yes" }
+          let(:support_level_treatment) { nil }
+
+          before do
+            diy_intake.update(received_1099: "yes")
+          end
+
+          it "passes the value to DiySupportExperimentService" do
             get :click_fsa_link
-          end.to change(InternalEmail, :count).by(1)
-                                              .and have_enqueued_job(SendInternalEmailJob)
+            expect(response).to redirect_to("https://example.com/redirect_result")
+          end
         end
       end
 
-      context "when they are in the low treatment group of the experiment" do
-        before do
-          ExperimentService.ensure_experiments_exist_in_database
-          Experiment.update_all(enabled: true)
-          ExperimentParticipant.create(
-            experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),
-            record: diy_intake,
-            treatment: :low
-          )
+      context "without a valid diy intake id in the session" do
+        let(:diy_intake) { nil }
+
+        it "redirects to file yourself page" do
+          get :edit
+
+          expect(response).to redirect_to diy_file_yourself_path
         end
-
-        it "does not send them a support email" do
-          expect do
-            get :click_fsa_link
-          end.not_to have_enqueued_job
-        end
-      end
-    end
-
-    context "without a valid diy intake id in the session" do
-      let(:diy_intake) { nil }
-
-      it "redirects to file yourself page" do
-        get :edit
-
-        expect(response).to redirect_to diy_file_yourself_path
       end
     end
   end

@@ -183,6 +183,7 @@ RSpec.configure do |config|
     unless Capybara.current_driver == Capybara.javascript_driver
       Flipper.instance = Flipper.new(Flipper::Adapters::Memory.new)
     end
+    ExperimentService.ensure_experiments_exist_in_database
   end
 
   config.before(type: :feature, js: true) do |example|

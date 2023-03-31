@@ -26,7 +26,7 @@ module Diy
         )
         SendInternalEmailJob.perform_later(internal_email)
       end
-      redirect_to DiySupportExperimentService.taxslayer_link(treatment, diy_intake.received_1099_yes?), allow_other_host: true
+      redirect_to DiySupportExperimentService.taxslayer_link(treatment.to_s, diy_intake.received_1099_yes?), allow_other_host: true
     end
 
     private
