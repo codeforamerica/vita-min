@@ -35,59 +35,6 @@ RSpec.describe Diy::ContinueToFsaController do
       session[:diy_intake_id] = diy_intake&.id
     end
 
-    xcontext "showing specific a TaxSlayer link" do
-      context "experiment is not enabled" do
-        let(:experiments_enabled) { false }
-        before do
-          allow(DiySupportExperimentService).to receive(:taxslayer_link).with(nil, nil).and_return("https://example.com/redirect_result")
-        end
-
-        it "sends a nil support_level treatment to DiySupportExperimentService" do
-          get :edit
-
-          expect(response).to redirect_to("https://example.com/redirect_result")
-        end
-      end
-
-      context "client received a 1099" do
-        let(:experiment) { Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT) }
-        let(:taxslayer_links_1099) { [
-          "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=23062996",
-          "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=34067601"
-        ] }
-        before do
-          diy_intake.update(received_1099: "yes")
-        end
-
-        it "assigns client a group in the DIY_SUPPORT_LEVEL_EXPERIMENT and displays corresponding taxslayer link" do
-          get :edit
-
-          participant = ExperimentParticipant.find_by(experiment: experiment, record: diy_intake)
-          expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
-          expect(assigns(:taxslayer_link)).to be_in(taxslayer_links_1099)
-        end
-      end
-
-      context "client did not receive 1099 (presumed W-2)" do
-        let(:experiment) { Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT) }
-        let(:taxslayer_links_W2) { [
-          "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=23069434",
-          "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=21061019"
-        ] }
-        before do
-          diy_intake.update(received_1099: "no")
-        end
-
-        it "assigns client a group in the DIY_SUPPORT_LEVEL_EXPERIMENT and displays corresponding taxslayer link" do
-          get :edit
-
-          participant = ExperimentParticipant.find_by(experiment: experiment, record: diy_intake)
-          expect(participant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
-          expect(assigns(:taxslayer_link)).to be_in(taxslayer_links_W2)
-        end
-      end
-    end
-
     context "with a diy intake id in the session" do
       context "when they are not part of the experiment" do
         before do

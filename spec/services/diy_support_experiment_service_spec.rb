@@ -3,7 +3,7 @@ require 'rails_helper'
 describe DiySupportExperimentService do
   describe ".taxslayer_link" do
     scenarios = [
-      { received_1099: :ignored_because_treatment_nil, support_level_treatment: nil, link: "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"},
+      { received_1099: :ignored_because_treatment_nil, support_level_treatment: '', link: "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=01011934"},
       { received_1099: true, support_level_treatment: "high", link: "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=23062996"},
       { received_1099: true, support_level_treatment: "not-high", link: "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=34067601"},
       { received_1099: false, support_level_treatment: "high", link: "https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2022&sidn=23069434"},
