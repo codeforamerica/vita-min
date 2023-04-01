@@ -2,4 +2,8 @@
 <% content_for :form_help_text do %>
   <p class="form-question spacing-below-0"><%= current_intake.formatted_phone_number %></p>
 <% end %>
-<% content_for :after_form_question_text, t("views.questions.phone_number_can_receive_texts.standard_rates_apply") %>
+<% content_for :after_form_question_text do %>
+  <p class="text--small small-text-margin-top">
+    <%=t("views.questions.phone_number_can_receive_texts.standard_rates_apply") %>
+  </p>
+<% end %>

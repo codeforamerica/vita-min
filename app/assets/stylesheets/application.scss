@@ -151,6 +151,16 @@ body {
   color: inherit;
 }
 
+main {
+  a:last-child{
+    margin-bottom: 0;
+  }
+
+  input:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .main-header {
   background-color: black;
   color: white;
