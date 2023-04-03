@@ -311,7 +311,8 @@ class Client < ApplicationRecord
 
     intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
       required_count = document_type.required_persons(intake).length
-      provided_count = documents.select { |d| d.document_type == document_type.key }.length
+      matching_doc_keys =  document_type == DocumentTypes::Identity || document_type == DocumentTypes::SsnItin ? (DocumentTypes::IDENTITY_TYPES + DocumentTypes::SECONDARY_IDENTITY_TYPES).map(&:key) : document_type.key
+      provided_count = documents.select { |d| matching_doc_keys.include?(d.document_type) }.length
       result[document_type.key] = {
         required_count: required_count,
         provided_count: provided_count,
