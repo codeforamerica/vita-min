@@ -550,6 +550,13 @@ en:
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
+  high_support_mailer:
+    01_hi: Hi %{first_name},
+    02_this_is_gyr: This is GetYourRefund. Thank you for choosing our free %{diy_link} option! Need help while completing your return? See our %{guide_link} for step-by-step instructions, tips, and best practices.
+    03_if_you_get_stuck: If you get stuck or have a question, chat with us %{chat_with_us_link} or email us at %{email_us_link}.
+    04_we_re_here_to_help: We’re here to help,
+    file_myself_guide_and_video_tutorials: File Myself Guide and Video Tutorials
+    subject: We’re here to help you file your taxes with File Myself!
   hub:
     archived_client_warning: This is a ticket from product year %{year}. This information is archived and should only be used for reference.
     assigned_clients:

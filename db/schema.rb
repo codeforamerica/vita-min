@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_04_182116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -711,6 +711,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
   end
 
   create_table "diy_intakes", force: :cascade do |t|
+    t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "filing_frequency", default: 0, null: false
@@ -719,6 +720,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
     t.integer "received_1099", default: 0, null: false
     t.string "referrer"
     t.string "source"
+    t.string "token"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
@@ -1360,6 +1362,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_212444) do
     t.string "mail_class"
     t.string "mail_method"
     t.datetime "updated_at", null: false
+    t.index ["mail_class", "mail_method", "mail_args"], name: "idx_internal_emails_mail_info"
   end
 
   create_table "notes", force: :cascade do |t|

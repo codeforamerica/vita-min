@@ -858,7 +858,6 @@ describe Intake do
 
     context "in the skip selfies experiment" do
       before do
-        ExperimentService.ensure_experiments_exist_in_database
         Experiment.update_all(enabled: true)
         experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
         ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
@@ -881,7 +880,6 @@ describe Intake do
       let!(:secondary_id_document) { create :document, intake: intake, document_type: "Birth Certificate" }
 
       before do
-        ExperimentService.ensure_experiments_exist_in_database
         Experiment.update_all(enabled: true)
         experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
         ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :expanded_id)

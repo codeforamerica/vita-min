@@ -16,7 +16,6 @@ RSpec.describe Questions::ChatWithUsController do
     let(:returning_client_experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
 
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       id_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
       returning_client_experiment.experiment_vita_partners.create(vita_partner: vita_partner)

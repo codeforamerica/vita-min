@@ -97,6 +97,9 @@ module FeatureHelpers
       nokotable = element_or_doc
     else
       result_table_text = element_or_doc["outerHTML"]
+      if result_table_text.nil? && element_or_doc.native.instance_of?(Nokogiri::XML::Element)
+        result_table_text = element_or_doc.native.to_html
+      end
       nokotable = Nokogiri::HTML(result_table_text)
     end
 

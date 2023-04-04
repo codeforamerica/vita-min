@@ -17,8 +17,9 @@
                 <div class="email__subject">
                   <%= email.subject %>
                 </div>
-                <div style="white-space: pre-line;">
-                  <%= email.text_part.body.decoded %>
+                <div>
+                  <iframe style="width: 100%; height: 500px" sandbox="allow-same-origin allow-scripts" src="data:text/html;base64,<%= Base64.encode64(email.html_part.body.decoded)%>">
+                  </iframe>
                 </div>
               </div>
             </div>
