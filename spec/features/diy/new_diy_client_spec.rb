@@ -23,6 +23,15 @@ RSpec.feature "Client wants to file on their own" do
       click_on I18n.t("general.continue")
     end.to have_enqueued_job(SendInternalEmailJob)
 
+    perform_enqueued_jobs
+    mail = ActionMailer::Base.deliveries.last
+
+    chat_with_us_url = Nokogiri::HTML.parse(mail.html_part.body.to_s).css("a").find { |a| a["href"].include?('what_is_file_myself_and_how_does_it_work') }["href"]
+    expect(chat_with_us_url).to include('diy_chat_with_us_token=')
+
+    visit chat_with_us_url
+    expect(DiyIntake.last.clicked_chat_with_us_at).to be_within(1.minute).of(Time.now)
+
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)
     expect(experiment_particpant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)

@@ -1,9 +1,9 @@
 class DiyIntakeEmailMailer < ApplicationMailer
 
   def high_support_message(diy_intake:)
+    @diy_intake = diy_intake
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
-    @first_name = diy_intake.preferred_first_name
 
     I18n.with_locale(diy_intake.locale) do
       mail(
