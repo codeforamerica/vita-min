@@ -121,8 +121,8 @@ class Client < ApplicationRecord
         tax_returns: {
           service_type: "online_intake",
           tax_return_transitions: TaxReturnTransition
-            .where.not(to_state: %w[file_accepted file_rejected file_not_filing file_mailed])
-            .where(most_recent: true)
+                                    .where.not(to_state: %w[file_accepted file_rejected file_not_filing file_mailed])
+                                    .where(most_recent: true)
         }
       )
   end
@@ -310,16 +310,16 @@ class Client < ApplicationRecord
     return {} if intake.blank? || intake.is_ctc?
 
     intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
-      required_count = document_type.required_persons(intake).length
-      doc_types = if document_type == DocumentTypes::Identity
-                    DocumentTypes::IDENTITY_TYPES
-                  elsif document_type == DocumentTypes::SsnItin
-                    DocumentTypes::SECONDARY_IDENTITY_TYPES
-                  else
-                    [document_type]
-                  end
-      provided_count = documents.count { |d| doc_types.map(&:key).include?(d.document_type) }
+      acceptable_doc_type_keys = if document_type == DocumentTypes::Identity
+                                   DocumentTypes::IDENTITY_TYPES
+                                 elsif document_type == DocumentTypes::SsnItin
+                                   DocumentTypes::SECONDARY_IDENTITY_TYPES
+                                 else
+                                   [document_type]
+                                 end.map(&:key)
+      provided_count = documents.count { |d| acceptable_doc_type_keys.include?(d.document_type) }
 
+      required_count = document_type.required_persons(intake).length
       result[document_type.key] = {
         required_count: required_count,
         provided_count: provided_count,
