@@ -42,6 +42,7 @@ FactoryBot.define do
     # when creating a client, also create an intake, since tax returns are made after intake begins
     client { create(:intake).client }
     filing_status { "single" }
+    year { MultiTenantService.new(:gyr).current_tax_year }
     transient do
       metadata { {} }
     end

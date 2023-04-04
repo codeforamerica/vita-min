@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeOrganizationController do
   let(:organization) { create :organization }
-  let(:tax_return_selection) { create :tax_return_selection }
+  let(:client) { create :client, vita_partner: organization }
+  let(:tax_return_1) { create :tax_return, client: client }
+  let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
+  let(:tax_return_3) { create :tax_return, client: client, year: 2018 }
+  let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
   let(:user) { create :organization_lead_user, organization: organization }
 
   describe "#edit" do

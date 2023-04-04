@@ -6,15 +6,15 @@ module Hub
       before_action :load_current_tax_return_statuses, :load_assignable_users
 
       def update
-        @form = BulkActionForm.new(@selection, update_params)
+        @form = BulkActionForm.new(@tax_return_selection, update_params)
 
         return render :edit unless @form.valid?
 
-        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @selection), user: current_user)
+        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @tax_return_selection), user: current_user)
         BulkActionJob.perform_later(
           task: task_type,
           user: current_user,
-          tax_return_selection: @selection,
+          tax_return_selection: @tax_return_selection,
           form_params: update_params
         )
 
@@ -28,7 +28,7 @@ module Hub
       end
 
       def load_edit_form
-        @form = BulkActionForm.new(@selection, {
+        @form = BulkActionForm.new(@tax_return_selection, {
           status: params.dig(:tax_return, :status),
           assigned_user_id: params.dig(:tax_return, :assigned_user_id)
         })
@@ -39,11 +39,11 @@ module Hub
       end
 
       def load_current_tax_return_statuses
-        @current_tr_statuses = @selection.tax_returns.joins(:tax_return_transitions).where(tax_return_transitions: { most_recent: true }).map(&:current_state).uniq
+        @current_tr_statuses = @tax_return_selection.tax_returns.joins(:tax_return_transitions).where(tax_return_transitions: { most_recent: true }).map(&:current_state).uniq
       end
 
       def load_assignable_users
-        @assignable_users = @selection.tax_returns.map { |tr| assignable_users(tr.client, [current_user, tr.assigned_user])}.flatten.compact.uniq
+        @assignable_users = @tax_return_selection.tax_returns.map { |tr| assignable_users(tr.client, [current_user, tr.assigned_user])}.flatten.compact.uniq
       end
     end
   end

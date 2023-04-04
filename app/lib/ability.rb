@@ -54,6 +54,8 @@ class Ability
       TaxReturn,
     ], client: { vita_partner: accessible_groups }
 
+    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups } }
+
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
