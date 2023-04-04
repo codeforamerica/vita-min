@@ -49,7 +49,7 @@
             <td class="index-table__cell">
               <% id_type = DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) ? "ID - " : "" %>
               <% id_type = "SSN - " if DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
-              <%=  id_type + document.document_type_label %>
+              <%= id_type + document.document_type_label %>
             </td>
             <td class="index-table__cell">
               <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
@@ -87,13 +87,13 @@
   </div>
 
   <% if @client.experiment_docs_not_needed.present? %>
-  <section class="slab slab--padded">
-    <p class="text--help">
-      <% labels = @client.experiment_docs_not_needed.map(&:label) %>
-      <% labels[-1] =  I18n.t("general.and") +" " + labels.last if labels.size > 1 %>
-      <%= labels.join(", ") + " " + I18n.t("general.not_needed_docs") %>
-    </p>
-  </section>
+    <section class="slab slab--padded">
+      <p class="text--help">
+        <% labels = @client.experiment_docs_not_needed.map(&:label) %>
+        <% labels[-1] = I18n.t("general.and") + " " + labels.last if labels.size > 1 %>
+        <%= labels.join(", ") + " " + I18n.t("general.not_needed_docs") %>
+      </p>
+    </section>
   <% end %>
 
   <%= render "hub/clients/client_take_action_footer" %>
