@@ -50,12 +50,13 @@
         </div>
       </section>
 
-      <table class="data-table">
+      <table class="data-table participants-table">
         <tr>
           <th>record</th>
           <th>treatment</th>
           <th>email</th>
           <% if @experiment.key == "diy_high_and_low_experiment" %><th>1099</th><% end %>
+          <th>outcome</th>
           <% unless Rails.env.production? %><th></th><% end %>
         </tr>
 
@@ -69,6 +70,13 @@
             <td><%= participant.treatment %></td>
             <td><%= participant.record.email_address if participant.record.has_attribute?(:email_address) %></td>
             <% if @experiment.key == "diy_high_and_low_experiment" %><td><%= participant.record.received_1099 %></td><% end %>
+            <td>
+              <% if @experiment.key == ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT %>
+                <% if participant.record.clicked_chat_with_us_at %>
+                  clicked chat with us at <%= participant.record.clicked_chat_with_us_at %>
+                <% end %>
+              <% end %>
+            </td>
             <% unless Rails.env.production? %><td><%= link_to "Edit", edit_hub_admin_experiment_participant_path(participant) %></td><% end %>
           </tr>
         <% end %>

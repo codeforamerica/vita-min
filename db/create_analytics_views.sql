@@ -108,7 +108,7 @@ CREATE VIEW analytics.dependents AS
     FROM public.dependents;
 
 CREATE VIEW analytics.diy_intakes AS
-    SELECT id, created_at, locale, referrer, source, updated_at, visitor_id, zip_code
+    SELECT id, created_at, locale, referrer, source, updated_at, visitor_id, zip_code, clicked_chat_with_us_at
     FROM public.diy_intakes;
 
 CREATE VIEW analytics.documents AS

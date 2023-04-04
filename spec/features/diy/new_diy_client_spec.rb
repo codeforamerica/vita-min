@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Client wants to file on their own" do
+  let(:admin) { create :admin_user, name: "Admin the First" }
+
   before do
     Experiment.update_all(enabled: true)
     allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :high
@@ -35,6 +37,10 @@ RSpec.feature "Client wants to file on their own" do
     experiment = Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT)
     experiment_particpant = ExperimentParticipant.find_by(record: DiyIntake.last, experiment: experiment)
     expect(experiment_particpant.treatment.to_sym).to be_in(experiment.treatment_weights.keys)
+
+    login_as admin
+    visit hub_admin_experiment_path(id: experiment)
+    expect(table_contents(page.find('.participants-table'))).to include(hash_including({"outcome" => a_string_including(Time.now.year.to_s)}))
   end
 
   scenario "a new client who goes through DIY after going through triage doesn't have to re-answer preferred name and filing frequency" do
