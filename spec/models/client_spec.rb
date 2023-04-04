@@ -946,7 +946,7 @@ describe Client do
     end
     let!(:client) { create :client, intake: create(:intake) }
 
-    context "client is in the Id Verification Experiment" do
+    context "client is in the ID Verification Experiment" do
       context "has control treatment" do
         it "does include selfie doc" do
           expect(client.required_document_counts).to match(hash_including("Selfie"))
@@ -975,7 +975,7 @@ describe Client do
       end
     end
 
-    context "client is in the Id Verification Experiment" do
+    context "client is in the Returning Client Experiment" do
       let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
 
       context "has control treatment" do
@@ -991,6 +991,21 @@ describe Client do
         end
       end
     end
-  end
 
+    context "client uploaded a drivers license doc" do
+      let!(:driver_license_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key }
+
+      it "counts the drivers license as an ID document" do
+        expect(client.required_document_counts).to match(hash_including("ID"=>{:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+      end
+    end
+
+    context "client uploaded a drivers license doc" do
+      let!(:w2_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::SecondaryIdentification::W2.key }
+
+      it "counts it as an 'SSN or ITIN' document" do
+        expect(client.required_document_counts).to match(hash_including("SSN or ITIN" => {:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+      end
+    end
+  end
 end
