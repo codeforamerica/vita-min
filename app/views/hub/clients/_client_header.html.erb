@@ -112,6 +112,12 @@
         <% end %>
       </div>
 
+      <div>
+        <% @client.experiment_participants.each do |experiment_participant| %>
+          <span class="client-header__experiment-label"><%= experiment_participant.experiment.name %></span>
+        <% end %>
+      </div>
+
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
 
       <%= form_for [:hub, @client], method: :patch, url: flag_hub_client_path(id: @client.id), html: { class: 'toggle-flag' } do |f| %>

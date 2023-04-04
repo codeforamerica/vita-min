@@ -86,6 +86,7 @@ class Client < ApplicationRecord
   has_many :access_logs
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
+  has_many :experiment_participants, through: :intake
   has_many :efile_submissions, through: :tax_returns
   has_many :efile_security_informations, dependent: :destroy
   has_many :recaptcha_scores, dependent: :destroy
@@ -296,6 +297,14 @@ class Client < ApplicationRecord
 
   def identity_decision_made?
     identity_verification_denied_at? || identity_verified_at?
+  end
+
+  def experiment_docs_not_needed
+    experiment_keys = experiment_participants.includes(:experiment).map { |ep| ep.experiment.key }
+    return nil if experiment_keys.blank?
+
+    return IdVerificationExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::ID_VERIFICATION_EXPERIMENT)
+    ReturningClientExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::RETURNING_CLIENT_EXPERIMENT)
   end
 
   def number_of_required_documents

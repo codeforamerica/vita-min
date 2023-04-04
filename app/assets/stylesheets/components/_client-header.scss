@@ -1,5 +1,4 @@
 .client-header {
-
   display: flex;
   flex-direction: column;
   @media screen and (min-width: $tablet-up) {
@@ -54,5 +53,18 @@
     .button {
       margin-bottom: 0;
     }
+  }
+
+  &__experiment-label {
+    display: inline-block;
+    font-size: $font-size-15;
+    background-color: $color-green-money;
+    color: $color-black;
+    font-weight: 500;
+    border-radius: $border-radius;
+    padding: $s15/2 $s10;
+    line-height: $s15;
+    position: relative;
+    top: -.1em;
   }
 }
