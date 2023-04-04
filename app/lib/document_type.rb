@@ -47,12 +47,6 @@ class DocumentType
       I18n.t("general.document_types.#{to_param}", default: key)
     end
 
-    def hub_doc_upload_label(intake)
-      return label if relevant_to?(intake)
-
-      label + " " + I18n.t("general.not_needed_docs")
-    end
-
     def translated_label(locale)
       I18n.t("general.document_types.#{to_param}", default: key, locale: locale)
     end
