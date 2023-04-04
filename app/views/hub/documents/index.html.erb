@@ -85,5 +85,16 @@
       </tbody>
     </table>
   </div>
+
+  <% if @client.experiment_docs_not_needed.present? %>
+  <section class="slab slab--padded">
+    <p class="text--help">
+      <% labels = @client.experiment_docs_not_needed.map(&:label) %>
+      <% labels[-1] =  I18n.t("general.and") +" " + labels.last if labels.size > 1 %>
+      <%= labels.join(", ") + " " + I18n.t("general.not_needed_docs") %>
+    </p>
+  </section>
+  <% end %>
+
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>

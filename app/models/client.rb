@@ -298,6 +298,25 @@ class Client < ApplicationRecord
     identity_verification_denied_at? || identity_verified_at?
   end
 
+  def experiment_participant
+    ExperimentParticipant.find_by(record: intake)
+  end
+
+  def experiment
+    experiment_participant.experiment if in_experiment?
+  end
+
+  def in_experiment?
+    experiment_participant.present?
+  end
+
+  def experiment_docs_not_needed
+    return nil unless in_experiment? && ["id_verification_experiment", "returning_client_experiment"].include?(experiment.key)
+
+    service = experiment.key == "id_verification_experiment" ? IdVerificationExperimentService.new(intake) : ReturningClientExperimentService.new(intake)
+    service.documents_not_needed
+  end
+
   def number_of_required_documents
     required_document_counts.map { |_type, counts| counts[:required_count] }.sum
   end

@@ -306,7 +306,6 @@ en:
     dependents: Dependents
     divorced: Divorced
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
-    not_needed_docs: "-- (not needed due to experiment)"
     document_type: Document type
     document_types:
       care_provider_statement: Care Provider Statement
@@ -441,6 +440,7 @@ en:
     none_of_the_above: None of the above
     none_of_these: None of these
     not_at_all: Not at all
+    not_needed_docs: documents not needed due to experiment.
     not_well: Not well
     online: Online
     oops: Oops!

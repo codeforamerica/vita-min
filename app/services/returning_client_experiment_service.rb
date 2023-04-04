@@ -7,6 +7,10 @@ class ReturningClientExperimentService
     treatment == 'skip_identity_documents'
   end
 
+  def documents_not_needed
+    skip_identity_documents? ? [DocumentTypes::Identity, DocumentTypes::SecondaryIdentification::Ssn, DocumentTypes::SecondaryIdentification::Itin, DocumentTypes::Selfie] : []
+  end
+
   private
 
   def treatment

@@ -113,8 +113,7 @@
       </div>
 
       <div>
-        <% experiment = ExperimentParticipant.find_by(record: @client.intake)&.experiment %>
-        <span class="label"><%= experiment.name if experiment.present? %></span>
+        <span class="client-header__experiment-label"><%= @client.experiment.name if @client.in_experiment? %></span>
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
