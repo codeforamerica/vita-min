@@ -86,6 +86,7 @@ class Client < ApplicationRecord
   has_many :access_logs
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
+  has_many :experiment_participants, through: :intake
   has_many :efile_submissions, through: :tax_returns
   has_many :efile_security_informations, dependent: :destroy
   has_many :recaptcha_scores, dependent: :destroy
@@ -298,23 +299,12 @@ class Client < ApplicationRecord
     identity_verification_denied_at? || identity_verified_at?
   end
 
-  def experiment_participant
-    ExperimentParticipant.find_by(record: intake)
-  end
-
-  def experiment
-    experiment_participant.experiment if in_experiment?
-  end
-
-  def in_experiment?
-    experiment_participant.present?
-  end
-
   def experiment_docs_not_needed
-    return nil unless in_experiment? && ["id_verification_experiment", "returning_client_experiment"].include?(experiment.key)
+    experiment_keys = experiment_participants.includes(:experiment).map { |ep| ep.experiment.key }
+    return nil if experiment_keys.blank?
 
-    service = experiment.key == "id_verification_experiment" ? IdVerificationExperimentService.new(intake) : ReturningClientExperimentService.new(intake)
-    service.documents_not_needed
+    return IdVerificationExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::ID_VERIFICATION_EXPERIMENT)
+    ReturningClientExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::RETURNING_CLIENT_EXPERIMENT)
   end
 
   def number_of_required_documents

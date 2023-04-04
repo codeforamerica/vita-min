@@ -113,7 +113,9 @@
       </div>
 
       <div>
-        <span class="client-header__experiment-label"><%= @client.experiment.name if @client.in_experiment? %></span>
+        <% @client.experiment_participants.each do |experiment_participant| %>
+          <span class="client-header__experiment-label"><%= experiment_participant.experiment.name %></span>
+        <% end %>
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>

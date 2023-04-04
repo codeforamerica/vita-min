@@ -323,6 +323,7 @@ class Intake < ApplicationRecord
   has_one :triage, dependent: :destroy
   belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
+  has_many :experiment_participants, as: :record
   has_one :vita_partner, through: :client
   accepts_nested_attributes_for :dependents, allow_destroy: true
   scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
