@@ -29,18 +29,6 @@ describe PasswordStrengthValidator do
         expect(subject).not_to be_valid
         expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
       end
-
-      it "is not valid for overly long passwords" do
-        subject.password = "fake".ljust(129, "fake")
-        expect(subject).not_to be_valid
-        expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.incorrect_size"))
-      end
-
-       it "is not valid for too short passwords" do
-         subject.password = "fake"
-         expect(subject).not_to be_valid
-         expect(subject.errors[:password].first).to include(I18n.t("errors.attributes.password.incorrect_size"))
-       end
     end
 
     context "with an admin" do

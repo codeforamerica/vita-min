@@ -34,7 +34,7 @@ module Hub
     end
 
     def set_minimum_password_length
-      @minimum_password_length = User.PASSWORD_LENGTH.min
+      @minimum_password_length = Devise.password_length.min
     end
 
     def redirect_if_is_admin_user
