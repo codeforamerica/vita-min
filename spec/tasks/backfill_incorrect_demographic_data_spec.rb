@@ -4,7 +4,7 @@ describe "backfill_incorrect_demographic_data:backfill" do
   include_context "rake"
   let(:botched_intake_full) {
     create(
-      :gyr_intake,
+      :intake,
       :filled_out,
       demographic_primary_american_indian_alaska_native: true,
       demographic_primary_asian: true,
@@ -22,7 +22,7 @@ describe "backfill_incorrect_demographic_data:backfill" do
   }
   let(:botched_intake_partial) {
     create(
-      :gyr_intake,
+      :intake,
       :filled_out,
       demographic_primary_asian: true,
       demographic_spouse_american_indian_alaska_native: true,
@@ -35,7 +35,7 @@ describe "backfill_incorrect_demographic_data:backfill" do
   }
   let(:legit_intake) {
     create(
-      :gyr_intake,
+      :intake,
       :filled_out,
       demographic_primary_asian: true,
       demographic_primary_white: true,
@@ -44,7 +44,7 @@ describe "backfill_incorrect_demographic_data:backfill" do
   }
   let(:legit_intake_multiracial) {
     create(
-      :gyr_intake,
+      :intake,
       :filled_out,
       demographic_primary_asian: true,
       demographic_spouse_prefer_not_to_answer_race: true,

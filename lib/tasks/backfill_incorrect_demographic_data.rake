@@ -18,7 +18,8 @@ namespace :backfill_incorrect_demographic_data do
       demographic_spouse_prefer_not_to_answer_race: true,
     )
 
-    intakes_to_backfill = Set.new(intakes_with_incorrect_primary_data + intakes_with_incorrect_spouse_data)
+    # TOOD: should this be ".or"?
+    intakes_to_backfill = intakes_with_incorrect_primary_data.merge(intakes_with_incorrect_spouse_data)
 
     intakes_to_backfill.find_in_batches do |batch|
       batch.map do |intake|
