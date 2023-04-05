@@ -160,7 +160,6 @@ es:
       password:
         incorrect_size: La contraseña debe tener entre 10 y 128 caracteres.
         insecure: La contraseña proporcionada no era lo suficientemente segura. Intente agregar una o dos palabras poco comunes.
-        must_be_different: La nueva contraseña era la misma que la contraseña actual.
         not_matching: Las contraseñas proporcionadas no coinciden.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.

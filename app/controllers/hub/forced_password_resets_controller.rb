@@ -15,19 +15,13 @@ module Hub
 
     def update
       @user = current_user
-      if @user.valid_password?(user_params[:password])
-        @user.errors.add(:password, I18n.t("errors.attributes.password.must_be_different"))
-      elsif user_params[:password] != user_params[:password_confirmation]
-        @user.errors.add(:password, I18n.t("errors.attributes.password.not_matching"))
-      else
-        @user.assign_attributes(user_params)
-        @user.high_quality_password_as_of = DateTime.now
+      @user.assign_attributes(user_params)
+      @user.high_quality_password_as_of = DateTime.now
 
-        if @user.save
-          bypass_sign_in(@user) # Devise signs out after a password change, don't do that
-          @user.after_database_authentication
-          return redirect_to after_sign_in_path_for(@user)
-        end
+      if @user.save
+        bypass_sign_in(@user) # Devise signs out after a password change, don't do that
+        @user.after_database_authentication
+        return redirect_to after_sign_in_path_for(@user)
       end
 
       render :edit

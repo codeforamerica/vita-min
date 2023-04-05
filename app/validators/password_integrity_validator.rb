@@ -15,7 +15,9 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
     return if record.admin?
     return if value.nil? and record.encrypted_password.present?
 
-    record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) unless PasswordIntegrityValidator.is_strong_enough?(value, record)
-    record.errors.add(attr_name, I18n.t("errors.attributes.password.incorrect_size", minimum_password_length: User.PASSWORD_LENGTH.begin)) unless User.PASSWORD_LENGTH.member?(value&.length)
-end
+    error_messages = []
+    error_messages << I18n.t("errors.attributes.password.insecure") unless PasswordIntegrityValidator.is_strong_enough?(value, record)
+    error_messages << I18n.t("errors.attributes.password.incorrect_size", minimum_password_length: User.PASSWORD_LENGTH.begin) unless User.PASSWORD_LENGTH.member?(value&.length)
+    record.errors.add(attr_name, error_messages.join(" ")) if error_messages.present?
+  end
 end

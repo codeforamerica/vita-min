@@ -97,7 +97,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     fill_in "Confirm new password", with: "UseAStronger!Password2023"
     click_on "Update"
 
-    expect(page).not_to have_text("Please update your password.")
+    expect(page).to have_text(I18n.t('hub.assigned_clients.index.title'))
   end
 
   scenario "non-admin user logged in before strong password change is not forced to reset password" do

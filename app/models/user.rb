@@ -47,7 +47,7 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
+  devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
@@ -57,8 +57,18 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true
+
+  validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
+
   validates :email, 'valid_email_2/email': { mx: true }
   validates :password, password_integrity: true
+  validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
+
+  with_options(if: -> (r) { r.admin? }) do
+    validates_presence_of :password
+    validates_length_of :password, within: Devise.password_length, allow_blank: true
+  end
+
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
   has_many :notifications, class_name: "UserNotification"
