@@ -23,7 +23,6 @@ module Hub
       end
 
       def load_template_variables
-        @inaccessible_client_count = @tax_return_selection.clients.where.not(id: @clients).size
         @locale_counts = @clients.where.not(id: @clients.with_insufficient_contact_info).locale_counts
         @no_contact_info_count = @clients.with_insufficient_contact_info.size
       end

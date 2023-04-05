@@ -4,8 +4,7 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
   let(:client) { create :client, vita_partner: organization }
   let(:tax_return_1) { create :tax_return, client: client }
   let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
-  let(:tax_return_3) { create :tax_return, client: client, year: 2018 }
-  let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
+  let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2] }
   let(:organization) { create :organization }
   let(:user) { create :organization_lead_user, organization: organization }
 
@@ -56,10 +55,9 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
           let!(:accessible_client) { create :client, intake: intake1, tax_returns: [accessible_tax_return], vita_partner: organization }
           let!(:inaccessible_client) { create :client, intake: intake2, tax_returns: [inaccessible_tax_return], vita_partner: inaccessible_org }
 
-          it "sets @inaccessible_client_count" do
+          it "returns a 403" do
             get :edit, params: params
-            expect(assigns(:tax_return_selection).clients.count).to eq(2)
-            expect(assigns(:inaccessible_client_count)).to eq(1)
+            expect(response).to be_forbidden
           end
 
           it "only uses the accessible clients when computing locale count" do
