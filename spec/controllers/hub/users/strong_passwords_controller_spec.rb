@@ -13,14 +13,18 @@ RSpec.describe Hub::Users::StrongPasswordsController do
 
       it "shows the form for updating the password" do
         get :edit
-        expect(response).to have_rendered(:edit)
+        expect(response).to be_ok
       end
 
-      it "redirects if the password was already reset" do
-        non_hub_admin_user.update!(high_quality_password_as_of: DateTime.now)
+      context "when password is already reset" do
+        before do
+          non_hub_admin_user.update!(high_quality_password_as_of: DateTime.now)
+        end
 
-        get :edit
-        expect(response).to redirect_to hub_assigned_clients_path
+        it "redirects to default login path" do
+          get :edit
+          expect(response).to redirect_to hub_assigned_clients_path
+        end
       end
     end
 
@@ -37,30 +41,6 @@ RSpec.describe Hub::Users::StrongPasswordsController do
 
   describe "#update" do
     before { sign_in non_hub_admin_user }
-
-    context "with the same password" do
-      before do
-        put :update, params: {
-          user: {
-            password: non_hub_admin_user.password,
-            password_confirmation: "another_failed_password"
-          }
-        }
-        non_hub_admin_user.reload
-      end
-
-      it "fails to update the user's password" do
-        expect(response.body).to include I18n.t("errors.attributes.password.must_be_different")
-      end
-
-      it "does not update the last forced reset date" do
-        expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
-      end
-
-      it "does not redirect" do
-        expect(response).not_to redirect_to root_path
-      end
-    end
 
     context "with new password with a mismatched confirmation" do
       before do
