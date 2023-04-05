@@ -233,7 +233,7 @@ FactoryBot.define do
     demographic_primary_native_hawaiian_pacific_islander { true }
     demographic_primary_asian { true }
     demographic_primary_white { true }
-    demographic_primary_prefer_not_to_answer_race { true }
+    demographic_primary_prefer_not_to_answer_race { false }
     demographic_english_reading { "well" }
     demographic_english_conversation { "not_well" }
     bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
