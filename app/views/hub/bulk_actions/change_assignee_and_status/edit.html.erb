@@ -8,7 +8,7 @@
 
           <h1 class="h1"><%= t(".title") %></h1>
           <p>
-            <%= t(".selected_action_and_tax_return_count_html", count: @selection.tax_returns.size) %><br/>
+            <%= t(".selected_action_and_tax_return_count_html", count: @tax_return_selection.tax_returns.size) %><br/>
             <br/>
             <%= @current_tr_statuses.map { |status| t("hub.tax_returns.status.#{status}")}.join(", ") + "." %>
           </p>

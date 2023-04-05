@@ -8,7 +8,7 @@
 
           <h1 class="h1"><%= t(".title") %></h1>
           <p>
-            <%= t(".selected_action_and_client_count_html", count: @selection.clients.size) %>
+            <%= t(".selected_action_and_client_count_html", count: @tax_return_selection.clients.size) %>
             <%= t('.selected_action_qualifier.only_email') if params[:send_only] == 'email' %>
             <%= t('.selected_action_qualifier.only_text') if params[:send_only] == 'text_message' %>
             <br/>
