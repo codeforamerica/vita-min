@@ -18,8 +18,9 @@ namespace :backfill_incorrect_demographic_data do
       demographic_spouse_prefer_not_to_answer_race: true,
     )
 
-    # TOOD: should this be ".or"?
     intakes_to_backfill = intakes_with_incorrect_primary_data.merge(intakes_with_incorrect_spouse_data)
+
+    Sentry.capture_message "Backfill demographic data on intakes: beginning task with #{intakes_to_backfill.count} records to update"
 
     intakes_to_backfill.find_in_batches do |batch|
       batch.map do |intake|
@@ -46,6 +47,22 @@ namespace :backfill_incorrect_demographic_data do
       end
     end
 
-    # TODO: add print statements? use Sentry.capture_message?
+    intakes_to_backfill = Intake::GyrIntake.where(
+      demographic_primary_american_indian_alaska_native: true,
+      demographic_primary_asian: true,
+      demographic_primary_black_african_american: true,
+      demographic_primary_native_hawaiian_pacific_islander: true,
+      demographic_primary_white: true,
+      demographic_primary_prefer_not_to_answer_race: true,
+    ).merge(Intake::GyrIntake.where(
+      demographic_spouse_american_indian_alaska_native: true,
+      demographic_spouse_asian: true,
+      demographic_spouse_black_african_american: true,
+      demographic_spouse_native_hawaiian_pacific_islander: true,
+      demographic_spouse_white: true,
+      demographic_spouse_prefer_not_to_answer_race: true,
+    ))
+
+    Sentry.capture_message "Backfill demographic data on intakes: ending task with #{intakes_to_backfill.count} records to update"
   end
 end
