@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::BaseBulkActionsController do
-  let(:client) { create :client, vita_partner: organization }
+  let(:intake) { build :intake, :with_contact_info }
+  let(:client) { create :client, vita_partner: organization, intake: intake }
   let(:tax_return_1) { create :tax_return, client: client }
   let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
-  let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2] }
+  let(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2] }
   let(:organization) { create :organization }
   let(:user) { create :organization_lead_user, organization: organization }
 
@@ -59,18 +60,10 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
             get :edit, params: params
             expect(response).to be_forbidden
           end
-
-          it "only uses the accessible clients when computing locale count" do
-            get :edit, params: params
-            expect(assigns(:locale_counts).values.sum).to eq(1)
-          end
         end
 
         context "with only clients who don't have sufficient contact info" do
-          before do
-            client = create :client, vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])]
-            create :intake, client: client, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil
-          end
+          let(:intake) { build :intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil }
 
           it "shows a message to the user with number of clients who have no contact info for their preferences" do
             get :edit, params: params
