@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hub::StrongPasswordsController do
+RSpec.describe Hub::Users::StrongPasswordsController do
   let!(:organization) { create :organization, allows_greeters: false }
   let(:hub_admin_user) { create(:user, role_type: "AdminRole", timezone: "America/Los_Angeles") }
   let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole", high_quality_password_as_of: nil) }

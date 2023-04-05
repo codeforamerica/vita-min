@@ -58,7 +58,7 @@ RSpec.describe Users::SessionsController do
           post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
         end.to change(subject, :current_user).from(nil).to(non_admin_user)
 
-        expect(response).not_to redirect_to Hub::StrongPasswordsController.to_path_helper
+        expect(response).not_to redirect_to Hub::Users::StrongPasswordsController.to_path_helper
         non_admin_user.reload
         expect(non_admin_user.high_quality_password_as_of).not_to be_nil
       end

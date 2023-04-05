@@ -184,8 +184,6 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
-        resource :strong_passwords, only: [:edit, :update]
-
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do
           collection do
@@ -305,6 +303,7 @@ Rails.application.routes.draw do
           patch "/unsuspend", to: "users#unsuspend", on: :member, as: :unsuspend
           get "/edit_role", to: "users#edit_role", on: :member, as: :edit_role
           patch "/update_role", to: "users#update_role", on: :member, as: :update_role
+
         end
         resources :user_notifications, only: [:index], path: "/notifications" do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
@@ -314,6 +313,10 @@ Rails.application.routes.draw do
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
+
+        scope :users, module: :users do
+          resource :strong_passwords, only: [:edit, :update]
+        end
       end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
@@ -322,6 +325,7 @@ Rails.application.routes.draw do
         sessions: "users/sessions",
         invitations: "users/invitations"
       }
+
       get "hub/users/invitations" => "invitations#index", as: :invitations
       put "hub/users/invitations/:user_id/resend", to: "invitations#resend_invitation", as: :user_resend_invitation
       ### END Hub Admin routes (Case Management)

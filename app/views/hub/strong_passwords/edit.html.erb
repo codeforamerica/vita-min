@@ -8,8 +8,8 @@
       </div>
       <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
         <div class="form-card__content">
-          <%= f.cfa_input_field(:password, "New password", type: "password", classes: ['form-width--long', 'password']) %>
-          <%= f.cfa_input_field(:password_confirmation, "Confirm new password", type: "password", classes: ['form-width--long', 'password']) %>
+          <%= f.cfa_input_field(:password, I18n.t('views.passwords.edit.new_password'), type: "password", classes: ['form-width--long', 'password']) %>
+          <%= f.cfa_input_field(:password_confirmation, I18n.t('views.passwords.edit.confirm_new_password'), type: "password", classes: ['form-width--long', 'password']) %>
           <div class="form-card__footer">
             <%= f.continue "Update" %>
           </div>
