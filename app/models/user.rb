@@ -66,7 +66,7 @@ class User < ApplicationRecord
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
 
   with_options(if: -> (r) { r.admin? }) do
-    validates_presence_of :password
+    validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
   end
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
