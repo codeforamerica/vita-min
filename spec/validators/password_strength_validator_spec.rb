@@ -39,7 +39,7 @@ describe PasswordIntegrityValidator do
        it "is not valid for too short passwords" do
          subject.password = "fake"
          expect(subject).not_to be_valid
-         expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.incorrect_size"))
+         expect(subject.errors[:password].first).to include(I18n.t("errors.attributes.password.incorrect_size"))
        end
     end
 
