@@ -6,6 +6,7 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
+    before_action :load_document_type_options
     helper_method :transient_storage_url
 
     layout "hub"
@@ -64,6 +65,10 @@ module Hub
     end
 
     private
+
+    def load_document_type_options
+      @document_type_options = IdVerificationExperimentService.new(@client.intake).document_type_options
+    end
 
     def sorted_documents
       @sort_order = sort_order

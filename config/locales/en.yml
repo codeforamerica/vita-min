@@ -440,7 +440,6 @@ en:
     none_of_the_above: None of the above
     none_of_these: None of these
     not_at_all: Not at all
-    not_needed_docs: documents not needed due to experiment.
     not_well: Not well
     online: Online
     oops: Oops!
@@ -930,6 +929,8 @@ en:
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
+        expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
+        not_needed_docs: documents not needed due to experiment.
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant
