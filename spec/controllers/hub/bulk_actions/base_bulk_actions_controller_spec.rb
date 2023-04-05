@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::BaseBulkActionsController do
-  let(:tax_return_selection) { create :tax_return_selection }
+  let(:client) { create :client, vita_partner: organization }
+  let(:tax_return_1) { create :tax_return, client: client }
+  let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
+  let(:tax_return_3) { create :tax_return, client: client, year: 2018 }
+  let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
   let(:organization) { create :organization }
   let(:user) { create :organization_lead_user, organization: organization }
 
@@ -54,7 +58,7 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
 
           it "sets @inaccessible_client_count" do
             get :edit, params: params
-            expect(assigns(:selection).clients.count).to eq(2)
+            expect(assigns(:tax_return_selection).clients.count).to eq(2)
             expect(assigns(:inaccessible_client_count)).to eq(1)
           end
 
