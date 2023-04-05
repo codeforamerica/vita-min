@@ -45,10 +45,10 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         sign_in unauthorized_team_member
       end
 
-      it "is not allowed to access the page" do
+      it "returns a 403" do
         get :edit, params: params
 
-        expect(response).not_to render_template :edit
+        expect(response).to be_forbidden
       end
     end
   end
