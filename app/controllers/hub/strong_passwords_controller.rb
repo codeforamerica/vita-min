@@ -1,5 +1,5 @@
 module Hub
-  class ForcedPasswordResetsController < ApplicationController
+  class StrongPasswordsController < ApplicationController
     include AccessControllable
 
     before_action :require_sign_in

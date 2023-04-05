@@ -184,7 +184,7 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
-        resource :forced_password_resets, only: [:edit, :update]
+        resource :strong_passwords, only: [:edit, :update]
 
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do
