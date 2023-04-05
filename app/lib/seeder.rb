@@ -112,7 +112,7 @@ class Seeder
     admin_user = User.where(email: "admin@example.com").first_or_initialize
     admin_user.update(
       name: "Admin Amdapynurian",
-      password: strong_shared_password)
+      password: 'theforcevita')
     admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
     greeter_user = User.where(email: "greeter@example.com").first_or_initialize
