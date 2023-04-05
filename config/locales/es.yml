@@ -934,12 +934,12 @@ es:
         archived_documents: Documentos archivados
         client_doc: Cliente
         empty_file: "(archivo vacío)"
+        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
+        not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
         upload_by: Subido por
         upload_date: Fecha de carga
-        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
-        not_needed_docs: documentos no necesario debido al experimento.
     has_duplicates: Posibles duplicados detectados
     has_previous_year_intakes: Ingreso(s) del año anterior
     itin_applicant: Solicitante de Número de Identificación Personal (ITIN)
