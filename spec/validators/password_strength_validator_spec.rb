@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-describe PasswordIntegrityValidator do
+describe PasswordStrengthValidator do
   before do
     @validatable = Class.new do
       include ActiveModel::Validations
       attr_accessor :password, :email, :phone_number, :name, :admin
 
-      validates_with PasswordIntegrityValidator, attributes: :password
+      validates_with PasswordStrengthValidator, attributes: :password
 
       def admin?
         @admin || false

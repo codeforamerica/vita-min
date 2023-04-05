@@ -100,8 +100,9 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def accept_resource
-    resource = resource_class.accept_invitation!(update_resource_params)
-    resource.update(high_quality_password_as_of: DateTime.now)
+    resource = resource_class.accept_invitation!(update_resource_params.merge(
+      high_quality_password_as_of: DateTime.now
+    ))
     resource
   end
 end

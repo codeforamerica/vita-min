@@ -61,7 +61,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
 
   validates :email, 'valid_email_2/email': { mx: true }
-  validates :password, password_integrity: true
+  validates :password, password_strength: true
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
 
   with_options(if: -> (r) { r.admin? }) do

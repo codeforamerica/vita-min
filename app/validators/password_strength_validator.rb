@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class PasswordIntegrityValidator < ActiveModel::EachValidator
+class PasswordStrengthValidator < ActiveModel::EachValidator
   def self.is_strong_enough?(password, record)
     # Scoring of the test is a range of 0 - 4
     #   0: too guessable: risky password. (guesses < 10^3)
@@ -16,7 +16,7 @@ class PasswordIntegrityValidator < ActiveModel::EachValidator
     return if value.nil? and record.encrypted_password.present?
 
     error_messages = []
-    error_messages << I18n.t("errors.attributes.password.insecure") unless PasswordIntegrityValidator.is_strong_enough?(value, record)
+    error_messages << I18n.t("errors.attributes.password.insecure") unless PasswordStrengthValidator.is_strong_enough?(value, record)
     error_messages << I18n.t("errors.attributes.password.incorrect_size", minimum_password_length: User.PASSWORD_LENGTH.begin) unless User.PASSWORD_LENGTH.member?(value&.length)
     record.errors.add(attr_name, error_messages.join(" ")) if error_messages.present?
   end
