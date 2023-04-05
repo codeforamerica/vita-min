@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Hub::BulkActions::BaseBulkActionsController do
   let(:intake) { build :intake, :with_contact_info }
   let(:client) { create :client, vita_partner: organization, intake: intake }
-  let(:tax_return_1) { create :tax_return, client: client }
+  let(:tax_return_1) { create :tax_return, client: client, year: 2020 }
   let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
   let(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2] }
   let(:organization) { create :organization }
