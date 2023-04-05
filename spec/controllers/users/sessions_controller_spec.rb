@@ -51,8 +51,8 @@ RSpec.describe Users::SessionsController do
     render_views
 
     context "for non-admin users needing to reset their password" do
-      it "does not redirect to change the password if it's strong enough" do
-        non_admin_user = create :organization_lead_user, forced_password_reset_at: DateTime.now, password: "NotStrongButNotWeakAtAll"
+      it "sets the high_quality_password_as_of timestamp if the password is strong" do
+        non_admin_user = create :organization_lead_user, password: "UseAStronger!Password2023", high_quality_password_as_of: nil
 
         expect do
           post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
@@ -60,17 +60,17 @@ RSpec.describe Users::SessionsController do
 
         expect(response).not_to redirect_to edit_hub_forced_password_resets_path
         non_admin_user.reload
-        expect(non_admin_user.forced_password_reset_at).not_to be_nil
+        expect(non_admin_user.high_quality_password_as_of).not_to be_nil
       end
 
-      it "redirects if they have yet to reset their password" do
-        non_admin_user = create :organization_lead_user, :user_with_weak_password, forced_password_reset_at: nil
+      it "leaves high_quality_password_as_of nil if the password is weak" do
+        non_admin_user = create :organization_lead_user, :user_with_weak_password, high_quality_password_as_of: nil
 
         expect do
           post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
         end.to change(subject, :current_user).from(nil).to(non_admin_user)
 
-        expect(response).to redirect_to edit_hub_forced_password_resets_path
+        expect(non_admin_user.high_quality_password_as_of).to be_nil
       end
     end
 

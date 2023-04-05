@@ -83,12 +83,12 @@ RSpec.feature "Logging in and out to the volunteer portal" do
   end
 
   scenario "non-admin user is forced to reset password" do
-    user.assign_attributes(forced_password_reset_at: nil)
+    user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure')
     user.save(validate: false)
 
     visit new_user_session_path
     fill_in "Email", with: user.email
-    fill_in "Password", with: "someotherword88!!"
+    fill_in "Password", with: "insecure"
     click_on "Sign in"
 
     expect(page).to have_text("Please update your password.")
@@ -98,5 +98,15 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     click_on "Update"
 
     expect(page).not_to have_text("Please update your password.")
+  end
+
+  scenario "non-admin user logged in before strong password change is not forced to reset password" do
+    user.assign_attributes(high_quality_password_as_of: nil)
+    user.save(validate: false)
+
+    login_as user
+
+    visit hub_clients_path
+    expect(page).to have_link(I18n.t("general.add_client"))
   end
 end

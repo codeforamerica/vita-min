@@ -21,7 +21,7 @@ module Hub
         @user.errors.add(:password, I18n.t("errors.attributes.password.not_matching"))
       else
         @user.assign_attributes(user_params)
-        @user.forced_password_reset_at = DateTime.now
+        @user.high_quality_password_as_of = DateTime.now
 
         if @user.save
           bypass_sign_in(@user) # Devise signs out after a password change, don't do that
@@ -48,7 +48,7 @@ module Hub
     end
 
     def redirect_if_password_has_been_forcibly_reset
-      redirect_to after_sign_in_path_for(current_user) if current_user.forced_password_reset_at.present?
+      redirect_to after_sign_in_path_for(current_user) if current_user.high_quality_password_as_of.present?
     end
   end
 end

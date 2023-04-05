@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Hub::ForcedPasswordResetsController do
   let!(:organization) { create :organization, allows_greeters: false }
   let(:hub_admin_user) { create(:user, role_type: "AdminRole", timezone: "America/Los_Angeles") }
-  let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole", forced_password_reset_at: nil) }
+  let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole", high_quality_password_as_of: nil) }
 
   render_views
 
@@ -17,7 +17,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "redirects if the password was already reset" do
-        non_hub_admin_user.update!(forced_password_reset_at: DateTime.now)
+        non_hub_admin_user.update!(high_quality_password_as_of: DateTime.now)
 
         get :edit
         expect(response).to redirect_to hub_assigned_clients_path
@@ -54,7 +54,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "does not update the last forced reset date" do
-        expect(non_hub_admin_user.forced_password_reset_at).to be_nil
+        expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
       end
 
       it "does not redirect" do
@@ -80,7 +80,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "does not update the last forced reset date" do
-        expect(non_hub_admin_user.forced_password_reset_at).to be_nil
+        expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
       end
 
       it "does not redirect" do
@@ -103,7 +103,7 @@ RSpec.describe Hub::ForcedPasswordResetsController do
       end
 
       it "updates the last forced reset date" do
-        expect(non_hub_admin_user.forced_password_reset_at).not_to be_nil
+        expect(non_hub_admin_user.high_quality_password_as_of).not_to be_nil
       end
 
       it "redirects to the hub" do

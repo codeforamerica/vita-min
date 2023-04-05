@@ -2,7 +2,12 @@ module AccessControllable
   private
 
   def require_sign_in(redirect_after_login: nil )
-    unless current_user.present?
+    if current_user.present?
+      return if current_user.admin? || current_user.high_quality_password_as_of.present? || current_user.signed_in_after_strong_password_change.nil?
+      return if controller_name == Hub::ForcedPasswordResetsController.controller_name
+
+      redirect_to edit_hub_forced_password_resets_path
+    else
       respond_to do |format|
         format.html do
           session[:after_login_path] = redirect_after_login || request.original_fullpath

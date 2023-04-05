@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_action :ensure_non_admins_reset_passwords_when_forced
-
   helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
@@ -197,14 +195,6 @@ class ApplicationController < ActionController::Base
       # Avoid using too much cookie space
       session[:navigator] = params[:navigator].slice(0, 1)
     end
-  end
-
-  def ensure_non_admins_reset_passwords_when_forced
-    return if current_user.nil? or current_user.admin? or current_user.forced_password_reset_at.present?
-    return if controller_name == Hub::ForcedPasswordResetsController.controller_name
-    # NOTE: decrypt password and check strength-
-    # FIXME: Determine if we need to update `u.forced_password_reset_at` at current time? store in session?
-    redirect_to edit_hub_forced_password_resets_path
   end
 
   def navigator
@@ -441,12 +431,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if !user.admin? && user.instance_variable_get(:@needs_to_redirect_to_force_password_change).present?
-      user.remove_instance_variable(:@needs_to_redirect_to_force_password_change)
-      edit_hub_forced_password_resets_path
-    else
-      @after_login_path || hub_assigned_clients_path
-    end
+    @after_login_path || hub_assigned_clients_path
   end
 
   def set_time_zone
