@@ -233,7 +233,6 @@ Rails.application.routes.draw do
         resources :verification_attempts, path: "verifications", only: [:index, :show, :update]
 
         resources :clients do
-          get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
           get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
           patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
           patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
