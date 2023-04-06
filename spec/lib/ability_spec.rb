@@ -105,7 +105,7 @@ describe Ability do
             expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:tax_return, client: accessible_client)]))).to eq true
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq true
           end
 
           it "cannot delete a client" do
@@ -134,7 +134,7 @@ describe Ability do
             expect(subject.can?(:manage, OutgoingTextMessage.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, SystemNote.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, TaxReturn.new(client: inaccessible_client))).to eq false
-            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:tax_return, client: accessible_client), build(:tax_return, client: inaccessible_client)]))).to eq false
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client), build(:gyr_tax_return, client: inaccessible_client)]))).to eq false
           end
         end
       end
