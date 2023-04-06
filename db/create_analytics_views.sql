@@ -181,7 +181,7 @@ CREATE VIEW analytics.intakes AS
            had_local_tax_refund, had_other_income, had_rental_income, had_retirement_income,
            had_self_employment_income, had_social_security_income, had_social_security_or_retirement,
            had_tax_credit_disallowed, had_tips, had_unemployment_income, had_wages, home_location,
-           income_over_limit, issued_identity_pin, job_count, lived_with_spouse, locale,
+           income_over_limit, irs_language_preference, issued_identity_pin, job_count, lived_with_spouse, locale,
            made_estimated_tax_payments, married, multiple_states, needs_help_2016, needs_help_2018,
            needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
            paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
