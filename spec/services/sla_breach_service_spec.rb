@@ -100,6 +100,7 @@ describe SLABreachService do
       before do
         # breaches at vita_partner_1
         _client1 = create(:client, last_outgoing_communication_at: 1.day.ago, intake: (create :intake), vita_partner_id: vita_partner_1.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # within SLA
+        _client1 = create(:client, last_outgoing_communication_at: 10.day.ago, intake: (create :intake), vita_partner_id: vita_partner_1.id, tax_returns: [create(:gyr_tax_return, :file_accepted)]) # excluded from SLA due to tax return state
 
         # breaches at vita_partner_2
         _client2 = create(:client, last_outgoing_communication_at: 1.day.ago, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # within SLA

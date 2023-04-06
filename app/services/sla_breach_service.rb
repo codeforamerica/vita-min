@@ -14,7 +14,7 @@ class SLABreachService
   end
 
   def last_outgoing_communication_breaches
-    count_by_vita_partner(Client.where("last_outgoing_communication_at < ?", breach_threshold_date))
+    count_by_vita_partner(Client.sla_tracked.where("last_outgoing_communication_at < ?", breach_threshold_date))
   end
 
   def self.generate_report
