@@ -12,59 +12,63 @@
       <%= f.cfa_select(:tax_return_id, "Filing year", @take_action_form.tax_returns.pluck(:year, :id), include_blank: true) %>
       <div id="status">
         <%= f.cfa_select(
-                :status,
-                "Updated status",
-                grouped_status_options_for_select,
-                include_blank: true,
-                ) %>
+              :status,
+              "Updated status",
+              grouped_status_options_for_select,
+              include_blank: true,
+            ) %>
       </div>
 
       <%= f.cfa_select(
-        :locale,
-        t("general.language"),
-        language_options,
-        help_text: @take_action_form.language_difference_help_text
-      ) %>
+            :locale,
+            t("general.language"),
+            language_options,
+            help_text: @take_action_form.language_difference_help_text
+          ) %>
 
       <% if @take_action_form.contact_method_options.present? %>
         <%= f.cfa_radio_set(
-          :contact_method,
-          label_text: t(".contact_method_label"),
-          help_text: @take_action_form.contact_method_help_text,
-          collection: @take_action_form.contact_method_options,
-        ) %>
+              :contact_method,
+              label_text: t(".contact_method_label"),
+              help_text: @take_action_form.contact_method_help_text,
+              collection: @take_action_form.contact_method_options,
+            ) %>
         <div class="no-form-group-padding">
           <%= f.cfa_textarea(
-                  :message_body,
-                  t("general.send_message"),
-                  options: {rows: 8},
-                  classes: ['text-message-body'],
+                :message_body,
+                t("general.send_message"),
+                options: { rows: 8 },
+                classes: ['text-message-body'],
 
-                  help_text: t(".blank_no_message_sent")
+                help_text: t(".blank_no_message_sent")
               ) %>
           <%= render "hub/components/length_counter" %>
         </div>
 
 
         <% if params.dig(:tax_return, :state)&.include?("call") || params.dig(:hub_take_action_form, :state)&.include?("call") %>
-          <div style="margin-top: -5rem; margin-bottom: 3.5rem"><%= t("general.interview_timing_preference")%>: <%= @take_action_form.client.intake.try(:interview_timing_preference) || t("general.NA")  %></div>
+          <div style="margin-top: -5rem; margin-bottom: 3.5rem"><%= t("general.interview_timing_preference") %>
+            : <%= @take_action_form.client.intake.try(:interview_timing_preference) || t("general.NA") %></div>
         <% end %>
       <% else %>
         <p><%= t(".no_opt_in") %></p>
       <% end %>
 
       <%= f.cfa_textarea(
-        :internal_note_body,
-        t(".internal_note_body_label"),
-        options: {rows: 8},
-        help_text: t(".blank_no_internal_note"),
-      )%>
+            :internal_note_body,
+            t(".internal_note_body_label"),
+            options: { rows: 8 },
+            help_text: t(".blank_no_internal_note"),
+          ) %>
 
-      <p><%=t(".send_clarifier")%></p>
-      <%= f.submit t("general.send"), class: "button button--cta" %>
+      <p>
+        <%= t(".send_clarifier") %>
+      </p>
+      <div>
+        <%= f.submit t("general.send"), class: "button button--cta" %>
 
-      <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
+        <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
       </div>
-
-  <% end %>
+    <% end %>
+  </div>
 <% end %>
