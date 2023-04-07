@@ -441,7 +441,6 @@ es:
     none_of_the_above: Ninguna de las anteriores
     none_of_these: Ninguno de éstos
     not_at_all: De ningún modo
-    not_needed_docs: documentos no necesario debido al experimento.
     not_well: No muy bien
     online: Firma electrónica
     oops: "¡Oye!"
@@ -935,7 +934,9 @@ es:
         archived_documents: Documentos archivados
         client_doc: Cliente
         empty_file: "(archivo vacío)"
+        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
+        not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
         upload_by: Subido por
         upload_date: Fecha de carga

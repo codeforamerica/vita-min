@@ -15,6 +15,14 @@ class IdVerificationExperimentService
     skip_selfies? ? [DocumentTypes::Selfie] : []
   end
 
+  def document_type_options
+    if show_expanded_id?
+      DocumentTypes::ALL_TYPES
+    else
+      [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
+    end
+  end
+
   private
 
   def treatment
