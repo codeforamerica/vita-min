@@ -9,19 +9,25 @@ describe PasswordStrengthValidator do
 
       validates_with PasswordStrengthValidator, attributes: :password
 
+      def initialize(password:, admin:)
+        @password = password
+        @admin = admin
+      end
+
       def admin?
-        @admin || false
+        @admin
       end
     end
   end
-  subject { @validatable.new }
+
+  subject { @validatable.new(password: password, admin: admin) }
 
   describe "#validate_each" do
     context "with a non-admin user" do
+      let(:admin) { false }
+
       context "with a valid password" do
-        before do
-          subject.password = "Strong_Passphrase3"
-        end
+        let(:password) { "Strong_Passphrase3" }
 
         it "is valid" do
           expect(subject).to be_valid
@@ -29,9 +35,7 @@ describe PasswordStrengthValidator do
       end
 
       context "with an commonly used password" do
-        before do
-          subject.password = "password123"
-        end
+        let(:password) { "password123" }
 
         it "is not valid" do
           expect(subject).not_to be_valid
@@ -41,14 +45,10 @@ describe PasswordStrengthValidator do
     end
 
     context "with an admin" do
-      before do
-        subject.admin = true
-      end
+      let(:admin) { true }
 
       context "with a commonly used password" do
-        before do
-          subject.password = "password123"
-        end
+        let(:password) { "password123" }
 
         it "is valid" do
           expect(subject).to be_valid
