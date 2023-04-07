@@ -65,7 +65,11 @@ class User < ApplicationRecord
   validates :password, password_strength: true
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
 
+  # If the user is an admin,
   with_options(if: -> (r) { r.admin? }) do
+    # Validate the presence of the password if the record is either:
+    #  - not yet saved/persisted, OR
+    #  - the user is changing their password
     validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
   end
 

@@ -17,4 +17,8 @@ class PasswordStrengthValidator < ActiveModel::EachValidator
 
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) unless PasswordStrengthValidator.is_strong_enough?(value, record)
   end
+
+  def validate(record)
+    super
+  end
 end
