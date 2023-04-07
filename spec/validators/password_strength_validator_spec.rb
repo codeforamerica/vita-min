@@ -28,9 +28,12 @@ describe PasswordStrengthValidator do
         end
       end
 
-      context "with an invalid password" do
-        it "is not valid if it uses a commonly used password" do
+      context "with an commonly used password" do
+        before do
           subject.password = "password123"
+        end
+
+        it "is not valid" do
           expect(subject).not_to be_valid
           expect(subject.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
         end
@@ -42,10 +45,14 @@ describe PasswordStrengthValidator do
         subject.admin = true
       end
 
-      it "does not run validations" do
-        subject.password = "forceV"
-        expect(subject).to be_valid
-        expect(subject.errors[:password].length).to eq(0)
+      context "with a commonly used password" do
+        before do
+          subject.password = "password123"
+        end
+
+        it "is valid" do
+          expect(subject).to be_valid
+        end
       end
     end
   end
