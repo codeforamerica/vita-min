@@ -63,6 +63,9 @@
             <% if @selectable_document_types %>
               <%= f.cfa_select :document_type, t(".id_type"), @selectable_document_types, include_blank: true %>
             <% end %>
+            <% if @document_type %>
+              <%= f.hidden_field :document_type, value: @document_type.key %>
+            <% end %>
             <div class="document-upload">
               <div class="file-upload">
                 <% file_input_data = { "upload-immediately" => true } %>

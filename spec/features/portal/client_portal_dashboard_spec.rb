@@ -19,7 +19,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link "Message my tax specialist"
 
       expect(page).not_to have_text "Answered initial tax questions"
-      expect(page).to have_link "Submit additional documents"
+      expect(page).to have_link "Add missing documents"
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
       expect(page).to have_link "Message my tax specialist"
 
-      expect(page).to have_link "Submit additional documents"
+      expect(page).to have_link "Add missing documents"
     end
   end
 
@@ -139,7 +139,7 @@ RSpec.feature "a client on their portal" do
 
       expect(page).to have_text "Shared initial tax documents"
       expect(page).not_to have_text "Submit remaining tax documents"
-      expect(page).to have_text "Submit additional documents"
+      expect(page).to have_text "Add missing documents"
     end
   end
 
@@ -331,33 +331,7 @@ RSpec.feature "a client on their portal" do
         expect(page).not_to have_link "Add final primary taxpayer signature for 2018"
       end
 
-      expect(client.documents.where(document_type: "Other").length).to eq 0
-
-      click_link "Submit additional documents"
-      expect(page).to have_text "Please share any additional documents."
-
-      upload_file("requested_document_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
-      expect(page).to have_content("test-pattern.png")
-
-      expect(client.documents.where(document_type: "Other").length).to eq 1
-      page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
-        click_on "Remove"
-      end
-
-      expect(page).to have_text "Please share any additional documents."
-      expect(client.documents.where(document_type: "Other").length).to eq 0
-
-      click_on "Continue"
-      expect(page).to have_text "Welcome back"
-      click_on "Submit additional documents"
-
-      expect(page).not_to have_content("test-pattern.png")
-
-      expect(page).to have_text "Please share any additional documents"
-      expect(page).not_to have_text "I don't have this right now."
-      click_on "Go back"
-      expect(page).to have_text "Welcome back"
-
+      expect(page).to have_link "Add missing documents"
       expect(page).to have_link "Message my tax specialist"
     end
   end

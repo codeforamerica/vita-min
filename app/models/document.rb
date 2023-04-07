@@ -39,7 +39,6 @@ class Document < ApplicationRecord
   ACCEPTED_FILE_TYPES = [:browser_native_image, :other_image, :document]
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
-  belongs_to :documents_request, optional: true
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true

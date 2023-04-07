@@ -1,12 +1,7 @@
 class RequestedDocumentUploadForm < QuestionsForm
-  set_attributes_for :documents_request, :upload, :document_type
+  set_attributes_for :intake, :upload, :document_type
   before_validation :instantiate_document
   validate :validate_document
-
-  def initialize(documents_request, *args, **kwargs)
-    @documents_request = documents_request
-    super(nil, *args, **kwargs)
-  end
 
   def save
     return false unless valid?
@@ -22,10 +17,10 @@ class RequestedDocumentUploadForm < QuestionsForm
 
   def instantiate_document
     @upload.tempfile.rewind if @upload.present?
-    @document = @documents_request.documents.new(
-      document_type: @document_type || DocumentTypes::RequestedLater.key,
-      client: @documents_request.client,
-      uploaded_by: @documents_request.client,
+    @document = intake.documents.new(
+      document_type: @document_type,
+      client: intake.client,
+      uploaded_by: intake.client,
       upload: @upload.present? ? {
           io: @upload.tempfile, # Rewind to avoid integrity error
           filename: @upload.original_filename.encode("UTF-8", invalid: :replace, replace: ""), # Remove non-utf-8 characters from the original filename

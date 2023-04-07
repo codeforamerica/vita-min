@@ -1,25 +1,35 @@
 module Portal
   class UploadDocumentsController < PortalController
-    before_action :find_or_create_document_request
-    alias prev_path portal_complete_documents_request_path
-    alias next_path portal_complete_documents_request_path
+    alias prev_path portal_overview_documents_path
+    alias next_path portal_overview_documents_path
     helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
+    helper_method :document_type_keys
+
+    def index
+      @documents = current_client.intake.documents
+      render layout: "portal"
+    end
 
     def edit
-      @form = form_class.new(@document_request)
-      @documents = @document_request.documents
+      @form = form_class.new(current_client.intake)
+      if params[:type].present?
+        @documents = current_client.intake.documents.where(document_type: params[:type])
+        @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:type] }
+      else
+        @documents = current_client.intake.documents
+      end
     end
 
     def update
-      @form = form_class.new(@document_request, form_params)
+      @form = form_class.new(current_client.intake, form_params)
       if @form.valid?
         @form.save
         current_client.tax_returns.each do |tax_return|
           tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
         end
         flash[:notice] = I18n.t("portal.upload_documents.success")
-        redirect_to action: :edit
+        redirect_to portal_upload_documents_path(type: form_params[:document_type])
       else
         flash.now[:error] = I18n.t("portal.upload_documents.error")
         render :edit
@@ -30,30 +40,19 @@ module Portal
       document = current_client.documents.find_by(id: params[:id])
       document.destroy if document.present?
 
-      redirect_to action: :edit
-    end
-
-    def complete_documents_request
-      @document_request.touch(:completed_at) if @document_request.documents.length > 0
-      redirect_to portal_root_path
+      redirect_to portal_upload_documents_path(type: params[:document_type])
     end
 
     private
 
     def document_type
-      DocumentTypes::Other
+      @document_type || DocumentTypes::Other
     end
 
-    def illustration_folder
-      "questions"
-    end
-
-    def illustration_path
-      "documents.svg"
-    end
+    def illustration_path; end
 
     def destroy_document_path(document)
-      portal_upload_document_path(id: document.id)
+      portal_upload_document_path(id: document.id, document_type: document.document_type)
     end
 
     def form_class
@@ -61,17 +60,20 @@ module Portal
     end
 
     def form_params
-      params.fetch(form_class.form_param, {}).permit(form_class.attribute_names).merge(
-        document_type: document_type.key
-      )
-    end
-
-    def find_or_create_document_request
-      @document_request = DocumentsRequest.find_or_create_by(completed_at: nil, client: current_client)
+      params.fetch(form_class.form_param, {}).permit(form_class.attribute_names)
     end
 
     def current_path
       url_for
+    end
+
+    # this list will include all types that are relevant to the intake (based on answers)
+    # plus requested documents if any have been uploaded
+    def document_type_keys
+      document_types = current_client.intake.relevant_intake_document_types.map(&:key)
+      include_requested_documents = @documents.where(document_type: "Requested").exists?
+      document_types += ["Requested"] if include_requested_documents
+      document_types
     end
   end
 end
