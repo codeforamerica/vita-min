@@ -153,7 +153,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
         before do
           allow_any_instance_of(PasswordStrengthValidator).to receive(:validate_each).and_return(password_strong_enough)
         end
-
+        #I need more clarification here -NN
         context "for non-admin users" do
           context "when strong enough" do
             let(:password_strong_enough) { true }
@@ -165,11 +165,11 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
             it "is invalid"
           end
         end
-
+        #previous admins were allowed 6 character passwords. Do we care about that? -NN
         context "for admin users" do
           let(:password_strong_enough) { false}
           let(:role) { AdminRole.new }
-          let(:password) { "whySoSerious" }
+          let(:password) { "whySoS" }
 
           it "is lax on password strength" do
             expect(user).to be_valid
@@ -182,19 +182,25 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           let(:password_confirmation) { "thisCantMatch" }
 
           it "is not valid" do
-            expect(user.errors[:password]).to include(I18n.t("errors.attributes.password.not_matching"))
+            expect(user).to_not be_valid
+            expect(user.errors[:password_confirmation]).to include(I18n.t("errors.attributes.password.not_matching"))
           end
         end
 
         context "matching" do
-          it "is valid"
+          let(:password_confirmation) { password}
+          it "is valid" do
+            expect(user).to be_valid
+          end
         end
       end
 
       context "as an admin user" do
         context "presence" do
-          it "is valid when newly created"
+          it "is valid when newly created" do
 
+          end
+          #need some clarification here as well -NN
           context "with an existing record" do
             it "is not checked" do
               user.save
