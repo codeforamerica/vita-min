@@ -58,6 +58,7 @@ class User < ApplicationRecord
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true
 
+  validates_presence_of   :email
   validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
 
   validates :email, 'valid_email_2/email': { mx: true }
