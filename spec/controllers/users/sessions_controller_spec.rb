@@ -64,7 +64,7 @@ RSpec.describe Users::SessionsController do
       end
 
       it "leaves high_quality_password_as_of nil if the password is weak" do
-        non_admin_user = create :organization_lead_user, :user_with_weak_password, high_quality_password_as_of: nil
+        non_admin_user = create :organization_lead_user, :with_weak_password, high_quality_password_as_of: nil
 
         expect do
           post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }

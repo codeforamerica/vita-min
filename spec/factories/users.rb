@@ -53,8 +53,9 @@ FactoryBot.define do
     high_quality_password_as_of { DateTime.now }
     role { build(:greeter_role) }
 
-    trait :user_with_weak_password do
+    trait :with_weak_password do
       password { "password" }
+      high_quality_password_as_of { nil }
       to_create { |user| user.save(validate: false) }
     end
 
