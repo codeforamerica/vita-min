@@ -99,23 +99,13 @@ describe SLABreachService do
       let(:vita_partner_2) { create :organization }
       before do
         # breaches at vita_partner_1
-        client1 = create(:client, intake: (create :intake) ,vita_partner_id: vita_partner_1.id, tax_returns:  [create(:gyr_tax_return, :prep_ready_for_prep)]) # breach
-        Timecop.freeze(8.days.ago) { client1.flag! }
-        Timecop.freeze(7.days.ago) { InteractionTrackingService.update_last_outgoing_communication_at(client1) }
+        _client1 = create(:client, last_outgoing_communication_at: 1.day.ago, intake: (create :intake), vita_partner_id: vita_partner_1.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # within SLA
+        _client1 = create(:client, last_outgoing_communication_at: 10.day.ago, intake: (create :intake), vita_partner_id: vita_partner_1.id, tax_returns: [create(:gyr_tax_return, :file_accepted)]) # excluded from SLA due to tax return state
 
         # breaches at vita_partner_2
-        client2 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # breach
-        Timecop.freeze(9.days.ago) { client2.flag! }
-
-        client3 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # breach
-        Timecop.freeze(10.days.ago) { client3.flag! }
-
-        client4 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # not in breach t1, in breach t2
-        Timecop.freeze(10.days.ago) {
-          InteractionTrackingService.record_incoming_interaction(client4)
-          client4.flag!
-        }
-        Timecop.freeze(t.prev_occurring(:sunday)) { InteractionTrackingService.record_internal_interaction(client4) }
+        _client2 = create(:client, last_outgoing_communication_at: 1.day.ago, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # within SLA
+        _client3 = create(:client, last_outgoing_communication_at: 1.day.ago, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # within SLA
+        _client4 = create(:client, last_outgoing_communication_at: 10.day.ago, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep)]) # breached SLA
       end
 
       it "returns an accurate hash of attributes for the report" do
