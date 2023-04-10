@@ -115,8 +115,8 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       end
     end
 
-    context "#password validation" do
-      let(:password) { "aConventionallyStrong!Password3"}
+    context "password validation" do
+      let(:password) { "aConventionallyStrong!Password3" }
       let(:password_confirmation) { password }
       let(:role) { GreeterRole.new }
       let(:user) { build(:user, password: password, password_confirmation: password_confirmation, role: role) }
@@ -150,29 +150,18 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       end
 
       context "strength" do
-        before do
-          allow_any_instance_of(PasswordStrengthValidator).to receive(:validate_each).and_return(password_strong_enough)
-        end
-        #I need more clarification here -NN
-        context "for non-admin users" do
-          context "when strong enough" do
-            let(:password_strong_enough) { true }
-            it "is valid"
-          end
-
-          context "when too weak" do
-            let(:password_strong_enough) { true }
-            it "is invalid"
-          end
-        end
-        #previous admins were allowed 6 character passwords. Do we care about that? -NN
-        context "for admin users" do
-          let(:password_strong_enough) { false}
-          let(:role) { AdminRole.new }
-          let(:password) { "whySoS" }
-
-          it "is lax on password strength" do
+        context "when strong enough" do
+          it "is valid" do
             expect(user).to be_valid
+          end
+        end
+
+        context "when too weak" do
+          let(:password) { "password" }
+
+          it "is invalid" do
+            expect(user).not_to be_valid
+            expect(user.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
           end
         end
       end
@@ -188,25 +177,9 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
         end
 
         context "matching" do
-          let(:password_confirmation) { password}
+          let(:password_confirmation) { password }
           it "is valid" do
             expect(user).to be_valid
-          end
-        end
-      end
-
-      context "as an admin user" do
-        context "presence" do
-          it "is valid when newly created" do
-
-          end
-          #need some clarification here as well -NN
-          context "with an existing record" do
-            it "is not checked" do
-              user.save
-              user.password = nil
-              expect(user).to be_valid
-            end
           end
         end
       end
