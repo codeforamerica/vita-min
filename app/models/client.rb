@@ -128,10 +128,6 @@ class Client < ApplicationRecord
       )
   end
 
-  scope :first_unanswered_incoming_interaction_between, ->(range) do
-    sla_tracked.where(first_unanswered_incoming_interaction_at: range)
-  end
-
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
