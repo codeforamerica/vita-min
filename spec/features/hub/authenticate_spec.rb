@@ -100,11 +100,13 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     expect(page).to have_text(I18n.t('hub.assigned_clients.index.title'))
   end
 
-  scenario "non-admin user logged in before strong password change is not forced to reset password" do
+  scenario "strong passwords are only enforced on the next sign-in" do
+    login_as user
+    visit hub_clients_path
+    expect(page).to have_link(I18n.t("general.add_client"))
+
     user.assign_attributes(high_quality_password_as_of: nil)
     user.save(validate: false)
-
-    login_as user
 
     visit hub_clients_path
     expect(page).to have_link(I18n.t("general.add_client"))

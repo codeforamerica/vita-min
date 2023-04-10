@@ -4,7 +4,6 @@ module AccessControllable
   def require_sign_in(redirect_after_login: nil )
     if current_user.present?
       return if current_user.admin? || current_user.high_quality_password_as_of.present?
-      return if controller_name == Hub::Users::StrongPasswordsController.controller_name
 
       redirect_to Hub::Users::StrongPasswordsController.to_path_helper
     else

@@ -37,6 +37,12 @@ RSpec.describe Hub::Users::StrongPasswordsController do
       end
     end
 
+    context "when no one is signed in" do
+      it "redirects to the sign in page" do
+        get :edit
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "#update" do

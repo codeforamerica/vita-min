@@ -1,9 +1,8 @@
 module Hub
   module Users
     class StrongPasswordsController < ApplicationController
-      include AccessControllable
 
-      before_action :require_sign_in
+      before_action :redirect_if_signed_out
       before_action :set_minimum_password_length
       before_action :redirect_if_is_admin_user
       before_action :redirect_if_password_is_already_strong
@@ -44,6 +43,12 @@ module Hub
 
       def redirect_if_password_is_already_strong
         redirect_to after_sign_in_path_for(current_user) if current_user.high_quality_password_as_of.present?
+      end
+
+      def redirect_if_signed_out
+        if current_user.blank?
+          redirect_to new_user_session_path
+        end
       end
     end
   end
