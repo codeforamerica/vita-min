@@ -57,9 +57,9 @@
           iFrame.height = iFrame.contentWindow.document.body.scrollHeight + 20;
       }
       document.querySelectorAll('iframe').forEach((iframe) => {
-          iframe.addEventListener(("load"), function () {
+          iframe.onload = function () {
               resizeIFrameToFitContent(iframe);
-          })
+          }
       });
   </script>
 <% end %>
