@@ -590,10 +590,6 @@ es:
           missing_message_locale: Por favor incluye un mensaje para los clientes que prefieren %{missing_language}.
       bulk_messaging_form:
         all_no_contact_info_warning: Ningún cliente seleccionado tiene información de contacto.
-        inaccessible_clients_warning:
-          many: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
-          one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
-          other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
         message_help_text_en_html:
           many: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
           one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."

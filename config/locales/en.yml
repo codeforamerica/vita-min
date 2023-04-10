@@ -589,9 +589,6 @@ en:
           missing_message_locale: Please include a message for clients who prefer %{missing_language}.
       bulk_messaging_form:
         all_no_contact_info_warning: No selected clients have contact information.
-        inaccessible_clients_warning:
-          one: "%{count} client will not be updated because you cannot access them."
-          other: "%{count} clients will not be updated because you cannot access them."
         message_help_text_en_html:
           one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
           other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."

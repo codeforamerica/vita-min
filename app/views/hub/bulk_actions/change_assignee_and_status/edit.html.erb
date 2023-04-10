@@ -8,7 +8,7 @@
 
           <h1 class="h1"><%= t(".title") %></h1>
           <p>
-            <%= t(".selected_action_and_tax_return_count_html", count: @selection.tax_returns.size) %><br/>
+            <%= t(".selected_action_and_tax_return_count_html", count: @tax_return_selection.tax_returns.size) %><br/>
             <br/>
             <%= @current_tr_statuses.map { |status| t("hub.tax_returns.status.#{status}")}.join(", ") + "." %>
           </p>
@@ -18,7 +18,7 @@
 
           <hr class="hr">
 
-          <%= render "hub/bulk_actions/bulk_messaging_form", f: f, inaccessible_client_count: @inaccessible_client_count, no_contact_info_count: @no_contact_info_count, locale_counts: @locale_counts %>
+          <%= render "hub/bulk_actions/bulk_messaging_form", f: f, no_contact_info_count: @no_contact_info_count, locale_counts: @locale_counts %>
 
           <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
 

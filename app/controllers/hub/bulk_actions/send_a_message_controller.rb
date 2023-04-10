@@ -2,15 +2,15 @@ module Hub
   module BulkActions
     class SendAMessageController < BaseBulkActionsController
       def update
-        @form = BulkActionForm.new(@selection, update_params)
+        @form = BulkActionForm.new(@tax_return_selection, update_params)
 
         return render :edit unless @form.valid?
 
-        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @selection), user: current_user)
+        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @tax_return_selection), user: current_user)
         BulkActionJob.perform_later(
           task: task_type,
           user: current_user,
-          tax_return_selection: @selection,
+          tax_return_selection: @tax_return_selection,
           form_params: update_params
         )
 

@@ -105,6 +105,7 @@ describe Ability do
             expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq true
           end
 
           it "cannot delete a client" do
@@ -115,10 +116,12 @@ describe Ability do
 
       shared_examples :cannot_manage_inaccessible_client do
         context "when the user cannot access a particular site" do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) { create(:client, vita_partner: accessible_site) }
           let(:inaccessible_site) { create(:site) }
           let(:inaccessible_client) { create(:client, vita_partner: inaccessible_site) }
           before do
-            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.none)
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
           end
 
           it "can access no data for the client" do
@@ -131,9 +134,9 @@ describe Ability do
             expect(subject.can?(:manage, OutgoingTextMessage.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, SystemNote.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, TaxReturn.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client), build(:gyr_tax_return, client: inaccessible_client)]))).to eq false
           end
         end
-
       end
 
       context "users with valid non-admin roles" do
@@ -447,7 +450,7 @@ describe Ability do
         let(:organization) { create :organization, coalition: coalition }
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
-        let(:another_site) { create(:site, parent_organization: organization)}
+        let(:another_site) { create(:site, parent_organization: organization) }
         let(:target_role) { create :site_coordinator_role, site: site }
 
         context "current user is coalition lead in the site's coalition" do
@@ -512,7 +515,7 @@ describe Ability do
         let(:organization) { create :organization, coalition: coalition }
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
-        let(:another_site) { create(:site, parent_organization: organization)}
+        let(:another_site) { create(:site, parent_organization: organization) }
         let(:target_role) { create :team_member_role, site: site }
 
         context "current user is coalition lead in the site's coalition" do
