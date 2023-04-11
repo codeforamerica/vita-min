@@ -51,6 +51,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Gary Gnome the #{n}th" }
     password { "$user3xample_Password" }
     high_quality_password_as_of { DateTime.now }
+    should_enforce_strong_password { true }
     role { build(:greeter_role) }
 
     trait :with_weak_password do

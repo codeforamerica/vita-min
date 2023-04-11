@@ -82,35 +82,41 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     expect(page).to have_text("Oops, we're sorry, but something went wrong")
   end
 
-  scenario "non-admin user is forced to reset password" do
-    user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure')
-    user.save(validate: false)
+  context "with a non-admin user whose password is low quality" do
+    before do
+      user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure', should_enforce_strong_password: false)
+      user.save(validate: false)
+    end
 
-    visit new_user_session_path
-    fill_in "Email", with: user.email
-    fill_in "Password", with: "insecure"
-    click_on "Sign in"
+    it "makes them set a new password" do
+      visit new_user_session_path
+      fill_in "Email", with: user.email
+      fill_in "Password", with: "insecure"
+      click_on "Sign in"
 
-    expect(page).to have_text("Please update your password.")
+      expect(user.reload.should_enforce_strong_password).to eq(true)
 
-    fill_in "New password", with: "UseAStronger!Password2023"
-    fill_in "Confirm new password", with: "UseAStronger!Password2023"
-    click_on "Update"
+      expect(page).to have_text("Please update your password.")
 
-    expect(page).to have_text(I18n.t('hub.assigned_clients.index.title'))
-  end
+      fill_in "New password", with: "UseAStronger!Password2023"
+      fill_in "Confirm new password", with: "UseAStronger!Password2023"
+      click_on "Update"
 
-  scenario "strong passwords are only enforced on the next sign-in" do
-    login_as user
-    visit hub_clients_path
-    expect(page).to have_link(I18n.t("general.add_client"))
+      expect(page).to have_text(I18n.t('hub.assigned_clients.index.title'))
+    end
 
-    user.assign_attributes(should_enforce_strong_password: false)
-    user.assign_attributes(password: "password123")
-    user.save(validate: false)
+    context "when the user is already signed in" do
+      before do
+        user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure', should_enforce_strong_password: false)
+        user.save(validate: false)
+      end
 
-    visit hub_clients_path
-    # expect(page).to have_text("Forgot your password?")
-    expect(page).to have_link(I18n.t("general.add_client"))
+      scenario "it waits until the next sign-in to trigger strong password flow" do
+        login_as user
+        expect(user.should_enforce_strong_password).to eq(false)
+        visit hub_clients_path
+        expect(page).to have_link(I18n.t("general.add_client"))
+      end
+    end
   end
 end

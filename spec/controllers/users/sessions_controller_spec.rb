@@ -30,7 +30,7 @@ RSpec.describe Users::SessionsController do
   end
 
   describe "#create" do
-    let!(:user) { create :user, email: "user@example.com", password: "Vita-Sessions4-Test" }
+    let!(:user) { create :user, email: "user@example.com", password: "Vita-Sessions4-Test", should_enforce_strong_password: false }
     let(:params) do
       {
         user: {
@@ -50,27 +50,51 @@ RSpec.describe Users::SessionsController do
 
     render_views
 
-    context "for non-admin users needing to reset their password" do
-      it "sets the high_quality_password_as_of timestamp if the password is strong" do
-        non_admin_user = create :organization_lead_user, password: "UseAStronger!Password2023", high_quality_password_as_of: nil
+    describe "password strength checks" do
+      context "with a non-admin user" do
+        let(:user) { build :organization_lead_user, password: password, should_enforce_strong_password: false, high_quality_password_as_of: nil }
 
-        expect do
-          post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
-        end.to change(subject, :current_user).from(nil).to(non_admin_user)
+        context "when the password is strong" do
+          let(:password) { "UseAStronger!Password2023" }
+          before { user.save }
 
-        expect(response).not_to redirect_to Hub::Users::StrongPasswordsController.to_path_helper
-        non_admin_user.reload
-        expect(non_admin_user.high_quality_password_as_of).not_to be_nil
+          it "signs in the user, starts enforcing password strength, and stores that the password is strong" do
+            freeze_time do
+              post :create, params: { user: { email: user.email, password: user.password } }
+              expect(subject.current_user).to eq(user)
+              user.reload
+              expect(user.high_quality_password_as_of).to eq(DateTime.now)
+              expect(user.should_enforce_strong_password).to eq(true)
+            end
+          end
+        end
+
+        context "when the password is weak" do
+          let(:password) { "password" }
+          before { user.save(validate: false) }
+
+          it "signs in the user, starts enforcing password strength, and does not store that the password is strong" do
+            post :create, params: { user: { email: user.email, password: user.password } }
+            expect(subject.current_user).to eq(user)
+            user.reload
+            expect(user.high_quality_password_as_of).to eq(nil)
+            expect(user.should_enforce_strong_password).to eq(true)
+          end
+        end
       end
 
-      it "leaves high_quality_password_as_of nil if the password is weak" do
-        non_admin_user = create :organization_lead_user, :with_weak_password, high_quality_password_as_of: nil
+      context "with an admin user" do
+        context "with any password, even a weak one" do
+          let(:user) { create :admin_user, :with_weak_password, should_enforce_strong_password: false }
 
-        expect do
-          post :create, params: { user: { email: non_admin_user.email, password: non_admin_user.password } }
-        end.to change(subject, :current_user).from(nil).to(non_admin_user)
-
-        expect(non_admin_user.high_quality_password_as_of).to be_nil
+          it "allows sign-in and does not update password strength columns" do
+            post :create, params: { user: { email: user.email, password: user.password } }
+            expect(subject.current_user).to eq(user)
+            user.reload
+            expect(user.high_quality_password_as_of).to eq(nil)
+            expect(user.should_enforce_strong_password).to eq(false)
+          end
+        end
       end
     end
 
@@ -98,13 +122,13 @@ RSpec.describe Users::SessionsController do
   describe "invalid params handling" do
     context "with null bytes that only a robot would send us" do
       let(:params) {
-                     {
-                       user: {
-                         email: "user@example.com",
-                         password: "invalid\0"
-                       }
-                     }
-                   }
+        {
+          user: {
+            email: "user@example.com",
+            password: "invalid\0"
+          }
+        }
+      }
 
       it "responds with HTTP 400" do
         post :create, params: params
