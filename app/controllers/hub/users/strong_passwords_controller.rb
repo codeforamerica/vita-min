@@ -10,7 +10,6 @@ module Hub
       def update
         user = current_user
         user.assign_attributes(user_params)
-        user.high_quality_password_as_of = DateTime.now
 
         if user.save
           bypass_sign_in(user) # Devise signs out after a password change, don't do that
