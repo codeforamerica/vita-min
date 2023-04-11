@@ -430,7 +430,7 @@ class ApplicationController < ActionController::Base
     ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 
-  def after_sign_in_path_for(user)
+  def after_sign_in_path_for(_user)
     @after_login_path || hub_assigned_clients_path
   end
 
