@@ -105,8 +105,8 @@ class Seeder
     user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
 
     # additional user
-    additional_user = User.where(email: "princess@example.com").first_or_initialize(password: strong_shared_password)
-    additional_user.update(name: "Lea Amidala Organa")
+    additional_user = User.where(email: "princess@example.com").first_or_initialize
+    additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
     admin_user = User.where(email: "admin@example.com").first_or_initialize
