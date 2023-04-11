@@ -19,7 +19,7 @@ class Users::SessionsController < Devise::SessionsController
 
     super do |user|
       if !user.admin? && user.high_quality_password_as_of.nil?
-        user.assign_attributes(signed_in_after_strong_password_change: true)
+        user.assign_attributes(should_enforce_strong_password: true)
         if PasswordStrengthValidator.is_strong_enough?(params[:user][:password], user)
           user.assign_attributes(high_quality_password_as_of: DateTime.now)
         end

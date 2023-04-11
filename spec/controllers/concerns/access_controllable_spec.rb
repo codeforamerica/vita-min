@@ -16,7 +16,7 @@ describe AccessControllable, type: :controller do
       context "when they have a weak password" do
         context "when they are not an admin" do
           before do
-            sign_in create(:team_member_user, :with_weak_password)
+            sign_in create(:team_member_user, :with_weak_password, should_enforce_strong_password: true)
           end
 
           it "redirects to change their weak password" do
@@ -52,6 +52,16 @@ describe AccessControllable, type: :controller do
         it "redirects to the sign in page" do
           get :index
           expect(response).to redirect_to new_user_session_path
+        end
+      end
+
+      context "when they are signed in and should_enforce_strong_password: false" do
+        before do
+          sign_in create(:team_member_user, :with_weak_password)
+        end
+        it "does not redirect" do
+          get :index
+          expect(response).to be_ok
         end
       end
     end

@@ -105,10 +105,12 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     visit hub_clients_path
     expect(page).to have_link(I18n.t("general.add_client"))
 
-    user.assign_attributes(high_quality_password_as_of: nil)
+    user.assign_attributes(should_enforce_strong_password: false)
+    user.assign_attributes(password: "password123")
     user.save(validate: false)
 
     visit hub_clients_path
+    # expect(page).to have_text("Forgot your password?")
     expect(page).to have_link(I18n.t("general.add_client"))
   end
 end
