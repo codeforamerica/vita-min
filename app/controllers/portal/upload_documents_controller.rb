@@ -7,17 +7,17 @@ module Portal
     helper_method :document_type_keys
 
     def index
-      @documents = current_client.intake.documents
+      @documents = current_client.documents
       render layout: "portal"
     end
 
     def edit
       @form = form_class.new(current_client.intake)
       if params[:type].present?
-        @documents = current_client.intake.documents.where(document_type: params[:type])
+        @documents = current_client.documents.where(document_type: params[:type])
         @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:type] }
       else
-        @documents = current_client.intake.documents
+        @documents = current_client.documents
       end
     end
 

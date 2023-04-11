@@ -1682,7 +1682,20 @@ es:
         title: Agregar un documento
       error: Hubo un error al cargar su documento. Intentar otra vez.
       index:
+        document_types:
+          1095-a: Seguro de salud
+          1099-r: Ingreso de jubilación
+          employment: Documentos de empleo
+          id: identificación fotográfica
+          other: Otros documentos
+          selfie: Identificación con foto
+          ssn_or_itin: Identificación del impuesto
+        final_return_not_started: Retorno final no iniciado
+        final_tax_return: última declaración de impuestos
+        message_my_tax_team: Mensaje a mi equipo de impuestos
         please_add_document: Por favor agregue documento.
+        please_add_form1095A: Agregue el formulario 1095-A
+        please_add_form1099R: Por favor agregue el Formulario 1099-R
         title: Aquí hay una lista de sus documentos.
       success: "¡Documento cargado con éxito!"
   public_pages:

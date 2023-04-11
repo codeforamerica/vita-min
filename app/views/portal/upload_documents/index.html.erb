@@ -57,11 +57,36 @@
       </div>
       <hr class="spacing-above-25 spacing-below-10">
     <% end %>
+
+    <div id="final-tax-return-docs">
+      <span class="document-overview-list__icon">
+        <%= image_tag "paper.svg", alt: "", class: "" %>
+      </span>
+      <h2 class="h3 document-overview-list__item-text">
+        <%= t(".final_tax_return") %>
+      </h2>
+
+      <% final_tax_documents = documents_by_type[DocumentTypes::FinalTaxDocument.key] %>
+      <% if final_tax_documents %>
+        <ul class="document-overview-list__filenames">
+          <% final_tax_documents.each do |document| %>
+            <li>
+              <%= link_to "#{document.tax_return.year} #{document.document_type}", portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="document-overview-list__filenames text--help spacing-above-15">
+          <strong><%= t(".final_return_not_started") %></strong>
+        </p>
+      <% end %>
+    </div>
+    <hr class="spacing-above-25 spacing-below-10">
   </div>
 
   <div class="grid-flex center-justified center-aligned column-column">
     <%= image_tag "chat-bubble--blue.svg", alt: "", class: "document-overview-list__icon spacing-below-25" %>
-    <strong><%= link_to t(".message_my_tax_team"), new_portal_message_path %></strong>
+    <strong><%= link_to t(".message_my_tax_team"), new_portal_message_path, class: "message" %></strong>
   </div>
 
 <% end %>

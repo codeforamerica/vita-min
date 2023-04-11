@@ -1700,19 +1700,21 @@ en:
         title: Add a document
       error: There was an error uploading your document. Try again.
       index:
-        please_add_document: Please add document.
-        title: Here's a list of your documents.
-        please_add_form1095A: "Please add Form 1095-A"
-        please_add_form1099R: "Please add Form 1099-R"
         document_types:
-          id: "Photo ID"
-          selfie: "Photo Holding ID"
-          ssn_or_itin: "Tax ID"
-          1095-a: "Health Insurance"
-          employment: "Employment Docs"
-          1099-r: "Retirement Income"
-          other: "Other Docs"
-        message_my_tax_team: "Message my tax team"
+          1095-a: Health Insurance
+          1099-r: Retirement Income
+          employment: Employment Docs
+          id: Photo ID
+          other: Other Docs
+          selfie: Photo Holding ID
+          ssn_or_itin: Tax ID
+        final_return_not_started: Final return not started
+        final_tax_return: Final tax return
+        message_my_tax_team: Message my tax team
+        please_add_document: Please add document.
+        please_add_form1095A: Please add Form 1095-A
+        please_add_form1099R: Please add Form 1099-R
+        title: Here's a list of your documents.
       success: Successfully uploaded document!
   public_pages:
     forbidden:
