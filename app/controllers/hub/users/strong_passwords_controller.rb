@@ -8,13 +8,13 @@ module Hub
       def edit; end
 
       def update
-        user = current_user
-        user.assign_attributes(user_params)
+        @user = current_user
+        @user.assign_attributes(user_params)
 
-        if user.save
-          bypass_sign_in(user) # Devise signs out after a password change, don't do that
-          user.after_database_authentication
-          return redirect_to after_sign_in_path_for(user)
+        if @user.save
+          bypass_sign_in(@user) # Devise signs out after a password change, don't do that
+          @user.after_database_authentication
+          return redirect_to after_sign_in_path_for(@user)
         end
 
         render :edit

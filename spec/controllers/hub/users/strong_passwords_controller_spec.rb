@@ -5,8 +5,6 @@ RSpec.describe Hub::Users::StrongPasswordsController do
   let(:hub_admin_user) { create(:user, role_type: "AdminRole", timezone: "America/Los_Angeles") }
   let(:non_hub_admin_user) { create(:user, role_type: "GreeterRole", high_quality_password_as_of: nil) }
 
-  render_views
-
   describe "#edit" do
     context "with a logged in user with non-admin hub access" do
       before { sign_in non_hub_admin_user }
@@ -52,7 +50,7 @@ RSpec.describe Hub::Users::StrongPasswordsController do
       before do
         put :update, params: {
           user: {
-            password: non_hub_admin_user.password + "new",
+            password: "vitavitavitavita",
             password_confirmation: "another_failed_password"
           }
         }
@@ -60,9 +58,10 @@ RSpec.describe Hub::Users::StrongPasswordsController do
         non_hub_admin_user.reload
       end
 
+      # TODO(soon): Merge these into one big `it`
+
       it "fails to update the user's password" do
-        expect(non_hub_admin_user.valid_password?("one_form_of_pa$$word")).to be false
-        expect(response.body).to include I18n.t("errors.attributes.password.not_matching")
+        expect(assigns(:user).errors[:password_confirmation]).to eq [I18n.t("errors.attributes.password.not_matching")]
       end
 
       it "does not update the last forced reset date" do
