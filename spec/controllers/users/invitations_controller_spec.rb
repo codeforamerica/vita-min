@@ -358,8 +358,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "Cher Cherimoya",
-            password: "Unsteady-Doorframe4-Evade",
-            password_confirmation: "Unsteady-Doorframe4-Evade",
+            password: "vitavitavitavita",
+            password_confirmation: "vitavitavitavita",
             invitation_token: raw_invitation_token,
             timezone: "America/Los_Angeles",
           }
@@ -383,8 +383,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "",
-            password: "secretTunnel-pa$$word-sokka",
-            password_confirmation: "secretTunnel-pa$$word-sokka",
+            password: "vitavitavitavita",
+            password_confirmation: "vitavitavitavita",
             invitation_token: raw_invitation_token
           }
         }
