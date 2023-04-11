@@ -23,7 +23,7 @@
 #  reset_password_sent_at         :datetime
 #  reset_password_token           :string
 #  role_type                      :string           not null
-#  should_enforce_strong_password :boolean          default(FALSE)
+#  should_enforce_strong_password :boolean          default(FALSE), not null
 #  sign_in_count                  :integer          default(0), not null
 #  suspended_at                   :datetime
 #  timezone                       :string           default("America/New_York"), not null

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_11_160232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1689,7 +1689,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
     t.string "reset_password_token"
     t.bigint "role_id", null: false
     t.string "role_type", null: false
-    t.boolean "should_enforce_strong_password", default: false
+    t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "suspended_at", precision: nil
     t.string "timezone", default: "America/New_York", null: false
