@@ -67,13 +67,8 @@ module Portal
       url_for
     end
 
-    # this list will include all types that are relevant to the intake (based on answers)
-    # plus requested documents if any have been uploaded
     def document_type_keys
-      document_types = current_client.intake.relevant_intake_document_types.map(&:key)
-      include_requested_documents = @documents.where(document_type: "Requested").exists?
-      document_types += ["Requested"] if include_requested_documents
-      document_types
+      current_client.intake.relevant_intake_document_types.map(&:key)
     end
   end
 end
