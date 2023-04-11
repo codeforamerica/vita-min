@@ -6,7 +6,7 @@
         <p class="text--help">It’s important that you keep this password secure and do not share it with anyone.
           Please keep all client information safe and confidential.</p>
       </div>
-      <%= form_for(current_user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
+      <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
         <div class="form-card__content">
           <%= f.cfa_input_field(:password, I18n.t('views.passwords.edit.new_password'), type: "password", classes: ['form-width--long', 'password']) %>
           <%= f.cfa_input_field(:password_confirmation, I18n.t('views.passwords.edit.confirm_new_password'), type: "password", classes: ['form-width--long', 'password']) %>

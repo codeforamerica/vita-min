@@ -73,7 +73,6 @@ RSpec.describe Hub::Users::StrongPasswordsController do
             }
             non_hub_admin_user.reload
             expect(non_hub_admin_user.high_quality_password_as_of).to eq(nil)
-            expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
             expect(response).to be_ok
             expect(assigns(:user).errors[:password_confirmation]).to eq [I18n.t("errors.attributes.password.not_matching")]
           end

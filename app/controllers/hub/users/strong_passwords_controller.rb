@@ -5,7 +5,9 @@ module Hub
 
       layout "hub"
 
-      def edit; end
+      def edit
+        @user = current_user
+      end
 
       def update
         @user = current_user
