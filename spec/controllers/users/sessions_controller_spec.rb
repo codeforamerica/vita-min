@@ -48,8 +48,6 @@ RSpec.describe Users::SessionsController do
       expect(response).to redirect_to hub_assigned_clients_path
     end
 
-    render_views
-
     describe "password strength checks" do
       context "with a non-admin user" do
         let(:user) { build :organization_lead_user, password: password, should_enforce_strong_password: false, high_quality_password_as_of: nil }
