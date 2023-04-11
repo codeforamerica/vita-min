@@ -3,7 +3,6 @@ module Hub
     class StrongPasswordsController < ApplicationController
 
       before_action :redirect_if_signed_out
-      before_action :set_minimum_password_length
       before_action :redirect_if_is_admin_user
       before_action :redirect_if_password_is_already_strong
 
@@ -31,10 +30,6 @@ module Hub
 
       def user_params
         params.require(:user).permit(:password, :password_confirmation)
-      end
-
-      def set_minimum_password_length
-        @minimum_password_length = Devise.password_length.min
       end
 
       def redirect_if_is_admin_user
