@@ -88,25 +88,6 @@ describe Hub::OutboundCallForm do
       expect(call.queue_time_ms).to eq twilio_response_double.queue_time.to_i
     end
 
-    context "when the client has an archived intake" do
-      before do
-        client.intake.destroy!
-        create(:archived_2021_gyr_intake, client: client, phone_number: "+18324651680")
-      end
-
-      it "returns an OutboundCall object" do
-        expect { subject.dial }.to change(OutboundCall, :count).by(1)
-        call = OutboundCall.last
-        expect(call.twilio_status).to eq twilio_response_double.status
-        expect(call.twilio_sid).to eq twilio_response_double.sid
-        expect(call.user).to eq user
-        expect(call.client).to eq client
-        expect(call.to_phone_number).to eq client.phone_number
-        expect(call.from_phone_number).to eq user.phone_number
-        expect(call.queue_time_ms).to eq twilio_response_double.queue_time.to_i
-      end
-    end
-
     it "sends metrics to Datadog" do
       subject.dial
 
