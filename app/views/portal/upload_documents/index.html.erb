@@ -41,11 +41,11 @@
         <ul class="document-overview-list__filenames">
         <% if documents.empty? %>
             <% if type == DocumentTypes::Form1095A.key %>
-              <li class="missing-data"><strong><%= t(".please_add_form1095A") %></strong></li>
+              <li class="text--red-bold"><%= t(".please_add_form1095A") %></li>
             <% elsif type == DocumentTypes::Form1099R.key %>
-              <li class="missing-data"><strong><%= t(".please_add_form1099R") %></strong></li>
+              <li class="text--red-bold"><%= t(".please_add_form1099R") %></li>
             <% elsif type != DocumentTypes::Other.key %>
-              <li class="missing-data"><strong><%= t(".please_add_document") %></strong></li>
+              <li class="text--red-bold"><%= t(".please_add_document") %></li>
             <% end %>
         <% end %>
         <% documents.each do |document| %>

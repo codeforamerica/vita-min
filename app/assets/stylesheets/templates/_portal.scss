@@ -31,12 +31,8 @@
       height: 200px;
     }
   }
+}
 
-  .missing-data {
-    color: $color-red;
-  }
-
-  a.message, a.message:visited {
-    color: $color-venice-blue;
-  }
+a.message:visited {
+  color: $color-link-default;
 }

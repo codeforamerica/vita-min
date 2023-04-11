@@ -1,17 +1,22 @@
 module Portal
   class UploadDocumentsController < PortalController
-    alias prev_path portal_overview_documents_path
     alias next_path portal_overview_documents_path
     helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
     helper_method :document_type_keys
 
+    def prev_path
+      @prev_path
+    end
+
     def index
       @documents = current_client.documents
-      render layout: "portal"
+      @prev_path = portal_root_path
+      render layout: "intake"
     end
 
     def edit
+      @prev_path = portal_overview_documents_path
       @form = form_class.new(current_client.intake)
       if params[:type].present?
         @documents = current_client.documents.where(document_type: params[:type])
@@ -22,6 +27,7 @@ module Portal
     end
 
     def update
+      @prev_path = portal_overview_documents_path
       @form = form_class.new(current_client.intake, form_params)
       if @form.valid?
         @form.save
