@@ -30,12 +30,12 @@ RSpec.describe Users::SessionsController do
   end
 
   describe "#create" do
-    let!(:user) { create :user, email: "user@example.com", password: "Vita-Sessions4-Test", should_enforce_strong_password: false }
+    let!(:user) { create :user, email: "user@example.com", password: "vitavitavitavita", should_enforce_strong_password: false }
     let(:params) do
       {
         user: {
           email: "user@example.com",
-          password: "Vita-Sessions4-Test"
+          password: "vitavitavitavita"
         }
       }
     end
