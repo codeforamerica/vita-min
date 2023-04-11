@@ -74,7 +74,7 @@ class Seeder
       vita_partner: first_site,
     )
 
-    strong_shared_password = "The-Force,Vita77"
+    strong_shared_password = "vitavitavitavita"
 
     # organization lead user
     user = User.where(email: "skywalker@example.com").first_or_initialize
@@ -112,7 +112,7 @@ class Seeder
     admin_user = User.where(email: "admin@example.com").first_or_initialize
     admin_user.update(
       name: "Admin Amdapynurian",
-      password: 'theforcevita')
+      password: "theforcevita")
     admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
     greeter_user = User.where(email: "greeter@example.com").first_or_initialize
