@@ -7,6 +7,11 @@ module Documents
     end
 
     def edit
+      if ReturningClientExperimentService.new(current_intake).skip_identity_documents?
+        current_intake.tax_returns.each do |tax_return|
+          tax_return.advance_to(:intake_ready) if tax_return.current_state.to_sym != :intake_ready
+        end
+      end
       data = MixpanelService.data_from([current_intake.client, current_intake])
 
       MixpanelService.send_event(

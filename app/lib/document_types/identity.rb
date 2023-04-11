@@ -1,8 +1,8 @@
 module DocumentTypes
   class Identity < DocumentType
     class << self
-      def relevant_to?(_intake)
-        true
+      def relevant_to?(intake)
+        !ReturningClientExperimentService.new(intake).skip_identity_documents?
       end
 
       def key

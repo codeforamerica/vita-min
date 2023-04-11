@@ -82,9 +82,6 @@ es:
         file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra <a href="%{file_myself_guide_link}" target="_blank">Guía de autoarchivo</a>.
         help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
         title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
-    email:
-      edit:
-        title: Para acceder a este sitio, indique su dirección de correo electrónico.
     file_yourself:
       edit:
         info:
@@ -337,14 +334,14 @@ es:
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
       secondary_identification:
-        1099_for_id: Año actual 1099
-        birth_certificate: Certificado de nacimiento
+        1099_for_id: Año Actual 1099
+        birth_certificate: Certificado de Nacimiento
         certificate_of_citizenship: Certificado de Ciudadanía
         irs_transcript: Transcripción del IRS
         itin: ITIN
         ssa_1099_for_id: Formulario SSA-1099
         ssa_notice: Aviso SSA
-        ssn: Tarjeta de seguridad social
+        ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
       selfie: Selfie
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
@@ -556,6 +553,13 @@ es:
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
+  high_support_mailer:
+    01_hi: Hola %{first_name},
+    02_this_is_gyr: Esto es GetYourRefund. ¡Gracias por elegir nuestra opción gratuita %{diy_link}! ¿Necesita ayuda mientras completa su declaración? Consulte nuestro %{guide_link} para obtener instrucciones paso a paso, consejos y mejores prácticas.
+    03_if_you_get_stuck: Si te quedas atascado o tienes alguna pregunta, chatea con nosotros %{chat_with_us_link} o envíanos un correo electrónico a %{email_us_link}.
+    04_we_re_here_to_help: Estamos aquí para ayudar,
+    file_myself_guide_and_video_tutorials: Guía de File Myself y videotutoriales
+    subject: "¡Estamos aquí para ayudarlo a declarar sus impuestos con File Myself!"
   hub:
     archived_client_warning: Este es un boleto del año de producto %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
@@ -589,10 +593,6 @@ es:
           missing_message_locale: Por favor incluye un mensaje para los clientes que prefieren %{missing_language}.
       bulk_messaging_form:
         all_no_contact_info_warning: Ningún cliente seleccionado tiene información de contacto.
-        inaccessible_clients_warning:
-          many: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
-          one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
-          other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
         message_help_text_en_html:
           many: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
           one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
@@ -933,7 +933,9 @@ es:
         archived_documents: Documentos archivados
         client_doc: Cliente
         empty_file: "(archivo vacío)"
+        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
+        not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
         upload_by: Subido por
         upload_date: Fecha de carga
@@ -3396,12 +3398,6 @@ es:
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
           subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
         title: Quiénes somos
-      diy_home:
-        body: |
-          ¡Le presentamos la opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que le corresponden! Al hacer clic en continuar, se le llevará a la página web de nuestro socio para continuar la presentación por su cuenta. El proceso es sencillo, rápido y fácil.
-
-          Debe ganar menos de $73,000 al año para ser elegible para este servicio.
-        title: "¡Declare sus impuestos por su cuenta de forma gratuita!"
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
@@ -4532,9 +4528,8 @@ es:
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
       start_with_current_year:
-        info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
-        title: Empecemos
+        title: Comenzaremos preguntando sobre su situación en el %{year}.
       student:
         help_text: Los gastos pueden ser para colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional. Debe tener un Formulario 1098-T.
         title: En %{year}, ¿alguien en su hogar tuvo algún gasto para la universidad o la educación postsecundaria?
@@ -4663,6 +4658,8 @@ es:
       dependents_fields:
         add_dependent: Agregar dependiente
         remove: Eliminado
+      document_deadline_warning:
+        body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}

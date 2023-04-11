@@ -95,4 +95,16 @@ RSpec.describe Diy::FileYourselfController do
       end
     end
   end
+
+  describe "redirects", type: :request do
+    it "redirects from /diy to this page's main URL" do
+      get "/en/diy"
+      expect(response).to redirect_to Diy::FileYourselfController.to_path_helper
+    end
+
+    it "redirects from /diy/email to this page's main URL" do
+      get "/en/diy/email"
+      expect(response).to redirect_to Diy::FileYourselfController.to_path_helper
+    end
+  end
 end

@@ -84,7 +84,6 @@ class ClientSorter
 
     clients = clients.where(intake: Intake.where(locale: @filters[:language]).or(Intake.where(preferred_interview_language: @filters[:language]))) if @filters[:language].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
-    clients = clients.first_unanswered_incoming_interaction_between(...@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
     clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
 
     case @filters[:last_contact]
@@ -130,7 +129,6 @@ class ClientSorter
       language: source[:language],
       service_type: source[:service_type],
       greetable: source[:greetable],
-      sla_breach_date: source[:sla_breach_date],
       used_navigator: source[:used_navigator],
       ctc_client: source[:ctc_client],
       last_contact: source[:last_contact],
@@ -152,7 +150,6 @@ class ClientSorter
       :language,
       :service_type,
       :greetable,
-      :sla_breach_date,
       :used_navigator,
       :ctc_client,
       :last_contact,

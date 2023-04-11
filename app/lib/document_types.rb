@@ -14,15 +14,15 @@ module DocumentTypes
   ].freeze
   SECONDARY_IDENTITY_TYPES = [
     DocumentTypes::SsnItin,
-    DocumentTypes::SecondaryIdentification::BirthCertificate,
-    DocumentTypes::SecondaryIdentification::CertificateOfCitizenship,
+    DocumentTypes::SecondaryIdentification::Ssn,
+    DocumentTypes::SecondaryIdentification::Itin,
     DocumentTypes::SecondaryIdentification::Form1099,
     DocumentTypes::SecondaryIdentification::IrsTranscript,
-    DocumentTypes::SecondaryIdentification::Itin,
     DocumentTypes::SecondaryIdentification::Ssa1099,
     DocumentTypes::SecondaryIdentification::SsaNotice,
-    DocumentTypes::SecondaryIdentification::Ssn,
     DocumentTypes::SecondaryIdentification::W2,
+    DocumentTypes::SecondaryIdentification::CertificateOfCitizenship,
+    DocumentTypes::SecondaryIdentification::BirthCertificate,
   ].freeze
   OTHER_TYPES = [
     DocumentTypes::Selfie,

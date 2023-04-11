@@ -1,5 +1,11 @@
 <% content_for :page_title, t("views.questions.welcome.title") %>
 
+<% content_for :notice do %>
+  <% if open_for_gyr_intake? %>
+    <%= render 'shared/document_deadline_warning' %>
+  <% end %>
+<% end %>
+
 <%= render 'shared/trade_desk_pixel' %>
 <% content_for :main do %>
   <section class="slab slab--white welcome">

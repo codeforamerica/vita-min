@@ -20,6 +20,22 @@
       </div>
     </section>
 
+    <section class="slab slab--padded">
+      <% if IdVerificationExperimentService.new(@client.intake).show_expanded_id? %>
+        <p class="text--help">
+          <%= t(".expanded_id_allowed") %>
+        </p>
+      <% end %>
+
+      <% if @client.experiment_docs_not_needed.present? %>
+        <p class="text--help">
+          <% labels = @client.experiment_docs_not_needed.map(&:label) %>
+          <% labels[-1] = t("general.and") + " " + labels.last if labels.size > 1 %>
+          <%= labels.join(", ") + " " + t(".not_needed_docs") %>
+        </p>
+      <% end %>
+    </section>
+
     <table class="index-table documents-index-table">
       <thead class="index-table__head">
       <tr class="index-table__row">
@@ -46,7 +62,11 @@
       <% if @documents.present? %>
         <% @documents.each do |document| %>
           <tr id="document-<%= document.id %>" class="index-table__row">
-            <td class="index-table__cell"><%= document.document_type_label %></td>
+            <td class="index-table__cell">
+              <% id_type = DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) ? "ID - " : "" %>
+              <% id_type = "SSN - " if DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
+              <%= id_type + document.document_type_label %>
+            </td>
             <td class="index-table__cell">
               <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
                 <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
@@ -81,5 +101,6 @@
       </tbody>
     </table>
   </div>
+
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>

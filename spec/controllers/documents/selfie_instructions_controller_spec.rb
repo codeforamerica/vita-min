@@ -5,7 +5,6 @@ RSpec.describe Documents::SelfieInstructionsController do
   let(:intake) { create :intake }
 
   before do
-    ExperimentService.ensure_experiments_exist_in_database
     Experiment.update_all(enabled: true)
 
     sign_in intake.client

@@ -711,6 +711,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
   end
 
   create_table "diy_intakes", force: :cascade do |t|
+    t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "filing_frequency", default: 0, null: false
@@ -719,6 +720,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
     t.integer "received_1099", default: 0, null: false
     t.string "referrer"
     t.string "source"
+    t.string "token"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
@@ -1182,6 +1184,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.bigint "matching_previous_year_intake_id"
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -1340,6 +1343,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
+    t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
@@ -1358,6 +1362,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
     t.string "mail_class"
     t.string "mail_method"
     t.datetime "updated_at", null: false
+    t.index ["mail_class", "mail_method", "mail_args"], name: "idx_internal_emails_mail_info"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -1876,6 +1881,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_231022) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"

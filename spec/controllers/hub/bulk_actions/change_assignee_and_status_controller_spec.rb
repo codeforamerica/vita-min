@@ -37,6 +37,20 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         expect(assigns(:assignable_users)).not_to include inaccessible_user
       end
     end
+
+    context "an unauthorized user" do
+      let(:unauthorized_team_member) { create :user, role: create(:team_member_role, site: create(:site)) }
+
+      before do
+        sign_in unauthorized_team_member
+      end
+
+      it "returns a 403" do
+        get :edit, params: params
+
+        expect(response).to be_forbidden
+      end
+    end
   end
 
   describe "#update" do
@@ -90,6 +104,20 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           put :update, params: params
 
           expect(assigns(:form).valid?).to eq false
+        end
+      end
+
+      context "an unauthorized user" do
+        let(:unauthorized_team_member) { create :user, role: create(:team_member_role, site: create(:site)) }
+
+        before do
+          sign_in unauthorized_team_member
+        end
+
+        it "is not allowed to update the record" do
+          expect do
+            put :update, params: params
+          end.not_to have_enqueued_job(BulkActionJob)
         end
       end
     end

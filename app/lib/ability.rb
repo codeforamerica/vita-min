@@ -8,6 +8,7 @@ class Ability
     end
 
     accessible_groups = user.accessible_vita_partners
+
     # Admins can do everything
     if user.admin?
       can :manage, :all
@@ -53,6 +54,9 @@ class Ability
       SystemNote,
       TaxReturn,
     ], client: { vita_partner: accessible_groups }
+
+    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups } }
+    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: VitaPartner.where.not(id: accessible_groups) }}
 
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 

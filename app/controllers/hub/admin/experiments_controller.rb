@@ -13,7 +13,7 @@ module Hub
 
       def show
         @experiments = [@experiment]
-        @experiment_participants = ExperimentParticipant.where(experiment: @experiment).page(params[:page]).load
+        @experiment_participants = ExperimentParticipant.where(experiment: @experiment).includes(:record).page(params[:page]).load
         render :index
       end
 

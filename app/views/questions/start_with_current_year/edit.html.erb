@@ -1,14 +1,10 @@
-<% content_for :page_title, t("views.questions.start_with_current_year.title") %>
+<% content_for :page_title, t("views.questions.start_with_current_year.title", :year => current_intake.most_recent_filing_year) %>
 
 <% content_for :card do %>
   <div class="form-card">
     <h1 class="form-question">
       <%= content_for(:page_title) %>
     </h1>
-
-    <p>
-      <%=t("views.questions.start_with_current_year.info", :year => current_intake.most_recent_filing_year) %>
-    </p>
 
     <p class="spacing-below-35">
       <%=t("views.questions.start_with_current_year.starting_point") %>

@@ -48,7 +48,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Let's get started")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.start_with_current_year.title", year: current_tax_year))
     end
     click_on "Continue"
 
@@ -602,7 +602,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
   context "client is included in the expanded id experiment", js: true do
     before do
-      ExperimentService.ensure_experiments_exist_in_database
       Experiment.update_all(enabled: true)
       Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
       allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :expanded_id

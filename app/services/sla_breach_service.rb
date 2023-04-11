@@ -13,14 +13,13 @@ class SLABreachService
     count_by_vita_partner(Client.sla_tracked)
   end
 
-  # clients who messaged us and have not been responded to _with a message, call or email_ within the breach threshold
-  def first_unanswered_incoming_interaction_communication_breaches
-    count_by_vita_partner(Client.first_unanswered_incoming_interaction_between(...breach_threshold_date))
+  def last_outgoing_communication_breaches
+    count_by_vita_partner(Client.sla_tracked.where("last_outgoing_communication_at < ?", breach_threshold_date))
   end
 
   def self.generate_report
     report = SLABreachService.new
-    communication_breaches = report.first_unanswered_incoming_interaction_communication_breaches
+    communication_breaches = report.last_outgoing_communication_breaches
     active_sla_clients = report.active_sla_clients_count
     {
         breached_at: report.breach_threshold_date,

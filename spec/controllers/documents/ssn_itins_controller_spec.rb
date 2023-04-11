@@ -12,7 +12,6 @@ RSpec.describe Documents::SsnItinsController do
   end
 
   before do
-    ExperimentService.ensure_experiments_exist_in_database
     Experiment.update_all(enabled: true)
 
     sign_in intake.client
@@ -138,4 +137,3 @@ RSpec.describe Documents::SsnItinsController do
     end
   end
 end
-

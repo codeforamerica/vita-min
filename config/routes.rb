@@ -116,10 +116,13 @@ Rails.application.routes.draw do
                 via: :put
         end
       end
+      get "/diy", to: redirect { Diy::FileYourselfController.to_path_helper }
+      get "/diy/email", to: redirect { Diy::FileYourselfController.to_path_helper }
+      get "/diy/click_fsa_link", to: "diy/continue_to_fsa#click_fsa_link", as: :click_fsa_link
+
       unless Rails.env.production?
         get "/pending", to: "public_pages#pending"
       end
-      get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
       get "/maintenance", to: "public_pages#maintenance"
@@ -230,7 +233,6 @@ Rails.application.routes.draw do
         resources :verification_attempts, path: "verifications", only: [:index, :show, :update]
 
         resources :clients do
-          get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
           get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
           patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
           patch "/unlock", to: "clients#unlock", on: :member, as: :unlock

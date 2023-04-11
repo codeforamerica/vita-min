@@ -929,4 +929,85 @@ describe Client do
       end
     end
   end
+
+  describe "#required_document_counts" do
+    before do
+      ExperimentService.ensure_experiments_exist_in_database
+      Experiment.update_all(enabled: true)
+    end
+
+    let(:treatment) { "control" }
+    let(:experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+    let!(:experiment_participant) do
+      create :experiment_participant,
+             experiment: experiment,
+             treatment: treatment,
+             record: client.intake
+    end
+    let!(:client) { create :client, intake: create(:intake) }
+
+    context "client is in the ID Verification Experiment" do
+      context "has control treatment" do
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to have_key("Selfie")
+        end
+      end
+
+      context "has no_selfie treatment" do
+        let(:treatment) { "no_selfie" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to have_key("Selfie")
+        end
+      end
+
+      context "has expanded_id treatment" do
+        let(:treatment) { "expanded_id" }
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to have_key("Selfie")
+        end
+      end
+
+      context "has expanded_id_and_no_selfie treatment" do
+        let(:treatment) { "expanded_id_and_no_selfie" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to have_key("Selfie")
+        end
+      end
+    end
+
+    context "client is in the Returning Client Experiment" do
+      let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
+
+      context "has control treatment" do
+        it "does include selfie doc" do
+          expect(client.required_document_counts).to have_key("Selfie")
+        end
+      end
+
+      context "has skip_identity_documents treatment" do
+        let(:treatment) { "skip_identity_documents" }
+        it "does not include selfie doc" do
+          expect(client.required_document_counts).not_to have_key("Selfie")
+        end
+      end
+    end
+
+    context "acceptable alternatives for certain identity docs" do
+      context "client uploaded a drivers license doc" do
+        let!(:driver_license_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key }
+
+        it "counts the drivers license as an ID document" do
+          expect(client.required_document_counts).to match(hash_including("ID"=>{:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+        end
+      end
+
+      context "client uploaded a drivers license doc" do
+        let!(:w2_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::SecondaryIdentification::W2.key }
+
+        it "counts it as an 'SSN or ITIN' document" do
+          expect(client.required_document_counts).to match(hash_including("SSN or ITIN" => {:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+        end
+      end
+    end
+  end
 end

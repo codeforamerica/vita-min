@@ -1,22 +1,30 @@
 class ExperimentService
-  DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
   ID_VERIFICATION_EXPERIMENT = "id_verification_experiment"
+  DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
+  RETURNING_CLIENT_EXPERIMENT = "returning_client_experiment"
 
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
-      name: "DIY high and low support experiment",
+      name: "File Myself Support experiment",
       treatment_weights: {
         low: 1,
         high: 1
-      }
+      },
     },
     ID_VERIFICATION_EXPERIMENT => {
-      name: "Easier ID verification experiment",
+      name: "Easier ID Verification experiment",
       treatment_weights: {
         control: 1,
         no_selfie: 1,
         expanded_id: 1,
         expanded_id_and_no_selfie: 1,
+      }
+    },
+    RETURNING_CLIENT_EXPERIMENT => {
+      name: "Return Clients experiment",
+      treatment_weights: {
+        control: 1,
+        skip_identity_documents: 1
       }
     }
   }

@@ -11,6 +11,18 @@ class IdVerificationExperimentService
     %w[expanded_id expanded_id_and_no_selfie].include? treatment
   end
 
+  def documents_not_needed
+    skip_selfies? ? [DocumentTypes::Selfie] : []
+  end
+
+  def document_type_options
+    if show_expanded_id?
+      DocumentTypes::ALL_TYPES
+    else
+      [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
+    end
+  end
+
   private
 
   def treatment

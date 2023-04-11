@@ -267,6 +267,7 @@
 #  created_at                                           :datetime         not null
 #  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  matching_previous_year_intake_id                     :bigint
 #  primary_drivers_license_id                           :bigint
 #  spouse_drivers_license_id                            :bigint
 #  visitor_id                                           :string
@@ -287,6 +288,7 @@
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
+#  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
@@ -301,6 +303,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
+#  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
@@ -855,7 +858,6 @@ describe Intake do
 
     context "in the skip selfies experiment" do
       before do
-        ExperimentService.ensure_experiments_exist_in_database
         Experiment.update_all(enabled: true)
         experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
         ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
@@ -878,7 +880,6 @@ describe Intake do
       let!(:secondary_id_document) { create :document, intake: intake, document_type: "Birth Certificate" }
 
       before do
-        ExperimentService.ensure_experiments_exist_in_database
         Experiment.update_all(enabled: true)
         experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
         ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :expanded_id)

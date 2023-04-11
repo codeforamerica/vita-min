@@ -123,6 +123,30 @@ RSpec.describe Hub::ClientForm do
         end
       end
     end
+    
+    describe "spouse email address formatting" do
+      context "when not provided" do
+        before do
+          form_attributes[:spouse_email_address] = nil
+          form.valid?
+        end
+
+        it "does not add an spouse_email error" do
+          expect(form.errors).not_to include(:spouse_email_address)
+        end
+      end
+
+      context "when not a valid spouse_email address" do
+        before do
+          form_attributes[:spouse_email_address] = "not_valid!!"
+          form.valid?
+        end
+
+        it "adds an error to the attribute" do
+          expect(form.errors[:spouse_email_address]).to eq ["Please enter a valid email address."]
+        end
+      end
+    end
 
     describe "at least one contact method if signature method is online" do
       let(:params) do

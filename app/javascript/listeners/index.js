@@ -17,10 +17,12 @@ import { initServiceComparisonComponent } from "../lib/service_comparison_compon
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
 import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
+import IntercomBehavior from "../lib/intercom_behavior";
 const Listeners =  (function(){
     return {
         init: function () {
             window.addEventListener("load", function() {
+                IntercomBehavior.openIfAskedFor();
                 MixpanelEventTracking.listenForTrackedClicks();
                 const { controllerAction } = document.querySelector("#mixpanelData").dataset;
                 ClientMenuComponent();

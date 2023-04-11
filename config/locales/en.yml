@@ -82,9 +82,6 @@ en:
         file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
         help_text: If you get stuck or have a question, we can help!
         title: Get support while you file on your own!
-    email:
-      edit:
-        title: To access this site, please provide your e-mail address.
     file_yourself:
       edit:
         info:
@@ -336,15 +333,15 @@ en:
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
       secondary_identification:
-        1099_for_id: Current year 1099
-        birth_certificate: Birth certificate
+        1099_for_id: Current Year 1099
+        birth_certificate: Birth Certificate
         certificate_of_citizenship: Certificate of Citizenship
         irs_transcript: IRS Transcript
         itin: ITIN
-        ssa_1099_for_id: SSA-1099 form
+        ssa_1099_for_id: SSA-1099 Form
         ssa_notice: SSA Notice
-        ssn: Social security card
-        w2: Current year W-2
+        ssn: Social Security Card
+        w2: Current Year W-2
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
@@ -555,6 +552,13 @@ en:
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
+  high_support_mailer:
+    01_hi: Hi %{first_name},
+    02_this_is_gyr: This is GetYourRefund. Thank you for choosing our free %{diy_link} option! Need help while completing your return? See our %{guide_link} for step-by-step instructions, tips, and best practices.
+    03_if_you_get_stuck: If you get stuck or have a question, chat with us %{chat_with_us_link} or email us at %{email_us_link}.
+    04_we_re_here_to_help: We’re here to help,
+    file_myself_guide_and_video_tutorials: File Myself Guide and Video Tutorials
+    subject: We’re here to help you file your taxes with File Myself!
   hub:
     archived_client_warning: This is a ticket from product year %{year}. This information is archived and should only be used for reference.
     assigned_clients:
@@ -588,9 +592,6 @@ en:
           missing_message_locale: Please include a message for clients who prefer %{missing_language}.
       bulk_messaging_form:
         all_no_contact_info_warning: No selected clients have contact information.
-        inaccessible_clients_warning:
-          one: "%{count} client will not be updated because you cannot access them."
-          other: "%{count} clients will not be updated because you cannot access them."
         message_help_text_en_html:
           one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
           other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
@@ -924,7 +925,9 @@ en:
         archived_documents: Archived documents
         client_doc: Client
         empty_file: "(empty file)"
+        expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name
+        not_needed_docs: documents not needed due to experiment.
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
@@ -3403,12 +3406,6 @@ en:
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
           subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
         title: About Us
-      diy_home:
-        body: |
-          This is our quickest option to file your taxes and collect the tax credits you are owed! By clicking continue, you will be taken to our partner’s website to continue filing on your own. The process is simple, quick, and easy.
-
-          You must earn less than $73,000 a year to be eligible for this service.
-        title: File taxes on your own for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
@@ -4492,9 +4489,8 @@ en:
       ssn_itin:
         title: Please provide your taxpayer identification information.
       start_with_current_year:
-        info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
-        title: Let's get started
+        title: We’ll start by asking about your situation in %{year}.
       student:
         help_text: Expenses could be for community college, technical school, professional development classes, higher education, and vocational education. You should have a Form 1098-T.
         title: In %{year}, did anyone in your household have any expenses for college or post secondary education?
@@ -4616,6 +4612,8 @@ en:
       dependents_fields:
         add_dependent: Add dependent
         remove: Remove
+      document_deadline_warning:
+        body_html: "<strong>Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</strong> If you aren’t sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.

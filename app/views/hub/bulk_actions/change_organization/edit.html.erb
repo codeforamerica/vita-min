@@ -8,7 +8,7 @@
 
           <h1 class="h1"><%= t(".title") %></h1>
           <p>
-            <%= t(".selected_action_and_client_count_html", count: @selection.clients.size) %><br/>
+            <%= t(".selected_action_and_client_count_html", count: @tax_return_selection.clients.size) %><br/>
             <%= @current_vita_partner_names.to_sentence(locale: locale) %>
           </p>
           <p class="text--help text--bold spacing-below-25"><%= t(".help_text_html") %></p>
@@ -17,7 +17,7 @@
 
           <hr class="hr">
 
-          <%= render "hub/bulk_actions/bulk_messaging_form", f: f, inaccessible_client_count: @inaccessible_client_count, no_contact_info_count: @no_contact_info_count, locale_counts: @locale_counts %>
+          <%= render "hub/bulk_actions/bulk_messaging_form", f: f, no_contact_info_count: @no_contact_info_count, locale_counts: @locale_counts %>
 
           <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
 

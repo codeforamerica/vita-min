@@ -5,11 +5,11 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.2.1-browsers
+      - image: cimg/ruby:3.2.2-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.2.1-browsers
+      - image: cimg/ruby:3.2.2-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root

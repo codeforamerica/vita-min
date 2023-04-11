@@ -86,6 +86,7 @@ class Client < ApplicationRecord
   has_many :access_logs
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
+  has_many :experiment_participants, through: :intake
   has_many :efile_submissions, through: :tax_returns
   has_many :efile_security_informations, dependent: :destroy
   has_many :recaptcha_scores, dependent: :destroy
@@ -121,14 +122,10 @@ class Client < ApplicationRecord
         tax_returns: {
           service_type: "online_intake",
           tax_return_transitions: TaxReturnTransition
-            .where.not(to_state: %w[file_accepted file_rejected file_not_filing file_mailed])
-            .where(most_recent: true)
+                                    .where.not(to_state: %w[file_accepted file_rejected file_not_filing file_mailed])
+                                    .where(most_recent: true)
         }
       )
-  end
-
-  scope :first_unanswered_incoming_interaction_between, ->(range) do
-    sla_tracked.where(first_unanswered_incoming_interaction_at: range)
   end
 
   scope :delegated_order, ->(column, direction) do
@@ -298,6 +295,14 @@ class Client < ApplicationRecord
     identity_verification_denied_at? || identity_verified_at?
   end
 
+  def experiment_docs_not_needed
+    experiment_keys = experiment_participants.includes(:experiment).map { |ep| ep.experiment.key }
+    return nil if experiment_keys.blank?
+
+    return IdVerificationExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::ID_VERIFICATION_EXPERIMENT)
+    ReturningClientExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::RETURNING_CLIENT_EXPERIMENT)
+  end
+
   def number_of_required_documents
     required_document_counts.map { |_type, counts| counts[:required_count] }.sum
   end
@@ -310,8 +315,16 @@ class Client < ApplicationRecord
     return {} if intake.blank? || intake.is_ctc?
 
     intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
+      acceptable_doc_type_keys = if document_type == DocumentTypes::Identity
+                                   DocumentTypes::IDENTITY_TYPES
+                                 elsif document_type == DocumentTypes::SsnItin
+                                   DocumentTypes::SECONDARY_IDENTITY_TYPES
+                                 else
+                                   [document_type]
+                                 end.map(&:key)
+      provided_count = documents.count { |d| acceptable_doc_type_keys.include?(d.document_type) }
+
       required_count = document_type.required_persons(intake).length
-      provided_count = documents.select { |d| d.document_type == document_type.key }.length
       result[document_type.key] = {
         required_count: required_count,
         provided_count: provided_count,
