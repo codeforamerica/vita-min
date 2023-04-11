@@ -46,53 +46,38 @@ RSpec.describe Hub::Users::StrongPasswordsController do
   describe "#update" do
     before { sign_in non_hub_admin_user }
 
-    context "with new password with a mismatched confirmation" do
-      before do
-        put :update, params: {
-          user: {
-            password: "vitavitavitavita",
-            password_confirmation: "another_failed_password"
-          }
-        }
-
-        non_hub_admin_user.reload
+    context "with valid params" do
+      it "updates the user's password, updates the password quality timestamp, and redirects to the hub" do
+        freeze_time do
+          expect {
+            put :update, params: {
+              user: {
+                password: "vitavitavitavita2", password_confirmation: "vitavitavitavita2"
+              }
+            }
+          }.to change { non_hub_admin_user.reload.encrypted_password }
+          expect(non_hub_admin_user.valid_password?("vitavitavitavita2")).to be true
+          expect(non_hub_admin_user.high_quality_password_as_of).to eq(DateTime.now)
+          expect(response).to redirect_to(hub_assigned_clients_path)
+        end
       end
 
-      # TODO(soon): Merge these into one big `it`
-
-      it "fails to update the user's password" do
-        expect(assigns(:user).errors[:password_confirmation]).to eq [I18n.t("errors.attributes.password.not_matching")]
-      end
-
-      it "does not update the last forced reset date" do
-        expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
-      end
-
-      it "does not redirect" do
-        expect(response).not_to redirect_to root_path
-      end
-    end
-
-    context "with new password with a matching confirmation" do
-      before do
-        put :update, params: {
-          user: {
-            password: "one_form_of_pa$$word", password_confirmation: "one_form_of_pa$$word"
-          }
-        }
-        non_hub_admin_user.reload
-      end
-
-      it "updates the user's password" do
-        expect(non_hub_admin_user.valid_password?("one_form_of_pa$$word")).to be true
-      end
-
-      it "updates the last forced reset date" do
-        expect(non_hub_admin_user.high_quality_password_as_of).not_to be_nil
-      end
-
-      it "redirects to the hub" do
-        expect(response).to redirect_to hub_assigned_clients_path
+      context "with invalid params" do
+        context "with mismatch between password and password confirmation" do
+          it "does not save the user and shows an error message" do
+            put :update, params: {
+              user: {
+                password: "vitavitavitavita",
+                password_confirmation: "something other than vitavitavitavita"
+              }
+            }
+            non_hub_admin_user.reload
+            expect(non_hub_admin_user.high_quality_password_as_of).to eq(nil)
+            expect(non_hub_admin_user.high_quality_password_as_of).to be_nil
+            expect(response).to be_ok
+            expect(assigns(:user).errors[:password_confirmation]).to eq [I18n.t("errors.attributes.password.not_matching")]
+          end
+        end
       end
     end
   end
