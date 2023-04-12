@@ -15,6 +15,7 @@ class PasswordStrengthValidator < ActiveModel::EachValidator
     return if record.admin?
     return if value.nil? && record.encrypted_password.present?
 
+    record.errors.add(attr_name,I18n.t("errors.attributes.password.too_short")) unless record.password.length >= 10
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) unless PasswordStrengthValidator.is_strong_enough?(value, record)
   end
 end

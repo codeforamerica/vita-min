@@ -157,6 +157,7 @@ es:
       password:
         insecure: La contraseña proporcionada no era lo suficientemente segura. Intente agregar una o dos palabras poco comunes.
         not_matching: Las contraseñas proporcionadas no coinciden.
+        too_short: La contraseña debe tener un mínimo de 10 caracteres.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
