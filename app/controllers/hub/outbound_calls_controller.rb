@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in, except: :call
     skip_before_action :verify_authenticity_token, only: :call
     load_and_authorize_resource :client, except: :call
-    before_action :redirect_if_unless_editable
+    before_action :redirect_unless_editable
 
     layout "hub"
 
@@ -39,7 +39,7 @@ module Hub
       @form = OutboundCallForm.new(client: @client, user: current_user)
     end
 
-    def redirect_if_unless_editable
+    def redirect_unless_editable
       redirect_to hub_client_path(id: @client) unless Hub::ClientsController::HubClientPresenter.new(@client).editable?
     end
 
