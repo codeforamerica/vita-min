@@ -34,7 +34,7 @@ RSpec.feature "a client on their portal" do
     end
 
     expect(page).to have_content "Add a document"
-    upload_file("requested_document_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+    upload_file("portal_document_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
     expect(page).to have_content "test-pattern.png"
     click_on 'Continue'
