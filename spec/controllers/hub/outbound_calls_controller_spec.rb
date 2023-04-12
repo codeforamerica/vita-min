@@ -97,7 +97,7 @@ describe Hub::OutboundCallsController, type: :controller do
   end
 
   describe "#update" do
-    let(:client) { create :client }
+    let(:client) { create :client, intake: build(:intake) }
     let(:user) { create :admin_user }
     let(:outbound_call) { create :outbound_call, client: client }
     let(:params) { { client_id: client.id, id: outbound_call.id, outbound_call: { note: "I talked to them!"} } }
