@@ -93,7 +93,7 @@ RSpec.describe Portal::DocumentUploadForm do
       it "creates a new document" do
         expect {
           described_class.new(intake, params).save
-        }.to change { intake.reload.documents.count }.by(1)
+        }.to change { intake.client.reload.documents.count }.by(1)
         doc = Document.last
         expect(doc.upload.blob.filename.to_s).to eq("test-pattern.png")
         expect(doc.upload.download).to eq(File.binread("spec/fixtures/files/test-pattern.png"))
@@ -109,7 +109,7 @@ RSpec.describe Portal::DocumentUploadForm do
       it "creates a new document, skipping invalid characters in the filename" do
         expect {
           described_class.new(intake, params).save
-        }.to change { intake.reload.documents.count }.by(1)
+        }.to change { intake.client.reload.documents.count }.by(1)
         expect(Document.last.upload.blob.filename.to_s).to eq("Skip a non-utf8 char.png")
       end
     end
