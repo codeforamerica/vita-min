@@ -1,51 +1,19 @@
 <% content_for :form_question, t("views.documents.overview.title") %>
 
 <% content_for :card do %>
-    <h1 class="form-question">
-      <%= content_for(:form_question) %>
-    </h1>
+  <h1 class="form-question">
+    <%= content_for(:form_question) %>
+  </h1>
 
-    <div class="document-overview-list">
-      <% documents_by_type = @documents.group_by(&:document_type) %>
-      <% document_type_keys.each do |type| %>
-        <% documents = documents_by_type[type] || [] %>
-        <% if type == DocumentTypes::Identity.key %>
-          <% documents = DocumentTypes::IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
-        <% end %>
-        <% if type == DocumentTypes::SsnItin.key %>
-          <% documents = DocumentTypes::SECONDARY_IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
-        <% end %>
+  <%= render "shared/document_overview_list", in_portal: false %>
 
-        <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__item-text">
-          <% if type == DocumentTypes::SsnItin.key && IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
-            <%= t(".additional_form_of_id") %>
-          <% else %>
-            <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
-          <% end %>
-        </h2>
+  <p>
+    <strong>
+      <%= t("views.documents.overview.schedule_appointment") %>
+    </strong>
+  </p>
 
-        <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>
-
-        <ul class="document-overview-list__filenames">
-          <% if documents.empty? %>
-            <li><em><%=t("views.documents.overview.empty") %></em></li>
-          <% end %>
-          <% documents.each do |document| %>
-            <li>
-              <%= document.upload.filename %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-
-    <p>
-      <strong>
-        <%=t("views.documents.overview.schedule_appointment") %>
-      </strong>
-    </p>
-
-    <%= link_to final_info_questions_path, class: "button button--wide button--primary text--centered spacing-above-60" do %>
-      <%t("views.documents.overview.finished") %>
-    <% end %>
+  <%= link_to final_info_questions_path, class: "button button--wide button--primary text--centered spacing-above-60" do %>
+    <% t("views.documents.overview.finished") %>
+  <% end %>
 <% end %>
