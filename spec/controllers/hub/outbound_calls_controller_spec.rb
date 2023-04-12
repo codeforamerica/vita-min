@@ -128,6 +128,19 @@ describe Hub::OutboundCallsController, type: :controller do
         get :new, params: params
         expect(assigns(:form)).to be_an_instance_of(Hub::OutboundCallForm)
       end
+
+      context "client with an intake from past product year" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client, phone_number: "+18324658840")
+        end
+
+        it "redirects to client profile" do
+          get :new, params: params
+
+          expect(response).to redirect_to(hub_client_path(id: client.id))
+        end
+      end
     end
   end
 end
