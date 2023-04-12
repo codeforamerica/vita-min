@@ -27,7 +27,7 @@
         <% if type == DocumentTypes::SsnItin.key && IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
           <%= t("documents.overview.edit.additional_form_of_id") %>
         <% else %>
-          <%= t("general.document_types.#{type.parameterize(separator: "_")}") %>
+          <%= t("general.document_types.#{type.parameterize(separator: "_")}", default: type) %>
         <% end %>
       </h2>
 
