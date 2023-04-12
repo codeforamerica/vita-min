@@ -18,9 +18,9 @@ module Portal
     def edit
       @prev_path = portal_overview_documents_path
       @form = form_class.new(current_client.intake)
-      if params[:type].present?
-        @documents = current_client.documents.where(document_type: params[:type])
-        @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:type] }
+      if params[:document_type].present?
+        @documents = current_client.documents.where(document_type: params[:document_type])
+        @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:document_type] }
       else
         @documents = current_client.documents
       end
@@ -35,7 +35,7 @@ module Portal
           tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
         end
         flash[:notice] = I18n.t("portal.upload_documents.success")
-        redirect_to portal_upload_documents_path(type: form_params[:document_type])
+        redirect_to portal_upload_documents_path(document_type: form_params[:document_type])
       else
         flash.now[:error] = I18n.t("portal.upload_documents.error")
         render :edit
@@ -46,7 +46,7 @@ module Portal
       document = current_client.documents.find_by(id: params[:id])
       document.destroy if document.present?
 
-      redirect_to portal_upload_documents_path(type: params[:document_type])
+      redirect_to portal_upload_documents_path(document_type: params[:document_type])
     end
 
     private

@@ -36,7 +36,7 @@
           <% end %>
         </h2>
 
-        <%= link_to t("general.add").downcase, portal_upload_documents_path(type: type), class: "button button--inline-action" %>
+        <%= link_to t("general.add").downcase, portal_upload_documents_path(document_type: type), class: "button button--inline-action" %>
 
         <ul class="document-overview-list__filenames">
         <% if documents.empty? %>
