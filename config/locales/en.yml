@@ -309,13 +309,15 @@ en:
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
     document_type: Document type
     document_types:
+      1095-a: Health Insurance
+      1099-r: Retirement Income
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
-      employment: Employment tax documents (W2's, 1099, etc)
+      employment: Employment Docs
       id: ID
       ira_statement: IRA Statement
       original_13614-C: Original 13614-C
-      other: Other
+      other: Other Docs
       primary_identification:
         drivers_license: Driver's License (U.S.)
         employer_id: Employer ID
@@ -1700,14 +1702,6 @@ en:
         title: Add a document
       error: There was an error uploading your document. Try again.
       index:
-        document_types:
-          1095-a: Health Insurance
-          1099-r: Retirement Income
-          employment: Employment Docs
-          id: Photo ID
-          other: Other Docs
-          selfie: Photo Holding ID
-          ssn_or_itin: Tax ID
         final_return_not_started: Final return not started
         final_tax_return: Final tax return
         message_my_tax_team: Message my tax team

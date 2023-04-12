@@ -310,13 +310,15 @@ es:
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
     document_types:
+      1095-a: Seguro de salud
+      1099-r: Ingreso de jubilación
       care_provider_statement: Declaración del Proveedor de Cuidados
       email_attachment: Adjunto de correo electrónico
-      employment: Documentos de impuestos de empleo (W2, 1099, etc.)
+      employment: Documentos de empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       original_13614-C: Original 13614-C
-      other: Otro
+      other: Otros documentos
       primary_identification:
         drivers_license: licencia de conducir (EE. UU.)
         employer_id: Identificación del empleador
@@ -341,7 +343,7 @@ es:
         ssa_notice: Aviso SSA
         ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
-      selfie: Selfie
+      selfie: Identificación con foto
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
@@ -1682,14 +1684,6 @@ es:
         title: Agregar un documento
       error: Hubo un error al cargar su documento. Intentar otra vez.
       index:
-        document_types:
-          1095-a: Seguro de salud
-          1099-r: Ingreso de jubilación
-          employment: Documentos de empleo
-          id: identificación fotográfica
-          other: Otros documentos
-          selfie: Identificación con foto
-          ssn_or_itin: Identificación del impuesto
         final_return_not_started: Retorno final no iniciado
         final_tax_return: última declaración de impuestos
         message_my_tax_team: Mensaje a mi equipo de impuestos
