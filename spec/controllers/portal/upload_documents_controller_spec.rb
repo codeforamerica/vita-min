@@ -18,12 +18,12 @@ describe Portal::UploadDocumentsController do
       end
 
       context "when a documents request exists for the session" do
-        let(:requested_docs_double) { double RequestedDocumentUploadForm }
+        let(:requested_docs_double) { double Portal::DocumentUploadForm }
         before do
           5.times do
             create(:document, intake: client.intake, document_type: 'ID')
           end
-          allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double
+          allow(Portal::DocumentUploadForm).to receive(:new).and_return requested_docs_double
         end
 
         it "assigns existing documents for the intake of the matching type to @documents" do
@@ -34,15 +34,15 @@ describe Portal::UploadDocumentsController do
         it "instantiates a form object" do
           get :edit
           expect(assigns(:form)).to eq requested_docs_double
-          expect(RequestedDocumentUploadForm).to have_received(:new).with(client.intake)
+          expect(Portal::DocumentUploadForm).to have_received(:new).with(client.intake)
         end
       end
     end
   end
 
   describe "#update" do
-    let(:requested_docs_double) { double RequestedDocumentUploadForm}
-    before { allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double }
+    let(:requested_docs_double) { double Portal::DocumentUploadForm}
+    before { allow(Portal::DocumentUploadForm).to receive(:new).and_return requested_docs_double }
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
     let(:client) { intake.client }
     let(:intake) { create :intake }

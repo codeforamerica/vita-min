@@ -62,7 +62,7 @@ module Portal
     end
 
     def form_class
-      RequestedDocumentUploadForm
+      Portal::DocumentUploadForm
     end
 
     def form_params

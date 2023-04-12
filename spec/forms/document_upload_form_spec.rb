@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe RequestedDocumentUploadForm do
+RSpec.describe Portal::DocumentUploadForm do
   let(:intake) { create(:intake) }
   let(:upload) { fixture_file_upload("test-pattern.png") }
   let(:document_type) { "ID" }
