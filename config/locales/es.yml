@@ -1274,6 +1274,10 @@ es:
         title: Usuarios
       profile:
         start_date: Fecha de inicio
+      strong_passwords:
+        edit:
+          body: En un esfuerzo por mantener toda la información del cliente segura y confidencial, no comparta esta contraseña con nadie.
+          title: Por favor actualice su contraseña
       suspend:
         success: La cuenta de %{name} se ha suspendida
       unlock:
