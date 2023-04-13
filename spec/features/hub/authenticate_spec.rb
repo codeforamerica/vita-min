@@ -96,7 +96,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
       expect(user.reload.should_enforce_strong_password).to eq(true)
 
-      expect(page).to have_text("Please update your password.")
+      expect(page).to have_text("Please update your password")
 
       fill_in "New password", with: "UseAStronger!Password2023"
       fill_in "Confirm new password", with: "UseAStronger!Password2023"
