@@ -58,8 +58,8 @@ class User < ApplicationRecord
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true
 
-  # validates_presence_of :email
-  # validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
+  validates_presence_of :email
+  validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
 
   validates :email, 'valid_email_2/email': { mx: true }
   validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
@@ -67,7 +67,7 @@ class User < ApplicationRecord
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
   #
   # # TODO(soon): Look for duplicate messages when changing one's password; See if we want to restore Devise :validatable
-  # validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
+  validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
