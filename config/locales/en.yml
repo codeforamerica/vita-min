@@ -155,7 +155,7 @@ en:
       last_name:
         blank: Please enter a last name.
       password:
-        insecure: The password provided was not secure enough, Please try adding another uncommon word or two.
+        insecure: The password provided was not secure enough. Please try adding another uncommon word or two.
         not_matching: The password provided does not match.
         too_short: The password must be a minimum %{count} characters.
       phone_number:
