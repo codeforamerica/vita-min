@@ -126,7 +126,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           let(:password) { "short" }
 
           it "is not valid" do
-            expect(user).to_not be_valid
+            expect(user).not_to be_valid
             expect(user.errors[:password]).to include I18n.t("errors.attributes.password.too_short")
           end
         end
@@ -171,7 +171,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           let(:password_confirmation) { "thisCantMatch" }
 
           it "is not valid" do
-            expect(user).to_not be_valid
+            expect(user).not_to be_valid
             expect(user.errors[:password_confirmation]).to include(I18n.t("errors.attributes.password.not_matching"))
           end
         end
