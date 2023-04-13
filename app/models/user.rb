@@ -62,7 +62,7 @@ class User < ApplicationRecord
   # validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
 
   validates :email, 'valid_email_2/email': { mx: true }
-  # validates_length_of :password, within: Devise.password_length, allow_blank: true
+  validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
   validates :password, password_strength: true
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
   #
