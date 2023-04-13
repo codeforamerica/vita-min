@@ -16,7 +16,7 @@ class PasswordStrengthValidator < ActiveModel::EachValidator
     return if value.nil? && record.encrypted_password.present?
 
     if !record.password.nil? && record.password.length < Devise.password_length.begin
-      record.errors.add(attr_name, I18n.t("errors.attributes.password.too_short"))
+      record.errors.add(attr_name, I18n.t("errors.attributes.password.too_short", count: Devise.password_length.begin))
     end
     record.errors.add(attr_name, I18n.t("errors.attributes.password.insecure")) unless PasswordStrengthValidator.is_strong_enough?(value, record)
   end
