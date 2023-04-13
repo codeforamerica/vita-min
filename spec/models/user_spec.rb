@@ -135,7 +135,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           let(:password) { "tooShort".ljust(512, "tooLong") }
 
           it "is not valid" do
-            expect(user).to_not be_valid
+            expect(user).not_to be_valid
             expect(user.errors[:password]).to include("is too long (maximum is 128 characters)")
           end
         end
