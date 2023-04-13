@@ -1277,6 +1277,10 @@ en:
         title: Users
       profile:
         start_date: Start date
+      strong_passwords:
+        edit:
+          body: In an effort to keep all client information safe and confidential please do not share this password with anyone.
+          title: Please update your password
       suspend:
         success: Suspended %{name}'s account
       unlock:
@@ -1285,10 +1289,6 @@ en:
         success: Unsuspended %{name}'s account
       update_role:
         success: Updated %{name}'s role
-      strong_passwords:
-        edit:
-          title: "Please update your password"
-          body: "In an effort to keep all client information safe and confidential please do not share this password with anyone."
     waiting_on: Waiting on
     zip_codes:
       already_applied: "%{zip_code} is already routed to this partner."
