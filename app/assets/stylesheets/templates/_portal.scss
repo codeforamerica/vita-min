@@ -33,6 +33,23 @@
   }
 }
 
-a.message:visited {
-  color: $color-link-default;
+.message-section {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+
+  @media screen and (max-width: $mobile-up) {
+    .grid-flex {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  a:visited {
+    color: $color-link-default;
+  }
 }
+
