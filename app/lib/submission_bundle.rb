@@ -1,4 +1,16 @@
 class SubmissionBundle
+  def self.il_sample
+    new(TemporaryNonsense::FakeSubmission.sample_submission(bundle_class: SubmissionBuilder::Ty2022::States::Il::Il1040))
+  end
+
+  def self.wi_sample
+    new(TemporaryNonsense::FakeSubmission.sample_submission(bundle_class: SubmissionBuilder::Ty2022::States::Wi::IndividualReturnWi1))
+  end
+
+  def self.ny_sample
+    new(TemporaryNonsense::FakeSubmission.sample_submission(bundle_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn))
+  end
+
   def initialize(submission)
     @submission = submission
   end
@@ -22,11 +34,13 @@ class SubmissionBundle
           zipfile.add(filename, File.join(dir, filename))
         end
       end
-      @submission.submission_bundle.attach(
-        io: File.open(archive_directory_path),
-        filename: "#{@submission.irs_submission_id}.zip",
-        content_type: 'application/zip'
-      )
+      if @submission.submission_bundle
+        @submission.submission_bundle.attach(
+          io: File.open(archive_directory_path),
+          filename: "#{@submission.irs_submission_id}.zip",
+          content_type: 'application/zip'
+        )
+      end
       SubmissionBundleResponse.new
     rescue SubmissionBundleError
       SubmissionBundleResponse.new(errors: @errors)
@@ -38,7 +52,7 @@ class SubmissionBundle
   private
 
   def manifest_content
-    response = SubmissionBuilder::Manifest.build(@submission)
+    response = @submission.manifest_class.build(@submission)
     if response.valid?
       response.document
     else

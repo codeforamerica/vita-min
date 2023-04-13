@@ -160,6 +160,10 @@ class EfileSubmission < ApplicationRecord
     )
   end
 
+  def manifest_class
+    SubmissionBuilder::Manifest
+  end
+
   def bundle_class
     case tax_year
     when 2020
