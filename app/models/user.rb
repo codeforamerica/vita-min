@@ -65,8 +65,6 @@ class User < ApplicationRecord
   validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
   validates :password, password_strength: true
   validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
-  #
-  # # TODO(soon): Look for duplicate messages when changing one's password; See if we want to restore Devise :validatable
   validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
