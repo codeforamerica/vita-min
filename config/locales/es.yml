@@ -155,7 +155,7 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
       password:
-        insecure: La contraseña proporcionada no era lo suficientemente segura. Intente agregar una o dos palabras poco comunes.
+        insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       phone_number:
