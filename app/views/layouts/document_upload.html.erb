@@ -24,52 +24,48 @@
             <p><%= yield :form_help_text %></p>
           <% end %>
 
-          <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
-            <% if @form.class == Portal::DocumentUploadForm && params[:document_type] == "Other" %>
-              <%= f.cfa_select :document_type, t("general.document_type"), DocumentTypes::ALL_TYPES.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
-            <% else %>
-              <%= f.hidden_field :document_type, value: @document_type.key %>
-            <% end %>
-
-            <%# uploaded documents %>
-            <ul class="doc-preview-container">
-              <% if @documents.present? %>
-                <% @documents.each do |document| %>
-                  <li class="doc-preview">
-                    <div class="doc-preview__thumb">
-                      <% if document.upload.representable? %>
-                        <%= image_tag document.upload.representation(resize: "140x140"), alt: "" %>
-                      <% else %>
-                        <%= image_tag "document.svg", alt: "" %>
-                      <% end %>
-                    </div>
-                    <div class="doc-preview__info">
-                      <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
-                      <% if @selectable_document_types %>
-                        <div class="text--small spacing-below-0"><%= document.document_type_label %></div>
-                      <% end %>
-                      <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("views.layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}") }) do %>
-                        <%= t("general.remove") %>
-                      <% end %>
-                    </div>
-                  </li>
-                <% end %>
+          <%# uploaded documents %>
+          <ul class="doc-preview-container">
+            <% if @documents.present? %>
+              <% @documents.each do |document| %>
+                <li class="doc-preview">
+                  <div class="doc-preview__thumb">
+                    <% if document.upload.representable? %>
+                      <%= image_tag document.upload.representation(resize: "140x140"), alt: "" %>
+                    <% else %>
+                      <%= image_tag "document.svg", alt: "" %>
+                    <% end %>
+                  </div>
+                  <div class="doc-preview__info">
+                    <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
+                    <% if @selectable_document_types %>
+                      <div class="text--small spacing-below-0"><%= document.document_type_label %></div>
+                    <% end %>
+                    <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("views.layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}")  }) do %>
+                      <%=t("general.remove") %>
+                    <% end %>
+                  </div>
+                </li>
               <% end %>
-              <li class="doc-preview hidden-until-submit">
-                <div class="doc-preview__thumb">
-                  <%= image_tag "loading.gif", alt: "" %>
-                </div>
-                <div class="doc-preview__info">
-                  <h2 class="h3 doc-preview__filename">Uploading...</h2>
-                </div>
-              </li>
-            </ul>
+            <% end %>
+            <li class="doc-preview hidden-until-submit">
+              <div class="doc-preview__thumb">
+                <%= image_tag "loading.gif", alt: "" %>
+              </div>
+              <div class="doc-preview__info">
+                <h2 class="h3 doc-preview__filename">Uploading...</h2>
+              </div>
+            </li>
+          </ul>
 
-            <%# document upload form %>
+          <%# document upload form %>
+          <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <% if @selectable_document_types %>
               <%= f.cfa_select :document_type, t(".id_type"), @selectable_document_types, include_blank: true %>
             <% end %>
-
+            <% if @document_type %>
+              <%= f.hidden_field :document_type, value: @document_type.key %>
+            <% end %>
             <div class="document-upload">
               <div class="file-upload">
                 <% file_input_data = { "upload-immediately" => true } %>
