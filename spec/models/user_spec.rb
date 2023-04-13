@@ -127,7 +127,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
           it "is not valid" do
             expect(user).to_not be_valid
-            expect(user.errors[:password]).to include("is too short (minimum is 10 characters)")
+            expect(user.errors[:password]).to include I18n.t("errors.attributes.password.too_short")
           end
         end
 
