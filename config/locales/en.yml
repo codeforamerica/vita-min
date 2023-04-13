@@ -314,10 +314,10 @@ en:
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
       employment: Employment Docs
-      id: ID
+      id: Photo ID
       ira_statement: IRA Statement
       original_13614-C: Original 13614-C
-      other: Other docs
+      other: Other Docs
       primary_identification:
         drivers_license: Driver's License (U.S.)
         employer_id: Employer ID
@@ -342,8 +342,8 @@ en:
         ssa_notice: SSA Notice
         ssn: Social Security Card
         w2: Current Year W-2
-      selfie: Photo holding ID
-      ssn_or_itin: SSN or ITIN
+      selfie: Photo Holding ID
+      ssn_or_itin: Tax ID
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
       with_descriptions:

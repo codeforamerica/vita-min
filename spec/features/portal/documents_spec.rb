@@ -28,7 +28,7 @@ RSpec.feature "a client on their portal" do
     end
 
     within '#selfie-docs' do
-      expect(page).to have_content "Photo holding ID"
+      expect(page).to have_content "Photo Holding ID"
       expect(page).to have_content "Please add document."
       click_on "add"
     end
@@ -42,7 +42,7 @@ RSpec.feature "a client on their portal" do
     expect(page).to have_content "Here's a list of your documents"
 
     within '#selfie-docs' do
-      expect(page).to have_content "Photo holding ID"
+      expect(page).to have_content "Photo Holding ID"
       expect(page).to have_content "test-pattern.png"
     end
 
