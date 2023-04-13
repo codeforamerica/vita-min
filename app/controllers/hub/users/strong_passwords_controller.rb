@@ -14,8 +14,7 @@ module Hub
         @user.assign_attributes(user_params)
 
         if @user.save
-          bypass_sign_in(@user) # Devise signs out after a password change, don't do that
-          @user.after_database_authentication
+          sign_in(@user, force: true) # Devise signs out after a password change, so sign them back in
           return redirect_to after_sign_in_path_for(@user)
         end
 
