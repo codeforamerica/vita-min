@@ -139,6 +139,14 @@ CREATE VIEW analytics.efile_submissions AS
     SELECT id, created_at, irs_submission_id, tax_return_id, updated_at, claimed_eitc
     FROM public.efile_submissions;
 
+CREATE VIEW analytics.experiments AS
+    SELECT id, enabled, key, name
+    FROM public.experiments;
+
+CREATE VIEW analytics.experiment_participants AS
+    SELECT id, record_type, treatment, experiment_id, record_id
+    FROM public.experiment_participants;
+
 CREATE VIEW analytics.greeter_coalition_join_records AS
     SELECT id, coalition_id, created_at, greeter_role_id, updated_at
     FROM public.greeter_coalition_join_records;
