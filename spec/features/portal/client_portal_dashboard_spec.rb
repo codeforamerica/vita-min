@@ -1,6 +1,31 @@
 require "rails_helper"
 
 RSpec.feature "a client on their portal" do
+  context "tax return state is in between intake_ready and intake_ready_for_call" do
+    let(:client) do
+      create :client,
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [create(:tax_return, :intake_reviewing, year: 2019)]
+    end
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "see waiting for review tax return card" do
+      visit portal_root_path
+      expect(page).to have_text "Welcome back Randall!"
+
+      # status
+      expect(page).to have_text "Answered initial tax questions"
+
+      within "#tax-year-2019" do
+        expect(page).to have_text "Your tax team is waiting for an initial review with you"
+        expect(page.find('img')['src']).to include 'percent_complete_60'
+        # expect(page).to have_link
+      end
+    end
+  end
+
   context "when a client has not yet completed intake questions" do
     let(:client) do
       create :client,
