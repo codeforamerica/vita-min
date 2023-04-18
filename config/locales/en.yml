@@ -4613,7 +4613,7 @@ en:
         body_html: "<strong>Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</strong> If you aren’t sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
+        off_season_filing: Get started with GetYourRefund by %{end_of_intake_month} %{end_of_intake_day} if you want to file with us in %{year}. If your return is in progress, log in and submit your documents by %{end_of_login_month} %{end_of_login_day}.
       footer:
         ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS with support from the White House and U.S. Department of Treasury.

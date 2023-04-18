@@ -1183,14 +1183,44 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe '#show_offseason_banner?' do
-    context "when open for intake" do
+  describe '#show_offseason_filing_banner?' do
+    around do |example|
+      freeze_time do
+        example.run
+      end
+    end
+    let(:past) { 1.minute.ago }
+    let(:future) { Time.now + 1.minute }
+
+    context "when between intake opening and tax deadline" do
       before do
         allow(subject).to receive(:open_for_gyr_intake?).and_return true
+        allow(Rails.application.config).to receive(:tax_deadline).and_return(future)
       end
 
       it "is false" do
-        expect(subject.show_offseason_banner?).to be false
+        expect(subject.show_offseason_filing_banner?).to be false
+      end
+    end
+
+    context "when between tax deadline and intake closing" do
+      before do
+        allow(subject).to receive(:open_for_gyr_intake?).and_return true
+        allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
+      end
+
+      it "is true" do
+        expect(subject.show_offseason_filing_banner?).to be true
+      end
+    end
+
+    context "when between intake closing and intake opening" do
+      before do
+        allow(subject).to receive(:open_for_gyr_intake?).and_return false
+      end
+
+      it "is false" do
+        expect(subject.show_offseason_filing_banner?).to be false
       end
     end
 
@@ -1198,18 +1228,9 @@ RSpec.describe ApplicationController do
       controller(Hub::UsersController) do
         def hub_path; end
       end
+
       it "is false" do
-        expect(subject.show_offseason_banner?).to be false
-      end
-    end
-
-    context "when not open for intake and not a hub path" do
-      before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return false
-      end
-
-      it "is true" do
-        expect(subject.show_offseason_banner?).to be true
+        expect(subject.show_offseason_filing_banner?).to be false
       end
     end
   end
