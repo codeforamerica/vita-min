@@ -19,12 +19,14 @@
 #  locked_at              :datetime
 #  name                   :string
 #  phone_number           :string
+#  provider               :string
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role_type              :string           not null
 #  sign_in_count          :integer          default(0), not null
 #  suspended_at           :datetime
 #  timezone               :string           default("America/New_York"), not null
+#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
@@ -45,7 +47,9 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
+  devise :database_authenticatable, :lockable, :validatable,
+         :timeoutable, :trackable, :invitable, :recoverable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
@@ -238,6 +242,17 @@ class User < ApplicationRecord
 
   def activate!
     update_columns(suspended_at: nil)
+  end
+
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+    # Uncomment the section below if want users to be created if they don't exist
+    # unless user
+    #   user = User.create!(name: data['name'], email: data['email'], password: Devise.friendly_token[0, 20])
+    # end
+    user.update!(provider: data['provider'], uid: data['uid']) unless user.uid.present?
+    user
   end
 
   private

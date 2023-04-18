@@ -58,6 +58,9 @@ Rails.application.routes.draw do
     # hence the redirect actions in public_pages.
     root "public_pages#redirect_locale_home", as: :redirected_root
 
+    # outside of scope because devise callbacks cannot do dynamic routes with locale
+    devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
     # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
     # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
@@ -318,7 +321,7 @@ Rails.application.routes.draw do
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
 
-      devise_for :users, path: "hub", controllers: {
+      devise_for :users, path: "hub", skip: :omniauth_callbacks, controllers: {
         sessions: "users/sessions",
         invitations: "users/invitations"
       }

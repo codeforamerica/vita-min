@@ -63,6 +63,9 @@ gem 'platform-api'
 gem 'data_migrate'
 gem 'strong_migrations'
 gem 'fraud-gem', git: 'https://github.com/codeforamerica/fraud-gem.git', tag: 'v1.0.5', require: ["fraud_gem"]
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~>1.0'
 
 # Use Flipper for feature flagging
 gem 'flipper'

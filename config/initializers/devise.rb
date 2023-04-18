@@ -305,6 +305,13 @@ Devise.setup do |config|
   #  EnvironmentCredentials.dig(:idme, :client_secret),
   #  scope: Rails.env.production? ? "identity" : "ial2"
   #)
+  config.omniauth(
+    :google_oauth2,
+    Rails.application.credentials.dig(:google_oauth2, :client_id),
+    Rails.application.credentials.dig(:google_oauth2, :client_secret),
+    scope: 'userinfo.email,userinfo.profile',
+    hd: ['codeforamerica.org', 'getyourrefund.org']
+  )
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

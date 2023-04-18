@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_04_182116) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_17_163622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1684,6 +1684,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_04_182116) do
     t.datetime "locked_at", precision: nil
     t.string "name"
     t.string "phone_number"
+    t.string "provider"
     t.datetime "reset_password_sent_at", precision: nil
     t.string "reset_password_token"
     t.bigint "role_id", null: false
@@ -1691,6 +1692,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_04_182116) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "suspended_at", precision: nil
     t.string "timezone", default: "America/New_York", null: false
+    t.string "uid"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

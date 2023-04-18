@@ -482,6 +482,7 @@ en:
     send: Send
     send_message: Send message
     separated: Separated
+    sign_in_admin: Or sign in as an admin
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
