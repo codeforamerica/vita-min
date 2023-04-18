@@ -88,7 +88,7 @@ CREATE VIEW analytics.client_success_roles AS
     FROM public.client_success_roles;
 
 CREATE VIEW analytics.clients AS
-    SELECT id, attention_needed_since, consented_to_service_at, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, flagged_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
+    SELECT id, attention_needed_since, consented_to_service_at, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, flagged_at, last_13614c_update_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
     FROM public.clients;
 
 CREATE VIEW analytics.coalition_lead_roles AS
