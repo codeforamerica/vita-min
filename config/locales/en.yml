@@ -1614,6 +1614,18 @@ en:
         your_tax_preparers: your tax preparers
     portal:
       home:
+        calls_to_action:
+          schedule_initial_review_call: Your tax team is going to schedule an initial review call with you.
+          preparing_your_return: "Your tax team is preparing your tax return."
+          add_missing_documents: "Please add missing documents to continue."
+        help_text:
+          intake_ready: Your tax team is reviewing your submission
+          intake_ready_for_call: "Your tax team is waiting for an initial review call with you"
+          prep_ready_for_prep: "Your tax team is preparing the return"
+          review_reviewing: "Your return is being reviewed"
+          info_requested: Submit requested tax documents
+          review_ready_for_call: Your tax team is waiting to discuss your final %{year} return with you
+          file_accepted: "Return is accepted"
         action_state:
           answer_questions: Complete all tax questions
           submit_additional_documents: Submit remaining tax documents
@@ -1628,6 +1640,8 @@ en:
           view_unsigned_8879: View or download form 8879
           view_w7: View or download form W-7
           view_w7_coa: View or download form W-7 (COA)
+          view_documents: "View documents"
+          add_missing_documents: "Add missing documents"
         progress_state:
           answered_questions: Answered initial tax questions
           shared_documents: Shared initial tax documents
@@ -1637,7 +1651,7 @@ en:
             final_signature_added: Final signature added for %{year}
             return_prepared: Return prepared
         send_message: Message my tax specialist
-        tax_return_heading: "%{year} Tax Return"
+        tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
         waiting_state:
           tax_return:

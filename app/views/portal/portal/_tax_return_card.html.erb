@@ -3,15 +3,25 @@
 <div class="review-box" id="tax-year-<%= tax_return.year %>">
   <div class="grid-flex space-between spacing-below-25">
     <div>
-      <h2 class="h3">2020 return</h2>
+      <h2 class="h3"><%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %></h2>
       <p class="spacing-below-0"><%= tax_return_status_thingy[:help_text] %></p>
     </div>
-    <%= image_tag("percent_complete_#{tax_return_status_thingy[:percent_complete]}.svg", alt: "") %>
+    <% if tax_return_status_thingy.has_key?(:percent_complete) && tax_return_status_thingy[:percent_complete].present? %>
+      <div style="flex-shrink: 0;">
+        <%= render "shared/svg/percent_complete_circle", percent: tax_return_status_thingy[:percent_complete] %>
+      </div>
+    <% end %>
   </div>
   <% if tax_return_status_thingy[:call_to_action_text].present? %>
     <%= render "action_state", link: false do %>
       <%= tax_return_status_thingy[:call_to_action_text] %>
     <% end %>
   <% end %>
-  <%= link_to tax_return_status_thingy[:button_text], tax_return_status_thingy[:button_url], class: "button spacing-below-0" %>
+  <% if tax_return_status_thingy.has_key?(:button_type) && tax_return_status_thingy[:button_type].present? %>
+    <% if tax_return_status_thingy[:button_type] == :view_documents %>
+      <%= link_to t("portal.portal.home.document_link.view_documents"), portal_upload_documents_path, class: "button spacing-below-0" %>
+    <% elsif tax_return_status_thingy[:button_type] == :add_missing_documents %>
+      <%= link_to t("portal.portal.home.document_link.add_missing_documents"), portal_upload_documents_path, class: "button spacing-below-0" %>
+    <% end %>
+  <% end %>
 </div>
