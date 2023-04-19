@@ -13,16 +13,6 @@ RSpec.describe Hub::OrganizationForm do
       expect(subject.errors.attribute_names).to include(:name)
     end
 
-    # TODO: temporary test, we probably don't need this
-    context "stripping whitespace" do
-      let(:params) { { name: " " }}
-
-      it "is not a valid name" do
-        expect(subject).not_to be_valid
-        expect(subject.errors.attribute_names).to include(:name)
-      end
-    end
-
     context "when is_independent=yes" do
       let(:params) { { is_independent: "yes" }}
 
@@ -116,6 +106,20 @@ RSpec.describe Hub::OrganizationForm do
       }.merge(extra_params)
     end
     let(:extra_params) { {} }
+
+    context "form is not valid" do
+      before do
+        allow(subject).to receive(:valid?).and_return(false)
+      end
+
+      it "returns false and skips the rest" do
+        expect {
+          result = subject.save
+        }.not_to change { organization }
+
+        expect(result).to eq false
+      end
+    end
 
     it "saves name, timezone, capacity_limit, allows_greeters" do
       subject.save
