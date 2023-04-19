@@ -294,6 +294,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
         it "redirects to the edit page" do
           post :update, params: params
+          expect(form_instance).to have_received(:valid?)
           expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
         end
       end
