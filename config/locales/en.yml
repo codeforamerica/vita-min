@@ -4621,6 +4621,8 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+      progress_bar:
+        progress_text: 'Intake progress:'
       service_comparison:
         additional_benefits: Additional benefits
         all_tax_credits: All tax credits
@@ -4672,8 +4674,6 @@ en:
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
-      progress_bar:
-        progress_text: "Intake progress:"
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
