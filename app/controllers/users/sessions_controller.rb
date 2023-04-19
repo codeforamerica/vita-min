@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   layout "hub"
+  prepend_before_action :admin_login_must_use_google_auth, except: [:new]
 
   def new
     super do |user|
@@ -17,6 +18,15 @@ class Users::SessionsController < Devise::SessionsController
   def create
     @after_login_path = session.delete("after_login_path")
     super
+  end
+
+  def admin_login_must_use_google_auth
+    return unless params['user'].present?
+
+    if User.admin_hosted_domain?(params['user']['email'])
+      flash[:alert] = "You must sign through the admin sign in link below"
+      return redirect_to new_user_session_path
+    end
   end
 
   rescue_from 'ArgumentError' do |error|

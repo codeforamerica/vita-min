@@ -244,14 +244,20 @@ class User < ApplicationRecord
     update_columns(suspended_at: nil)
   end
 
+  def self.admin_hosted_domain?(email)
+    email_host = email.include?('@') ? email.split("@")[1] : email
+    # should be the same as config.omniauth[:hd]
+    %w(codeforamerica.org getyourrefund.org example.com).include?(email_host)
+  end
+
   def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    # Uncomment the section below if want users to be created if they don't exist
-    # unless user
-    #   user = User.create!(name: data['name'], email: data['email'], password: Devise.friendly_token[0, 20])
-    # end
-    user.update!(provider: data['provider'], uid: data['uid']) unless user.uid.present?
+    return nil unless access_token['provider'] == "google_oauth2"
+
+    email = access_token.info['email']
+    return nil unless admin_hosted_domain?(email) && admin_hosted_domain?(access_token.extra.id_info["hd"])
+
+    user = User.where(email: email, role_type: "AdminRole", uid: [nil, access_token['uid']]).first
+    user.update!(provider: access_token['provider'], uid: access_token['uid']) if user.present? && user.uid.nil?
     user
   end
 

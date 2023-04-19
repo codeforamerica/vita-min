@@ -636,4 +636,69 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+  describe ".from_omniauth" do
+    let(:email) { "bettyboop@codeforamerica.org" }
+    let!(:user) { create :admin_user, email: email }
+    let(:provider) { "google_oauth2" }
+    let(:access_token){ OmniAuth::AuthHash.new(provider: provider, uid: "12345678901234567890", info: { email: email, name: "Betty Boop" }, extra: {"id_info" => {"hd" => email.split("@")[1]}}) }
+
+    context "has a @codeforamerica.org email" do
+      context "has an admin account" do
+        it "returns a user" do
+          expect(User.from_omniauth(access_token)).to eq user
+        end
+
+        context "when the login comes from a non-Google provider" do
+          let(:provider) { "wrong_provider" }
+          it "returns nil" do
+            expect(User.from_omniauth(access_token)).to eq nil
+          end
+        end
+
+        context "when the user is logging in for the first time" do
+          it "updates the uid and provider" do
+            expect do
+              User.from_omniauth(access_token)
+            end.to change { user.reload.provider }.from(nil).to(provider)
+                                                  .and change{ user.reload.uid }.from(nil).to("12345678901234567890")
+          end
+        end
+
+        context "when logging in with Google the next time" do
+          context "if the UID is different" do
+            let!(:user) { create :admin_user, email: email, provider: provider, uid: "something_else" }
+            it "returns nil" do
+              expect(User.from_omniauth(access_token)).to eq nil
+            end
+          end
+        end
+      end
+
+      context "is a greeter account" do
+        let!(:user) { create :greeter_user, email: email }
+
+        it "returns nil" do
+          expect(User.from_omniauth(access_token)).to eq nil
+        end
+      end
+    end
+
+    context "has a @getyourrefund.org email" do
+      let(:email) { "bettyboop@getyourrefund.org" }
+
+      context "has an admin account" do
+        it "returns a user" do
+          expect(User.from_omniauth(access_token)).to eq user
+        end
+      end
+    end
+
+    context "has a @gmail.com email" do
+      let(:email) { "bettyboop@gmail.com" }
+
+      it "returns nil" do
+        expect(User.from_omniauth(access_token)).to eq nil
+      end
+    end
+  end
 end

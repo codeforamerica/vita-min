@@ -118,5 +118,11 @@ module VitaMin
         "#{log_line.to_json}\n"
       end
     end
+
+    # unless Rails.env.production?
+    #   # maps to config/credentials/non_prod.yml.enc
+    #   shared_non_prod_secrets = RailsSecretLoader.load("non_prod", decrypt_with: Rails.application.secrets[:non_prod_secrets_key])
+    #   config.credentials.merge!(shared_non_prod_secrets)
+    # end
   end
 end

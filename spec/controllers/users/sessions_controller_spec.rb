@@ -30,11 +30,12 @@ RSpec.describe Users::SessionsController do
   end
 
   describe "#create" do
-    let!(:user) { create :user, email: "user@example.com", password: "p455w0rd" }
+    let(:email) { "user@example.com" }
+    let!(:user) { create :user, email: email, password: "p455w0rd" }
     let(:params) do
       {
         user: {
-          email: "user@example.com",
+          email: email,
           password: "p455w0rd"
         }
       }
@@ -67,22 +68,46 @@ RSpec.describe Users::SessionsController do
         expect { subject.current_user }.to raise_error(UncaughtThrowError)
       end
     end
-  end
 
-  describe "invalid params handling" do
-    context "with null bytes that only a robot would send us" do
-      let(:params) {
-                     {
-                       user: {
-                         email: "user@example.com",
-                         password: "invalid\0"
-                       }
-                     }
-                   }
+    context "user has a codeforamerica.org email" do
+      let(:email) { "user@codeforamerica.org" }
 
-      it "responds with HTTP 400" do
-        post :create, params: params
-        expect(response).to be_bad_request
+      it "doesn't log them in and flashes message to use admin sign in" do
+        expect do
+          post :create, params: params
+        end.not_to change(subject, :current_user)
+
+        expect(flash[:alert]).to eq "You must sign through the admin sign in link below"
+      end
+    end
+
+    context "user has a getyourrefund.org email" do
+      let(:email) { "user@getyourrefund.org" }
+
+      it "doesn't log them in and flashes message to use admin sign in" do
+        expect do
+          post :create, params: params
+        end.not_to change(subject, :current_user)
+
+        expect(flash[:alert]).to eq "You must sign through the admin sign in link below"
+      end
+    end
+
+    describe "invalid params handling" do
+      context "with null bytes that only a robot would send us" do
+        let(:params) {
+          {
+            user: {
+              email: "user@example.net",
+              password: "invalid\0"
+            }
+          }
+        }
+
+        it "responds with HTTP 400" do
+          post :create, params: params
+          expect(response).to be_bad_request
+        end
       end
     end
   end
