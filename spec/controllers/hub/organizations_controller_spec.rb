@@ -239,7 +239,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
   describe "#update" do
     let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100, allows_greeters: false }
-    let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
       {
@@ -250,16 +249,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           timezone: "America/Chicago",
           capacity_limit: "200",
           allows_greeters: "true",
-          source_parameters_attributes: {
-            "0": {
-              id: source_parameter.id.to_s,
-              _destroy: true,
-              code: "shortlink",
-            },
-            "1": {
-              code: "newshortlink",
-            }
-          }
         }
       }
     end
