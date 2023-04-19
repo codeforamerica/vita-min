@@ -69,6 +69,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
           it "re-renders the :new page" do
             post :create, params: params
+            expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
             expect(response).to render_template(:new)
             expect(assigns(:organization_form)).to eq(form_instance)
           end
