@@ -1,7 +1,7 @@
 <% if show_progress? && current_intake.present? %>
   <% progress = progress_calculator.get_progress(controller.class, controller) %>
   <% if progress >= 0 %>
-    <p class="progress-text">Intake progress:</p>
+    <p class="progress-text"><%= I18n.t("views.shared.progress_bar.progress_text") %></p>
     <div class="progress-indicator">
       <div class="progress-indicator__bar" style="width:<%= progress %>%"></div>
     </div>

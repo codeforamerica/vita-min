@@ -4672,6 +4672,8 @@ en:
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
+      progress_bar:
+        progress_text: "Intake progress:"
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
