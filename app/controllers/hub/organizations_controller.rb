@@ -30,7 +30,7 @@ module Hub
 
     def create
       @organization_form = OrganizationForm.new(@organization, organization_form_params)
-      if @organization_form.save
+      if @organization_form.valid? && @organization_form.save
         redirect_to hub_organizations_path
       else
         render :new

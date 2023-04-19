@@ -13,6 +13,16 @@ RSpec.describe Hub::OrganizationForm do
       expect(subject.errors.attribute_names).to include(:name)
     end
 
+    # TODO: temporary test, we probably don't need this
+    context "stripping whitespace" do
+      let(:params) { { name: " " }}
+
+      it "is not a valid name" do
+        expect(subject).not_to be_valid
+        expect(subject.errors.attribute_names).to include(:name)
+      end
+    end
+
     context "when is_independent=yes" do
       let(:params) { { is_independent: "yes" }}
 
