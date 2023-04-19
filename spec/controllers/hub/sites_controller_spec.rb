@@ -42,6 +42,28 @@ RSpec.describe Hub::SitesController, type: :controller do
     context "as an authenticated admin user" do
       before { sign_in admin_user }
 
+      context "invalid params" do
+        render_views
+
+        let(:params) do
+          {
+            site: {
+              name: "",
+              parent_organization_id: other_organization.id,
+              accepts_itin_applicants: true
+            }
+          }
+        end
+
+        it "adds validation errors and does not create a new record" do
+          expect do
+            post :create, params: params
+          end.not_to change { VitaPartner.sites.count }
+
+          expect(response.body).to include "Can't be blank."
+        end
+      end
+
       it "creates the site with attributes and redirects to the organization edit page" do
         expect do
           post :create, params: params

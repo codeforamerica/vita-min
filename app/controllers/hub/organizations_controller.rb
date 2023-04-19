@@ -38,6 +38,8 @@ module Hub
     end
 
     def update
+      @routing_form = ZipCodeRoutingForm.new(@organization)
+      @source_params_form = SourceParamsForm.new(@organization)
       @organization_form = OrganizationForm.new(@organization, organization_form_params)
       if @organization_form.save
         flash[:notice] = I18n.t("general.changes_saved")
