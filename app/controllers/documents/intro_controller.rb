@@ -7,6 +7,8 @@ module Documents
     end
 
     def edit
+      redirect_to Documents::OverviewController.to_path_helper unless self.class.show?(current_intake)
+
       if ReturningClientExperimentService.new(current_intake).skip_identity_documents?
         current_intake.tax_returns.each do |tax_return|
           tax_return.advance_to(:intake_ready) if tax_return.current_state.to_sym != :intake_ready

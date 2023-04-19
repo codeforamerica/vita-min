@@ -13,7 +13,7 @@ RSpec.describe Documents::IntroController do
       end
     end
 
-    context "when there are no document_types_definitely_needed" do
+    context "when there are no documents have been provided but are needed" do
       before do
         create :document, intake: intake, document_type: DocumentTypes::Identity.key
         create :document, intake: intake, document_type: DocumentTypes::SsnItin.key
@@ -36,6 +36,17 @@ RSpec.describe Documents::IntroController do
         expect(response.body).to include("Employment")
         expect(response.body).to include("1099-R")
         expect(response.body).not_to include("Other")
+      end
+    end
+
+    context "when there's no documents required" do
+      before do
+        allow(subject.class).to receive(:show?).and_return(false)
+      end
+
+      it "redirects to the overview controller" do
+        get :edit
+        expect(response).to redirect_to(Documents::OverviewController.to_path_helper)
       end
     end
 
