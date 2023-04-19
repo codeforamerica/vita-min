@@ -102,7 +102,9 @@ RSpec.describe Hub::OrganizationForm do
         timezone: "America/Juneau",
         capacity_limit: 9001,
         allows_greeters: true,
-        accepts_itin_applicants: true
+        accepts_itin_applicants: true,
+        is_independent: "yes",
+        states: "CA"
       }.merge(extra_params)
     end
     let(:extra_params) { {} }
@@ -115,9 +117,8 @@ RSpec.describe Hub::OrganizationForm do
       it "returns false and skips the rest" do
         expect {
           result = subject.save
+          expect(result).to eq false
         }.not_to change { organization }
-
-        expect(result).to eq false
       end
     end
 

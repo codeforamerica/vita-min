@@ -50,23 +50,9 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as a logged in admin user" do
       before { sign_in user }
 
-      context "when validations fail" do
-        before do
-          allow(form_instance).to receive(:valid?).and_return(false)
-          allow(form_instance).to receive(:save).and_return(true)
-        end
-
-        it "re-renders the :new page" do
-          post :create, params: params
-          expect(response).to render_template(:new)
-          expect(assigns(:organization_form)).to eq(form_instance)
-        end
-      end
-
       context "when validations succeed" do
         context "when saving the form succeeds" do
           before do
-            allow(form_instance).to receive(:valid?).and_return(true)
             allow(form_instance).to receive(:save).and_return(true)
           end
 
@@ -78,7 +64,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
         context "when saving the form fails" do
           before do
-            allow(form_instance).to receive(:valid?).and_return(true)
             allow(form_instance).to receive(:save).and_return(false)
           end
 
@@ -294,7 +279,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
         it "redirects to the edit page" do
           post :update, params: params
-          expect(form_instance).to have_received(:valid?)
           expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
         end
       end

@@ -19,6 +19,8 @@ module Hub
     end
 
     def save
+      return false unless valid?
+
       if @is_independent == "yes"
         @coalition_id = nil
       else
