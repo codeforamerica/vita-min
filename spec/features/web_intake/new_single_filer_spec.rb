@@ -129,7 +129,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for you in #{current_tax_year}")
-    puts track_progress, "====================="
     expect(track_progress).to eq(0)
     check I18n.t("general.none_of_the_above")
     click_on "Continue"
