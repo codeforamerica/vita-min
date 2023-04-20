@@ -2,12 +2,12 @@
   <div class="grid">
     <div class="grid__item">
       <% end_of_intake = Rails.configuration.end_of_intake %>
-      <% end_of_login = Rails.configuration.end_of_login %>
+      <% end_of_doc_submission = Rails.configuration.end_of_login - 1.week %>
       <%= t("views.shared.environment_warning.off_season_filing",
             end_of_intake_month: I18n.l(end_of_intake, format: "%B", locale: locale),
             end_of_intake_day: locale == :en ? end_of_intake.day.ordinalize : end_of_intake.day,
-            end_of_login_month: I18n.l(end_of_login, format: "%B", locale: locale),
-            end_of_login_day: locale == :en ? end_of_login.day.ordinalize : end_of_login.day,
+            end_of_docs_month: I18n.l(end_of_doc_submission, format: "%B", locale: locale),
+            end_of_docs_day: locale == :en ? end_of_doc_submission.day.ordinalize : end_of_doc_submission.day,
             year: Time.now.year) %>
     </div>
   </div>

@@ -4659,7 +4659,7 @@ es:
         body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
-        off_season_filing: Comience con GetYourRefund antes del %{end_of_intake_day} de %{end_of_intake_month} si desea presentar su declaración con nosotros en %{year}. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del %{end_of_login_day} de %{end_of_login_month}.
+        off_season_filing: Comience con GetYourRefund antes del %{end_of_intake_day} de %{end_of_intake_month} si desea presentar su declaración con nosotros en %{year}. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del %{end_of_docs_day} de %{end_of_docs_month}.
       footer:
         ctc_service_description_html: GetCTC.org es un servicio sin fines de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.
