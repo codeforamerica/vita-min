@@ -63,6 +63,9 @@
             <% if @selectable_document_types %>
               <%= f.cfa_select :document_type, t(".id_type"), @selectable_document_types, include_blank: true %>
             <% end %>
+            <% if @document_type %>
+              <%= f.hidden_field :document_type, value: @document_type.key %>
+            <% end %>
             <div class="document-upload">
               <div class="file-upload">
                 <% file_input_data = { "upload-immediately" => true } %>
@@ -100,16 +103,16 @@
           <div class="spacing-above-60">
             <% if @documents.present? || !document_type.provide_doc_help? %>
               <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}", disabled: document_type.blocks_progress? && @documents&.count&.zero? do %>
-                <%=t("general.continue") %>
+                <%= t("general.continue") %>
               <% end %>
             <% else %>
               <button class="button button--primary button--disabled button--wide text--centered" disabled>
-                <%=t("general.continue") %>
+                <%= t("general.continue") %>
               </button>
             <% end %>
-            <% unless document_type.skip_dont_have? || (@documents.present? && @selectable_document_types) %>
+            <% unless document_type.skip_dont_have? || (@documents.present? && @selectable_document_types) || @document_type %>
               <%= link_to (document_type.provide_doc_help? ? documents_help_path(doc_type: document_type.to_param, next_path: next_path) : next_path), class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
-                <%=t("views.layouts.document_upload.dont_have") %>
+                <%= t("views.layouts.document_upload.dont_have") %>
               <% end %>
             <% end %>
           </div>

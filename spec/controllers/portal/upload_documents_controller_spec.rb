@@ -18,56 +18,31 @@ describe Portal::UploadDocumentsController do
       end
 
       context "when a documents request exists for the session" do
-        let!(:doc_request) { create(:documents_request, client: client) }
-        let(:requested_docs_double) { double RequestedDocumentUploadForm }
+        let(:requested_docs_double) { double Portal::DocumentUploadForm }
         before do
           5.times do
-            create(:document, documents_request: doc_request)
+            create(:document, intake: client.intake, document_type: 'ID')
           end
-          allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double
+          allow(Portal::DocumentUploadForm).to receive(:new).and_return requested_docs_double
         end
 
-        it "does not create a document request" do
-          expect {
-            get :edit
-          }.not_to change(DocumentsRequest, :count)
-        end
-
-        it "assigns existing documents on the docs request to @documents" do
-          get :edit
+        it "assigns existing documents for the intake of the matching type to @documents" do
+          get :edit, params: { type: 'ID' }
           expect(assigns(:documents).length).to eq 5
         end
 
         it "instantiates a form object" do
           get :edit
           expect(assigns(:form)).to eq requested_docs_double
-          expect(RequestedDocumentUploadForm).to have_received(:new).with(doc_request)
-        end
-      end
-
-      context "when a documents request does not yet exist for the session" do
-        it "creates a new documents request" do
-          expect {
-            get :edit
-          }.to change(DocumentsRequest, :count).by(1)
-        end
-
-        it "assigns @documents to an empty array because there are no existing documents" do
-          get :edit
-          expect(assigns(:documents).length).to eq 0
-        end
-
-        it "instantiates a form object" do
-          get :edit
-          expect(assigns(:form)).to be_an_instance_of RequestedDocumentUploadForm
+          expect(Portal::DocumentUploadForm).to have_received(:new).with(client.intake)
         end
       end
     end
   end
 
   describe "#update" do
-    let(:requested_docs_double) { double RequestedDocumentUploadForm}
-    before { allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double }
+    let(:requested_docs_double) { double Portal::DocumentUploadForm}
+    before { allow(Portal::DocumentUploadForm).to receive(:new).and_return requested_docs_double }
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
     let(:client) { intake.client }
     let(:intake) { create :intake }

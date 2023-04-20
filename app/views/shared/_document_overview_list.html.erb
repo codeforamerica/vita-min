@@ -1,0 +1,99 @@
+<div class="document-overview-list">
+  <% documents_by_type = @documents.group_by(&:document_type) %>
+  <% document_type_keys.each do |type| %>
+    <% documents = documents_by_type[type] || [] %>
+    <% if type == DocumentTypes::Identity.key %>
+      <% documents = DocumentTypes::IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
+    <% end %>
+    <% if type == DocumentTypes::SsnItin.key %>
+      <% documents = DocumentTypes::SECONDARY_IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
+    <% end %>
+
+    <div id="<%= type.underscore %>-docs">
+      <% if [DocumentTypes::Identity.key, DocumentTypes::SsnItin.key].include? type %>
+          <span class="document-overview-list__icon">
+            <%= image_tag "id-card.svg", alt: "", class: "" %>
+          </span>
+      <% elsif type == DocumentTypes::Selfie.key %>
+          <span class="document-overview-list__icon">
+            <%= image_tag "selfie.svg", alt: "", class: "" %>
+          </span>
+      <% else %>
+          <span class="document-overview-list__icon">
+            <%= image_tag "paper.svg", alt: "", class: "" %>
+          </span>
+      <% end %>
+      <h2 class="h3 document-overview-list__item-text">
+        <% if type == DocumentTypes::SsnItin.key && IdVerificationExperimentService.new(current_intake).show_expanded_id? %>
+          <%= t("documents.overview.edit.additional_form_of_id") %>
+        <% else %>
+          <%= t("general.document_types.#{type.parameterize(separator: "_")}", default: type) %>
+        <% end %>
+      </h2>
+
+      <% if in_portal %>
+        <%= link_to t("general.add").downcase, portal_upload_documents_path(document_type: type), class: "button button--inline-action" %>
+      <% else %>
+        <%= link_to t("general.add").downcase, edit_document_path(type), class: "button button--inline-action" %>
+      <% end %>
+
+      <ul class="document-overview-list__filenames">
+        <% if in_portal %>
+          <% if documents.empty? %>
+            <% if type == DocumentTypes::Form1095A.key %>
+              <li class="text--red-bold"><%= t("portal.upload_documents.index.please_add_form1095A") %></li>
+            <% elsif type == DocumentTypes::Form1099R.key %>
+              <li class="text--red-bold"><%= t("portal.upload_documents.index.please_add_form1099R") %></li>
+            <% elsif type != DocumentTypes::Other.key %>
+              <li class="text--red-bold"><%= t("portal.upload_documents.index.please_add_document") %></li>
+            <% end %>
+          <% end %>
+
+          <% documents.each do |document| %>
+            <li>
+              <%= link_to document.upload.filename, portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
+            </li>
+          <% end %>
+        <% else %>
+          <% if documents.empty? %>
+            <li><em><%= t("views.documents.overview.empty") %></em></li>
+          <% end %>
+
+          <% documents.each do |document| %>
+            <li>
+              <%= document.upload.filename %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <hr class="spacing-above-25 spacing-below-10">
+  <% end %>
+
+  <% if in_portal %>
+    <div id="final-tax-return-docs">
+      <span class="document-overview-list__icon">
+        <%= image_tag "paper.svg", alt: "", class: "" %>
+      </span>
+      <h2 class="h3 document-overview-list__item-text">
+        <%= t("portal.upload_documents.index.final_tax_return") %>
+      </h2>
+
+      <% final_tax_documents = documents_by_type[DocumentTypes::FinalTaxDocument.key] %>
+      <% if final_tax_documents %>
+        <ul class="document-overview-list__filenames">
+          <% final_tax_documents.each do |document| %>
+            <li>
+              <%= link_to "#{document.tax_return.year} #{document.document_type}", portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="document-overview-list__filenames text--help spacing-above-15">
+          <strong><%= t("portal.upload_documents.index.final_return_not_started") %></strong>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

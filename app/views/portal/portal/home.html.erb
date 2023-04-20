@@ -106,7 +106,7 @@
     <%= link_to t(".send_message"), new_portal_message_path, class: "button button--wide button--primary" %>
 
     <% if @can_submit_additional_documents %>
-      <%= link_to t(".submit_documents"), portal_upload_documents_path, class: "button button--wide" %>
+      <%= link_to t(".add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button button--wide" %>
     <% end %>
   </div>
 <% end %>

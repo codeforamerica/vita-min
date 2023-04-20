@@ -34,7 +34,7 @@ RSpec.describe Documents::IntroController do
         get :edit
 
         expect(response.body).to include("Employment")
-        expect(response.body).to include("1099-R")
+        expect(response.body).to include("Retirement Income")
         expect(response.body).not_to include("Other")
       end
     end

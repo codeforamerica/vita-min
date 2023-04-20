@@ -226,6 +226,7 @@ en:
     access_denied: You are not authorized to take this action.
     activate_all: Activate All
     active: active
+    add: Add
     add_client: Add client
     address: Address
     admin: Admin
@@ -308,13 +309,15 @@ en:
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
     document_type: Document type
     document_types:
+      1095-a: Health Insurance
+      1099-r: Retirement Income
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
-      employment: Employment tax documents (W2's, 1099, etc)
-      id: ID
+      employment: Employment Docs
+      id: Photo ID
       ira_statement: IRA Statement
       original_13614-C: Original 13614-C
-      other: Other
+      other: Other Docs
       primary_identification:
         drivers_license: Driver's License (U.S.)
         employer_id: Employer ID
@@ -339,8 +342,8 @@ en:
         ssa_notice: SSA Notice
         ssn: Social Security Card
         w2: Current Year W-2
-      selfie: Selfie
-      ssn_or_itin: SSN or ITIN
+      selfie: Photo Holding ID
+      ssn_or_itin: Tax ID
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
       with_descriptions:
@@ -1617,6 +1620,7 @@ en:
           tax_return:
             submit_primary: Add final primary taxpayer signature for %{year}
             submit_spouse: Add final spouse signature for %{year}
+        add_missing_documents: Add missing documents
         document_link:
           view_document: View or download %{display_name}
           view_final_tax_document: Download final tax papers %{year}
@@ -1633,7 +1637,6 @@ en:
             final_signature_added: Final signature added for %{year}
             return_prepared: Return prepared
         send_message: Message my tax specialist
-        submit_documents: Submit additional documents
         tax_return_heading: "%{year} Tax Return"
         title: Welcome back %{name}!
         waiting_state:
@@ -1695,7 +1698,17 @@ en:
       spouse_authorize_signature:
         efile_identity_spouse: I confirm that I am %{spouse_name}, listed as the spouse of taxpayer %{primary_name} on this %{year} tax document.
     upload_documents:
+      edit:
+        title: Add a document
       error: There was an error uploading your document. Try again.
+      index:
+        final_return_not_started: Final return not started
+        final_tax_return: Final tax return
+        message_my_tax_team: Message my tax team
+        please_add_document: Please add document.
+        please_add_form1095A: Please add Form 1095-A
+        please_add_form1099R: Please add Form 1099-R
+        title: Here's a list of your documents.
       success: Successfully uploaded document!
   public_pages:
     forbidden:

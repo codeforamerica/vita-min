@@ -226,6 +226,7 @@ es:
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
+    add: Agregar
     add_client: Agregar cliente
     address: Dirección
     admin: Admin
@@ -309,13 +310,15 @@ es:
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
     document_types:
+      1095-a: Seguro de salud
+      1099-r: Ingreso de jubilación
       care_provider_statement: Declaración del Proveedor de Cuidados
       email_attachment: Adjunto de correo electrónico
-      employment: Documentos de impuestos de empleo (W2, 1099, etc.)
+      employment: Documentos de empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       original_13614-C: Original 13614-C
-      other: Otro
+      other: Otros documentos
       primary_identification:
         drivers_license: licencia de conducir (EE. UU.)
         employer_id: Identificación del empleador
@@ -340,7 +343,7 @@ es:
         ssa_notice: Aviso SSA
         ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
-      selfie: Selfie
+      selfie: Identificación con foto
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
@@ -1599,6 +1602,7 @@ es:
           tax_return:
             submit_primary: Añade la firma del contribuyente principal para %{year}
             submit_spouse: Añade la firma de su cónyuge para %{year}
+        add_missing_documents: Agregar documentos faltantes
         document_link:
           view_document: Ver o descargar el documento %{display_name}
           view_final_tax_document: Descargar los documentos de impuestos finales %{year}
@@ -1615,7 +1619,6 @@ es:
             final_signature_added: Firma final agregada para %{year}
             return_prepared: Declaración de impuestos preparada
         send_message: Mandar mensaje a mi especialista en impuestos
-        submit_documents: Enviar documentos adicionales
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
         waiting_state:
@@ -1677,7 +1680,17 @@ es:
       spouse_authorize_signature:
         efile_identity_spouse: Confirmo que soy %{spouse_name}, que figura como cónyuge del contribuyente %{primary_name} en este documento fiscal de %{year}.
     upload_documents:
+      edit:
+        title: Agregar un documento
       error: Hubo un error al cargar su documento. Intentar otra vez.
+      index:
+        final_return_not_started: Retorno final no iniciado
+        final_tax_return: última declaración de impuestos
+        message_my_tax_team: Mensaje a mi equipo de impuestos
+        please_add_document: Por favor agregue documento.
+        please_add_form1095A: Agregue el formulario 1095-A
+        please_add_form1099R: Por favor agregue el Formulario 1099-R
+        title: Aquí hay una lista de sus documentos.
       success: "¡Documento cargado con éxito!"
   public_pages:
     forbidden:
