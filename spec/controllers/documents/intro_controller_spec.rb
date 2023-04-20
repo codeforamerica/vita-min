@@ -39,7 +39,7 @@ RSpec.describe Documents::IntroController do
       end
     end
 
-    context "when there's no documents required" do
+    context "when no documents are required" do
       before do
         allow(subject.class).to receive(:show?).and_return(false)
       end
