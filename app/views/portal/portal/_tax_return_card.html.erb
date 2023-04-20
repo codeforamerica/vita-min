@@ -19,9 +19,9 @@
   <% end %>
   <% if tax_return_status_thingy.has_key?(:button_type) && tax_return_status_thingy[:button_type].present? %>
     <% if tax_return_status_thingy[:button_type] == :view_documents %>
-      <%= link_to t("portal.portal.home.document_link.view_documents"), portal_upload_documents_path, class: "button spacing-below-0" %>
+      <%= link_to t("portal.portal.home.document_link.view_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif tax_return_status_thingy[:button_type] == :add_missing_documents %>
-      <%= link_to t("portal.portal.home.document_link.add_missing_documents"), portal_upload_documents_path, class: "button spacing-below-0" %>
+      <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% end %>
   <% end %>
 </div>
