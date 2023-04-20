@@ -4667,6 +4667,8 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      progress_bar:
+        progress_text: 'Progreso de la admisión:'
       service_comparison:
         additional_benefits: Beneficios adicionales
         all_tax_credits: Todos los créditos tributarios

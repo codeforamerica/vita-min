@@ -1,3 +1,4 @@
 def track_progress
-  @current_progress = find(".progress-indicator__percentage").text.to_i
+  html_body = Nokogiri::HTML.parse(page.body)
+  @current_progress = html_body.at_css(".progress-indicator__bar")["style"].tr("width:%", "").to_i
 end

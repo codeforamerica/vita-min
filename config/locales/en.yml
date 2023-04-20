@@ -4621,6 +4621,8 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+      progress_bar:
+        progress_text: 'Intake progress:'
       service_comparison:
         additional_benefits: Additional benefits
         all_tax_credits: All tax credits
