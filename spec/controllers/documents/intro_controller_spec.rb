@@ -13,7 +13,7 @@ RSpec.describe Documents::IntroController do
       end
     end
 
-    context "when there are no documents have been provided but are needed" do
+    context "when no documents have been provided but are needed" do
       before do
         create :document, intake: intake, document_type: DocumentTypes::Identity.key
         create :document, intake: intake, document_type: DocumentTypes::SsnItin.key
