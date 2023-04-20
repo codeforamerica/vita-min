@@ -484,6 +484,7 @@ es:
     send_message: Enviar un mensaje
     separated: Separado
     sign_in: Iniciar sesión
+    sign_in_admin: O inicia sesión como administrador
     sign_out: Cerrar sesión
     sign_up: Regístrate
     single: Soltera

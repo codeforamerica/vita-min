@@ -105,6 +105,7 @@ ignore_unused:
   - 'errors.*'
   - 'devise.invitations.*'
   - 'devise.failure.*'
+  - 'devise.omniauth_callbacks.*'
   - 'hub.tax_returns.stage.*'
   - 'hub.tax_returns.status.*'
   - 'hub.bank_accounts.*'
