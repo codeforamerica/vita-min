@@ -36,7 +36,7 @@ RSpec.feature "Visit home page" do
       allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 15))
     end
 
-    context "when closed for filing" do
+    context "when closed for new intakes" do
       let(:current_time) { DateTime.new(2023, 10, 2) }
 
       scenario "shows the closed banner" do
