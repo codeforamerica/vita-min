@@ -50,7 +50,7 @@ RSpec.feature "Visit home page" do
     context "when open for filing and before the tax deadline" do
       let(:current_time) { DateTime.new(2023, 4, 1) }
 
-      scenario "shows the document deadline banner?" do
+      scenario "shows the document deadline banner" do
         visit "/"
 
         expect(page).to have_text "Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe. If you aren’t sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
