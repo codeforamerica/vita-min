@@ -3,7 +3,21 @@ module TaxReturnCardHelper
     state = tax_return.current_state.to_sym
     state_index = TaxReturnStateMachine.states.index(tax_return.current_state)
 
-    if state == :file_hold
+    if @ask_for_answers && !@current_step&.include?("/documents")
+      {
+        help_text: t('portal.portal.home.help_text.intake_incomplete'),
+        percent_complete: 10,
+        button_type: :complete_intake,
+        call_to_action_text: t('portal.portal.home.calls_to_action.finish_intake')
+      }
+    elsif @ask_for_answers && @current_step&.include?("/documents")
+      {
+        help_text: t('portal.portal.home.help_text.intake_documents_incomplete'),
+        percent_complete: 30,
+        button_type: :complete_intake_documents,
+        call_to_action_text: t('portal.portal.home.calls_to_action.add_missing_documents')
+      }
+    elsif state == :file_hold
       {
         help_text: t("portal.portal.home.waiting_state.tax_return.file_hold")
       }
