@@ -91,6 +91,11 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It196,
                 pdf: nil,
                 include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It228,
+                pdf: nil,
+                include: true
               }
             ]
             w2_docs = submission.intake.completed_w2s.map do |w2|
