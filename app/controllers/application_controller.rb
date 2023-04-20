@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -304,12 +304,12 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  # Do not show the offseason banner in the hub
-  # Do not show offseason banner if we are open for intake for the session
-  def show_offseason_banner?
+  def show_offseason_filing_banner?
     return false if hub?
-    !open_for_gyr_intake?
+
+    open_for_gyr_intake? && app_time >= Rails.configuration.tax_deadline
   end
+  helper_method :show_offseason_filing_banner?
 
   def open_for_gyr_intake?
     return true if cookies[:used_unique_link] == "yes" &&
