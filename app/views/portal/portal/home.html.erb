@@ -4,7 +4,7 @@
   <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
 
   <div class="spacing-below-15">
-    <%= render 'intake_status' %>
+    <%= t('.subtitle') %>
   </div>
 
   <% if @tax_returns.present? %>

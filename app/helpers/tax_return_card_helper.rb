@@ -9,14 +9,15 @@ module TaxReturnCardHelper
       }
     elsif state == :file_not_filing
       {
-        help_text: t("portal.portal.home.waiting_state.tax_return.file_not_filing")
+        help_text: t("portal.portal.home.waiting_state.tax_return.file_not_filing"),
+        button_type: :view_documents,
       }
     elsif state == :file_accepted
+      transition = tax_return.tax_return_transitions.where(to_state: :file_accepted, most_recent: true).first
       {
-        help_text: t("portal.portal.home.help_text.file_accepted"),
+        help_text: t("portal.portal.home.help_text.file_accepted", date: transition.created_at.strftime("%b %-d %Y %l:%M %p")),
         percent_complete: 100,
         button_type: :view_documents,
-        call_to_action_text: "you did it"
       }
     elsif [:file_efiled, :file_mailed].include?(state)
       {
@@ -35,10 +36,9 @@ module TaxReturnCardHelper
       }
     elsif state == :review_ready_for_call
       {
-        help_text: t('portal.portal.home.help_text.review_ready_for_call', year: tax_return.year),
+        help_text: t('portal.portal.home.help_text.review_ready_for_call'),
         percent_complete: 85,
         button_type: :view_documents,
-        call_to_action_text: t("portal.portal.home.calls_to_action.schedule_initial_review_call")
       }
     elsif [:review_ready_for_qr, :review_reviewing].include?(state)
       {
@@ -59,30 +59,13 @@ module TaxReturnCardHelper
         help_text: t("portal.portal.home.help_text.intake_ready_for_call"),
         percent_complete: 50,
         button_type: :view_documents,
-        call_to_action_text: t("portal.portal.home.calls_to_action.schedule_initial_review_call")
       }
     elsif [:intake_ready, :intake_reviewing].include?(state)
       {
         help_text: t("portal.portal.home.help_text.intake_ready"),
         percent_complete: 45,
         button_type: :view_documents,
-        call_to_action_text: t("portal.portal.home.calls_to_action.schedule_initial_review_call")
       }
     end
-    # if tax_return.current_state == 'intake_reviewing'
-    #   {
-    #     help_text: "Your tax team is waiting for an initial review with you.",
-    #     percent_complete: 60,
-    #
-    #   }
-    # else
-    #   {
-    #     help_text: "We are waiting for a final signature from you.",
-    #     percent_complete: 95,
-    #     call_to_action_text: "Please add your final signature to your tax return",
-    #     button_text: "Add final signature",
-    #     button_url: portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id),
-    #   }
-    # end
   end
 end
