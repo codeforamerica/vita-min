@@ -244,17 +244,17 @@ class User < ApplicationRecord
     update_columns(suspended_at: nil)
   end
 
-  def self.admin_hosted_domain?(email)
-    email_host = email.include?('@') ? email.split("@")[1] : email
-    # should be the same as config.omniauth[:hd]
-    %w(codeforamerica.org getyourrefund.org example.com).include?(email_host)
+  def self.google_login_domain?(email)
+    email = email.downcase
+    email_host = email.include?('@') ? email.split("@")[-1] : email
+    Devise.omniauth_configs[:google_oauth2].options[:hd].include?(email_host)
   end
 
   def self.from_omniauth(access_token)
     return nil unless access_token['provider'] == "google_oauth2"
 
     email = access_token.info['email']
-    return nil unless admin_hosted_domain?(email) && admin_hosted_domain?(access_token.extra.id_info["hd"])
+    return nil unless google_login_domain?(email) && google_login_domain?(access_token.extra.id_info["hd"])
 
     user = User.where(email: email, role_type: "AdminRole", uid: [nil, access_token['uid']]).first
     user.update!(provider: access_token['provider'], uid: access_token['uid']) if user.present? && user.uid.nil?

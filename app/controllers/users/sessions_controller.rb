@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   layout "hub"
-  prepend_before_action :admin_login_must_use_google_auth, except: [:new]
+  prepend_before_action :redirect_if_requires_google_login, except: [:new]
 
   def new
     super do |user|
@@ -20,10 +20,10 @@ class Users::SessionsController < Devise::SessionsController
     super
   end
 
-  def admin_login_must_use_google_auth
+  def redirect_if_requires_google_login
     return unless params['user'].present?
 
-    if User.admin_hosted_domain?(params['user']['email'])
+    if User.google_login_domain?(params['user']['email'])
       flash[:alert] = "You must sign through the admin sign in link below"
       return redirect_to new_user_session_path
     end

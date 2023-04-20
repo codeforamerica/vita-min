@@ -636,6 +636,26 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+  describe ".google_login_domain?" do
+    context "with an @codeforamerica.org email address" do
+      it "returns true" do
+        expect(described_class.google_login_domain?("example@codeforamerica.org")).to eq(true)
+      end
+    end
+
+    context "with a CfA email address capitalized" do
+      it "returns true" do
+        expect(described_class.google_login_domain?("example@codeforAmerica.org")).to eq(true)
+      end
+    end
+
+    context "with a regular old email address" do
+      it "returns false" do
+        expect(described_class.google_login_domain?("example@example.com")).to eq(false)
+      end
+    end
+  end
+
   describe ".from_omniauth" do
     let(:email) { "bettyboop@codeforamerica.org" }
     let!(:user) { create :admin_user, email: email }
