@@ -4,7 +4,7 @@ RSpec.describe "a user editing an organization", :js do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
-      let(:organization) { create :organization, capacity_limit: 100, allows_greeters: false }
+      let(:organization) { create :organization, capacity_limit: 100, allows_greeters: false, state_routing_targets: [build(:state_routing_target, state_abbreviation: "CA")] }
       let!(:org_lead) { create :organization_lead_user, organization: organization }
       let!(:site) { create :site, parent_organization: organization, name: "Child Site" }
       let!(:site_coordinator) { create :site_coordinator_user, site: site, suspended_at: DateTime.now }
