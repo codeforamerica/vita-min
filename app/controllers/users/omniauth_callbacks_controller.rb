@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       flash[:alert] = I18n.t('devise.omniauth_callbacks.failure', kind: kind)
       session['devise.auth_data'] = request.env['omniauth.auth'].except('extra')
-      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+      redirect_to new_user_session_path, alert: @user.errors.full_messages.join("\n")
     end
   end
 end
