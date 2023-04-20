@@ -21,32 +21,51 @@ RSpec.feature "Visit home page" do
   end
 
   context "shows the correct date-dependent banners" do
-    xcontext "when closed for filing" do
-      scenario "shows the closed banner" do; end
+    let(:current_time) { nil }
+
+    around do |example|
+      Timecop.freeze(current_time)
+      example.run
+      Timecop.return
     end
 
-    xcontext "when open for filing and before the tax deadline" do
-      scenario "shows the document deadline banner?" do; end
+    before do
+      allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2023, 1, 31))
+      allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2023, 4, 18))
+      allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2023, 10, 1))
+      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 15))
+    end
+
+    context "when closed for filing" do
+      let(:current_time) { DateTime.new(2023, 10, 2) }
+
+      scenario "shows the closed banner" do
+        visit "/"
+
+        expect(page).to have_text "GetYourRefund will reopen January 31."
+        expect(page.all(:css, '.slab--banner').length).to eq 1
+      end
+    end
+
+    context "when open for filing and before the tax deadline" do
+      let(:current_time) { DateTime.new(2023, 4, 1) }
+
+      scenario "shows the document deadline banner?" do
+        visit "/"
+
+        expect(page).to have_text "Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe. If you aren’t sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
+        expect(page.all(:css, '.slab--banner').length).to eq 1
+      end
     end
 
     context "when open for filing and after the deadline" do
-      around do |example|
-        Timecop.freeze(DateTime.new(2023, 4, 20))
-        example.run
-        Timecop.return
-      end
-
-      before do
-        allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2023, 1, 31))
-        allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2023, 4, 18))
-        allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2023, 10, 1))
-        allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 15))
-      end
+      let(:current_time) { DateTime.new(2023, 4, 20) }
 
       scenario "shows the banner with closing date and document submission deadline" do
         visit "/"
 
         expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in 2023. If your return is in progress, log in and submit your documents by October 8th."
+        expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
