@@ -4,6 +4,7 @@ describe Hub::ZipCodesController do
   let(:admin_user) { create :admin_user }
 
   describe "#create" do
+    render_views
     let(:vita_partner) { create :organization }
     let(:zip_code) { "94121" }
     let(:params) do
@@ -68,6 +69,7 @@ describe Hub::ZipCodesController do
   end
 
   describe "#destroy" do
+    render_views
     let(:vita_partner_zip_code) { create :vita_partner_zip_code, vita_partner: create(:organization), zip_code: "94121" }
     let(:id) { vita_partner_zip_code.id }
     let(:params) do
