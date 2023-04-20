@@ -1619,6 +1619,8 @@ en:
           preparing_your_return: "Your tax team is preparing your tax return."
           add_missing_documents: "Please add missing documents to continue."
           finish_intake: "Please answer remaining tax questions to continue."
+          add_signature_primary: "Please add your final signature to your tax return"
+          add_signature_spouse: "Please add your spouse's final signature to your tax return"
         help_text:
           intake_ready: Your tax team is going to schedule an initial review call with you.
           intake_ready_for_call: Your tax team is going to schedule an initial review call with you.
@@ -1629,6 +1631,7 @@ en:
           file_accepted: "Completed: %{date}"
           intake_incomplete: "You have not finished answering all the tax questions so we cannot start your tax return."
           intake_documents_incomplete: "We need more documents from you to start your tax return."
+          filing: "Your return is being filed."
         action_state:
           answer_questions: Complete all tax questions
           submit_additional_documents: Submit remaining tax documents
@@ -1646,6 +1649,7 @@ en:
           view_documents: "View documents"
           add_missing_documents: "Add missing documents"
           complete_tax_questions: "Complete tax questions"
+          add_final_signature: "Add final signature"
         progress_state:
           answered_questions: Answered initial tax questions
           shared_documents: Shared initial tax documents
@@ -1654,6 +1658,8 @@ en:
             completed_review: Completed review
             final_signature_added: Final signature added for %{year}
             return_prepared: Return prepared
+            review_signature_requested_primary: "We are waiting for a final signature from you."
+            review_signature_requested_spouse: "We are waiting for a final signature from your spouse."
         send_message: Message my tax specialist
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
