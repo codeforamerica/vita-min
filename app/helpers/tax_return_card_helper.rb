@@ -78,14 +78,12 @@ module TaxReturnCardHelper
         help_text: t("portal.portal.home.help_text.review_reviewing"),
         percent_complete: 80,
         button_type: :view_documents,
-        call_to_action_text: t("portal.portal.home.calls_to_action.preparing_your_return")
       }
     elsif [:prep_ready_for_prep, :prep_preparing].include?(state)
       {
         help_text: t("portal.portal.home.help_text.prep_ready_for_prep"),
         percent_complete: 75,
         button_type: :view_documents,
-        call_to_action_text: t("portal.portal.home.calls_to_action.preparing_your_return")
       }
     elsif state == :intake_ready_for_call
       {
