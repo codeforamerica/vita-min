@@ -21,7 +21,7 @@ RSpec.describe Documents::IntroController do
       end
 
       it "returns false" do
-        expect(subject.class.show?(intake)).to eq false
+        expect(described_class.show?(intake)).to eq false
       end
     end
   end
