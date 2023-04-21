@@ -19,14 +19,18 @@ module Hub
     end
 
     def save
-      return false unless valid?
-
       if @is_independent == "yes"
         @coalition_id = nil
       else
         @states = nil
       end
       organization.assign_attributes(attributes_for(:organization))
+
+      unless valid? & organization.valid?
+        organization.errors.each { |error| self.errors.add(error.attribute, error.message) }
+        return false
+      end
+
       UpdateStateRoutingTargetsService.update(organization, (@states || "").split(","))
       organization.save
     end
