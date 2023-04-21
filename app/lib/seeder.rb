@@ -109,6 +109,16 @@ class Seeder
       password: "theforcevita")
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
+    admin_names = YAML.safe_load(File.read(Rails.root.join(".pairs")))["pairs"]
+    admin_emails = YAML.safe_load(File.read(Rails.root.join(".pairs")))["email_addresses"]
+    admin_emails.each do |initials, email_address|
+      admin_user = User.where(email: email_address).first_or_initialize
+      admin_user.update(
+        name: admin_names[initials],
+        password: Devise.friendly_token[0, 20])
+      admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
+    end
+
     admin_user = User.where(email: "admin@example.com").first_or_initialize
     admin_user.update(
       name: "Admin Amdapynurian",

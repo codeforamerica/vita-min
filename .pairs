@@ -2,27 +2,23 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  jh: Jenny Heath
-  td: Tom Dooner
-  dbd: Dimitri DeFigueiredo
   al: Asheesh Laroia
+  dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
-  mq: Maria Quadri
+  ja: Jacky Alcine
+  jh: Jenny Heath
+  nn: Nishi Nelson
+  tc: Tiffany Chang
   tg: Travis Grathwell
   ws: Whitney Schaefer
-  nn: Nishi Nelson
-  ja: Jacky Alcine
-  lk: Lauren Kemperman
 email_addresses:
-  jh: jheath@codeforamerica.org
-  td: tdooner@codeforamerica.org
-  dbd: ddefigueiredo@codeforamerica.org
   al: alaroia@codeforamerica.org
+  dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
-  mq: mquadri@codeforamerica.org
+  ja: jalcine@codeforamerica.org
+  jh: jheath@codeforamerica.org
+  nn: nnelson@codeforamerica.org
+  tc: tchang@codeforamerica.org
   tg: tgrathwell@codeforamerica.org
   ws: wschaefer@codeforamerica.org
-  nn: nnelson@codeforamerica.org
-  ja: jalcine@codeforamerica.org
-  lk: lkemperman@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects
