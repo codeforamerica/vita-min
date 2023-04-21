@@ -73,6 +73,9 @@ es:
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
+    omniauth_callbacks:
+      failure: 'No pudimos autentificar tu cuenta de %{kind} por la siguiente razón: %{reason}.'
+      success: Te autentificaste correctamente con tu cuenta de %{kind}.
   diy:
     continue_to_fsa:
       edit:
