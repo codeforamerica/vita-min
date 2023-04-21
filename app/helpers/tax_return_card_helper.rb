@@ -1,7 +1,6 @@
 module TaxReturnCardHelper
   def tax_return_status_to_fields(tax_return)
     state = tax_return.current_state.to_sym
-    state_index = TaxReturnStateMachine.states.index(tax_return.current_state)
 
     if @ask_for_answers && !@current_step&.include?("/documents")
       {
@@ -40,30 +39,30 @@ module TaxReturnCardHelper
         percent_complete: 95,
         button_type: :view_documents,
       }
-    elsif [:file_needs_review, :file_ready_to_file].include?(state)
-      {
-        help_text: t("portal.portal.home.help_text.filing"),
-        percent_complete: 90,
-        button_type: :view_documents,
-      }
-    elsif state == :review_signature_requested && tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)
+    elsif tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)
       {
         help_text: t("portal.portal.home.progress_state.tax_return.review_signature_requested_primary"),
         percent_complete: 90,
         button_type: :add_signature_primary,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_primary")
       }
-    elsif state == :review_signature_requested && tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)
+    elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)
       {
         help_text: t("portal.portal.home.progress_state.tax_return.review_signature_requested_spouse"),
         percent_complete: 90,
         button_type: :add_signature_spouse,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_spouse")
       }
-    elsif [:intake_needs_doc_help, :intake_info_requested, :prep_info_requested, :review_info_requested].include?(state)
+    elsif [:file_needs_review, :file_ready_to_file].include?(state)
+      {
+        help_text: t("portal.portal.home.help_text.filing"),
+        percent_complete: 90,
+        button_type: :view_documents,
+      }
+    elsif [:intake_greeter_info_requested, :intake_needs_doc_help, :intake_info_requested, :prep_info_requested, :review_info_requested].include?(state)
       {
         help_text: t('portal.portal.home.help_text.info_requested'),
-        percent_complete: {intake_needs_doc_help: 45, intake_info_requested: 45, prep_info_requested: 65, review_info_requested: 85}[state],
+        percent_complete: {intake_greeter_info_requested: 45, intake_needs_doc_help: 45, intake_info_requested: 45, prep_info_requested: 65, review_info_requested: 85}[state],
         button_type: :add_missing_documents,
         call_to_action_text: t('portal.portal.home.calls_to_action.add_missing_documents')
       }

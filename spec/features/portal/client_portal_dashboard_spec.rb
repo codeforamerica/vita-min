@@ -15,13 +15,10 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
 
-      # status
-      expect(page).to have_text "Answered initial tax questions"
-
       within "#tax-year-2019" do
-        expect(page).to have_text "Your tax team is waiting for an initial review with you"
-        expect(page.find('img')['src']).to include 'percent_complete_60'
-        # expect(page).to have_link
+        expect(page).to have_text "Your tax team is going to schedule an initial review call with you."
+        expect(page).to have_text "45% complete"
+        expect(page).to have_link "View documents"
       end
     end
   end
@@ -30,7 +27,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
-             tax_returns: [create(:gyr_tax_return, :intake_in_progress)]
+             tax_returns: [create(:gyr_tax_return, :intake_in_progress, year: 2019)]
     end
 
     before do
@@ -40,11 +37,12 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
-      expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
-      expect(page).to have_link "Message my tax specialist"
 
-      expect(page).not_to have_text "Answered initial tax questions"
-      expect(page).to have_link "Add missing documents"
+      within "#tax-year-2019" do
+        expect(page).to have_text "You have not finished answering all the tax questions so we cannot start your tax return."
+        expect(page).to have_text "10% complete"
+        expect(page).to have_link "Complete tax questions"
+      end
     end
   end
 
@@ -60,11 +58,12 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
-      expect(page).to have_link "Message my tax specialist"
 
-      expect(page).to have_link "Add missing documents"
+      within "#tax-year-2019" do
+        expect(page).to have_text "We need more documents from you to start your tax return."
+        expect(page).to have_text "30% complete"
+        expect(page).to have_link "Add missing documents", href: "/en/documents/overview"
+      end
     end
   end
 
@@ -83,13 +82,10 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
 
-      # status
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "2019 Tax Return"
-
       within "#tax-year-2019" do
-        expect(page).to have_text "Your tax team is waiting for an initial review with you"
+        expect(page).to have_text "Your tax team is going to schedule an initial review call with you."
+        expect(page).to have_text "45% complete"
+        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -97,8 +93,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is tax ready for prep or preparing" do
     let(:client) do
       create :client,
-             intake: (create :intake),
-             tax_returns: [(create :gyr_tax_return, :prep_preparing)]
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :prep_preparing, year: 2019)]
     end
 
     before do
@@ -109,13 +105,10 @@ RSpec.feature "a client on their portal" do
     scenario "waiting for tax team to prepare the return" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_text "Completed review"
+      within "#tax-year-2019" do
         expect(page).to have_text "Your tax team is preparing the return"
+        expect(page).to have_text "75% complete"
+        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -123,8 +116,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is info requested" do
     let(:client) do
       create :client,
-             intake: (create :intake),
-             tax_returns: [(create :gyr_tax_return, :prep_info_requested)]
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :prep_info_requested, year: 2019)]
     end
 
     before do
@@ -135,13 +128,10 @@ RSpec.feature "a client on their portal" do
     scenario "link to submit tax documents" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_text "Completed review"
-        expect(page).to have_text "Submit requested tax documents"
+      within "#tax-year-2019" do
+        expect(page).to have_text "We need more documents from you to start your tax return."
+        expect(page).to have_text "65% complete"
+        expect(page).to have_link "Add missing documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -171,8 +161,8 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is being quality reviewed" do
     let(:client) do
       create :client,
-             intake: (create :intake),
-             tax_returns: [(create :gyr_tax_return, :review_reviewing)]
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :review_reviewing, year: 2019)]
     end
 
     before do
@@ -183,14 +173,10 @@ RSpec.feature "a client on their portal" do
     scenario "waiting on quality review" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_text "Completed review"
-        expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Your tax team is waiting to discuss your final #{MultiTenantService.new(:gyr).current_tax_year} return with you"
+      within "#tax-year-2019" do
+        expect(page).to have_text "Your return is being reviewed"
+        expect(page).to have_text "80% complete"
+        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -198,8 +184,8 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is marked not filing" do
     let(:client) do
       create :client,
-             intake: (create :intake),
-             tax_returns: [(create :gyr_tax_return, :file_not_filing)]
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :file_not_filing, year: 2019)]
     end
 
     before do
@@ -211,15 +197,9 @@ RSpec.feature "a client on their portal" do
     scenario "shows that the client requested not to file" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).not_to have_text "Completed review"
-        expect(page).not_to have_text "Return prepared"
-        expect(page).not_to have_text "Completed quality review"
+      within "#tax-year-2019" do
         expect(page).to have_text "This return is not being filed. Contact your tax preparer with any questions."
+        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -253,8 +233,8 @@ RSpec.feature "a client on their portal" do
   context "when the client needs to review & sign" do
     let(:client) do
       create :client,
-             intake: (create :intake, filing_joint: "yes"),
-             tax_returns: [(create :gyr_tax_return, :review_signature_requested)]
+             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :review_signature_requested, year: 2019)]
     end
 
     before do
@@ -271,16 +251,10 @@ RSpec.feature "a client on their portal" do
     scenario "waiting on review and signature" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_text "Completed review"
-        expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for #{MultiTenantService.new(:gyr).current_tax_year}"
-        expect(page).to have_link "Add final primary taxpayer signature for #{MultiTenantService.new(:gyr).current_tax_year}"
-        expect(page).to have_link "Add final spouse signature for #{MultiTenantService.new(:gyr).current_tax_year}"
+      within "#tax-year-2019" do
+        expect(page).to have_text "We are waiting for a final signature from you."
+        expect(page).to have_text "90% complete"
+        expect(page).to have_link "Add final signature", href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
       end
     end
   end
@@ -288,8 +262,8 @@ RSpec.feature "a client on their portal" do
   context "when the client has finished filing" do
     let(:client) do
       create :client,
-             intake: (create :intake),
-             tax_returns: [(create :gyr_tax_return, :file_efiled, :primary_has_signed)]
+             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :file_efiled, :primary_has_signed, year: 2019)]
     end
 
     before do
@@ -302,113 +276,10 @@ RSpec.feature "a client on their portal" do
     scenario "able to download final tax papers" do
       visit portal_root_path
 
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "Completed review"
-
-
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for #{MultiTenantService.new(:gyr).current_tax_year}"
-        expect(page).to have_text "Final signature added for #{MultiTenantService.new(:gyr).current_tax_year}"
-        expect(page).to have_link("Download final tax papers #{MultiTenantService.new(:gyr).current_tax_year}")
-      end
-    end
-  end
-
-  context "a client with tax returns ready that have actions to take" do
-    let(:client) { create :client, intake: (create :intake, preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "yes") }
-    let(:tax_return2019) { create :tax_return, :ready_to_sign, year: 2019, client: client }
-    let(:tax_return2018) { create :tax_return, :ready_to_file_solo, year: 2018, client: client }
-    before do
-      create :document, display_name: "Another 8879", document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), tax_return: tax_return2019, client: tax_return2019.client
-      create :tax_return, :intake_in_progress, year: 2017, client: client
-      create :document, client: client, uploaded_by: client
-
-      create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return2019, client: tax_return2019.client
-      create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Some final tax document", tax_return: tax_return2018, client: tax_return2018.client
-      create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Another final tax document", tax_return: tax_return2018, client: tax_return2018.client
-      login_as client, scope: :client
-    end
-
-    scenario "viewing their tax return statuses", :js do
-      visit portal_root_path
-      expect(page).to have_text "Welcome back Martha!"
-
-      expect(page).to have_text "2019 Tax Return"
-      expect(page).to have_text "2018 Tax Return"
-      expect(page).to have_text "2017 Tax Return"
-
       within "#tax-year-2019" do
-        expect(page).to have_link "View or download Another 8879"
-        expect(page).to have_link "View or download " + tax_return2019.unsigned_8879s.first.display_name
-
-        expect(page).to have_link "Download final tax papers 2019"
-        expect(page).to have_link "Add final primary taxpayer signature for 2019"
-        expect(page).to have_link "Add final spouse signature for 2019"
-      end
-
-      within "#tax-year-2018" do
-        expect(page).to have_link "View or download signed form 8879"
-        expect(page).to have_link "View or download Some final tax document"
-        expect(page).to have_link "View or download Another final tax document"
-        expect(page).not_to have_link "Add final primary taxpayer signature for 2018"
-      end
-
-      expect(page).to have_link "Add missing documents"
-      expect(page).to have_link "Message my tax specialist"
-    end
-  end
-
-  context "with an ITIN client ready to mail their forms" do
-    let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", need_itin_help: "yes" }
-    let(:client) { create :client, intake: intake }
-    let(:tax_return) { create :gyr_tax_return, :file_mailed, client: client }
-
-    before do
-      create(:document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client)
-      create(:document, document_type: DocumentTypes::FormW7.key, client: client)
-
-      login_as client, scope: :client
-    end
-
-    it "shows where to mail the final tax documents and W7" do
-      visit portal_root_path
-      expect(page).to have_text("Welcome back Martha!")
-      expect(page).to have_text("#{MultiTenantService.new(:gyr).current_tax_year} Tax Return")
-      expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
-      within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: MultiTenantService.new(:gyr).current_tax_year)
-        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
-      end
-    end
-
-    context "when the client was helped by a certifying acceptance agent", js: true do
-      before do
-        create(:document, document_type: DocumentTypes::FormW7Coa.key, client: client)
-
-        login_as create :admin_user
-        visit hub_client_path(id: client.id)
-        within ".client-header" do
-          toggle_slider('client_used_itin_certifying_acceptance_agent')
-        end
-
-        expect(client.reload.intake.used_itin_certifying_acceptance_agent?).to be_truthy
-      end
-
-      it "includes additional instructions" do
-        login_as client, scope: :client
-        visit portal_root_path
-        expect(page).to have_text("Welcome back Martha!")
-        expect(page).to have_text("#{MultiTenantService.new(:gyr).current_tax_year} Tax Return")
-        expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
-        expect(page).to have_text(I18n.t('portal.portal.itin_instructions.caa.in_person'))
-        within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: MultiTenantService.new(:gyr).current_tax_year)
-          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
-          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7_coa')
-        end
+        expect(page).to have_text "Your return is being filed."
+        expect(page).to have_text "95% complete"
+        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end

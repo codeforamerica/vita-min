@@ -27,9 +27,9 @@
     <% elsif tax_return_status_thingy[:button_type] == :complete_intake_documents %>
       <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), @current_step, class: "button spacing-below-0") %>
     <% elsif tax_return_status_thingy[:button_type] == :add_signature_primary %>
-      <%= link_to t("portal.portal.home.document_link.add_final_signature", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% elsif tax_return_status_thingy[:button_type] == :add_signature_spouse %>
-      <%= link_to t("portal.portal.home.document_link.add_final_signature", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% end %>
   <% end %>
 </div>
