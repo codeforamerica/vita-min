@@ -50,26 +50,29 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as a logged in admin user" do
       before { sign_in user }
 
-      context "when saving the form succeeds" do
-        before do
-          allow(form_instance).to receive(:save).and_return(true)
+      context "when validations succeed" do
+        context "when saving the form succeeds" do
+          before do
+            allow(form_instance).to receive(:save).and_return(true)
+          end
+
+          it "redirects to :new" do
+            post :create, params: params
+            expect(response).to redirect_to(hub_organizations_path)
+          end
         end
 
-        it "redirects to :new" do
-          post :create, params: params
-          expect(response).to redirect_to(hub_organizations_path)
-        end
-      end
+        context "when saving the form fails" do
+          before do
+            allow(form_instance).to receive(:save).and_return(false)
+          end
 
-      context "when saving the form fails" do
-        before do
-          allow(form_instance).to receive(:save).and_return(false)
-        end
-
-        it "re-renders the :new page" do
-          post :create, params: params
-          expect(response).to render_template(:new)
-          expect(assigns(:organization_form)).to eq(form_instance)
+          it "re-renders the :new page" do
+            post :create, params: params
+            expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
+            expect(response).to render_template(:new)
+            expect(assigns(:organization_form)).to eq(form_instance)
+          end
         end
       end
     end
@@ -236,7 +239,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
   describe "#update" do
     let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100, allows_greeters: false }
-    let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
       {
@@ -247,16 +249,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           timezone: "America/Chicago",
           capacity_limit: "200",
           allows_greeters: "true",
-          source_parameters_attributes: {
-            "0": {
-              id: source_parameter.id.to_s,
-              _destroy: true,
-              code: "shortlink",
-            },
-            "1": {
-              code: "newshortlink",
-            }
-          }
         }
       }
     end

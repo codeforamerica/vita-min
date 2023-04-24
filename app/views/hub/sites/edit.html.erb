@@ -10,13 +10,13 @@
         <hr/>
 
         <div id="source-params-form">
-          <%= render "hub/source_params/form", form: @source_params_form %>
+          <%= render "hub/source_params/form", form: @source_params_form, record: @site %>
         </div>
 
         <hr/>
         <% if can? :create, VitaPartnerZipCode %>
           <div id="zip-code-routing-form">
-            <%= render "hub/zip_codes/form", form: @routing_form %>
+            <%= render "hub/zip_codes/form", form: @routing_form, record: @site %>
           </div>
         <% end %>
       </div>

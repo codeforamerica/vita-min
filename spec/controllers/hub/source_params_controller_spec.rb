@@ -4,6 +4,7 @@ describe Hub::SourceParamsController do
   let(:admin_user) { create :admin_user }
 
   describe "#create" do
+    render_views
     let(:vita_partner) { create :organization }
     let(:code) { "code" }
     let(:params) do
@@ -57,6 +58,7 @@ describe Hub::SourceParamsController do
   end
 
   describe "#destroy" do
+    render_views
     let(:source_parameter) { create :source_parameter, vita_partner: create(:organization), code: "code" }
     let(:id) { source_parameter.id }
     let(:params) do

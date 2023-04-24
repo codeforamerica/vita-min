@@ -31,6 +31,8 @@ RSpec.describe "create VITA organization hierarchy", :js do
       select "Koala Koalition", from: "Coalition"
       click_on "Save"
 
+      expect(page).to have_text "Changes saved"
+
       # update the organization
       click_on "Origami Organization"
       expect(page).to have_text "0 active clients"

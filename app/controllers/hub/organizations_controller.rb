@@ -31,8 +31,10 @@ module Hub
     def create
       @organization_form = OrganizationForm.new(@organization, organization_form_params)
       if @organization_form.save
+        flash[:notice] = I18n.t("general.changes_saved")
         redirect_to hub_organizations_path
       else
+        flash.now[:alert] = I18n.t("general.error.form_failed")
         render :new
       end
     end
@@ -44,6 +46,8 @@ module Hub
         redirect_to edit_hub_organization_path(id: @organization.id)
       else
         flash.now[:alert] = I18n.t("general.error.form_failed")
+        @routing_form = ZipCodeRoutingForm.new(@organization)
+        @source_params_form = SourceParamsForm.new(@organization)
         render :edit
       end
     end
