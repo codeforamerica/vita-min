@@ -41,7 +41,6 @@ FactoryBot.define do
     sequence(:name) { |n| "Organization #{n}" }
     capacity_limit { 100 }
     type { Organization::TYPE }
-    #  TODO: make the factory record valid?? it has neither coalition nor state routing targets
   end
 
   factory :site, class: 'Site' do

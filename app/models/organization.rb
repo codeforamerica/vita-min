@@ -41,7 +41,6 @@ class Organization < VitaPartner
   validates :name, uniqueness: { scope: [:coalition] }
   has_many :state_routing_targets, as: :target, dependent: :destroy
   validate :no_state_routing_targets_if_in_coalition
-  # TODO: validate that it needs state routing targets if not in coalition?
 
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
