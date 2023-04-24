@@ -17,7 +17,8 @@ module Portal
         end
       end
       @document_count = current_client.documents.where(uploaded_by: current_client).count
-      @tax_returns = show_tax_returns? ? current_client.tax_returns.order(year: :desc) : []
+      @tax_returns = show_tax_returns? ? current_client.tax_returns.order(year: :desc).to_a : []
+      @tax_returns << PseudoTaxReturn.new if @tax_returns.empty?
     end
 
     def current_intake
@@ -25,6 +26,16 @@ module Portal
     end
 
     private
+
+    class PseudoTaxReturn
+      def current_state
+        :intake_in_progress
+      end
+
+      def year
+        MultiTenantService.new(:gyr).current_tax_year
+      end
+    end
 
     # We'll consider a client to have completed onboarding process if they've
     # a) completed_at the intake
