@@ -35,49 +35,25 @@ RSpec.describe Portal::PortalController, type: :controller do
         sign_in client
       end
 
-      context "with onboarding still to do" do
-        let(:client) { create :client, intake: (create :intake, current_step: "/en/questions/additional-info") }
+      let(:client) { create :client, intake: (create :intake) }
 
-        before do
-          create :tax_return, :intake_in_progress, year: 2018, client: client
-          create :tax_return, :intake_in_progress, year: 2019, client: client
-        end
-
-        it "is ok" do
-          get :home
-
-          expect(response).to be_ok
-        end
-
-        it "exposes current_step and tax_returns are empty" do
-          get :home
-
-          expect(assigns(:current_step)).to eq "/en/questions/additional-info"
-          expect(assigns(:tax_returns)).to eq []
-        end
+      before do
+        create :tax_return, :intake_in_progress, year: 2018, client: client
+        create :tax_return, :prep_ready_for_prep, year: 2019, client: client
+        create :gyr_tax_return, :intake_ready_for_call, client: client
       end
 
-      context "post-onboarding" do
-        let(:client) { create :client, intake: (create :intake) }
+      it "is ok" do
+        get :home
 
-        before do
-          create :tax_return, :intake_in_progress, year: 2018, client: client
-          create :tax_return, :prep_ready_for_prep, year: 2019, client: client
-          create :gyr_tax_return, :intake_ready_for_call, client: client
-        end
+        expect(response).to be_ok
+      end
 
-        it "is ok" do
-          get :home
+      it "loads the client tax returns in desc order" do
+        get :home
 
-          expect(response).to be_ok
-        end
-
-        it "loads the client tax returns in desc order" do
-          get :home
-
-          expect(assigns(:tax_returns).map(&:year)).to eq [2022, 2019, 2018]
-          expect(assigns(:current_step)).to eq nil
-        end
+        expect(assigns(:tax_returns).map(&:year)).to eq [2022, 2019, 2018]
+        expect(assigns(:current_step)).to eq nil
       end
     end
   end

@@ -17,7 +17,7 @@ module Portal
         end
       end
       @document_count = current_client.documents.where(uploaded_by: current_client).count
-      @tax_returns = show_tax_returns? ? current_client.tax_returns.order(year: :desc).to_a : []
+      @tax_returns = current_client.tax_returns.order(year: :desc).to_a
       @tax_returns << PseudoTaxReturn.new if @tax_returns.empty?
     end
 
