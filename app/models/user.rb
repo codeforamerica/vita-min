@@ -250,14 +250,14 @@ class User < ApplicationRecord
     Devise.omniauth_configs[:google_oauth2].options[:hd].include?(email_host)
   end
 
-  def self.from_omniauth(access_token)
-    return nil unless access_token['provider'] == "google_oauth2"
+  def self.from_omniauth(auth_hash)
+    return nil unless auth_hash['provider'] == "google_oauth2"
 
-    email = access_token.info['email']
-    return nil unless google_login_domain?(email) && google_login_domain?(access_token.extra.id_info["hd"])
+    email = auth_hash.info['email']
+    return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
-    user = User.where(email: email, role_type: "AdminRole", uid: [nil, access_token['uid']]).first
-    user.update!(provider: access_token['provider'], uid: access_token['uid']) if user.present? && user.uid.nil?
+    user = User.where(email: email, role_type: "AdminRole", uid: [nil, auth_hash['uid']]).first
+    user.update!(provider: auth_hash['provider'], uid: auth_hash['uid']) if user.present? && user.uid.nil?
     user
   end
 

@@ -10,9 +10,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: kind)
       sign_in_and_redirect @user, event: :authentication
     else
-      flash[:alert] = I18n.t('devise.omniauth_callbacks.failure', kind: kind)
+      flash[:alert] = I18n.t('devise.omniauth_callbacks.failure', kind: kind, reason: failure_message)
       session['devise.auth_data'] = request.env['omniauth.auth'].except('extra')
-      redirect_to new_user_session_path, alert: @user.errors.full_messages.join("\n")
+      redirect_to new_user_session_path, alert: I18n.t("controllers.users.omniauth_callbacks_controller.use_form_to_sign_in")
     end
   end
 end

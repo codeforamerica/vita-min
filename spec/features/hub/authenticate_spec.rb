@@ -81,4 +81,31 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # Show our specific custom error message
     expect(page).to have_text("Oops, we're sorry, but something went wrong")
   end
+
+  context "when signing in with Google" do
+    before do
+      create(:admin_user, email: "example@codeforamerica.org")
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.add_mock(
+        :google_oauth2,
+        { uid: '12345', info: { email: "example@codeforamerica.org" }, extra: { id_info: { hd: "codeforamerica.org" } } }
+      )
+    end
+
+    after do
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
+    end
+
+    it "signs the user in", js: true do
+      visit new_user_session_path
+      click_on I18n.t("general.sign_in_admin")
+      expect(page).to have_text("Successfully authenticated from Google account.")
+    end
+  end
+
+  context "when using a non-admin email domain to sign in with Google" do
+    it "rejects the sign-in and tells them to use the form" do
+
+    end
+  end
 end
