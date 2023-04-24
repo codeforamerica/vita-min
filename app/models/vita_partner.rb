@@ -49,8 +49,6 @@ class VitaPartner < ApplicationRecord
     greetable_organizations.or(greetable_sites)
   }
 
-  accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: ->(attributes) { attributes['code'].blank? }
-
   def self.client_support_org
     VitaPartner.find_by!(name: "GYR National Organization")
   end
