@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.feature "a client on their portal" do
-  let(:tax_return) { create(:tax_return, :intake_in_progress, year: 2022) }
+  let(:tax_return) { create(:tax_return, :intake_ready, year: 2022) }
   let(:client) do
     create :client,
-           intake: (create :intake, preferred_name: "Randall", current_step: "/en/documents/overview"),
+           intake: (create :intake, preferred_name: "Randall", completed_at: 10.minutes.ago),
            tax_returns: [tax_return]
   end
 
@@ -17,12 +17,12 @@ RSpec.feature "a client on their portal" do
   scenario "linking to next step" do
     visit portal_root_path
 
-    click_on "Add missing documents"
+    click_on I18n.t('portal.portal.home.document_link.view_documents')
 
     expect(page).to have_content "Here's a list of your documents"
 
     within '#id-docs' do
-      expect(page).to have_content "ID"
+      expect(page).to have_content "Photo ID"
       expect(page).to have_content "picture_id.jpg"
       expect(page).to have_link "add"
     end

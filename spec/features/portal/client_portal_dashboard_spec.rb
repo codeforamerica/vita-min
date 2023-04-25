@@ -26,7 +26,7 @@ RSpec.feature "a client on their portal" do
   context "when a client has not yet completed intake questions" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
+             intake: (create :intake, preferred_name: "Katie", current_step: Questions::AssetSaleLossController.to_path_helper),
              tax_returns: [create(:gyr_tax_return, :intake_in_progress, year: 2019)]
     end
 
@@ -139,7 +139,7 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is greeter info requested" do
     let(:client) do
       create :client,
-             intake: (create :intake, current_step: "/en/questions/asset-loss"),
+             intake: (create :intake, completed_at: 10.minutes.ago),
              tax_returns: [(create :gyr_tax_return, :intake_greeter_info_requested)]
     end
 
@@ -150,11 +150,7 @@ RSpec.feature "a client on their portal" do
 
     scenario "link to submit tax documents" do
       visit portal_root_path
-      expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
-
-      expect(page).to have_text "Shared initial tax documents"
-      expect(page).not_to have_text "Submit remaining tax documents"
-      expect(page).to have_text "Add missing documents"
+      expect(page).to have_text I18n.t("portal.portal.home.calls_to_action.add_missing_documents")
     end
   end
 
@@ -207,7 +203,7 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is on hold" do
     let(:client) do
       create :client,
-             intake: (create :intake, current_step: "/en/questions/asset-loss"),
+             intake: (create :intake, completed_at: 7.minutes.ago),
              tax_returns: [(create :gyr_tax_return, :file_hold)]
     end
 
@@ -220,11 +216,8 @@ RSpec.feature "a client on their portal" do
     scenario "shows that the return is on hold" do
       visit portal_root_path
 
-      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} Tax Return"
+      expect(page).to have_text "#{MultiTenantService.new(:gyr).current_tax_year} return"
       within "#tax-year-#{MultiTenantService.new(:gyr).current_tax_year}" do
-        expect(page).not_to have_text "Completed review"
-        expect(page).not_to have_text "Return prepared"
-        expect(page).not_to have_text "Completed quality review"
         expect(page).to have_text "Your return is on hold. Your tax preparer will reach out with an update."
       end
     end

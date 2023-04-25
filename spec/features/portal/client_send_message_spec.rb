@@ -11,7 +11,7 @@ RSpec.feature "a client can send a message when logged into the portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
-      click_on "Message my tax specialist"
+      click_on I18n.t('portal.upload_documents.index.message_my_tax_team')
       expect(page).to have_selector "h1", text: "Message Koala Company"
       fill_in "What's on your mind?", with: "I have some questions about my tax return."
       click_on "Send message"
