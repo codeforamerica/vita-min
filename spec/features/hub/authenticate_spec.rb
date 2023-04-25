@@ -102,10 +102,4 @@ RSpec.feature "Logging in and out to the volunteer portal" do
       expect(page).to have_text("Successfully authenticated from Google account.")
     end
   end
-
-  context "when using a non-admin email domain to sign in with Google" do
-    it "rejects the sign-in and tells them to use the form" do
-
-    end
-  end
 end
