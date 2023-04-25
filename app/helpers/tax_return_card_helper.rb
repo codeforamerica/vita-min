@@ -18,8 +18,8 @@ module TaxReturnCardHelper
       }
     elsif [:file_hold, :file_fraud_hold].include?(state)
       {
-        help_text: t("portal.portal.home.waiting_state.tax_return.file_hold")
-        # TODO: percentage and CTA based on previous state
+        help_text: t("portal.portal.home.waiting_state.tax_return.file_hold"),
+        button_type: :view_documents
       }
     elsif state == :file_not_filing
       {
