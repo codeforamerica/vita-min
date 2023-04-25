@@ -31,7 +31,10 @@ es:
         spouse_confirms_identity: Confirme que es el contribuyente que figura en la lista para continuar.
         transaction_failed: Error al firmar la declaración de impuestos. Inténtelo de nuevo o póngase en contacto con el servicio de asistencia.
     users:
+      omniauth_callbacks_controller:
+        use_form_to_sign_in: No se puede iniciar sesión a través de Google. Utilice el formulario para iniciar sesión.
       sessions_controller:
+        must_use_admin_sign_in: Use el enlace de inicio de sesión de administrador para continuar.
         new:
           invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
   date:

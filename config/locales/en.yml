@@ -31,11 +31,12 @@ en:
         spouse_confirms_identity: Please confirm that you are the listed taxpayer to continue.
         transaction_failed: Error signing tax return. Try again or contact support.
     users:
+      omniauth_callbacks_controller:
+        use_form_to_sign_in: Unable to sign in via Google. Use the form to sign in.
       sessions_controller:
+        must_use_admin_sign_in: Use the admin sign in link to continue.
         new:
           invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked.
-      omniauth_callbacks_controller:
-        use_form_to_sign_in: "Unable to sign in via Google. Use the form to sign in."
   date:
     formats:
       default: "%-m/%-d/%Y"
