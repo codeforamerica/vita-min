@@ -21,6 +21,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def redirect_if_requires_google_login
+    return unless Rails.configuration.google_login_enabled
     return unless params['user'].present?
 
     if User.google_login_domain?(params['user']['email'])

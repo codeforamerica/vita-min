@@ -251,12 +251,13 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth_hash)
+    return nil unless Rails.configuration.google_login_enabled
     return nil unless auth_hash['provider'] == "google_oauth2"
 
     email = auth_hash.info['email']
     return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
-    user = User.where(email: email, role_type: "AdminRole", uid: [nil, auth_hash['uid']]).first
+    user = User.where(email: email, role_type: "AdminRole", uid: [nil, auth_hash['uid']], suspended_at: nil).first
     user.update!(provider: auth_hash['provider'], uid: auth_hash['uid']) if user.present? && user.uid.nil?
     user
   end

@@ -658,7 +658,8 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
   describe ".from_omniauth" do
     let(:email) { "bettyboop@codeforamerica.org" }
-    let!(:user) { create :admin_user, email: email }
+    let(:suspended_at) { nil }
+    let!(:user) { create :admin_user, email: email, suspended_at: suspended_at }
     let(:provider) { "google_oauth2" }
     let(:access_token){ OmniAuth::AuthHash.new(provider: provider, uid: "12345678901234567890", info: { email: email, name: "Betty Boop" }, extra: {"id_info" => {"hd" => email.split("@")[1]}}) }
 
@@ -715,6 +716,14 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
     context "has a @gmail.com email" do
       let(:email) { "bettyboop@gmail.com" }
+
+      it "returns nil" do
+        expect(User.from_omniauth(access_token)).to eq nil
+      end
+    end
+
+    context "has a suspended email" do
+      let(:suspended_at) { DateTime.now }
 
       it "returns nil" do
         expect(User.from_omniauth(access_token)).to eq nil

@@ -79,6 +79,18 @@ RSpec.describe Users::SessionsController do
 
         expect(flash[:alert]).to eq "You must sign through the admin sign in link below"
       end
+
+      context "when google_login_enabled is configured to false" do
+        before do
+          allow(Rails.configuration).to receive(:google_login_enabled).and_return false
+        end
+
+        it "allows them to sign in with their password" do
+          expect do
+            post :create, params: params
+          end.to change(subject, :current_user).from(nil).to(user)
+        end
+      end
     end
 
     context "user has a getyourrefund.org email" do
