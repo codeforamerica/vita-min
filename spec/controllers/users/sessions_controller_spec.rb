@@ -77,7 +77,7 @@ RSpec.describe Users::SessionsController do
           post :create, params: params
         end.not_to change(subject, :current_user)
 
-        expect(flash[:alert]).to eq "You must sign through the admin sign in link below"
+        expect(flash[:alert]).to eq I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
       end
 
       context "when google_login_enabled is configured to false" do
@@ -101,7 +101,7 @@ RSpec.describe Users::SessionsController do
           post :create, params: params
         end.not_to change(subject, :current_user)
 
-        expect(flash[:alert]).to eq "You must sign through the admin sign in link below"
+        expect(flash[:alert]).to eq I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
       end
     end
 
