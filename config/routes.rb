@@ -58,9 +58,6 @@ Rails.application.routes.draw do
     # hence the redirect actions in public_pages.
     root "public_pages#redirect_locale_home", as: :redirected_root
 
-    # outside of scope because devise callbacks cannot do dynamic routes with locale
-    devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-
     # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
     # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
@@ -350,6 +347,8 @@ Rails.application.routes.draw do
     # Mailgun webhook routes
     post "/incoming_emails", to: "mailgun_webhooks#create_incoming_email", as: :incoming_emails
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
+    # OAuth login callback routes
+    devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
     resources :ajax_mixpanel_events, only: [:create]
 

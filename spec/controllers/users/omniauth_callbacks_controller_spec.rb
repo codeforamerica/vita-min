@@ -12,7 +12,7 @@ RSpec.describe Users::OmniauthCallbacksController do
       it "signs the user in" do
         expect do
           post :google_oauth2
-        end.to change { controller.current_user }.from(nil).to(user)
+        end.to change(controller, :current_user).from(nil).to(user)
       end
     end
 
@@ -22,7 +22,10 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
 
       it "shows the sign-in page with a flash message" do
-
+        expect do
+          post :google_oauth2
+        end.not_to change(controller, :current_user).from(nil)
+        expect(flash[:alert]).to eq I18n.t("controllers.users.omniauth_callbacks_controller.no_such_account_or_use_form")
       end
     end
   end

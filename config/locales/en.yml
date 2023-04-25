@@ -32,7 +32,7 @@ en:
         transaction_failed: Error signing tax return. Try again or contact support.
     users:
       omniauth_callbacks_controller:
-        use_form_to_sign_in: Unable to sign in via Google. Use the form to sign in.
+        no_such_account_or_use_form: No such account could be signed-in via Google login. Try using the login form.
       sessions_controller:
         must_use_admin_sign_in: Use the admin sign in link to continue.
         new:
