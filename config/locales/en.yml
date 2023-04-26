@@ -265,6 +265,7 @@ en:
     client_success: Client success
     coalition: Coalition
     coalition_lead: Coalition lead
+    complete: complete
     confirm: Confirm
     confirm_exit_without_saving: Navigating away from this page will not save your changes. Continue anyway?
     contact_methods:

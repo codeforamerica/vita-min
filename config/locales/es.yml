@@ -265,6 +265,7 @@ es:
     client_success: Éxito del cliente
     coalition: Coalición
     coalition_lead: Líder de coalición
+    complete: completo
     confirm: Confirmar
     confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
     contact_methods:
