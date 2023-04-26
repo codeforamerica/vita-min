@@ -64,6 +64,13 @@ class Document < ApplicationRecord
   scope :active, ->() { where(archived: false) }
   scope :archived, ->() { where(archived: true) }
 
+  after_save do
+    if upload.present? && upload.blob.present? && upload.blob.filename.extension_without_delimiter.downcase == "heic" && !upload.blob.persisted?
+      # Skip AnalyzeJob when initially creating .heic files, since we will analyze them after JPG conversion
+      upload.blob.analyzed = true
+    end
+  end
+
   after_create_commit do
     uploaded_by.is_a?(Client) ? InteractionTrackingService.record_incoming_interaction(client) : InteractionTrackingService.record_internal_interaction(client)
 

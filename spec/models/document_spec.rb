@@ -217,25 +217,34 @@ describe Document do
   end
 
   describe "after_create" do
-    context "when the file extension is .heic" do
-      it "creates a job to convert the file to jpg" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
-        allow(HeicToJpgJob).to receive(:perform_later)
+    include ActiveJob::TestHelper
 
+    context "when the file extension is .heic" do
+      before do
+        allow(HeicToJpgJob).to receive(:perform_later).and_call_original
+      end
+
+      it "creates a job to convert the file to jpg and delays ActiveStorage::AnalyzeJob until then" do
+        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
         document.save!
 
+        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).not_to include("ActiveStorage::AnalyzeJob")
+        perform_enqueued_jobs
         expect(HeicToJpgJob).to have_received(:perform_later).with(document.id)
+
+        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to include("ActiveStorage::AnalyzeJob")
       end
     end
 
     context "when the file extension is not .heic" do
-      it "does not create a job to covert the file to jpg" do
+      it "does not create a job to covert the file to jpg and enqueues ActiveStorage::AnalyzeJob as normal" do
         document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
         allow(HeicToJpgJob).to receive(:perform_later)
 
         document.save!
 
         expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
+        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to include("ActiveStorage::AnalyzeJob")
       end
     end
   end
