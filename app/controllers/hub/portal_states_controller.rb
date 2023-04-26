@@ -12,8 +12,11 @@ module Hub
         PseudoTaxReturn.new(state)
       end
 
+      intake_incomplete_tr_index = @tax_returns.index { |tr| tr.current_state == 'intake_in_progress' }
+      @tax_returns.insert(intake_incomplete_tr_index + 1, PseudoTaxReturn.new('intake_in_progress', current_step: "/documents"))
+
       signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
-      @tax_returns.insert(signature_tr_index + 1, PseudoTaxReturn.new('review_signature_requested', true))
+      @tax_returns.insert(signature_tr_index + 1, PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true))
     end
 
     private
@@ -21,9 +24,10 @@ module Hub
     class PseudoTaxReturn
       attr_reader :current_state
 
-      def initialize(current_state, primary_has_signed = false)
+      def initialize(current_state, primary_has_signed: false, current_step: "/en")
         @current_state = current_state
         @primary_has_signed = primary_has_signed
+        @current_step = current_step
       end
 
       def ready_for_8879_signature?(primary_or_spouse)
@@ -40,13 +44,8 @@ module Hub
         MultiTenantService.new(:gyr).current_tax_year
       end
 
-      def client
-        OpenStruct.new(tax_returns: [self])
-      end
-
       def intake
-        completed_at = @current_state.to_sym == :intake_in_progress ? nil : 1.day.ago
-        OpenStruct.new(completed_at?: completed_at, current_step: '/hello')
+        OpenStruct.new(current_step: @current_step)
       end
 
       def id
