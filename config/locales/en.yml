@@ -1614,9 +1614,6 @@ en:
         your_tax_preparers: your tax preparers
     portal:
       home:
-        action_state:
-          answer_questions: Complete all tax questions
-          submit_additional_documents: Submit remaining tax documents
         calls_to_action:
           add_missing_documents: Please add missing documents to continue.
           add_signature_primary: Please add your final signature to your tax return
@@ -1640,8 +1637,6 @@ en:
           review_ready_for_call: Your tax team is going to schedule a final review call with you.
           review_reviewing: Your return is being reviewed
         progress_state:
-          answered_questions: Answered initial tax questions
-          shared_documents: Shared initial tax documents
           tax_return:
             review_signature_requested_primary: We are waiting for a final signature from you.
             review_signature_requested_spouse: We are waiting for a final signature from your spouse.

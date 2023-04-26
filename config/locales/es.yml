@@ -1596,9 +1596,6 @@ es:
         your_tax_preparers: mi especialista en impuestos
     portal:
       home:
-        action_state:
-          answer_questions: Complete todas las preguntas sobre los impuestos
-          submit_additional_documents: Entregue los documentos de impuestos que quedan
         calls_to_action:
           add_missing_documents: Agregue los documentos que faltan para continuar.
           add_signature_primary: Agregue su firma final a su declaración de impuestos
@@ -1622,8 +1619,6 @@ es:
           review_ready_for_call: Su equipo de impuestos programará una llamada de revisión final con usted.
           review_reviewing: Tu devolución está siendo revisada
         progress_state:
-          answered_questions: Ha respondido a las preguntas sobre impuestos
-          shared_documents: Ha compartido documentos iniciales
           tax_return:
             review_signature_requested_primary: Estamos esperando una firma final de usted.
             review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.

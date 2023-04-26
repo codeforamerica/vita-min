@@ -14,7 +14,6 @@ module Hub
 
       signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
       @tax_returns.insert(signature_tr_index + 1, PseudoTaxReturn.new('review_signature_requested', true))
-
     end
 
     private
