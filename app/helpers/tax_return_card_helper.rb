@@ -1,5 +1,5 @@
 module TaxReturnCardHelper
-  def tax_return_status_to_fields(tax_return)
+  def tax_return_status_to_props(tax_return)
     state = tax_return.current_state.to_sym
 
     client = tax_return.client

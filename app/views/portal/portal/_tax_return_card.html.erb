@@ -1,34 +1,34 @@
-<% tax_return_status_thingy = tax_return_status_to_fields(tax_return) %>
+<% card_props = tax_return_status_to_props(tax_return) %>
 
 <div class="review-box" id="tax-year-<%= tax_return.year %>">
   <div class="grid-flex space-between spacing-below-25">
     <div>
       <h2 class="h3"><%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %></h2>
-      <p class="spacing-below-0"><%= tax_return_status_thingy[:help_text] %></p>
+      <p class="spacing-below-0"><%= card_props[:help_text] %></p>
     </div>
-    <% if tax_return_status_thingy.has_key?(:percent_complete) && tax_return_status_thingy[:percent_complete].present? %>
+    <% if card_props.has_key?(:percent_complete) && card_props[:percent_complete].present? %>
       <div style="flex-shrink: 0;">
-        <%= render "shared/svg/percent_complete_circle", percent: tax_return_status_thingy[:percent_complete] %>
+        <%= render "shared/svg/percent_complete_circle", percent: card_props[:percent_complete] %>
       </div>
     <% end %>
   </div>
-  <% if tax_return_status_thingy[:call_to_action_text].present? %>
+  <% if card_props[:call_to_action_text].present? %>
     <%= render "portal/portal/action_state", link: false do %>
-      <%= tax_return_status_thingy[:call_to_action_text] %>
+      <%= card_props[:call_to_action_text] %>
     <% end %>
   <% end %>
-  <% if tax_return_status_thingy.has_key?(:button_type) && tax_return_status_thingy[:button_type].present? %>
-    <% if tax_return_status_thingy[:button_type] == :view_documents %>
+  <% if card_props.has_key?(:button_type) && card_props[:button_type].present? %>
+    <% if card_props[:button_type] == :view_documents %>
       <%= link_to t("portal.portal.home.document_link.view_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
-    <% elsif tax_return_status_thingy[:button_type] == :add_missing_documents %>
+    <% elsif card_props[:button_type] == :add_missing_documents %>
       <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
-    <% elsif tax_return_status_thingy[:button_type] == :complete_intake %>
-      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), tax_return_status_thingy[:link], class: "button spacing-below-0") %>
-    <% elsif tax_return_status_thingy[:button_type] == :complete_intake_documents %>
-      <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), tax_return_status_thingy[:link], class: "button spacing-below-0") %>
-    <% elsif tax_return_status_thingy[:button_type] == :add_signature_primary %>
+    <% elsif card_props[:button_type] == :complete_intake %>
+      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0") %>
+    <% elsif card_props[:button_type] == :complete_intake_documents %>
+      <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), card_props[:link], class: "button spacing-below-0") %>
+    <% elsif card_props[:button_type] == :add_signature_primary %>
       <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
-    <% elsif tax_return_status_thingy[:button_type] == :add_signature_spouse %>
+    <% elsif card_props[:button_type] == :add_signature_spouse %>
       <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% end %>
   <% end %>
