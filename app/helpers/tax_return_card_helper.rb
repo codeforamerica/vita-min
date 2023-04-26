@@ -2,18 +2,31 @@ module TaxReturnCardHelper
   def tax_return_status_to_fields(tax_return)
     state = tax_return.current_state.to_sym
 
-    if @ask_for_answers && !@current_step&.include?("/documents")
+    client = tax_return.client
+    intake = tax_return.intake
+    ask_for_answers = !intake.completed_at? && client.tax_returns.map(&:current_state).map(&:to_sym).all? { |state| [:intake_in_progress].include?(state) }
+
+    if ask_for_answers
+      current_step = intake.current_step
+      if current_step.in?(Questions::AtCapacityController.all_localized_paths)
+        current_step = Questions::ConsentController.to_path_helper
+      end
+    end
+
+    if ask_for_answers && !current_step&.include?("/documents")
       {
         help_text: t('portal.portal.home.help_text.intake_incomplete'),
         percent_complete: 10,
         button_type: :complete_intake,
+        link: current_step,
         call_to_action_text: t('portal.portal.home.calls_to_action.finish_intake')
       }
-    elsif @ask_for_answers && @current_step&.include?("/documents")
+    elsif ask_for_answers && current_step&.include?("/documents")
       {
         help_text: t('portal.portal.home.help_text.intake_documents_incomplete'),
         percent_complete: 30,
         button_type: :complete_intake_documents,
+        link: current_step,
         call_to_action_text: t('portal.portal.home.calls_to_action.add_missing_documents')
       }
     elsif [:file_hold, :file_fraud_hold].include?(state)
@@ -27,9 +40,8 @@ module TaxReturnCardHelper
         button_type: :view_documents,
       }
     elsif state == :file_accepted
-      transition = tax_return.tax_return_transitions.where(to_state: :file_accepted, most_recent: true).first
       {
-        help_text: t("portal.portal.home.help_text.file_accepted", date: transition.created_at.strftime("%b %-d %Y %l:%M %p")),
+        help_text: t("portal.portal.home.help_text.file_accepted", date: tax_return.time_accepted.strftime("%b %-d %Y %l:%M %p")),
         percent_complete: 100,
         button_type: :view_documents,
       }
@@ -96,6 +108,8 @@ module TaxReturnCardHelper
         percent_complete: 45,
         button_type: :view_documents,
       }
+    else
+      # TODO: present some oopsie message on the frontend
     end
   end
 end

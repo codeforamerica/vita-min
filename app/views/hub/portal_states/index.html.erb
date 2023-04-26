@@ -1,0 +1,17 @@
+<% @main_heading = "GYR client portal states" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h1><%= @main_heading %></h1>
+
+        <% @tax_returns.each_with_index do |tax_return, _index| %>
+          <h2>State: <%= tax_return.current_state %></h2>
+          <%= render "portal/portal/tax_return_card", tax_return: tax_return %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

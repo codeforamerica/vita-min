@@ -227,6 +227,7 @@ Rails.application.routes.draw do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end
         resources :automated_messages, only: [:index]
+        resources :portal_states, only: [:index]
         resources :bulk_message_csvs, only: [:index, :create]
         resources :signup_selections, only: [:index, :create]
         resources :bulk_signup_messages, only: [:new, :create]

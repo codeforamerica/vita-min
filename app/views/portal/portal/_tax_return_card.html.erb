@@ -13,7 +13,7 @@
     <% end %>
   </div>
   <% if tax_return_status_thingy[:call_to_action_text].present? %>
-    <%= render "action_state", link: false do %>
+    <%= render "portal/portal/action_state", link: false do %>
       <%= tax_return_status_thingy[:call_to_action_text] %>
     <% end %>
   <% end %>
@@ -23,9 +23,9 @@
     <% elsif tax_return_status_thingy[:button_type] == :add_missing_documents %>
       <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif tax_return_status_thingy[:button_type] == :complete_intake %>
-      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), @current_step, class: "button spacing-below-0") %>
+      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), tax_return_status_thingy[:link], class: "button spacing-below-0") %>
     <% elsif tax_return_status_thingy[:button_type] == :complete_intake_documents %>
-      <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), @current_step, class: "button spacing-below-0") %>
+      <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), tax_return_status_thingy[:link], class: "button spacing-below-0") %>
     <% elsif tax_return_status_thingy[:button_type] == :add_signature_primary %>
       <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% elsif tax_return_status_thingy[:button_type] == :add_signature_spouse %>

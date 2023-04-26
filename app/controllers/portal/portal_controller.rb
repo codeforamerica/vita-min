@@ -7,18 +7,11 @@ module Portal
     layout "portal"
 
     def home
-      @ask_for_answers = ask_for_answers?
       @itin_filer_ready_to_mail = current_intake.itin_applicant? && current_intake.tax_returns.any? { |tr| tr.current_state == 'file_mailed' }
       @can_submit_additional_documents = !@itin_filer_ready_to_mail
-      if ask_for_answers?
-        @current_step = current_intake.current_step
-        if @current_step.in?(Questions::AtCapacityController.all_localized_paths)
-          @current_step = Questions::ConsentController.to_path_helper
-        end
-      end
       @document_count = current_client.documents.where(uploaded_by: current_client).count
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
-      @tax_returns << PseudoTaxReturn.new if @tax_returns.empty?
+      @tax_returns << PseudoTaxReturn.new(intake: current_intake) if @tax_returns.empty?
     end
 
     def current_intake
@@ -28,6 +21,13 @@ module Portal
     private
 
     class PseudoTaxReturn
+      attr_reader :client, :intake
+
+      def initialize(intake:)
+        @intake = intake
+        @client = intake.client
+      end
+
       def current_state
         :intake_in_progress
       end
@@ -35,22 +35,6 @@ module Portal
       def year
         MultiTenantService.new(:gyr).current_tax_year
       end
-    end
-
-    # We'll consider a client to have completed onboarding process if they've
-    # a) completed_at the intake
-    # b) once any of their tax returns are passed the intake stage
-    # The reason we CANNOT simply rely on completed_at? is because
-    # 1) many times clients "fall off" the intake flow but we complete their taxes anyway.
-    # 2) don't currently (3/22/21) set completed_at on drop-off clients.
-    # Once we've started preparing their taxes, we don't want to prompt them through the intake flow, but instead
-    # show their tax return status information.
-    def show_tax_returns?
-      current_client.intake.completed_at? || current_client.tax_returns.map(&:current_state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
-    end
-
-    def ask_for_answers?
-      !current_client.intake.completed_at? && current_client.tax_returns.map(&:current_state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
     end
 
     def redirect_unless_open_for_logged_in_clients
