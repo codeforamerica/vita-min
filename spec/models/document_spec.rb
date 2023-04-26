@@ -228,7 +228,7 @@ describe Document do
         document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
         document.save!
 
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).not_to include("ActiveStorage::AnalyzeJob")
+        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["HeicToJpgJob"]
         perform_enqueued_jobs
         expect(HeicToJpgJob).to have_received(:perform_later).with(document.id)
 
@@ -244,7 +244,7 @@ describe Document do
         document.save!
 
         expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to include("ActiveStorage::AnalyzeJob")
+        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["ActiveStorage::AnalyzeJob"]
       end
     end
   end
