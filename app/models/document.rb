@@ -64,12 +64,15 @@ class Document < ApplicationRecord
   scope :active, ->() { where(archived: false) }
   scope :archived, ->() { where(archived: true) }
 
+  after_save do
+    # Skip AnalyzeJob when initially creating .heic files, since we will analyze them after JPG conversion
+    upload.blob.analyzed = true if is_heic? && !upload.blob.persisted?
+  end
+
   after_create_commit do
     uploaded_by.is_a?(Client) ? InteractionTrackingService.record_incoming_interaction(client) : InteractionTrackingService.record_internal_interaction(client)
 
-    if upload.filename.extension_without_delimiter.downcase == "heic"
-      HeicToJpgJob.perform_later(id)
-    end
+    HeicToJpgJob.perform_later(id) if is_heic?
   end
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
@@ -81,6 +84,10 @@ class Document < ApplicationRecord
 
   def is_pdf?
     upload&.content_type == "application/pdf"
+  end
+
+  def is_heic?
+    upload&.filename&.extension_without_delimiter&.downcase == "heic"
   end
 
   def document_type_class
