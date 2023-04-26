@@ -31,12 +31,12 @@ module TaxReturnCardHelper
       }
     elsif [:file_hold, :file_fraud_hold].include?(state)
       {
-        help_text: t("portal.portal.home.waiting_state.tax_return.file_hold"),
+        help_text: t("portal.portal.home.help_text.file_hold"),
         button_type: :view_documents
       }
     elsif state == :file_not_filing
       {
-        help_text: t("portal.portal.home.waiting_state.tax_return.file_not_filing"),
+        help_text: t("portal.portal.home.help_text.file_not_filing"),
         button_type: :view_documents,
       }
     elsif state == :file_accepted
@@ -53,14 +53,14 @@ module TaxReturnCardHelper
       }
     elsif tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)
       {
-        help_text: t("portal.portal.home.progress_state.tax_return.review_signature_requested_primary"),
+        help_text: t("portal.portal.home.help_text.review_signature_requested_primary"),
         percent_complete: 90,
         button_type: :add_signature_primary,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_primary")
       }
     elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)
       {
-        help_text: t("portal.portal.home.progress_state.tax_return.review_signature_requested_spouse"),
+        help_text: t("portal.portal.home.help_text.review_signature_requested_spouse"),
         percent_complete: 90,
         button_type: :add_signature_spouse,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_spouse")

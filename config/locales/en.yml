@@ -1627,6 +1627,8 @@ en:
           view_documents: View documents
         help_text:
           file_accepted: 'Completed: %{date}'
+          file_hold: Your return is on hold. Your tax preparer will reach out with an update.
+          file_not_filing: This return is not being filed. Contact your tax preparer with any questions.
           filing: Your return is being filed.
           info_requested: We need more documents from you to start your tax return.
           intake_documents_incomplete: We need more documents from you to start your tax return.
@@ -1636,17 +1638,11 @@ en:
           prep_ready_for_prep: Your tax team is preparing the return
           review_ready_for_call: Your tax team is going to schedule a final review call with you.
           review_reviewing: Your return is being reviewed
-        progress_state:
-          tax_return:
-            review_signature_requested_primary: We are waiting for a final signature from you.
-            review_signature_requested_spouse: We are waiting for a final signature from your spouse.
+          review_signature_requested_primary: We are waiting for a final signature from you.
+          review_signature_requested_spouse: We are waiting for a final signature from your spouse.
         subtitle: 'Here is a snapshot of your taxes:'
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
-        waiting_state:
-          tax_return:
-            file_hold: Your return is on hold. Your tax preparer will reach out with an update.
-            file_not_filing: This return is not being filed. Contact your tax preparer with any questions.
       itin_instructions:
         caa:
           by_mail: By mail

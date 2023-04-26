@@ -1609,6 +1609,8 @@ es:
           view_documents: Ver documentos
         help_text:
           file_accepted: 'Completado: %{date}'
+          file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
+          file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
           filing: Su declaración está siendo presentada.
           info_requested: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
           intake_documents_incomplete: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
@@ -1618,17 +1620,11 @@ es:
           prep_ready_for_prep: Tu equipo fiscal está preparando la declaración
           review_ready_for_call: Su equipo de impuestos programará una llamada de revisión final con usted.
           review_reviewing: Tu devolución está siendo revisada
-        progress_state:
-          tax_return:
-            review_signature_requested_primary: Estamos esperando una firma final de usted.
-            review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
+          review_signature_requested_primary: Estamos esperando una firma final de usted.
+          review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
-        waiting_state:
-          tax_return:
-            file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
-            file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
       itin_instructions:
         caa:
           by_mail: Por correo
