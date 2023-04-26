@@ -1643,16 +1643,6 @@ en:
         subtitle: 'Here is a snapshot of your taxes:'
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
-      itin_instructions:
-        caa:
-          by_mail: By mail
-          download_your_documents: Download your W-7 (COA), W-7, and tax return (1040).
-          find_irs_provider_location: Find your nearest IRS location here
-          in_person: Drop off in person
-          submit_either: 'Submit to the IRS either:'
-        download_your_documents: Download your W-7, tax return, original proof of identity, and original foreign status documents.
-        how_you_can_complete: 'Here’s how you can complete your return:'
-        submit_by_mail: 'Submit to the IRS by mail:'
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.

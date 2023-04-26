@@ -1625,16 +1625,6 @@ es:
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
-      itin_instructions:
-        caa:
-          by_mail: Por correo
-          download_your_documents: Descargue el W-7 (COA), el W-7 y la declaración de impuestos (1040).
-          find_irs_provider_location: Encuentre su Agencia del IRS más cercana aquí
-          in_person: Entregar en persona
-          submit_either: 'Presentar a la Agencia del IRS ya sea:'
-        download_your_documents: Descargue su W-7, la declaración de la impuestos, la prueba original de identidad y los documentos originales de su estatus de extranjero.
-        how_you_can_complete: 'Así es como puede completar su declaración de impuestos:'
-        submit_by_mail: 'Enviar al IRS por correo:'
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
