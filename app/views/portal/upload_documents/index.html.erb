@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
 
-  <%= render "shared/document_overview_list", in_portal: true, add_document_path: portal_upload_documents_path %>
+  <%= render "shared/document_overview_list", in_portal: true, can_add_documents: @can_add_documents %>
 <% end %>
 
 <%= render 'portal/shared/message_my_tax_team' %>

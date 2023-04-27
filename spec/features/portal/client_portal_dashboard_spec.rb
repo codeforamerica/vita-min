@@ -277,6 +277,40 @@ RSpec.feature "a client on their portal" do
     end
   end
 
+  context "when the client's tax returns are all accepted" do
+    let(:client) do
+      create :client,
+             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(create :gyr_tax_return, :file_accepted, :primary_has_signed, year: 2019)]
+    end
+
+    before do
+      create :document, document_type: DocumentTypes::Identity.key, client: client
+      create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: client.tax_returns.first, client: client
+      create :document, document_type: DocumentTypes::FormW7.key, client: client
+      create :document, document_type: DocumentTypes::CompletedForm8879.key, tax_return: client.tax_returns.first, client: client
+      login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+
+    end
+
+    scenario "able to download final tax papers" do
+      visit portal_root_path
+
+      within "#tax-year-2019" do
+        click_link I18n.t('portal.portal.home.document_link.view_final_tax_documents')
+      end
+
+      expect(page).to have_content("2019 Final Tax Document")
+      expect(page).to have_content("Form W-7")
+      expect(page).to have_content("2019 Form 8879 (Signed)")
+      within "#id-docs" do
+        expect(page).not_to have_css('.button') # no 'add' buttons here
+      end
+      expect(page).not_to have_css('#other-docs')
+    end
+  end
+
   context "a CTC client" do
     let(:client) do
       create :client,

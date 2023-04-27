@@ -104,8 +104,8 @@ class TaxReturn < ApplicationRecord
   end
 
   def time_accepted
-    transition = tax_return.tax_return_transitions.where(to_state: :file_accepted, most_recent: true).first
-    return transition.created_at if transition
+    transition = tax_return_transitions.where(to_state: :file_accepted, most_recent: true).first
+    transition&.created_at
   end
 
   def self.service_type_options
