@@ -60,12 +60,33 @@
     height: 70px;
     padding-left: 20px;
 
+    .selected-icon {
+      display: none;
+    }
+    .unselected-icon {
+      display: block;
+    }
+
     &.selected {
       background: transparentize(#F1F3F6, .75);
+
+      .selected-icon {
+        display: block;
+      }
+      .unselected-icon {
+        display: none;
+      }
     }
 
     &:hover {
       background: transparentize(#F1F3F6, .85);
+
+      .selected-icon {
+        display: block;
+      }
+      .unselected-icon {
+        display: none;
+      }
     }
 
     img {
