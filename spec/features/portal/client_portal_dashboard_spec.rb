@@ -18,7 +18,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2019" do
         expect(page).to have_text "Your tax team is going to schedule an initial review call with you."
         expect(page).to have_text "45% complete"
-        expect(page).to have_link "View documents"
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents")
       end
     end
   end
@@ -85,7 +85,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2019" do
         expect(page).to have_text "Your tax team is going to schedule an initial review call with you."
         expect(page).to have_text "45% complete"
-        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents"), href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -108,7 +108,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2019" do
         expect(page).to have_text "Your tax team is preparing the return"
         expect(page).to have_text "75% complete"
-        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents"), href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -172,7 +172,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2019" do
         expect(page).to have_text "Your return is being reviewed"
         expect(page).to have_text "80% complete"
-        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents"), href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -195,7 +195,7 @@ RSpec.feature "a client on their portal" do
 
       within "#tax-year-2019" do
         expect(page).to have_text "This return is not being filed. Contact your tax preparer with any questions."
-        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents"), href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
@@ -272,7 +272,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2019" do
         expect(page).to have_text "Your return is being filed."
         expect(page).to have_text "95% complete"
-        expect(page).to have_link "View documents", href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        expect(page).to have_link I18n.t("portal.portal.home.document_link.view_documents"), href: Portal::UploadDocumentsController.to_path_helper(action: :index)
       end
     end
   end
