@@ -298,12 +298,13 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
 
       within "#tax-year-2019" do
-        click_link I18n.t('portal.portal.home.document_link.view_final_tax_documents')
+        expect(page).to have_link("Download final tax papers 2019")
+        expect(page).to have_link("View or download form W-7")
+        expect(page).to have_link("View or download signed form 8879")
+
+        click_link I18n.t('portal.portal.home.document_link.view_documents')
       end
 
-      expect(page).to have_content("2019 Final Tax Document")
-      expect(page).to have_content("Form W-7")
-      expect(page).to have_content("2019 Form 8879 (Signed)")
       within "#id-docs" do
         expect(page).not_to have_css('.button') # no 'add' buttons here
       end

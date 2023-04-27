@@ -32,6 +32,10 @@ module Portal
       def year
         MultiTenantService.new(:gyr).current_tax_year
       end
+
+      def documents
+        []
+      end
     end
 
     def redirect_unless_open_for_logged_in_clients

@@ -42,7 +42,7 @@ module TaxReturnCardHelper
       {
         help_text: t("portal.portal.home.help_text.file_accepted", date: tax_return.time_accepted.strftime("%b %-d %Y %l:%M %p")),
         percent_complete: 100,
-        button_type: :view_final_tax_documents,
+        button_type: :view_documents,
       }
     elsif [:file_efiled, :file_mailed].include?(state)
       {

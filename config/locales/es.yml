@@ -1606,8 +1606,13 @@ es:
           add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
+          view_document: Ver o descargar el documento %{display_name}
           view_documents: Ver documentos
-          view_final_tax_documents: Descargar formularios de impuestos finales
+          view_final_tax_document: Descargar los documentos de impuestos finales %{year}
+          view_signed_8879: Ver o descargar formulario 8879 firmado
+          view_unsigned_8879: Ver o descargar formulario 8879
+          view_w7: Ver o descargar el formulario W-7
+          view_w7_coa: Ver o descargar el formulario W-7 (COA)
         help_text:
           file_accepted: 'Completado: %{date}'
           file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.

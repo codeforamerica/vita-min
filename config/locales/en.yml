@@ -1624,8 +1624,13 @@ en:
           add_final_signature: Add final signature
           add_missing_documents: Add missing documents
           complete_tax_questions: Complete tax questions
+          view_document: View or download %{display_name}
           view_documents: View documents
-          view_final_tax_documents: Download final tax forms
+          view_final_tax_document: Download final tax papers %{year}
+          view_signed_8879: View or download signed form 8879
+          view_unsigned_8879: View or download form 8879
+          view_w7: View or download form W-7
+          view_w7_coa: View or download form W-7 (COA)
         help_text:
           file_accepted: 'Completed: %{date}'
           file_hold: Your return is on hold. Your tax preparer will reach out with an update.
