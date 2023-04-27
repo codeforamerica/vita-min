@@ -24,10 +24,17 @@ module Hub
     class PseudoTaxReturn
       attr_reader :current_state
 
-      def initialize(current_state, primary_has_signed: false, current_step: "/en")
+      def initialize(current_state, options = {})
         @current_state = current_state
-        @primary_has_signed = primary_has_signed
-        @current_step = current_step
+        @options = options
+        @primary_has_signed = options[:primary_has_signed] || false
+        @current_step = options[:current_step] || "/en"
+      end
+
+      def _description
+        lines = ["State: #{@current_state}"]
+        lines << "options: #{@options.inspect}" if @options.present?
+        lines.join(', ')
       end
 
       def ready_for_8879_signature?(primary_or_spouse)

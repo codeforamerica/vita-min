@@ -8,7 +8,7 @@
         <h1><%= @main_heading %></h1>
 
         <% @tax_returns.each_with_index do |tax_return, _index| %>
-          <h2>State: <%= tax_return.current_state %></h2>
+          <h2><%= tax_return._description %></h2>
           <%= render "portal/portal/tax_return_card", tax_return: tax_return %>
         <% end %>
       </div>

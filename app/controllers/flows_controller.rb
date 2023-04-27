@@ -458,6 +458,7 @@ class FlowsController < ApplicationController
         state: 'CA',
         zip_code: '90210',
         filing_joint: 'no',
+        current_step: Questions::MailingAddressController.to_path_helper
       }
       client = Client.create(
         consented_to_service_at: Time.zone.now,
@@ -467,6 +468,8 @@ class FlowsController < ApplicationController
       unless client.valid?
         return
       end
+
+      client.tax_returns.last.transition_to!(:intake_in_progress)
 
       if type == :married_filing_jointly
         client.intake.update(

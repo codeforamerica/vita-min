@@ -1606,7 +1606,6 @@ es:
           add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
-          view_document: Ver o descargar el documento %{display_name}
           view_documents: Ver documentos
         help_text:
           file_accepted: 'Completado: %{date}'

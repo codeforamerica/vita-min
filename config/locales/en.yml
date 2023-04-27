@@ -1624,7 +1624,6 @@ en:
           add_final_signature: Add final signature
           add_missing_documents: Add missing documents
           complete_tax_questions: Complete tax questions
-          view_document: View or download %{display_name}
           view_documents: View documents
         help_text:
           file_accepted: 'Completed: %{date}'
