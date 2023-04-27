@@ -1607,6 +1607,7 @@ es:
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
           view_documents: Ver documentos
+          view_final_tax_documents: Descargar formularios de impuestos finales
         help_text:
           file_accepted: 'Completado: %{date}'
           file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.

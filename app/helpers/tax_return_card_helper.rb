@@ -42,7 +42,7 @@ module TaxReturnCardHelper
       {
         help_text: t("portal.portal.home.help_text.file_accepted", date: tax_return.time_accepted.strftime("%b %-d %Y %l:%M %p")),
         percent_complete: 100,
-        button_type: :view_documents,
+        button_type: :view_final_tax_documents,
       }
     elsif [:file_efiled, :file_mailed].include?(state)
       {
@@ -107,8 +107,6 @@ module TaxReturnCardHelper
         percent_complete: 45,
         button_type: :view_documents,
       }
-    else
-      # TODO: present some oopsie message on the frontend
     end
   end
 end

@@ -80,10 +80,11 @@
         <%= t("portal.upload_documents.index.final_tax_return") %>
       </h2>
 
-      <% final_tax_documents = documents_by_type[DocumentTypes::FinalTaxDocument.key] %>
+      <% final_tax_document_types = [DocumentTypes::FinalTaxDocument, DocumentTypes::FormW7, DocumentTypes::FormW7Coa, DocumentTypes::CompletedForm8879, DocumentTypes::UnsignedForm8879] %>
+      <% final_tax_documents = final_tax_document_types.map { |klass| documents_by_type[klass.key] }.compact.flatten %>
       <% if final_tax_documents %>
         <ul class="document-overview-list__filenames">
-          <% final_tax_documents.each do |document| %>
+          <% final_tax_documents.select { |document| document.tax_return }.each do |document| %>
             <li>
               <%= link_to "#{document.tax_return.year} #{document.document_type}", portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
             </li>

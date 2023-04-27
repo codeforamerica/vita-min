@@ -1625,6 +1625,7 @@ en:
           add_missing_documents: Add missing documents
           complete_tax_questions: Complete tax questions
           view_documents: View documents
+          view_final_tax_documents: Download final tax forms
         help_text:
           file_accepted: 'Completed: %{date}'
           file_hold: Your return is on hold. Your tax preparer will reach out with an update.
