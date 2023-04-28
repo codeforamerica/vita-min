@@ -9,10 +9,11 @@ RSpec.describe Users::OmniauthCallbacksController do
     end
 
     context "when User.from_omniauth returns a user" do
-      it "signs the user in" do
+      it "signs the user in and shows a success flash message" do
         expect do
           post :google_oauth2
         end.to change(controller, :current_user).from(nil).to(user)
+        expect(flash[:notice]).to eq(I18n.t('devise.omniauth_callbacks.success', kind: "Google"))
       end
     end
 
