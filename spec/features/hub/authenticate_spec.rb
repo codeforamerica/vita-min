@@ -99,7 +99,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     it "signs the user in", js: true do
       visit new_user_session_path
       click_on I18n.t("general.sign_in_admin")
-      expect(page).to have_text("Successfully authenticated from Google account.")
+      expect(page).to have_text(I18n.t('devise.omniauth_callbacks.success', kind: "Google"))
     end
   end
 end
