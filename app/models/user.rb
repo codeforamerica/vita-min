@@ -7,6 +7,8 @@
 #  current_sign_in_ip     :string
 #  email                  :citext           not null
 #  encrypted_password     :string           default(""), not null
+#  external_provider      :string
+#  external_uid           :string
 #  failed_attempts        :integer          default(0), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -19,14 +21,12 @@
 #  locked_at              :datetime
 #  name                   :string
 #  phone_number           :string
-#  provider               :string
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role_type              :string           not null
 #  sign_in_count          :integer          default(0), not null
 #  suspended_at           :datetime
 #  timezone               :string           default("America/New_York"), not null
-#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
@@ -251,14 +251,15 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth_hash)
+    oauth2_provider_name = "google_oauth2"
     return nil unless Rails.configuration.google_login_enabled
-    return nil unless auth_hash['provider'] == "google_oauth2"
+    return nil unless auth_hash['provider'] == oauth2_provider_name
 
     email = auth_hash.info['email']
     return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
-    user = User.where(email: email, role_type: "AdminRole", uid: [nil, auth_hash['uid']], suspended_at: nil).first
-    user.update!(provider: auth_hash['provider'], uid: auth_hash['uid']) if user.present? && user.uid.nil?
+    user = User.where(email: email, role_type: "AdminRole", external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil).first
+    user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.uid.nil?
     user
   end
 

@@ -7,6 +7,8 @@
 #  current_sign_in_ip     :string
 #  email                  :citext           not null
 #  encrypted_password     :string           default(""), not null
+#  external_provider      :string
+#  external_uid           :string
 #  failed_attempts        :integer          default(0), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -19,14 +21,12 @@
 #  locked_at              :datetime
 #  name                   :string
 #  phone_number           :string
-#  provider               :string
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role_type              :string           not null
 #  sign_in_count          :integer          default(0), not null
 #  suspended_at           :datetime
 #  timezone               :string           default("America/New_York"), not null
-#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
@@ -680,14 +680,14 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           it "updates the uid and provider" do
             expect do
               User.from_omniauth(auth_hash)
-            end.to change { user.reload.provider }.from(nil).to(provider)
-                                                  .and change { user.reload.uid }.from(nil).to("12345678901234567890")
+            end.to change { user.reload.external_provider }.from(nil).to(provider)
+                                                           .and change { user.reload.external_uid }.from(nil).to("12345678901234567890")
           end
         end
 
         context "when logging in with Google the next time" do
           context "if the UID is different" do
-            let!(:user) { create :admin_user, email: email, provider: provider, uid: "something_else" }
+            let!(:user) { create :admin_user, email: email, external_provider: provider, uid: "something_else" }
             it "returns nil" do
               expect(User.from_omniauth(auth_hash)).to eq nil
             end
