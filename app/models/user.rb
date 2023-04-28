@@ -259,7 +259,7 @@ class User < ApplicationRecord
     return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
     user = User.where(email: email, role_type: "AdminRole", external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil).first
-    user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.uid.nil?
+    user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.external_uid.nil?
     user
   end
 

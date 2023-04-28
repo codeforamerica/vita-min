@@ -687,7 +687,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
         context "when logging in with Google the next time" do
           context "if the UID is different" do
-            let!(:user) { create :admin_user, email: email, external_provider: provider, uid: "something_else" }
+            let!(:user) { create :admin_user, email: email, external_provider: provider, external_uid: "something_else" }
             it "returns nil" do
               expect(User.from_omniauth(auth_hash)).to eq nil
             end
