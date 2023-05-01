@@ -49,6 +49,7 @@ class Document < ApplicationRecord
   validate :tax_return_present_sometimes
   validate :tax_return_absent_sometimes
   validate :upload_must_have_data
+  validate :upload_must_be_readable, if: -> { document_type == DocumentTypes::UnsignedForm8879.key }
   validate :unsigned_form_8879_file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
@@ -81,6 +82,15 @@ class Document < ApplicationRecord
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
   validates :upload, file_type_allowed: true, if: -> { upload.present? }
+
+  def upload=(value)
+    if value.is_a?(ActionDispatch::Http::UploadedFile)
+      @file_for_validations = value.tempfile
+    elsif value.is_a?(Hash) && value.key?(:io) && (value[:io].is_a?(File) || value[:io].is_a?(Tempfile))
+      @file_for_validations = value[:io]
+    end
+    super(value)
+  end
 
   def is_pdf?
     upload&.content_type == "application/pdf"
@@ -148,6 +158,16 @@ class Document < ApplicationRecord
   def upload_must_have_data
     if upload.attached? && upload.blob.byte_size.zero?
       errors.add(:upload, I18n.t("validators.file_zero_length"))
+    end
+  end
+
+  def upload_must_be_readable
+    if upload.attached? && is_pdf?
+      begin
+        PDF::Reader.new(@file_for_validations)
+      rescue PDF::Reader::MalformedPDFError
+        errors.add(:upload, I18n.t("validators.pdf_file_corrupted"))
+      end
     end
   end
 

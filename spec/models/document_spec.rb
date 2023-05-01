@@ -130,6 +130,14 @@ describe Document do
       end
     end
 
+    context "with a corrupted pdf upload" do
+      let(:document) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "corrupted.pdf") }
+      it "rejects the file as invalid" do
+        expect(document).not_to be_valid
+        expect(document.errors).to include :upload
+      end
+    end
+
     describe "#file_type" do
       let(:client) { create :client }
       let(:tax_return) { build :tax_return, client: client}

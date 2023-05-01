@@ -84,5 +84,21 @@ RSpec.feature "View and edit documents for a client" do
       end
       expect(client.documents.count).to eq original_document_count + 1
     end
+
+    scenario "trying to upload a corrupt document to a client's documents page" do
+      visit hub_client_documents_path(client_id: client.id)
+
+      click_on "Add document"
+
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "files", "corrupted.pdf")
+      fill_in "Display name", with: "A 8879"
+
+      select "Form 8879 (Unsigned)", from: "Document type"
+      select "2017", from: "Tax return"
+
+      click_on "Save"
+
+      expect(page).to have_text("File is corrupt. Please generate a new PDF and try uploading again.")
+    end
   end
 end
