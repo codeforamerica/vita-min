@@ -2,33 +2,35 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
-#  email                  :citext           not null
-#  encrypted_password     :string           default(""), not null
-#  failed_attempts        :integer          default(0), not null
-#  invitation_accepted_at :datetime
-#  invitation_created_at  :datetime
-#  invitation_limit       :integer
-#  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invitations_count      :integer          default(0)
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
-#  locked_at              :datetime
-#  name                   :string
-#  phone_number           :string
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  role_type              :string           not null
-#  sign_in_count          :integer          default(0), not null
-#  suspended_at           :datetime
-#  timezone               :string           default("America/New_York"), not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  invited_by_id          :bigint
-#  role_id                :bigint           not null
+#  id                             :bigint           not null, primary key
+#  current_sign_in_at             :datetime
+#  current_sign_in_ip             :string
+#  email                          :citext           not null
+#  encrypted_password             :string           default(""), not null
+#  failed_attempts                :integer          default(0), not null
+#  high_quality_password_as_of    :datetime
+#  invitation_accepted_at         :datetime
+#  invitation_created_at          :datetime
+#  invitation_limit               :integer
+#  invitation_sent_at             :datetime
+#  invitation_token               :string
+#  invitations_count              :integer          default(0)
+#  last_sign_in_at                :datetime
+#  last_sign_in_ip                :string
+#  locked_at                      :datetime
+#  name                           :string
+#  phone_number                   :string
+#  reset_password_sent_at         :datetime
+#  reset_password_token           :string
+#  role_type                      :string           not null
+#  should_enforce_strong_password :boolean          default(FALSE), not null
+#  sign_in_count                  :integer          default(0), not null
+#  suspended_at                   :datetime
+#  timezone                       :string           default("America/New_York"), not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  invited_by_id                  :bigint
+#  role_id                        :bigint           not null
 #
 # Indexes
 #
@@ -45,7 +47,7 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
+  devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
@@ -55,7 +57,16 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true
+
+  validates_presence_of :email
+  validates_uniqueness_of :email, allow_blank: true, case_sensitive: true, if: :will_save_change_to_email?
+
   validates :email, 'valid_email_2/email': { mx: true }
+  validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
+  validates :password, password_strength: true
+  validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
+  validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
+
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
   has_many :notifications, class_name: "UserNotification"

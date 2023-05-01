@@ -654,6 +654,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.7)
+    zxcvbn-ruby (1.2.0)
 
 PLATFORMS
   ruby
@@ -758,6 +759,7 @@ DEPENDENCIES
   webpacker (~> 5.4.0)
   websocket-extensions (>= 0.1.5)
   will_paginate
+  zxcvbn-ruby
 
 RUBY VERSION
    ruby 3.2.2p53

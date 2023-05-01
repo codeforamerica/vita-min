@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Logging in and out to the volunteer portal" do
-  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword") }
+  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "someotherword88!!") }
 
   scenario "logging in and out" do
     allow(MixpanelService).to receive(:send_event)
@@ -10,7 +10,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     expect(page).to have_text "Sign in"
     fill_in "Email", with: "german@flowers.orange"
-    fill_in "Password", with: "goodPassword"
+    fill_in "Password", with: "someotherword88!!"
     click_on "Sign in"
 
     # Expect to be redirected to dashboard
@@ -63,11 +63,11 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     reset_password_link = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
     visit(reset_password_link)
     expect(page).to have_text "Change your password"
-    fill_in "New password", with: "newPassword"
-    fill_in "Confirm new password", with: "newPassword"
+    fill_in "New password", with: "notQuiteGoodPa55word88!!"
+    fill_in "Confirm new password", with: "notQuiteGoodPa55word88!!"
     click_on "Change my password"
 
-    expect(user.reload.valid_password?("newPassword")).to eq(true)
+    expect(user.reload.valid_password?("notQuiteGoodPa55word88!!")).to eq(true)
   end
 
   scenario "resetting password with old/outdated/invalid link" do
@@ -80,5 +80,43 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     }.not_to change { user.reload.updated_at }
     # Show our specific custom error message
     expect(page).to have_text("Oops, we're sorry, but something went wrong")
+  end
+
+  context "with a non-admin user whose password is low quality" do
+    before do
+      user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure', should_enforce_strong_password: false)
+      user.save(validate: false)
+    end
+
+    it "makes them set a new password" do
+      visit new_user_session_path
+      fill_in "Email", with: user.email
+      fill_in "Password", with: "insecure"
+      click_on "Sign in"
+
+      expect(user.reload.should_enforce_strong_password).to eq(true)
+
+      expect(page).to have_text("Please update your password")
+
+      fill_in "New password", with: "UseAStronger!Password2023"
+      fill_in "Confirm new password", with: "UseAStronger!Password2023"
+      click_on "Update"
+
+      expect(page).to have_text(I18n.t('hub.assigned_clients.index.title'))
+    end
+
+    context "when the user is already signed in" do
+      before do
+        user.assign_attributes(high_quality_password_as_of: nil, password: 'insecure', should_enforce_strong_password: false)
+        user.save(validate: false)
+      end
+
+      scenario "it waits until the next sign-in to trigger strong password flow" do
+        login_as user
+        expect(user.should_enforce_strong_password).to eq(false)
+        visit hub_clients_path
+        expect(page).to have_link(I18n.t("general.add_client"))
+      end
+    end
   end
 end

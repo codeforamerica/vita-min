@@ -30,12 +30,12 @@ RSpec.describe Users::SessionsController do
   end
 
   describe "#create" do
-    let!(:user) { create :user, email: "user@example.com", password: "p455w0rd" }
+    let!(:user) { create :user, email: "user@example.com", password: "vitavitavitavita", should_enforce_strong_password: false }
     let(:params) do
       {
         user: {
           email: "user@example.com",
-          password: "p455w0rd"
+          password: "vitavitavitavita"
         }
       }
     end
@@ -46,6 +46,54 @@ RSpec.describe Users::SessionsController do
       end.to change(subject, :current_user).from(nil).to(user)
 
       expect(response).to redirect_to hub_assigned_clients_path
+    end
+
+    describe "password strength checks" do
+      context "with a non-admin user" do
+        let(:user) { build :organization_lead_user, password: password, should_enforce_strong_password: false, high_quality_password_as_of: nil }
+
+        context "when the password is strong" do
+          let(:password) { "UseAStronger!Password2023" }
+          before { user.save }
+
+          it "signs in the user, starts enforcing password strength, and stores that the password is strong" do
+            freeze_time do
+              post :create, params: { user: { email: user.email, password: user.password } }
+              expect(subject.current_user).to eq(user)
+              user.reload
+              expect(user.high_quality_password_as_of).to eq(DateTime.now)
+              expect(user.should_enforce_strong_password).to eq(true)
+            end
+          end
+        end
+
+        context "when the password is weak" do
+          let(:password) { "password" }
+          before { user.save(validate: false) }
+
+          it "signs in the user, starts enforcing password strength, and does not store that the password is strong" do
+            post :create, params: { user: { email: user.email, password: user.password } }
+            expect(subject.current_user).to eq(user)
+            user.reload
+            expect(user.high_quality_password_as_of).to eq(nil)
+            expect(user.should_enforce_strong_password).to eq(true)
+          end
+        end
+      end
+
+      context "with an admin user" do
+        context "with any password, even a weak one" do
+          let(:user) { create :admin_user, :with_weak_password, should_enforce_strong_password: false }
+
+          it "allows sign-in and does not update password strength columns" do
+            post :create, params: { user: { email: user.email, password: user.password } }
+            expect(subject.current_user).to eq(user)
+            user.reload
+            expect(user.high_quality_password_as_of).to eq(nil)
+            expect(user.should_enforce_strong_password).to eq(false)
+          end
+        end
+      end
     end
 
     context "with 'after_login_path' set in the session" do
@@ -72,13 +120,13 @@ RSpec.describe Users::SessionsController do
   describe "invalid params handling" do
     context "with null bytes that only a robot would send us" do
       let(:params) {
-                     {
-                       user: {
-                         email: "user@example.com",
-                         password: "invalid\0"
-                       }
-                     }
-                   }
+        {
+          user: {
+            email: "user@example.com",
+            password: "invalid\0"
+          }
+        }
+      }
 
       it "responds with HTTP 400" do
         post :create, params: params

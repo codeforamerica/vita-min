@@ -154,6 +154,10 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
+      password:
+        insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
+        not_matching: Las contraseñas proporcionadas no coinciden.
+        too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -1273,6 +1277,10 @@ es:
         title: Usuarios
       profile:
         start_date: Fecha de inicio
+      strong_passwords:
+        edit:
+          body: En un esfuerzo por mantener toda la información del cliente segura y confidencial, no comparta esta contraseña con nadie.
+          title: Por favor actualice su contraseña
       suspend:
         success: La cuenta de %{name} se ha suspendida
       unlock:

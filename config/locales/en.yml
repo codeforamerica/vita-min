@@ -154,6 +154,10 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
+      password:
+        insecure: Add some more uncommon words to improve password strength.
+        not_matching: The password provided does not match.
+        too_short: The password must be a minimum %{count} characters.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -1276,6 +1280,10 @@ en:
         title: Users
       profile:
         start_date: Start date
+      strong_passwords:
+        edit:
+          body: In an effort to keep all client information safe and confidential please do not share this password with anyone.
+          title: Please update your password
       suspend:
         success: Suspended %{name}'s account
       unlock:

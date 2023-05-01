@@ -299,6 +299,9 @@ Rails.application.routes.draw do
         end
         resources :sites, only: [:new, :create, :edit, :update]
         resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
+        scope :users, module: :users do
+          resource :strong_passwords, only: [:edit, :update]
+        end
         resources :users, only: [:index, :edit, :update, :destroy] do
           patch "/unlock", to: "users#unlock", on: :member, as: :unlock
           patch "/suspend", to: "users#suspend", on: :member, as: :suspend
@@ -322,6 +325,7 @@ Rails.application.routes.draw do
         sessions: "users/sessions",
         invitations: "users/invitations"
       }
+
       get "hub/users/invitations" => "invitations#index", as: :invitations
       put "hub/users/invitations/:user_id/resend", to: "invitations#resend_invitation", as: :user_resend_invitation
       ### END Hub Admin routes (Case Management)
