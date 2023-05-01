@@ -8,7 +8,7 @@ module Hub
     before_action :require_sign_in
 
     def index
-      @tax_returns = (TaxReturnStateMachine.states - ['intake_before_consent', 'file_rejected']).map do |state|
+      @tax_returns = (TaxReturnStateMachine.states - ['intake_before_consent']).map do |state|
         PseudoTaxReturn.new(state)
       end
 
@@ -16,7 +16,11 @@ module Hub
       @tax_returns.insert(intake_incomplete_tr_index + 1, PseudoTaxReturn.new('intake_in_progress', current_step: "/documents"))
 
       signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
-      @tax_returns.insert(signature_tr_index + 1, PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true))
+      @tax_returns.insert(
+        signature_tr_index + 1,
+        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: false, unsigned_8879s: true),
+        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true, unsigned_8879s: true)
+      )
     end
 
     private
@@ -27,6 +31,7 @@ module Hub
       def initialize(current_state, options = {})
         @current_state = current_state
         @options = options
+        @unsigned_8879s = options[:unsigned_8879s] || false
         @primary_has_signed = options[:primary_has_signed] || false
         @current_step = options[:current_step] || "/en"
       end
@@ -38,7 +43,7 @@ module Hub
       end
 
       def ready_for_8879_signature?(primary_or_spouse)
-        if @current_state.include?('signature_requested')
+        if @current_state == "review_signature_requested" && @unsigned_8879s
           if primary_or_spouse == TaxReturn::PRIMARY_SIGNATURE
             !@primary_has_signed
           else
@@ -49,6 +54,10 @@ module Hub
 
       def year
         MultiTenantService.new(:gyr).current_tax_year
+      end
+
+      def documents
+        []
       end
 
       def intake

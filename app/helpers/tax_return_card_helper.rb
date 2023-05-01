@@ -33,6 +33,11 @@ module TaxReturnCardHelper
         help_text: t("portal.portal.home.help_text.file_hold"),
         button_type: :view_documents
       }
+    elsif state == :file_rejected
+      {
+        help_text: I18n.t('portal.portal.home.help_text.file_rejected'),
+        button_type: :view_documents
+      }
     elsif state == :file_not_filing
       {
         help_text: t("portal.portal.home.help_text.file_not_filing"),
@@ -63,6 +68,12 @@ module TaxReturnCardHelper
         percent_complete: 90,
         button_type: :add_signature_spouse,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_spouse")
+      }
+    elsif state == :review_signature_requested
+      {
+        help_text: t("portal.portal.home.help_text.prep_ready_for_prep"),
+        percent_complete: 90,
+        button_type: :view_documents,
       }
     elsif [:file_needs_review, :file_ready_to_file].include?(state)
       {

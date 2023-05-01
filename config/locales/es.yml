@@ -1617,6 +1617,7 @@ es:
           file_accepted: 'Completado: %{date}'
           file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
           file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
+          file_rejected: Su devolución ha sido rechazada. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
           filing: Su declaración está siendo presentada.
           info_requested: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
           intake_documents_incomplete: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
