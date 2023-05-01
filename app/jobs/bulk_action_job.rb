@@ -86,7 +86,7 @@ class BulkActionJob < ApplicationJob
     @selection.tax_returns.find_each do |tax_return|
       TaxReturnAssignmentService.new(tax_return: tax_return, assigned_user: @form.assigned_user, assigned_by: user).assign! unless assignment_action == BulkTaxReturnUpdate::KEEP
       unless status_action == BulkTaxReturnUpdate::KEEP
-        tax_return.transition_to!(@form.status)
+        tax_return.transition_to!(@form.status, initiated_by_user_id: user.id)
         SystemNote::StatusChange.generate!(initiated_by: user, tax_return: tax_return)
       end
     end
