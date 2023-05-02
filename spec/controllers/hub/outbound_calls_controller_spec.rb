@@ -97,7 +97,7 @@ describe Hub::OutboundCallsController, type: :controller do
   end
 
   describe "#update" do
-    let(:client) { create :client }
+    let(:client) { create :client, intake: build(:intake) }
     let(:user) { create :admin_user }
     let(:outbound_call) { create :outbound_call, client: client }
     let(:params) { { client_id: client.id, id: outbound_call.id, outbound_call: { note: "I talked to them!"} } }
@@ -127,6 +127,19 @@ describe Hub::OutboundCallsController, type: :controller do
       it "instantiates an outbound call form" do
         get :new, params: params
         expect(assigns(:form)).to be_an_instance_of(Hub::OutboundCallForm)
+      end
+
+      context "client with an intake from past product year" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client, phone_number: "+18324658840")
+        end
+
+        it "redirects to client profile" do
+          get :new, params: params
+
+          expect(response).to redirect_to(hub_client_path(id: client.id))
+        end
       end
     end
   end
