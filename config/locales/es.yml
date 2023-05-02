@@ -4664,8 +4664,6 @@ es:
         information_you_provide: Usted entiende que la información que proporciona en este sitio web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (IRS, por sus siglas en inglés) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga una revisión de calidad antes de presentarla.
         proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
         terms_html: Usted está de acuerdo con los términos de la política de divulgación de información privada de GetYourRefund disponible en %{privacy_link}
-      covid_warning:
-        notice_html: 'Nota: los servicios en persona pueden estar actualmente en espera debido a COVID-19'
       dependents_fields:
         add_dependent: Agregar dependiente
         remove: Eliminado

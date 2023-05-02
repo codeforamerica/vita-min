@@ -4618,8 +4618,6 @@ en:
         information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
         proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
-      covid_warning:
-        notice_html: 'Note: In person services may currently be on hold due to COVID-19'
       dependents_fields:
         add_dependent: Add dependent
         remove: Remove
