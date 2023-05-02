@@ -2,6 +2,8 @@
   <% documents_by_type = @documents.group_by(&:document_type) %>
   <% document_type_keys.each do |type| %>
     <% documents = documents_by_type[type] || [] %>
+    <% next if documents.length == 0 && !can_add_documents %>
+
     <% if type == DocumentTypes::Identity.key %>
       <% documents = DocumentTypes::IDENTITY_TYPES.map { |type| documents_by_type[type.key] || [] }.flatten %>
     <% end %>
@@ -31,10 +33,12 @@
         <% end %>
       </h2>
 
-      <% if in_portal %>
-        <%= link_to t("general.add").downcase, portal_upload_documents_path(document_type: type), class: "button button--inline-action" %>
-      <% else %>
-        <%= link_to t("general.add").downcase, edit_document_path(type), class: "button button--inline-action" %>
+      <% if can_add_documents %>
+        <% if in_portal %>
+          <%= link_to t("general.add").downcase, portal_upload_documents_path(document_type: type), class: "button button--inline-action" %>
+        <% else %>
+          <%= link_to t("general.add").downcase, edit_document_path(type), class: "button button--inline-action" %>
+        <% end %>
       <% end %>
 
       <ul class="document-overview-list__filenames">

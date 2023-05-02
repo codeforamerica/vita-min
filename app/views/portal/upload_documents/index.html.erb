@@ -3,14 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
 
-  <%= render "shared/document_overview_list", in_portal: true, add_document_path: portal_upload_documents_path %>
+  <%= render "shared/document_overview_list", in_portal: true, can_add_documents: @can_add_documents %>
 <% end %>
 
-<% content_for :extra_slabs do %>
-  <section class="slab slab--grey message-section">
-    <div class="grid grid-flex">
-      <%= image_tag "chat-bubble--blue.svg", alt: "", class: "document-overview-list__icon" %>
-      <strong><%= link_to t(".message_my_tax_team"), new_portal_message_path %></strong>
-    </div>
-  </section>
-<% end %>
+<%= render 'portal/shared/message_my_tax_team' %>

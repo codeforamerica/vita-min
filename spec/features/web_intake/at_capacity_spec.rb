@@ -93,7 +93,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       click_on "Continue"
 
       expect(page).to have_text "Welcome back"
-      click_on "Complete all tax questions"
+      click_on I18n.t("portal.portal.home.document_link.complete_tax_questions")
       expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
       click_on I18n.t("views.questions.consent.cta")
       expect(page).to have_content "GetYourRefund's tax preparation partners are currently at capacity."
@@ -120,7 +120,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
         click_on "Continue"
 
         expect(page).to have_text "Welcome back"
-        click_on "Complete all tax questions"
+        click_on I18n.t("portal.portal.home.document_link.complete_tax_questions")
         expect(page).to have_selector("h1", text: I18n.t("views.questions.consent.title"))
       end
     end
@@ -161,7 +161,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       click_on "Continue"
 
       expect(page).to have_text "Welcome back"
-      click_on "Complete all tax questions"
+      click_on I18n.t("portal.portal.home.document_link.complete_tax_questions")
       expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
 
       expect do
