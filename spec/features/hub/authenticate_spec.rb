@@ -131,6 +131,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     end
 
     after do
+      OmniAuth.config.test_mode = false
       OmniAuth.config.mock_auth[:google_oauth2] = nil
     end
 
