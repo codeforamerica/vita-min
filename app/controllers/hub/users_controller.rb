@@ -33,7 +33,7 @@ module Hub
                  end
       end
 
-      @users = @users.page(!params[:page].to_i.zero? ? params[:page] : 1)
+      @users = @users.page(params[:page])
     end
 
     def edit; end
