@@ -349,6 +349,7 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
+        high_quality_password_as_of: nil
       )
     end
 
@@ -357,8 +358,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "Cher Cherimoya",
-            password: "secret password",
-            password_confirmation: "secret password",
+            password: "vitavitavitavita",
+            password_confirmation: "vitavitavitavita",
             invitation_token: raw_invitation_token,
             timezone: "America/Los_Angeles",
           }
@@ -372,6 +373,7 @@ RSpec.describe Users::InvitationsController do
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.timezone).to eq "America/Los_Angeles"
+        expect(invited_user.high_quality_password_as_of).to be_present
         expect(response).to redirect_to hub_user_profile_path
       end
     end
@@ -381,8 +383,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "",
-            password: "secret password",
-            password_confirmation: "secret password",
+            password: "vitavitavitavita",
+            password_confirmation: "vitavitavitavita",
             invitation_token: raw_invitation_token
           }
         }

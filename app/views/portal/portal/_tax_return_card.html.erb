@@ -1,0 +1,44 @@
+<% card_props = tax_return_status_to_props(tax_return) %>
+
+<div class="review-box" id="tax-year-<%= tax_return.year %>">
+  <div class="grid-flex space-between spacing-below-25">
+    <div>
+      <h2 class="h3"><%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %></h2>
+      <p class="spacing-below-0"><%= card_props[:help_text] %></p>
+    </div>
+    <% if card_props.has_key?(:percent_complete) && card_props[:percent_complete].present? %>
+      <div style="flex-shrink: 0;">
+        <%= render "shared/svg/percent_complete_circle", percent: card_props[:percent_complete] %>
+      </div>
+    <% end %>
+  </div>
+  <% if card_props[:call_to_action_text].present? %>
+    <%= render "portal/portal/action_state", link: false do %>
+      <%= card_props[:call_to_action_text] %>
+    <% end %>
+  <% end %>
+
+  <% if tax_return.documents.length > 0 %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_final_tax_document", year: tax_return.year), documents: tax_return.final_tax_documents %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_w7", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7.key) %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_w7_coa", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7Coa.key) %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_signed_8879", year: tax_return.year), documents: tax_return.signed_8879s %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_unsigned_8879", year: tax_return.year), documents: tax_return.unsigned_8879s %>
+  <% end %>
+
+  <% if card_props.has_key?(:button_type) && card_props[:button_type].present? %>
+    <% if card_props[:button_type] == :view_documents %>
+      <%= link_to t("portal.portal.home.document_link.view_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
+    <% elsif card_props[:button_type] == :add_missing_documents %>
+      <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
+    <% elsif card_props[:button_type] == :complete_intake %>
+      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0") %>
+    <% elsif card_props[:button_type] == :complete_intake_documents %>
+      <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), card_props[:link], class: "button spacing-below-0") %>
+    <% elsif card_props[:button_type] == :add_signature_primary %>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
+    <% elsif card_props[:button_type] == :add_signature_spouse %>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
+    <% end %>
+  <% end %>
+</div>

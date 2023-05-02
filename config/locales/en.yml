@@ -157,6 +157,10 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
+      password:
+        insecure: Add some more uncommon words to improve password strength.
+        not_matching: The password provided does not match.
+        too_short: The password must be a minimum %{count} characters.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -229,6 +233,7 @@ en:
     access_denied: You are not authorized to take this action.
     activate_all: Activate All
     active: active
+    add: Add
     add_client: Add client
     address: Address
     admin: Admin
@@ -267,6 +272,7 @@ en:
     client_success: Client success
     coalition: Coalition
     coalition_lead: Coalition lead
+    complete: complete
     confirm: Confirm
     confirm_exit_without_saving: Navigating away from this page will not save your changes. Continue anyway?
     contact_methods:
@@ -311,13 +317,15 @@ en:
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
     document_type: Document type
     document_types:
+      1095-a: Health Insurance
+      1099-r: Retirement Income
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
-      employment: Employment tax documents (W2's, 1099, etc)
-      id: ID
+      employment: Employment Docs
+      id: Photo ID
       ira_statement: IRA Statement
       original_13614-C: Original 13614-C
-      other: Other
+      other: Other Docs
       primary_identification:
         drivers_license: Driver's License (U.S.)
         employer_id: Employer ID
@@ -342,8 +350,8 @@ en:
         ssa_notice: SSA Notice
         ssn: Social Security Card
         w2: Current Year W-2
-      selfie: Selfie
-      ssn_or_itin: SSN or ITIN
+      selfie: Photo Holding ID
+      ssn_or_itin: Tax ID
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
       with_descriptions:
@@ -1277,6 +1285,10 @@ en:
         title: Users
       profile:
         start_date: Start date
+      strong_passwords:
+        edit:
+          body: In an effort to keep all client information safe and confidential please do not share this password with anyone.
+          title: Please update your password
       suspend:
         success: Suspended %{name}'s account
       unlock:
@@ -1615,49 +1627,41 @@ en:
         your_tax_preparers: your tax preparers
     portal:
       home:
-        action_state:
-          answer_questions: Complete all tax questions
-          submit_additional_documents: Submit remaining tax documents
-          tax_return:
-            submit_primary: Add final primary taxpayer signature for %{year}
-            submit_spouse: Add final spouse signature for %{year}
+        calls_to_action:
+          add_missing_documents: Please add missing documents to continue.
+          add_signature_primary: Please add your final signature to your tax return
+          add_signature_spouse: Please add your spouse's final signature to your tax return
+          finish_intake: Please answer remaining tax questions to continue.
         document_link:
+          add_final_signature: Add final signature
+          add_missing_documents: Add missing documents
+          complete_tax_questions: Complete tax questions
           view_document: View or download %{display_name}
+          view_documents: View your uploaded documents
           view_final_tax_document: Download final tax papers %{year}
           view_signed_8879: View or download signed form 8879
           view_unsigned_8879: View or download form 8879
           view_w7: View or download form W-7
           view_w7_coa: View or download form W-7 (COA)
-        progress_state:
-          answered_questions: Answered initial tax questions
-          shared_documents: Shared initial tax documents
-          tax_return:
-            completed_qr: Completed quality review for %{year}
-            completed_review: Completed review
-            final_signature_added: Final signature added for %{year}
-            return_prepared: Return prepared
-        send_message: Message my tax specialist
-        submit_documents: Submit additional documents
-        tax_return_heading: "%{year} Tax Return"
+        help_text:
+          file_accepted: 'Completed: %{date}'
+          file_hold: Your return is on hold. Your tax preparer will reach out with an update.
+          file_not_filing: This return is not being filed. Contact your tax preparer with any questions.
+          file_rejected: Your return has been rejected. Contact your tax preparer with any questions.
+          filing: Your return is being filed.
+          info_requested: We need more documents from you to start your tax return.
+          intake_documents_incomplete: We need more documents from you to start your tax return.
+          intake_incomplete: You have not finished answering all the tax questions so we cannot start your tax return.
+          intake_ready: Your tax team is going to schedule an initial review call with you.
+          intake_ready_for_call: Your tax team is going to schedule an initial review call with you.
+          prep_ready_for_prep: Your tax team is preparing the return.
+          review_ready_for_call: Your tax team is going to schedule a final review call with you.
+          review_reviewing: Your return is being reviewed.
+          review_signature_requested_primary: We are waiting for a final signature from you.
+          review_signature_requested_spouse: We are waiting for a final signature from your spouse.
+        subtitle: 'Here is a snapshot of your taxes:'
+        tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
-        waiting_state:
-          tax_return:
-            file_hold: Your return is on hold. Your tax preparer will reach out with an update.
-            file_not_filing: This return is not being filed. Contact your tax preparer with any questions.
-            info_requested: Submit requested tax documents
-            preparing_return: Your tax team is preparing the return
-            waiting_for_qr: Your tax team is waiting to discuss your final %{year} return with you
-            waiting_for_review: Your tax team is waiting for an initial review with you
-      itin_instructions:
-        caa:
-          by_mail: By mail
-          download_your_documents: Download your W-7 (COA), W-7, and tax return (1040).
-          find_irs_provider_location: Find your nearest IRS location here
-          in_person: Drop off in person
-          submit_either: 'Submit to the IRS either:'
-        download_your_documents: Download your W-7, tax return, original proof of identity, and original foreign status documents.
-        how_you_can_complete: 'Here’s how you can complete your return:'
-        submit_by_mail: 'Submit to the IRS by mail:'
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.
@@ -1699,7 +1703,17 @@ en:
       spouse_authorize_signature:
         efile_identity_spouse: I confirm that I am %{spouse_name}, listed as the spouse of taxpayer %{primary_name} on this %{year} tax document.
     upload_documents:
+      edit:
+        title: Add a document
       error: There was an error uploading your document. Try again.
+      index:
+        final_return_not_started: Final return not started
+        final_tax_return: Final tax return
+        message_my_tax_team: Message my tax team
+        please_add_document: Please add document.
+        please_add_form1095A: Please add Form 1095-A
+        please_add_form1099R: Please add Form 1099-R
+        title: Here's a list of your documents.
       success: Successfully uploaded document!
   public_pages:
     forbidden:
@@ -4608,8 +4622,6 @@ en:
         information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
         proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
-      covid_warning:
-        notice_html: 'Note: In person services may currently be on hold due to COVID-19'
       dependents_fields:
         add_dependent: Add dependent
         remove: Remove
@@ -4617,7 +4629,7 @@ en:
         body_html: "<strong>Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</strong> If you aren’t sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
+        off_season_filing: Get started with GetYourRefund by %{end_of_intake_month} %{end_of_intake_day} if you want to file with us in %{year}. If your return is in progress, log in and submit your documents by %{end_of_docs_month} %{end_of_docs_day}.
       footer:
         ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS with support from the White House and U.S. Department of Treasury.
@@ -4625,6 +4637,8 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+      progress_bar:
+        progress_text: 'Intake progress:'
       service_comparison:
         additional_benefits: Additional benefits
         all_tax_credits: All tax credits

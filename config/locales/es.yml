@@ -157,6 +157,10 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
+      password:
+        insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
+        not_matching: Las contraseñas proporcionadas no coinciden.
+        too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -229,6 +233,7 @@ es:
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
+    add: Agregar
     add_client: Agregar cliente
     address: Dirección
     admin: Admin
@@ -267,6 +272,7 @@ es:
     client_success: Éxito del cliente
     coalition: Coalición
     coalition_lead: Líder de coalición
+    complete: completo
     confirm: Confirmar
     confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
     contact_methods:
@@ -312,13 +318,15 @@ es:
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
     document_types:
+      1095-a: Seguro de salud
+      1099-r: Ingreso de jubilación
       care_provider_statement: Declaración del Proveedor de Cuidados
       email_attachment: Adjunto de correo electrónico
-      employment: Documentos de impuestos de empleo (W2, 1099, etc.)
+      employment: Documentos de empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       original_13614-C: Original 13614-C
-      other: Otro
+      other: Otros documentos
       primary_identification:
         drivers_license: licencia de conducir (EE. UU.)
         employer_id: Identificación del empleador
@@ -343,7 +351,7 @@ es:
         ssa_notice: Aviso SSA
         ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
-      selfie: Selfie
+      selfie: Identificación con foto
       ssn_or_itin: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
@@ -1274,6 +1282,10 @@ es:
         title: Usuarios
       profile:
         start_date: Fecha de inicio
+      strong_passwords:
+        edit:
+          body: En un esfuerzo por mantener toda la información del cliente segura y confidencial, no comparta esta contraseña con nadie.
+          title: Por favor actualice su contraseña
       suspend:
         success: La cuenta de %{name} se ha suspendida
       unlock:
@@ -1597,49 +1609,41 @@ es:
         your_tax_preparers: mi especialista en impuestos
     portal:
       home:
-        action_state:
-          answer_questions: Complete todas las preguntas sobre los impuestos
-          submit_additional_documents: Entregue los documentos de impuestos que quedan
-          tax_return:
-            submit_primary: Añade la firma del contribuyente principal para %{year}
-            submit_spouse: Añade la firma de su cónyuge para %{year}
+        calls_to_action:
+          add_missing_documents: Agregue los documentos que faltan para continuar.
+          add_signature_primary: Agregue su firma final a su declaración de impuestos
+          add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
+          finish_intake: Responda las preguntas fiscales restantes para continuar.
         document_link:
+          add_final_signature: Agregar firma final
+          add_missing_documents: Agregar documentos faltantes
+          complete_tax_questions: Preguntas completas sobre impuestos
           view_document: Ver o descargar el documento %{display_name}
+          view_documents: Ver sus documentos cargados
           view_final_tax_document: Descargar los documentos de impuestos finales %{year}
           view_signed_8879: Ver o descargar formulario 8879 firmado
           view_unsigned_8879: Ver o descargar formulario 8879
           view_w7: Ver o descargar el formulario W-7
           view_w7_coa: Ver o descargar el formulario W-7 (COA)
-        progress_state:
-          answered_questions: Ha respondido a las preguntas sobre impuestos
-          shared_documents: Ha compartido documentos iniciales
-          tax_return:
-            completed_qr: Revisión de calidad completa para el %{year}
-            completed_review: Revisión completada
-            final_signature_added: Firma final agregada para %{year}
-            return_prepared: Declaración de impuestos preparada
-        send_message: Mandar mensaje a mi especialista en impuestos
-        submit_documents: Enviar documentos adicionales
+        help_text:
+          file_accepted: 'Completado: %{date}'
+          file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
+          file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
+          file_rejected: Su devolución ha sido rechazada. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
+          filing: Su declaración está siendo presentada.
+          info_requested: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
+          intake_documents_incomplete: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
+          intake_incomplete: No ha terminado de responder todas las preguntas sobre impuestos, por lo que no podemos comenzar su declaración de impuestos.
+          intake_ready: Su equipo de impuestos programará una llamada de revisión inicial con usted.
+          intake_ready_for_call: Su equipo de impuestos programará una llamada de revisión inicial con usted.
+          prep_ready_for_prep: Tu equipo fiscal está preparando la declaración
+          review_ready_for_call: Su equipo de impuestos programará una llamada de revisión final con usted.
+          review_reviewing: Tu devolución está siendo revisada
+          review_signature_requested_primary: Estamos esperando una firma final de usted.
+          review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
+        subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
-        waiting_state:
-          tax_return:
-            file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
-            file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
-            info_requested: Enviar documentos adicionales
-            preparing_return: Su equipo de impuestos está preparando la declaración
-            waiting_for_qr: Nuestro equipo de impuestos está esperando para hablar sobre su declaración final de %{year} con usted
-            waiting_for_review: Su equipo de impuestos espera una primera revisión con usted
-      itin_instructions:
-        caa:
-          by_mail: Por correo
-          download_your_documents: Descargue el W-7 (COA), el W-7 y la declaración de impuestos (1040).
-          find_irs_provider_location: Encuentre su Agencia del IRS más cercana aquí
-          in_person: Entregar en persona
-          submit_either: 'Presentar a la Agencia del IRS ya sea:'
-        download_your_documents: Descargue su W-7, la declaración de la impuestos, la prueba original de identidad y los documentos originales de su estatus de extranjero.
-        how_you_can_complete: 'Así es como puede completar su declaración de impuestos:'
-        submit_by_mail: 'Enviar al IRS por correo:'
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
@@ -1681,7 +1685,17 @@ es:
       spouse_authorize_signature:
         efile_identity_spouse: Confirmo que soy %{spouse_name}, que figura como cónyuge del contribuyente %{primary_name} en este documento fiscal de %{year}.
     upload_documents:
+      edit:
+        title: Agregar un documento
       error: Hubo un error al cargar su documento. Intentar otra vez.
+      index:
+        final_return_not_started: Retorno final no iniciado
+        final_tax_return: última declaración de impuestos
+        message_my_tax_team: Mensaje a mi equipo de impuestos
+        please_add_document: Por favor agregue documento.
+        please_add_form1095A: Agregue el formulario 1095-A
+        please_add_form1099R: Por favor agregue el Formulario 1099-R
+        title: Aquí hay una lista de sus documentos.
       success: "¡Documento cargado con éxito!"
   public_pages:
     forbidden:
@@ -4654,8 +4668,6 @@ es:
         information_you_provide: Usted entiende que la información que proporciona en este sitio web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (IRS, por sus siglas en inglés) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga una revisión de calidad antes de presentarla.
         proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
         terms_html: Usted está de acuerdo con los términos de la política de divulgación de información privada de GetYourRefund disponible en %{privacy_link}
-      covid_warning:
-        notice_html: 'Nota: los servicios en persona pueden estar actualmente en espera debido a COVID-19'
       dependents_fields:
         add_dependent: Agregar dependiente
         remove: Eliminado
@@ -4663,7 +4675,7 @@ es:
         body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
-        off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
+        off_season_filing: Comience con GetYourRefund antes del %{end_of_intake_day} de %{end_of_intake_month} si desea presentar su declaración con nosotros en %{year}. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del %{end_of_docs_day} de %{end_of_docs_month}.
       footer:
         ctc_service_description_html: GetCTC.org es un servicio sin fines de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.
@@ -4671,6 +4683,8 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      progress_bar:
+        progress_text: 'Progreso de la admisión:'
       service_comparison:
         additional_benefits: Beneficios adicionales
         all_tax_credits: Todos los créditos tributarios

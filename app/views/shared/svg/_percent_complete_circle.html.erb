@@ -1,0 +1,11 @@
+<% background_color = "#DEDEDE" %>
+<% active_color = "#07866C" %>
+<% radius = 40 %>
+<% circumference = 2 * radius * Math::PI %>
+<svg width="94" height="94" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="<%= radius %>" stroke="<%= background_color %>" stroke-width="10" fill="none" />
+  <circle cx="50" cy="50" r="<%= radius %>" stroke="<%= active_color %>" stroke-width="10" fill="none"
+          stroke-linecap="round" stroke-dasharray="<%= (percent / 100.0) * circumference %> 999" transform="rotate(-90, 50, 50)" />
+  <text x="50" y="40" text-anchor="middle" dominant-baseline="central" font-size="16px" font-weight="700"><%= percent %>%</text>
+  <text x="50" y="55" text-anchor="middle" dominant-baseline="central" font-size="13px" font-weight="700"><%= I18n.t('general.complete') %></text>
+</svg>

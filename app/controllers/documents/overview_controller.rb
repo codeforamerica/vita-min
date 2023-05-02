@@ -18,7 +18,7 @@ module Documents
     # plus requested documents if any have been uploaded
     def document_type_keys
       document_types = current_intake.relevant_intake_document_types.map(&:key)
-      include_requested_documents = @documents.where(document_type: "Requested").exists?
+      include_requested_documents = @documents.select { |d| d.document_type == "Requested" }.present?
       document_types += ["Requested"] if include_requested_documents
       document_types
     end

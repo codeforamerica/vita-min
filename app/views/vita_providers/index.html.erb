@@ -24,8 +24,6 @@
 
         <p><%=t("views.vita_providers.index.info") %></p>
 
-        <%= render "shared/covid_warning" %>
-
         <h1 class="h4"><%=t("views.vita_providers.index.search.header") %></h1>
 
         <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>

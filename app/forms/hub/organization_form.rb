@@ -4,7 +4,7 @@ module Hub
 
     attr_accessor :organization
 
-    set_attributes_for :organization, :name, :coalition_id, :accepts_itin_applicants, :timezone, :capacity_limit, :allows_greeters, :source_parameters_attributes
+    set_attributes_for :organization, :name, :coalition_id, :accepts_itin_applicants, :timezone, :capacity_limit, :allows_greeters
     set_attributes_for :state_routing_targets, :states
     set_attributes_for :organization_synthetic_attributes, :is_independent
 
@@ -24,8 +24,13 @@ module Hub
       else
         @states = nil
       end
-      normalize_source_parameters
       organization.assign_attributes(attributes_for(:organization))
+
+      unless valid? & organization.valid?
+        organization.errors.each { |error| self.errors.add(error.attribute, error.message) }
+        return false
+      end
+
       UpdateStateRoutingTargetsService.update(organization, (@states || "").split(","))
       organization.save
     end
@@ -45,10 +50,6 @@ module Hub
           @is_independent == "yes"
         end
       @is_independent = is_independent_boolean ? "yes" : "no"
-    end
-
-    def normalize_source_parameters
-      @source_parameters_attributes = [] if @source_parameters_attributes.nil?
     end
 
     def model_is_independent

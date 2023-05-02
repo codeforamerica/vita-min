@@ -75,11 +75,11 @@ class PublicPagesController < ApplicationController
   def pki_validation
     # Used for Identrust annual EV certificate validation
     website_text =
-      if params[:id] == "9061966"
+      if params[:id] == "12712114"
         if Routes::CtcDomain.new.matches?(request)
-          "/x5oFZbuGU6WSrtiOcZLfE/2H6YeDxv9GkGzv+UavqEB"
+          "SU6riuzymDhyf4fnVYlIwOQY5xTMfFEBiJRkxyhFPq/q"
         else
-          "qrk3dz2AOgRJ35fWGVMQcdtNKIDLGQH+/2Ft8W+VH81q"
+          "HcAU2nj45WzVlLkSs+TTHZENvxm4/7UERjVmaAedtpAi"
         end
       else
         "Unknown PKI validation."

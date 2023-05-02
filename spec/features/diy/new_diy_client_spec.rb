@@ -22,7 +22,14 @@ RSpec.feature "Client wants to file on their own" do
     expect(page).to have_selector("h1", text: I18n.t("diy.continue_to_fsa.edit.title"))
     expect(find_link(I18n.t("general.continue"))[:target]).to eq("_blank")
     expect do
-      click_on I18n.t("general.continue")
+      if Capybara.current_driver == Capybara.javascript_driver
+        taxslayer_window = window_opened_by do
+          click_on I18n.t("general.continue")
+        end
+        taxslayer_window.close
+      else
+        click_on I18n.t("general.continue")
+      end
     end.to have_enqueued_job(SendInternalEmailJob)
 
     perform_enqueued_jobs

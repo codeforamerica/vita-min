@@ -15,7 +15,7 @@ module Hub
 
     def initialize(attrs = {}, **kwargs)
       @user = kwargs[:user]
-      @client = kwargs[:client]
+      @client = Hub::ClientsController::HubClientPresenter.new(kwargs[:client])
 
       self.twilio_phone_number = EnvironmentCredentials.dig(:twilio, :voice_phone_number)
       self.user_phone_number = @user&.phone_number

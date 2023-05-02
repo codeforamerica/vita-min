@@ -7,8 +7,6 @@
 #  current_sign_in_ip     :string
 #  email                  :citext           not null
 #  encrypted_password     :string           default(""), not null
-#  external_provider      :string
-#  external_uid           :string
 #  failed_attempts        :integer          default(0), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -111,6 +109,76 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
           expect(user1).to be_valid
           expect(user2).to be_valid
+        end
+      end
+    end
+
+    context "password validation" do
+      let(:password) { "aConventionallyStrong!Password3" }
+      let(:password_confirmation) { password }
+      let(:role) { GreeterRole.new }
+      let(:user) { build(:user, password: password, password_confirmation: password_confirmation, role: role) }
+
+      context "length" do
+        context "when too short" do
+          let(:password) { "short" }
+
+          it "is not valid" do
+            expect(user).not_to be_valid
+            expect(user.errors[:password]).to include I18n.t("errors.attributes.password.too_short", count: 10)
+          end
+        end
+
+        context "when too long" do
+          let(:password) { "tooShort".ljust(512, "tooLong") }
+
+          it "is not valid" do
+            expect(user).not_to be_valid
+            expect(user.errors[:password]).to include("is too long (maximum is 128 characters)")
+          end
+        end
+
+        context "when just right" do
+          let(:password) { "tooShort".ljust(50, "tooLong") }
+
+          it "is valid" do
+            expect(user).to be_valid
+          end
+        end
+      end
+
+      context "strength" do
+        context "when strong enough" do
+          it "is valid" do
+            expect(user).to be_valid
+          end
+        end
+
+        context "when too weak" do
+          let(:password) { "password" }
+
+          it "is invalid" do
+            expect(user).not_to be_valid
+            expect(user.errors[:password]).to include(I18n.t("errors.attributes.password.insecure"))
+          end
+        end
+      end
+
+      context "confirmation" do
+        context "not matching" do
+          let(:password_confirmation) { "thisCantMatch" }
+
+          it "is not valid" do
+            expect(user).not_to be_valid
+            expect(user.errors[:password_confirmation]).to include(I18n.t("errors.attributes.password.not_matching"))
+          end
+        end
+
+        context "matching" do
+          let(:password_confirmation) { password }
+          it "is valid" do
+            expect(user).to be_valid
+          end
         end
       end
     end

@@ -17,7 +17,18 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @after_login_path = session.delete("after_login_path")
-    super
+
+    super do |user|
+      if !user.admin? && user.high_quality_password_as_of.nil?
+        user.assign_attributes(should_enforce_strong_password: true)
+        if PasswordStrengthValidator.is_strong_enough?(params[:user][:password], user)
+          user.assign_attributes(high_quality_password_as_of: DateTime.now)
+        end
+        user.save
+      end
+
+      user
+    end
   end
 
   def redirect_if_requires_google_login

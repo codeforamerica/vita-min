@@ -1,7 +1,10 @@
 <% content_for :page_title, t("views.questions.welcome.title") %>
 
 <% content_for :notice do %>
-  <% if open_for_gyr_intake? %>
+  <% if show_offseason_filing_banner? %>
+    <%= render 'shared/offseason_filing_banner' %>
+  <% end %>
+  <% if open_for_gyr_intake? && !show_offseason_filing_banner? %>
     <%= render 'shared/document_deadline_warning' %>
   <% end %>
 <% end %>

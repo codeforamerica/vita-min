@@ -1674,6 +1674,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_163622) do
     t.string "external_provider"
     t.string "external_uid"
     t.integer "failed_attempts", default: 0, null: false
+    t.datetime "high_quality_password_as_of"
     t.datetime "invitation_accepted_at", precision: nil
     t.datetime "invitation_created_at", precision: nil
     t.integer "invitation_limit"
@@ -1690,6 +1691,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_163622) do
     t.string "reset_password_token"
     t.bigint "role_id", null: false
     t.string "role_type", null: false
+    t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "suspended_at", precision: nil
     t.string "timezone", default: "America/New_York", null: false

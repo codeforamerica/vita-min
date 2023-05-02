@@ -103,6 +103,11 @@ class TaxReturn < ApplicationRecord
     efile_submissions.count.nonzero?
   end
 
+  def time_accepted
+    transition = tax_return_transitions.where(to_state: :file_accepted, most_recent: true).first
+    transition&.created_at
+  end
+
   def self.service_type_options
     [[I18n.t("general.drop_off"), "drop_off"], [I18n.t("general.online"), "online_intake"]]
   end

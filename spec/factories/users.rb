@@ -7,8 +7,6 @@
 #  current_sign_in_ip     :string
 #  email                  :citext           not null
 #  encrypted_password     :string           default(""), not null
-#  external_provider      :string
-#  external_uid           :string
 #  failed_attempts        :integer          default(0), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -49,8 +47,16 @@ FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "gary.gardengnome#{n}@example.com" }
     sequence(:name) { |n| "Gary Gnome the #{n}th" }
-    password { "userExamplePassword" }
+    password { "$user3xample_Password" }
+    high_quality_password_as_of { DateTime.now }
+    should_enforce_strong_password { true }
     role { build(:greeter_role) }
+
+    trait :with_weak_password do
+      password { "password" }
+      high_quality_password_as_of { nil }
+      to_create { |user| user.save(validate: false) }
+    end
 
     factory :organization_lead_user do
       sequence(:email) { |n| "org.lead#{n}@example.com" }

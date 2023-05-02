@@ -102,10 +102,81 @@ RSpec.describe Hub::OrganizationForm do
         timezone: "America/Juneau",
         capacity_limit: 9001,
         allows_greeters: true,
-        accepts_itin_applicants: true
+        accepts_itin_applicants: true,
+        is_independent: "yes",
+        states: "CA"
       }.merge(extra_params)
     end
     let(:extra_params) { {} }
+
+    context "form is not valid" do
+      let(:params) {
+        {
+          name: "",
+          timezone: "America/Juneau",
+          capacity_limit: 9001,
+          allows_greeters: true,
+          accepts_itin_applicants: true,
+          is_independent: "yes",
+          states: "CA"
+        }
+      }
+
+      it "returns false and skips the rest" do
+        expect {
+          result = subject.save
+          expect(result).to eq false
+        }.not_to change { organization }
+
+        expect(subject.errors.full_messages).to match_array ["Name Can't be blank."]
+      end
+    end
+
+    context "model is not valid" do
+      let(:params) {
+        {
+          name: "New Name",
+          timezone: "America/Juneau",
+          capacity_limit: "-5",
+          allows_greeters: true,
+          accepts_itin_applicants: true,
+          is_independent: "yes",
+          states: "CA"
+        }
+      }
+
+      it "returns false, does not update the model, and puts all errors on the form object" do
+        expect {
+          result = subject.save
+          expect(result).to eq false
+        }.not_to change { organization }
+
+        expect(subject.errors.full_messages).to match_array ["Capacity limit must be greater than or equal to 0"]
+      end
+    end
+
+    context "model and form are not valid" do
+      let(:params) {
+        {
+          name: "",
+          timezone: "America/Juneau",
+          capacity_limit: "-5",
+          allows_greeters: true,
+          accepts_itin_applicants: true,
+          is_independent: "yes",
+          states: "CA"
+        }
+      }
+
+      it "returns false, does not update the model, and puts all errors on the form object" do
+        expect {
+          result = subject.save
+          expect(result).to eq false
+        }.not_to change { organization }
+
+        expect(subject.errors.full_messages).to match_array ["Name Can't be blank.", "Capacity limit must be greater than or equal to 0"]
+      end
+    end
 
     it "saves name, timezone, capacity_limit, allows_greeters" do
       subject.save

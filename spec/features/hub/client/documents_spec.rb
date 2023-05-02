@@ -33,14 +33,14 @@ RSpec.feature "View and edit documents for a client" do
 
       fill_in("Display name", with: "Updated Document Title")
       select("2017", from: "Tax return")
-      select("Selfie", from: "Document type")
+      select("Photo Holding ID", from: "Document type")
 
       click_on "Save"
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "Selfie")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "Photo Holding ID")
       expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
     end
 

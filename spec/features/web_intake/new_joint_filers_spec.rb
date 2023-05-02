@@ -693,5 +693,4 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on "I've shared all my documents"
     end
   end
-
 end

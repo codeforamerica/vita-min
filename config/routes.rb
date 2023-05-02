@@ -168,9 +168,9 @@ Rails.application.routes.draw do
         resources :messages, only: [:new, :create]
         resources :documents, only: [:show]
         resources :upload_documents, only: [:destroy]
+        match 'upload-documents/overview', to: 'upload_documents#index', via: :get, as: :overview_documents
         match 'upload-documents', to: 'upload_documents#edit', via: :get, as: :edit_upload_documents
         match 'upload-documents', to: 'upload_documents#update', via: :put
-        match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
       end
 
       # Hub Admin routes (Case Management)
@@ -227,6 +227,7 @@ Rails.application.routes.draw do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end
         resources :automated_messages, only: [:index]
+        resources :portal_states, only: [:index]
         resources :bulk_message_csvs, only: [:index, :create]
         resources :signup_selections, only: [:index, :create]
         resources :bulk_signup_messages, only: [:new, :create]
@@ -299,6 +300,9 @@ Rails.application.routes.draw do
         end
         resources :sites, only: [:new, :create, :edit, :update]
         resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
+        scope :users, module: :users do
+          resource :strong_passwords, only: [:edit, :update]
+        end
         resources :users, only: [:index, :edit, :update, :destroy] do
           patch "/unlock", to: "users#unlock", on: :member, as: :unlock
           patch "/suspend", to: "users#suspend", on: :member, as: :suspend
@@ -322,6 +326,7 @@ Rails.application.routes.draw do
         sessions: "users/sessions",
         invitations: "users/invitations"
       }
+
       get "hub/users/invitations" => "invitations#index", as: :invitations
       put "hub/users/invitations/:user_id/resend", to: "invitations#resend_invitation", as: :user_resend_invitation
       ### END Hub Admin routes (Case Management)
@@ -499,7 +504,6 @@ Rails.application.routes.draw do
           resources :upload_documents, only: [:destroy]
           match 'upload-documents', to: 'upload_documents#edit', via: :get, as: :edit_upload_documents
           match 'upload-documents', to: 'upload_documents#update', via: :put
-          match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
         end
 
         # Any other top level slash just goes to home as a source parameter

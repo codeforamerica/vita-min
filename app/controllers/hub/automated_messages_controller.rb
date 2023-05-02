@@ -20,7 +20,14 @@ module Hub
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(
           diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname"),
         )
-      }
+      }.transform_values do |message|
+        # Run the ActionMailer preview_interceptors on the message
+        # to convert inline attachment references to data-urls
+        ActionMailer::Base.preview_interceptors.each do |interceptor|
+          interceptor.previewing_email(message)
+        end
+        message
+      end
 
       messages = [
         [AutomatedMessage::SuccessfulSubmissionDropOff, {}],

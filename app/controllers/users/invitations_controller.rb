@@ -68,7 +68,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for accepted invite params, allowing us to add attributes
   def update_resource_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :invitation_token, :timezone)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :invitation_token, :timezone).merge(high_quality_password_as_of: DateTime.now)
   end
 
   # Path after successfully sending an invite

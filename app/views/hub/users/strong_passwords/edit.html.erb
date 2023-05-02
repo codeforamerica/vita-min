@@ -1,0 +1,19 @@
+<div class="slab">
+  <div class="grid__item width-one-half shift-one-fourth">
+    <div class="form-card form-card--compact">
+      <div class="form-card__header">
+        <h1 class="form-card__title"><%= I18n.t("hub.users.strong_passwords.edit.title") %></h1>
+        <p class="text--help"><%= I18n.t("hub.users.strong_passwords.edit.body") %></p>
+      </div>
+      <%= form_for(@user, builder: VitaMinFormBuilder, url: { action: :update }, html: { method: :put }) do |f| %>
+        <div class="form-card__content">
+          <%= f.cfa_input_field(:password, I18n.t('views.passwords.edit.new_password'), type: "password", classes: ['form-width--long', 'password']) %>
+          <%= f.cfa_input_field(:password_confirmation, I18n.t('views.passwords.edit.confirm_new_password'), type: "password", classes: ['form-width--long', 'password']) %>
+          <div class="form-card__footer">
+            <%= f.continue I18n.t("general.update") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

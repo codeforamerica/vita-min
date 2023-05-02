@@ -2,7 +2,11 @@ module AccessControllable
   private
 
   def require_sign_in(redirect_after_login: nil )
-    unless current_user.present?
+    if current_user.present? && !current_user.admin? && current_user.should_enforce_strong_password && current_user.high_quality_password_as_of.nil?
+      redirect_to Hub::Users::StrongPasswordsController.to_path_helper
+    end
+
+    if current_user.nil?
       respond_to do |format|
         format.html do
           session[:after_login_path] = redirect_after_login || request.original_fullpath

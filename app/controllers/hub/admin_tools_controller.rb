@@ -14,6 +14,7 @@ module Hub
         [hub_bulk_message_csvs_path, "Bulk messaging clients CSV upload"],
         [hub_signup_selections_path, "Bulk messaging signups CSV upload"],
         [hub_admin_experiments_path, "Experiments"],
+        [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
       ]
       @deprecated_actions = [
         [hub_fraud_indicators_path, "Fraud Indicators"],

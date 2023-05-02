@@ -38,7 +38,7 @@ RSpec.describe Diy::ContinueToFsaController do
     context "with a diy intake id in the session" do
       context "when they are not part of the experiment" do
         before do
-          allow(DiySupportExperimentService).to receive(:taxslayer_link).with("", false).and_return("https://example.com/redirect_result")
+          allow(DiySupportExperimentService).to receive(:fsa_link).with("", false).and_return("https://example.com/redirect_result")
         end
 
         it "redirects to taxslayer" do
@@ -55,7 +55,7 @@ RSpec.describe Diy::ContinueToFsaController do
             record: diy_intake,
             treatment: support_level_treatment,
           )
-          allow(DiySupportExperimentService).to receive(:taxslayer_link).with(support_level_treatment.to_s, received_1099 == "yes").and_return("https://example.com/redirect_result")
+          allow(DiySupportExperimentService).to receive(:fsa_link).with(support_level_treatment.to_s, received_1099 == "yes").and_return("https://example.com/redirect_result")
         end
 
         let(:received_1099) { false }
