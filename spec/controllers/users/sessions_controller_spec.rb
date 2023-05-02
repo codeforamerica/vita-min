@@ -158,7 +158,7 @@ RSpec.describe Users::SessionsController do
       let(:params) {
         {
           user: {
-            email: "user@example.net",
+            email: "user@example.com",
             password: "invalid\0"
           }
         }
