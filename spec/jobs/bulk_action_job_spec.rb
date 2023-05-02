@@ -389,6 +389,17 @@ describe BulkActionJob do
         expect(bulk_update.user_notification.notifiable.assigned_user).to eq site_coordinator
       end
 
+      it "creates the system note" do
+        described_class.perform_now(
+          task: :change_assignee_and_status,
+          user: team_member,
+          tax_return_selection: tax_return_selection,
+          form_params: params
+        )
+
+        expect(client.reload.system_notes.first.body).to eq "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
+      end
+
       context "when 'Keep current status' is selected" do
         let(:params) do
           {
@@ -397,7 +408,7 @@ describe BulkActionJob do
           }
         end
 
-        it "does not change any tax return status" do
+        it "does not change any tax return status or add a system note" do
           described_class.perform_now(
             task: :change_assignee_and_status,
             user: team_member,
@@ -408,6 +419,7 @@ describe BulkActionJob do
           expect(tax_return_1.current_state).to eq "file_ready_to_file"
           expect(tax_return_2.current_state).to eq "review_signature_requested"
           expect(tax_return_3.current_state).to eq "review_signature_requested"
+          expect(client.reload.system_notes).to be_empty
         end
 
         it "creates a notification" do
