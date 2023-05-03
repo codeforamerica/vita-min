@@ -3350,8 +3350,8 @@ en:
         empty: No documents of this type were uploaded.
         finished: I've shared all my documents
         schedule_appointment: When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
-        title: Great work! Here's a list of what we've collected.
         spouse_doc_needed: Please add documents for you and your spouse.
+        title: Great work! Here's a list of what we've collected.
       selfie_instructions:
         header: Confirm your identity with a photo of yourself holding your ID card
         info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
