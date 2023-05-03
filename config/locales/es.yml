@@ -1802,6 +1802,7 @@ es:
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
+    pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     signature_pin: El PIN debe ser un número de 5 dígitos.
