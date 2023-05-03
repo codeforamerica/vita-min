@@ -162,7 +162,7 @@ class Document < ApplicationRecord
   end
 
   def upload_must_be_readable
-    if upload.attached? && is_pdf?
+    if @file_for_validations.present? && is_pdf?
       begin
         PDF::Reader.new(@file_for_validations)
       rescue PDF::Reader::MalformedPDFError
