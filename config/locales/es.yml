@@ -3342,6 +3342,7 @@ es:
         empty: Este tipo de documento no fue subido.
         finished: He compartido todos mis documentos
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
+        spouse_doc_needed: Por favor agregue documentos para usted y su cónyuge.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
       selfie_instructions:
         header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
