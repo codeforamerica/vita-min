@@ -28,6 +28,27 @@ class Users::InvitationsController < Devise::InvitationsController
     super
   end
 
+  def update
+    if User.google_login_domain?(resource.email)
+      raw_invitation_token = update_resource_params[:invitation_token]
+      self.resource = accept_resource
+      invitation_accepted = resource.errors.empty?
+
+      if invitation_accepted
+        flash[:notice] = [
+          I18n.t('devise.invitations.updated'),
+          I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
+        ].join("\n")
+        redirect_to new_user_session_path
+      else
+        resource.invitation_token = raw_invitation_token
+        render :edit
+      end
+    else
+      super
+    end
+  end
+
   private
 
   def user_already_exists?

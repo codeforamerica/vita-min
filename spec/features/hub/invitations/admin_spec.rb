@@ -3,8 +3,21 @@ require "rails_helper"
 RSpec.feature "Inviting admin users" do
   context "As an admin user" do
     let(:user) { create :admin_user }
+    let(:oauth_uid) { '12345' }
+
     before do
       login_as user
+    end
+
+    around do |example|
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.add_mock(
+        :google_oauth2,
+        { uid: oauth_uid, info: { email: "aileen@codeforamerica.org" }, extra: { id_info: { hd: "codeforamerica.org" } } }
+      )
+      example.run
+      OmniAuth.config.test_mode = false
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
     end
 
     scenario "Inviting, re-sending invites, and accepting invites" do
@@ -19,16 +32,16 @@ RSpec.feature "Inviting admin users" do
       # new invitation page
       expect(page).to have_text "Send a new invitation"
       fill_in "What is their name?", with: "Aileen Artichoke"
-      fill_in "What is their email?", with: "aileen@artichoke.org"
+      fill_in "What is their email?", with: "aileen@codeforamerica.org"
       click_on "Send invitation email"
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to aileen@artichoke.org"
+        expect(page).to have_text "We sent an email invitation to aileen@codeforamerica.org"
       end
       within(".invitations") do
         expect(page).to have_text "Aileen Artichoke"
-        expect(page).to have_text "aileen@artichoke.org"
+        expect(page).to have_text "aileen@codeforamerica.org"
         expect(page).to have_text "Admin"
       end
       invited_user = User.where(invited_by: user).last
@@ -39,7 +52,7 @@ RSpec.feature "Inviting admin users" do
         click_on "Resend invitation"
       end
       within(".flash--notice") do
-        expect(page).to have_text "Invitation re-sent to aileen@artichoke.org"
+        expect(page).to have_text "Invitation re-sent to aileen@codeforamerica.org"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
@@ -59,15 +72,22 @@ RSpec.feature "Inviting admin users" do
       # Sign up page
       visit accept_invite_url
       expect(page).to have_text "Thank you for signing up to help!"
-      expect(page).to have_text "aileen@artichoke.org"
+      expect(page).to have_text "aileen@codeforamerica.org"
       expect(find_field("What is your name?").value).to eq "Aileen Artichoke"
-      fill_in "Please choose a strong password", with: "c0v3rt-c4ul1fl0wer"
-      fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
+      fill_in "What is your name?", with: ""
+      click_on "Get started"
+      expect(page).to have_text "Thank you for signing up to help!"
+      fill_in "What is your name?", with: "Yaileen Yartichoke"
       click_on "Get started"
 
-      expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
-      expect(page).to have_text "Aileen Artichoke"
+      expect(page).to have_text I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
+      expect(page).to have_text I18n.t('devise.invitations.updated')
+
+      click_on I18n.t("general.sign_in_admin")
+
+      expect(page).to have_text "Yaileen Yartichoke"
       expect(page).to have_text "Admin"
+      expect(User.find_by(email: "aileen@codeforamerica.org").external_uid).to eq(oauth_uid)
     end
 
     it "shows errors if the required data was not provided" do
