@@ -119,4 +119,26 @@ RSpec.feature "Logging in and out to the volunteer portal" do
       end
     end
   end
+
+  context "when signing in with Google" do
+    before do
+      create(:admin_user, email: "example@codeforamerica.org")
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.add_mock(
+        :google_oauth2,
+        { uid: '12345', info: { email: "example@codeforamerica.org" }, extra: { id_info: { hd: "codeforamerica.org" } } }
+      )
+    end
+
+    after do
+      OmniAuth.config.test_mode = false
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
+    end
+
+    it "signs the user in", js: true do
+      visit new_user_session_path
+      click_on I18n.t("general.sign_in_admin")
+      expect(page).to have_text(I18n.t('devise.omniauth_callbacks.success', kind: "Google"))
+    end
+  end
 end

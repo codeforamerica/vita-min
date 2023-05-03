@@ -109,6 +109,19 @@ class Seeder
     additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
+    if Rails.configuration.google_login_enabled
+      pairs_file_data = YAML.safe_load(File.read(Rails.root.join(".pairs")))
+      admin_names = pairs_file_data["pairs"]
+      admin_emails = pairs_file_data["email_addresses"]
+      admin_emails.each do |initials, email_address|
+        admin_user = User.where(email: email_address).first_or_initialize
+        admin_user.update(
+          name: admin_names[initials],
+          password: Devise.friendly_token[0, 20])
+        admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
+      end
+    end
+
     admin_user = User.where(email: "admin@example.com").first_or_initialize
     admin_user.update(
       name: "Admin Amdapynurian",

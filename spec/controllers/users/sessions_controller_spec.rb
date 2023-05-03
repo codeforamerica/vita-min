@@ -30,11 +30,12 @@ RSpec.describe Users::SessionsController do
   end
 
   describe "#create" do
-    let!(:user) { create :user, email: "user@example.com", password: "vitavitavitavita", should_enforce_strong_password: false }
+    let(:email) { "user@example.com" }
+    let!(:user) { create :user, email: email, password: "vitavitavitavita", should_enforce_strong_password: false }
     let(:params) do
       {
         user: {
-          email: "user@example.com",
+          email: email,
           password: "vitavitavitavita"
         }
       }
@@ -113,6 +114,42 @@ RSpec.describe Users::SessionsController do
         post :create, params: params
 
         expect { subject.current_user }.to raise_error(UncaughtThrowError)
+      end
+    end
+
+    context "user has a codeforamerica.org email" do
+      let(:email) { "user@codeforamerica.org" }
+
+      it "doesn't log them in and flashes message to use admin sign in" do
+        expect do
+          post :create, params: params
+        end.not_to change(subject, :current_user)
+
+        expect(flash[:alert]).to eq I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
+      end
+
+      context "when google_login_enabled is configured to false" do
+        before do
+          allow(Rails.configuration).to receive(:google_login_enabled).and_return false
+        end
+
+        it "allows them to sign in with their password" do
+          expect do
+            post :create, params: params
+          end.to change(subject, :current_user).from(nil).to(user)
+        end
+      end
+    end
+
+    context "user has a getyourrefund.org email" do
+      let(:email) { "user@getyourrefund.org" }
+
+      it "doesn't log them in and flashes message to use admin sign in" do
+        expect do
+          post :create, params: params
+        end.not_to change(subject, :current_user)
+
+        expect(flash[:alert]).to eq I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
       end
     end
   end

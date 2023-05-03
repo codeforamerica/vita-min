@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_11_160232) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_17_163622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1671,6 +1671,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_11_160232) do
     t.string "current_sign_in_ip"
     t.citext "email", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "external_provider"
+    t.string "external_uid"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "high_quality_password_as_of"
     t.datetime "invitation_accepted_at", precision: nil

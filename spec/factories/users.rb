@@ -7,6 +7,8 @@
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
 #  encrypted_password             :string           default(""), not null
+#  external_provider              :string
+#  external_uid                   :string
 #  failed_attempts                :integer          default(0), not null
 #  high_quality_password_as_of    :datetime
 #  invitation_accepted_at         :datetime

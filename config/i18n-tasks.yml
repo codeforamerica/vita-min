@@ -95,6 +95,7 @@ translation:
 ## Do not consider these keys missing:
 ignore_missing:
   - 'views.public_pages.faq.*'
+  - 'devise.omniauth_callbacks.{failure,success}'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
@@ -105,6 +106,7 @@ ignore_unused:
   - 'errors.*'
   - 'devise.invitations.*'
   - 'devise.failure.*'
+  - 'devise.omniauth_callbacks.*'
   - 'hub.tax_returns.stage.*'
   - 'hub.tax_returns.status.*'
   - 'hub.bank_accounts.*'

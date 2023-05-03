@@ -14,6 +14,11 @@
       <div class="actions">
         <%= f.submit t("general.sign_in"), class: "button button--cta spacing-above-60" %>
       </div>
+      <% if Rails.configuration.google_login_enabled %>
+        <p>
+          <%= link_to t("general.sign_in_admin"), user_google_oauth2_omniauth_authorize_path, method: :post %>
+        </p>
+      <% end %>
     <% end %>
   </div>
 <% end %>

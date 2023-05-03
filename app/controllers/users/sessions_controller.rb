@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   layout "hub"
+  prepend_before_action :redirect_if_requires_google_login, except: [:new]
 
   def new
     super do |user|
@@ -27,6 +28,17 @@ class Users::SessionsController < Devise::SessionsController
       end
 
       user
+    end
+  end
+
+  def redirect_if_requires_google_login
+    return unless Rails.configuration.google_login_enabled
+    email = params.require(:user).permit(:email)[:email]
+    return unless email.present?
+
+    if User.google_login_domain?(email)
+      flash[:alert] = I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
+      redirect_to new_user_session_path
     end
   end
 

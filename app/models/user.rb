@@ -7,6 +7,8 @@
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
 #  encrypted_password             :string           default(""), not null
+#  external_provider              :string
+#  external_uid                   :string
 #  failed_attempts                :integer          default(0), not null
 #  high_quality_password_as_of    :datetime
 #  invitation_accepted_at         :datetime
@@ -47,7 +49,8 @@
 #
 class User < ApplicationRecord
   include PgSearch::Model
-  devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable
+  devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
@@ -249,6 +252,25 @@ class User < ApplicationRecord
 
   def activate!
     update_columns(suspended_at: nil)
+  end
+
+  def self.google_login_domain?(email)
+    email = email.downcase
+    email_host = email.include?('@') ? email.split("@")[-1] : email
+    Devise.omniauth_configs[:google_oauth2].options[:hd].include?(email_host)
+  end
+
+  def self.from_omniauth(auth_hash)
+    oauth2_provider_name = "google_oauth2"
+    return nil unless Rails.configuration.google_login_enabled
+    return nil unless auth_hash['provider'] == oauth2_provider_name
+
+    email = auth_hash.info['email']
+    return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
+
+    user = User.where(email: email, role_type: "AdminRole", external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil).first
+    user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.external_uid.nil?
+    user
   end
 
   private

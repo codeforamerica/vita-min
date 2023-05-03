@@ -7,6 +7,8 @@
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
 #  encrypted_password             :string           default(""), not null
+#  external_provider              :string
+#  external_uid                   :string
 #  failed_attempts                :integer          default(0), not null
 #  high_quality_password_as_of    :datetime
 #  invitation_accepted_at         :datetime
@@ -702,6 +704,101 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       let(:user) { create :organization_lead_user, name: "Patty Persimmon", organization: (create :organization, name: "Some Org") }
       it "is Admin" do
         expect(user.name_with_role_and_entity).to eq "Patty Persimmon (Organization Lead) - Some Org"
+      end
+    end
+  end
+
+  describe ".google_login_domain?" do
+    context "with an @codeforamerica.org email address" do
+      it "returns true" do
+        expect(described_class.google_login_domain?("example@codeforamerica.org")).to eq(true)
+      end
+    end
+
+    context "with a CfA email address capitalized" do
+      it "returns true" do
+        expect(described_class.google_login_domain?("example@codeforAmerica.org")).to eq(true)
+      end
+    end
+
+    context "with a regular old email address" do
+      it "returns false" do
+        expect(described_class.google_login_domain?("example@example.com")).to eq(false)
+      end
+    end
+  end
+
+  describe ".from_omniauth" do
+    let(:email) { "bettyboop@codeforamerica.org" }
+    let(:suspended_at) { nil }
+    let!(:user) { create :admin_user, email: email, suspended_at: suspended_at }
+    let(:provider) { "google_oauth2" }
+    let(:auth_hash) { OmniAuth::AuthHash.new(provider: provider, uid: "12345678901234567890", info: { email: email, name: "Betty Boop" }, extra: { "id_info" => { "hd" => email.split("@")[1] } }) }
+
+    context "has a @codeforamerica.org email" do
+      context "has an admin account" do
+        it "returns a user" do
+          expect(User.from_omniauth(auth_hash)).to eq user
+        end
+
+        context "when the login comes from a non-Google provider" do
+          let(:provider) { "wrong_provider" }
+          it "returns nil" do
+            expect(User.from_omniauth(auth_hash)).to eq nil
+          end
+        end
+
+        context "when the user is logging in for the first time" do
+          it "updates the uid and provider" do
+            expect do
+              User.from_omniauth(auth_hash)
+            end.to change { user.reload.external_provider }.from(nil).to(provider)
+                                                           .and change { user.reload.external_uid }.from(nil).to("12345678901234567890")
+          end
+        end
+
+        context "when logging in with Google the next time" do
+          context "if the UID is different" do
+            let!(:user) { create :admin_user, email: email, external_provider: provider, external_uid: "something_else" }
+            it "returns nil" do
+              expect(User.from_omniauth(auth_hash)).to eq nil
+            end
+          end
+        end
+      end
+
+      context "is a greeter account" do
+        let!(:user) { create :greeter_user, email: email }
+
+        it "returns nil" do
+          expect(User.from_omniauth(auth_hash)).to eq nil
+        end
+      end
+    end
+
+    context "has a @getyourrefund.org email" do
+      let(:email) { "bettyboop@getyourrefund.org" }
+
+      context "has an admin account" do
+        it "returns a user" do
+          expect(User.from_omniauth(auth_hash)).to eq user
+        end
+      end
+    end
+
+    context "has a @gmail.com email" do
+      let(:email) { "bettyboop@gmail.com" }
+
+      it "returns nil" do
+        expect(User.from_omniauth(auth_hash)).to eq nil
+      end
+    end
+
+    context "has a suspended email" do
+      let(:suspended_at) { DateTime.now }
+
+      it "returns nil" do
+        expect(User.from_omniauth(auth_hash)).to eq nil
       end
     end
   end
