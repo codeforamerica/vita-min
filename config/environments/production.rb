@@ -20,5 +20,4 @@ Rails.application.configure do
   config.efile_environment = "prod"
 
   config.intercom_app_id = "p1hu33n8"
-  config.google_login_enabled = false
 end
