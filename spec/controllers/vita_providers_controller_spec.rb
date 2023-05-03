@@ -66,10 +66,7 @@ RSpec.describe VitaProvidersController do
         it "returns the first page of providers, not including archived records" do
           get :index, params: params
 
-          expect(assigns(:providers).size).to eq 5
-          local_providers.each do |provider|
-            expect(assigns(:providers)).to include provider
-          end
+          expect(assigns(:providers)).to match_array(local_providers)
         end
 
         it "sends provider_search event to mixpanel" do
@@ -117,10 +114,7 @@ RSpec.describe VitaProvidersController do
         it "returns the second page of providers" do
           get :index, params: params
 
-          expect(assigns(:providers).size).to eq 5
-          next_closest_providers.each do |provider|
-            expect(assigns(:providers)).to include provider
-          end
+          expect(assigns(:providers)).to match_array(next_closest_providers)
         end
 
         it "sends provider_search event to mixpanel with page number" do
@@ -148,6 +142,19 @@ RSpec.describe VitaProvidersController do
           get :index, params: params
 
           expect(assigns(:providers)).to eq([])
+        end
+      end
+
+      context "with more invalid page number" do
+        let!(:local_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.834519, -122.263273] }
+        let(:params) do
+          { zip: "94609", page: "1nvalid" }
+        end
+
+        it "shows first page of search results" do
+          get :index, params: params
+
+          expect(assigns(:providers)).to match_array(local_providers)
         end
       end
 
