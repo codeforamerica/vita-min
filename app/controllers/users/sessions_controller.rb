@@ -33,11 +33,12 @@ class Users::SessionsController < Devise::SessionsController
 
   def redirect_if_requires_google_login
     return unless Rails.configuration.google_login_enabled
-    return unless params['user'].present?
+    email = params.dig('user', 'email')
+    return unless email.present?
 
-    if User.google_login_domain?(params['user']['email'])
+    if User.google_login_domain?(email)
       flash[:alert] = I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
-      return redirect_to new_user_session_path
+      redirect_to new_user_session_path
     end
   end
 
