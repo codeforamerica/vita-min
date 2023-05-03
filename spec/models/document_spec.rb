@@ -140,7 +140,7 @@ describe Document do
 
     describe "#file_type" do
       let(:client) { create :client }
-      let(:tax_return) { build :tax_return, client: client}
+      let(:tax_return) { build :gyr_tax_return, client: client }
 
       context "Form 8879 (Unsigned)" do
         context "not a PDF" do
