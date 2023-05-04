@@ -1,8 +1,7 @@
 <% link_method ||= "" %>
 <a class="menu-item" href="<%= link %>"
   <% if link_method.present? %>data-method="<%= link_method %>" <% end %>>
-  <%= image_tag(icon_path, class: "unselected-icon") %>
-  <%= image_tag(icon_path_selected, class: "selected-icon") %>
+  <%= image_tag(icon_path) %>
   <div>
     <p><%= item_label %></p>
     <%= render 'shared/unread_icon', flag: true if current_user.notifications.pluck(:read).any?(false) && item_label == "My Updates" %>
