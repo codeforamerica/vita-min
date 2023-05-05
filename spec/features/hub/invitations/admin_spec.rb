@@ -10,13 +10,11 @@ RSpec.feature "Inviting admin users" do
     end
 
     around do |example|
-      OmniAuth.config.test_mode = true
       OmniAuth.config.add_mock(
         :google_oauth2,
         { uid: oauth_uid, info: { email: "aileen@codeforamerica.org" }, extra: { id_info: { hd: "codeforamerica.org" } } }
       )
       example.run
-      OmniAuth.config.test_mode = false
       OmniAuth.config.mock_auth[:google_oauth2] = nil
     end
 

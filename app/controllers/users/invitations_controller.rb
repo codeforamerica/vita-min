@@ -62,7 +62,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def load_and_authorize_role
     @role =
-      case params.dig(:user, :role)
+      case params.require(:user).permit(:role)[:role]
       when OrganizationLeadRole::TYPE
         OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
       when CoalitionLeadRole::TYPE
