@@ -57,7 +57,7 @@
             <li>
               <%= link_to document.upload.filename, portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
             </li>
-            <% if documents.length <= 1 && current_intake.filing_joint == "yes" %>
+            <% if documents.length <= 1 && current_intake.filing_jointly? %>
               <li><p class="text--red-bold"><%= t("views.documents.overview.spouse_doc_needed") %></p></li>
             <% end %>
           <% end %>
@@ -70,7 +70,7 @@
             <li>
               <%= document.upload.filename %>
             </li>
-            <% if documents.length <= 1 && current_intake.filing_joint == "yes" %>
+            <% if documents.length <= 1 && current_intake.filing_jointly? %>
               <li><p class="text--red-bold"><%= t("views.documents.overview.spouse_doc_needed") %></p></li>
             <% end %>
           <% end %>
