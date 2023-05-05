@@ -137,7 +137,7 @@ RSpec.configure do |config|
     allow(fake_dns).to receive(:open) { raise StandardError, "Cannot use DNS from test suite" }
     allow(fake_dns).to receive(:close)
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
-
+    OmniAuth.config.test_mode = true
   end
 
   if config.filter.rules[:flow_explorer_screenshot]

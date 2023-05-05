@@ -121,16 +121,14 @@ RSpec.feature "Logging in and out to the volunteer portal" do
   end
 
   context "when signing in with Google" do
-    before do
-      create(:admin_user, email: "example@codeforamerica.org")
-      OmniAuth.config.test_mode = true
+    let!(:admin) { create(:admin_user, email: "example@codeforamerica.org") }
+
+    around do |example|
       OmniAuth.config.add_mock(
         :google_oauth2,
         { uid: '12345', info: { email: "example@codeforamerica.org" }, extra: { id_info: { hd: "codeforamerica.org" } } }
       )
-    end
-
-    after do
+      example.run
       OmniAuth.config.test_mode = false
       OmniAuth.config.mock_auth[:google_oauth2] = nil
     end
