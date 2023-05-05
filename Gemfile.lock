@@ -211,7 +211,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.11.0)
       devise (>= 4.9.0)
-    devise_invitable (2.0.5)
+    devise_invitable (2.0.8)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.5.0)
@@ -287,7 +287,7 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.0.12)
       activesupport (>= 4.0.2)
@@ -347,7 +347,7 @@ GEM
     mime-types-data (3.2023.0218.1)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
     minitest (5.18.0)
     mixpanel-ruby (2.3.0)
     moneta (1.0.0)
@@ -433,7 +433,7 @@ GEM
     puma (6.2.1)
       nio4r (~> 2.0)
     racc (1.6.2)
-    rack (2.2.6.4)
+    rack (2.2.7)
     rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
     rack-protection (3.0.5)
@@ -681,7 +681,7 @@ GEM
     will_paginate (3.3.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.7)
+    zeitwerk (2.6.8)
     zxcvbn-ruby (1.2.0)
 
 PLATFORMS
@@ -712,7 +712,7 @@ DEPENDENCIES
   device_detector (~> 1.0.7)
   devise
   devise-i18n
-  devise_invitable (= 2.0.5)
+  devise_invitable
   dogapi
   easy_translate
   factory_bot_rails
