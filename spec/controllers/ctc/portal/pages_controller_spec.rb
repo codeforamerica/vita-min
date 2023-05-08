@@ -5,7 +5,7 @@ describe Ctc::Portal::PagesController do
   let(:wages_amount) { 1000 }
   let(:claim_eitc) { "yes" }
   let(:intake) do
-    create :ctc_intake,
+    build :ctc_intake,
            primary_birth_date: primary_birth_date,
            current_step: "en/portal/dependents/not-eligible",
            dependents: [],
@@ -14,8 +14,8 @@ describe Ctc::Portal::PagesController do
            exceeded_investment_income_limit: 'no'
 
   end
+  let!(:client) { create :client, intake: intake, tax_returns: [build(:ctc_tax_return)] }
   let!(:w2) { create :w2, wages_amount: wages_amount, intake: intake }
-  let!(:client) { create :client, intake: intake, tax_returns: [create(:ctc_tax_return)] }
 
   before do
     allow(subject).to receive(:open_for_eitc_intake?).and_return true

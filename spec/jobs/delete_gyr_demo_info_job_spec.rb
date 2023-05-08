@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe DeleteGyrDemoInfoJob, type: :job do
   describe "#perform" do
-    let!(:ctc_client) { create :client, intake: (create :ctc_intake) }
-    let!(:gyr_client) { create :client, intake: (create :intake), vita_partner: orange_org }
+    let!(:ctc_client) { create :client, intake: (build :ctc_intake) }
+    let!(:gyr_client) { create :client, intake: (build :intake), vita_partner: orange_org }
     let!(:gyr_intake) { gyr_client.intake }
     let!(:tax_return) { create :gyr_tax_return, :file_ready_to_file, assigned_user: admin_user, client: gyr_client }
 
@@ -17,8 +17,8 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
 
     context "when there are clients and associated records that should be exempted from deletion" do
       let!(:sage_site) { create(:site, name: "Sage Site", parent_organization: papaya_org) }
-      let!(:gyr_client_exempted) { create :client, intake: (create :intake), vita_partner: sage_site }
-      let!(:gyr_client_exempted_2) { create :client, intake: (create :intake), vita_partner: sage_site }
+      let!(:gyr_client_exempted) { create :client, intake: (build :intake), vita_partner: sage_site }
+      let!(:gyr_client_exempted_2) { create :client, intake: (build :intake), vita_partner: sage_site }
       let!(:tax_return_exempted) { create :gyr_tax_return, :intake_in_progress, assigned_user: admin_user, client: gyr_client_exempted }
 
       it "only delete non-exempted clients and their associated records" do

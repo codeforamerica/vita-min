@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Hub::OutboundCallsController, type: :controller do
   describe '#create' do
-    let(:client) { create :client, intake: (create :intake, phone_number: "+18324658890") }
+    let(:client) { create :client, intake: (build :intake, phone_number: "+18324658890") }
     let(:user) { create :admin_user }
     let(:user_phone_number) { "+18324658840" }
     let(:client_phone_number) { "+18324651680" }
@@ -44,7 +44,7 @@ describe Hub::OutboundCallsController, type: :controller do
 
   describe "#show" do
     let(:filing_jointly) { "no" }
-    let(:client) { create :client, tax_returns: [create(:gyr_tax_return)], intake: build(:intake, primary_last_four_ssn: "2222", filing_joint: filing_jointly, spouse_last_four_ssn: "1111") }
+    let(:client) { create :client, tax_returns: [build(:gyr_tax_return)], intake: build(:intake, primary_last_four_ssn: "2222", filing_joint: filing_jointly, spouse_last_four_ssn: "1111") }
     let(:outbound_call) { create :outbound_call, client: client }
     let(:params) { { client_id: client.id, id: outbound_call.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
@@ -116,7 +116,7 @@ describe Hub::OutboundCallsController, type: :controller do
   end
 
   describe "#new" do
-    let(:client) { create :client, intake: (create :intake, phone_number: "+18324658840") }
+    let(:client) { create :client, intake: (build :intake, phone_number: "+18324658840") }
     let(:user) { create :admin_user }
     let(:params) { { client_id: client.id }}
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new

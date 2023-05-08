@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::SpouseFiledPriorTaxYearForm do
-  let(:client) { create :client, tax_returns: [(create :ctc_tax_return, filing_status: nil)]}
+  let(:client) { create :client, tax_returns: [(build :ctc_tax_return, filing_status: nil)]}
   let!(:intake) { create :ctc_intake, client: client }
   let(:params) { { spouse_filed_prior_tax_year: filed_prior_year } }
   let(:filed_prior_year) { "filed_together" }

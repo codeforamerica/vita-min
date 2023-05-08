@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::UpdateClientForm do
   describe "#save" do
     let(:intake) {
-      create :intake,
+      build :intake,
              :with_contact_info,
              :with_dependents,
              email_notification_opt_in: "yes",
@@ -236,7 +236,7 @@ RSpec.describe Hub::UpdateClientForm do
 
   describe ".from_client" do
     let(:intake) {
-      create :intake,
+      build :intake,
              :with_contact_info,
              :with_dependents,
              email_notification_opt_in: "yes",

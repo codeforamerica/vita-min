@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Submitting final tax filing signature" do
-  let(:client) { create :client, intake: (create :intake, primary_first_name: "Martha", primary_last_name: "Mango") }
+  let(:client) { create :client, intake: (build :intake, primary_first_name: "Martha", primary_last_name: "Mango") }
   let(:tax_return) { create :tax_return, :ready_to_sign, :with_final_tax_doc, year: 2019, client: client }
   before { login_as client, scope: :client }
 
@@ -26,7 +26,7 @@ RSpec.feature "Submitting final tax filing signature" do
       let(:client) {
         create :client,
                intake:
-                 (create :intake,
+                 (build :intake,
                          primary_first_name: "Martha",
                          primary_last_name: "Mango",
                          spouse_first_name: "Larry",
@@ -60,7 +60,7 @@ RSpec.feature "Submitting final tax filing signature" do
       create :client,
              vita_partner: user.role.organization,
              intake:
-               (create :intake,
+               (build :intake,
                        :filled_out,
                        primary_first_name: "Martha",
                        primary_last_name: "Mango",

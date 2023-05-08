@@ -67,6 +67,20 @@ FactoryBot.define do
     consented_to_service_at { DateTime.current }
     efile_security_informations { [build(:efile_security_information)] }
 
+    # If the client was created with `tax_returns`, we need to go through extra effort to persist
+    # the `tax_return_transitions` because Statesman does not allow us to set up the association
+    # to `autosave`
+    after :create do |client, _evaluator|
+      if client.tax_returns.loaded
+        client.tax_returns.each do |tr|
+          tr.tax_return_transitions.each(&:save!)
+          tr.reload
+          tr.update_columns(current_state: tr.last_transition.to_state) if tr.last_transition
+        end
+        SearchIndexer.refresh_filterable_properties([client.id])
+      end
+    end
+
     trait :with_ctc_return do
       transient do
         tax_return_state { "intake_in_progress" }

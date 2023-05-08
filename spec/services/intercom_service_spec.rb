@@ -5,7 +5,7 @@ RSpec.describe IntercomService do
   let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
   let(:fake_conversation_service) { instance_double(Intercom::Service::Conversation) }
   let(:fake_conversation) { instance_double(Intercom::Conversation) }
-  let(:client) { create(:client, intake: create(:intake, email_address: "beep@example.com")) }
+  let(:client) { create(:client, intake: build(:intake, email_address: "beep@example.com")) }
   let(:contact_role) { "user" }
   let(:fake_contact) { OpenStruct.new(id: "9999", type: "contact", role: contact_role, flat_store: nil) }
   let(:body) { "hi i want some help getting my refund thx have a nice day" }

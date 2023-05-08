@@ -64,16 +64,13 @@ describe "client_status_updates:send_client_in_progress_automated_messages" do
   describe "AutomatedMessage::InProgress" do
     let(:fake_time) { Time.utc(2022, 1, 30, 9, 10, 0) }
     let!(:client) do
-          create(:gyr_tax_return,
-                 :intake_in_progress,
-                 client:
-                   create(
-                     :client,
-                     consented_to_service_at: 31.minutes.ago,
-                     in_progress_survey_sent_at: nil,
-                     intake:
-                       create(:intake, primary_consented_to_service: "yes")
-                   )).client
+      create(
+        :client,
+        consented_to_service_at: 38.minutes.ago,
+        in_progress_survey_sent_at: nil,
+        tax_returns: [build(:gyr_tax_return, :intake_in_progress)],
+        intake: build(:intake, primary_consented_to_service: "yes")
+      )
     end
 
     it "enqueues messages" do

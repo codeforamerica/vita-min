@@ -4,8 +4,8 @@ RSpec.feature "a client on their portal" do
   context "tax return state is in between intake_ready and intake_ready_for_call" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [create(:tax_return, :intake_reviewing, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [build(:tax_return, :intake_reviewing, year: 2019)]
     end
     before do
       login_as client, scope: :client
@@ -26,8 +26,8 @@ RSpec.feature "a client on their portal" do
   context "when a client has not yet completed intake questions" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Katie", current_step: Questions::AssetSaleLossController.to_path_helper),
-             tax_returns: [create(:gyr_tax_return, :intake_in_progress, year: 2019)]
+             intake: (build :intake, preferred_name: "Katie", current_step: Questions::AssetSaleLossController.to_path_helper),
+             tax_returns: [build(:gyr_tax_return, :intake_in_progress, year: 2019)]
     end
 
     before do
@@ -49,8 +49,8 @@ RSpec.feature "a client on their portal" do
   context "when a client has completed intake questions and has started but not finished uploading documents" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", current_step: "/en/documents/overview"),
-             tax_returns: [create(:tax_return, :intake_in_progress, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", current_step: "/en/documents/overview"),
+             tax_returns: [build(:tax_return, :intake_in_progress, year: 2019)]
     end
     before do
       login_as client, scope: :client
@@ -70,8 +70,8 @@ RSpec.feature "a client on their portal" do
   context "when a client has completed intake and uploaded at least one document" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [create(:tax_return, :intake_ready, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [build(:tax_return, :intake_ready, year: 2019)]
     end
     before do
       login_as client, scope: :client
@@ -93,8 +93,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is tax ready for prep or preparing" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :prep_preparing, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :prep_preparing, year: 2019)]
     end
 
     before do
@@ -116,8 +116,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is info requested" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :prep_info_requested, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :prep_info_requested, year: 2019)]
     end
 
     before do
@@ -139,8 +139,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is greeter info requested" do
     let(:client) do
       create :client,
-             intake: (create :intake, completed_at: 10.minutes.ago),
-             tax_returns: [(create :gyr_tax_return, :intake_greeter_info_requested)]
+             intake: (build :intake, completed_at: 10.minutes.ago),
+             tax_returns: [(build :gyr_tax_return, :intake_greeter_info_requested)]
     end
 
     before do
@@ -157,8 +157,8 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is being quality reviewed" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :review_reviewing, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :review_reviewing, year: 2019)]
     end
 
     before do
@@ -180,8 +180,8 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is marked not filing" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :file_not_filing, year: 2019)]
+             intake: (build :intake, preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :file_not_filing, year: 2019)]
     end
 
     before do
@@ -203,8 +203,8 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is on hold" do
     let(:client) do
       create :client,
-             intake: (create :intake, completed_at: 7.minutes.ago),
-             tax_returns: [(create :gyr_tax_return, :file_hold)]
+             intake: (build :intake, completed_at: 7.minutes.ago),
+             tax_returns: [(build :gyr_tax_return, :file_hold)]
     end
 
     before do
@@ -226,8 +226,8 @@ RSpec.feature "a client on their portal" do
   context "when the client needs to review & sign" do
     let(:client) do
       create :client,
-             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :review_signature_requested, year: 2019)]
+             intake: (build :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :review_signature_requested, year: 2019)]
     end
 
     before do
@@ -255,8 +255,8 @@ RSpec.feature "a client on their portal" do
   context "when the client has finished filing" do
     let(:client) do
       create :client,
-             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :file_efiled, :primary_has_signed, year: 2019)]
+             intake: (build :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :file_efiled, :primary_has_signed, year: 2019)]
     end
 
     before do
@@ -280,8 +280,8 @@ RSpec.feature "a client on their portal" do
   context "when the client's tax returns are all accepted" do
     let(:client) do
       create :client,
-             intake: (create :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(create :gyr_tax_return, :file_accepted, :primary_has_signed, year: 2019)]
+             intake: (build :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+             tax_returns: [(build :gyr_tax_return, :file_accepted, :primary_has_signed, year: 2019)]
     end
 
     before do
@@ -315,8 +315,8 @@ RSpec.feature "a client on their portal" do
   context "a CTC client" do
     let(:client) do
       create :client,
-        intake: (create :ctc_intake),
-        tax_returns: [(create :ctc_tax_return, :file_efiled, :primary_has_signed, is_ctc: true)]
+        intake: (build :ctc_intake),
+        tax_returns: [(build :ctc_tax_return, :file_efiled, :primary_has_signed, is_ctc: true)]
     end
 
     before do

@@ -102,13 +102,13 @@ describe Portal::TaxReturnsController do
 
   describe "#sign" do
     let(:params) { { tax_return_id: tax_return.id } }
-    let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+    let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :sign
 
     context "when logged in but not the owner of the tax return" do
       let(:params) { { tax_return_id: tax_return.id } }
-      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
       before { sign_in create(:client) }
 
@@ -120,12 +120,12 @@ describe Portal::TaxReturnsController do
     end
 
     context "when logged in as a client who owns the tax return" do
-      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "no")) }
       before { sign_in tax_return.client }
 
       context "clients tax return cannot be signed" do
         context "because there are no unsigned 8879s is already signed" do
-          let(:tax_return) { create :gyr_tax_return, :ready_to_file_solo, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+          let(:tax_return) { create :gyr_tax_return, :ready_to_file_solo, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
           let(:params) { { tax_return_id: tax_return.id } }
 
@@ -137,7 +137,7 @@ describe Portal::TaxReturnsController do
         end
 
         context "because there is no Form8879 to sign" do
-          let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+          let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
           let(:params) { { tax_return_id: tax_return.id }}
 
@@ -161,7 +161,7 @@ describe Portal::TaxReturnsController do
       end
 
       context "client can sign the tax return" do
-        let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create(:client, intake: create(:intake, filing_joint: "yes"))) }
+        let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create(:client, intake: build(:intake, filing_joint: "yes"))) }
         let(:params) { { tax_return_id: tax_return.id, portal_primary_sign_form8879: { primary_accepts_terms: "yes", primary_confirms_identity: "yes" } } }
 
         it "sets @tax_return from the params[:tax_return_id]" do
@@ -224,13 +224,13 @@ describe Portal::TaxReturnsController do
   end
 
   describe "#spouse_sign" do
-    let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+    let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (build :intake, filing_joint: "no")) }
     before do
       allow_any_instance_of(TaxReturn).to receive(:filing_jointly?).and_return true
     end
 
     context "when not logged in" do
-      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "yes"))}
       let(:params) { { tax_return_id: tax_return.id } }
 
       it "redirects to login" do
@@ -241,7 +241,7 @@ describe Portal::TaxReturnsController do
 
     context "when logged in but not the owner of the tax return" do
       let(:params) { { tax_return_id: tax_return.id } }
-      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "yes"))}
 
       before { sign_in create :client }
 
@@ -257,7 +257,7 @@ describe Portal::TaxReturnsController do
 
       context "tax return cannot be signed" do
         context "because there are no unsigned 8879s" do
-          let(:tax_return) { create :gyr_tax_return, :ready_to_file_joint, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
+          let(:tax_return) { create :gyr_tax_return, :ready_to_file_joint, client: (create :client, intake: (build :intake, filing_joint: "yes"))}
 
           let(:params) { { tax_return_id: tax_return.id } }
 
@@ -308,7 +308,7 @@ describe Portal::TaxReturnsController do
 
       context "spouse can sign the tax return" do
         let(:params) { { tax_return_id: tax_return.id, portal_spouse_sign_form8879: { spouse_accepts_terms: "yes", spouse_confirms_identity: "yes" } } }
-        let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+        let(:tax_return) { create :gyr_tax_return, :ready_to_sign, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
         it "sets @tax_return from the params[:tax_return_id]" do
           post :spouse_sign, params: params
@@ -371,7 +371,7 @@ describe Portal::TaxReturnsController do
   end
 
   describe "#show" do
-    let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+    let(:tax_return) { create :gyr_tax_return, client: (create :client, intake: (build :intake, filing_joint: "no")) }
 
     let(:params) { { tax_return_id: tax_return.id } }
 

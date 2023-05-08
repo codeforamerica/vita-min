@@ -11,7 +11,7 @@ describe RecentMessageSummaryService do
     end
 
     context "with a message without a body" do
-      let(:client) { create(:client, intake: create(:intake, preferred_name: "Client Name")) }
+      let(:client) { create(:client, intake: build(:intake, preferred_name: "Client Name")) }
       let(:user) { create(:user, name: "User Name") }
       let!(:message) { create :incoming_email, created_at: DateTime.new(2021, 3, 19, 0, 0, 0), client: client, body_plain: nil }
 
@@ -21,7 +21,7 @@ describe RecentMessageSummaryService do
     end
 
     context "with some messages" do
-      let(:client) { create(:client, intake: create(:intake, preferred_name: "Client Name")) }
+      let(:client) { create(:client, intake: build(:intake, preferred_name: "Client Name")) }
       let(:user) { create(:user, name: "User Name") }
       let!(:old_incoming_email) { create :incoming_email, created_at: DateTime.new(2021, 3, 19, 0, 0, 0), client: client, body_plain: "Thank you for the old messages here is an email" }
       let!(:old_incoming_text) { create :incoming_text_message, created_at: DateTime.new(2021, 3, 19, 0, 0, 0), client: client, body: "Thank you for the old messages here is a text" }

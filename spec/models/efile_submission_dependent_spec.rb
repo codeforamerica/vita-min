@@ -111,9 +111,9 @@ describe EfileSubmissionDependent do
     let(:spouse_birth_date) { 50.years.ago }
     let(:filing_status) { "single" }
 
-    let(:tax_return) { create :tax_return, year: DateTime.now.year,filing_status: filing_status }
-    let(:client) { create :client, tax_returns: [tax_return] }
-    let!(:intake) { create :ctc_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, client: client }
+    let(:tax_return) { build :tax_return, year: DateTime.now.year,filing_status: filing_status }
+    let!(:client) { create :client, intake: build(:ctc_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date), tax_returns: [tax_return] }
+    let(:intake) { client.intake }
     let!(:submission) { create :efile_submission, tax_return: tax_return }
     let(:dependent) { create :qualifying_child, intake: submission.intake, full_time_student: full_time_student, birth_date: birth_date }
     let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }
@@ -208,9 +208,9 @@ describe EfileSubmissionDependent do
   end
 
   describe "#schedule_eic_4b?" do
-    let(:tax_return) { create :tax_return, year: DateTime.now.year }
-    let(:client) { create :client, tax_returns: [tax_return] }
-    let!(:intake) { create :ctc_intake, client: client }
+    let(:tax_return) { build :tax_return, year: DateTime.now.year }
+    let!(:client) { create :client, intake: build(:ctc_intake), tax_returns: [tax_return] }
+    let(:intake) { client.intake }
     let!(:submission) { create :efile_submission, tax_return: tax_return }
     let(:dependent) { create :qualifying_child, intake: submission.intake, birth_date: birth_date, permanently_totally_disabled: permanently_totally_disabled }
     let!(:efile_submission_dependent) { EfileSubmissionDependent.create_qualifying_dependent(submission, dependent) }

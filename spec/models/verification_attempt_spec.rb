@@ -16,7 +16,7 @@ require 'rails_helper'
 
 RSpec.describe VerificationAttempt, type: :model do
   context "validations" do
-    let(:client) { create :client, intake: (create :ctc_intake) }
+    let(:client) { create :client, intake: (build :ctc_intake) }
     context "only one open attempt at a time" do
       open_states = ["new", "pending", "escalated", "restricted"]
       open_states.each do |state|

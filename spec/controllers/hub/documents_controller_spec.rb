@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Hub::DocumentsController, type: :controller do
   let(:organization) { create :organization }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
-  let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
+  let(:client) { create :client, vita_partner: organization, intake: build(:intake, vita_partner_id: organization.id) }
   let(:user_agent) { "GeckoFox" }
   let(:ip_address) { "127.0.0.1" }
 
@@ -419,7 +419,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   describe "#destroy" do
     let(:admin) { create :admin_user }
     let!(:document) { create :document, client: client }
-    let(:client) { create :client, intake: create(:intake) }
+    let(:client) { create :client, intake: build(:intake) }
     before do
       sign_in admin
     end

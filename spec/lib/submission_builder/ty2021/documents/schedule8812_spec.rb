@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe SubmissionBuilder::Ty2021::Documents::Schedule8812 do
   let(:filing_status) { "married_filing_jointly" }
-  let(:intake) { create :ctc_intake }
-  let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2021, client: create(:client, intake: intake) }
+  let(:intake) { build :ctc_intake }
+  let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2021, client: intake.client }
   let!(:dependent) { create :qualifying_child, first_name: "Janis", intake: intake }
 
   before do

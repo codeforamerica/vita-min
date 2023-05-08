@@ -25,8 +25,8 @@ require 'rails_helper'
 
 describe SystemNote::AssignmentChange do
   describe ".generate!" do
-    let(:intake) { create :intake, :with_contact_info }
-    let(:tax_return) { create :tax_return, client: Client.new(intake: intake), year: 2019 }
+    let(:intake) { build :intake, :with_contact_info }
+    let(:tax_return) { create :tax_return, client: build(:client, intake: intake), year: 2019 }
     let(:current_user) { create :user, name: "Example User" }
     let(:user_to_assign) { create :user, name: "Alice" }
 

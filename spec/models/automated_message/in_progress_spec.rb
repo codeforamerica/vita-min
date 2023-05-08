@@ -6,17 +6,13 @@ RSpec.describe AutomatedMessage::InProgress do
     let(:in_progress_survey_sent_at) { nil }
     let(:consented_to_service_at) { 30.minutes.ago }
     let!(:client) do
-      (
-        create :gyr_tax_return,
-               status,
-               client:
-                 create(
-                   :client,
-                   in_progress_survey_sent_at: in_progress_survey_sent_at,
-                   consented_to_service_at: consented_to_service_at,
-                   intake: create(:intake, primary_consented_to_service: "yes")
-                 )
-      ).client
+      create(
+        :client,
+        in_progress_survey_sent_at: in_progress_survey_sent_at,
+        consented_to_service_at: consented_to_service_at,
+        intake: build(:intake, primary_consented_to_service: "yes"),
+        tax_returns: [build(:gyr_tax_return, status)]
+      )
     end
 
     let!(:ctc_client_that_will_never_be_included) do
@@ -28,7 +24,7 @@ RSpec.describe AutomatedMessage::InProgress do
                    :client,
                    in_progress_survey_sent_at: in_progress_survey_sent_at,
                    consented_to_service_at: consented_to_service_at,
-                   intake: create(:ctc_intake, primary_consented_to_service: "yes")
+                   intake: build(:ctc_intake, primary_consented_to_service: "yes")
                  )
       ).client
     end

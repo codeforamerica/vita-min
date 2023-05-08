@@ -23,7 +23,7 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
       end
 
       describe "with a DocumentHelp notification" do
-        let!(:system_note) { SystemNote::DocumentHelp.generate!(client: create(:client, intake: (create :intake)), help_type: :doesnt_apply, doc_type: DocumentTypes::Identity)}
+        let!(:system_note) { SystemNote::DocumentHelp.generate!(client: create(:client, intake: (build :intake)), help_type: :doesnt_apply, doc_type: DocumentTypes::Identity)}
         let!(:notification) { create :user_notification, user: user, notifiable_type: SystemNote::DocumentHelp, notifiable_id: system_note.id }
         render_views
 

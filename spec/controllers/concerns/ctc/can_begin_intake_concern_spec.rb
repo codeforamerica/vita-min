@@ -23,7 +23,7 @@ describe Ctc::CanBeginIntakeConcern, type: :controller do
 
 
     context "when not open for intake but the client is currently logged in so we let them continue" do
-      let(:client) { create :client, intake: (create :ctc_intake) }
+      let(:client) { create :client, intake: (build :ctc_intake) }
 
       before do
         allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return false

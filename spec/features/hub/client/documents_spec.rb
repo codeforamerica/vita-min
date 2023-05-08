@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated user" do
     let(:user) { create :organization_lead_user, name: "Org Lead" }
-    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, preferred_name: "Bart Simpson") }
+    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }

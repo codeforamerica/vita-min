@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: true do
-  let!(:intake) { create :ctc_intake, client: (create :ctc_client), email_address: "mango@example.com", email_notification_opt_in: "yes", email_address_verified_at: DateTime.now }
+  let!(:intake) { create :ctc_intake, client: (build :ctc_client), email_address: "mango@example.com", email_notification_opt_in: "yes", email_address_verified_at: DateTime.now }
   let(:client) { intake.client }
   let!(:efile_submission) do
     create :efile_submission, :fraud_hold, client: client

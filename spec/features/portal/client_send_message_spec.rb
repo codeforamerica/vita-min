@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "a client can send a message when logged into the portal" do
   context "sending a message" do
-    let(:client) { create :client, vita_partner: (create :organization, name: "Koala Company"), intake: (create :intake, preferred_name: "Katie", email_notification_opt_in: "yes", email_address: "exampleemail@example.com", sms_phone_number: "+18324658840", sms_notification_opt_in: "yes") }
+    let(:client) { create :client, vita_partner: (create :organization, name: "Koala Company"), intake: (build :intake, preferred_name: "Katie", email_notification_opt_in: "yes", email_address: "exampleemail@example.com", sms_phone_number: "+18324658840", sms_notification_opt_in: "yes") }
     before do
       login_as client, scope: :client
       allow(IntercomService).to receive(:create_message)

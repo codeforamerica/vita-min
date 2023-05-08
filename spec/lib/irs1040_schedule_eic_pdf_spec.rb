@@ -3,7 +3,7 @@ require "rails_helper"
 describe Irs1040ScheduleEicPdf do
   include PdfSpecHelper
   let(:pdf) { described_class.new(submission) }
-  let(:submission) { create :efile_submission, client: create(:client, intake: create(:ctc_intake, primary_first_name: "Bethany", primary_last_name: "Banana")) }
+  let(:submission) { create :efile_submission, client: create(:client, intake: build(:ctc_intake, primary_first_name: "Bethany", primary_last_name: "Banana")) }
   let(:fake_xml_document) do
     Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
       xml.IRS1040ScheduleEIC {

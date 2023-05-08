@@ -14,7 +14,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let(:user) { currently_assigned_coalition_lead }
 
   let(:client_assigned_group) { organization }
-  let(:client) { create :client, intake: create(:intake, preferred_name: "Lucille"), vita_partner: client_assigned_group }
+  let(:client) { create :client, intake: build(:intake, preferred_name: "Lucille"), vita_partner: client_assigned_group }
   let!(:tax_return) { create :tax_return, client: client, year: 2018, assigned_user: currently_assigned_coalition_lead }
 
   describe "#new" do

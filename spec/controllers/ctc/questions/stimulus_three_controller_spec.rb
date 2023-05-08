@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe Ctc::Questions::StimulusThreeController do
-  let(:intake) { create :ctc_intake, client: client, eip3_amount_received: nil }
-  let(:client) { create :client, tax_returns: [build(:ctc_tax_return)] }
+  let(:intake) { build :ctc_intake, eip3_amount_received: nil }
+  let(:client) { create :client, intake: intake, tax_returns: [build(:ctc_tax_return)] }
 
   before do
-    sign_in intake.client
+    sign_in client
   end
 
   describe "#update" do

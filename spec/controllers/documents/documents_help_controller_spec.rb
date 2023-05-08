@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Documents::DocumentsHelpController, type: :controller do
   describe "#show" do
-    let!(:client) { create :client, intake: create(:intake, current_step: nil) }
+    let!(:client) { create :client, intake: build(:intake, current_step: nil) }
     let(:next_path) { "/en/next" }
     let(:params) do
       {
@@ -78,7 +78,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
   end
 
   describe "#request_doc_help" do
-    let!(:client) { create :client, intake: create(:intake) }
+    let!(:client) { create :client, intake: build(:intake) }
 
     before do
       sign_in client

@@ -5,7 +5,7 @@ describe Sign8879Service do
     let(:document_service_double) { double }
     let(:intake_timezone) { 'America/New_York' }
     let(:client) { create :client,
-                          intake: (create :intake,
+                          intake: (build :intake,
                                           primary_first_name: "Primary",
                                           primary_last_name: "Taxpayer",
                                           timezone: intake_timezone

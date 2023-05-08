@@ -135,7 +135,7 @@ describe Efile::BenefitsEligibility do
   end
 
   describe "#outstanding_recovery_rebate_credit" do
-    let(:client) { create :client_with_ctc_intake_and_return, intake: create(:intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received, eip3_amount_received: eip3_amount_received) }
+    let(:client) { create :client_with_ctc_intake_and_return, intake: build(:intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received, eip3_amount_received: eip3_amount_received) }
     let(:eip1_amount_received) { 0 }
     let(:eip2_amount_received) { 0 }
     let(:eip3_amount_received) { 0 }
@@ -235,7 +235,7 @@ describe Efile::BenefitsEligibility do
     end
 
     context "when filing status is single" do
-      let(:client) { create :client, :with_ctc_return, filing_status: :single, intake: create(:ctc_intake, primary_tin_type: tin_type) }
+      let(:client) { create :client, :with_ctc_return, filing_status: :single, intake: build(:ctc_intake, primary_tin_type: tin_type) }
       let(:tin_type) { :itin }
 
       context "when the primary is using an ITIN" do

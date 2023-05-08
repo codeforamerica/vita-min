@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SyntheticNote do
   describe ".from_client_documents" do
-    let(:client) { create :client, intake: (create :intake) }
+    let(:client) { create :client, intake: (build :intake) }
     let(:user) { create :user }
 
     context "with documents on one day" do

@@ -39,8 +39,7 @@
 #
 FactoryBot.define do
   factory :tax_return do
-    # when creating a client, also create an intake, since tax returns are made after intake begins
-    client { create(:intake).client }
+    client { build(:client, intake: build(:intake)) }
     filing_status { "single" }
     transient do
       metadata { {} }
@@ -48,8 +47,13 @@ FactoryBot.define do
 
     TaxReturnStateMachine.states.each do |state|
       trait state.to_sym do
+        after :build do |tax_return, evaluator|
+          tax_return.tax_return_transitions << build(:tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata)
+        end
+
         after :create do |tax_return, evaluator|
-          create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
+          tax_return.tax_return_transitions.each(&:save)
+          tax_return.reload
           tax_return.update_columns(current_state: state)
           SearchIndexer.refresh_filterable_properties([tax_return.client_id])
         end
@@ -62,7 +66,7 @@ FactoryBot.define do
 
     factory :ctc_tax_return do
       year { MultiTenantService.new(:ctc).current_tax_year }
-      client { create(:ctc_intake).client }
+      client { build(:client, intake: build(:ctc_intake)) }
       is_ctc { true }
     end
 
@@ -80,7 +84,7 @@ FactoryBot.define do
 
     trait :ctc do
       year { 2021 }
-      client { create(:ctc_intake, :with_contact_info, :with_address, :with_dependents, :with_ssns, :with_bank_account, :primary_consented, dependent_count: 3).client }
+      client { build(:ctc_client, intake: build(:ctc_intake, :with_contact_info, :with_address, :with_dependents, :with_ssns, :with_bank_account, :primary_consented, dependent_count: 3)) }
       is_ctc { true }
       internal_efile { true }
     end

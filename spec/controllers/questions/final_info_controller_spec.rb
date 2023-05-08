@@ -21,7 +21,7 @@ RSpec.describe Questions::FinalInfoController do
       end
 
       let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa", client: client }
-      let(:client) { create :client, tax_returns: [create(:gyr_tax_return, service_type: "online_intake")] }
+      let(:client) { create :client, tax_returns: [build(:gyr_tax_return, service_type: "online_intake")] }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params

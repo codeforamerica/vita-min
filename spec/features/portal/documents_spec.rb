@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.feature "a client on their portal" do
   context "joint filer" do
-    let(:tax_return) { create(:tax_return, :intake_ready, year: 2022) }
+    let(:tax_return) { build(:tax_return, :intake_ready, year: 2022) }
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall", completed_at: 10.minutes.ago, filing_joint: "yes"),
+             intake: (build :intake, preferred_name: "Randall", completed_at: 10.minutes.ago, filing_joint: "yes"),
              tax_returns: [tax_return]
     end
 

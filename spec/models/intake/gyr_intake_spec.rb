@@ -387,7 +387,7 @@ describe Intake::GyrIntake do
 
       context "when there is another accessible intake with the same ssn" do
         let!(:dupe) {
-          (create :gyr_tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
+          (create :gyr_tax_return, client: (create :client, intake: build(:intake, primary_consented_to_service: 'yes', primary_ssn: "123456789")), service_type: "drop_off").intake
         }
         let(:intake) { create :intake, primary_ssn: "123456789" }
         it "returns that as a duplicate" do
@@ -433,7 +433,7 @@ describe Intake::GyrIntake do
     end
   end
   describe "#most_recent_filing_year" do
-    let(:intake) { create :intake }
+    let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }
 
     context "with unfilled filing years" do
@@ -444,8 +444,8 @@ describe Intake::GyrIntake do
 
     context "with multiple years" do
       let!(:client) { create :client, tax_returns: [
-        create(:tax_return, year: 2019),
-        create(:tax_return, year: 2018)
+        build(:tax_return, year: 2019),
+        build(:tax_return, year: 2018)
       ], intake: intake }
 
       it "returns most recent" do
@@ -477,7 +477,7 @@ describe Intake::GyrIntake do
   end
 
   describe "#year_before_most_recent_filing_year" do
-    let(:intake) { create :intake }
+    let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }
 
     context "with unfilled filing years" do
@@ -488,8 +488,8 @@ describe Intake::GyrIntake do
 
     context "when a year is selected" do
       let!(:client) { create :client, tax_returns: [
-        create(:tax_return, year: 2019),
-        create(:tax_return, year: 2018)
+        build(:tax_return, year: 2019),
+        build(:tax_return, year: 2018)
       ], intake: intake }
 
       it "returns the year before most recent filing year" do
@@ -502,9 +502,9 @@ describe Intake::GyrIntake do
     let(:ssn) { "123456789" }
     let(:birth_date) { Date.parse("1989-08-22") }
     let(:intake) { create :intake, primary_ssn: :ssn, primary_birth_date: birth_date }
-    let!(:intake_2022_all_matching) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
-    let!(:intake_2022_non_matching_dob) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: Date.parse("1996-10-12"), client: create(:client, tax_returns: [create(:gyr_tax_return, :review_signature_requested)]) }
-    let!(:intake_2022_non_matching_ssn) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [create(:gyr_tax_return, :review_reviewing)]) }
+    let!(:intake_2022_all_matching) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: birth_date, client: create(:client, tax_returns: [build(:gyr_tax_return, :intake_ready_for_call)]) }
+    let!(:intake_2022_non_matching_dob) { create :intake, product_year: "2022", primary_ssn: :ssn, primary_birth_date: Date.parse("1996-10-12"), client: create(:client, tax_returns: [build(:gyr_tax_return, :review_signature_requested)]) }
+    let!(:intake_2022_non_matching_ssn) { create :intake, product_year: "2022", primary_ssn: "123456999", primary_birth_date: birth_date, client: create(:client, tax_returns: [build(:gyr_tax_return, :review_reviewing)]) }
 
     it "returns intakes from previous product years with matching SSN, DOB and with a qualifying tax return current state" do
       expect(intake.matching_previous_year_intakes).to match_array [intake_2022_all_matching]
@@ -512,9 +512,9 @@ describe Intake::GyrIntake do
   end
 
   describe ".previous_year_completed_intakes" do
-    let!(:intake_current_year) { create :intake, product_year: Rails.configuration.product_year }
-    let!(:intake_2022_bad_tax_return_state) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :file_mailed)]) }
-    let!(:intake_2022) { create :intake, product_year: "2022", client: create(:client, tax_returns: [create(:gyr_tax_return, :intake_ready_for_call)]) }
+    let!(:intake_current_year) { create(:client, intake: build(:intake, product_year: Rails.configuration.product_year)).intake }
+    let!(:intake_2022_bad_tax_return_state) { create(:client, intake: build(:intake, product_year: "2022"), tax_returns: [build(:gyr_tax_return, :file_mailed)]).intake }
+    let!(:intake_2022) { create(:client, intake: build(:intake, product_year: "2022"), tax_returns: [build(:gyr_tax_return, :intake_ready_for_call)]).intake }
 
     it "returns intakes from the previous product years with INCLUDED_IN_PREVIOUS_YEAR_COMPLETED_INTAKES tax return states" do
       expect(described_class.previous_year_completed_intakes).to match_array  [intake_2022]

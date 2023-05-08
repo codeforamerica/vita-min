@@ -116,10 +116,10 @@ RSpec.describe MailgunWebhooksController do
           allow(TransitionNotFilingService).to receive(:run)
         end
 
-        let(:tax_returns) { [(create :gyr_tax_return, :prep_preparing)] }
+        let(:tax_returns) { [(build :gyr_tax_return, :prep_preparing)] }
         let!(:client) do
           create :client,
-                 intake: create(:intake, email_address: actual_email),
+                 intake: build(:intake, email_address: actual_email),
                  tax_returns: tax_returns
         end
         let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, email_address: actual_email }
@@ -247,7 +247,7 @@ RSpec.describe MailgunWebhooksController do
         end
 
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
-          let!(:tax_returns) { [(create :gyr_tax_return, :file_not_filing), (create :tax_return, :file_accepted, year: 2019)] }
+          let!(:tax_returns) { [(build :gyr_tax_return, :file_not_filing), (build :tax_return, :file_accepted, year: 2019)] }
 
           before do
             AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
@@ -354,8 +354,8 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "with multiple matching clients" do
-        let(:intake1) { create :intake, email_address: actual_email }
-        let(:intake2) { create :intake, email_address: actual_email }
+        let(:intake1) { build :intake, email_address: actual_email }
+        let(:intake2) { build :intake, email_address: actual_email }
         let!(:client1) { create :client, intake: intake1 }
         let!(:client2) { create :client, intake: intake2 }
 

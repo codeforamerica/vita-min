@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
-  let(:client) { create :client, vita_partner: site, intake: create(:intake) }
+  let(:client) { create :client, vita_partner: site, intake: build(:intake) }
   let(:site) { create :site }
   let(:organization) { create :organization }
 

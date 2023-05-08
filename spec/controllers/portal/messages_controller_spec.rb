@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Portal::MessagesController do
-  let(:client) { create :client, intake: (create :intake, email_address: "exampleton@example.com", email_notification_opt_in: "yes") }
+  let(:client) { create :client, intake: (build :intake, email_address: "exampleton@example.com", email_notification_opt_in: "yes") }
   before do
     sign_in client, scope: :client
     allow(IntercomService).to receive(:create_message)

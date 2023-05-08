@@ -11,22 +11,22 @@ RSpec.feature "Coalition lead role" do
       create :client,
              consented_to_service_at: 1.day.ago,
              vita_partner: organization,
-             intake: create(:intake, :filled_out, :with_contact_info, preferred_name: "Clarence Cabbage", state_of_residence: "CA"),
-             tax_returns: [(create :tax_return, :intake_in_progress, year: 2019)]
+             intake: build(:intake, :filled_out, :with_contact_info, preferred_name: "Clarence Cabbage", state_of_residence: "CA"),
+             tax_returns: [(build :tax_return, :intake_in_progress, year: 2019)]
     }
     let!(:greta_visible) {
       create :client,
              vita_partner: site,
              consented_to_service_at: 1.day.ago,
-             intake: create(:intake, :filled_out, preferred_name: "Greta Gherkin"),
-             tax_returns: [(create :tax_return, :intake_in_progress, year: 2019)]
+             intake: build(:intake, :filled_out, preferred_name: "Greta Gherkin"),
+             tax_returns: [(build :tax_return, :intake_in_progress, year: 2019)]
     }
     let!(:shep_invisible) {
       create :client,
              vita_partner: create(:organization),
              consented_to_service_at: 1.day.ago,
-             intake: (create :intake, :filled_out, preferred_name: "Shep Shallot"),
-             tax_returns: [(create :tax_return, :intake_in_progress, year: 2018)]
+             intake: (build :intake, :filled_out, preferred_name: "Shep Shallot"),
+             tax_returns: [(build :tax_return, :intake_in_progress, year: 2018)]
     }
 
     before do

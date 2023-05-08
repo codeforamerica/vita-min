@@ -5,7 +5,7 @@ RSpec.describe "a user viewing a client" do
     let(:created_at) { Time.now }
     let(:user) { create :admin_user }
     let(:intake) { build(:intake, :with_contact_info) }
-    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced", year: 2019)], created_at: created_at }
+    let!(:client) { create :client, vita_partner: (build :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced", year: 2019)], created_at: created_at }
     let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :site, name: "Tax Help Test" }
     before do
@@ -110,7 +110,7 @@ RSpec.describe "a user viewing a client" do
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:first_org) { create :organization, coalition: coalition }
     let(:primary_ssn) { "1112223333" }
-    let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, primary_ssn: primary_ssn) }
+    let(:client) { create :client, vita_partner: first_org, intake: build(:intake, :with_contact_info, primary_ssn: primary_ssn) }
     let!(:intake_with_ssn_match) { create :intake, primary_consented_to_service: "yes", primary_ssn: primary_ssn, client: create(:client, :with_gyr_return, tax_return_state: "intake_ready") }
     let!(:previous_year_intake_with_ssn_dob_match) { create :intake, product_year: Rails.configuration.product_year - 1, primary_consented_to_service: "yes", primary_ssn: primary_ssn, primary_birth_date: client.intake.primary_birth_date, client: create(:client, :with_gyr_return, tax_return_state: "prep_ready_for_prep") }
     let!(:second_org) { create :organization, coalition: coalition }

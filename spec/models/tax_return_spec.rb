@@ -239,7 +239,7 @@ describe TaxReturn do
 
   describe "#filing_jointly?" do
     context "the associated client intake is not filing joint" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+      let(:client) { create :client, intake: (build :intake, filing_joint: "no") }
       let(:tax_return) {
         create :gyr_tax_return,
                client: client
@@ -250,7 +250,7 @@ describe TaxReturn do
     end
 
     context "the associated client intake is filing joint" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+      let(:client) { create :client, intake: (build :intake, filing_joint: "yes") }
       let(:tax_return) {
         create :gyr_tax_return,
                client: client
@@ -362,7 +362,7 @@ describe TaxReturn do
 
       context "checking for spouse" do
         context "the spouse signature is not required for filing status" do
-          let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+          let(:client) { create :client, intake: (build :intake, filing_joint: "no") }
           let(:spouse_not_required_tax_return) {
             create :gyr_tax_return,
                    client: client
@@ -381,7 +381,7 @@ describe TaxReturn do
         end
 
         context "spouse signature is required and the spouse hasn't signed yet" do
-          let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+          let(:client) { create :client, intake: (build :intake, filing_joint: "yes") }
           let(:tax_return) {
             create :gyr_tax_return,
                    client: client
@@ -417,7 +417,7 @@ describe TaxReturn do
 
   describe "#completely_signed_8879?" do
     let(:filing_joint) { "no" }
-    let(:intake) { create :intake, filing_joint: filing_joint }
+    let(:intake) { build :intake, filing_joint: filing_joint }
     let(:tax_return) { create :gyr_tax_return, client: create(:client, intake: intake) }
 
     context "single filing" do
@@ -471,7 +471,7 @@ describe TaxReturn do
 
   describe "#ready_to_file?" do
     context "not filing jointly" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+      let(:client) { create :client, intake: (build :intake, filing_joint: "no") }
 
       context "when the return has not been signed" do
         let(:tax_return) { create :gyr_tax_return, primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil, client: client }
@@ -491,7 +491,7 @@ describe TaxReturn do
     end
 
     context "filing jointly" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+      let(:client) { create :client, intake: (build :intake, filing_joint: "yes") }
 
       context "the return has not been signed by the primary or the spouse" do
         let(:tax_return) {
@@ -633,7 +633,7 @@ describe TaxReturn do
     let(:tax_return) { create :gyr_tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
-    let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
+    let(:client) { create :client, intake: (build :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
     let(:tax_return) { create :tax_return, :intake_in_progress, year: 2019, client: client }
 
     before do
@@ -764,7 +764,7 @@ describe TaxReturn do
     let(:document_service_double) { double }
     let(:client) {
       create :client,
-             intake: (create :intake,
+             intake: (build :intake,
                              primary_first_name: "Primary",
                              primary_last_name: "Taxpayer",
                              spouse_first_name: "Spouse",

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::ConfirmInformationForm do
-  let(:intake) { create :ctc_intake, client: create(:client, tax_returns: [create(:ctc_tax_return, filing_status: filing_status)]) }
+  let(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:ctc_tax_return, filing_status: filing_status)]) }
   let(:filing_status) { "single" }
 
   context "validations" do

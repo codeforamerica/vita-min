@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.feature "Toggle bank account info" do
   context "As an authenticated user" do
     let(:user) { create :admin_user}
-    let(:client) { create(:client, intake: create(:intake, :with_banking_details)) }
-    let(:client_no_bank) { create(:client, intake: create(:intake)) }
+    let(:client) { create(:client, intake: build(:intake, :with_banking_details)) }
+    let(:client_no_bank) { create(:client, intake: build(:intake)) }
     before { login_as user }
 
     scenario "client without bank account info" do

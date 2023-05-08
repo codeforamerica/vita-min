@@ -68,7 +68,7 @@ describe AppliedStandardDeduction do
   end
 
   describe "additional blind deduction" do
-    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: create(:intake, was_blind: was_blind, spouse_was_blind: spouse_was_blind)) }
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: build(:intake, was_blind: was_blind, spouse_was_blind: spouse_was_blind)) }
     let(:filing_status) { "single" }
     let(:was_blind) { "yes" }
     let(:spouse_was_blind) { "no" }
@@ -152,7 +152,7 @@ describe AppliedStandardDeduction do
   end
 
   describe "additional age deduction" do
-    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: create(:intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date)) }
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: filing_status, client: create(:client, intake: build(:intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date)) }
     let(:filing_status) { "single" }
     let(:primary_birth_date) { younger_than_65 }
     let(:spouse_birth_date) { younger_than_65 }
