@@ -657,7 +657,7 @@ describe Intake do
   end
 
   describe "#filing_years" do
-    let(:intake) { create :intake }
+    let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }
     let(:tax_returns) { [] }
 
@@ -669,8 +669,8 @@ describe Intake do
 
     context "with a couple filing years selected" do
       let!(:client) { create :client, tax_returns: [
-        create(:tax_return, year: 2019),
-        create(:gyr_tax_return)
+        build(:tax_return, year: 2019),
+        build(:gyr_tax_return)
       ], intake: intake }
 
       it "returns them as an array" do

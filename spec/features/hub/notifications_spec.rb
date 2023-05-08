@@ -5,7 +5,7 @@ RSpec.feature "View user notifications" do
     let!(:notification) { create :user_notification, read: false, created_at: DateTime.new(2021, 3, 15), user: user, notifiable: tax_return_assignment }
     let!(:note_notification) { create :user_notification, created_at: DateTime.new(2021, 3,14), user: user, notifiable: note }
 
-    let(:intake) { create(:intake, preferred_name: "Jenny Odell") }
+    let(:intake) { build(:intake, preferred_name: "Jenny Odell") }
     let(:client) { create :client, intake: intake }
     let(:tax_return_assignment) { create :tax_return_assignment, tax_return: tax_return, assigner: user_who_assigned }
     let(:note) { create :note, user: (create :user, name: "Someone Cool"), client: client }

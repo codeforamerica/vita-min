@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Ctc::Portal::PortalController do
-  let!(:intake) { create :ctc_intake, current_step: "/en/last/question" }
-  let!(:client) { create :client, intake: intake, tax_returns: [create(:ctc_tax_return)] }
+  let!(:intake) { build :ctc_intake, current_step: "/en/last/question" }
+  let!(:client) { create :client, intake: intake, tax_returns: [build(:ctc_tax_return)] }
 
   context '#home' do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :home

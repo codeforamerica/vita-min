@@ -171,7 +171,7 @@ describe MixpanelService do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
-      let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+      let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
@@ -239,7 +239,7 @@ describe MixpanelService do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
-      let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+      let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
@@ -283,7 +283,7 @@ describe MixpanelService do
         let(:coalition) { create :coalition }
         let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
         let(:site) { create :site, name: "Child Site", parent_organization: organization }
-        let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+        let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do
@@ -388,7 +388,7 @@ describe MixpanelService do
         let(:coalition) { create :coalition }
         let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
         let(:site) { create :site, name: "Child Site", parent_organization: organization }
-        let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+        let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
         let(:user) { create :team_member_user, site: site }
 
         context "when the event is triggered by a user" do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::ConfirmLegalForm do
-  let(:client) { create :client, tax_returns: [(create :ctc_tax_return, filing_status: 'single')] }
+  let(:client) { create :client, tax_returns: [(build :ctc_tax_return, filing_status: 'single')] }
   let!(:intake) { create :ctc_intake, client: client }
   let(:params) do
     {

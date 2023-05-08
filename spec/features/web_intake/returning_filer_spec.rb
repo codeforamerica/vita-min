@@ -4,15 +4,17 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
   let(:gyr_ssn) { "123-45-6789" }
   let!(:original_gyr_intake) do
     create(
-      :intake,
-      :filled_out,
-      email_address: "original@client.com",
-      phone_number: "+14155537865",
-      primary_consented_to_service: "yes",
-      primary_ssn: gyr_ssn,
-      preferred_name: 'Maeby',
-      client: build(:client, tax_returns: [create(:gyr_tax_return, :intake_ready, service_type: "online_intake")])
-    )
+      :client,
+      intake: build(
+        :intake,
+        :filled_out,
+        email_address: "original@client.com",
+        phone_number: "+14155537865",
+        primary_consented_to_service: "yes",
+        primary_ssn: gyr_ssn,
+        preferred_name: 'Maeby'
+      )
+    ).intake
   end
   let(:ctc_ssn) { "123-45-6788" }
   let!(:original_ctc_intake) do

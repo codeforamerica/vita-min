@@ -24,7 +24,11 @@ FactoryBot.define do
       filing_status { "single" }
       metadata { {} }
     end
-    tax_return { create :tax_return, :ctc, year: tax_year, filing_status: filing_status }
+    tax_return do
+      attributes = { year: tax_year, filing_status: filing_status }
+      attributes[:client] = client if client
+      create :tax_return, :ctc, **attributes
+    end
 
     trait :ctc do
       after :create do |submission|

@@ -211,8 +211,8 @@ describe BulkActionJob do
     end
 
     context "when creating a note" do
-      let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
-      let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:selected_client_1) { create :client, intake: (build :intake), vita_partner: organization, tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:selected_client_2) { create :client, intake: (build :intake), vita_partner: organization, tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
       let(:note_body) { "An internal note with some text in it" }
       let(:params) do
         { note_body: note_body }
@@ -246,7 +246,7 @@ describe BulkActionJob do
     end
 
     context "when changing organization" do
-      let!(:selected_client) { create :client, intake: (create :intake), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+      let!(:selected_client) { create :client, intake: (build :intake), tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
       let(:new_vita_partner) { create :site, parent_organization: organization }
       let(:params) do
         { vita_partner_id: new_vita_partner.id.to_s }
@@ -274,7 +274,7 @@ describe BulkActionJob do
       end
 
       context "when user only has access to update some clients" do
-        let!(:inaccessible_selected_client) { create :client, intake: (create :intake), tax_returns: [(create :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: create(:organization) }
+        let!(:inaccessible_selected_client) { create :client, intake: (build :intake), tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])], vita_partner: build(:organization) }
 
         before do
           # prove we did the setup good
@@ -297,7 +297,7 @@ describe BulkActionJob do
         let(:old_site) { create :site, parent_organization: organization }
         let(:assigned_user_at_old_site) { create :site_coordinator_user, site: old_site }
         let(:assigned_user_who_retains_access) { create :organization_lead_user, organization: organization }
-        let(:selected_client) { create :client, intake: (create :intake), vita_partner: old_site }
+        let(:selected_client) { create :client, intake: (build :intake), vita_partner: old_site }
         let!(:still_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018, tax_return_selections: [tax_return_selection] }
         let!(:unassigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_at_old_site, year: 2017, tax_return_selections: [tax_return_selection] }
         let!(:not_selected_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_at_old_site, year: 2019 }
@@ -328,7 +328,7 @@ describe BulkActionJob do
       let(:new_status) { "review_ready_for_call" }
       let(:new_assigned_user_id) { site_coordinator.id }
 
-      let(:client) { create :client, vita_partner: site, intake: create(:intake) }
+      let(:client) { create :client, vita_partner: site, intake: build(:intake) }
       let(:site) { create :site }
 
       let!(:team_member) { create :user, role: create(:team_member_role, site: site) }

@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::EmailAddressController do
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :ctc_intake, visitor_id: visitor_id) }
+  let(:client) { create :client, intake: (build :ctc_intake, visitor_id: visitor_id) }
   let(:intake) { client.intake }
 
   before do

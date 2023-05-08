@@ -19,7 +19,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
             create(
               :client,
               :with_ctc_return,
-              intake: create(:ctc_intake, primary_tin_type: "ssn", primary_ssn: "123-12-1234")
+              intake: build(:ctc_intake, primary_tin_type: "ssn", primary_ssn: "123-12-1234")
             ).intake
           end
 
@@ -35,7 +35,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
             create(
               :client,
               :with_ctc_return,
-              intake: create(:ctc_intake, primary_tin_type: "itin", primary_ssn: "999-89-1234")
+              intake: build(:ctc_intake, primary_tin_type: "itin", primary_ssn: "999-89-1234")
             ).intake
           end
 
@@ -64,7 +64,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
         end
 
         context "when filing joint" do
-          let(:intake) { create(:client, :with_ctc_return, filing_status: "married_filing_jointly", intake: (create :ctc_intake, spouse_first_name: "Gorby", spouse_last_name: "Pants")).intake }
+          let(:intake) { create(:client, :with_ctc_return, filing_status: "married_filing_jointly", intake: (build :ctc_intake, spouse_first_name: "Gorby", spouse_last_name: "Pants")).intake }
 
           it "shows the spouse info" do
             get :edit
@@ -80,7 +80,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
           end
 
           context "when the spouse has an ITIN" do
-            let(:intake) { create(:client, :with_ctc_return, filing_status: "married_filing_jointly", intake: create(:ctc_intake, spouse_tin_type: "itin", spouse_ssn: "123-12-1234")).intake }
+            let(:intake) { create(:client, :with_ctc_return, filing_status: "married_filing_jointly", intake: build(:ctc_intake, spouse_tin_type: "itin", spouse_ssn: "123-12-1234")).intake }
 
             it "properly displays the ITIN" do
               get :edit
@@ -120,7 +120,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
             create(
               :client,
               :with_ctc_return,
-              intake: create(:ctc_intake, refund_payment_method: "check")
+              intake: build(:ctc_intake, refund_payment_method: "check")
             ).intake
           end
 
@@ -136,7 +136,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
             create(
               :client,
               :with_ctc_return,
-              intake: create(:ctc_intake, refund_payment_method: "direct_deposit", bank_account: create(:bank_account))
+              intake: build(:ctc_intake, refund_payment_method: "direct_deposit", bank_account: create(:bank_account))
             ).intake
           end
 
@@ -155,7 +155,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
               create(
                 :client,
                 :with_ctc_return,
-                intake: create(:ctc_intake, filed_prior_tax_year: :did_not_file)
+                intake: build(:ctc_intake, filed_prior_tax_year: :did_not_file)
               ).intake
             end
 
@@ -171,7 +171,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
               create(
                 :client,
                 :with_ctc_return,
-                intake: create(:ctc_intake, filed_prior_tax_year: :filed_full)
+                intake: build(:ctc_intake, filed_prior_tax_year: :filed_full)
               ).intake
             end
 
@@ -191,7 +191,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
               create(
                 :client,
                 :with_ctc_return,
-                intake: create(:ctc_intake, spouse_filed_prior_tax_year: :did_not_file)
+                intake: build(:ctc_intake, spouse_filed_prior_tax_year: :did_not_file)
               ).intake
             end
 
@@ -207,7 +207,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
               create(
                 :client,
                 :with_ctc_return,
-                intake: create(:ctc_intake, spouse_filed_prior_tax_year: :filed_full_separate)
+                intake: build(:ctc_intake, spouse_filed_prior_tax_year: :filed_full_separate)
               ).intake
             end
 

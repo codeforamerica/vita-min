@@ -5,7 +5,7 @@ RSpec.describe OptionalConsentPdf do
 
   describe "#output_file" do
     context "with an empty consent record" do
-      let(:client) { create :client, :with_empty_consent, intake: (create :intake, primary_consented_to_service: "yes") }
+      let(:client) { create :client, :with_empty_consent, intake: (build :intake, primary_consented_to_service: "yes") }
 
       it "returns a pdf with default fields and values" do
         optional_consent_pdf = OptionalConsentPdf.new(client.consent)
@@ -21,7 +21,7 @@ RSpec.describe OptionalConsentPdf do
     end
 
     context "with a complete intake record" do
-      let(:client) { create :client, :with_consent, intake: (create :intake, primary_consented_to_service: "yes") }
+      let(:client) { create :client, :with_consent, intake: (build :intake, primary_consented_to_service: "yes") }
 
       it "returns a filled out pdf" do
         consent_pdf = OptionalConsentPdf.new(client.consent)

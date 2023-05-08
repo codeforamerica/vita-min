@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Add a tax return for an existing client" do
   context "As an authenticated user" do
     let(:user) { create :organization_lead_user, name: "Org Lead" }
-    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, preferred_name: "Bart Simpson") }
+    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     let!(:tax_return2019) { create :tax_return, client: client, year: 2019 }
 
     before do

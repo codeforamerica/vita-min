@@ -4,7 +4,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
   subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year) } # E-File -> CTC
 
   context 'with a totally qualifying relative' do
-    let(:dependent) { create :qualifying_relative, intake: create(:ctc_intake) }
+    let(:dependent) { create :qualifying_relative, intake: build(:ctc_intake) }
     let(:expected_test_result) do
       {   wants_to_claim_test: true,
           birth_test: true,
@@ -32,7 +32,7 @@ describe Efile::DependentEligibility::QualifyingRelative do
     end
 
     context "but the home location on the intake is puerto rico" do
-      let(:dependent) { create(:qualifying_relative, intake: create(:ctc_intake, home_location: "puerto_rico")) }
+      let(:dependent) { create(:qualifying_relative, intake: build(:ctc_intake, home_location: "puerto_rico")) }
 
       before do
         expected_test_result[:home_location_test] = false

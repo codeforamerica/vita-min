@@ -50,7 +50,7 @@ FactoryBot.define do
     end
 
     after(:build) do |intake, evaluator|
-      create_list(:dependent, evaluator.dependent_count, intake: intake)
+      build_list(:dependent, evaluator.dependent_count, intake: intake)
     end
   end
 
@@ -78,7 +78,7 @@ FactoryBot.define do
     end
 
     after(:build) do |intake, evaluator|
-      create_list(:document, evaluator.dependent_count, intake: intake)
+      build_list(:document, evaluator.dependent_count, intake: intake)
     end
   end
 
@@ -207,9 +207,7 @@ FactoryBot.define do
     dependent_count { [1, 2, 3].sample }
     with_dependents
     with_documents
-    vita_partner { build(:organization) }
     locale { ["en", "es"].sample }
-    source { vita_partner.source_parameters.first&.code || "none" }
     referrer { "/" }
     primary_ssn { "123456789" }
     primary_tin_type { "ssn" }
@@ -280,7 +278,7 @@ FactoryBot.define do
   factory :intake, class: Intake::GyrIntake do
     product_year { Rails.configuration.product_year }
     had_wages { :unfilled }
-    client { create :client, consented_to_service_at: nil }
+    client { build :client, consented_to_service_at: nil }
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
     current_step { "/en/questions/overview" }

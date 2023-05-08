@@ -101,7 +101,7 @@ class TaxReturnStateMachine
   end
 
   def previous_transition
-    history.where(most_recent: false).last
+    history.reverse.find { |transition| !transition.most_recent }
   end
 
   def last_changed_by

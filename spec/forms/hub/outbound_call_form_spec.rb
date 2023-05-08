@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Hub::OutboundCallForm do
   let(:user) { create :admin_user, phone_number: "+18324658840" }
-  let(:client) { create :client, intake: (create :intake, phone_number: "+18324651680") }
+  let(:client) { create :client, intake: (build :intake, phone_number: "+18324651680") }
   context "initialization" do
     context "with client and user, no custom params" do
       subject { described_class.new(client: client, user: user) }

@@ -64,6 +64,12 @@ class TaxReturn < ApplicationRecord
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
 
+  before_save do
+    if client_id_was.present? && client_id.present? && client_id_was != client_id
+      raise "client_id of #{self.class.name} changed -- #{client_id_was} vs #{client_id}"
+    end
+  end
+
   def state_machine
     @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)
   end

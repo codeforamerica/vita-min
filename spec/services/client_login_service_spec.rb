@@ -3,7 +3,7 @@ require "rails_helper"
 describe ClientLoginService do
   describe "#clients_for_token" do
     let(:service_type) { "online_intake" }
-    let!(:tax_return) { create :gyr_tax_return, service_type: service_type }
+    let!(:tax_return) { build :gyr_tax_return, service_type: service_type }
     let!(:client) { create :client, tax_returns: [tax_return] }
 
     before do
@@ -117,8 +117,8 @@ describe ClientLoginService do
     context "service_type is :gyr" do
       subject { described_class.new(:gyr) }
 
-      let(:intake) { (create :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
-      let(:tax_return) { create :gyr_tax_return }
+      let(:intake) { (build :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
+      let(:tax_return) { build :gyr_tax_return }
       context "when client phone number maps to online, consented return with sms opt in" do
         it "is true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
@@ -151,8 +151,8 @@ describe ClientLoginService do
     context "service_type is :ctc" do
       subject { described_class.new(:ctc) }
 
-      let(:intake) { (create :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified)}
-      let(:tax_return) { create :ctc_tax_return }
+      let(:intake) { (build :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified)}
+      let(:tax_return) { build :ctc_tax_return }
       let(:sms_phone_number) { phone_number }
       let(:other_phone_number) { nil }
       let(:verified_at_time) { Time.current }
@@ -196,7 +196,7 @@ describe ClientLoginService do
       context "when there is a consented intake with matching email" do
         let(:email_address) { "mango@example.com" }
         before do
-          create :client, intake: (create :intake, email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
+          create :client, intake: (build :intake, email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is true" do
@@ -207,7 +207,7 @@ describe ClientLoginService do
       context "when there is a consented intake with a matching spouse email" do
         let(:email_address) { "mangospouse@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
+          create :client, intake: (build :intake, spouse_email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is true" do
@@ -218,7 +218,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, :primary_consented, email_address: email_address), tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (build :intake, :primary_consented, email_address: email_address), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -229,7 +229,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching spouse email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, :primary_consented, spouse_email_address: email_address), tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (build :intake, :primary_consented, spouse_email_address: email_address), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -240,7 +240,7 @@ describe ClientLoginService do
       context "when there is a matching intake that has not consented to service" do
         let(:email_address) { "noconsent@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address, primary_consented_to_service: "unfilled"), tax_returns: [create(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
+          create :client, intake: (build :intake, spouse_email_address: email_address, primary_consented_to_service: "unfilled"), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is false" do

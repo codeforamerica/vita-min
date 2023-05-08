@@ -3,14 +3,14 @@ require "rails_helper"
 describe FilingStatusHelper do
   describe '#marital_status' do
     context "when all fields are unfilled " do
-      let(:client) { create :client, intake: (create :intake) }
+      let(:client) { create :client, intake: (build :intake) }
       it "returns nil" do
         expect(helper.marital_status(client)).to eq "<span>N/A</span>"
       end
     end
 
     context "when ever married is no" do
-      let(:client) { create :client, intake: (create :intake, ever_married: "no") }
+      let(:client) { create :client, intake: (build :intake, ever_married: "no") }
       let!(:tax_return) { create :gyr_tax_return, filing_status: nil, client: client }
       it "returns a span including Single" do
         expect(helper.marital_status(client)).to eq "<span>Single</span>"
@@ -18,7 +18,7 @@ describe FilingStatusHelper do
     end
 
     context "with complex marital history" do
-      let(:client) { create :client, intake: (create :intake, married: "yes", divorced:"yes", divorced_year: "2014", separated: "yes", separated_year: "2020", widowed: "yes", widowed_year: "1988")}
+      let(:client) { create :client, intake: (build :intake, married: "yes", divorced:"yes", divorced_year: "2014", separated: "yes", separated_year: "2020", widowed: "yes", widowed_year: "1988")}
       it "outputs the correct information" do
         expect(helper.marital_status(client)).to eq "<span>Married, Separated 2020, Divorced 2014, Widowed 1988</span>"
       end
@@ -45,7 +45,7 @@ describe FilingStatusHelper do
 
   describe "#filing_status" do
     context "a client without tax return filing statuses" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+      let(:client) { create :client, intake: (build :intake, filing_joint: "yes") }
       let!(:tax_return) { create :gyr_tax_return, filing_status: nil, client: client }
       it "falls back to filing status on intake" do
         expect(helper.filing_status(client)).to eq("Filing jointly")
@@ -54,8 +54,8 @@ describe FilingStatusHelper do
 
     context "a client with tax return filing statuses" do
       let(:client) { create :client, tax_returns: [tax_return_2019, tax_return_2020] }
-      let(:tax_return_2019) { create :tax_return, year: 2019, filing_status: "head_of_household", filing_status_note: "Married early 2020, qualifying dependent born late 2019." }
-      let(:tax_return_2020) { create :tax_return, year: 2020, filing_status: "married_filing_jointly" }
+      let(:tax_return_2019) { build :tax_return, year: 2019, filing_status: "head_of_household", filing_status_note: "Married early 2020, qualifying dependent born late 2019." }
+      let(:tax_return_2020) { build :tax_return, year: 2020, filing_status: "married_filing_jointly" }
 
       it "returns formatted filing statuses with notes, if applicable" do
         result = <<-RESULT

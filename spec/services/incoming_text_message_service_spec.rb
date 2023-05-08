@@ -39,9 +39,9 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
     end
 
     context "with a matching intake phone number" do
-      let(:client) { create :client, tax_returns: tax_returns }
-      let(:tax_returns) { [(create :gyr_tax_return, :prep_preparing)] }
-      let!(:intake) { create(:intake, client: client, phone_number: "+15005550006") }
+      let!(:client) { create :client, intake: intake, tax_returns: tax_returns }
+      let(:tax_returns) { [(build :gyr_tax_return, :prep_preparing)] }
+      let(:intake) { build(:intake, phone_number: "+15005550006") }
 
       it "creates a new IncomingTextMessage linked to the client with the right data" do
         expect do
@@ -68,7 +68,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
       end
 
       context "has all tax return status in file_accepted, file_mailed or file_not_filing" do
-        let!(:tax_returns) { [(create :gyr_tax_return, :file_not_filing), (create :tax_return, :file_accepted, year: 2019)] }
+        let!(:tax_returns) { [(build :gyr_tax_return, :file_not_filing), (build :tax_return, :file_accepted, year: 2019)] }
 
         before do
           AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
@@ -117,10 +117,10 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
     end
 
     context "with three matching client intakes" do
-      let!(:client1) { create(:client, intake: (create :intake, phone_number: "+15005550006")) }
-      let!(:client2) { create(:client, intake: (create :intake, phone_number: "+15005550006")) }
-      let!(:client3) { create(:client, intake: (create :intake, sms_phone_number: "+15005550006")) }
-      let!(:client4) { create(:client, intake: (create :intake, sms_phone_number: "+15005550005")) }
+      let!(:client1) { create(:client, intake: (build :intake, phone_number: "+15005550006")) }
+      let!(:client2) { create(:client, intake: (build :intake, phone_number: "+15005550006")) }
+      let!(:client3) { create(:client, intake: (build :intake, sms_phone_number: "+15005550006")) }
+      let!(:client4) { create(:client, intake: (build :intake, sms_phone_number: "+15005550005")) }
 
       it "associates the messages with each existing client" do
         expect do
@@ -142,8 +142,8 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
     end
 
     context "with an attachment" do
-      let!(:client) { create :client }
-      let!(:intake) { create :intake, client: client, sms_phone_number: "+15005550006" }
+      let!(:client) { create :client, intake: intake }
+      let(:intake) { build :intake, sms_phone_number: "+15005550006" }
       let(:body) { "" }
       let(:parsed_attachments) do
         [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents" }]

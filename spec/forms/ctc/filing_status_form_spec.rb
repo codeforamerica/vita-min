@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::FilingStatusForm do
-  let(:client) { create :client, tax_returns: [(create :ctc_tax_return, filing_status: nil)] }
+  let(:client) { create :client, tax_returns: [(build :ctc_tax_return, filing_status: nil)] }
   let!(:intake) { create :ctc_intake, client: client }
 
 

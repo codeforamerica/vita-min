@@ -4,7 +4,7 @@ describe Ctc::Portal::VerificationAttemptsController do
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
     context "with an authenticated client" do
-      let(:client) { create :ctc_client, intake: (create :ctc_intake) }
+      let(:client) { create :ctc_client, intake: (build :ctc_intake) }
       before do
         sign_in client
       end
@@ -61,7 +61,7 @@ describe Ctc::Portal::VerificationAttemptsController do
   end
 
   describe "#update" do
-    let(:client) { create :ctc_client, intake: (create :ctc_intake) }
+    let(:client) { create :ctc_client, intake: (build :ctc_intake) }
     context "with an authenticated client" do
       before do
         sign_in client
@@ -160,7 +160,7 @@ describe Ctc::Portal::VerificationAttemptsController do
 
   describe "#destroy" do
     context "with an authenticated user" do
-      let(:client) { create :ctc_client, intake: (create :ctc_intake) }
+      let(:client) { create :ctc_client, intake: (build :ctc_intake) }
       before do
         sign_in client
       end

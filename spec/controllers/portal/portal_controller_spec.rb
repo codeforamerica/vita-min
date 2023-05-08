@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Portal::PortalController, type: :controller do
   describe "#current_intake" do
     let(:session_intake) { create :intake }
-    let(:client) { create :client, intake: (create :intake) }
+    let(:client) { create :client, intake: (build :intake) }
 
     before do
       session[:intake_id] = session_intake.id
@@ -35,7 +35,7 @@ RSpec.describe Portal::PortalController, type: :controller do
         sign_in client
       end
 
-      let(:client) { create :client, intake: (create :intake) }
+      let(:client) { create :client, intake: (build :intake) }
 
       before do
         create :tax_return, :intake_in_progress, year: 2018, client: client

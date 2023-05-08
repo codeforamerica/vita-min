@@ -8,7 +8,7 @@ describe Ctc::Questions::EitcQualifiersController do
   let(:intake) do
     create(
       :ctc_intake,
-      client: create(:client, tax_returns: [(create :ctc_tax_return, filing_status: "married_filing_jointly")]),
+      client: create(:client, tax_returns: [(build :ctc_tax_return, filing_status: "married_filing_jointly")]),
       primary_birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year, 12, 31) - primary_age_at_end_of_tax_year,
       spouse_birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year, 12, 31) - spouse_age_at_end_of_tax_year,
       exceeded_investment_income_limit: exceeded_investment_income_limit

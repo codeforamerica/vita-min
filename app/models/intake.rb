@@ -349,8 +349,14 @@ class Intake < ApplicationRecord
     self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
   end
 
+  before_save do
+    if client_id_was && client_id && client_id_was != client_id
+      raise "client_id of #{self.class.name} changed -- #{client_id_was} vs #{client_id}"
+    end
+  end
+
   after_save do
-    if primary_consented_to_service_previously_changed?(to: "yes")
+    if primary_consented_to_service_previously_changed?(to: "yes") && client.consented_to_service_at.blank?
       client.update(consented_to_service_at: updated_at)
     end
   end

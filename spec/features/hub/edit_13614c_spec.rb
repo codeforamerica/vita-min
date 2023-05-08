@@ -13,12 +13,12 @@ RSpec.describe "a user editing a clients 13614c form" do
 
     let(:user) { create :admin_user }
     let(:assigned_user) { create :user, role: create(:organization_lead_role, organization: organization) }
-    let(:tax_return) { create :gyr_tax_return, assigned_user: assigned_user, filing_status: nil }
+    let(:tax_return) { build :gyr_tax_return, assigned_user: assigned_user, filing_status: nil }
     let(:client) {
       create :client,
              vita_partner: organization,
              tax_returns: [tax_return],
-             intake: create(:intake,
+             intake: build(:intake,
                             primary_ssn: "123456789",
                             spouse_ssn: "111423256",
                             primary_tin_type: "ssn",

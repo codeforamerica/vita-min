@@ -66,13 +66,13 @@ require "rails_helper"
 
 describe Client do
   describe ".sla_tracked scope" do
-    let(:client_before_consent) { create(:client, intake: (create :intake)) }
-    let(:client_in_progress) { create(:client, intake: (create :intake)) }
-    let(:client_file_accepted) { create(:client, intake: (create :intake)) }
-    let(:client_file_not_filing) { create(:client, intake: (create :intake)) }
-    let(:client_multiple) { create(:client, intake: (create :intake)) }
+    let(:client_before_consent) { create(:client, intake: (build :intake)) }
+    let(:client_in_progress) { create(:client, intake: (build :intake)) }
+    let(:client_file_accepted) { create(:client, intake: (build :intake)) }
+    let(:client_file_not_filing) { create(:client, intake: (build :intake)) }
+    let(:client_multiple) { create(:client, intake: (build :intake)) }
     let(:client_archived_intake) { create :client, intake: nil }
-    let(:client_new_archived_intake) { create :client, intake: create(:intake, product_year: Rails.configuration.product_year - 1) }
+    let(:client_new_archived_intake) { create :client, intake: build(:intake, product_year: Rails.configuration.product_year - 1) }
 
     before do
       create :gyr_tax_return, :intake_before_consent, client: client_before_consent
@@ -242,7 +242,7 @@ describe Client do
     end
 
     context "when clients intake was completed" do
-      let!(:client) { create :client, intake: create(:intake) }
+      let!(:client) { create :client, intake: build(:intake) }
 
       it "is not flagged" do
         client.intake.update(completed_at: Time.now)
@@ -298,14 +298,14 @@ describe Client do
   end
 
   describe "#legal_name" do
-    let(:client) { create :client, intake: (create :intake, primary_first_name: "  Randall  ", primary_last_name: "Ruttabega  ") }
+    let(:client) { create :client, intake: (build :intake, primary_first_name: "  Randall  ", primary_last_name: "Ruttabega  ") }
     it "combines the name and trims whitespace" do
       expect(client.legal_name).to eq "Randall Ruttabega"
     end
   end
 
   describe "#spouse_legal_name" do
-    let(:client) { create :client, intake: (create :intake, spouse_first_name: "Marlie  ", spouse_last_name: "  Mango  ") }
+    let(:client) { create :client, intake: (build :intake, spouse_first_name: "Marlie  ", spouse_last_name: "  Mango  ") }
     it "combines the name and trims whitespace" do
       expect(client.spouse_legal_name).to eq "Marlie Mango"
     end
@@ -478,7 +478,7 @@ describe Client do
       let(:email_address) { "client@example.com" }
 
       context "with a client whose email matches" do
-        let!(:client) { create(:client, intake: create(:intake, email_address: email_address)) }
+        let!(:client) { create(:client, intake: build(:intake, email_address: email_address)) }
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)
@@ -486,7 +486,7 @@ describe Client do
       end
 
       context "with a client whose spouse email matches" do
-        let!(:client) { create(:client, intake: create(:intake, spouse_email_address: email_address)) }
+        let!(:client) { create(:client, intake: build(:intake, spouse_email_address: email_address)) }
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)
@@ -498,7 +498,7 @@ describe Client do
       let(:phone_number) { "+15105551234" }
 
       context "with a client whose phone_number matches" do
-        let!(:client) { create(:client, intake: create(:intake, phone_number: phone_number))}
+        let!(:client) { create(:client, intake: build(:intake, phone_number: phone_number))}
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: nil, phone_number: phone_number)).to include(client)
@@ -506,7 +506,7 @@ describe Client do
       end
 
       context "with a client whose sms_phone_number matches" do
-        let!(:client) { create(:client, intake: create(:intake, sms_phone_number: phone_number))}
+        let!(:client) { create(:client, intake: build(:intake, sms_phone_number: phone_number))}
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: nil, phone_number: phone_number)).to include(client)
@@ -516,15 +516,15 @@ describe Client do
   end
 
   describe "#clients_with_dupe_contact_info" do
-    let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
+    let!(:client) { create :client, intake: build(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
 
     context "when there are other GYR clients with the same contact info" do
-      let!(:client_dupe_email) { create :client, :with_gyr_return, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:ctc_client_dupe_email) { create :client, :with_ctc_return, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:client_phone) { create :client, :with_gyr_return, intake: create(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms) { create :client, :with_gyr_return, intake: create(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client, :with_gyr_return, intake: create(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client, :with_gyr_return, intake: create(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_dupe_email) { create :client, :with_gyr_return, intake: build(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:ctc_client_dupe_email) { create :client, :with_ctc_return, intake: build(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client, :with_gyr_return, intake: build(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client, :with_gyr_return, intake: build(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client, :with_gyr_return, intake: build(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client, :with_gyr_return, intake: build(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching GYR clients" do
         it "returns the GYR clients ids" do
@@ -532,7 +532,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client, consented_to_service_at: nil, intake: create(:intake, email_address: "fizzy_pop@example.com") }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil, intake: build(:intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
@@ -542,12 +542,12 @@ describe Client do
     end
 
     context "when there are other CTC clients with the same contact info" do
-      let!(:client_dupe_email) { create :client, :with_ctc_return, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:gyr_client_dupe_email) { create :client, :with_gyr_return, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:client_phone) { create :client, :with_ctc_return, intake: create(:ctc_intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms) { create :client, :with_ctc_return, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client, :with_ctc_return, intake: create(:ctc_intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client, :with_ctc_return, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_dupe_email) { create :client, :with_ctc_return, intake: build(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:gyr_client_dupe_email) { create :client, :with_gyr_return, intake: build(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client, :with_ctc_return, intake: build(:ctc_intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client, :with_ctc_return, intake: build(:ctc_intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client, :with_ctc_return, intake: build(:ctc_intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client, :with_ctc_return, intake: build(:ctc_intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching CTC clients" do
         it "returns the CTC clients ids" do
@@ -555,7 +555,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client, consented_to_service_at: nil,  intake: create(:ctc_intake, email_address: "fizzy_pop@example.com") }
+          let!(:client_before_consent) { create :client, consented_to_service_at: nil,  intake: build(:ctc_intake, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)
@@ -581,8 +581,8 @@ describe Client do
     end
 
     context "with empty contact info fields" do
-      let!(:client) { create :client, :with_gyr_return, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
-      let!(:other_blank_client) { create :client, :with_gyr_return, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
+      let!(:client) { create :client, :with_gyr_return, intake: build(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
+      let!(:other_blank_client) { create :client, :with_gyr_return, intake: build(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
 
       it "does not match on nil values" do
         expect(client.clients_with_dupe_contact_info(true)).to eq []
@@ -594,19 +594,19 @@ describe Client do
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
     let(:product_year) { 2023 }
-    let!(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
-    let!(:ctc_client_accessible_ssn_match_old_product_year) { create :client, intake: create(:ctc_intake, product_year: product_year - 1, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
-    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
-    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, product_year: product_year, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_accessible_ssn_match) { create :client, intake: build(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_accessible_ssn_match_old_product_year) { create :client, intake: build(:ctc_intake, product_year: product_year - 1, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: build(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
+    let!(:ctc_client_accessible_no_ssn_match) { create :client, intake: build(:ctc_intake, product_year: product_year, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let!(:gyr_client_accessible_ssn_match_online) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
-    let!(:gyr_client_accessible_ssn_match_old_product_year) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year - 1, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
-    let!(:gyr_client_inaccessible_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake", year: 2019)] }
-    let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: create(:intake, product_year: product_year, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_online) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(build :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_drop_off) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(build :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_accessible_ssn_match_old_product_year) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year - 1, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(build :tax_return, service_type: "drop_off", year: 2019)] }
+    let!(:gyr_client_inaccessible_ssn_match) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(build :tax_return, service_type: "online_intake", year: 2019)] }
+    let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(build :tax_return, service_type: "drop_off", year: 2019)] }
 
     context "GYR client" do
-      let!(:client) { create :client, filterable_product_year: product_year, intake: create(:intake, primary_ssn: primary_ssn, product_year: product_year) }
+      let!(:client) { create :client, filterable_product_year: product_year, intake: build(:intake, primary_ssn: primary_ssn, product_year: product_year) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
@@ -636,7 +636,7 @@ describe Client do
     end
 
     context "CTC client" do
-      let!(:client) { create :client, filterable_product_year: product_year, intake: create(:ctc_intake, primary_ssn: primary_ssn, product_year: product_year) }
+      let!(:client) { create :client, filterable_product_year: product_year, intake: build(:ctc_intake, primary_ssn: primary_ssn, product_year: product_year) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
@@ -667,7 +667,7 @@ describe Client do
     end
 
     context "there are no other clients with a matching SSN" do
-      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: "987654111") }
+      let!(:client) { create :client, intake: build(:ctc_intake, primary_ssn: "987654111") }
 
       it "returns an empty collection" do
         expect(client.clients_with_dupe_ssn(Intake::GyrIntake)).to be_empty
@@ -676,7 +676,7 @@ describe Client do
     end
 
     context "there is a matching intake with nil client" do
-      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: "987654111") }
+      let!(:client) { create :client, intake: build(:ctc_intake, primary_ssn: "987654111") }
       let!(:intake) { create :intake, primary_ssn: "987654111", client: nil }
 
       it "returns an empty collection" do
@@ -686,7 +686,7 @@ describe Client do
     end
 
     context "no primary ssn provided" do
-      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: nil) }
+      let!(:client) { create :client, intake: build(:ctc_intake, primary_ssn: nil) }
 
       it "does not match on nil values" do
         expect(client.clients_with_dupe_ssn(Intake::GyrIntake)).to be_empty
@@ -699,10 +699,10 @@ describe Client do
     let(:organization) { create(:organization) }
     context "with all languages present" do
       before do
-        create(:client, intake: create(:intake, locale: "en"), vita_partner: nil)
-        create(:client, intake: create(:intake, locale: "en"), vita_partner: organization)
-        create(:client, intake: create(:intake, locale: "es"), vita_partner: organization)
-        create(:client, intake: create(:intake, locale: nil), vita_partner: organization)
+        create(:client, intake: build(:intake, locale: "en"), vita_partner: nil)
+        create(:client, intake: build(:intake, locale: "en"), vita_partner: organization)
+        create(:client, intake: build(:intake, locale: "es"), vita_partner: organization)
+        create(:client, intake: build(:intake, locale: nil), vita_partner: organization)
         create(:archived_2021_gyr_intake, locale: "en", client: create(:client, intake: nil, vita_partner: organization))
       end
 
@@ -713,8 +713,8 @@ describe Client do
 
     context "with only one language present" do
       before do
-        create(:client, intake: create(:intake, locale: "en"))
-        create(:client, intake: create(:intake, locale: nil))
+        create(:client, intake: build(:intake, locale: "en"))
+        create(:client, intake: build(:intake, locale: nil))
       end
 
       it "returns a hash with both en & es" do
@@ -725,7 +725,7 @@ describe Client do
 
   describe "#forward_message_to_intercom?" do
     context "an online CTC client" do
-      let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:ctc_tax_return, service_type: "online_intake")] }
+      let(:client) { create :client, intake: build(:ctc_intake), tax_returns: [build(:ctc_tax_return, service_type: "online_intake")] }
 
       it "returns false" do
         expect(client.forward_message_to_intercom?).to eq(false)
@@ -733,8 +733,8 @@ describe Client do
     end
 
     context "a dropoff client" do
-      let(:client) { create :client, intake: create(:intake), tax_returns: tax_returns }
-      let(:tax_returns) { [create(:tax_return, status1.to_sym, year: "2019"), create(:tax_return, status2.to_sym, year: "2020")] }
+      let(:client) { create :client, intake: build(:intake), tax_returns: tax_returns }
+      let(:tax_returns) { [build(:tax_return, status1.to_sym, year: "2019"), build(:tax_return, status2.to_sym, year: "2020")] }
 
       context "when the FORWARD_MESSAGES_TO_INTERCOM admin toggle is true" do
         before do
@@ -785,7 +785,7 @@ describe Client do
   end
 
   describe "#request_doc_help" do
-    let(:client) { create :client, intake: (create :intake) }
+    let(:client) { create :client, intake: (build :intake) }
     let(:assigned_user_a) { create :user }
     let(:assigned_user_b) { create :user }
     before do
@@ -945,7 +945,7 @@ describe Client do
              treatment: treatment,
              record: client.intake
     end
-    let!(:client) { create :client, intake: create(:intake) }
+    let!(:client) { create :client, intake: build(:intake) }
 
     context "client is in the ID Verification Experiment" do
       context "has control treatment" do

@@ -4,7 +4,7 @@ RSpec.describe Hub::OutgoingTextMessagesController do
   let(:user) { create :organization_lead_user }
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
+    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
         client_id: client.id,

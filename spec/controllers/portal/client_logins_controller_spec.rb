@@ -5,7 +5,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     create(
       :client,
       last_seen_at: nil,
-      intake: create(
+      intake: build(
         :intake,
         email_address: "client@example.com",
         sms_phone_number: "+15105551234"
@@ -373,7 +373,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           contact_info: email_address,
           verification_code: wrong_verification_code,
         }}}
-        let!(:client) { create(:client, intake: create(:intake, email_address: email_address), locked_at: DateTime.now) }
+        let!(:client) { create(:client, intake: build(:intake, email_address: email_address), locked_at: DateTime.now) }
 
         it "redirects to the account locked page" do
           post :check_verification_code, params: params

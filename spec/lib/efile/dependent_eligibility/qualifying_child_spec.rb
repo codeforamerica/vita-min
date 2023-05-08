@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Efile::DependentEligibility::QualifyingChild do
   subject { described_class.new(dependent, MultiTenantService.new(:ctc).current_tax_year) }
-  let(:intake) { create(:ctc_intake, client: create(:client, :with_ctc_return)) }
+  let!(:intake) { create(:client, :with_ctc_return, intake: build(:ctc_intake, client: nil)).intake }
 
   context "when passing an EfileSubmissionDependent who already has their qualification persisted on the record" do
     let(:dependent) { EfileSubmissionDependent.create(efile_submission: (create :efile_submission), dependent: (create :dependent), qualifying_child: true) }

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe NotesPresenter do
   describe "#grouped_notes" do
     let(:vita_partner) { create :organization }
-    let(:client) { create :client, vita_partner: vita_partner, intake: (create :intake) }
+    let(:client) { create :client, vita_partner: vita_partner, intake: (build :intake) }
     let(:params) { { client_id: client.id } }
     let(:user) { create :admin_user }
 

@@ -35,7 +35,7 @@ describe TaxReturnService do
     context "setting initiated_by_user_id" do
       it "sets it to the current_user" do
         TaxReturnService.handle_state_change(form)
-        expect(tax_return.last_transition.metadata["initiated_by_user_id"]).to eq user.id
+        expect(tax_return.reload.last_transition.metadata["initiated_by_user_id"]).to eq user.id
       end
     end
 

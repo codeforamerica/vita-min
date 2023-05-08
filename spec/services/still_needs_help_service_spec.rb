@@ -21,8 +21,8 @@ describe StillNeedsHelpService do
 
   describe "#trigger_still_needs_help_flow" do
     let(:tax_returns) { [] }
-    let(:client) { create(:client, tax_returns: tax_returns) }
-    let!(:intake) { create(:intake, client: client, locale: :en) }
+    let!(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
+    let(:intake) { build(:intake, locale: :en) }
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
@@ -45,8 +45,8 @@ describe StillNeedsHelpService do
     context "with tax returns with status ready for review (aka intake ready)" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_ready, year: 2019),
-          create(:tax_return, :intake_ready, year: 2018)
+          build(:tax_return, :intake_ready, year: 2019),
+          build(:tax_return, :intake_ready, year: 2018)
         ]
       end
 
@@ -59,8 +59,8 @@ describe StillNeedsHelpService do
     context "with tax returns with status not ready (aka in progress)" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_in_progress, year: 2019),
-          create(:tax_return, :intake_in_progress, year: 2018)
+          build(:tax_return, :intake_in_progress, year: 2019),
+          build(:tax_return, :intake_in_progress, year: 2018)
         ]
       end
 
@@ -73,8 +73,8 @@ describe StillNeedsHelpService do
     context "with tax returns with status intake_info_requested" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_info_requested, year: 2019),
-          create(:tax_return, :intake_info_requested, year: 2018)
+          build(:tax_return, :intake_info_requested, year: 2019),
+          build(:tax_return, :intake_info_requested, year: 2018)
         ]
       end
 
@@ -87,8 +87,8 @@ describe StillNeedsHelpService do
     context "with tax returns with status intake_greeter_info_requested" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_greeter_info_requested, year: 2019),
-          create(:tax_return, :intake_greeter_info_requested, year: 2018)
+          build(:tax_return, :intake_greeter_info_requested, year: 2019),
+          build(:tax_return, :intake_greeter_info_requested, year: 2018)
         ]
       end
 
@@ -101,8 +101,8 @@ describe StillNeedsHelpService do
     context "with tax returns with status intake_needs_doc_help" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_needs_doc_help, year: 2019),
-          create(:tax_return, :intake_needs_doc_help, year: 2018)
+          build(:tax_return, :intake_needs_doc_help, year: 2019),
+          build(:tax_return, :intake_needs_doc_help, year: 2018)
         ]
       end
 
@@ -115,8 +115,8 @@ describe StillNeedsHelpService do
     context "with returns in other statuses" do
       let(:tax_returns) do
         [
-          create(:tax_return, :file_accepted, year: 2018),
-          create(:tax_return, :prep_preparing, year: 2019)
+          build(:tax_return, :file_accepted, year: 2018),
+          build(:tax_return, :prep_preparing, year: 2019)
         ]
       end
 
@@ -129,8 +129,8 @@ describe StillNeedsHelpService do
     context "with returns in a mix of statuses" do
       let(:tax_returns) do
         [
-          create(:tax_return, :intake_greeter_info_requested, year: 2018),
-          create(:tax_return, :prep_preparing, year: 2019)
+          build(:tax_return, :intake_greeter_info_requested, year: 2018),
+          build(:tax_return, :prep_preparing, year: 2019)
         ]
       end
 

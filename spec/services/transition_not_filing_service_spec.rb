@@ -3,7 +3,7 @@ require "rails_helper"
 describe TransitionNotFilingService do
   describe 'run' do
     context "with a client who has some tax returns in not_filing status" do
-      let(:client) { create :client, intake: (create :intake) }
+      let(:client) { create :client, intake: (build :intake) }
 
       context "when previous status is intake_in_progress" do
         let(:tax_return) { create :ctc_tax_return, :intake_in_progress, client: client }

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
   include CtcIntakeFeatureHelper
-  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:ctc_tax_return, filing_status: :married_filing_jointly)] }
+  let(:client) { create :client, intake: build(:ctc_intake), tax_returns: [build(:ctc_tax_return, filing_status: :married_filing_jointly)] }
 
   before do
     login_as client, scope: :client

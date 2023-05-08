@@ -3,7 +3,7 @@ require "rails_helper"
 describe Ctc::Questions::EmailVerificationController do
   let(:visitor_id) { "asdfasdfa" }
   let(:client) do
-    c = create :client, intake: (create :ctc_intake, email_address: "email@example.com", visitor_id: visitor_id, locale: locale)
+    c = create :client, intake: (build :ctc_intake, email_address: "email@example.com", visitor_id: visitor_id, locale: locale)
     create :ctc_tax_return, :intake_before_consent, client: c
     c
   end

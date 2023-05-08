@@ -41,7 +41,7 @@ describe Hub::TaxReturnForm do
   describe "#save" do
     subject { described_class.new(client, params) }
 
-    let(:client) { create :client, intake: (create :intake) }
+    let(:client) { create :client, intake: (build :intake) }
     let(:user) { create :user }
     let(:params) { {
         service_type: "online_intake",
