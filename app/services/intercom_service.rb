@@ -133,7 +133,9 @@ class IntercomService
     if Rails.env.development?
       Rails.logger.debug("Calling Intercom: #{collection}.#{verb}(#{params})")
     end
+
     result = intercom.send(collection).send(verb, params)
+
     if Rails.env.development?
       Rails.logger.debug("Intercom provided response: #{result.inspect}")
     end

@@ -233,13 +233,30 @@ RSpec.describe IntercomService do
       expect(SendAutomatedMessage).to(
         have_received(:new)
           .with(
-                  message: AutomatedMessage::IntercomForwarding,
-                  sms: true,
-                  email: true,
-                  client: client
-                )
+            message: AutomatedMessage::IntercomForwarding,
+            sms: true,
+            email: true,
+            client: client
+          )
       )
       expect(fake_send_automated_message).to have_received(:send_messages)
+    end
+  end
+
+  describe ".intercom_api" do
+    context "when there's an upstream authentication failure" do
+      let(:params) {{ from: { type: fake_contact.role, id: fake_contact.id }, body: body }}
+      before do
+        allow(fake_intercom.messages).to receive(:create).with(params) {
+          raise Intercom::AuthenticationError.new("fake error")
+        }
+      end
+
+      it "retries to send the last message" do
+        expect {
+          described_class.intercom_api(:messages, :create, params)
+        }.not_to raise_exception(Intercom::AuthenticationError)
+      end
     end
   end
 end
