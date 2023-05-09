@@ -12,8 +12,10 @@
         <% if @document.is_pdf? %>
           <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf" />
         <% else %>
-          <%= image_tag transient_storage_url(@document.upload.blob) %>
-        <% end %>
+          <%= image_tag transient_storage_url(@document.upload.blob), id: 'image', data: { rotation: 0 } %>
+          <button id="rotate-button">Rotate</button>
+          <%#= link_to 'Rotate', '#', id: 'rotate-button', class: 'btn btn-primary', data: { image_source: transient_storage_url(@document.upload.blob) } %>
+      <% end %>
       </div>
     </div>
   </div>

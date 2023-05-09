@@ -44,6 +44,29 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
     end
 
+    scenario "can rotate a document" do
+      page.driver.header("User-Agent", "GeckoFox")
+
+      visit hub_client_documents_path(client_id: client.id)
+
+      expect(page).to have_selector("h1", text: "Bart Simpson")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
+
+      within "#document-#{document_1.id}" do
+        click_on "Edit"
+      end
+
+      expect(page).to have_text("Edit Document")
+
+      original_checksum = document_1.upload.blob.checksum
+
+      click_on "Rotate clockwise"
+
+      click_on "Save"
+
+      expect(document_1.upload.blob.checksum).not_to eq(original_checksum)
+    end
+
     scenario "uploading a document to a client's documents page" do
       original_document_count = client.documents.count
 
