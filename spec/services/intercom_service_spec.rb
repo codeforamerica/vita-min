@@ -249,13 +249,13 @@ RSpec.describe IntercomService do
       before do
         allow(fake_intercom.messages).to receive(:create).with(params) {
           raise Intercom::AuthenticationError.new("fake error")
-        }
+        }.exactly(3).times
       end
 
       it "retries to send the last message" do
         expect {
           described_class.intercom_api(:messages, :create, params)
-        }.not_to raise_exception(Intercom::AuthenticationError)
+        }.not_to raise_exception
       end
     end
   end

@@ -134,7 +134,14 @@ class IntercomService
       Rails.logger.debug("Calling Intercom: #{collection}.#{verb}(#{params})")
     end
 
-    result = intercom.send(collection).send(verb, params)
+    retry_counts = 0
+
+    begin
+      result = intercom.send(collection).send(verb, params)
+    rescue
+      retry_counts += 1
+      retry if retry_counts < 3
+    end
 
     if Rails.env.development?
       Rails.logger.debug("Intercom provided response: #{result.inspect}")
