@@ -129,6 +129,8 @@ class IntercomService
     @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
   end
 
+  MAX_RETRY_COUNT = 3
+
   def self.intercom_api(collection, verb, params)
     if Rails.env.development?
       Rails.logger.debug("Calling Intercom: #{collection}.#{verb}(#{params})")
@@ -140,7 +142,7 @@ class IntercomService
       result = intercom.send(collection).send(verb, params)
     rescue
       retry_counts += 1
-      retry if retry_counts < 3
+      retry if retry_counts < MAX_RETRY_COUNT
     end
 
     if Rails.env.development?
