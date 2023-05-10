@@ -1,6 +1,25 @@
 require "rails_helper"
 
 describe Portal::UploadDocumentsController do
+  describe "#index" do
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
+
+    context "when authenticated" do
+      let(:client) { create :client, intake: (build :intake), current_sign_in_at: Time.now }
+      let!(:active_document) { create :document, client: client }
+      let!(:archived_document) { create :document, client: client, archived: true }
+
+      before do
+        sign_in client
+      end
+
+      it "renders a list of active documents" do
+        get :index
+        expect(assigns[:documents]).to match_array([active_document])
+      end
+    end
+  end
+
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :edit

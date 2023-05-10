@@ -10,7 +10,7 @@ module Portal
     end
 
     def index
-      @documents = current_client.documents
+      @documents = current_client.documents.active
       @can_add_documents = !current_client.tax_returns.all? { |tr| tr.current_state == "file_accepted" }
       @prev_path = portal_root_path
       render layout: "intake"
