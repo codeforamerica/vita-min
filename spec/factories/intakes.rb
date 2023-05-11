@@ -222,7 +222,6 @@ FactoryBot.define do
     city { "San Francisco" }
     state { "CA" }
     state_of_residence { state }
-    vita_partner_name { vita_partner.name }
     routing_value { "az" }
     routing_criteria { "state" }
     job_count { [1, 2, 3].sample }
