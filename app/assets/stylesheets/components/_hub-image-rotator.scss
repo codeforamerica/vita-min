@@ -1,0 +1,11 @@
+#image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.rotatable-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
