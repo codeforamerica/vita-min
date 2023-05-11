@@ -141,8 +141,9 @@ class IntercomService
     begin
       result = intercom.send(collection).send(verb, params)
     rescue
-      retry_counts += 1
-      retry if retry_counts < MAX_RETRY_COUNT
+      Intercom::AuthenticationError => e
+        retry_counts += 1
+        retry if retry_counts <= MAX_RETRY_COUNT
     end
 
     if Rails.env.development?
