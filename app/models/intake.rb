@@ -253,7 +253,6 @@
 #  usps_address_late_verification_attempts              :integer          default(0)
 #  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
-#  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null
 #  was_blind                                            :integer          default(0), not null
 #  was_full_time_student                                :integer          default(0), not null
@@ -642,5 +641,5 @@ class Intake < ApplicationRecord
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id, dependent: :destroy
 
-  self.ignored_columns = ["primary_consented_to_service_at"] + archived_columns
+  self.ignored_columns = ["primary_consented_to_service_at", "vita_partner_name"] + archived_columns
 end
