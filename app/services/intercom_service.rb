@@ -143,11 +143,13 @@ class IntercomService
     rescue
       Intercom::AuthenticationError => e
         retry_counts += 1
+        DatadogApi.increment("intercom.api.authentication_failure_retry")
         retry if retry_counts <= MAX_RETRY_COUNT
+        raise e, "Failed #{MAX_RETRY_COUNT} times to authenticate with Intercom"
     end
 
     if Rails.env.development?
-      Rails.logger.debug("Intercom provided response: #{result.inspect}")
+      Rails.logger.debug("Intercom provided response for call: #{result.inspect}")
     end
     result
   end

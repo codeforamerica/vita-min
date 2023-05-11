@@ -244,18 +244,44 @@ RSpec.describe IntercomService do
   end
 
   describe ".intercom_api" do
+    let(:params) {
+      {
+        body: body,
+        from: {
+          type: fake_contact.role,
+          id: fake_contact.id
+        }
+      }
+    }
+
     context "when there's an upstream authentication failure" do
-      let(:params) {{ from: { type: fake_contact.role, id: fake_contact.id }, body: body }}
       before do
         allow(fake_intercom.messages).to receive(:create).with(params) {
           raise Intercom::AuthenticationError.new("fake error")
-        }.exactly(4).times
+        }
       end
 
-      it "retries to send the last message" do
+      it "fails after a number of retries" do
+        # FIXME: Confirm that datadog counter was incremented by expected amount (3)
         expect {
           described_class.intercom_api(:messages, :create, params)
-        }.not_to raise_exception
+        }.to raise_error(Intercom::AuthenticationError, "Failed 3 times to authenticate with Intercom")
+      end
+    end
+
+    context "when there's an intermittent authentication failure" do
+      before do
+        # make this fail the first time and pass the second
+        allow(fake_intercom.messages).to receive(:create).with(params) {
+          raise Intercom::AuthenticationError.new("fake error")
+        }.exactly(1).times
+      end
+
+      it "fails once but works the second time" do
+        # FIXME: Confirm that datadog counter was incremented by expected amount (1)
+        expect {
+          described_class.intercom_api(:messages, :create, params)
+        }.not_to raise_error
       end
     end
   end
