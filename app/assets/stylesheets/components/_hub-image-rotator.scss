@@ -1,11 +1,14 @@
 #image-container {
+  display: block;
   position: relative;
   overflow: hidden;
+  border: solid black 1px;
 }
 
 .rotatable-image {
-  display: block;
+  //display: block;
   max-width: 100%;
   height: auto;
   transition: transform 0.3s ease-in-out;
+  margin: 5px;
 }
