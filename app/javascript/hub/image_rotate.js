@@ -17,6 +17,8 @@
 //         image.dataset.rotation = rotation;
 //     });
 // });
+import adjustImageSize from "./adjust-image-size";
+
 export default function imageRotate() {
     const rotateButton = document.getElementById("rotate-button");
 
@@ -34,5 +36,7 @@ export default function imageRotate() {
 
         // Update the rotation angle in the dataset attribute
         image.dataset.rotation = rotation;
+
+        adjustImageSize();
     });
 };
