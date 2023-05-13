@@ -1,7 +1,12 @@
 #image-container {
+  //display: flex;
+  //justify-content: center;
+  //flex-direction: column;
   position: relative;
   overflow: hidden;
   border: solid black 1px;
+  width: 100%;
+  max-width: 50vw;
 }
 
 .rotatable-image {

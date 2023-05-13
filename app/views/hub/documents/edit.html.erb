@@ -12,10 +12,12 @@
         <% if @document.is_pdf? %>
           <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf" />
         <% else %>
-          <%= image_tag transient_storage_url(@document.upload.blob), id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
-          <button id="rotate-button">Rotate</button>
+          <%#= image_tag transient_storage_url(@document.upload.blob), id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
+          <%= image_tag src='https://picsum.photos/200/300', id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
       <% end %>
       </div>
+
     </div>
+    <button id="rotate-button">Rotate</button>
   </div>
 <% end %>

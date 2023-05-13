@@ -8,12 +8,12 @@ export default function adjustImageSize() {
 
     const imageRatio = image.naturalWidth / image.naturalHeight;
     const containerRatio = containerWidth / containerHeight;
-
-    if (imageRatio > containerRatio) {
-        image.style.width = "100%";
-        image.style.height = "auto";
-    } else {
-        image.style.width = "auto";
-        image.style.height = "100%";
-    }
+    console.log(containerWidth, containerHeight, image.naturalHeight, image.naturalWidth, imageRatio, containerRatio)
+    // if (imageRatio > containerRatio) {
+    //     image.style.width = '500px';
+    //     image.style.height = 'auto';
+    // } else {
+    //     image.style.width = "auto";
+    //     image.style.height = "100%";
+    // }
 };
