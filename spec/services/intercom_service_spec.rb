@@ -271,17 +271,23 @@ RSpec.describe IntercomService do
 
     context "when there's an intermittent authentication failure" do
       before do
-        # make this fail the first time and pass the second
+        call_count = 0
         allow(fake_intercom.messages).to receive(:create).with(params) {
-          raise Intercom::AuthenticationError.new("fake error")
-        }.exactly(1).times
+          call_count += 1
+          if call_count <= 3
+            raise Intercom::AuthenticationError.new("fake error")
+          end
+        }.exactly(4).times
+
+        allow(DatadogApi).to receive(:increment).with("intercom.api.authentication_failure_retry").exactly(4).times
       end
 
       it "fails once but works the second time" do
-        # FIXME: Confirm that datadog counter was incremented by expected amount (1)
         expect {
           described_class.intercom_api(:messages, :create, params)
         }.not_to raise_error
+
+        expect(DatadogApi).to have_received(:increment).with("intercom.api.authentication_failure_retry").exactly(3).times
       end
     end
   end

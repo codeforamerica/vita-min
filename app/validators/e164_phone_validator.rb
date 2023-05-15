@@ -3,7 +3,7 @@ class E164PhoneValidator < ActiveModel::EachValidator
   # This may occur in a form, or in a before_validation hook, etc.
   def validate_each(record, attr_name, value)
     return if value&.valid_encoding? && value =~ /\A\+1\d{10}\z/ && Phony.plausible?(value)
-
+    Rails.logger.warn("Bade number jlkjflkasdjfl")
     record.errors.add(attr_name, I18n.t("errors.attributes.phone_number.invalid"))
   end
 end
