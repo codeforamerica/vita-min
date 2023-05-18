@@ -233,13 +233,62 @@ RSpec.describe IntercomService do
       expect(SendAutomatedMessage).to(
         have_received(:new)
           .with(
-                  message: AutomatedMessage::IntercomForwarding,
-                  sms: true,
-                  email: true,
-                  client: client
-                )
+            message: AutomatedMessage::IntercomForwarding,
+            sms: true,
+            email: true,
+            client: client
+          )
       )
       expect(fake_send_automated_message).to have_received(:send_messages)
+    end
+  end
+
+  describe ".intercom_api" do
+    let(:params) {
+      {
+        body: body,
+        from: {
+          type: fake_contact.role,
+          id: fake_contact.id
+        }
+      }
+    }
+
+    context "when there's an upstream authentication failure" do
+      before do
+        allow(fake_intercom.messages).to receive(:create).with(params) {
+          raise Intercom::AuthenticationError.new("fake error")
+        }
+      end
+
+      it "fails after a number of retries" do
+        # FIXME: Confirm that datadog counter was incremented by expected amount (3)
+        expect {
+          described_class.intercom_api(:messages, :create, params)
+        }.to raise_error(Intercom::AuthenticationError, "Failed 3 times to authenticate with Intercom")
+      end
+    end
+
+    context "when there's an intermittent authentication failure" do
+      before do
+        call_count = 0
+        allow(fake_intercom.messages).to receive(:create).with(params) {
+          call_count += 1
+          if call_count <= 3
+            raise Intercom::AuthenticationError.new("fake error")
+          end
+        }.exactly(4).times
+
+        allow(DatadogApi).to receive(:increment).with("intercom.api.authentication_failure_retry").exactly(4).times
+      end
+
+      it "fails once but works the second time" do
+        expect {
+          described_class.intercom_api(:messages, :create, params)
+        }.not_to raise_error
+
+        expect(DatadogApi).to have_received(:increment).with("intercom.api.authentication_failure_retry").exactly(3).times
+      end
     end
   end
 end

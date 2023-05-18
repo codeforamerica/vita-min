@@ -129,13 +129,27 @@ class IntercomService
     @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
   end
 
+  MAX_RETRY_COUNT = 3
+
   def self.intercom_api(collection, verb, params)
     if Rails.env.development?
       Rails.logger.debug("Calling Intercom: #{collection}.#{verb}(#{params})")
     end
-    result = intercom.send(collection).send(verb, params)
+
+    retry_counts = 0
+
+    begin
+      result = intercom.send(collection).send(verb, params)
+    rescue
+      Intercom::AuthenticationError => e
+        retry_counts += 1
+        DatadogApi.increment("intercom.api.authentication_failure_retry")
+        retry if retry_counts <= MAX_RETRY_COUNT
+        raise e, "Failed #{MAX_RETRY_COUNT} times to authenticate with Intercom"
+    end
+
     if Rails.env.development?
-      Rails.logger.debug("Intercom provided response: #{result.inspect}")
+      Rails.logger.debug("Intercom provided response for call: #{result.inspect}")
     end
     result
   end
