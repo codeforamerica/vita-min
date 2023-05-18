@@ -57,16 +57,22 @@
             <li>
               <%= link_to document.upload.filename, portal_document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" %>
             </li>
+            <% if documents.length <= 1 && current_intake.filing_jointly? %>
+              <li><p class="text--red-bold"><%= t("views.documents.overview.spouse_doc_needed") %></p></li>
+            <% end %>
           <% end %>
         <% else %>
           <% if documents.empty? %>
-            <li><em><%= t("views.documents.overview.empty") %></em></li>
+            <li><p><%= t("views.documents.overview.empty") %></p></li>
           <% end %>
 
           <% documents.each do |document| %>
             <li>
               <%= document.upload.filename %>
             </li>
+            <% if documents.length <= 1 && current_intake.filing_jointly? %>
+              <li><p class="text--red-bold"><%= t("views.documents.overview.spouse_doc_needed") %></p></li>
+            <% end %>
           <% end %>
         <% end %>
       </ul>
