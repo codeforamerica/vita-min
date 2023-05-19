@@ -26,6 +26,11 @@
 #
 class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
+  include RecordsTwilioStatus
+
+  def self.status_column
+    :twilio_status
+  end
 
   belongs_to :client
   belongs_to :user, optional: true
@@ -50,17 +55,6 @@ class OutgoingTextMessage < ApplicationRecord
 
   def to
     PhoneParser.formatted_phone_number(to_phone_number)
-  end
-
-  def update_status_if_further(new_status)
-    with_lock do
-      old_index = TwilioService::ORDERED_STATUSES.index(twilio_status)
-      new_index = TwilioService::ORDERED_STATUSES.index(new_status)
-
-      if new_index > old_index
-        update(twilio_status: new_status)
-      end
-    end
   end
 
   private
