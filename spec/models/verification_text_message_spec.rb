@@ -4,7 +4,6 @@
 #
 #  id                           :bigint           not null, primary key
 #  twilio_sid                   :string
-#  twilio_status                :string
 #  text_message_access_token_id :bigint           not null
 #  visitor_id                   :string           not null
 #

@@ -4,7 +4,6 @@
 #
 #  id                           :bigint           not null, primary key
 #  twilio_sid                   :string
-#  twilio_status                :string
 #  text_message_access_token_id :bigint           not null
 #  visitor_id                   :string           not null
 #
@@ -15,6 +14,7 @@
 #  text_message_login_request_access_token_id       (text_message_access_token_id)
 #
 class VerificationTextMessage < ApplicationRecord
+  self.ignored_columns = [:twilio_status]
   self.table_name = "text_message_login_requests"
   belongs_to :text_message_access_token
   validates_presence_of :visitor_id

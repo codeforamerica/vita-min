@@ -68,7 +68,8 @@ RSpec.feature "Logging in" do
 
           expect(TwilioService).to have_received(:send_text_message).with(
             to: "+15005550006",
-            body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days."
+            body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.",
+            status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
           )
 
           fill_in "Enter 6 digit code", with: "000004"

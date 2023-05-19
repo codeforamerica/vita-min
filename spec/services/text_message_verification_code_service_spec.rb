@@ -27,11 +27,11 @@ describe TextMessageVerificationCodeService do
 
   describe ".request_code" do
     let(:twilio_double) { double TwilioService }
-    let(:access_token_double) { double TextMessageAccessToken }
+    let(:access_token) { create :text_message_access_token }
     before do
-      allow(TextMessageAccessToken).to receive(:generate!).and_return ["123456", access_token_double]
+      allow(TextMessageAccessToken).to receive(:generate!).and_return ["123456", access_token]
       allow(TwilioService).to receive(:send_text_message).and_return twilio_double
-      allow(VerificationTextMessage).to receive(:create!)
+      allow(VerificationTextMessage).to receive(:create!).and_call_original
       allow(twilio_double).to receive(:sid).and_return "twilio_sid"
       allow_any_instance_of(Mail::Message).to receive(:message_id).and_return("mocked_mailer_id")
     end
@@ -47,7 +47,7 @@ describe TextMessageVerificationCodeService do
                                                                ))
       expect(VerificationTextMessage).to have_received(:create!).with(a_hash_including(
                                                                     visitor_id: visitor_id,
-                                                                    text_message_access_token: access_token_double,
+                                                                    text_message_access_token: access_token,
                                                                     twilio_sid: "twilio_sid"
                                                                 ))
     end

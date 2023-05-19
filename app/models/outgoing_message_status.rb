@@ -20,14 +20,9 @@ class OutgoingMessageStatus < ApplicationRecord
   belongs_to :parent, polymorphic: true
   validates :parent, presence: true
 
-  def update_status_if_further(new_status)
-    with_lock do
-      old_index = TwilioService::ORDERED_STATUSES.index(delivery_status)
-      new_index = TwilioService::ORDERED_STATUSES.index(new_status)
+  include RecordsTwilioStatus
 
-      if new_index > old_index
-        update(delivery_status: new_status)
-      end
-    end
+  def self.status_column
+    :delivery_status
   end
 end
