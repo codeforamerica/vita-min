@@ -429,6 +429,8 @@ describe Client do
       let!(:outgoing_text_message) { create(:outgoing_text_message, client: client) }
       let!(:bulk_client_sms) { BulkClientMessageOutgoingTextMessage.create(outgoing_text_message: outgoing_text_message) }
       before do
+        doc_request = DocumentsRequest.create(client: client)
+        create :document, client: client, intake: intake, documents_request_id: doc_request.id
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
         tax_return = create :gyr_tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
