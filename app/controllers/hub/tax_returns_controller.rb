@@ -9,7 +9,7 @@ module Hub
     before_action :load_client, only: [:new, :create]
     authorize_resource :client, parent: false, only: [:new, :create]
     before_action :load_assignable_users, except: [:show]
-    before_action :load_and_authorize_assignee, only: [:update]
+    before_action :load_and_authorize_assignee, only: [:update, :create]
 
     layout "hub"
     respond_to :js, except: [:new, :create]
@@ -80,10 +80,10 @@ module Hub
     end
 
     def load_and_authorize_assignee
-      return if assign_params[:assigned_user_id].blank?
+      assignee_id = assign_params[:assigned_user_id] || tax_return_params[:assigned_user_id]
+      return if assignee_id.blank?
 
-      @assigned_user = User.where(id: @assignable_users).find_by(id: assign_params[:assigned_user_id])
-
+      @assigned_user = User.where(id: @assignable_users).find_by(id: assignee_id)
       raise CanCan::AccessDenied unless @assigned_user.present?
     end
   end

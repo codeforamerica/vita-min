@@ -70,13 +70,15 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         sign_in user
       end
 
+      let(:assigned_user) { user }
+
       let(:params) do
         {
             client_id: client.id,
             hub_tax_return_form: {
                 year: "2020",
                 certification_level: "basic",
-                assigned_user_id: user.id,
+                assigned_user_id: assigned_user.id,
                 current_state: :intake_in_progress
             }
         }
@@ -134,8 +136,18 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           expect(flash[:notice]).to include "Please fix indicated"
         end
       end
-    end
 
+      context "when moving to a non-assignable user" do
+        let(:assigned_user) { create :team_member_user, name: "The Unassignable User" }
+
+        it "does not persist the tax return, renders new and flashes an error" do
+          expect {
+            post :create, params: params
+          }.not_to change(client.tax_returns, :count)
+          expect(response).to be_forbidden
+        end
+      end
+    end
   end
 
   describe "#edit" do
