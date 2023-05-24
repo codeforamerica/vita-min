@@ -25,10 +25,10 @@ describe Ctc::FiledPriorTaxYearForm do
 
     context "when filed_2019 is not in the set" do
       let(:filed_prior_tax_year) { "on_the_moon" }
-      it "is not valid" do
-        expect {
-          described_class.new(intake, params).save
-        }.to raise_error ArgumentError
+
+      it "is not saved" do
+        form = described_class.new(intake, params)
+        expect { form.save }.not_to change { intake.reload.filed_prior_tax_year }
       end
     end
   end
