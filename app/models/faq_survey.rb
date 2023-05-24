@@ -14,5 +14,5 @@
 #  index_faq_surveys_on_visitor_id_and_question_key  (visitor_id,question_key)
 #
 class FaqSurvey < ApplicationRecord
-  enum_with_validation answer: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :answer
+  enum answer: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :answer
 end

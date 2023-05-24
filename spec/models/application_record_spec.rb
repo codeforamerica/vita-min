@@ -7,11 +7,11 @@ describe ApplicationRecord do
                  # Using arbitrary table and column name from the real schema
                  def self.table_name; "intakes"; end
 
-                 enum_with_validation paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_self_employment_expenses
+                 enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_self_employment_expenses
                end)
   end
 
-  describe '#enum_with_validation' do
+  describe '.enum' do
     context "when setting a valid value" do
       it "is valid and has the value" do
         record = ValidatingEnumRecord.new(paid_self_employment_expenses: 1)
