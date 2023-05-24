@@ -64,6 +64,18 @@ RSpec.describe ConsentForm do
           expect(form.errors[:birth_date]).to include "Please select a valid date"
         end
       end
+
+      context "when the date is too old" do
+        let(:params) { valid_params_with_dob.merge(birth_date_year: "1885") }
+
+        it "adds a validation error" do
+          form = ConsentForm.new(intake, params)
+
+          expect(form).not_to be_valid
+          expect(form.errors[:birth_date]).to be_present
+          expect(form.errors[:birth_date]).to include "Please select a valid date"
+        end
+      end
     end
 
     context "not triaged client" do
