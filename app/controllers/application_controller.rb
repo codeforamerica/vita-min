@@ -494,4 +494,16 @@ class ApplicationController < ActionController::Base
       format.any { head 400 }
     end
   end
+
+  rescue_from 'ArgumentError' do |error|
+    respond_to do |format|
+      format.any do
+        if error.message == "string contains null byte"
+          head 400
+        else
+          raise
+        end
+      end
+    end
+  end
 end

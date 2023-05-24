@@ -41,16 +41,4 @@ class Users::SessionsController < Devise::SessionsController
       redirect_to new_user_session_path
     end
   end
-
-  rescue_from 'ArgumentError' do |error|
-    respond_to do |format|
-      format.any do
-        if error.message == "string contains null byte"
-          head 400
-        else
-          raise
-        end
-      end
-    end
-  end
 end
