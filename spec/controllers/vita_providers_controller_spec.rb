@@ -266,17 +266,20 @@ RSpec.describe VitaProvidersController do
       expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_map_click", data: expected_data)
     end
 
-    it "fails to look up multiple providers at once" do
-      other_provider = create(:vita_provider, :with_coordinates)
-      get :map, params: { id: [provider.id, other_provider.id] }
-      ap response
-      expect(response).to have_http_status(:ok)
+    context "when multiple providers are provided" do
+      let(:other_provider) { create(:vita_provider, :with_coordinates, name: "The Other Provider") }
 
-      expected_data = {
-        provider_id: provider.id.to_s,
-        provider_name: "Public Library of the Test Suite",
-      }
-      expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_map_click", data: expected_data)
+      it "only looks up the first provider" do
+        get :map, params: { id: [provider.id, other_provider.id] }
+        expect(response).to redirect_to(provider.google_maps_url)
+
+        expected_data = {
+          provider_id: provider.id.to_s,
+          provider_name: provider.name
+        }
+
+        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_map_click", data: expected_data)
+      end
     end
   end
 end
