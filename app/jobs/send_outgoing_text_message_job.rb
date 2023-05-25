@@ -16,7 +16,7 @@ class SendOutgoingTextMessageJob < ApplicationJob
         twilio_sid: message.sid,
         sent_at: DateTime.now
       )
-      outgoing_text_message.update_status_if_further(message.status, error_code: message.error_code)
+      outgoing_text_message.update_status_if_further(message.status)
     end
   end
 
