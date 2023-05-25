@@ -96,6 +96,15 @@ RSpec.describe TwilioWebhooksController do
         expect(existing_message.reload.twilio_status).to eq "delivered"
       end
 
+      context "there is an error code" do
+        it "updates the error code" do
+          post :update_outgoing_text_message, params: params.merge("ErrorCode" => "30007")
+
+          expect(response).to be_ok
+          expect(existing_message.reload.error_code).to eq "30007"
+        end
+      end
+
       it "signals Datadog" do
         post :update_outgoing_text_message, params: params
         expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.updated.status.delivered"
@@ -143,6 +152,15 @@ RSpec.describe TwilioWebhooksController do
 
         expect(response).to be_ok
         expect(existing_message.reload.delivery_status).to eq "delivered"
+      end
+
+      context "there is an error code" do
+        it "updates the error code" do
+          post :update_status, params: params.merge("ErrorCode" => "30007")
+
+          expect(response).to be_ok
+          expect(existing_message.reload.error_code).to eq "30007"
+        end
       end
 
       it "signals Datadog" do

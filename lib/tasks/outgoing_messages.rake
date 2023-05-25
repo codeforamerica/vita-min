@@ -24,16 +24,16 @@ namespace :outgoing_messages do
 
       current_status = nil
       begin
-        current_status = twilio_client.messages(outgoing_text_message.twilio_sid).fetch.status
+        message = twilio_client.messages(outgoing_text_message.twilio_sid).fetch
       rescue Twilio::REST::RestError
         Rails.logger.warn "Unable to fetch status for #{outgoing_text_message.twilio_sid}"
         next
       end
 
-      if current_status != outgoing_text_message.twilio_status
+      if message.status != outgoing_text_message.twilio_status
         Rails.logger.warn "Updating status of #{outgoing_text_message.twilio_sid} from #{outgoing_text_message.twilio_status} to #{current_status}"
         DatadogApi.increment "twilio.outgoing_text_messages.updated_stale_status.#{current_status}"
-        outgoing_text_message.update_status_if_further(current_status)
+        outgoing_text_message.update_status_if_further(current_status, error_code: message.error_code)
       end
     end
   end

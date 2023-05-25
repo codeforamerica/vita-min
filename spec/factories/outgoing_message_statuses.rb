@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  delivery_status :text
+#  error_code      :string
 #  message_type    :integer          not null
 #  parent_type     :string           not null
 #  created_at      :datetime         not null
