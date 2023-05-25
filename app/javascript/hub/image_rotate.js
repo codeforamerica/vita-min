@@ -10,7 +10,7 @@ export default function imageRotate() {
         // Increment the rotation angle by 90 degrees
         let rotation = parseFloat(image.dataset.rotation) || 0;
         rotation += 90;
-
+        console.log(rotation)
         function fitImageForRotation(image, container) {
             if (image.naturalWidth < image.naturalHeight) {
                 let newHeight = container.offsetWidth < image.naturalHeight ? `${container.offsetWidth}px` : 'auto';

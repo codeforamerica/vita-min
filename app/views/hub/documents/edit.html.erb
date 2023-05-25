@@ -16,7 +16,9 @@
             <%= image_tag transient_storage_url(@document.upload.blob), id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
           <% end %>
         </div>
-        <button id="rotate-button" class="button">Rotate Image <%= image_tag("rotate.svg", alt: "") %></button>
+        <% if !@document.is_pdf? %>
+          <button id="rotate-button" class="button">Rotate Image <%= image_tag("rotate.svg", alt: "") %></button>
+        <% end %>
       </div>
     </div>
 
