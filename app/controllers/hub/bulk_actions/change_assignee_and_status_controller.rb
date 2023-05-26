@@ -4,6 +4,7 @@ module Hub
       include TaxReturnAssignableUsers
 
       before_action :load_current_tax_return_statuses, :load_assignable_users
+      before_action :load_and_authorize_assignee, only: [:update]
 
       def update
         @form = BulkActionForm.new(@tax_return_selection, update_params)
@@ -44,6 +45,14 @@ module Hub
 
       def load_assignable_users
         @assignable_users = @tax_return_selection.tax_returns.map { |tr| assignable_users(tr.client, [current_user, tr.assigned_user])}.flatten.compact.uniq
+      end
+
+      def load_and_authorize_assignee
+        assignee_id = update_params[:assigned_user_id]
+        return if assignee_id.blank? || [BulkTaxReturnUpdate::KEEP, BulkTaxReturnUpdate::REMOVE].include?(assignee_id)
+
+        @assigned_user = User.where(id: @assignable_users).find_by(id: assignee_id)
+        raise CanCan::AccessDenied unless @assigned_user.present?
       end
     end
   end
