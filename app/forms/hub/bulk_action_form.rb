@@ -25,7 +25,7 @@ module Hub
     end
 
     def assigned_user
-      return if assigned_user_id.nil? || assigned_user_id.to_i.zero?
+      return if assigned_user_id.nil? || [BulkTaxReturnUpdate::KEEP, BulkTaxReturnUpdate::REMOVE].include?(assigned_user_id)
 
       @assigned_user ||= User.find_by_id(assigned_user_id)
     end

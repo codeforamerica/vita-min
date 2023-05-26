@@ -107,6 +107,17 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         end
       end
 
+      context "when new assignee is a non-assignable user" do
+        let(:new_assigned_user_id) { create(:team_member_user, name: "The Unassignable User").id }
+
+        it "does not persist the tax return, renders new and flashes an error" do
+          expect do
+            put :update, params: params
+          end.not_to change { team_member.notifications.count }
+          expect(response).to be_forbidden
+        end
+      end
+
       context "an unauthorized user" do
         let(:unauthorized_team_member) { create :user, role: create(:team_member_role, site: create(:site)) }
 
