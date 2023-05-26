@@ -32,7 +32,10 @@ module Hub
 
     def new; end
 
-    def edit; end
+    def edit
+      image = MiniMagick::Image.read(@document.upload.download)
+      puts "========================", image['%[EXIF:Orientation]'].to_i, "==========================="
+    end
 
     def create
       @document = @client.documents.new(document_params.merge({ uploaded_by: current_user }))

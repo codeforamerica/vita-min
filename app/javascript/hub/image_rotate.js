@@ -23,6 +23,23 @@ export default function imageRotate() {
             }
         }
 
+        function updateRotation() {
+            // Send an AJAX request to the update action of your controller
+            $.ajax({
+                type: 'PATCH',  // Use PATCH HTTP method for updating the resource
+                url: '/documents/:id',  // Replace ':id' with the actual ID of the document you want to update
+                data: { rotation: currentRotation },  // Pass the rotation value as a parameter
+                success: function(response) {
+                    // Handle the successful response from the server
+                    console.log('Rotation updated successfully');
+                },
+                error: function(xhr) {
+                    // Handle any errors that occurred during the request
+                    console.error('Error updating rotation:', xhr.status);
+                }
+            });
+        }
+
         // // Apply the rotation using CSS transform
         if ((rotation % 360) == 90) {
             // For a 90 degree rotation, choose top left rotation corner, push left by the image's height (which becomes its width after rotation), rotate
