@@ -1,19 +1,15 @@
 class RotateImageJob < ApplicationJob
   queue_as :default
 
-  def perform(image)
-    return if intake.phone_number.blank?
-
-    metadata = TwilioService.get_metadata(phone_number: intake.phone_number)
-
-    return if metadata.blank?
-
-    if metadata["carrier_name"]
-      intake.update(phone_carrier: metadata["carrier_name"])
+  def perform(image, rotation)
+    if image
+      processed = ImageProcessing::MiniMagick
+                    .source(image)
+                    .rotate(rotation_degrees)
+                    .call
+      processed
+      @document.update(upload)
     end
-
-    if metadata["type"]
-      intake.update(phone_number_type: metadata["type"])
-    end
+    return
   end
 end

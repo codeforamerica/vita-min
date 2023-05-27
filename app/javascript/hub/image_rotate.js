@@ -6,11 +6,13 @@ export default function imageRotate() {
         // Get the image element
         const image = document.getElementById("image");
         const container = document.getElementById("image-container");
+        let rotationAngle = document.getElementById("rotation-angle");
 
         // Increment the rotation angle by 90 degrees
         let rotation = parseFloat(image.dataset.rotation) || 0;
         rotation += 90;
-        console.log(rotation)
+        rotationAngle = rotation;
+        console.log(rotationAngle)
         function fitImageForRotation(image, container) {
             if (image.naturalWidth < image.naturalHeight) {
                 let newHeight = container.offsetWidth < image.naturalHeight ? `${container.offsetWidth}px` : 'auto';
@@ -21,23 +23,6 @@ export default function imageRotate() {
                 image.style.width = newWidth;
                 image.style.height = `auto`;
             }
-        }
-
-        function updateRotation() {
-            // Send an AJAX request to the update action of your controller
-            $.ajax({
-                type: 'PATCH',  // Use PATCH HTTP method for updating the resource
-                url: '/documents/:id',  // Replace ':id' with the actual ID of the document you want to update
-                data: { rotation: currentRotation },  // Pass the rotation value as a parameter
-                success: function(response) {
-                    // Handle the successful response from the server
-                    console.log('Rotation updated successfully');
-                },
-                error: function(xhr) {
-                    // Handle any errors that occurred during the request
-                    console.error('Error updating rotation:', xhr.status);
-                }
-            });
         }
 
         // // Apply the rotation using CSS transform

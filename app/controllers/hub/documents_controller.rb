@@ -32,10 +32,7 @@ module Hub
 
     def new; end
 
-    def edit
-      image = MiniMagick::Image.read(@document.upload.download)
-      puts "========================", image['%[EXIF:Orientation]'].to_i, "==========================="
-    end
+    def edit; end
 
     def create
       @document = @client.documents.new(document_params.merge({ uploaded_by: current_user }))
@@ -47,6 +44,8 @@ module Hub
 
     def update
       if @document.update(document_params)
+        puts "=====================", document_params, "========================"
+        RotateImageJob.perform_later(@document.upload.download, document_params.rotation_angle)
         redirect_to hub_client_documents_path(client_id: @document.client.id)
       else
         render :edit
@@ -91,7 +90,7 @@ module Hub
     end
 
     def document_params
-      params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
+      params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload, :rotation_angle)
     end
 
     def sort_column
