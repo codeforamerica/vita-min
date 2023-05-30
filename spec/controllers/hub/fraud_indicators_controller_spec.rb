@@ -2,6 +2,8 @@ require "rails_helper"
 
 describe Hub::FraudIndicatorsController do
   describe "index" do
+    it_behaves_like :a_get_action_for_admins_only, action: :index
+
     before do
       create(:fraud_indicator, activated_at: nil)
       create(:fraud_indicator, activated_at: nil)

@@ -4,6 +4,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     helper_method :transient_storage_url
+    load_and_authorize_resource
 
     layout "hub"
 
@@ -11,8 +12,7 @@ module Hub
       if params[:status]
         states = [params[:status]]
       else
-        states = [:pending]
-        states.push(:escalated) if current_user.admin? || current_user.client_success?
+        states = [:pending, :escalated]
       end
       @state_counts = VerificationAttemptStateMachine.states.map do|state|
         state.in?(["pending", "escalated"]) ? [state, VerificationAttempt.in_state(state).count] : nil

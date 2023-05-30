@@ -4,6 +4,7 @@ module Hub
 
     before_action :require_sign_in
     layout "hub"
+    load_and_authorize_resource class: Fraud::Indicator
 
     def index
       @fraud_indicators = Fraud::Indicator.unscoped

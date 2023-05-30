@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe Hub::VerificationAttemptsController, type: :controller do
-  let(:user) { create :user }
+  let(:user) { create :admin_user }
 
   describe '#index' do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+    it_behaves_like :a_get_action_for_admins_only, action: :index
 
     context "when a user is logged in" do
       before do
@@ -23,20 +24,10 @@ describe Hub::VerificationAttemptsController, type: :controller do
         expect(response.status).to eq 200
       end
 
-      it "defines @attempt_count as the number of pending VerificationAttempts in the database" do
+      it "defines @attempt_count as the number of pending + escalated VerificationAttempts in the database" do
         get :index
 
-        expect(assigns(:attempt_count)).to eq 3 # VerificationAttempt.count
-      end
-
-      context "when a user is an admin" do
-        let(:user) { create :admin_user }
-
-        it "defines @attempt_count as the number of pending + escalated VerificationAttempts in the database" do
-          get :index
-
-          expect(assigns(:attempt_count)).to eq 5 # VerificationAttempt.count
-        end
+        expect(assigns(:attempt_count)).to eq 5 # VerificationAttempt.count
       end
     end
   end
@@ -45,7 +36,7 @@ describe Hub::VerificationAttemptsController, type: :controller do
     let(:params) { { id: verification_attempt.id } }
     let(:verification_attempt) { create :verification_attempt }
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
+    it_behaves_like :a_get_action_for_admins_only, action: :show
 
     context "when the user is logged in" do
       before do
@@ -79,19 +70,21 @@ describe Hub::VerificationAttemptsController, type: :controller do
   describe "#update" do
     let!(:verification_attempt) { create :verification_attempt, :pending }
 
+    let(:params) do
+      {
+        id: verification_attempt.id,
+        state: "approved",
+        hub_update_verification_attempt_form: {
+          note: "some note"
+        }
+      }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :update
+
     context "when a user is logged in" do
       before do
         sign_in user
-      end
-
-      let(:params) do
-        {
-            id: verification_attempt.id,
-            state: "approved",
-            hub_update_verification_attempt_form: {
-                note: "some note"
-          }
-        }
       end
 
       context "when the form object is valid" do
