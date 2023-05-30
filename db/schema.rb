@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_25_230120) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_183601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1319,7 +1319,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_230120) do
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.bigint "vita_partner_id"
-    t.string "vita_partner_name"
     t.integer "wants_to_itemize", default: 0, null: false
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
