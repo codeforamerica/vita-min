@@ -222,8 +222,12 @@ CREATE VIEW analytics.outgoing_emails AS
     SELECT id, client_id, created_at, mailgun_status, message_id, sent_at, updated_at, user_id
     FROM public.outgoing_emails;
 
+CREATE VIEW analytics.outgoing_message_statuses AS
+    SELECT id, parent_id, parent_type, created_at, error_code, message_id, message_type, delivery_status, updated_at
+    FROM public.outgoing_message_statuses;
+
 CREATE VIEW analytics.outgoing_text_messages AS
-    SELECT id, body, client_id, created_at, sent_at, twilio_sid, twilio_status, updated_at, user_id
+    SELECT id, client_id, created_at, error_code, sent_at, twilio_sid, twilio_status, updated_at, user_id
     FROM public.outgoing_text_messages;
 
 CREATE VIEW analytics.provider_scrapes AS
