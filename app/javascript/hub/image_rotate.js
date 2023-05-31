@@ -1,18 +1,18 @@
 export default function imageRotate() {
     const rotateButton = document.getElementById("rotate-button");
+    let rotationAngle = document.getElementById("rotation-angle");
 
     rotateButton.addEventListener("click", function(e) {
         e.preventDefault();
         // Get the image element
         const image = document.getElementById("image");
         const container = document.getElementById("image-container");
-        let rotationAngle = document.getElementById("rotation-angle");
 
         // Increment the rotation angle by 90 degrees
         let rotation = parseFloat(image.dataset.rotation) || 0;
         rotation += 90;
-        rotationAngle = rotation;
-        console.log(rotationAngle)
+        rotationAngle.value = rotation;
+        console.log(rotationAngle.value)
         function fitImageForRotation(image, container) {
             if (image.naturalWidth < image.naturalHeight) {
                 let newHeight = container.offsetWidth < image.naturalHeight ? `${container.offsetWidth}px` : 'auto';

@@ -43,9 +43,9 @@ module Hub
     end
 
     def update
-      if @document.update(document_params)
-        puts "=====================", document_params, "========================"
-        RotateImageJob.perform_later(@document.upload.download, document_params.rotation_angle)
+      if @document.update(document_params.except(:rotation_angle))
+        puts "=====================", document_params[:rotation_angle], "========================"
+        RotateImageJob.perform_later(@document, document_params[:rotation_angle])
         redirect_to hub_client_documents_path(client_id: @document.client.id)
       else
         render :edit
