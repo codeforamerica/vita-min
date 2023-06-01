@@ -2,7 +2,7 @@ class RotateImageJob < ApplicationJob
   queue_as :default
 
   def perform(document, rotation)
-    puts "++++++++++++++++ we made it here +++++++++++++++++++++++++++"
+
     document.upload.open do |tempfile|
       processed = ImageProcessing::MiniMagick
         .source(tempfile.path)

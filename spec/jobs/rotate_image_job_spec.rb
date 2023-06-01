@@ -1,23 +1,6 @@
 require 'rails_helper'
 require 'mini_magick'
 
-# describe 'RotateImageJob' do
-#   before do
-#     # Do nothing
-#   end
-#
-#   after do
-#     # Do nothing
-#   end
-#
-#   context 'when condition' do
-#     it 'succeeds' do
-#       pending 'Not implemented'
-#     end
-#   end
-# end
-
-
 describe RotateImageJob, type: :job do
   describe "#perform" do
     let(:document) { create(:document) }
