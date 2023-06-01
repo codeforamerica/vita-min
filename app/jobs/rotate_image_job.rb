@@ -3,12 +3,15 @@ class RotateImageJob < ApplicationJob
 
   def perform(document, rotation)
     puts "++++++++++++++++ we made it here +++++++++++++++++++++++++++"
-    image = document.upload.download
-
-    processed = ImageProcessing::MiniMagick
-                  .source(image.path)
-                  .rotate(rotation)
-                  .call
-    # document.update(upload: processed)
+    document.upload.open do |tempfile|
+      processed = ImageProcessing::MiniMagick
+        .source(tempfile.path)
+        .rotate(rotation)
+        .call
+      document.upload.attach(
+        io: File.open(processed.path),
+        filename: File.basename(document.upload.filename.to_s)
+      )
+    end
   end
 end

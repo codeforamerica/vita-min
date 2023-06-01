@@ -1,4 +1,5 @@
-require 'rspec'
+require 'rails_helper'
+require 'mini_magick'
 
 # describe 'RotateImageJob' do
 #   before do
@@ -16,20 +17,26 @@ require 'rspec'
 #   end
 # end
 
+
 describe RotateImageJob, type: :job do
   describe "#perform" do
     let(:document) { create(:document) }
 
-    before do
-      allow(Document).to receive(:find).and_return(document)
-      allow(document).to receive(:convert_heic_upload_to_jpg!)
+    def image_dimensions(document)
+      document.upload.open do |tempfile|
+        image = MiniMagick::Image.open(tempfile.path)
+        { width: image.width, height: image.height }
+      end
     end
 
-    it "converts a document with a heic image to jpg" do
-      HeicToJpgJob.new.perform(document.id)
+    it "rotates an image by an increment of 90 degrees" do
+      original_dimensions = image_dimensions(document)
 
-      expect(Document).to have_received(:find).with(document.id)
-      expect(document).to have_received(:convert_heic_upload_to_jpg!)
+      described_class.new.perform(document, 90)
+
+      new_dimensions = image_dimensions(document)
+      expect(new_dimensions[:height]).to eq(original_dimensions[:width])
+      expect(new_dimensions[:width]).to eq(original_dimensions[:height])
     end
   end
 end
