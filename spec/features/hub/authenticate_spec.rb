@@ -138,5 +138,14 @@ RSpec.feature "Logging in and out to the volunteer portal" do
       click_on I18n.t("general.sign_in_admin")
       expect(page).to have_text(I18n.t('devise.omniauth_callbacks.success', kind: "Google"))
     end
+
+    context "when visiting a particular hub page" do
+      it "signs the user in and takes them to the page they are trying to visit", js: true do
+        visit hub_admin_experiments_path
+        click_on I18n.t("general.sign_in_admin")
+
+        expect(page).to have_content "Experiments"
+      end
+    end
   end
 end
