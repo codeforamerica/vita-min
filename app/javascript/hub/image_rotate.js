@@ -2,6 +2,10 @@ export default function imageRotate() {
     const rotateButton = document.getElementById("rotate-button");
     let rotationAngle = document.getElementById("rotation-angle");
 
+    if(!rotateButton) {
+        return
+    }
+
     rotateButton.addEventListener("click", function(e) {
         e.preventDefault();
         // Get the image element

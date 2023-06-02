@@ -43,9 +43,9 @@ module Hub
     end
 
     def update
-      if @document.update(document_params.except(:rotation_angle))
-        if document_params[:rotation_angle].to_i > 0
-          RotateImageJob.perform_later(@document, document_params[:rotation_angle])
+      if @document.update(document_params)
+        if params[:document][:rotation_angle].to_i > 0
+          RotateImageJob.perform_later(@document, params[:document][:rotation_angle])
         end
         redirect_to hub_client_documents_path(client_id: @document.client.id)
       else
@@ -91,7 +91,7 @@ module Hub
     end
 
     def document_params
-      params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload, :rotation_angle)
+      params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
     end
 
     def sort_column

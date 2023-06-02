@@ -1,4 +1,6 @@
 require "rails_helper"
+require 'mini_magick'
+
 
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated user" do
@@ -12,6 +14,13 @@ RSpec.feature "View and edit documents for a client" do
     before do
       login_as user
       create :tax_return, client: client, year: 2017
+    end
+
+    def image_dimensions(document)
+      document.upload.open do |tempfile|
+        image = MiniMagick::Image.open(tempfile.path)
+        { width: image.width, height: image.height }
+      end
     end
 
     scenario "view document list and edit document attributes" do
@@ -44,9 +53,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
     end
 
-    scenario "can rotate a document" do
-      page.driver.header("User-Agent", "GeckoFox")
-
+    scenario "can rotate a document", js: true do
       visit hub_client_documents_path(client_id: client.id)
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
@@ -58,13 +65,18 @@ RSpec.feature "View and edit documents for a client" do
 
       expect(page).to have_text("Edit Document")
 
-      original_checksum = document_1.upload.blob.checksum
+      original_dimensions = image_dimensions(document_1)
 
-      click_on "Rotate clockwise"
+      click_on "Rotate Image"
+
 
       click_on "Save"
 
-      expect(document_1.upload.blob.checksum).not_to eq(original_checksum)
+      perform_enqueued_jobs
+
+      new_dimensions = image_dimensions(document_1.reload)
+
+      expect(original_dimensions[:height]).not_to eq(new_dimensions[:height])
     end
 
     scenario "uploading a document to a client's documents page" do
