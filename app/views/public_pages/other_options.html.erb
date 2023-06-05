@@ -19,13 +19,13 @@
           <div class="offboarding--help-text">
             <p class="offboarding--subtitle"><%=t("general.other_options") %></p>
             <p>
-              <%=t("general.free_file_html", :wizard_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", "data-track-click": "freefile")) %>
+              <%=t("general.free_file_html", :wizard_link => link_to(t("general.free_file_lookup_tool"), "https://irs.treasury.gov/freetaxprep/", target: "_blank", rel: "noopener", "data-track-click": "freefile")) %>
             </p>
           </div>
 
           <div class="buttons--vertical-stack">
             <%= link_to t("general.find_vita_site"), vita_providers_path, class: "button button--primary button--wide text--centered" %>
-            <%= link_to t("general.visit_free_file"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
+            <%= link_to t("general.visit_free_file"), "https://irs.treasury.gov/freetaxprep/", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
           </div>
         </main>
       </div>
