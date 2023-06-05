@@ -13,7 +13,7 @@ export default function imageRotate() {
         const container = document.getElementById("image-container");
 
         // Increment the rotation angle by 90 degrees
-        let rotation = parseFloat(image.dataset.rotation) || 0;
+        let rotation = parseInt(image.dataset.rotation, 10);
         rotation += 90;
         rotationAngle.value = rotation;
 

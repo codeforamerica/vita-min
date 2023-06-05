@@ -260,6 +260,15 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         end
       end
 
+      context "rotation angle is not a mulptiple of 90" do
+        let(:new_rotation_angle){ 100 }
+        it "throws a 400 bad request error" do
+          post :update, params: params
+
+          expect(response).to be_bad_request
+        end
+      end
+
       context "invalid params" do
         render_views
 
