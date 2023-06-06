@@ -128,8 +128,8 @@ RSpec.describe Hub::UsersController do
 
       context "with a team member user" do
         let!(:team_member) { create :team_member_user }
-        let!(:other_team_member) { create :team_member_user, site: team_member.role.site }
-        let!(:site_coordinator) { create :site_coordinator_user, site: team_member.role.site }
+        let!(:other_team_member) { create :team_member_user, sites: team_member.role.sites }
+        let!(:site_coordinator) { create :site_coordinator_user, sites: team_member.role.sites }
 
         before { sign_in team_member }
 
@@ -167,7 +167,7 @@ RSpec.describe Hub::UsersController do
           let!(:site) { create(:site, parent_organization: organization) }
           let!(:first_match) { create :organization_lead_user, email: "someone@example.com", organization: organization }
           let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
-          let!(:nonmatch_user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
+          let!(:nonmatch_user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", sites: [site] }
 
           it "returns the users within that org" do
             get :index, params: params
@@ -181,7 +181,7 @@ RSpec.describe Hub::UsersController do
           end
           let!(:organization) { create(:organization, name: "Oregano Org") }
           let!(:site) { create(:site, parent_organization: organization, name: "Library Site") }
-          let!(:user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
+          let!(:user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", sites: [site] }
           let!(:nonmatch_parent_org_user) { create :organization_lead_user, email: "someone@example.com", organization: organization }
           let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
 

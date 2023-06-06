@@ -23,8 +23,8 @@ module Hub
                    if vita_partner.is_a?(Organization)
                      @users.where(role: OrganizationLeadRole.where(organization: vita_partner))
                    elsif vita_partner.is_a?(Site)
-                     @users.where(role: SiteCoordinatorRole.where(site: vita_partner))
-                           .or(@users.where(role: TeamMemberRole.where(site: vita_partner)))
+                     @users.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: vita_partner))
+                           .or(@users.where(role: TeamMemberRole.joins(:sites).where(vita_partners: vita_partner)))
                    elsif vita_partner.is_a?(Coalition)
                      @users.where(role: CoalitionLeadRole.where(coalition: vita_partner))
                    end
