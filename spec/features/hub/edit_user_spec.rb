@@ -275,7 +275,7 @@ RSpec.describe "a user editing a user" do
 
       context "editing a user in my organization" do
         let(:site) { create :site, parent_organization: organization, name: "Sweet Site" }
-        let(:user_to_edit) { create :site_coordinator_user, site: site }
+        let(:user_to_edit) { create :site_coordinator_user, sites: [site] }
         before { login_as current_user }
 
         scenario "update all fields" do

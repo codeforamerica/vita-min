@@ -57,7 +57,7 @@ module RoleHelper
     elsif user.role_type == CoalitionLeadRole::TYPE
       user.role.coalition.name
     elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE
-      user.role.site.name
+      user.role.sites.map(&:name).join(", ")
     end
   end
 end
