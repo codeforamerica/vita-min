@@ -249,7 +249,7 @@ describe Ability do
         shared_examples :user_cannot_manage_other_users_in_their_site do
           let(:target_user) { create :site_coordinator_user }
           before do
-            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.site))
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.sites))
           end
 
           it "cannot manage other users in a site they have access to" do
