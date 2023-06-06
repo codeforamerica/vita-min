@@ -31,8 +31,8 @@ class SiteCoordinatorRole < ApplicationRecord
     end
   end
 
-  def served_entity
-    site
+  def served_entities
+    sites
   end
 
   private

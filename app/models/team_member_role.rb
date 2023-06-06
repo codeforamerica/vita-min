@@ -31,8 +31,8 @@ class TeamMemberRole < ApplicationRecord
     end
   end
 
-  def served_entity
-    site
+  def served_entities
+    sites
   end
 
   private
@@ -41,4 +41,3 @@ class TeamMemberRole < ApplicationRecord
     errors.add(:sites, "Must be associated to at least one site") if sites.blank?
   end
 end
-

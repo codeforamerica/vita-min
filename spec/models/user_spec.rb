@@ -440,8 +440,8 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
     let(:coalition_lead_user) { create :coalition_lead_user, coalition: client_coalition }
     let(:organization_lead_user) { create :organization_lead_user, organization: client_organization }
-    let(:site_coordinator_user) { create :site_coordinator_user, site: client_site }
-    let(:team_member_user) { create :team_member_user, site: client_site }
+    let(:site_coordinator_user) { create :site_coordinator_user, sites: [client_site] }
+    let(:team_member_user) { create :team_member_user, sites: [client_site] }
 
     context "with a client assigned to an organization" do
 
@@ -579,33 +579,33 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
-  describe "#served_entity" do
+  describe "#served_entities" do
     context "an admin user" do
       let(:user) { create :admin_user }
       it "returns nil" do
-        expect(user.served_entity).to eq nil
+        expect(user.served_entities).to eq nil
       end
     end
 
     context "a client success user" do
       let(:user) { create :client_success_user }
       it "returns nil" do
-        expect(user.served_entity).to eq nil
+        expect(user.served_entities).to eq nil
       end
     end
 
     context "a greeter user" do
       let(:user) { create :greeter_user }
       it "returns nil" do
-        expect(user.served_entity).to eq nil
+        expect(user.served_entities).to eq nil
       end
     end
 
     context "a team member user" do
       let(:site) { create :site }
-      let(:user) { create :team_member_user, site: site }
+      let(:user) { create :team_member_user, sites: [site] }
       it "returns their site" do
-        expect(user.served_entity).to eq site
+        expect(user.served_entities).to eq [site]
       end
     end
 
@@ -613,7 +613,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       let(:coalition) { create :coalition }
       let(:user) { create :coalition_lead_user, coalition: coalition }
       it "returns their coalition" do
-        expect(user.served_entity).to eq coalition
+        expect(user.served_entities).to eq [coalition]
       end
     end
 
@@ -621,15 +621,15 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       let(:organization) { create :organization }
       let(:user) { create :organization_lead_user, organization: organization }
       it "returns their organization" do
-        expect(user.served_entity).to eq organization
+        expect(user.served_entities).to eq [organization]
       end
     end
 
     context "a site coordinator user" do
       let(:site) { create :site }
-      let(:user) { create :site_coordinator_user, site: site }
+      let(:user) { create :site_coordinator_user, sites: [site] }
       it "returns their organization" do
-        expect(user.served_entity).to eq site
+        expect(user.served_entities).to eq [site]
       end
     end
   end
@@ -680,14 +680,22 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
 
     context "a team member" do
-      let(:user) { create :team_member_user, name: "Marty Melon", site: (create :site, name: "New Site") }
+      let(:user) { create :team_member_user, name: "Marty Melon", sites: [create(:site, name: "New Site")] }
       it "is Admin" do
         expect(user.name_with_role_and_entity).to eq "Marty Melon (Team Member) - New Site"
+      end
+
+      context "a team member with multiple sites" do
+        it "returns the first site name and the number of additional sites" do
+          user.role.sites << create(:site, name: "New Site2")
+          user.role.sites << create(:site, name: "New Site3")
+          expect(user.name_with_role_and_entity).to eq "Marty Melon (Team Member) - New Site (and 2 more)"
+        end
       end
     end
 
     context "site coordinator" do
-      let(:user) { create :site_coordinator_user, name: "Luna Lemon", site: (create :site, name: "New Site") }
+      let(:user) { create :site_coordinator_user, name: "Luna Lemon", sites: [create(:site, name: "New Site")] }
       it "is Site Coordinator" do
         expect(user.name_with_role_and_entity).to eq "Luna Lemon (Site Coordinator) - New Site"
       end

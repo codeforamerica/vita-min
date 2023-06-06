@@ -92,7 +92,7 @@ FactoryBot.define do
         sites { nil }
       end
 
-      role { build(:site_coordinator_role, sites: sites || [build(:site)]) }
+      role { build(:site_coordinator_role, sites: sites || [create(:site)]) }
     end
 
     factory :team_member_user do
@@ -104,7 +104,7 @@ FactoryBot.define do
         sites { nil }
       end
 
-      role { build(:team_member_role, sites: sites || [build(:site)]) }
+      role { build(:team_member_role, sites: sites || [create(:site)]) }
     end
 
     factory :admin_user do
