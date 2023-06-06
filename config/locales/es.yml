@@ -352,6 +352,7 @@ es:
         ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
       selfie: Identificación con foto
+      ssn_or_itin: Identificación secundaria
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
       with_descriptions:
