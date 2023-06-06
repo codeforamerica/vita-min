@@ -138,7 +138,7 @@ RSpec.describe Users::InvitationsController do
           end.to (change(User, :count).by 1).and(change(SiteCoordinatorRole, :count).by(1))
 
           site_coordinator_role = SiteCoordinatorRole.last
-          expect(site_coordinator_role.site).to eq site
+          expect(site_coordinator_role.sites).to include site
 
           invited_user = User.last
           expect(invited_user.role).to eq site_coordinator_role
@@ -266,7 +266,7 @@ RSpec.describe Users::InvitationsController do
           end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
 
           role = TeamMemberRole.last
-          expect(role.site).to eq site
+          expect(role.sites).to include site
 
           invited_user = User.last
           expect(invited_user.role).to eq role

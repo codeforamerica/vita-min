@@ -63,7 +63,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
     end
 
     context "as a member of GetCTC.org (Site)" do
-      let(:user) { create :team_member_user, site: VitaPartner.ctc_site }
+      let(:user) { create :team_member_user, sites: [VitaPartner.ctc_site] }
       before { sign_in user }
 
       it "loads the tax return by id and latest submission as instance variables" do
@@ -121,7 +121,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
     end
 
     context "as a member of GetCTC.org (Site)" do
-      let(:user) { create :team_member_user, site: VitaPartner.ctc_site }
+      let(:user) { create :team_member_user, sites: [VitaPartner.ctc_site] }
       before do
         allow_any_instance_of(EfileSubmission).to receive(:transition_to!)
       end
@@ -179,7 +179,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
     end
 
     context "with a GetCTC.org role (team member at site)" do
-      let(:user) { create :team_member_user, site: VitaPartner.ctc_site }
+      let(:user) { create :team_member_user, sites: [VitaPartner.ctc_site] }
 
       it "transitions the submission to waiting and records the initiator" do
         patch :wait, params: params
@@ -233,7 +233,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
     end
 
     context "as a user of GetCTC.org (Site)" do
-      let(:user) { create :team_member_user, site: VitaPartner.ctc_site }
+      let(:user) { create :team_member_user, sites: [VitaPartner.ctc_site] }
 
       it "transitions the efile submission to cancelled and records the initiator" do
         patch :cancel, params: params
@@ -285,7 +285,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
     end
 
     context "as an authenticated user of GetCTC.org (Site)" do
-      let(:user) { create :team_member_user, site: VitaPartner.ctc_site }
+      let(:user) { create :team_member_user, sites: [VitaPartner.ctc_site] }
 
       it "transitions the efile submission to investigate and records the initiator" do
         patch :investigate, params: params

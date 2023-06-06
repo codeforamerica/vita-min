@@ -70,13 +70,13 @@ class Users::InvitationsController < Devise::InvitationsController
       when AdminRole::TYPE
         AdminRole.new
       when SiteCoordinatorRole::TYPE
-        SiteCoordinatorRole.new(site: @vita_partners.find(params.require(:site_id)))
+        SiteCoordinatorRole.new(sites: [@vita_partners.find(params.require(:site_id))])
       when ClientSuccessRole::TYPE
         ClientSuccessRole.new
       when GreeterRole::TYPE
         GreeterRole.new
       when TeamMemberRole::TYPE
-        TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
+        TeamMemberRole.new(sites: [@vita_partners.sites.find(params.require(:site_id))])
       end
 
     authorize!(:create, @role)

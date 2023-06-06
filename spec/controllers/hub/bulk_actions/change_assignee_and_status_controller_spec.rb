@@ -39,7 +39,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
     end
 
     context "an unauthorized user" do
-      let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site])) }
+      let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site)]) }
 
       before do
         sign_in unauthorized_team_member
@@ -119,7 +119,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
       end
 
       context "an unauthorized user" do
-        let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site])) }
+        let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site)]) }
 
         before do
           sign_in unauthorized_team_member

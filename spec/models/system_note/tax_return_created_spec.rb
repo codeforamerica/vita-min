@@ -41,7 +41,7 @@ describe SystemNote::TaxReturnCreated do
     end
 
     context "a team member" do
-      let(:user) { create :team_member_user, name: "Team User", site: (create :site, name: "Some Site") }
+      let(:user) { create :team_member_user, name: "Team User", sites: [create(:site, name: "Some Site")] }
 
       it "creates the appropriate system note" do
         note = described_class.generate!(tax_return: tax_return, initiated_by: user)
