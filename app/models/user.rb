@@ -123,7 +123,7 @@ class User < ApplicationRecord
     when OrganizationLeadRole::TYPE
       VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
-      VitaPartner.sites.where(id: role.site)
+      VitaPartner.sites.where(id: role.sites)
     when CoalitionLeadRole::TYPE
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
@@ -166,9 +166,9 @@ class User < ApplicationRecord
       team_members = User.where(role: TeamMemberRole.where(site: sites))
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
-      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.site.parent_organization))
-      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: role.site))
-      team_members = User.where(role: TeamMemberRole.where(site: role.site))
+      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.sites.map(&:parent_organization)))
+      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: role.sites))
+      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: role.sites))
       organization_leads.or(site_coordinators).or(team_members)
     else
       User.none

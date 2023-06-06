@@ -89,10 +89,10 @@ FactoryBot.define do
       sequence(:name) { |n| "Site Coordinator the #{n}th" }
 
       transient do
-        site { nil }
+        sites { nil }
       end
 
-      role { build(:site_coordinator_role, site: site || build(:site)) }
+      role { build(:site_coordinator_role, sites: sites || [build(:site)]) }
     end
 
     factory :team_member_user do
@@ -101,10 +101,10 @@ FactoryBot.define do
       sequence(:name) { |n| "Team Member the #{n}th" }
 
       transient do
-        site { nil }
+        sites { nil }
       end
 
-      role { build(:team_member_role, site: site || build(:site)) }
+      role { build(:team_member_role, sites: sites || [build(:site)]) }
     end
 
     factory :admin_user do

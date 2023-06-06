@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  vita_partner_id :bigint           not null
+#  vita_partner_id :bigint
 #
 # Indexes
 #
@@ -18,8 +18,18 @@
 class TeamMemberRole < ApplicationRecord
   TYPE = "TeamMemberRole"
 
-  belongs_to :site, foreign_key: "vita_partner_id", class_name: "VitaPartner"
-  validate :no_organizations
+  has_many :team_member_roles_vita_partners
+  has_many :vita_partners, through: :team_member_roles_vita_partners
+  has_many :sites, through: :team_member_roles_vita_partners
+  validate :has_site
+
+  def sites
+    if vita_partner_id
+      [VitaPartner.find(vita_partner_id)]
+    else
+      super
+    end
+  end
 
   def served_entity
     site
@@ -27,8 +37,8 @@ class TeamMemberRole < ApplicationRecord
 
   private
 
-  def no_organizations
-    errors.add(:site, "Cannot contain an organization") if site&.organization?
+  def has_site
+    errors.add(:sites, "Must be associated to at least one site") if sites.blank?
   end
 end
 

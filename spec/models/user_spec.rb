@@ -195,7 +195,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     let!(:other_coalition) { create(:coalition) }
 
     context "team member user" do
-      let(:user) { create(:team_member_user, site: site) }
+      let(:user) { create(:team_member_user, sites: [site]) }
 
       it "does not include coalition" do
         expect(user.accessible_coalitions).to be_empty
@@ -203,7 +203,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
 
     context "site coordinator user" do
-      let(:user) { create(:site_coordinator_user, site: site) }
+      let(:user) { create(:site_coordinator_user, sites: [site]) }
 
       it "does not include coalition" do
         expect(user.accessible_coalitions).to be_empty
@@ -250,7 +250,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
       it "should return a user's site" do
         accessible_group_ids = user.accessible_vita_partners.pluck(:id)
-        expect(accessible_group_ids).to include(user.role.site.id)
+        expect(accessible_group_ids).to match_array(user.role.sites.map(&:id))
         expect(accessible_group_ids).not_to include(not_accessible_partner.id)
       end
     end
@@ -261,7 +261,7 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
       it "should return the user's site" do
         accessible_group_ids = user.accessible_vita_partners.pluck(:id)
-        expect(accessible_group_ids).to include(user.role.site.id)
+        expect(accessible_group_ids).to match_array(user.role.sites.map(&:id))
         expect(accessible_group_ids).not_to include(unaccessible_site.id)
       end
     end
@@ -362,13 +362,13 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     let!(:cousin_organization_lead) { create :organization_lead_user, organization: sibling_organization }
 
     let!(:site) { create :site, parent_organization: organization }
-    let!(:site_coordinator) { create :site_coordinator_user, site: site }
-    let!(:sibling_site_coordinator) { create :site_coordinator_user, site: site }
-    let!(:team_member) { create :team_member_user, site: site }
-    let!(:sibling_team_member) { create :team_member_user, site: site }
+    let!(:site_coordinator) { create :site_coordinator_user, sites: [site] }
+    let!(:sibling_site_coordinator) { create :site_coordinator_user, sites: [site] }
+    let!(:team_member) { create :team_member_user, sites: [site] }
+    let!(:sibling_team_member) { create :team_member_user, sites: [site] }
 
     let!(:sibling_site) { create :site, parent_organization: organization }
-    let!(:cousin_site_coordinator) { create :site_coordinator_user, site: sibling_site }
+    let!(:cousin_site_coordinator) { create :site_coordinator_user, sites: [sibling_site] }
 
     let(:admin) { create :admin_user }
 

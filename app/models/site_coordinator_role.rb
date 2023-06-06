@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  vita_partner_id :bigint           not null
+#  vita_partner_id :bigint
 #
 # Indexes
 #
@@ -18,8 +18,18 @@
 class SiteCoordinatorRole < ApplicationRecord
   TYPE = "SiteCoordinatorRole"
 
-  belongs_to :site, foreign_key: "vita_partner_id", class_name: "VitaPartner"
-  validate :no_organizations
+  has_many :site_coordinator_roles_vita_partners
+  has_many :sites, through: :site_coordinator_roles_vita_partners
+  has_many :vita_partners, through: :site_coordinator_roles_vita_partners
+  validate :has_site
+
+  def sites
+    if vita_partner_id
+      [VitaPartner.find(vita_partner_id)]
+    else
+      super
+    end
+  end
 
   def served_entity
     site
@@ -27,9 +37,7 @@ class SiteCoordinatorRole < ApplicationRecord
 
   private
 
-  def no_organizations
-    if site.present? && site.organization?
-      errors.add(:site, "Site coordinator role cannot contain an organization")
-    end
+  def has_site
+    errors.add(:sites, "Must be associated to at least one site") if sites.blank?
   end
 end
