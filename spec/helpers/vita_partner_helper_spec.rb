@@ -13,8 +13,8 @@ describe VitaPartnerHelper, requires_default_vita_partners: true do
         @vita_partners = team_member.accessible_vita_partners
         expected = [
           [
-            team_member.role.site.parent_organization.name,
-            [[team_member.role.site.name, team_member.role.site.id]]
+            team_member.role.sites.first.parent_organization.name,
+            [[team_member.role.sites.first.name, team_member.role.sites.first.id]]
           ]
         ]
 
@@ -33,8 +33,8 @@ describe VitaPartnerHelper, requires_default_vita_partners: true do
         @vita_partners = VitaPartner.accessible_by(Ability.new(site_coordinator))
         expected = [
           [
-            site_coordinator.role.site.parent_organization.name,
-            [[site_coordinator.role.site.name, site_coordinator.role.site.id]]
+            site_coordinator.role.sites.first.parent_organization.name,
+            [[site_coordinator.role.sites.first.name, site_coordinator.role.sites.first.id]]
           ]
         ]
 
