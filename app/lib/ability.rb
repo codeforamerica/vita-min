@@ -88,8 +88,8 @@ class Ability
 
     if user.role_type == SiteCoordinatorRole::TYPE
       # Site coordinators can create site coordinators and team members in their site
-      can :manage, SiteCoordinatorRole, site: user.role.site
-      can :manage, TeamMemberRole, site: user.role.site
+      can :manage, SiteCoordinatorRole, site: user.role.sites
+      can :manage, TeamMemberRole, site: user.role.sites
     end
   end
 end

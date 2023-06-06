@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ClientSorter do
   let(:clients_query_double) { double }
   let(:intakes_query_double) { double }
-  let(:user_role) { build :team_member_role, site: build(:site) }
+  let(:user_role) { build :team_member_role, sites: [build(:site)] }
   let(:user) { create :user, role: user_role }
   let(:subject) { described_class.new(clients_query_double, user, params, {}) }
 

@@ -331,8 +331,8 @@ describe BulkActionJob do
       let(:client) { create :client, vita_partner: site, intake: build(:intake) }
       let(:site) { create :site }
 
-      let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
-      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
+      let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
+      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
       let!(:inaccessible_user) { create :user }
 
       let(:params) do

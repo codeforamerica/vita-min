@@ -13,10 +13,10 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
     let(:organization) { create :organization }
     let!(:tax_return) { create :gyr_tax_return, client: client, assigned_user: assigned_user }
 
-    let!(:assigned_user) { create :user, role: create(:team_member_role, site: site) }
-    let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
-    let!(:another_team_member) { create :user, role: create(:team_member_role, site: second_site) }
-    let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
+    let!(:assigned_user) { create :user, role: create(:team_member_role, sites: [site]) }
+    let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
+    let!(:another_team_member) { create :user, role: create(:team_member_role, sites: [second_site]) }
+    let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
     let!(:org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:another_org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:inaccessible_user) { create :user }

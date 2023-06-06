@@ -451,7 +451,7 @@ describe Ability do
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
         let(:another_site) { create(:site, parent_organization: organization) }
-        let(:target_role) { create :site_coordinator_role, site: site }
+        let(:target_role) { create :site_coordinator_role, sites: [site] }
 
         context "current user is coalition lead in the site's coalition" do
           let(:user) { create :coalition_lead_user, coalition: coalition }
@@ -516,7 +516,7 @@ describe Ability do
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
         let(:another_site) { create(:site, parent_organization: organization) }
-        let(:target_role) { create :team_member_role, site: site }
+        let(:target_role) { create :team_member_role, sites: [site] }
 
         context "current user is coalition lead in the site's coalition" do
           let(:user) { create :coalition_lead_user, coalition: coalition }
