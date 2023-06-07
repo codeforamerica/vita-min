@@ -142,6 +142,7 @@ RSpec.describe "a user editing a user" do
           click_on "Reassign"
           click_on "Site Coordinator"
 
+          expect(page.find('.multi-select-vita-partner').text).to eq("")
           fill_in_tagify '.multi-select-vita-partner', "Suite Site"
 
           click_on "Submit"
@@ -160,6 +161,7 @@ RSpec.describe "a user editing a user" do
           click_on "Reassign"
           click_on "Team Member"
 
+          expect(page.find('.multi-select-vita-partner').text).to eq("")
           fill_in_tagify '.multi-select-vita-partner', "Suite Site"
 
           click_on "Submit"
@@ -228,16 +230,16 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a site coordinator role" do
+          scenario "assigning a site coordinator role", js: true do
             create :site, name: "Sweet Site", parent_organization: organization
             create :site, name: "Sour Site", parent_organization: organization
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Site Coordinator"
 
-            expect(page).to have_text("Sour Site")
-
-            select "Sweet Site"
+            expect(page.find('.multi-select-vita-partner').text).to eq("")
+            fill_in_tagify '.multi-select-vita-partner', "Sweet Site"
 
             click_on "Submit"
 
@@ -246,16 +248,16 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a team member role" do
+          scenario "assigning a team member role", js: true do
             create :site, name: "Sweet Site", parent_organization: organization
             create :site, name: "Sour Site", parent_organization: organization
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Team Member"
 
-            expect(page).to have_text("Sour Site")
-
-            select "Sweet Site"
+            expect(page.find('.multi-select-vita-partner').text).to eq("")
+            fill_in_tagify '.multi-select-vita-partner', "Sweet Site"
 
             click_on "Submit"
 
@@ -307,15 +309,15 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a site coordinator role on a different site" do
+          scenario "assigning a site coordinator role on a different site", js: true do
             create :site, name: "Sour Site", parent_organization: organization
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Site Coordinator"
 
-            expect(page).to have_text("Sweet Site")
-
-            select "Sour Site"
+            expect(page.find('.multi-select-vita-partner').text).to eq("Sweet Site")
+            fill_in_tagify '.multi-select-vita-partner', "Sour Site"
 
             click_on "Submit"
 
@@ -324,15 +326,15 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a team member role" do
+          scenario "assigning a team member role", js: true do
             create :site, name: "Sour Site", parent_organization: organization
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Team Member"
 
-            expect(page).to have_text("Sour Site")
-
-            select "Sweet Site"
+            expect(page.find('.multi-select-vita-partner').text).to eq("Sweet Site")
+            fill_in_tagify '.multi-select-vita-partner', "Sweet Site"
 
             click_on "Submit"
 
