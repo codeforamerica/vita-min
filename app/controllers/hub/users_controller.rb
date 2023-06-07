@@ -140,13 +140,13 @@ module Hub
         when AdminRole::TYPE
           AdminRole.new
         when SiteCoordinatorRole::TYPE
-          SiteCoordinatorRole.new(sites: [@vita_partners.find(params.require(:site_id))])
+          SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params.require(:sites)).pluck('id')))
         when ClientSuccessRole::TYPE
           ClientSuccessRole.new
         when GreeterRole::TYPE
           GreeterRole.new
         when TeamMemberRole::TYPE
-          TeamMemberRole.new(sites: [@vita_partners.sites.find(params.require(:site_id))])
+          TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params.require(:sites)).pluck('id')))
         end
 
       authorize!(:create, @role)

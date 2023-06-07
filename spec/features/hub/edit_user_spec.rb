@@ -133,17 +133,16 @@ RSpec.describe "a user editing a user" do
           end
         end
 
-        scenario "assigning a site coordinator role" do
+        scenario "assigning a site coordinator role", js: true do
           user_to_edit = create(:admin_user)
           create :site, name: "Suite Site"
           create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
+          click_on "Reassign"
           click_on "Site Coordinator"
 
-          expect(page).to have_text("Sour Site")
-
-          select "Suite Site"
+          fill_in_tagify '.multi-select-vita-partner', "Suite Site"
 
           click_on "Submit"
 
@@ -152,17 +151,16 @@ RSpec.describe "a user editing a user" do
           end
         end
 
-        scenario "assigning a team member role" do
+        scenario "assigning a team member role", js: true do
           user_to_edit = create(:admin_user)
           create :site, name: "Suite Site"
           create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
+          click_on "Reassign"
           click_on "Team Member"
 
-          expect(page).to have_text("Sour Site")
-
-          select "Suite Site"
+          fill_in_tagify '.multi-select-vita-partner', "Suite Site"
 
           click_on "Submit"
 

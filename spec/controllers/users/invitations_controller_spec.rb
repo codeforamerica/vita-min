@@ -128,7 +128,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: SiteCoordinatorRole::TYPE,
             },
-            site_id: site.id
+            sites: [{id: site.id}].to_json
           }
         end
 
@@ -256,7 +256,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: TeamMemberRole::TYPE,
             },
-            site_id: site.id
+            sites: [{ id: site.id}].to_json
           }
         end
 

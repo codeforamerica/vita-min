@@ -8,7 +8,7 @@ RSpec.feature "Inviting site coordinator" do
       login_as user
     end
 
-    scenario "Inviting, re-sending invites, and accepting invites" do
+    scenario "Inviting, re-sending invites, and accepting invites", js: true do
       visit hub_tools_path
       click_on "Invitations"
 
@@ -21,7 +21,7 @@ RSpec.feature "Inviting site coordinator" do
       expect(page).to have_text "Send a new invitation"
       fill_in "What is their name?", with: "Colleen Cauliflower"
       fill_in "What is their email?", with: "colleague@cauliflower.org"
-      select  "Spring Onion Site", from: "Which site?"
+      fill_in_tagify '.multi-select-vita-partner', "Spring Onion Site"
       click_on "Send invitation email"
 
       # back on the invitations page
