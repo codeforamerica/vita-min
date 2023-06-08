@@ -26,10 +26,16 @@ RSpec.describe TeamMemberRole, type: :model do
     end
   end
 
-  describe "required fields" do
+  describe "validations" do
     context "with a site" do
       it "is valid" do
         expect(described_class.new(sites: [create(:site)])).to be_valid
+      end
+    end
+
+    context "with sites from multiple parent organizations" do
+      it "is not valid" do
+        expect(described_class.new(sites: [create(:site), create(:site)])).not_to be_valid
       end
     end
 

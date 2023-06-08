@@ -81,6 +81,10 @@ class User < ApplicationRecord
   scope :active, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
 
+  def valid?(*_args)
+    [super, role&.valid?].all?
+  end
+
   def accessible_coalitions
     case role_type
     when AdminRole::TYPE

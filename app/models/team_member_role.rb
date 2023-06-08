@@ -22,6 +22,7 @@ class TeamMemberRole < ApplicationRecord
   has_many :vita_partners, through: :team_member_roles_vita_partners
   has_many :sites, through: :team_member_roles_vita_partners
   validate :has_site
+  validate :all_sites_in_same_org
 
   def sites
     if vita_partner_id
@@ -39,5 +40,11 @@ class TeamMemberRole < ApplicationRecord
 
   def has_site
     errors.add(:sites, "Must be associated to at least one site") if sites.blank?
+  end
+
+  def all_sites_in_same_org
+    if sites.map(&:parent_organization).uniq.length > 1
+      errors.add(:sites, "Must all be part of the same organization")
+    end
   end
 end
