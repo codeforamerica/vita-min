@@ -4,6 +4,7 @@
   padding: 0;
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 0;
 
   .notice--warning {
     max-width: 30em;
@@ -72,6 +73,7 @@
         @media screen and (min-width: $tablet-up) {
           width: 16rem;
         }
+        margin-bottom: 0;
       }
     }
     .i-dont-know {
@@ -98,6 +100,10 @@
     height: 2.0rem;
     margin-right: 1.5rem;
   }
+}
+
+.small-text-margin-top {
+  margin-top: 2.5rem;
 }
 
 .question__illustration {
