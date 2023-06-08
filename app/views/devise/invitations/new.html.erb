@@ -6,7 +6,7 @@
       <h1><%= @main_heading %></h1>
 
       <ul>
-        <% resource.errors.full_messages.each do |error_message| %>
+        <% (resource.errors.full_messages + resource.role.errors.full_messages).each do |error_message| %>
           <li><%= error_message %></li>
         <% end %>
       </ul>
