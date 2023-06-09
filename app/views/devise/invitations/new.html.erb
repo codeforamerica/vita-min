@@ -4,12 +4,14 @@
   <div class="slab slab--not-padded">
     <%= form_for(resource, as: resource_name, url: invitation_path(resource_name, role: params[:role]), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
       <h1><%= @main_heading %></h1>
-
-      <ul>
-        <% (resource.errors.full_messages + (resource.role&.errors&.full_messages || [])).each do |error_message| %>
-          <li><%= error_message %></li>
-        <% end %>
-      </ul>
+      <% errors = resource.errors.full_messages + (resource.role&.errors&.full_messages || []) %>
+      <% if errors.present? %>
+        <ul>
+          <% errors.each do |error_message| %>
+            <li><%= error_message %></li>
+          <% end %>
+        </ul>
+      <% end %>
       <div class="form-group">
         <%= label_tag(:role, "Which role?", class: "form-question") %>
         <div class="select form-width--long">

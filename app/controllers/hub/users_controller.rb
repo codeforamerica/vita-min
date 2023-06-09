@@ -38,14 +38,25 @@ module Hub
 
     def edit; end
 
-    def edit_role; end
+    def edit_role
+      @role = role_from_params(params[:role], params)
+      raise ActionController::RoutingError, 'Not Found' unless @role
+
+      if @user.role.respond_to?(:sites) && @role.respond_to?(:sites)
+        @role.sites = @user.role.sites
+      end
+    end
 
     def update_role
       old_role = @user.role
-      @user.update!(role: @role)
-      old_role.delete
-      flash[:notice] = I18n.t("hub.users.update_role.success", name: @user.name)
-      redirect_to edit_hub_user_path
+      if @role.valid?
+        @user.update(role: @role)
+        old_role.delete
+        flash[:notice] = I18n.t("hub.users.update_role.success", name: @user.name)
+        redirect_to edit_hub_user_path
+      else
+        render :edit_role
+      end
     end
 
     def destroy
@@ -131,23 +142,7 @@ module Hub
     end
 
     def load_and_authorize_role
-      @role =
-        case params.dig(:user, :role)
-        when OrganizationLeadRole::TYPE
-          OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
-        when CoalitionLeadRole::TYPE
-          CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
-        when AdminRole::TYPE
-          AdminRole.new
-        when SiteCoordinatorRole::TYPE
-          SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
-        when ClientSuccessRole::TYPE
-          ClientSuccessRole.new
-        when GreeterRole::TYPE
-          GreeterRole.new
-        when TeamMemberRole::TYPE
-          TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
-        end
+      @role = role_from_params(params.dig(:user, :role), params)
 
       authorize!(:create, @role)
     end

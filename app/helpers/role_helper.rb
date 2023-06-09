@@ -30,6 +30,25 @@ module RoleHelper
     @_role_names_for_role_type[I18n.locale][role_type] = result
   end
 
+  def role_from_params(role_string, params)
+    case role_string
+    when OrganizationLeadRole::TYPE
+      OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
+    when CoalitionLeadRole::TYPE
+      CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
+    when AdminRole::TYPE
+      AdminRole.new
+    when SiteCoordinatorRole::TYPE
+      SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
+    when ClientSuccessRole::TYPE
+      ClientSuccessRole.new
+    when GreeterRole::TYPE
+      GreeterRole.new
+    when TeamMemberRole::TYPE
+      TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
+    end
+  end
+
   def role_type_from_role_name(role_name)
     return nil unless role_name.present?
 

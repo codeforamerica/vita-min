@@ -61,23 +61,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def load_and_authorize_role
-    @role =
-      case params.dig(:user, :role)
-      when OrganizationLeadRole::TYPE
-        OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
-      when CoalitionLeadRole::TYPE
-        CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
-      when AdminRole::TYPE
-        AdminRole.new
-      when SiteCoordinatorRole::TYPE
-        SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
-      when ClientSuccessRole::TYPE
-        ClientSuccessRole.new
-      when GreeterRole::TYPE
-        GreeterRole.new
-      when TeamMemberRole::TYPE
-        TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
-      end
+    @role = role_from_params(params.dig(:user, :role), params)
 
     authorize!(:create, @role)
   end
