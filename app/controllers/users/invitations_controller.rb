@@ -1,5 +1,6 @@
 class Users::InvitationsController < Devise::InvitationsController
   include AccessControllable
+  include RoleHelper
 
   # Devise::InvitationsController from devise-invitable uses some before_actions to validate
   # data being passed in. We skip those and use our before_action methods to customize
