@@ -280,7 +280,7 @@ RSpec.describe Hub::UsersController do
   describe "#edit_role" do
     let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: create(:organization)) }
 
-    let(:params) { { id: user.id, user: { role: "AdminRole" } } }
+    let(:params) { { id: user.id, role: "AdminRole" } }
     it_behaves_like :a_get_action_for_admins_only, action: :edit
 
     context "as an admin user" do

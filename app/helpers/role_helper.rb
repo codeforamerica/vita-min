@@ -33,9 +33,11 @@ module RoleHelper
   def role_from_params(role_string, params)
     case role_string
     when OrganizationLeadRole::TYPE
-      OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
+      role_params = params[:organization_id].present? ? { organization: @vita_partners.find(params[:organization_id]) } : {}
+      OrganizationLeadRole.new(role_params)
     when CoalitionLeadRole::TYPE
-      CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
+      role_params = params[:coalition_id].present? ? { coalition: @coalitions.find(params[:coalition_id]) } : {}
+      CoalitionLeadRole.new(role_params)
     when AdminRole::TYPE
       AdminRole.new
     when SiteCoordinatorRole::TYPE
