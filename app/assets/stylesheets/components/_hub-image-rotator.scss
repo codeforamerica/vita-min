@@ -1,0 +1,24 @@
+#image-and-button-wrapper {
+  width: 75%;
+  height: 70vh;
+}
+
+#image-container {
+  position: relative;
+  overflow: hidden;
+  border: solid lightgray 2px;
+  background-color: lightgray;
+  width: 75%;
+  height: 70vh;
+}
+
+.rotatable-image {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#rotate-button {
+  margin-top: 16px;
+}

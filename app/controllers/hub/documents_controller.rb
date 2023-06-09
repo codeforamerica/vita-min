@@ -43,7 +43,13 @@ module Hub
     end
 
     def update
+      if params[:document][:rotation_angle].to_i % 90 != 0
+        return head :bad_request
+      end
       if @document.update(document_params)
+        if params[:document][:rotation_angle].to_i > 0
+          RotateImageJob.perform_later(@document, params[:document][:rotation_angle])
+        end
         redirect_to hub_client_documents_path(client_id: @document.client.id)
       else
         render :edit

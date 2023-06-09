@@ -15,7 +15,8 @@
     <%= f.vita_min_text_field :display_name, t('hub.documents.display_name'), classes: ["form-width--long"] %>
     <%= f.cfa_select :document_type, t("general.document_type"), @document_type_options.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
     <%= f.cfa_select :tax_return_id, t("general.tax_return"), @client.tax_returns.map { |tax_return| [tax_return.year, tax_return.id] }, include_blank: true %>
-    <%= f.hub_checkbox :archived, t(".archived_label") %>
+    <%= f.hub_checkbox :archived, t(".archived_label")%>
+    <%= f.hidden_field :rotation_angle, id: "rotation-angle" %>
 
 
     <button class="button button--cta" type="submit">

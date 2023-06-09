@@ -213,6 +213,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     let(:new_tax_return) { create :gyr_tax_return, client: client }
     let(:new_doc_type) { DocumentTypes::Employment }
     let(:document) { create :document, client: client, uploaded_by: client }
+    let(:new_rotation_angle) {0}
     let(:params) do
       {
         client_id: client.id,
@@ -221,7 +222,8 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           display_name: new_display_name,
           tax_return_id: new_tax_return.id,
           document_type: new_doc_type.key,
-          archived: "true"
+          archived: "true",
+          rotation_angle: new_rotation_angle
         }
       }
     end
@@ -229,9 +231,12 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "with an authenticated user" do
-      before { sign_in(user) }
+      before do
+        sign_in(user)
+        allow(RotateImageJob).to receive(:perform_later).and_call_original
+      end
 
-      context "with valid params" do
+      context "with valid params and no rotation" do
         it "updates the document attributes" do
           post :update, params: params
 
@@ -242,6 +247,25 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(document.tax_return_id).to eq new_tax_return.id
           expect(document.uploaded_by).to eq client
           expect(document.archived).to eq true
+          expect(RotateImageJob).not_to have_received(:perform_later)
+        end
+      end
+
+      context "with valid params and rotation" do
+        let(:new_rotation_angle){ 90 }
+        it "calls RotateImageJob" do
+          post :update, params: params
+
+          expect(RotateImageJob).to have_received(:perform_later)
+        end
+      end
+
+      context "rotation angle is not a mulptiple of 90" do
+        let(:new_rotation_angle){ 100 }
+        it "throws a 400 bad request error" do
+          post :update, params: params
+
+          expect(response).to be_bad_request
         end
       end
 
