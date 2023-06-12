@@ -318,6 +318,34 @@ RSpec.describe Hub::UsersController do
         expect(flash[:notice]).to eq("Updated Anne's role")
         expect(response).to redirect_to edit_hub_user_path(id: user.id)
       end
+
+      context "when changing the role of a user who is assigned to some clients" do
+        let(:organization) { create :organization }
+        let(:site1) { create :site, parent_organization: organization }
+        let(:site2) { create :site, parent_organization: organization }
+        let(:site_coordinator) { create :site_coordinator_user, sites: [site1, site2] }
+        let(:other_site_coordinator) { create :site_coordinator_user, sites: [site1, site2] }
+
+        let!(:tax_return1) { create :gyr_tax_return, assigned_user: site_coordinator, client: build(:client, vita_partner: site1) }
+        let(:client2) { build(:client, vita_partner: site2) }
+        let!(:tax_return2) { create :gyr_tax_return, year: Rails.configuration.product_year, assigned_user: site_coordinator, client: client2 }
+        let!(:tax_return_assigned_to_someone_else) { create :gyr_tax_return, year: Rails.configuration.product_year - 1, assigned_user: other_site_coordinator, client: client2 }
+
+        let(:params) { { id: site_coordinator.id, user: { role: "SiteCoordinatorRole" }, sites: [{id: site1.id}].to_json } }
+
+        it "unassigns the user from clients they can no longer see" do
+          expect(Client.accessible_to_user(site_coordinator)).to match_array([tax_return1.client, tax_return2.client])
+          expect(Client.assigned_to(site_coordinator)).to match_array([tax_return1.client, tax_return2.client])
+          expect(Client.assigned_to(other_site_coordinator)).to match_array([tax_return_assigned_to_someone_else.client])
+
+          post :update_role, params: params
+          site_coordinator.reload
+
+          expect(Client.accessible_to_user(site_coordinator)).to match_array([tax_return1.client])
+          expect(Client.assigned_to(site_coordinator)).to match_array([tax_return1.client])
+          expect(Client.assigned_to(other_site_coordinator)).to match_array([tax_return_assigned_to_someone_else.client])
+        end
+      end
     end
   end
 

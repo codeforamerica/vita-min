@@ -50,7 +50,10 @@ module Hub
     def update_role
       old_role = @user.role
       if @role.valid?
+        old_assigned_client_ids = Client.assigned_to(@user).pluck('id')
         @user.update(role: @role)
+        inaccessable_clients = Client.where(id: old_assigned_client_ids).where.not(id: Client.accessible_to_user(@user))
+        TaxReturn.where(client: inaccessable_clients, assigned_user: @user).update_all(assigned_user_id: nil)
         old_role.delete
         flash[:notice] = I18n.t("hub.users.update_role.success", name: @user.name)
         redirect_to edit_hub_user_path
