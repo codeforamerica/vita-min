@@ -22,7 +22,7 @@ module Hub
       # Eager-load tax returns with submissions and data we may need to render
       @tax_returns = client.tax_returns.includes(:efile_submissions, efile_submissions: :fraud_score).where.not(tax_returns: {efile_submissions: nil}).load
       @fraud_indicators = Fraud::Indicator.unscoped
-      redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
+      redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.joins(:efile_submissions).size.nonzero?
     end
 
     def resubmit
