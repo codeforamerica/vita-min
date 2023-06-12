@@ -2,7 +2,6 @@
   <%= render "hub/clients/client_header" %>
   <%= render "hub/clients/navigation" %>
   <% @tax_returns.each do |tax_return| %>
-    <% next if tax_return.efile_submissions.empty? %>
     <% latest_efile_submission = tax_return.efile_submissions.last %>
     <div class="slab slab--not-padded spacing-above-25 submission" id="body">
 
