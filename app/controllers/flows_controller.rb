@@ -24,7 +24,11 @@ class FlowsController < ApplicationController
     if type == :ctc
       intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
     elsif type == :gyr
-      intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+      if SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+        intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+      else
+        render :status => 404
+      end
     end
 
     if intake
