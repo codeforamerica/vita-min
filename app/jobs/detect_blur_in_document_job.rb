@@ -2,18 +2,25 @@
 
 class DetectBlurInDocumentJob < ApplicationJob
   def perform(document:)
-    downloaded_document = Tempfile.create('blurcheck')
-    File.write(document.upload.download)
+    # Download the file
+    downloaded_document = Tempfile.create('blurcheck-result')
+    downloaded_document.write(document.upload.download)
+    downloaded_document.close
 
-    temp_file = Tempfile.new
+    shell_output_file = Tempfile.create("blurcheck-output")
     argv = ["node", full_path_to_script, downloaded_document.path]
-    pid = Process.spawn(*argv, chdir: javascript_working_directory, in: "/dev/null", out: temp_file.path, err: :out)
+    pid = Process.spawn(*argv, chdir: javascript_working_directory, in: "/dev/null", out: shell_output_file.path, err: :out)
     Process.wait(pid)
 
     raise Error.new("Process failed to exit?") unless $?.exited?
-    output_body = JSON.parse(File.readlines(temp_file.path).join)
+    downloaded_document.close!
+
+    output_body = JSON.parse(File.readlines(shell_output_file.path).join)
+    shell_output_file.close!
     blurriness_score = output_body[:blur_score]
 
+    # Update the record
+    # NOTE: Do we need to notify anything/aynone?
     document.update(computed_blurriness: blurriness_score)
   end
 
