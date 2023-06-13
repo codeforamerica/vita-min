@@ -1,9 +1,8 @@
 module Hub
   class OutboundCallsController < ApplicationController
     include AccessControllable
-    before_action :require_sign_in, except: :call
-    skip_before_action :verify_authenticity_token, only: :call
-    load_and_authorize_resource :client, except: :call
+    before_action :require_sign_in
+    load_and_authorize_resource :client
     before_action :redirect_unless_editable
 
     layout "hub"
@@ -17,7 +16,7 @@ module Hub
     end
 
     def show
-      @outbound_call = OutboundCall.find(params[:id])
+      @outbound_call = @client.outbound_calls.find(params[:id])
       AccessLog.create!(
         user: current_user,
         record: @client,
@@ -30,7 +29,7 @@ module Hub
 
     # The form that posts to update is on the show page, and only includes a textarea to update the note.
     def update
-      @outbound_call = OutboundCall.find(params[:id])
+      @outbound_call = @client.outbound_calls.find(params[:id])
       @outbound_call.update(params.require(:outbound_call).permit(:note))
       redirect_to hub_client_messages_path(client_id: @client.id, anchor: "last-item")
     end
