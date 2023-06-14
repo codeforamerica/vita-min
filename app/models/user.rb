@@ -161,14 +161,14 @@ class User < ApplicationRecord
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: organizations))
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: sites))
+      site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
+      team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
       coalitions_leads.or(organization_leads).or(site_coordinators).or(team_members)
     when OrganizationLeadRole::TYPE
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.organization))
       sites = VitaPartner.sites.where(parent_organization: role.organization)
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: sites))
+      site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
+      team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.sites.map(&:parent_organization)))

@@ -18,11 +18,17 @@
 class SiteCoordinatorRole < ApplicationRecord
   TYPE = "SiteCoordinatorRole"
 
+  belongs_to :legacy_vita_partner, foreign_key: "vita_partner_id", class_name: "VitaPartner", optional: true
+
   has_many :site_coordinator_roles_vita_partners
   has_many :sites, through: :site_coordinator_roles_vita_partners
   has_many :vita_partners, through: :site_coordinator_roles_vita_partners
   validate :has_site
   validate :all_sites_in_same_org
+
+  scope :assignable_to_sites, -> (sites) {
+    joins(:sites).where(vita_partners: sites).or(where(legacy_vita_partner: sites))
+  }
 
   def sites
     if vita_partner_id
