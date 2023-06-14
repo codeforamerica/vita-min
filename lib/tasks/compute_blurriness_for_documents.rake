@@ -2,16 +2,20 @@
 
 namespace :compute_blurriness_for_documents do
   desc 'Run blur detection against the provided set of documents'
-  task :batch_process, [:document_type] => [:environment] do |t, args|
+  task :batch_process, [:document_type, :limit] => [:environment] do |t, args|
+    args.with_defaults(limit: 200)
     document_type = args[:document_type]
-    puts "Filtering for #{document_type} for at most 200 documents"
+    limit = args[:limit].to_i
+    puts "Filtering for #{document_type} for at most #{limit} documents"
 
-    Document.where(blurriness_score: nil, document_type: document_type).limit(200).find_in_batches(batch_size: 10) do |document_set|
+    Document.where(blurriness_score: nil, document_type: document_type).limit(limit).find_in_batches(batch_size: 10) do |document_set|
       Rails.logger.debug "Processing #{document_set.count} documents"
       for document in document_set
         DetectBlurInDocumentJob.perform_now(document: document)
       end
     end
+
+    puts "Computation of blurriness for #{limit} documents has completed."
   end
 
   task :report_urls, [:document_type] => [:environment] do |t, args|
