@@ -62,12 +62,5 @@ FactoryBot.define do
     factory :archived_document do
       archived { true }
     end
-
-    factory :blurry_id_document do
-      transient do
-        upload_path { Rails.root.join("spec", "fixtures", "files", "blurry_picture_id.png") }
-      end
-    end
-
   end
 end
