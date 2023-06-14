@@ -128,8 +128,8 @@ RSpec.describe Hub::UsersController do
 
       context "with a team member user" do
         let!(:team_member) { create :team_member_user }
-        let!(:other_team_member) { create :team_member_user, site: team_member.role.site }
-        let!(:site_coordinator) { create :site_coordinator_user, site: team_member.role.site }
+        let!(:other_team_member) { create :team_member_user, sites: team_member.role.sites }
+        let!(:site_coordinator) { create :site_coordinator_user, sites: team_member.role.sites }
 
         before { sign_in team_member }
 
@@ -167,7 +167,7 @@ RSpec.describe Hub::UsersController do
           let!(:site) { create(:site, parent_organization: organization) }
           let!(:first_match) { create :organization_lead_user, email: "someone@example.com", organization: organization }
           let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
-          let!(:nonmatch_user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
+          let!(:nonmatch_user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", sites: [site] }
 
           it "returns the users within that org" do
             get :index, params: params
@@ -181,7 +181,7 @@ RSpec.describe Hub::UsersController do
           end
           let!(:organization) { create(:organization, name: "Oregano Org") }
           let!(:site) { create(:site, parent_organization: organization, name: "Library Site") }
-          let!(:user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", site: site }
+          let!(:user_at_child_site) { create :site_coordinator_user, email: "someone@example.net", sites: [site] }
           let!(:nonmatch_parent_org_user) { create :organization_lead_user, email: "someone@example.com", organization: organization }
           let!(:nonmatch) { create :organization_lead_user, email: "someone@example.org" }
 
@@ -280,7 +280,7 @@ RSpec.describe Hub::UsersController do
   describe "#edit_role" do
     let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: create(:organization)) }
 
-    let(:params) { { id: user.id, user: { role: "AdminRole" } } }
+    let(:params) { { id: user.id, role: "AdminRole" } }
     it_behaves_like :a_get_action_for_admins_only, action: :edit
 
     context "as an admin user" do
@@ -317,6 +317,34 @@ RSpec.describe Hub::UsersController do
 
         expect(flash[:notice]).to eq("Updated Anne's role")
         expect(response).to redirect_to edit_hub_user_path(id: user.id)
+      end
+
+      context "when changing the role of a user who is assigned to some clients" do
+        let(:organization) { create :organization }
+        let(:site1) { create :site, parent_organization: organization }
+        let(:site2) { create :site, parent_organization: organization }
+        let(:site_coordinator) { create :site_coordinator_user, sites: [site1, site2] }
+        let(:other_site_coordinator) { create :site_coordinator_user, sites: [site1, site2] }
+
+        let!(:tax_return1) { create :gyr_tax_return, assigned_user: site_coordinator, client: build(:client, vita_partner: site1) }
+        let(:client2) { build(:client, vita_partner: site2) }
+        let!(:tax_return2) { create :gyr_tax_return, year: Rails.configuration.product_year, assigned_user: site_coordinator, client: client2 }
+        let!(:tax_return_assigned_to_someone_else) { create :gyr_tax_return, year: Rails.configuration.product_year - 1, assigned_user: other_site_coordinator, client: client2 }
+
+        let(:params) { { id: site_coordinator.id, user: { role: "SiteCoordinatorRole" }, sites: [{id: site1.id}].to_json } }
+
+        it "unassigns the user from clients they can no longer see" do
+          expect(Client.accessible_to_user(site_coordinator)).to match_array([tax_return1.client, tax_return2.client])
+          expect(Client.assigned_to(site_coordinator)).to match_array([tax_return1.client, tax_return2.client])
+          expect(Client.assigned_to(other_site_coordinator)).to match_array([tax_return_assigned_to_someone_else.client])
+
+          post :update_role, params: params
+          site_coordinator.reload
+
+          expect(Client.accessible_to_user(site_coordinator)).to match_array([tax_return1.client])
+          expect(Client.assigned_to(site_coordinator)).to match_array([tax_return1.client])
+          expect(Client.assigned_to(other_site_coordinator)).to match_array([tax_return_assigned_to_someone_else.client])
+        end
       end
     end
   end

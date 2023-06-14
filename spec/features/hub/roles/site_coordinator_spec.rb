@@ -2,11 +2,11 @@ require "rails_helper"
 
 describe "Site Coordinator" do
   let(:site) { create :site }
-  let(:user) { create :site_coordinator_user, site: site }
+  let(:user) { create :site_coordinator_user, sites: [site] }
   let(:client) { create :client, vita_partner: site}
   let!(:intake) { create :intake, client: client }
   let!(:tax_return) { create :gyr_tax_return, client: client, assigned_user: nil }
-  let!(:team_member) { create :team_member_user, site: site }
+  let!(:team_member) { create :team_member_user, sites: [site] }
 
   before { login_as user }
 

@@ -12,7 +12,7 @@ describe UpdateClientVitaPartnerService do
     let(:other_site) { create :site, parent_organization: current_site.parent_organization }
     let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return], intake: build(:intake) }
     let(:tax_return) { build :tax_return, year: 2019, assigned_user: assigned_user }
-    let(:assigned_user) { create :team_member_user, site: current_site }
+    let(:assigned_user) { create :team_member_user, sites: [current_site] }
 
     context "when a client was previously routed to no one because we were at capacity" do
       let(:fake_service) { instance_double(InitialTaxReturnsService) }

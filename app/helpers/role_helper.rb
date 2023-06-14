@@ -30,6 +30,27 @@ module RoleHelper
     @_role_names_for_role_type[I18n.locale][role_type] = result
   end
 
+  def role_from_params(role_string, params)
+    case role_string
+    when OrganizationLeadRole::TYPE
+      role_params = params[:organization_id].present? ? { organization: @vita_partners.find(params[:organization_id]) } : {}
+      OrganizationLeadRole.new(role_params)
+    when CoalitionLeadRole::TYPE
+      role_params = params[:coalition_id].present? ? { coalition: @coalitions.find(params[:coalition_id]) } : {}
+      CoalitionLeadRole.new(role_params)
+    when AdminRole::TYPE
+      AdminRole.new
+    when SiteCoordinatorRole::TYPE
+      SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
+    when ClientSuccessRole::TYPE
+      ClientSuccessRole.new
+    when GreeterRole::TYPE
+      GreeterRole.new
+    when TeamMemberRole::TYPE
+      TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
+    end
+  end
+
   def role_type_from_role_name(role_name)
     return nil unless role_name.present?
 
@@ -57,7 +78,7 @@ module RoleHelper
     elsif user.role_type == CoalitionLeadRole::TYPE
       user.role.coalition.name
     elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE
-      user.role.site.name
+      user.role.sites.map(&:name).join(", ")
     end
   end
 end

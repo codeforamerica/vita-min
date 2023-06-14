@@ -88,14 +88,14 @@ class Seeder
     user.update(
       name: "Cindy Cucumber",
       password: strong_shared_password)
-    user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
+    user.update(role: SiteCoordinatorRole.create(sites: [first_site])) if user.role_type != SiteCoordinatorRole::TYPE
 
     # site team member user
     user = User.where(email: "melon@example.com").first_or_initialize
     user.update(
       name: "Marty Melon",
       password: strong_shared_password)
-    user.update(role: TeamMemberRole.create(site: first_site)) if user.role_type != TeamMemberRole::TYPE
+    user.update(role: TeamMemberRole.create(sites: [first_site])) if user.role_type != TeamMemberRole::TYPE
 
     # coalition lead user
     user = User.where(email: "lemon@example.com").first_or_initialize
