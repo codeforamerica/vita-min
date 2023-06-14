@@ -9,22 +9,31 @@
 
     <h2>New role</h2>
 
+    <% errors = @role.errors.full_messages %>
+    <% if errors.present? %>
+      <ul>
+        <% errors.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <%= form_for(@user, method: :patch, url: update_role_hub_user_path, local: true, builder: VitaMinFormBuilder) do |f| %>
 
-      <%= f.hidden_field :role, value: params[:role] %>
-      <% if params[:role] == AdminRole::TYPE %>
+      <%= f.hidden_field :role, value: @role.class.name %>
+      <% if @role.is_a?(AdminRole) %>
         <p><%= t("general.admin") %></p>
       <% end %>
 
-      <% if params[:role] == ClientSuccessRole::TYPE %>
+      <% if @role.is_a?(ClientSuccessRole) %>
         <p><%= t("general.client_success") %></p>
       <% end %>
 
-      <% if params[:role] == GreeterRole::TYPE %>
+      <% if @role.is_a?(GreeterRole) %>
         <p><%= t("general.greeter") %></p>
       <% end %>
 
-      <% if params[:role] == CoalitionLeadRole::TYPE %>
+      <% if @role.is_a?(CoalitionLeadRole) %>
         <p><%= role_name_from_role_type(CoalitionLeadRole::TYPE) %></p>
         <div class="form-group">
           <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
@@ -34,7 +43,7 @@
         </div>
       <% end %>
 
-      <% if params[:role] == OrganizationLeadRole::TYPE %>
+      <% if @role.is_a?(OrganizationLeadRole) %>
         <p><%= role_name_from_role_type(OrganizationLeadRole::TYPE) %></p>
         <div class="form-group">
           <%= label_tag(:organization_id, t("devise.invitations.new.organization_label"), class: "form-question") %>
@@ -44,26 +53,21 @@
         </div>
       <% end %>
 
-      <% if params[:role] == SiteCoordinatorRole::TYPE %>
-        <p><%= role_name_from_role_type(SiteCoordinatorRole::TYPE) %></p>
+      <% if @role.is_a?(SiteCoordinatorRole) || @role.is_a?(TeamMemberRole) %>
+        <p><%= role_name_from_role_type(@role.class.name) %></p>
 
         <div class="form-group">
           <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
           <div class="select form-width--long">
-            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+            <%= hidden_field_tag(:sites, (@role&.respond_to?(:sites) ? @role.sites : []).map { |site| { value: site.id, name: site.name }}.to_json.to_s.html_safe, class: "multi-select-vita-partner") %>
           </div>
         </div>
-      <% end %>
 
-      <% if params[:role] == TeamMemberRole::TYPE %>
-        <p><%= role_name_from_role_type(TeamMemberRole::TYPE) %></p>
-
-        <div class="form-group">
-          <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
-          <div class="select form-width--long">
-            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
-          </div>
-        </div>
+        <% content_for :script do %>
+          <script>
+              window.taggableItems = <%= taggable_sites(@vita_partners) %>;
+          </script>
+        <% end %>
       <% end %>
 
       <div>

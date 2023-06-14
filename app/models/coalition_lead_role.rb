@@ -20,7 +20,7 @@ class CoalitionLeadRole < ApplicationRecord
 
   belongs_to :coalition
 
-  def served_entity
-    coalition
+  def served_entities
+    [coalition]
   end
 end
