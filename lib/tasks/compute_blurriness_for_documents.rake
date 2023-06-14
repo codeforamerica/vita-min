@@ -4,11 +4,10 @@ namespace :compute_blurriness_for_documents do
   desc 'Run blur detection against the provided set of documents'
   task :batch_process, [:document_type] => [:environment] do |t, args|
     document_type = args[:document_type]
-    puts "Filtering for #{document_type}"
+    puts "Filtering for #{document_type} for at most 200 documents"
 
     Document.where(blurriness_score: nil, document_type: document_type).limit(200).find_in_batches(batch_size: 10) do |document_set|
       Rails.logger.debug "Processing #{document_set.count} documents"
-      # TODO: Select all documents for a particular type who don't have blurriness info stored
       for document in document_set
         DetectBlurInDocumentJob.perform_now(document: document)
       end
