@@ -475,7 +475,7 @@ class FlowsController < ApplicationController
         client.intake.update(
           spouse_birth_date: 31.years.ago + 51.days,
           spouse_last_four_ssn: '3333',
-          spouse_first_name: "#{first_name}Spouse",
+          spouse_first_name: "#{first_name} Spouse",
           spouse_last_name: last_name,
           filing_joint: 'yes',
         )
