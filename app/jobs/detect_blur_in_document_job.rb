@@ -13,11 +13,6 @@ class DetectBlurInDocumentJob < ApplicationJob
     image = cv.imread(downloaded_document.path)
     grayscale_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     fm = cv.Laplacian(grayscale_image, cv.CV_64F).var()
-
-    binding.pry
-
-    # Update the record
-    # NOTE: Do we need to notify anything/anyone?
-    document.update(computed_blurriness: fm)
+    document.update(blurriness_score: fm)
   end
 end

@@ -5,6 +5,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  archived             :boolean          default(FALSE), not null
+#  blurriness_score     :float
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
@@ -60,6 +61,12 @@ FactoryBot.define do
 
     factory :archived_document do
       archived { true }
+    end
+
+    factory :blurry_id_document do
+      transient do
+        upload_path { Rails.root.join("spec", "fixtures", "files", "blurry_picture_id.png") }
+      end
     end
 
   end
