@@ -249,7 +249,7 @@ describe Ability do
         shared_examples :user_cannot_manage_other_users_in_their_site do
           let(:target_user) { create :site_coordinator_user }
           before do
-            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.sites))
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.site))
           end
 
           it "cannot manage other users in a site they have access to" do
@@ -272,7 +272,7 @@ describe Ability do
             context "users in their coalition" do
               let!(:target_user) do
                 create :site_coordinator_user,
-                       sites: [create(:site, parent_organization: create(:organization, coalition: user.role.coalition))]
+                       site: create(:site, parent_organization: create(:organization, coalition: user.role.coalition))
               end
 
               it "can manage users in their coalition" do
@@ -297,7 +297,7 @@ describe Ability do
             context "users in their org" do
               let!(:target_user) do
                 create :site_coordinator_user,
-                       sites: [create(:site, parent_organization: user.role.organization)]
+                       site: create(:site, parent_organization: user.role.organization)
               end
 
               it "can manage users in their org" do
@@ -437,7 +437,7 @@ describe Ability do
         end
 
         context "anyone else" do
-          let(:user) { create :site_coordinator_user, sites: [create(:site, parent_organization: organization)] }
+          let(:user) { create :site_coordinator_user, site: create(:site, parent_organization: organization) }
 
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false
@@ -451,7 +451,7 @@ describe Ability do
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
         let(:another_site) { create(:site, parent_organization: organization) }
-        let(:target_role) { create :site_coordinator_role, sites: [site] }
+        let(:target_role) { create :site_coordinator_role, site: site }
 
         context "current user is coalition lead in the site's coalition" do
           let(:user) { create :coalition_lead_user, coalition: coalition }
@@ -486,7 +486,7 @@ describe Ability do
         end
 
         context "current user is site coordinator in the same site" do
-          let(:user) { create :site_coordinator_user, sites: [site] }
+          let(:user) { create :site_coordinator_user, site: site }
 
           it "can manage" do
             expect(subject.can?(:manage, target_role)).to eq true
@@ -494,7 +494,7 @@ describe Ability do
         end
 
         context "current user is site coordinator in another site" do
-          let(:user) { create :site_coordinator_user, sites: [another_site] }
+          let(:user) { create :site_coordinator_user, site: another_site }
 
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false
@@ -502,7 +502,7 @@ describe Ability do
         end
 
         context "anyone else" do
-          let(:user) { create :team_member_user, sites: [site] }
+          let(:user) { create :team_member_user, site: site }
 
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false
@@ -516,7 +516,7 @@ describe Ability do
         let(:another_organization) { create :organization, coalition: coalition }
         let(:site) { create(:site, parent_organization: organization) }
         let(:another_site) { create(:site, parent_organization: organization) }
-        let(:target_role) { create :team_member_role, sites: [site] }
+        let(:target_role) { create :team_member_role, site: site }
 
         context "current user is coalition lead in the site's coalition" do
           let(:user) { create :coalition_lead_user, coalition: coalition }
@@ -551,7 +551,7 @@ describe Ability do
         end
 
         context "current user is site coordinator in the same site" do
-          let(:user) { create :site_coordinator_user, sites: [site] }
+          let(:user) { create :site_coordinator_user, site: site }
 
           it "can manage" do
             expect(subject.can?(:manage, target_role)).to eq true
@@ -559,7 +559,7 @@ describe Ability do
         end
 
         context "current user is site coordinator in another site" do
-          let(:user) { create :site_coordinator_user, sites: [another_site] }
+          let(:user) { create :site_coordinator_user, site: another_site }
 
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false
@@ -567,7 +567,7 @@ describe Ability do
         end
 
         context "anyone else" do
-          let(:user) { create :team_member_user, sites: [site] }
+          let(:user) { create :team_member_user, site: site }
 
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false

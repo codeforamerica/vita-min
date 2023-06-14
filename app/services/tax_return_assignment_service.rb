@@ -9,20 +9,14 @@ class TaxReturnAssignmentService
   def assign!
     ActiveRecord::Base.transaction do
       @tax_return.update!(assigned_user: @assigned_user)
-      if not_already_assigned?
+      if @assigned_user.present? &&
+         [TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE, OrganizationLeadRole::TYPE].include?(@assigned_user.role_type) &&
+         @assigned_user.role.vita_partner_id != @client.vita_partner_id
         UpdateClientVitaPartnerService.new(clients: [@client],
                                            vita_partner_id: @assigned_user.role.vita_partner_id,
                                            change_initiated_by: @assigned_user).update!
       end
     end
-  end
-
-  def not_already_assigned?
-    @assigned_user.present? &&
-      (
-        ([OrganizationLeadRole::TYPE].include?(@assigned_user.role_type) && @assigned_user.role.vita_partner_id != @client.vita_partner_id) ||
-        ([TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE].include?(@assigned_user.role_type) && !@assigned_user.role.sites.map(&:id).include?(@client.vita_partner_id))
-      )
   end
 
   def send_notifications

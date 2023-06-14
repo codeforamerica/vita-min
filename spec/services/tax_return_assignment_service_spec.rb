@@ -27,7 +27,7 @@ describe TaxReturnAssignmentService do
 
       context "when assigned user has a different vita partner than the clients" do
         let(:tax_return) { create :gyr_tax_return, assigned_user: (create :user), client: create(:client, vita_partner: old_site) }
-        let(:assigned_user) { create :user, role: create(:team_member_role, sites: [new_site]) }
+        let(:assigned_user) { create :user, role: create(:team_member_role, site: new_site) }
         let(:new_site) { create :site }
         let(:old_site) { create :site }
 

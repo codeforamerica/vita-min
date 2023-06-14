@@ -10,7 +10,7 @@ RSpec.feature "Inviting team members" do
       login_as user
     end
 
-    scenario "Inviting, re-sending invites, and accepting invites", js: true do
+    scenario "Inviting, re-sending invites, and accepting invites" do
       visit hub_tools_path
       click_on "Invitations"
 
@@ -24,8 +24,7 @@ RSpec.feature "Inviting team members" do
       fill_in "What is their name?", with: "Tammy Tomato"
       fill_in "What is their email?", with: "colleague@tomato.org"
       expect(page).to have_text "Which site?"
-      fill_in_tagify '.multi-select-vita-partner', "Squash Site"
-
+      select "Squash Site"
       click_on "Send invitation email"
 
       # back on the invitations page

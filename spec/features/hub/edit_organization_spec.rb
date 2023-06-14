@@ -7,9 +7,9 @@ RSpec.describe "a user editing an organization", :js do
       let(:organization) { create :organization, capacity_limit: 100, allows_greeters: false, state_routing_targets: [build(:state_routing_target, state_abbreviation: "CA")] }
       let!(:org_lead) { create :organization_lead_user, organization: organization }
       let!(:site) { create :site, parent_organization: organization, name: "Child Site" }
-      let!(:site_coordinator) { create :site_coordinator_user, sites: [site], suspended_at: DateTime.now }
-      let!(:team_member) { create :team_member_user, sites: [site], suspended_at: DateTime.now }
-      let!(:team_member2) { create :team_member_user, sites: [site] }
+      let!(:site_coordinator) { create :site_coordinator_user, site: site, suspended_at: DateTime.now }
+      let!(:team_member) { create :team_member_user, site: site, suspended_at: DateTime.now }
+      let!(:team_member2) { create :team_member_user, site: site }
 
       before { login_as current_user }
 

@@ -38,9 +38,9 @@ describe Site do
 
     let!(:lead) { create :organization_lead_user, organization: organization }
     let!(:outside_lead) { create :organization_lead_user }
-    let!(:site1_coordinator) { create :site_coordinator_user, sites: [site1] }
-    let!(:site2_coordinator) { create :site_coordinator_user, sites: [site2] }
-    let!(:team_member) { create :team_member_user, sites: [site1] }
+    let!(:site1_coordinator) { create :site_coordinator_user, site: site1 }
+    let!(:site2_coordinator) { create :site_coordinator_user, site: site2 }
+    let!(:team_member) { create :team_member_user, site: site1 }
 
     it "only includes site coordinators from that site" do
       expect(site1.site_coordinators).to eq [site1_coordinator]
@@ -53,8 +53,8 @@ describe Site do
     let(:site2) { create :site, parent_organization: organization }
     let!(:lead) { create :organization_lead_user, organization: organization }
     let!(:outside_lead) { create :organization_lead_user }
-    let!(:site1_team_member) { create :team_member_user, sites: [site1] }
-    let!(:site2_team_member) { create :team_member_user, sites: [site2] }
+    let!(:site1_team_member) { create :team_member_user, site: site1 }
+    let!(:site2_team_member) { create :team_member_user, site: site2 }
 
     it "only includes team members from that site" do
       expect(site1.team_members).to eq [site1_team_member]

@@ -161,8 +161,7 @@ RSpec.describe Hub::ClientsController do
     end
 
     context "as a team member user" do
-      let(:vita_partner_id) { user.role.sites.first.id }
-      let(:user) { create(:user, role: create(:team_member_role, sites: [create(:site)])) }
+      let(:user) { create(:user, role: create(:team_member_role, site: create(:site))) }
       before { sign_in user }
 
       context "with valid params" do
@@ -170,7 +169,7 @@ RSpec.describe Hub::ClientsController do
           expect do
             post :create, params: params
           end.to change(Client, :count).by 1
-          expect(Client.last.vita_partner).to eq(user.role.sites.first)
+          expect(Client.last.vita_partner).to eq(user.role.site)
         end
       end
     end
@@ -1331,7 +1330,7 @@ RSpec.describe Hub::ClientsController do
       let!(:site) { create :site }
       let!(:client_outside_of_site) { create(:client) }
       before {
-        sign_in create(:site_coordinator_user, sites: [site])
+        sign_in create(:site_coordinator_user, site: site)
         client.update(vita_partner: site)
       }
 

@@ -6,8 +6,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let(:site) { create :site, parent_organization: organization }
 
   let!(:organization_lead) { create :organization_lead_user, organization: organization }
-  let!(:site_coordinator) { create :site_coordinator_user, sites: [site], name: "Barbara" }
-  let!(:team_member) { create :team_member_user, sites: [site], name: "Aaron" }
+  let!(:site_coordinator) { create :site_coordinator_user, site: site, name: "Barbara" }
+  let!(:team_member) { create :team_member_user, site: site, name: "Aaron" }
   let!(:unauthorized_team_member) { create :team_member_user }
 
   let(:currently_assigned_coalition_lead) { create :coalition_lead_user, coalition: coalition }

@@ -1,6 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
   include AccessControllable
-  include RoleHelper
 
   # Devise::InvitationsController from devise-invitable uses some before_actions to validate
   # data being passed in. We skip those and use our before_action methods to customize
@@ -62,7 +61,23 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def load_and_authorize_role
-    @role = role_from_params(params.dig(:user, :role), params)
+    @role =
+      case params.dig(:user, :role)
+      when OrganizationLeadRole::TYPE
+        OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
+      when CoalitionLeadRole::TYPE
+        CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
+      when AdminRole::TYPE
+        AdminRole.new
+      when SiteCoordinatorRole::TYPE
+        SiteCoordinatorRole.new(site: @vita_partners.find(params.require(:site_id)))
+      when ClientSuccessRole::TYPE
+        ClientSuccessRole.new
+      when GreeterRole::TYPE
+        GreeterRole.new
+      when TeamMemberRole::TYPE
+        TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
+      end
 
     authorize!(:create, @role)
   end

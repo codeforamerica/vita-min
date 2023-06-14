@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  vita_partner_id :bigint
+#  vita_partner_id :bigint           not null
 #
 # Indexes
 #
@@ -17,6 +17,6 @@
 #
 FactoryBot.define do
   factory :site_coordinator_role do
-    sites { [create(:site)] }
+    site { create(:site) }
   end
 end

@@ -295,7 +295,7 @@ describe BulkActionJob do
 
       context "when users are assigned to the returns and don't have access through the new partner" do
         let(:old_site) { create :site, parent_organization: organization }
-        let(:assigned_user_at_old_site) { create :site_coordinator_user, sites: [old_site] }
+        let(:assigned_user_at_old_site) { create :site_coordinator_user, site: old_site }
         let(:assigned_user_who_retains_access) { create :organization_lead_user, organization: organization }
         let(:selected_client) { create :client, intake: (build :intake), vita_partner: old_site }
         let!(:still_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018, tax_return_selections: [tax_return_selection] }
@@ -331,8 +331,8 @@ describe BulkActionJob do
       let(:client) { create :client, vita_partner: site, intake: build(:intake) }
       let(:site) { create :site }
 
-      let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
-      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
+      let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
+      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
       let!(:inaccessible_user) { create :user }
 
       let(:params) do

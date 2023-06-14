@@ -94,11 +94,11 @@ class Organization < VitaPartner
   end
 
   def site_coordinators
-    User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: child_sites))
+    User.where(role: SiteCoordinatorRole.where(site: child_sites))
   end
 
   def team_members
-    User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: child_sites))
+    User.where(role: TeamMemberRole.where(site: child_sites))
   end
 
   private

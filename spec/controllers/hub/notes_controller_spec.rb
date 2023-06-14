@@ -138,7 +138,7 @@ RSpec.describe Hub::NotesController, type: :controller do
 
     describe "#taggable_users" do
       let(:admin_user) { create :admin_user, name: "Penelope Persimmon" }
-      let(:team_member) { create :team_member_user, name: "Mel Melon", sites: [(create :site, name: "Some Site")] }
+      let(:team_member) { create :team_member_user, name: "Mel Melon", site: (create :site, name: "Some Site") }
 
       before do
         allow(User).to receive(:taggable_for).and_return([team_member, admin_user])

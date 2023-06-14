@@ -53,11 +53,11 @@ class Site < VitaPartner
   end
 
   def site_coordinators
-    User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: self))
+    User.where(role: SiteCoordinatorRole.where(site: self))
   end
 
   def team_members
-    User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: self))
+    User.where(role: TeamMemberRole.where(site: self))
   end
 
   private

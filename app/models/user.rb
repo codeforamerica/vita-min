@@ -81,10 +81,6 @@ class User < ApplicationRecord
   scope :active, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
 
-  def valid?(*_args)
-    [super, role&.valid?].all?
-  end
-
   def accessible_coalitions
     case role_type
     when AdminRole::TYPE
@@ -102,8 +98,8 @@ class User < ApplicationRecord
     role_type.gsub("Role", "").underscore.humanize.titlecase
   end
 
-  def served_entities
-    role&.served_entities if role.respond_to? :served_entities
+  def served_entity
+    role&.served_entity if role.respond_to? :served_entity
   end
 
   def name_with_role
@@ -112,8 +108,7 @@ class User < ApplicationRecord
 
   def name_with_role_and_entity
     content = name_with_role
-    content += " - #{served_entities.first.name}" if served_entities&.any?
-    content += " (and #{served_entities.count - 1} more)" if (served_entities&.count || 0) > 1
+    content += " - #{served_entity.name}" if served_entity.present?
     content
   end
 
@@ -128,7 +123,7 @@ class User < ApplicationRecord
     when OrganizationLeadRole::TYPE
       VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
-      VitaPartner.sites.where(id: role.sites)
+      VitaPartner.sites.where(id: role.site)
     when CoalitionLeadRole::TYPE
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
@@ -161,19 +156,19 @@ class User < ApplicationRecord
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: organizations))
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: sites))
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: sites))
+      team_members = User.where(role: TeamMemberRole.where(site: sites))
       coalitions_leads.or(organization_leads).or(site_coordinators).or(team_members)
     when OrganizationLeadRole::TYPE
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.organization))
       sites = VitaPartner.sites.where(parent_organization: role.organization)
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: sites))
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: sites))
+      team_members = User.where(role: TeamMemberRole.where(site: sites))
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
-      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.sites.map(&:parent_organization)))
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: role.sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: role.sites))
+      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.site.parent_organization))
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: role.site))
+      team_members = User.where(role: TeamMemberRole.where(site: role.site))
       organization_leads.or(site_coordinators).or(team_members)
     else
       User.none
@@ -187,8 +182,8 @@ class User < ApplicationRecord
     users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner&.organization?
 
     if client.vita_partner&.site?
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: client.vita_partner))
-      site_leads = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: client.vita_partner))
+      team_members = User.where(role: TeamMemberRole.where(site: client.vita_partner))
+      site_leads = User.where(role: SiteCoordinatorRole.where(site: client.vita_partner))
       org_leads = User.where(role: OrganizationLeadRole.where(organization: client.vita_partner.parent_organization))
       users = users.or(org_leads).or(site_leads).or(team_members)
     end
