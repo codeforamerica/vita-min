@@ -1,6 +1,4 @@
 class SendOutgoingTextMessageWithoutClientJob < ApplicationJob
-  queue_as :default
-
   def perform(phone_number: , body: )
     TwilioService.send_text_message(
       to: phone_number,

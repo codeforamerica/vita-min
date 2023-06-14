@@ -1,6 +1,5 @@
 class SendOutgoingTextMessageJob < ApplicationJob
   include Rails.application.routes.url_helpers
-  queue_as :default
 
   def perform(outgoing_text_message_id)
     outgoing_text_message = OutgoingTextMessage.find(outgoing_text_message_id)
