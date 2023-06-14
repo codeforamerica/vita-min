@@ -27,7 +27,7 @@ class TeamMemberRole < ApplicationRecord
   validate :all_sites_in_same_org
 
   scope :assignable_to_sites, -> (sites) {
-    joins(:sites).where(vita_partners: sites).or(where(legacy_vita_partner: sites))
+    left_outer_joins(:sites).where(vita_partners: sites).or(where(legacy_vita_partner: sites))
   }
 
   def sites
