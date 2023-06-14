@@ -1,6 +1,4 @@
 class GetPhoneMetadataJob < ApplicationJob
-  queue_as :default
-
   def perform(intake)
     return if intake.phone_number.blank?
 

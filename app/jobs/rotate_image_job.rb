@@ -1,6 +1,4 @@
 class RotateImageJob < ApplicationJob
-  queue_as :default
-
   def perform(document, rotation)
 
     document.upload.open do |tempfile|
