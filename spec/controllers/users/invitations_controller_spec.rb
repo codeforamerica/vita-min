@@ -128,7 +128,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: SiteCoordinatorRole::TYPE,
             },
-            sites: [{id: site.id}].to_json
+            site_id: site.id
           }
         end
 
@@ -138,7 +138,7 @@ RSpec.describe Users::InvitationsController do
           end.to (change(User, :count).by 1).and(change(SiteCoordinatorRole, :count).by(1))
 
           site_coordinator_role = SiteCoordinatorRole.last
-          expect(site_coordinator_role.sites).to include site
+          expect(site_coordinator_role.site).to eq site
 
           invited_user = User.last
           expect(invited_user.role).to eq site_coordinator_role
@@ -256,7 +256,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: TeamMemberRole::TYPE,
             },
-            sites: [{ id: site.id}].to_json
+            site_id: site.id
           }
         end
 
@@ -266,7 +266,7 @@ RSpec.describe Users::InvitationsController do
           end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
 
           role = TeamMemberRole.last
-          expect(role.sites).to include site
+          expect(role.site).to eq site
 
           invited_user = User.last
           expect(invited_user.role).to eq role

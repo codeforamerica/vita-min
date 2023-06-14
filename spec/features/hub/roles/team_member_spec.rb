@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Team member role" do
   context "A logged in team member" do
     let!(:vita_partner) { create :site, name: "Squash Site" }
-    let(:user) { create :team_member_user, role: create(:team_member_role, sites: [vita_partner]) }
+    let(:user) { create :team_member_user, role: create(:team_member_role, site: vita_partner) }
     # TODO: create a factory for users that will show up on the client list (consented, etc)
     # TODO: also, there should be an easier way to create a client that will not fail the edit form validations (currently this looks like create(:intake, :with_contact_info, :filled_out, state_of_residence: "CA"))
     let!(:hester_intake) { build(:intake, :filled_out, :with_contact_info, preferred_name: "Hester Horseradish", primary_consented_to_service: "yes", state_of_residence: "CA") }

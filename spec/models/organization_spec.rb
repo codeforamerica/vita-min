@@ -36,7 +36,7 @@ describe Organization do
     let(:site) { create :site, parent_organization: organization }
     let!(:lead) { create :organization_lead_user, organization: organization }
     let!(:outside_lead) { create :organization_lead_user }
-    let!(:team_member) { create :team_member_user, sites: [site] }
+    let!(:team_member) { create :team_member_user, site: site }
 
     it "returns users who are organization leads for the provided vita_partner" do
       expect(organization.organization_leads).to eq [lead]
@@ -52,9 +52,9 @@ describe Organization do
 
     let!(:lead) { create :organization_lead_user, organization: organization }
     let!(:outside_lead) { create :organization_lead_user }
-    let!(:site1_coordinator) { create :site_coordinator_user, sites: [site1] }
-    let!(:site2_coordinator) { create :site_coordinator_user, sites: [site2] }
-    let!(:team_member) { create :team_member_user, sites: [site1] }
+    let!(:site1_coordinator) { create :site_coordinator_user, site: site1 }
+    let!(:site2_coordinator) { create :site_coordinator_user, site: site2 }
+    let!(:team_member) { create :team_member_user, site: site1 }
 
     it "includes site coordinators from all child sites" do
       expect(organization.site_coordinators).to match_array([site1_coordinator, site2_coordinator])
@@ -67,8 +67,8 @@ describe Organization do
     let(:site2) { create :site, parent_organization: organization }
     let!(:lead) { create :organization_lead_user, organization: organization }
     let!(:outside_lead) { create :organization_lead_user }
-    let!(:site1_team_member) { create :team_member_user, sites: [site1] }
-    let!(:site2_team_member) { create :team_member_user, sites: [site2] }
+    let!(:site1_team_member) { create :team_member_user, site: site1 }
+    let!(:site2_team_member) { create :team_member_user, site: site2 }
 
     it "includes site coordinators from all child sites" do
       expect(organization.team_members).to match_array([site1_team_member, site2_team_member])

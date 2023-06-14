@@ -545,8 +545,8 @@ RSpec.describe ApplicationController do
     context "user is logged in" do
       let(:user_coalition) { build(:coalition, name: "Tax Universe") }
       let(:user_organization) { build(:organization, name: "Tax Collective", coalition: user_coalition) }
-      let(:user_site) { create(:site, name: "Tax Partners", parent_organization: user_organization) }
-      let(:user) { create(:team_member_user, sites: [user_site], current_sign_in_at: 5.minutes.ago) }
+      let(:user_site) { build(:site, name: "Tax Partners", parent_organization: user_organization) }
+      let(:user) { create(:team_member_user, site: user_site, current_sign_in_at: 5.minutes.ago) }
 
       before do
         sign_in user

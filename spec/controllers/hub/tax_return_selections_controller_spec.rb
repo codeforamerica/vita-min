@@ -24,7 +24,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
         let(:site) { create :site, parent_organization: organization }
         let(:clients_for_org) { create_list :client_with_intake_and_return, 3, vita_partner: organization, tax_return_state: "file_efiled" }
         let(:clients_for_site) { create_list :client_with_intake_and_return, 2, vita_partner: site, tax_return_state: "file_efiled" }
-        let(:user) { create :site_coordinator_user, sites: [site] }
+        let(:user) { create :site_coordinator_user, site: site }
         let(:clients) { clients_for_org + clients_for_site }
 
         it "only shows the allowed clients" do

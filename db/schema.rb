@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_183601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1493,17 +1493,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
   create_table "site_coordinator_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
-  end
-
-  create_table "site_coordinator_roles_vita_partners", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "site_coordinator_role_id", null: false
-    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
-    t.index ["site_coordinator_role_id"], name: "index_scr_vita_partners_on_scr_id"
-    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_vita_partners_on_vita_partner_id"
+    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
   end
 
   create_table "source_parameters", force: :cascade do |t|
@@ -1614,17 +1605,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
   create_table "team_member_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
-  end
-
-  create_table "team_member_roles_vita_partners", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "team_member_role_id", null: false
-    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
-    t.index ["team_member_role_id"], name: "index_team_member_roles_vita_partners_on_team_member_role_id"
-    t.index ["vita_partner_id"], name: "index_team_member_roles_vita_partners_on_vita_partner_id"
+    t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
   end
 
   create_table "text_message_access_tokens", force: :cascade do |t|

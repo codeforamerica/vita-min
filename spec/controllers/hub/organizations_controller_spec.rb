@@ -291,9 +291,9 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   describe "#suspend_all" do
     let(:organization) { create :organization }
     let(:site) { create :site, parent_organization: organization }
-    let!(:team_member_1) { create :user, role: (create :team_member_role, sites: [site]) }
-    let!(:team_member_2) { create :user, role: (create :team_member_role, sites: [site]) }
-    let!(:team_member_3) { create :user, role: (create :team_member_role, sites: [site]) }
+    let!(:team_member_1) { create :user, role: (create :team_member_role, site: site) }
+    let!(:team_member_2) { create :user, role: (create :team_member_role, site: site) }
+    let!(:team_member_3) { create :user, role: (create :team_member_role, site: site) }
     let(:params) do
       {
         role_type: TeamMemberRole::TYPE,
@@ -321,9 +321,9 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   describe "#activate_all" do
     let(:organization) { create :organization }
     let(:site) { create :site, parent_organization: organization }
-    let!(:team_member_1) { create :user, role: (create :team_member_role, sites: [site]), suspended_at: DateTime.now }
-    let!(:team_member_2) { create :user, role: (create :team_member_role, sites: [site]), suspended_at: DateTime.now }
-    let!(:team_member_3) { create :user, role: (create :team_member_role, sites: [site]), suspended_at: DateTime.now }
+    let!(:team_member_1) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
+    let!(:team_member_2) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
+    let!(:team_member_3) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
     let(:params) do
       {
         role_type: TeamMemberRole::TYPE,

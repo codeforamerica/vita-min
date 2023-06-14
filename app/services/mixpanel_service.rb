@@ -306,7 +306,7 @@ class MixpanelService
         organization = user.role.organization
         coalition = organization.coalition
       when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
-        site = user.role.sites.first
+        site = user.role.site
         organization = site.parent_organization
         coalition = organization.coalition
       end

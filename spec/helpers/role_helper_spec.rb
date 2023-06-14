@@ -86,7 +86,7 @@ describe RoleHelper do
 
     context "for a site coordinator user" do
       let(:site) { create :site, name: "Soda Site" }
-      let(:user) { create :site_coordinator_user, sites: [site] }
+      let(:user) { create :site_coordinator_user, site: site }
 
       it "returns the name of the site that they are a coordinator for" do
         expect(helper.user_group(user)).to eq("Soda Site")
@@ -94,7 +94,7 @@ describe RoleHelper do
     end
 
     context "for a team member user" do
-      let(:user) { create :team_member_user, sites: [create(:site, name: "Soda Site")] }
+      let(:user) { create :team_member_user, site: create(:site, name: "Soda Site") }
 
       it "returns the name of their group" do
         expect(helper.user_group(user)).to eq("Soda Site")
