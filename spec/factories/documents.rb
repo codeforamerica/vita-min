@@ -5,7 +5,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  archived             :boolean          default(FALSE), not null
-#  blurriness_score     :float
+#  blur_score           :float
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null

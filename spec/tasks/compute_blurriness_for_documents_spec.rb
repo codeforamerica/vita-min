@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "compute_blurriness_for_documents:batch_proces" do
+describe "blur_score:compute" do
   include_context "rake"
 
   it "changes no documents with existing scores"
@@ -10,7 +10,7 @@ describe "compute_blurriness_for_documents:batch_proces" do
   it "does not compute scores for non-compatible documents"
 end
 
-describe "compute_blurriness_for_documents:report" do
+describe "blur_score:report" do
   include_context "rake"
 
   it "only includes compatible documents"
