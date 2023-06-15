@@ -67,7 +67,6 @@ gem 'zxcvbn-ruby', require: 'zxcvbn'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~>1.0'
-gem 'pycall'
 
 # Use Flipper for feature flagging
 gem 'flipper'

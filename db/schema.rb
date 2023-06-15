@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_14_210409) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_183601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -728,7 +728,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_14_210409) do
 
   create_table "documents", force: :cascade do |t|
     t.boolean "archived", default: false, null: false
-    t.float "blur_score"
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"
