@@ -18,7 +18,7 @@ namespace :compute_blurriness_for_documents do
     puts "Computation of blurriness for #{limit} documents has completed."
   end
 
-  task :report_urls, [:document_type] => [:environment] do |t, args|
+  task :report, [:document_type] => [:environment] do |t, args|
     document_type = args[:document_type]
     documents = Document.where(document_type: document_type).where.not(blurriness_score: nil).order(blurriness_score: :asc)
 
