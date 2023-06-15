@@ -9,7 +9,7 @@ namespace :blur_score do
     Document.where(blur_score: nil, document_type: document_type).limit(limit).find_in_batches(batch_size: 10) do |document_set|
       Rails.logger.debug "Processing #{document_set.count} documents"
       for document in document_set
-        DetectBlurInDocumentJob.perform_now(document: document)
+        DetectBlurInDocumentJob.perform_later(document: document)
       end
     end
 
