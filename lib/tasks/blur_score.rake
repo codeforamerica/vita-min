@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :blur_score do
   desc 'Run blur detection against the provided set of documents'
   task :compute, [:document_type, :limit] => [:environment] do |t, args|

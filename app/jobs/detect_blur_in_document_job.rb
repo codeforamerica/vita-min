@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DetectBlurInDocumentJob < ApplicationJob
   def perform(document:)
     return if document.is_pdf?
