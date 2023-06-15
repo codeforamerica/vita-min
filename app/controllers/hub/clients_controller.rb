@@ -170,6 +170,7 @@ module Hub
     def resource_to_client_redirect
       resource_id = params[:id]
       resource_name = params[:resource]
+      redirect_to hub_clients_path and return unless resource_name
       resource = resource_name.camelize.constantize.find(resource_id)
       client = resource.is_a?(Client) ? resource : resource.client
       redirect_to hub_client_path(id: client)
