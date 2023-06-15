@@ -2,6 +2,7 @@
 
 class DetectBlurInDocumentJob < ApplicationJob
   def perform(document:)
+    return if document.is_pdf?
     # Download the file
     image_bytes = document.upload.download
 
