@@ -5,6 +5,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  archived             :boolean          default(FALSE), not null
+#  blur_score           :float
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
@@ -61,6 +62,5 @@ FactoryBot.define do
     factory :archived_document do
       archived { true }
     end
-
   end
 end
