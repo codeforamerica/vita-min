@@ -24,11 +24,9 @@ class FlowsController < ApplicationController
     if type == :ctc
       intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
     elsif type == :gyr
-      puts "===============", params, "==================="
-      if SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+      # puts "===============", (params[:flows_controller_sample_intake_form][:email_address].class == String), "==================="
+      if (params[:flows_controller_sample_intake_form][:email_address].class == String)
         intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
-      else
-        render :status => 404
       end
     end
 
