@@ -33,6 +33,9 @@ commands:
       - run:
           name: install pdftk-java
           command: ./vendor/pdftk/install
+      - run:
+          name: install python3 pip
+          command: apt install python3-venv
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
