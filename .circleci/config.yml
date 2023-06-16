@@ -59,6 +59,18 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  install_python_dependencies:
+    description: "Install Python dependencies"
+    steps:
+      - run:
+          name: create virtualenv
+          command: python3 -m venv /mnt/ramdisk/vendor/python3-opencv-venv
+      - run:
+          name: install opencv python module
+          command: |
+            /mnt/ramdisk/vendor/python3-opencv-venv/bin/pip3 install opencv-python-headless
+      - save_cache:
+          paths: [ /mnt/ramdisk/vendor/python3-opencv-venv ]
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:

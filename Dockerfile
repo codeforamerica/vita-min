@@ -9,7 +9,7 @@ RUN apt-get update \
  && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn python3-pip \
+ && apt-get update && apt-get install -y nodejs yarn \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
@@ -63,7 +63,12 @@ RUN set -a \
  && NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
 
 # Install OpenCV headless Python module for blur detection.
-RUN pip3 install --user opencv-python-headless
+ENV PYTHON_OPENCV_VENV_ROOT="/opt/python3-opencv"
+RUN python -m venv ${PYTHON_OPENCV_VENV_ROOT} \
+ && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
+
+# Tell Python to use our OpenCV virtual environment
+ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages"
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
