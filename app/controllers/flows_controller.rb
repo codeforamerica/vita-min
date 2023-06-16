@@ -24,10 +24,7 @@ class FlowsController < ApplicationController
     if type == :ctc
       intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
     elsif type == :gyr
-      # puts "===============", (params[:flows_controller_sample_intake_form][:email_address].class == String), "==================="
-      if (params[:flows_controller_sample_intake_form][:email_address].class == String)
-        intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
-      end
+      intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
     end
 
     if intake
@@ -432,12 +429,13 @@ class FlowsController < ApplicationController
     end
 
     def generate_gyr_intake(params)
+      form_params = params.require(:flows_controller_sample_intake_form).permit(:first_name, :last_name, :sms_phone_number, :email_address, :with_dependents)
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-      first_name = params[:flows_controller_sample_intake_form][:first_name]
-      last_name = params[:flows_controller_sample_intake_form][:last_name]
-      sms_phone_number = PhoneParser.normalize(params[:flows_controller_sample_intake_form][:sms_phone_number])
-      email_address = params[:flows_controller_sample_intake_form][:email_address]
-      with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
+      first_name = form_params[:first_name]
+      last_name = form_params[:last_name]
+      sms_phone_number = PhoneParser.normalize(form_params[:sms_phone_number])
+      email_address = form_params[:email_address]
+      with_dependents = form_params[:with_dependents] == "1"
 
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
