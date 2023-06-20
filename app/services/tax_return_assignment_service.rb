@@ -9,6 +9,7 @@ class TaxReturnAssignmentService
   def assign!
     ActiveRecord::Base.transaction do
       @tax_return.update!(assigned_user: @assigned_user)
+      SystemNote::AssignmentChange.generate!(initiated_by: @assigned_by, tax_return: @tax_return)
       if not_already_assigned?
         UpdateClientVitaPartnerService.new(clients: [@client],
                                            vita_partner_id: @assigned_user.role.vita_partner_id,
@@ -26,8 +27,6 @@ class TaxReturnAssignmentService
   end
 
   def send_notifications
-    SystemNote::AssignmentChange.generate!(initiated_by: @assigned_by, tax_return: @tax_return)
-
     if @assigned_user.present? && (@assigned_user != @assigned_by)
       UserNotification.create!(
         user: @assigned_user,

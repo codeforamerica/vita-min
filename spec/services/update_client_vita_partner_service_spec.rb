@@ -49,6 +49,11 @@ describe UpdateClientVitaPartnerService do
         expect(tax_return.reload.assigned_user).to eq(nil)
       end
 
+      it "creates a note saying the tax return was unassigned" do
+        expect { subject.update! }.to change(SystemNote::AssignmentChange, :count).by(1)
+        expect(SystemNote.last.body).to include('removed assignment')
+      end
+
       context "and something goes terribly wrong in un-assignment" do
         before do
           allow_any_instance_of(TaxReturn).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)

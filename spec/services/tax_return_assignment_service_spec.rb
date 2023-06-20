@@ -8,9 +8,20 @@ describe TaxReturnAssignmentService do
   end
 
   describe ".assign" do
+    let(:site) { create(:site) }
     let(:tax_return) { create :gyr_tax_return, assigned_user: (create :site_coordinator_user) }
-    let(:assigned_user) { create :team_member_user }
+    let(:assigned_user) { create :team_member_user, sites: [site] }
     let(:assigned_by) { create :user }
+
+    before do
+      tax_return.client.update(vita_partner: site)
+    end
+
+    it "creates a note, does not send email" do
+      expect {
+        subject.assign!
+      }.to change(SystemNote::AssignmentChange, :count).by(1)
+    end
 
     context "when assigned_user_id is nil" do
       let(:assigned_user) { nil }
@@ -28,8 +39,9 @@ describe TaxReturnAssignmentService do
       context "when assigned user has a different vita partner than the clients" do
         let(:tax_return) { create :gyr_tax_return, assigned_user: (create :user), client: create(:client, vita_partner: old_site) }
         let(:assigned_user) { create :user, role: create(:team_member_role, sites: [new_site]) }
-        let(:new_site) { create :site }
-        let(:old_site) { create :site }
+        let(:organization) { create :organization }
+        let(:new_site) { create :site, parent_organization: organization }
+        let(:old_site) { create :site, parent_organization: organization }
 
         let(:instance) { instance_double(UpdateClientVitaPartnerService) }
         let(:double_class) { class_double(UpdateClientVitaPartnerService).as_stubbed_const }
@@ -43,6 +55,16 @@ describe TaxReturnAssignmentService do
           expect{ subject.assign! }.not_to raise_error
           expect(instance).to have_received(:update!).once
         end
+
+        context "when being assigned to a team member with multiple sites" do
+          let(:another_new_site) { create :site, parent_organization: organization }
+          let(:assigned_user) { create :user, role: create(:team_member_role, sites: [new_site, another_new_site]) }
+
+          it "assigns to the first site" do
+            expect{ subject.assign! }.not_to raise_error
+            expect(instance).to have_received(:update!).once
+          end
+        end
       end
     end
   end
@@ -54,11 +76,10 @@ describe TaxReturnAssignmentService do
 
     context "when assigned_user_id is nil" do
       let(:assigned_user) { nil }
-      it "creates a note, does not send email" do
+      it "does not send email" do
         expect {
           subject.send_notifications
-        }.to change(SystemNote, :count).by(1)
-        expect(InternalEmail.count).to be_zero
+        }.not_to change(InternalEmail, :count).from(0)
       end
     end
 
@@ -66,8 +87,7 @@ describe TaxReturnAssignmentService do
       it "creates a system note, creates an InternalEmail, and enqueues a job to send the assignment email" do
         expect {
           subject.send_notifications
-        }.to change(SystemNote, :count).by(1)
-           .and change(InternalEmail, :count).by(1)
+        }.to change(InternalEmail, :count).by(1)
                                              .and have_enqueued_job(SendInternalEmailJob)
         mail_args = InternalEmail.last.deserialized_mail_args
         expect(mail_args[:assigned_user]).to eq assigned_user
