@@ -68,7 +68,8 @@ RUN python3 -m venv ${PYTHON_OPENCV_VENV_ROOT} \
  && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
 
 # Tell Python to use our OpenCV virtual environment
-ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages"
+ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages" \
+    PYTHON="${PYTHON_OPENCV_VENV_ROOT}/bin/python3"
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
