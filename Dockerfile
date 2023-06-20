@@ -9,7 +9,7 @@ RUN apt-get update \
  && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn python3-venv \
+ && apt-get update && apt-get install -y nodejs yarn python3==3.9.6 python3-venv \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
@@ -38,6 +38,14 @@ RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
  && cd /opt && tar xf /tmp/openjdk.tar.gz \
  && rm -f /tmp/openjdk.tar.gz
 ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
+
+# Install OpenCV headless Python module for blur detection.
+ENV PYTHON_OPENCV_VENV_ROOT="/opt/python3-opencv"
+RUN python -m venv ${PYTHON_OPENCV_VENV_ROOT} \
+ && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
+
+# Tell Python to use our OpenCV virtual environment
+ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages"
 
 ADD . /app
 WORKDIR /app
