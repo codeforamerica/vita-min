@@ -429,12 +429,13 @@ class FlowsController < ApplicationController
     end
 
     def generate_gyr_intake(params)
+      form_params = params.require(:flows_controller_sample_intake_form).permit(:first_name, :last_name, :sms_phone_number, :email_address, :with_dependents)
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-      first_name = params[:flows_controller_sample_intake_form][:first_name]
-      last_name = params[:flows_controller_sample_intake_form][:last_name]
-      sms_phone_number = PhoneParser.normalize(params[:flows_controller_sample_intake_form][:sms_phone_number])
-      email_address = params[:flows_controller_sample_intake_form][:email_address]
-      with_dependents = params[:flows_controller_sample_intake_form][:with_dependents] == "1"
+      first_name = form_params[:first_name]
+      last_name = form_params[:last_name]
+      sms_phone_number = PhoneParser.normalize(form_params[:sms_phone_number])
+      email_address = form_params[:email_address]
+      with_dependents = form_params[:with_dependents] == "1"
 
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
@@ -450,7 +451,7 @@ class FlowsController < ApplicationController
         preferred_name: "#{first_name} #{last_name}",
         sms_phone_number: sms_phone_number.presence,
         email_address: email_address.presence,
-        email_address_verified_at: (email_address.present? && email_address.end_with?('@example.com')) ? DateTime.now : nil,
+        email_address_verified_at: (email_address.present? && email_address&.end_with?('@example.com')) ? DateTime.now : nil,
         eip1_amount_received: 0,
         eip2_amount_received: 0,
         street_address: '123 Main St',
