@@ -16,6 +16,7 @@ namespace :blur_score do
     puts "Computation of blur score for #{limit} documents has completed."
   end
 
+  desc 'Generate a report with blur scores and doc urls'
   task :report, [:document_type] => [:environment] do |t, args|
     document_type = args[:document_type]
     documents = Document.where(document_type: document_type).where.not(blur_score: nil).order(blur_score: :asc)
