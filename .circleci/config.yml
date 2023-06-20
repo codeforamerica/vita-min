@@ -35,7 +35,7 @@ commands:
           command: ./vendor/pdftk/install
       - run:
           name: install python3 pip
-          command: sudo apt install python3==3.9.6 python3-venv
+          command: sudo apt install python3=3.9.6 python3-venv
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
