@@ -13,6 +13,8 @@ executors:
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
+          PYTHONPATH: /mnt/ramdisk/vendor/python3-opencv-venv
+          PYTHON: /mnt/ramdisk/vendor/python3-opencv-venv/bin/python3
       - image: cimg/postgres:13.4-postgis
         environment:
           POSTGRES_USER: root
