@@ -172,8 +172,8 @@ class User < ApplicationRecord
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.sites.map(&:parent_organization)))
-      site_coordinators = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: role.sites))
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: role.sites))
+      site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(role.sites))
+      team_members = User.where(role: TeamMemberRole.assignable_to_sites(role.sites))
       organization_leads.or(site_coordinators).or(team_members)
     else
       User.none
@@ -187,8 +187,8 @@ class User < ApplicationRecord
     users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner&.organization?
 
     if client.vita_partner&.site?
-      team_members = User.where(role: TeamMemberRole.joins(:sites).where(vita_partners: client.vita_partner))
-      site_leads = User.where(role: SiteCoordinatorRole.joins(:sites).where(vita_partners: client.vita_partner))
+      team_members = User.where(role: TeamMemberRole.assignable_to_sites([client.vita_partner]))
+      site_leads = User.where(role: SiteCoordinatorRole.assignable_to_sites([client.vita_partner]))
       org_leads = User.where(role: OrganizationLeadRole.where(organization: client.vita_partner.parent_organization))
       users = users.or(org_leads).or(site_leads).or(team_members)
     end

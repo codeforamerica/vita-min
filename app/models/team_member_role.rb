@@ -45,7 +45,7 @@ class TeamMemberRole < ApplicationRecord
   private
 
   def has_site
-    errors.add(:sites, "Must be associated to at least one site") if sites.blank?
+    errors.add(:sites, "Must be associated to at least one site") if sites.blank? && legacy_vita_partner.blank?
   end
 
   def all_sites_in_same_org
