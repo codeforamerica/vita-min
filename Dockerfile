@@ -60,7 +60,7 @@ RUN set -a \
 # Review http://go.aptible.com/assets for production-ready advice.
 RUN set -a \
  && . ./.aptible.env \
- && NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
+ && bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
