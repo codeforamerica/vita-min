@@ -9,7 +9,7 @@ RUN apt-get update \
  && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn node-opencv \
+ && apt-get update && apt-get install -y nodejs yarn \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
@@ -39,14 +39,6 @@ RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
  && rm -f /tmp/openjdk.tar.gz
 ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 
-# Install OpenCV headless Python module for blur detection.
-ENV PYTHON_OPENCV_VENV_ROOT="/opt/python3-opencv"
-RUN python3 -m venv ${PYTHON_OPENCV_VENV_ROOT} \
- && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
-
-# Tell Python to use our OpenCV virtual environment
-ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages"
-
 ADD . /app
 WORKDIR /app
 ADD package.json yarn.lock /app/
@@ -69,15 +61,6 @@ RUN set -a \
 RUN set -a \
  && . ./.aptible.env \
  && NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
-
-# Install OpenCV headless Python module for blur detection.
-ENV PYTHON_OPENCV_VENV_ROOT="/opt/python3-opencv"
-RUN python3 -m venv ${PYTHON_OPENCV_VENV_ROOT} \
- && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
-
-# Tell Python to use our OpenCV virtual environment
-ENV PYTHONPATH="${PYTHON_OPENCV_VENV_ROOT}/lib/python3.9/site-packages" \
-    PYTHON="${PYTHON_OPENCV_VENV_ROOT}/bin/python3"
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
