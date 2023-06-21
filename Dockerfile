@@ -41,7 +41,7 @@ ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 
 # Install OpenCV headless Python module for blur detection.
 ENV PYTHON_OPENCV_VENV_ROOT="/opt/python3-opencv"
-RUN python -m venv ${PYTHON_OPENCV_VENV_ROOT} \
+RUN python3 -m venv ${PYTHON_OPENCV_VENV_ROOT} \
  && $PYTHON_OPENCV_VENV_ROOT/bin/pip3 install opencv-python-headless
 
 # Tell Python to use our OpenCV virtual environment
