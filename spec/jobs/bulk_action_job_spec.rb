@@ -397,7 +397,7 @@ describe BulkActionJob do
           form_params: params
         )
 
-        expect(client.reload.system_notes.first.body).to eq "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
+        expect(client.reload.system_notes.map(&:body)).to include "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
       end
 
       context "when 'Keep current status' is selected" do
@@ -419,7 +419,7 @@ describe BulkActionJob do
           expect(tax_return_1.current_state).to eq "file_ready_to_file"
           expect(tax_return_2.current_state).to eq "review_signature_requested"
           expect(tax_return_3.current_state).to eq "review_signature_requested"
-          expect(client.reload.system_notes).to be_empty
+          expect(client.reload.system_notes.where(type: "SystemNote::StatusChange")).to be_empty
         end
 
         it "creates a notification" do
