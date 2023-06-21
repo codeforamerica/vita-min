@@ -1,12 +1,14 @@
 .breadcrumb {
-  @include full-bleed();
   background-color: $color-grey-light;
   font-size: 1.6rem;
   min-height: 3.5rem;
   line-height: 2.5rem;
   color: black;
   padding: .5rem;
+}
 
+.breadcrumb-submenu {
+  @include full-bleed();
 }
 
 .hub {
