@@ -27,7 +27,7 @@ FileUtils.chdir APP_ROOT do
       git checkout %{target_branch}
       bundle install
       yarn install
-      RAILS_ENV=test bin/webpack
+      RAILS_ENV=test bin/webpacker
       VITA_MIN_PERCY_ENABLED=1 npx percy exec -- rspec --tag screenshot
 
       echo "== 🕰️  Please wait for %{target_branch} to fully process snapshoots and complete at the provided link above. (Takes a few minutes) =="
@@ -38,7 +38,7 @@ FileUtils.chdir APP_ROOT do
       git checkout -
       bundle install
       yarn install
-      RAILS_ENV=test bin/webpack
+      RAILS_ENV=test bin/webpacker
       VITA_MIN_PERCY_ENABLED=1 PERCY_TARGET_BRANCH=%{target_branch} PERCY_PULL_REQUEST=%{pr_number} npx percy exec -- rspec --tag screenshot
       echo "== 🏁 Script complete =="
     ' % { target_branch: target_branch, pr_number: pr_number }

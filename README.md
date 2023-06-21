@@ -140,7 +140,7 @@ Foreman will run the following 3 commands:
 ```sh
 rails s
 rails jobs:work
-bin/webpack-dev-server
+bin/webpacker-dev-server
 ```
 
 ## Development 💻
