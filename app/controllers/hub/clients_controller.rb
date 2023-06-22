@@ -155,6 +155,7 @@ module Hub
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
+        @client.intake.update(demographic_questions_hub_edit: true)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
         render :edit_13614c_form_page3
