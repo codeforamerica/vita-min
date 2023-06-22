@@ -252,7 +252,7 @@ CREATE VIEW analytics.system_notes AS
 
 CREATE VIEW analytics.tax_returns AS
     SELECT id, assigned_user_id, certification_level, client_id, created_at, is_hsa,
-           primary_signature, primary_signed_at, ready_for_prep_at, service_type, spouse_signature, spouse_signed_at,
+           primary_signed_at, ready_for_prep_at, service_type, spouse_signed_at,
            current_state, updated_at, year, is_ctc
     FROM public.tax_returns;
 
