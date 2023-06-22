@@ -64,7 +64,6 @@ jobs:
             RAILS_ENV=heroku \
             RACK_ENV=production \
             LOG_LEVEL=info \
-            NODE_OPTIONS="--openssl-legacy-provider" \
             RAILS_SERVE_STATIC_FILES=enabled \
             RAILS_MASTER_KEY_NEW=${{ secrets.RAILS_MASTER_KEY_NEW }} \
             BUNDLE_GITHUB__COM=${{ secrets.BUNDLE_GITHUB__COM }} \
@@ -106,9 +105,13 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
 
+      - name: Get heroku generated url
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: echo "HEROKU_URL=$(heroku apps:info -s --app ${{ env.HEROKU_APP_NAME }} | grep web_url | cut -d= -f2)" >> $GITHUB_ENV
+
       - name: Add comment to PR
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: |
-          gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com<br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}` (optionally add `--tail`)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): ${{ env.HEROKU_URL }}<br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}` (optionally add `--tail`)'

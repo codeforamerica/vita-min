@@ -96,6 +96,12 @@ RSpec.describe FlowsController do
         expect(controller.current_intake).to be_filing_joint_yes
         expect(controller.current_intake.dependents.count).to eq(2)
       end
+
+      it 'ignores email address when formatted as an array' do
+        default_params[:flows_controller_sample_intake_form][:email_address] = ['testuser@example.com']
+        post :generate, params: default_params
+        expect(controller.current_intake.email_address).to be_nil
+      end
     end
   end
 
