@@ -27,7 +27,7 @@ namespace :blur_score do
     documents.each do |doc|
       puts "Document id: #{doc.id}"
       puts "Blur score: #{doc.blur_score}"
-      puts doc.upload.url.expires_in(10.minutes)
+      puts doc.upload.url(expires_in: 10.minutes)
       puts "----------------------------------------------------"
     end
   end
