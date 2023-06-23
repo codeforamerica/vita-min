@@ -10,8 +10,10 @@ class DetectBlurInDocumentJob < ApplicationJob
 
     cv = PyCall.import_module("cv2")
     image = cv.imread(downloaded_document.path)
+    return unless image.present?
+
     grayscale_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     fm = cv.Laplacian(grayscale_image, cv.CV_64F).var()
-    document.update(blur_score: fm)
+    document.update!(blur_score: fm)
   end
 end
