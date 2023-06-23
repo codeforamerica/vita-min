@@ -118,7 +118,7 @@ class Seeder
         admin_user.update(
           name: admin_names[initials],
           password: Devise.friendly_token[0, 20])
-        admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
+        admin_user.update(role: AdminRole.create(engineer: true)) if admin_user.role_type != AdminRole::TYPE
       end
     end
 
