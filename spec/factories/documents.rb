@@ -62,5 +62,6 @@ FactoryBot.define do
     factory :archived_document do
       archived { true }
     end
+    
   end
 end
