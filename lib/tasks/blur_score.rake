@@ -6,7 +6,7 @@ namespace :blur_score do
     limit = args[:limit].to_i
     puts "Filtering for #{document_type} for at most #{limit} documents"
 
-    Document.where(blur_score: nil, document_type: document_type).limit(limit).find_in_batches(batch_size: 10) do |document_set|
+    Document.where(blur_score: nil, document_type: document_type).not.where(client_id: nil).limit(limit).find_in_batches(batch_size: 10) do |document_set|
       Rails.logger.debug "Processing #{document_set.count} documents"
       for document in document_set
         DetectBlurInDocumentJob.perform_later(document: document)
