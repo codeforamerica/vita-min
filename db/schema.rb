@@ -728,6 +728,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
 
   create_table "documents", force: :cascade do |t|
     t.boolean "archived", default: false, null: false
+    t.float "blur_score"
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"

@@ -64,7 +64,6 @@ jobs:
             RAILS_ENV=heroku \
             RACK_ENV=production \
             LOG_LEVEL=info \
-            NODE_OPTIONS="--openssl-legacy-provider" \
             RAILS_SERVE_STATIC_FILES=enabled \
             RAILS_MASTER_KEY_NEW=${{ secrets.RAILS_MASTER_KEY_NEW }} \
             BUNDLE_GITHUB__COM=${{ secrets.BUNDLE_GITHUB__COM }} \
