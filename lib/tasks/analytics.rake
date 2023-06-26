@@ -33,6 +33,7 @@ namespace :analytics do
       $do$;
     SQL
     ActiveRecord::Base.connection.execute(create_user)
+    ActiveRecord::Base.connection.execute('REVOKE ALL PRIVILEGES ON SCHEMA public FROM "metabase";')
     ActiveRecord::Base.connection.execute('GRANT USAGE ON SCHEMA "analytics" TO "metabase";')
     ActiveRecord::Base.connection.execute('GRANT SELECT ON ALL TABLES IN SCHEMA "analytics" TO "metabase";')
   end
