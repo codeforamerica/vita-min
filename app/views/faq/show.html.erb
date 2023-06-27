@@ -4,8 +4,8 @@
 <%= render 'shared/breadcrumb_array', items: [
   [t('general.home'), root_path],
   ["FAQ", faq_path],
-  [t("views.public_pages.faq.question_groups.#{@section_key}.title"), faq_section_path(section_key: @section_key)],
-  t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question"),
+  [@faq_item.faq_category.name(I18n.locale), faq_section_path(section_key: @section_key)],
+  @faq_item.question(I18n.locale),
 ] %>
 
 <main role="main">
@@ -13,14 +13,10 @@
 
     <div class="grid">
       <div class="grid__item width-one-whole faq-wrapper">
-        <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h1>
+        <h1 class="h2"><%= @faq_item.question(I18n.locale) %></h1>
 
         <div class="spacing-below-35">
-          <% if open_for_eitc_intake? %>
-            <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.eitc_answer_html", default: t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html")) %>
-          <% else %>
-            <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
-          <% end %>
+          <%= @faq_item.answer(I18n.locale) %>
         </div>
 
         <%= form_with model: @survey, url: { action: :answer_survey }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>

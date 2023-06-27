@@ -4,7 +4,7 @@
 <%= render 'shared/breadcrumb_array', items: [
   [t('general.home'), root_path],
   ["FAQ", faq_path],
-  t("views.public_pages.faq.question_groups.#{@section_key}.title"),
+  @faq_category.name(I18n.locale),
 ] %>
 
 <main role="main">
@@ -12,12 +12,12 @@
 
     <div class="grid">
       <div class="grid__item width-one-whole faq-wrapper">
-        <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %></h1>
+        <h1 class="h2"><%= @faq_category.name(I18n.locale) %></h1>
 
-        <% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
+        <% @faq_category.faq_items.each do |faq_item| %>
           <p>
-            <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.#{question}.question"),
-            faq_question_path(section_key: @section_key, question_key: question) %>
+            <%= link_to faq_item.question(I18n.locale),
+            faq_question_path(section_key: @section_key, question_key: faq_item.slug) %>
           </p>
         <% end %>
       </div>

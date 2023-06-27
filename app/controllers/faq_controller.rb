@@ -107,25 +107,24 @@ class FaqController < ApplicationController
 
   skip_before_action :check_maintenance_mode
 
-  def include_analytics?
-    true
-  end
-
   def index
+    @faq_categories = FaqCategory.all.order(:position)
   end
 
   def section_index
     # validate that it is actually good, 404 if not
 
     @section_key = params[:section_key]
+    @faq_category = FaqCategory.find_by(slug: @section_key)
 
-    raise ActionController::RoutingError.new('Not found') unless I18n.exists?("views.public_pages.faq.question_groups.#{@section_key}")
+    raise ActionController::RoutingError.new('Not found') unless @faq_category
   end
 
   def show
     @section_key = params[:section_key]
     @question_key = params[:question_key].underscore
-    raise ActionController::RoutingError.new('Not found') unless I18n.exists?("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}")
+    @faq_item = FaqCategory.find_by(slug: @section_key)&.faq_items&.find_by(slug: @question_key)
+    raise ActionController::RoutingError.new('Not found') unless @faq_item
 
     @survey = FaqSurvey.find_or_initialize_by(visitor_id: visitor_id, question_key: @question_key)
 
@@ -140,5 +139,11 @@ class FaqController < ApplicationController
 
     @survey.update(params.require(:faq_survey).permit(:answer))
     redirect_to faq_question_path(section_key: params[:section_key], question_key: @question_key)
+  end
+
+  private
+
+  def include_analytics?
+    true
   end
 end

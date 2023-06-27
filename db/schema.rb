@@ -910,6 +910,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
     t.index ["key"], name: "index_experiments_on_key", unique: true
   end
 
+  create_table "faq_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name_en"
+    t.string "name_es"
+    t.integer "position"
+    t.string "slug"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "faq_items", force: :cascade do |t|
+    t.text "answer_en"
+    t.text "answer_es"
+    t.datetime "created_at", null: false
+    t.bigint "faq_category_id", null: false
+    t.integer "position"
+    t.text "question_en"
+    t.text "question_es"
+    t.string "slug"
+    t.datetime "updated_at", null: false
+    t.index ["faq_category_id"], name: "index_faq_items_on_faq_category_id"
+  end
+
   create_table "faq_surveys", force: :cascade do |t|
     t.integer "answer", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1879,6 +1901,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
   add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "experiment_vita_partners", "experiments"
   add_foreign_key "experiment_vita_partners", "vita_partners"
+  add_foreign_key "faq_items", "faq_categories"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
