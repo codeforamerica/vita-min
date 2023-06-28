@@ -5,6 +5,7 @@ module Hub
       before_action :require_sign_in
       helper_method :page_title, :form_attributes, :resource_name, :resource_class
       layout "hub"
+      load_and_authorize_resource class: false
 
       def index
         @resources = resources

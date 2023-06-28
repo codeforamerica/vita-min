@@ -1,7 +1,7 @@
 class ClientChannel < ApplicationCable::Channel
   def subscribed
     begin
-      @client = Client.find(params[:id])
+      @client = Client.accessible_to_user(current_user).find(params[:id])
     rescue ActiveRecord::RecordNotFound
       reject
     end

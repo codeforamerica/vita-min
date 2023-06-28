@@ -4,10 +4,10 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:index]
+    load_and_authorize_resource :client, parent: false
     layout "hub"
 
     def edit
-      @client = Client.find(params[:id])
       return render "public_pages/page_not_found", status: 404 unless @client.intake.is_ctc?
 
       @is_dropoff = @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" }
@@ -15,7 +15,6 @@ module Hub
     end
 
     def update
-      @client = Client.find(params[:id])
       @form = UpdateCtcClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
