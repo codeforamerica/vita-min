@@ -1,6 +1,7 @@
 module Hub
   module FraudIndicators
     class RiskyDomainsController < Hub::FraudIndicators::BaseController
+      load_and_authorize_resource class: false, only: [:index]
 
       private
 

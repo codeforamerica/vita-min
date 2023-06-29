@@ -2,6 +2,7 @@ module Hub
   module FraudIndicators
     class SafeDomainsController < Hub::FraudIndicators::BaseController
       layout "hub"
+      load_and_authorize_resource class: false, only: [:index]
 
       private
 
