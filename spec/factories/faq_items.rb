@@ -27,7 +27,7 @@ FactoryBot.define do
     question_es { "MyText" }
     answer_en { "MyText" }
     answer_es { "MyText" }
-    faq_category { nil }
+    faq_category
     slug { question_en.parameterize(separator: '_') }
   end
 end

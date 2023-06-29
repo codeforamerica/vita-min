@@ -12,7 +12,8 @@
     <div class="grid">
       <h1 class="h2"><%= t('views.public_pages.faq.title') %></h1>
 
-      <% @faq_categories.each_slice((@faq_categories.size / 2.0).round).to_a.each do |column| %>
+      <% slice_size = [(@faq_categories.size / 2.0).round, 1].max %>
+      <% @faq_categories.each_slice(slice_size).to_a.each do |column| %>
         <div class="grid__item width-one-half">
           <% column.each do |faq_category| %>
             <div class="faq-section faq-section-<%= faq_category.slug.dasherize %> spacing-below-60">

@@ -10,10 +10,12 @@ feature "Invalid CSRF token redirect" do
     enable_datadog_and_stub_emit_point
   end
 
+  let!(:faq_item) { create(:faq_item, question_en: 'How do I get the stimulus payments?') }
+
   it "re-renders the form the user was on, with an error message" do
     visit "/faq"
 
-    click_on I18n.t('views.public_pages.faq.question_groups.stimulus.how_many_stimulus_payments_were_there.question')
+    click_on faq_item.question(I18n.locale)
     clear_cookies
 
     expect do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_210943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -930,6 +930,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
     t.string "slug"
     t.datetime "updated_at", null: false
     t.index ["faq_category_id"], name: "index_faq_items_on_faq_category_id"
+  end
+
+  create_table "faq_question_group_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "faq_item_id", null: false
+    t.string "group_name"
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["faq_item_id"], name: "index_faq_question_group_items_on_faq_item_id"
   end
 
   create_table "faq_surveys", force: :cascade do |t|
@@ -1902,6 +1911,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_230627) do
   add_foreign_key "experiment_vita_partners", "experiments"
   add_foreign_key "experiment_vita_partners", "vita_partners"
   add_foreign_key "faq_items", "faq_categories"
+  add_foreign_key "faq_question_group_items", "faq_items"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
