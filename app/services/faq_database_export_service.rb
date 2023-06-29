@@ -6,8 +6,10 @@ class FaqDatabaseExportService
     category_position = 0
     QUESTIONS.each do |section, questions|
       category_position += 1
-      faq_category = FaqCategory.create(
+      faq_category = FaqCategory.find_or_initialize_by(
         slug: section,
+      )
+      faq_category.update(
         name_en: en_yml[section.to_s]['title'],
         name_es: es_yml[section.to_s]['title'],
         position: category_position
@@ -15,9 +17,11 @@ class FaqDatabaseExportService
       question_position = 0
       questions.each do |question|
         question_position += 1
-        FaqItem.create(
+        faq_item = FaqItem.find_or_initialize_by(
           faq_category: faq_category,
           slug: question,
+        )
+        faq_item.update(
           position: question_position,
           question_en: en_yml[section.to_s][question.to_s]['question'],
           question_es: es_yml[section.to_s][question.to_s]['question'],
@@ -27,9 +31,9 @@ class FaqDatabaseExportService
       end
     end
 
-    FaqQuestionGroupItem.create!(group_name: "home_page", faq_item: FaqItem.find_by(slug: "how_do_i_get_the_stimulus_payments"), position: 1)
-    FaqQuestionGroupItem.create!(group_name: "home_page", faq_item: FaqItem.find_by(slug: "what_are_the_potential_benefits_of_filing_a_tax_return"), position: 2)
-    FaqQuestionGroupItem.create!(group_name: "home_page", faq_item: FaqItem.find_by(slug: "am_i_a_nonfiler"), position: 3)
+    FaqQuestionGroupItem.find_or_create_by(group_name: "home_page", faq_item: FaqItem.find_by(slug: "how_do_i_get_the_stimulus_payments"), position: 1)
+    FaqQuestionGroupItem.find_or_create_by(group_name: "home_page", faq_item: FaqItem.find_by(slug: "what_are_the_potential_benefits_of_filing_a_tax_return"), position: 2)
+    FaqQuestionGroupItem.find_or_create_by(group_name: "home_page", faq_item: FaqItem.find_by(slug: "am_i_a_nonfiler"), position: 3)
   end
 
   QUESTIONS = {
