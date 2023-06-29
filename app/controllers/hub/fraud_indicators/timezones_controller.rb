@@ -2,7 +2,7 @@ module Hub
   module FraudIndicators
     class TimezonesController < Hub::FraudIndicators::BaseController
       layout "hub"
-      load_and_authorize_resource class: false, only: [:index]
+      before_action :require_admin
 
       private
 
