@@ -42,6 +42,7 @@
 #  demographic_primary_native_hawaiian_pacific_islander :boolean
 #  demographic_primary_prefer_not_to_answer_race        :boolean
 #  demographic_primary_white                            :boolean
+#  demographic_questions_hub_edit                       :boolean          default(FALSE)
 #  demographic_questions_opt_in                         :integer          default("unfilled"), not null
 #  demographic_spouse_american_indian_alaska_native     :boolean
 #  demographic_spouse_asian                             :boolean
