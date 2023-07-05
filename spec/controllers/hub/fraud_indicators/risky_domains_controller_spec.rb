@@ -5,6 +5,7 @@ describe Hub::FraudIndicators::RiskyDomainsController do
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+    it_behaves_like :a_get_action_for_admins_only, action: :index
 
     context "when logged in" do
 
