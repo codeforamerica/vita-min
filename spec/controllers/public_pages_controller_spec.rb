@@ -5,6 +5,32 @@ RSpec.describe PublicPagesController do
 
   describe "#home" do
     let(:demo_banner_text) { I18n.t('views.shared.environment_warning.banner') }
+    # let!(:first_category) { create(:faq_category, name_en: 'Vegetable Questions', position: 1)}
+    # let!(:top_faq_1) do
+    #   create(:faq_item, faq_category: first_category, question_en: 'How do I get the stimulus payments?', position: 1)
+    # end
+    # let!(:top_faq_2) do
+    #   create(:faq_item, faq_category: first_category, question_en: 'What are the potantial benefits of filing a tax return?', position: 2)
+    # end
+    # let!(:top_faq_3) do
+    #   create(:faq_item, faq_category: first_category, question_en: 'Am I a nonfiler?', position: 3)
+    # end
+
+    describe "common questions" do
+      let(:last_common_question) { create(:faq_item) }
+      let(:first_common_question) { create(:faq_item) }
+
+      before do
+        FaqQuestionGroupItem.create(group_name: 'home_page', position: 2, faq_item: last_common_question)
+        FaqQuestionGroupItem.create(group_name: 'home_page', position: 1, faq_item: first_common_question)
+      end
+
+      it "shows the top questions in the 'home_page' group" do
+        get :home
+
+        expect(assigns(:common_questions)).to eq([first_common_question, last_common_question])
+      end
+    end
 
     context "in production" do
       before do

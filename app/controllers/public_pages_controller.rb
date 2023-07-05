@@ -11,6 +11,8 @@ class PublicPagesController < ApplicationController
   end
 
   def home
+    @common_questions = FaqQuestionGroupItem.where(group_name: 'home_page').order(:position).map(&:faq_item)
+
     # redirect to home hiding original source param
     if params[:source].present?
       vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
@@ -25,6 +27,7 @@ class PublicPagesController < ApplicationController
   def pending; end
 
   def healthcheck
+    @common_questions = []
     render :home
   end
 
