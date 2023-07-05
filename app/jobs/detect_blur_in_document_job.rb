@@ -14,6 +14,6 @@ class DetectBlurInDocumentJob < ApplicationJob
 
     grayscale_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     fm = cv.Laplacian(grayscale_image, cv.CV_64F).var()
-    document.update!(blur_score: fm)
+    document.update_column(:blur_score, fm)
   end
 end
