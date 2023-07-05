@@ -6,7 +6,6 @@ module Hub
     before_action :require_sign_in
     authorize_resource
     load_resource except: [:index, :show]
-    load_and_authorize_resource :client
     layout "hub"
 
     def index
@@ -17,8 +16,9 @@ module Hub
     # a little bit unexpectedly, the "show" page actually uses the client id to load the client. Then,
     # loops through the tax_returns that have efile_submissions.
     def show
-      @client = Hub::ClientsController::HubClientPresenter.new(@client)
+      client = Client.find(params[:id])
       authorize! :read, client
+      @client = Hub::ClientsController::HubClientPresenter.new(client)
       # Eager-load tax returns with submissions and data we may need to render
       @tax_returns = client.tax_returns.includes(:efile_submissions, efile_submissions: :fraud_score).where.not(tax_returns: {efile_submissions: nil}).load
       @fraud_indicators = Fraud::Indicator.unscoped
