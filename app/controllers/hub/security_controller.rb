@@ -2,7 +2,7 @@ module Hub
   class SecurityController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource :client
+    load_and_authorize_resource :client, parent: false
     layout "hub"
 
     def show
