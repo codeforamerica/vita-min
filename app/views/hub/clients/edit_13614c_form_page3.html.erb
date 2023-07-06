@@ -7,7 +7,7 @@
       update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
 
     <%= form_with model: @form,
-                  url: update_13614c_form_page3_hub_client_path,
+                  url: edit_13614c_form_page3_hub_client_path,
                   method: :put, local: true, builder: VitaMinFormBuilder,
                   html: { class: 'form-card form-question-13614-page3' } do |f| %>
       <div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_210943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -728,6 +728,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
 
   create_table "documents", force: :cascade do |t|
     t.boolean "archived", default: false, null: false
+    t.float "blur_score"
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"
@@ -907,6 +908,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
     t.string "name"
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_experiments_on_key", unique: true
+  end
+
+  create_table "faq_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name_en"
+    t.string "name_es"
+    t.integer "position"
+    t.string "slug"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "faq_items", force: :cascade do |t|
+    t.text "answer_en"
+    t.text "answer_es"
+    t.datetime "created_at", null: false
+    t.bigint "faq_category_id", null: false
+    t.integer "position"
+    t.text "question_en"
+    t.text "question_es"
+    t.string "slug"
+    t.datetime "updated_at", null: false
+    t.index ["faq_category_id"], name: "index_faq_items_on_faq_category_id"
+  end
+
+  create_table "faq_question_group_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "faq_item_id", null: false
+    t.string "group_name"
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["faq_item_id"], name: "index_faq_question_group_items_on_faq_item_id"
   end
 
   create_table "faq_surveys", force: :cascade do |t|
@@ -1101,6 +1133,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
     t.boolean "demographic_primary_native_hawaiian_pacific_islander"
     t.boolean "demographic_primary_prefer_not_to_answer_race"
     t.boolean "demographic_primary_white"
+    t.boolean "demographic_questions_hub_edit", default: false
     t.integer "demographic_questions_opt_in", default: 0, null: false
     t.boolean "demographic_spouse_american_indian_alaska_native"
     t.boolean "demographic_spouse_asian"
@@ -1895,6 +1928,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_180600) do
   add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "experiment_vita_partners", "experiments"
   add_foreign_key "experiment_vita_partners", "vita_partners"
+  add_foreign_key "faq_items", "faq_categories"
+  add_foreign_key "faq_question_group_items", "faq_items"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"

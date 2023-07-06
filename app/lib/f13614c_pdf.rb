@@ -184,7 +184,7 @@ class F13614cPdf
       yes_no_checkboxes("form1[0].page3[0].q6[0]", @intake.received_irs_letter),
       yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
     )
-    answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
+    answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
     answers.merge!(
       "form1[0].page3[0].Additional_Comments[0].Additional_Comments[1]" => additional_comments,
     )

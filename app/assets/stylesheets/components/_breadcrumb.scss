@@ -5,7 +5,10 @@
   line-height: 2.5rem;
   color: black;
   padding: .5rem;
+}
 
+.breadcrumb-submenu {
+  @include full-bleed();
 }
 
 .hub {

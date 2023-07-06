@@ -9,7 +9,7 @@ RUN apt-get update \
  && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn \
+ && apt-get update && apt-get install -y nodejs yarn python3 python3-pip python3-setuptools \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
@@ -60,9 +60,12 @@ RUN set -a \
 # Review http://go.aptible.com/assets for production-ready advice.
 RUN set -a \
  && . ./.aptible.env \
- && NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
+ && bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
+
+# Install the OpenCV headless library
+RUN pip3 install opencv-python-headless --break-system-packages
 
 EXPOSE 3000
 

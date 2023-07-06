@@ -2,6 +2,7 @@ module Hub
   module FraudIndicators
     class SafeDomainsController < Hub::FraudIndicators::BaseController
       layout "hub"
+      before_action :require_admin
 
       private
 

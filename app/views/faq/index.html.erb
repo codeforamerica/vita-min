@@ -12,18 +12,19 @@
     <div class="grid">
       <h1 class="h2"><%= t('views.public_pages.faq.title') %></h1>
 
-      <% FaqController::QUESTIONS.each_slice((FaqController::QUESTIONS.size / 2.0).round).to_a.each do |column| %>
+      <% slice_size = [(@faq_categories.size / 2.0).round, 1].max %>
+      <% @faq_categories.each_slice(slice_size).to_a.each do |column| %>
         <div class="grid__item width-one-half">
-          <% column.each do |section, section_questions| %>
-            <div class="faq-section faq-section-<%= section.to_s.dasherize %> spacing-below-60">
-              <h2 class="h3 spacing-below-15"><%= t("views.public_pages.faq.question_groups.#{section}.title") %></h2>
-              <% section_questions.first(3).each do |question| %>
+          <% column.each do |faq_category| %>
+            <div class="faq-section faq-section-<%= faq_category.slug.dasherize %> spacing-below-60">
+              <h2 class="h3 spacing-below-15"><%= faq_category.name(I18n.locale) %></h2>
+              <% faq_category.faq_items.first(3).each do |faq_item| %>
                 <p>
-                  <%= link_to t("views.public_pages.faq.question_groups.#{section}.#{question}.question"),
-                  faq_question_path(section_key: section, question_key: question) %>
+                  <%= link_to faq_item.question(I18n.locale),
+                  faq_question_path(section_key: faq_category.slug, question_key: faq_item.slug) %>
                 </p>
               <% end %>
-              <%= link_to t('views.public_pages.faq.view_all_questions'), faq_section_path(section_key: section), class: 'link--subtle' %>
+              <%= link_to t('views.public_pages.faq.view_all_questions'), faq_section_path(section_key: faq_category.slug), class: 'link--subtle' %>
             </div>
           <% end %>
         </div>

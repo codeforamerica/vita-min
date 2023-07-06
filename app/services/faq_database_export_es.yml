@@ -1,0 +1,410 @@
+question_groups:
+  child_and_dependent_care_credit:
+    how_do_i_get_the_child_and_dependent_care_credit:
+      answer_html: |
+        <p>Para poder solicitar el Crédito por Cuidado de hijos y Dependientes, debe:</p>
+        <ul class="list--bulleted">
+        <li>Haber pagado por el cuidado en 2022 de un hijo menor de 13 años que cumpla los requisitos, o de un cónyuge o dependiente que no pueda cuidar de sí mismo.</li>
+        <li>Haber necesitado estos cuidados para poder trabajar o buscar trabajo usted mismo. En un hogar con ambos padres, ambos cónyuges deben haber estado trabajando o buscando trabajo (o ser estudiante a tiempo completo).</li>
+        </ul>
+        <p>Al presentar la declaración de impuestos, tendrá que declarar la cantidad que pagó, así como el nombre, el Número de Identificación del Empleador, en inglés: Employer Identification Number (EIN) y la dirección del cuidador. Si el cuidador es un particular, deberá indicar su nombre, Número de Seguro Social (SSN), en inglés: Social Security Number, y su dirección</p>.
+        <p>Puede solicitar estos créditos presentando la declaración de la renta de 2022 a través de nuestro servicio completo GetYourRefund.</p>
+      question: "¿Cómo puedo obtener el Crédito por Cuidado de Hijos y Dependientes, en inglés: Child and Dependent Care Credit?"
+    title: Crédito por Cuidado de Hijos y Dependientes, en inglés, Child and Dependent Care Credit
+    what_is_the_child_and_dependent_care_credit:
+      answer_html: |
+        <p>El Crédito por Cuidado de Hijos y Dependientes es un crédito tributario que ayuda a las familias a cubrir los gastos de cuidado de los hijos necesarios para trabajar o buscar trabajo. El crédito también está disponible para las familias que deben pagar por el cuidado de un cónyuge u otro pariente adulto que no es mental o físicamente capaz de cuidar de sí mismo. Las familias pueden solicitar hasta $3000 por un hijo/dependiente o $6000 por dos o más hijos/dependientes. El crédito cubre entre el 20 y el 35% del coste del cuidado de los hijos. El porcentaje se basa en los ingresos del trabajo y en los Ingresos Brutos Ajustados, en inglés: Adjusted Gross Income (si está casado y presenta conjuntamente, su cónyuge también debe trabajar para cumplir los requisitos). Para solicitar el crédito, debe declarar los ingresos del trabajo durante 2022.</p>
+        <p>Tenga en cuenta que las cantidades para este crédito han vuelto a sus cantidades originales para 2022.</p>
+      question: "¿Qué es el Crédito por Cuidado de Hijos y Dependientes?"
+  child_tax_credit:
+    am_i_eligible_for_child_tax_credit_if_i_dont:
+      answer_html: |
+        <p>Para tener derecho al Crédito Tributario por Hijos, cada hijo que se solicita debe tener un Número de Seguro Social, (SSN en inglés) y cada padre debe tener un Número de Seguro Social (SSN) o un Número de Identificación Personal (ITIN en inglés).</p>
+        <p>Si actualmente no tiene un Número de Identificación Personal (ITIN) pero desea solicitar el Crédito Tributario por Hijos para sus hijos, puede solicitar un Número de Identificación Personal (ITIN) con el apoyo de un preparador de impuestos certificado utilizando <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+      question: "¿Tengo derecho al Crédito Tributario por Hijos, Child Tax Credit en inglés, si no tengo número de Número de Seguro Social, Social Security Number, en inglés?"
+    how_do_i_claim_child_tax_credit_for_a_baby_in_2023:
+      answer_html: |
+        <p>Aún no puede declarar a un bebé nacido en 2023; tendrá que esperar hasta 2024. Cuando se declaran los impuestos, sólo se puede incluir la información correspondiente a ese año tributario. Aunque presente sus impuestos de 2022 en 2023, sólo puede incluir ingresos, hijos, matrimonios, etc. ocurridos en 2022.</p>
+        <p>Cuando declare impuestos el próximo año, puede declarar a los hijos que nacieron en 2023.</p>
+      question: "¿Cómo declarar Crédito Tributario por Hijos para un niño nacido en 2023?"
+    how_much_is_the_child_tax_credit_in_2022:
+      answer_html: |
+        <p>Para 2022, el CTC ha vuelto a su diseño original como un crédito tributario no reembolsable, lo que significa que sólo reduce la obligación tributaria de una persona hasta un máximo de $2000 por hijo elegible y no se paga como un reembolso. Un crédito tributario no reembolsable significa que no se emite como un reembolso, sino que sólo se aplica a los impuestos adeudados en esa declaración de impuestos.</p>
+        <p>Cuando presente su declaración de impuestos de 2022, el Crédito Tributario por Hijos figurará en su declaración de impuestos como un crédito tributario no reembolsable que reducirá su obligación tributaria.</p>
+      question: "¿A cuánto equivale el Crédito Tributario por Hijos en 2022?"
+    i_owe_back_child_support_can_i_still_get_all:
+      answer_html: |
+        <p>Probablemente no.</p>
+        <p>Si usted debe manutención atrasada, algunos pagos que reciba del gobierno pueden ser retirados (o "embargados") para pagar su deuda de manutención. Los pagos del IRS, como los reembolsos de impuestos, están sujetos a este proceso.</p>
+        <p>En particular, los pagos mensuales de la CTC emitidos en 2021 <em>no fueron</em> retirados para cubrir las deudas de manutención de los hijos. Sin embargo, cualquier cantidad que declare este año-ya sea la segunda mitad del crédito, o todo el crédito, se puede le pueden retirar.</p>
+      question: Debo pagos de pensión alimenticia atrasada, ¿puedo obtener la totalidad del Crédito Tributario por Hijos?
+    i_was_getting_child_tax_credit_monthly_payments_in_2021:
+      answer_html: |
+        <p>Los pagos mensuales del Crédito Tributario por Hijos (CTC) comenzaron en julio de 2021 en base a una ley que el Congreso aprobó a principios de ese año, que hizo ampliaciones significativas al CTC. Lamentablemente, esta ley sólo se aplicaba a 2021. Como el Congreso no renovó la ampliación del CTC para 2022, no hubo pagos mensuales el año pasado. Sin embargo, si usted no recibió CTC con nuestra declaración de impuestos de 2021, todavía puede ser elegible para declararlo mediante la presentación de una enmienda para su declaración de 2021.</p>
+        <p>Puede presentar la declaración de impuestos de 2021 a través de nuestro servicio completo GetYourRefund.</p>
+      question: En 2021 estaba recibiendo los pagos mensuales del Crédito Tributario por Hijos. ¿Por qué no he recibido la mensualidad de CTC en 2022?
+    title: Crédito Tributario por Hijos
+    why_did_my_spouse_and_i_get_two_different_letters:
+      answer_html: La llamada Letter 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Si usted no presentó una declaración de 2021 pero recibió pagos de Crédito Tributario por Hijos en 2021, para poder declarar el resto del Crédito Tributario por Hijos, tendrá que declarar la cantidad que el IRS le pagó por adelantado - así que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
+      question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes sobre nuestros anticipos del CTC?"
+  documents:
+    how_do_i_get_my_1099_employment_document:
+      answer_html: Si usted recibió más de $600 en compensación de no empleado de una empresa o individuo como parte de un contrato/trabajo por cuenta propia, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2023. Si no recibió este formulario, debe intentar ponerse en contacto con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación móvil. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés:<a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.
+      question: "¿Cómo puedo obtener mi documento de empleo 1099?"
+    how_do_i_get_my_w2_employment_document:
+      answer_html: <p>Los empleadores están obligados a enviar un W2 actual por correo o electrónicamente a todos los empleados W2 antes del 31 de enero de 2022. Si no ha recibido un W2 de su empleador, debe comunicarse con él directamente para solicitar una copia. Si no puede ponerse en contacto con su empleador, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" o "Wage and Income Transcript" en inglés al IRS</a>.</p>
+      question: "¿Cómo puedo obtener mi documento de trabajo W2?"
+    how_do_i_replace_my_social_security_card:
+      answer_html: |
+        <p>Puede solicitar la sustitución de la tarjeta del Seguro Social <a href="https://www.ssa.gov/myaccount/replacement-card.html" target="_blank" rel="noopener">aquí</a>. Puede utilizar este servicio si es que:</p>
+        <ul class="list--bulleted">
+        <li>Es un ciudadano estadounidense mayor de 18 años con una dirección postal en Estados Unidos, y</li>
+        <li>No está solicitando un cambio de nombre, y</li>
+        <li>Tiene una licencia de conducir o una tarjeta de identificación otorgada por el estado de uno de los estados participantes o del Distrito de Columbia</li>
+        </ul>
+      question: "¿Cómo puedo reponer mi tarjeta del Seguro Social?"
+    title: Documentos
+    why_do_you_need_my_social_security_card:
+      answer_html: |
+        <p>Para prevenir el robo de identidad, el IRS requiere que todos los programas de Asistencia Voluntaria de Impuestos (VITA) verifiquen la identidad de las personas a las que están ayudando mediante la comprobación de un documento de identidad con fotografía y la visualización de una copia en papel de la tarjeta del Seguro Social o del Número de Identificación Personal (ITIN en inglés) . Otra posibilidad es proporcionar una carta de la SSA o el formulario SSA-1099 de la Administración del Seguro Social.</p>
+        <p>Si declara sus impuestos usted mismo con el autoservicio de GetYourRefund, GetCTC, u otro servicio de presentación de impuestos en línea sólo necesitará los números de la Seguro Social pero no la tarjeta de la Seguro Social.</p>
+      question: "¿Por qué necesitan mi tarjeta de Seguro Social?"
+  earned_income_tax_credit:
+    how_has_the_earned_income_tax_credit_eitc_changed_this:
+      answer_html: |
+        <p>Para el año tributario 2022, el EITC ha vuelto a su fórmula original, lo que significa que el aumento temporal de las cantidades de reembolso y los rangos de edad que ampliaron la elegibilidad el año pasado han vuelto a los niveles anteriores a la pandemia.</p>
+        <p>La única revisión que ha pasado a ser permanente es:</p>
+        <p>• Los hogares con hijos a cargo con ITIN pueden calificar para EITC, aunque a una cantidad reducida.</p>
+        <p>Puede declarar el EITC presentando la declaración de la renta de 2022 a través de nuestro servicio completo GetYourRefund.</p>
+      question: "¿De qué manera ha cambiado este año el crédito tributario por ingresos del trabajo (EITC)?"
+    title: Crédito tributario por ingresos del trabajo
+    what_is_the_earned_income_tax_credit_eitc:
+      answer_html: El Crédito Tributario por Ingreso del Trabajo (EITC) es una prestación disponible para las personas que obtienen ingresos del trabajo. La elegibilidad para el EITC es complicada, pero está disponible para la mayoría de las familias con hijos que ganan menos de $49,622, y está disponible para la mayoría de las familias sin hijos que ganan menos de $22,610. Debe declarar el EITC presentando una declaración completa.
+      question: "¿Qué es el Crédito tributario por ingresos del trabajo (EITC)?"
+  getyourrefund_account_access:
+    i_cant_sign_in:
+      answer_html: |
+        <p>Puede iniciar sesión en GetYourRefund para responder a las preguntas sobre impuestos, cargar documentos de impuestos, firmar su declaración de impuestos definitiva y enviar mensajes a su equipo de los impuestos.</p>
+        <p>Haga clic en <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">iniciar sesión</a>. Se le pedirá que ingrese los últimos 4 dígitos de su Número de Seguro Social o Número de Identificación Personal (ITIN en inglés), o que ingrese su ID de cliente. A continuación, le enviaremos por mensaje de texto o por correo electrónico una contraseña de 6 dígitos de un solo uso. Una vez que ingrese esa contraseña, habrá iniciado la sesión en su cuenta.</p>
+      question: No puedo iniciar sesión
+    title: Acceso a la cuenta de GetYourRefund
+    what_is_my_client_id_number:
+      answer_html: |
+        <p>Su ID de cliente se le fue enviado en un mensaje de texto o correo electrónico cuando comenzó con GetYourRefund. Su ID de cliente es un número de 7 dígitos que le ayuda a iniciar sesión y mantiene sus datos seguros.</p>
+        <p>Para buscar su ID de cliente en su buzón de correo electrónico, busque un correo electrónico de <a href="mailto:hello@getyourrefund.org" target="_blank" rel="noopener">hello@getyourrefund.org</a>. Para buscar su ID de cliente en sus mensajes de texto, busque un mensaje de 58750.</p>
+      question: "¿Cuál es mi número de identificación de cliente?"
+  how_does_getyourrefund_work:
+    title: "¿Cómo funciona GetYourRefund?"
+    what_is_file_myself_and_how_does_it_work:
+      answer_html: |
+        <p>File Myself, en español: Declarar por cuenta propia, le conecta con un software gratuito de declaración de impuestos en línea. Puede seguir comunicándose con los expertos fiscales de GetYourRefund mientras utiliza el sitio web.</p>
+        <p>File Myself es una gran opción si sólo tiene que presentar los impuestos de 2022, no tiene muchas preocupaciones sobre su situación fiscal y se siente seguro utilizando sitios web por su cuenta. También es una gran opción para cualquiera que no tenga una copia en papel de su tarjeta de Seguro Social (que se requiere para utilizar GetYourRefund Full Service). Necesitará tener acceso a sus documentos tributarios, como los W2 o los 1099. La mayoría de los declarantes pueden completar el proceso File Myself en 45 minutos o menos y usted puede declarar todos sus beneficios tributarios estatales y federales.</p>
+      question: "¿Qué es File Myself y cómo funciona?"
+    what_is_getyourrefund_deluxe_and_how_does_it_work:
+      answer_html: |
+        <p>El servicio GetYourRefund Full Service/Virtual VITA le conecta gratuitamente con un preparador de impuestos certificado por el IRS del programa VITA del IRS. Le recomendamos que considere GetYourRefund si tiene varios años de impuestos por declarar, si no ha declarado impuestos antes o si tiene muchas preguntas sobre su declaración de impuestos y desea ayuda personal. Este proceso suele durar de 2-3 semanas, y puede declarar todos sus beneficios fiscales estatales y federales. A continuación se detallan los pasos para preparar sus impuestos de forma gratuita si elige GetYourRefund Full Service/Virtual VITA:</p>
+        <ul class="list--numbered">
+        <li>Llene su información fiscal en línea y cargue todos sus documentos fiscales</li>
+        <li>Un preparador de impuestos certificado por el IRS revisará su información y programará una llamada telefónica con usted</li>
+        <li>Su preparador de impuestos preparará sus impuestos</li>
+        <li>Un segundo preparador de impuestos completará una revisión de calidad de su declaración y lo llamará para revisar cualquier información final y decirle la cantidad de su reembolso</li>
+        <li>Usted firmará sus formularios de impuestos en línea</li>
+        <li>Su preparador de impuestos presentará sus impuestos al IRS</li>
+        </ul>
+      question: "¿Qué es GetYourRefund y cómo funciona?"
+  i_got_a_letter_from_the_irs:
+    i_got_letter_6419_from_the_irs_what_is_it:
+      answer_html: La llamada Letter 6419 es una carta que el IRS envió a todas las personas que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Si todavía no ha presentado la declaración de 2021, para declarar el resto del Crédito Tributario por Hijos, tendrá que declarar la cantidad que el IRS le pagó por adelantado. La carta 6419 se envió en diciembre de 2021 o enero de 2022.
+      question: He recibido la carta 6419 del IRS. ¿Qué es?
+    i_got_letter_6475_or_1444c_from_the_irs_what:
+      answer_html: |
+        <p>Las llamadas Letter 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer cheque de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre cuánto le emitió el IRS en el tercer cheque de estímulo.</p>
+        <p>Si aún no ha presentado su declaración de 2021, informar con exactitud cuánto recibió en cheques de estímulo puede ayudarle a usted y a su preparador de impuestos a declarar correctamente cualquier dinero faltante, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
+      question: Recibí la carta 6475 o 1444-C del IRS. ¿Qué es?
+    i_got_notice_4883c_or_5071c_from_the_irs_what:
+      answer_html: Los avisos 4883C y 5071C son cartas que el IRS envía si han recibido una declaración de impuestos para usted y les preocupa que pueda ser fraudulenta. Si usted presentó una declaración, tendrá que verificar su identidad, ya sea en línea o por teléfono, de acuerdo con las instrucciones de la carta. Si no presentó una declaración de impuestos, esta carta indica que un defraudador intentó presentar una declaración utilizando sus datos. Debe seguir las instrucciones para denunciar este fraude al IRS, para asegurarse de que sus futuros pagos no se vean afectados negativamente.
+      question: Recibí el aviso 4883C o 5071C del IRS. ¿Qué es?
+    i_got_notice_cp09_or_cp27_from_the_irs_what:
+      answer_html: El aviso CP09 o CP27 es una carta que el IRS le envía por si pudiera tener derecho al crédito tributario por ingresos del trabajo (EITC) que no hubiera solicitado al hacer la declaración de sus impuestos. Los avisos le piden que confirme algunos datos sobre usted y su hogar para poder pedir el crédito, el cual podría tener un valor de más de $6,000. Debe llenar el aviso fielmente y reenviarlo por correo al IRS.
+      question: Recibí el aviso CP09 o CP27 del IRS. ¿Qué es?
+    title: Recibí una carta del IRS. ¿Qué significa?
+  im_nervous_about_filing_and_claiming_tax_benefits:
+    are_tax_credits_considered_in_public_charge_determinations:
+      answer_html: No. Los créditos tributarios, incluidos el EITC, el CTC y los pagos de estímulo no se tienen en cuenta en la evaluación de la carga pública.
+      question: "¿Se tienen en cuenta los créditos fiscales a la hora de determinar carga pública?"
+    title: Me pone nervioso presentar la declaración y reclamar los beneficios tributarios
+    what_do_i_do_if_im_audited_by_the_irs:
+      answer_html: |
+        <p>Si usted recibe un reembolso que incluye créditos fiscales como el crédito tributario por Ingresos del trabajo y el Crédito Tributario por Hijos, y el IRS tiene una razón para creer que usted declaró incorrectamente estos créditos, pueden pedir información adicional como parte de una auditoría. Las auditorías también pueden ocurrir si otra persona intenta reclamar a su dependiente.</p>
+        <p>Si le hacen una auditoría, recibirá una carta o notificación en la que se le pedirá que proporcione información adicional como prueba de parentesco y prueba de residencia del dependiente en cuestión. La carta incluirá instrucciones detalladas sobre los documentos que necesita el IRS. Si necesita ayuda adicional para responder al IRS, los contribuyentes de bajos ingresos pueden buscar ayuda en las cínicas para contribuyentes de bajos ingresos <a href="https://www.taxpayeradvocate.irs.gov/about-us/low-income-taxpayer-clinics-litc/" target="_blank" rel="noopener">Low Income Taxpayer Clinics</a>, (LITC)</p>
+      question: "¿Qué puedo hacer si me audita el IRS?"
+    what_if_i_havent_filed_for_years:
+      answer_html: <p>No hay consecuencias por no presentar una declaración de impuestos durante los años en que no estuvo obligado a hacerlo. Su obligación de presentar la declaración suele estar determinada por los ingresos, el estado civil y la edad. Si estaba obligado a presentar una declaración en un año anterior y ahora presenta una declaración de impuestos actual, el IRS puede ponerse en contacto con usted para informarle sobre un año en el que no declaró. Puede utilizar <a href="https://www.irs.gov/help/ita/do-i-need-to-file-a-tax-return" target="_blank" rel="noopener">esta herramienta del IRS</a>para determinar si tenía que presentar o si podría beneficiarse de la presentación de una declaración de impuestos actual o anterior.</p>
+      question: "¿Qué pasa si hace tiempo que no declaro los impuestos?"
+    will_claiming_these_credits_make_me_ineligible_for_other_government:
+      answer_html: En la mayoría de los casos, como el crédito tributario por ingresos del trabajo, los créditos tributarios por hijos y los pagos de estímulo no cuentan como ingresos a la hora de determinar el derecho a las prestaciones. Los reembolsos que ahorre no cuentan contra ningún programa de prestaciones públicas financiado con fondos federales durante los 12 meses después de recibir el reembolso.
+      question: "¿Si solicito estos créditos, pierdo mi elegibilidad para otros beneficios del gobierno como SNAP, WIC, TANF, y asistencia de vivienda?"
+    will_i_need_to_repay_any_of_my_refund:
+      answer_html: |
+        <p>Si el IRS determina que su reembolso de impuestos fue calculado incorrectamente, puede exigirle que devuelva la cantidad no elegible, más los intereses. Puede haber sanciones y consecuencias adicionales si el IRS determina que usted fue imprudente o ignoró intencionadamente las normas de declaración de estos créditos. ¿No está seguro de si puede solicitar créditos fiscales? Chatee con nuestros expertos en impuestos.</p>
+        <p>Si recibió las mensualidades de CTC de forma incorrecta, no tendrá que devolver ninguna, aunque sea errónea. Esto es así, siempre y cuando no gane más de $55,000 como soltero o $66,000 como casado.</p>
+      question: "¿Tendré que devolver algo de mi reembolso?"
+  income:
+    are_my_disability_benefits_income:
+      answer_html: |
+        <p>Existen dos fuentes principales de ingresos por discapacidad y se manejan de manera diferente a efectos de impuestos:</p>
+        <ul class="list--bulleted">
+        <li>Los pagos de la Seguro Social Suplementario (SSI) no se declaran como ingresos en la declaración de impuestos.</li>
+        <li>El Seguro Social por Discapacidad (SSDI) se declara en el formulario SSA-1099. Los ingresos pueden estar parcialmente sujetos a impuestos. Por lo general, si el SSDI es su única fuente de ingresos, no está sujeto a impuestos.</li>
+        </ul>
+      question: "¿Se consideran ingresos mis beneficios por incapacidad?"
+    are_my_snap_benefits_income:
+      answer_html: No, sus prestaciones de SNAP no se consideran ingresos a efectos de la declaración de impuestos.
+      question: "¿Se consideran ingresos mis prestaciones de SNAP?"
+    are_my_unemployment_benefits_income:
+      answer_html: Sí, las prestaciones por desempleo son ingresos sujetos a impuestos y deben declararse en la declaración de impuestos. El año pasado, el Congreso hizo una excepción y eximió las prestaciones por desempleo de impuestos, pero eso ya no aplica. Tenga en cuenta que los ingresos por desempleo no se consideran ingresos de trabajo a efectos del crédito tributario por ingresos de trabajo.
+      question: "¿Se consideran ingresos mis beneficios por desempleo?"
+    how_do_i_report_my_income_if_im_selfemployed:
+      answer_html: |
+        <p>Está obligado a presentar impuestos si sus ingresos por trabajo por cuenta propia superan los $400. Usted declarará los ingresos por trabajo por cuenta propia al presentar su declaración de impuestos. Este tipo de ingresos puede registrarse de varias maneras, pero comúnmente en:</p>
+        <ul class="list--bulleted">
+        <li>Formulario 1099-NEC (Nonemployee Compensation, en español: Remuneración de no empleado)</li>
+        <li>Formulario 1099-K (Payment Card and Third-Party Network Transaction, en español: Transacciones con tarjetas de pago y redes de terceros)</li>
+        <li>App dashboards, en español: Cuadros de mando de la app y registros personales (está obligado a declarar todos los ingresos que haya obtenido, aunque algunos de ellos no figuren en un formulario tributario)</li>
+        </ul>
+        <p>Es importante que lleve un control exhaustivo de todos sus ingresos y gastos si trabaja por cuenta propia, ya que es posible que las empresas o personas con las que trabaja no lleven un control de los mismos. Es necesario, sin embargo, declarar los ingresos y los gastos obtenidos como trabajador por cuenta propia en su declaración de impuestos.</p>
+      question: "¿Cómo declaro mis ingresos si trabajo por cuenta propia?"
+    title: Ingresos
+    what_do_you_mean_by_selfemployed:
+      answer_html: |
+        <p>Trabajar por cuenta propia es una descripción amplia en la que entran muchas personas que trabajan actualmente. Por lo general, cuando Hacienda habla de trabajo por cuenta propia puede referirse a que es un contratista independiente o autónomo, a que trabaja con contratos de corta duración o a que tiene su propio negocio.</p>
+        <p>Puede ser considerado trabajador por cuenta propia aunque no haya puesto en marcha formalmente su propio negocio. Ejemplos comunes de trabajo por cuenta propia incluyen conducir usando una aplicación de viajes compartidos como Uber y Lyft, entregar artículos usando una aplicación como Instacart y Doordash, cuidar mascotas o pasear perros, y servicios de cuidado de niños.</p>
+        <p>Si es un conductor de viajes compartidos, puede encontrar información adicional en <a href="https://www.taxoutreach.org/rideshare/" target="_blank" rel="noopener">Taxoutreach.org/rideshare</a>.</p>
+      question: "¿Qué quiere decir trabajar por cuenta propia o autónomo?"
+    what_expenses_can_i_claim_if_im_selfemployed:
+      answer_html: |
+        <p>Puede declarar cualquier gasto de negocio que se considere "ordinario y necesario" para llevar a cabo el negocio. Un gasto ordinario es aquel que es común y aceptado dentro de un negocio específico. Un gasto necesario es aquel que es útil y apropiado para el negocio del contribuyente.</p>
+        <p>Unos ejemplos de algunos gastos más comunes son:</p>
+        <ul class="list--bulleted">
+        <li><span style="text-decoration: underline;">Gastos de coche y camión</span>: Los gastos del vehículo pueden calcularse utilizando los gastos reales o la tarifa estándar de millas o kilometraje. Lea más sobre estas deducciones <a href="https://www.taxoutreach.org/rideshare/how-to-claim-the-standard-mileage-deduction/" target="_blank" rel="noopener">aquí</a>.</li>
+        <li><span style="text-decoration: underline;">Suministros</span>: Incluye los costos de las necesidades generales de funcionamiento no asociados al costo de los productos vendidos.</li>
+        <li><span style="text-decoration: underline;">Gastos de oficina</span>: Incluye suministros como plumas, papel y gastos de correo.</li>
+        <li><span style="text-decoration: underline;">Publicidad</span>: Costos asociados a la promoción del negocio.</li>
+        </ul>
+        <p><span style="text-decoration: underline;">Impuestos y licencias</span>: Incluye las licencias comerciales y las cuotas obligatorias pagadas para operar su negocio.</p>
+      question: "¿Qué gastos puedo declarar si trabajo por cuenta propia?"
+  itin_filing_for_people_without_a_social_security_number:
+    how_do_i_get_an_itin:
+      answer_html: |
+        <p>Para obtener un Número de Identificación Personal (ITIN), tiene que presentar el formulario W-7 junto con su declaración de la renta federal. Como parte de la solicitud, tendrá que proporcionar una prueba de identidad, utilizando copias originales de sus documentos (la mayoría de las veces un pasaporte y un certificado de nacimiento). Puede enviar estos documentos por correo al IRS, o solicitarlos en persona a través del IRS o de un "Agente de Aceptación Certificado", que puede examinar y validar la autenticidad de sus documentos en nombre del IRS. A menudo es beneficioso hacer la solicitud en persona para no tener que enviar por correo los documentos originales.</p>
+        <p>GetYourRefund actualmente no ofrece asistencia para obtener un ITIN. Utilice nuestro Buscador de ubicaciones de VITA para encontrar un sitio en persona cerca de usted. Tenga en cuenta que no todos los sitios en persona pueden ayudar con la solicitud y renovación de un ITIN. Recomendamos comunicarse directamente con la oficina para confirmar.</p>
+      question: "¿Cómo puedo conseguir un Número de Identificación Personal (ITIN en inglés)?"
+    if_i_file_my_taxes_can_ice_get_my_data:
+      answer_html: |
+        <p>A muchas personas que no están autorizadas a vivir en Estados Unidos les preocupa que la declaración de impuestos aumente su exposición al gobierno, temiendo que esto pueda resultar en última instancia en la deportación. Si usted ya tiene un Número de Identificación Personal (ITIN en inglés), el IRS tiene su información, a menos que se haya mudado recientemente. Usted no está aumentando su exposición al renovar un ITIN o declarar impuestos con un ITIN.</p>
+        <p>La ley actual generalmente prohíbe al IRS compartir la información de la declaración de  con otras agencias, con algunas excepciones importantes. Por ejemplo, la información de la declaración de impuestos puede ser compartida en ciertos casos con las agencias estatales responsables de la administración de impuestos o con las agencias de aplicación de la ley para la investigación y el enjuiciamiento de las leyes penales no fiscales. Las protecciones contra la divulgación de información están establecidas en la ley, por lo que no pueden ser anuladas por una orden ejecutiva presidencial u otra acción administrativa, a menos que el Congreso cambie la ley.</p>
+        <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un Número de Identificación Personal (ITIN en inglés) o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
+      question: Si declaro mis impuestos, ¿puede el ICE obtener mis datos?
+    title: Solicitud de Número de Identificación Personal (ITIN en inglés) para personas sin número de Seguro Social
+    what_is_an_itin_itin_number:
+      answer_html: El Número de Identificación Fiscal Individual o ITIN es para las personas que no pueden obtener un Número de Seguro Social (SSN) —generalmente debido a su estatus migratorio. Obtener un Número de Identificación Personal (ITIN) le permitirá presentar una declaración de la renta y recibir ciertas ventajas fiscales para usted y su familia. Para poder solicitar un Número de Identificación Personal (ITIN), debe haber obtenido ingresos en EE. UU. para la declaración de impuestos federales.
+      question: ¿Qué es un ITIN ["Número de Identificación Personal  (ITIN en inglés)"] y por qué debo obtenerlo?
+  paper_filing:
+    how_do_i_paper_file:
+      answer_html: |
+        <p>Para presentar la declaración de impuestos en papel, es necesario:</p>
+        <ul class="list--numbered">
+        <li>Imprimir su declaración de impuestos. La mayoría de los programas de impuestos le permitirán imprimir la declaración que preparó en línea. Si es aplicable, separe su declaración federal de la estatal.</li>
+        <li>Adjunte una copia de cualquier documento de impuestos (como W-2 o 1099) tanto a su declaración federal como a su declaración estatal (si está presentando las dos).</li>
+        <li>Firme el formulario 1040 en la parte baja de la página 2. (Si está casado y presenta una declaración conjunta, ambos cónyuges deben firmar.)</li>
+        <li>Firme su declaración de impuestos estatal. (Esta línea de firma es diferente según el estado.)</li>
+        <li>Envíe su declaración de impuestos federales. Puede encontrar la dirección postal correcta para su declaración de impuestos federales <a href="https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment" target="_blank" rel="noopener">aquí</a>. Seleccione su estado, busque la fila del formulario 1040 y seleccione la dirección postal en función de si incluye o no un pago al IRS. (Si espera un reembolso, entonces no está incluyendo un pago al IRS.)</li>
+        <li>Envíe su declaración de impuestos estatal (si corresponde). Puede localizar la dirección postal de su estado <a href="https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-Do-I-Mail-My-State-Return-" target="_blank" rel="noopener">aquí.</a></li>
+        </ul>
+        <p>Después de enviar su declaración de impuestos, es posible que reciba una carta o notificación del IRS en 2-6 meses, solicitando información adicional para confirmar la información de la declaración de impuestos.</p>
+      question: "¿Cómo puedo presentar mis impuestos en papel?"
+    title: Para declarar impuestos en papel
+    where_should_i_mail_my_tax_return:
+      answer_html: |
+        <p><strong>Declaración de impuestos federales</strong>: Puede encontrar la dirección postal correcta para su declaración de impuestos federales <a href="https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment" target="_blank" rel="noopener">aquí</a>. Seleccione su estado, busque la fila del formulario 1040 y seleccione la dirección postal en función de si incluye un pago al IRS. (Si está esperando un reembolso, entonces no está incluyendo un pago al IRS.)</p>
+        <p><strong>Declaración de impuestos estatales</strong>: Puede localizar la dirección postal de su estado <a href="https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-Do-I-Mail-My-State-Return-" target="_blank" rel="noopener">aquí.</a></p>
+      question: "¿Dónde debo enviar mi declaración de impuestos?"
+    why_would_i_paper_file_my_tax_return:
+      answer_html: |
+        <p>Le recomendamos enormemente que presente su declaración de impuestos por vía electrónica siempre que sea posible. La presentación electrónica es más fiable y obtendrá sus beneficios fiscales más rápidamente. Sin embargo, hay situaciones en las que la única opción es enviar una copia en papel de su declaración de impuestos al IRS.</p>
+        <p>Debe presentarla en papel si su declaración de impuestos fue rechazada por razones que no pueden ser resueltas mediante la presentación electrónica. Por ejemplo, si su declaración fue rechazada porque otra persona declaró a su hijo, tendría que presentarla en papel para declarar a ese hijo. Del mismo modo, si usted fue declarado como dependiente en la declaración de impuestos de otra persona, o si no puede encontrar un IP PIN que necesita, tendría que presentar la declaración en papel. Al presentar una declaración de impuestos en estos casos, usted está dejándole saber al IRS que necesitan investigar el asunto más a fondo y usted puede esperar recibir una carta de seguimiento del IRS con los próximos pasos. Por ejemplo, si presenta la declaración para declarar a un hijo que otra persona ha declarado, es posible que el IRS le informe sobre un proceso para presentar pruebas que respalden su caso.</p>
+        <p>Otra razón común para presentar la declaración en papel es si está Número de Identificación Personal (ITIN) por primera vez, o renovando un Número de Identificación Personal (ITIN) existente.</p>
+      question: "¿Por qué presentar mi declaración de impuestos en papel?"
+  puerto_rico:
+    do_i_have_to_file_a_tax_return:
+      answer_html: |
+        <p>Si vive principalmente en Puerto Rico y no tiene ingresos procedentes de fuera de la isla, por lo general tiene que presentar los impuestos ante la agencia tributaria de Puerto Rico (Departamento de Hacienda de Puerto Rico) y <em>no</em> ante el IRS. Algunos residentes de Puerto Rico están obligados a presentar sus declaraciones ante el IRS, por lo que debe consultar detenidamente las reglas para asegurarse de si esto se aplica a usted.</p>
+        <p>Al igual que en el caso de los beneficios fiscales en los 50 estados, si desea declarar un crédito tributario como el crédito tributario (EITC) o el Crédito Tributario por Hijos (CTC), tendrá que presentar una declaración de impuestos para declararlo, aunque diferentes créditos requieren diferentes declaraciones.</p>
+      question: "¿Tengo que presentar una declaración de impuestos?"
+    how_do_i_get_the_eitc_in_puerto_rico:
+      answer_html: A diferencia del Crédito Tributario por Hijos(CTC), el Earned Income crédito tributario (EITC) en Puerto Rico es administrado por el Departamento de Hacienda de Puerto Rico, no por el IRS. Para declarar el EITC, tendrá que presentar una declaración de impuestos de Puerto Rico ante el Departamento.
+      question: "¿Cómo puedo obtener el EITC en Puerto Rico?"
+    title: Puerto Rico
+  return_rejection_next_steps:
+    the_irs_says_i_already_filed_what_do_i_do:
+      answer_html: |
+        <p>Si ya presentó una declaración de impuestos y está esperando su reembolso, puede ingresar a su cuenta <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">IRS en línea</a> para obtener actualizaciones de estado.</p>
+        <p>Si ya presentó una declaración de impuestos y necesita actualizar su información, entonces necesita presentar una declaración de impuestos enmendada (<a href="https://www.irs.gov/forms-pubs/about-form-1040x" target="_blank" rel="noopener">Formulario 1040X</a>). Para presentar una declaración de impuestos enmendada, lo más fácil generalmente es utilizar el mismo software o preparador que presentó su declaración de impuestos original.</p>
+        <ul class="list--bulleted">
+        <li>Si utilizó la opción File Myself en GetYourRefund, utilice<a href="https://www.taxslayer.com/tax-tools/tax-amendments" target="_blank" rel="noopener">este artículo de ayuda</a> para presentar una declaración de impuestos enmendada a través de TaxSlayer.</li>
+        <li>Si utiliza GetYourRefund y necesita presentar una declaración de impuestos enmendada, debe volver a comunicarse con su equipo de impuestos. Puede chatear con nuestros expertos en impuestos o enviar un correo electrónico a <a href="mailto:support@getyourrefund.org" target="_blank" rel="noopener">support@getyourrefund.org</a> para solicitar ayuda con una declaración de impuestos modificada. Se le pedirá que proporcione documentos o información sobre los impuestos relacionados con el cambio que desea realizar. Por ejemplo, si recibió un nuevo formulario W-2 después de haber completado su declaración de impuestos, tendrá que proporcionarle ese formulario al equipo de impuestos. El equipo de impuestos preparará el formulario 1040X y, si corresponde, una declaración estatal enmendada. En la mayoría de los casos, las declaraciones enmendadas pueden ser presentadas electrónicamente una vez que usted proporcione una firma electrónica.</li>
+        </ul>
+        <p>Si no puede volver a utilizar ese mismo software/servicio, puede presentar una enmienda con <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Su preparador de impuestos le ayudará a presentar su enmienda. La mayoría de las modificaciones se pueden presentar electrónicamente, pero algunas (como el cambio de estado civil y el cambio de dependientes declarados) deben enviarse por correo al IRS. Encuentre la dirección postal correcta <a href="https://www.irs.gov/filing/where-to-file-addresses-for-taxpayers-and-tax-professionals-filing-form-1040x" target="_blank" rel="noopener">aquí</a>.</p>
+        <p>Si está seguro de que no presentó una declaración de impuestos este año, y no dio permiso a otra persona para presentarla en su nombre, entonces es posible que una persona de mala fe haya presentado una declaración de impuestos en su nombre. Tendrá que presentar una declaración de impuestos en papel y adjuntar el formulario <a href="https://www.irs.gov/pub/irs-pdf/f14039.pdf" target="_blank" rel="noopener">Form 14039, Declaración Jurada de Robo de Identidad, "Identity Theft Affidavit", en inglés</a>. El IRS se pondrá en contacto con usted a través del correo con los pasos de seguimiento para confirmar su identidad.</p>
+      question: El IRS dice que ya he presentado la declaración. ¿Qué hago ahora?
+    the_irs_says_somebody_claimed_my_child:
+      answer_html: Ver <a href="http://getyourrefund.org/faq/child_tax_credit/what_do_i_do_if_someone_else_has_claimed_my" target="_blank" rel="noopener">"¿Qué hago si otra persona declaró a mi hijo para el Crédito Tributario por Hijos? "</a>
+      question: El IRS dice que alguien declaró a mi hijo. ¿Qué hago ahora?
+    title: Declaración Denegada Próximos Pasos
+    what_is_agi_and_how_do_i_find_it:
+      answer_html: |
+        <p>AGI son las siglas en inglés de Adjusted Gross Income, en español: ingresos brutos ajustados. Si presenta electrónicamente su propia declaración, tendrá que facilitar el AGI que declaró en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que usted es quien dice ser. Si presentó una declaración de impuestos el año pasado, podrá encontrar su AGI en la línea 11 de su declaración de impuestos.</p>
+        <p>Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o programa informático que le ayudó a presentar la declaración de impuestos. Si sigue sin poder conseguir una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos al IRS en su página Obtener transcripción.</p>
+        <p>Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2022. Si utilizó nuestra herramienta GetCTC el año pasado, ingrese $1 como su AGI para 2021.</p>
+      question: "¿Qué es el AGI y cómo lo encuentro?"
+    what_is_an_ip_pin_and_how_do_i_find:
+      answer_html: |
+        <p>Un PIN de protección de identidad (IP PIN) es un número de seis dígitos que el IRS proporciona a las personas que han sido víctimas de robo de identidad, o que optaron por el programa IP PIN. Si el IRS le ha asignado un PIN de protección de la identidad, está obligado a proporcionarlo cuando presente su declaración de impuestos por vía electrónica. El PIN IP está destinado a proporcionar una medida adicional de protección contra el robo de identidad.</p>
+        <p>Si ha sido víctima de un robo de identidad y el IRS le emitió un IP PIN, o si se inscribió en el programa de IP PIN, cada año le llegará por correo un nuevo IP PIN, en lo que el IRS llama Aviso CP01A. El IRS emite un nuevo IP PIN cada año: el número del año pasado no funcionará este año. Si no puede encontrar el PIN de este año, puede recuperarlo en línea en<a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" target="_blank" rel="noopener">Retrieve Your IP PIN</a>, llamando al 800-908-4490, o haciendo una cita en persona en su <a href="https://www.irs.gov/help/contact-your-local-irs-office" target="_blank" rel="noopener">Centro local de Asistencia al Contribuyente del IRS</a>.</p>
+        <p>Si no puede recuperar el IP PIN, tendrá que presentar su declaración de impuestos en papel.</p>
+      question: "¿Qué es un IP PIN y cómo lo encuentro?"
+  security_and_confidentiality:
+    can_ice_get_my_data:
+      answer_html: |
+        <p>A muchas personas que no están autorizadas a vivir en Estados Unidos les preocupa que la declaración de impuestos aumente su exposición al gobierno, temiendo que esto pueda resultar en última instancia en la deportación. Si usted ya tiene un Número de Identificación Personal (ITIN en inglés), el IRS tiene su información, a menos que se haya mudado recientemente. Usted no está aumentando su exposición al renovar un Número de Identificación Personal (ITIN en inglés) o declarar impuestos con un Número de Identificación Personal (ITIN en inglés).</p>
+        <p>La ley actual generalmente prohíbe al IRS compartir la información de la declaración de  con otras agencias, con algunas excepciones importantes. Por ejemplo, la información de la declaración de impuestos puede ser compartida en ciertos casos con las agencias estatales responsables de la administración de impuestos o con las agencias de aplicación de la ley para la investigación y el enjuiciamiento de las leyes penales no fiscales. Las protecciones contra la divulgación de información están establecidas en la ley, por lo que no pueden ser anuladas por una orden ejecutiva presidencial u otra acción administrativa, a menos que el Congreso cambie la ley.</p>
+        <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un Número de Identificación Personal (ITIN en inglés) o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
+      question: "¿Puede ICE obtener mis datos?"
+    how_do_you_keep_my_data_safe:
+      answer_html: Todos los voluntarios de GetYourRefund y de los socios de VITA están obligados a completar el examen de normas de conducta para voluntarios del IRS. GetYourRefund utiliza las mejores prácticas de la industria para garantizar que los datos de los clientes se mantienen seguros y sigue las directrices del IRS hasta el estándar de seguridad SOC 2. Toda la información de impuestos y los mensajes a través de GetYourRefund están implementados con encriptación de extremo a extremo.
+      question: "¿Cómo mantienen mis datos seguros?"
+    title: Seguridad y privacidad
+  should_i_file_a_tax_return:
+    am_i_a_nonfiler:
+      answer_html: |
+        <p>El término "no declarante" o en inglés, "non filer",  se utiliza a veces para referirse a las personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" tienen derecho a miles de dólares en beneficios fiscales procedentes del Crédito Tributario por Hijos, los pagos de estímulo y el Crédito Tributario por Ingresos del Trabajo.</p>
+        <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para solicitar los beneficios fiscales disponibles. Al presentar una declaración de impuestos usted puede acceder a miles de dólares en beneficios fiscales incluso si gana poco o nada o no acostumbra a declarar impuestoss. Para presentar una declaración de impuestos sólo para el CTC y el tercer pago de estímulo puede utilizar nuestra herramienta para no declarantes, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+      eitc_answer_html: |
+        <p>El término "no declarante" a veces se usa para referirse a personas que no están obligadas a presentar una declaración de impuestos y que no han presentado una declaración de impuestos en los últimos años. La mayoría de los "no declarantes" son elegibles para miles de dólares en beneficios tributarios del Crédito Tributario por Hijos, pagos de estímulo y el Crédito Tributario por Ingreso del Trabajo.</p>
+        <p>"No declarante" no es una categoría legal: cualquiera puede y debe presentar una declaración para reclamar los beneficios tributarios disponibles. Al presentar una declaración de impuestos, puede acceder a miles de dólares en beneficios tributarios, incluso si gana poco o nada de dinero o no suele declarar impuestos. Para presentar una declaración de impuestos solo para el CTC, el EITC y el tercer pago de estímulo, puede usar nuestra herramienta para personas que no declaran, <a href="https://www.getctc.org" target="_blank" rel="noopener">GetCTC</a>.</p>
+      question: "¿Soy un no declarante?"
+    im_1924_should_i_file_a_tax_return:
+      answer_html: |
+        <p>La mayoría de los beneficios fiscales, incluyendo el crédito tributario, el Crédito Tributario por Hijos, y los pagos de estímulo, sólo están disponibles para individuos que no pueden ser declarados como dependientes en la declaración de impuestos de otra persona. La mayoría de las personas que son estudiantes a tiempo completo de entre 19 y 24 años son dependientes de otra persona (normalmente sus padres o tutores), a menos que puedan demostrar que pagan más de la mitad de sus gastos de manutención, incluyendo la vivienda, la alimentación, los gastos médicos/dentales y los gastos personales.</p>
+        <p>En general, si tiene entre 19-24 años debe presentar su propia declaración de impuestos si no es estudiante a tiempo completo y ganó más de $4,300 en el año fiscal.</p>
+        <p>Incluso si puede ser declarado en la declaración de impuestos de otra persona, aún puede beneficiarse de presentar una declaración de impuestos si tuvo un trabajo y los impuestos fueron retenidos de su sueldo. Cuando presente una declaración para declarar las retenciones no utilizadas, asegúrese de indicar que puede ser declarado en la declaración de impuestos de otra persona.</p>
+      question: Tengo de 19-24 años, ¿debo hacer la declaración de impuestos?
+    im_under_19_should_i_file_a_tax_return:
+      answer_html: |
+        <p>La mayoría de los beneficios fiscales, incluyendo el crédito tributario por ingreso del trabajo, el Crédito Tributario por Hijos y los pagos de estímulo, sólo están disponibles para individuos que no pueden ser declarados como dependientes en la declaración de impuestos de otra persona. La mayoría de las personas menores de 19 años son dependientes de otra persona (normalmente sus padres o tutores), a menos que puedan demostrar que pagan más de la mitad de sus gastos de manutención (incluyendo vivienda, alimentación, gastos médicos/dentales y gastos personales).</p>
+        <p>Incluso si usted puede ser declarado en la declaración de impuestos de otra persona, aún así puede beneficiarse de presentar una declaración de impuestos si tuvo un trabajo y los impuestos fueron retenidos de su cheque de pago. Cuando presente una declaración para declarar las retenciones no utilizadas, asegúrese de indicar que pudiera ser declarado en la declaración de impuestos de otra persona.</p>
+      question: Soy menor de 19 años. ¿Necesito declarar impuestos?
+    title: "¿Necesito declarar impuestos?"
+    what_are_the_potential_benefits_of_filing_a_tax_return:
+      answer_html: |
+        <p>Aunque tenga pocos ingresos y no esté obligado a presentar la declaración de impuestos, podría calificar para recibir pagos del IRS. Es especialmente probable que tenga derecho a créditos fiscales si tiene hijos. Para declararlos, tiene que presentar una declaración de impuestos.</p>
+        <p>La declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad o un préstamo hipotecario.</p>
+        <p>Puede presentar una declaración de impuestos completa y solicitar todas las ventajas tributarias pertinentes con la ayuda de un preparador de impuestos utilizando <a href="https://www.getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Para presentar una declaración de impuestos completa por Internet usted mismo, puede elegir nuestra opción <a href="https://www.getyourrefund.org/en/diy/file_yourself" target="_blank" rel="noopener">File Myself</a>, en español: Declarar por Cuenta Propia.</p>
+      question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
+  state_returns:
+    can_i_get_tax_credits_from_california:
+      answer_html: |
+        <p>California cuenta con una serie de créditos fiscales estatales beneficiosos como el CalEITC, el crédito por gastos de cuidado de hijos y dependientes y el crédito tributario por acceso a la universidad. Estos créditos se suman rápidamente para significar aún más dinero en sus bolsillos. Para declarar estos créditos es necesario presentar una declaración de impuestos del estado de California. Le recomendamos que presente esta declaración al mismo tiempo que su declaración de impuestos federales. Conozca más sobre el CalEITC <a href="https://www.ftb.ca.gov/file/personal/credits/california-earned-income-tax-credit.html" target="_blank" rel="noopener">aquí</a>.</p>
+        <p>Las normas de elegibilidad del CalEITC son ligeramente diferentes a las del crédito tributario por ingreso del trabajo (EITC) federal. Para cumplir con los requisitos debe:</p>
+        <ul class="list--bulleted">
+        <li>Tener al menos 18 años o un hijo que reúna los requisitos</li>
+        <li>Tener ingresos laborales imponibles</li>
+        <li>Tener un Número de Seguro Social o SSN <strong>o</strong>Número de Identificación Personal (ITIN) para usted, su cónyuge y cualquier hijo que califique</li>
+        <li>No debe presentar la declaración de casado por separado</li>
+        <li>Vivir en California durante más de la mitad del año</li>
+        <li>Estar dentro de ciertos límites de ingresos.</li>
+        </ul>
+        <p>Desafortunadamente, el momento de declarar el Estímulo "Golden State" I y II ha pasado. La fecha límite para declarar estos pagos era el 15 de octubre de 2021.</p>
+      question: ¿Puedo obtener créditos fiscales de California? ¿Todavía puedo obtener el Estímulo del "Golden State"? ¿Cómo puedo obtener el CalEITC? ¿Tengo derecho a recibir el CalEITC? ¿Tengo derecho a recibir el CalEITC si no tengo un Número de Seguro Social?
+    can_i_get_tax_credits_from_my_state:
+      answer_html: Muchos estados tienen sus propios créditos fiscales, similares al crédito tributario por ingreso del trabajo (EITC), al Crédito Tributario por Hijos (CTC) y a las rebajas de calefacción y alquiler. A partir de este año, 30 estados, el Distrito de Columbia, Guam, Puerto Rico y algunos municipios tienen su propio EITC. Para declarar estos créditos, es necesario presentar una declaración estatal o local.
+      question: "¿Puedo obtener créditos fiscales de mi estado?"
+    title: Devoluciones estatales del IRS
+  stimulus:
+    how_do_i_get_the_stimulus_payments:
+      answer_html: Consulte "¿Qué es un pago por impacto económico?" y "¿Qué es un Crédito de Reembolso por Recuperación (Recovery Rebate Credit)?" para obtener información sobre los pagos de estímulo en 2022.
+      question: "¿Cómo obtengo los pagos de estímulo?"
+    how_many_stimulus_payments_were_there:
+      answer_html: |
+        <p>Un total de tres pagos de estímulo (también conocidos como Pagos de Impacto Económico, "Economic Impact Payments en inglés) fueron emitidos entre 2020 y 2021, para ayudar a las familias a hacer frente a los efectos de la pandemia de COVID-19.</p>
+        <p>El <strong>primer pago de estímulo </strong>se emitió en marzo/abril de 2020 y proporcionó hasta $1,200 por adulto elegible y hasta $500 por cada dependiente elegible.</p>
+        <p>El<strong>segundo pago de estímulo</strong> se emitió en diciembre de 2020 y proporcionó hasta $600 por persona elegible (adulto, niño o dependiente).</p>
+        <p>El <strong>tercer pago de estímulo</strong> se emitió en marzo/abril de 2021 y proporcionó hasta $1,400 por persona elegible (adulto, niño o dependiente).</p>
+        <p>Si está tratando de encontrar los pagos de estímulo que recibió para poder declarar cualquier pago faltante, puede revisar los estados de cuenta de su banco para las fechas mencionadas anteriormente, o puede ingresar a su cuenta <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">IRS en línea</a>, o buscar la Carta 6475 del IRS.</p>
+      question: "¿Cuántos pagos de estímulo hubo?"
+    title: Preguntas sobre los pagos de estímulo
+    what_is_the_economic_impact_payment:
+      answer_html: |
+        <p>Pago de Impacto Económico (también conocido como EIP) es el nombre oficial de los pagos de estímulo que se emitieron en 2020 y 2021. Al primer pago se le llama a veces EIP1, el segundo EIP2 y el tercero EIP3. No hubo pagos EIP/estímulo emitidos en 2022, por lo que no puede declarar ningún pago que falte en su declaración de impuestos de 2022.</p>
+        <p>Sin embargo, si le falta un pago de EIP/estímulo de 2021 o 2020, tendrá que presentar una declaración de impuestos para el año en que no lo recibió. Nuestros colaboradores pueden ayudarle a presentar la declaración del año anterior, ¡lo único que tiene necesita hacer es solicitarla!</p>
+      question: "¿Qué es un Pago por Impacto Económico (Economic Impact Payment en inglés)?"
+    what_is_the_recovery_rebate_credit:
+      answer_html: |
+        <p>El Crédito de Reembolso por Recuperación (Recovery Rebate Credit en inglés) (RRC) fue un pago de estímulo en 2021 (y a veces también se le conoce como el tercer Pago de Impacto Económico o EIP3). Dado que no hubo ningún pago de estímulo emitido por el gobierno en 2022, no puede declarar el RRC/EIP en su declaración de impuestos de 2022.</p>.
+        <p>Sin embargo, si te falta un pago de EIP/estímulo de 2021 o 2020, tendrá que presentar una declaración de impuestos para el año en el que no lo recibió. Nuestros colaboradores pueden ayudarle a presentar la declaración del año anterior, ¡solo tiene que solicitarla!</p>
+      question: "¿Qué es el Crédito de Reembolso por Recuperación (Recovery Rebate Credit)?"
+    will_there_be_another_stimulus_payment:
+      answer_html: En este momento, no hay pagos de estímulo adicionales programados.
+      question: "¿Habrá otro pago de estímulo?"
+  where_are_my_payments:
+    how_do_i_check_the_status_of_my_payments:
+      answer_html: |
+        <p>Puede revisar el estado de su reembolso en la página del IRS <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">Where's My Refund</a> 24 horas después de que el IRS lo acepte electrónicamente. Para verificar su información, se le pedirá que proporcione su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN), estado civil para efectos de la declaración y la cantidad exacta del reembolso federal que se encuentra en la línea 35 de su declaración de impuestos federales.</p>
+        <p>Tenga en cuenta que este sitio del IRS le permite rastrear el estado de sus reembolsos federales de 2022, 2021 y 2020.</p>
+        <p>No se puede utilizar esta herramienta del IRS para rastrear las declaraciones que fueron presentadas en papel (enviadas por correo al IRS).</p>
+        <p>Si modificó su declaración de impuestos, tendrá que usar la herramienta <a href="https://www.irs.gov/filing/wheres-my-amended-return" target="_blank" rel="noopener">Where's My Amended Return</a> del IRS.</p>
+      question: "¿Cómo puedo revisar el estado de mi reembolso?"
+    how_do_i_log_into_my_account_on_the_irs_website:
+      answer_html: |
+        <p>La creación e inicio de sesión en su cuenta del IRS puede ayudarle a acceder a información importante necesaria para presentar una declaración de impuestos precisa este año, incluyendo la cantidad del Crédito Tributario por Hijos, o los pagos por estímulo recibidos. Puede ser un reto verificar su identidad para crear una cuenta del IRS. Para verificar su identidad necesitará una dirección de correo electrónico, su Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN), una identificación con foto (licencia de conducir, identificación estatal, pasaporte o tarjeta de pasaporte) y un teléfono móvil con cámara o una computadora portátil/computadora de escritorio con cámara web.</p>
+        <p>Aprenda sobre los pasos para crear una cuenta ID.me <a href="https://help.id.me/hc/en-us/articles/4402761436823" target="_blank" rel="noopener">aquí</a>.</p>
+      question: "¿Cómo puedo acceder a mi cuenta en el sitio web del IRS?"
+    how_long_does_it_take_to_get_my_refund_after:
+      answer_html: |
+        <p>Después de que su declaración sea aceptada por el IRS electrónicamente, por lo general toma de 2-3 semanas para recibir un depósito directo o de 4-6 semanas para recibir un cheque por correo. Sin embargo, hay unas cuantas razones comunes por las que su reembolso puede retrasarse, por ejemplo:</p>
+        <ul class="list--bulleted">
+        <li>Su declaración necesita una corrección por la cantidad de los pagos adelantados del Crédito Tributario por Hijos que declaró haber recibido</li>.
+        <li>Su declaración necesita una corrección por el total del tercer pago de estímulo que declaró haber recibido</li>
+        <li>Es la primera vez que declara impuestos en varios años</li>
+        <li>Su declaración está afectada por el robo de identidad</li>
+        <li>Incluye los ingresos ganados de 2019 para calcular el crédito tributario que ganó</li>
+        <li>La información está incompleta o no coincide con los registros del IRS</li>
+        </ul>
+        <p>Si su declaración presenta alguna de esas situaciones, el IRS puede comunicarse con usted y solicitarle información adicional. Estos retrasos pueden tardar meses en resolverse. Es importante que estés atento a cualquier carta o aviso del IRS y que siga los siguientes pasos para asegurarse de recibir su devolución lo más pronto posible.</p>
+        <p>Para evitar retrasos, asegúrese de verificar dos veces toda la información que proporciona al presentar la declaración de impuestos. En caso de duda, ¡espere a presentarla hasta que tenga toda la información que necesita!</p>
+      question: "¿Cuánto tiempo se tarda en recibir la devolución después de presentar la declaración?"
+    title: "¿Dónde están mis pagos?"
+  who_should_i_include_on_my_tax_return:
+    can_i_claim_my_parent:
+      answer_html: |
+        <p>En algunos casos, puede declarar a su padre o madre como dependiente en su declaración de impuestos. Por lo general, para poder declarar a su progenitor, éste debe haber ganado menos de $4,400 en 2022 y usted debe pagar al menos la mitad de sus gastos de manutención.</p>
+        <p>Declarar a su progenitor no le dará derecho al Crédito Tributario por Hijos (CTC) ni al Crédito Tributario por Ingreso del Trabajo (EITC).</p>
+      question: "¿Puedo declarar a mi padre o a mi madre?"
+    title: "¿A quién debo incluir en mi declaración de impuestos?"
+    what_are_the_benefits_of_claiming_a_child_on_my:
+      answer_html: |
+        <p>Dependiendo de su situación, podría obtener beneficios adicionales por cada hijo que tenga derecho a declarar en su declaración de impuestos. Cuando declara hijos en sus impuestos, podría establecer su elegibilidad para el Crédito Tributario por Hijos (CTC, por sus siglas en inglés) y aumentar el monto de su Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés).</p>
+        <p>Puede declarar estos créditos presentando una declaración de impuestos de 2022 a través de nuestro servicio completo GetYourRefund.</p>
+      question: "¿Qué ventajas tiene declarar a un hijo en mi declaración de impuestos?"
+    what_should_i_do_if_i_was_claimed_as_a:
+      answer_html: |
+        <p>Si alguien lo declaró como dependiente, en primer lugar, debe determinar si en realidad esa persona estaba autorizado a hacerlo. Por lo general, alguien (como un padre, un abuelo o un tutor) paga más de la mitad de sus gastos y usted vive con esa persona la mayor parte del año, entonces usted es su dependiente. Eso significa que usted no tiene derecho a la mayoría de los beneficios tributarios (como el Crédito Tributario por Hijos, el crédito tributario por ingresos del trabajo o los pagos por estímulo) y, por lo general, no puede presentar su propia declaración de impuestos.</p>
+        <p>Si cree que alguien lo ha declarado incorrectamente, puede apelar, pero desgraciadamente este proceso no es fácil. En primer lugar, tendrá que enviar por correo una copia en papel de su declaración al IRS. (Ver el documento que explica cómo hacer una declaración en papel, en inglés,  'How Do I Paper File'.) Después, el IRS iniciará un proceso para determinar si la declaración de la otra persona era válida. Este proceso puede ser difícil para usted y para quien lo haya declarado, ya que ambos tendrán que aportar documentación que apoye su caso.</p>
+      question: "¿Qué puedo hacer si me declaran como dependiente pero quiero declarar mis propios impuestos?"
+    who_can_i_claim_on_my_return:
+      answer_html: |
+        <p>Usted puede declarar como "dependientes" en su declaración de impuestos a muchos familiares que dependen económicamente de usted, aunque las normas para los distintos familiares pueden ser un poco complicadas.</p>
+        <p>El dependiente más común son sus hijos. En general, el IRS le permite declarar a su hijo si vive con usted la mayor parte del año, si éste no es económicamente independiente, si tiene menos de 19 años el último día del año y si usted es el miembro de la familia mejor calificado para declararlo. También puede considerar a sus hijastros y sobrinos como sus hijos según esta definición.</p>
+        <p>En algunos casos puede declarar a otros familiares, incluidos los padres mayores, si usted cubre la mayor parte de sus necesidades económicas y ellos mismos ganan muy poco.</p>
+        <p>Se aplican varias excepciones a estas dos definiciones. La mayoría de los servicios de preparación de impuestos (incluido GetYourRefund) lo guiarán a través de las definiciones y se asegurarán de que es el caso para que usted declare a sus familiares.</p>
+      question: "¿A quién puedo declarar en mi declaración de impuestos?"

@@ -1,6 +1,7 @@
 module Hub
   module FraudIndicators
     class RiskyDomainsController < Hub::FraudIndicators::BaseController
+      before_action :require_admin
 
       private
 

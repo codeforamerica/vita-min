@@ -24,7 +24,7 @@ const Listeners =  (function(){
             window.addEventListener("load", function() {
                 IntercomBehavior.openIfAskedFor();
                 MixpanelEventTracking.listenForTrackedClicks();
-                const { controllerAction } = document.querySelector("#mixpanelData").dataset;
+                const { controllerAction } = document.querySelector("#mixpanelData")?.dataset || {};
                 ClientMenuComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.

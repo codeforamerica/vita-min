@@ -1,5 +1,5 @@
 export function fetchEfileStateCounts() {
-    Rails.ajax({
+    $.rails.ajax({
         url: "/hub/efile/state-counts",
         type: "get",
     })

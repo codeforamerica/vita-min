@@ -1684,7 +1684,7 @@ RSpec.describe Hub::ClientsController do
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
           expect(flash[:notice]).to eq "Changes saved"
-          expect(response).to render_template :edit_13614c_form_page1
+          expect(response).to redirect_to edit_13614c_form_page1_hub_client_path(id: client)
 
           client.reload
           expect(client.intake.primary.first_name).to eq "Updated"
@@ -1849,8 +1849,7 @@ RSpec.describe Hub::ClientsController do
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
-          expect(response).to render_template :edit_13614c_form_page2
-
+          expect(response).to redirect_to edit_13614c_form_page2_hub_client_path(id: client)
           client.reload
           expect(client.intake.job_count).to eq 3
           expect(client.intake.had_wages_yes?).to eq true
@@ -1961,8 +1960,7 @@ RSpec.describe Hub::ClientsController do
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
-          expect(response).to render_template :edit_13614c_form_page3
-
+          expect(response).to redirect_to edit_13614c_form_page3_hub_client_path(id: client)
           client.reload
           expect(client.intake.preferred_written_language).to eq "Greek"
 

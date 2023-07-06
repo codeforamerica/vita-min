@@ -20,6 +20,22 @@ RSpec.feature "Visit home page" do
     expect(page).to have_text I18n.t('views.questions.welcome.title')
   end
 
+  describe "faq questions" do
+    before do
+      FaqDatabaseExportService.export_yml_to_database
+    end
+
+    it "has links to some common FAQ questions" do
+      visit "/"
+
+      common_faq_question = FaqQuestionGroupItem.find_by(group_name: "home_page").faq_item
+      expect(common_faq_question).to be_present
+
+      click_link common_faq_question.question(I18n.locale)
+      expect(page).to have_content(common_faq_question.answer(I18n.locale).to_plain_text)
+    end
+  end
+
   context "shows the correct date-dependent banners" do
     let(:current_time) { nil }
 

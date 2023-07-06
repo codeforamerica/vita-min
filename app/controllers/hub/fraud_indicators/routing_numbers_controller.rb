@@ -1,6 +1,7 @@
 module Hub
   module FraudIndicators
     class RoutingNumbersController < Hub::FraudIndicators::BaseController
+      before_action :require_admin
 
       private
 
