@@ -53,11 +53,11 @@ class Site < VitaPartner
   end
 
   def site_coordinators
-    User.where(role: SiteCoordinatorRole.where(site: self))
+    User.where(role: SiteCoordinatorRole.assignable_to_sites(self))
   end
 
   def team_members
-    User.where(role: TeamMemberRole.where(site: self))
+    User.where(role: TeamMemberRole.assignable_to_sites(self))
   end
 
   private

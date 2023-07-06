@@ -71,8 +71,8 @@ class Ability
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
       can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
-      can :manage, SiteCoordinatorRole, site: { parent_organization: { coalition: user.role.coalition } }
-      can :manage, TeamMemberRole, site: { parent_organization: { coalition: user.role.coalition } }
+      can :manage, SiteCoordinatorRole, sites: { parent_organization: { coalition: user.role.coalition } }
+      can :manage, TeamMemberRole, sites: { parent_organization: { coalition: user.role.coalition } }
     end
 
     if user.role_type == OrganizationLeadRole::TYPE
@@ -82,14 +82,18 @@ class Ability
 
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization
-      can :manage, SiteCoordinatorRole, site: { parent_organization: user.role.organization }
-      can :manage, TeamMemberRole, site: { parent_organization: user.role.organization }
+      can :manage, SiteCoordinatorRole, sites: { parent_organization: user.role.organization }
+      can :manage, TeamMemberRole, sites: { parent_organization: user.role.organization }
     end
 
     if user.role_type == SiteCoordinatorRole::TYPE
       # Site coordinators can create site coordinators and team members in their site
-      can :manage, SiteCoordinatorRole, site: user.role.site
-      can :manage, TeamMemberRole, site: user.role.site
+      can :manage, SiteCoordinatorRole do |role|
+        user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }
+      end
+      can :manage, TeamMemberRole do |role|
+        user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }
+      end
     end
   end
 end

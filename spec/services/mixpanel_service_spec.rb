@@ -172,7 +172,7 @@ describe MixpanelService do
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
       let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-      let(:user) { create :team_member_user, site: site }
+      let(:user) { create :team_member_user, sites: [site] }
 
       context "when the event is triggered by a user" do
         let!(:tax_return) { create :gyr_tax_return, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
@@ -240,7 +240,7 @@ describe MixpanelService do
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
       let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-      let(:user) { create :team_member_user, site: site }
+      let(:user) { create :team_member_user, sites: [site] }
 
       context "when the event is triggered by a user" do
         let!(:tax_return) { create :gyr_tax_return, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
@@ -284,7 +284,7 @@ describe MixpanelService do
         let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
         let(:site) { create :site, name: "Child Site", parent_organization: organization }
         let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-        let(:user) { create :team_member_user, site: site }
+        let(:user) { create :team_member_user, sites: [site] }
 
         context "when the event is triggered by a user" do
           let(:tax_return) { create :gyr_tax_return, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
@@ -389,7 +389,7 @@ describe MixpanelService do
         let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
         let(:site) { create :site, name: "Child Site", parent_organization: organization }
         let(:client) { create :client, intake: (build :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-        let(:user) { create :team_member_user, site: site }
+        let(:user) { create :team_member_user, sites: [site] }
 
         context "when the event is triggered by a user" do
           let(:tax_return) { create :gyr_tax_return, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
@@ -712,7 +712,7 @@ describe MixpanelService do
           let(:coalition) { create :coalition }
           let(:organization) { create :organization, coalition: coalition }
           let(:site) { create :site, parent_organization: organization }
-          let(:user) { create :site_coordinator_user, site: site }
+          let(:user) { create :site_coordinator_user, sites: [site] }
 
           it 'returns all user fields' do
             expected = {
@@ -734,7 +734,7 @@ describe MixpanelService do
           let(:coalition) { create :coalition }
           let(:organization) { create :organization, coalition: coalition }
           let(:site) { create :site, parent_organization: organization }
-          let(:user) { create :team_member_user, site: site }
+          let(:user) { create :team_member_user, sites: [site] }
 
           it 'returns all user fields' do
             expected = {

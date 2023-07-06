@@ -5,8 +5,8 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
   let(:site) { create :site }
   let(:organization) { create :organization }
 
-  let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
-  let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
+  let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
+  let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
   let!(:inaccessible_user) { create :user }
 
   let(:tax_return_1) { create :gyr_tax_return, :file_ready_to_file, assigned_user: team_member, client: client }
@@ -39,7 +39,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
     end
 
     context "an unauthorized user" do
-      let(:unauthorized_team_member) { create :user, role: create(:team_member_role, site: create(:site)) }
+      let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site)]) }
 
       before do
         sign_in unauthorized_team_member
@@ -119,7 +119,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
       end
 
       context "an unauthorized user" do
-        let(:unauthorized_team_member) { create :user, role: create(:team_member_role, site: create(:site)) }
+        let(:unauthorized_team_member) { create :user, role: create(:team_member_role, sites: [create(:site)]) }
 
         before do
           sign_in unauthorized_team_member

@@ -295,7 +295,7 @@ describe BulkActionJob do
 
       context "when users are assigned to the returns and don't have access through the new partner" do
         let(:old_site) { create :site, parent_organization: organization }
-        let(:assigned_user_at_old_site) { create :site_coordinator_user, site: old_site }
+        let(:assigned_user_at_old_site) { create :site_coordinator_user, sites: [old_site] }
         let(:assigned_user_who_retains_access) { create :organization_lead_user, organization: organization }
         let(:selected_client) { create :client, intake: (build :intake), vita_partner: old_site }
         let!(:still_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018, tax_return_selections: [tax_return_selection] }
@@ -331,8 +331,8 @@ describe BulkActionJob do
       let(:client) { create :client, vita_partner: site, intake: build(:intake) }
       let(:site) { create :site }
 
-      let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
-      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
+      let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
+      let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
       let!(:inaccessible_user) { create :user }
 
       let(:params) do
@@ -397,7 +397,7 @@ describe BulkActionJob do
           form_params: params
         )
 
-        expect(client.reload.system_notes.first.body).to eq "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
+        expect(client.reload.system_notes.map(&:body)).to include "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
       end
 
       context "when 'Keep current status' is selected" do
@@ -419,7 +419,7 @@ describe BulkActionJob do
           expect(tax_return_1.current_state).to eq "file_ready_to_file"
           expect(tax_return_2.current_state).to eq "review_signature_requested"
           expect(tax_return_3.current_state).to eq "review_signature_requested"
-          expect(client.reload.system_notes).to be_empty
+          expect(client.reload.system_notes.where(type: "SystemNote::StatusChange")).to be_empty
         end
 
         it "creates a notification" do

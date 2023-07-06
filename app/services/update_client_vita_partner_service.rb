@@ -24,6 +24,7 @@ class UpdateClientVitaPartnerService < BaseService
         assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
         unless assigned_user_retains_access
           tax_return.update!(assigned_user: nil)
+          SystemNote::AssignmentChange.generate!(initiated_by: @change_initiated_by, tax_return: tax_return)
         end
       end
     end
