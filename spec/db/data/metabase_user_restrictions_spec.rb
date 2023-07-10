@@ -34,6 +34,7 @@ create index no_way_vita_idx on analytics.team_member_roles (vita_partner_id, id
     end
 
     it "can't create new tables" do
+      Rake::Task['analytics:drop_views'].invoke
       Rake::Task['analytics:create_views'].invoke
 
       expect {
