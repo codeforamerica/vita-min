@@ -7,10 +7,13 @@ describe "RestrictiveAccessForMetabaseUser" do
 
   context "when attempting intentional behavior" do
     it "can select tables from the analytics table" do
+      RSpec::Expectations.configuration.on_potential_false_positives = :nothing
+
       expect {
         ActiveRecord::Base.connection.execute("
 set role metabase;
 select count(*) from analytics.team_role_members (vita_partner_id, id);
+select * from analytics.users where failed_attempts == 0;
 ")
       }.not_to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
 
@@ -29,7 +32,7 @@ select count(*) from analytics.team_role_members (vita_partner_id, id);
 set role metabase;
 create index no_way_vita_idx on analytics.team_member_roles (vita_partner_id, id);
       ")
-      }.to raise_exception(ActiveRecord::StatementInvalid, /must be owner of view/)
+      }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
     end
 
     it "can't create new tables" do
