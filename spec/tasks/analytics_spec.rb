@@ -1,18 +1,17 @@
 require 'rails_helper'
 
 describe 'creating database views' do
-  it 'runs without error' do
+  before(:all) do
     Rails.application.load_tasks
+  end
+
+  it 'runs without error' do
     Rake::Task['analytics:drop_views'].invoke
     Rake::Task['analytics:create_views'].invoke
   end
 
   context "metabase access" do
     before(:all) do
-      Rails.application.load_tasks
-    end
-
-    before(:each) do
       Rake::Task['analytics:drop_views'].invoke
       Rake::Task['analytics:create_views'].invoke
     end
