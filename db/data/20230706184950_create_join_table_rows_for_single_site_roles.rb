@@ -6,20 +6,19 @@ class CreateJoinTableRowsForSingleSiteRoles < ActiveRecord::Migration[7.0]
       roles_to_join_tables = {
         SiteCoordinatorRole => {
           join_table_class: SiteCoordinatorRolesVitaPartner,
-          fk: :site_coordinator_role
+          fk: :site_coordinator_role_id
         },
         TeamMemberRole => {
           join_table_class: TeamMemberRolesVitaPartner,
-          fk: :team_member_role
+          fk: :team_member_role_id
         },
       }
       roles_to_join_tables.each do |role_class, data|
-        role_class.where.not(legacy_vita_partner: nil).each do |role|
-          jt = data[:join_table_class].find_or_create_by!(
-            data[:fk] => role,
-            vita_partner: role.legacy_vita_partner
-          )
+        join_table_attributes = role_class.where.not(legacy_vita_partner: nil).map do |role|
+          { data[:fk] => role.id, vita_partner_id: role.legacy_vita_partner.id }
         end
+        data[:join_table_class].upsert_all(join_table_attributes)
+
         role_class.update_all(vita_partner_id: nil)
       end
     end
