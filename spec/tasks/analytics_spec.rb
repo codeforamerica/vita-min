@@ -35,13 +35,22 @@ create index no_way_vita_idx on analytics.team_member_roles (vita_partner_id, id
         }.to raise_exception(ActiveRecord::StatementInvalid, /must be owner/)
       end
 
-      it "can't create new tables" do
+      it "can't create new views" do
         expect {
           ActiveRecord::Base.connection.execute("
 set role metabase;
 create table analytics.phony_table (number INTEGER, name TEXT);
       ")
         }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
+      end
+
+      it "can't remove views" do
+        expect {
+          ActiveRecord::Base.connection.execute("
+set role metabase;
+drop view analytics.users;
+      ")
+        }.to raise_exception(ActiveRecord::StatementInvalid, /must be owner/)
       end
     end
   end
