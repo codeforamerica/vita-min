@@ -33,8 +33,7 @@ namespace :analytics do
       $do$;
     SQL
     ActiveRecord::Base.connection.execute(create_user)
-    ActiveRecord::Base.connection.execute('REVOKE ALL ON ALL TABLES IN SCHEMA "analytics" FROM "metabase";')
-    ActiveRecord::Base.connection.execute('GRANT SELECT ON ALL TABLES IN SCHEMA "analytics" TO "metabase";')
+    ActiveRecord::Base.connection.execute("GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA analytics TO metabase");
   end
 
   task delete_metabase_user: :environment do |_task|

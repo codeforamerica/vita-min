@@ -20,7 +20,7 @@ describe 'creating database views' do
       it "can select tables from the analytics table" do
         expect(ActiveRecord::Base.connection.query("
 set role metabase;
-select count(*) from analytics.team_role_members;
+select count(id) from analytics.users;
 ")).to eql(0)
       end
     end
@@ -31,7 +31,7 @@ select count(*) from analytics.team_role_members;
           ActiveRecord::Base.connection.execute("
 set role metabase;
 create index no_way_vita_idx on analytics.team_member_roles (vita_partner_id, id);
-      ")
+")
         }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
       end
 
