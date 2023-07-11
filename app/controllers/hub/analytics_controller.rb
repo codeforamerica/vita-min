@@ -2,7 +2,6 @@ module Hub
   class AnalyticsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource parent: false
     before_action :require_admin
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client, only: [:create]
