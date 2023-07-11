@@ -52,6 +52,15 @@ drop view analytics.users;
       ")
         }.to raise_exception(ActiveRecord::StatementInvalid, /must be owner/)
       end
+
+      it "can't use other tables" do
+        expect {
+          ActiveRecord::Base.connection.execute("
+set role metabase;
+select count(*) from public.users;
+      ")
+        }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
+      end
     end
   end
 end
