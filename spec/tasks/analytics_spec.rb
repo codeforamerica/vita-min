@@ -21,7 +21,7 @@ describe 'creating database views' do
         expect(ActiveRecord::Base.connection.query("
 set role metabase;
 select count(id) from analytics.users;
-")).to eql(0)
+").flatten).to eql([0])
       end
     end
 
@@ -32,7 +32,7 @@ select count(id) from analytics.users;
 set role metabase;
 create index no_way_vita_idx on analytics.team_member_roles (vita_partner_id, id);
 ")
-        }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
+        }.to raise_exception(ActiveRecord::StatementInvalid, /must be owner/)
       end
 
       it "can't create new tables" do
