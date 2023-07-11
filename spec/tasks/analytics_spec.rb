@@ -18,13 +18,10 @@ describe 'creating database views' do
 
     context "when attempting intentional behavior" do
       it "can select tables from the analytics table" do
-        expect {
-          ActiveRecord::Base.connection.execute("
+        expect(ActiveRecord::Base.connection.query("
 set role metabase;
 select count(*) from analytics.team_role_members;
-select * from analytics.users where failed_attempts == 0;
-")
-        }.to raise_exception(ActiveRecord::StatementInvalid, /permission denied/)
+")).to eql(0)
       end
     end
 
