@@ -20,7 +20,7 @@ class SiteCoordinatorRole < ApplicationRecord
 
   belongs_to :legacy_vita_partner, foreign_key: "vita_partner_id", class_name: "VitaPartner", optional: true
 
-  has_many :site_coordinator_roles_vita_partners
+  has_many :site_coordinator_roles_vita_partners, dependent: :destroy
   has_many :sites, through: :site_coordinator_roles_vita_partners
   has_many :vita_partners, through: :site_coordinator_roles_vita_partners
   validate :has_site

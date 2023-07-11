@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_210943) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1949,6 +1949,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_210943) do
   add_foreign_key "recaptcha_scores", "clients"
   add_foreign_key "signup_selections", "users"
   add_foreign_key "site_coordinator_roles", "vita_partners"
+  add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
+  add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
@@ -1962,6 +1964,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_210943) do
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles", "vita_partners"
+  add_foreign_key "team_member_roles_vita_partners", "team_member_roles"
+  add_foreign_key "team_member_roles_vita_partners", "vita_partners"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "verification_attempt_transitions", "verification_attempts"
