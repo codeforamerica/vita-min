@@ -38,6 +38,9 @@ class VitaPartner < ApplicationRecord
   has_many :experiment_vita_partners
   has_many :experiments, through: :experiment_vita_partners
 
+  has_many :site_coordinator_roles_vita_partners, dependent: :destroy
+  has_many :team_member_roles_vita_partners, dependent: :destroy
+
   belongs_to :coalition, optional: true
   belongs_to :parent_organization, class_name: "Organization", optional: true
 
