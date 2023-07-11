@@ -2,11 +2,11 @@ module Hub
   class SecurityController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource :client
+    load_and_authorize_resource :client, parent: false
     layout "hub"
 
     def show
-      @client = Hub::ClientsController::HubClientPresenter.new(Client.find(params[:id]))
+      @client = Hub::ClientsController::HubClientPresenter.new(@client)
       @duplicate_bank_client_ids = duplicate_bank_client_ids
       @most_recent_verification_attempt = @client.verification_attempts.last
       @fraud_indicators = Fraud::Indicator.unscoped

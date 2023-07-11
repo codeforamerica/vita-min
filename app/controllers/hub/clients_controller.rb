@@ -31,7 +31,7 @@ module Hub
     def create
       @current_year = MultiTenantService.new(:gyr).current_tax_year
       @form = CreateClientForm.new(create_client_form_params)
-      assigned_vita_partner = VitaPartner.find_by(id: create_client_form_params["vita_partner_id"])
+      assigned_vita_partner = @vita_partners.find_by(id: create_client_form_params["vita_partner_id"])
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)
         flash[:notice] = I18n.t("hub.clients.create.success_message")
@@ -43,7 +43,7 @@ module Hub
     end
 
     def destroy
-      Client.find(params[:id]).destroy!
+      @client.destroy!
       flash[:notice] = I18n.t("hub.clients.destroy.success_message")
       redirect_to hub_clients_path
     end

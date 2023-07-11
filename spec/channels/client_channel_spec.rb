@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ClientChannel, type: :channel do
-  let(:client) { create :client }
+  let(:client) { create :client, vita_partner: create(:organization) }
   let(:user) { create :organization_lead_user }
   let(:params) { { id: client.id } }
 
@@ -29,13 +29,21 @@ RSpec.describe ClientChannel, type: :channel do
     end
 
     context 'with valid params' do
-      let(:client) { create(:client, vita_partner: user.role.organization) }
+      let!(:client) { create(:client, vita_partner: user.role.organization) }
 
       it 'subscribes to a client' do
         subscribe params
 
         expect(subscription).to be_confirmed
         expect(subscription).to have_stream_for(client)
+      end
+    end
+
+    context 'with inaccessible client' do
+      it 'rejects subscription' do
+        subscribe params
+
+        expect(subscription).to be_rejected
       end
     end
   end

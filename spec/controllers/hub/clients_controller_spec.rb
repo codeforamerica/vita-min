@@ -1120,6 +1120,17 @@ RSpec.describe Hub::ClientsController do
         end
       end
     end
+
+    context "with a team member" do
+      let(:user) { create :team_member_user }
+      before { sign_in user }
+
+      it "does not delete the client" do
+        expect do
+          delete :destroy, params: params
+        end.not_to change(Client, :count)
+      end
+    end
   end
 
   describe "#edit_take_action" do
