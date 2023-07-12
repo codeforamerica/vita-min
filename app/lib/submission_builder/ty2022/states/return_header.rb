@@ -21,7 +21,7 @@ module SubmissionBuilder
                 xml.Signature 'Practitioner'
               end
             end
-            xml.ReturnType 'Form1'
+            xml.ReturnType 'MI1040'
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do
