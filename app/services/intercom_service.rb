@@ -39,6 +39,14 @@ class IntercomService
     ).send_messages
   end
 
+  def self.generate_user_hash(user_id)
+    OpenSSL::HMAC.hexdigest(
+      'sha256',
+      Rails.application.secrets.intercom_secure_mode_secret_key,
+      user_id
+    ) if user_id.present?
+  end
+
   private
 
   def self.contact_from_email(email)
