@@ -42,9 +42,9 @@ class IntercomService
   def self.generate_user_hash(user_id)
     OpenSSL::HMAC.hexdigest(
       'sha256',
-      Rails.application.secrets.intercom.secure_mode_secret_key,
+      EnvironmentCredentials.dig(:intercom, :secure_mode_secret_key),
       user_id
-    ) if user_id.present?
+    ) unless user_id.nil?
   end
 
   private
