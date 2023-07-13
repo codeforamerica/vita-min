@@ -16,6 +16,10 @@ module SubmissionBuilder
             document
           end
 
+          def self.state_abbreviation
+            "MI"
+          end
+
           private
 
           def documents_wrapper
