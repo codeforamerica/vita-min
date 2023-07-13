@@ -22,7 +22,7 @@ RSpec.describe IntercomService do
     allow(fake_conversation_service).to receive(:search).and_return([])
     allow(fake_intercom.conversations).to receive(:reply)
 
-    @test_environment_credentials.merge!(intercom: { intercom_access_token: "fake_access_token" })
+    @test_environment_credentials.merge!(intercom: { intercom_access_token: "fake_access_token", secure_mode_secret_key: "a-fake-key-to-use-for-hashing" })
     allow(Intercom::Client).to receive(:new).with(token: "fake_access_token").and_return(fake_intercom)
     described_class.instance_variable_set(:@intercom, nil)
   end
@@ -289,6 +289,16 @@ RSpec.describe IntercomService do
 
         expect(DatadogApi).to have_received(:increment).with("intercom.api.authentication_failure_retry").exactly(3).times
       end
+    end
+  end
+
+  describe ".generate_user_hash" do
+    it "generates a hash for a user ID" do
+      expect(described_class.generate_user_hash("a-id-for-testing")).not_to be_nil
+    end
+
+    it "does nothing if no ID is provided" do
+      expect(described_class.generate_user_hash(nil)).to be_nil
     end
   end
 end

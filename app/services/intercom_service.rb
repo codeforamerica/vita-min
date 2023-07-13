@@ -40,10 +40,12 @@ class IntercomService
   end
 
   def self.generate_user_hash(user_id)
+    cred = EnvironmentCredentials.dig(:intercom, :secure_mode_secret_key)
+
     OpenSSL::HMAC.hexdigest(
       'sha256',
-      EnvironmentCredentials.dig(:intercom, :secure_mode_secret_key),
-      user_id
+      cred,
+      user_id.to_s
     ) unless user_id.nil?
   end
 

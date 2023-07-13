@@ -5,7 +5,7 @@
 
 <script>
   const isHub = <%= isHub.to_json %>;
-  const isClient = <%= current_client.present? %>
+  const isClient = <%= current_client.present? %>;
   // https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects#section-data-attributes
   let intercomSettings = {
       app_id: "<%= Rails.configuration.intercom_app_id %>",
