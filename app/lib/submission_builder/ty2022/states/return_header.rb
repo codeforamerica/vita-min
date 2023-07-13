@@ -21,7 +21,7 @@ module SubmissionBuilder
                 xml.Signature 'Practitioner'
               end
             end
-            xml.ReturnType 'MI1040'
+            xml.ReturnType "#{@submission.state_abbreviation}1040"
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do
@@ -33,7 +33,7 @@ module SubmissionBuilder
               xml.USAddress do |xml|
                 xml.AddressLine1Txt '123 cool st'
                 xml.CityNm 'cool city'
-                xml.StateAbbreviationCd 'IL'
+                xml.StateAbbreviationCd @submission.state_abbreviation
                 xml.ZIPCd 60007
               end
             end

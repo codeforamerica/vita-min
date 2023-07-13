@@ -1,10 +1,11 @@
 module TemporaryNonsense
   class FakeSubmission
-    def self.sample_submission(bundle_class:)
+    def self.sample_submission(bundle_class:, state_abbreviation:)
       OpenStruct.new(
         submission_bundle: nil,
         manifest_class: SubmissionBuilder::StateManifest,
         bundle_class: bundle_class,
+        state_abbreviation: state_abbreviation,
         irs_submission_id: '4414662023103zvnoell',
         tax_return: OpenStruct.new(
           year: 2022

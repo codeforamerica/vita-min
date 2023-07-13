@@ -15,7 +15,7 @@ module SubmissionBuilder
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr tax_return.year
         xml.GovernmentCd "IRS"
-        xml.StateSubmissionTyp "IL-1040"
+        xml.StateSubmissionTyp "#{@submission.state_abbreviation}-1040"
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN intake.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(intake.primary.last_name)
