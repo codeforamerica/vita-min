@@ -1,18 +1,22 @@
 module TemporaryNonsense
   class FakeSubmission
     def self.sample_submission(bundle_class:)
-      OpenStruct.new(
+      fake_submission = OpenStruct.new(
         submission_bundle: nil,
         manifest_class: SubmissionBuilder::StateManifest,
         bundle_class: bundle_class,
         irs_submission_id: '4414662023103zvnoell',
         tax_return: OpenStruct.new(
-          year: 2022
+          year: 2022,
+          filing_status: "single",
         ),
         intake: OpenStruct.new(
+          street_address: "1 French Fry Way",
+          city: "Albany",
           primary: OpenStruct.new(
             ssn: '555002222',
-            last_name: 'Testuser'
+            first_name: "Ronald",
+            last_name: "McDonald",
           ),
           completed_w2s: [
             OpenStruct.new(
@@ -59,6 +63,19 @@ module TemporaryNonsense
           ]
         )
       )
+      if bundle_class == SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
+        fake_submission.intake.school_district = "22334"
+        fake_submission.intake.resident =  true
+        fake_submission.intake.agi =  "4200"
+        fake_submission.intake.income_tax =  "42"
+        fake_submission.intake.state_use_tax =  "24"
+      end
+      if bundle_class == SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+        fake_submission.intake.tp_id = "123456789"
+        fake_submission.intake.liability_period_begin_date = "2023-04-17"
+        fake_submission.intake.liability_period_end_date = "2023-04-19"
+      end
+      return fake_submission
     end
   end
 end

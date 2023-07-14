@@ -24,16 +24,20 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("efile:Form1040") do |xml|
-              xml.SchoolDistrict "12345"
-              xml.FilingStatus do
-                xml.Single "X"
+              xml.SchoolDistrict @submission.intake.school_district
+              if @submission.tax_return.filing_status == "single"
+                xml.FilingStatus do
+                  xml.Single "X"
+                end
               end
-              xml.Residency do
-                xml.Resident "X"
+              if @submission.intake.resident == true
+                xml.Residency do
+                  xml.Resident "X"
+                end
               end
-              xml.AdjustedGrossIncome "20000"
-              xml.IncomeTax "200"
-              xml.StateUseTax "300"
+              xml.AdjustedGrossIncome @submission.intake.agi
+              xml.IncomeTax @submission.intake.income_tax
+              xml.StateUseTax @submission.intake.state_use_tax
             end
 
             xml_doc.at('*')
