@@ -19,6 +19,11 @@ class ApplicationJob < ActiveJob::Base
     super.merge("job_object_id" => job_object_id)
   end
 
+  def priority
+    # Every job should define its priority
+    raise NotImplementedError
+  end
+
   def low_priority
     10
   end

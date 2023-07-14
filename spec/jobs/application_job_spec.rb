@@ -21,4 +21,8 @@ describe ApplicationJob do
     expect(delayed_job.job_class).to eq(SampleJobClass.to_s)
     expect(delayed_job.job_object_id).to eq(123)
   end
+
+  it 'requires priority to be specified' do
+    expect { SampleJobClass.priority }.to_raise NotImplementedError
+  end
 end
