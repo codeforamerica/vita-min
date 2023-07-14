@@ -1,0 +1,22 @@
+<% content_for :back_to, "faq_categories" %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render 'header', category: @faq_category %>
+    <hr/>
+
+    <h4 class="spacing-below-5">Position</h4>
+    <%= @faq_category.position.present? ? @faq_category.position : "N/A"%>
+
+    <h4 class="spacing-below-5">Name (English)</h4>
+    <%= @faq_category.name_en.present? ? @faq_category.name_en : "N/A"%>
+
+    <h4 class="spacing-below-5">Name (English)</h4>
+    <%= @faq_category.name_es.present? ? @faq_category.name_es : "N/A"%>
+
+    <h4 class="spacing-below-5">Slug</h4>
+    <%= @faq_category.slug.present? ? @faq_category.slug : "N/A"%>
+
+    <h4 class="spacing-below-5">FAQ Items</h4>
+    <%= render 'hub/faq_categories/faq_items_table', category: @faq_category %>
+  </div>
+<% end %>
