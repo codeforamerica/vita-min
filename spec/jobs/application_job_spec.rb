@@ -6,6 +6,16 @@ describe ApplicationJob do
       def perform(object_id)
         return true
       end
+
+      def priority
+        :default
+      end
+    end
+
+    SampleNoPriorityClass = Class.new(ApplicationJob) do
+      def perform(object_id)
+        return true
+      end
     end
   end
 
@@ -23,6 +33,6 @@ describe ApplicationJob do
   end
 
   it 'requires priority to be specified' do
-    expect { SampleJobClass.priority }.to_raise NotImplementedError
+    expect { SampleNoPriorityClass.perform_later(102) }.to raise_exception(NotImplementedError)
   end
 end
