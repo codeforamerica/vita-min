@@ -1,0 +1,53 @@
+<table class="index-table faq-table">
+  <thead class="index-table__head">
+  <tr class="index-table__row">
+    <th scope="col" class="index-table__header">
+      Position
+    </th>
+    <!--                <th scope="col" width="100" class="index-table__header index-table__header">-->
+    <!--                  Question (en)-->
+    <!--                </th>-->
+    <!--                <th scope="col" width="100" class="index-table__header index-table__header">-->
+    <!--                  Question (es)-->
+    <!--                </th>-->
+    <!--                <th scope="col" width="400" class="index-table__header index-table__header">-->
+    <!--                  Answer (en)-->
+    <!--                </th>-->
+    <!--                <th scope="col" width="400" class="index-table__header index-table__header">-->
+    <!--                  Answer (es)-->
+    <!--                </th>-->
+    <th scope="col" class="index-table__header">
+      Slug
+    </th>
+    <th scope="col" class="index-table__header"></th>
+  </tr>
+  </thead>
+  <tbody class="index-table__body submission-table">
+
+  <% category.faq_items.each do |item| %>
+    <tr class="index-table__row">
+      <td class="index-table__cell ">
+        <%= item.position %>
+      </td>
+      <!--                  <td class="index-table__cell index-table__cell">-->
+      <%#= item.question_en %>
+      <!--                  </td>-->
+      <!--                  <td class="index-table__cell index-table__cell">-->
+      <%#= item.question_es %>
+      <!--                  </td>-->
+      <!--                  <td class="index-table__cell index-table__cell">-->
+      <%#= item.answer_en %>
+      <!--                  </td>-->
+      <!--                  <td class="index-table__cell index-table__cell">-->
+      <%#= item.answer_es %>
+      <!--                  </td>-->
+      <td class="index-table__cell">
+        <%= item.slug %>
+      </td>
+      <td class="index-table__cell">
+        <%= link_to "Edit", edit_hub_faq_item_path(id: item.id), class: "underline, link--faq" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

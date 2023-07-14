@@ -1,15 +1,15 @@
-.faq-table {
-  .link--faq {
-    color: $color-link-default;
+.link--faq {
+  color: $color-link-default;
 
-    &:hover {
-      color: $color-purple;
-    }
-    &:visited {
-      color: $color-link-default;
-    }
-    &:active {
-      color: $color-link-active;
-    }
+  &:hover {
+    color: $color-purple;
+  }
+
+  &:visited {
+    color: $color-link-default;
+  }
+
+  &:active {
+    color: $color-link-active;
   }
 }

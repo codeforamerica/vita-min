@@ -1,0 +1,10 @@
+<h1 class="h2"><%= link_to("FAQ Categories", hub_faq_categories_path) + " < " + link_to(item.faq_category.slug, hub_faq_category_path(id: item.faq_category)) + " < #{item.slug} (##{item.id})" %></h1>
+<div class="grid">
+  <div class="grid__item width-one-foruth">
+    <%= link_to t("general.delete"), hub_faq_item_path(id: item),
+                method: :delete, class: "button button--danger spacing-below-0",
+                data: { confirm: "Are you sure you want to delete this FAQ item?" }
+    %>
+  </div>
+</div>
+

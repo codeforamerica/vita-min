@@ -1,0 +1,51 @@
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <h1 class="h2">Frequently Asked Questions</h1>
+    <div class="header grid">
+      <!--      <div role="group" class="button-bar">-->
+      <!--        <button class="button" id="toggle-sites" style="width: 150px" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">-->
+      <!--          Collapse-->
+      <!--          FAQ Items-->
+      <!--        </button>-->
+      <!--      </div>-->
+      <div class="grid__item width-one-third">
+        <%= link_to "Add new FAQ Category", new_hub_faq_category_path, method: :get, class: "button spacing-below-0" %>
+      </div>
+    </div>
+    <hr/>
+    <% @faq_categories.each do |category| %>
+      <div class="spacing-below-60">
+        <h2 class="spacing-below-10"><%= category.name_en %></h2>
+        <div class="grid">
+          <div class="grid__item width-one-third">
+            <div class="field-display">
+              <span class="form-question">Position:</span>
+              <span class="label-value"><%= category.position || t("general.NA") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">Slug:</span>
+              <span class="label-value"><%= category.slug || t("general.NA") %></span>
+            </div>
+          </div>
+          <div class="grid__item width-one-third">
+            <div class="field-display">
+              <span class="form-question">Name (English):</span>
+              <span class="label-value"><%= category.name_en || t("general.NA") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">Name (Spanish):</span>
+              <span class="label-value"><%= category.name_es || t("general.NA") %></span>
+            </div>
+          </div>
+          <div class="grid__item width-one-third">
+            <%= link_to "Edit", edit_hub_faq_category_path(id: category.id), class: "link--faq" %>
+          </div>
+        </div>
+        <div class="field-display">
+          <span class="form-question">FAQ Items:</span>
+          <%= render 'faq_items_table', category: category %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

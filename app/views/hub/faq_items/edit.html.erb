@@ -1,0 +1,48 @@
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render 'header', item: @faq_item %>
+    <hr/>
+    <%= form_with model: @faq_item, method: :put, local: true, url: hub_faq_item_path, builder: VitaMinFormBuilder do |f| %>
+      <!--      add validation for number-->
+      <div class="spacing-above-25">
+        <%= f.label :position, "Position", class: "h4" %>
+        <%= f.cfa_input_field :position, "", classes: ["form-width--long"] %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :question_en, "Question (English)", class: "h4" %>
+        <%= f.rich_text_area :question_en %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :question_es, "Question (Spanish)", class: "h4" %>
+        <%= f.rich_text_area :question_es %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :answer_en, "Answer (English)", class: "h4" %>
+        <%= f.rich_text_area :answer_en %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :answer_es, "Answer (Spanish)", class: "h4" %>
+        <%= f.rich_text_area :answer_es %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :slug, "Slug", class: "h4" %>
+        <%= f.cfa_input_field :slug, "", classes: ["form-width--long"] %>
+      </div>
+
+      <div class="spacing-above-25">
+        <%= f.label :faq_category_id, "Faq Category", class: "h4" %>
+        <%= f.cfa_select(:faq_category_id, "", FaqCategory.all, include_blank: false) %>
+      </div>
+
+      <div class="spacing-above-35">
+        <%= f.submit t("general.save"), class: 'button button--primary' %>
+        <%= link_to t("general.cancel"), hub_faq_item_path(id: @faq_item.id), class: 'button' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

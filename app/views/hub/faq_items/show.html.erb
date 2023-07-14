@@ -1,0 +1,30 @@
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render 'header', item: @faq_item %>
+    <hr/>
+    <h4 class="spacing-below-5">Position</h4>
+    <%= @faq_item.position.present? ? @faq_item.position : "N/A"%>
+
+    <h4 class="spacing-below-5">Question (English)</h4>
+    <%= @faq_item.question_en.present? ? @faq_item.question_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Question (Spanish)</h4>
+    <%= @faq_item.question_es.present? ? @faq_item.question_es : "N/A"%>
+
+    <h4 class="spacing-below-5">Answer (English)</h4>
+    <%= @faq_item.answer_en.present? ? @faq_item.answer_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Answer (Spanish)</h4>
+    <%= @faq_item.answer_es.present? ? @faq_item.answer_es : "N/A"%>
+
+    <h4 class="spacing-below-5">Slug</h4>
+    <%= @faq_item.slug.present? ? @faq_item.slug : "N/A"%>
+
+    <h4 class="spacing-below-5">FAQ Category</h4>
+    <%= link_to @faq_item.faq_category.name_en, hub_faq_category_path(id: @faq_item.faq_category) %>
+
+    <div class="spacing-above-35">
+      <%= link_to t("general.edit"), edit_hub_faq_item_path(id: @faq_item.id), class: "button button--primary" %>
+    </div>
+  </div>
+<% end %>

@@ -222,6 +222,9 @@ Rails.application.routes.draw do
           patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
         end
 
+        resources :faq_categories, path: "faq"
+        resources :faq_items
+
         resources :assigned_clients, path: "assigned", only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
