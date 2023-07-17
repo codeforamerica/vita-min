@@ -3,14 +3,19 @@ require 'zip'
 namespace :setup do
   desc "Download and/or unpack some dependencies for vita-min"
 
-  EFILE_SCHEMAS_FILENAMES = %w[efile1040x_2020v5.1.zip efile1040x_2021v5.2.zip].freeze
+  EFILE_SCHEMAS_FILENAMES = [
+    ["efile1040x_2020v5.1.zip", "irs"],
+    ["efile1040x_2021v5.2.zip", "irs"],
+    ["MIInd2022V1.0.zip", "us_states"],
+    ["NYSIndividual2022V5.0.zip", "us_states"],
+  ].freeze
 
   # These Rake tasks download IRS e-file schemas from S3.
   # We avoid storing them in the repo because the IRS asked us nicely to
   # try to limit distribution.
   task download_efile_schemas: :environment do |_task|
-    EFILE_SCHEMAS_FILENAMES.each do |filename|
-      download_path = Rails.root.join('vendor', 'irs', filename)
+    EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
+      download_path = Rails.root.join('vendor', download_folder, filename)
       # If the file already exists, do not re-download.
       next if File.exist?(download_path)
 
@@ -35,16 +40,17 @@ namespace :setup do
   end
 
   task unzip_efile_schemas: :environment do |_task|
-    unpack_path = Rails.root.join('vendor', 'irs', 'unpacked')
-    FileUtils.rm_rf(unpack_path)
-    FileUtils.mkdir_p(unpack_path)
+    [Rails.root.join('vendor', 'irs', 'unpacked'), Rails.root.join('vendor', 'us_states', 'unpacked')].each do |unpack_path|
+      FileUtils.rm_rf(unpack_path)
+      FileUtils.mkdir_p(unpack_path)
+    end
 
-    EFILE_SCHEMAS_FILENAMES.each do |filename|
-      download_path = Rails.root.join('vendor', 'irs', filename)
-      raise StandardError.new("Download #{filename} and place it in vendor/irs/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exist?(download_path)
+    EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
+      download_path = Rails.root.join('vendor', download_folder, filename)
+      raise StandardError.new("Download #{filename} and place it in vendor/#{download_folder}/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exist?(download_path)
 
       Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
-        Dir.chdir(unpack_path) do
+        Dir.chdir(Rails.root.join('vendor', download_folder, 'unpacked')) do
           zip_file.each do |entry|
             raise StandardError.new("Unsafe filename; exiting") unless entry.name_safe?
 
