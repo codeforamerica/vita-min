@@ -1,12 +1,4 @@
 class SubmissionBundle
-  def self.ny_sample
-    new(TemporaryNonsense::FakeSubmission.sample_submission(bundle_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn))
-  end
-
-  def self.mi_sample
-    new(TemporaryNonsense::FakeSubmission.sample_submission(bundle_class: SubmissionBuilder::Ty2022::States::Mi::IndividualReturn))
-  end
-
   def initialize(submission)
     @submission = submission
   end

@@ -27,8 +27,8 @@ module SubmissionBuilder
               xml.filingKeys do
                 xml.SOURCE_CD ""
                 xml.EXT_TP_ID @submission.intake.tp_id
-                xml.LIAB_PRD_BEG_DT @submission.intake.liability_period_begin_date
-                xml.LIAB_PRD_END_DT @submission.intake.liability_period_end_date
+                xml.LIAB_PRD_BEG_DT Date.new(@submission.tax_return.year).beginning_of_year
+                xml.LIAB_PRD_END_DT Date.new(@submission.tax_return.year).end_of_year
                 xml.TAX_YEAR @submission.tax_return.year
               end
 

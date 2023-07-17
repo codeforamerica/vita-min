@@ -72,8 +72,6 @@ module TemporaryNonsense
       end
       if bundle_class == SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
         fake_submission.intake.tp_id = "123456789"
-        fake_submission.intake.liability_period_begin_date = "2023-04-17"
-        fake_submission.intake.liability_period_end_date = "2023-04-19"
       end
       return fake_submission
     end

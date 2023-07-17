@@ -69,4 +69,24 @@ describe SubmissionBundle do
       end
     end
   end
+
+  describe "state filing" do
+    it "can bundle a minimal NY return" do
+      submission_bundle = described_class.new(
+        TemporaryNonsense::FakeSubmission.sample_submission(
+          bundle_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+        )
+      )
+      submission_bundle.build
+    end
+
+    it "can bundle a minimal MI return" do
+      submission_bundle = described_class.new(
+        TemporaryNonsense::FakeSubmission.sample_submission(
+          bundle_class: SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
+        )
+      )
+      submission_bundle.build
+    end
+  end
 end
