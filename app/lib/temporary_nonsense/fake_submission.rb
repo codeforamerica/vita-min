@@ -6,6 +6,7 @@ module TemporaryNonsense
         manifest_class: SubmissionBuilder::StateManifest,
         bundle_class: bundle_class,
         irs_submission_id: '4414662023103zvnoell',
+        created_at: DateTime.now,
         tax_return: OpenStruct.new(
           year: 2022,
           filing_status: "single",
@@ -13,8 +14,10 @@ module TemporaryNonsense
         intake: OpenStruct.new(
           street_address: "1 French Fry Way",
           city: "Albany",
+          zip_code: "12084",
           primary: OpenStruct.new(
             ssn: '555002222',
+            birth_date: 38.years.ago,
             first_name: "Ronald",
             last_name: "McDonald",
           ),

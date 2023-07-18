@@ -6,6 +6,7 @@ module SubmissionBuilder
         include SubmissionBuilder::BusinessLogicMethods
 
         def document
+          # TODO: all these are dummy values, fix up when we get access to state test environments
           build_xml_doc("efile:AuthenticationHeader") do |xml|
             xml.FilingLicenseTypeCd 'P' # or I or the other one
             xml.FinancialResolution do

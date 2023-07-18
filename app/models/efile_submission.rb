@@ -161,7 +161,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    SubmissionBuilder::Manifest
+    SubmissionBuilder::FederalManifest
   end
 
   def bundle_class

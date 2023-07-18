@@ -20,6 +20,10 @@ module SubmissionBuilder
             "NY"
           end
 
+          def self.return_type
+            "IT-201"
+          end
+
           private
 
           def documents_wrapper
@@ -33,10 +37,10 @@ module SubmissionBuilder
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME "Ronald"
-                xml.LAST_NAME "McDonald"
-                xml.MAIL_LN_2_ADR "1 French Fry Way"
-                xml.MAIL_CITY_ADR "Albany"
+                xml.FIRST_NAME @submission.intake.primary.first_name
+                xml.LAST_NAME @submission.intake.primary.last_name
+                xml.MAIL_LN_2_ADR @submission.intake.street_address
+                xml.MAIL_CITY_ADR @submission.intake.city
               end
 
               xml.composition do

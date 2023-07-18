@@ -11,9 +11,9 @@ describe SubmissionBundle do
       primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
     )
     submission_2021.intake.update(
-        primary_signature_pin: "12345",
-        primary_signature_pin_at: DateTime.new(2022, 4, 20, 16, 20),
-        )
+      primary_signature_pin: "12345",
+      primary_signature_pin_at: DateTime.new(2022, 4, 20, 16, 20),
+    )
   end
 
   around do |example|
@@ -40,7 +40,7 @@ describe SubmissionBundle do
       let(:submission_builder_double) { double(SubmissionBuilder::Response) }
       let(:errors) { ['error', 'error'] }
       before do
-        allow(SubmissionBuilder::Manifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil)
+        allow(SubmissionBuilder::FederalManifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil)
       end
 
       it "returns errors from the SubmissionBuilder::Response" do
@@ -77,7 +77,7 @@ describe SubmissionBundle do
           bundle_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
         )
       )
-      submission_bundle.build
+      expect(submission_bundle.build.errors).to eq([])
     end
 
     it "can bundle a minimal MI return" do
@@ -86,7 +86,7 @@ describe SubmissionBundle do
           bundle_class: SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
         )
       )
-      submission_bundle.build
+      expect(submission_bundle.build.errors).to eq([])
     end
   end
 end

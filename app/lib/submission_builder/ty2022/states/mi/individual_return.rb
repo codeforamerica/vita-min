@@ -20,6 +20,10 @@ module SubmissionBuilder
             "MI"
           end
 
+          def self.return_type
+            "MI1040"
+          end
+
           private
 
           def documents_wrapper

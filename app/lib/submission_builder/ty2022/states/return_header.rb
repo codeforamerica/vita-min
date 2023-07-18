@@ -7,34 +7,28 @@ module SubmissionBuilder
 
         def document
           build_xml_doc("efile:ReturnHeaderState") do |xml|
-            xml.Jurisdiction "WIST"
-            xml.ReturnTs '2023-10-10T12:00:00-05:00'
-            xml.TaxYr '2022'
+            xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST"
+            xml.ReturnTs datetime_type(@submission.created_at)
+            xml.TaxYr @submission.tax_return.year
             xml.OriginatorGrp do
-              xml.EFIN "123456"
+              xml.EFIN EnvironmentCredentials.irs(:efin)
               xml.OriginatorTypeCd "OnlineFiler"
             end
-            xml.SoftwareId "microcompu"
-            xml.SoftwareVersionNum "22"
-            xml.SignatureOption do
-              xml.SignaturePIN do
-                xml.Signature 'Practitioner'
-              end
-            end
-            xml.ReturnType "#{@submission.bundle_class.state_abbreviation}1040"
+            xml.SoftwareId EnvironmentCredentials.irs(:sin)
+            xml.ReturnType "#{@submission.bundle_class.return_type}"
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do
-                  xml.FirstName "Jeff"
-                  xml.LastName "Jeep"
+                  xml.FirstName @submission.intake.primary.first_name
+                  xml.LastName @submission.intake.primary.last_name
                 end
-                xml.TaxpayerSSN "555002222"
+                xml.TaxpayerSSN @submission.intake.primary.ssn
               end
               xml.USAddress do |xml|
-                xml.AddressLine1Txt '123 cool st'
-                xml.CityNm 'cool city'
+                xml.AddressLine1Txt @submission.intake.street_address
+                xml.CityNm @submission.intake.city
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
-                xml.ZIPCd 60007
+                xml.ZIPCd @submission.intake.zip_code
               end
             end
           end

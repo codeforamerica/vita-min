@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  class Manifest < SubmissionBuilder::Document
+  class FederalManifest < SubmissionBuilder::Document
     include SubmissionBuilder::FormattingMethods
 
     def schema_file
