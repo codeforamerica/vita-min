@@ -22,11 +22,13 @@ class SubmissionBundle
           zipfile.add(filename, File.join(dir, filename))
         end
       end
-      @submission.submission_bundle.attach(
-        io: File.open(archive_directory_path),
-        filename: "#{@submission.irs_submission_id}.zip",
-        content_type: 'application/zip'
-      )
+      if @submission.submission_bundle
+        @submission.submission_bundle.attach(
+          io: File.open(archive_directory_path),
+          filename: "#{@submission.irs_submission_id}.zip",
+          content_type: 'application/zip'
+        )
+      end
       SubmissionBundleResponse.new
     rescue SubmissionBundleError
       SubmissionBundleResponse.new(errors: @errors)
@@ -38,7 +40,7 @@ class SubmissionBundle
   private
 
   def manifest_content
-    response = SubmissionBuilder::Manifest.build(@submission)
+    response = @submission.manifest_class.build(@submission)
     if response.valid?
       response.document
     else

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Manifest do
+describe SubmissionBuilder::FederalManifest do
   describe ".build" do
     let(:submission) { create :efile_submission, :ctc }
     before do
