@@ -23,6 +23,7 @@
 #
 class FaqItem < ApplicationRecord
   belongs_to :faq_category
+  acts_as_list scope: :faq_category
 
   has_rich_text :answer_en
   has_rich_text :answer_es

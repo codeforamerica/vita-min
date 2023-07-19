@@ -1,16 +1,8 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <h1 class="h2">Frequently Asked Questions</h1>
-    <div class="header grid">
-      <!--      <div role="group" class="button-bar">-->
-      <!--        <button class="button" id="toggle-sites" style="width: 150px" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">-->
-      <!--          Collapse-->
-      <!--          FAQ Items-->
-      <!--        </button>-->
-      <!--      </div>-->
-      <div class="grid__item width-one-third">
+    <div class="header">
         <%= link_to "Add new FAQ Category", new_hub_faq_category_path, method: :get, class: "button spacing-below-0" %>
-      </div>
     </div>
     <hr/>
     <% @faq_categories.each do |category| %>

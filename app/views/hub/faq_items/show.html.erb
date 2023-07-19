@@ -24,7 +24,7 @@
     <%= link_to @faq_item.faq_category.name_en, hub_faq_category_path(id: @faq_item.faq_category) %>
 
     <div class="spacing-above-35">
-      <%= link_to t("general.edit"), edit_hub_faq_item_path(id: @faq_item.id), class: "button button--primary" %>
+      <%= link_to t("general.edit"), edit_hub_faq_category_faq_item_path(@faq_item.faq_category.id, @faq_item.id), class: "button button--primary" %>
     </div>
   </div>
 <% end %>

@@ -1,0 +1,42 @@
+<div class="spacing-above-15">
+  <h4 class="spacing-below-10">FAQ Category</h4>
+  <%= FaqCategory.find(params[:faq_category_id]).name_en %>
+  <%= f.hidden_field :faq_category_id, :value => params[:faq_category_id] %>
+</div>
+
+<div class="spacing-above-25 form-width--short">
+  <%= f.label :position, "Position", class: "h4" %>
+  <%= f.cfa_select(:position, "", @position_options, include_blank: false) %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.label :question_en, "Question (English)", class: "h4" %>
+  <%= f.cfa_textarea(:question_en, "") %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.label :question_es, "Question (Spanish)", class: "h4" %>
+  <%= f.cfa_textarea(:question_es, "") %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.label :answer_en, "Answer (English)", class: "h4" %>
+  <%= f.rich_text_area :answer_en %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.label :answer_es, "Answer (Spanish)", class: "h4" %>
+  <%= f.rich_text_area :answer_es %>
+</div>
+
+<% if show_slug %>
+  <div class="spacing-above-25">
+    <%= f.label :slug, "Slug", class: "h4" %>
+    <%= f.cfa_input_field :slug, "", classes: ["form-width--long"] %>
+  </div>
+<% end %>
+
+<div class="spacing-above-35">
+  <%= f.submit t("general.save"), class: 'button button--primary' %>
+  <%= link_to t("general.cancel"), cancel_path, class: 'button' %>
+</div>

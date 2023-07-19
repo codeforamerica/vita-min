@@ -1,0 +1,21 @@
+<div class="spacing-above-25 form-width--short">
+  <%= f.cfa_select(:position, "Position", @position_options, include_blank: false) %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :name_en, "Name (English)", classes: ["form-width--long"] %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :name_es, "Name (Spanish)", classes: ["form-width--long"] %>
+</div>
+<% if show_slug %>
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>
+</div>
+<% end %>
+
+<div class="spacing-above-35">
+  <%= f.submit t("general.save"), class: 'button button--primary' %>
+  <%= link_to t("general.cancel"), cancel_path, class: 'button' %>
+</div>

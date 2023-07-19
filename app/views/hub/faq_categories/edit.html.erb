@@ -4,27 +4,7 @@
     <%= render 'header', category: @faq_category %>
     <hr/>
     <%= form_with model: @faq_category, method: :put, local: true, url: hub_faq_category_path, builder: VitaMinFormBuilder do |f| %>
-<!--      add validation for number-->
-      <div class="spacing-above-25">
-        <%= f.cfa_input_field :position, "Position", classes: ["form-width--long"] %>
-      </div>
-
-      <div class="spacing-above-25">
-        <%= f.cfa_input_field :name_en, "Name (English)", classes: ["form-width--long"] %>
-      </div>
-
-      <div class="spacing-above-25">
-        <%= f.cfa_input_field :name_es, "Name (Spanish)", classes: ["form-width--long"] %>
-      </div>
-
-      <div class="spacing-above-25">
-        <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>
-      </div>
-
-      <div class="spacing-above-35">
-        <%= f.submit t("general.save"), class: 'button button--primary' %>
-        <%= link_to t("general.cancel"), hub_faq_category_path(id: @faq_category.id), class: 'button' %>
-      </div>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_category_path(id: @faq_category.id), show_slug: true %>
     <% end %>
   </div>
 <% end %>

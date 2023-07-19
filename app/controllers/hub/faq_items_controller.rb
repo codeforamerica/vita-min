@@ -6,7 +6,10 @@ module Hub
     load_and_authorize_resource
     layout "hub"
 
-    def new; end
+    def new
+      faq_items = FaqCategory.find(params[:faq_category_id]).faq_items
+      @position_options = faq_items ? (1..(faq_items.count+1)).to_a : [1]
+    end
 
     def create
       @faq_item = FaqItem.new(faq_item_params)
@@ -20,7 +23,9 @@ module Hub
       end
     end
 
-    def edit; end
+    def edit
+      @position_options = FaqCategory.find(params[:faq_category_id]).faq_items.pluck(:position)
+    end
 
     def update
       if @faq_item.update(faq_item_params)
@@ -34,14 +39,22 @@ module Hub
 
     def show; end
 
+    def destroy
+      begin
+        ActiveRecord::Base.transaction do
+          @faq_item.destroy!
+        end
+        flash[:notice] = "Deleted '#{@faq_item.slug}'"
+      rescue ActiveRecord::InvalidForeignKey
+        flash[:error] = "Unable to delete '#{@faq_item.slug}'"
+      end
+      redirect_to hub_faq_categories_path
+    end
+
     private
 
     def faq_item_params
       params.require(:faq_item).permit(:answer_en, :answer_es, :position, :question_en, :question_es, :slug, :faq_category_id)
-    end
-
-    def category_name_pairs
-      @category_name_pairs ||= FaqCategory.all.map{ |cat| [cat.name_en, cat.id] }
     end
   end
 end

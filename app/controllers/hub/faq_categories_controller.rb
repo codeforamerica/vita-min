@@ -6,16 +6,23 @@ module Hub
     load_and_authorize_resource
     layout "hub"
 
-    def index; end
+    def index
+      @faq_categories = @faq_categories.order(position: :asc)
+    end
 
-    def edit; end
+    def edit
+      @position_options = (1..FaqCategory.all.count).to_a
+    end
 
     def show; end
 
-    def new; end
+    def new
+      @position_options = (1..(FaqCategory.all.count + 1)).to_a
+    end
 
     def create
-      @faq_category = FaqCategory.new(faq_category_params)
+      slug = faq_category_params[:name_en].parameterize(separator: '_')
+      @faq_category = FaqCategory.new(faq_category_params.merge(slug: slug))
 
       if @faq_category.save
         flash_message = "Successfully created '#{@faq_category.name_en}' category"
@@ -40,7 +47,7 @@ module Hub
       begin
         ActiveRecord::Base.transaction do
           # if faq_items deletion fails, don't destroy their faq_category
-          # @faq_category.faq_items.map(&:delete)
+          @faq_category.faq_items.map(&:destroy)
           @faq_category.destroy!
         end
         flash_message = "Deleted '#{@faq_category.name_en}' category and associated items"
