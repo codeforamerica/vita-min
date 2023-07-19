@@ -12,7 +12,8 @@ module Hub
     end
 
     def create
-      @faq_item = FaqItem.new(faq_item_params)
+      slug = faq_item_params[:question_en].parameterize(separator: '_')
+      @faq_item = FaqItem.new(faq_item_params.merge(slug: slug))
 
       if @faq_item.save
         flash_message = "Successfully created '#{@faq_item.question_en}'"
