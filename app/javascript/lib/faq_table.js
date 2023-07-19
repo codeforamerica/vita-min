@@ -1,1 +1,0 @@
-//add collapsing table js? like hub/metrics page
