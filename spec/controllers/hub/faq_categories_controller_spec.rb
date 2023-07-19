@@ -8,7 +8,7 @@ describe Hub::FaqCategoriesController do
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category_2, slug: "there_there" }
 
   describe "#index" do
-    it_behaves_like :an_action_for_admins_only , action: :index, method: :get
+    it_behaves_like :an_action_for_admins_only, action: :index, method: :get
 
     before do
       sign_in user
@@ -24,7 +24,7 @@ describe Hub::FaqCategoriesController do
   describe "#edit" do
     let(:params) { { id: faq_category.id } }
 
-    it_behaves_like :an_action_for_admins_only , action: :edit, method: :get
+    it_behaves_like :an_action_for_admins_only, action: :edit, method: :get
     context "as an authenticated user" do
       before do
         sign_in user
@@ -33,6 +33,7 @@ describe Hub::FaqCategoriesController do
       it "renders edit" do
         get :edit, params: params
         expect(assigns(:faq_category)).to eq faq_category
+        expect(assigns(:position_options)).to eq [1, 2]
         expect(response).to render_template :edit
       end
     end
@@ -51,8 +52,6 @@ describe Hub::FaqCategoriesController do
         }
       }
     end
-    # need to test that it makes a slug if there is not one
-    # need to test that it can insert it in the right place
     it_behaves_like :an_action_for_admins_only, action: :update, method: :put
 
     context "as an authenticated user" do
@@ -89,6 +88,22 @@ describe Hub::FaqCategoriesController do
     end
   end
 
+  describe "#new" do
+
+    it_behaves_like :an_action_for_admins_only, action: :new, method: :get
+    context "as an authenticated user" do
+      before do
+        sign_in user
+      end
+
+      it "renders edit" do
+        get :new
+        expect(assigns(:position_options)).to eq [1, 2, 3]
+        expect(response).to render_template :new
+      end
+    end
+  end
+
   describe "#create" do
     let(:params) do
       {
@@ -121,4 +136,34 @@ describe Hub::FaqCategoriesController do
     end
   end
 
+  describe "#destroy" do
+    let(:params) do
+      { id: faq_category.id }
+    end
+    it_behaves_like :an_action_for_admins_only, action: :destroy, method: :delete
+
+    context "as an authenticated user" do
+      before do
+        sign_in user
+      end
+
+      it "deletes the faq category and all the associated faq items" do
+        expect do
+          delete :destroy, params: params
+        end.to change(FaqCategory, :count).by -1
+
+        expect(response).to redirect_to hub_faq_categories_path
+        expect(flash[:notice]).to eq "Deleted 'MyString' category and associated items"
+
+        expect do
+          faq_category.reload
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "shifts the positions after it" do
+        delete :destroy, params: params
+        expect(faq_category_2.reload.position).to eq 1
+      end
+    end
+  end
 end
