@@ -7,9 +7,10 @@
     %>
   </div>
   <div class="grid__item width-one-fourth">
-    <button class="button">
-      Add new FAQ item
-    </button>
+    <%= link_to "Edit", edit_hub_faq_category_path(id: category.id), class: "button button--primary" %>
+  </div>
+  <div class="grid__item width-one-fourth">
+    <%= link_to "Add new FAQ Item", new_hub_faq_category_faq_item_path(category.id), class: "button" %>
   </div>
 </div>
 

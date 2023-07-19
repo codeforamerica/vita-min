@@ -34,7 +34,12 @@ module Hub
     end
 
     def update
-      if @faq_category.update(faq_category_params)
+      params = if faq_category_params[:slug].present?
+                 faq_category_params
+               else
+                 faq_category_params.merge(slug: faq_category_params[:name_en].parameterize(separator: '_'))
+               end
+      if @faq_category.update(params)
         flash_message = "Successfully updated '#{@faq_category.name_en}' category"
         redirect_to hub_faq_categories_path, notice: flash_message
       else

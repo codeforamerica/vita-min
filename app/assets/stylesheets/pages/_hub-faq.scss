@@ -13,3 +13,7 @@
     color: $color-link-active;
   }
 }
+
+.break-word--field {
+  overflow-wrap: break-word;
+}

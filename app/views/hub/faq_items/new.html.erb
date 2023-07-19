@@ -2,7 +2,7 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
-    <h1 class="h2"><%= link_to("FAQ Categories", hub_faq_categories_path) + " < #{@title}" %></h1>
+    <h1 class="h2"><%= link_to("FAQ Categories", hub_faq_categories_path) + " < " + link_to(@faq_category.slug, hub_faq_category_path(id: @faq_category)) + " < #{@title}" %></h1>
     <hr/>
     <%= form_with model: @faq_item, url: { action: :create }, local: true, builder: VitaMinFormBuilder do |f| %>
       <%= render "faq_item_form", f: f, cancel_path: hub_faq_categories_path, show_slug: false %>

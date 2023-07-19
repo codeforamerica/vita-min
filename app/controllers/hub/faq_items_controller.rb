@@ -7,7 +7,8 @@ module Hub
     layout "hub"
 
     def new
-      faq_items = FaqCategory.find(params[:faq_category_id]).faq_items
+      @faq_category = FaqCategory.find(params[:faq_category_id])
+      faq_items = @faq_category.faq_items
       @position_options = faq_items ? (1..(faq_items.count+1)).to_a : [1]
     end
 
@@ -29,7 +30,13 @@ module Hub
     end
 
     def update
-      if @faq_item.update(faq_item_params)
+      params = if faq_item_params[:slug].present?
+                 faq_item_params
+               else
+                 faq_item_params.merge(slug: faq_item_params[:question_en].parameterize(separator: '_'))
+               end
+
+      if @faq_item.update(params)
         flash_message = "Successfully updated '#{@faq_item.question_en}'"
         render :show, notice: flash_message
       else
