@@ -2,10 +2,9 @@
 #
 # Table name: site_coordinator_roles
 #
-#  id              :bigint           not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  vita_partner_id :bigint
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 # Indexes
 #
@@ -18,14 +17,6 @@
 require 'rails_helper'
 
 RSpec.describe SiteCoordinatorRole, type: :model do
-  describe '#sites' do
-    it "returns the old associated site if this record hasn't been migrated to join table land" do
-      site = create(:site)
-      role = described_class.new(vita_partner_id: site.id)
-      expect(role.sites).to eq([site])
-    end
-  end
-
   describe "validations" do
     context "with a site" do
       it "is valid" do

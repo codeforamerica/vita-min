@@ -15,10 +15,8 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
 
     let!(:assigned_user) { create :user, role: create(:team_member_role, sites: [site]) }
     let!(:team_member) { create :user, role: create(:team_member_role, sites: [site]) }
-    let!(:legacy_team_member) { create :user, role: create(:team_member_role, legacy_vita_partner: site, sites: []) }
     let!(:another_team_member) { create :user, role: create(:team_member_role, sites: [second_site]) }
     let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, sites: [site]) }
-    let!(:legacy_site_coordinator) { create :user, role: create(:site_coordinator_role, legacy_vita_partner: site, sites: []) }
     let!(:org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:another_org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:inaccessible_user) { create :user }
@@ -29,8 +27,6 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
           assigned_user,
           team_member,
           site_coordinator,
-          legacy_team_member,
-          legacy_site_coordinator,
           org_lead,
           another_org_lead
         ]
@@ -46,8 +42,6 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
           another_team_member,
           team_member,
           site_coordinator,
-          legacy_team_member,
-          legacy_site_coordinator,
           org_lead,
           another_org_lead
         ]
