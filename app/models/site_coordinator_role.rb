@@ -2,10 +2,9 @@
 #
 # Table name: site_coordinator_roles
 #
-#  id              :bigint           not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  vita_partner_id :bigint
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 # Indexes
 #
@@ -16,6 +15,8 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class SiteCoordinatorRole < ApplicationRecord
+  self.ignored_columns = [:vita_partner_id]
+
   TYPE = "SiteCoordinatorRole"
 
   belongs_to :legacy_vita_partner, foreign_key: "vita_partner_id", class_name: "VitaPartner", optional: true
@@ -29,14 +30,6 @@ class SiteCoordinatorRole < ApplicationRecord
   scope :assignable_to_sites, -> (sites) {
     left_outer_joins(:sites).where(vita_partners: sites).or(where(legacy_vita_partner: sites))
   }
-
-  def sites
-    if vita_partner_id
-      [VitaPartner.find(vita_partner_id)]
-    else
-      super
-    end
-  end
 
   def served_entities
     sites
