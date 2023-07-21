@@ -6,9 +6,12 @@ class ClientLoginService
     raise ArgumentError, "Service type must be one of: #{SERVICE_TYPES.join(', ')}" unless SERVICE_TYPES.include? service_type.to_sym
 
     @service_class = service_type.to_sym == :gyr ? Intake::GyrIntake : Intake::CtcIntake
+    # needs to account for also searching for the phone/email in Archived::Intake2021 model (of type gyr intake)
   end
 
   def clients_for_token(raw_token)
+    # Probably needs to happen twice, once for service_class Intake::GyrIntake and once again for Archived::Intake2021
+
     # these might have multiple email addresses
     to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
     emails = to_addresses.map { |to| to.split(",") }.flatten(1)

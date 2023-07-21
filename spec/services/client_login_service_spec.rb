@@ -70,6 +70,30 @@ describe ClientLoginService do
         end
       end
 
+      describe "archived clients" do
+        context "with an archived client matching a TextMessageAccessToken" do
+          before do
+            create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
+            create(:archived_2021_gyr_intake, :primary_consented, client: client, sms_phone_number: "+16505551212", sms_notification_opt_in: "yes")
+          end
+
+          it "returns the client" do
+            expect(subject.clients_for_token("raw_token")).to match_array [client]
+          end
+        end
+
+        context "with an archived client matching a EmailAccessToken" do
+          before do
+            create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
+            create(:archived_2021_gyr_intake, :primary_consented, client: client, email_address: "someone@example.com")
+          end
+
+          it "returns the client" do
+            expect(subject.clients_for_token("raw_token")).to match_array [client]
+          end
+        end
+      end
+
       context "with no matching token" do
         it "returns a blank set" do
           expect(subject.clients_for_token("raw_token")).to match_array []
