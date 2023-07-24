@@ -3,7 +3,7 @@
     <%= render 'header', item: @faq_item %>
     <hr/>
     <%= form_with model: @faq_item, method: :put, local: true, url: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), builder: VitaMinFormBuilder do |f| %>
-      <%= render "faq_item_form", f: f, cancel_path: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), show_slug: true %>
+      <%= render "faq_item_form", f: f, cancel_path: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), edit_form: true %>
     <% end %>
   </div>
 <% end %>

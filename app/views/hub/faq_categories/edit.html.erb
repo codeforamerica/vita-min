@@ -4,7 +4,7 @@
     <%= render 'header', category: @faq_category %>
     <hr/>
     <%= form_with model: @faq_category, method: :put, local: true, url: hub_faq_category_path, builder: VitaMinFormBuilder do |f| %>
-      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_category_path(id: @faq_category.id), show_slug: true %>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_category_path(id: @faq_category.id), edit_form: true %>
     <% end %>
   </div>
 <% end %>

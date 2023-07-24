@@ -6,7 +6,7 @@
     <h1 class="h2"><%= link_to("FAQ Categories", hub_faq_categories_path) + " < #{@title}" %></h1>
     <hr/>
     <%= form_with model: @faq_category, url: { action: :create }, local: true, builder: VitaMinFormBuilder do |f| %>
-      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_categories_path, show_slug: false %>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_categories_path, edit_form: false %>
     <% end %>
   </div>
 <% end %>
