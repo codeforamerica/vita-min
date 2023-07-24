@@ -52,9 +52,9 @@ module Hub
         ActiveRecord::Base.transaction do
           @faq_item.destroy!
         end
-        flash[:notice] = "Deleted '#{@faq_item.slug}'"
+        flash[:notice] = "Deleted '#{@faq_item.question_en}'"
       rescue ActiveRecord::InvalidForeignKey
-        flash[:error] = "Unable to delete '#{@faq_item.slug}'"
+        flash[:error] = "Unable to delete '#{@faq_item.question_en}'"
       end
       redirect_to hub_faq_categories_path
     end

@@ -96,7 +96,7 @@ describe Hub::FaqCategoriesController do
         sign_in user
       end
 
-      it "renders edit" do
+      it "renders new" do
         get :new
         expect(assigns(:position_options)).to eq [1, 2, 3]
         expect(response).to render_template :new
