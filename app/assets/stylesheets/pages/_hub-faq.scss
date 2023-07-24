@@ -1,6 +1,31 @@
+#faq-table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+
+  #slug-header {
+    width: 35%;
+  }
+
+  #position-header {
+    width: 10%;
+  }
+
+  #question-header {
+    width: 45%;
+  }
+}
+
 #faq-table .link--faq {
   color: $color-link-default;
   text-decoration: underline;
+
+  &:hover {
+    color: $color-purple;
+  }
+  &:visited {
+    color: $color-link-default;
+  }
 }
 
 .break-word--field {

@@ -1,13 +1,13 @@
 <table class="index-table" id="faq-table">
   <thead class="index-table__head">
     <tr class="index-table__row">
-      <th scope="col" class="index-table__header">
+      <th scope="col" class="index-table__header" id="position-header">
         Position
       </th>
-      <th scope="col" class="index-table__header index-table__header">
+      <th scope="col" class="index-table__header index-table__header" id="question-header">
         Question (en)
       </th>
-      <th scope="col" class="index-table__header">
+      <th scope="col" class="index-table__header" id="slug-header">
         Slug
       </th>
       <th scope="col" class="index-table__header"></th>
@@ -23,7 +23,7 @@
       <td class="index-table__cell">
         <%= link_to item.question_en.html_safe, hub_faq_category_faq_item_path(item.faq_category.id, item.id), class: "link--faq" %>
       </td>
-      <td class="index-table__cell">
+      <td class="index-table__cell break-word--field">
         <%= item.slug %>
       </td>
       <td class="index-table__cell">
@@ -32,13 +32,5 @@
     </tr>
   <% end %>
   </tbody>
-
-  <tfoot>
-    <tr>
-      <td>
-        <%= link_to "Add new FAQ Item +", new_hub_faq_category_faq_item_path(category.id), class: "link--faq" %>
-      </td>
-    </tr>
-  </tfoot>
-
 </table>
+<span id="faq-table"><%= link_to "Add new FAQ Item +", new_hub_faq_category_faq_item_path(category.id), class: "link--faq" %></span>
