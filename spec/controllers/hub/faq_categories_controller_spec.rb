@@ -135,10 +135,12 @@ describe Hub::FaqCategoriesController do
           post :create, params: params
         end.to change(FaqCategory, :count).by 1
 
-        expect(FaqCategory.last.name_en).to eq "Third added category"
-        expect(FaqCategory.last.name_es).to eq ""
-        expect(FaqCategory.last.position).to eq 2
-        expect(FaqCategory.last.slug).to eq "third_added_category"
+        created_category = FaqCategory.reorder('').last
+
+        expect(created_category.name_en).to eq "Third added category"
+        expect(created_category.name_es).to eq ""
+        expect(created_category.position).to eq 2
+        expect(created_category.slug).to eq "third_added_category"
         expect(faq_category.position).to eq 1
         expect(faq_category_2.reload.position).to eq 3
       end
@@ -150,7 +152,7 @@ describe Hub::FaqCategoriesController do
 
         expect(PaperTrail::Version.last.event).to eq "create"
         expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
-        expect(PaperTrail::Version.last.item_id).to eq FaqCategory.last.id
+        expect(PaperTrail::Version.last.item_id).to eq FaqCategory.reorder('').last.id
         expect(PaperTrail::Version.last.item_type).to eq "FaqCategory"
       end
     end

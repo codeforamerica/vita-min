@@ -131,14 +131,16 @@ describe Hub::FaqItemsController do
           post :create, params: params
         end.to change(FaqItem, :count).by 1
 
-        expect(FaqItem.last.question_en).to eq "How will I go to the moon?"
-        expect(FaqItem.last.question_es).to eq "¿Cómo voy a ir a la luna?"
-        expect(FaqItem.last.answer_en).to be_an_instance_of ActionText::RichText
-        expect(FaqItem.last.answer_en.body.to_s).to include "<div>In a tea cup</div>"
-        expect(FaqItem.last.answer_es).to be_an_instance_of ActionText::RichText
-        expect(FaqItem.last.answer_es.body.to_s).to include "<div>En una taza de te</div>"
-        expect(FaqItem.last.position).to eq 2
-        expect(FaqItem.last.slug).to eq "how_will_i_go_to_the_moon"
+        created_item = FaqItem.reorder('').last
+
+        expect(created_item.question_en).to eq "How will I go to the moon?"
+        expect(created_item.question_es).to eq "¿Cómo voy a ir a la luna?"
+        expect(created_item.answer_en).to be_an_instance_of ActionText::RichText
+        expect(created_item.answer_en.body.to_s).to include "<div>In a tea cup</div>"
+        expect(created_item.answer_es).to be_an_instance_of ActionText::RichText
+        expect(created_item.answer_es.body.to_s).to include "<div>En una taza de te</div>"
+        expect(created_item.position).to eq 2
+        expect(created_item.slug).to eq "how_will_i_go_to_the_moon"
         expect(faq_item.position).to eq 1
         expect(faq_item_2.reload.position).to eq 3
       end
@@ -149,7 +151,7 @@ describe Hub::FaqItemsController do
         end.to change(PaperTrail::Version, :count).by 1
 
         expect(PaperTrail::Version.last.item_type).to eq "FaqItem"
-        expect(PaperTrail::Version.last.item_id).to eq FaqItem.last.id
+        expect(PaperTrail::Version.last.item_id).to eq FaqItem.reorder('').last.id
         expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
         expect(PaperTrail::Version.last.event).to eq "create"
       end
