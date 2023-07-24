@@ -71,6 +71,15 @@ describe Hub::FaqItemsController do
         expect(faq_item_2.reload.position).to eq 1
       end
 
+      it "records a paper trail" do
+        put :update, params: params
+        faq_item.reload
+        expect(faq_item.versions.last.event).to eq "update"
+        expect(faq_item.versions.last.whodunnit).to eq user.id.to_s
+        expect(faq_item.versions.last.item_id).to eq faq_item.id
+        expect(faq_item.versions.last.item_type).to eq "FaqItem"
+      end
+
       context "slug is empty" do
         let!(:slug) { "" }
         it "updates the slug to the parameterized version of the name" do
@@ -133,6 +142,17 @@ describe Hub::FaqItemsController do
         expect(faq_item.position).to eq 1
         expect(faq_item_2.reload.position).to eq 3
       end
+
+      it "records a paper trail" do
+        expect do
+          post :create, params: params
+        end.to change(PaperTrail::Version, :count).by 1
+
+        expect(PaperTrail::Version.last.item_type).to eq "FaqItem"
+        expect(PaperTrail::Version.last.item_id).to eq FaqItem.last.id
+        expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
+        expect(PaperTrail::Version.last.event).to eq "create"
+      end
     end
   end
 
@@ -166,6 +186,17 @@ describe Hub::FaqItemsController do
       it "shifts the positions after it" do
         delete :destroy, params: params
         expect(faq_item_2.reload.position).to eq 1
+      end
+
+      it "records a paper trail" do
+        expect do
+          post :destroy, params: params
+        end.to change(PaperTrail::Version, :count).by 1
+
+        expect(PaperTrail::Version.last.event).to eq "destroy"
+        expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
+        expect(PaperTrail::Version.last.item_id).to eq faq_item.id
+        expect(PaperTrail::Version.last.item_type).to eq "FaqItem"
       end
     end
   end

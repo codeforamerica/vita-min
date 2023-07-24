@@ -76,6 +76,15 @@ describe Hub::FaqCategoriesController do
         expect(faq_category_2.reload.position).to eq 1
       end
 
+      it "records a paper trail" do
+        put :update, params: params
+        faq_category.reload
+        expect(faq_category.versions.last.event).to eq "update"
+        expect(faq_category.versions.last.whodunnit).to eq user.id.to_s
+        expect(faq_category.versions.last.item_id).to eq faq_category.id
+        expect(faq_category.versions.last.item_type).to eq "FaqCategory"
+      end
+
       context "slug is empty" do
         let!(:slug) { "" }
         it "updates the slug to the parameterized version of the name" do
@@ -133,6 +142,17 @@ describe Hub::FaqCategoriesController do
         expect(faq_category.position).to eq 1
         expect(faq_category_2.reload.position).to eq 3
       end
+
+      it "records a paper trail" do
+        expect do
+          post :create, params: params
+        end.to change(PaperTrail::Version, :count).by 1
+
+        expect(PaperTrail::Version.last.event).to eq "create"
+        expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
+        expect(PaperTrail::Version.last.item_id).to eq FaqCategory.last.id
+        expect(PaperTrail::Version.last.item_type).to eq "FaqCategory"
+      end
     end
   end
 
@@ -150,7 +170,7 @@ describe Hub::FaqCategoriesController do
       it "deletes the faq category and all the associated faq items" do
         expect do
           delete :destroy, params: params
-        end.to change(FaqCategory, :count).by -1
+        end.to change(FaqCategory, :count).by(-1).and change(FaqItem, :count).by(-1)
 
         expect(response).to redirect_to hub_faq_categories_path
         expect(flash[:notice]).to eq "Deleted 'MyString' category and associated items"
@@ -163,6 +183,17 @@ describe Hub::FaqCategoriesController do
       it "shifts the positions after it" do
         delete :destroy, params: params
         expect(faq_category_2.reload.position).to eq 1
+      end
+
+      it "records a paper trail" do
+        expect do
+          post :destroy, params: params
+        end.to change(PaperTrail::Version, :count).by 2
+
+        expect(PaperTrail::Version.last.event).to eq "destroy"
+        expect(PaperTrail::Version.last.whodunnit).to eq user.id.to_s
+        expect(PaperTrail::Version.last.item_id).to eq faq_category.id
+        expect(PaperTrail::Version.last.item_type).to eq "FaqCategory"
       end
     end
   end

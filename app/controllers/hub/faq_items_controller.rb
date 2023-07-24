@@ -3,6 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :require_admin
+    before_action :set_paper_trail_whodunnit
     load_and_authorize_resource
     layout "hub"
 

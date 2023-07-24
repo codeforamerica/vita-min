@@ -13,6 +13,7 @@
 class FaqCategory < ApplicationRecord
   has_many :faq_items, -> { order(position: :asc) }
   acts_as_list
+  has_paper_trail on: [:create, :destroy, :update]
 
   def name(locale)
     case locale
