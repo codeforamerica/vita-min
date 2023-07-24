@@ -4,18 +4,18 @@ module Hub
     before_action :require_sign_in
     before_action :require_admin
     before_action :set_paper_trail_whodunnit
+    before_action :load_faq_category, only: [:new, :edit, :create]
     load_and_authorize_resource
     layout "hub"
 
     def new
-      @faq_category = FaqCategory.find(params[:faq_category_id])
       faq_items = @faq_category.faq_items
       @position_options = faq_items ? (1..(faq_items.count+1)).to_a : [1]
     end
 
     def create
       slug = faq_item_params[:question_en].parameterize(separator: '_')
-      @faq_item = FaqItem.new(faq_item_params.merge(slug: slug))
+      @faq_item = FaqItem.new(faq_item_params.merge(slug: slug, faq_category: @faq_category))
 
       if @faq_item.save
         flash_message = "Successfully created '#{@faq_item.question_en}'"
@@ -27,7 +27,7 @@ module Hub
     end
 
     def edit
-      @position_options = FaqCategory.find(params[:faq_category_id]).faq_items.pluck(:position)
+      @position_options = @faq_category.faq_items.pluck(:position)
     end
 
     def update
@@ -64,6 +64,10 @@ module Hub
 
     def faq_item_params
       params.require(:faq_item).permit(:answer_en, :answer_es, :position, :question_en, :question_es, :slug, :faq_category_id)
+    end
+
+    def load_faq_category
+      @faq_category = FaqCategory.find(params[:faq_category_id])
     end
   end
 end

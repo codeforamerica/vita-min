@@ -7,10 +7,12 @@ describe Hub::FaqItemsController do
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category, slug: "there_there", position: 2 }
 
   describe "#edit" do
-    let(:params) { {
-      faq_category_id: faq_category.id,
-      id: faq_item.id
-    } }
+    let(:params) do
+      {
+        faq_category_id: faq_category.id,
+        id: faq_item.id
+      }
+    end
 
     it_behaves_like :an_action_for_admins_only, action: :edit, method: :get
     context "as an authenticated user" do
@@ -34,7 +36,6 @@ describe Hub::FaqItemsController do
         faq_category_id: faq_category.id,
         id: faq_item.id,
         faq_item: {
-          faq_category_id: faq_category.id,
           position: 2,
           slug: slug,
           question_en: "How will I go to the moon?",
@@ -82,8 +83,9 @@ describe Hub::FaqItemsController do
 
       context "slug is empty" do
         let!(:slug) { "" }
-        it "updates the slug to the parameterized version of the name" do
+        it "saves an auto-generated slug anyways" do
           put :update, params: params
+          expect(response).to be_ok
           faq_item.reload
           expect(faq_item.slug).to eq "how_will_i_go_to_the_moon"
         end
@@ -98,7 +100,7 @@ describe Hub::FaqItemsController do
       end
 
       it "renders new" do
-        get :new, params: {faq_category_id: faq_category.id}
+        get :new, params: { faq_category_id: faq_category.id }
         expect(assigns(:position_options)).to eq [1, 2, 3]
         expect(response).to render_template :new
       end
@@ -111,7 +113,6 @@ describe Hub::FaqItemsController do
         faq_category_id: faq_category.id,
         id: faq_item.id,
         faq_item: {
-          faq_category_id: faq_category.id,
           position: 2,
           question_en: "How will I go to the moon?",
           question_es: "¿Cómo voy a ir a la luna?",

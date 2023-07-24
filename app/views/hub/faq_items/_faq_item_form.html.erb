@@ -1,7 +1,6 @@
 <div class="spacing-above-15">
   <h4 class="spacing-below-10">FAQ Category</h4>
-  <%= FaqCategory.find(params[:faq_category_id]).name_en %>
-  <%= f.hidden_field :faq_category_id, :value => params[:faq_category_id] %>
+  <%= @faq_category.name_en %>
 </div>
 
 <div class="spacing-above-25 form-width--short">
