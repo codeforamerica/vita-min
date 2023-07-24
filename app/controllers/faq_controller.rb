@@ -2,7 +2,7 @@ class FaqController < ApplicationController
   skip_before_action :check_maintenance_mode
 
   def index
-    @faq_categories = FaqCategory.all.order(:position)
+    @faq_categories = FaqCategory.all
   end
 
   def section_index

@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe FaqController do
   render_views
 
-  let!(:faq_category) { create(:faq_category, name_en: 'Animal Questions', position: 2)}
+  let!(:faq_category) { create(:faq_category, name_en: 'Animal Questions', position: 1)}
   let!(:faq_item) do
-    create(:faq_item, faq_category: faq_category, question_en: 'How much wood could a woodchuck chuck?', position: 2)
+    create(:faq_item, faq_category: faq_category, question_en: 'How much wood could a woodchuck chuck?', position: 1)
   end
 
   describe "#index" do

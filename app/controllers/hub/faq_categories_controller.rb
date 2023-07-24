@@ -7,9 +7,7 @@ module Hub
     load_and_authorize_resource
     layout "hub"
 
-    def index
-      @faq_categories = @faq_categories.order(position: :asc)
-    end
+    def index; end
 
     def edit
       @position_options = (1..FaqCategory.all.count).to_a
