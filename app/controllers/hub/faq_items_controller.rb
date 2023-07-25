@@ -21,7 +21,7 @@ module Hub
         flash_message = "Successfully created '#{@faq_item.question_en}'"
         render :show, notice: flash_message
       else
-        flash_message = "Unable to create '#{@faq_item.question_en}', check validations"
+        flash_message = "Unable to create '#{@faq_item.question_en}'"
         render :new, error: flash_message
       end
     end
@@ -41,7 +41,7 @@ module Hub
         flash_message = "Successfully updated '#{@faq_item.question_en}'"
         render :show, notice: flash_message
       else
-        flash_message = "Unable to update '#{@faq_item.question_en}', check validations"
+        flash_message = "Unable to update '#{@faq_item.question_en}'"
         render :edit, error: flash_message
       end
     end

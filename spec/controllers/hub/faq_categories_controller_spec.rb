@@ -33,7 +33,6 @@ describe Hub::FaqCategoriesController do
       it "renders edit" do
         get :edit, params: params
         expect(assigns(:faq_category)).to eq faq_category
-        expect(assigns(:position_options)).to eq [1, 2]
         expect(response).to render_template :edit
       end
     end
@@ -44,7 +43,7 @@ describe Hub::FaqCategoriesController do
     let(:params) do
       {
         id: faq_category.id,
-        faq_category: {
+        hub_faq_category_form: {
           slug: slug,
           name_en: "when when",
           name_es: "cuando cuando",
@@ -109,7 +108,6 @@ describe Hub::FaqCategoriesController do
 
       it "renders new" do
         get :new
-        expect(assigns(:position_options)).to eq [1, 2, 3]
         expect(response).to render_template :new
       end
     end
@@ -118,7 +116,7 @@ describe Hub::FaqCategoriesController do
   describe "#create" do
     let(:params) do
       {
-        faq_category: {
+        hub_faq_category_form: {
           name_en: "Third added category",
           name_es: "",
           position: 2,

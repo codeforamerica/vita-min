@@ -10,39 +10,36 @@ module Hub
     def index; end
 
     def edit
-      @position_options = (1..FaqCategory.all.count).to_a
+      @form = form_class.from_record(@faq_category)
     end
 
     def show; end
 
     def new
-      @position_options = (1..(FaqCategory.all.count + 1)).to_a
+      @form = form_class.new(FaqCategory.new, {})
     end
 
     def create
-      slug = faq_category_params[:name_en].parameterize(separator: '_')
-      @faq_category = FaqCategory.new(faq_category_params.merge(slug: slug))
+      @form = form_class.new(@faq_category, faq_category_params)
 
-      if @faq_category.save
+      if @form.save
         flash_message = "Successfully created '#{@faq_category.name_en}' category"
         redirect_to hub_faq_categories_path, notice: flash_message
       else
-        flash_message = "Unable to create '#{@faq_category.name_en}' category, check validations"
+        flash_message = "Unable to create '#{@faq_category.name_en}' category"
+        @position_options = (1..(FaqCategory.all.count + 1)).to_a
         render :new, error: flash_message
       end
     end
 
     def update
-      params = if faq_category_params[:slug].present?
-                 faq_category_params
-               else
-                 faq_category_params.merge(slug: faq_category_params[:name_en].parameterize(separator: '_'))
-               end
-      if @faq_category.update(params)
+      @form = form_class.new(@faq_category, faq_category_params)
+
+      if @form.save
         flash_message = "Successfully updated '#{@faq_category.name_en}' category"
         redirect_to hub_faq_categories_path, notice: flash_message
       else
-        flash_message = "Unable to update '#{@faq_category.name_en}' category, check validations"
+        flash_message = "Unable to update '#{@faq_category.name_en}' category"
         render :edit, error: flash_message
       end
     end
@@ -64,8 +61,11 @@ module Hub
     private
 
     def faq_category_params
-      params.require(:faq_category).permit(:name_en, :name_es, :position, :slug)
+      params.fetch(:hub_faq_category_form, {}).permit(*form_class.attribute_names)
     end
 
+    def form_class
+      Hub::FaqCategoryForm
+    end
   end
 end
