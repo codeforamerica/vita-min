@@ -1,3 +1,5 @@
+<% @title = "Edit #{@faq_category.name_en}" %>
+<% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@faq_category.name_en} (##{@faq_category.id})"] %>

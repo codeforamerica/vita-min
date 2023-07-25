@@ -1,7 +1,8 @@
-<% content_for :back_to, "faq_categories" %>
+<% @title = @faq_category.name_en %>
+<% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25 spacing-below-60">
-    <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@faq_category.name_en} (##{@faq_category.id})"] %>
+    <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@title} (##{@faq_category.id})"] %>
     <%= render 'header', titles: titles %>
     <%= render 'header_buttons', category: @faq_category %>
     <hr/>

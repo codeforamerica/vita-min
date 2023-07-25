@@ -1,11 +1,13 @@
+<% @title = "Frequently Asked Questions" %>
+<% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
-    <%= render 'header', titles: ["Frequently Asked Questions"]%>
+    <%= render 'header', titles: [@title]%>
     <%= link_to "Add new FAQ Category", new_hub_faq_category_path, method: :get, class: "button spacing-below-0" %>
     <hr/>
     <% @faq_categories.each do |category| %>
       <div class="spacing-below-60">
-        <h2 class="spacing-below-10"><%= category.name_en %></h2>
+        <h2 class="spacing-below-10 faq-header"><%= link_to category.name_en, hub_faq_category_path(category) %></h2>
         <div class="grid">
           <div class="grid__item width-one-third">
             <div class="field-display">
