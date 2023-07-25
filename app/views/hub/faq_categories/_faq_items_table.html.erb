@@ -1,5 +1,8 @@
-<table class="index-table" id="faq-table">
-  <thead class="index-table__head">
+<% if category.faq_items.size.zero? %>
+  <p>This category has no FAQ Items.</p>
+<% else %>
+  <table class="index-table" id="faq-table">
+    <thead class="index-table__head">
     <tr class="index-table__row">
       <th scope="col" class="index-table__header" id="position-header">
         Position
@@ -12,25 +15,26 @@
       </th>
       <th scope="col" class="index-table__header"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody class="index-table__body submission-table">
-  <% category.faq_items.each do |item| %>
-    <tr class="index-table__row">
-      <td class="index-table__cell ">
-        <%= item.position %>
-      </td>
-      <td class="index-table__cell">
-        <%= link_to item.question_en.html_safe, hub_faq_category_faq_item_path(item.faq_category.id, item.id), class: "link--faq" %>
-      </td>
-      <td class="index-table__cell break-word--field">
-        <%= item.slug %>
-      </td>
-      <td class="index-table__cell">
-        <%= link_to "Edit", edit_hub_faq_category_faq_item_path(item.faq_category.id, item.id), class: "underline, link--faq" %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+    <tbody class="index-table__body submission-table">
+    <% category.faq_items.each do |item| %>
+      <tr class="index-table__row">
+        <td class="index-table__cell ">
+          <%= item.position %>
+        </td>
+        <td class="index-table__cell">
+          <%= link_to item.question_en.html_safe, hub_faq_category_faq_item_path(item.faq_category.id, item.id), class: "link--faq" %>
+        </td>
+        <td class="index-table__cell break-word--field">
+          <%= item.slug %>
+        </td>
+        <td class="index-table__cell">
+          <%= link_to "Edit", edit_hub_faq_category_faq_item_path(item.faq_category.id, item.id), class: "underline, link--faq" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
 <span id="faq-table"><%= link_to "Add new FAQ Item +", new_hub_faq_category_faq_item_path(category.id), class: "link--faq" %></span>
