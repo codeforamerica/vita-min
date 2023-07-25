@@ -1,7 +1,9 @@
 <% content_for :back_to, "faq_categories" %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25 spacing-below-60">
-    <%= render 'header', category: @faq_category %>
+    <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@faq_category.name_en} (##{@faq_category.id})"] %>
+    <%= render 'header', titles: titles %>
+    <%= render 'header_buttons', category: @faq_category %>
     <hr/>
 
     <h4 class="spacing-below-5">Position</h4>

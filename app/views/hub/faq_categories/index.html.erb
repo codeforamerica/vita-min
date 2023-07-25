@@ -1,9 +1,7 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
-    <h1 class="h2">Frequently Asked Questions</h1>
-    <div class="header">
-        <%= link_to "Add new FAQ Category", new_hub_faq_category_path, method: :get, class: "button spacing-below-0" %>
-    </div>
+    <%= render 'header', titles: ["Frequently Asked Questions"]%>
+    <%= link_to "Add new FAQ Category", new_hub_faq_category_path, method: :get, class: "button spacing-below-0" %>
     <hr/>
     <% @faq_categories.each do |category| %>
       <div class="spacing-below-60">

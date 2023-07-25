@@ -87,8 +87,10 @@ describe Hub::FaqCategoriesController do
 
       context "slug is empty" do
         let!(:slug) { "" }
-        it "updates the slug to the parameterized version of the name" do
+
+        it "saves an auto-generated response anyways" do
           put :update, params: params
+          expect(response).to be_redirect
           faq_category.reload
           expect(faq_category.slug).to eq "when_when"
         end

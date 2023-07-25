@@ -1,27 +1,40 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
-    <%= render 'header', item: @faq_item %>
+    <% titles = [
+      ["Frequently Asked Questions", hub_faq_categories_path],
+      [@faq_category.name_en, hub_faq_category_path(id: @faq_category)],
+      @faq_item.question_en + " (##{@faq_item.id})"
+    ]
+    %>
+    <%= render 'hub/faq_categories/header', titles: titles %>
+    <div id="faq-header-buttons spacing-below-0">
+      <%= link_to t("general.delete"), hub_faq_category_faq_item_path(@faq_category, @faq_item),
+                  method: :delete, class: "button button--danger spacing-below-0",
+                  data: { confirm: "Are you sure you want to delete this FAQ item?" }
+      %>
+      <%= link_to "Add new FAQ Item", new_hub_faq_category_faq_item_path(@faq_category), class: "button" %>
+    </div>
     <hr/>
     <h4 class="spacing-below-5">Position</h4>
-    <%= @faq_item.position.present? ? @faq_item.position : "N/A"%>
+    <%= @faq_item.position.present? ? @faq_item.position : "N/A" %>
 
     <h4 class="spacing-below-5">Question (English)</h4>
     <%= @faq_item.question_en.present? ? @faq_item.question_en : "N/A" %>
 
     <h4 class="spacing-below-5">Question (Spanish)</h4>
-    <%= @faq_item.question_es.present? ? @faq_item.question_es : "N/A"%>
+    <%= @faq_item.question_es.present? ? @faq_item.question_es : "N/A" %>
 
     <h4 class="spacing-below-5">Answer (English)</h4>
     <%= @faq_item.answer_en.present? ? @faq_item.answer_en : "N/A" %>
 
     <h4 class="spacing-below-5">Answer (Spanish)</h4>
-    <%= @faq_item.answer_es.present? ? @faq_item.answer_es : "N/A"%>
+    <%= @faq_item.answer_es.present? ? @faq_item.answer_es : "N/A" %>
 
     <h4 class="spacing-below-5">Slug</h4>
-    <%= @faq_item.slug.present? ? @faq_item.slug : "N/A"%>
+    <%= @faq_item.slug.present? ? @faq_item.slug : "N/A" %>
 
     <h4 class="spacing-below-5">FAQ Category</h4>
-    <%= link_to @faq_item.faq_category.name_en, hub_faq_category_path(id: @faq_item.faq_category) %>
+    <%= link_to @faq_category.name_en, hub_faq_category_path(id: @faq_category) %>
 
     <div class="spacing-above-35">
       <%= link_to t("general.edit"), edit_hub_faq_category_faq_item_path(@faq_item.faq_category.id, @faq_item.id), class: "button button--primary" %>

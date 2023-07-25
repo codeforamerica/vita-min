@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in
     before_action :require_admin
     before_action :set_paper_trail_whodunnit
-    before_action :load_faq_category, only: [:new, :edit, :create]
+    before_action :load_faq_category, only: [:new, :edit, :create, :show]
     load_and_authorize_resource
     layout "hub"
 

@@ -1,16 +1,9 @@
-<h1 class="h2"><%= link_to("FAQ Categories", hub_faq_categories_path) + " < #{category.name_en} (##{category.id})" %></h1>
-<div class="grid">
-  <div class="grid__item width-one-fourth">
-    <%= link_to t("general.delete"), hub_faq_category_path(id: category),
-                method: :delete, class: "button button--danger spacing-below-0",
-                data: { confirm: "Are you sure you want to delete this FAQ category and all its FAQ items?" }
-    %>
-  </div>
-  <div class="grid__item width-one-fourth">
-    <%= link_to "Edit", edit_hub_faq_category_path(id: category.id), class: "button button--primary" %>
-  </div>
-  <div class="grid__item width-one-fourth">
-    <%= link_to "Add new FAQ Item", new_hub_faq_category_faq_item_path(category.id), class: "button" %>
-  </div>
-</div>
-
+<h1 class="h2">
+  <% titles.each do |title| %>
+    <% if title.is_a?(Array) %>
+      <%= link_to title.first, title.last %> &gt;
+    <% else %>
+      <span><%= title %></span>
+    <% end %>
+  <% end %>
+</h1>
