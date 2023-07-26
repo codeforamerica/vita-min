@@ -1,8 +1,9 @@
-<% position_options = (1..(FaqCategory.all.count + 1)).to_a %>
 <div class="spacing-above-25 form-width--short">
   <% if edit_form %>
+    <% position_options = (1..(FaqCategory.all.count + 1)).to_a %>
     <%= f.cfa_select(:position, "Position", position_options, include_blank: false) %>
   <% else %>
+    <% position_options = FaqCategory.all.present? ? (1..(FaqCategory.all.count + 1)).to_a : [1] %>
     <%= f.cfa_select(:position, "Position", position_options, include_blank: false, selected: position_options.last) %>
   <% end %>
 </div>

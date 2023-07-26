@@ -4,20 +4,18 @@ module Hub
     before_action :require_sign_in
     before_action :require_admin
     before_action :set_paper_trail_whodunnit
-    before_action :load_faq_category, only: [:new, :edit, :create, :show]
+    before_action :load_faq_category
     load_and_authorize_resource
     layout "hub"
 
     def new
-      faq_items = @faq_category.faq_items
-      @position_options = faq_items ? (1..(faq_items.count+1)).to_a : [1]
+      @form = form_class.new(@faq_category, {})
     end
 
     def create
-      slug = faq_item_params[:question_en].parameterize(separator: '_')
-      @faq_item = FaqItem.new(faq_item_params.merge(slug: slug, faq_category: @faq_category))
+      @form = form_class.new(@faq_item, faq_item_params.merge(faq_category_id: @faq_category.id))
 
-      if @faq_item.save
+      if @form.save
         flash_message = "Successfully created '#{@faq_item.question_en}'"
         render :show, notice: flash_message
       else
@@ -27,17 +25,13 @@ module Hub
     end
 
     def edit
-      @position_options = @faq_category.faq_items.pluck(:position)
+      @form = form_class.from_record(@faq_item)
     end
 
     def update
-      params = if faq_item_params[:slug].present?
-                 faq_item_params
-               else
-                 faq_item_params.merge(slug: faq_item_params[:question_en].parameterize(separator: '_'))
-               end
+      @form = form_class.new(@faq_item, faq_item_params.merge(faq_category_id: @faq_category.id))
 
-      if @faq_item.update(params)
+      if @form.save
         flash_message = "Successfully updated '#{@faq_item.question_en}'"
         render :show, notice: flash_message
       else
@@ -63,11 +57,15 @@ module Hub
     private
 
     def faq_item_params
-      params.require(:faq_item).permit(:answer_en, :answer_es, :position, :question_en, :question_es, :slug, :faq_category_id)
+      params.fetch(:hub_faq_item_form, {}).permit(*form_class.attribute_names)
     end
 
     def load_faq_category
       @faq_category = FaqCategory.find(params[:faq_category_id])
+    end
+
+    def form_class
+      Hub::FaqItemForm
     end
   end
 end

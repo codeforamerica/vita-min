@@ -10,7 +10,7 @@
     %>
     <%= render 'hub/faq_categories/header', titles: titles %>
     <hr/>
-    <%= form_with model: @faq_item, url: { action: :create }, local: true, builder: VitaMinFormBuilder do |f| %>
+    <%= form_with model: @form, url: { action: :create }, local: true, builder: VitaMinFormBuilder do |f| %>
       <%= render "faq_item_form", f: f, cancel_path: hub_faq_categories_path, edit_form: false %>
     <% end %>
   </div>

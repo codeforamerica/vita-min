@@ -31,7 +31,6 @@ module Hub
       @faq_category.save
     end
 
-    #for edit
     def self.from_record(record)
       attribute_keys = Attributes.new(attribute_names).to_sym
       new(record, existing_attributes(record).slice(*attribute_keys))

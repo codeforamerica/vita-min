@@ -23,7 +23,6 @@ describe Hub::FaqItemsController do
       it "renders edit" do
         get :edit, params: params
         expect(assigns(:faq_item)).to eq faq_item
-        expect(assigns(:position_options)).to eq [1, 2]
         expect(response).to render_template :edit
       end
     end
@@ -35,7 +34,7 @@ describe Hub::FaqItemsController do
       {
         faq_category_id: faq_category.id,
         id: faq_item.id,
-        faq_item: {
+        hub_faq_item_form: {
           position: 2,
           slug: slug,
           question_en: "How will I go to the moon?",
@@ -101,7 +100,6 @@ describe Hub::FaqItemsController do
 
       it "renders new" do
         get :new, params: { faq_category_id: faq_category.id }
-        expect(assigns(:position_options)).to eq [1, 2, 3]
         expect(response).to render_template :new
       end
     end
@@ -112,7 +110,7 @@ describe Hub::FaqItemsController do
       {
         faq_category_id: faq_category.id,
         id: faq_item.id,
-        faq_item: {
+        hub_faq_item_form: {
           position: 2,
           question_en: "How will I go to the moon?",
           question_es: "¿Cómo voy a ir a la luna?",

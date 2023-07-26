@@ -14,7 +14,7 @@
                 data: { confirm: "Are you sure you want to delete this FAQ item?" }
     %>
     <hr/>
-    <%= form_with model: @faq_item, method: :put, local: true, url: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), builder: VitaMinFormBuilder do |f| %>
+    <%= form_with model: @form, method: :put, local: true, url: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), builder: VitaMinFormBuilder do |f| %>
       <%= render "faq_item_form", f: f, cancel_path: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), edit_form: true %>
     <% end %>
   </div>
