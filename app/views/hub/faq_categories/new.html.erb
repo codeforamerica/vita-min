@@ -1,0 +1,11 @@
+<% @title = "New FAQ Category" %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render 'header', titles: [["Frequently Asked Questions", hub_faq_categories_path], @title] %>
+    <hr/>
+    <%= form_with model: @form, url: { action: :create }, local: true, builder: VitaMinFormBuilder do |f| %>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_categories_path, edit_form: false %>
+    <% end %>
+  </div>
+<% end %>

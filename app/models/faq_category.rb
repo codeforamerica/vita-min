@@ -11,8 +11,11 @@
 #  updated_at :datetime         not null
 #
 class FaqCategory < ApplicationRecord
-  has_many :faq_items, -> { order(:position) }
-  
+  has_many :faq_items, -> { order(position: :asc) }
+  acts_as_list
+  has_paper_trail on: [:create, :destroy, :update]
+  default_scope { order(position: :asc) }
+
   def name(locale)
     case locale
     when :en

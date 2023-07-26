@@ -23,6 +23,11 @@
 #
 class FaqItem < ApplicationRecord
   belongs_to :faq_category
+  acts_as_list scope: :faq_category
+  # skip paper_trial on :touch events which will create update events for skipped attributes (in this case slug)
+  # might want to include this universally in a config/initializers/paper_trail.rb one day
+  has_paper_trail on: [:create, :destroy, :update]
+  default_scope { order(position: :asc) }
 
   has_rich_text :answer_en
   has_rich_text :answer_es

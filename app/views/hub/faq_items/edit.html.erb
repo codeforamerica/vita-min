@@ -1,0 +1,21 @@
+<% @title = "Edit #{@faq_item.question_en}" %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <% titles = [
+      ["Frequently Asked Questions", hub_faq_categories_path],
+      [@faq_category.name_en, hub_faq_category_path(id: @faq_category)],
+       @faq_item.question_en
+    ]
+    %>
+    <%= render 'hub/faq_categories/header', titles: titles %>
+    <%= link_to t("general.delete"), hub_faq_category_faq_item_path(@faq_category, @faq_item),
+                method: :delete, class: "button button--danger spacing-below-0",
+                data: { confirm: "Are you sure you want to delete this FAQ item?" }
+    %>
+    <hr/>
+    <%= form_with model: @form, method: :put, local: true, url: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), builder: VitaMinFormBuilder do |f| %>
+      <%= render "faq_item_form", f: f, cancel_path: hub_faq_category_faq_item_path(@faq_item.faq_category, @faq_item), edit_form: true %>
+    <% end %>
+  </div>
+<% end %>

@@ -6,14 +6,14 @@ describe 'creating database views' do
   end
 
   it 'runs without error' do
-    Rake::Task['analytics:drop_views'].invoke
-    Rake::Task['analytics:create_views'].invoke
+    Rake::Task['analytics:drop_views'].execute
+    Rake::Task['analytics:create_views'].execute
   end
 
   context "metabase access" do
     before(:all) do
-      Rake::Task['analytics:drop_views'].invoke
-      Rake::Task['analytics:create_views'].invoke
+      Rake::Task['analytics:drop_views'].execute
+      Rake::Task['analytics:create_views'].execute
     end
 
     context "when attempting intentional behavior" do
