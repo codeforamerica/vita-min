@@ -19,9 +19,9 @@ module Hub
     end
 
     def save
-      attributes = attributes_for(:faq_category)
-      attributes[:slug] = name_en.parameterize(separator: '_') unless attributes[:slug].present? || name_en.nil?
-      @faq_category.assign_attributes(attributes)
+      attrs = attributes_for(:faq_category)
+      attrs[:slug] = generate_slug(attrs)
+      @faq_category.assign_attributes(attrs)
 
       unless valid? & @faq_category.valid?
         @faq_category.errors.each { |error| self.errors.add(error.attribute, error.message) }
@@ -36,5 +36,21 @@ module Hub
       new(record, existing_attributes(record).slice(*attribute_keys))
     end
 
+    private
+
+    def generate_slug(attrs)
+      return attrs[:slug] if attrs[:slug].present? && slug_unique?(attrs[:slug])
+
+      generated_slug = name_en.parameterize(separator: '_') unless name_en.nil?
+      return generated_slug if slug_unique?(generated_slug)
+
+      "#{generated_slug}_#{faq_category.id}"
+    end
+
+    def slug_unique?(generated_slug)
+      return false if generated_slug.nil?
+
+      !FaqCategory.all.pluck(:slug).include?(generated_slug)
+    end
   end
 end
