@@ -36,7 +36,11 @@ module Hub
 
     def self.from_record(record)
       attribute_keys = Attributes.new(attribute_names).to_sym
-      new(record, existing_attributes(record).slice(*attribute_keys))
+      new(record, existing_attributes(record, attribute_keys))
+    end
+
+    def self.existing_attributes(model, attribute_keys)
+      HashWithIndifferentAccess[(attribute_keys || []).map { |k| [k, model.send(k)] }]
     end
 
     private
