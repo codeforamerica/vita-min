@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_24_144636) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1526,8 +1526,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_144636) do
   create_table "site_coordinator_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
   end
 
   create_table "site_coordinator_roles_vita_partners", force: :cascade do |t|
@@ -1647,8 +1645,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_144636) do
   create_table "team_member_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
   end
 
   create_table "team_member_roles_vita_partners", force: :cascade do |t|
@@ -1959,7 +1955,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_144636) do
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "recaptcha_scores", "clients"
   add_foreign_key "signup_selections", "users"
-  add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
@@ -1974,7 +1969,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_144636) do
   add_foreign_key "tax_return_transitions", "tax_returns"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
-  add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "team_member_roles_vita_partners", "team_member_roles"
   add_foreign_key "team_member_roles_vita_partners", "vita_partners"
   add_foreign_key "user_notifications", "users"

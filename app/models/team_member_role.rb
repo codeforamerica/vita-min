@@ -6,20 +6,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Indexes
-#
-#  index_team_member_roles_on_vita_partner_id  (vita_partner_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
-#
 class TeamMemberRole < ApplicationRecord
-  self.ignored_columns = [:vita_partner_id]
-
   TYPE = "TeamMemberRole"
-
-  belongs_to :legacy_vita_partner, foreign_key: "vita_partner_id", class_name: "VitaPartner", optional: true
 
   has_many :team_member_roles_vita_partners, dependent: :destroy
   has_many :vita_partners, through: :team_member_roles_vita_partners
@@ -28,7 +16,7 @@ class TeamMemberRole < ApplicationRecord
   validate :all_sites_in_same_org
 
   scope :assignable_to_sites, -> (sites) {
-    left_outer_joins(:sites).where(vita_partners: sites).or(where(legacy_vita_partner: sites))
+    left_outer_joins(:sites).where(vita_partners: sites)
   }
 
   def served_entities
@@ -38,7 +26,7 @@ class TeamMemberRole < ApplicationRecord
   private
 
   def has_site
-    errors.add(:sites, "Must be associated to at least one site") if sites.blank? && legacy_vita_partner.blank?
+    errors.add(:sites, "Must be associated to at least one site") if sites.blank?
   end
 
   def all_sites_in_same_org

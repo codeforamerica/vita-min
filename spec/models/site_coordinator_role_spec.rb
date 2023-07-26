@@ -6,14 +6,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Indexes
-#
-#  index_site_coordinator_roles_on_vita_partner_id  (vita_partner_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
-#
 require 'rails_helper'
 
 RSpec.describe SiteCoordinatorRole, type: :model do
