@@ -239,7 +239,7 @@ CREATE VIEW analytics.signups AS
     FROM public.signups;
 
 CREATE VIEW analytics.site_coordinator_roles AS
-    SELECT id, created_at, updated_at, vita_partner_id
+    SELECT id, created_at, updated_at
     FROM public.site_coordinator_roles;
 
 CREATE VIEW analytics.source_parameters AS
@@ -257,7 +257,7 @@ CREATE VIEW analytics.tax_returns AS
     FROM public.tax_returns;
 
 CREATE VIEW analytics.team_member_roles AS
-    SELECT id, created_at, updated_at, vita_partner_id
+    SELECT id, created_at, updated_at
     FROM public.team_member_roles;
 
 CREATE VIEW analytics.users AS
