@@ -6,6 +6,8 @@ namespace :setup do
   EFILE_SCHEMAS_FILENAMES = [
     ["efile1040x_2020v5.1.zip", "irs"],
     ["efile1040x_2021v5.2.zip", "irs"],
+    ["efile1040x_2022v5.3.zip", "irs"],
+    ["efile1040x_2023v2.0.zip", "irs"],
     ["MIInd2022V1.0.zip", "us_states"],
     ["NYSIndividual2022V5.0.zip", "us_states"],
   ].freeze

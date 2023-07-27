@@ -16,8 +16,10 @@ module SubmissionBuilder
 
     def determine_default_schema_version_by_tax_year
       case @submission.tax_return.year
+      when 2023
+        "2023v2.0"
       when 2022
-        "2021v5.2" # Temporary until we put in the new federal schemas
+        "2022v5.3"
       when 2021
         "2021v5.2"
       when 2020
