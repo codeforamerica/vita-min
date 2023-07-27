@@ -1,34 +1,32 @@
 <% content_for :page_title, t("views.questions.at_capacity.title") %>
 
-<main role="main">
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths">
-        <main role="main">
-          <div class="offboarding--illustration">
-            <%= image_tag("capacity.svg", alt: "") %>
-          </div>
-          <h1 class="offboarding--title">
-            <%= content_for(:page_title) %>
-          </h1>
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths">
+      <main role="main">
+        <div class="offboarding--illustration">
+          <%= image_tag("capacity.svg", alt: "") %>
+        </div>
+        <h1 class="offboarding--title">
+          <%= content_for(:page_title) %>
+        </h1>
 
-          <div class="offboarding--help-text">
-            <% t("views.questions.at_capacity.body_html").each do |paragraph| %>
-              <p><%= paragraph %></p>
-            <% end %>
-          </div>
+        <div class="offboarding--help-text">
+          <% t("views.questions.at_capacity.body_html").each do |paragraph| %>
+            <p><%= paragraph %></p>
+          <% end %>
+        </div>
 
-          <div class="grid-flex column-column center-aligned">
-            <div>
-              <%= link_to t("views.questions.at_capacity.continue_to_diy"), diy_file_yourself_path, class: "button button--primary text--centered button--wide" %>
-            </div>
-            <div>
-              <%= link_to t("views.questions.at_capacity.return_to_homepage"), root_path %>
-            </div>
+        <div class="grid-flex column-column center-aligned">
+          <div>
+            <%= link_to t("views.questions.at_capacity.continue_to_diy"), diy_file_yourself_path, class: "button button--primary text--centered button--wide" %>
           </div>
+          <div>
+            <%= link_to t("views.questions.at_capacity.return_to_homepage"), root_path %>
+          </div>
+        </div>
 
-        </main>
-      </div>
+      </main>
     </div>
-  </section>
-</main>
+  </div>
+</section>
