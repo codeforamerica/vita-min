@@ -96,7 +96,7 @@ group :development, :test do
   gem 'axe-matchers'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'webdrivers', '>= 5.2.0'
+  gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
