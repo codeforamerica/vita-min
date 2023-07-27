@@ -6,7 +6,6 @@ require "spec_helper"
 require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
-require "webdrivers"
 require "percy/capybara"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }

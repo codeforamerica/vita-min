@@ -36,6 +36,15 @@ class GyrCli < Thor
     end
   end
 
+  desc "download_webdriver", "Downloads the latest chromedriver using SeleniumManager from the selenium-webdriver gem"
+  def download_webdriver
+    require 'selenium-webdriver'
+
+    Selenium::WebDriver::SeleniumManager.driver_path(
+      Selenium::WebDriver::Chrome::Options.new(browser_name: "chrome")
+    )
+  end
+
   no_commands do
     def load_rails_env!
       require File.expand_path('../config/environment', File.dirname(__FILE__))
