@@ -70,6 +70,30 @@ describe ClientLoginService do
         end
       end
 
+      describe "prior product year clients" do
+        context "with an archived client matching a TextMessageAccessToken" do
+          before do
+            create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
+            create(:intake, :primary_consented, client: client, sms_phone_number: "+16505551212", product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "returns the client" do
+            expect(subject.clients_for_token("raw_token")).to match_array [client]
+          end
+        end
+
+        context "with an archived client matching a EmailAccessToken" do
+          before do
+            create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
+            create(:intake, :primary_consented, client: client, email_address: "someone@example.com", product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "returns the client" do
+            expect(subject.clients_for_token("raw_token")).to match_array [client]
+          end
+        end
+      end
+
       describe "archived clients" do
         context "with an archived client matching a TextMessageAccessToken" do
           before do
