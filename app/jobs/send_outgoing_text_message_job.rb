@@ -18,8 +18,4 @@ class SendOutgoingTextMessageJob < ApplicationJob
       outgoing_text_message.update_status_if_further(message.status, error_code: message.error_code)
     end
   end
-
-  def priority
-    low_priority
-  end
 end

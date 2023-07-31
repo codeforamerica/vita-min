@@ -7,8 +7,4 @@ class SendOutgoingTextMessageWithoutClientJob < ApplicationJob
 
     DatadogApi.increment("twilio.outgoing_text_messages.sent")
   end
-
-  def priority
-    low_priority
-  end
 end
