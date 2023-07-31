@@ -12,7 +12,7 @@ class TaxReturnAssignmentService
       SystemNote::AssignmentChange.generate!(initiated_by: @assigned_by, tax_return: @tax_return)
       if not_already_assigned?
         UpdateClientVitaPartnerService.new(clients: [@client],
-                                           vita_partner_id: @assigned_user.role.sites.first.id,
+                                           vita_partner_id: @assigned_user.served_entities.first.id,
                                            change_initiated_by: @assigned_user).update!
       end
     end
