@@ -1,9 +1,9 @@
 class ApplicationJob < ActiveJob::Base
   include ConsolidatedTraceHelper
 
-  PRORITY_HIGH = 10
-  PRORITY_MEDIUM = 5
-  PRORITY_LOW = 1
+  PRIORITY_HIGH = 10
+  PRIORITY_MEDIUM = 50
+  PRIORITY_LOW = 100
 
   def job_object_id
     # This assumes most of our jobs use positional arguments

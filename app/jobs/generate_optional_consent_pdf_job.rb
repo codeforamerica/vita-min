@@ -5,4 +5,8 @@ class GenerateOptionalConsentPdfJob < ApplicationJob
       consent.update_or_create_f15080_vita_disclosure_pdf
     end
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

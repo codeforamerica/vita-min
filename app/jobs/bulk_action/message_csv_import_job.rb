@@ -31,5 +31,9 @@ module BulkAction
       bulk_message_csv.update!(status: 'failed')
       raise
     end
+
+    def priority
+      PRIORITY_LOW
+    end
   end
 end

@@ -16,4 +16,8 @@ class DetectBlurInDocumentJob < ApplicationJob
     fm = cv.Laplacian(grayscale_image, cv.CV_64F).var()
     document.update_column(:blur_score, fm)
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

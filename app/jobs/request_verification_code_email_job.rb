@@ -10,4 +10,8 @@ class RequestVerificationCodeEmailJob < ApplicationJob
       service_type: service_type
     )
   end
+
+  def priority
+    PRIORITY_HIGH
+  end
 end

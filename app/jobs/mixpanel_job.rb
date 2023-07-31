@@ -1,6 +1,6 @@
 class MixpanelJob < ApplicationJob
   def priority
-    100 # lower numbers run first, see https://github.com/collectiveidea/delayed_job
+    PRIORITY_LOW
   end
 
   def perform(distinct_id:, event_name:, data: {})

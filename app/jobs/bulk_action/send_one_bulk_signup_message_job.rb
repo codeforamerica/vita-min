@@ -27,5 +27,9 @@ module BulkAction
         end
       outgoing_message_status.update(message_id: message_id) if message_id.present?
     end
+
+    def priority
+      PRIORITY_LOW
+    end
   end
 end

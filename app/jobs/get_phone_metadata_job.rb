@@ -14,4 +14,8 @@ class GetPhoneMetadataJob < ApplicationJob
       intake.update(phone_number_type: metadata["type"])
     end
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

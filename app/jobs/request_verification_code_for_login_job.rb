@@ -1,6 +1,10 @@
 class RequestVerificationCodeForLoginJob < ApplicationJob
   retry_on Mailgun::CommunicationError
 
+  def priority
+    PRIORITY_HIGH - 1 # Subtracting one to push to the top of the queue
+  end
+
   def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:)
     client_login_service = ClientLoginService.new(service_type)
     multi_tenant_service = MultiTenantService.new(service_type)
