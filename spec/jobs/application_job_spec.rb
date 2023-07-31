@@ -8,7 +8,7 @@ describe ApplicationJob do
       end
 
       def priority
-        :default
+        10
       end
     end
 
