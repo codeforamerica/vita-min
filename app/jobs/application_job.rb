@@ -1,6 +1,10 @@
 class ApplicationJob < ActiveJob::Base
   include ConsolidatedTraceHelper
 
+  PRORITY_HIGH = 10
+  PRORITY_MEDIUM = 5
+  PRORITY_LOW = 1
+
   def job_object_id
     # This assumes most of our jobs use positional arguments
     # where the id or thing the job is working on is the first
@@ -20,11 +24,7 @@ class ApplicationJob < ActiveJob::Base
   end
 
   def priority
-    # Every job should define its priority
+    # Every job must define its priority.
     raise NotImplementedError
-  end
-
-  def low_priority
-    10
   end
 end
