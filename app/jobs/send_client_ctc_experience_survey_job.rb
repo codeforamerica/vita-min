@@ -12,4 +12,8 @@ class SendClientCtcExperienceSurveyJob < ApplicationJob
       SurveyMessages::CtcExperienceSurvey
     )
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end
