@@ -16,8 +16,8 @@ module Hub
       @form = form_class.new(@faq_item, faq_item_params.merge(faq_category_id: @faq_category.id))
 
       if @form.save
-        flash_message = "Successfully created '#{@faq_item.question_en}'"
-        render :show, notice: flash_message
+        flash[:notice] = "Successfully created '#{@faq_item.question_en}'"
+        redirect_to hub_faq_category_faq_item_path(@faq_category.id, @faq_item.id)
       else
         flash_message = "Unable to create '#{@faq_item.question_en}'"
         render :new, error: flash_message
@@ -32,8 +32,8 @@ module Hub
       @form = form_class.new(@faq_item, faq_item_params.merge(faq_category_id: @faq_category.id))
 
       if @form.save
-        flash_message = "Successfully updated '#{@faq_item.question_en}'"
-        render :show, notice: flash_message
+        flash[:notice] = "Successfully updated '#{@faq_item.question_en}'"
+        redirect_to hub_faq_category_faq_item_path(@faq_category.id, @faq_item.id)
       else
         flash_message = "Unable to update '#{@faq_item.question_en}'"
         render :edit, error: flash_message

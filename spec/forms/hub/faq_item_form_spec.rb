@@ -21,12 +21,12 @@ RSpec.describe Hub::FaqItemForm do
 
   describe "#save" do
     let(:params) { {
-      question_en: "New category",
+      question_en: "what in the what",
       question_es: "",
       answer_en: "",
       answer_es: "",
       position: 2,
-      slug: "new_category",
+      slug: "",
       faq_category_id: faq_category.id
     } }
 
@@ -34,6 +34,18 @@ RSpec.describe Hub::FaqItemForm do
       expect {
         subject.save
       }.to change(FaqItem, :count).by 1
+
+      expect(FaqItem.reorder('').last.slug).to eq "what_in_the_what"
+    end
+
+    context "slug is not unique" do
+      let!(:faq_item_same_slug){ create :faq_item, faq_category: faq_category, question_en: "what in the what", slug: "what_in_the_what" }
+
+      it "saves the slug with its id" do
+        subject.save
+        item = FaqItem.reorder('').last
+        expect(item.slug).to eq "what_in_the_what_#{item.id}"
+      end
     end
   end
 end

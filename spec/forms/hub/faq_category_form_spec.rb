@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::FaqCategoryForm do
   subject { described_class.new(faq_category, params) }
 
-  let(:faq_category) { build(:faq_category) }
+  let(:faq_category) { create(:faq_category) }
   let(:params) { {} }
 
   describe "validations" do

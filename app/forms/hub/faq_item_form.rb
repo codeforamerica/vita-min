@@ -57,7 +57,8 @@ module Hub
     def slug_unique?(attrs, generated_slug)
       return false if generated_slug.nil?
 
-      !FaqCategory.find(attrs[:faq_category_id]).faq_items.pluck(:slug).include?(generated_slug)
+      FaqItem.where(slug: generated_slug, faq_category_id: attrs[:faq_category_id])
+             .where.not(id: @faq_item).empty?
     end
   end
 end
