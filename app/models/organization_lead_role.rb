@@ -21,6 +21,10 @@ class OrganizationLeadRole < ApplicationRecord
   belongs_to :organization, foreign_key: "vita_partner_id", class_name: "VitaPartner"
   validate :no_sites
 
+  def sites
+    served_entities
+  end
+
   def served_entities
     [organization]
   end
