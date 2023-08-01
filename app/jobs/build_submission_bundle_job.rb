@@ -27,4 +27,8 @@ class BuildSubmissionBundleJob < ApplicationJob
       submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: response.errors)
     end
   end
+
+  def priority
+    PRIORITY_MEDIUM
+  end
 end

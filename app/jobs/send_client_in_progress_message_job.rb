@@ -5,4 +5,8 @@ class SendClientInProgressMessageJob < ApplicationJob
       AutomatedMessage::InProgress
     )
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

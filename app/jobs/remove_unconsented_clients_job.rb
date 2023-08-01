@@ -36,6 +36,10 @@ class RemoveUnconsentedClientsJob < ApplicationJob
     RemoveUnconsentedClientsJob.perform_later if batches >= BATCH_LIMIT
   end
 
+  def priority
+    PRIORITY_LOW
+  end
+
   private
 
   def clients_to_remove(created_before)

@@ -6,6 +6,16 @@ describe ApplicationJob do
       def perform(object_id)
         return true
       end
+
+      def priority
+        10
+      end
+    end
+
+    SampleNoPriorityClass = Class.new(ApplicationJob) do
+      def perform(object_id)
+        return true
+      end
     end
   end
 
@@ -20,5 +30,9 @@ describe ApplicationJob do
     delayed_job = Delayed::Job.last
     expect(delayed_job.job_class).to eq(SampleJobClass.to_s)
     expect(delayed_job.job_object_id).to eq(123)
+  end
+
+  it 'requires priority to be specified' do
+    expect { SampleNoPriorityClass.perform_later(102) }.to raise_exception(NotImplementedError)
   end
 end

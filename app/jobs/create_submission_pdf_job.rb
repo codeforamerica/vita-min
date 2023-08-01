@@ -15,4 +15,8 @@ class CreateSubmissionPdfJob < ApplicationJob
       raise
     end
   end
+
+  def priority
+    PRIORITY_MEDIUM
+  end
 end

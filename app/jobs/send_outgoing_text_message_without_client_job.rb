@@ -9,6 +9,6 @@ class SendOutgoingTextMessageWithoutClientJob < ApplicationJob
   end
 
   def priority
-    low_priority
+    PRIORITY_HIGH
   end
 end

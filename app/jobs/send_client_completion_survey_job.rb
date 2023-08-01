@@ -5,4 +5,8 @@ class SendClientCompletionSurveyJob < ApplicationJob
       SurveyMessages::GyrCompletionSurvey
     )
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

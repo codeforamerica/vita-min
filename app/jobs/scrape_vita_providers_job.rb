@@ -30,16 +30,20 @@ class ScrapeVitaProvidersJob < ApplicationJob
     )
 
     <<~REPORT
-        Finished updating all provider records!
-        ---------------------------------------
-        Total provider count before scraping: #{before_scrape_total_provider_count}
-        Total provider count after scraping: #{VitaProvider.count}
-        Listed provider count before scraping: #{before_scrape_listed_provider_count}
-        Listed provider count after scraping: #{VitaProvider.listed.count}
+      Finished updating all provider records!
+      ---------------------------------------
+      Total provider count before scraping: #{before_scrape_total_provider_count}
+      Total provider count after scraping: #{VitaProvider.count}
+      Listed provider count before scraping: #{before_scrape_listed_provider_count}
+      Listed provider count after scraping: #{VitaProvider.listed.count}
 
-        Newly created record count: #{scrape.created_count}
-        Changed record count: #{scrape.changed_count}
-        Newly archived record count: #{scrape.archived_count}
+      Newly created record count: #{scrape.created_count}
+      Changed record count: #{scrape.changed_count}
+      Newly archived record count: #{scrape.archived_count}
     REPORT
+  end
+
+  def priority
+    PRIORITY_LOW
   end
 end

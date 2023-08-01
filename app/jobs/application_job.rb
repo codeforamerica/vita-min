@@ -1,6 +1,10 @@
 class ApplicationJob < ActiveJob::Base
   include ConsolidatedTraceHelper
 
+  PRIORITY_HIGH = 10
+  PRIORITY_MEDIUM = 50
+  PRIORITY_LOW = 100
+
   def job_object_id
     # This assumes most of our jobs use positional arguments
     # where the id or thing the job is working on is the first
@@ -19,7 +23,8 @@ class ApplicationJob < ActiveJob::Base
     super.merge("job_object_id" => job_object_id)
   end
 
-  def low_priority
-    10
+  def priority
+    # Every job must define its priority.
+    raise NotImplementedError
   end
 end
