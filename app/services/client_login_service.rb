@@ -6,69 +6,39 @@ class ClientLoginService
     raise ArgumentError, "Service type must be one of: #{SERVICE_TYPES.join(', ')}" unless SERVICE_TYPES.include? service_type.to_sym
 
     @service_class = service_type.to_sym == :gyr ? Intake::GyrIntake : Intake::CtcIntake
-    # @service_class = service_type.to_sym == :gyr ? Archived::Intake2021 : Intake::CtcIntake
-    @backup_service_class = service_type.to_sym == :gyr ? Archived::Intake2021 : {}
-    # if service_type == gyr then @backup_service_class = Archived::Intake2021
-    # needs to account for also searching for the phone/email in Archived::Intake2021 model (of type gyr intake)
+    @backup_service_class = service_type.to_sym == :gyr ? Archived::Intake2021 : nil
   end
 
   def clients_for_token(raw_token)
-    # Probably needs to happen twice, once for service_class Intake::GyrIntake and once again for Archived::Intake2021
-
-    if service_class == Intake::CtcIntake
-      to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
-      emails = to_addresses.map { |to| to.split(",") }.flatten(1)
-      email_intake_matches = service_class.accessible_intakes.where(email_address: emails)
-      spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
-      phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
-      phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
-      intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
-
-      return Client.where(intake: intake_matches).uniq
-    end
-    # to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
-    # emails = to_addresses.map { |to| to.split(",") }.flatten(1)
-    # email_intake_matches = service_class.accessible_intakes.where(email_address: emails)
-    # spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
-    # phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
-    # phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
-    # intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
-
-    # these might have multiple email addresses
     to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
     emails = to_addresses.map { |to| to.split(",") }.flatten(1)
+    phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
+
     email_intake_matches = service_class.where(primary_consented_to_service: true, email_address: emails)
     spouse_email_intake_matches = service_class.where(primary_consented_to_service: true, spouse_email_address: emails)
-    phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
     phone_intake_matches = service_class.where(primary_consented_to_service: true, sms_phone_number: phone_numbers)
 
     intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-    if (service_class == Intake::GyrIntake && intake_matches.count == 0)
+    if service_class == Intake::CtcIntake
+      email_intake_matches = service_class.accessible_intakes.where(email_address: emails)
+      spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
+      phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
+      intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
+
+      return Client.where(intake: intake_matches).uniq
+
+    elsif (service_class == Intake::GyrIntake && intake_matches.count == 0)
       email_intake_matches = backup_service_class.where(primary_consented_to_service: true, email_address: emails)
       spouse_email_intake_matches = backup_service_class.where(primary_consented_to_service: true, spouse_email_address: emails)
       phone_intake_matches = backup_service_class.where(primary_consented_to_service: true, sms_phone_number: phone_numbers)
 
       intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-      puts emails, "====================="
-
       return Client.where(intake: intake_matches).uniq
     end
 
     Client.where(intake: intake_matches).uniq
-
-    # to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
-    # emails = to_addresses.map { |to| to.split(",") }.flatten(1)
-    # email_intake_matches = service_class.accessible_intakes.where(email_address: emails)
-    # spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
-    # phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
-    # phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
-    # intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
-    #
-    # puts emails, "====================="
-    #
-    # Client.where(intake: intake_matches).uniq
   end
 
   def can_login_by_email_verification?(email_address)
