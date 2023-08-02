@@ -26,8 +26,7 @@ class ClientLoginService
       phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
       intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-      return Client.where(intake: intake_matches).uniq
-
+      Client.where(intake: intake_matches).uniq
     elsif (service_class == Intake::GyrIntake && intake_matches.count == 0)
       email_intake_matches = backup_service_class.where(primary_consented_to_service: true, email_address: emails)
       spouse_email_intake_matches = backup_service_class.where(primary_consented_to_service: true, spouse_email_address: emails)
@@ -35,10 +34,10 @@ class ClientLoginService
 
       intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-      return Client.where(intake: intake_matches).uniq
+      Client.where(intake: intake_matches).uniq
+    else
+      Client.where(intake: intake_matches).uniq
     end
-
-    Client.where(intake: intake_matches).uniq
   end
 
   def can_login_by_email_verification?(email_address)

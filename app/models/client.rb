@@ -333,4 +333,8 @@ class Client < ApplicationRecord
       }
     end
   end
+
+  def current_intake
+    intake || Archived::Intake2021.find_by(client_id: self.id)
+  end
 end

@@ -2,7 +2,7 @@ module TaxReturnCardHelper
   def tax_return_status_to_props(tax_return)
     state = tax_return.current_state.to_sym
 
-    intake = tax_return.intake
+    intake = tax_return.client.current_intake
     ask_for_answers = state == :intake_in_progress
 
     if ask_for_answers
