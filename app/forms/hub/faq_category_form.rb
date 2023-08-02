@@ -44,13 +44,13 @@ module Hub
       generated_slug = name_en.parameterize(separator: '_') unless name_en.nil?
       return generated_slug if slug_unique?(generated_slug)
 
-      "#{generated_slug}_#{faq_category.id}"
+      "#{generated_slug}_#{@faq_category.id}"
     end
 
     def slug_unique?(generated_slug)
       return false if generated_slug.nil?
 
-      !FaqCategory.all.pluck(:slug).include?(generated_slug)
+      FaqCategory.where(slug: generated_slug).where.not(id: @faq_category).empty?
     end
   end
 end

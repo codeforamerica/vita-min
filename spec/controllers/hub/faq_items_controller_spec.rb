@@ -61,7 +61,7 @@ describe Hub::FaqItemsController do
         expect(faq_item.answer_es).to be_an_instance_of ActionText::RichText
         expect(faq_item.answer_es.body.to_s).to include "<div>En una taza de te</div>"
         expect(faq_item.slug).to eq "how_moon"
-        expect(response).to render_template :show
+        expect(response).to redirect_to hub_faq_category_faq_item_path(faq_category_id: faq_category.id, id: faq_item.id)
       end
 
       it "shift other positions after it" do
@@ -84,7 +84,7 @@ describe Hub::FaqItemsController do
         let!(:slug) { "" }
         it "saves an auto-generated slug anyways" do
           put :update, params: params
-          expect(response).to be_ok
+          expect(response).to redirect_to hub_faq_category_faq_item_path(faq_category_id: faq_category.id, id: faq_item.id)
           faq_item.reload
           expect(faq_item.slug).to eq "how_will_i_go_to_the_moon"
         end
@@ -142,6 +142,7 @@ describe Hub::FaqItemsController do
         expect(created_item.slug).to eq "how_will_i_go_to_the_moon"
         expect(faq_item.position).to eq 1
         expect(faq_item_2.reload.position).to eq 3
+        expect(response).to redirect_to hub_faq_category_faq_item_path(faq_category_id: faq_category.id, id: created_item.id)
       end
 
       it "records a paper trail" do
