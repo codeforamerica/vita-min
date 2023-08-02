@@ -107,6 +107,7 @@ Rails.application.configure do
   config.hosts << /[a-z0-9]+\.ngrok\.io/
   config.hide_ctc = false
   config.ctc_url = "http://ctc.localhost:3000"
+  config.state_file_url = "http://statefile.localhost:3000"
   config.gyr_url = "http://localhost:3000"
   config.efile_environment = "test"
 

@@ -520,6 +520,14 @@ Rails.application.routes.draw do
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
 
+  constraints(Routes::StateFileDomain.new) do
+    namespace :state_file, path: "/" do
+      scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+        root to: "state_file_pages#home"
+      end
+    end
+  end
+
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }

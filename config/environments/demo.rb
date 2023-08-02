@@ -4,6 +4,7 @@ Rails.application.configure do
   config.active_storage.service = :s3_demo
 
   config.ctc_url = "https://ctc.demo.getyourrefund.org"
+  config.state_file_url = "https://statefile.demo.getyourrefund.org"
   config.gyr_url = "https://demo.getyourrefund.org"
   ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
   gyr_email_from_domain = "mg-demo.getyourrefund-testing.org"
