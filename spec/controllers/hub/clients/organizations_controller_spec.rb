@@ -25,7 +25,8 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
   end
 
   describe "#update" do
-    let(:params) { { id: client.id, client: { vita_partner_id: site.id } } }
+    let(:vita_partners) { JSON.generate([{ id: site.id, name: site.name, value: site.id }]) }
+    let(:params) { { id: client.id, client: { vita_partners: vita_partners } } }
     let(:instance) { instance_double(UpdateClientVitaPartnerService) }
     let(:double_class) { class_double(UpdateClientVitaPartnerService).as_stubbed_const }
 
@@ -50,11 +51,23 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
 
       context "when assigning to an vita partner that you don't have access to" do
         let(:other_org) { create :organization }
-        let(:params) { { id: client.id, client: { vita_partner_id: other_org.id } } }
+        let(:vita_partners) { JSON.generate([{ id: other_org.id, name: other_org.name, value: other_org.id }]) }
 
         it "returns a 403" do
           patch :update, params: params
           expect(response).to be_forbidden
+        end
+      end
+
+      context "when no new vita partner is selected" do
+        let(:vita_partners) { "" }
+
+        it "redirects to client profile and does not change the org" do
+          expect do
+            patch :update, params: params
+          end.to not_change(client, :vita_partner_id)
+
+          expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end
 

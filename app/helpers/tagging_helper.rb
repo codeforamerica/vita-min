@@ -8,6 +8,9 @@ module TaggingHelper
         taggable_vita_partners << { id: site.id, name: site.name, parentName: organization.name, value: site.id }
       end
     end
+
+    return taggable_sites(vita_partners) if taggable_vita_partners.empty?
+
     taggable_vita_partners.to_json.to_s.html_safe
   end
 

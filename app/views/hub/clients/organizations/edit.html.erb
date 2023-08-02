@@ -2,18 +2,32 @@
 
 <% content_for :card do %>
   <div class="slab">
-    <h2>
-      Edit Organization for <%= @client.preferred_name %>
-    </h2>
-    <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
-    <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
-    <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f|%>
+    <div class="grid">
+      <div class="grid--item width-one-half">
+        <h2>
+          Edit Organization for <%= @client.preferred_name %>
+        </h2>
+        <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
+        <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
+        <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
 
-      <%= f.cfa_select(:vita_partner_id, t("general.organization"), grouped_vita_partner_options) %>
-      <div>
-        <%= f.submit t("general.save"), class: "button button--primary" %>
+          <div class="field-display spacing-below-60">
+            <label class="form-question"><%= t("general.organization") %></label>
+            <%= f.hidden_field(:vita_partners, class: "select-vita-partner") %>
+          </div>
+
+          <div>
+            <%= f.submit t("general.save"), class: "button button--primary" %>
+          </div>
+        <% end %>
+
+        <% content_for :script do %>
+          <script>
+              window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
+          </script>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 <% end %>
 
