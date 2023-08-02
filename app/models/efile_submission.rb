@@ -170,6 +170,8 @@ class EfileSubmission < ApplicationRecord
       SubmissionBuilder::Ty2020::Return1040
     when 2021
       SubmissionBuilder::Ty2021::Return1040
+    when 2022
+      SubmissionBuilder::Ty2021::Return1040
     end
   end
 

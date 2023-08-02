@@ -16,7 +16,7 @@ module FirstPageOfCtcIntakeConcern
   private
 
   def form_params
-    super.merge(ip_address: request.remote_ip).merge(
+    super.merge(ip_address: ip_for_irs).merge(
       Rails.application.config.try(:efile_security_information_for_testing).presence || {}
     )
   end
