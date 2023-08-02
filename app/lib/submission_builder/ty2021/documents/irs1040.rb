@@ -36,6 +36,9 @@ module SubmissionBuilder
 
             if include_w2_detail
               w2_wages = intake.total_wages_amount
+              if tax_return.year == 2022
+                xml.WagesAmt w2_wages
+              end
               xml.WagesSalariesAndTipsAmt w2_wages # Line 1
               xml.TotalIncomeAmt w2_wages # Line 9
               xml.AdjustedGrossIncomeAmt w2_wages # line 11
@@ -46,7 +49,9 @@ module SubmissionBuilder
             else
               xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction # 12a
             end
-            xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
+            unless tax_return.year == 2022
+              xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
+            end
             xml.TotalDeductionsAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 14
             xml.TaxableIncomeAmt 0 unless intake.home_location_puerto_rico? # 15
 
@@ -58,11 +63,13 @@ module SubmissionBuilder
               xml.UndSpcfdAgeStsfyRqrEICInd "X" if benefits.youngish_without_eitc_dependents? # line 27a checkbox
             end
 
-            # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
-            xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
+            unless tax_return.year == 2022
+              # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i)
+              xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
-            # Line 30: remaining amount of RRC they are claiming for EIP-3
-            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit unless benefits.claimed_recovery_rebate_credit.nil? # 30
+              # Line 30: remaining amount of RRC they are claiming for EIP-3
+              xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit unless benefits.claimed_recovery_rebate_credit.nil? # 30
+            end
 
             total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i
 
