@@ -9,21 +9,17 @@ module StateFile
         "wages.svg"
       end
 
-      def form_class
-        NullForm
-      end
-
-      def after_update_success
-        session[:intake_id] = current_intake.id
-      end
-
-      def current_intake
-        @intake ||= Intake.new(
-          visitor_id: cookies.encrypted[:visitor_id],
-          source: session[:source],
-          referrer: session[:referrer]
-        )
-      end
+      # def after_update_success
+      #   session[:intake_id] = current_intake.id
+      # end
+      #
+      # def current_intake
+      #   @intake ||= Intake.new(
+      #     visitor_id: cookies.encrypted[:visitor_id],
+      #     source: session[:source],
+      #     referrer: session[:referrer]
+      #   )
+      # end
     end
   end
 end

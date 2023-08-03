@@ -3,5 +3,6 @@ class StateFileQuestionNavigation
 
   FLOW = [
     StateFile::Questions::AllInfoController,
+    StateFile::Questions::SubmitReturnController
   ].freeze
 end

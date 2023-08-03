@@ -1,1 +1,8 @@
-<%= link_to "Submit Fake Submission", state_file_submit_test_path, class: "button" %>
+<% content_for :page_title, "The page with all the info" %>
+
+<% content_for :card do %>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

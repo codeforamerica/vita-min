@@ -521,13 +521,13 @@ Rails.application.routes.draw do
   end
 
   constraints(Routes::StateFileDomain.new) do
+    scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+      scoped_navigation_routes(:questions, StateFileQuestionNavigation)
+    end
+
     namespace :state_file, path: "/" do
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#home"
-
-        scoped_navigation_routes(:questions, StateFileQuestionNavigation)
-
-        post "/submit-test", to: "state_file_pages#submit_test"
       end
     end
   end

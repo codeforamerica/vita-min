@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_03_224622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -836,6 +836,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
   create_table "efile_submission_transitions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "efile_submission_id", null: false
+    t.string "efile_submission_type", default: "EfileSubmission", null: false
     t.jsonb "metadata", default: {}
     t.boolean "most_recent", null: false
     t.integer "sort_key", null: false
@@ -844,6 +845,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
     t.index ["created_at"], name: "index_efile_submission_transitions_on_created_at"
     t.index ["efile_submission_id", "most_recent"], name: "index_efile_submission_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["efile_submission_id", "sort_key"], name: "index_efile_submission_transitions_parent_sort", unique: true
+    t.index ["efile_submission_type", "efile_submission_id"], name: "index_efile_sub_transitions_on_efile_sub_type_and_efile_sub_id"
   end
 
   create_table "efile_submissions", force: :cascade do |t|
@@ -1546,6 +1548,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
+  create_table "state_efile_submissions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "irs_submission_id"
+    t.datetime "last_checked_for_ack_at"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_efile_submissions_on_intake"
+  end
+
+  create_table "state_file_ny_intakes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "first_name"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "state_routing_fractions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "org_level_routing_enabled"
@@ -1932,7 +1950,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_215513) do
   add_foreign_key "ds_click_histories", "clients"
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
-  add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "experiment_vita_partners", "experiments"
   add_foreign_key "experiment_vita_partners", "vita_partners"
   add_foreign_key "faq_items", "faq_categories"

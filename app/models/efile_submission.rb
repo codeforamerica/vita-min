@@ -24,7 +24,7 @@ class EfileSubmission < ApplicationRecord
   has_one :fraud_score, class_name: "Fraud::Score"
   has_many :qualifying_dependents, foreign_key: :efile_submission_id, class_name: "EfileSubmissionDependent"
   has_one :verified_address, as: :record, dependent: :destroy, class_name: "Address"
-  has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
+  has_many :efile_submission_transitions, -> { order(id: :asc) }, as: :efile_submission, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
 
