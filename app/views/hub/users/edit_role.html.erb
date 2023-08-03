@@ -37,8 +37,8 @@
         <p><%= role_name_from_role_type(CoalitionLeadRole::TYPE) %></p>
         <div class="form-group">
           <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
-          <div class="select form-width--long">
-            <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] }), class: "select__element") %>
+          <div class="form-width--long">
+            <%= hidden_field_tag(:coalition, [], class: "select-vita-partner select__element") %>
           </div>
         </div>
       <% end %>
@@ -46,9 +46,9 @@
       <% if @role.is_a?(OrganizationLeadRole) %>
         <p><%= role_name_from_role_type(OrganizationLeadRole::TYPE) %></p>
         <div class="form-group">
-          <%= label_tag(:organization_id, t("devise.invitations.new.organization_label"), class: "form-question") %>
-          <div class="select form-width--long">
-            <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }), class: "select__element" %>
+          <%= label_tag(:organization, t("devise.invitations.new.organization_label"), class: "form-question") %>
+          <div class="form-width--long">
+            <%= hidden_field_tag(:organization, [], class: "select-vita-partner select__element") %>
           </div>
         </div>
       <% end %>
@@ -62,12 +62,6 @@
             <%= hidden_field_tag(:sites, (@role&.respond_to?(:sites) ? @role.sites : []).map { |site| { value: site.id, name: site.name }}.to_json.to_s.html_safe, class: "multi-select-vita-partner") %>
           </div>
         </div>
-
-        <% content_for :script do %>
-          <script>
-              window.taggableItems = <%= taggable_sites(@vita_partners) %>;
-          </script>
-        <% end %>
       <% end %>
 
       <div>
@@ -77,4 +71,10 @@
       </div>
     <% end %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_items_from_role_type(params[:role]) %>;
+  </script>
 <% end %>

@@ -2,32 +2,30 @@
 
 <% content_for :card do %>
   <div class="slab">
-    <div class="grid">
-      <div class="grid--item width-one-half">
-        <h2>
-          Edit Organization for <%= @client.preferred_name %>
-        </h2>
-        <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
-        <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
-        <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+    <h2>
+      Edit Organization for <%= @client.preferred_name %>
+    </h2>
+    <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
+    <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
+    <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
 
-          <div class="field-display spacing-below-60">
-            <label class="form-question"><%= t("general.organization") %></label>
-            <%= f.hidden_field(:vita_partners, class: "select-vita-partner") %>
-          </div>
-
-          <div>
-            <%= f.submit t("general.save"), class: "button button--primary" %>
-          </div>
-        <% end %>
-
-        <% content_for :script do %>
-          <script>
-              window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
-          </script>
-        <% end %>
+      <div class="form-group spacing-below-60">
+        <%= label_tag(:vita_partners, t("general.organization"), class: "form-question") %>
+        <div class="form-width--long">
+          <%= f.hidden_field(:vita_partners, class: "select-vita-partner select__element") %>
+        </div>
       </div>
-    </div>
+
+      <div>
+        <%= f.submit t("general.save"), class: "button button--primary" %>
+      </div>
+    <% end %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
+  </script>
 <% end %>
 

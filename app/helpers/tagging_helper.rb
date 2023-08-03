@@ -31,4 +31,18 @@ module TaggingHelper
     end
     taggable_orgs.to_json.to_s.html_safe
   end
+
+  def taggable_organizations(vita_partners)
+    taggable_orgs = []
+    Organization.where(id: vita_partners.organizations).each do |vita_partner|
+      taggable_orgs << { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }
+    end
+    taggable_orgs.to_json.to_s.html_safe
+  end
+
+  def taggable_coalitions(coalitions)
+    coalitions.map do |coalition|
+      { id: coalition.id, name: coalition.name, value: coalition.id }
+    end.to_json.to_s.html_safe
+  end
 end
