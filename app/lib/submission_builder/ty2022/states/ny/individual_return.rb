@@ -30,17 +30,17 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("efile:processBO") do |xml|
               xml.filingKeys do
                 xml.SOURCE_CD ""
-                xml.EXT_TP_ID @submission.intake.tp_id
-                xml.LIAB_PRD_BEG_DT Date.new(@submission.tax_return.year).beginning_of_year
-                xml.LIAB_PRD_END_DT Date.new(@submission.tax_return.year).end_of_year
-                xml.TAX_YEAR @submission.tax_return.year
+                xml.EXT_TP_ID @submission.data_source.tp_id
+                xml.LIAB_PRD_BEG_DT Date.new(@submission.data_source.tax_return_year).beginning_of_year
+                xml.LIAB_PRD_END_DT Date.new(@submission.data_source.tax_return_year).end_of_year
+                xml.TAX_YEAR @submission.data_source.tax_return_year
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME @submission.intake.primary.first_name
-                xml.LAST_NAME @submission.intake.primary.last_name
-                xml.MAIL_LN_2_ADR @submission.intake.street_address
-                xml.MAIL_CITY_ADR @submission.intake.city
+                xml.FIRST_NAME @submission.data_source.primary.first_name
+                xml.LAST_NAME @submission.data_source.primary.last_name
+                xml.MAIL_LN_2_ADR @submission.data_source.street_address
+                xml.MAIL_CITY_ADR @submission.data_source.city
               end
 
               xml.composition do
@@ -91,15 +91,16 @@ module SubmissionBuilder
                 include: true
               },
             ]
-            w2_docs = submission.intake.completed_w2s.map do |w2|
-              {
-                xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
-                pdf: nil,
-                include: true,
-                kwargs: { w2: w2 }
-              }
-            end
-            supported_docs.push(*w2_docs)
+            # TODO:
+            # w2_docs = submission.intake.completed_w2s.map do |w2|
+            #   {
+            #     xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
+            #     pdf: nil,
+            #     include: true,
+            #     kwargs: { w2: w2 }
+            #   }
+            # end
+            # supported_docs.push(*w2_docs)
             supported_docs
           end
         end

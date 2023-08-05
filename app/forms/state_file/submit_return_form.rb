@@ -11,12 +11,13 @@ module StateFile
       # transmit and poll for acks
       # once accepted, build and submit state return
 
-      state_file_ny_intake = StateFileNyIntake.create!
-      state_efile_submission = StateEfileSubmission.create!(
-        irs_submission_id: '4414662023103zvnoell',
-        intake: state_file_ny_intake,
+      state_file_ny_intake = StateFileNyIntake.create!(
+        primary_first_name: "Testuser",
+        primary_last_name: "Testuser",
       )
-
+      state_efile_submission = EfileSubmission.create!(
+        data_source: state_file_ny_intake,
+      )
       state_efile_submission.transition_to(:preparing)
 
       # submission_bundle = SubmissionBundle.new(

@@ -9,7 +9,7 @@ module SubmissionBuilder
           build_xml_doc("efile:ReturnHeaderState") do |xml|
             xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST"
             xml.ReturnTs datetime_type(@submission.created_at)
-            xml.TaxYr @submission.tax_return.year
+            xml.TaxYr @submission.data_source.tax_return_year
             xml.OriginatorGrp do
               xml.EFIN EnvironmentCredentials.irs(:efin)
               xml.OriginatorTypeCd "OnlineFiler"
@@ -19,16 +19,16 @@ module SubmissionBuilder
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do
-                  xml.FirstName @submission.intake.primary.first_name
-                  xml.LastName @submission.intake.primary.last_name
+                  xml.FirstName @submission.data_source.primary.first_name
+                  xml.LastName @submission.data_source.primary.last_name
                 end
-                xml.TaxpayerSSN @submission.intake.primary.ssn
+                xml.TaxpayerSSN @submission.data_source.primary.ssn
               end
               xml.USAddress do |xml|
-                xml.AddressLine1Txt @submission.intake.street_address
-                xml.CityNm @submission.intake.city
+                xml.AddressLine1Txt @submission.data_source.street_address
+                xml.CityNm @submission.data_source.city
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
-                xml.ZIPCd @submission.intake.zip_code
+                xml.ZIPCd @submission.data_source.zip_code
               end
             end
           end

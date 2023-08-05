@@ -7,18 +7,17 @@ module SubmissionBuilder
     end
 
     def document
-      intake = @submission.intake
-      tax_return = @submission.tax_return
+      data_source = @submission.data_source
 
       build_xml_doc("efile:StateSubmissionManifest") do |xml|
         xml.SubmissionId @submission.irs_submission_id
         xml.EFIN EnvironmentCredentials.irs(:efin)
-        xml.TaxYr tax_return.year
+        xml.TaxYr data_source.tax_return_year
         xml.GovernmentCd "IRS"
         xml.StateSubmissionTyp "#{@submission.bundle_class.state_abbreviation}-1040"
         xml.SubmissionCategoryCd "IND"
-        xml.PrimarySSN intake.primary.ssn
-        xml.PrimaryNameControlTxt name_control_type(intake.primary.last_name)
+        xml.PrimarySSN data_source.primary.ssn
+        xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
       end
     end
   end
