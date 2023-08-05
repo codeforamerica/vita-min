@@ -2,20 +2,28 @@ module TaxReturnCardHelper
   def tax_return_status_to_props(tax_return)
     state = tax_return.current_state.to_sym
 
-    intake = tax_return.client.current_intake
+    current_intake = tax_return.client.current_intake
+    is_archived = if current_intake.instance_of?(Archived::Intake::GyrIntake2021) || current_intake.instance_of?(Archived::Intake::CtcIntake2021)
+                    true
+                  else
+                    current_intake.product_year < Rails.configuration.product_year
+                  end
     ask_for_answers = state == :intake_in_progress
 
     if ask_for_answers
-      current_step = intake.current_step
+      current_step = current_intake.current_step
       if current_step.in?(Questions::AtCapacityController.all_localized_paths)
         current_step = Questions::ConsentController.to_path_helper
       end
+
+      current_step = Questions::TriagePersonalInfoController.to_path_helper if current_step.nil?
     end
 
     if ask_for_answers && !current_step&.include?("/documents")
       {
         help_text: t('portal.portal.home.help_text.intake_incomplete'),
         percent_complete: 10,
+        is_archived: is_archived,
         button_type: :complete_intake,
         link: current_step,
         call_to_action_text: t('portal.portal.home.calls_to_action.finish_intake')

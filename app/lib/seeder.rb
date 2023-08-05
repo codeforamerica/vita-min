@@ -460,17 +460,21 @@ class Seeder
       ],
     )
 
-    find_or_create_intake_and_client(
+    archived_intake = find_or_create_intake_and_client(
       Archived::Intake::GyrIntake2021,
       primary_first_name: "ArchivedGyr2021",
       primary_last_name: "Adams",
       primary_consented_to_service: "yes",
       primary_birth_date: 75.years.ago,
       primary_tin_type: 'ssn',
+      primary_ssn: "323659989",
+      primary_last_four_ssn: "9989",
       email_address: "archived2021@example.com",
       email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
     )
+    archived_document1 = Document.find_or_initialize_by(display_name: "My Employment 2", document_type: "Employment", client: archived_intake.client, tax_return: archived_intake.client.tax_returns.first)
+    attach_upload_to_document(archived_document1)
 
     find_or_create_intake_and_client(
       Intake::GyrIntake,
