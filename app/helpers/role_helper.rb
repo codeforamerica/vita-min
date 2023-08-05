@@ -51,14 +51,16 @@ module RoleHelper
     end
   end
 
-  def taggable_items_from_role_type(role_type)
-    case role_type
-    when CoalitionLeadRole::TYPE
+  def taggable_items_from_role(role)
+    case role.class.name
+    when "CoalitionLeadRole"
       taggable_coalitions(@coalitions)
-    when OrganizationLeadRole::TYPE
+    when "OrganizationLeadRole"
       taggable_organizations(@vita_partners)
-    when SiteCoordinatorRole::TYPE || TeamMemberRole::TYPE
+    when "SiteCoordinatorRole", "TeamMemberRole"
       taggable_sites(@vita_partners)
+    else
+      []
     end
   end
 

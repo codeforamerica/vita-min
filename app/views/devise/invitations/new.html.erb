@@ -63,6 +63,6 @@
 
 <% content_for :script do %>
   <script>
-      window.taggableItems = <%= taggable_items_from_role_type(params[:role]) %>;
+      window.taggableItems = <%= taggable_items_from_role(@role) %>;
   </script>
 <% end %>
