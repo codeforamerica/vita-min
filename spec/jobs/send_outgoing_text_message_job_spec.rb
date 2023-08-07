@@ -40,10 +40,9 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
 
     context "when Twilio raises an exception" do
       let(:error_code) { 400 }
-      let(:error_response) { OpenStruct.new(body: {}, status_code: error_code) }
 
       before do
-        allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Twilio::REST::RestError.new(error_code, error_response))
+        allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Twilio::REST::RestError.new(error_code, OpenStruct.new(body: {}, status_code: status_code)))
       end
 
       context "for invalid phone numbers (error 21211)" do
