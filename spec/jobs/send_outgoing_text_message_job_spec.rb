@@ -39,8 +39,11 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     end
 
     context "when Twilio raises an exception" do
+      let(:error_code) { 400 }
+      let(:error_response) { OpenStruct.new(body: {}, status_code: error_code) }
+
       before do
-        allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: status_code)))
+        allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Twilio::REST::RestError.new(error_code, error_response))
       end
 
       context "for invalid phone numbers (error 21211)" do
@@ -48,6 +51,21 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
 
         it "sets the status to twilio_error and exits cleanly" do
           SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+          outgoing_text_message.reload
+          expect(outgoing_text_message.twilio_status).to eq "twilio_error"
+        end
+      end
+
+      context "when it fails to get a network connection to twilio" do
+        before do
+         allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Net::OpenTimeout.new())
+        end
+
+        it "sets the status to twilio_error and exits cleanly" do
+          expect {
+            SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+          }.to have_enqueued_job(SendOutgoingTextMessageJob).with(outgoing_text_message.id)
+
           outgoing_text_message.reload
           expect(outgoing_text_message.twilio_status).to eq "twilio_error"
         end

@@ -18,11 +18,10 @@ class SendOutgoingTextMessageJob < ApplicationJob
         )
         outgoing_text_message.update_status_if_further(message.status, error_code: message.error_code)
       end
-    rescue Twilio::REST::TwilioError => e
-      if e.cause == Net::OpenTimeout
-        DatadogApi.increment("twilio.outgoing_text_messages.failure.timeout")
-        retry_job(outgoing_text_message_id)
-      end
+    rescue Net::OpenTimeout
+      DatadogApi.increment("twilio.outgoing_text_messages.failure.timeout")
+      outgoing_text_message.update_status_if_further("twilio_error", error_code: nil)
+      retry_job
     end
   end
 
