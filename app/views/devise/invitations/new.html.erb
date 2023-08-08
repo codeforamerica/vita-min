@@ -39,7 +39,7 @@
 
       <% if (params[:role] == SiteCoordinatorRole::TYPE) || (params[:role] == TeamMemberRole::TYPE) %>
         <div class="form-group">
-          <%= label_tag(:site_id, t(".site_label"), class: "form-question") %>
+          <%= label_tag(:sites, t(".site_label"), class: "form-question") %>
 
           <div class="select form-width--long">
             <%= hidden_field_tag(:sites, (resource.role&.sites || []).map { |site| { value: site.id, name: site.name } }.to_json.to_s.html_safe, class: "multi-select-vita-partner") %>
@@ -63,6 +63,6 @@
 
 <% content_for :script do %>
   <script>
-      window.taggableItems = <%= taggable_items_from_role(@role) %>;
+      window.taggableItems = <%= taggable_items_from_role_type(params[:role]) %>;
   </script>
 <% end %>

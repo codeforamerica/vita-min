@@ -38,7 +38,7 @@ module Hub
       end
 
       def authorize_vita_partner
-        raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present? || parsed_vita_partner_id.nil?
+        raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present? || parsed_vita_partner_id.present?
       end
 
       def parsed_vita_partner_id

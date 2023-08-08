@@ -209,20 +209,20 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a organization lead role on a different org" do
-            create :organization, name: "Orange Organization", coalition: coalition
+          scenario "assigning a organization lead role on a different org", js: true do
+            create :organization, name: "Acercola Organization", coalition: coalition
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Organization Lead"
 
-            expect(page).to have_text("Apples Associated")
-
-            select "Orange Organization"
+            expect(page.find('.select-vita-partner').text).to eq("Apples Associated")
+            fill_in_tagify '.select-vita-partner', "Acercola Organization"
 
             click_on "Submit"
 
             within "#current-role" do
-              expect(page).to have_text "Organization Lead, Orange Organization"
+              expect(page).to have_text "Organization Lead, Acercola Organization"
             end
           end
 
@@ -290,13 +290,13 @@ RSpec.describe "a user editing a user" do
         end
 
         context "editing user roles" do
-          scenario "assigning a organization lead role" do
+          scenario "assigning a organization lead role", js: true do
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Organization Lead"
 
-            expect(page).to have_text("Apples Associated")
-
-            select "Apples Associated"
+            expect(page.find('.select-vita-partner').text).to eq("")
+            fill_in_tagify '.select-vita-partner', "Apples Associated"
 
             click_on "Submit"
 
