@@ -12,7 +12,7 @@ RSpec.describe "a user viewing a client" do
       login_as user
     end
 
-    scenario "can view and update client organization" do
+    scenario "can view and update client organization", js: true do
       visit hub_client_path(id: client.id)
       within ".client-header" do
         expect(page).to have_text client.vita_partner.name
@@ -20,10 +20,17 @@ RSpec.describe "a user viewing a client" do
       end
       expect(page.current_path).to eq edit_organization_hub_client_path(id: client.id)
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
-      select other_vita_partner.name, from: "Organization"
+      expect(page).to have_text "Organization"
+      fill_in_tagify '.select-vita-partner', other_vita_partner.name
       click_on "Save"
       within ".client-header" do
         expect(page).to have_text other_vita_partner.name
+      end
+    end
+
+    scenario "can toggle client flag" do
+      visit hub_client_path(id: client.id)
+      within ".client-header" do
         check "Flag"
         expect(page).to have_field("toggle-flag", checked: true)
         uncheck "Flag"
@@ -142,7 +149,7 @@ RSpec.describe "a user viewing a client" do
       end
     end
 
-    scenario "can view and update client organization" do
+    scenario "can view and update client organization", js: true do
       visit hub_client_path(id: client.id)
       within ".client-header" do
         expect(page).to have_text client.vita_partner.name
@@ -150,7 +157,8 @@ RSpec.describe "a user viewing a client" do
       end
       expect(page.current_path).to eq edit_organization_hub_client_path(id: client.id)
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
-      select second_org.name, from: "Organization"
+      expect(page).to have_text "Organization"
+      fill_in_tagify '.select-vita-partner', second_org.name
       click_on "Save"
       within ".client-header" do
         expect(page).to have_text second_org.name
