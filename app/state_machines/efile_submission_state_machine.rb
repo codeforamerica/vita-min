@@ -97,8 +97,11 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    submission.tax_return.transition_to(:file_efiled)
-    send_mixpanel_event(submission, "ctc_efile_return_transmitted")
+    # TODO
+    if submission.tax_return
+      submission.tax_return.transition_to(:file_efiled)
+      send_mixpanel_event(submission, "ctc_efile_return_transmitted")
+    end
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|

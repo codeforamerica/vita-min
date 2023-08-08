@@ -3,40 +3,32 @@
 # Table name: state_file_ny_intakes
 #
 #  id                 :bigint           not null, primary key
+#  birth_date         :date
+#  city               :string
+#  current_step       :string
 #  primary_first_name :string
 #  primary_last_name  :string
+#  ssn                :string
+#  street_address     :string
+#  tax_return_year    :integer
+#  zip_code           :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  tp_id              :string
 #
 class StateFileNyIntake < ApplicationRecord
   def primary
     Person.new(self, :primary)
   end
 
-  # TODO
-  def tp_id
-    "123456789"
+  # temporary methods
+  def visitor_id
+    "temp"
   end
 
-  # TODO
-  def tax_return_year
-    2022
-  end
+  def completed_at; end
 
-  # TODO
-  def street_address
-    "1 French Fry Way"
-  end
-
-  # TODO
-  def city
-    "Albany"
-  end
-
-  # TODO
-  def zip_code
-    "12084"
-  end
+  def current_step; end
 
   class Person
     attr_reader :first_name

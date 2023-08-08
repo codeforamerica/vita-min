@@ -1,22 +1,12 @@
 module StateFile
   class SubmitReturnForm < QuestionsForm
     def save
-      # submission = TemporaryNonsense::FakeSubmission.sample_submission(
-      #   bundle_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-      # )
-      #
-      # BuildSubmissionBundleJob.perform_later(submission.id)
-
       # make federal return
       # transmit and poll for acks
       # once accepted, build and submit state return
 
-      state_file_ny_intake = StateFileNyIntake.create!(
-        primary_first_name: "Testuser",
-        primary_last_name: "Testuser",
-      )
       state_efile_submission = EfileSubmission.create!(
-        data_source: state_file_ny_intake,
+        data_source: @intake,
       )
       state_efile_submission.transition_to(:preparing)
 

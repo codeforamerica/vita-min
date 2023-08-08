@@ -2,7 +2,16 @@
 
 <% content_for :card do %>
 
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_input_field :primary_first_name, "primary first name" %>
+    <%= f.cfa_input_field :primary_last_name, "primary last name" %>
+    <%= f.cfa_date_select :birth_date, "birth date" %>
+    <%= f.cfa_input_field :ssn, "ssn" %>
+    <%= f.cfa_input_field :tp_id, "tp id" %>
+    <%= f.cfa_input_field :tax_return_year, "tax return year" %>
+    <%= f.cfa_input_field :street_address, "street address" %>
+    <%= f.cfa_input_field :city, "city" %>
+    <%= f.cfa_input_field :zip_code, "zip code" %>
     <%= f.continue %>
   <% end %>
 <% end %>
