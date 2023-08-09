@@ -1,7 +1,6 @@
 <% content_for :page_title, "The page with all the info" %>
 
 <% content_for :card do %>
-
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_input_field :primary_first_name, "primary first name" %>
     <%= f.cfa_input_field :primary_last_name, "primary last name" %>

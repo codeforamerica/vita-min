@@ -1,7 +1,7 @@
 module StateFile
   module Questions
     class SubmitReturnController < QuestionsController
-      layout "intake"
+      layout "state_file/question"
 
       def current_intake
         StateFileNyIntake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?

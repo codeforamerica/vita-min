@@ -1,7 +1,7 @@
 module StateFile
   module Questions
     class AllInfoController < QuestionsController
-      layout "intake"
+      layout "state_file/question"
 
       private
 
