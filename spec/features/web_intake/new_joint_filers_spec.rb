@@ -546,6 +546,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
+      expect(page).to have_text("Please save this number for your records and future reference.")
     end
     click_on "Great!"
 
