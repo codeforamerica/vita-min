@@ -59,7 +59,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
         end
       end
 
-      context "when no new vita partner is selected" do
+      context "when no vita partner selected" do
         let(:vita_partners) { "" }
 
         it "redirects to client profile and does not change the org" do

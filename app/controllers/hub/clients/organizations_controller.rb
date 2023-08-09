@@ -3,13 +3,12 @@ module Hub
     class OrganizationsController < ApplicationController
       include AccessControllable
       before_action :require_sign_in
-      before_action :load_vita_partners, only: [:edit, :update]
-      before_action :authorize_vita_partner, only: [:update]
-
-      layout "hub"
       load_and_authorize_resource :client, parent: false
       before_action :redirect_to_client_show_if_archived
       before_action :redirect_if_no_vita_partner_selected, only: [:update]
+      before_action :load_vita_partners, only: [:edit, :update]
+      before_action :authorize_vita_partner, only: [:update]
+      layout "hub"
 
       def edit; end
 
@@ -38,7 +37,7 @@ module Hub
       end
 
       def authorize_vita_partner
-        raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present? || parsed_vita_partner_id.present?
+        raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present?
       end
 
       def parsed_vita_partner_id
@@ -51,9 +50,9 @@ module Hub
       end
 
       def redirect_if_no_vita_partner_selected
-        return unless parsed_vita_partner_id.nil?
+        return if client_params[:vita_partners].present?
 
-        flash[:error] = "No changes made because no vita partner selected."
+        flash[:alert] = "No changes made because no vita partner selected."
         redirect_to hub_client_path(@client.id)
       end
     end
