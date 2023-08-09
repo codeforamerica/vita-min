@@ -15,6 +15,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  tp_id              :string
+#  visitor_id         :string
 #
 FactoryBot.define do
   factory :state_file_ny_intake do

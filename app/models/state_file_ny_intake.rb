@@ -15,20 +15,12 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  tp_id              :string
+#  visitor_id         :string
 #
 class StateFileNyIntake < ApplicationRecord
   def primary
     Person.new(self, :primary)
   end
-
-  # temporary methods
-  def visitor_id
-    "temp"
-  end
-
-  def completed_at; end
-
-  def current_step; end
 
   class Person
     attr_reader :first_name

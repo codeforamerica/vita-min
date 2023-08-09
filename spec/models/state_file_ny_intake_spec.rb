@@ -15,6 +15,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  tp_id              :string
+#  visitor_id         :string
 #
 require 'rails_helper'
 

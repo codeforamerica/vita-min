@@ -8,5 +8,6 @@ class AddColumnsToStateFileNyIntakes < ActiveRecord::Migration[7.0]
     add_column :state_file_ny_intakes, :ssn, :string
     add_column :state_file_ny_intakes, :birth_date, :date
     add_column :state_file_ny_intakes, :current_step, :string
+    add_column :state_file_ny_intakes, :visitor_id, :string
   end
 end

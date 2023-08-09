@@ -1561,6 +1561,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_205125) do
     t.integer "tax_return_year"
     t.string "tp_id"
     t.datetime "updated_at", null: false
+    t.string "visitor_id"
     t.string "zip_code"
   end
 
