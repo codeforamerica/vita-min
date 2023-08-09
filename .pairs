@@ -2,6 +2,7 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
+  ab: Anthony Bibbs
   al: Asheesh Laroia
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
@@ -11,7 +12,6 @@ pairs:
   ti: Tahsina Islam
   tc: Tiffany Chang
   tg: Travis Grathwell
-  ab: Anthony Bibbs
 email_addresses:
   ab: abibbs@codeforamerica.org
   al: alaroia@codeforamerica.org
