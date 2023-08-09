@@ -41,9 +41,8 @@ class StateFileNyIntake < ApplicationRecord
       if primary_or_spouse == :primary
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
-        # TODO
-        @birth_date = 38.years.ago
-        @ssn = '123221234'
+        @birth_date = intake.birth_date
+        @ssn = intake.ssn
       end
     end
   end

@@ -128,7 +128,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_verified_address(i = 0)
-    # TODO
+    # TODO(state-filing)
     return OpenStruct.new(valid?: true) unless intake
 
     return OpenStruct.new(valid?: true) if verified_address.present?
@@ -171,7 +171,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    # TODO
+    # TODO(state-filing): add michigan
     if data_source&.class == StateFileNyIntake
       return SubmissionBuilder::StateManifest
     end
@@ -180,7 +180,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    # TODO
+    # TODO(state-filing): add michigan
     if data_source&.class == StateFileNyIntake
       return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
     end
@@ -229,7 +229,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def create_qualifying_dependents
-    # TODO
+    # TODO(state-filing)
     return unless intake
 
     qualifying_dependents.delete_all

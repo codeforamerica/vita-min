@@ -91,16 +91,6 @@ module SubmissionBuilder
                 include: true
               },
             ]
-            # TODO:
-            # w2_docs = submission.intake.completed_w2s.map do |w2|
-            #   {
-            #     xml: SubmissionBuilder::Ty2021::Documents::IrsW2,
-            #     pdf: nil,
-            #     include: true,
-            #     kwargs: { w2: w2 }
-            #   }
-            # end
-            # supported_docs.push(*w2_docs)
             supported_docs
           end
         end
