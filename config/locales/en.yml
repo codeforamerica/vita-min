@@ -282,6 +282,7 @@ en:
     continue: Continue
     continue_example: Continue to example
     ctc: GetCTC
+    state_file: State File
     ctc_client: CTC client
     date_of_birth: Date of birth
     days:

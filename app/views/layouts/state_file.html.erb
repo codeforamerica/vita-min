@@ -1,0 +1,28 @@
+<%= extends :application do %>
+  <% content_for :app_name do %>State File
+  <% end %>
+
+  <% content_for :header do %>
+    <header class="main-header sticky-header">
+      <div class="toolbar">
+        <div class="toolbar__left">
+          <div class="toolbar__item main-header__title">
+            <%= link_to state_file_root_path, class: "toolbar__logo-text main-header__logo" do %>
+              State File
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+  <% end %>
+  <% content_for :footer do %>
+    <div></div>
+  <% end %>
+
+  <% content_for :meta_tags do %>
+    <meta name="description" content="State file">
+    <meta property="og:title" content="<%= content_for(:page_title) %>">
+    <meta property="twitter:title" content="<%= content_for(:page_title) %>">
+  <% end %>
+  <%= yield %>
+<% end %>
