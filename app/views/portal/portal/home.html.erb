@@ -1,7 +1,7 @@
 <% content_for :title, t(".title", name: current_client.intake.preferred_name) %>
 
 <% content_for :card do %>
-  <h2 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h2>
+  <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
 
   <div class="spacing-below-15">
     <%= t(".client_ID", id: current_client.id) %>
