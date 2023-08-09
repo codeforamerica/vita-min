@@ -1632,6 +1632,7 @@ en:
           add_signature_primary: Please add your final signature to your tax return
           add_signature_spouse: Please add your spouse's final signature to your tax return
           finish_intake: Please answer remaining tax questions to continue.
+        client_ID: 'Client ID: %{id}'
         document_link:
           add_final_signature: Add final signature
           add_missing_documents: Add missing documents
