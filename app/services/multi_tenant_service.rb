@@ -38,7 +38,7 @@ class MultiTenantService
     case service_type
     when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
     when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
-    when :state_file then File.read(Rails.root.join('app/assets/images/logo.png')) # TODO: email logo for state file
+    when :state_file then File.read(Rails.root.join('app/assets/images/logo.png')) # TODO(state-file): email logo for state file
     end
   end
 

@@ -39,20 +39,20 @@ class EfileSubmissionStateMachine
   end
 
   guard_transition(to: :bundling) do |submission|
-    # TODO(state-filing)
+    # TODO(state-file)
     !submission.intake || submission.fraud_score.present?
   end
 
   after_transition(to: :preparing) do |submission|
     submission.create_qualifying_dependents
-    # TODO(state-filing)
+    # TODO(state-file)
     if submission.intake
       if submission.first_submission? && submission.intake.filing_jointly?
         submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
       end
     end
 
-    # TODO(state-filing)
+    # TODO(state-file)
     fraud_score = submission.intake ? Fraud::Score.create_from(submission) : Fraud::Score.new(score: 0)
     bypass_fraud_check = !submission.intake || submission.admin_resubmission? || submission.client.identity_verified_at
     if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
@@ -61,7 +61,7 @@ class EfileSubmissionStateMachine
       submission.client.touch(:restricted_at) if fraud_score.score >= Fraud::Score::RESTRICT_THRESHOLD
       submission.transition_to(:fraud_hold)
     end
-    # TODO(state-filing)
+    # TODO(state-file)
     if submission.intake
       CreateSubmissionPdfJob.perform_later(submission.id)
     end
@@ -70,7 +70,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :bundling) do |submission|
     # Only sends if efile preparing message has never been sent bc
     # AutomatedMessage::EfilePreparing has send_only_once set to true
-    # TODO(state-filing)
+    # TODO(state-file)
     if submission.client
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: submission.client,
@@ -97,7 +97,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    # TODO(state-filing)
+    # TODO(state-file)
     if submission.tax_return
       submission.tax_return.transition_to(:file_efiled)
       send_mixpanel_event(submission, "ctc_efile_return_transmitted")
