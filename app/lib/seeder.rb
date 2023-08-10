@@ -473,7 +473,7 @@ class Seeder
       email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
     )
-    archived_document1 = Document.find_or_initialize_by(display_name: "My Employment 2", document_type: "Employment", client: archived_intake.client, tax_return: archived_intake.client.tax_returns.first)
+    archived_document1 = Document.find_or_initialize_by(display_name: "My Form W-7", document_type: DocumentTypes::FormW7.key, client: archived_intake.client)
     attach_upload_to_document(archived_document1)
 
     find_or_create_intake_and_client(
