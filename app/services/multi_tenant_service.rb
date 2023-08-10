@@ -1,7 +1,7 @@
 class MultiTenantService
   attr_accessor :service_type
 
-  SERVICE_TYPES = [:gyr, :ctc]
+  SERVICE_TYPES = [:gyr, :ctc, :state_file]
 
   def initialize(service_type)
     @service_type = service_type.to_sym
@@ -14,7 +14,15 @@ class MultiTenantService
   end
 
   def host
-    base = service_type == :ctc ? Rails.configuration.ctc_url : Rails.configuration.gyr_url
+    base =
+      case service_type
+      when :ctc
+        Rails.configuration.ctc_url
+      when :gyr
+        Rails.configuration.gyr_url
+      when :state_file
+        Rails.configuration.state_file_url
+      end
     URI(base).hostname
   end
 
@@ -22,6 +30,7 @@ class MultiTenantService
     case service_type
     when :ctc then "GetCTC"
     when :gyr then "GetYourRefund"
+    when :state_file then "CFA State File"
     end
   end
 
@@ -29,6 +38,7 @@ class MultiTenantService
     case service_type
     when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
     when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
+    when :state_file then File.read(Rails.root.join('app/assets/images/logo.png')) # TODO(state-file): email logo for state file
     end
   end
 
@@ -64,7 +74,7 @@ class MultiTenantService
   end
 
   def filing_years
-    if service_type == :ctc
+    if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
       ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze

@@ -7,11 +7,9 @@ module TemporaryNonsense
         bundle_class: bundle_class,
         irs_submission_id: '4414662023103zvnoell',
         created_at: DateTime.now,
-        tax_return: OpenStruct.new(
-          year: 2022,
+        data_source: OpenStruct.new(
+          tax_return_year: 2022,
           filing_status: "single",
-        ),
-        intake: OpenStruct.new(
           street_address: "1 French Fry Way",
           city: "Albany",
           zip_code: "12084",
@@ -21,6 +19,8 @@ module TemporaryNonsense
             first_name: "Ronald",
             last_name: "McDonald",
           ),
+        ),
+        intake: OpenStruct.new(
           completed_w2s: [
             OpenStruct.new(
               "box10_dependent_care_benefits" => nil,
@@ -67,14 +67,14 @@ module TemporaryNonsense
         )
       )
       if bundle_class == SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
-        fake_submission.intake.school_district = "22334"
-        fake_submission.intake.resident =  true
-        fake_submission.intake.agi =  "4200"
-        fake_submission.intake.income_tax =  "42"
-        fake_submission.intake.state_use_tax =  "24"
+        fake_submission.data_source.school_district = "22334"
+        fake_submission.data_source.resident =  true
+        fake_submission.data_source.agi =  "4200"
+        fake_submission.data_source.income_tax =  "42"
+        fake_submission.data_source.state_use_tax =  "24"
       end
       if bundle_class == SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-        fake_submission.intake.tp_id = "123456789"
+        fake_submission.data_source.tp_id = "123456789"
       end
       return fake_submission
     end

@@ -39,34 +39,47 @@ class EfileSubmissionStateMachine
   end
 
   guard_transition(to: :bundling) do |submission|
-    submission.fraud_score.present?
+    # TODO(state-file)
+    !submission.intake || submission.fraud_score.present?
   end
 
   after_transition(to: :preparing) do |submission|
     submission.create_qualifying_dependents
-    if submission.first_submission? && submission.intake.filing_jointly?
-      submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
+    # TODO(state-file)
+    if submission.intake
+      if submission.first_submission? && submission.intake.filing_jointly?
+        submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
+      end
     end
 
-    fraud_score = Fraud::Score.create_from(submission)
-    bypass_fraud_check = submission.admin_resubmission? || submission.client.identity_verified_at
+    # TODO(state-file)
+    fraud_score = submission.intake ? Fraud::Score.create_from(submission) : Fraud::Score.new(score: 0)
+    bypass_fraud_check = !submission.intake || submission.admin_resubmission? || submission.client.identity_verified_at
     if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
       submission.transition_to(:bundling)
     else
       submission.client.touch(:restricted_at) if fraud_score.score >= Fraud::Score::RESTRICT_THRESHOLD
       submission.transition_to(:fraud_hold)
     end
-    CreateSubmissionPdfJob.perform_later(submission.id)
+    # TODO(state-file)
+    if submission.intake
+      CreateSubmissionPdfJob.perform_later(submission.id)
+    end
   end
 
   after_transition(to: :bundling) do |submission|
     # Only sends if efile preparing message has never been sent bc
     # AutomatedMessage::EfilePreparing has send_only_once set to true
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: submission.client,
-      message: AutomatedMessage::EfilePreparing,
-    )
-    submission.tax_return.transition_to!(:file_ready_to_file)
+    # TODO(state-file)
+    if submission.client
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: submission.client,
+        message: AutomatedMessage::EfilePreparing,
+      )
+    end
+    if submission.tax_return
+      submission.tax_return.transition_to!(:file_ready_to_file)
+    end
 
     BuildSubmissionBundleJob.perform_later(submission.id)
   end
@@ -84,8 +97,11 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    submission.tax_return.transition_to(:file_efiled)
-    send_mixpanel_event(submission, "ctc_efile_return_transmitted")
+    # TODO(state-file)
+    if submission.tax_return
+      submission.tax_return.transition_to(:file_efiled)
+      send_mixpanel_event(submission, "ctc_efile_return_transmitted")
+    end
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|

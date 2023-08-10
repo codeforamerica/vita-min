@@ -4,21 +4,25 @@
 #
 #  id                      :bigint           not null, primary key
 #  claimed_eitc            :boolean
+#  data_source_type        :string
 #  last_checked_for_ack_at :datetime
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  data_source_id          :bigint
 #  irs_submission_id       :string
 #  tax_return_id           :bigint
 #
 # Indexes
 #
 #  index_efile_submissions_on_created_at            (created_at)
+#  index_efile_submissions_on_data_source           (data_source_type,data_source_id)
 #  index_efile_submissions_on_irs_submission_id     (irs_submission_id)
 #  index_efile_submissions_on_tax_return_id         (tax_return_id)
 #  index_efile_submissions_on_tax_return_id_and_id  (tax_return_id,id DESC)
 #
 class EfileSubmission < ApplicationRecord
-  belongs_to :tax_return
+  belongs_to :tax_return, optional: true
+  belongs_to :data_source, polymorphic: true, optional: true
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
   has_one :fraud_score, class_name: "Fraud::Score"
@@ -40,7 +44,10 @@ class EfileSubmission < ApplicationRecord
 
   default_scope { order(id: :asc) }
 
-  delegate :year, to: :tax_return, prefix: :tax
+  def tax_year
+    return tax_return.year if tax_return
+    return data_source.tax_return_year if data_source
+  end
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
@@ -121,6 +128,9 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_verified_address(i = 0)
+    # TODO(state-file)
+    return OpenStruct.new(valid?: true) unless intake
+
     return OpenStruct.new(valid?: true) if verified_address.present?
 
     address_service = StandardizeAddressService.new(intake, read_timeout: 1500)
@@ -161,10 +171,20 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
+    # TODO(state-file): add michigan
+    if data_source&.class == StateFileNyIntake
+      return SubmissionBuilder::StateManifest
+    end
+
     SubmissionBuilder::FederalManifest
   end
 
   def bundle_class
+    # TODO(state-file): add michigan
+    if data_source&.class == StateFileNyIntake
+      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+    end
+
     case tax_year
     when 2020
       SubmissionBuilder::Ty2020::Return1040
@@ -209,6 +229,9 @@ class EfileSubmission < ApplicationRecord
   end
 
   def create_qualifying_dependents
+    # TODO(state-file)
+    return unless intake
+
     qualifying_dependents.delete_all
 
     intake.dependents.each do |dependent|

@@ -1,0 +1,29 @@
+<%= extends :state_file do  %>
+  <% content_for :page_title do %>
+    <% if @form&.errors.present? %>
+    <% end %>
+    <%= yield :form_question %>
+  <% end %>
+
+  <section class="slab slab--white question-layout">
+    <div class="grid">
+      <div class="grid__item question-wrapper">
+        <%= yield :notices %>
+        <% if prev_path %>
+          <div class="back grid">
+            <%= link_to t("general.back"), prev_path %>
+          </div>
+        <% end %>
+        <main role="main">
+          <% if illustration_path.present? %>
+            <div class="question__illustration">
+              <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
+            </div>
+          <% end %>
+          <%= yield :card %>
+        </main>
+      </div>
+    </div>
+  </section>
+  <%= yield :extra_slabs %>
+<% end %>
