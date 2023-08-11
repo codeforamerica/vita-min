@@ -273,8 +273,11 @@ class ApplicationController < ActionController::Base
       else
         "INFO"
       end
+
+    current_user_id = current_user&.id rescue "unknown"
+
     payload[:request_details] = {
-      current_user_id: current_user&.id,
+      current_user_id: current_user_id,
       intake_id: current_intake&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
