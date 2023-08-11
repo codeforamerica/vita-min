@@ -1614,6 +1614,7 @@ es:
           add_signature_primary: Agregue su firma final a su declaración de impuestos
           add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
           finish_intake: Responda las preguntas fiscales restantes para continuar.
+        client_id: 'Identificación del cliente: %{id}'
         document_link:
           add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
