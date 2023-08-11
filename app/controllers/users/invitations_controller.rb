@@ -26,6 +26,11 @@ class Users::InvitationsController < Devise::InvitationsController
       redirect_to invitations_path and return
     end
 
+    unless @role.valid?
+      flash[:alert] = "Unable to send invitation. Must select vita partner."
+      redirect_to invitations_path and return
+    end
+
     super
   end
 

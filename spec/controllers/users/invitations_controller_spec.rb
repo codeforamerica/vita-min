@@ -48,6 +48,7 @@ RSpec.describe Users::InvitationsController do
       before { sign_in user }
 
       context "inviting an org lead user" do
+        let(:org_params) { JSON.generate([{ id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }]) }
         let(:params) do
           {
             user: {
@@ -55,7 +56,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: OrganizationLeadRole::TYPE,
             },
-            organization_id: vita_partner.id
+            organization: org_params
           }
         end
 
@@ -77,6 +78,17 @@ RSpec.describe Users::InvitationsController do
           expect(response).to redirect_to invitations_path
         end
 
+        context "does not create an invitation and when no organization is selected" do
+          let(:org_params) { '' }
+
+          it "redirects to invitations page" do
+            expect do
+              post :create, params: params
+            end.to not_change(User, :count).and not_change(OrganizationLeadRole, :count)
+            expect(response).to redirect_to invitations_path
+          end
+        end
+
         context "if the invited user already exists and is an admin" do
           let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
 
@@ -89,6 +101,7 @@ RSpec.describe Users::InvitationsController do
 
       context "inviting a coalition lead user" do
         let(:coalition) { create :coalition }
+        let(:coalition_params) { JSON.generate([{ id: coalition.id, name: coalition.name, value: coalition.id }]) }
         let(:params) do
           {
             user: {
@@ -96,7 +109,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: CoalitionLeadRole::TYPE,
             },
-            coalition_id: coalition.id
+            coalition: coalition_params
           }
         end
 
@@ -117,10 +130,22 @@ RSpec.describe Users::InvitationsController do
           expect(invited_user.invited_by).to eq user
           expect(response).to redirect_to invitations_path
         end
+
+        context "when no coalition is selected" do
+          let(:coalition_params) { '' }
+
+          it "does not create an invitation and redirects to invitations page" do
+            expect do
+              post :create, params: params
+            end.to not_change(User, :count).and not_change(CoalitionLeadRole, :count)
+            expect(response).to redirect_to invitations_path
+          end
+        end
       end
 
       context "inviting a site coordinator user" do
         let(:site) { create :site }
+        let(:site_params) { [{id: site.id}].to_json }
         let(:params) do
           {
             user: {
@@ -128,7 +153,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: SiteCoordinatorRole::TYPE,
             },
-            sites: [{id: site.id}].to_json
+            sites: site_params
           }
         end
 
@@ -148,6 +173,17 @@ RSpec.describe Users::InvitationsController do
           expect(invited_user.invitation_token).to be_present
           expect(invited_user.invited_by).to eq user
           expect(response).to redirect_to invitations_path
+        end
+
+        context "when no site is selected" do
+          let(:site_params) { '' }
+
+          it "does not create an invitation and redirects to invitations page" do
+            expect do
+              post :create, params: params
+            end.to not_change(User, :count).and not_change(SiteCoordinatorRole, :count)
+            expect(response).to redirect_to invitations_path
+          end
         end
       end
 
@@ -249,6 +285,7 @@ RSpec.describe Users::InvitationsController do
 
       context "inviting a team member user" do
         let(:site) { create(:site) }
+        let(:site_params) { [{ id: site.id}].to_json }
         let(:params) do
           {
             user: {
@@ -256,7 +293,7 @@ RSpec.describe Users::InvitationsController do
               email: "cherry@example.com",
               role: TeamMemberRole::TYPE,
             },
-            sites: [{ id: site.id}].to_json
+            sites: site_params
           }
         end
 
@@ -276,6 +313,17 @@ RSpec.describe Users::InvitationsController do
           expect(invited_user.invitation_token).to be_present
           expect(invited_user.invited_by).to eq user
           expect(response).to redirect_to invitations_path
+        end
+
+        context "when no site is selected" do
+          let(:site_params) { '' }
+
+          it "does not create an invitation and redirects to invitations page" do
+            expect do
+              post :create, params: params
+            end.to not_change(User, :count).and not_change(SiteCoordinatorRole, :count)
+            expect(response).to redirect_to invitations_path
+          end
         end
       end
     end

@@ -61,6 +61,39 @@ export function initMultiSelectVitaPartner() {
     });
 }
 
+export function initSelectVitaPartner() {
+    const input = document.querySelector('.select-vita-partner');
+
+    new Tagify(input, {
+        tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
+        // Array for initial interpolation, which allows only these tags to be used
+        whitelist: window.taggableItems,
+        enforceWhitelist: true,
+        mode : "select",
+        dropdown : {
+            classname: "multi-select-dropdown",
+            enabled: 0,
+            mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
+            searchKeys: ['name'], // <-- defines the attr used to search for in dropdown
+            highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
+            closeOnSelect: true, // <-- close dropdown open after selection
+            maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
+            position: 'input', // <-- render the suggestions list under the input element
+        },
+        templates: {
+            dropdownItem: function(item){
+                return `<div ${this.getAttributes(item)}
+                    class='${this.settings.classNames.dropdownItem}'
+                    tabindex="0"
+                    role="option">
+                        <div class='${item.parentName ? "parent" : ""}'>${item.parentName || ''}</div>
+                        <div class='${item.parentName ? "site" : "org"}'>${item.value}</div>
+                    </div>`
+            },
+        }
+    });
+}
+
 export function initMultiSelectState() {
     const input = document.querySelector('.multi-select-state');
     new Tagify(input, {

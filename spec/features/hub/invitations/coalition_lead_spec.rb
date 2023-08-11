@@ -8,7 +8,7 @@ RSpec.feature "Inviting coalition leads" do
       login_as user
     end
 
-    scenario "Inviting, re-sending invites, and accepting invites" do
+    scenario "Inviting, re-sending invites, and accepting invites", js: true do
       visit hub_tools_path
       click_on "Invitations"
 
@@ -21,7 +21,8 @@ RSpec.feature "Inviting coalition leads" do
       expect(page).to have_text "Send a new invitation"
       fill_in "What is their name?", with: "Colleen Cauliflower"
       fill_in "What is their email?", with: "colleague@cauliflower.org"
-      select "Kohlrabi Koalition", from: "Which coalition?"
+      expect(page).to have_text "Which coalition?"
+      fill_in_tagify '.select-vita-partner', "Kohlrabi Koalition"
       click_on "Send invitation email"
 
       # back on the invitations page

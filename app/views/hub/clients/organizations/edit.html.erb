@@ -7,13 +7,25 @@
     </h2>
     <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
     <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
-    <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f|%>
+    <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
 
-      <%= f.cfa_select(:vita_partner_id, t("general.organization"), grouped_vita_partner_options) %>
+      <div class="form-group spacing-below-60">
+        <%= label_tag(:vita_partners, t("general.organization"), class: "form-question") %>
+        <div class="form-width--long">
+          <%= f.hidden_field(:vita_partners, class: "select-vita-partner select__element") %>
+        </div>
+      </div>
+
       <div>
         <%= f.submit t("general.save"), class: "button button--primary" %>
       </div>
     <% end %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
+  </script>
 <% end %>
 
