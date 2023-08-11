@@ -816,7 +816,7 @@ RSpec.describe ApplicationController do
         expect(fake_payload).to include(request_details: include(:ip, :device_type, :browser_name, :os_name, :request_id, :referrer, :visitor_id))
       end
 
-      context "when it could not be found" do
+      context "when it could not be resolved due to an error" do
         before do
           allow(controller).to receive(:current_user).and_raise(ArgumentError.new())
         end
