@@ -823,7 +823,7 @@ RSpec.describe ApplicationController do
 
         it "marks the user as unknown" do
           controller.append_info_to_payload(fake_payload)
-          expect(fake_payload).to include(request_details: include(current_user_id: "unknown"))
+          expect(fake_payload).to include(request_details: include(current_user_id: nil))
         end
       end
     end

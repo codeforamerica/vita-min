@@ -274,7 +274,7 @@ class ApplicationController < ActionController::Base
         "INFO"
       end
 
-    current_user_id = current_user&.id rescue "unknown"
+    current_user_id = current_user&.id rescue nil
 
     payload[:request_details] = {
       current_user_id: current_user_id,
