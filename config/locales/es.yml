@@ -4148,7 +4148,8 @@ es:
           one: En %{year}, ¿pagó algún interés de préstamo estudiantil?
           other: En el %{year}, ¿usted o su cónyuge pagó interés de algún préstamo educativo?
       successfully_submitted:
-        confirmation_number: 'Su número de confirmación es: %{confirmation_number}'
+        additional_text: Guarde este número para sus registros y futuras referencias.
+        client_id: 'Número de identificación del cliente: %{client_id}'
         next_steps:
           confirmation_message: En seguido, recibirá un mensaje de confirmación.
           header: Próximos pasos

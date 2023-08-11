@@ -4108,7 +4108,8 @@ en:
           one: In %{year}, did you pay any student loan interest?
           other: In %{year}, did you or your spouse pay any student loan interest?
       successfully_submitted:
-        confirmation_number: 'Your confirmation number is: %{confirmation_number}'
+        additional_text: Please save this number for your records and future reference.
+        client_id: 'Client ID number: %{client_id}'
         next_steps:
           confirmation_message: You will receive a confirmation message shortly
           header: Next Steps
