@@ -941,6 +941,7 @@ es:
         add_doc: Agregar documento
         archived_documents: Documentos archivados
         client_doc: Cliente
+        deleted_docs: Documento eliminado del cliente - %{doc_type} - %{doc_name} - %{date_time}
         empty_file: "(archivo vacío)"
         expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo

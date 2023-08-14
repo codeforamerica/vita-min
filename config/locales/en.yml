@@ -933,6 +933,7 @@ en:
         add_doc: Add document
         archived_documents: Archived documents
         client_doc: Client
+        deleted_docs: Client deleted document - %{doc_type} - %{doc_name} - %{date_time}
         empty_file: "(empty file)"
         expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name

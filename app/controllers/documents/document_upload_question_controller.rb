@@ -37,6 +37,8 @@ module Documents
       document = current_intake.documents.find_by(id: params[:id])
 
       if document.present?
+        DeletedDocumentHistory.create(document_id: document.id, display_name: document.display_name, document_type: document.document_type, deleted_at: Time.now)
+
         document.destroy
 
         redirect_to action: :edit

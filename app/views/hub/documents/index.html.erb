@@ -100,6 +100,12 @@
 
       </tbody>
     </table>
+
+    <% if @deleted_documents.present? %>
+      <% @deleted_documents.each do |document| %>
+        <div class="text--italic"> <%= t(".deleted_docs", doc_name: document.display_name, doc_type: document.document_type, date_time: document.deleted_at ) %></div>
+        <%end %>
+    <%end %>
   </div>
 
   <%= render "hub/clients/client_take_action_footer" %>

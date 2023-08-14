@@ -13,6 +13,7 @@ module Hub
 
     def index
       @client = Hub::ClientsController::HubClientPresenter.new(@client)
+      @deleted_documents = DeletedDocumentHistory.all
       @documents = sorted_documents.active
     end
 

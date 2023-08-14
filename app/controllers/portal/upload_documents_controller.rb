@@ -45,9 +45,12 @@ module Portal
 
     def destroy
       document = current_client.documents.find_by(id: params[:id])
-      document.destroy if document.present?
+      if document.present?
+        DeletedDocumentHistory.create(document_id: document.id, display_name: document.display_name, document_type: document.document_type, deleted_at: Time.now)
 
-      redirect_to portal_upload_documents_path(document_type: params[:document_type])
+        document.destroy
+
+        redirect_to portal_upload_documents_path(document_type: document_type)
     end
 
     private
