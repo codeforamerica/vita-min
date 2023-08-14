@@ -4,7 +4,11 @@ module StateFile
       layout "state_file/question"
 
       def current_intake
-        StateFileNyIntake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?
+        intake_class = {
+          "AZ" => StateFileAzIntake,
+          "NY" => StateFileNyIntake
+        }[params[:state]]
+        intake_class.find_by_id(session[:intake_id]) unless session[:intake_id].nil?
       end
 
       private

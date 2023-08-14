@@ -171,8 +171,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    # TODO(state-file): add michigan
-    if data_source&.class == StateFileNyIntake
+    if [StateFileAzIntake, StateFileNyIntake].include?(data_source&.class)
       return SubmissionBuilder::StateManifest
     end
 
@@ -180,9 +179,10 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    # TODO(state-file): add michigan
     if data_source&.class == StateFileNyIntake
       return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+    elsif data_source&.class == StateFileAzIntake
+      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
     end
 
     case tax_year

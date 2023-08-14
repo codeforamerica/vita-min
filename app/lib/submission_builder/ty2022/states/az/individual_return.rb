@@ -2,46 +2,52 @@
 module SubmissionBuilder
   module Ty2022
     module States
-      module Mi
+      module Az
         class IndividualReturn < SubmissionBuilder::Document
           def document
-            document = build_xml_doc('efile:ReturnState')
+            document = build_xml_doc('efile:ReturnState', stateSchemaVersion: "AZIndividual2022v1.1")
             document.at("ReturnState").add_child(authentication_header)
             document.at("ReturnState").add_child(return_header)
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
             document.at("ReturnDataState").add_child(documents_wrapper)
-            attached_documents.each do |attached|
-              document.at('forms').add_child(document_fragment(attached))
-            end
             document
           end
 
           def self.state_abbreviation
-            "MI"
+            "AZ"
           end
 
           def self.return_type
-            "MI1040"
+            "Form140"
           end
 
           private
 
           def documents_wrapper
-            xml_doc = build_xml_doc("efile:Form1040") do |xml|
-              xml.SchoolDistrict @submission.data_source.school_district
-              if @submission.data_source.filing_status == "single"
-                xml.FilingStatus do
-                  xml.Single "X"
-                end
+            standard_deductions = {
+              "single" => 12950
+            }
+
+            xml_doc = build_xml_doc("Form140") do |xml|
+              xml.FiledUnderExtension "No"
+              xml.FilingStatus @submission.data_source.filing_status.capitalize
+              xml.Additions do
+                xml.FedAdjGrossIncome @submission.data_source.agi
+                xml.ModFedAdjGrossInc @submission.data_source.agi
               end
-              if @submission.data_source.resident == true
-                xml.Residency do
-                  xml.Resident "X"
-                end
+              xml.AzAdjSubtotal @submission.data_source.agi
+              xml.AZAdjGrossIncome @submission.data_source.agi
+              xml.DeductionAmt do
+                xml.DeductionTypeIndc "Standard"
+                xml.AZDeductions standard_deductions.fetch(@submission.data_source.filing_status)
+                xml.AZTaxableInc 0
+                xml.ComputedTax 0
+                xml.BalanceOfTaxDue 0
               end
-              xml.AdjustedGrossIncome @submission.data_source.agi
-              xml.IncomeTax @submission.data_source.income_tax
-              xml.StateUseTax @submission.data_source.state_use_tax
+              xml.TaxDueOrOverpayment do
+                xml.TaxDue 0
+              end
+              xml.AmtOwed 0
             end
 
             xml_doc.at('*')
@@ -60,7 +66,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            File.join(Rails.root, "vendor", "us_states", "unpacked", "MIInd2022V1.0", "MIIndividual", "IndividualReturnMI1040.xsd")
+            File.join(Rails.root, "vendor", "us_states", "unpacked", "AZIndividual2022v1.1", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
           def attached_documents

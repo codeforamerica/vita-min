@@ -80,13 +80,14 @@ describe SubmissionBundle do
       end
     end
 
-    it "can bundle a minimal MI return" do
-      submission_bundle = described_class.new(
-        TemporaryNonsense::FakeSubmission.sample_submission(
-          bundle_class: SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
-        )
-      )
-      expect(submission_bundle.build.errors).to eq([])
+    context "AZ state" do
+      let(:submission) {
+        create(:efile_submission, data_source: create(:state_file_az_intake), irs_submission_id: "12345202201011234570")
+      }
+
+      it "can bundle a minimal AZ return" do
+        expect(described_class.new(submission).build.errors).to eq([])
+      end
     end
   end
 end
