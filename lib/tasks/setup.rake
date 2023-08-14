@@ -10,6 +10,7 @@ namespace :setup do
     ["efile1040x_2023v2.0.zip", "irs"],
     ["MIInd2022V1.0.zip", "us_states"],
     ["NYSIndividual2022V5.0.zip", "us_states"],
+    ["AZIndividual2022v1.1.zip", "us_states"],
   ].freeze
 
   # These Rake tasks download IRS e-file schemas from S3.

@@ -7,7 +7,7 @@ RSpec.feature "Completing a state file intake" do
 
   it "has content" do
     visit "/"
-    click_on "Start Test"
+    click_on "Start Test NY"
     click_on "Continue"
     click_on "Submit My Fake Taxes"
 
