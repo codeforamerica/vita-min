@@ -49,8 +49,9 @@ module Portal
         DeletedDocumentHistory.create(document_id: document.id, display_name: document.display_name, document_type: document.document_type, deleted_at: Time.now)
 
         document.destroy
+      end
 
-        redirect_to portal_upload_documents_path(document_type: document_type)
+      redirect_to portal_upload_documents_path(document_type: params[:document_type])
     end
 
     private
