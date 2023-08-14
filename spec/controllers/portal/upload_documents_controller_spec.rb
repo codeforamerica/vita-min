@@ -42,10 +42,11 @@ describe Portal::UploadDocumentsController do
           5.times do
             create(:document, intake: client.intake, document_type: 'ID')
           end
+          create(:document, intake: client.intake, document_type: 'ID', archived: true)
           allow(Portal::DocumentUploadForm).to receive(:new).and_return requested_docs_double
         end
 
-        it "assigns existing documents for the intake of the matching type to @documents" do
+        it "assigns existing active documents for the intake of the matching type to @documents" do
           get :edit, params: { type: 'ID' }
           expect(assigns(:documents).length).to eq 5
         end
@@ -131,6 +132,17 @@ describe Portal::UploadDocumentsController do
 
       context "when the provided document does not belong to the client" do
         let!(:document) { create :document }
+
+        it "does not delete the document" do
+          expect {
+            delete :destroy, params: { id: document.id }
+          }.not_to change(Document, :count)
+          expect(response).to redirect_to portal_upload_documents_path
+        end
+      end
+
+      context "when the document is archived" do
+        let!(:document) { create :document, archived: true, client: client }
 
         it "does not delete the document" do
           expect {

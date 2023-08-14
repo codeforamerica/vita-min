@@ -20,10 +20,10 @@ module Portal
       @prev_path = portal_overview_documents_path
       @form = form_class.new(current_client.intake)
       if params[:document_type].present?
-        @documents = current_client.documents.where(document_type: params[:document_type])
+        @documents = current_client.documents.active.where(document_type: params[:document_type])
         @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:document_type] }
       else
-        @documents = current_client.documents
+        @documents = current_client.documents.active
       end
     end
 
@@ -44,7 +44,7 @@ module Portal
     end
 
     def destroy
-      document = current_client.documents.find_by(id: params[:id])
+      document = current_client.documents.active.find_by(id: params[:id])
       document.destroy if document.present?
 
       redirect_to portal_upload_documents_path(document_type: params[:document_type])
