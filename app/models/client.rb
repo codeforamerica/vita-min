@@ -72,6 +72,7 @@ class Client < ApplicationRecord
   has_one :data_science_click_history, :class_name => 'DataScience::ClickHistory', dependent: :destroy
   has_many :analytics_events, dependent: :destroy
   has_many :documents, dependent: :destroy
+  has_many :deleted_document_histories
   # We don't create documents_requests anymore but need the `dependent: destroy` if clients with them get deleted
   has_many :documents_requests, dependent: :destroy
   has_one :intake, inverse_of: :client, dependent: :destroy
