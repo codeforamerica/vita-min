@@ -21,7 +21,7 @@ module SubmissionBuilder
           end
 
           def self.return_type
-            "IT-201"
+            "IT201"
           end
 
           private
