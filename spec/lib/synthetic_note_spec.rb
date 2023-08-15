@@ -49,6 +49,14 @@ describe SyntheticNote do
       end
     end
 
+    describe "if user deletes a document" do
+      let!(:deleted_doc) { create :deleted_document_history, client: client, deleted_at: DateTime.new(2023, 9, 3) }
+      it "generates synthetic notes for deleted documents" do
+        result = SyntheticNote.deleted_documents(client)
+        expect(result[0].body).to include("Client deleted document")
+      end
+    end
+
     context "with outbound calls" do
       let(:day1) { DateTime.new(2019, 10, 5, 8, 1).utc }
       let(:day2) { DateTime.new(2020, 10, 5, 5, 1).utc }

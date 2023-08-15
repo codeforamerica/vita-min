@@ -21,6 +21,8 @@
 #
 FactoryBot.define do
   factory :deleted_document_history do
+    association :document, factory: :document
+    association :client
     document_id { 1 }
     document_type { "MyString" }
     deleted_at { "2023-08-14 13:14:19" }
