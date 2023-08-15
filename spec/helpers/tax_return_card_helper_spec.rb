@@ -5,12 +5,14 @@ describe TaxReturnCardHelper do
     (TaxReturnStateMachine.states - ['intake_before_consent']).each do |state|
       context "when the tax return is in #{state}" do
         let(:tax_return) { instance_double(TaxReturn) }
+        let(:intake) { build(:intake) }
 
         before do
           allow(tax_return).to receive(:current_state).and_return(state)
           allow(tax_return).to receive(:ready_for_8879_signature?).and_return(false)
-          allow(tax_return).to receive(:intake).and_return(Intake.new)
+          allow(tax_return).to receive(:intake).and_return(intake)
           allow(tax_return).to receive(:time_accepted).and_return(DateTime.now)
+          allow(tax_return).to receive(:client).and_return(intake.client)
         end
 
         it "returns help text to show in the client portal" do
