@@ -20,10 +20,10 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
     context "with an authenticated client " do
       before { sign_in client }
 
-      it "displays a confirmation number" do
+      it "displays a client ID number" do
         get :edit
 
-        expect(response.body).to include "Your confirmation number is: #{intake.client_id}"
+        expect(response.body).to include "Client ID number: #{intake.client_id}"
       end
 
       it "sends a mixpanel event with the intake in the session" do

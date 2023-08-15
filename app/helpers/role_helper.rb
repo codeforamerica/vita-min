@@ -33,10 +33,10 @@ module RoleHelper
   def role_from_params(role_string, params)
     case role_string
     when OrganizationLeadRole::TYPE
-      role_params = params[:organization_id].present? ? { organization: @vita_partners.find(params[:organization_id]) } : {}
+      role_params = params[:organization].present? ? {organization: @vita_partners.find(JSON.parse(params[:organization].presence || '[]').pluck('id').first)} : {}
       OrganizationLeadRole.new(role_params)
     when CoalitionLeadRole::TYPE
-      role_params = params[:coalition_id].present? ? { coalition: @coalitions.find(params[:coalition_id]) } : {}
+      role_params = params[:coalition].present? ? {coalition: @coalitions.find(JSON.parse(params[:coalition].presence || '[]').pluck('id').first)} : {}
       CoalitionLeadRole.new(role_params)
     when AdminRole::TYPE
       AdminRole.new
@@ -48,6 +48,19 @@ module RoleHelper
       GreeterRole.new
     when TeamMemberRole::TYPE
       TeamMemberRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
+    end
+  end
+
+  def taggable_items_from_role_type(role_type)
+    case role_type
+    when CoalitionLeadRole::TYPE
+      taggable_coalitions(@coalitions)
+    when OrganizationLeadRole::TYPE
+      taggable_organizations(@vita_partners)
+    when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
+      taggable_sites(@vita_partners)
+    else
+      []
     end
   end
 

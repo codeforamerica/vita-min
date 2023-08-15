@@ -815,6 +815,17 @@ RSpec.describe ApplicationController do
         controller.append_info_to_payload(fake_payload)
         expect(fake_payload).to include(request_details: include(:ip, :device_type, :browser_name, :os_name, :request_id, :referrer, :visitor_id))
       end
+
+      context "when it could not be resolved due to an error" do
+        before do
+          allow(controller).to receive(:current_user).and_raise(ArgumentError.new())
+        end
+
+        it "marks the user as unknown" do
+          controller.append_info_to_payload(fake_payload)
+          expect(fake_payload).to include(request_details: include(current_user_id: nil))
+        end
+      end
     end
 
     context "for a user with an intake" do

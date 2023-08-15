@@ -421,7 +421,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
+      expect(page).to have_text("Client ID number: #{intake.client_id}")
       click_on "Great!"
 
       expect(intake.reload.current_step).to end_with("/questions/feedback")
@@ -530,7 +530,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
+      expect(page).to have_text("Please save this number for your records and future reference.")
+      expect(page).to have_text("Client ID number: #{intake.client_id}")
       click_on "Great!"
     end
   end

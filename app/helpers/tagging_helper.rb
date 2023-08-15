@@ -8,6 +8,9 @@ module TaggingHelper
         taggable_vita_partners << { id: site.id, name: site.name, parentName: organization.name, value: site.id }
       end
     end
+
+    return taggable_sites(vita_partners) if taggable_vita_partners.empty?
+
     taggable_vita_partners.to_json.to_s.html_safe
   end
 
@@ -27,5 +30,19 @@ module TaggingHelper
       taggable_orgs << { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }
     end
     taggable_orgs.to_json.to_s.html_safe
+  end
+
+  def taggable_organizations(vita_partners)
+    taggable_orgs = []
+    Organization.where(id: vita_partners.organizations).each do |vita_partner|
+      taggable_orgs << { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }
+    end
+    taggable_orgs.to_json.to_s.html_safe
+  end
+
+  def taggable_coalitions(coalitions)
+    coalitions.map do |coalition|
+      { id: coalition.id, name: coalition.name, value: coalition.id }
+    end.to_json.to_s.html_safe
   end
 end
