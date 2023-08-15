@@ -2,30 +2,13 @@
 #
 # Table name: team_member_roles
 #
-#  id              :bigint           not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  vita_partner_id :bigint
-#
-# Indexes
-#
-#  index_team_member_roles_on_vita_partner_id  (vita_partner_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 require 'rails_helper'
 
 RSpec.describe TeamMemberRole, type: :model do
-  describe '#sites' do
-    it "returns the old associated site if this record hasn't been migrated to join table land" do
-      site = create(:site)
-      role = described_class.new(vita_partner_id: site.id)
-      expect(role.sites).to eq([site])
-    end
-  end
-
   describe "validations" do
     context "with a site" do
       it "is valid" do

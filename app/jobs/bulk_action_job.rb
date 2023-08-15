@@ -16,6 +16,9 @@ class BulkActionJob < ApplicationJob
       create_outgoing_messages!(tax_return_selection, user)
     end
   end
+  def priority
+    PRIORITY_MEDIUM
+  end
 
   private
 

@@ -7,6 +7,6 @@ class SendInternalEmailJob < ApplicationJob
   end
 
   def priority
-    low_priority
+    PRIORITY_LOW
   end
 end

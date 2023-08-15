@@ -66,11 +66,13 @@ commands:
     description: "Install IRS e-File schemas"
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "lib/tasks/setup.rake" }}
+          key: bundle-{{ checksum "lib/tasks/setup.rake" }}-v2
       - run: if [ ! -d vendor/irs/unpacked ] ; then bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas ; fi && find vendor/irs
       - save_cache:
-          key: bundle-{{ checksum "lib/tasks/setup.rake" }}
-          paths: [/mnt/ramdisk/vendor/irs]
+          key: bundle-{{ checksum "lib/tasks/setup.rake" }}-v2
+          paths:
+            - /mnt/ramdisk/vendor/irs
+            - /mnt/ramdisk/vendor/us_states
   setup_test_db_for_parallel:
     description: "Setup test database"
     steps:
@@ -86,11 +88,11 @@ commands:
     steps:
       - run: date -I > /tmp/today && cat /tmp/today
       - restore_cache:
-          key: webdrivers-v2-{{ checksum "/tmp/today" }}
-      - run: if [ ! -f ~/.webdrivers/chromedriver ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
+          key: webdrivers-v3-{{ checksum "/tmp/today" }}
+      - run: bin/gyr download_webdriver
       - save_cache:
-          key: webdrivers-v2-{{ checksum "/tmp/today" }}
-          paths: [~/.webdrivers]
+          key: webdrivers-v3-{{ checksum "/tmp/today" }}
+          paths: [~/.cache/selenium]
 jobs:
   i18n_normalize:
     executor: ruby_executor

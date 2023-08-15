@@ -1,8 +1,13 @@
 <% content_for :title, t(".title", name: current_client.current_intake.preferred_name) %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", name: current_client.current_intake.preferred_name) %></h1>
+  <h2 class="spacing-below-10"><%= t(".title", name: current_client.current_intake.preferred_name) %></h2>
 
+  <div class="spacing-below-15">
+    <h2 class="text--teal h3">
+      <%= t(".client_id", id: current_client.id) %>
+    </h2>
+  </div>
   <div class="spacing-below-15">
     <%= t('.subtitle') %>
   </div>

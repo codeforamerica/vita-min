@@ -67,6 +67,14 @@ describe TaxReturnAssignmentService do
         end
       end
     end
+
+    context "when assigned_user is a org lead" do
+      let(:assigned_user) { create :organization_lead_user }
+
+      it "updates the user" do
+        expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
+      end
+    end
   end
 
   describe ".send_notifications" do

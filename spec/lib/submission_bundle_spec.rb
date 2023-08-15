@@ -11,9 +11,9 @@ describe SubmissionBundle do
       primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
     )
     submission_2021.intake.update(
-        primary_signature_pin: "12345",
-        primary_signature_pin_at: DateTime.new(2022, 4, 20, 16, 20),
-        )
+      primary_signature_pin: "12345",
+      primary_signature_pin_at: DateTime.new(2022, 4, 20, 16, 20),
+    )
   end
 
   around do |example|
@@ -40,7 +40,7 @@ describe SubmissionBundle do
       let(:submission_builder_double) { double(SubmissionBuilder::Response) }
       let(:errors) { ['error', 'error'] }
       before do
-        allow(SubmissionBuilder::Manifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil)
+        allow(SubmissionBuilder::FederalManifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil)
       end
 
       it "returns errors from the SubmissionBuilder::Response" do
@@ -67,6 +67,26 @@ describe SubmissionBundle do
           expect(SubmissionBuilder::Ty2021::Return1040).to have_received(:build).with(submission_2021)
         end
       end
+    end
+  end
+
+  describe "state filing" do
+    context "NY state" do
+      let(:submission) {
+        create(:efile_submission, data_source: create(:state_file_ny_intake), irs_submission_id: "12345202201011234570")
+      }
+      it "can bundle a minimal NY return" do
+        expect(described_class.new(submission).build.errors).to eq([])
+      end
+    end
+
+    it "can bundle a minimal MI return" do
+      submission_bundle = described_class.new(
+        TemporaryNonsense::FakeSubmission.sample_submission(
+          bundle_class: SubmissionBuilder::Ty2022::States::Mi::IndividualReturn
+        )
+      )
+      expect(submission_bundle.build.errors).to eq([])
     end
   end
 end

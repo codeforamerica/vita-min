@@ -9,5 +9,9 @@ module BulkAction
         end
       end
     end
+
+    def priority
+      PRIORITY_LOW
+    end
   end
 end

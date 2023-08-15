@@ -22,7 +22,7 @@ class FlowsController < ApplicationController
     type = params[:type].to_sym
     intake = nil
     if type == :ctc
-      intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
+      intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params, ip_address: ip_for_irs)
     elsif type == :gyr
       intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
     end
@@ -270,7 +270,7 @@ class FlowsController < ApplicationController
       )
     end
 
-    def generate_ctc_intake(params)
+    def generate_ctc_intake(params, ip_address:)
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
       first_name = params[:flows_controller_sample_intake_form][:first_name]
       last_name = params[:flows_controller_sample_intake_form][:last_name]
@@ -283,7 +283,7 @@ class FlowsController < ApplicationController
 
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
-        product_year: 2022,
+        product_year: Date.today.year,
         visitor_id: SecureRandom.hex(26),
         filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
@@ -307,7 +307,7 @@ class FlowsController < ApplicationController
         intake_attributes: intake_attributes,
         consented_to_service_at: Time.zone.now,
         efile_security_informations_attributes: [{
-          ip_address: '127.0.0.1',
+          ip_address: ip_address,
           device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
           user_agent: "GeckoFox",
           browser_language: "en-US",
@@ -315,7 +315,7 @@ class FlowsController < ApplicationController
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z"
         }],
-        tax_returns_attributes: [{ year: MultiTenantService.new(:ctc).current_tax_year, is_ctc: true, filing_status: 'single' }],
+        tax_returns_attributes: [{ year: Date.today.year - 1, is_ctc: true, filing_status: 'single' }],
       )
       unless client.valid?
         return
@@ -376,7 +376,7 @@ class FlowsController < ApplicationController
           employee_city: "Cleveland",
           employee_state: "OH",
           employee_zip_code: "44092",
-          employer_ein: "123456789",
+          employer_ein: "710415188",
           employer_name: "Code for America",
           employer_street_address: "123 Main St",
           employer_city: "San Francisco",

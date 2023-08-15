@@ -1,0 +1,27 @@
+<div class="spacing-above-25 form-width--short">
+  <% if edit_form %>
+    <% position_options = (1..(FaqCategory.all.count + 1)).to_a %>
+    <%= f.cfa_select(:position, "Position", position_options, include_blank: false) %>
+  <% else %>
+    <% position_options = FaqCategory.all.present? ? (1..(FaqCategory.all.count + 1)).to_a : [1] %>
+    <%= f.cfa_select(:position, "Position", position_options, include_blank: false, selected: position_options.last) %>
+  <% end %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :name_en, "Name (English)", classes: ["form-width--long"] %>
+</div>
+
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :name_es, "Name (Spanish)", classes: ["form-width--long"] %>
+</div>
+<% if edit_form %>
+<div class="spacing-above-25">
+  <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>
+</div>
+<% end %>
+
+<div class="spacing-above-35">
+  <%= f.submit t("general.save"), class: 'button button--primary' %>
+  <%= link_to t("general.cancel"), cancel_path, class: 'button' %>
+</div>

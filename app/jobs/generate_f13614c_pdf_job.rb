@@ -3,4 +3,8 @@ class GenerateF13614cPdfJob < ApplicationJob
     intake = Intake.find(intake_id)
     intake.update_or_create_13614c_document(filename)
   end
+
+  def priority
+    PRIORITY_HIGH
+  end
 end

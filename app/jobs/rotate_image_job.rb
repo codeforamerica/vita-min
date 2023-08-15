@@ -12,4 +12,8 @@ class RotateImageJob < ApplicationJob
       )
     end
   end
+
+  def priority
+    PRIORITY_MEDIUM
+  end
 end

@@ -29,6 +29,10 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
     EfileSubmissionStateMachine.send_mixpanel_event(submission, "ctc_efile_return_rejected")
   end
 
+  def priority
+    PRIORITY_LOW
+  end
+
   private
 
   def message_class_for_state(state)

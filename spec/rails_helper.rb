@@ -6,7 +6,6 @@ require "spec_helper"
 require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
-require "webdrivers"
 require "percy/capybara"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -123,6 +122,10 @@ RSpec.configure do |config|
       irs: {
         efin: '123456',
         sin: '11111111'
+      },
+      intercom: {
+        intercom_access_token: "fake_access_token",
+        secure_mode_secret_key: "a-fake-key-to-use-for-hashing"
       }
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)

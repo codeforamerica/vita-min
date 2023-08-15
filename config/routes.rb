@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   def scoped_navigation_routes(context, navigation)
+    # must not be inside a `namespace :ctc` etc because the controllers' `.controller_path` includes the full namespace,
+    # but `namespace :ctc` would look for Ctc::Ctc::XyzController.
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
@@ -220,6 +222,10 @@ Rails.application.routes.draw do
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
           patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
+        end
+
+        resources :faq_categories, path: "faq" do
+          resources :faq_items
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]
@@ -514,6 +520,20 @@ Rails.application.routes.draw do
     resources :ajax_mixpanel_events, only: [:create]
 
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
+  end
+
+  constraints(Routes::StateFileDomain.new) do
+    scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+      scoped_navigation_routes(:questions, StateFileQuestionNavigation)
+    end
+
+    namespace :state_file, path: "/" do
+      root to: "state_file_pages#redirect_locale_home", as: :state_file_redirected_root
+
+      scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+        root to: "state_file_pages#home"
+      end
+    end
   end
 
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|

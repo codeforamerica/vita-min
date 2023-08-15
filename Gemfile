@@ -4,7 +4,7 @@ ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).str
 ruby ruby_version
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '~> 7.0.4.2'
+gem 'rails', '~> 7.0.5.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
@@ -68,6 +68,8 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'pycall'
+gem 'acts_as_list'
+gem 'paper_trail'
 
 # Use Flipper for feature flagging
 gem 'flipper'
@@ -94,7 +96,7 @@ group :development, :test do
   gem 'axe-matchers'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'webdrivers', '>= 5.2.0'
+  gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'

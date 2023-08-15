@@ -96,17 +96,16 @@ RSpec.describe "a user editing a user" do
           end
         end
 
-        scenario "assigning a coalition lead role" do
+        scenario "assigning a coalition lead role", js: true do
           user_to_edit = create(:admin_user)
           create :coalition, name: "Koala Koalition"
-          create :coalition, name: "Coal Coalition"
 
           visit edit_hub_user_path(id: user_to_edit)
+          click_on "Reassign"
           click_on "Coalition Lead"
 
-          expect(page).to have_text("Coal Coalition")
-
-          select "Koala Koalition"
+          expect(page.find('.select-vita-partner').text).to eq("")
+          fill_in_tagify '.select-vita-partner', "Koala Koalition"
 
           click_on "Submit"
 
@@ -115,16 +114,15 @@ RSpec.describe "a user editing a user" do
           end
         end
 
-        scenario "assigning a organization lead role" do
+        scenario "assigning a organization lead role", js: true do
           create :organization, name: "Orange Organization"
-          create :organization, name: "Odious Organization"
 
           visit edit_hub_user_path(id: user_to_edit)
+          click_on "Reassign"
           click_on "Organization Lead"
 
-          expect(page).to have_text("Odious Organization")
-
-          select "Orange Organization"
+          expect(page.find('.select-vita-partner').text).to eq("")
+          fill_in_tagify '.select-vita-partner', "Orange Organization"
 
           click_on "Submit"
 
@@ -136,7 +134,6 @@ RSpec.describe "a user editing a user" do
         scenario "assigning a site coordinator role", js: true do
           user_to_edit = create(:admin_user)
           create :site, name: "Suite Site"
-          create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
           click_on "Reassign"
@@ -155,7 +152,6 @@ RSpec.describe "a user editing a user" do
         scenario "assigning a team member role", js: true do
           user_to_edit = create(:admin_user)
           create :site, name: "Suite Site"
-          create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
           click_on "Reassign"
@@ -198,13 +194,13 @@ RSpec.describe "a user editing a user" do
         end
 
         context "editing user roles" do
-          scenario "assigning a coalition lead role" do
+          scenario "assigning a coalition lead role", js: true do
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Coalition Lead"
 
-            expect(page).to have_text("Koala Coalition")
-
-            select "Koala Coalition"
+            expect(page.find('.select-vita-partner').text).to eq("")
+            fill_in_tagify '.select-vita-partner', "Koala Coalition"
 
             click_on "Submit"
 
@@ -213,20 +209,20 @@ RSpec.describe "a user editing a user" do
             end
           end
 
-          scenario "assigning a organization lead role on a different org" do
-            create :organization, name: "Orange Organization", coalition: coalition
+          scenario "assigning a organization lead role on a different org", js: true do
+            create :organization, name: "Acercola Organization", coalition: coalition
 
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Organization Lead"
 
-            expect(page).to have_text("Apples Associated")
-
-            select "Orange Organization"
+            expect(page.find('.select-vita-partner').text).to eq("Apples Associated")
+            fill_in_tagify '.select-vita-partner', "Acercola Organization"
 
             click_on "Submit"
 
             within "#current-role" do
-              expect(page).to have_text "Organization Lead, Orange Organization"
+              expect(page).to have_text "Organization Lead, Acercola Organization"
             end
           end
 
@@ -294,13 +290,13 @@ RSpec.describe "a user editing a user" do
         end
 
         context "editing user roles" do
-          scenario "assigning a organization lead role" do
+          scenario "assigning a organization lead role", js: true do
             visit edit_hub_user_path(id: user_to_edit)
+            click_on "Reassign"
             click_on "Organization Lead"
 
-            expect(page).to have_text("Apples Associated")
-
-            select "Apples Associated"
+            expect(page.find('.select-vita-partner').text).to eq("")
+            fill_in_tagify '.select-vita-partner', "Apples Associated"
 
             click_on "Submit"
 

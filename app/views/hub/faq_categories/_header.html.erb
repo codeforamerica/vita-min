@@ -1,0 +1,9 @@
+<h1 class="h2">
+  <% titles.each do |title| %>
+    <% if title.is_a?(Array) %>
+      <%= link_to title.first, title.last %> &gt;
+    <% else %>
+      <span><%= title %></span>
+    <% end %>
+  <% end %>
+</h1>

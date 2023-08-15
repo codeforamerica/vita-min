@@ -7,5 +7,9 @@ class RequestVerificationCodeTextMessageJob < ApplicationJob
       service_type: service_type,
       client_id: client_id
     )
- end
+  end
+
+  def priority
+    PRIORITY_HIGH
+  end
 end

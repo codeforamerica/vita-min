@@ -16,6 +16,7 @@
       <% @faq_categories.each_slice(slice_size).to_a.each do |column| %>
         <div class="grid__item width-one-half">
           <% column.each do |faq_category| %>
+            <% next if faq_category.faq_items.size.zero? %>
             <div class="faq-section faq-section-<%= faq_category.slug.dasherize %> spacing-below-60">
               <h2 class="h3 spacing-below-15"><%= faq_category.name(I18n.locale) %></h2>
               <% faq_category.faq_items.first(3).each do |faq_item| %>

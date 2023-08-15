@@ -33,7 +33,7 @@ RSpec.describe "a user editing a clients intake fields" do
     }
     before { login_as user }
 
-    scenario "if I update a clients' organization that an assigned tax return user cannot access, they are unassigned" do
+    scenario "if I update a clients' organization that an assigned tax return user cannot access, they are unassigned", js: true do
       visit hub_client_path(id: client.id)
 
       within '.tax-return-list__assignment' do
@@ -46,7 +46,8 @@ RSpec.describe "a user editing a clients intake fields" do
 
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
       expect(page).to have_text I18n.t("hub.clients.organizations.edit.warning_text_1")
-      select "Other Site", from: "Organization"
+      expect(page).to have_text "Organization"
+      fill_in_tagify '.select-vita-partner', "Other Site"
       click_on "Save"
 
       within '.tax-return-list__assignment' do

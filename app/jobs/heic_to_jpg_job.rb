@@ -3,4 +3,8 @@ class HeicToJpgJob < ApplicationJob
     document = Document.find(document_id)
     document.convert_heic_upload_to_jpg!
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end

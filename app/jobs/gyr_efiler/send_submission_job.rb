@@ -33,5 +33,9 @@ module GyrEfiler
         raise
       end
     end
+
+    def priority
+      PRIORITY_MEDIUM
+    end
   end
 end

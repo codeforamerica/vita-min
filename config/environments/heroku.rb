@@ -6,9 +6,11 @@ Rails.application.configure do
   # HEROKU_PR_NUMBER variable is documented at https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables
   gyr_hostname = "pr-#{ENV['HEROKU_PR_NUMBER']}.getyourrefund-testing.org"
   ctc_hostname = "ctc.#{gyr_hostname}"
+  state_file_hostname = "statefile.#{gyr_hostname}"
 
-  config.gyr_url = "https://#{gyr_hostname}"
   config.ctc_url = "https://#{ctc_hostname}"
+  config.state_file_url = "https://#{state_file_hostname}"
+  config.gyr_url = "https://#{gyr_hostname}"
 
   ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
   gyr_email_from_domain = "mg-demo.getyourrefund-testing.org"

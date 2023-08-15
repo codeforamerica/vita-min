@@ -3,35 +3,62 @@ require 'thor'
 class GyrCli < Thor
   desc "credentials_diff", "Shows a diff of the encrypted credentials"
   options environment: :string
+  options base: :string
 
   def credentials_diff
     load_rails_env!
 
-    content_path = "config/credentials/#{options[:environment]}.yml.enc"
-    key_path = "config/credentials/#{options[:environment]}.key"
+    base_branch = options[:base] || 'HEAD'
+    puts "\e[35m>>> Printing credentials diff with base branch #{base_branch} <<<\e[0m\n"
 
-    old_content_file = Tempfile.new
-    system("git show HEAD:#{content_path} > #{old_content_file.path}")
+    environments = options[:environment] ? [options[:environment]] : %w(production staging demo heroku development)
+    environments.each do |environment|
+      puts "\e[35mEnvironment: #{environment}\e[0m"
+      content_path = "config/credentials/#{environment}.yml.enc"
+      key_path = "config/credentials/#{environment}.key"
 
-    old_credentials = Rails.application.encrypted(old_content_file.path, key_path: key_path)
-    new_credentials = Rails.application.encrypted(content_path, key_path: key_path)
+      unless File.exist?(key_path)
+        puts "key does not exist at #{key_path}"
+        next
+      end
 
-    old_decrypted = Tempfile.new
-    old_decrypted.write(old_credentials.read)
-    old_decrypted.flush
+      old_content_file = Tempfile.new(["old_#{environment}", ".yml.enc"])
+      system("git show #{base_branch}:#{content_path} > #{old_content_file.path}")
 
-    new_decrypted = Tempfile.new
-    new_decrypted.write(new_credentials.read)
-    new_decrypted.flush
+      new_decrypted = decrypt_to_file(key_path, content_path)
+      old_decrypted = decrypt_to_file(key_path, old_content_file.path)
 
-    system("git --no-pager diff #{old_decrypted.path} #{new_decrypted.path}")
+      system("git --no-pager diff #{old_decrypted.path} #{new_decrypted.path}")
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage
+      next
+    ensure
+      puts
+    end
+  end
+
+  desc "download_webdriver", "Downloads the latest chromedriver using SeleniumManager from the selenium-webdriver gem"
+  def download_webdriver
+    require 'selenium-webdriver'
+
+    Selenium::WebDriver::SeleniumManager.driver_path(
+      Selenium::WebDriver::Chrome::Options.new(browser_name: "chrome")
+    )
   end
 
   no_commands do
     def load_rails_env!
       require File.expand_path('../config/environment', File.dirname(__FILE__))
     end
-  end
 
-  CapacityTestCase = Struct.new(:name, :presenter)
+    def decrypt_to_file(key_path, credentials_path)
+      credentials = Rails.application.encrypted(credentials_path, key_path: key_path)
+      decrypted = Tempfile.new
+      decrypted.write(credentials.read)
+      decrypted.flush
+      decrypted
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage
+      puts "Unable to decrypt #{credentials_path} with #{key_path}"
+      raise
+    end
+  end
 end

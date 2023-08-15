@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_205125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -849,11 +849,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   create_table "efile_submissions", force: :cascade do |t|
     t.boolean "claimed_eitc"
     t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
     t.string "irs_submission_id"
     t.datetime "last_checked_for_ack_at", precision: nil
     t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
+    t.index ["data_source_type", "data_source_id"], name: "index_efile_submissions_on_data_source"
     t.index ["irs_submission_id"], name: "index_efile_submissions_on_irs_submission_id"
     t.index ["tax_return_id", "id"], name: "index_efile_submissions_on_tax_return_id_and_id", order: { id: :desc }
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
@@ -1526,8 +1529,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   create_table "site_coordinator_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
   end
 
   create_table "site_coordinator_roles_vita_partners", force: :cascade do |t|
@@ -1546,6 +1547,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
+  end
+
+  create_table "state_file_ny_intakes", force: :cascade do |t|
+    t.date "birth_date"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.string "current_step"
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "ssn"
+    t.string "street_address"
+    t.integer "tax_return_year"
+    t.string "tp_id"
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.string "zip_code"
   end
 
   create_table "state_routing_fractions", force: :cascade do |t|
@@ -1647,8 +1664,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   create_table "team_member_roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "vita_partner_id"
-    t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
   end
 
   create_table "team_member_roles_vita_partners", force: :cascade do |t|
@@ -1774,6 +1789,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_verification_attempts_on_client_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.datetime "created_at"
+    t.string "event", null: false
+    t.bigint "item_id", null: false
+    t.string "item_type", null: false
+    t.text "object"
+    t.text "object_changes"
+    t.string "whodunnit"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "vita_partner_zip_codes", force: :cascade do |t|
@@ -1948,7 +1974,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "recaptcha_scores", "clients"
   add_foreign_key "signup_selections", "users"
-  add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
@@ -1963,7 +1988,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_182021) do
   add_foreign_key "tax_return_transitions", "tax_returns"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
-  add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "team_member_roles_vita_partners", "team_member_roles"
   add_foreign_key "team_member_roles_vita_partners", "vita_partners"
   add_foreign_key "user_notifications", "users"

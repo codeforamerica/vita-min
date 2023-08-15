@@ -1614,6 +1614,7 @@ es:
           add_signature_primary: Agregue su firma final a su declaración de impuestos
           add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
           finish_intake: Responda las preguntas fiscales restantes para continuar.
+        client_id: 'Identificación del cliente: %{id}'
         document_link:
           add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
@@ -4147,7 +4148,8 @@ es:
           one: En %{year}, ¿pagó algún interés de préstamo estudiantil?
           other: En el %{year}, ¿usted o su cónyuge pagó interés de algún préstamo educativo?
       successfully_submitted:
-        confirmation_number: 'Su número de confirmación es: %{confirmation_number}'
+        additional_text: Guarde este número para sus registros y futuras referencias.
+        client_id: 'Número de identificación del cliente: %{client_id}'
         next_steps:
           confirmation_message: En seguido, recibirá un mensaje de confirmación.
           header: Próximos pasos

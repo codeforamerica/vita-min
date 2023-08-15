@@ -81,6 +81,14 @@ class ApplicationController < ActionController::Base
     current_intake
   end
 
+  def ip_for_irs
+    if Rails.env.development?
+      "72.34.67.178"
+    else
+      request.remote_ip
+    end
+  end
+
   def self.model_for_show_check(current_controller)
     current_controller.visitor_record
   end
@@ -265,8 +273,11 @@ class ApplicationController < ActionController::Base
       else
         "INFO"
       end
+
+    current_user_id = current_user&.id rescue nil
+
     payload[:request_details] = {
-      current_user_id: current_user&.id,
+      current_user_id: current_user_id,
       intake_id: current_intake&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,

@@ -15,6 +15,7 @@ module Hub
         [Hub::SignupSelectionsController.to_path_helper(action: :index), "Bulk messaging signups CSV upload"],
         [Hub::Admin::ExperimentsController.to_path_helper(action: :index), "Experiments"],
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
+        [Hub::FaqCategoriesController.to_path_helper(action: :index), "Frequently Asked Questions"],
       ]
       @deprecated_actions = [
         [hub_verification_attempts_path, "Client Verification"],

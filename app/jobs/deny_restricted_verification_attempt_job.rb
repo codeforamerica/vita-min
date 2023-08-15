@@ -4,4 +4,8 @@ class DenyRestrictedVerificationAttemptJob < ApplicationJob
 
     verification_attempt.transition_to(:denied)
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end
