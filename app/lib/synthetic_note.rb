@@ -62,12 +62,14 @@ class SyntheticNote
   end
 
   def self.deleted_documents(client)
-    grouped = client.deleted_document_histories.order(created_at: :asc)
-    grouped.map do |deleted_doc|
-      # Use most recent Document created_at as note created_at
+    deleted_document_ids = DeletedDocumentHistory.where(client_id: client.id).pluck(:document_id)
+
+    deleted_document_ids.map do |document_id|
+      document = DeletedDocumentHistory.find_by(document_id: document_id)
+
       SyntheticNote.new(
-        created_at: deleted_doc.created_at,
-        body: I18n.t("hub.notes.index.document_note"),
+        created_at: document.created_at,
+        body: I18n.t("hub.notes.index.deleted_documents", doc_name: document.display_name, doc_type: document.document_type),
         contact_record_type: "system_note"
       )
     end

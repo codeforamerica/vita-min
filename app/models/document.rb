@@ -43,6 +43,7 @@ class Document < ApplicationRecord
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
+  has_many :deleted_document_histories
 
   validates_presence_of :client
   validates_presence_of :upload

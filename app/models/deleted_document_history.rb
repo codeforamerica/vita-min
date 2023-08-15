@@ -20,4 +20,7 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class DeletedDocumentHistory < ApplicationRecord
+  belongs_to :document
+  belongs_to :client
 end
+
