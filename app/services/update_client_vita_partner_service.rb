@@ -2,6 +2,7 @@ class UpdateClientVitaPartnerService < BaseService
   def initialize(clients:, vita_partner_id:, change_initiated_by: nil)
     @clients = clients
     @new_vita_partner = VitaPartner.find_by_id(vita_partner_id)
+    puts "updating to new vita partner with id=#{@new_vita_partner&.id}"
     @change_initiated_by = change_initiated_by
   end
 

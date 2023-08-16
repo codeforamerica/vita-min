@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
+  let!(:other_org_2) { create :organization }
   let(:organization) { create :organization }
   let!(:site) { create :site, parent_organization: organization }
   let!(:other_site) { create :site, parent_organization: organization }
@@ -28,6 +29,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
     let(:vita_partners) { JSON.generate([{ id: site.id, name: site.name, value: site.id }]) }
     let(:params) { { id: client.id, client: { vita_partners: vita_partners } } }
     let(:instance) { instance_double(UpdateClientVitaPartnerService) }
+    let!(:orig_class) { UpdateClientVitaPartnerService }
     let(:double_class) { class_double(UpdateClientVitaPartnerService).as_stubbed_const }
 
     before do
@@ -56,6 +58,27 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
         it "returns a 403" do
           patch :update, params: params
           expect(response).to be_forbidden
+        end
+      end
+
+      context "proof of concept demo of bug" do
+        context "with invalid params" do
+          context "when assigning to a vita partner you don't have access to, but a valid value hangs out in the array also" do
+            let(:vita_partners) { JSON.generate([{ id: other_org_2.id, name: other_org_2.name, value: other_org_2.id }, { id: organization.id, name: organization.name, value: organization.id }]) }
+
+            before do
+              # for this proof-of-concept test, unstub so we can validate the bad behavior actually happens
+              stub_const("UpdateClientVitaPartnerService", orig_class)
+            end
+
+            it "refuses to change the client vita_partner" do
+              puts("unauthorized vita partner ID=#{other_org_2.id}")
+              expect {
+                patch :update, params: params
+              }.not_to change { client.reload.vita_partner }
+              expect(response).to be_forbidden
+            end
+          end
         end
       end
 

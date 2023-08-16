@@ -15,6 +15,7 @@ module Hub
       def update
         begin
           ActiveRecord::Base.transaction do
+            puts("calling reassignment method with vita partner IDs=#{parsed_vita_partner_id}")
             UpdateClientVitaPartnerService.new(clients: [@client],
                                                vita_partner_id: parsed_vita_partner_id,
                                                change_initiated_by: current_user).update!
@@ -37,6 +38,8 @@ module Hub
       end
 
       def authorize_vita_partner
+        puts "client submitted vita partner IDs=#{parsed_vita_partner_id}"
+        puts "authorized vita partner ID=#{@vita_partners.find_by(id: parsed_vita_partner_id)&.id}"
         raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present?
       end
 
