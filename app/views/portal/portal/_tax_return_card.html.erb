@@ -33,7 +33,6 @@
   <% end  %>
 
   <% if card_props.has_key?(:button_type) && card_props[:button_type].present? && is_not_archived %>
-  <%# if card_props.has_key?(:button_type) && card_props[:button_type].present? %>
     <% if card_props[:button_type] == :view_documents %>
       <%= link_to t("portal.portal.home.document_link.view_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :add_missing_documents %>

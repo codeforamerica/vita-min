@@ -19,7 +19,7 @@ class TextMessageVerificationCodeService
                    locale: @locale,
                    verification_code: verification_code
       ).strip,
-      status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil)
+      status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil),
     )
     VerificationTextMessage.create!(
       text_message_access_token: access_token,

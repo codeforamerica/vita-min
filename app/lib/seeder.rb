@@ -467,8 +467,6 @@ class Seeder
       primary_consented_to_service: "yes",
       primary_birth_date: 75.years.ago,
       primary_tin_type: 'ssn',
-      primary_ssn: "323659989",
-      primary_last_four_ssn: "9989",
       email_address: "archived2021@example.com",
       email_address_verified_at: Time.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
