@@ -60,12 +60,7 @@ In development, we need to download the IRS e-file schemas zip manually from S3.
 
 > ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
 
-- Go to [Google Docs](https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa) (ask a teammate if you don't have access)
-- Download the `efile1040x_2020v5.1.zip`, `efile1040x_2021v5.2.zip`, `efile1040x_2022v5.3.zip` and `efile1040x_2023v2.0.zip` files
-- Do not unzip the file using Finder or a local app
-- Move file to `vita-min/vendor/irs/`
-- Similarly, download `MIInd2022V1.0.zip` & `NYSIndividual2022V5.0.zip` and move to `vita-min/vendor/us_states/` file
-- The next setup script (`bin/setup`) will unzip it for you, or you can do it yourself with:
+Run this rake task to get a list of missing schemas, where to download them from, and where to put them.
 
 ```
 rake setup:unzip_efile_schemas
