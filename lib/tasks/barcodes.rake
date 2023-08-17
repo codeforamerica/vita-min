@@ -11,5 +11,7 @@ namespace :barcodes do
     pdf = Prawn::Document.new
     barcode.to_pdf(pdf)
     pdf.render_file('/tmp/output.pdf')
+    # combine it with it201 now
+
   end
 end

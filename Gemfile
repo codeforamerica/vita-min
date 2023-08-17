@@ -140,3 +140,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "syc-barcode", "~> 0.0.3"
+
+gem "hexapdf", "~> 0.33.0"
