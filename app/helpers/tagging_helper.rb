@@ -52,7 +52,9 @@ module TaggingHelper
   end
 
   def taggable_format(taggable_items)
+    # tagify unsafely renders item[:name] as html in the select input view, so we sanitize it here to make that safe
     taggable_items.map do |item|
+      item[:parentName] = sanitize(strip_tags(item[:parentName])) if item[:parentName].present?
       item[:name] = sanitize(strip_tags(item[:name]))
       item
     end.to_json.to_s.html_safe
