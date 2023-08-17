@@ -49,10 +49,12 @@ describe SyntheticNote do
       end
     end
 
-    describe "if user deletes a document" do
-      let!(:deleted_doc) { create :deleted_document_history, client: client, deleted_at: DateTime.new(2023, 9, 3) }
+    context "if user deletes a document" do
+      let(:doc) { create :document, client: client }
       it "generates synthetic notes for deleted documents" do
+        delete :destroy, params: { id: doc.id}
         result = SyntheticNote.deleted_documents(client)
+        puts result
         expect(result[0].body).to include("Client deleted document")
       end
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_14_171419) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_185057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -664,17 +664,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_14_171419) do
     t.index ["active_job_id"], name: "index_delayed_jobs_on_active_job_id"
     t.index ["job_class", "job_object_id"], name: "index_delayed_jobs_on_job_class_and_job_object_id"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
-  create_table "deleted_document_histories", force: :cascade do |t|
-    t.bigint "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "deleted_at"
-    t.string "display_name"
-    t.integer "document_id"
-    t.string "document_type"
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_deleted_document_histories_on_client_id"
   end
 
   create_table "dependents", force: :cascade do |t|
@@ -1954,7 +1943,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_14_171419) do
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
-  add_foreign_key "deleted_document_histories", "clients"
   add_foreign_key "dependents", "intakes"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"

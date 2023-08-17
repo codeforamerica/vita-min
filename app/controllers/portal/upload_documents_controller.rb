@@ -4,6 +4,7 @@ module Portal
     helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
     helper_method :document_type_keys
+    before_action :set_paper_trail_whodunnit
 
     def prev_path
       @prev_path
@@ -44,12 +45,8 @@ module Portal
     end
 
     def destroy
-      document = current_client.documents.active.find_by(id: params[:id])
-      if document.present?
-        DeletedDocumentHistory.create(document_id: document.id, display_name: document.display_name, document_type: document.document_type, deleted_at: Time.now, client_id: document.client_id)
-
-        document.destroy
-      end
+      document = current_client.documents.find_by(id: params[:id])
+      document.destroy if document.present?
 
       redirect_to portal_upload_documents_path(document_type: params[:document_type])
     end
@@ -80,6 +77,10 @@ module Portal
 
     def document_type_keys
       current_client.intake.relevant_intake_document_types.map(&:key)
+    end
+
+    def user_for_paper_trail
+      current_client&.id
     end
   end
 end

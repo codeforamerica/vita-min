@@ -62,14 +62,12 @@ class SyntheticNote
   end
 
   def self.deleted_documents(client)
-    deleted_document_ids = DeletedDocumentHistory.where(client_id: client.id).pluck(:document_id)
+    deleted_documents = PaperTrail::Version.where(item_type: 'Document', event: 'destroy', whodunnit: client.id)
 
-    deleted_document_ids.map do |document_id|
-      document = DeletedDocumentHistory.find_by(document_id: document_id)
-
+    deleted_documents.map do |document|
       SyntheticNote.new(
         created_at: document.created_at,
-        body: I18n.t("hub.notes.index.deleted_documents", doc_name: document.display_name, doc_type: document.document_type),
+        body: I18n.t("hub.notes.index.deleted_documents", doc_name: document.reify.display_name, doc_type: document.reify.document_type),
         contact_record_type: "system_note"
       )
     end

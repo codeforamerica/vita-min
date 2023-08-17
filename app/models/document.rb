@@ -38,12 +38,12 @@ require "mini_magick"
 
 class Document < ApplicationRecord
   ACCEPTED_FILE_TYPES = [:browser_native_image, :other_image, :document]
+  has_paper_trail on: [:destroy]
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
-  has_many :deleted_document_histories
 
   validates_presence_of :client
   validates_presence_of :upload

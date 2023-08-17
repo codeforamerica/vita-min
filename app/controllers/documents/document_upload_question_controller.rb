@@ -3,6 +3,8 @@ module Documents
     include AuthenticatedClientConcern
     layout "document_upload"
 
+    before_action :set_paper_trail_whodunnit
+
     delegate :document_type_key, to: :class
     delegate :document_type, to: :class
     helper_method :document_type
@@ -37,8 +39,6 @@ module Documents
       document = current_intake.documents.find_by(id: params[:id])
 
       if document.present?
-        DeletedDocumentHistory.create(document_id: document.id, display_name: document.display_name, document_type: document.document_type, deleted_at: Time.now, client_id: document.client_id)
-
         document.destroy
 
         redirect_to action: :edit
@@ -103,6 +103,10 @@ module Documents
     end
 
     def selectable_document_types
+    end
+
+    def user_for_paper_trail
+      current_client&.id
     end
 
     def set_required_person_names
