@@ -38,7 +38,7 @@
         <div class="form-group">
           <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
           <div class="form-width--long">
-            <% coalition_value = @user.role.is_a?(CoalitionLeadRole) && @user.role.coalition.present? ? [{ value: @user.role.coalition.id, name: @user.role.coalition.name }].to_json.to_s.html_safe : [] %>
+            <% coalition_value = @user.role.is_a?(CoalitionLeadRole) && @user.role.coalition.present? ? taggable_format([{ value: @user.role.coalition.id, name: @user.role.coalition.name }]) : [] %>
             <%= hidden_field_tag(:coalition, coalition_value, class: "select-vita-partner select__element") %>
           </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
           <%= label_tag(:organization, t("devise.invitations.new.organization_label"), class: "form-question") %>
           <div class="form-width--long">
-            <% org_value = @user.role.is_a?(OrganizationLeadRole) && @user.role.organization.present? ? [{ value: @user.role.organization.id, name: @user.role.organization.name }].to_json.to_s.html_safe : [] %>
+            <% org_value = @user.role.is_a?(OrganizationLeadRole) && @user.role.organization.present? ? taggable_format([{ value: @user.role.organization.id, name: @user.role.organization.name }]) : [] %>
             <%= hidden_field_tag(:organization, org_value, class: "select-vita-partner select__element") %>
           </div>
         </div>
@@ -61,7 +61,8 @@
         <div class="form-group">
           <%= label_tag(:sites, t("devise.invitations.new.site_label"), class: "form-question") %>
           <div class="select form-width--long">
-            <%= hidden_field_tag(:sites, (@role&.respond_to?(:sites) ? @role.sites : []).map { |site| { value: site.id, name: site.name }}.to_json.to_s.html_safe, class: "multi-select-vita-partner select__element") %>
+            <% site_value = taggable_format((@role&.respond_to?(:sites) ? @role.sites : []).map { |site| { value: site.id, name: site.name }}) %>
+            <%= hidden_field_tag(:sites, site_value, class: "multi-select-vita-partner select__element") %>
           </div>
         </div>
       <% end %>
