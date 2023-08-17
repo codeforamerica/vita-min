@@ -2,7 +2,7 @@ module StateFile
   class AllInfoForm < QuestionsForm
     include DateHelper
 
-    set_attributes_for :state_file_ny_intake,
+    set_attributes_for :intake,
                        :birth_date_year,
                        :birth_date_month,
                        :birth_date_day,
@@ -16,9 +16,11 @@ module StateFile
                        :tp_id
 
     def save
+      exceptions = [:birth_date_year, :birth_date_month, :birth_date_day]
+      exceptions << :tp_id if @intake.class == StateFileAzIntake
       @intake.update(
-        attributes_for(:state_file_ny_intake)
-          .except(:birth_date_year, :birth_date_month, :birth_date_day)
+        attributes_for(:intake)
+          .except(*exceptions)
           .merge(
             birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)
           )

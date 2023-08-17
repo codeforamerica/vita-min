@@ -37,29 +37,22 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 ```sh
 brew install git-duet/tap/git-duet
 ```
+### Add git-credential-manager
+Get one of the maintainers to add you to the [GetYourRefund](https://github.com/orgs/codeforamerica/teams/getyourrefund) github group
 
-### Add credentials
-
-Get the development secret key from LastPass (`development.key`) or ask a teammate who has it set up.
-
-Add it to your configuration:
-
+Install [Git Credential Manager](https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md) which will help you authenticate across projects, in this case helping you get access to the private fraud-gem.
 ```sh
-# In the root of vita-min
-echo "[secret key]" > config/credentials/development.key
+brew install --cask git-credential-manager
 ```
 
-Get the fraud indicators decryption key from lastpass, too
-
+Login to your Github account via git-credential-manager
 ```sh
-echo "[secret key]" > config/fraud_indicators.key
+git-credential-manager github login
 ```
 
-Get the fraud-gem github private access token from lastpass and add it to your bundler config
+There should be a pop-up window for Github sign-in. Choose `Sign in with your browser` and then `Authorize git-ecoystem`.
 
-```sh
-bundle config --local GITHUB__COM x-access-token:<a token for the development environment can be found in lastpass>
-```
+If you previously tried to authenticate by adding `GITHUB__COM x-access-token` to `.bundle/config` you may need to remove it.
 
 ### Add efile resources locally
 
@@ -67,10 +60,7 @@ In development, we need to download the IRS e-file schemas zip manually from S3.
 
 > ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
 
-- Go to [Google Docs](https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa) (ask a teammate if you don't have access) and download the `efile1040x_2020v5.1.zip` and `efile1040x_2021v5.2.zip` files
-- Do not unzip the file using Finder or a local app
-- Move file to `vita-min/vendor/irs/`
-- The next setup script (`bin/setup`) will unzip it for you, or you can do it yourself with:
+Run this rake task to get a list of missing schemas, where to download them from, and where to put them.
 
 ```
 rake setup:unzip_efile_schemas

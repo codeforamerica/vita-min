@@ -13,11 +13,12 @@ module SubmissionBuilder
         xml.SubmissionId @submission.irs_submission_id
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr data_source.tax_return_year
-        xml.GovernmentCd "IRS"
-        xml.StateSubmissionTyp "#{@submission.bundle_class.state_abbreviation}-1040"
+        xml.GovernmentCd "#{@submission.bundle_class.state_abbreviation}ST"
+        xml.StateSubmissionTyp @submission.bundle_class.return_type
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
+        # xml.IRSSubmissionId "abcdefg"
       end
     end
   end

@@ -10,6 +10,7 @@ namespace :setup do
     ["efile1040x_2023v2.0.zip", "irs"],
     ["MIInd2022V1.0.zip", "us_states"],
     ["NYSIndividual2022V5.0.zip", "us_states"],
+    ["AZIndividual2022v1.1.zip", "us_states"],
   ].freeze
 
   # These Rake tasks download IRS e-file schemas from S3.
@@ -47,9 +48,12 @@ namespace :setup do
       FileUtils.mkdir_p(unpack_path)
     end
 
+    missing_files = []
+
     EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
       download_path = Rails.root.join('vendor', download_folder, filename)
-      raise StandardError.new("Download #{filename} and place it in vendor/#{download_folder}/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exist?(download_path)
+      missing_files << [filename, download_folder] unless File.exist?(download_path)
+      next if missing_files.present?
 
       Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
         Dir.chdir(Rails.root.join('vendor', download_folder, 'unpacked')) do
@@ -61,6 +65,14 @@ namespace :setup do
           end
         end
       end
+    end
+
+    if missing_files.present?
+      message = <<~MESSAGE
+        Download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
+        #{missing_files.map { |(filename, download_folder)| "#{filename} to vendor/#{download_folder}" }.join("\n")}
+      MESSAGE
+      raise StandardError.new(message)
     end
   end
 
