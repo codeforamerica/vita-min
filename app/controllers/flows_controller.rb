@@ -297,10 +297,10 @@ class FlowsController < ApplicationController
         email_address_verified_at: (email_address.present? && email_address.end_with?('@example.com')) ? DateTime.now : nil,
         eip1_amount_received: 0,
         eip2_amount_received: 0,
-        street_address: '123 Main St',
-        city: 'Los Angeles',
-        state: 'CA',
-        zip_code: '90210',
+        street_address: '565 N 3rd St',
+        city: 'Phoenix',
+        state: 'AZ',
+        zip_code: '85004',
         refund_payment_method: 'check',
       }
       client = Client.create(

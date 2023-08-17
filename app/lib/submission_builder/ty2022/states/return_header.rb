@@ -9,6 +9,8 @@ module SubmissionBuilder
           build_xml_doc("efile:ReturnHeaderState") do |xml|
             xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST"
             xml.ReturnTs datetime_type(@submission.created_at)
+            xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
+            xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
             xml.TaxYr @submission.data_source.tax_return_year
             xml.OriginatorGrp do
               xml.EFIN EnvironmentCredentials.irs(:efin)
