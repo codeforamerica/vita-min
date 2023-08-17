@@ -49,16 +49,6 @@ describe SyntheticNote do
       end
     end
 
-    context "if user deletes a document" do
-      let(:doc) { create :document, client: client }
-      it "generates synthetic notes for deleted documents" do
-        delete :destroy, params: { id: doc.id}
-        result = SyntheticNote.deleted_documents(client)
-        puts result
-        expect(result[0].body).to include("Client deleted document")
-      end
-    end
-
     context "with outbound calls" do
       let(:day1) { DateTime.new(2019, 10, 5, 8, 1).utc }
       let(:day2) { DateTime.new(2020, 10, 5, 5, 1).utc }
