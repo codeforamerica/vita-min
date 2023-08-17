@@ -25,7 +25,7 @@ module StateFile
             city: "New York",
             primary_first_name: "Statesy",
             primary_last_name: "Filerton",
-            ssn: "222334444",
+            ssn: "555002222",
             street_address: "45 Rockefeller Plaza",
             zip_code: "10111",
             tp_id: "NY1232340",
@@ -37,7 +37,7 @@ module StateFile
             city: "Phoenix",
             primary_first_name: "Statesy",
             primary_last_name: "Filerton",
-            ssn: "222334444",
+            ssn: "555002222",
             street_address: "123 Palm Tree",
             zip_code: "85001",
             birth_date: Date.new(1970, 5, 18)

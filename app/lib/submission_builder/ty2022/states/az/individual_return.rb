@@ -36,6 +36,7 @@ module SubmissionBuilder
                 xml.ModFedAdjGrossInc @submission.data_source.agi
               end
               xml.AzAdjSubtotal @submission.data_source.agi
+              xml.TotalSubtractions @submission.data_source.agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
               xml.AZAdjGrossIncome @submission.data_source.agi
               xml.DeductionAmt do
                 xml.DeductionTypeIndc "Standard"
