@@ -7,7 +7,7 @@ module Hub
       before_action :redirect_to_client_show_if_archived
       before_action :redirect_if_no_vita_partner_selected, only: [:update]
       before_action :load_vita_partners, only: [:edit, :update]
-      before_action :authorize_vita_partner, only: [:update]
+      before_action :load_vita_partner, only: [:update]
       layout "hub"
 
       def edit; end
@@ -15,9 +15,8 @@ module Hub
       def update
         begin
           ActiveRecord::Base.transaction do
-            puts("calling reassignment method with vita partner IDs=#{parsed_vita_partner_id}")
             UpdateClientVitaPartnerService.new(clients: [@client],
-                                               vita_partner_id: parsed_vita_partner_id,
+                                               vita_partner_id: @vita_partner.id,
                                                change_initiated_by: current_user).update!
           end
         rescue ActiveRecord::RecordInvalid
@@ -37,15 +36,13 @@ module Hub
         @vita_partners = VitaPartner.accessible_by(current_ability)
       end
 
-      def authorize_vita_partner
-        puts "client submitted vita partner IDs=#{parsed_vita_partner_id}"
-        puts "authorized vita partner ID=#{@vita_partners.find_by(id: parsed_vita_partner_id)&.id}"
-        raise CanCan::AccessDenied unless @vita_partners.find_by(id: parsed_vita_partner_id).present?
-      end
-
-      def parsed_vita_partner_id
-        return nil unless client_params[:vita_partners].present?
-        JSON.parse(client_params[:vita_partners]).pluck("id")
+      def load_vita_partner
+        id = JSON.parse(client_params[:vita_partners]).pluck("id").first
+        begin
+          @vita_partner = @vita_partners.find(id)
+        rescue ActiveRecord::RecordNotFound
+          head :forbidden
+        end
       end
 
       def redirect_to_client_show_if_archived
@@ -55,7 +52,7 @@ module Hub
       def redirect_if_no_vita_partner_selected
         return if client_params[:vita_partners].present?
 
-        flash[:alert] = "No changes made because no vita partner selected."
+        flash[:alert] = "No changes made because no organization selected for client."
         redirect_to hub_client_path(@client.id)
       end
     end
