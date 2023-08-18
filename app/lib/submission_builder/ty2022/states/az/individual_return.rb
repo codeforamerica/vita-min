@@ -37,6 +37,7 @@ module SubmissionBuilder
               end
               xml.AzAdjSubtotal @submission.data_source.agi
               xml.TotalSubtractions @submission.data_source.agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
+              xml.Subtotal @submission.data_source.agi # subtract line 36 from 35
               xml.AZAdjGrossIncome @submission.data_source.agi
               xml.DeductionAmt do
                 xml.DeductionTypeIndc "Standard"
