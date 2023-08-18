@@ -133,6 +133,7 @@ describe Portal::UploadDocumentsController do
           delete :destroy, params: params
 
           expect(PaperTrail::Version.last.event).to eq "destroy"
+          expect(PaperTrail::Version.last.whodunnit).to eq client.id.to_s
         end
       end
 

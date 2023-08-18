@@ -120,6 +120,14 @@ RSpec.describe Documents::IdsController do
       expect(response).to redirect_to ids_documents_path
     end
 
+    it "records a paper trail" do
+      delete :destroy, params: params
+
+      expect(PaperTrail::Version.last.event).to eq "destroy"
+      expect(PaperTrail::Version.last.whodunnit).to eq intake.client.id.to_s
+      expect(PaperTrail::Version.last.item_id).to eq document.id
+    end
+
     context "with a document id that does not exist" do
       let(:params) do
         { id: 123874619823764 }
