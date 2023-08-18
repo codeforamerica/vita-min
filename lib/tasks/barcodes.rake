@@ -25,11 +25,11 @@ namespace :barcodes do
       system("./vendor/pdftk/pdftk", "A=app/lib/pdfs/it201_fill_in_without_1d_barcode.pdf", "cat", "A#{page_num}", "output", "/tmp/A#{page_num}.pdf")
 
       # Combine with barcode
-      system("./vendor/pdftk/pdftk", "/tmp/A1.pdf", "stamp", "/tmp/pg#{page_num}.pdf", "output", "/tmp/combinedpg#{page_num}.pdf")
+      system("./vendor/pdftk/pdftk", "/tmp/A#{page_num}.pdf", "stamp", "/tmp/pg#{page_num}.pdf", "output", "/tmp/combined#{page_num}.pdf")
     end
 
     # combine all those
-    # todo
+    system("./vendor/pdftk/pdftk", "A=/tmp/combined1.pdf", "B=/tmp/combined2.pdf", "C=/tmp/combined3.pdf", "D=/tmp/combined4.pdf", "cat", "A1", "B1", "C1", "D1", "output", "/tmp/it201-with-barcodes.pdf")
   end
 end
 
