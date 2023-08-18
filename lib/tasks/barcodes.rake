@@ -8,7 +8,7 @@ namespace :barcodes do
   task generate_nys_style: :environment do |_task|
     barcode = Barcodes.nys_10digit
     pdf = Prawn::Document.new
-    barcode.to_pdf(pdf)
+    barcode.to_pdf(pdf, width: 3.0 / 2 * 0.8, x: 0, y: 0, height: 72 / 4, bottom_margin: 0)
     pdf.render_file('/tmp/output.pdf')
   end
 end
