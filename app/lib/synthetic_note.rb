@@ -61,7 +61,7 @@ class SyntheticNote
     end.compact
   end
 
-  def self.deleted_documents(client)
+  def self.from_deleted_client_documents(client)
     deleted_documents = PaperTrail::Version.where(item_type: 'Document', event: 'destroy', whodunnit: client.id)
 
     deleted_documents.map do |document|

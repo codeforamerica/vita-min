@@ -36,7 +36,7 @@ module Documents
     end
 
     def destroy
-      document = current_intake.documents.active.find_by(id: params[:id])
+      document = current_intake.documents.find_by(id: params[:id])
 
       if document.present?
         document.destroy

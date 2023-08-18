@@ -45,7 +45,7 @@ module Portal
     end
 
     def destroy
-      document = current_client.documents.find_by(id: params[:id])
+      document = current_client.documents.active.find_by(id: params[:id])
       document.destroy if document.present?
 
       redirect_to portal_upload_documents_path(document_type: params[:document_type])
