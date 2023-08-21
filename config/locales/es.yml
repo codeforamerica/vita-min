@@ -973,6 +973,7 @@ es:
     not_assigned_html: "<i>No asignado</i>"
     notes:
       index:
+        deleted_documents: Documento eliminado del cliente - %{doc_type} - %{doc_name}
         document_note:
           many: El cliente agregó %{count} documentos.
           one: El cliente agregó 1 documento.

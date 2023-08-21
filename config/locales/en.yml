@@ -965,6 +965,7 @@ en:
     not_assigned_html: "<i>Not assigned</i>"
     notes:
       index:
+        deleted_documents: Client deleted document - %{doc_type} - %{doc_name}
         document_note:
           one: Client added 1 document.
           other: Client added %{count} documents.

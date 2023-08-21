@@ -128,6 +128,13 @@ describe Portal::UploadDocumentsController do
           }.to change(client.documents, :count).by(-1)
           expect(response).to redirect_to portal_upload_documents_path
         end
+
+        it "records a paper trail" do
+          delete :destroy, params: params
+
+          expect(PaperTrail::Version.last.event).to eq "destroy"
+          expect(PaperTrail::Version.last.whodunnit).to eq client.id.to_s
+        end
       end
 
       context "when the provided document does not belong to the client" do
