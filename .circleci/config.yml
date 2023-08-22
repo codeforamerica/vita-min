@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.12.5
+  slack: circleci/slack@4.9.3
 
 executors:
   ruby_executor:
@@ -178,7 +178,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          message: "Deployment to demo environment failed."
+          template: basic_fail_1
     parallelism: 1
   deploy_to_aptible--staging:
     executor: ruby_executor
@@ -190,7 +190,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          message: "Deployment to demo environment failed."
+          template: basic_fail_1
     parallelism: 1
   deploy_to_aptible--production:
     executor: ruby_executor
@@ -202,7 +202,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          message: "Deployment to demo environment failed."
+          template: basic_fail_1
     parallelism: 1
 workflows:
   version: 2
@@ -234,6 +234,10 @@ workflows:
           filters:
             branches:
               only: release
+    send-notification:
+      jobs:
+        - notify:
+            context: gyr_deploy_alerts
   daily:
     triggers:
       - schedule:
