@@ -120,7 +120,7 @@ jobs:
           gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): ${{ env.HEROKU_URL }}<br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}` (optionally add `--tail`)'
 
       - name: Check for deploy failure
-        if: failure()
+        if: ${{ failure() }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
