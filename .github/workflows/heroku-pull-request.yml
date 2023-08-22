@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Simulate deployment failure
         run: exit 1
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
@@ -123,5 +124,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr comment ${{ github.event.number }} --body 'Deploy Failed'
+          gh pr comment ${{ github.event.number }} --body 'Deploy Failed' --repo codeforamerica/vita-min
         
