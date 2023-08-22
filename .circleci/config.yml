@@ -234,10 +234,6 @@ workflows:
           filters:
             branches:
               only: release
-    send-notification:
-      jobs:
-        - notify:
-            context: gyr_deploy_alerts
   daily:
     triggers:
       - schedule:
