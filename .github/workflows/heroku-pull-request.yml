@@ -121,10 +121,6 @@ jobs:
 
       - name: Check for deploy failure
         if: failure()
-        run: echo "::set-output name=deploy_failed::true"
-
-      - name: If deploy fails update comment to PR
-        if: steps.comment.outputs.deploy_failed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
