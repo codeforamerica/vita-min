@@ -178,7 +178,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          template: "Deployment to demo environment failed."
+          message: "Deployment to demo environment failed."
     parallelism: 1
   deploy_to_aptible--staging:
     executor: ruby_executor
@@ -190,7 +190,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          template: "Deployment to demo environment failed."
+          message: "Deployment to demo environment failed."
     parallelism: 1
   deploy_to_aptible--production:
     executor: ruby_executor
@@ -202,7 +202,7 @@ jobs:
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
-          template: "Deployment to demo environment failed."
+          message: "Deployment to demo environment failed."
     parallelism: 1
 workflows:
   version: 2
