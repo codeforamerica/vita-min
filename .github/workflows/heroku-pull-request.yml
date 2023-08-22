@@ -10,9 +10,6 @@ jobs:
       HEROKU_APP_NAME: gyr-review-app-${{ github.event.number }}
 
     steps:
-      - name: Simulate deployment failure
-        run: exit 1
-
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
