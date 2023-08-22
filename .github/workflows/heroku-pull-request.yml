@@ -10,6 +10,9 @@ jobs:
       HEROKU_APP_NAME: gyr-review-app-${{ github.event.number }}
 
     steps:
+      - name: Simulate deployment failure
+        run: exit 1
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
@@ -125,5 +128,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr comment ${{ github.event.number }} --body 'Deploy Failed <br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}' --repo codeforamerica/vita-min
+          gh pr comment ${{ github.event.number }} --body 'Deploy Failed <br/>View logs: `heroku logs --app ${{ env.HEROKU_APP_NAME }}'(optionally add `--tail`)' --repo codeforamerica/vita-min
         
