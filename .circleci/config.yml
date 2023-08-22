@@ -220,6 +220,8 @@ workflows:
           filters:
             branches:
               only: main
+          context:
+            -gyr_deploy_alerts
       - deploy_to_aptible--staging:
           requires: [run_js_tests, run_ruby_tests]
           filters:
