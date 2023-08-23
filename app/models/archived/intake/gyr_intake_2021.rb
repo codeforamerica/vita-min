@@ -356,7 +356,7 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
     DocumentNavigation::FLOW.map do |doc_type_controller|
       doc_type = doc_type_controller.document_type
       doc_type if doc_type && doc_type.relevant_to?(self)
-    end.compact
+    end.compact.uniq
   end
 
   def document_types_definitely_needed
@@ -379,5 +379,9 @@ class Archived::Intake::GyrIntake2021 < Archived::Intake2021
     end.reject do |document_type|
       documents.where(document_type: document_type.key).present?
     end
+  end
+
+  def filing_jointly?
+    filing_joint == 1
   end
 end

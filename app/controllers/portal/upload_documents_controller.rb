@@ -29,7 +29,7 @@ module Portal
 
     def update
       @prev_path = portal_overview_documents_path
-      @form = form_class.new(current_client.intake, form_params)
+      @form = form_class.new(current_client.current_intake, form_params)
       if @form.valid?
         @form.save
         current_client.tax_returns.each do |tax_return|
@@ -75,7 +75,7 @@ module Portal
     end
 
     def document_type_keys
-      current_client.intake.relevant_intake_document_types.map(&:key)
+      current_client.current_intake.relevant_intake_document_types.map(&:key)
     end
   end
 end

@@ -350,7 +350,7 @@ class MixpanelService
       days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
 
       MixpanelService.instance.run(
-        distinct_id: tax_return.client.intake.visitor_id,
+        distinct_id: tax_return.client.current_intake.visitor_id,
         event_name: event_name,
         data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
           {

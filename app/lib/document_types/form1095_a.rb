@@ -2,7 +2,7 @@ module DocumentTypes
   class Form1095A < DocumentType
     class << self
       def relevant_to?(intake)
-        intake.bought_marketplace_health_insurance_yes?
+        intake.instance_of?(Intake) && intake.bought_marketplace_health_insurance_yes?
       end
 
       def key

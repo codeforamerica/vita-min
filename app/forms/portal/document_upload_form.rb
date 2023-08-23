@@ -18,7 +18,8 @@ module Portal
 
     def instantiate_document
       @upload.tempfile.rewind if @upload.present?
-      @document = intake.documents.new(
+      @document = Document.new(
+        intake_id: intake.id,
         document_type: @document_type,
         client: intake.client,
         uploaded_by: intake.client,

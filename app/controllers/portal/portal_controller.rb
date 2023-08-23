@@ -12,7 +12,7 @@ module Portal
     end
 
     def current_intake
-      current_client&.intake
+      current_client&.current_intake
     end
 
     private
