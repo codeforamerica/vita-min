@@ -45,6 +45,11 @@ FactoryBot.define do
       end
     end
 
+    trait :for_state do
+      tax_return {}
+      data_source { create :state_file_ny_intake }
+    end
+
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do
         after :create do |submission, evaluator|
