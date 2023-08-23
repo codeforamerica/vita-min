@@ -11,20 +11,6 @@ module Efile
         poll(state_submission_ids, "submissions-status")
         submission_ids = transmitted_submission_ids
         poll(submission_ids, "acks")
-
-        # ack_count = 0
-        # submission_ids = transmitted_submission_ids
-        # submission_ids.each_slice(100) do |submission_ids|
-        #   begin
-        #     ack_count = _handle_response(Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "acks", *submission_ids))
-        #   rescue Efile::GyrEfilerService::RetryableError
-        #     DatadogApi.increment("efile.poll_for_acks.retryable_error")
-        #     return
-        #   end
-        # end
-        # DatadogApi.gauge("efile.poll_for_acks.requested", submission_ids.size)
-        # DatadogApi.gauge("efile.poll_for_acks.received", ack_count)
-        # DatadogApi.increment("efile.poll_for_acks")
       end
     end
 

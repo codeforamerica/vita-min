@@ -15,6 +15,7 @@ describe Efile::PollForAcknowledgmentsService do
       context "when there are no EfileSubmissions" do
         before do
           allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_submission_ids).and_return([])
+          allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_state_submission_ids).and_return([])
         end
 
         it "quietly runs and does nothing" do
@@ -28,27 +29,33 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
 
-      # TODO test this another way?
-      context "when there are 101 EfileSubmissions" do
-        let(:efile_submission_ids) { (1..101).to_a.map(&:to_s) }
+      context "when there are 201 EfileSubmissions" do
+        let(:efile_submission_ids) { (1..100).to_a.map(&:to_s) }
+        let(:state_efile_submission_ids) { (101..201).to_a.map(&:to_s) }
 
         before do
           allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_return("")
           allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_submission_ids).and_return(efile_submission_ids)
+          allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_state_submission_ids).and_return(state_efile_submission_ids)
         end
 
         it "polls the IRS for all of them" do
           Efile::PollForAcknowledgmentsService.run
           expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "acks", *efile_submission_ids.first(100)).once
-          expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "acks", *efile_submission_ids.last(1)).once
+          expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "submissions-status", *state_efile_submission_ids.first(100)).once
+          expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "submissions-status", *state_efile_submission_ids.last(1)).once
         end
 
         it "sends metrics to Datadog" do
           Efile::PollForAcknowledgmentsService.run
 
-          expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 101)
+          expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 100)
           expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 0)
           expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
+
+          expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.requested", 101)
+          expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.received", 0)
+          expect(DatadogApi).to have_received(:increment).with("efile.poll_for_submissions_status")
         end
       end
 
@@ -228,20 +235,34 @@ describe Efile::PollForAcknowledgmentsService do
     end
   end
 
-  describe ".transmitted_submission_ids" do
+  context "retrieving transmitted submission ids" do
     let(:gyr_efiler_lock_available) { true }
-    let(:irs_submission_id1) { "9999992021197yrv4rvl" }
-    let(:irs_submission_id2) { "9999992021197yrv4rvx" }
-    let!(:efile_submission1) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
-    let!(:efile_submission2) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let(:irs_submission_id1) { "9999992021197yrv4rva" }
+    let(:irs_submission_id2) { "9999992021197yrv4rvb" }
+    let(:irs_submission_id3) { "9999992021197yrv4rvc" }
+    let(:irs_submission_id4) { "9999992021197yrv4rvd" }
+    let!(:state_efile_submission1) { create(:efile_submission, :for_state, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:state_efile_submission2) { create(:efile_submission, :for_state, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:fed_efile_submission1) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:fed_efile_submission2) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
     before do
-      efile_submission1.update!(irs_submission_id: irs_submission_id1)
-      efile_submission2.update!(irs_submission_id: irs_submission_id2)
+      fed_efile_submission1.update!(irs_submission_id: irs_submission_id1)
+      fed_efile_submission2.update!(irs_submission_id: irs_submission_id2)
+      state_efile_submission1.update!(irs_submission_id: irs_submission_id3)
+      state_efile_submission2.update!(irs_submission_id: irs_submission_id4)
     end
 
-    it "returns an array of IRS submission IDs" do
-      expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
+    describe ".transmitted_submission_ids" do
+      it "returns an array of IRS submission IDs" do
+        expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
+      end
+    end
+
+    describe ".transmitted_state_submission_ids" do
+      it "returns an array of IRS submission IDs" do
+        expect(described_class.transmitted_state_submission_ids).to match_array([irs_submission_id3, irs_submission_id4])
+      end
     end
   end
 end
