@@ -13,6 +13,10 @@ describe Efile::PollForAcknowledgmentsService do
       let(:gyr_efiler_lock_available) { true }
 
       context "when there are no EfileSubmissions" do
+        before do
+          allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_submission_ids).and_return([])
+        end
+
         it "quietly runs and does nothing" do
           expect(EfileSubmission.count).to eq 0
           expect { Efile::PollForAcknowledgmentsService.run }.to_not raise_error
@@ -24,6 +28,7 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
 
+      # TODO test this another way?
       context "when there are 101 EfileSubmissions" do
         let(:efile_submission_ids) { (1..101).to_a.map(&:to_s) }
 
@@ -47,7 +52,7 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
 
-      context "with an EfileSubmission that is in the transmitted state" do
+      context "with a federal EfileSubmission that is in the transmitted state" do
         let!(:efile_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
         before do
@@ -147,6 +152,54 @@ describe Efile::PollForAcknowledgmentsService do
           end
         end
       end
+
+      context "with a state EfileSubmission that is in the transmitted state" do
+        let!(:efile_submission) { create(:efile_submission, :for_state, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+
+        before do
+          efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
+        end
+
+        context "when the IRS has no acknowledgement ready for this submission" do
+          before do
+            allow(Efile::GyrEfilerService).to receive(:run_efiler_command).with("test", "submissions-status", efile_submission.irs_submission_id).and_return("")
+          end
+
+          it "does not change the state" do
+            Efile::PollForAcknowledgmentsService.run
+            expect(efile_submission.reload.current_state).to eq("transmitted")
+          end
+        end
+
+        # TODO: handle this case?
+        context "when the IRS sends a duplicate acknowledgement for an efile submission" do; end
+
+        context "when the IRS has an acknowledgement ready for this submission" do
+          before do
+            allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
+                                                .with("test", "submissions-status", efile_submission.irs_submission_id)
+                                                .and_return expected_irs_return_value
+          end
+
+          let(:first_ack) do
+            Nokogiri::XML(expected_irs_return_value).css("Acknowledgement").first.to_xml
+          end
+
+          context "and it is a rejection" do; end
+
+          context "and it is an acceptance" do
+            let(:expected_irs_return_value) { file_fixture("irs_submissions_status_acceptance.xml").read }
+
+            it "changes the state from transmitted to accepted" do
+              Efile::PollForAcknowledgmentsService.run
+              expect(efile_submission.current_state).to eq("accepted")
+              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+            end
+          end
+
+          context "and it is an exception" do; end
+        end
+      end
     end
 
     context "when the gyr-efiler lock is busy" do
@@ -190,6 +243,5 @@ describe Efile::PollForAcknowledgmentsService do
     it "returns an array of IRS submission IDs" do
       expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
     end
-
   end
 end
