@@ -168,7 +168,6 @@ jobs:
           paths: [tmp/parallel_runtime_rspec.log]
       - slack/notify:
           event: fail
-          context: gyr_deploy_alerts
           template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
