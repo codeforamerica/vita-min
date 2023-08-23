@@ -242,9 +242,9 @@ workflows:
           filters:
             branches:
               only: release
-    send-notification:
-      jobs:
-        - notify
+  send-notification:
+    jobs:
+      - notify
   daily:
     triggers:
       - schedule:
