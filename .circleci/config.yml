@@ -175,6 +175,7 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
+      - run: git log -n 1 | grep -q "bad commit" || exit 0
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
@@ -187,6 +188,7 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run: git log -n 1 | grep -q "bad commit" || exit 0
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
