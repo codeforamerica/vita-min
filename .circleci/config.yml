@@ -158,6 +158,10 @@ jobs:
       - save_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
+      - slack/notify:
+          event: fail
+          mentions: "@gyr-badgers"
+          template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
@@ -175,7 +179,6 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
-      - run: git log -n 1 | grep -q "bad commit" || exit 0
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
@@ -188,7 +191,6 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
-      - run: git log -n 1 | grep -q "bad commit" || exit 0
       - slack/notify:
           event: fail
           mentions: "@gyr-badgers"
