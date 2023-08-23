@@ -244,7 +244,8 @@ workflows:
               only: release
   send-notification:
     jobs:
-      context: gyr_deploy_alerts
+      - notify:
+          context: gyr_deploy_alerts
   daily:
     triggers:
       - schedule:
