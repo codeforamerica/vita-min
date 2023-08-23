@@ -233,7 +233,8 @@ workflows:
             branches:
               only: translations_config-locales-en-yml--main_es
       - run_js_tests
-      - run_ruby_tests
+      - run_ruby_tests:
+          context: gyr_deploy_alerts
       - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
