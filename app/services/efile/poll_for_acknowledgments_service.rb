@@ -7,8 +7,11 @@ module Efile
           return
         end
 
+        # TODO: poll only for transmitted state submissions that don't have a status yet
         state_submission_ids = transmitted_state_submission_ids
         poll(state_submission_ids, "submissions-status")
+
+        # TODO: poll for state submissions that already have a status (currently only does federal)
         submission_ids = transmitted_submission_ids
         poll(submission_ids, "acks")
       end
@@ -20,7 +23,12 @@ module Efile
       submission_ids.each_slice(100) do |submission_ids|
         begin
           response = Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, endpoint, *submission_ids)
-          ack_count = _handle_response(response, endpoint)
+          # TODO: handle the submissions status response differently
+          if endpoint == 'acks'
+            ack_count = _handle_ack_response(response)
+          elsif endpoint == 'submissions-status'
+            ack_count = _handle_submission_status_response(response)
+          end
         rescue Efile::GyrEfilerService::RetryableError
           DatadogApi.increment("efile.poll_for_#{dd_tag}.retryable_error")
           return
@@ -41,19 +49,18 @@ module Efile
     # TODO: make this less redundant with transmitted_submission_ids?
     def self.transmitted_state_submission_ids
       transmitted_submissions = EfileSubmission.in_state(:transmitted)
-      # GARBAGE
+      # TODO: GARBAGE, make better
       state_submissions = transmitted_submissions.includes(:data_source).select do |submission|
         submission.data_source.class == StateFileNyIntake || submission.data_source.class == StateFileAzIntake
       end
       state_submissions.pluck(:irs_submission_id)
     end
 
-    def self._handle_response(response, endpoint = "acks")
+    def self._handle_ack_response(response)
       doc = Nokogiri::XML(response)
       ack_count = 0
 
-      node = endpoint == "acks" ? 'AcknowledgementList Acknowledgement' : 'Acknowledgement'
-      doc.css(node).each do |ack|
+      doc.css('AcknowledgementList Acknowledgement').each do |ack|
         ack_count += 1
         irs_submission_id = ack.css("SubmissionId").text.strip
         status = ack.css("AcceptanceStatusTxt").text.strip
@@ -81,6 +88,21 @@ module Efile
         end
       end
       ack_count
+    end
+
+    def self._handle_submission_status_response(response)
+      doc = Nokogiri::XML(response)
+      status_updates = 0
+
+      doc.css('StatusRecordGrp').each do |status_record_group|
+        if status_record_group.css('SubmissionStatusTxt').text == 'Acknowledgement Received from State'
+          status_updates += 1
+          submission = EfileSubmission.find_by(irs_submission_id: status_record_group.css('SubmissionId').text)
+          submission.transition_to(:ready_for_ack, raw_response: status_record_group.to_xml)
+        end
+      end
+
+      status_updates
     end
   end
 end

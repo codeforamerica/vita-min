@@ -181,26 +181,27 @@ describe Efile::PollForAcknowledgmentsService do
         # TODO: handle this case?
         context "when the IRS sends a duplicate acknowledgement for an efile submission" do; end
 
-        context "when the IRS has an acknowledgement ready for this submission" do
+        # TODO: what happens if we send a list of submission ids??
+        context "when the IRS has a status ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
                                                 .with("test", "submissions-status", efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
           end
 
-          let(:first_ack) do
-            Nokogiri::XML(expected_irs_return_value).css("Acknowledgement").first.to_xml
+          let(:first_status) do
+            Nokogiri::XML(expected_irs_return_value).css("StatusRecordGrp").first.to_xml
           end
 
           context "and it is a rejection" do; end
 
-          context "and it is an acceptance" do
-            let(:expected_irs_return_value) { file_fixture("irs_submissions_status_acceptance.xml").read }
+          context "and it is ready for acknowledgement" do
+            let(:expected_irs_return_value) { file_fixture("irs_submissions_status_ready_for_ack.xml").read }
 
             it "changes the state from transmitted to accepted" do
               Efile::PollForAcknowledgmentsService.run
-              expect(efile_submission.current_state).to eq("accepted")
-              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+              expect(efile_submission.current_state).to eq("ready_for_ack")
+              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_status)
             end
           end
 

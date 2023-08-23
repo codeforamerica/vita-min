@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+   <Cnt>5</Cnt>
+   <StatusRecordGrp>
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <SubmissionStatusTxt>Acknowledgement Received from State</SubmissionStatusTxt>
+      <SubmsnStatusAcknowledgementDt>2023-08-18</SubmsnStatusAcknowledgementDt>
+   </StatusRecordGrp>
+   <StatusRecordGrp>
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+      <SubmsnStatusAcknowledgementDt>2023-08-18</SubmsnStatusAcknowledgementDt>
+   </StatusRecordGrp>
+   <StatusRecordGrp>
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+      <SubmsnStatusAcknowledgementDt>2023-08-18</SubmsnStatusAcknowledgementDt>
+   </StatusRecordGrp>
+   <StatusRecordGrp>
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+      <SubmsnStatusAcknowledgementDt>2023-08-18</SubmsnStatusAcknowledgementDt>
+   </StatusRecordGrp>
+   <StatusRecordGrp>
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+      <SubmsnStatusAcknowledgementDt>2023-08-18</SubmsnStatusAcknowledgementDt>
+   </StatusRecordGrp>
+</StatusRecordList>
