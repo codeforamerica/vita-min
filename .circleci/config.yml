@@ -120,10 +120,6 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
-      - slack/notify:
-          event: fail
-          mentions: "@gyr-badgers"
-          template: basic_fail_1
   run_annotate:
     executor: rails_executor
     steps:
@@ -162,10 +158,6 @@ jobs:
       - save_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
-      - slack/notify:
-          event: fail
-          mentions: "@gyr-badgers"
-          template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
@@ -185,7 +177,7 @@ jobs:
       - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
       - slack/notify:
           event: fail
-          mentions: "@gyr-badgers"
+          mentions: "@badgers"
           template: basic_fail_1
     parallelism: 1
   deploy_to_aptible--staging:
@@ -197,7 +189,7 @@ jobs:
       - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
       - slack/notify:
           event: fail
-          mentions: "@gyr-badgers"
+          mentions: "@badgers"
           template: basic_fail_1
     parallelism: 1
   deploy_to_aptible--production:
@@ -209,7 +201,7 @@ jobs:
       - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
       - slack/notify:
           event: fail
-          mentions: "@gyr-badgers"
+          mentions: "@badger"
           template: basic_fail_1
     parallelism: 1
 workflows:
@@ -220,10 +212,8 @@ workflows:
           filters:
             branches:
               only: translations_config-locales-en-yml--main_es
-      - run_js_tests:
-          context: gyr_deploy_alerts
-      - run_ruby_tests:
-          context: gyr_deploy_alerts
+      - run_js_tests
+      - run_ruby_tests
       - run_annotate
       - deploy_to_aptible--demo:
           context: gyr_deploy_alerts
