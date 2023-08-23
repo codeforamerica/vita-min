@@ -204,6 +204,14 @@ jobs:
           mentions: "@gyr-badgers"
           template: basic_fail_1
     parallelism: 1
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - slack/notify:
+          event: fail
+          mentions: "@gyr-badgers"
+          template: basic_fail_1
 workflows:
   version: 2
   ci-and-deploy:
@@ -220,8 +228,6 @@ workflows:
           filters:
             branches:
               only: main
-          context:
-            -gyr_deploy_alerts
       - deploy_to_aptible--staging:
           requires: [run_js_tests, run_ruby_tests]
           filters:
@@ -236,6 +242,9 @@ workflows:
           filters:
             branches:
               only: release
+    send-notification:
+      jobs:
+        - notify
   daily:
     triggers:
       - schedule:
