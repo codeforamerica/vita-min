@@ -131,10 +131,6 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: bundle exec annotate --frozen
-      - slack/notify:
-          event: fail
-          mentions: "@gyr-badgers"
-          template: basic_fail_1
   run_ruby_tests:
     executor: rails_executor
     steps:
@@ -168,6 +164,7 @@ jobs:
           paths: [tmp/parallel_runtime_rspec.log]
       - slack/notify:
           event: fail
+          mentions: "@gyr-badgers"
           template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
@@ -215,15 +212,6 @@ jobs:
           mentions: "@gyr-badgers"
           template: basic_fail_1
     parallelism: 1
-  notify:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-    - slack/notify:
-        event: pass
-        template: success_tagged_deploy_1
-        mentions: "@gyr-badgers"
-
 workflows:
   version: 2
   ci-and-deploy:
@@ -232,16 +220,19 @@ workflows:
           filters:
             branches:
               only: translations_config-locales-en-yml--main_es
-      - run_js_tests
+      - run_js_tests:
+          context: gyr_deploy_alerts
       - run_ruby_tests:
           context: gyr_deploy_alerts
       - run_annotate
       - deploy_to_aptible--demo:
+          context: gyr_deploy_alerts
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
       - deploy_to_aptible--staging:
+          context: gyr_deploy_alerts
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
@@ -251,14 +242,11 @@ workflows:
             branches:
               only: [circleci-update-flow-explorer-screenshots]
       - deploy_to_aptible--production:
+          context: gyr_deploy_alerts
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: release
-  send-notification:
-    jobs:
-      - notify:
-          context: gyr_deploy_alerts
   daily:
     triggers:
       - schedule:
