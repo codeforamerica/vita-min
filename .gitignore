@@ -12,16 +12,16 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+**/log/*
+**/tmp/*
+!**/log/.keep
+!**/tmp/.keep
 
 # Ignore uploaded files in development
-/storage/*
-!/storage/.keep
+**/storage/*
+!**/storage/.keep
 
-/public/assets
+**/public/assets
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
@@ -40,7 +40,7 @@
 # Ignore coverage directory and contents
 coverage
 # Ignore rspec example persistence file
-spec/examples.txt
+**/spec/examples.txt
 
 # Ignore RubyMine files
 .generators
@@ -49,10 +49,10 @@ spec/examples.txt
 # Ignore node_modules directory
 node_modules
 
-/public/packs
-/public/packs-test
-/public/walkthroughs
-/node_modules
+**/public/packs
+**/public/packs-test
+**/public/walkthroughs
+**/node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
