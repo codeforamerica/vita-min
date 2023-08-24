@@ -59,11 +59,13 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
 
-      context "with a federal EfileSubmission that is in the transmitted state" do
+      context "with a federal EfileSubmission that is in the transmitted state and a state EfileSubmission that is in the ready_for_ack state" do
         let!(:efile_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+        let!(:state_efile_submission) { create(:efile_submission, :for_state, :ready_for_ack, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
         before do
           efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
+          state_efile_submission.update!(irs_submission_id: "9999992021197yrv4rab")
           allow(Efile::GyrEfilerService).to receive(:run_efiler_command).with("test", "acks", efile_submission.irs_submission_id).and_return("")
         end
 
@@ -74,6 +76,7 @@ describe Efile::PollForAcknowledgmentsService do
           end
         end
 
+        # TODO: add state return here?
         # We look for acknowledgements for all in transmitted state, but IRS provides two acknowledgements. When we
         # loop through the first time, it can change the status. Second time, it should record a Sentry message and continue.
         context "when the IRS sends a duplicate acknowledgement for an efile submission" do
@@ -100,12 +103,15 @@ describe Efile::PollForAcknowledgmentsService do
         context "when the IRS has an acknowledgement ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                                .with("test", "acks", efile_submission.irs_submission_id)
+                                                .with("test", "acks", efile_submission.irs_submission_id, state_efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
           end
 
           let(:first_ack) do
             Nokogiri::XML(expected_irs_return_value).css("Acknowledgement").first.to_xml
+          end
+          let(:second_ack) do
+            Nokogiri::XML(expected_irs_return_value).css("Acknowledgement").last.to_xml
           end
 
           context "and it is a rejection" do
@@ -140,10 +146,18 @@ describe Efile::PollForAcknowledgmentsService do
           context "and it is an acceptance" do
             let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_acceptance.xml").read }
 
-            it "changes the state from transmitted to accepted" do
+            it "changes the federal submission's state from transmitted to accepted and the state submission's state from ready_for_ack to accepted" do
+              efile_submission.last_transition
+              puts "cs before: #{efile_submission.current_state}"
               Efile::PollForAcknowledgmentsService.run
-              expect(efile_submission.current_state).to eq("accepted")
+              # efile_submission.reload
+              # tmp_efile_submission = refile_submission
+              # efile_submission = EfileSubmission.find(tmp_efile_submission.id)
+              puts "in test: #{efile_submission.object_id} #{efile_submission.irs_submission_id} #{efile_submission.id} #{efile_submission.efile_submission_transitions.map(&:to_state)} #{efile_submission.last_transition.to_state}"
+              expect(efile_submission.current_state(force_reload: true)).to eq("accepted")
+              expect(state_efile_submission.reload.current_state).to eq("accepted")
               expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+              expect(state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(second_ack)
             end
           end
 
@@ -181,7 +195,6 @@ describe Efile::PollForAcknowledgmentsService do
         # TODO: handle this case?
         context "when the IRS sends a duplicate acknowledgement for an efile submission" do; end
 
-        # TODO: what happens if we send a list of submission ids??
         context "when the IRS has a status ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)

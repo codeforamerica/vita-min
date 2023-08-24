@@ -40,8 +40,9 @@ module Efile
     end
 
     def self.transmitted_submission_ids
-      # TODO: is there a better way to do this query?
-      transmitted_submissions = EfileSubmission.in_state(:transmitted).where.not(tax_return: nil)
+      transmitted_submissions = EfileSubmission.in_state(:transmitted).where.not(tax_return: nil).or(
+        EfileSubmission.in_state(:ready_for_ack)
+      )
       transmitted_submissions.touch_all(:last_checked_for_ack_at)
       transmitted_submissions.pluck(:irs_submission_id)
     end
@@ -80,7 +81,9 @@ module Efile
         if status == "Rejected"
           submission.transition_to(:rejected, raw_response: raw_response)
         elsif status == "Accepted" || status == "A"
-          submission.transition_to(:accepted, raw_response: raw_response)
+          puts "transitioning #{submission.irs_submission_id} to accepted!!! oooo"
+          submission.transition_to!(:accepted, raw_response: raw_response)
+          puts "in code: #{submission.object_id} #{submission.irs_submission_id} #{submission.id} #{submission.efile_submission_transitions.map(&:to_state)} #{submission.last_transition(force_reload: true).to_state}"
         elsif status == "Exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
