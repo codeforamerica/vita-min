@@ -26,6 +26,10 @@ class IncomingTextMessageService
     attachments = TwilioService.parse_attachments(params)
 
     clients.map do |client|
+      we_out = SmsOptOutService.process(params, client)
+      puts "we out? #{we_out.inspect}"
+      return if we_out
+
       documents = attachments.map do |attachment|
         Document.new(
           client: client,
