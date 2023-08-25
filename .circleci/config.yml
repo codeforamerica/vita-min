@@ -1,6 +1,9 @@
 ---
 version: 2.1
 
+orbs:
+  slack: circleci/slack@4.9.3
+
 executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
@@ -117,6 +120,11 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
+      - slack/notify:
+          branch_pattern: main, fake-main-for-testing
+          event: fail
+          mentions: "@badger"
+          template: basic_fail_1
   run_annotate:
     executor: rails_executor
     steps:
@@ -155,6 +163,11 @@ jobs:
       - save_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
+      - slack/notify:
+          branch_pattern: main, fake-main-for-testing
+          event: fail
+          mentions: "@badger"
+          template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
@@ -197,8 +210,10 @@ workflows:
           filters:
             branches:
               only: translations_config-locales-en-yml--main_es
-      - run_js_tests
-      - run_ruby_tests
+      - run_js_tests:
+          context: gyr_deploy_alerts
+      - run_ruby_tests:
+          context: gyr_deploy_alerts
       - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
