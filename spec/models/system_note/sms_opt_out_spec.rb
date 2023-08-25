@@ -30,13 +30,14 @@ RSpec.describe SystemNote::SmsOptOut do
 
     it "adds a new note" do
       expect {
-        described_class.generate!(client: client)
+        described_class.generate!(client: client, body: "STOP")
       }.to change(SystemNote, :count).by(1)
 
       note = SystemNote.last
 
       expect(note.client).to eql(client)
-      expect(note.body).to eql('Client replied "STOP" to opt out of text messages')
+      expect(note.body).to eql('Client opted out of further text messages')
+      expect(note.data).to eql({"sms_body" => "STOP"})
     end
   end
 end

@@ -22,10 +22,13 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class SystemNote::SmsOptOut < SystemNote
-  def self.generate!(client:)
+  def self.generate!(client:, body:)
     create!(
       client: client,
-      body: 'Client replied "STOP" to opt out of text messages'
+      body: 'Client opted out of further text messages',
+      data: {
+        sms_body: body
+      }
     )
   end
 end
