@@ -78,6 +78,10 @@ class EfileSubmission < ApplicationRecord
     result.except(*except)
   end
 
+  def is_for_federal_filing?
+    tax_return.present?
+  end
+
   def is_for_state_filing?
     data_source_type.in?(STATE_INTAKE_CLASS_NAMES)
   end

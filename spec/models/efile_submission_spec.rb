@@ -255,6 +255,28 @@ describe EfileSubmission do
       end
     end
 
+    context "ready_for_ack" do
+      let(:submission) { create :efile_submission, :ready_for_ack }
+
+      context "can transition to" do
+        it "accepted" do
+          expect { submission.transition_to!(:accepted) }.not_to raise_error
+        end
+
+        it "rejected" do
+          expect { submission.transition_to!(:rejected) }.not_to raise_error
+        end
+      end
+
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "ready_for_ack", "failed").each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
+        end
+      end
+    end
+
     context "accepted" do
       context "after transition to" do
         before do
