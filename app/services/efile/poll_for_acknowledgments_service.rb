@@ -74,7 +74,7 @@ module Efile
         if status == "Rejected"
           submission.transition_to(:rejected, raw_response: raw_response)
         elsif status == "Accepted" || status == "A"
-          submission.transition_to!(:accepted, raw_response: raw_response)
+          submission.transition_to(:accepted, raw_response: raw_response)
         elsif status == "Exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
