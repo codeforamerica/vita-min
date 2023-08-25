@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SmsOptOutService
-  def self.process(client, incoming_sms_params)
-    return false unless is_opting_out(incoming_sms_params)
+  def self.process(client:, params:)
+    return false unless is_opting_out(params)
 
     intakes = Intake.where(client: client, sms_notification_opt_in: "yes")
     return true if intakes.empty?
@@ -10,10 +10,10 @@ class SmsOptOutService
     intakes.update(sms_notification_opt_in: "no")
     SystemNote::SmsOptOut.generate!(client: client)
 
-    is_opting_out(incoming_sms_params)
+    is_opting_out(params)
   end
 
-  def self.is_opting_out(incoming_sms_params)
-    incoming_sms_params["OptOutType"] == "Stop"
+  def self.is_opting_out(params)
+    params["OptOutType"] == "Stop"
   end
 end

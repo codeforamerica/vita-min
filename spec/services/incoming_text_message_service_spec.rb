@@ -98,9 +98,8 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
 
         it "does not create a new incoming text message" do
           expect do
-            puts incoming_message_params
             IncomingTextMessageService.process(incoming_message_params)
-          end.to change(IncomingTextMessage, :count).by(0)
+          end.not_to change(IncomingTextMessage, :count)
         end
       end
     end
