@@ -5,6 +5,8 @@ class SmsOptOutService
     return false unless is_opting_out(incoming_sms_params)
 
     intakes = Intake.where(client: client, sms_notification_opt_in: "yes")
+    return true unless intakes.empty?
+
     intakes.update(sms_notification_opt_in: "no")
     SystemNote::SmsOptOut.generate!(client: client)
 
