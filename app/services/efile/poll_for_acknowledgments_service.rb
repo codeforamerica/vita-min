@@ -44,13 +44,9 @@ module Efile
       transmitted_submissions.pluck(:irs_submission_id)
     end
 
-    # TODO: make this less redundant with transmitted_submission_ids?
     def self.transmitted_state_submission_ids
       transmitted_submissions = EfileSubmission.in_state(:transmitted)
-      # TODO: GARBAGE, make better
-      state_submissions = transmitted_submissions.includes(:data_source).select do |submission|
-        submission.data_source.class == StateFileNyIntake || submission.data_source.class == StateFileAzIntake
-      end
+      state_submissions = transmitted_submissions.for_state_filing
       state_submissions.pluck(:irs_submission_id)
     end
 

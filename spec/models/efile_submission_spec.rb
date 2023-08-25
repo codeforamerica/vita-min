@@ -232,7 +232,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "transmitted", "failed").each do |state|
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "transmitted", "ready_for_ack", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end

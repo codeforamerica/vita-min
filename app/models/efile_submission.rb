@@ -32,6 +32,8 @@ class EfileSubmission < ApplicationRecord
   has_one_attached :submission_bundle
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
 
+  STATE_INTAKE_CLASS_NAMES = [StateFileAzIntake, StateFileNyIntake].map(&:to_s).freeze
+
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
     initial_state: EfileSubmissionStateMachine.initial_state,
@@ -40,6 +42,10 @@ class EfileSubmission < ApplicationRecord
   scope :most_recent_by_current_year_tax_return, lambda {
     joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions
                                 WHERE efile_submissions.tax_return_id = tax_returns.id) AND year = ?", MultiTenantService.new(:ctc).current_tax_year)
+  }
+
+  scope :for_state_filing, lambda {
+    where(data_source_type: STATE_INTAKE_CLASS_NAMES)
   }
 
   default_scope { order(id: :asc) }
@@ -70,6 +76,10 @@ class EfileSubmission < ApplicationRecord
       GROUP BY to_state
     SQL
     result.except(*except)
+  end
+
+  def is_for_state_filing?
+    data_source_type.in?(STATE_INTAKE_CLASS_NAMES)
   end
 
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
@@ -171,7 +181,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    if [StateFileAzIntake, StateFileNyIntake].include?(data_source&.class)
+    if STATE_INTAKE_CLASS_NAMES.include?(data_source_type)
       return SubmissionBuilder::StateManifest
     end
 

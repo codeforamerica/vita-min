@@ -129,30 +129,26 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :accepted) do |submission|
-    is_state_return = submission.data_source.present? &&
-      submission.data_source.class.in?([StateFileNyIntake, StateFileAzIntake])
+    break if submission.is_for_state_filing?
 
-    # TODO(state-file): janky if statement
-    if !is_state_return
-      # Add a note to client page
-      client = submission.client
-      tax_return = submission.tax_return
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: client,
-        message: AutomatedMessage::EfileAcceptance,
-      )
-      tax_return.transition_to(:file_accepted)
+    # Add a note to client page
+    client = submission.client
+    tax_return = submission.tax_return
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: client,
+      message: AutomatedMessage::EfileAcceptance,
+    )
+    tax_return.transition_to(:file_accepted)
 
-      accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
-      accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
+    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
+    accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
 
-      benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-      send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-        child_tax_credit_advance: benefits.advance_ctc_amount_received,
-        recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
-        third_stimulus_amount: benefits.eip3_amount,
-      })
-    end
+    benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
+    send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
+      child_tax_credit_advance: benefits.advance_ctc_amount_received,
+      recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
+      third_stimulus_amount: benefits.eip3_amount,
+    })
   end
 
   after_transition(to: :investigating) do |submission|
