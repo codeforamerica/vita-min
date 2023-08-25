@@ -9,6 +9,7 @@ class EfileSubmissionStateMachine
 
   # submission-related response statuses
   state :transmitted
+  state :ready_for_ack
   state :failed
 
   # terminal response statuses from IRS
@@ -26,7 +27,8 @@ class EfileSubmissionStateMachine
   transition from: :preparing,         to: [:bundling, :fraud_hold]
   transition from: :bundling,          to: [:queued, :failed]
   transition from: :queued,            to: [:transmitted, :failed]
-  transition from: :transmitted,       to: [:accepted, :rejected, :failed]
+  transition from: :transmitted,       to: [:accepted, :rejected, :failed, :ready_for_ack]
+  transition from: :ready_for_ack,     to: [:accepted, :rejected, :failed]
   transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
@@ -39,30 +41,27 @@ class EfileSubmissionStateMachine
   end
 
   guard_transition(to: :bundling) do |submission|
-    # TODO(state-file)
-    !submission.intake || submission.fraud_score.present?
+    submission.is_for_state_filing? || submission.fraud_score.present?
   end
 
   after_transition(to: :preparing) do |submission|
     submission.create_qualifying_dependents
-    # TODO(state-file)
-    if submission.intake
+    if submission.is_for_federal_filing?
       if submission.first_submission? && submission.intake.filing_jointly?
         submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
       end
     end
 
-    # TODO(state-file)
-    fraud_score = submission.intake ? Fraud::Score.create_from(submission) : Fraud::Score.new(score: 0)
-    bypass_fraud_check = !submission.intake || submission.admin_resubmission? || submission.client.identity_verified_at
+    fraud_score = submission.is_for_federal_filing? ? Fraud::Score.create_from(submission) : Fraud::Score.new(score: 0)
+    bypass_fraud_check = submission.is_for_state_filing? || submission.admin_resubmission? || submission.client.identity_verified_at
     if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
       submission.transition_to(:bundling)
     else
       submission.client.touch(:restricted_at) if fraud_score.score >= Fraud::Score::RESTRICT_THRESHOLD
       submission.transition_to(:fraud_hold)
     end
-    # TODO(state-file)
-    if submission.intake
+
+    if submission.is_for_federal_filing?
       CreateSubmissionPdfJob.perform_later(submission.id)
     end
   end
@@ -70,8 +69,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :bundling) do |submission|
     # Only sends if efile preparing message has never been sent bc
     # AutomatedMessage::EfilePreparing has send_only_once set to true
-    # TODO(state-file)
-    if submission.client
+    if submission.is_for_federal_filing?
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: submission.client,
         message: AutomatedMessage::EfilePreparing,
@@ -97,8 +95,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    # TODO(state-file)
-    if submission.tax_return
+    if submission.is_for_federal_filing?
       submission.tax_return.transition_to(:file_efiled)
       send_mixpanel_event(submission, "ctc_efile_return_transmitted")
     end
@@ -119,7 +116,9 @@ class EfileSubmissionStateMachine
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
     end
 
-    send_mixpanel_event(submission, "ctc_efile_return_failed")
+    if submission.is_for_federal_filing?
+      send_mixpanel_event(submission, "ctc_efile_return_failed")
+    end
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
@@ -127,24 +126,26 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :accepted) do |submission|
-    # Add a note to client page
-    client = submission.client
-    tax_return = submission.tax_return
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: client,
-      message: AutomatedMessage::EfileAcceptance,
-    )
-    tax_return.transition_to(:file_accepted)
+    if submission.is_for_federal_filing?
+      # Add a note to client page
+      client = submission.client
+      tax_return = submission.tax_return
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: client,
+        message: AutomatedMessage::EfileAcceptance,
+      )
+      tax_return.transition_to(:file_accepted)
 
-    accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
-    accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
+      accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
+      accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
 
-    benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-    send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-      child_tax_credit_advance: benefits.advance_ctc_amount_received,
-      recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
-      third_stimulus_amount: benefits.eip3_amount,
-    })
+      benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
+      send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
+        child_tax_credit_advance: benefits.advance_ctc_amount_received,
+        recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
+        third_stimulus_amount: benefits.eip3_amount,
+      })
+    end
   end
 
   after_transition(to: :investigating) do |submission|

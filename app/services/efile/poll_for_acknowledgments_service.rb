@@ -7,29 +7,50 @@ module Efile
           return
         end
 
-        ack_count = 0
+        state_submission_ids = transmitted_state_submission_ids
+        poll(state_submission_ids, "submissions-status")
+
         submission_ids = transmitted_submission_ids
-        submission_ids.each_slice(100) do |submission_ids|
-          begin
-            ack_count = _handle_response(Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "acks", *submission_ids))
-          rescue Efile::GyrEfilerService::RetryableError
-            DatadogApi.increment("efile.poll_for_acks.retryable_error")
-            return
-          end
-        end
-        DatadogApi.gauge("efile.poll_for_acks.requested", submission_ids.size)
-        DatadogApi.gauge("efile.poll_for_acks.received", ack_count)
-        DatadogApi.increment("efile.poll_for_acks")
+        poll(submission_ids, "acks")
       end
     end
 
+    def self.poll(submission_ids, endpoint)
+      ack_count = 0
+      dd_tag = endpoint.gsub("-", "_")
+      submission_ids.each_slice(100) do |submission_ids|
+        begin
+          response = Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, endpoint, *submission_ids)
+          if endpoint == 'acks'
+            ack_count = _handle_ack_response(response)
+          elsif endpoint == 'submissions-status'
+            ack_count = _handle_submission_status_response(response)
+          end
+        rescue Efile::GyrEfilerService::RetryableError
+          DatadogApi.increment("efile.poll_for_#{dd_tag}.retryable_error")
+          return
+        end
+      end
+      DatadogApi.gauge("efile.poll_for_#{dd_tag}.requested", submission_ids.size)
+      DatadogApi.gauge("efile.poll_for_#{dd_tag}.received", ack_count)
+      DatadogApi.increment("efile.poll_for_#{dd_tag}")
+    end
+
     def self.transmitted_submission_ids
-      transmitted_submissions = EfileSubmission.in_state(:transmitted)
+      transmitted_submissions = EfileSubmission.in_state(:transmitted).where.not(tax_return: nil).or(
+        EfileSubmission.in_state(:ready_for_ack)
+      )
       transmitted_submissions.touch_all(:last_checked_for_ack_at)
       transmitted_submissions.pluck(:irs_submission_id)
     end
 
-    def self._handle_response(response)
+    def self.transmitted_state_submission_ids
+      transmitted_submissions = EfileSubmission.in_state(:transmitted)
+      state_submissions = transmitted_submissions.for_state_filing
+      state_submissions.pluck(:irs_submission_id)
+    end
+
+    def self._handle_ack_response(response)
       doc = Nokogiri::XML(response)
       ack_count = 0
 
@@ -52,7 +73,7 @@ module Efile
 
         if status == "Rejected"
           submission.transition_to(:rejected, raw_response: raw_response)
-        elsif status == "Accepted"
+        elsif status == "Accepted" || status == "A"
           submission.transition_to(:accepted, raw_response: raw_response)
         elsif status == "Exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
@@ -61,6 +82,21 @@ module Efile
         end
       end
       ack_count
+    end
+
+    def self._handle_submission_status_response(response)
+      doc = Nokogiri::XML(response)
+      status_updates = 0
+
+      doc.css('StatusRecordGrp').each do |status_record_group|
+        if status_record_group.css('SubmissionStatusTxt').text == 'Acknowledgement Received from State'
+          status_updates += 1
+          submission = EfileSubmission.find_by(irs_submission_id: status_record_group.css('SubmissionId').text)
+          submission.transition_to(:ready_for_ack, raw_response: status_record_group.to_xml)
+        end
+      end
+
+      status_updates
     end
   end
 end

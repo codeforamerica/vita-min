@@ -232,7 +232,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "transmitted", "failed").each do |state|
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "transmitted", "ready_for_ack", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -251,6 +251,28 @@ describe EfileSubmission do
             event_name: "ctc_efile_return_transmitted",
             subject: submission.intake,
           )
+        end
+      end
+    end
+
+    context "ready_for_ack" do
+      let(:submission) { create :efile_submission, :ready_for_ack }
+
+      context "can transition to" do
+        it "accepted" do
+          expect { submission.transition_to!(:accepted) }.not_to raise_error
+        end
+
+        it "rejected" do
+          expect { submission.transition_to!(:rejected) }.not_to raise_error
+        end
+      end
+
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "ready_for_ack", "failed").each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
         end
       end
     end
