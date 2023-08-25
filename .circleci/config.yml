@@ -108,6 +108,8 @@ jobs:
           fingerprints:
             - "8e:20:52:44:54:b9:f5:a4:4f:f0:b3:20:c2:e5:69:8a"
       - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_config-locales-en-yml--main_es)
+  simulate_failure:
+    #
   run_js_tests:
     executor: ruby_executor
     steps:
@@ -121,7 +123,7 @@ jobs:
       - store_test_results:
           path: ~/test-results
       - slack/notify:
-          branch_pattern: main
+          branch_pattern: main, fake-main-for-testing
           event: fail
           mentions: "@badger"
           template: basic_fail_1
@@ -164,7 +166,7 @@ jobs:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
       - slack/notify:
-          branch_pattern: main
+          branch_pattern: main, fake-main-for-testing
           event: fail
           mentions: "@badger"
           template: basic_fail_1
