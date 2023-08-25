@@ -90,6 +90,19 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
           expect(IntercomService).not_to have_received(:create_message)
         end
       end
+
+      context "requests to opt out" do
+        before do
+          incoming_message_params.merge!({"OptOutType" => "Stop"})
+        end
+
+        it "does not create a new incoming text message" do
+          expect do
+            puts incoming_message_params
+            IncomingTextMessageService.process(incoming_message_params)
+          end.to change(IncomingTextMessage, :count).by(0)
+        end
+      end
     end
 
     context "with a matching intake phone number that has not yet consented to service" do
