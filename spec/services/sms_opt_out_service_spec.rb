@@ -1,9 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe SmsOptOutService do
+  let(:incoming_sms_params) {
+    {
+      "OptOutType" => "Stop"
+    }
+  }
+
   describe "#is_opting_out" do
-    it "determines if params are requested an opt-out" do
-      expect(described_class.is_opting_out({"OptOutType" => "Stop"})).to be_truthy
+    it "confirms if the value is 'Stop'" do
+      expect(described_class.is_opting_out(incoming_sms_params)).to be_truthy
+    end
+
+    it "rejects if the key isn't present" do
+      expect(described_class.is_opting_out({})).to be_falsey
     end
   end
 
@@ -12,11 +22,7 @@ RSpec.describe SmsOptOutService do
     let(:client) { intake.client }
 
     context "with an incoming sms that requests an opt-out" do
-      let(:incoming_sms_params) {
-        {
-          "OptOutType" => "STOP"
-        }
-      }
+
 
       it "creates a system note" do
         expect {
