@@ -255,6 +255,19 @@ class Seeder
       )
     end
 
+    opted_out_client_intake = find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "OptOutOfTextMessages",
+      primary_last_name: "Jones",
+      sms_phone_number: "+19292321100",
+      primary_consented_to_service: "yes",
+      sms_notification_opt_in: "no",
+      tax_return_attributes: [
+        { year: 2022 }
+      ]
+    )
+    SmsOptOutService.process(opted_out_client_intake.client, {"OptOutType" => "Stop"})
+
     intake_for_verification_attempt_1 = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "VerifierOne",
