@@ -8,9 +8,7 @@ class SmsOptOutService
     return true if intakes.empty?
 
     intakes.update(sms_notification_opt_in: "no")
-    SystemNote::SmsOptOut.generate!(client: client, data: {
-      sms_body: params["Body"]
-    })
+    SystemNote::SmsOptOut.generate!(client: client, body: params["Body"])
 
     is_opting_out(params)
   end
