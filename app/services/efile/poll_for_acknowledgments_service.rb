@@ -7,11 +7,9 @@ module Efile
           return
         end
 
-        # TODO: poll only for transmitted state submissions that don't have a status yet
         state_submission_ids = transmitted_state_submission_ids
         poll(state_submission_ids, "submissions-status")
 
-        # TODO: poll for state submissions that already have a status (currently only does federal)
         submission_ids = transmitted_submission_ids
         poll(submission_ids, "acks")
       end
@@ -23,7 +21,6 @@ module Efile
       submission_ids.each_slice(100) do |submission_ids|
         begin
           response = Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, endpoint, *submission_ids)
-          # TODO: handle the submissions status response differently
           if endpoint == 'acks'
             ack_count = _handle_ack_response(response)
           elsif endpoint == 'submissions-status'
@@ -81,9 +78,7 @@ module Efile
         if status == "Rejected"
           submission.transition_to(:rejected, raw_response: raw_response)
         elsif status == "Accepted" || status == "A"
-          puts "transitioning #{submission.irs_submission_id} to accepted!!! oooo"
           submission.transition_to!(:accepted, raw_response: raw_response)
-          puts "in code: #{submission.object_id} #{submission.irs_submission_id} #{submission.id} #{submission.efile_submission_transitions.map(&:to_state)} #{submission.last_transition(force_reload: true).to_state}"
         elsif status == "Exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
