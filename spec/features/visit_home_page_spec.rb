@@ -17,7 +17,7 @@ RSpec.feature "Visit home page" do
     within ".slab--hero" do
       click_on I18n.t('general.get_started')
     end
-    expect(page).to have_text I18n.t('views.questions.welcome.title')
+    expect(page).to have_text I18n.t('views.questions.personal_info.title')
   end
 
   describe "faq questions" do

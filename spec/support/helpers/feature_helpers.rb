@@ -52,10 +52,10 @@ module FeatureHelpers
       }
     end
 
-    visit "/en/questions/welcome"
+    visit "/en/questions/triage-personal-info"
 
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
+    # expect(page).to have_selector("h1", text: I18n.t('views.public_pages.home.header'))
+    # click_on I18n.t('general.get_started')
 
     triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
     triage_feature_helper.maybe_screenshot do

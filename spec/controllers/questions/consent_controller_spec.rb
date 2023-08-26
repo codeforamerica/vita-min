@@ -229,6 +229,6 @@ RSpec.describe Questions::ConsentController do
   it "requires a primary_ssn to visit :edit or :update" do
     intake.update(primary_ssn: nil)
 
-    expect(get :edit).to redirect_to(Questions::WelcomeController.to_path_helper)
+    expect(get :edit).to redirect_to(Questions::TriagePersonalInfoController.to_path_helper)
   end
 end

@@ -117,7 +117,7 @@ RSpec.describe PublicPagesController do
     it "redirects to the beginning of intake" do
       get :stimulus
 
-      expect(response).to redirect_to Questions::WelcomeController.to_path_helper
+      expect(response).to redirect_to Questions::TriagePersonalInfoController.to_path_helper
     end
   end
 

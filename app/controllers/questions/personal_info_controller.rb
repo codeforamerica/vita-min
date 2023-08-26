@@ -8,6 +8,7 @@ module Questions
     end
 
     def current_intake
+      # current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
       Intake::GyrIntake.new
     end
 
