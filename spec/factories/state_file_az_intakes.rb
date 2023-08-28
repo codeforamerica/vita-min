@@ -3,15 +3,15 @@
 # Table name: state_file_az_intakes
 #
 #  id                 :bigint           not null, primary key
-#  birth_date         :date
-#  city               :string
 #  current_step       :string
+#  mailing_city       :string
+#  mailing_street     :string
+#  mailing_zip        :string
+#  primary_dob        :date
 #  primary_first_name :string
 #  primary_last_name  :string
-#  ssn                :string
-#  street_address     :string
+#  primary_ssn        :string
 #  tax_return_year    :integer
-#  zip_code           :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  visitor_id         :string

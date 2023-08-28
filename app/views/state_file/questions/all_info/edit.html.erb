@@ -4,15 +4,12 @@
   <%= form_with model: @form, url: current_path(state: params[:state]), local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_input_field :primary_first_name, "primary first name" %>
     <%= f.cfa_input_field :primary_last_name, "primary last name" %>
-    <%= f.cfa_date_select :birth_date, "birth date" %>
-    <%= f.cfa_input_field :ssn, "ssn" %>
-    <% if params[:state] == "NY" %>
-      <%= f.cfa_input_field :tp_id, "tp id" %>
-    <% end %>
+    <%= f.cfa_date_select :primary_dob, "birth date" %>
+    <%= f.cfa_input_field :primary_ssn, "ssn" %>
     <%= f.cfa_input_field :tax_return_year, "tax return year" %>
-    <%= f.cfa_input_field :street_address, "street address" %>
-    <%= f.cfa_input_field :city, "city" %>
-    <%= f.cfa_input_field :zip_code, "zip code" %>
+    <%= f.cfa_input_field :mailing_street, "street address" %>
+    <%= f.cfa_input_field :mailing_city, "city" %>
+    <%= f.cfa_input_field :mailing_zip, "zip code" %>
     <%= f.continue %>
   <% end %>
 <% end %>

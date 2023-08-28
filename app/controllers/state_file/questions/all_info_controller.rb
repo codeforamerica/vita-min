@@ -19,28 +19,28 @@ module StateFile
       end
 
       def current_intake
-        if params[:state] == "NY"
+        case params[:state]
+        when "NY"
           @intake ||= StateFileNyIntake.new(
             tax_return_year: 2022,
-            city: "New York",
             primary_first_name: "Statesy",
             primary_last_name: "Filerton",
-            ssn: "555002222",
-            street_address: "45 Rockefeller Plaza",
-            zip_code: "10111",
-            tp_id: "NY1232340",
-            birth_date: Date.new(1970, 5, 18)
+            primary_dob: Date.new(1970, 5, 18),
+            primary_ssn: "555002222",
+            mailing_city: "New York",
+            mailing_street: "45 Rockefeller Plaza",
+            mailing_zip: "10111",
           )
-        elsif params[:state] == "AZ"
+        when "AZ"
           @intake ||= StateFileAzIntake.new(
             tax_return_year: 2022,
-            city: "Phoenix",
             primary_first_name: "Statesy",
             primary_last_name: "Filerton",
-            ssn: "555002222",
-            street_address: "123 Palm Tree",
-            zip_code: "85001",
-            birth_date: Date.new(1970, 5, 18)
+            primary_ssn: "555002222",
+            primary_dob: Date.new(1970, 5, 18),
+            mailing_city: "Phoenix",
+            mailing_street: "123 Palm Tree",
+            mailing_zip: "85001",
           )
         else
           raise "No state specified"

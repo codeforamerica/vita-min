@@ -16,4 +16,16 @@ RSpec.feature "Completing a state file intake" do
     expect(submission.submission_bundle).to be_present
     expect(submission.current_state).to eq("queued")
   end
+
+  it "has content" do
+    visit "/"
+    click_on "Start Test AZ"
+    click_on "Continue"
+    click_on "Submit My Fake Taxes"
+
+    perform_enqueued_jobs
+    submission = EfileSubmission.last
+    expect(submission.submission_bundle).to be_present
+    expect(submission.current_state).to eq("queued")
+  end
 end

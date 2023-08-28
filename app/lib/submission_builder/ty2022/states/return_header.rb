@@ -27,10 +27,10 @@ module SubmissionBuilder
                 xml.TaxpayerSSN @submission.data_source.primary.ssn
               end
               xml.USAddress do |xml|
-                xml.AddressLine1Txt @submission.data_source.street_address
-                xml.CityNm @submission.data_source.city
+                xml.AddressLine1Txt @submission.data_source.mailing_street
+                xml.CityNm @submission.data_source.mailing_city
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
-                xml.ZIPCd @submission.data_source.zip_code
+                xml.ZIPCd @submission.data_source.mailing_zip
               end
             end
           end

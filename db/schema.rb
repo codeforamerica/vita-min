@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_162603) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_28_234315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1550,34 +1550,77 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_162603) do
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
-    t.date "birth_date"
-    t.string "city"
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.string "mailing_city"
+    t.string "mailing_street"
+    t.string "mailing_zip"
+    t.date "primary_dob"
     t.string "primary_first_name"
     t.string "primary_last_name"
-    t.string "ssn"
-    t.string "street_address"
+    t.string "primary_ssn"
     t.integer "tax_return_year"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
-    t.string "zip_code"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
-    t.date "birth_date"
-    t.string "city"
+    t.string "account_number"
+    t.integer "account_type"
+    t.integer "amount_electronic_withdrawal"
+    t.integer "amount_owed_pay_electronically"
+    t.integer "claimed_as_dep"
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.integer "fed_taxable_income"
+    t.integer "fed_taxable_ssb"
+    t.integer "fed_unemployment"
+    t.integer "fed_wages"
+    t.integer "filing_status"
+    t.string "mailing_apartment"
+    t.string "mailing_city"
+    t.string "mailing_country"
+    t.string "mailing_state"
+    t.string "mailing_street"
+    t.string "mailing_zip"
+    t.integer "ny_414h_retirement"
+    t.integer "ny_other_additions"
+    t.integer "ny_taxable_ssb"
+    t.integer "nyc_resident_e"
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
+    t.string "phone_daytime"
+    t.string "phone_daytime_area_code"
+    t.date "primary_dob"
+    t.string "primary_email"
     t.string "primary_first_name"
     t.string "primary_last_name"
-    t.string "ssn"
-    t.string "street_address"
+    t.string "primary_middle_initial"
+    t.string "primary_occupation"
+    t.string "primary_signature"
+    t.string "primary_ssn"
+    t.integer "refund_choice"
+    t.string "residence_county"
+    t.string "routing_number"
+    t.integer "sales_use_tax"
+    t.string "school_district"
+    t.integer "school_district_number"
+    t.date "spouse_dob"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.string "spouse_occupation"
+    t.string "spouse_signature"
+    t.string "spouse_ssn"
     t.integer "tax_return_year"
-    t.string "tp_id"
+    t.integer "total_fed_adjustments"
+    t.string "total_fed_adjustments_identify"
+    t.integer "total_ny_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
-    t.string "zip_code"
   end
 
   create_table "state_routing_fractions", force: :cascade do |t|

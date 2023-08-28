@@ -3,38 +3,36 @@ module StateFile
     include DateHelper
 
     set_attributes_for :intake,
-                       :birth_date_year,
-                       :birth_date_month,
-                       :birth_date_day,
-                       :city,
+                       :tax_return_year,
+                       :primary_dob_year,
+                       :primary_dob_month,
+                       :primary_dob_day,
                        :primary_first_name,
                        :primary_last_name,
-                       :ssn,
-                       :street_address,
-                       :tax_return_year,
-                       :zip_code,
-                       :tp_id
+                       :primary_ssn,
+                       :mailing_city,
+                       :mailing_street,
+                       :mailing_zip
 
     def save
-      exceptions = [:birth_date_year, :birth_date_month, :birth_date_day]
-      exceptions << :tp_id if @intake.class == StateFileAzIntake
+      exceptions = [:primary_dob_year, :primary_dob_month, :primary_dob_day]
       @intake.update(
         attributes_for(:intake)
           .except(*exceptions)
           .merge(
-            birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)
+            primary_dob: parse_date_params(primary_dob_year, primary_dob_month, primary_dob_day)
           )
       )
     end
 
     def self.existing_attributes(intake)
       attributes = HashWithIndifferentAccess.new(intake.attributes)
-      if attributes[:birth_date].present?
-        birth_date = attributes[:birth_date]
+      if attributes[:primary_dob].present?
+        birth_date = attributes[:primary_dob]
         attributes.merge!(
-          birth_date_year: birth_date.year,
-          birth_date_month: birth_date.month,
-          birth_date_day: birth_date.day,
+          primary_dob_year: birth_date.year,
+          primary_dob_month: birth_date.month,
+          primary_dob_day: birth_date.day,
         )
       end
       attributes
