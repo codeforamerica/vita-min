@@ -8,8 +8,9 @@ module Questions
     end
 
     def current_intake
+      super || Intake::GyrIntake.new
       # current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
-      Intake::GyrIntake.new
+      # Intake::GyrIntake.new
     end
 
     def tracking_data
