@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
-  let!(:other_org_2) { create :organization }
   let(:organization) { create :organization }
   let!(:site) { create :site, parent_organization: organization }
   let!(:other_site) { create :site, parent_organization: organization }
@@ -29,7 +28,6 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
     let(:vita_partners) { JSON.generate([{ id: site.id, name: site.name, value: site.id }]) }
     let(:params) { { id: client.id, client: { vita_partners: vita_partners } } }
     let(:instance) { instance_double(UpdateClientVitaPartnerService) }
-    let!(:orig_class) { UpdateClientVitaPartnerService }
     let(:double_class) { class_double(UpdateClientVitaPartnerService).as_stubbed_const }
 
     before do

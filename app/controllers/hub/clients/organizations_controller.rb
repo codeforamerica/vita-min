@@ -37,8 +37,8 @@ module Hub
       end
 
       def load_vita_partner
-        id = JSON.parse(client_params[:vita_partners]).pluck("id").first
         begin
+          id = JSON.parse(client_params[:vita_partners]).pluck("id").first
           @vita_partner = @vita_partners.find(id)
         rescue ActiveRecord::RecordNotFound
           head :forbidden
