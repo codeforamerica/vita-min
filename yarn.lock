@@ -3882,10 +3882,22 @@ html-entities@^2.3.2:
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.3.6.tgz#966391d58e5737c77bca4025e31721b496ab7454"
   integrity sha512-9o0+dcpIw2/HxkNuYKxSJUF/MMRZQECK4GnF+oQOmJ83yCVHTWgCH5aOXxK5bozNRmM8wtgryjHD3uloPBDEGw==
 
+html-es6cape@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/html-es6cape/-/html-es6cape-2.0.2.tgz#2dca93193e1517dc72595ca954df92975a7214c2"
+  integrity sha512-utzhH8rq2VABdW1LsPdv5tmxeMNOtP83If0jKCa79xPBgLWfcMvdf9K+EZoxJ5P7KioCxTs6WBnSDWLQHJ2lWA==
+
 html-escaper@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
+
+html-template-tag@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/html-template-tag/-/html-template-tag-4.0.1.tgz#9ff44a7d69acce810cbb2440316837471f5b4811"
+  integrity sha512-c8a1i2G4aKkas2CXqagh89hB6uzUxlU65gUPQkGhkiFImTEboUmBmMqXZhmoBRqtJtYLtCc2wofT/I7qJF+1Jw==
+  dependencies:
+    html-es6cape "^2.0.0"
 
 http-deceiver@^1.2.7:
   version "1.2.7"

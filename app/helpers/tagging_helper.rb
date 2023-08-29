@@ -11,13 +11,14 @@ module TaggingHelper
 
     return taggable_sites(vita_partners) if taggable_vita_partners.empty?
 
-    taggable_vita_partners.to_json.to_s.html_safe
+    taggable_format(taggable_vita_partners)
   end
 
   def taggable_sites(vita_partners)
-    vita_partners.sites.includes(:parent_organization).map do |site|
+    taggable_vita_partners = vita_partners.sites.includes(:parent_organization).map do |site|
       { id: site.id, name: site.name, parentName: site.parent_organization.name, value: site.id }
-    end.to_json.to_s.html_safe
+    end
+    taggable_format(taggable_vita_partners)
   end
 
   def taggable_states(state_abbreviations)
@@ -27,22 +28,35 @@ module TaggingHelper
   def taggable_independent_organizations(organizations)
     taggable_orgs = []
     organizations.each do |vita_partner|
-      taggable_orgs << { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }
+      name = sanitize(strip_tags(vita_partner.name))
+      taggable_orgs << { id: vita_partner.id, name: name, value: vita_partner.id }
     end
-    taggable_orgs.to_json.to_s.html_safe
+    taggable_format(taggable_orgs)
   end
 
   def taggable_organizations(vita_partners)
     taggable_orgs = []
     Organization.where(id: vita_partners.organizations).each do |vita_partner|
-      taggable_orgs << { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }
+      name = sanitize(strip_tags(vita_partner.name))
+      taggable_orgs << { id: vita_partner.id, name: name, value: vita_partner.id }
     end
-    taggable_orgs.to_json.to_s.html_safe
+    taggable_format(taggable_orgs)
   end
 
   def taggable_coalitions(coalitions)
-    coalitions.map do |coalition|
-      { id: coalition.id, name: coalition.name, value: coalition.id }
+    taggable_orgs = coalitions.map do |coalition|
+      name = sanitize(strip_tags(coalition.name))
+      { id: coalition.id, name: name, value: coalition.id }
+    end
+    taggable_format(taggable_orgs)
+  end
+
+  def taggable_format(taggable_items)
+    # tagify unsafely renders item[:name] as html in the select input view, so we sanitize it here to make that safe
+    taggable_items.map do |item|
+      item[:parentName] = sanitize(strip_tags(item[:parentName])) if item[:parentName].present?
+      item[:name] = sanitize(strip_tags(item[:name]))
+      item
     end.to_json.to_s.html_safe
   end
 end

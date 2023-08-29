@@ -42,7 +42,8 @@
           <%= label_tag(:sites, t(".site_label"), class: "form-question") %>
 
           <div class="select form-width--long">
-            <%= hidden_field_tag(:sites, (resource.role&.sites || []).map { |site| { value: site.id, name: site.name } }.to_json.to_s.html_safe, class: "multi-select-vita-partner") %>
+            <% site_value = taggable_format((resource.role&.sites || []).map { |site| { value: site.id, name: site.name } }) %>
+            <%= hidden_field_tag(:sites, site_value, class: "multi-select-vita-partner") %>
           </div>
         </div>
       <% end %>

@@ -1,5 +1,6 @@
 import Tagify from '@yaireo/tagify'
 import { removeMentionedId, addMentionedId } from "./callbacks";
+import html from 'html-template-tag';
 
 export function initTaggableNote() {
     const input = document.querySelector('.taggable-note');
@@ -49,12 +50,13 @@ export function initMultiSelectVitaPartner() {
         },
         templates: {
             dropdownItem: function(item){
+                // using html`` below b/c item.parentName must be treated as plain text not raw HTML
                 return `<div ${this.getAttributes(item)}
                     class='${this.settings.classNames.dropdownItem}'
                     tabindex="0"
                     role="option">
-                        <div class='${item.parentName ? "parent" : ""}'>${item.parentName || ''}</div>
-                        <div class='${item.parentName ? "site" : "org"}'>${item.value}</div>
+                        <div class='${item.parentName ? "parent" : ""}'>${html`${item.parentName || ''}`}</div>
+                        <div class='${item.parentName ? "site" : "org"}'>${html`${item.value}`}</div>
                     </div>`
             },
         }
@@ -82,12 +84,13 @@ export function initSelectVitaPartner() {
         },
         templates: {
             dropdownItem: function(item){
+                // using html`` below b/c item.parentName must be treated as plain text not raw HTML
                 return `<div ${this.getAttributes(item)}
                     class='${this.settings.classNames.dropdownItem}'
                     tabindex="0"
                     role="option">
-                        <div class='${item.parentName ? "parent" : ""}'>${item.parentName || ''}</div>
-                        <div class='${item.parentName ? "site" : "org"}'>${item.value}</div>
+                        <div class='${item.parentName ? "parent" : ""}'>${html`${item.parentName || ''}`}</div>
+                        <div class='${item.parentName ? "site" : "org"}'>${html`${item.value}`}</div>
                     </div>`
             },
         }
