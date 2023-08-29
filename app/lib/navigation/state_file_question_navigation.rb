@@ -3,7 +3,7 @@ module Navigation
     include ControllerNavigation
 
     FLOW = [
-      StateFile::Questions::AllInfoController,
+      StateFile::Questions::FederalInfoController,
       StateFile::Questions::SubmitReturnController
     ].freeze
   end

@@ -1,0 +1,52 @@
+<% content_for :page_title, "The page with all the info" %>
+
+<!--TODO remove: ny_taxable_ssb-->
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: current_path(state: params[:state]), local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_input_field :tax_return_year, "tax return year" %>
+
+    <%= f.cfa_select(:filing_status, "filing status", [
+      ["single", "single"],
+      ["married filing jointly", "married_filing_jointly"],
+      ["married filing separately", "married_filing_separately"],
+      ["head of household", "head_of_household"],
+      ["qualifying widow", "qualifying_widow"],
+    ]) %>
+
+    <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+    <%= f.cfa_input_field :phone_daytime, "daytime phone number" %>
+    <%= f.cfa_input_field :phone_daytime_area_code, "daytime phone area code" %>
+
+    <%= f.cfa_input_field :primary_first_name, "primary first name" %>
+    <%= f.cfa_input_field :primary_middle_initial, "primary middle initial" %>
+    <%= f.cfa_input_field :primary_last_name, "primary last name" %>
+    <%= f.cfa_date_select :primary_dob, "primary birth date" %>
+    <%= f.cfa_input_field :primary_ssn, "primary ssn" %>
+    <%= f.cfa_input_field :primary_occupation, "primary occupation" %>
+
+    <%= f.cfa_input_field :spouse_first_name, "spouse first name" %>
+    <%= f.cfa_input_field :spouse_middle_initial, "spouse middle initial" %>
+    <%= f.cfa_input_field :spouse_last_name, "spouse last name" %>
+    <%= f.cfa_date_select :spouse_dob, "spouse birth date" %>
+    <%= f.cfa_input_field :spouse_ssn, "spouse ssn" %>
+    <%= f.cfa_input_field :spouse_occupation, "spouse occupation" %>
+
+    <%= f.cfa_input_field :mailing_street, "mailing address street" %>
+    <%= f.cfa_input_field :mailing_apartment, "mailing address apartment number" %>
+    <%= f.cfa_input_field :mailing_city, "mailing address city" %>
+    <%= f.cfa_input_field :mailing_zip, "mailing address zip code" %>
+
+    <%= f.cfa_input_field :fed_wages, "Wages, salaries, tips" %>
+    <%= f.cfa_input_field :fed_taxable_income, "Taxable interest" %>
+    <%= f.cfa_input_field :fed_unemployment, "Unemployment compensation" %>
+    <%= f.cfa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
+    <%= f.cfa_input_field :total_fed_adjustments_identify, "Total Federal Adjustments (description)" %>
+    <%= f.cfa_input_field :total_fed_adjustments, "Total Federal Adjustments (amount)" %>
+
+    <%= f.cfa_input_field :total_ny_tax_withheld, "Total NY tax withheld" %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

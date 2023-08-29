@@ -61,6 +61,9 @@
 #  visitor_id                     :string
 #
 class StateFileNyIntake < ApplicationRecord
+  enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
+  enum claimed_as_dep: { yes: 1, no: 2 }, _prefix: :claimed_as_dep
+
   def primary
     Person.new(self, :primary)
   end

@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AllInfoController < QuestionsController
+    class FederalInfoController < QuestionsController
       layout "state_file/question"
 
       private
@@ -23,6 +23,7 @@ module StateFile
         when "NY"
           @intake ||= StateFileNyIntake.new(
             tax_return_year: 2022,
+            filing_status: :single,
             primary_first_name: "Statesy",
             primary_last_name: "Filerton",
             primary_dob: Date.new(1970, 5, 18),
