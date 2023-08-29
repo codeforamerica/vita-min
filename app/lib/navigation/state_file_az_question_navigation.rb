@@ -1,5 +1,5 @@
 module Navigation
-  class StateFileQuestionNavigation
+  class StateFileAzQuestionNavigation
     include ControllerNavigation
 
     FLOW = [

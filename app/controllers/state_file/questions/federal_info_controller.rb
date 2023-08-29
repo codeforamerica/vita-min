@@ -13,14 +13,9 @@ module StateFile
         session[:intake_id] = current_intake.id
       end
 
-      def next_path
-        # TODO: remove when we're keeping better track of current state than this query parameter
-        form_navigation.next.to_path_helper(state: params[:state])
-      end
-
       def current_intake
-        case params[:state]
-        when "NY"
+        case params[:us_state]
+        when "ny"
           @intake ||= StateFileNyIntake.new(
             tax_return_year: 2022,
             filing_status: :single,
@@ -51,7 +46,7 @@ module StateFile
             total_fed_adjustments: 45,
             total_ny_tax_withheld: 56
           )
-        when "AZ"
+        when "az"
           @intake ||= StateFileAzIntake.new(
             tax_return_year: 2022,
             primary_first_name: "Statesy",

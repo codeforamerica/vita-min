@@ -3,7 +3,7 @@
 <!--TODO remove: ny_taxable_ssb-->
 
 <% content_for :card do %>
-  <%= form_with model: @form, url: current_path(state: params[:state]), local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_input_field :tax_return_year, "tax return year" %>
 
     <%= f.cfa_select(:filing_status, "filing status", [

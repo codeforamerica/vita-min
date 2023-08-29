@@ -524,7 +524,12 @@ Rails.application.routes.draw do
 
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      scoped_navigation_routes(:questions, Navigation::StateFileQuestionNavigation)
+      scope ':us_state', as: 'az', constraints: { us_state: :az } do
+        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
+      end
+      scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
+        scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+      end
     end
 
     namespace :state_file, path: "/" do

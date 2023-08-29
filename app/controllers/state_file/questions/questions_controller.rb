@@ -6,12 +6,16 @@ module StateFile
       private
 
       def question_navigator
-        Navigation::StateFileQuestionNavigation
+        if params[:us_state] == 'az'
+          Navigation::StateFileAzQuestionNavigation
+        elsif params[:us_state] == 'ny'
+          Navigation::StateFileNyQuestionNavigation
+        end
       end
 
       def next_path
         next_step = form_navigation.next
-        options = {}
+        options = { us_state: params[:us_state] }
         if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
@@ -22,7 +26,7 @@ module StateFile
         prev_step = form_navigation.prev
         return unless prev_step
 
-        options = {}
+        options = { us_state: params[:us_state] }
         if prev_step.resource_name
           options[:id] = prev_step.model_for_show_check(self)&.id
         end

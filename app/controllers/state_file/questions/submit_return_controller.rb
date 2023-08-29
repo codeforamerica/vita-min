@@ -5,9 +5,9 @@ module StateFile
 
       def current_intake
         intake_class = {
-          "AZ" => StateFileAzIntake,
-          "NY" => StateFileNyIntake
-        }[params[:state]]
+          "az" => StateFileAzIntake,
+          "ny" => StateFileNyIntake
+        }[params[:us_state]]
         intake_class.find_by_id(session[:intake_id]) unless session[:intake_id].nil?
       end
 
