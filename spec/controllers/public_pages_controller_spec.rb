@@ -54,7 +54,7 @@ RSpec.describe PublicPagesController do
           get :home
 
           expect(response.body).to include I18n.t('general.get_started')
-          expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+          expect(response.body).to include question_path(:id => Navigation::GyrQuestionNavigation.first)
         end
       end
 
@@ -67,7 +67,7 @@ RSpec.describe PublicPagesController do
           get :home
 
           expect(response.body).not_to include I18n.t('general.get_started')
-          expect(response.body).not_to include question_path(:id => GyrQuestionNavigation.first)
+          expect(response.body).not_to include question_path(:id => Navigation::GyrQuestionNavigation.first)
         end
       end
     end

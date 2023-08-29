@@ -72,10 +72,10 @@ class FlowsController < ApplicationController
     def self.for(type, controller)
       case type
       when :gyr
-        gyr_flow = GyrQuestionNavigation::FLOW.dup
+        gyr_flow = Navigation::GyrQuestionNavigation::FLOW.dup
 
         last_page_before_docs_index = gyr_flow.index(Questions::MailingAddressController)
-        gyr_flow.insert(last_page_before_docs_index + 1, *DocumentNavigation::FLOW)
+        gyr_flow.insert(last_page_before_docs_index + 1, *Navigation::DocumentNavigation::FLOW)
 
         FlowParams.new(
           controller: controller,
@@ -87,14 +87,14 @@ class FlowsController < ApplicationController
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::CtcIntake) ? controller.current_intake : nil,
-          controller_list: CtcQuestionNavigation::FLOW,
+          controller_list: Navigation::CtcQuestionNavigation::FLOW,
           form: SampleCtcIntakeGenerator.new.form
         )
       when :diy
         FlowParams.new(
           controller: controller,
           reference_object: nil,
-          controller_list: DiyNavigation::FLOW,
+          controller_list: Navigation::DiyNavigation::FLOW,
           form: nil
         )
       end

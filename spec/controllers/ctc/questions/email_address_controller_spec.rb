@@ -10,7 +10,7 @@ describe Ctc::Questions::EmailAddressController do
     allow(MixpanelService).to receive(:send_event)
   end
 
-  it_behaves_like :a_question_where_an_intake_is_required, CtcQuestionNavigation
+  it_behaves_like :a_question_where_an_intake_is_required, Navigation::CtcQuestionNavigation
 
   describe "#edit" do
     it "renders edit template and initializes form" do

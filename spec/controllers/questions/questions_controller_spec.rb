@@ -7,8 +7,8 @@ RSpec.describe Questions::QuestionsController do
         allow(subject).to receive(:current_intake).and_return(nil)
       end
 
-      it "uses the GyrQuestionNavigation" do
-        expect(subject.form_navigation).to be_an_instance_of(GyrQuestionNavigation)
+      it "uses the Navigation::GyrQuestionNavigation" do
+        expect(subject.form_navigation).to be_an_instance_of(Navigation::GyrQuestionNavigation)
       end
     end
 
@@ -19,8 +19,8 @@ RSpec.describe Questions::QuestionsController do
         allow(subject).to receive(:current_intake).and_return(intake)
       end
 
-      it "uses the GyrQuestionNavigation" do
-        expect(subject.form_navigation).to be_an_instance_of(GyrQuestionNavigation)
+      it "uses the Navigation::GyrQuestionNavigation" do
+        expect(subject.form_navigation).to be_an_instance_of(Navigation::GyrQuestionNavigation)
       end
     end
   end
@@ -47,9 +47,9 @@ RSpec.describe Questions::QuestionsController do
 
   describe "#prev_path" do
     before do
-      allow_any_instance_of(GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
       allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return nil
-      stub_const("GyrQuestionNavigation::FLOW",
+      stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
                      Questions::WelcomeController,
                      Questions::AdoptedChildController,
@@ -67,9 +67,9 @@ RSpec.describe Questions::QuestionsController do
     let!(:current_intake) { double(Intake) }
 
     before do
-      allow_any_instance_of(GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
       allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return current_intake
-      stub_const("GyrQuestionNavigation::FLOW",
+      stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
                      Questions::WelcomeController,
                      Questions::AdoptedChildController,

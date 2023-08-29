@@ -59,7 +59,7 @@ module Documents
     end
 
     def form_navigation
-      DocumentNavigation.new(self)
+      Navigation::DocumentNavigation.new(self)
     end
 
     private

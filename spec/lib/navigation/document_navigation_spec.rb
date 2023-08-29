@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DocumentNavigation do
+RSpec.describe Navigation::DocumentNavigation do
   before(:each) do
     class BaseController
       def self.show?(_)
@@ -43,7 +43,7 @@ RSpec.describe DocumentNavigation do
 
     class ExternalController; end
 
-    stub_const("DocumentNavigation::FLOW", [
+    stub_const("Navigation::DocumentNavigation::FLOW", [
       FirstController,
       SecondController,
       SignpostController,

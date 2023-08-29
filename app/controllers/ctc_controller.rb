@@ -7,7 +7,7 @@ class CtcController < ApplicationController
 
   def set_get_started_link
     I18n.with_locale(locale) do
-      @get_started_link = open_for_ctc_intake? ? question_path(id: CtcQuestionNavigation.first) : nil
+      @get_started_link = open_for_ctc_intake? ? question_path(id: Navigation::CtcQuestionNavigation.first) : nil
     end
   end
 end

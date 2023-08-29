@@ -79,7 +79,7 @@ module Questions
     end
 
     def question_navigator
-      GyrQuestionNavigation
+      Navigation::GyrQuestionNavigation
     end
 
     def form_navigation

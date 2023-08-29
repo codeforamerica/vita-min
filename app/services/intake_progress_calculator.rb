@@ -1,11 +1,11 @@
 class IntakeProgressCalculator
 
-  starting_index = GyrQuestionNavigation::FLOW.index(Questions::LifeSituationsController)
-  ending_index = GyrQuestionNavigation::FLOW.index(Questions::SuccessfullySubmittedController)
-  question_steps = GyrQuestionNavigation::FLOW[starting_index..ending_index]
+  starting_index = Navigation::GyrQuestionNavigation::FLOW.index(Questions::LifeSituationsController)
+  ending_index = Navigation::GyrQuestionNavigation::FLOW.index(Questions::SuccessfullySubmittedController)
+  question_steps = Navigation::GyrQuestionNavigation::FLOW[starting_index..ending_index]
   last_page_before_docs_index = question_steps.index(Questions::MailingAddressController)
 
-  POSSIBLE_STEPS = question_steps.insert(last_page_before_docs_index + 1, *DocumentNavigation::FLOW)
+  POSSIBLE_STEPS = question_steps.insert(last_page_before_docs_index + 1, *Navigation::DocumentNavigation::FLOW)
 
   def self.show_progress?(controller_class)
     POSSIBLE_STEPS.include? controller_class
