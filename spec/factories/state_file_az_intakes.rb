@@ -19,7 +19,8 @@
 #  primary_dob                    :date
 #  primary_first_name             :string
 #  primary_last_name              :string
-#  primary_middle_name            :string
+#  primary_middle_initial         :string
+#  primary_occupation             :string
 #  primary_ssn                    :string
 #  spouse_dob                     :date
 #  spouse_first_name              :string

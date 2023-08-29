@@ -4,7 +4,8 @@ class AddMore1040ColumnsToAzIntake < ActiveRecord::Migration[7.0]
     add_column :state_file_az_intakes, :claimed_as_dep, :integer
     add_column :state_file_az_intakes, :phone_daytime, :string
     add_column :state_file_az_intakes, :phone_daytime_area_code, :string
-    add_column :state_file_az_intakes, :primary_middle_name, :string
+    add_column :state_file_az_intakes, :primary_middle_initial, :string
+    add_column :state_file_az_intakes, :primary_occupation, :string
 
     add_column :state_file_az_intakes, :spouse_first_name, :string
     add_column :state_file_az_intakes, :spouse_last_name, :string

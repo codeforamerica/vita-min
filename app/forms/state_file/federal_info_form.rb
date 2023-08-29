@@ -12,8 +12,10 @@ module StateFile
                        :primary_dob_month,
                        :primary_dob_day,
                        :primary_first_name,
+                       :primary_middle_initial,
                        :primary_last_name,
                        :primary_ssn,
+                       :primary_occupation,
                        :spouse_first_name,
                        :spouse_middle_initial,
                        :spouse_last_name,
@@ -54,6 +56,14 @@ module StateFile
           primary_dob_year: birth_date.year,
           primary_dob_month: birth_date.month,
           primary_dob_day: birth_date.day,
+        )
+      end
+      if attributes[:spouse_dob].present?
+        birth_date = attributes[:spouse_dob]
+        attributes.merge!(
+          spouse_dob_year: birth_date.year,
+          spouse_dob_month: birth_date.month,
+          spouse_dob_day: birth_date.day,
         )
       end
       attributes
