@@ -9,8 +9,6 @@ module Questions
 
     def current_intake
       super || Intake::GyrIntake.new
-      # current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
-      # Intake::GyrIntake.new
     end
 
     def tracking_data
@@ -19,6 +17,10 @@ module Questions
 
     def visitor_record
       Intake.find_by(id: session[:intake_id]) || current_intake
+    end
+
+    def prev_path
+      nil
     end
 
     private
