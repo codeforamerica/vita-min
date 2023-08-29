@@ -62,14 +62,13 @@
 #
 FactoryBot.define do
   factory :state_file_ny_intake do
+    tax_return_year { 2022 }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
-    tax_return_year { 2022 }
-    tp_id { "123456789" }
-    street_address { "123 main st" }
-    city { "New York" }
-    zip_code { "10001" }
-    ssn { "123445555" }
-    birth_date { Date.new(1985, 1, 3) }
+    primary_ssn { "123445555" }
+    primary_dob { Date.new(1985, 1, 3) }
+    mailing_street { "123 main st" }
+    mailing_city { "New York" }
+    mailing_zip { "10001" }
   end
 end

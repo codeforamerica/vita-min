@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_234315) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_29_211108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1550,16 +1550,35 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_234315) do
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
+    t.integer "claimed_as_dep"
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.integer "fed_taxable_income"
+    t.integer "fed_taxable_ssb"
+    t.integer "fed_unemployment"
+    t.integer "fed_wages"
+    t.integer "filing_status"
+    t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.string "phone_daytime"
+    t.string "phone_daytime_area_code"
     t.date "primary_dob"
     t.string "primary_first_name"
     t.string "primary_last_name"
+    t.string "primary_middle_name"
     t.string "primary_ssn"
+    t.date "spouse_dob"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.string "spouse_occupation"
+    t.string "spouse_ssn"
     t.integer "tax_return_year"
+    t.integer "total_fed_adjustments"
+    t.string "total_fed_adjustments_identify"
+    t.integer "total_ny_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
