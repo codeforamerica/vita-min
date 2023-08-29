@@ -1,7 +1,8 @@
-class GyrQuestionNavigation
-  include ControllerNavigation
+module Navigation
+  class GyrQuestionNavigation
+    include ControllerNavigation
 
-  FLOW = [
+    FLOW = [
       Questions::WelcomeController,
       Questions::TriagePersonalInfoController, # creates Intake record and Client record
       Questions::TriageIncomeLevelController,
@@ -139,7 +140,7 @@ class GyrQuestionNavigation
       Questions::EstimatedTaxPaymentsController,
       Questions::SelfEmploymentLossController,
       Questions::EnergyEfficientPurchasesController, # sets 'completed_yes_no_questions_at'
-      # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
+                                                     # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
 
       # Payment info
       Questions::RefundPaymentController,
@@ -147,7 +148,7 @@ class GyrQuestionNavigation
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
       Questions::MailingAddressController,
-      # After this links to document flow --> See DocumentNavigation
+      # After this links to document flow --> See Navigation::DocumentNavigation
 
       Questions::FinalInfoController,
       Questions::SuccessfullySubmittedController,
@@ -163,5 +164,6 @@ class GyrQuestionNavigation
       Questions::DemographicSpouseRaceController,
       Questions::DemographicPrimaryEthnicityController,
       Questions::DemographicSpouseEthnicityController,
-  ].freeze
+    ].freeze
+  end
 end

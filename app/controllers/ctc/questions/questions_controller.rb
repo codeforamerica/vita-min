@@ -29,7 +29,7 @@ module Ctc
       end
 
       def question_navigator
-        CtcQuestionNavigation
+        Navigation::CtcQuestionNavigation
       end
 
       def parent_class

@@ -16,7 +16,7 @@ describe Ctc::Questions::RemoveSpouseController do
     sign_in intake.client
   end
 
-  it_behaves_like :a_question_where_an_intake_is_required, CtcQuestionNavigation
+  it_behaves_like :a_question_where_an_intake_is_required, Navigation::CtcQuestionNavigation
 
   describe "#edit" do
     context "there is data on the spouse" do

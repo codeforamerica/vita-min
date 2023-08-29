@@ -6,7 +6,7 @@ module StateFile
       private
 
       def question_navigator
-        StateFileQuestionNavigation
+        Navigation::StateFileQuestionNavigation
       end
 
       def next_path

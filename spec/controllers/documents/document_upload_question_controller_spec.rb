@@ -7,8 +7,8 @@ RSpec.describe Documents::DocumentUploadQuestionController do
         allow(subject).to receive(:current_intake).and_return(nil)
       end
 
-      it "uses the DocumentNavigation" do
-        expect(subject.form_navigation).to be_an_instance_of(DocumentNavigation)
+      it "uses the Navigation::DocumentNavigation" do
+        expect(subject.form_navigation).to be_an_instance_of(Navigation::DocumentNavigation)
       end
     end
 
@@ -19,8 +19,8 @@ RSpec.describe Documents::DocumentUploadQuestionController do
         sign_in intake.client
       end
 
-      it "uses the DocumentNavigation" do
-        expect(subject.form_navigation).to be_an_instance_of(DocumentNavigation)
+      it "uses the Navigation::DocumentNavigation" do
+        expect(subject.form_navigation).to be_an_instance_of(Navigation::DocumentNavigation)
       end
     end
   end

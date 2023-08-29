@@ -19,7 +19,7 @@ describe Ctc::Questions::UseGyrController do
     context 'without an intake in the session' do
       it "redirects to the ctc homepage" do
         get :edit, params: {}
-        expect(response).to redirect_to(question_path(id: CtcQuestionNavigation.first))
+        expect(response).to redirect_to(question_path(id: Navigation::CtcQuestionNavigation.first))
       end
     end
   end

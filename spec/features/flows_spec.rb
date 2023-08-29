@@ -5,8 +5,8 @@ RSpec.feature 'Flow visualizations' do
     it 'shows all the pages' do
       visit flow_path(id: :gyr)
 
-      expect(page).to have_content(GyrQuestionNavigation::FLOW.first.name)
-      expect(page).to have_content(GyrQuestionNavigation::FLOW.last.name)
+      expect(page).to have_content(Navigation::GyrQuestionNavigation::FLOW.first.name)
+      expect(page).to have_content(Navigation::GyrQuestionNavigation::FLOW.last.name)
     end
   end
 
@@ -14,8 +14,8 @@ RSpec.feature 'Flow visualizations' do
     it 'shows all the pages' do
       visit flow_path(id: :ctc)
 
-      expect(page).to have_content(CtcQuestionNavigation::FLOW.first.name)
-      expect(page).to have_content(CtcQuestionNavigation::FLOW.last.name)
+      expect(page).to have_content(Navigation::CtcQuestionNavigation::FLOW.first.name)
+      expect(page).to have_content(Navigation::CtcQuestionNavigation::FLOW.last.name)
     end
   end
 end

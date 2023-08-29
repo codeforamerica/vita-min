@@ -70,7 +70,7 @@ Rails.application.routes.draw do
 
       resources :questions, controller: :questions do
         collection do
-          GyrQuestionNavigation.controllers.uniq.each do |controller_class|
+          Navigation::GyrQuestionNavigation.controllers.uniq.each do |controller_class|
             { get: :edit, put: :update }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
@@ -83,7 +83,7 @@ Rails.application.routes.draw do
 
       resources :documents do
         collection do
-          DocumentNavigation.controllers.uniq.each do |controller_class|
+          Navigation::DocumentNavigation.controllers.uniq.each do |controller_class|
             { get: :edit, put: :update, delete: :destroy }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
         get "/confirmation", to: "signups#confirmation", on: :collection
       end
 
-      DiyNavigation.controllers.uniq.each do |controller_class|
+      Navigation::DiyNavigation.controllers.uniq.each do |controller_class|
         match "/#{controller_class.controller_path}",
               action: :edit,
               controller: controller_class.controller_path,
@@ -369,7 +369,7 @@ Rails.application.routes.draw do
 
   constraints(Routes::CtcDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      scoped_navigation_routes(:questions, CtcQuestionNavigation)
+      scoped_navigation_routes(:questions, Navigation::CtcQuestionNavigation)
 
       # offboarding pages
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
@@ -524,7 +524,7 @@ Rails.application.routes.draw do
 
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      scoped_navigation_routes(:questions, StateFileQuestionNavigation)
+      scoped_navigation_routes(:questions, Navigation::StateFileQuestionNavigation)
     end
 
     namespace :state_file, path: "/" do

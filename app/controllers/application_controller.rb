@@ -211,7 +211,7 @@ class ApplicationController < ActionController::Base
 
   def set_get_started_link
     I18n.with_locale(locale) do
-      @get_started_link = open_for_gyr_intake? ? question_path(GyrQuestionNavigation.first) : nil
+      @get_started_link = open_for_gyr_intake? ? question_path(Navigation::GyrQuestionNavigation.first) : nil
     end
   end
 
@@ -396,7 +396,7 @@ class ApplicationController < ActionController::Base
   end
 
   def question_navigator
-    GyrQuestionNavigation
+    Navigation::GyrQuestionNavigation
   end
 
   # convenience method for redirection to beginning of
