@@ -19,10 +19,6 @@ module Questions
       Intake.find_by(id: session[:intake_id]) || current_intake
     end
 
-    def prev_path
-      nil
-    end
-
     private
 
     def illustration_path; end

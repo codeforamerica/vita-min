@@ -10,6 +10,10 @@ module Questions
       redirect_to triage_personal_info_questions_path
     end
 
+    def self.show?(_intake, _current_controller)
+      false
+    end
+
     private
 
     def illustration_path; end
