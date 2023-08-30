@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class FederalInfoController < QuestionsController
+    class Ny201Controller < QuestionsController
       layout "state_file/question"
 
       private
@@ -14,9 +14,6 @@ module StateFile
       end
 
       def current_intake
-        existing_intake = super
-        return existing_intake if existing_intake
-
         case params[:us_state]
         when "ny"
           @intake ||= StateFileNyIntake.new(

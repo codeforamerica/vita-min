@@ -1,0 +1,51 @@
+<% title = "The page with all the info from the 201"
+   content_for :page_title, title %>
+<h1><%= title %></h1>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_input_field :primary_email, "email" %>
+
+    <%= f.cfa_input_field :residence_county, "residence county" %>
+    <%= f.cfa_input_field :school_district, "school district" %>
+    <%= f.cfa_input_field :school_district_number, "school district number" %>
+
+    <%= f.cfa_input_field :mailing_street, "permanent address street" %>
+    <%= f.cfa_input_field :mailing_apartment, "permanent address apartment number" %>
+    <%= f.cfa_input_field :mailing_city, "permanent address city" %>
+    <%= f.cfa_input_field :mailing_zip, "permanent address zip code" %>
+    <%=
+        f.cfa_checkbox(
+          :nyc_resident_e,
+          "Did you or your spouse live in NYC during 2023? this includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island",
+          options: { checked_value: "yes", unchecked_value: "no" }
+        )
+    %>
+
+    <%= f.cfa_input_field :ny_414h_retirement, "Public employee 414(h) retirement contributions from your wage and tax statements" %>
+    <%= f.cfa_input_field :ny_other_additions, "Other (form IT-225, line 9)" %>
+    <%= f.cfa_input_field :sales_use_tax, "Sales or use tax" %>
+
+    <%=
+        f.cfa_checkbox(
+          :amount_electronic_withdrawal,
+          "Pay by electronic funds withdrawal?",
+          options: { checked_value: "yes", unchecked_value: "no" }
+        )
+    %>
+
+    <%= f.cfa_select :refund_choice, "refund choice", ["paper", "direct_deposit"].map { |v| [v.humanize, v] } %>
+    <%= f.cfa_select :account_type, "account type", ["personal_checking", "personal_savings", "business_checking", "business_savings"].map { |v| [v.humanize, v] } %>
+
+    <%= f.cfa_input_field :routing_number, "routing number" %>
+    <%= f.cfa_input_field :account_number, "account number" %>
+
+    <%= f.cfa_date_select :date_electronic_withdrawal, "Electronic funds withdrawal Date" %>
+    <%= f.cfa_input_field :amount_electronic_withdrawal, "Electronic funds amount" %>
+
+    <%= f.cfa_input_field :primary_signature, "primary signature" %>
+    <%= f.cfa_input_field :spouse_signature, "spouse signature" %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

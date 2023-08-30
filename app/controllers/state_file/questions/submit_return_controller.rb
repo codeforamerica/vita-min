@@ -3,14 +3,6 @@ module StateFile
     class SubmitReturnController < QuestionsController
       layout "state_file/question"
 
-      def current_intake
-        intake_class = {
-          "az" => StateFileAzIntake,
-          "ny" => StateFileNyIntake
-        }[params[:us_state]]
-        intake_class.find_by_id(session[:intake_id]) unless session[:intake_id].nil?
-      end
-
       private
 
       def next_path

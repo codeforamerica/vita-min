@@ -5,10 +5,16 @@ module StateFile
 
       private
 
+      def current_intake
+        intake_class = question_navigator.intake_class
+        intake_class.find_by_id(session[:intake_id]) unless session[:intake_id].nil?
+      end
+
       def question_navigator
-        if params[:us_state] == 'az'
+        case params[:us_state]
+        when 'az'
           Navigation::StateFileAzQuestionNavigation
-        elsif params[:us_state] == 'ny'
+        when 'ny'
           Navigation::StateFileNyQuestionNavigation
         end
       end
