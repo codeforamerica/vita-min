@@ -1,8 +1,8 @@
-<% title = "The page with all the info from the 201"
-   content_for :page_title, title %>
-<h1><%= title %></h1>
+<% title = "The page with all the info from the 201" %>
+<% content_for :page_title, title %>
 
 <% content_for :card do %>
+  <h1 class="form-question"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_input_field :primary_email, "email" %>
 

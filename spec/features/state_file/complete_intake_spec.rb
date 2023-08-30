@@ -8,8 +8,16 @@ RSpec.feature "Completing a state file intake" do
   it "has content" do
     visit "/"
     click_on "Start Test NY"
+
+    expect(page).to have_text "The page with all the info from the 1040"
     click_on "Continue"
+
+    expect(page).to have_text "The page that shows your dependents"
     click_on "Continue"
+
+    expect(page).to have_text "The page with all the info from the 201"
+    click_on "Continue"
+
     click_on "Submit My Fake Taxes"
 
     perform_enqueued_jobs

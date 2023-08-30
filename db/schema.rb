@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_29_211108) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_30_215113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1582,6 +1582,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_29_211108) do
     t.integer "total_ny_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
+  end
+
+  create_table "state_file_dependents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "dob"
+    t.string "first_name"
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "last_name"
+    t.string "middle_initial"
+    t.string "relationship"
+    t.string "ssn"
+    t.string "suffix"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file_dependents_on_intake"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|

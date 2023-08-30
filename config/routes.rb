@@ -529,6 +529,11 @@ Rails.application.routes.draw do
       end
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+        namespace :state_file do
+          namespace :questions do
+            resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
+          end
+        end
       end
     end
 

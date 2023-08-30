@@ -3,6 +3,11 @@ module StateFile
     class FederalInfoController < QuestionsController
       layout "state_file/question"
 
+      def edit
+        create_sample_intake unless current_intake
+        super
+      end
+
       private
 
       def illustration_path
@@ -13,13 +18,10 @@ module StateFile
         session[:state_file_intake] = current_intake.to_global_id
       end
 
-      def current_intake
-        existing_intake = super
-        return existing_intake if existing_intake
-
+      def create_sample_intake
         case params[:us_state]
         when "ny"
-          @intake ||= StateFileNyIntake.new(
+          intake = StateFileNyIntake.create(
             tax_return_year: 2022,
             filing_status: :single,
             primary_first_name: "Statesy",
@@ -70,8 +72,18 @@ module StateFile
             primary_signature: "beep boop",
             spouse_signature: "hup"
           )
+          intake.dependents.create(
+            first_name: "Adult",
+            last_name: "Deppy",
+            dob: 60.years.ago
+          )
+          intake.dependents.create(
+            first_name: "Child",
+            last_name: "Deppy",
+            dob: 6.years.ago
+          )
         when "az"
-          @intake ||= StateFileAzIntake.new(
+          intake = StateFileAzIntake.create(
             tax_return_year: 2022,
             primary_first_name: "Statesy",
             primary_middle_initial: "M",
@@ -103,6 +115,7 @@ module StateFile
         else
           raise "No state specified"
         end
+        session[:state_file_intake] = intake.to_global_id
       end
     end
   end

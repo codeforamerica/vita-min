@@ -4,6 +4,7 @@ module Navigation
 
     FLOW = [
       StateFile::Questions::FederalInfoController,
+      StateFile::Questions::FederalDependentsController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::SubmitReturnController
     ].freeze
