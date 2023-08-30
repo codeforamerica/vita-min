@@ -10,7 +10,7 @@ module StateFile
       end
 
       def after_update_success
-        session[:intake_id] = current_intake.id
+        session[:state_file_intake] = current_intake.to_global_id
       end
 
       def current_intake
@@ -47,7 +47,28 @@ module StateFile
             fed_taxable_ssb: 4,
             total_fed_adjustments_identify: "wrenches",
             total_fed_adjustments: 45,
-            total_ny_tax_withheld: 56
+            total_ny_tax_withheld: 56,
+            primary_email: "statesy@example.com",
+            date_electronic_withdrawal: Date.today,
+            residence_county: "County",
+            school_district: "Pizza District",
+            school_district_number: 234,
+            permanent_street: "123 Main St",
+            permanent_apartment: "3",
+            permanent_city: "New York",
+            permanent_zip: "10112",
+            nyc_resident_e: "yes",
+            ny_414h_retirement: 567,
+            ny_other_additions: 123,
+            sales_use_tax: 345,
+            amount_owed_pay_electronically: "yes",
+            refund_choice: "paper",
+            account_type: "personal_checking",
+            routing_number: "34567878",
+            account_number: "456789008765",
+            amount_electronic_withdrawal: 768,
+            primary_signature: "beep boop",
+            spouse_signature: "hup"
           )
         when "az"
           @intake ||= StateFileAzIntake.new(

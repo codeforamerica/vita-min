@@ -10,10 +10,10 @@
     <%= f.cfa_input_field :school_district, "school district" %>
     <%= f.cfa_input_field :school_district_number, "school district number" %>
 
-    <%= f.cfa_input_field :mailing_street, "permanent address street" %>
-    <%= f.cfa_input_field :mailing_apartment, "permanent address apartment number" %>
-    <%= f.cfa_input_field :mailing_city, "permanent address city" %>
-    <%= f.cfa_input_field :mailing_zip, "permanent address zip code" %>
+    <%= f.cfa_input_field :permanent_street, "permanent address street" %>
+    <%= f.cfa_input_field :permanent_apartment, "permanent address apartment number" %>
+    <%= f.cfa_input_field :permanent_city, "permanent address city" %>
+    <%= f.cfa_input_field :permanent_zip, "permanent address zip code" %>
     <%=
         f.cfa_checkbox(
           :nyc_resident_e,
@@ -28,7 +28,7 @@
 
     <%=
         f.cfa_checkbox(
-          :amount_electronic_withdrawal,
+          :amount_owed_pay_electronically,
           "Pay by electronic funds withdrawal?",
           options: { checked_value: "yes", unchecked_value: "no" }
         )

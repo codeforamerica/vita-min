@@ -4,9 +4,28 @@ module StateFile
 
     set_attributes_for :intake,
                        :primary_email,
-                             :date_electronic_withdrawal_year,
-                             :date_electronic_withdrawal_month,
-                             :date_electronic_withdrawal_day
+                       :date_electronic_withdrawal_year,
+                       :date_electronic_withdrawal_month,
+                       :date_electronic_withdrawal_day,
+                       :residence_county,
+                       :school_district,
+                       :school_district_number,
+                       :permanent_street,
+                       :permanent_apartment,
+                       :permanent_city,
+                       :permanent_zip,
+                       :nyc_resident_e,
+                       :ny_414h_retirement,
+                       :ny_other_additions,
+                       :sales_use_tax,
+                       :amount_electronic_withdrawal,
+                       :refund_choice,
+                       :account_type,
+                       :routing_number,
+                       :account_number,
+                       :amount_electronic_withdrawal,
+                       :primary_signature,
+                       :spouse_signature
 
     def save
       exceptions = [:date_electronic_withdrawal_year, :date_electronic_withdrawal_month, :date_electronic_withdrawal_day]

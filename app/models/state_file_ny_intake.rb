@@ -63,6 +63,10 @@
 class StateFileNyIntake < ApplicationRecord
   enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   enum claimed_as_dep: { yes: 1, no: 2 }, _prefix: :claimed_as_dep
+  enum nyc_resident_e: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_resident_e
+  enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
+  enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
+  enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
 
   def primary
     Person.new(self, :primary)

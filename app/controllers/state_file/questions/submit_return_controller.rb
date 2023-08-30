@@ -14,7 +14,7 @@ module StateFile
       end
 
       def after_update_success
-        session[:intake_id] = nil
+        session[:state_file_intake] = nil
         flash[:notice] = "Submitted efile submission"
       end
     end
