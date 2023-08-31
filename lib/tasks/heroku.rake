@@ -1,3 +1,15 @@
+class HerokuHostnameHelper
+  SERVICE_TYPES = [:gyr, :ctc, :statefile].freeze
+
+  def self.hostnames
+    SERVICE_TYPES.map { |service_type| [service_type, MultiTenantService.new(service_type).host] }.to_h
+  end
+
+  def self.hostname_desc
+    hostnames.map { |service_type, hostname| "#{service_type}_hostname=#{hostname}"}.join(' ')
+  end
+end
+
 namespace :heroku do
   desc 'Heroku release task (runs on every code push; on review app creation, runs before postdeploy task)'
   task release: :environment do
@@ -19,16 +31,15 @@ namespace :heroku do
     require 'aws-sdk-route53'
 
     # Extract out "pr-<pull request ID>" from heroku runtime app variable; use as subdomain
-    gyr_hostname = MultiTenantService.new(:gyr).host
-    ctc_hostname = MultiTenantService.new(:ctc).host
-    Rails.logger.info("Setting up Heroku review app DNS: gyr_hostname=#{gyr_hostname} ctc_hostname=#{ctc_hostname}")
+    Rails.logger.info("Setting up Heroku review app DNS: #{HerokuHostnameHelper.hostname_desc}")
 
     # Add the hostnames as to the Heroku app.
     # To create this key, follow https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
     heroku_client = PlatformAPI.connect_oauth(ENV["HEROKU_PLATFORM_KEY"])
     heroku_app_name = ENV["HEROKU_APP_NAME"]
-    heroku_client.domain.create(heroku_app_name, hostname: gyr_hostname, sni_endpoint: nil)
-    heroku_client.domain.create(heroku_app_name, hostname: ctc_hostname, sni_endpoint: nil)
+    HerokuHostnameHelper.hostnames.each do |_service_type, hostname|
+      heroku_client.domain.create(heroku_app_name, hostname: hostname, sni_endpoint: nil)
+    end
     Rails.logger.info("Created Heroku domains")
 
     # Add both to Route 53; route53 code example based on https://www.petekeen.net/lets-encrypt-without-certbot & https://blog.rocketinsights.com/heroku-review-apps/
@@ -39,7 +50,7 @@ namespace :heroku do
       secret_access_key: ENV["HEROKU_DNS_SECRET_ACCESS_KEY"],
       region: 'us-east-1',
     )
-    [gyr_hostname, ctc_hostname].each do |hostname|
+    HerokuHostnameHelper.hostnames.each do |_service_type, hostname|
       cname_target = heroku_client.domain.info(heroku_app_name, hostname)["cname"]
       Rails.logger.info("Setting up AWS with cname_target=#{cname_target} fully_qualified_domain=#{hostname}")
 
@@ -72,9 +83,7 @@ namespace :heroku do
 
   task review_app_predestroy: :environment do
     # Delete this app's hostnames from Route 53
-    gyr_hostname = MultiTenantService.new(:gyr).host
-    ctc_hostname = MultiTenantService.new(:ctc).host
-    Rails.logger.info("Deleting Route 53 DNS: gyr_hostname=#{gyr_hostname} ctc_hostname=#{ctc_hostname}")
+    Rails.logger.info("Deleting Route 53 DNS: #{HerokuHostnameHelper.hostname_desc}")
 
     heroku_app_name = ENV["HEROKU_APP_NAME"]
     heroku_client = PlatformAPI.connect_oauth(ENV["HEROKU_PLATFORM_KEY"])
@@ -83,7 +92,7 @@ namespace :heroku do
       secret_access_key: ENV["HEROKU_DNS_SECRET_ACCESS_KEY"],
       region: 'us-east-1',
     )
-    [gyr_hostname, ctc_hostname].each do |hostname|
+    HerokuHostnameHelper.hostnames.each do |_service_type, hostname|
       cname_target = heroku_client.domain.info(heroku_app_name, hostname)["cname"]
       Rails.logger.info("Deleting AWS CNAME with cname_target=#{cname_target} fully_qualified_domain=#{hostname}")
 
