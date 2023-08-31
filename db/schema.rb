@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_31_190606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1601,10 +1601,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
     t.string "account_number"
-    t.integer "account_type"
+    t.integer "account_type", default: 0, null: false
     t.integer "amount_electronic_withdrawal"
-    t.integer "amount_owed_pay_electronically"
-    t.integer "claimed_as_dep"
+    t.integer "amount_owed_pay_electronically", default: 0, null: false
+    t.integer "claimed_as_dep", null: false
     t.datetime "created_at", null: false
     t.string "current_step"
     t.date "date_electronic_withdrawal"
@@ -1612,7 +1612,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
     t.integer "fed_taxable_ssb"
     t.integer "fed_unemployment"
     t.integer "fed_wages"
-    t.integer "filing_status"
+    t.integer "filing_status", null: false
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"
@@ -1621,7 +1621,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
     t.integer "household_own_propety_tax"
     t.integer "household_rent_adjustments"
     t.integer "household_rent_amount"
-    t.integer "household_rent_own"
+    t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
     t.string "mailing_apartment"
     t.string "mailing_city"
@@ -1629,7 +1629,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
-    t.integer "nursing_home"
+    t.integer "nursing_home", default: 0, null: false
     t.integer "ny_414h_retirement"
     t.string "ny_mailing_apartment"
     t.string "ny_mailing_city"
@@ -1637,8 +1637,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
     t.string "ny_mailing_zip"
     t.integer "ny_other_additions"
     t.integer "ny_taxable_ssb"
-    t.integer "nyc_resident_e"
-    t.integer "occupied_residence"
+    t.integer "nyc_resident_e", default: 0, null: false
+    t.integer "occupied_residence", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"
     t.string "permanent_street"
@@ -1653,9 +1653,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_232840) do
     t.string "primary_occupation"
     t.string "primary_signature"
     t.string "primary_ssn"
-    t.integer "property_over_limit"
-    t.integer "public_housing"
-    t.integer "refund_choice"
+    t.integer "property_over_limit", default: 0, null: false
+    t.integer "public_housing", default: 0, null: false
+    t.integer "refund_choice", default: 0, null: false
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sales_use_tax"

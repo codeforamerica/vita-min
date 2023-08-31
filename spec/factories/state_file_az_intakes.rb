@@ -39,6 +39,8 @@
 FactoryBot.define do
   factory :state_file_az_intake do
     tax_return_year { 2022 }
+    claimed_as_dep { 'no' }
+    filing_status { 'single' }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
     primary_ssn { "123445555" }

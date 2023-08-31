@@ -4,17 +4,17 @@
 #
 #  id                             :bigint           not null, primary key
 #  account_number                 :string
-#  account_type                   :integer
+#  account_type                   :integer          default("unfilled"), not null
 #  amount_electronic_withdrawal   :integer
-#  amount_owed_pay_electronically :integer
-#  claimed_as_dep                 :integer
+#  amount_owed_pay_electronically :integer          default("unfilled"), not null
+#  claimed_as_dep                 :integer          not null
 #  current_step                   :string
 #  date_electronic_withdrawal     :date
 #  fed_taxable_income             :integer
 #  fed_taxable_ssb                :integer
 #  fed_unemployment               :integer
 #  fed_wages                      :integer
-#  filing_status                  :integer
+#  filing_status                  :integer          not null
 #  household_cash_assistance      :integer
 #  household_fed_agi              :integer
 #  household_ny_additions         :integer
@@ -23,7 +23,7 @@
 #  household_own_propety_tax      :integer
 #  household_rent_adjustments     :integer
 #  household_rent_amount          :integer
-#  household_rent_own             :integer
+#  household_rent_own             :integer          default("unfilled"), not null
 #  household_ssi                  :integer
 #  mailing_apartment              :string
 #  mailing_city                   :string
@@ -31,7 +31,7 @@
 #  mailing_state                  :string
 #  mailing_street                 :string
 #  mailing_zip                    :string
-#  nursing_home                   :integer
+#  nursing_home                   :integer          default("unfilled"), not null
 #  ny_414h_retirement             :integer
 #  ny_mailing_apartment           :string
 #  ny_mailing_city                :string
@@ -39,8 +39,8 @@
 #  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
 #  ny_taxable_ssb                 :integer
-#  nyc_resident_e                 :integer
-#  occupied_residence             :integer
+#  nyc_resident_e                 :integer          default("unfilled"), not null
+#  occupied_residence             :integer          default("unfilled"), not null
 #  permanent_apartment            :string
 #  permanent_city                 :string
 #  permanent_street               :string
@@ -55,9 +55,9 @@
 #  primary_occupation             :string
 #  primary_signature              :string
 #  primary_ssn                    :string
-#  property_over_limit            :integer
-#  public_housing                 :integer
-#  refund_choice                  :integer
+#  property_over_limit            :integer          default("unfilled"), not null
+#  public_housing                 :integer          default("unfilled"), not null
+#  refund_choice                  :integer          default("unfilled"), not null
 #  residence_county               :string
 #  routing_number                 :string
 #  sales_use_tax                  :integer
@@ -89,8 +89,7 @@ class StateFileNyIntake < ApplicationRecord
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
   enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
-  enum household_rent_own: { rent: 1, own: 2 }, _prefix: :household_rent_own
-  # TODO: jenny question: why do these enums have an unfilled option when none of them are null: false
+  enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
 
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
 
