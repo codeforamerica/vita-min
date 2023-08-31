@@ -18,6 +18,9 @@ RSpec.feature "Completing a state file intake" do
     expect(page).to have_text "The page with all the info from the 201"
     click_on "Continue"
 
+    expect(page).to have_text "The page with all the info from the IT-214"
+    click_on "Continue"
+
     click_on "Submit My Fake Taxes"
 
     perform_enqueued_jobs

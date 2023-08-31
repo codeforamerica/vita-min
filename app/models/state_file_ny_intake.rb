@@ -15,16 +15,32 @@
 #  fed_unemployment               :integer
 #  fed_wages                      :integer
 #  filing_status                  :integer
+#  household_cash_assistance      :integer
+#  household_fed_agi              :integer
+#  household_ny_additions         :integer
+#  household_other_income         :integer
+#  household_own_assessments      :integer
+#  household_own_propety_tax      :integer
+#  household_rent_adjustments     :integer
+#  household_rent_amount          :integer
+#  household_rent_own             :integer
+#  household_ssi                  :integer
 #  mailing_apartment              :string
 #  mailing_city                   :string
 #  mailing_country                :string
 #  mailing_state                  :string
 #  mailing_street                 :string
 #  mailing_zip                    :string
+#  nursing_home                   :integer
 #  ny_414h_retirement             :integer
+#  ny_mailing_apartment           :string
+#  ny_mailing_city                :string
+#  ny_mailing_street              :string
+#  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
 #  ny_taxable_ssb                 :integer
 #  nyc_resident_e                 :integer
+#  occupied_residence             :integer
 #  permanent_apartment            :string
 #  permanent_city                 :string
 #  permanent_street               :string
@@ -39,6 +55,8 @@
 #  primary_occupation             :string
 #  primary_signature              :string
 #  primary_ssn                    :string
+#  property_over_limit            :integer
+#  public_housing                 :integer
 #  refund_choice                  :integer
 #  residence_county               :string
 #  routing_number                 :string
@@ -67,6 +85,12 @@ class StateFileNyIntake < ApplicationRecord
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
   enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
   enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
+  enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
+  enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
+  enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
+  enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
+  enum household_rent_own: { rent: 1, own: 2 }, _prefix: :household_rent_own
+  # TODO: jenny question: why do these enums have an unfilled option when none of them are null: false
 
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
 

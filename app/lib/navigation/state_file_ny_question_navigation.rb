@@ -6,6 +6,7 @@ module Navigation
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::Ny201Controller,
+      StateFile::Questions::Ny214Controller,
       StateFile::Questions::SubmitReturnController
     ].freeze
 

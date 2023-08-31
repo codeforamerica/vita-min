@@ -70,7 +70,8 @@ module StateFile
             account_number: "456789008765",
             amount_electronic_withdrawal: 768,
             primary_signature: "beep boop",
-            spouse_signature: "hup"
+            spouse_signature: "hup",
+            **it214_fields
           )
           intake.dependents.create(
             first_name: "Adult",
@@ -116,6 +117,29 @@ module StateFile
           raise "No state specified"
         end
         session[:state_file_intake] = intake.to_global_id
+      end
+
+      def it214_fields
+        {
+          ny_mailing_street: "123 Homeowner way",
+          ny_mailing_apartment: "B",
+          ny_mailing_city: "Brooklyn",
+          ny_mailing_zip: "10113",
+          occupied_residence: "yes",
+          property_over_limit: "no",
+          public_housing: "no",
+          nursing_home: "no",
+          household_fed_agi: 1234,
+          household_ny_additions: 1234,
+          household_ssi: 1234,
+          household_cash_assistance: 1234,
+          household_other_income: 1234,
+          household_rent_own: "own",
+          household_rent_amount: 0,
+          household_rent_adjustments: 123,
+          household_own_propety_tax: 123,
+          household_own_assessments: 123,
+        }
       end
     end
   end
