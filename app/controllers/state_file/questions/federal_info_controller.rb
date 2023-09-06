@@ -22,8 +22,9 @@ module StateFile
       private
 
       def current_intake
-        if super.present?
-          super
+        super_value = super
+        if super_value.present?
+          super_value
         else
           intake = case params[:us_state]
                    when "ny"
