@@ -4,17 +4,17 @@ module StateFile
       layout "state_file/question"
 
       def import_federal_data
+        edit_path = case params[:us_state]
+                    when "ny"
+                      ny_questions_federal_info_path(us_state: "ny")
+                    when "az"
+                      az_questions_federal_info_path(us_state: "az")
+                    end
         if current_intake.persisted?
           flash[:alert] = "not overriding existing session intake for now"
-          render :edit
+          redirect_to edit_path
         else
           create_sample_intake
-          edit_path = case params[:us_state]
-                      when "ny"
-                        ny_questions_federal_info_path(us_state: "ny")
-                      when "az"
-                        az_questions_federal_info_path(us_state: "az")
-                      end
           redirect_to edit_path
         end
       end
