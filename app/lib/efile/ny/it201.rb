@@ -60,7 +60,7 @@ module Efile
         # I got this idea from another tax math implementation.
         case data_type
         when "NBR"
-          raise ArgumentError.new("value #{value} is not a number") unless value.is_a?(Integer)
+          raise ArgumentError, "value #{value} is not a number" unless value.is_a?(Integer)
         end
       end
     end
