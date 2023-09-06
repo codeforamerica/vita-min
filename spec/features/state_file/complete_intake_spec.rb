@@ -10,6 +10,12 @@ RSpec.feature "Completing a state file intake" do
     click_on "Start Test NY"
 
     expect(page).to have_text "The page with all the info from the 1040"
+
+    # pretend to get federal data
+    expect(page).to have_field("tax return year", with: "")
+    click_on "Fetch 1040 data from IRS"
+    expect(page).to have_field("tax return year", with: "2022")
+
     click_on "Continue"
 
     expect(page).to have_text "The page that shows your dependents"

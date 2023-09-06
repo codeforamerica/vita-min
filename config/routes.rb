@@ -524,6 +524,12 @@ Rails.application.routes.draw do
 
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+      namespace :state_file do
+        namespace :questions do
+          get "import_federal_data", to: "federal_info#import_federal_data"
+        end
+      end
+
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
         scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
       end

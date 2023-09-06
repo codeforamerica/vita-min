@@ -3,12 +3,39 @@ module StateFile
     class FederalInfoController < QuestionsController
       layout "state_file/question"
 
-      def edit
-        create_sample_intake unless current_intake
-        super
+      def import_federal_data
+        if current_intake.persisted?
+          flash[:alert] = "not overriding existing session intake for now"
+          render :edit
+        else
+          create_sample_intake
+          edit_path = case params[:us_state]
+                      when "ny"
+                        ny_questions_federal_info_path(us_state: "ny")
+                      when "az"
+                        az_questions_federal_info_path(us_state: "az")
+                      end
+          redirect_to edit_path
+        end
       end
 
       private
+
+      def current_intake
+        if super.present?
+          super
+        else
+          intake = case params[:us_state]
+                   when "ny"
+                     StateFileNyIntake.new
+                   when "az"
+                     StateFileAzIntake.new
+                   else
+                     raise "No state specified"
+                   end
+          intake
+        end
+      end
 
       def illustration_path
         "wages.svg"
