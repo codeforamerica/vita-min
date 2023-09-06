@@ -34,7 +34,7 @@ module StateFile
                        :fed_taxable_ssb,
                        :total_fed_adjustments_identify,
                        :total_fed_adjustments,
-                       :total_ny_tax_withheld
+                       :total_state_tax_withheld,
 
     def save
       exceptions = [:primary_dob_year, :primary_dob_month, :primary_dob_day, :spouse_dob_year, :spouse_dob_month, :spouse_dob_day]

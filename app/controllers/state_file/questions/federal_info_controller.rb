@@ -49,7 +49,7 @@ module StateFile
             fed_taxable_ssb: 4,
             total_fed_adjustments_identify: "wrenches",
             total_fed_adjustments: 45,
-            total_ny_tax_withheld: 56,
+            total_state_tax_withheld: 56,
             primary_email: "statesy@example.com",
             date_electronic_withdrawal: Date.today,
             residence_county: "County",
@@ -111,7 +111,7 @@ module StateFile
             fed_taxable_ssb: 4,
             total_fed_adjustments_identify: "wrenches",
             total_fed_adjustments: 45,
-            total_ny_tax_withheld: 56
+            total_state_tax_withheld: 56
           )
         else
           raise "No state specified"

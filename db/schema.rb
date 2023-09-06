@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_190606) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1579,7 +1579,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_190606) do
     t.integer "tax_return_year"
     t.integer "total_fed_adjustments"
     t.string "total_fed_adjustments_identify"
-    t.integer "total_ny_tax_withheld"
+    t.integer "total_state_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
@@ -1636,7 +1636,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_190606) do
     t.string "ny_mailing_street"
     t.string "ny_mailing_zip"
     t.integer "ny_other_additions"
-    t.integer "ny_taxable_ssb"
     t.integer "nyc_resident_e", default: 0, null: false
     t.integer "occupied_residence", default: 0, null: false
     t.string "permanent_apartment"
@@ -1671,7 +1670,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_190606) do
     t.integer "tax_return_year"
     t.integer "total_fed_adjustments"
     t.string "total_fed_adjustments_identify"
-    t.integer "total_ny_tax_withheld"
+    t.integer "total_state_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end

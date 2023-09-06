@@ -1,8 +1,6 @@
 <% title = "The page with all the info from the 1040" %>
 <% content_for :page_title, title %>
 
-<!--TODO remove: ny_taxable_ssb-->
-
 <% content_for :card do %>
   <h1 class="form-question"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
@@ -47,7 +45,7 @@
     <%= f.cfa_input_field :total_fed_adjustments_identify, "Total Federal Adjustments (description)" %>
     <%= f.cfa_input_field :total_fed_adjustments, "Total Federal Adjustments (amount)" %>
 
-    <%= f.cfa_input_field :total_ny_tax_withheld, "Total NY tax withheld" %>
+    <%= f.cfa_input_field :total_state_tax_withheld, "Total state tax withheld" %>
 
     <%= f.continue %>
   <% end %>

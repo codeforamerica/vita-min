@@ -38,7 +38,6 @@
 #  ny_mailing_street              :string
 #  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
-#  ny_taxable_ssb                 :integer
 #  nyc_resident_e                 :integer          default("unfilled"), not null
 #  occupied_residence             :integer          default("unfilled"), not null
 #  permanent_apartment            :string
@@ -73,7 +72,7 @@
 #  tax_return_year                :integer
 #  total_fed_adjustments          :integer
 #  total_fed_adjustments_identify :string
-#  total_ny_tax_withheld          :integer
+#  total_state_tax_withheld       :integer
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  visitor_id                     :string

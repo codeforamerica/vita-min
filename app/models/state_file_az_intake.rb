@@ -31,7 +31,7 @@
 #  tax_return_year                :integer
 #  total_fed_adjustments          :integer
 #  total_fed_adjustments_identify :string
-#  total_ny_tax_withheld          :integer
+#  total_state_tax_withheld       :integer
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  visitor_id                     :string
