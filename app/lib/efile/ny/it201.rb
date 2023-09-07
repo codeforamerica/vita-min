@@ -46,7 +46,7 @@ module Efile
       end
 
       def validate_lines
-        @lines.keys.each do |line_name|
+        @lines.each_key do |line_name|
           data_type = line_name.split("_").last
           value = @lines[line_name]
           raise ArgumentError("value is invalid: #{line_name}=#{value}") unless validate_data_type(data_type, value)
