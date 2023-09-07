@@ -2,7 +2,7 @@
 
 <% content_for :card do %>
   <h1 class="h2">You have successfully submitted your taxes</h1>
-  <%= link_to "Download XML", @download_link, class: "button button--primary" %>
+  <%= link_to "Download XML", state_file_questions_download_xml_path(us_state: params[:us_state]), class: "button button--primary" %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.submit("Go Home", class: "button") %>

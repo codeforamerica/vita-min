@@ -3,16 +3,6 @@ module StateFile
     class ConfirmationController < QuestionsController
       layout "state_file/question"
 
-      def edit
-        @download_link = case params[:us_state]
-                        when "ny"
-                          ny_state_file_questions_download_ny_xml_path
-                        when "az"
-                          az_state_file_questions_download_az_xml_path
-                        end
-        super
-      end
-
       def download_xml
         submission = EfileSubmission.where(data_source: current_intake).first
         # TODO could instead get the attached submission_bundle from efile submission?

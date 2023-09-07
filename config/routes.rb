@@ -527,23 +527,18 @@ Rails.application.routes.draw do
       namespace :state_file do
         namespace :questions do
           get "import_federal_data", to: "federal_info#import_federal_data"
+          get "download_xml", to: "confirmation#download_xml"
         end
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
         scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
-        namespace :state_file do
-          namespace :questions do
-            get "download_az_xml", to: "confirmation#download_xml"
-          end
-        end
       end
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
         namespace :state_file do
           namespace :questions do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-            get "download_ny_xml", to: "confirmation#download_xml"
           end
         end
       end
