@@ -4,7 +4,8 @@ module Navigation
 
     FLOW = [
       StateFile::Questions::FederalInfoController,
-      StateFile::Questions::SubmitReturnController
+      StateFile::Questions::SubmitReturnController,
+      StateFile::Questions::ConfirmationController
     ].freeze
 
     def self.intake_class
