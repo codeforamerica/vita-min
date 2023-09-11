@@ -4,18 +4,12 @@ module StateFile
       layout "state_file/question"
 
       def import_federal_data
-        edit_path = case params[:us_state]
-                    when "ny"
-                      ny_questions_federal_info_path(us_state: "ny")
-                    when "az"
-                      az_questions_federal_info_path(us_state: "az")
-                    end
         if current_intake.persisted?
           flash[:alert] = "not overriding existing session intake for now"
-          redirect_to edit_path
+          redirect_to action: :edit, us_state: params[:us_state]
         else
           create_sample_intake
-          redirect_to edit_path
+          redirect_to action: :edit, us_state: params[:us_state]
         end
       end
 
@@ -26,15 +20,7 @@ module StateFile
         if super_value.present?
           super_value
         else
-          intake = case params[:us_state]
-                   when "ny"
-                     StateFileNyIntake.new
-                   when "az"
-                     StateFileAzIntake.new
-                   else
-                     raise "No state specified"
-                   end
-          intake
+          question_navigator.intake_class.new
         end
       end
 
