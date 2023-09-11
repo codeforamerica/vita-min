@@ -39,7 +39,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "You have successfully submitted your taxes"
-      click_on "Download XML"
+      click_on "Show XML"
       expect(page.body).to include(fake_xml)
 
       perform_enqueued_jobs
@@ -57,7 +57,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
-      click_on "Download XML"
+      click_on "Show XML"
       expect(page.body).to include(fake_xml)
 
       perform_enqueued_jobs

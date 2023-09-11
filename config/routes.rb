@@ -527,7 +527,7 @@ Rails.application.routes.draw do
       namespace :state_file do
         namespace :questions do
           get "import_federal_data", to: "federal_info#import_federal_data"
-          get "download_xml", to: "confirmation#download_xml"
+          get "show_xml", to: "confirmation#show_xml"
         end
       end
 
