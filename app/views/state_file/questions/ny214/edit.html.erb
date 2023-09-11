@@ -1,0 +1,78 @@
+<% title = "The page with all the info from the IT-214" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="form-question"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+
+    <p>The following information is about the residence that qualifies you for the credit</p>
+    <%= f.cfa_input_field :ny_mailing_street, "street" %>
+    <%= f.cfa_input_field :ny_mailing_apartment, "apartment" %>
+    <%= f.cfa_input_field :ny_mailing_city, "city" %>
+    <%= f.cfa_input_field :ny_mailing_zip, "zip" %>
+
+    <%=
+      f.cfa_radio_set(
+        :occupied_residence,
+        label_text: "Did you occupy the same residence for at least six months during 2022?",
+        collection: [
+          { value: :yes, label: "Yes" },
+          { value: :no, label: "No" },
+        ]
+      )
+    %>
+    <%=
+      f.cfa_radio_set(
+        :property_over_limit,
+        label_text: "Did you own real property with a current market value of more than $85,000 during 2022",
+        collection: [
+          { value: :yes, label: "Yes" },
+          { value: :no, label: "No" },
+        ]
+      )
+    %>
+    <%=
+      f.cfa_radio_set(
+        :public_housing,
+        label_text: "Did you reside in public housing, or other residence completely exempted for real property taxes in 2023?",
+        collection: [
+          { value: :yes, label: "Yes" },
+          { value: :no, label: "No" },
+        ]
+      )
+    %>
+    <%=
+      f.cfa_radio_set(
+        :nursing_home,
+        label_text: "Did you live in a nursing home during 2023?",
+        collection: [
+          { value: :yes, label: "Yes" },
+          { value: :no, label: "No" },
+        ]
+      )
+    %>
+
+    <%= f.cfa_input_field :household_fed_agi, "Household federal AGI" %>
+    <%= f.cfa_input_field :household_ny_additions, "Household NYS additions to Fed AGI" %>
+    <%= f.cfa_input_field :household_ssi, "Supplemental Security Income (SSI) payments" %>
+    <%= f.cfa_input_field :household_cash_assistance, "Cash public assistance and relief " %>
+    <%= f.cfa_input_field :household_other_income, "Other income" %>
+
+    <%= f.cfa_radio_set(
+          :household_rent_own,
+          label_text: "Did you rent or own your home?",
+          collection: [
+            { value: :rent, label: "Rent" },
+            { value: :own, label: "Own" },
+          ]
+        )
+    %>
+
+    <%= f.cfa_input_field :household_rent_amount, "Enter total amount of rent you and all members of your household paid during 2023" %>
+    <%= f.cfa_input_field :household_rent_adjustments, "Adjusted rent if line 19 includes: heat, gas, electricity, furnishings and board" %>
+    <%= f.cfa_input_field :household_own_propety_tax, "Real property taxes paid during 2023" %>
+    <%= f.cfa_input_field :household_own_assessments, "Special assessments" %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

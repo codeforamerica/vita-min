@@ -30,7 +30,7 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("efile:processBO") do |xml|
               xml.filingKeys do
                 xml.SOURCE_CD ""
-                xml.EXT_TP_ID @submission.data_source.tp_id
+                xml.EXT_TP_ID @submission.data_source.primary.ssn
                 xml.LIAB_PRD_BEG_DT Date.new(@submission.data_source.tax_return_year).beginning_of_year
                 xml.LIAB_PRD_END_DT Date.new(@submission.data_source.tax_return_year).end_of_year
                 xml.TAX_YEAR @submission.data_source.tax_return_year
@@ -39,8 +39,8 @@ module SubmissionBuilder
               xml.tiPrime do
                 xml.FIRST_NAME @submission.data_source.primary.first_name
                 xml.LAST_NAME @submission.data_source.primary.last_name
-                xml.MAIL_LN_2_ADR @submission.data_source.street_address
-                xml.MAIL_CITY_ADR @submission.data_source.city
+                xml.MAIL_LN_2_ADR @submission.data_source.mailing_street
+                xml.MAIL_CITY_ADR @submission.data_source.mailing_city
               end
 
               xml.composition do

@@ -524,7 +524,24 @@ Rails.application.routes.draw do
 
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      scoped_navigation_routes(:questions, Navigation::StateFileQuestionNavigation)
+      namespace :state_file do
+        namespace :questions do
+          get "import_federal_data", to: "federal_info#import_federal_data"
+          get "show_xml", to: "confirmation#show_xml"
+        end
+      end
+
+      scope ':us_state', as: 'az', constraints: { us_state: :az } do
+        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
+      end
+      scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
+        scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+        namespace :state_file do
+          namespace :questions do
+            resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
+          end
+        end
+      end
     end
 
     namespace :state_file, path: "/" do

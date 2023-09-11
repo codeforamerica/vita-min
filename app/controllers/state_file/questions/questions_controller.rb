@@ -5,13 +5,24 @@ module StateFile
 
       private
 
+      def current_intake
+        intake = GlobalID.find(session[:state_file_intake])
+        raise ActiveRecord::RecordNotFound if intake && !intake.is_a?(question_navigator.intake_class)
+        intake
+      end
+
       def question_navigator
-        Navigation::StateFileQuestionNavigation
+        case params[:us_state]
+        when 'az'
+          Navigation::StateFileAzQuestionNavigation
+        when 'ny'
+          Navigation::StateFileNyQuestionNavigation
+        end
       end
 
       def next_path
         next_step = form_navigation.next
-        options = {}
+        options = { us_state: params[:us_state], action: next_step.navigation_actions.first }
         if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
@@ -22,7 +33,7 @@ module StateFile
         prev_step = form_navigation.prev
         return unless prev_step
 
-        options = {}
+        options = { us_state: params[:us_state], action: prev_step.navigation_actions.first }
         if prev_step.resource_name
           options[:id] = prev_step.model_for_show_check(self)&.id
         end

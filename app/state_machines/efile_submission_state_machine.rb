@@ -102,12 +102,14 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
-    submission.tax_return.transition_to(:file_needs_review)
+    if submission.is_for_federal_filing?
+      submission.tax_return.transition_to(:file_needs_review)
+    end
 
     Efile::SubmissionErrorParser.persist_errors(transition)
 
     if transition.efile_errors.any?
-      if transition.efile_errors.any?(&:expose)
+      if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
           message: AutomatedMessage::EfileFailed,

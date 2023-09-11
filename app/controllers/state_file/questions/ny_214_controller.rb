@@ -1,12 +1,12 @@
 module StateFile
   module Questions
-    class SubmitReturnController < QuestionsController
+    class Ny214Controller < QuestionsController
       layout "state_file/question"
 
       private
 
       def illustration_path
-        "welcome.svg"
+        "mortgage-interest.svg"
       end
     end
   end
