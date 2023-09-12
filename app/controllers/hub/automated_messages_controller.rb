@@ -6,8 +6,14 @@ module Hub
     layout "hub"
 
     def index
-      gyr_client = TaxReturn.first.client
-      ctc_client = Intake::CtcIntake.first.client
+      @messages = messages_preview
+    end
+
+    private
+
+    def messages_preview
+      gyr_client = Client.new(intake: Intake::GyrIntake.new(preferred_name: "PreferredFirstName"), tax_returns: [TaxReturn.new(assigned_user: User.new(name: "AssignedUser", timezone: "America/New_York", role_type: AdminRole::TYPE), updated_at: Time.now)], id: "98765", vita_partner: Organization.new(name: "AssignedOrganization"))
+      ctc_client = Client.new(intake: Intake::CtcIntake.new(product_year: Rails.configuration.product_year), tax_returns: [TaxReturn.new(year: Rails.configuration.product_year - 1)])
       automated_messages = [
         [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
         [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
@@ -48,20 +54,13 @@ module Hub
       end.to_h
 
       emails = {
-        "UserMailer.assignment_email" => UserMailer.assignment_email(
-          assigned_user: User.last,
-          assigning_user: User.first,
-          tax_return: TaxReturn.last,
-          assigned_at: TaxReturn.last.updated_at
-        ),
+        "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.first, assigning_user: gyr_client.tax_returns.first.assigned_user, tax_return: gyr_client.tax_returns.first, assigned_at: gyr_client.tax_returns.first.updated_at),
         "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: :en, service_type: :gyr, verification_code: '000000').with_code,
         "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: :en, service_type: :gyr),
-        "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(
-          diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname"),
-        )
+        "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname"))
       }
 
-      @messages = emails.merge(automated_messages_and_mailers).transform_values do |message|
+      emails.merge(automated_messages_and_mailers).transform_values do |message|
         ActionMailer::Base.preview_interceptors.each do |interceptor|
           interceptor.previewing_email(message)
         end
