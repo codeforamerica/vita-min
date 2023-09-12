@@ -184,12 +184,11 @@ class EfileSubmission < ApplicationRecord
         tax_return: tax_return
       )
     else
-      data_source.submission_pdf.attach(
-        io: File.open(Rails.root.join("spec", "fixtures", "files", "it201.pdf")),
-        filename: 'it201.pdf',
-        content_type: 'application/pdf'
-      )
-      data_source.submission_pdf
+      pdf_documents = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(self).pdf_documents
+      output_file = Tempfile.new(["IT201", ".pdf"], "tmp/")
+      filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
+      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
+      output_file
     end
   end
 

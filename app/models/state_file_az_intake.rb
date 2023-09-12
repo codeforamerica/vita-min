@@ -37,6 +37,8 @@
 #  visitor_id                     :string
 #
 class StateFileAzIntake < ApplicationRecord
+  has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
+
   def filing_status
     # TODO
     "single"

@@ -92,6 +92,7 @@ class StateFileNyIntake < ApplicationRecord
   has_one_attached :submission_pdf
 
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
+  has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
 
   def primary
     Person.new(self, :primary)

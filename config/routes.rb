@@ -539,6 +539,7 @@ Rails.application.routes.draw do
         namespace :state_file do
           namespace :questions do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
+            resources :submission_pdfs, only: [:show]
           end
         end
       end
@@ -549,7 +550,6 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#home"
-        resources :submission_pdfs, only: [:show]
       end
     end
   end
