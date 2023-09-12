@@ -184,8 +184,8 @@ class EfileSubmission < ApplicationRecord
         tax_return: tax_return
       )
     else
-      pdf_documents = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(self).pdf_documents
-      output_file = Tempfile.new(["IT201", ".pdf"], "tmp/")
+      pdf_documents = bundle_class.new(self).pdf_documents
+      output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
       filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
       PdfForms.new.cat(*filled_out_documents.push(output_file.path))
       output_file
