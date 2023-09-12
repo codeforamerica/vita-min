@@ -87,7 +87,7 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It201,
-                pdf: Ny201Pdf,
+                pdf: PdfFiller::Ny201Pdf,
                 include: true
               },
             ]

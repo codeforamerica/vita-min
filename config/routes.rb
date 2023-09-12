@@ -531,6 +531,14 @@ Rails.application.routes.draw do
         end
       end
 
+      scope ':us_state', constraints: { us_state: /az|ny/ } do
+        namespace :state_file do
+          namespace :questions do
+            resources :submission_pdfs, only: [:show]
+          end
+        end
+      end
+
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
         scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
       end
@@ -539,7 +547,6 @@ Rails.application.routes.draw do
         namespace :state_file do
           namespace :questions do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-            resources :submission_pdfs, only: [:show]
           end
         end
       end
