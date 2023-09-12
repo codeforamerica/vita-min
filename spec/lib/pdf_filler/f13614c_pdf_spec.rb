@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe F13614cPdf do
+RSpec.describe PdfFiller::F13614cPdf do
   include PdfSpecHelper
 
   let(:intake_pdf) { described_class.new(intake) }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ConsentPdf do
+RSpec.describe PdfFiller::ConsentPdf do
   include PdfSpecHelper
 
   describe "#output_file" do
@@ -8,7 +8,7 @@ RSpec.describe ConsentPdf do
       let(:intake) { create :intake }
 
       it "returns a pdf with default fields and values" do
-        consent_pdf = ConsentPdf.new(intake)
+        consent_pdf = described_class.new(intake)
         output_file = consent_pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to eq({
@@ -55,7 +55,7 @@ RSpec.describe ConsentPdf do
       end
 
       it "returns a filled out pdf" do
-        consent_pdf = ConsentPdf.new(intake)
+        consent_pdf = described_class.new(intake)
         output_file = consent_pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to eq({

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe AdditionalDependentsPdf do
+describe PdfFiller::AdditionalDependentsPdf do
   include PdfSpecHelper
   let(:pdf) { described_class.new(submission) }
   let(:submission) { create :efile_submission }

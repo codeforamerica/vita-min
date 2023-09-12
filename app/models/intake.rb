@@ -519,7 +519,7 @@ class Intake < ApplicationRecord
   end
 
   def update_or_create_13614c_document(filename)
-    pdf = F13614cPdf.new(self)
+    pdf = PdfFiller::F13614cPdf.new(self)
     ClientPdfDocument.create_or_update(
       output_file: pdf.output_file,
       document_type: pdf.document_type,
@@ -529,7 +529,7 @@ class Intake < ApplicationRecord
   end
 
   def update_or_create_required_consent_pdf
-    consent_pdf = ConsentPdf.new(self)
+    consent_pdf = PdfFiller::ConsentPdf.new(self)
     ClientPdfDocument.create_or_update(
       output_file: consent_pdf.output_file,
       document_type: consent_pdf.document_type,

@@ -439,10 +439,10 @@ describe EfileSubmission do
     let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb") }
 
     before do
-      allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
-      allow(Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(Irs8812Ty2021Pdf, output_file: example_pdf))
-      allow(Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(Irs1040ScheduleLepPdf, output_file: example_pdf))
-      allow(AdditionalDependentsPdf).to receive(:new).and_return(instance_double(AdditionalDependentsPdf, output_file: example_pdf))
+      allow(PdfFiller::Irs1040Pdf).to receive(:new).and_return(instance_double(PdfFiller::Irs1040Pdf, output_file: example_pdf))
+      allow(PdfFiller::Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(PdfFiller::Irs8812Ty2021Pdf, output_file: example_pdf))
+      allow(PdfFiller::Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(PdfFiller::Irs1040ScheduleLepPdf, output_file: example_pdf))
+      allow(PdfFiller::AdditionalDependentsPdf).to receive(:new).and_return(instance_double(PdfFiller::AdditionalDependentsPdf, output_file: example_pdf))
     end
 
     context "the filer is claiming CTC (line 28 is greater than $0)" do
@@ -456,7 +456,7 @@ describe EfileSubmission do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
         doc = submission.client.documents.last
         expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
-        expect(Irs8812Ty2021Pdf).to have_received(:new)
+        expect(PdfFiller::Irs8812Ty2021Pdf).to have_received(:new)
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
         expect(doc.tax_return).to eq(submission.tax_return)
         expect(doc.upload.blob.download).not_to be_nil
@@ -470,8 +470,8 @@ describe EfileSubmission do
 
       it "generates and stores just the 1040 (does not generate the 8812)" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
-        expect(Irs1040Pdf).to have_received(:new)
-        expect(Irs8812Ty2021Pdf).not_to have_received(:new)
+        expect(PdfFiller::Irs1040Pdf).to have_received(:new)
+        expect(PdfFiller::Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
         expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year} - 789.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
@@ -481,7 +481,6 @@ describe EfileSubmission do
     end
 
     context "when the filer has tons of dependents" do
-
       before do
         allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, outstanding_ctc_amount: 1, claiming_and_qualified_for_eitc?: false))
         allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
@@ -489,8 +488,8 @@ describe EfileSubmission do
 
       it "attaches multiple dependents documents" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
-        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 4)
-        expect(AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 26)
+        expect(PdfFiller::AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 4)
+        expect(PdfFiller::AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 26)
       end
     end
 
@@ -501,9 +500,9 @@ describe EfileSubmission do
 
       it "attaches the schedule lep" do
         expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
-        expect(Irs1040Pdf).to have_received(:new)
-        expect(Irs1040ScheduleLepPdf).to have_received(:new)
-        expect(Irs8812Ty2021Pdf).not_to have_received(:new)
+        expect(PdfFiller::Irs1040Pdf).to have_received(:new)
+        expect(PdfFiller::Irs1040ScheduleLepPdf).to have_received(:new)
+        expect(PdfFiller::Irs8812Ty2021Pdf).not_to have_received(:new)
         doc = submission.client.documents.last
         expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form1040.key)

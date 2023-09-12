@@ -1,13 +1,13 @@
 require "rails_helper"
 
-describe F15080VitaConsentToDisclosePdf do
+describe PdfFiller::F15080VitaConsentToDisclosePdf do
   include PdfSpecHelper
 
   describe "#output_file" do
     context "with an empty intake record" do
       let(:intake) { create :intake }
       it "returns a pdf with default fields and values" do
-        consent_pdf = F15080VitaConsentToDisclosePdf.new(intake)
+        consent_pdf = PdfFiller::F15080VitaConsentToDisclosePdf.new(intake)
         output_file = consent_pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to eq({

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Irs1040Pdf do
+RSpec.describe PdfFiller::Irs1040Pdf do
   include PdfSpecHelper
 
   let(:pdf) { described_class.new(submission) }

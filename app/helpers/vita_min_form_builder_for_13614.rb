@@ -7,7 +7,7 @@ class VitaMinFormBuilderFor13614 < VitaMinFormBuilder
     &block
   )
     if object.respond_to?(:client)
-      gating_question_columns = F13614cPdf::GATES.select do |_gating_question, gated_values|
+      gating_question_columns = PdfFiller::F13614cPdf::GATES.select do |_gating_question, gated_values|
         gated_values.any?(method)
       end.map(&:first)
 

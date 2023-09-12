@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Irs1040ScheduleLepPdf do
+describe PdfFiller::Irs1040ScheduleLepPdf do
   include PdfSpecHelper
   let(:pdf) { described_class.new(submission) }
   let(:submission) { create :efile_submission }
