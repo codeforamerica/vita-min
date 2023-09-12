@@ -25,7 +25,7 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
       PdfForms.new.fill_form(
         original_tempfile.path,
         filled_tempfile.path,
-        Irs1040Pdf.new(@submission).sensitive_fields_hash_for_pdf
+        PdfFiller::Irs1040Pdf.new(@submission).sensitive_fields_hash_for_pdf
       )
     end
 

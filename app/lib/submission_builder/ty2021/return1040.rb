@@ -21,34 +21,34 @@ module SubmissionBuilder
         supported_docs = [
           {
             xml: SubmissionBuilder::Ty2021::Documents::Irs1040,
-            pdf: Irs1040Pdf,
+            pdf: PdfFiller::Irs1040Pdf,
             include: true
           },
           {
             xml: nil,
-            pdf: AdditionalDependentsPdf,
+            pdf: PdfFiller::AdditionalDependentsPdf,
             include: @submission.qualifying_dependents.count > 4,
             kwargs: { start_node: 4 }
           },
           {
             xml: nil,
-            pdf: AdditionalDependentsPdf,
+            pdf: PdfFiller::AdditionalDependentsPdf,
             include: @submission.qualifying_dependents.count > 26,
             kwargs: { start_node: 26 }
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::Schedule8812,
-            pdf: Irs8812Ty2021Pdf,
+            pdf: PdfFiller::Irs8812Ty2021Pdf,
             include: @submission.benefits_eligibility.outstanding_ctc_amount.positive?
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleEic,
-            pdf: Irs1040ScheduleEicPdf,
+            pdf: PdfFiller::Irs1040ScheduleEicPdf,
             include: @submission.benefits_eligibility.claiming_and_qualified_for_eitc? && @submission.qualifying_dependents.any?(&:qualifying_eitc?)
           },
           {
             xml: SubmissionBuilder::Ty2021::Documents::ScheduleLep,
-            pdf: Irs1040ScheduleLepPdf,
+            pdf: PdfFiller::Irs1040ScheduleLepPdf,
             include: @submission.intake.irs_language_preference.present? && @submission.intake.irs_language_preference != "english"
           },
         ]

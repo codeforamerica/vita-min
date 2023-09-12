@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Irs1040ScheduleEicPdf do
+describe PdfFiller::Irs1040ScheduleEicPdf do
   include PdfSpecHelper
   let(:pdf) { described_class.new(submission) }
   let(:submission) { create :efile_submission, client: create(:client, intake: build(:ctc_intake, primary_first_name: "Bethany", primary_last_name: "Banana")) }

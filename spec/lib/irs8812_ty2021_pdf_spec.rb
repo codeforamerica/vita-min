@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Irs8812Ty2021Pdf do
+RSpec.describe PdfFiller::Irs8812Ty2021Pdf do
   include PdfSpecHelper
 
   let(:pdf) { described_class.new(submission) }

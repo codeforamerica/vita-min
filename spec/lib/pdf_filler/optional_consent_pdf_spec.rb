@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe OptionalConsentPdf do
+RSpec.describe PdfFiller::OptionalConsentPdf do
   include PdfSpecHelper
 
   describe "#output_file" do
@@ -8,7 +8,7 @@ RSpec.describe OptionalConsentPdf do
       let(:client) { create :client, :with_empty_consent, intake: (build :intake, primary_consented_to_service: "yes") }
 
       it "returns a pdf with default fields and values" do
-        optional_consent_pdf = OptionalConsentPdf.new(client.consent)
+        optional_consent_pdf = described_class.new(client.consent)
         output_file = optional_consent_pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to eq({
@@ -24,7 +24,7 @@ RSpec.describe OptionalConsentPdf do
       let(:client) { create :client, :with_consent, intake: (build :intake, primary_consented_to_service: "yes") }
 
       it "returns a filled out pdf" do
-        consent_pdf = OptionalConsentPdf.new(client.consent)
+        consent_pdf = described_class.new(client.consent)
         output_file = consent_pdf.output_file
         result = filled_in_values(output_file.path)
         expect(result).to eq({

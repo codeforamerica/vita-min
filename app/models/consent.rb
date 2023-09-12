@@ -22,7 +22,7 @@ class Consent < ApplicationRecord
   has_one :intake, through: :client
 
   def update_or_create_optional_consent_pdf
-    consent_pdf = OptionalConsentPdf.new(self)
+    consent_pdf = PdfFiller::OptionalConsentPdf.new(self)
     ClientPdfDocument.create_or_update(
       output_file: consent_pdf.output_file,
       document_type: consent_pdf.document_type,
@@ -32,7 +32,7 @@ class Consent < ApplicationRecord
   end
 
   def update_or_create_f15080_vita_disclosure_pdf
-    consent_pdf = F15080VitaConsentToDisclosePdf.new(self.intake)
+    consent_pdf = PdfFiller::F15080VitaConsentToDisclosePdf.new(self.intake)
     ClientPdfDocument.create_or_update(
       output_file: consent_pdf.output_file,
       document_type: consent_pdf.document_type,
