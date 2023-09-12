@@ -15,6 +15,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  hashed_ssn                                   :string
 #  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
@@ -46,6 +47,7 @@
 # Indexes
 #
 #  index_dependents_on_creation_token  (creation_token)
+#  index_dependents_on_hashed_ssn      (hashed_ssn)
 #  index_dependents_on_intake_id       (intake_id)
 #
 # Foreign Keys

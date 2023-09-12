@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -680,6 +680,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
+    t.string "hashed_ssn"
     t.bigint "intake_id", null: false
     t.text "ip_pin"
     t.string "last_name"
@@ -707,6 +708,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
+    t.index ["hashed_ssn"], name: "index_dependents_on_hashed_ssn"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
   end
 
@@ -1208,6 +1210,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.integer "has_spouse_ip_pin", default: 0, null: false
     t.integer "has_ssn_of_alimony_recipient", default: 0, null: false
     t.string "hashed_primary_ssn"
+    t.string "hashed_spouse_ssn"
     t.integer "home_location"
     t.integer "homeless_youth", default: 0, null: false
     t.integer "income_over_limit", default: 0, null: false
@@ -1378,6 +1381,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
+    t.index ["hashed_spouse_ssn"], name: "index_intakes_on_hashed_spouse_ssn"
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"

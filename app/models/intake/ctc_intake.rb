@@ -113,6 +113,7 @@
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  has_ssn_of_alimony_recipient                         :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  hashed_spouse_ssn                                    :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default("unfilled"), not null
 #  income_over_limit                                    :integer          default(0), not null
@@ -288,6 +289,7 @@
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
+#  index_intakes_on_hashed_spouse_ssn                      (hashed_spouse_ssn)
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
