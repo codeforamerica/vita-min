@@ -8,13 +8,14 @@ module Efile
       # by the client or through data imports from the IRS Form 1040.
       attr_reader :lines
 
-      def initialize(year, filing_status, lines, it227)
+      def initialize(year, filing_status, claimed_as_dependent, dependent_count, lines, it227)
         @year = year
 
         @filing_status = filing_status # single, mfj, that's all we support for now
+        @claimed_as_dependent = claimed_as_dependent # true/false
+        @dependent_count = dependent_count # number
         @lines = ActiveSupport::HashWithIndifferentAccess.new(lines)
         @it227 = it227
-        validate_lines
       end
 
       def calculate
@@ -28,19 +29,27 @@ module Efile
         @computed = ActiveSupport::HashWithIndifferentAccess.new
         @computed[:AMT_60E] = @it227.calculate[:part2_line1]
         # TODO: E_1_CBX
-        @computed[:AMT_17] = compute_line_17
-        @computed[:AMT_19] = compute_line_19
-        @computed[:AMT_24] = compute_line_24
+        @computed[:AMT_17] = calculate_line_17
+        @computed[:AMT_19] = calculate_line_19
+        @computed[:AMT_24] = calculate_line_24
         @computed[:AMT_25] = @lines[:AMT_4]
         @computed[:AMT_27] = @lines[:AMT_15]
-        @computed[:AMT_32] = compute_line_32
-        @computed[:AMT_33] = compute_line_33
+        @computed[:AMT_32] = calculate_line_32
+        @computed[:AMT_33] = calculate_line_33
+        @computed[:AMT_34] = calculate_line_34
+        @computed[:AMT_35] = calculate_line_35
+        @computed[:AMT_36] = @dependent_count
+        @computed[:AMT_37] = calculate_line_37
+        @computed[:AMT_38] = @computed[:AMT_37]
+        @computed[:AMT_39] = calculate_line_39
+        @computed[:AMT_43] = @computed[:AMT_40] + @computed[:AMT_41] + @computed[:AMT_42]
+        @computed[:AMT_44] = [@computed[:AMT_39] - @computed[:AMT_43], 0].max
         @computed
       end
 
       private
 
-      def compute_line_17
+      def calculate_line_17
         result = 0
         (1..16).each do |line_num|
           next if line_num == 12
@@ -50,11 +59,11 @@ module Efile
         result
       end
 
-      def compute_line_19
+      def calculate_line_19
         @computed[:AMT_17] - (@lines[:AMT_18]).abs
       end
 
-      def compute_line_24
+      def calculate_line_24
         result = 0
         result += @lines[:AMT_19A]
         (20..23).each do |line_num|
@@ -63,7 +72,7 @@ module Efile
         result
       end
 
-      def compute_line_32
+      def calculate_line_32
         result = 0
         (25..31).each do |line_num|
           result += lines["AMT_line_num"]
@@ -71,8 +80,36 @@ module Efile
         result
       end
 
-      def compute_line_33
+      def calculate_line_33
         @computed[:AMT_24] - @computed[:AMT_32]
+      end
+
+      def calculate_line_34
+        case @filing_status
+        when :single
+          if @claimed_as_dependent
+            3100
+          else
+            8000
+          end
+        when :mfj
+          16050
+        end
+      end
+
+      def calculate_line_35
+        result = @computed[:AMT_33] - @computed[:AMT_34]
+        [result, 0].max
+      end
+
+      def calculate_line_37
+        result = @computed[:AMT_35] - (@computed[:AMT_36] * 1000)
+        [result, 0].max
+      end
+
+      def calculate_line_39
+        # aka calctax
+        1 # TODO
       end
 
       def is_full_year_resident
@@ -87,25 +124,6 @@ module Efile
 
       def filing_status_mfj?
         @filing_status == :mfj
-      end
-
-      def validate_lines
-        @lines.each_key do |line_name|
-          data_type = line_name.split("_").last
-          value = @lines[line_name]
-          raise ArgumentError("value is invalid: #{line_name}=#{value}") unless validate_data_type(data_type, value)
-        end
-      end
-
-      def validate_data_type(data_type, value)
-        # I think it's going to be useful to have a suffix for each input line
-        # to show its data format to avoid weird problems like '5'+'6'='56'.
-        #
-        # I got this idea from another tax math implementation.
-        case data_type
-        when "NBR"
-          raise ArgumentError, "value #{value} is not a number" unless value.is_a?(Integer)
-        end
       end
     end
   end
