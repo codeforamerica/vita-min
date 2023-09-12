@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Visit welcome page" do
-  scenario "redirects to /questions/triage-personal-info", js: true, screenshot: true do
+  scenario "redirects to /questions/triage-personal-info" do
     visit "/questions/welcome"
 
     # screenshot_after do
