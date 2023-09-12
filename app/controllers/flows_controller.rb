@@ -122,7 +122,7 @@ class FlowsController < ApplicationController
 
   class DecoratedControllerList
     def initialize(controller_list, current_controller, reference_object)
-      @controllers = controller_list
+      @controllers = controller_list.reject { |c| c.deprecated_controller? }
       @current_controller = current_controller
       @reference_object = reference_object
     end
@@ -209,7 +209,7 @@ class FlowsController < ApplicationController
             e.string
           end
         else
-          if controller_path.start_with?('ctc') && !deprecated_controller?
+          if controller_path.start_with?('ctc')
             raise "Could not find title for: #{controller_path}"
           else
             controller_name.titleize.singularize

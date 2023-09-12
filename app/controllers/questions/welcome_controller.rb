@@ -14,6 +14,10 @@ module Questions
       false
     end
 
+    def self.deprecated_controller?
+      true
+    end
+
     private
 
     def illustration_path; end
