@@ -39,6 +39,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "You have successfully submitted your taxes"
+      expect(page).to have_link "Download PDF"
       click_on "Show XML"
       expect(page.body).to include(fake_xml)
 

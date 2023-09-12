@@ -549,6 +549,7 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#home"
+        resources :submission_pdfs, only: [:show]
       end
     end
   end

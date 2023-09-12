@@ -61,9 +61,9 @@ class EfileSubmissionStateMachine
       submission.transition_to(:fraud_hold)
     end
 
-    if submission.is_for_federal_filing?
+    #if submission.is_for_federal_filing?
       CreateSubmissionPdfJob.perform_later(submission.id)
-    end
+    #end
   end
 
   after_transition(to: :bundling) do |submission|
