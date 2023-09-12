@@ -7,9 +7,9 @@
       <div class="grid__item width-one-whole">
         <h1><%= @main_heading %></h1>
 
-        <% @emails.each do |email_class, email| %>
+        <% @messages.each do |message_class, email| %>
           <h2>
-            <%= email_class %>
+            <%= message_class.respond_to?(:name) ? message_class.name.capitalize() : message_class %>
           </h2>
           <div class="client-messages-container" style="display: flex;">
             <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 16px; z-index: 3;">
@@ -22,29 +22,23 @@
                 </div>
               </div>
             </div>
-          </div>
-        <% end %>
-
-        <% @messages.each do |message| %>
-          <h2>
-            <%= message.class.name %>
-          </h2>
-          <div class="client-messages-container" style="display: flex;">
-            <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 16px; z-index: 3;">
-              <div class="client-messages__email">
-                <div class="email__subject">
-                  <%= message.email_subject %>
-                </div>
-                <div style="white-space: pre-line;">
-                  <%= message.email_body %>
+            <% if message_class.respond_to?(:new) %>
+              <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 16px; z-index: 3;">
+                <div class="client-messages__email">
+                  <div class="email__subject">
+                    <%= message_class.new.email_subject %>
+                  </div>
+                  <div style="white-space: pre-line;">
+                    <%= message_class.new.email_body %>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 8px;">
-              <div class="client-messages__sms">
-                <div style="white-space: pre-line;"><%= message.sms_body %></div>
+              <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 8px;">
+                <div class="client-messages__sms">
+                  <div style="white-space: pre-line;"><%= message_class.new.sms_body %></div>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         <% end %>
       </div>
