@@ -20,6 +20,15 @@ describe DeduplicationService do
         expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "shh", "routing_number|123456789")
       end
     end
+
+    context "primary and spouse have the same ssn" do
+      let(:intake){ create :intake, primary_ssn: "123456789", spouse_ssn: "123456789" }
+      it "produces the same hash" do
+        hashed_primary_ssn = described_class.sensitive_attribute_hashed(intake, :primary_ssn)
+        hashed_spouse_ssn = described_class.sensitive_attribute_hashed(intake, :spouse_ssn)
+        expect(hashed_primary_ssn).to eq(hashed_spouse_ssn)
+      end
+    end
   end
 
   describe ".duplicates" do
