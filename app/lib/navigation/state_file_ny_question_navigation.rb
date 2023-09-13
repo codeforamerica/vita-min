@@ -3,6 +3,8 @@ module Navigation
     include ControllerNavigation
 
     FLOW = [
+      StateFile::Questions::LandingPageController,
+      StateFile::Questions::LoginController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::Ny201Controller,
