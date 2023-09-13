@@ -12,13 +12,11 @@ module Hub
     private
 
     def messages_preview
-      gyr_client = Client.new(intake: Intake::GyrIntake.new(preferred_name: "PreferredFirstName"), tax_returns: [TaxReturn.new(assigned_user: User.new(name: "AssignedUser", timezone: "America/New_York", role_type: AdminRole::TYPE), updated_at: Time.now)], id: "98765", vita_partner: Organization.new(name: "AssignedOrganization"))
-      ctc_client = Client.new(intake: Intake::CtcIntake.new(product_year: Rails.configuration.product_year), tax_returns: [TaxReturn.new(year: Rails.configuration.product_year - 1)])
       automated_messages = [
         [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
         [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
-        [SurveyMessages::GyrCompletionSurvey, { survey_link: SurveyMessages::GyrCompletionSurvey.survey_link(gyr_client) }],
-        [SurveyMessages::CtcExperienceSurvey, { survey_link: SurveyMessages::CtcExperienceSurvey.survey_link(ctc_client) }],
+        [SurveyMessages::GyrCompletionSurvey, { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" }],
+        [SurveyMessages::CtcExperienceSurvey, { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" }],
         [AutomatedMessage::DocumentsReminderLink, { body_args: { doc_type: "ID" } }],
         [AutomatedMessage::EfileAcceptance, {}],
         [AutomatedMessage::EfilePreparing, {}],
@@ -43,18 +41,13 @@ module Hub
 
       automated_messages_and_mailers = automated_messages.map do |m|
         message = m[0].new
-        replacement_args = {
-          body: message.email_body(**m[1]),
-          client: gyr_client,
-          preparer: User.first,
-          tax_return: gyr_client.tax_returns.first }
-        replaced_body = ReplacementParametersService.new(**replacement_args).process
-        email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: message.email_subject, client: gyr_client)
+        replaced_body = fake_process_replacements_hash(message.email_body(**m[1]))
+        email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: message.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
         [m[0], OutgoingEmailMailer.user_message(outgoing_email: email)]
       end.to_h
 
       emails = {
-        "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.first, assigning_user: gyr_client.tax_returns.first.assigned_user, tax_return: gyr_client.tax_returns.first, assigned_at: gyr_client.tax_returns.first.updated_at),
+        "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.last, assigning_user: User.first, tax_return: TaxReturn.last, assigned_at: TaxReturn.last.updated_at),
         "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: :en, service_type: :gyr, verification_code: '000000').with_code,
         "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: :en, service_type: :gyr),
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname"))
@@ -66,6 +59,28 @@ module Hub
         end
         message
       end
+    end
+
+    def fake_process_replacements_hash(body)
+      # emulates the ReplacementParametersService#process
+      body.gsub!(/%(?!{\S*})/, "%%")
+      fake_replacements_hash.each_key { |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+      body % fake_replacements_hash
+    end
+
+    def fake_replacements_hash
+      # emulates the ReplacementParametersService#replacements
+      {
+        "Client.PreferredName": "PreferredFirstName",
+        "Preparer.FirstName": "PreparerFirstName",
+        "Documents.List": "DocumentsList",
+        "Client.LoginLink": new_portal_client_login_url(locale: "en"),
+        "Link.E-signature": new_portal_client_login_url(locale: "en"),
+        "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
+        "TaxReturn.TaxYear": Rails.configuration.product_year,
+        "Client.ClientId": "1234",
+        "Client.AssignedOrganization": "AssignedOrg",
+      }
     end
   end
 end
