@@ -19,6 +19,14 @@ RSpec.feature "Completing a state file intake" do
       visit "/"
       click_on "Start Test NY"
 
+      expect(page).to have_text "The future landing page"
+      click_on "Continue"
+
+      expect(page).to have_text "Log in"
+      fill_in "Email", with: "kermit@example.com"
+      fill_in "Password", with: "therainbowconnection"
+      click_on "Continue"
+
       expect(page).to have_text "The page with all the info from the 1040"
 
       # pretend to get federal data
@@ -53,6 +61,14 @@ RSpec.feature "Completing a state file intake" do
     it "has content" do
       visit "/"
       click_on "Start Test AZ"
+
+      expect(page).to have_text "The future landing page"
+      click_on "Continue"
+      expect(page).to have_text "Log in"
+      fill_in "Email", with: "kermit@example.com"
+      fill_in "Password", with: "therainbowconnection"
+      click_on "Continue"
+
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
       click_on "Submit My Fake Taxes"
