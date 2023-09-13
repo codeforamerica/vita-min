@@ -436,10 +436,13 @@ describe Intake do
       end
 
       context "when changing spouse_ssn" do
+        let(:hashed_ssn) { DeduplicationService.sensitive_attribute_hashed((create :intake, spouse_ssn: "123456666"), :spouse_ssn) }
+
         it "sets spouse_last_four_ssn to a new value" do
           expect{
             intake.update(spouse_ssn: "123456666")
           }.to change(intake, :spouse_last_four_ssn).to("6666")
+           .and change(intake.reload, :hashed_spouse_ssn).to(hashed_ssn)
         end
       end
     end

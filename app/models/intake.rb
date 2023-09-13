@@ -349,8 +349,10 @@ class Intake < ApplicationRecord
       self.primary_last_four_ssn = primary_ssn&.last(4)
       self.hashed_primary_ssn = DeduplicationService.sensitive_attribute_hashed(self, :primary_ssn)
     end
-    # add for spouse_ssn
-    self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
+    if spouse_ssn_changed?
+      self.spouse_last_four_ssn = spouse_ssn&.last(4)
+      self.hashed_spouse_ssn = DeduplicationService.sensitive_attribute_hashed(self, :spouse_ssn)
+    end
   end
 
   before_save do

@@ -1,6 +1,6 @@
-namespace :backfill_hashed_spouse_ssn_to_intake do
+namespace :backfill_hashed_ssn_on_intake do
   desc "Backfill hashed_spouse_ssn on intakes with spouse_ssn value"
-  task backfill: :environment do
+  task backfill_hashed_spouse_ssn: :environment do
     intakes_left_to_backfill =Intake.where(hashed_spouse_ssn: nil).where.not(spouse_ssn: nil)
     Sentry.capture_message "Backfill hashed_spouse_ssn on all intakes: beginning task with #{intakes_left_to_backfill.count} records to update"
 

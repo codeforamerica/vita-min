@@ -21,12 +21,11 @@ describe DeduplicationService do
       end
     end
 
-    context "primary and spouse have the same ssn" do
-      let(:intake){ create :intake, primary_ssn: "123456789", spouse_ssn: "123456789" }
-      it "produces the same hash" do
-        hashed_primary_ssn = described_class.sensitive_attribute_hashed(intake, :primary_ssn)
-        hashed_spouse_ssn = described_class.sensitive_attribute_hashed(intake, :spouse_ssn)
-        expect(hashed_primary_ssn).to eq(hashed_spouse_ssn)
+    context "with a spouse ssn" do
+      let!(:intake){ build :intake, spouse_ssn: "123456789" }
+      it "hashes attr as primary_ssn" do
+        described_class.sensitive_attribute_hashed(intake, :spouse_ssn)
+        expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "secret", "primary_ssn|123456789")
       end
     end
   end
