@@ -41,7 +41,7 @@ module Hub
 
       automated_messages_and_mailers = automated_messages.map do |m|
         message = m[0].new
-        replaced_body = fake_process_replacements_hash(message.email_body(**m[1]))
+        replaced_body = message.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
         email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: message.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
         [m[0], OutgoingEmailMailer.user_message(outgoing_email: email)]
       end.to_h
@@ -59,28 +59,6 @@ module Hub
         end
         message
       end
-    end
-
-    def fake_process_replacements_hash(body)
-      # emulates the ReplacementParametersService#process
-      body.gsub!(/%(?!{\S*})/, "%%")
-      fake_replacements_hash.each_key { |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
-      body % fake_replacements_hash
-    end
-
-    def fake_replacements_hash
-      # emulates the ReplacementParametersService#replacements
-      {
-        "Client.PreferredName": "PreferredFirstName",
-        "Preparer.FirstName": "PreparerFirstName",
-        "Documents.List": "DocumentsList",
-        "Client.LoginLink": new_portal_client_login_url(locale: "en"),
-        "Link.E-signature": new_portal_client_login_url(locale: "en"),
-        "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
-        "TaxReturn.TaxYear": Rails.configuration.product_year,
-        "Client.ClientId": "1234",
-        "Client.AssignedOrganization": "AssignedOrg",
-      }
     end
   end
 end
