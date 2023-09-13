@@ -19,7 +19,7 @@ describe Hub::AutomatedMessagesController do
       it "successfully renders messages that are sent to client in an automated way" do
         get :index
 
-        expect(response.body).to have_text(I18n.t("messages.successful_submission_online_intake.email.body"))
+        expect(response.body).to have_text(I18n.t("messages.successful_submission_online_intake.sms"))
       end
 
       it "includes every AutomatedMessage class" do
