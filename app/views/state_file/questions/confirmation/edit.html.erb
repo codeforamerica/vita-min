@@ -4,6 +4,8 @@
   <h1 class="h2">You have successfully submitted your taxes</h1>
   <%= link_to "Show XML", state_file_questions_show_xml_path(us_state: params[:us_state]), class: "button button--primary" %>
 
+  <%= link_to "Download PDF", state_file_questions_submission_pdf_path(us_state: params[:us_state], id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary" %>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.submit("Go Home", class: "button") %>
   <% end %>

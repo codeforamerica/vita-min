@@ -24,6 +24,10 @@ module SubmissionBuilder
             "IT201"
           end
 
+          def pdf_documents
+            included_documents.map { |item| item if item.pdf }.compact
+          end
+
           private
 
           def documents_wrapper
@@ -75,10 +79,6 @@ module SubmissionBuilder
             included_documents.map { |item| item if item.xml }.compact
           end
 
-          def pdf_documents
-            included_documents.map { |item| item if item.pdf }.compact
-          end
-
           def included_documents
             supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
           end
@@ -87,7 +87,7 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It201,
-                pdf: nil,
+                pdf: PdfFiller::Ny201Pdf,
                 include: true
               },
             ]

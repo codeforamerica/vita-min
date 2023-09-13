@@ -7,7 +7,7 @@ module StateFile
 
       def current_intake
         intake = GlobalID.find(session[:state_file_intake])
-        raise ActiveRecord::RecordNotFound if intake && !intake.is_a?(question_navigator.intake_class)
+        return nil if intake && !intake.is_a?(question_navigator.intake_class)
         intake
       end
 

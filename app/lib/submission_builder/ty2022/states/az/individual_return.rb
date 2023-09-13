@@ -21,6 +21,10 @@ module SubmissionBuilder
             "Form140"
           end
 
+          def pdf_documents
+            included_documents.map { |item| item if item.pdf }.compact
+          end
+
           private
 
           def documents_wrapper
@@ -79,16 +83,18 @@ module SubmissionBuilder
             included_documents.map { |item| item if item.xml }.compact
           end
 
-          def pdf_documents
-            included_documents.map { |item| item if item.pdf }.compact
-          end
-
           def included_documents
             supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
           end
 
           def supported_documents
-            supported_docs = []
+            supported_docs = [
+              {
+                xml: nil,
+                pdf: PdfFiller::Az140Pdf,
+                include: true
+              },
+            ]
             supported_docs
           end
         end
