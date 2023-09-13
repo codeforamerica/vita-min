@@ -19,14 +19,14 @@ describe Hub::AutomatedMessagesController do
       it "successfully renders messages that are sent to client in an automated way" do
         get :index
 
-        expect(response.body).to have_text(I18n.t("messages.successful_submission_online_intake.email.body"))
+        expect(response.body).to have_text(I18n.t("messages.successful_submission_online_intake.sms"))
       end
 
       it "includes every AutomatedMessage class" do
         get :index
 
-        shown_message_classes = assigns(:messages).map { |m| m.class.name }
-        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::CtcExperienceSurvey, SurveyMessages::GyrCompletionSurvey]).map(&:name)
+        shown_message_classes = assigns(:messages).map{ |m| m[0] }
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "DiyIntakeEmailMailer.high_support_message", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
 
         expect(shown_message_classes).to match_array(message_class_names)
       end
