@@ -12,8 +12,13 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :primary)
   end
 
+  def spouse
+    Person.new(self, :spouse)
+  end
+
   class Person
     attr_reader :first_name
+    attr_reader :middle_initial
     attr_reader :last_name
     attr_reader :birth_date
     attr_reader :ssn
@@ -26,6 +31,12 @@ class StateFileBaseIntake < ApplicationRecord
         @middle_initial = intake.primary_middle_initial
         @birth_date = intake.primary_dob
         @ssn = intake.primary_ssn
+      else
+        @first_name = intake.spouse_first_name
+        @last_name = intake.spouse_last_name
+        @middle_initial = intake.spouse_middle_initial
+        @birth_date = intake.spouse_dob
+        @ssn = intake.spouse_ssn
       end
     end
   end
