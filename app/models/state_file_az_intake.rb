@@ -36,9 +36,7 @@
 #  updated_at                     :datetime         not null
 #  visitor_id                     :string
 #
-class StateFileAzIntake < ApplicationRecord
-  has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
-
+class StateFileAzIntake < StateFileBaseIntake
   def filing_status
     # TODO
     "single"
@@ -47,28 +45,5 @@ class StateFileAzIntake < ApplicationRecord
   # TODO
   def agi
     1234
-  end
-
-  def primary
-    Person.new(self, :primary)
-  end
-
-  class Person
-    attr_reader :first_name
-    attr_reader :last_name
-    attr_reader :middle_initial
-    attr_reader :birth_date
-    attr_reader :ssn
-
-    def initialize(intake, primary_or_spouse)
-      @primary_or_spouse = primary_or_spouse
-      if primary_or_spouse == :primary
-        @first_name = intake.primary_first_name
-        @last_name = intake.primary_last_name
-        @middle_initial = intake.primary_middle_initial
-        @birth_date = intake.primary_dob
-        @ssn = intake.primary_ssn
-      end
-    end
   end
 end

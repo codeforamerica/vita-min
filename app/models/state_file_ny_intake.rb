@@ -77,9 +77,7 @@
 #  updated_at                     :datetime         not null
 #  visitor_id                     :string
 #
-class StateFileNyIntake < ApplicationRecord
-  enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
-  enum claimed_as_dep: { yes: 1, no: 2 }, _prefix: :claimed_as_dep
+class StateFileNyIntake < StateFileBaseIntake
   enum nyc_resident_e: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_resident_e
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
   enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
@@ -89,29 +87,4 @@ class StateFileNyIntake < ApplicationRecord
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
   enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
-  has_one_attached :submission_pdf
-
-  has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
-  has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
-
-  def primary
-    Person.new(self, :primary)
-  end
-
-  class Person
-    attr_reader :first_name
-    attr_reader :last_name
-    attr_reader :birth_date
-    attr_reader :ssn
-
-    def initialize(intake, primary_or_spouse)
-      @primary_or_spouse = primary_or_spouse
-      if primary_or_spouse == :primary
-        @first_name = intake.primary_first_name
-        @last_name = intake.primary_last_name
-        @birth_date = intake.primary_dob
-        @ssn = intake.primary_ssn
-      end
-    end
-  end
 end
