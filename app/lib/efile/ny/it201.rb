@@ -111,7 +111,7 @@ module Efile
 
       def calculate_line_47
         if is_full_year_resident_nyc
-          @computed[:AMT_38]
+          line_or_zero(:AMT_38)
         else
           0
         end
