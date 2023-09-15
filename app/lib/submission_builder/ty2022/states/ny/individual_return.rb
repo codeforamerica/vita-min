@@ -42,9 +42,28 @@ module SubmissionBuilder
 
               xml.tiPrime do
                 xml.FIRST_NAME @submission.data_source.primary.first_name
+                xml.MI_NAME @submission.data_source.primary.middle_initial
                 xml.LAST_NAME @submission.data_source.primary.last_name
                 xml.MAIL_LN_2_ADR @submission.data_source.mailing_street
                 xml.MAIL_CITY_ADR @submission.data_source.mailing_city
+                xml.MAIL_STATE_ADR @submission.data_source.mailing_state
+                xml.MAIL_ZIP_5_ADR @submission.data_source.mailing_zip
+                xml.COUNTY_CD @submission.data_source.residence_county
+                xml.PERM_LN_1_ADR @submission.data_source.permanent_street
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city
+                xml.PERM_ST_ADR "NY" # TODO: make sure we do want to hardcode this
+                xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
+                xml.COUNTRY_NAME @submission.data_source.mailing_country
+              end
+
+              if @submission.data_source.filing_status_married_filing_jointly?
+                xml.tiSpouse do
+                  xml.FIRST_NAME @submission.data_source.spouse.first_name
+                  xml.MI_NAME @submission.data_source.spouse.middle_initial
+                  xml.LAST_NAME @submission.data_source.spouse.last_name
+                  xml.SP_DOB_DT @submission.data_source.spouse.birth_date
+                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
+                end
               end
 
               xml.composition do

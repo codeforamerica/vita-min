@@ -88,6 +88,11 @@ FactoryBot.define do
     primary_dob { Date.new(1985, 1, 3) }
     mailing_street { "123 main st" }
     mailing_city { "New York" }
+    mailing_state { "NY" }
     mailing_zip { "10001" }
+    permanent_street { mailing_street }
+    permanent_city { mailing_city }
+    permanent_zip { mailing_zip }
+    nyc_resident_e { 'yes' }
   end
 end

@@ -8,6 +8,7 @@ describe Seeder do
   def count_rows_by_model
     rows = {}
     ApplicationRecord.descendants.each do |model|
+      next if model.abstract_class?
       rows[model.name] = model.all.size
     end
     rows
