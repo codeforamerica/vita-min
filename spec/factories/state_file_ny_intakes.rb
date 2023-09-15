@@ -94,5 +94,7 @@ FactoryBot.define do
     permanent_city { mailing_city }
     permanent_zip { mailing_zip }
     nyc_resident_e { 'yes' }
+    school_district { 123 }
+    school_district_number { 'Cool School' }
   end
 end
