@@ -12,6 +12,10 @@ module SubmissionBuilder
               head_of_household: 4,
               qualifying_widow: 5,
             }.freeze
+            CLAIMED_AS_DEP = {
+              yes: 1,
+              no: 2
+            }
             NYC_RES = {
               yes: 1,
               no: 2
@@ -23,8 +27,8 @@ module SubmissionBuilder
                 xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2
-                xml.DEP_CLAIM_IND claimed: @submission.data_source.claimed_as_dep
-                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_resident_e]
+                xml.DEP_CLAIM_IND claimed: CLAIMED_AS_DEP[@submission.data_source.claimed_as_dep.to_sym]
+                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_resident_e.to_sym]
                 # TODO: DAYS_NYC_NMBR are we only taking full-year nyc residents?
                 xml.FEDAGI_B4_ADJ_AMT claimed: calculated_fields['AMT_17']
                 xml.STD_ITZ_IND claimed: 1

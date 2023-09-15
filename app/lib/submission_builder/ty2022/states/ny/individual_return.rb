@@ -44,14 +44,14 @@ module SubmissionBuilder
                 xml.FIRST_NAME @submission.data_source.primary.first_name
                 xml.MI_NAME @submission.data_source.primary.middle_initial
                 xml.LAST_NAME @submission.data_source.primary.last_name
-                xml.MAIL_LN_1_ADR @submission.data_source.mailing_street
+                xml.MAIL_LN_2_ADR @submission.data_source.mailing_street
                 xml.MAIL_CITY_ADR @submission.data_source.mailing_city
                 xml.MAIL_STATE_ADR @submission.data_source.mailing_state
                 xml.MAIL_ZIP_5_ADR @submission.data_source.mailing_zip
                 xml.COUNTY_CD @submission.data_source.residence_county
                 xml.PERM_LN_1_ADR @submission.data_source.permanent_street
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city
-                xml.PERM_ST_ADR "ny" # TODO: make sure we do want to hardcode this
+                xml.PERM_ST_ADR "NY" # TODO: make sure we do want to hardcode this
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
