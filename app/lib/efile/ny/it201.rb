@@ -111,7 +111,7 @@ module Efile
       end
 
       def calculate_line_47
-        if is_full_year_resident_nyc
+        if full_year_nyc_resident?
           line_or_zero(:AMT_38)
         else
           0
@@ -119,7 +119,7 @@ module Efile
       end
 
       def calculate_line_47a
-        if full_time_nyc_resident?
+        if full_year_nyc_resident?
           nyc_tax_from_tables(@computed[:AMT_47])
         else
           0
@@ -157,7 +157,7 @@ module Efile
         (table_row.cumulative + ((amount - table_row.floor) * table_row.rate)).round
       end
 
-      def is_full_year_resident_nyc
+      def full_year_nyc_resident?
         if filing_status_mfj?
           if @computed["F_1_NBR"] == 12 && @computed["F_2_NBR"] == 12
             true
