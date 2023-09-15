@@ -114,6 +114,10 @@ class Dependent < ApplicationRecord
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
   end
 
+  before_save do
+    self.hashed_ssn = DeduplicationService.sensitive_attribute_hashed(self, :ssn) if ssn_changed?
+  end
+
   def full_name
     parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?

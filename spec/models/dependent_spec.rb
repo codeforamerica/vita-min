@@ -121,4 +121,15 @@ describe Dependent do
       expect(error.reload.dependent_id).to eq nil
     end
   end
+
+  context "when changing the ssn" do
+    let!(:dependent) { create :dependent, ssn: nil, hashed_ssn: nil }
+    let!(:intake) { create :intake, primary_ssn: "123456789" }
+
+    it "updates the hashed ssn" do
+      expect do
+        dependent.update(ssn: "123456789")
+      end.to change(dependent, :hashed_ssn).to(intake.hashed_primary_ssn)
+    end
+  end
 end
