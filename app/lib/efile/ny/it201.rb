@@ -30,6 +30,7 @@ module Efile
         @computed[:AMT_44] = calculate_line_44
         @computed[:AMT_46] = calculate_line_46
         @computed[:AMT_47] = calculate_line_47
+        @computed[:AMT_47A] = calculate_line_47a
         @computed
       end
 
@@ -115,6 +116,45 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_47a
+        if full_time_nyc_resident?
+          nyc_tax_from_tables(@computed[:AMT_47])
+        else
+          0
+        end
+      end
+
+      def nyc_tax_from_tables(amount)
+        # TODO: Can this be extracted into a NYSTaxTables class, where it's a public method, and the
+        # TaxTables class is instantiated with the filing status? That way it could be directly unit tested;
+        # right now it can't be cleanly extracted due to the dependency on filing_status_mfj.
+        #
+        # I want to leave it in here until we have at least one more such tax table.
+        row = Struct.new(:floor, :ceiling, :cumulative, :rate)
+        table =
+          if filing_status_mfj?
+            [
+              row.new(0, 21600, 0, 0.03078),
+              row.new(21600, 45000, 665, 0.03762),
+              row.new(45000, 90000, 1545, 0.03819),
+              row.new(90000, 0, 3264, 0.03876)
+            ]
+          else
+            [
+              [0, 12000, 0, 0.03078],
+              [12000, 25000, 369, 0.03762],
+              [25000, 50000, 858, 0.03819],
+              [50000, 0, 1813, 0.03876]
+            ]
+          end
+
+        table_row = table.reverse.find do |table_row|
+          amount > table_row.floor && (amount <= table_row.ceiling)
+        end
+
+        (table_row.cumulative + ((amount - table_row.floor) * table_row.rate)).round
       end
 
       def is_full_year_resident_nyc
