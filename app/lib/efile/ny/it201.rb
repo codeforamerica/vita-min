@@ -28,6 +28,8 @@ module Efile
         @computed[:AMT_39] = calculate_line_39
         @computed[:AMT_43] = calculate_line_43
         @computed[:AMT_44] = calculate_line_44
+        @computed[:AMT_46] = calculate_line_46
+        @computed[:AMT_47] = calculate_line_47
         @computed
       end
 
@@ -103,13 +105,25 @@ module Efile
         [line_or_zero(:AMT_39) - line_or_zero(:AMT_43), 0].max
       end
 
-      def is_full_year_resident
+      def calculate_line_46
+        line_or_zero(:AMT_44) + line_or_zero(:AMT_45)
+      end
+
+      def calculate_line_47
+        if is_full_year_resident_nyc
+          @computed[:AMT_38]
+        else
+          0
+        end
+      end
+
+      def is_full_year_resident_nyc
         if filing_status_mfj?
-          if lines["F_1_NBR"] == 12 && lines["F_2_NBR"] == 12
+          if @computed["F_1_NBR"] == 12 && @computed["F_2_NBR"] == 12
             true
           end
         else
-          lines["F_1_NBR"] == 12
+          @computed["F_1_NBR"] == 12
         end
       end
 
