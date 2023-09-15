@@ -31,6 +31,10 @@ module Efile
         @computed[:AMT_46] = calculate_line_46
         @computed[:AMT_47] = calculate_line_47
         @computed[:AMT_47A] = calculate_line_47a
+        @computed[:AMT_49] = calculate_line_49
+        @computed[:AMT_52] = calculate_line_52
+        @computed[:AMT_54] = calculate_line_54
+        @computed[:AMT_54B] = calculate_line_54b
         @computed
       end
 
@@ -124,6 +128,22 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_49
+        [line_or_zero(:AMT_47A) - line_or_zero(:AMT_48), 0].max
+      end
+
+      def calculate_line_52
+        line_or_zero(:AMT_49) + line_or_zero(:AMT_50) + line_or_zero(:AMT_51)
+      end
+
+      def calculate_line_54
+        [line_or_zero(:AMT_52) - line_or_zero(:AMT_53), 0].max
+      end
+
+      def calculate_line_54b
+        (line_or_zero(:AMT_54A) * 0.0034).round
       end
 
       def nyc_tax_from_tables(amount)
