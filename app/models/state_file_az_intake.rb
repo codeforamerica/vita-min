@@ -37,11 +37,6 @@
 #  visitor_id                     :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  def filing_status
-    # TODO
-    "single"
-  end
-
   # TODO
   def agi
     1234

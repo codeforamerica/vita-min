@@ -4,6 +4,19 @@ module SubmissionBuilder
     module States
       module Az
         class IndividualReturn < SubmissionBuilder::Document
+          FILING_STATUSES = {
+            single: 'Single',
+            married_filing_jointly: 'MarriedJoint',
+            married_filing_separately: 'MarriedFilingSeparateReturn',
+            head_of_household: 'HeadHousehold',
+          }.freeze
+          STANDARD_DEDUCTIONS = {
+            single: 12950,
+            married_filing_jointly: 25900,
+            married_filing_separately: 12950,
+            head_of_household: 19400,
+          }.freeze
+
           def document
             document = build_xml_doc('efile:ReturnState', stateSchemaVersion: "AZIndividual2022v1.1")
             document.at("ReturnState").add_child(authentication_header)
@@ -27,14 +40,10 @@ module SubmissionBuilder
 
           private
 
-          def documents_wrapper
-            standard_deductions = {
-              "single" => 12950
-            }
-
+           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.FiledUnderExtension "No"
-              xml.FilingStatus @submission.data_source.filing_status.capitalize
+              xml.FilingStatus FILING_STATUSES.fetch(@submission.data_source.filing_status.to_sym)
               xml.Additions do
                 xml.FedAdjGrossIncome @submission.data_source.agi
                 xml.ModFedAdjGrossInc @submission.data_source.agi
@@ -45,7 +54,7 @@ module SubmissionBuilder
               xml.AZAdjGrossIncome @submission.data_source.agi
               xml.DeductionAmt do
                 xml.DeductionTypeIndc "Standard"
-                xml.AZDeductions standard_deductions.fetch(@submission.data_source.filing_status)
+                xml.AZDeductions STANDARD_DEDUCTIONS.fetch(@submission.data_source.filing_status.to_sym)
                 xml.AZTaxableInc 0
                 xml.ComputedTax 0
                 xml.BalanceOfTaxDue 0
