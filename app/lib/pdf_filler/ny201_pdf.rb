@@ -39,6 +39,7 @@ module PdfFiller
         Itemized: xml_value_to_pdf_checkbox('Itemized', 'FED_ITZDED_IND'),
         Dependent: xml_value_to_pdf_checkbox('Dependent', 'DEP_CLAIM_IND')
       }
+      answers.merge!(dependents_info(@submission.data_source.dependents))
       answers
     end
 
@@ -64,6 +65,25 @@ module PdfFiller
 
     def xml_value_to_pdf_checkbox(pdf_field, xml_field)
       FIELD_OPTIONS[pdf_field][@xml_document.at(xml_field).attribute('claimed').value.to_i]
+    end
+
+    def dependents_info(dependents)
+      if dependents.length > 7
+        raise "Can't handle #{dependents.length} dependents yet!"
+      end
+
+      answers = {}
+      dependents.each_with_index do |dependent, index|
+        index = index + 1
+
+        answers["H_first#{index}"] = dependent.first_name
+        answers["H_middle#{index}"] = dependent.middle_initial
+        answers["H_last#{index}"] = dependent.last_name
+        answers["H_relationship#{index}"] = dependent.relationship
+        answers["H_dependent_ssn#{index}"] = dependent.ssn
+        answers["H_dependent_dob#{index}"] = dependent.dob.strftime("%m/%d/%Y")
+      end
+      answers
     end
   end
 end
