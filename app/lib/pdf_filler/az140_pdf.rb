@@ -34,13 +34,15 @@ module PdfFiller
 
     private
 
+    FILING_STATUS_OPTIONS = {
+      "MarriedJoint" => 'Choice1',
+      "HeadHousehold" => 'Choice2',
+      "MarriedFilingSeparateReturn" => 'Choice3',
+      "Single" => 'Choice4',
+    }
+
     def filing_status
-      {
-        "MarriedJoint" => 'Choice1',
-        "HeadHousehold" => 'Choice2',
-        "MarriedFilingSeparateReturn" => 'Choice3',
-        "Single" => 'Choice4',
-      }[@xml_document.at('FilingStatus')&.text]
+      FILING_STATUS_OPTIONS[@xml_document.at('FilingStatus')&.text]
     end
   end
 end

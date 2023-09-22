@@ -35,31 +35,35 @@ module PdfFiller
         SD_code: @xml_document.at('tiPrime SCHOOL_CD')&.text,
         TP_home_city: @xml_document.at('tiPrime PERM_CTY_ADR')&.text,
         TP_home_zip: @xml_document.at('tiPrime PERM_ZIP_ADR')&.text,
-        Filing_status: filing_status,
-        Itemized: "no",
-        Dependent: claimed_as_dep
+        Filing_status: xml_value_to_pdf_checkbox('Filing_status', "FS_CD"),
+        Itemized: xml_value_to_pdf_checkbox('Itemized', 'FED_ITZDED_IND'),
+        Dependent: xml_value_to_pdf_checkbox('Dependent', 'DEP_CLAIM_IND')
       }
       answers
     end
 
     private
 
-    def filing_status
-      # TODO: the ones with the fancy apostrophe don't fill out correctly yet
-      {
+    FIELD_OPTIONS = {
+      'Dependent' => {
+        1 => 'yes',
+        2 => 'no',
+      },
+      'Filing_status' => {
         1 => '1 Single',
         2 => '2 Married Filing Joint Return (enter spouse’s social security number above)',
         3 => '3 Married Filing Seperate Return (enter spouse’s social security number above)',
         4 => 'Head of Household (with qualifying person)',
         5 => 'Qualifying widow(er) with dependent child',
-      }[@xml_document.at('FS_CD').attribute('claimed').value.to_i]
-    end
-
-    def claimed_as_dep
-      {
+      },
+      'Itemized' => {
         1 => 'yes',
         2 => 'no',
-      }[@xml_document.at('DEP_CLAIM_IND').attribute('claimed').value.to_i]
+      },
+    }
+
+    def xml_value_to_pdf_checkbox(pdf_field, xml_field)
+      FIELD_OPTIONS[pdf_field][@xml_document.at(xml_field).attribute('claimed').value.to_i]
     end
   end
 end
