@@ -48,7 +48,7 @@ module PdfFiller
         Line17: claimed_attr_value('FEDAGI_B4_ADJ_AMT'),
         "18_identify" => claimed_attr_value('IT201FEDADJID'),
         Line18: claimed_attr_value('FEDADJ_AMT'),
-        Line19: claimed_attr_value('FEDADJ_AMT'),
+        Line19: claimed_attr_value('FEDAGI_AMT'),
         Line21: claimed_attr_value('A_PBEMP_AMT'),
         Line23: claimed_attr_value('A_OTH_AMT'),
         Line24: claimed_attr_value('A_SUBTL_AMT'),

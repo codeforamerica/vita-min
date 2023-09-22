@@ -26,15 +26,32 @@ module Efile
         @computed[:AMT_37] = calculate_line_37
         @computed[:AMT_38] = @computed[:AMT_37]
         @computed[:AMT_39] = calculate_line_39
+        @computed[:AMT_40] = calculate_line_40
         @computed[:AMT_43] = calculate_line_43
         @computed[:AMT_44] = calculate_line_44
         @computed[:AMT_46] = calculate_line_46
         @computed[:AMT_47] = calculate_line_47
         @computed[:AMT_47A] = calculate_line_47a
+        @computed[:AMT_48] = calculate_line_48
         @computed[:AMT_49] = calculate_line_49
         @computed[:AMT_52] = calculate_line_52
         @computed[:AMT_54] = calculate_line_54
         @computed[:AMT_54B] = calculate_line_54b
+        @computed[:AMT_58] = calculate_line_58
+        @computed[:AMT_61] = calculate_line_61
+        @computed[:AMT_63] = calculate_line_63
+        @computed[:AMT_65] = calculate_line_65
+        @computed[:AMT_67] = calculate_line_67
+        @computed[:AMT_69] = calculate_line_69
+        @computed[:AMT_69A] = calculate_line_69a
+        @computed[:AMT_70] = calculate_line_70
+        @computed[:AMT_73] = calculate_line_72
+        @computed[:AMT_73] = calculate_line_73
+        @computed[:AMT_76] = calculate_line_76
+        @computed[:AMT_77] = calculate_line_77
+        @computed[:AMT_78] = calculate_line_78
+        @computed[:AMT_78B] = calculate_line_78b
+        @computed[:AMT_80] = calculate_line_80
         @computed
       end
 
@@ -102,6 +119,10 @@ module Efile
         1 # TODO
       end
 
+      def calculate_line_40
+        0 # TODO
+      end
+
       def calculate_line_43
         line_or_zero(:AMT_40) + line_or_zero(:AMT_41) + line_or_zero(:AMT_42)
       end
@@ -130,6 +151,10 @@ module Efile
         end
       end
 
+      def calculate_line_48
+        0 # TODO
+      end
+
       def calculate_line_49
         [line_or_zero(:AMT_47A) - line_or_zero(:AMT_48), 0].max
       end
@@ -144,6 +169,66 @@ module Efile
 
       def calculate_line_54b
         (line_or_zero(:AMT_54A) * 0.0034).round
+      end
+
+      def calculate_line_58
+        0 # TODO
+      end
+
+      def calculate_line_61
+        0 # TODO
+      end
+
+      def calculate_line_63
+        0 # TODO
+      end
+
+      def calculate_line_65
+        0 # TODO
+      end
+
+      def calculate_line_67
+        0 # TODO
+      end
+
+      def calculate_line_69
+        0 # TODO
+      end
+
+      def calculate_line_69a
+        0 # TODO
+      end
+
+      def calculate_line_70
+        0 # TODO
+      end
+
+      def calculate_line_72
+        0 # TODO
+      end
+
+      def calculate_line_73
+        0 # TODO
+      end
+
+      def calculate_line_76
+        0 # TODO
+      end
+
+      def calculate_line_77
+        0 # TODO
+      end
+
+      def calculate_line_78
+        0 # TODO
+      end
+
+      def calculate_line_78b
+        0 # TODO
+      end
+
+      def calculate_line_80
+        0 # TODO
       end
 
       def nyc_tax_from_tables(amount)
