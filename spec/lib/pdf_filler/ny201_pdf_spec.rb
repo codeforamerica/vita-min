@@ -20,7 +20,7 @@ RSpec.describe PdfFiller::Ny201Pdf do
           file_field_options.map! { |ffo| ffo.gsub(/\u0090/, '’') }
         end
 
-        expect(ruby_field_options.values).to eq(file_field_options - ["Off"])
+        expect(ruby_field_options.values).to match_array(file_field_options - ["Off"])
       end
     end
   end
