@@ -120,8 +120,12 @@ module Efile
       end
 
       def calculate_line_40
-        # assumption: we don't support Build America Bonds (special condition code A6)
-        nys_household_credit(line_or_zero(:AMT_19A))
+        if @claimed_as_dependent
+          0
+        else
+          # assumption: we don't support Build America Bonds (special condition code A6)
+          nys_household_credit(line_or_zero(:AMT_19A))
+        end
       end
 
       def calculate_line_43
