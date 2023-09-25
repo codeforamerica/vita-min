@@ -157,7 +157,12 @@ module Efile
       end
 
       def calculate_line_48
-        0 # TODO
+        # If you are married and filing a joint New York State return and only one of you was a resident of New York City for all of 2022, do not enter an amount here. See the instructions for line 51.
+        if @claimed_as_dependent || !full_year_nyc_resident?
+          0
+        else
+          nyc_household_credit(line_or_zero(:AMT_19A))
+        end
       end
 
       def calculate_line_49
@@ -275,7 +280,7 @@ module Efile
         table =
           if filing_status_mfj?
             [
-              row.new(-Float::Infinity, 5000, 45, 8),
+              row.new(-Float::INFINITY, 5000, 45, 8),
               row.new(5_000, 6_000, 38, 8),
               row.new(6_000, 7_000, 33, 8),
               row.new(7_000, 20_000, 30, 8),
@@ -283,7 +288,7 @@ module Efile
               row.new(22_000, 25_000, 25, 5),
               row.new(25_000, 28_000, 20, 3),
               row.new(28_000, 32_000, 10, 3),
-              row.new(32_000, Float::Infinity, 0, 0)
+              row.new(32_000, Float::INFINITY, 0, 0)
             ]
           else
             [
@@ -293,9 +298,43 @@ module Efile
               row.new(7_000, 20_000, 45, 0),
               row.new(20_000, 25_000, 40, 0),
               row.new(25_000, 28_000, 20, 0),
-              row.new(28_000, Float::Infinity, 0, 0)
+              row.new(28_000, Float::INFINITY, 0, 0)
             ]
           end
+        num_filers =
+          if filing_status_mfj?
+            2
+          else
+            1
+          end
+        household_size = @dependent_count + num_filers
+        table_row = table.reverse.find do |table_row|
+          amount > table_row.floor && (amount <= table_row.ceiling)
+        end
+        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
+      end
+
+      def nyc_household_credit
+        # The NYC household credit table in IT-201 instructions starts at
+        # household size of 1. So `amount` in the struct is for household
+        # size of 1.
+        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
+        if filing_status_mfj?
+          [
+            row.new(-Float::INFINITY, 15_000, 30, 30),
+            row.new(15_000, 17_500, 25, 25),
+            row.new(17_500, 20_000, 15, 15),
+            row.new(20_000, 22_500, 10, 10),
+            row.new(22_500, Float::INFINITY, 0, 0)
+          ]
+        else
+          [
+            row.new(-Float::INFINITY, 10_000, 15, 0),
+            row.new(10_000, 12_500, 10, 0),
+            row.new(12_500, Float::INFINITY, 0, 0)
+          ]
+        end
+
         num_filers =
           if filing_status_mfj?
             2
