@@ -21,6 +21,10 @@ module Questions
 
     private
 
+    def prev_path
+      nil
+    end
+
     def illustration_path; end
 
     ##
