@@ -37,7 +37,7 @@ module SubmissionBuilder
                 xml.FEDADJ_AMT claimed: calculated_fields.fetch('AMT_18')
                 xml.FEDAGI_AMT claimed: calculated_fields.fetch('AMT_19')
                 xml.A_PBEMP_AMT claimed: calculated_fields.fetch('AMT_21')
-                xml.A_OTH_AMT claimed: calculated_fields.fetch('AMT_23') # TODO: might be a bit more to it than this
+                xml.A_OTH_AMT claimed: calculated_fields.fetch('AMT_23') || 0 # TODO: might be a bit more to it than this
                 xml.A_SUBTL_AMT claimed: calculated_fields.fetch('AMT_24')
                 xml.S_TXBL_SS_AMT claimed: calculated_fields.fetch('AMT_27')
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch('AMT_32')
@@ -59,7 +59,7 @@ module SubmissionBuilder
                 xml.NYC_TOT_TX_AMT claimed: calculated_fields.fetch('AMT_52')
                 xml.NYC_TAX_AFT_CR_AMT claimed: calculated_fields.fetch('AMT_54')
                 xml.NYC_YNK_NET_TX_AMT claimed: calculated_fields.fetch('AMT_58')
-                xml.SALE_USE_AMT claimed: calculated_fields.fetch('AMT_59')
+                xml.SALE_USE_AMT claimed: calculated_fields.fetch('AMT_59') || 0
                 xml.TX_GFT_AMT claimed: calculated_fields.fetch('AMT_61')
                 xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch('AMT_63')
                 xml.EITC_CR_AMT claimed: calculated_fields.fetch('AMT_65')
