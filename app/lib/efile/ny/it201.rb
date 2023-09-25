@@ -389,7 +389,7 @@ module Efile
         attr_accessor :value
 
         def source_description
-          method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_')}".to_sym
+          method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_').downcase}".to_sym
           method = (Efile::Ny::It201.instance_method(method_name) rescue nil)
           if method
             method.source
