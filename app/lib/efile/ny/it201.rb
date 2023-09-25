@@ -182,7 +182,7 @@ module Efile
       end
 
       def calculate_line_58
-        0 # TODO
+        line_or_zero(:AMT_54) + line_or_zero(:AMT_54B) + line_or_zero(:AMT_55) + line_or_zero(:AMT_56) + line_or_zero(:AMT_57)
       end
 
       def calculate_line_61
