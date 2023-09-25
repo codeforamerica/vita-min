@@ -8,9 +8,8 @@ describe Efile::Ny::It201 do
       filing_status: filing_status,
       claimed_as_dependent: false,
       dependent_count: 0,
-      data_source: OpenStruct.new(field1: 1234),
       input_lines: {
-        AMT_2: :field1,
+        AMT_2: Efile::Ny::It201::ImmutableTaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1),
       },
       it227: Efile::Ny::It227.new
     )
