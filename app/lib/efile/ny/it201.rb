@@ -314,7 +314,7 @@ module Efile
         table_row.amount + ((household_size - 1) * table_row.household_member_increment)
       end
 
-      def nyc_household_credit
+      def nyc_household_credit(amount)
         # The NYC household credit table in IT-201 instructions starts at
         # household size of 1. So `amount` in the struct is for household
         # size of 1.
