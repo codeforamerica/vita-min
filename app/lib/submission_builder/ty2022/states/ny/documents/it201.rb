@@ -84,7 +84,7 @@ module SubmissionBuilder
 
                 # xml.PYMT_AMT claimed: TODO
                 xml.PR_SGN_IND claimed: 1
-                
+
                 # TODO: this one is not a 'claimed' style field apparently
                 # xml.IT201FEDADJID claimed: @submission.data_source.total_fed_adjustments_identify
               end
@@ -113,6 +113,7 @@ module SubmissionBuilder
                       AMT_72: @submission.data_source.total_state_tax_withheld,
                       # AMT_73: @submission.data_source.total_city_tax_withheld, TODO
                     },
+                    it213: Efile::Ny::It213.new,
                     it227: Efile::Ny::It227.new
                   )
                   it201.calculate

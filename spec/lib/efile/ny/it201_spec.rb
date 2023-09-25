@@ -11,6 +11,7 @@ describe Efile::Ny::It201 do
       lines: {
         AMT_2: 1234,
       },
+      it213: Efile::Ny::It227.new,
       it227: Efile::Ny::It227.new
     )
   end

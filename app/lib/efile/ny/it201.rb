@@ -1,18 +1,20 @@
 module Efile
   module Ny
     class It201
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, lines:, it227:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, lines:, it213:, it227:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
         @computed = ActiveSupport::HashWithIndifferentAccess.new(lines)
+        @it213 = it213
         @it227 = it227
       end
 
       def calculate
         @computed[:AMT_60E] = @it227.calculate[:part2_line1]
+        @computed[:AMT_63] = @it213.calculate[:line16]
         @computed[:AMT_17] = calculate_line_17
         @computed[:AMT_19] = calculate_line_19
         @computed[:AMT_24] = calculate_line_24
