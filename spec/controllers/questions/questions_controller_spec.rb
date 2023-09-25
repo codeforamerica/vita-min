@@ -51,7 +51,7 @@ RSpec.describe Questions::QuestionsController do
       allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return nil
       stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
-                     Questions::WelcomeController,
+                     Questions::HadDependentsController,
                      Questions::AdoptedChildController,
                      Questions::FinalInfoController,
                  ]
@@ -59,7 +59,7 @@ RSpec.describe Questions::QuestionsController do
     end
 
     it "returns the path to the previous controller in the flow" do
-      expect(subject.prev_path).to eq Questions::WelcomeController.to_path_helper
+      expect(subject.prev_path).to eq Questions::HadDependentsController.to_path_helper
     end
   end
 
@@ -71,7 +71,6 @@ RSpec.describe Questions::QuestionsController do
       allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return current_intake
       stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
-                     Questions::WelcomeController,
                      Questions::AdoptedChildController,
                      Questions::FinalInfoController,
                  ]

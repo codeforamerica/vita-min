@@ -726,7 +726,7 @@ RSpec.describe ApplicationController do
       it "generates a link to the beginning of the GYR flow" do
         get :index
 
-        expect(assigns(:get_started_link)).to eq "/en/questions/welcome"
+        expect(assigns(:get_started_link)).to eq "/en/questions/triage-personal-info"
       end
     end
 
@@ -734,7 +734,7 @@ RSpec.describe ApplicationController do
       it "generates a link to the beginning of the GYR flow" do
         get :index, params: { locale: 'es' }
 
-        expect(assigns(:get_started_link)).to eq "/es/questions/welcome"
+        expect(assigns(:get_started_link)).to eq "/es/questions/triage-personal-info"
       end
     end
   end

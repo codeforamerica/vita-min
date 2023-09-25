@@ -8,7 +8,7 @@ module Questions
     end
 
     def current_intake
-      Intake::GyrIntake.new
+      super || Intake::GyrIntake.new
     end
 
     def tracking_data
@@ -20,6 +20,10 @@ module Questions
     end
 
     private
+
+    def prev_path
+      nil
+    end
 
     def illustration_path; end
 

@@ -528,6 +528,7 @@ Rails.application.routes.draw do
         namespace :questions do
           get "import_federal_data", to: "federal_info#import_federal_data"
           get "show_xml", to: "confirmation#show_xml"
+          get "explain_calculations", to: "confirmation#explain_calculations"
         end
       end
 

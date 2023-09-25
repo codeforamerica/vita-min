@@ -37,7 +37,7 @@ module SubmissionBuilder
                 xml.FEDADJ_AMT claimed: calculated_fields.fetch('AMT_18')
                 xml.FEDAGI_AMT claimed: calculated_fields.fetch('AMT_19')
                 xml.A_PBEMP_AMT claimed: calculated_fields.fetch('AMT_21')
-                xml.A_OTH_AMT claimed: calculated_fields.fetch('AMT_23') # TODO: might be a bit more to it than this
+                xml.A_OTH_AMT claimed: calculated_fields.fetch('AMT_23') || 0 # TODO: might be a bit more to it than this
                 xml.A_SUBTL_AMT claimed: calculated_fields.fetch('AMT_24')
                 xml.S_TXBL_SS_AMT claimed: calculated_fields.fetch('AMT_27')
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch('AMT_32')
@@ -59,7 +59,7 @@ module SubmissionBuilder
                 xml.NYC_TOT_TX_AMT claimed: calculated_fields.fetch('AMT_52')
                 xml.NYC_TAX_AFT_CR_AMT claimed: calculated_fields.fetch('AMT_54')
                 xml.NYC_YNK_NET_TX_AMT claimed: calculated_fields.fetch('AMT_58')
-                xml.SALE_USE_AMT claimed: calculated_fields.fetch('AMT_59')
+                xml.SALE_USE_AMT claimed: calculated_fields.fetch('AMT_59') || 0
                 xml.TX_GFT_AMT claimed: calculated_fields.fetch('AMT_61')
                 xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch('AMT_63')
                 xml.EITC_CR_AMT claimed: calculated_fields.fetch('AMT_65')
@@ -95,29 +95,7 @@ module SubmissionBuilder
             def calculated_fields
               @it201_fields ||=
                 begin
-                  it201 = Efile::Ny::It201.new(
-                    year: 2022,
-                    filing_status: @submission.data_source.filing_status.to_sym,
-                    claimed_as_dependent: false,
-                    dependent_count: 0,
-                    lines: {
-                      AMT_1: @submission.data_source.fed_wages,
-                      AMT_2: @submission.data_source.fed_taxable_income,
-                      AMT_14: @submission.data_source.fed_unemployment,
-                      AMT_15: @submission.data_source.fed_taxable_ssb,
-                      AMT_18: @submission.data_source.total_fed_adjustments,
-                      AMT_21: 0, # TODO: this will be a certain subset of the w2 income
-                      AMT_23: @submission.data_source.ny_other_additions.presence || 0,
-                      AMT_27: @submission.data_source.fed_taxable_ssb,
-                      AMT_59: @submission.data_source.sales_use_tax || 0,
-                      AMT_72: @submission.data_source.total_state_tax_withheld,
-                      # AMT_73: @submission.data_source.total_city_tax_withheld, TODO
-                    },
-                    it213: Efile::Ny::It213.new,
-                    it214: Efile::Ny::It214.new,
-                    it215: Efile::Ny::It215.new,
-                    it227: Efile::Ny::It227.new
-                  )
+                  it201 = @submission.data_source.tax_calculator
                   it201.calculate
                 end
             end
