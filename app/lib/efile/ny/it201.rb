@@ -9,6 +9,10 @@ module Efile
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
+
+        @value_access_tracker = ValueAccessTracker.new
+        input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
+
         @lines = ActiveSupport::HashWithIndifferentAccess.new(input_lines)
         @it213 = it213
         @it214 = it214
@@ -17,52 +21,52 @@ module Efile
       end
 
       def calculate
-        set_line(:AMT_60E, @it227.calculate[:part2_line1])
-        set_line(:AMT_63, @it213.calculate[:line16])
-        set_line(:AMT_65, @it215.calculate[:line16])
-        set_line(:AMT_67, @it214.calculate[:line33])
-        set_line(:AMT_17, calculate_line_17)
-        set_line(:AMT_19, calculate_line_19)
-        set_line(:AMT_24, calculate_line_24)
-        set_line(:AMT_25, @lines[:AMT_4]&.value)
-        set_line(:AMT_32, calculate_line_32)
-        set_line(:AMT_33, calculate_line_33)
-        set_line(:AMT_34, calculate_line_34)
-        set_line(:AMT_35, calculate_line_35)
-        set_line(:AMT_36, @dependent_count)
-        set_line(:AMT_37, calculate_line_37)
-        set_line(:AMT_38, @lines[:AMT_37]&.value)
-        set_line(:AMT_39, calculate_line_39)
-        set_line(:AMT_40, calculate_line_40)
-        set_line(:AMT_43, calculate_line_43)
-        set_line(:AMT_44, calculate_line_44)
-        set_line(:AMT_46, calculate_line_46)
-        set_line(:AMT_47, calculate_line_47)
-        set_line(:AMT_47A, calculate_line_47a)
-        set_line(:AMT_48, calculate_line_48)
-        set_line(:AMT_49, calculate_line_49)
-        set_line(:AMT_52, calculate_line_52)
-        set_line(:AMT_54, calculate_line_54)
-        set_line(:AMT_54B, calculate_line_54b)
-        set_line(:AMT_58, calculate_line_58)
-        set_line(:AMT_61, calculate_line_61)
-        set_line(:AMT_69, calculate_line_69)
-        set_line(:AMT_69A, calculate_line_69a)
-        set_line(:AMT_70, calculate_line_70)
-        set_line(:AMT_73, calculate_line_72)
-        set_line(:AMT_73, calculate_line_73)
-        set_line(:AMT_76, calculate_line_76)
-        set_line(:AMT_77, calculate_line_77)
-        set_line(:AMT_78, calculate_line_78)
-        set_line(:AMT_78B, calculate_line_78b)
-        set_line(:AMT_80, calculate_line_80)
+        set_line(:AMT_60E, -> { @it227.calculate[:part2_line1] })
+        set_line(:AMT_63, -> { @it213.calculate[:line16] })
+        set_line(:AMT_65, -> { @it215.calculate[:line16] })
+        set_line(:AMT_67, -> { @it214.calculate[:line33] })
+        set_line(:AMT_17, -> { calculate_line_17 })
+        set_line(:AMT_19, -> { calculate_line_19 })
+        set_line(:AMT_24, -> { calculate_line_24 })
+        set_line(:AMT_25, -> { @lines[:AMT_4]&.value })
+        set_line(:AMT_32, -> { calculate_line_32 })
+        set_line(:AMT_33, -> { calculate_line_33 })
+        set_line(:AMT_34, -> { calculate_line_34 })
+        set_line(:AMT_35, -> { calculate_line_35 })
+        set_line(:AMT_36, -> { @dependent_count })
+        set_line(:AMT_37, -> { calculate_line_37 })
+        set_line(:AMT_38, -> { @lines[:AMT_37]&.value })
+        set_line(:AMT_39, -> { calculate_line_39 })
+        set_line(:AMT_40, -> { calculate_line_40 })
+        set_line(:AMT_43, -> { calculate_line_43 })
+        set_line(:AMT_44, -> { calculate_line_44 })
+        set_line(:AMT_46, -> { calculate_line_46 })
+        set_line(:AMT_47, -> { calculate_line_47 })
+        set_line(:AMT_47A, -> { calculate_line_47a })
+        set_line(:AMT_48, -> { calculate_line_48 })
+        set_line(:AMT_49, -> { calculate_line_49 })
+        set_line(:AMT_52, -> { calculate_line_52 })
+        set_line(:AMT_54, -> { calculate_line_54 })
+        set_line(:AMT_54B, -> { calculate_line_54b })
+        set_line(:AMT_58, -> { calculate_line_58 })
+        set_line(:AMT_61, -> { calculate_line_61 })
+        set_line(:AMT_69, -> { calculate_line_69 })
+        set_line(:AMT_69A, -> { calculate_line_69a })
+        set_line(:AMT_70, -> { calculate_line_70 })
+        set_line(:AMT_73, -> { calculate_line_72 })
+        set_line(:AMT_73, -> { calculate_line_73 })
+        set_line(:AMT_76, -> { calculate_line_76 })
+        set_line(:AMT_77, -> { calculate_line_77 })
+        set_line(:AMT_78, -> { calculate_line_78 })
+        set_line(:AMT_78B, -> { calculate_line_78b })
+        set_line(:AMT_80, -> { calculate_line_80 })
         @lines.transform_values(&:value)
       end
 
       private
       
-      def set_line(line_id, value)
-        @lines[line_id] = CalculatedTaxFormLine.new(line_id, value)
+      def set_line(line_id, value_fn)
+        @lines[line_id] = CalculatedTaxFormLine.new(line_id, value_fn, @value_access_tracker)
       end
 
       def calculate_line_17
@@ -374,19 +378,28 @@ module Efile
       class TaxFormLine
         attr_reader :line_id
         attr_reader :value
+        attr_accessor :value_access_tracker
 
-        def initialize(line_id, value)
-          @line_id = line_id
-          @value = value
+        def value
+          @value_access_tracker&.track(line_id)
+          @value
         end
-        
+
         def value_or_zero
           value || 0
         end
       end
 
       class CalculatedTaxFormLine < TaxFormLine
-        attr_accessor :value
+        attr_reader :collaborators
+
+        def initialize(line_id, value_fn, value_access_tracker)
+          @line_id = line_id
+          @proc_source = value_fn.source
+          value_access_tracker.clear
+          @value = value_fn.call
+          @collaborators = value_access_tracker.accesses
+        end
 
         def source_description
           method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_').downcase}".to_sym
@@ -394,7 +407,7 @@ module Efile
           if method
             method.source
           else
-            "Unknown!"
+            @proc_source
           end
         end
       end
@@ -410,6 +423,26 @@ module Efile
           @line_id = line_id
           @value = value
           @source_description = source_description
+        end
+
+        def collaborators
+          []
+        end
+      end
+
+      class ValueAccessTracker
+        attr_reader :accesses
+
+        def initialize
+          clear
+        end
+
+        def track(line_id)
+          @accesses << line_id
+        end
+
+        def clear
+          @accesses = Set.new
         end
       end
     end
