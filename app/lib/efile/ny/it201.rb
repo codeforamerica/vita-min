@@ -191,10 +191,6 @@ module Efile
         line_or_zero(:AMT_46) + line_or_zero(:AMT_58) + line_or_zero(:AMT_59) + line_or_zero(:AMT_60)
       end
 
-      def calculate_line_65
-        0 # TODO
-      end
-
       def calculate_line_67
         0 # TODO
       end
