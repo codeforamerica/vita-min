@@ -90,6 +90,7 @@ module VitaMin
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2023-01-31 09:59:59')
     config.tax_deadline = Time.find_zone('America/New_York').parse('2023-04-18 23:59:59')
     config.end_of_intake = Time.find_zone('America/New_York').parse('2023-10-01 23:59:59')
+    config.end_of_docs = Time.find_zone('America/New_York').parse('2023-10-09 23:59:59')
     config.end_of_login = Time.find_zone('America/New_York').parse('2023-10-15 23:59:00')
 
     config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-05-04 09:00:00")
