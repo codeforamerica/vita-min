@@ -41,7 +41,6 @@ module Efile
         @computed[:AMT_54B] = calculate_line_54b
         @computed[:AMT_58] = calculate_line_58
         @computed[:AMT_61] = calculate_line_61
-        @computed[:AMT_63] = calculate_line_63
         @computed[:AMT_65] = calculate_line_65
         @computed[:AMT_67] = calculate_line_67
         @computed[:AMT_69] = calculate_line_69
@@ -189,10 +188,6 @@ module Efile
 
       def calculate_line_61
         line_or_zero(:AMT_46) + line_or_zero(:AMT_58) + line_or_zero(:AMT_59) + line_or_zero(:AMT_60)
-      end
-
-      def calculate_line_63
-        0 # TODO
       end
 
       def calculate_line_65
