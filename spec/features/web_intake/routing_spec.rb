@@ -80,8 +80,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
     # clients with matching vita partner source param skip triage questions
     click_on I18n.t("general.get_started"), id: "firstCta"
-    expect(page).to have_text I18n.t("views.questions.welcome.title")
-    click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')

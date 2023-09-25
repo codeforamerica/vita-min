@@ -4176,9 +4176,6 @@ es:
         title: "¡Verifiquemos esa información de contacto con un código!"
         verification_code_label: Ingrese el código de 6 dígitos
         verify: Verifique
-      welcome:
-        content: GetYourRefund es un servicio virtual disponible para los hogares que califican. Le haremos algunas preguntas para encontrar la opción adecuada para usted.
-        title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
