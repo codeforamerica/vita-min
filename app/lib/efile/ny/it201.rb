@@ -26,15 +26,32 @@ module Efile
         @computed[:AMT_37] = calculate_line_37
         @computed[:AMT_38] = @computed[:AMT_37]
         @computed[:AMT_39] = calculate_line_39
+        @computed[:AMT_40] = calculate_line_40
         @computed[:AMT_43] = calculate_line_43
         @computed[:AMT_44] = calculate_line_44
         @computed[:AMT_46] = calculate_line_46
         @computed[:AMT_47] = calculate_line_47
         @computed[:AMT_47A] = calculate_line_47a
+        @computed[:AMT_48] = calculate_line_48
         @computed[:AMT_49] = calculate_line_49
         @computed[:AMT_52] = calculate_line_52
         @computed[:AMT_54] = calculate_line_54
         @computed[:AMT_54B] = calculate_line_54b
+        @computed[:AMT_58] = calculate_line_58
+        @computed[:AMT_61] = calculate_line_61
+        @computed[:AMT_63] = calculate_line_63
+        @computed[:AMT_65] = calculate_line_65
+        @computed[:AMT_67] = calculate_line_67
+        @computed[:AMT_69] = calculate_line_69
+        @computed[:AMT_69A] = calculate_line_69a
+        @computed[:AMT_70] = calculate_line_70
+        @computed[:AMT_73] = calculate_line_72
+        @computed[:AMT_73] = calculate_line_73
+        @computed[:AMT_76] = calculate_line_76
+        @computed[:AMT_77] = calculate_line_77
+        @computed[:AMT_78] = calculate_line_78
+        @computed[:AMT_78B] = calculate_line_78b
+        @computed[:AMT_80] = calculate_line_80
         @computed
       end
 
@@ -102,6 +119,15 @@ module Efile
         1 # TODO
       end
 
+      def calculate_line_40
+        if @claimed_as_dependent
+          0
+        else
+          # assumption: we don't support Build America Bonds (special condition code A6)
+          nys_household_credit(line_or_zero(:AMT_19A))
+        end
+      end
+
       def calculate_line_43
         line_or_zero(:AMT_40) + line_or_zero(:AMT_41) + line_or_zero(:AMT_42)
       end
@@ -130,6 +156,15 @@ module Efile
         end
       end
 
+      def calculate_line_48
+        # If you are married and filing a joint New York State return and only one of you was a resident of New York City for all of 2022, do not enter an amount here. See the instructions for line 51.
+        if @claimed_as_dependent || !full_year_nyc_resident?
+          0
+        else
+          nyc_household_credit(line_or_zero(:AMT_19A))
+        end
+      end
+
       def calculate_line_49
         [line_or_zero(:AMT_47A) - line_or_zero(:AMT_48), 0].max
       end
@@ -144,6 +179,66 @@ module Efile
 
       def calculate_line_54b
         (line_or_zero(:AMT_54A) * 0.0034).round
+      end
+
+      def calculate_line_58
+        0 # TODO
+      end
+
+      def calculate_line_61
+        0 # TODO
+      end
+
+      def calculate_line_63
+        0 # TODO
+      end
+
+      def calculate_line_65
+        0 # TODO
+      end
+
+      def calculate_line_67
+        0 # TODO
+      end
+
+      def calculate_line_69
+        0 # TODO
+      end
+
+      def calculate_line_69a
+        0 # TODO
+      end
+
+      def calculate_line_70
+        0 # TODO
+      end
+
+      def calculate_line_72
+        0 # TODO
+      end
+
+      def calculate_line_73
+        0 # TODO
+      end
+
+      def calculate_line_76
+        0 # TODO
+      end
+
+      def calculate_line_77
+        0 # TODO
+      end
+
+      def calculate_line_78
+        0 # TODO
+      end
+
+      def calculate_line_78b
+        0 # TODO
+      end
+
+      def calculate_line_80
+        0 # TODO
       end
 
       def nyc_tax_from_tables(amount)
@@ -175,6 +270,82 @@ module Efile
         end
 
         (table_row.cumulative + ((amount - table_row.floor) * table_row.rate)).round
+      end
+
+      def nys_household_credit(amount)
+        # The NYS household credit table in IT-201 instructions starts at
+        # household size of 1. So `amount` in the struct is for household
+        # size of 1.
+        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
+        table =
+          if filing_status_mfj?
+            [
+              row.new(-Float::INFINITY, 5000, 45, 8),
+              row.new(5_000, 6_000, 38, 8),
+              row.new(6_000, 7_000, 33, 8),
+              row.new(7_000, 20_000, 30, 8),
+              row.new(20_000, 22_000, 30, 5),
+              row.new(22_000, 25_000, 25, 5),
+              row.new(25_000, 28_000, 20, 3),
+              row.new(28_000, 32_000, 10, 3),
+              row.new(32_000, Float::INFINITY, 0, 0)
+            ]
+          else
+            [
+              row.new(-Float::INFINITY, 5000, 75, 0),
+              row.new(5_000, 6_000, 60, 0),
+              row.new(6_000, 7_000, 50, 0),
+              row.new(7_000, 20_000, 45, 0),
+              row.new(20_000, 25_000, 40, 0),
+              row.new(25_000, 28_000, 20, 0),
+              row.new(28_000, Float::INFINITY, 0, 0)
+            ]
+          end
+        num_filers =
+          if filing_status_mfj?
+            2
+          else
+            1
+          end
+        household_size = @dependent_count + num_filers
+        table_row = table.reverse.find do |table_row|
+          amount > table_row.floor && (amount <= table_row.ceiling)
+        end
+        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
+      end
+
+      def nyc_household_credit(amount)
+        # The NYC household credit table in IT-201 instructions starts at
+        # household size of 1. So `amount` in the struct is for household
+        # size of 1.
+        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
+        if filing_status_mfj?
+          [
+            row.new(-Float::INFINITY, 15_000, 30, 30),
+            row.new(15_000, 17_500, 25, 25),
+            row.new(17_500, 20_000, 15, 15),
+            row.new(20_000, 22_500, 10, 10),
+            row.new(22_500, Float::INFINITY, 0, 0)
+          ]
+        else
+          [
+            row.new(-Float::INFINITY, 10_000, 15, 0),
+            row.new(10_000, 12_500, 10, 0),
+            row.new(12_500, Float::INFINITY, 0, 0)
+          ]
+        end
+
+        num_filers =
+          if filing_status_mfj?
+            2
+          else
+            1
+          end
+        household_size = @dependent_count + num_filers
+        table_row = table.reverse.find do |table_row|
+          amount > table_row.floor && (amount <= table_row.ceiling)
+        end
+        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
       end
 
       def full_year_nyc_resident?

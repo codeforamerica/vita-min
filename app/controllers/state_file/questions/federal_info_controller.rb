@@ -89,12 +89,18 @@ module StateFile
           )
           intake.dependents.create(
             first_name: "Adult",
+            middle_initial: 'C',
             last_name: "Deppy",
+            relationship: Efile::Relationship.find('grandparent').irs_enum,
+            ssn: '555003333',
             dob: 60.years.ago
           )
           intake.dependents.create(
             first_name: "Child",
+            middle_initial: 'E',
             last_name: "Deppy",
+            relationship: Efile::Relationship.find('daughter').irs_enum,
+            ssn: '555004444',
             dob: 6.years.ago
           )
         when "az"

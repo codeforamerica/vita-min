@@ -96,5 +96,12 @@ FactoryBot.define do
     nyc_resident_e { 'yes' }
     school_district { 123 }
     school_district_number { 'Cool School' }
+    fed_wages { 123 }
+    fed_taxable_income { 12 }
+    fed_unemployment { 34 }
+    fed_taxable_ssb { 4 }
+    total_fed_adjustments_identify { "wrenches" }
+    total_fed_adjustments { 45 }
+    total_state_tax_withheld { 56 }
   end
 end
