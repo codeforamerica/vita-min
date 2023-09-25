@@ -113,6 +113,7 @@
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
+#  hashed_spouse_ssn                                    :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default("unfilled"), not null

@@ -113,6 +113,7 @@
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  has_ssn_of_alimony_recipient                         :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  hashed_spouse_ssn                                    :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
@@ -347,7 +348,10 @@ class Intake < ApplicationRecord
       self.primary_last_four_ssn = primary_ssn&.last(4)
       self.hashed_primary_ssn = DeduplicationService.sensitive_attribute_hashed(self, :primary_ssn)
     end
-    self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
+    if spouse_ssn_changed?
+      self.spouse_last_four_ssn = spouse_ssn&.last(4)
+      self.hashed_spouse_ssn = DeduplicationService.sensitive_attribute_hashed(self, :spouse_ssn)
+    end
   end
 
   before_save do

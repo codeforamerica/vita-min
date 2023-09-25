@@ -113,6 +113,7 @@
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  has_ssn_of_alimony_recipient                         :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
+#  hashed_spouse_ssn                                    :string
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
@@ -434,10 +435,13 @@ describe Intake do
       end
 
       context "when changing spouse_ssn" do
+        let(:hashed_ssn) { DeduplicationService.sensitive_attribute_hashed((create :intake, spouse_ssn: "123456666"), :spouse_ssn) }
+
         it "sets spouse_last_four_ssn to a new value" do
           expect{
             intake.update(spouse_ssn: "123456666")
           }.to change(intake, :spouse_last_four_ssn).to("6666")
+           .and change(intake.reload, :hashed_spouse_ssn).to(hashed_ssn)
         end
       end
     end

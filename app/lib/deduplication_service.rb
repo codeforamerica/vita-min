@@ -2,7 +2,8 @@ class DeduplicationService
   def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials.dig(:duplicate_hashing_key))
     value = instance.send(attr)
     return unless value.present?
-
+    # we want to hash all ssns the same way so that data can dedupe across the board
+    attr = :primary_ssn if attr == :spouse_ssn || attr == :ssn
     OpenSSL::HMAC.hexdigest("SHA256", key, "#{attr}|#{value}")
   end
 

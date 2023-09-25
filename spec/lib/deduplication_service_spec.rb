@@ -20,6 +20,14 @@ describe DeduplicationService do
         expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "shh", "routing_number|123456789")
       end
     end
+
+    context "with a spouse ssn" do
+      let!(:intake){ build :intake, spouse_ssn: "123456789" }
+      it "hashes attr as primary_ssn" do
+        described_class.sensitive_attribute_hashed(intake, :spouse_ssn)
+        expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "secret", "primary_ssn|123456789")
+      end
+    end
   end
 
   describe ".duplicates" do

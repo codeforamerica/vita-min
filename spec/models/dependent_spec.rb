@@ -15,6 +15,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  hashed_ssn                                   :string
 #  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
@@ -118,6 +119,17 @@ describe Dependent do
       expect(error.dependent).to eq dependent
       dependent.destroy!
       expect(error.reload.dependent_id).to eq nil
+    end
+  end
+
+  context "when changing the ssn" do
+    let!(:dependent) { create :dependent, ssn: nil, hashed_ssn: nil }
+    let!(:intake) { create :intake, primary_ssn: "123456789" }
+
+    it "updates the hashed ssn" do
+      expect do
+        dependent.update(ssn: "123456789")
+      end.to change(dependent, :hashed_ssn).to(intake.hashed_primary_ssn)
     end
   end
 end

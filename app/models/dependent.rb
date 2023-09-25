@@ -15,6 +15,7 @@
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
+#  hashed_ssn                                   :string
 #  ip_pin                                       :text
 #  last_name                                    :string
 #  lived_with_more_than_six_months              :integer          default("unfilled"), not null
@@ -111,6 +112,10 @@ class Dependent < ApplicationRecord
 
   before_validation do
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
+  end
+
+  before_save do
+    self.hashed_ssn = DeduplicationService.sensitive_attribute_hashed(self, :ssn) if ssn_changed?
   end
 
   def full_name

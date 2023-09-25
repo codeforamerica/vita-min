@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -680,6 +680,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
+    t.string "hashed_ssn"
     t.bigint "intake_id", null: false
     t.text "ip_pin"
     t.string "last_name"
@@ -1208,6 +1209,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_234431) do
     t.integer "has_spouse_ip_pin", default: 0, null: false
     t.integer "has_ssn_of_alimony_recipient", default: 0, null: false
     t.string "hashed_primary_ssn"
+    t.string "hashed_spouse_ssn"
     t.integer "home_location"
     t.integer "homeless_youth", default: 0, null: false
     t.integer "income_over_limit", default: 0, null: false
