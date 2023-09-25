@@ -84,7 +84,7 @@ module SubmissionBuilder
 
                 # xml.PYMT_AMT claimed: TODO
                 xml.PR_SGN_IND claimed: 1
-                
+
                 # TODO: this one is not a 'claimed' style field apparently
                 # xml.IT201FEDADJID claimed: @submission.data_source.total_fed_adjustments_identify
               end
@@ -95,26 +95,7 @@ module SubmissionBuilder
             def calculated_fields
               @it201_fields ||=
                 begin
-                  it201 = Efile::Ny::It201.new(
-                    year: 2022,
-                    filing_status: @submission.data_source.filing_status.to_sym,
-                    claimed_as_dependent: false,
-                    dependent_count: 0,
-                    lines: {
-                      AMT_1: @submission.data_source.fed_wages,
-                      AMT_2: @submission.data_source.fed_taxable_income,
-                      AMT_14: @submission.data_source.fed_unemployment,
-                      AMT_15: @submission.data_source.fed_taxable_ssb,
-                      AMT_18: @submission.data_source.total_fed_adjustments,
-                      AMT_21: 0, # TODO: this will be a certain subset of the w2 income
-                      AMT_23: @submission.data_source.ny_other_additions.presence || 0,
-                      AMT_27: @submission.data_source.fed_taxable_ssb,
-                      AMT_59: @submission.data_source.sales_use_tax || 0,
-                      AMT_72: @submission.data_source.total_state_tax_withheld,
-                      # AMT_73: @submission.data_source.total_city_tax_withheld, TODO
-                    },
-                    it227: Efile::Ny::It227.new
-                  )
+                  it201 = @submission.data_source.tax_calculator
                   it201.calculate
                 end
             end

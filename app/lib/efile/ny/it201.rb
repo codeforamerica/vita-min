@@ -1,61 +1,70 @@
 module Efile
   module Ny
     class It201
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, lines:, it227:)
+      attr_reader :lines
+
+      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it227:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
-        @computed = ActiveSupport::HashWithIndifferentAccess.new(lines)
+        @lines = ActiveSupport::HashWithIndifferentAccess.new(input_lines)
         @it227 = it227
       end
 
       def calculate
-        @computed[:AMT_60E] = @it227.calculate[:part2_line1]
-        @computed[:AMT_17] = calculate_line_17
-        @computed[:AMT_19] = calculate_line_19
-        @computed[:AMT_24] = calculate_line_24
-        @computed[:AMT_25] = @computed[:AMT_4]
-        @computed[:AMT_27] = @computed[:AMT_15]
-        @computed[:AMT_32] = calculate_line_32
-        @computed[:AMT_33] = calculate_line_33
-        @computed[:AMT_34] = calculate_line_34
-        @computed[:AMT_35] = calculate_line_35
-        @computed[:AMT_36] = @dependent_count
-        @computed[:AMT_37] = calculate_line_37
-        @computed[:AMT_38] = @computed[:AMT_37]
-        @computed[:AMT_39] = calculate_line_39
-        @computed[:AMT_40] = calculate_line_40
-        @computed[:AMT_43] = calculate_line_43
-        @computed[:AMT_44] = calculate_line_44
-        @computed[:AMT_46] = calculate_line_46
-        @computed[:AMT_47] = calculate_line_47
-        @computed[:AMT_47A] = calculate_line_47a
-        @computed[:AMT_48] = calculate_line_48
-        @computed[:AMT_49] = calculate_line_49
-        @computed[:AMT_52] = calculate_line_52
-        @computed[:AMT_54] = calculate_line_54
-        @computed[:AMT_54B] = calculate_line_54b
-        @computed[:AMT_58] = calculate_line_58
-        @computed[:AMT_61] = calculate_line_61
-        @computed[:AMT_63] = calculate_line_63
-        @computed[:AMT_65] = calculate_line_65
-        @computed[:AMT_67] = calculate_line_67
-        @computed[:AMT_69] = calculate_line_69
-        @computed[:AMT_69A] = calculate_line_69a
-        @computed[:AMT_70] = calculate_line_70
-        @computed[:AMT_73] = calculate_line_72
-        @computed[:AMT_73] = calculate_line_73
-        @computed[:AMT_76] = calculate_line_76
-        @computed[:AMT_77] = calculate_line_77
-        @computed[:AMT_78] = calculate_line_78
-        @computed[:AMT_78B] = calculate_line_78b
-        @computed[:AMT_80] = calculate_line_80
-        @computed
+        set_line(:AMT_60E, @it227.calculate[:part2_line1])
+        set_line(:AMT_17, calculate_line_17)
+        set_line(:AMT_19, calculate_line_19)
+        set_line(:AMT_24, calculate_line_24)
+        set_line(:AMT_25, @lines[:AMT_4]&.value)
+        set_line(:AMT_32, calculate_line_32)
+        set_line(:AMT_33, calculate_line_33)
+        set_line(:AMT_34, calculate_line_34)
+        set_line(:AMT_35, calculate_line_35)
+        set_line(:AMT_36, @dependent_count)
+        set_line(:AMT_37, calculate_line_37)
+        set_line(:AMT_38, @lines[:AMT_37]&.value)
+        set_line(:AMT_39, calculate_line_39)
+        set_line(:AMT_40, calculate_line_40)
+        set_line(:AMT_43, calculate_line_43)
+        set_line(:AMT_44, calculate_line_44)
+        set_line(:AMT_46, calculate_line_46)
+        set_line(:AMT_47, calculate_line_47)
+        set_line(:AMT_47A, calculate_line_47a)
+        set_line(:AMT_48, calculate_line_48)
+        set_line(:AMT_49, calculate_line_49)
+        set_line(:AMT_52, calculate_line_52)
+        set_line(:AMT_54, calculate_line_54)
+        set_line(:AMT_54B, calculate_line_54b)
+        set_line(:AMT_58, calculate_line_58)
+        set_line(:AMT_61, calculate_line_61)
+        set_line(:AMT_63, calculate_line_63)
+        set_line(:AMT_65, calculate_line_65)
+        set_line(:AMT_67, calculate_line_67)
+        set_line(:AMT_69, calculate_line_69)
+        set_line(:AMT_69A, calculate_line_69a)
+        set_line(:AMT_70, calculate_line_70)
+        set_line(:AMT_73, calculate_line_72)
+        set_line(:AMT_73, calculate_line_73)
+        set_line(:AMT_76, calculate_line_76)
+        set_line(:AMT_77, calculate_line_77)
+        set_line(:AMT_78, calculate_line_78)
+        set_line(:AMT_78B, calculate_line_78b)
+        set_line(:AMT_80, calculate_line_80)
+        @lines.transform_values(&:value)
       end
 
       private
+      
+      def set_line(line_id, value)
+        if @lines[line_id]
+          @lines[line_id].value = value
+        else
+          @lines[line_id] = CalculatedTaxFormLine.new(line_id, value)
+        end
+      end
 
       def calculate_line_17
         result = 0
@@ -350,11 +359,11 @@ module Efile
 
       def full_year_nyc_resident?
         if filing_status_mfj?
-          if @computed["F_1_NBR"] == 12 && @computed["F_2_NBR"] == 12
+          if @lines["F_1_NBR"]&.value == 12 && @lines["F_2_NBR"]&.value == 12
             true
           end
         else
-          @computed["F_1_NBR"] == 12
+          @lines["F_1_NBR"]&.value == 12
         end
       end
 
@@ -367,7 +376,49 @@ module Efile
       end
 
       def line_or_zero(line)
-        @computed[line] || 0
+        @lines[line.to_sym]&.value || 0
+      end
+
+      class TaxFormLine
+        attr_reader :line_id
+        attr_reader :value
+
+        def initialize(line_id, value)
+          @line_id = line_id
+          @value = value
+        end
+        
+        def value_or_zero
+          value || 0
+        end
+      end
+
+      class CalculatedTaxFormLine < TaxFormLine
+        attr_accessor :value
+
+        def source_description
+          method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_')}".to_sym
+          method = (Efile::Ny::It201.instance_method(method_name) rescue nil)
+          if method
+            method.source
+          else
+            "Unknown!"
+          end
+        end
+      end
+
+      class ImmutableTaxFormLine < TaxFormLine
+        attr_reader :source_description
+
+        def self.from_data_source(line_id, data_source, field)
+          new(line_id, data_source.send(field), "#{data_source.class}##{field}")
+        end
+
+        def initialize(line_id, value, source_description)
+          @line_id = line_id
+          @value = value
+          @source_description = source_description
+        end
       end
     end
   end

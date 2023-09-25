@@ -14,6 +14,11 @@ module StateFile
         render xml: submission_content
       end
 
+      def explain_calculations
+        @calculator = current_intake.tax_calculator
+        @calculator.calculate
+      end
+
       def illustration_path; end
 
       private
