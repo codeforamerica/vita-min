@@ -120,7 +120,8 @@ module Efile
       end
 
       def calculate_line_40
-        0 # TODO
+        # assumption: we don't support Build America Bonds (special condition code A6)
+        nys_household_credit(line_or_zero(:AMT_19A))
       end
 
       def calculate_line_43
@@ -260,6 +261,48 @@ module Efile
         end
 
         (table_row.cumulative + ((amount - table_row.floor) * table_row.rate)).round
+      end
+
+      def nys_household_credit(amount)
+        # The NYS household credit table in IT-201 instructions starts at
+        # household size of 1. So `amount` in the struct is for household
+        # size of 1.
+        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
+        table =
+          if filing_status_mfj?
+            [
+              row.new(-Float::Infinity, 5000, 45, 8),
+              row.new(5_000, 6_000, 38, 8),
+              row.new(6_000, 7_000, 33, 8),
+              row.new(7_000, 20_000, 30, 8),
+              row.new(20_000, 22_000, 30, 5),
+              row.new(22_000, 25_000, 25, 5),
+              row.new(25_000, 28_000, 20, 3),
+              row.new(28_000, 32_000, 10, 3),
+              row.new(32_000, Float::Infinity, 0, 0)
+            ]
+          else
+            [
+              row.new(-Float::INFINITY, 5000, 75, 0),
+              row.new(5_000, 6_000, 60, 0),
+              row.new(6_000, 7_000, 50, 0),
+              row.new(7_000, 20_000, 45, 0),
+              row.new(20_000, 25_000, 40, 0),
+              row.new(25_000, 28_000, 20, 0),
+              row.new(28_000, Float::Infinity, 0, 0)
+            ]
+          end
+        num_filers =
+          if filing_status_mfj?
+            2
+          else
+            1
+          end
+        household_size = @dependent_count + num_filers
+        table_row = table.reverse.find do |table_row|
+          amount > table_row.floor && (amount <= table_row.ceiling)
+        end
+        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
       end
 
       def full_year_nyc_resident?
