@@ -59,11 +59,7 @@ module Efile
       private
       
       def set_line(line_id, value)
-        if @lines[line_id]
-          @lines[line_id].value = value
-        else
-          @lines[line_id] = CalculatedTaxFormLine.new(line_id, value)
-        end
+        @lines[line_id] = CalculatedTaxFormLine.new(line_id, value)
       end
 
       def calculate_line_17
