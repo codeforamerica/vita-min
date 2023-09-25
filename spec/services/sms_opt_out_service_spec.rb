@@ -23,6 +23,7 @@ RSpec.describe SmsOptOutService do
 
     context "with an incoming sms that requests an opt-out" do
 
+
       it "creates a system note" do
         expect {
           described_class.process(client: client, params: incoming_sms_params)

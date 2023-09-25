@@ -266,7 +266,7 @@ class Seeder
         { year: 2022 }
       ]
     )
-    SmsOptOutService.process(client: opted_out_client_intake.client, params: {"OptOutType" => "Stop", "Body" => "STOP"})
+    SmsOptOutService.process(client: opted_out_client_intake.client, params: {"OptOutType" => "Stop"})
 
     intake_for_verification_attempt_1 = find_or_create_intake_and_client(
       Intake::CtcIntake,
