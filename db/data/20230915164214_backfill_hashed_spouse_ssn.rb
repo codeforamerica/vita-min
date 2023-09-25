@@ -7,7 +7,7 @@ class BackfillHashedSpouseSsn < ActiveRecord::Migration[7.0]
     intakes_left_to_backfill.find_in_batches do |batch|
       Intake.upsert_all(
         batch.map { |intake|
-          { id: intake.id, hashed_spouse_ssn: DeduplicationService.sensitive_attribute_hashed(intake, :spouse_ssn) }
+          { id: intake.id, product_year: intake.product_year, hashed_spouse_ssn: DeduplicationService.sensitive_attribute_hashed(intake, :spouse_ssn) }
         },
         update_only: [:hashed_spouse_ssn]
       )
