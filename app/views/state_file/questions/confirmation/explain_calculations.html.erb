@@ -1,0 +1,20 @@
+<% content_for :page_title, "Calculations explanation" %>
+
+<% content_for :card do %>
+  <table class="data-table">
+    <thead>
+      <tr style="text-align: left;">
+        <th>Line ID</th>
+        <th>Value</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <% @calculator.lines.sort_by { |line_id, line| line_id.split('_').last.to_i }.each do |line_id, line| %>
+      <tr>
+        <td><%= line.line_id %></td>
+        <td><%= line.value %></td>
+        <td style="white-space: pre"><%= line.source_description %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
