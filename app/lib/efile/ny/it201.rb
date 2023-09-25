@@ -193,27 +193,32 @@ module Efile
       end
 
       def calculate_line_69
-        0 # TODO
+        0 # TODO: Import table from https://www.tax.ny.gov/forms/html-instructions/2022/it/it201i-2022.htm 'Line 69'
       end
 
       def calculate_line_69a
-        0 # TODO
+        0 # TODO: Import table from https://www.tax.ny.gov/forms/html-instructions/2022/it/it201i-2022.htm 'Line 69a'
       end
 
       def calculate_line_70
-        0 # TODO
+        0 # TODO: complicated
       end
 
       def calculate_line_72
-        0 # TODO
+        0 # TODO: Computed from W-2 forms and their NYS wrapper, IT-2
       end
 
       def calculate_line_73
-        0 # TODO
+        0 # TODO: Computed from W-2 forms and their NYS wrapper, IT-2
       end
 
       def calculate_line_76
-        0 # TODO
+        result = 0
+        (63..75).each do |line_num|
+          result += line_or_zero("AMT_#{line_num}")
+        end
+        result += line_or_zero("AMT_69A")
+        result
       end
 
       def calculate_line_77
