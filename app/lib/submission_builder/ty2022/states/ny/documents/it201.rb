@@ -114,6 +114,7 @@ module SubmissionBuilder
                       # AMT_73: @submission.data_source.total_city_tax_withheld, TODO
                     },
                     it213: Efile::Ny::It213.new,
+                    it214: Efile::Ny::It214.new,
                     it215: Efile::Ny::It215.new,
                     it227: Efile::Ny::It227.new
                   )

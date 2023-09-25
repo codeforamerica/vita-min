@@ -1,7 +1,7 @@
 module Efile
   module Ny
     class It201
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, lines:, it213:, it215:, it227:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, lines:, it213:, it214:, it215:, it227:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -9,6 +9,7 @@ module Efile
         @dependent_count = dependent_count # number
         @computed = ActiveSupport::HashWithIndifferentAccess.new(lines)
         @it213 = it213
+        @it214 = it214
         @it215 = it215
         @it227 = it227
       end
@@ -17,6 +18,7 @@ module Efile
         @computed[:AMT_60E] = @it227.calculate[:part2_line1]
         @computed[:AMT_63] = @it213.calculate[:line16]
         @computed[:AMT_65] = @it215.calculate[:line16]
+        @computed[:AMT_67] = @it214.calculate[:line33]
         @computed[:AMT_17] = calculate_line_17
         @computed[:AMT_19] = calculate_line_19
         @computed[:AMT_24] = calculate_line_24
@@ -43,7 +45,6 @@ module Efile
         @computed[:AMT_54B] = calculate_line_54b
         @computed[:AMT_58] = calculate_line_58
         @computed[:AMT_61] = calculate_line_61
-        @computed[:AMT_67] = calculate_line_67
         @computed[:AMT_69] = calculate_line_69
         @computed[:AMT_69A] = calculate_line_69a
         @computed[:AMT_70] = calculate_line_70
@@ -189,10 +190,6 @@ module Efile
 
       def calculate_line_61
         line_or_zero(:AMT_46) + line_or_zero(:AMT_58) + line_or_zero(:AMT_59) + line_or_zero(:AMT_60)
-      end
-
-      def calculate_line_67
-        0 # TODO
       end
 
       def calculate_line_69
