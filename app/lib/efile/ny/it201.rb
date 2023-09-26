@@ -1,6 +1,6 @@
 module Efile
   module Ny
-    class It201
+    class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
       def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:)

@@ -114,8 +114,8 @@ class StateFileNyIntake < StateFileBaseIntake
     Efile::Ny::It201.new(
       year: 2022,
       filing_status: filing_status.to_sym,
-      claimed_as_dependent: false,
-      dependent_count: 0,
+      claimed_as_dependent: claimed_as_dep_yes?,
+      dependent_count: dependents.length,
       input_lines: input_lines,
       it213: Efile::Ny::It213.new,
       it214: Efile::Ny::It214.new,
