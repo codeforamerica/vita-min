@@ -3,15 +3,15 @@ module Efile
     class It201
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:, value_access_tracker:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
-        @value_access_tracker = value_access_tracker
-
-        @lines = ActiveSupport::HashWithIndifferentAccess.new(input_lines)
+        @value_access_tracker = ValueAccessTracker.new
+        input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
+        @lines = HashWithIndifferentAccess.new(input_lines)
         @it213 = it213
         @it214 = it214
         @it215 = it215
@@ -64,7 +64,18 @@ module Efile
       private
 
       def set_line(line_id, value_fn)
-        @lines[line_id] = TaxFormLine.from_calculation(line_id, value_fn, @value_access_tracker)
+        method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_').downcase}".to_sym
+        method =
+          begin
+            Efile::Ny::It201.instance_method(method_name)
+          rescue NameError
+            nil
+          end
+        source_description = [value_fn.source, method&.source].compact.join("\n\n")
+
+        value = @value_access_tracker.with_tracking { value_fn.call }
+        @lines[line_id] = TaxFormLine.new(line_id, value, source_description, @value_access_tracker.accesses)
+        @lines[line_id].value_access_tracker = @value_access_tracker
       end
 
       def calculate_line_17
@@ -375,13 +386,13 @@ module Efile
 
       class TaxFormLine
         attr_reader :line_id, :value, :source_description, :inputs
+        attr_accessor :value_access_tracker
 
-        def initialize(line_id, value, source_description, inputs, value_access_tracker)
+        def initialize(line_id, value, source_description, inputs)
           @line_id = line_id
           @value = value
           @source_description = source_description
           @inputs = inputs
-          @value_access_tracker = value_access_tracker
         end
 
         def value
@@ -389,45 +400,25 @@ module Efile
           @value
         end
 
-        def value_or_zero
-          value || 0
+        def self.from_data_source(line_id, data_source, field)
+          new(line_id, data_source.send(field), "#{data_source.class}##{field}", [])
         end
-
-        def self.from_data_source(line_id, data_source, field, value_access_tracker)
-          new(line_id, data_source.send(field), "#{data_source.class}##{field}", [], value_access_tracker)
-        end
-
-        def self.from_calculation(line_id, value_fn, value_access_tracker)
-          value_access_tracker.clear
-          value = value_fn.call
-          accesses = value_access_tracker.accesses
-
-          method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_').downcase}".to_sym
-          method = (Efile::Ny::It201.instance_method(method_name) rescue nil)
-          source_description =
-            if method
-              method.source
-            else
-              value_fn.source
-            end
-          new(line_id, value, source_description, accesses, value_access_tracker)
-        end
-
       end
 
       class ValueAccessTracker
         attr_reader :accesses
 
         def initialize
-          clear
+          @accesses = Set.new
+        end
+
+        def with_tracking
+          @accesses = Set.new
+          yield
         end
 
         def track(line_id)
           @accesses << line_id
-        end
-
-        def clear
-          @accesses = Set.new
         end
       end
     end

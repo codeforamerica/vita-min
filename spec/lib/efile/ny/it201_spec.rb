@@ -2,16 +2,14 @@ require 'rails_helper'
 
 describe Efile::Ny::It201 do
   let(:filing_status) { :mfj }
-  let(:value_access_tracker) { Efile::Ny::It201::ValueAccessTracker.new }
   let(:instance) do
     described_class.new(
       year: 2022,
       filing_status: filing_status,
       claimed_as_dependent: false,
       dependent_count: 0,
-      value_access_tracker: value_access_tracker,
       input_lines: {
-        AMT_2: Efile::Ny::It201::TaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1, value_access_tracker),
+        AMT_2: Efile::Ny::It201::TaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1),
       },
       it213: Efile::Ny::It227.new,
       it214: Efile::Ny::It214.new,

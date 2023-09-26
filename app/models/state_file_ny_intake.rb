@@ -107,9 +107,9 @@ class StateFileNyIntake < StateFileBaseIntake
     field_by_line_id.each do |line_id, field|
       input_lines[line_id] =
         if field.is_a?(Symbol)
-          Efile::Ny::It201::TaxFormLine.from_data_source(line_id, self, field, value_access_tracker)
+          Efile::Ny::It201::TaxFormLine.from_data_source(line_id, self, field)
         else
-          Efile::Ny::It201::TaxFormLine.new(line_id, field, "Static", [], value_access_tracker)
+          Efile::Ny::It201::TaxFormLine.new(line_id, field, "Static", [])
         end
     end
     Efile::Ny::It201.new(
