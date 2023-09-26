@@ -6,12 +6,16 @@ describe "BackfillHashedDependentSsn" do
   let!(:dependent_with_hashed_ssn) { create :dependent, ssn: "123456789", hashed_ssn: "1234567890847635" }
   let!(:dependent_without_ssn) { create :dependent, ssn: nil }
 
+  before do
+    # Need to ensure hashed_ssn is nil, the before_save is setting it after the factory create
+    dependent_with_ssn.update_column(:hashed_ssn, nil)
+  end
+
   context "with ssn and without hashed_ssn" do
     it "backfills hashed_ssn" do
-      BackfillHashedDependentSsn.new.up
-
-      dependent_with_ssn.reload
-      expect(dependent_with_ssn.hashed_ssn).not_to be_nil
+      expect do
+        BackfillHashedDependentSsn.new.up
+      end.to change { dependent_with_ssn.reload.hashed_ssn }
     end
   end
 
