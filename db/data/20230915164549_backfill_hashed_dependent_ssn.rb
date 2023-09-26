@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class BackfillHashedDependentSsn < ActiveRecord::Migration[7.0]
+  disable_ddl_transaction!
+
   def up
     dependents_left_to_backfill = Dependent.where(hashed_ssn: nil).where.not(ssn: nil)
     dependents_left_to_backfill.find_in_batches do |batch|
