@@ -104,11 +104,12 @@ class StateFileNyIntake < StateFileBaseIntake
     }
     input_lines = {}
     field_by_line_id.each do |line_id, field|
-      if field.is_a?(Symbol)
-        input_lines[line_id] = Efile::Ny::It201::ImmutableTaxFormLine.from_data_source(line_id, self, field)
-      else
-        input_lines[line_id] = Efile::Ny::It201::ImmutableTaxFormLine.new(line_id, field, "Static")
-      end
+      input_lines[line_id] =
+        if field.is_a?(Symbol)
+          Efile::Ny::It201::ImmutableTaxFormLine.from_data_source(line_id, self, field)
+        else
+          Efile::Ny::It201::ImmutableTaxFormLine.new(line_id, field, "Static")
+        end
     end
     Efile::Ny::It201.new(
       year: 2022,
