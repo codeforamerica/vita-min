@@ -25,7 +25,11 @@
                 </div>
               <% end %>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::PersonalInfoController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
+                <% if open_for_gyr_intake? %>
+                  <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::PersonalInfoController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
+                <% else %>
+                  <%= link_to t("views.shared.service_comparison.services.full_service.cta"), new_signup_path, class: "button", "data-track-click": "service-comparison-full-service" %>
+                <% end %>
               </div>
             </div>
             <div class="service diy">
