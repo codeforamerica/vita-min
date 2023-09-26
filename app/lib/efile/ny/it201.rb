@@ -71,10 +71,10 @@ module Efile
           rescue NameError
             nil
           end
-        source_description = [value_fn.source, method&.source].compact.join("\n\n")
+        source_description = method&.source || value_fn.source
 
-        value = @value_access_tracker.with_tracking { value_fn.call }
-        @lines[line_id] = TaxFormLine.new(line_id, value, source_description, @value_access_tracker.accesses)
+        value, accesses = @value_access_tracker.with_tracking { value_fn.call }
+        @lines[line_id] = TaxFormLine.new(line_id, value, source_description, accesses)
         @lines[line_id].value_access_tracker = @value_access_tracker
       end
 
@@ -385,7 +385,7 @@ module Efile
       end
 
       class TaxFormLine
-        attr_reader :line_id, :value, :source_description, :inputs
+        attr_reader :line_id, :source_description, :inputs
         attr_accessor :value_access_tracker
 
         def initialize(line_id, value, source_description, inputs)
@@ -406,19 +406,16 @@ module Efile
       end
 
       class ValueAccessTracker
-        attr_reader :accesses
-
-        def initialize
-          @accesses = Set.new
-        end
-
         def with_tracking
           @accesses = Set.new
-          yield
+          result = yield
+          [result, @accesses]
+        ensure
+          @accesses = nil
         end
 
         def track(line_id)
-          @accesses << line_id
+          @accesses << line_id if @accesses
         end
       end
     end
