@@ -1783,6 +1783,7 @@ es:
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
+      banner: Se cerraron nuevas inscripciones para GetYourRefund para 2023. Vuelva en enero para presentar la solicitud el próximo año.
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
