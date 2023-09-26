@@ -6,13 +6,21 @@
       <tr style="text-align: left;">
         <th>Line ID</th>
         <th>Value</th>
+        <th>Inputs</th>
         <th>Source</th>
       </tr>
     </thead>
     <% @calculator.lines.sort_by { |line_id, line| line_id.split('_').last.to_i }.each do |line_id, line| %>
       <tr>
-        <td><%= line.line_id %></td>
+        <td id="<%= line.line_id %>"><%= line.line_id %></td>
         <td><%= line.value %></td>
+        <td style="white-space: nowrap;">
+          <% line.inputs.each do |line_id| %>
+            <div>
+              <a href="#<%= line_id %>"><%= line_id %></a>: <%= @calculator.lines[line_id]&.value %>
+            </div>
+          <% end %>
+        </td>
         <td style="white-space: pre"><%= line.source_description %></td>
       </tr>
     <% end %>
