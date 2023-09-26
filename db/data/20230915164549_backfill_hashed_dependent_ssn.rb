@@ -8,7 +8,7 @@ class BackfillHashedDependentSsn < ActiveRecord::Migration[7.0]
     dependents_left_to_backfill.find_in_batches do |batch|
       Dependent.upsert_all(
         batch.map { |dependent|
-          { id: dependent.id, hashed_ssn: DeduplicationService.sensitive_attribute_hashed(dependent, :ssn), birth_date: dependent.birth_date, intake_id: dependent.intake.id }
+          { id: dependent.id, hashed_ssn: DeduplicationService.sensitive_attribute_hashed(dependent, :ssn), birth_date: dependent.birth_date, intake_id: dependent.intake_id }
         },
         update_only: [:hashed_ssn]
       )
