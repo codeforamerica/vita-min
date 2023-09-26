@@ -3,15 +3,13 @@ module Efile
     class It201
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:, value_access_tracker:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
-
-        @value_access_tracker = ValueAccessTracker.new
-        input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
+        @value_access_tracker = value_access_tracker
 
         @lines = ActiveSupport::HashWithIndifferentAccess.new(input_lines)
         @it213 = it213
@@ -64,9 +62,9 @@ module Efile
       end
 
       private
-      
+
       def set_line(line_id, value_fn)
-        @lines[line_id] = CalculatedTaxFormLine.new(line_id, value_fn, @value_access_tracker)
+        @lines[line_id] = TaxFormLine.from_calculation(line_id, value_fn, @value_access_tracker)
       end
 
       def calculate_line_17
@@ -376,9 +374,15 @@ module Efile
       end
 
       class TaxFormLine
-        attr_reader :line_id
-        attr_reader :value
-        attr_accessor :value_access_tracker
+        attr_reader :line_id, :value, :source_description, :inputs
+
+        def initialize(line_id, value, source_description, inputs, value_access_tracker)
+          @line_id = line_id
+          @value = value
+          @source_description = source_description
+          @inputs = inputs
+          @value_access_tracker = value_access_tracker
+        end
 
         def value
           @value_access_tracker&.track(line_id)
@@ -388,46 +392,27 @@ module Efile
         def value_or_zero
           value || 0
         end
-      end
 
-      class CalculatedTaxFormLine < TaxFormLine
-        attr_reader :collaborators
-
-        def initialize(line_id, value_fn, value_access_tracker)
-          @line_id = line_id
-          @proc_source = value_fn.source
-          value_access_tracker.clear
-          @value = value_fn.call
-          @collaborators = value_access_tracker.accesses
+        def self.from_data_source(line_id, data_source, field, value_access_tracker)
+          new(line_id, data_source.send(field), "#{data_source.class}##{field}", [], value_access_tracker)
         end
 
-        def source_description
+        def self.from_calculation(line_id, value_fn, value_access_tracker)
+          value_access_tracker.clear
+          value = value_fn.call
+          accesses = value_access_tracker.accesses
+
           method_name = "calculate_#{line_id.to_s.sub('AMT_', 'line_').downcase}".to_sym
           method = (Efile::Ny::It201.instance_method(method_name) rescue nil)
-          if method
-            method.source
-          else
-            @proc_source
-          end
-        end
-      end
-
-      class ImmutableTaxFormLine < TaxFormLine
-        attr_reader :source_description
-
-        def self.from_data_source(line_id, data_source, field)
-          new(line_id, data_source.send(field), "#{data_source.class}##{field}")
+          source_description =
+            if method
+              method.source
+            else
+              value_fn.source
+            end
+          new(line_id, value, source_description, accesses, value_access_tracker)
         end
 
-        def initialize(line_id, value, source_description)
-          @line_id = line_id
-          @value = value
-          @source_description = source_description
-        end
-
-        def collaborators
-          []
-        end
       end
 
       class ValueAccessTracker

@@ -103,12 +103,13 @@ class StateFileNyIntake < StateFileBaseIntake
       # AMT_73: :total_city_tax_withheld, TODO
     }
     input_lines = {}
+    value_access_tracker = Efile::Ny::It201::ValueAccessTracker.new
     field_by_line_id.each do |line_id, field|
       input_lines[line_id] =
         if field.is_a?(Symbol)
-          Efile::Ny::It201::ImmutableTaxFormLine.from_data_source(line_id, self, field)
+          Efile::Ny::It201::TaxFormLine.from_data_source(line_id, self, field, value_access_tracker)
         else
-          Efile::Ny::It201::ImmutableTaxFormLine.new(line_id, field, "Static")
+          Efile::Ny::It201::TaxFormLine.new(line_id, field, "Static", [], value_access_tracker)
         end
     end
     Efile::Ny::It201.new(
@@ -117,6 +118,7 @@ class StateFileNyIntake < StateFileBaseIntake
       claimed_as_dependent: false,
       dependent_count: 0,
       input_lines: input_lines,
+      value_access_tracker: value_access_tracker,
       it213: Efile::Ny::It213.new,
       it214: Efile::Ny::It214.new,
       it215: Efile::Ny::It215.new,
