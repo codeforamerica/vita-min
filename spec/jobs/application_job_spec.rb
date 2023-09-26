@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ApplicationJob do
   before do
-    SampleJobClass = Class.new(ApplicationJob) do
+    stub_const("SampleJobClass", (Class.new(ApplicationJob) do
       def perform(object_id)
         return true
       end
@@ -10,13 +10,13 @@ describe ApplicationJob do
       def priority
         10
       end
-    end
+    end))
 
-    SampleNoPriorityClass = Class.new(ApplicationJob) do
+    stub_const("SampleNoPriorityClass", (Class.new(ApplicationJob) do
       def perform(object_id)
         return true
       end
-    end
+    end))
   end
 
   around do |example|
