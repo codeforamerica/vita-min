@@ -1510,7 +1510,7 @@ es:
     successful_submission_online_intake:
       email:
         body: |
-          Hola <<Cliente.NombrePreferido>>,
+          Hola <<Client.PreferredName>>,
 
           ¡Su información fiscal se ha enviado correctamente! <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una información importante de la cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Mantenga un registro de este número y no elimine este mensaje.
 

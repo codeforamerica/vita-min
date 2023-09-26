@@ -80,14 +80,14 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline" do
         visit "/"
 
-        expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in 2023. If your return is in progress, log in and submit your documents by October 8th."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 9th in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2023. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre."
+        expect(page).to have_text "No podemos aceptar nuevos clientes después de octubre 1. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de octubre 9 para presentarla antes de la fecha límite."
       end
     end
   end
