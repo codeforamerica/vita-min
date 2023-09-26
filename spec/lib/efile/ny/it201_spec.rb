@@ -9,7 +9,7 @@ describe Efile::Ny::It201 do
       claimed_as_dependent: false,
       dependent_count: 0,
       input_lines: {
-        AMT_2: Efile::Ny::It201::TaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1),
+        AMT_2: Efile::TaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1),
       },
       it213: Efile::Ny::It227.new,
       it214: Efile::Ny::It214.new,

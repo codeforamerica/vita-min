@@ -9,7 +9,7 @@ module Efile
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @dependent_count = dependent_count # number
-        @value_access_tracker = ValueAccessTracker.new
+        @value_access_tracker = Efile::ValueAccessTracker.new
         input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
         @lines = HashWithIndifferentAccess.new(input_lines)
         @it213 = it213
@@ -382,41 +382,6 @@ module Efile
 
       def line_or_zero(line)
         @lines[line.to_sym]&.value || 0
-      end
-
-      class TaxFormLine
-        attr_reader :line_id, :source_description, :inputs
-        attr_accessor :value_access_tracker
-
-        def initialize(line_id, value, source_description, inputs)
-          @line_id = line_id
-          @value = value
-          @source_description = source_description
-          @inputs = inputs
-        end
-
-        def value
-          @value_access_tracker&.track(line_id)
-          @value
-        end
-
-        def self.from_data_source(line_id, data_source, field)
-          new(line_id, data_source.send(field), "#{data_source.class}##{field}", [])
-        end
-      end
-
-      class ValueAccessTracker
-        def with_tracking
-          @accesses = Set.new
-          result = yield
-          [result, @accesses]
-        ensure
-          @accesses = nil
-        end
-
-        def track(line_id)
-          @accesses << line_id if @accesses
-        end
       end
     end
   end
