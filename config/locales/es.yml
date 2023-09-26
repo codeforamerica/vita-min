@@ -1513,16 +1513,16 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal se ha enviado correctamente! <strong>Su ID de cliente es <<Client.ClientId>>.</strong> Esta es una información importante de la cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Mantenga un registro de este número y no elimine este mensaje.
+          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>  Este es un dato importante de su cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
 
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}.
 
-          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+          Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
 
-          Si tiene alguna pregunta, responda a este mensaje.
+          Si tiene alguna duda, responda a este mensaje.
 
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetYourRefund
+          ¡Estamos aquí para ayudarle!
+          Su equipo fiscal en GetYourRefund
         subject: 'Bienvenido a GetYourRefund: ID de cliente'
       sms: |
         Hola <<Client.PreferredName>>, Su información fiscal ha sido enviada correctamente a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje.
