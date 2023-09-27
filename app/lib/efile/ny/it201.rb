@@ -48,6 +48,7 @@ module Efile
         set_line(:AMT_54B, -> { calculate_line_54b })
         set_line(:AMT_58, -> { calculate_line_58 })
         set_line(:AMT_61, -> { calculate_line_61 })
+        set_line(:AMT_62, -> { calculate_line_62 })
         set_line(:AMT_69, -> { calculate_line_69 })
         set_line(:AMT_69A, -> { calculate_line_69a })
         set_line(:AMT_70, -> { calculate_line_70 })
@@ -135,9 +136,78 @@ module Efile
         [result, 0].max
       end
 
+      def nys_tax_from_tables(taxable_income)
+        row = Struct.new(:floor, :ceiling, :cumulative, :rate)
+        table =
+          if filing_status_mfj?
+            [
+              row.new(-Float::INFINITY, 17_150, 0, 0.0400),
+              row.new(17_150, 23_600, 686, 0.0450),
+              row.new(23_600, 27_900, 976, 0.0525),
+              row.new(27_900, 161_550, 1_202, 0.0585),
+              row.new(161_550, 323_200, 9_021, 0.0625),
+              row.new(323_200, 2_155_350, 19_124, 0.0685),
+              row.new(2_155_350, 5_000_000, 144_626, 0.0965),
+              row.new(5_000_000, 25_000_000, 419_135, 0.103),
+              row.new(25_000_000, Float::INFINITY, 247_9135, 0.109)
+            ]
+          else
+            [
+              row.new(-Float::INFINITY, 8_500, 0, 0.0400),
+              row.new(8_500, 11_700, 340, 0.0450),
+              row.new(11_700, 13_900, 484, 0.0525),
+              row.new(13_900, 80_650, 600, 0.0585),
+              row.new(80_650, 215_400, 4_504, 0.0625),
+              row.new(215_400, 1_077_550, 12_926, 0.0685),
+              row.new(1_077_550, 5_000_000, 71_984, 0.0965),
+              row.new(5_000_000, 25_000_000, 450_500, 0.103),
+              row.new(25_000_000, Float::INFINITY, 2_510_500, 0.109)
+            ]
+          end
+        table_row = table.reverse.find do |table_row|
+          taxable_income > table_row.floor && (taxable_income <= table_row.ceiling)
+        end
+
+        (table_row.cumulative + ((taxable_income - table_row.floor) * table_row.rate)).round
+      end
+
+      def round_to_decimal(val, digits)
+        ten_to_the_digits_power = 10 ** digits
+        (val * ten_to_the_digits_power).round / (ten_to_the_digits_power * 1.0)
+      end
+
       def calculate_line_39
-        # aka calctax
-        1 # TODO
+        agi = line_or_zero(:AMT_33)
+        taxable_income = line_or_zero(:AMT_38)
+        if agi <= 107_650
+          return nys_tax_from_tables(taxable_income)
+        end
+
+        if filing_status_mfj?
+          if (agi > 107_650 && agi <= 25_000_000 && taxable_income <= 161_550)
+            if (agi >= 157_650)
+              taxable_income * 0.0585
+            else
+              step_3_flat_tax = (taxable_income * 0.0585).round
+              step_4_usual_tax = nys_tax_from_tables(taxable_income)
+              step_5_flat_tax_extra_amount = step_3_flat_tax - step_4_usual_tax
+              step_6_marginal_taxable_amount = agi - 107_650
+              step_7 = round_to_decimal(step_6_marginal_taxable_amount / 50_000, 4)
+              step_8 = (step_5_flat_tax_extra_amount * step_7)
+              step_4_usual_tax + step_8
+            end
+          elsif (agi > 161_550 && agi <= 25_000_000 && taxable_income > 161_550 && taxable_income <= 323_200)
+
+          elsif (agi > 323_200 && agi <= 25_000_000 && taxable_income > 323_200 && taxable_income <= 2_155_350)
+
+          elsif (agi > 5_000000 && agi <= 25_000_000 && taxable_income > 5_000_000)
+
+          else
+            #
+          end
+        else
+          #filing single
+        end
       end
 
       def calculate_line_40
@@ -210,6 +280,10 @@ module Efile
         line_or_zero(:AMT_46) + line_or_zero(:AMT_58) + line_or_zero(:AMT_59) + line_or_zero(:AMT_60)
       end
 
+      def calculate_line_62
+        line_or_zero(:AMT_61)
+      end
+
       def calculate_line_69
         0 # TODO: Import table from https://www.tax.ny.gov/forms/html-instructions/2022/it/it201i-2022.htm 'Line 69'
       end
@@ -240,19 +314,19 @@ module Efile
       end
 
       def calculate_line_77
-        0 # TODO
+        [line_or_zero(:AMT_76) - line_or_zero(:AMT_62), 0].max
       end
 
       def calculate_line_78
-        0 # TODO
+        line_or_zero(:AMT_77)
       end
 
       def calculate_line_78b
-        0 # TODO
+        line_or_zero(:AMT_78)
       end
 
       def calculate_line_80
-        0 # TODO
+        [line_or_zero(:AMT_62) - line_or_zero(:AMT_76), 0].max
       end
 
       def nyc_tax_from_tables(amount)
