@@ -28,6 +28,8 @@ module PdfFiller
         "State" => "AZ",
         "ZIP Code" => @submission.data_source.mailing_zip,
         "Filing Status" => filing_status,
+        "12" => @xml_document.at('FedAdjGrossIncome')&.text,
+        "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
       }
       answers
     end

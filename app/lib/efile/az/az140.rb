@@ -15,7 +15,14 @@ module Efile
       end
 
       def calculate
+        set_line(:AMT_14, -> { calculate_line_14 })
         @lines.transform_values(&:value)
+      end
+
+      private
+
+      def calculate_line_14
+        line_or_zero(:AMT_12)
       end
     end
   end

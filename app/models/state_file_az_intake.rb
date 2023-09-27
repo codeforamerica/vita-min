@@ -37,13 +37,14 @@
 #  visitor_id                     :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  # TODO
-  def agi
-    1234
+  def fed_agi
+    # TODO: When we store XML, delete the arithmetic and rely on the fed AGI in the XML.
+    [fed_wages, fed_taxable_income, fed_unemployment, fed_taxable_ssb].compact.sum
   end
 
   def tax_calculator
     field_by_line_id = {
+      AMT_12: :fed_agi
     }
     input_lines = {}
     field_by_line_id.each do |line_id, field|
