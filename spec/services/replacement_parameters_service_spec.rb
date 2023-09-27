@@ -360,7 +360,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted email" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "en") }
+        let(:body) {AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -370,7 +370,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "es") }
+        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body(locale: locale)}
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -382,7 +382,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted text message" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.sms", locale: "en") }
+        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.sms_body(locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process

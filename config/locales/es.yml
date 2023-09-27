@@ -41,6 +41,7 @@ es:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
+      medium: "%-d de %B"
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
@@ -1312,9 +1313,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: 'Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 8 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
+        body: 'Cerramos la temporada de impuestos de GetYourRefund el 16 de octubre. Necesitamos todos los documentos requeridos antes del 9 de octubre de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 9 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
         subject: 'GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos. '
-      sms: 'Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 8 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
+      sms: 'Cerramos la temporada de impuestos de GetYourRefund el 16 de octubre. Necesitamos todos los documentos requeridos antes del 9 de octubre; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 9 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
     contact_info_change:
       email:
         body: |
@@ -1514,7 +1515,7 @@ es:
 
           ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>  Este es un dato importante de su cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
 
-          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
+          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}.
 
           Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
 
@@ -1525,7 +1526,7 @@ es:
         subject: 'Bienvenido a GetYourRefund: ID de cliente'
       sms: |
         Hola <<Client.PreferredName>>, Su información fiscal ha sido enviada correctamente a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje.
-        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
+        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
         Su equipo fiscal en GetYourRefund
     surveys:
       completion:
@@ -1783,7 +1784,8 @@ es:
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
-      header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos o a pedir su pago de estímulo!"
+      banner: Se cerraron nuevas inscripciones para GetYourRefund para 2023. Vuelva en enero para presentar la solicitud el próximo año.
+      header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
         02_list:
@@ -4267,7 +4269,7 @@ es:
         body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
-        off_season_filing: Comience con GetYourRefund antes del %{end_of_intake_day} de %{end_of_intake_month} si desea presentar su declaración con nosotros en %{year}. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del %{end_of_docs_day} de %{end_of_docs_month}.
+        off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
       footer:
         ctc_service_description_html: GetCTC.org es un servicio sin fines de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.

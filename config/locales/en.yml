@@ -1315,9 +1315,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 9th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 9th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 9th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 9th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -1533,7 +1533,7 @@ en:
 
           Your tax information has been successfully submitted! <strong>Your Client ID is <<Client.ClientId>>.</strong> This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
 
-          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}.
 
           Check your progress and add additional documents here: <<Client.LoginLink>>
 
@@ -1544,7 +1544,7 @@ en:
         subject: 'Welcome to GetYourRefund: Client ID'
       sms: |
         Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
-        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
+        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
         Your tax team at GetYourRefund
     surveys:
       completion:
@@ -1801,7 +1801,8 @@ en:
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
-      header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
+      banner: New intakes for GetYourRefund have closed for 2023. Please come back in January to file next year.
+      header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
         01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
         02_list:
@@ -4221,7 +4222,7 @@ en:
         body_html: "<strong>Reminder: You must submit your documents by April 4 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</strong> If you aren’t sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_filing: Get started with GetYourRefund by %{end_of_intake_month} %{end_of_intake_day} if you want to file with us in %{year}. If your return is in progress, log in and submit your documents by %{end_of_docs_month} %{end_of_docs_day}.
+        off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
         ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS with support from the White House and U.S. Department of Treasury.

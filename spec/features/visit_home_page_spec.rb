@@ -49,16 +49,16 @@ RSpec.feature "Visit home page" do
       allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2023, 1, 31))
       allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2023, 4, 18))
       allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2023, 10, 1))
-      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 15))
+      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 23))
     end
 
     context "when closed for new intakes" do
       let(:current_time) { DateTime.new(2023, 10, 2) }
 
-      scenario "shows the closed banner" do
+      scenario "shows the off season banner" do
         visit "/"
 
-        expect(page).to have_text "GetYourRefund will reopen January 31."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 9th in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
@@ -80,14 +80,14 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline" do
         visit "/"
 
-        expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in 2023. If your return is in progress, log in and submit your documents by October 8th."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 9th in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2023. Si su declaración está en curso, inicie sesión y envíe sus documentos antes del 8 de octubre."
+        expect(page).to have_text "No podemos aceptar nuevos clientes después de 1 de octubre. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de 9 de octubre para presentarla antes de la fecha límite."
       end
     end
   end

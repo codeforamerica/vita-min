@@ -1227,11 +1227,11 @@ RSpec.describe ApplicationController do
 
     context "when between intake closing and intake opening" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return false
+        allow(subject).to receive(:open_for_gyr_intake?).and_return true
       end
 
-      it "is false" do
-        expect(subject.show_offseason_filing_banner?).to be false
+      it "is true" do
+        expect(subject.show_offseason_filing_banner?).to be true
       end
     end
 
