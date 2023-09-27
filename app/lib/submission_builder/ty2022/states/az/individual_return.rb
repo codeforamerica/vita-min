@@ -45,13 +45,13 @@ module SubmissionBuilder
               xml.FiledUnderExtension "No"
               xml.FilingStatus FILING_STATUSES.fetch(@submission.data_source.filing_status.to_sym)
               xml.Additions do
-                xml.FedAdjGrossIncome @submission.data_source.agi
-                xml.ModFedAdjGrossInc @submission.data_source.agi
+                xml.FedAdjGrossIncome calculated_fields[:AMT_12]
+                xml.ModFedAdjGrossInc calculated_fields[:AMT_14]
               end
-              xml.AzAdjSubtotal @submission.data_source.agi
-              xml.TotalSubtractions @submission.data_source.agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
-              xml.Subtotal @submission.data_source.agi # subtract line 36 from 35
-              xml.AZAdjGrossIncome @submission.data_source.agi
+              xml.AzAdjSubtotal @submission.data_source.fed_agi
+              xml.TotalSubtractions @submission.data_source.fed_agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
+              xml.Subtotal @submission.data_source.fed_agi # subtract line 36 from 35
+              xml.AZAdjGrossIncome @submission.data_source.fed_agi
               xml.DeductionAmt do
                 xml.DeductionTypeIndc "Standard"
                 xml.AZDeductions STANDARD_DEDUCTIONS.fetch(@submission.data_source.filing_status.to_sym)
@@ -105,6 +105,10 @@ module SubmissionBuilder
               },
             ]
             supported_docs
+          end
+
+          def calculated_fields
+            @az140_fields ||= @submission.data_source.tax_calculator.calculate
           end
         end
       end
