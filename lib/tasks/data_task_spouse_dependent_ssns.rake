@@ -14,16 +14,17 @@ namespace :data_task_spouse_dependent_ssns do
 
     temp_file = Tempfile.open(%w[temp_file .csv], "tmp/")
     CSV.open(Rails.root.join(temp_file.path), 'wb') do |csv|
-      csv << %w{client_id ssn type}
+      csv << %w{client_id type ssn}
 
-      client_ids.each do |id|
-        client = Client.find_by_id (id)
-        next unless client || client&.intake
-        intake = client&.intake
-        csv << [id, "primary", intake.primary_ssn]
-        csv << [id, "spouse", intake.spouse_ssn] if intake.spouse_ssn.present?
-        intake.dependents.each do |dependent|
-          csv << [id, "dependent", dependent.ssn] if dependent.ssn.present?
+      Client.where(id: client_ids).includes(intake: [:dependents]).find_in_batches do |batch|
+        batch.each do |client|
+          next unless client.present? && client&.intake.present?
+          intake = client&.intake
+          csv << [client.id, "primary", intake.primary_ssn]
+          csv << [client.id, "spouse", intake.spouse_ssn] if intake.spouse_ssn.present?
+          intake.dependents.each do |dependent|
+            csv << [client.id, "dependent-##{dependent.id}", dependent.ssn] if dependent.ssn.present?
+          end
         end
       end
     end
@@ -36,8 +37,7 @@ namespace :data_task_spouse_dependent_ssns do
 
     puts "*******FILE KEY: #{blob.key}"
     puts blob.inspect
-    puts "***********blob URL:"
+    temp_file.close
     temp_file.unlink
   end
 end
-
