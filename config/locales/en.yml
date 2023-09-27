@@ -1802,7 +1802,7 @@ en:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
       banner: New intakes for GetYourRefund have closed for 2023. Please come back in January to file next year.
-      header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
+      header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
         01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
         02_list:
