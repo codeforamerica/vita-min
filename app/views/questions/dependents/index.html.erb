@@ -19,7 +19,7 @@
                 <h3 class="dependent__label">
                   <%= dependent.full_name %> <%= default_date_format(dependent.birth_date) %>
                 </h3>
-                <%= link_to t("general.edit"), edit_dependent_path(dependent), class: "button button--inline-action" %>
+                <%= link_to t("general.edit"), Questions::DependentsController.to_path_helper(action: :edit, id: dependent.id), class: "button button--inline-action" %>
               </div>
             </li>
             <% end %>
@@ -29,7 +29,7 @@
           <h1 class="h2"><%=t("views.dependents.index.title") %></h1>
           <p><%=t("views.dependents.index.info") %></p>
 
-          <%= link_to(new_dependent_path, class: "button button--wide button--icon") do %>
+          <%= link_to(Questions::DependentsController.to_path_helper(action: :new), class: "button button--wide button--icon") do %>
             <%= image_tag("add-person.svg", alt: "") %>
             <%=t("views.dependents.index.add_person") %>
           <% end %>
