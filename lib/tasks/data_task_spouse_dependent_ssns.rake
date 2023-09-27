@@ -3,14 +3,9 @@ require 'csv'
 namespace :data_task_spouse_dependent_ssns do
   desc "create file of unhashed SSNs and respective unhashed spouse and dependent SSNs"
   task create_file: :environment do
-    file_in = File.open("#{Rails.root}/tmp/ca_ids_for_eng_nov02.csv")
+    file_in = File.open("#{Rails.root}/tmp/test.csv")
     in_data = CSV.read(file_in, headers: true)
-    client_ids = []
-    in_data.each do |record|
-      record = record.to_ary
-      client_id = record[0][1]&.strip
-      client_ids << client_id.to_i
-    end
+    client_ids = in_data.map { |row| row['client_id'].to_i }
 
     temp_file = Tempfile.open(%w[temp_file .csv], "tmp/")
     CSV.open(Rails.root.join(temp_file.path), 'wb') do |csv|
