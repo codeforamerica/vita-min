@@ -12,6 +12,15 @@
       </div>
     </div>
   <% end %>
+  <% if open_for_finishing_in_progress_intakes? %>
+    <div class="slab slab--banner">
+      <div class="grid">
+        <div class="grid__item">
+          <strong><%= t('views.public_pages.home.closed_open_for_login_banner_html') %></strong>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <% if show_offseason_filing_banner? %>
     <%= render 'shared/offseason_filing_banner' %>
   <% end %>

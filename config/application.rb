@@ -93,7 +93,6 @@ module VitaMin
     config.end_of_docs = Time.find_zone('America/New_York').parse('2023-10-09 23:59:59')
     config.end_of_in_progress_intake = Time.find_zone('America/New_York').parse('2023-10-16 23:59:59')
     config.end_of_login = Time.find_zone('America/New_York').parse('2023-10-23 23:59:00')
-
     config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-05-04 09:00:00")
     config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-05-11 09:00:00")
     config.eitc_soft_launch = Time.find_zone("America/New_York").parse("2022-09-30 09:00:00")

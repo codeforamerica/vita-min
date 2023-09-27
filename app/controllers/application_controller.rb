@@ -331,6 +331,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_gyr_intake?
 
+  def open_for_finishing_in_progress_intakes?
+    app_time >= Rails.configuration.end_of_in_progress_intake && app_time <= Rails.configuration.end_of_login
+  end
+  helper_method :open_for_finishing_in_progress_intakes?
+
   def open_for_gyr_logged_in_clients?
     app_time >= Rails.configuration.start_of_unique_links_only_intake && app_time <= Rails.configuration.end_of_login
   end
