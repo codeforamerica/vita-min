@@ -12,6 +12,10 @@ module Efile
         @value_access_tracker = Efile::ValueAccessTracker.new
         input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
         @lines = HashWithIndifferentAccess.new(input_lines)
+        [it213, it214, it215, it227].each do |form|
+          form.value_access_tracker = @value_access_tracker
+          form.lines = @lines
+        end
         @it213 = it213
         @it214 = it214
         @it215 = it215
@@ -20,11 +24,11 @@ module Efile
 
       def calculate
         set_line(:AMT_60E, -> { @it227.calculate[:part2_line1] })
-        set_line(:AMT_63, -> { @it213.calculate[:line16] })
         set_line(:AMT_65, -> { @it215.calculate[:line16] })
         set_line(:AMT_67, -> { @it214.calculate[:line33] })
         set_line(:AMT_17, -> { calculate_line_17 })
         set_line(:AMT_19, -> { calculate_line_19 })
+        set_line(:AMT_19A, -> { calculate_line_19a })
         set_line(:AMT_24, -> { calculate_line_24 })
         set_line(:AMT_25, -> { @lines[:AMT_4]&.value })
         set_line(:AMT_32, -> { calculate_line_32 })
@@ -48,6 +52,8 @@ module Efile
         set_line(:AMT_54B, -> { calculate_line_54b })
         set_line(:AMT_58, -> { calculate_line_58 })
         set_line(:AMT_61, -> { calculate_line_61 })
+        @it213.calculate
+        set_line(:AMT_63, -> { @lines[:IT213_AMT_16].value })
         set_line(:AMT_69, -> { calculate_line_69 })
         set_line(:AMT_69A, -> { calculate_line_69a })
         set_line(:AMT_70, -> { calculate_line_70 })
@@ -90,6 +96,11 @@ module Efile
 
       def calculate_line_19
         line_or_zero(:AMT_17) - line_or_zero(:AMT_18).abs
+      end
+
+      def calculate_line_19a
+        # TODO: Add line 19A worksheet
+        line_or_zero(:AMT_19)
       end
 
       def calculate_line_24
@@ -363,6 +374,7 @@ module Efile
       end
 
       def full_year_nyc_resident?
+        # TODO: F_1_NBR needs to be passed in
         if filing_status_mfj?
           if @lines["F_1_NBR"]&.value == 12 && @lines["F_2_NBR"]&.value == 12
             true

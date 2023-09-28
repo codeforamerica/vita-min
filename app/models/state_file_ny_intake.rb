@@ -101,6 +101,7 @@ class StateFileNyIntake < StateFileBaseIntake
       AMT_59: :sales_use_tax,
       AMT_72: :total_state_tax_withheld,
       # AMT_73: :total_city_tax_withheld, TODO
+
     }
     input_lines = {}
     field_by_line_id.each do |line_id, field|
@@ -117,7 +118,11 @@ class StateFileNyIntake < StateFileBaseIntake
       claimed_as_dependent: claimed_as_dep_yes?,
       dependent_count: dependents.length,
       input_lines: input_lines,
-      it213: Efile::Ny::It213.new,
+      it213: Efile::Ny::It213.new(
+        filing_status: filing_status.to_sym,
+        federal_dependent_child_count: dependents.length,
+        under_4_federal_dependent_child_count: dependents.length, # TODO
+      ),
       it214: Efile::Ny::It214.new,
       it215: Efile::Ny::It215.new,
       it227: Efile::Ny::It227.new
