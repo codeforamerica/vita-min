@@ -12,7 +12,8 @@
       <%= yield :notices %>
       <%= render "shared/progress_bar" %>
       <main role="main">
-        <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+        <% form_action = @dependent.persisted? ? :update : :create %>
+        <%= form_with url: { action: form_action }, model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long'} do |f| %>
           <h1 class="form-question">
             <%= @main_heading %>
           </h1>
@@ -50,7 +51,7 @@
 
           <% if @allow_deletion %>
             <%= link_to(
-                    dependent_path(@dependent),
+                    { action: :destroy },
                     method: :delete,
                     class: "button button--danger button--wide button--icon",
                     data: {confirm: t("views.dependents.form.delete_confirmation", :name => "#{@dependent.full_name}")}
