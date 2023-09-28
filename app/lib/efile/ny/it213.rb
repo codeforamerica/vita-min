@@ -14,9 +14,11 @@ module Efile
         # TODO: Only calculate Worksheet A if yes on line 2? Should only happen if they clicked the wrong federal button?
         # TODO: Only run calculate if yes in line 1, and 3
         # TODO: set_line wants to look for methods prefixed by IT213 hmm
-        set_line(:WORKSHEET_A_LINE_1, -> { calculate_worksheet_a_line_1 })
-        set_line(:WORKSHEET_A_LINE_2, -> { calculate_worksheet_a_line_2 })
-        set_line(:WORKSHEET_A_LINE_3, -> { calculate_worksheet_a_line_3 })
+        set_line(:WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
+        set_line(:WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
+        set_line(:WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
+        set_line(:WORKSHEET_A_LINE_4, :calculate_worksheet_a_line_4)
+        set_line(:WORKSHEET_A_LINE_5, :calculate_worksheet_a_line_5)
         set_line(:AMT_16, -> { 0 })
       end
 
@@ -42,6 +44,25 @@ module Efile
           75_000
         when :married_filing_separately
           55_000
+        else
+          raise "Filing status not found..."
+        end
+      end
+
+      def calculate_worksheet_a_line_4
+        if @lines[:IT213_WORKSHEET_A_LINE_2].value > @lines[:IT213_WORKSHEET_A_LINE_3].value
+          subtotal = @lines[:IT213_WORKSHEET_A_LINE_2].value - @lines[:IT213_WORKSHEET_A_LINE_3].value
+          subtotal.ceil(-3) # Round up to nearest 1000
+        else
+          nil
+        end
+      end
+
+      def calculate_worksheet_a_line_5
+        if @lines[:IT213_WORKSHEET_A_LINE_4].value.nil?
+          0
+        else
+          @lines[:IT213_WORKSHEET_A_LINE_4] * 0.05
         end
       end
     end

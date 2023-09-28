@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Ny::It201 do
-  let(:filing_status) { :mfj }
+  let(:filing_status) { :married_filing_jointly }
   let(:instance) do
     described_class.new(
       year: 2022,
