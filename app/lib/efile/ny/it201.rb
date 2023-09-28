@@ -137,38 +137,37 @@ module Efile
       end
 
       def nys_tax_from_tables(taxable_income)
-        row = Struct.new(:floor, :ceiling, :cumulative, :rate)
         table =
           if filing_status_mfj?
             [
-              row.new(-Float::INFINITY, 17_150, 0, 0.0400),
-              row.new(17_150, 23_600, 686, 0.0450),
-              row.new(23_600, 27_900, 976, 0.0525),
-              row.new(27_900, 161_550, 1_202, 0.0585),
-              row.new(161_550, 323_200, 9_021, 0.0625),
-              row.new(323_200, 2_155_350, 19_124, 0.0685),
-              row.new(2_155_350, 5_000_000, 144_626, 0.0965),
-              row.new(5_000_000, 25_000_000, 419_135, 0.103),
-              row.new(25_000_000, Float::INFINITY, 247_9135, 0.109)
+              TaxTableRow.new(-Float::INFINITY, 17_150, 0, 0.0400),
+              TaxTableRow.new(17_150, 23_600, 686, 0.0450),
+              TaxTableRow.new(23_600, 27_900, 976, 0.0525),
+              TaxTableRow.new(27_900, 161_550, 1_202, 0.0585),
+              TaxTableRow.new(161_550, 323_200, 9_021, 0.0625),
+              TaxTableRow.new(323_200, 2_155_350, 19_124, 0.0685),
+              TaxTableRow.new(2_155_350, 5_000_000, 144_626, 0.0965),
+              TaxTableRow.new(5_000_000, 25_000_000, 419_135, 0.103),
+              TaxTableRow.new(25_000_000, Float::INFINITY, 247_9135, 0.109)
             ]
           else
             [
-              row.new(-Float::INFINITY, 8_500, 0, 0.0400),
-              row.new(8_500, 11_700, 340, 0.0450),
-              row.new(11_700, 13_900, 484, 0.0525),
-              row.new(13_900, 80_650, 600, 0.0585),
-              row.new(80_650, 215_400, 4_504, 0.0625),
-              row.new(215_400, 1_077_550, 12_926, 0.0685),
-              row.new(1_077_550, 5_000_000, 71_984, 0.0965),
-              row.new(5_000_000, 25_000_000, 450_500, 0.103),
-              row.new(25_000_000, Float::INFINITY, 2_510_500, 0.109)
+              TaxTableRow.new(-Float::INFINITY, 8_500, 0, 0.0400),
+              TaxTableRow.new(8_500, 11_700, 340, 0.0450),
+              TaxTableRow.new(11_700, 13_900, 484, 0.0525),
+              TaxTableRow.new(13_900, 80_650, 600, 0.0585),
+              TaxTableRow.new(80_650, 215_400, 4_504, 0.0625),
+              TaxTableRow.new(215_400, 1_077_550, 12_926, 0.0685),
+              TaxTableRow.new(1_077_550, 5_000_000, 71_984, 0.0965),
+              TaxTableRow.new(5_000_000, 25_000_000, 450_500, 0.103),
+              TaxTableRow.new(25_000_000, Float::INFINITY, 2_510_500, 0.109)
             ]
           end
         table_row = table.reverse.find do |table_row|
           taxable_income > table_row.floor && (taxable_income <= table_row.ceiling)
         end
 
-        (table_row.cumulative + ((taxable_income - table_row.floor) * table_row.rate)).round
+        table_row.compute(taxable_income)
       end
 
       def round_to_decimal(val, digits)
@@ -555,6 +554,28 @@ module Efile
 
       def line_or_zero(line)
         @lines[line.to_sym]&.value || 0
+      end
+    end
+
+    class TaxTableRow
+      attr_reader :floor, :ceiling, :cumulative, :rate
+
+      def initialize(floor, ceiling, cumulative, rate)
+        @floor = floor
+        @ceiling = ceiling
+        @cumulative = cumulative
+        @rate = rate
+      end
+
+      def compute(amount)
+        # TODO: What if amount is negative?
+        amount_for_rate =
+          if @floor == -Float::INFINITY
+            amount
+          else
+            amount - @floor
+          end
+        @cumulative + (amount_for_rate * @rate)
       end
     end
   end
