@@ -177,6 +177,7 @@ module Efile
       end
 
       def calculate_line_39
+        # TODO: Need to in cooperate Q Widow, married filing separately, no filing status?
         agi = line_or_zero(:AMT_33)
         taxable_income = line_or_zero(:AMT_38)
         if agi <= 107_650
@@ -193,7 +194,7 @@ module Efile
               step_5_flat_tax_extra_amount = step_3_flat_tax - step_4_usual_tax
               step_6_marginal_taxable_amount = agi - 107_650
               step_7 = round_to_decimal(step_6_marginal_taxable_amount / 50_000, 4)
-              step_8 = (step_5_flat_tax_extra_amount * step_7)
+              step_8 = (step_5_flat_tax_extra_amount * step_7).round
               step_4_usual_tax + step_8
             end
           elsif agi > 161_550 && agi <= 25_000_000 && taxable_income > 161_550 && taxable_income <= 323_200
@@ -201,37 +202,38 @@ module Efile
             step_6_marginal_taxable_amount = agi - 161_550
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 646 * step_8
+            step_9 = (646 * step_8).round
             step_3_usual_tax + 430 + step_9
           elsif agi > 323_200 && agi <= 25_000_000 && taxable_income > 323_200 && taxable_income <= 2_155_350
             step_3_usual_tax = nys_tax_from_tables(taxable_income)
             step_6_marginal_taxable_amount = agi - 323_200
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 1_940 * step_8
+            step_9 = (1_940 * step_8).round
             step_3_usual_tax + 1_076 + step_9
           elsif agi > 2155350 && agi <= 25000000 && taxable_income > 2155350 && taxable_income <= 5000000
             step_3_usual_tax = nys_tax_from_tables(taxable_income)
             step_6_marginal_taxable_amount = agi - 2_155_350
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 60_349 * step_8
+            step_9 = (60_349 * step_8).round
             step_3_usual_tax + 3_016 + step_9
           elsif agi > 5_000_000 && agi <= 25_000_000 && taxable_income > 5_000_000
             step_3_usual_tax = nys_tax_from_tables(taxable_income)
             step_6_marginal_taxable_amount = agi - 5_000_000
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 63_365 * step_8
+            step_9 = (63_365 * step_8).round
             step_3_usual_tax + 32_500 + step_9
           elsif agi > 25_050_000
             taxable_income * 0.109
           else
-            # if 25_000_000 < agi < 25_050_000 TODO 
+            # if 25_000_000 < agi < 25_050_000 TODO
+            raise NotImplementedError, "Unsure how to handle AGI in this range"
           end
-        else
+        elsif filing_status_single?
           # filing single
-          if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 215400
+          if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 215_400
             if agi >= 157_650
               taxable_income * 0.0625
             else
@@ -240,7 +242,7 @@ module Efile
               step_5_flat_tax_extra_amount = step_3_flat_tax - step_4_usual_tax
               step_6_marginal_taxable_amount = agi - 107_650
               step_7 = round_to_decimal(step_6_marginal_taxable_amount / 50_000, 4)
-              step_8 = (step_5_flat_tax_extra_amount * step_7)
+              step_8 = (step_5_flat_tax_extra_amount * step_7).round
               step_4_usual_tax + step_8
             end
           elsif agi > 215_400 && agi <= 25_000_000 && taxable_income > 215_400 && taxable_income <= 1_077_550
@@ -248,23 +250,60 @@ module Efile
             step_6_marginal_taxable_amount = agi - 215_400
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 1_293 * step_8
+            step_9 = (1_293 * step_8).round
             step_3_usual_tax + 536 + step_9
           elsif agi > 1_077_550 && agi <= 25_000_000 && taxable_income > 1_077_550 && taxable_income <= 5_000_000
             step_3_usual_tax = nys_tax_from_tables(taxable_income)
             step_6_marginal_taxable_amount = agi - 1_077_550
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 30_171 * step_8
+            step_9 = (30_171 * step_8).round
             step_3_usual_tax + 1_829 + step_9
           elsif agi > 5_000_000 && agi <= 25_000_000 && taxable_income > 5_000_000
             step_3_usual_tax = nys_tax_from_tables(taxable_income)
             step_6_marginal_taxable_amount = agi - 5_000_000
             step_7 = [step_6_marginal_taxable_amount, 50_000].min
             step_8 = round_to_decimal(step_7 / 50_000, 4)
-            step_9 = 32_500 * step_8
+            step_9 = (32_500 * step_8).round
             step_3_usual_tax + 32_000 + step_9
           else
+            taxable_income * 0.109
+          end
+        else
+          if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 269_300
+            if agi >= 157_650
+              taxable_income * 0.0625
+            else
+              step_3_flat_tax = (taxable_income * 0.0625).round
+              step_4_usual_tax = nys_tax_from_tables(taxable_income)
+              step_5_flat_tax_extra_amount = step_3_flat_tax - step_4_usual_tax
+              step_6_marginal_taxable_amount = agi - 107_650
+              step_7 = round_to_decimal(step_6_marginal_taxable_amount / 50_000, 4)
+              step_8 = (step_5_flat_tax_extra_amount * step_7).round
+              step_4_usual_tax + step_8
+            end
+          elsif agi > 269_300 && agi <= 25_000_000 && taxable_income > 269_300 && taxable_income <= 1_616_450
+            step_3_usual_tax = nys_tax_from_tables(taxable_income)
+            step_6_marginal_taxable_amount = agi - 269_300
+            step_7 = [step_6_marginal_taxable_amount, 50_000].min
+            step_8 = round_to_decimal(step_7 / 50_000, 4)
+            step_9 = (1_616 * step_8).round
+            step_3_usual_tax + 752 + step_9
+          elsif agi > 1_616_450 && agi <= 25_000_000 && taxable_income > 1_616_450 && taxable_income <= 5_000_000
+            step_3_usual_tax = nys_tax_from_tables(taxable_income)
+            step_6_marginal_taxable_amount = agi - 1_616_450
+            step_7 = [step_6_marginal_taxable_amount, 50_000].min
+            step_8 = round_to_decimal(step_7 / 50_000, 4)
+            step_9 = (45_261 * step_8).round
+            step_3_usual_tax + 2_368 + step_9
+          elsif agi > 5_000_000 && agi <= 25_000_000 && taxable_income > 5_000_000
+            step_3_usual_tax = nys_tax_from_tables(taxable_income)
+            step_6_marginal_taxable_amount = agi - 5_000_000
+            step_7 = [step_6_marginal_taxable_amount, 50_000].min
+            step_8 = round_to_decimal(step_7 / 50_000, 4)
+            step_9 = (32_500 * step_8).round
+            step_3_usual_tax + 47_629 + step_9
+          elsif agi > 25_000_000
             taxable_income * 0.109
           end
         end
