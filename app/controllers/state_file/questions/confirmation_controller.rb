@@ -15,6 +15,10 @@ module StateFile
       end
 
       def explain_calculations
+        # fixes Rails hot reload, see method source gem PR #73
+        if Rails.env.development?
+          MethodSource.instance_variable_set(:@lines_for_file, {})
+        end
         @calculator = current_intake.tax_calculator
         @calculator.calculate
       end
