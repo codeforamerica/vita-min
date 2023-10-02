@@ -3,7 +3,13 @@ module StateFile
     include DateHelper
 
     set_attributes_for :intake,
-                       :claimed_as_dep
+                       :claimed_as_dep,
+                       :primary_first_name,
+                       :primary_middle_initial,
+                       :primary_last_name,
+                       :spouse_first_name,
+                       :spouse_middle_initial,
+                       :spouse_last_name
 
     set_attributes_for :direct_file_data,
                        :tax_return_year,
@@ -13,14 +19,8 @@ module StateFile
                        :primary_dob_year,
                        :primary_dob_month,
                        :primary_dob_day,
-                       :primary_first_name,
-                       :primary_middle_initial,
-                       :primary_last_name,
                        :primary_ssn,
                        :primary_occupation,
-                       :spouse_first_name,
-                       :spouse_middle_initial,
-                       :spouse_last_name,
                        :spouse_dob_year,
                        :spouse_dob_month,
                        :spouse_dob_day,
@@ -43,15 +43,9 @@ module StateFile
         :tax_return_year,
         :phone_daytime,
         :phone_daytime_area_code,
-        :primary_first_name,
-        :primary_middle_initial,
-        :primary_last_name,
         :primary_dob_year,
         :primary_dob_month,
         :primary_dob_day,
-        :spouse_first_name,
-        :spouse_middle_initial,
-        :spouse_last_name,
         :spouse_dob_year,
         :spouse_dob_month,
         :spouse_dob_day,
@@ -67,8 +61,7 @@ module StateFile
       end
 
       @intake.direct_file_data.primary_dob = parse_date_params(primary_dob_year, primary_dob_month, primary_dob_day)
-      # TODO spouse
-      # @intake.direct_file_data.spouse_dob = parse_date_params(spouse_dob_year, spouse_dob_month, spouse_dob_day)
+      @intake.direct_file_data.spouse_dob = parse_date_params(spouse_dob_year, spouse_dob_month, spouse_dob_day)
 
       @intake.update(
         attributes_for(:intake)
@@ -79,7 +72,7 @@ module StateFile
     end
 
     def self.existing_attributes(intake)
-      attributes = HashWithIndifferentAccess.new(intake.direct_file_data.attributes)
+      attributes = HashWithIndifferentAccess.new(intake.attributes.merge(intake.direct_file_data.attributes))
       if attributes[:primary_dob].present?
         birth_date = attributes[:primary_dob]
         attributes.merge!(

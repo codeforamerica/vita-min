@@ -42,19 +42,18 @@ class StateFileBaseIntake < ApplicationRecord
       @primary_or_spouse = primary_or_spouse
       if primary_or_spouse == :primary
         # TODO TODO TODO -- pull off intake.direct_file_data or somewhere TBD
-        @first_name = "Testy"
-        @last_name = "Testerson"
-        @middle_initial = "T"
+        @first_name = intake.primary_first_name
+        @last_name = intake.primary_last_name
+        @middle_initial = intake.primary_middle_initial
 
         @birth_date = intake.direct_file_data.primary_dob
         @ssn = intake.direct_file_data.primary_ssn
       else
-        # TODO
-        # @first_name = intake.spouse_first_name
-        # @last_name = intake.spouse_last_name
-        # @middle_initial = intake.spouse_middle_initial
-        # @birth_date = intake.spouse_dob
-        # @ssn = intake.spouse_ssn
+        @first_name = intake.spouse_first_name
+        @last_name = intake.spouse_last_name
+        @middle_initial = intake.spouse_middle_initial
+        @birth_date = intake.direct_file_data.spouse_dob
+        @ssn = intake.direct_file_data.spouse_ssn
       end
     end
   end

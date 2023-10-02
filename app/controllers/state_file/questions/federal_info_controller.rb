@@ -37,8 +37,11 @@ module StateFile
         case params[:us_state]
         when "ny"
           intake = StateFileNyIntake.create(
+            primary_first_name: "Testy",
+            primary_middle_initial: "T",
+            primary_last_name: "Testerson",
             claimed_as_dep: "no",
-            primary_email: "statesy@example.com",
+            primary_email: "whatever@example.com",
             date_electronic_withdrawal: Date.today,
             residence_county: "County",
             school_district: "Pizza District",
@@ -80,6 +83,9 @@ module StateFile
         when "az"
           intake = StateFileAzIntake.create(
             claimed_as_dep: "no",
+            primary_first_name: "Testy",
+            primary_middle_initial: "T",
+            primary_last_name: "Testerson",
           )
         else
           raise "No state specified"

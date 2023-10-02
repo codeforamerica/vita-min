@@ -36,6 +36,9 @@
 #  permanent_street               :string
 #  permanent_zip                  :string
 #  primary_email                  :string
+#  primary_first_name             :string
+#  primary_last_name              :string
+#  primary_middle_initial         :string
 #  primary_signature              :string
 #  property_over_limit            :integer          default("unfilled"), not null
 #  public_housing                 :integer          default("unfilled"), not null
@@ -46,6 +49,9 @@
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  spouse_first_name              :string
+#  spouse_last_name               :string
+#  spouse_middle_initial          :string
 #  spouse_signature               :string
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
@@ -59,6 +65,8 @@ FactoryBot.define do
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     claimed_as_dep { 'no' }
+    primary_first_name { "New" }
+    primary_last_name { "Yorker" }
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }

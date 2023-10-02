@@ -1555,7 +1555,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.integer "claimed_as_dep"
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
     t.text "raw_direct_file_data"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
@@ -1610,6 +1616,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.string "permanent_street"
     t.string "permanent_zip"
     t.string "primary_email"
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
     t.string "primary_signature"
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
@@ -1620,6 +1629,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.integer "sales_use_tax"
     t.string "school_district"
     t.integer "school_district_number"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
     t.string "spouse_signature"
     t.datetime "updated_at", null: false
     t.string "visitor_id"

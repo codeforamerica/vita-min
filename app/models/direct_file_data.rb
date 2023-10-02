@@ -37,20 +37,10 @@ class DirectFileData
   end
 
   def primary_dob=(date)
-    parsed_xml.at('SelfSelectPINGrp PrimaryBirthDt').content = date.strftime("%Y-%m-%d")
+    parsed_xml.at('SelfSelectPINGrp PrimaryBirthDt').content = date&.strftime("%Y-%m-%d")
   end
 
-  def primary_first_name
-    # TODO
-  end
-
-  def primary_middle_initial
-    # TODO
-  end
-
-  def primary_last_name
-    # TODO
-  end
+  # TODO: primary_first_name, primary_last_name and primary_middle_initial need to come over from DF 
 
   def primary_ssn
     parsed_xml.at('Filer PrimarySSN')&.text
@@ -68,24 +58,28 @@ class DirectFileData
     parsed_xml.at('PrimaryOccupationTxt').content = value
   end
 
-  def spouse_first_name
-    # TODO
-  end
-
-  def spouse_middle_initial
-    # TODO
-  end
-
-  def spouse_last_name
-    # TODO
-  end
+  # TODO: spouse_first_name, spouse_last_name and spouse_middle_initial need to come over from DF 
 
   def spouse_dob
-    # TODO
+    raw_date = parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')&.text
+    Date.parse(raw_date) if raw_date.present?
+  end
+
+  def spouse_dob=(date)
+    if date && !parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')
+      parsed_xml.at('SelfSelectPINGrp').add_child('<SpouseBirthDt/>')
+    end
+    if parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')
+      parsed_xml.at('SelfSelectPINGrp SpouseBirthDt').content = date&.strftime("%Y-%m-%d")
+    end
   end
 
   def spouse_ssn
-    # TODO
+    parsed_xml.at('Filer PrimarySSN')&.text
+  end
+
+  def spouse_ssn=(value)
+    parsed_xml.at('Filer PrimarySSN').content = value
   end
 
   def spouse_occupation
@@ -189,14 +183,8 @@ class DirectFileData
       :phone_daytime,
       :phone_daytime_area_code,
       :primary_dob,
-      :primary_first_name,
-      :primary_middle_initial,
-      :primary_last_name,
       :primary_ssn,
       :primary_occupation,
-      :spouse_first_name,
-      :spouse_middle_initial,
-      :spouse_last_name,
       :spouse_dob,
       :spouse_ssn,
       :spouse_occupation,
