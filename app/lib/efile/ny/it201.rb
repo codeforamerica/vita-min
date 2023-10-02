@@ -120,6 +120,8 @@ module Efile
           else
             8000
           end
+        elsif filing_status_hoh?
+          11200
         elsif filing_status_mfj?
           16050
         end
@@ -370,6 +372,10 @@ module Efile
         else
           @lines["F_1_NBR"]&.value == 12
         end
+      end
+
+      def filing_status_hoh?
+        @filing_status == :head_of_household
       end
 
       def filing_status_mfj?

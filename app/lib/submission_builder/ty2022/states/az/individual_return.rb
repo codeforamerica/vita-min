@@ -48,10 +48,10 @@ module SubmissionBuilder
                 xml.FedAdjGrossIncome calculated_fields[:AMT_12]
                 xml.ModFedAdjGrossInc calculated_fields[:AMT_14]
               end
-              xml.AzAdjSubtotal @submission.data_source.fed_agi
-              xml.TotalSubtractions @submission.data_source.fed_agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
-              xml.Subtotal @submission.data_source.fed_agi # subtract line 36 from 35
-              xml.AZAdjGrossIncome @submission.data_source.fed_agi
+              xml.AzAdjSubtotal @submission.data_source.direct_file_data.fed_agi
+              xml.TotalSubtractions @submission.data_source.direct_file_data.fed_agi # Subtract lines 24 through 34c from line 19 (AzAdjSubtotal)
+              xml.Subtotal @submission.data_source.direct_file_data.fed_agi # subtract line 36 from 35
+              xml.AZAdjGrossIncome @submission.data_source.direct_file_data.fed_agi
               xml.DeductionAmt do
                 xml.DeductionTypeIndc "Standard"
                 xml.AZDeductions STANDARD_DEDUCTIONS.fetch(@submission.data_source.filing_status.to_sym)

@@ -10,11 +10,6 @@
 #  claimed_as_dep                 :integer          not null
 #  current_step                   :string
 #  date_electronic_withdrawal     :date
-#  fed_taxable_income             :integer
-#  fed_taxable_ssb                :integer
-#  fed_unemployment               :integer
-#  fed_wages                      :integer
-#  filing_status                  :integer          not null
 #  household_cash_assistance      :integer
 #  household_fed_agi              :integer
 #  household_ny_additions         :integer
@@ -25,12 +20,8 @@
 #  household_rent_amount          :integer
 #  household_rent_own             :integer          default("unfilled"), not null
 #  household_ssi                  :integer
-#  mailing_apartment              :string
-#  mailing_city                   :string
 #  mailing_country                :string
 #  mailing_state                  :string
-#  mailing_street                 :string
-#  mailing_zip                    :string
 #  nursing_home                   :integer          default("unfilled"), not null
 #  ny_414h_retirement             :integer
 #  ny_mailing_apartment           :string
@@ -44,35 +35,24 @@
 #  permanent_city                 :string
 #  permanent_street               :string
 #  permanent_zip                  :string
-#  phone_daytime                  :string
-#  phone_daytime_area_code        :string
-#  primary_dob                    :date
 #  primary_email                  :string
 #  primary_first_name             :string
 #  primary_last_name              :string
 #  primary_middle_initial         :string
-#  primary_occupation             :string
 #  primary_signature              :string
-#  primary_ssn                    :string
 #  property_over_limit            :integer          default("unfilled"), not null
 #  public_housing                 :integer          default("unfilled"), not null
+#  raw_direct_file_data           :text
 #  refund_choice                  :integer          default("unfilled"), not null
 #  residence_county               :string
 #  routing_number                 :string
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
-#  spouse_dob                     :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string
 #  spouse_middle_initial          :string
-#  spouse_occupation              :string
 #  spouse_signature               :string
-#  spouse_ssn                     :string
-#  tax_return_year                :integer
-#  total_fed_adjustments          :integer
-#  total_fed_adjustments_identify :string
-#  total_state_tax_withheld       :integer
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  visitor_id                     :string
@@ -90,25 +70,26 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def tax_calculator
     field_by_line_id = {
-      AMT_1: :fed_wages,
-      AMT_2: :fed_taxable_income,
-      AMT_14: :fed_unemployment,
-      AMT_15: :fed_taxable_ssb,
-      AMT_18: :total_fed_adjustments,
+      AMT_1: [self.direct_file_data, :fed_wages],
+      AMT_2: [self.direct_file_data, :fed_taxable_income],
+      AMT_14: [self.direct_file_data, :fed_unemployment],
+      AMT_15: [self.direct_file_data, :fed_taxable_ssb],
+      AMT_18: [self.direct_file_data, :total_fed_adjustments],
       AMT_21: 0, # TODO: this will be a certain subset of the w2 income
-      AMT_23: :ny_other_additions,
-      AMT_27: :fed_taxable_ssb,
-      AMT_59: :sales_use_tax,
-      AMT_72: :total_state_tax_withheld,
+      AMT_23: [self, :ny_other_additions],
+      AMT_27: [self.direct_file_data, :fed_taxable_ssb],
+      AMT_59: [self, :sales_use_tax],
+      AMT_72: [self.direct_file_data, :total_state_tax_withheld],
       # AMT_73: :total_city_tax_withheld, TODO
     }
     input_lines = {}
-    field_by_line_id.each do |line_id, field|
+    field_by_line_id.each do |line_id, value|
       input_lines[line_id] =
-        if field.is_a?(Symbol)
-          Efile::TaxFormLine.from_data_source(line_id, self, field)
+        if value.is_a?(Array)
+          source, field = value
+          Efile::TaxFormLine.from_data_source(line_id, source, field)
         else
-          Efile::TaxFormLine.new(line_id, field, "Static", [])
+          Efile::TaxFormLine.new(line_id, value, "Static", [])
         end
     end
     Efile::Ny::It201.new(

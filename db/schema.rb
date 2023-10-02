@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1555,33 +1555,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
     t.integer "claimed_as_dep"
     t.datetime "created_at", null: false
     t.string "current_step"
-    t.integer "fed_taxable_income"
-    t.integer "fed_taxable_ssb"
-    t.integer "fed_unemployment"
-    t.integer "fed_wages"
-    t.integer "filing_status"
-    t.string "mailing_apartment"
-    t.string "mailing_city"
-    t.string "mailing_street"
-    t.string "mailing_zip"
-    t.string "phone_daytime"
-    t.string "phone_daytime_area_code"
-    t.date "primary_dob"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.string "primary_occupation"
-    t.string "primary_ssn"
-    t.date "spouse_dob"
+    t.text "raw_direct_file_data"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.string "spouse_occupation"
-    t.string "spouse_ssn"
-    t.integer "tax_return_year"
-    t.integer "total_fed_adjustments"
-    t.string "total_fed_adjustments_identify"
-    t.integer "total_state_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
@@ -1610,11 +1590,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
     t.datetime "created_at", null: false
     t.string "current_step"
     t.date "date_electronic_withdrawal"
-    t.integer "fed_taxable_income"
-    t.integer "fed_taxable_ssb"
-    t.integer "fed_unemployment"
-    t.integer "fed_wages"
-    t.integer "filing_status", null: false
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"
@@ -1625,12 +1600,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
     t.integer "household_rent_amount"
     t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
-    t.string "mailing_apartment"
-    t.string "mailing_city"
     t.string "mailing_country"
     t.string "mailing_state"
-    t.string "mailing_street"
-    t.string "mailing_zip"
     t.integer "nursing_home", default: 0, null: false
     t.integer "ny_414h_retirement"
     t.string "ny_mailing_apartment"
@@ -1644,35 +1615,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_195457) do
     t.string "permanent_city"
     t.string "permanent_street"
     t.string "permanent_zip"
-    t.string "phone_daytime"
-    t.string "phone_daytime_area_code"
-    t.date "primary_dob"
     t.string "primary_email"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.string "primary_occupation"
     t.string "primary_signature"
-    t.string "primary_ssn"
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
+    t.text "raw_direct_file_data"
     t.integer "refund_choice", default: 0, null: false
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sales_use_tax"
     t.string "school_district"
     t.integer "school_district_number"
-    t.date "spouse_dob"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.string "spouse_occupation"
     t.string "spouse_signature"
-    t.string "spouse_ssn"
-    t.integer "tax_return_year"
-    t.integer "total_fed_adjustments"
-    t.string "total_fed_adjustments_identify"
-    t.integer "total_state_tax_withheld"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
