@@ -332,7 +332,7 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_gyr_intake?
 
   def open_for_finishing_in_progress_intakes?
-    app_time >= Rails.configuration.end_of_finishing_in_progress_intake && app_time <= Rails.configuration.end_of_login
+    app_time >= Rails.configuration.end_of_intake && app_time <= Rails.configuration.end_of_finishing_in_progress_intake
   end
   helper_method :open_for_finishing_in_progress_intakes?
 
