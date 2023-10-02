@@ -16,7 +16,7 @@ class DirectFileData
   end
 
   def filing_status
-    parsed_xml.at('IndividualReturnFilingStatusCd')&.text
+    parsed_xml.at('IndividualReturnFilingStatusCd')&.text&.to_i
   end
 
   def phone_daytime
@@ -114,6 +114,14 @@ class DirectFileData
     # TODO
   end
 
+  def mailing_state
+    parsed_xml.at('USAddress StateAbbreviationCd')&.text
+  end
+
+  def mailing_state=(value)
+    parsed_xml.at('USAddress StateAbbreviationCd').content = value
+  end
+
   def mailing_zip
     parsed_xml.at('USAddress ZIPCd')&.text
   end
@@ -155,15 +163,15 @@ class DirectFileData
   end
 
   def total_fed_adjustments_identify
-    # TODO
+    "wrenches" # TODO
   end
 
   def total_fed_adjustments
-    # TODO
+    0 # TODO
   end
 
   def total_state_tax_withheld
-    # TODO
+    0 # TODO
   end
 
   def attributes

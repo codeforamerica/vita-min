@@ -53,29 +53,13 @@
 #
 FactoryBot.define do
   factory :state_file_ny_intake do
-    tax_return_year { 2022 }
+    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     claimed_as_dep { 'no' }
-    filing_status { 'single' }
-    primary_first_name { "New" }
-    primary_last_name { "Yorker" }
-    primary_ssn { "123445555" }
-    primary_dob { Date.new(1985, 1, 3) }
-    mailing_street { "123 main st" }
-    mailing_city { "New York" }
-    mailing_state { "NY" }
-    mailing_zip { "10001" }
-    permanent_street { mailing_street }
-    permanent_city { mailing_city }
-    permanent_zip { mailing_zip }
+    permanent_street { direct_file_data.mailing_street }
+    permanent_city { direct_file_data.mailing_city }
+    permanent_zip { direct_file_data.mailing_zip }
     nyc_resident_e { 'yes' }
     school_district { 123 }
     school_district_number { 'Cool School' }
-    fed_wages { 123 }
-    fed_taxable_income { 12 }
-    fed_unemployment { 34 }
-    fed_taxable_ssb { 4 }
-    total_fed_adjustments_identify { "wrenches" }
-    total_fed_adjustments { 45 }
-    total_state_tax_withheld { 56 }
   end
 end

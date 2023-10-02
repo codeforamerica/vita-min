@@ -1,7 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
   self.abstract_class = true
 
-  enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   enum claimed_as_dep: { yes: 1, no: 2 }, _prefix: :claimed_as_dep
   has_one_attached :submission_pdf
 
@@ -12,6 +11,16 @@ class StateFileBaseIntake < ApplicationRecord
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
+  end
+
+  def filing_status
+    {
+      1 => :single,
+      2 => :married_filing_jointly,
+      3 => :married_filing_separately,
+      4 => :head_of_household,
+      5 => :qualifying_widow,
+    }[direct_file_data&.filing_status]
   end
 
   def primary

@@ -12,15 +12,7 @@
 #
 FactoryBot.define do
   factory :state_file_az_intake do
-    tax_return_year { 2022 }
+    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     claimed_as_dep { 'no' }
-    filing_status { 'single' }
-    primary_first_name { "Ariz" }
-    primary_last_name { "Onian" }
-    primary_ssn { "123445555" }
-    primary_dob { Date.new(1985, 1, 3) }
-    mailing_street { "123 main st" }
-    mailing_city { "Phoenix" }
-    mailing_zip { "85001" }
   end
 end
