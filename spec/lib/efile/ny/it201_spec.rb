@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Efile::Ny::It201 do
   let(:filing_status) { :married_filing_jointly }
+  let(:intake) { create(:state_file_ny_intake) }
   let(:instance) do
     described_class.new(
       year: 2022,
@@ -13,6 +14,7 @@ describe Efile::Ny::It201 do
       },
       it213: Efile::Ny::It213.new(
         filing_status: filing_status,
+        direct_file_data: intake.direct_file_data,
         federal_dependent_child_count: 2,
         under_4_federal_dependent_child_count: 1,
       ),
