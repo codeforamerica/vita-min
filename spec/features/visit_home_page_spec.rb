@@ -49,6 +49,7 @@ RSpec.feature "Visit home page" do
       allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2023, 1, 31))
       allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2023, 4, 18))
       allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2023, 10, 1))
+      allow(Rails.configuration).to receive(:end_of_finishing_in_progress_intake).and_return(DateTime.new(2023, 10, 16))
       allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 23))
     end
 
