@@ -64,25 +64,26 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def tax_calculator
     field_by_line_id = {
-      AMT_1: :fed_wages,
-      AMT_2: :fed_taxable_income,
-      AMT_14: :fed_unemployment,
-      AMT_15: :fed_taxable_ssb,
-      AMT_18: :total_fed_adjustments,
+      AMT_1: [self.direct_file_data, :fed_wages],
+      AMT_2: [self.direct_file_data, :fed_taxable_income],
+      AMT_14: [self.direct_file_data, :fed_unemployment],
+      AMT_15: [self.direct_file_data, :fed_taxable_ssb],
+      AMT_18: [self.direct_file_data, :total_fed_adjustments],
       AMT_21: 0, # TODO: this will be a certain subset of the w2 income
-      AMT_23: :ny_other_additions,
-      AMT_27: :fed_taxable_ssb,
-      AMT_59: :sales_use_tax,
-      AMT_72: :total_state_tax_withheld,
+      AMT_23: [self, :ny_other_additions],
+      AMT_27: [self.direct_file_data, :fed_taxable_ssb],
+      AMT_59: [self, :sales_use_tax],
+      AMT_72: [self.direct_file_data, :total_state_tax_withheld],
       # AMT_73: :total_city_tax_withheld, TODO
     }
     input_lines = {}
-    field_by_line_id.each do |line_id, field|
+    field_by_line_id.each do |line_id, value|
       input_lines[line_id] =
-        if field.is_a?(Symbol)
-          Efile::TaxFormLine.from_data_source(line_id, self, field)
+        if value.is_a?(Array)
+          source, field = value
+          Efile::TaxFormLine.from_data_source(line_id, source, field)
         else
-          Efile::TaxFormLine.new(line_id, field, "Static", [])
+          Efile::TaxFormLine.new(line_id, value, "Static", [])
         end
     end
     Efile::Ny::It201.new(

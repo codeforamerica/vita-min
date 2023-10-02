@@ -53,6 +53,9 @@ RSpec.feature "Completing a state file intake" do
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
+      # Asserting on metadata so we can get a good error if bundling starts to fail
+      # (the metadata will include error_code and raw_response)
+      expect(submission.last_transition.metadata).to eq({})
       expect(submission.submission_bundle).to be_present
       expect(submission.current_state).to eq("queued")
     end
