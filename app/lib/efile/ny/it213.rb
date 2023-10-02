@@ -22,7 +22,15 @@ module Efile
         set_line(:IT213_WORKSHEET_A_LINE_6, :calculate_worksheet_a_line_6)
         if @lines[:IT213_WORKSHEET_A_LINE_6].value > 0
           set_line(:IT213_WORKSHEET_A_LINE_7, :calculate_worksheet_a_line_7)
-
+          # Worksheet A, line 8 implementation depends on assumption that NYS 19 == 19A
+          set_line(:IT213_WORKSHEET_A_LINE_8A, :calculate_worksheet_a_line_8a)
+          set_line(:IT213_WORKSHEET_A_LINE_8B, :calculate_worksheet_a_line_8b)
+          set_line(:IT213_WORKSHEET_A_LINE_8C, :calculate_worksheet_a_line_8c)
+          set_line(:IT213_WORKSHEET_A_LINE_8D, :calculate_worksheet_a_line_8d)
+          set_line(:IT213_WORKSHEET_A_LINE_8E, :calculate_worksheet_a_line_8e)
+          set_line(:IT213_WORKSHEET_A_LINE_8F, :calculate_worksheet_a_line_8f)
+          set_line(:IT213_WORKSHEET_A_LINE_8G, :calculate_worksheet_a_line_8g)
+          set_line(:IT213_WORKSHEET_A_LINE_8H, :calculate_worksheet_a_line_8h)
           # todo: the rest of the owl worksheet
         else
           # TODO: When rest of worksheet A is done, revisit
@@ -72,6 +80,26 @@ module Efile
 
       def calculate_worksheet_a_line_7
         @federal_tax
+      end
+
+      def calculate_worksheet_a_line_8a
+        0 # ForeignTaxCreditAmt is always 0 for us
+      end
+
+      def calculate_worksheet_a_line_8b
+        0 # CreditForChildAndDepdCareAmt is always 0 for us
+      end
+
+      def calculate_worksheet_a_line_8c
+        0 # EducationCreditAmt is always 0 for us
+      end
+
+      def calculate_worksheet_a_line_8d
+        0 # RtrSavingsContributionsCrAmt is always 0 for us
+      end
+
+      def calculate_worksheet_a_line_8e
+
       end
     end
   end
