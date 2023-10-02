@@ -3,10 +3,11 @@ module Efile
     class It213 < ::Efile::TaxCalculator
       attr_accessor :lines, :value_access_tracker
 
-      def initialize(filing_status:, federal_dependent_child_count:, under_4_federal_dependent_child_count:)
+      def initialize(filing_status:, federal_dependent_child_count:, under_4_federal_dependent_child_count:, federal_tax:)
         @filing_status = filing_status
         @federal_dependent_child_count = federal_dependent_child_count
         @under_4_federal_dependent_child_count = under_4_federal_dependent_child_count
+        @federal_tax = federal_tax
       end
 
       def calculate
@@ -21,6 +22,7 @@ module Efile
         set_line(:IT213_WORKSHEET_A_LINE_6, :calculate_worksheet_a_line_6)
         if @lines[:IT213_WORKSHEET_A_LINE_6].value > 0
           set_line(:IT213_WORKSHEET_A_LINE_7, :calculate_worksheet_a_line_7)
+
           # todo: the rest of the owl worksheet
         else
           # TODO: When rest of worksheet A is done, revisit
@@ -69,7 +71,7 @@ module Efile
       end
 
       def calculate_worksheet_a_line_7
-
+        @federal_tax
       end
     end
   end

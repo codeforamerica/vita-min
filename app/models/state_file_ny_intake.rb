@@ -122,6 +122,7 @@ class StateFileNyIntake < StateFileBaseIntake
         filing_status: filing_status.to_sym,
         federal_dependent_child_count: dependents.length,
         under_4_federal_dependent_child_count: dependents.length, # TODO
+        federal_tax: 0, # TotalTaxBeforeCrAndOthTaxesAmt
       ),
       it214: Efile::Ny::It214.new,
       it215: Efile::Ny::It215.new,
