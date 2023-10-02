@@ -49,7 +49,6 @@ module StateFile
         :spouse_dob_year,
         :spouse_dob_month,
         :spouse_dob_day,
-        :spouse_ssn,
         :mailing_apartment,
         :total_fed_adjustments_identify,
         :total_fed_adjustments,
