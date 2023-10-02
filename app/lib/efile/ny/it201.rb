@@ -176,14 +176,13 @@ module Efile
       end
 
       def calculate_line_39
-        # TODO: Need to in cooperate Q Widow, married filing separately, no filing status?
         agi = line_or_zero(:AMT_33)
         taxable_income = line_or_zero(:AMT_38)
         if agi <= 107_650
           return nys_tax_from_tables(taxable_income)
         end
-
-        if filing_status_mfj?
+        case @filing_status
+        when 1 || 5
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 161_550
             if agi >= 157_650
               taxable_income * 0.0585
@@ -230,8 +229,7 @@ module Efile
             # if 25_000_000 < agi < 25_050_000 TODO
             raise NotImplementedError, "Unsure how to handle AGI in this range"
           end
-        elsif filing_status_single?
-          # filing single
+        when 1 || 3
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 215_400
             if agi >= 157_650
               taxable_income * 0.0625
@@ -268,7 +266,7 @@ module Efile
           else
             taxable_income * 0.109
           end
-        else
+        when 4
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 269_300
             if agi >= 157_650
               taxable_income * 0.0625
@@ -305,6 +303,8 @@ module Efile
           elsif agi > 25_000_000
             taxable_income * 0.109
           end
+        else
+          0
         end
       end
 
@@ -383,7 +383,16 @@ module Efile
       end
 
       def calculate_line_69
-        0 # TODO: Import table from https://www.tax.ny.gov/forms/html-instructions/2022/it/it201i-2022.htm 'Line 69'
+        if line_or_zero(:AMT_19) < 250_000 && full_year_nyc_resident?
+          # income calculated as 19a - 9. 9 is not supported and 19a is 19
+          if @filing_status == 1 || 3 || 4
+            63
+          else
+            125
+          end
+        else
+          0 # TODO: Ask product if we should support part-year NYC residents
+        end
       end
 
       def calculate_line_69a
@@ -542,14 +551,6 @@ module Efile
         else
           @lines["F_1_NBR"]&.value == 12
         end
-      end
-
-      def filing_status_mfj?
-        @filing_status == :married_filing_jointly
-      end
-
-      def filing_status_single?
-        @filing_status == :single
       end
 
       def line_or_zero(line)
