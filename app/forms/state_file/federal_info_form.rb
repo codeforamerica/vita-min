@@ -3,9 +3,11 @@ module StateFile
     include DateHelper
 
     set_attributes_for :intake,
+                       :claimed_as_dep
+
+    set_attributes_for :direct_file_data,
                        :tax_return_year,
                        :filing_status,
-                       :claimed_as_dep,
                        :phone_daytime,
                        :phone_daytime_area_code,
                        :primary_dob_year,
@@ -37,19 +39,48 @@ module StateFile
                        :total_state_tax_withheld
 
     def save
-      exceptions = [:primary_dob_year, :primary_dob_month, :primary_dob_day, :spouse_dob_year, :spouse_dob_month, :spouse_dob_day]
+      exceptions = [
+        :tax_return_year,
+        :filing_status,
+        :phone_daytime,
+        :phone_daytime_area_code,
+        :primary_first_name,
+        :primary_middle_initial,
+        :primary_last_name,
+        :primary_dob_year,
+        :primary_dob_month,
+        :primary_dob_day,
+        :spouse_first_name,
+        :spouse_middle_initial,
+        :spouse_last_name,
+        :spouse_dob_year,
+        :spouse_dob_month,
+        :spouse_dob_day,
+        :spouse_ssn,
+        :mailing_apartment,
+        :total_fed_adjustments_identify,
+        :total_fed_adjustments,
+        :total_state_tax_withheld
+      ]
+      attributes_for(:direct_file_data)
+        .except(*exceptions).each do |attribute, value|
+        @intake.direct_file_data.send("#{attribute}=", value)
+      end
+
+      @intake.direct_file_data.primary_dob = parse_date_params(primary_dob_year, primary_dob_month, primary_dob_day)
+      # TODO spouse
+      # @intake.direct_file_data.spouse_dob = parse_date_params(spouse_dob_year, spouse_dob_month, spouse_dob_day)
+
       @intake.update(
         attributes_for(:intake)
-          .except(*exceptions)
           .merge(
-            primary_dob: parse_date_params(primary_dob_year, primary_dob_month, primary_dob_day),
-            spouse_dob: parse_date_params(spouse_dob_year, spouse_dob_month, spouse_dob_day)
+            raw_direct_file_data: intake.direct_file_data.to_s
           )
       )
     end
 
     def self.existing_attributes(intake)
-      attributes = HashWithIndifferentAccess.new(intake.attributes)
+      attributes = HashWithIndifferentAccess.new(intake.direct_file_data.attributes)
       if attributes[:primary_dob].present?
         birth_date = attributes[:primary_dob]
         attributes.merge!(

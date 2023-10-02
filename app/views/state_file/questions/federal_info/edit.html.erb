@@ -10,11 +10,11 @@
     <%= f.cfa_input_field :tax_return_year, "tax return year" %>
 
     <%= f.cfa_select(:filing_status, "filing status", [
-      ["single", "single"],
-      ["married filing jointly", "married_filing_jointly"],
-      ["married filing separately", "married_filing_separately"],
-      ["head of household", "head_of_household"],
-      ["qualifying widow", "qualifying_widow"],
+      ["single", 1],
+      ["married filing jointly", 2],
+      ["married filing separately", 3],
+      ["head of household", 4],
+      ["qualifying widow", 5],
     ]) %>
 
     <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>

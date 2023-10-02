@@ -8,6 +8,12 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
 
+  delegate :tax_return_year, to: :direct_file_data
+
+  def direct_file_data
+    @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
+  end
+
   def primary
     Person.new(self, :primary)
   end
@@ -26,17 +32,19 @@ class StateFileBaseIntake < ApplicationRecord
     def initialize(intake, primary_or_spouse)
       @primary_or_spouse = primary_or_spouse
       if primary_or_spouse == :primary
-        @first_name = intake.primary_first_name
-        @last_name = intake.primary_last_name
-        @middle_initial = intake.primary_middle_initial
-        @birth_date = intake.primary_dob
-        @ssn = intake.primary_ssn
+        # TODO
+        # @first_name = intake.primary_first_name
+        # @last_name = intake.primary_last_name
+        # @middle_initial = intake.primary_middle_initial
+        @birth_date = intake.direct_file_data.primary_dob
+        @ssn = intake.direct_file_data.primary_ssn
       else
-        @first_name = intake.spouse_first_name
-        @last_name = intake.spouse_last_name
-        @middle_initial = intake.spouse_middle_initial
-        @birth_date = intake.spouse_dob
-        @ssn = intake.spouse_ssn
+        # TODO
+        # @first_name = intake.spouse_first_name
+        # @last_name = intake.spouse_last_name
+        # @middle_initial = intake.spouse_middle_initial
+        # @birth_date = intake.spouse_dob
+        # @ssn = intake.spouse_ssn
       end
     end
   end
