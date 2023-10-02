@@ -318,7 +318,7 @@ class ApplicationController < ActionController::Base
   def show_offseason_filing_banner?
     return false if hub?
 
-    app_time >= Rails.configuration.tax_deadline && app_time <= Rails.configuration.end_of_in_progress_intake
+    app_time >= Rails.configuration.tax_deadline && app_time <= Rails.configuration.end_of_finishing_in_progress_intake
   end
   helper_method :show_offseason_filing_banner?
 
@@ -332,7 +332,7 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_gyr_intake?
 
   def open_for_finishing_in_progress_intakes?
-    app_time >= Rails.configuration.end_of_in_progress_intake && app_time <= Rails.configuration.end_of_login
+    app_time >= Rails.configuration.end_of_finishing_in_progress_intake && app_time <= Rails.configuration.end_of_login
   end
   helper_method :open_for_finishing_in_progress_intakes?
 
