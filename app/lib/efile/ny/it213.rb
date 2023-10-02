@@ -13,20 +13,24 @@ module Efile
         # TODO: Do we need to consider Worksheet B?
         # TODO: Only calculate Worksheet A if yes on line 2? Should only happen if they clicked the wrong federal button?
         # TODO: Only run calculate if yes in line 1, and 3
-        # TODO: set_line wants to look for methods prefixed by IT213 hmm
-        set_line(:WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
-        set_line(:WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
-        set_line(:WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
-        set_line(:WORKSHEET_A_LINE_4, :calculate_worksheet_a_line_4)
-        set_line(:WORKSHEET_A_LINE_5, :calculate_worksheet_a_line_5)
-        set_line(:AMT_16, -> { 0 })
+        set_line(:IT213_WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
+        set_line(:IT213_WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
+        set_line(:IT213_WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
+        set_line(:IT213_WORKSHEET_A_LINE_4, :calculate_worksheet_a_line_4)
+        set_line(:IT213_WORKSHEET_A_LINE_5, :calculate_worksheet_a_line_5)
+        set_line(:IT213_WORKSHEET_A_LINE_6, :calculate_worksheet_a_line_6)
+        if @lines[:IT213_WORKSHEET_A_LINE_6].value > 0
+          set_line(:IT213_WORKSHEET_A_LINE_7, :calculate_worksheet_a_line_7)
+          # todo: the rest of the owl worksheet
+        else
+          # TODO: When rest of worksheet A is done, revisit
+          set_line(:IT213_AMT_6, -> { 0 })
+          set_line(:IT213_AMT_7, -> { 0 })
+        end
+        set_line(:IT213_AMT_16, -> { 0 })
       end
 
       private
-
-      def set_line(line_id, value_fn)
-        super("IT213_#{line_id}", value_fn)
-      end
 
       def calculate_worksheet_a_line_1
         @federal_dependent_child_count * 1000
@@ -52,18 +56,20 @@ module Efile
       def calculate_worksheet_a_line_4
         if @lines[:IT213_WORKSHEET_A_LINE_2].value > @lines[:IT213_WORKSHEET_A_LINE_3].value
           subtotal = @lines[:IT213_WORKSHEET_A_LINE_2].value - @lines[:IT213_WORKSHEET_A_LINE_3].value
-          subtotal.ceil(-3) # Round up to nearest 1000
-        else
-          nil
+          subtotal.ceil(-3) # Round up to next 1000
         end
       end
 
       def calculate_worksheet_a_line_5
-        if @lines[:IT213_WORKSHEET_A_LINE_4].value.nil?
-          0
-        else
-          @lines[:IT213_WORKSHEET_A_LINE_4] * 0.05
-        end
+        line_or_zero(:IT213_WORKSHEET_A_LINE_4) * 0.05
+      end
+
+      def calculate_worksheet_a_line_6
+        [@lines[:IT213_WORKSHEET_A_LINE_1].value - @lines[:IT213_WORKSHEET_A_LINE_5].value, 0].max
+      end
+
+      def calculate_worksheet_a_line_7
+
       end
     end
   end
