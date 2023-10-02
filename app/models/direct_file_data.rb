@@ -130,6 +130,10 @@ class DirectFileData
     parsed_xml.at('USAddress ZIPCd').content = value
   end
 
+  def fed_agi
+    parsed_xml.at('ReturnData AdjustedGrossIncomeAmt')&.text&.to_i
+  end
+
   def fed_wages
     parsed_xml.at('WagesAmt')&.text&.to_i
   end

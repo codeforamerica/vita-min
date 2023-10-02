@@ -11,22 +11,18 @@
 #  visitor_id           :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  def fed_agi
-    # TODO: When we store XML, delete the arithmetic and rely on the fed AGI in the XML.
-    [fed_wages, fed_taxable_income, fed_unemployment, fed_taxable_ssb].compact.sum
-  end
-
   def tax_calculator
     field_by_line_id = {
-      AMT_12: :fed_agi
+      AMT_12: [self.direct_file_data, :fed_agi],
     }
     input_lines = {}
-    field_by_line_id.each do |line_id, field|
+    field_by_line_id.each do |line_id, value|
       input_lines[line_id] =
-        if field.is_a?(Symbol)
-          Efile::TaxFormLine.from_data_source(line_id, self, field)
+        if value.is_a?(Array)
+          source, field = value
+          Efile::TaxFormLine.from_data_source(line_id, source, field)
         else
-          Efile::TaxFormLine.new(line_id, field, "Static", [])
+          Efile::TaxFormLine.new(line_id, value, "Static", [])
         end
     end
     Efile::Az::Az140.new(
