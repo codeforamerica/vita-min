@@ -41,7 +41,6 @@ module StateFile
     def save
       exceptions = [
         :tax_return_year,
-        :filing_status,
         :phone_daytime,
         :phone_daytime_area_code,
         :primary_first_name,

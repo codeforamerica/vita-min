@@ -19,6 +19,10 @@ class DirectFileData
     parsed_xml.at('IndividualReturnFilingStatusCd')&.text&.to_i
   end
 
+  def filing_status=(value)
+    parsed_xml.at('IndividualReturnFilingStatusCd').content = value
+  end
+
   def phone_daytime
     # TODO
   end

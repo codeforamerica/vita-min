@@ -53,6 +53,10 @@
 #
 FactoryBot.define do
   factory :state_file_ny_intake do
+    transient do
+      filing_status { 'single' }
+    end
+
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     claimed_as_dep { 'no' }
     permanent_street { direct_file_data.mailing_street }
@@ -61,5 +65,18 @@ FactoryBot.define do
     nyc_resident_e { 'yes' }
     school_district { 123 }
     school_district_number { 'Cool School' }
+
+    after(:build) do |intake, evaluator|
+      if evaluator.filing_status
+        numeric_status = {
+          single: 1,
+          married_filing_jointly: 2,
+          married_filing_separately: 3,
+          head_of_household: 4,
+          qualifying_widow: 5,
+        }[evaluator.filing_status.to_sym] || evaluator.filing_status
+        intake.direct_file_data.filing_status = numeric_status
+      end
+    end
   end
 end
