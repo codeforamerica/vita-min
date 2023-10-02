@@ -38,7 +38,7 @@ module Efile
         end
 
         set_line(:IT213_AMT_8, :calculate_line_8)
-        if @lines[:IT213_WORKSHEET_A_LINE_8].value > 0
+        if @lines[:IT213_AMT_8].value > 0
           set_line(:IT213_AMT_9, :calculate_line_9)
           set_line(:IT213_AMT_10, :calculate_line_10)
           set_line(:IT213_AMT_11, :calculate_line_11)
@@ -49,7 +49,7 @@ module Efile
             set_line(:IT213_AMT_15, :calculate_line_15)
             set_line(:IT213_AMT_16, :calculate_line_16)
           else
-            set_line(:IT213_AMT_16, -> { @lines[:IT213_WORKSHEET_A_LINE_13].value })
+            set_line(:IT213_AMT_16, -> { @lines[:IT213_AMT_13].value })
           end
           # TODO: if spouse filing separate line 17 and 18
         else
@@ -130,7 +130,7 @@ module Efile
       end
 
       def calculate_line_13
-        @lines[:IT213_AMT_12].value * 0.33
+        (@lines[:IT213_AMT_12].value * 0.33).round
       end
 
       def calculate_line_14

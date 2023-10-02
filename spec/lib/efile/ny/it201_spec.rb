@@ -27,7 +27,7 @@ describe Efile::Ny::It201 do
   describe '#calculate' do
     it "populates line info for related documents like the 213" do
       instance.calculate
-      expect(instance.lines[:IT213_AMT_16].value).to eq(0)
+      expect(instance.lines[:IT213_AMT_16].value).to eq(185)
     end
   end
 
