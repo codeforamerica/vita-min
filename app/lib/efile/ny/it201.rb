@@ -398,6 +398,7 @@ module Efile
       def calculate_line_69a
         return 0 unless @nyc_full_year_resident && @claimed_as_dependent == false
 
+
         nyc_taxable_income = line_or_zero(:AMT_47)
         result = case @filing_status
                  when :married_filing_jointly, :qualifying_widow
@@ -421,7 +422,7 @@ module Efile
                  else
                    raise "Unknown filing status!"
                  end
-        result.round
+        (result || 0).round
       end
 
       def calculate_line_70
@@ -471,17 +472,17 @@ module Efile
         table =
           if filing_status_mfj?
             [
-              row.new(0, 21600, 0, 0.03078),
+              row.new(-Float::INFINITY, 21600, 0, 0.03078),
               row.new(21600, 45000, 665, 0.03762),
               row.new(45000, 90000, 1545, 0.03819),
-              row.new(90000, 0, 3264, 0.03876)
+              row.new(90000, Float::INFINITY, 3264, 0.03876)
             ]
           else
             [
-              row.new(0, 12000, 0, 0.03078),
+              row.new(-Float::INFINITY, 12000, 0, 0.03078),
               row.new(12000, 25000, 369, 0.03762),
               row.new(25000, 50000, 858, 0.03819),
-              row.new(50000, 0, 1813, 0.03876)
+              row.new(50000, Float::INFINITY, 1813, 0.03876)
             ]
           end
 
@@ -489,7 +490,7 @@ module Efile
           amount > table_row.floor && (amount <= table_row.ceiling)
         end
 
-        (table_row.cumulative + ((amount - table_row.floor) * table_row.rate)).round
+        (table_row.cumulative + ((table_row.floor == -Float::INFINITY ? amount : amount - table_row.floor) * table_row.rate)).round
       end
 
       def nys_household_credit(amount)
