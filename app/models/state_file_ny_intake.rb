@@ -29,7 +29,7 @@
 #  ny_mailing_street              :string
 #  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
-#  nyc_resident_e                 :integer          default("unfilled"), not null
+#  nyc_full_year_resident         :integer          default("unfilled"), not null
 #  occupied_residence             :integer          default("unfilled"), not null
 #  permanent_apartment            :string
 #  permanent_city                 :string
@@ -58,7 +58,7 @@
 #  visitor_id                     :string
 #
 class StateFileNyIntake < StateFileBaseIntake
-  enum nyc_resident_e: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_resident_e
+  enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
   enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
   enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
@@ -97,6 +97,7 @@ class StateFileNyIntake < StateFileBaseIntake
       year: 2022,
       filing_status: filing_status.to_sym,
       claimed_as_dependent: claimed_as_dep_yes?,
+      nyc_full_year_resident: nyc_full_year_resident_yes?,
       dependent_count: dependents.length,
       input_lines: input_lines,
       it213: Efile::Ny::It213.new(

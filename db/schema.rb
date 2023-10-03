@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_204859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -708,6 +708,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
+    t.index ["hashed_ssn"], name: "index_dependents_on_hashed_ssn"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
   end
 
@@ -1380,6 +1381,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
+    t.index ["hashed_spouse_ssn"], name: "index_intakes_on_hashed_spouse_ssn"
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
@@ -1609,7 +1611,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_053313) do
     t.string "ny_mailing_street"
     t.string "ny_mailing_zip"
     t.integer "ny_other_additions"
-    t.integer "nyc_resident_e", default: 0, null: false
+    t.integer "nyc_full_year_resident", default: 0, null: false
     t.integer "occupied_residence", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"
