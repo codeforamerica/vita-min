@@ -29,7 +29,7 @@
 #  ny_mailing_street              :string
 #  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
-#  nyc_full_year_resident         :integer          default(0), not null
+#  nyc_full_year_resident         :integer          default("unfilled"), not null
 #  occupied_residence             :integer          default("unfilled"), not null
 #  permanent_apartment            :string
 #  permanent_city                 :string
