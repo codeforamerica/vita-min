@@ -3446,8 +3446,6 @@ es:
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
-        file:
-          header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         header: Declare sus impuestos sin costo. ¡Es sencillo!
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
