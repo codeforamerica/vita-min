@@ -9,6 +9,7 @@ module StateFile
           redirect_to action: :edit, us_state: params[:us_state]
         else
           create_sample_intake
+          current_intake.update(raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')))
           redirect_to action: :edit, us_state: params[:us_state]
         end
       end
@@ -36,35 +37,11 @@ module StateFile
         case params[:us_state]
         when "ny"
           intake = StateFileNyIntake.create(
-            tax_return_year: 2022,
-            filing_status: :single,
-            primary_first_name: "Statesy",
-            primary_middle_initial: "M",
-            primary_last_name: "Filerton",
-            primary_dob: Date.new(1970, 5, 18),
-            primary_ssn: "555002222",
-            primary_occupation: "plumber",
-            mailing_city: "New York",
-            mailing_street: "45 Rockefeller Plaza",
-            mailing_apartment: "B",
-            mailing_zip: "10111",
+            primary_first_name: "Testy",
+            primary_middle_initial: "T",
+            primary_last_name: "Testerson",
             claimed_as_dep: "no",
-            phone_daytime: "5551212",
-            phone_daytime_area_code: "888",
-            spouse_first_name: "NewYork",
-            spouse_middle_initial: "E",
-            spouse_last_name: "Filerton",
-            spouse_dob: Date.new(1971, 6, 3),
-            spouse_ssn: "555001111",
-            spouse_occupation: "plumber",
-            fed_wages: 123,
-            fed_taxable_income: 12,
-            fed_unemployment: 34,
-            fed_taxable_ssb: 4,
-            total_fed_adjustments_identify: "wrenches",
-            total_fed_adjustments: 45,
-            total_state_tax_withheld: 56,
-            primary_email: "statesy@example.com",
+            primary_email: "whatever@example.com",
             date_electronic_withdrawal: Date.today,
             residence_county: "County",
             school_district: "Pizza District",
@@ -105,33 +82,10 @@ module StateFile
           )
         when "az"
           intake = StateFileAzIntake.create(
-            tax_return_year: 2022,
-            primary_first_name: "Statesy",
-            primary_middle_initial: "M",
-            primary_last_name: "Filerton",
-            primary_ssn: "555002222",
-            primary_dob: Date.new(1970, 5, 18),
-            primary_occupation: "plumber",
-            mailing_city: "Phoenix",
-            mailing_street: "123 Palm Tree",
-            mailing_apartment: "C",
-            mailing_zip: "85001",
             claimed_as_dep: "no",
-            phone_daytime: "5551212",
-            phone_daytime_area_code: "888",
-            spouse_first_name: "Fenix",
-            spouse_middle_initial: "E",
-            spouse_last_name: "Filerton",
-            spouse_dob: Date.new(1971, 6, 3),
-            spouse_ssn: "555001111",
-            spouse_occupation: "plumber",
-            fed_wages: 123,
-            fed_taxable_income: 12,
-            fed_unemployment: 34,
-            fed_taxable_ssb: 4,
-            total_fed_adjustments_identify: "wrenches",
-            total_fed_adjustments: 45,
-            total_state_tax_withheld: 56
+            primary_first_name: "Testy",
+            primary_middle_initial: "T",
+            primary_last_name: "Testerson",
           )
         else
           raise "No state specified"

@@ -76,7 +76,7 @@ module Navigation
       # Dependents
       Questions::HadDependentsController,
 
-      DependentsController,
+      Questions::DependentsController,
 
       # Dependent related questions
       Questions::DependentCareController,

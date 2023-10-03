@@ -68,9 +68,15 @@ Rails.application.routes.draw do
       resources :vita_providers, only: [:index, :show]
       get "/vita_provider/map", to: "vita_providers#map"
 
+      namespace :questions do
+        resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
+      end
+
       resources :questions, controller: :questions do
         collection do
           Navigation::GyrQuestionNavigation.controllers.uniq.each do |controller_class|
+            next if controller_class.navigation_actions != [:edit]
+
             { get: :edit, put: :update }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
@@ -100,6 +106,7 @@ Rails.application.routes.draw do
         post '/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
       end
 
+      # DEPRECATED: exists just to redirect to proper Questions::DependentsController version
       resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
 
       resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do

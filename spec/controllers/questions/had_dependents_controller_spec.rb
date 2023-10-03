@@ -10,7 +10,7 @@ RSpec.describe Questions::HadDependentsController do
       let(:had_dependents) { "yes" }
 
       it "returns the dependents path" do
-        expect(subject.next_path).to eq dependents_path
+        expect(subject.next_path).to eq Questions::DependentsController.to_path_helper(action: :index)
       end
     end
 
@@ -23,4 +23,3 @@ RSpec.describe Questions::HadDependentsController do
     end
   end
 end
-

@@ -9,6 +9,7 @@ class SessionTogglesController < ApplicationController
       SessionToggleTime.new(name: 'Start of open intake', property: :start_of_open_intake),
       SessionToggleTime.new(name: 'End of intake', property: :end_of_intake),
       SessionToggleTime.new(name: 'End of documents upload', property: :end_of_docs),
+      SessionToggleTime.new(name: 'End of finishing in-progress intakes', property: :end_of_in_progress_intake),
       SessionToggleTime.new(name: 'End of login', property: :end_of_login),
     ]
     @ctc_times = [
