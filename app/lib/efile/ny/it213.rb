@@ -3,11 +3,11 @@ module Efile
     class It213 < ::Efile::TaxCalculator
       attr_accessor :lines, :value_access_tracker
 
-      def initialize(filing_status:, direct_file_data:, federal_dependent_child_count:, under_4_federal_dependent_child_count:)
+      def initialize(filing_status:, direct_file_data:, federal_dependent_child_count:, federal_dependent_child_count_between_4_and_17:)
         @filing_status = filing_status
         @direct_file_data = direct_file_data
         @federal_dependent_child_count = federal_dependent_child_count
-        @under_4_federal_dependent_child_count = under_4_federal_dependent_child_count
+        @federal_dependent_child_count_between_4_and_17 = federal_dependent_child_count_between_4_and_17
       end
 
       def calculate
@@ -16,7 +16,7 @@ module Efile
         # TODO: Only run calculate if yes in line 1, and 3
         set_line(:IT213_AMT_3, :calculate_line_3)
         set_line(:IT213_AMT_4, -> { @federal_dependent_child_count})
-        set_line(:IT213_AMT_5, -> { @under_4_federal_dependent_child_count})
+        set_line(:IT213_AMT_5, -> { @federal_dependent_child_count_between_4_and_17})
         set_line(:IT213_WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
         set_line(:IT213_WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
         set_line(:IT213_WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)

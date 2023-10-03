@@ -103,7 +103,7 @@ class StateFileNyIntake < StateFileBaseIntake
         filing_status: filing_status.to_sym,
         direct_file_data: direct_file_data,
         federal_dependent_child_count: dependents.length,
-        under_4_federal_dependent_child_count: dependents.length, # TODO
+        federal_dependent_child_count_between_4_and_17: dependents.length, # TODO
       ),
       it214: Efile::Ny::It214.new,
       it215: Efile::Ny::It215.new,

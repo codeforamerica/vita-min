@@ -16,7 +16,7 @@ describe Efile::Ny::It201 do
         filing_status: filing_status,
         direct_file_data: intake.direct_file_data,
         federal_dependent_child_count: 2,
-        under_4_federal_dependent_child_count: 1,
+        federal_dependent_child_count_between_4_and_17: 1,
       ),
       it214: Efile::Ny::It214.new,
       it215: Efile::Ny::It215.new,
