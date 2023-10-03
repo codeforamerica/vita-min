@@ -111,6 +111,11 @@ module SubmissionBuilder
                 pdf: PdfFiller::Ny201Pdf,
                 include: true
               },
+              {
+                xml: nil,
+                pdf: PdfFiller::Ny213Pdf,
+                include: true
+              }
             ]
             supported_docs
           end
