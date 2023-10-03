@@ -32,6 +32,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
       it "shows a little bit about how each line was calculated" do
         get :explain_calculations, params: { us_state: "ny", id: efile_submission.id }
         expect(response.body).to include('AMT_1')
+        expect(response.body).to include('IT213_AMT_16')
       end
     end
 

@@ -56,5 +56,9 @@ class StateFileBaseIntake < ApplicationRecord
         @ssn = intake.direct_file_data.spouse_ssn
       end
     end
+
+    def full_name
+      [@first_name, @middle_initial, @last_name].map(&:presence).compact.join(' ')
+    end
   end
 end

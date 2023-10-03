@@ -10,7 +10,7 @@
         <th>Source</th>
       </tr>
     </thead>
-    <% @calculator.lines.sort_by { |line_id, line| line_id.split('_').last.to_i }.each do |line_id, line| %>
+    <% @calculator.lines.each do |line_id, line| %>
       <tr>
         <td id="<%= line.line_id %>"><%= line.line_id %></td>
         <td><%= line.value %></td>
