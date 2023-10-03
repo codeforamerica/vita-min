@@ -396,8 +396,9 @@ module Efile
       end
 
       def calculate_line_69a
+        # TODO: For part-year city residents in 2022, need to use the amount from Form IT-360.1, line 47 for nyc_taxable_income
         nyc_taxable_income = line_or_zero(:AMT_47)
-        if full_year_nyc_resident?
+        if full_year_nyc_resident? && @claimed_as_dependent == false
           case @filing_status
           when 2 || 5
             if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
@@ -426,7 +427,12 @@ module Efile
       end
 
       def calculate_line_70
-        0 # TODO: complicated
+        # Taken from excel formula as the PDF was more complicated
+        if full_year_nyc_resident? && @claimed_as_dependent == false
+          @it215.calculate[:line27]
+        else
+          0
+        end
       end
 
       def calculate_line_72
