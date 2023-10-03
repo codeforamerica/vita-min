@@ -7,7 +7,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
 
-  delegate :tax_return_year, :filing_status, to: :direct_file_data
+  delegate :tax_return_year, to: :direct_file_data
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

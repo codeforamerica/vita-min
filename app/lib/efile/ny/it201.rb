@@ -180,7 +180,7 @@ module Efile
           return nys_tax_from_tables(taxable_income)
         end
         case @filing_status
-        when 1 || 5
+        when :married_filing_jointly, :qualifying_widow
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 161_550
             if agi >= 157_650
               taxable_income * 0.0585
@@ -227,7 +227,7 @@ module Efile
             # if 25_000_000 < agi < 25_050_000 TODO
             raise NotImplementedError, "Unsure how to handle AGI in this range"
           end
-        when 1 || 3
+        when :single, :married_filing_separately
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 215_400
             if agi >= 157_650
               taxable_income * 0.0625
@@ -264,7 +264,7 @@ module Efile
           else
             taxable_income * 0.109
           end
-        when 4
+        when :head_of_household
           if agi > 107_650 && agi <= 25_000_000 && taxable_income <= 269_300
             if agi >= 157_650
               taxable_income * 0.0625
@@ -302,7 +302,7 @@ module Efile
             taxable_income * 0.109
           end
         else
-          0
+          raise "Unknown filing status!"
         end
       end
 
@@ -383,7 +383,7 @@ module Efile
       def calculate_line_69
         if line_or_zero(:AMT_19) < 250_000 && full_year_nyc_resident?
           # income calculated as 19a - 9. 9 is not supported and 19a is 19
-          if @filing_status == 1 || 3 || 4
+          if @filing_status.in?[:single, :married_filing_separately, :head_of_household]
             63
           else
             125
@@ -396,41 +396,34 @@ module Efile
       def calculate_line_69a
         # TODO: For part-year city residents in 2022, need to use the amount from Form IT-360.1, line 47 for nyc_taxable_income
         nyc_taxable_income = line_or_zero(:AMT_47)
-        if full_year_nyc_resident? && @claimed_as_dependent == false
-          case @filing_status
-          when 2 || 5
-            if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
-              nyc_taxable_income * 0.171
-            elsif nyc_taxable_income > 21_600 && nyc_taxable_income <= 500_000
-              37 + ((nyc_taxable_income - 21_600) * 0.228)
-            end
-          when 1 || 3
-            if nyc_taxable_income.positive? && nyc_taxable_income <= 12_000
-              nyc_taxable_income * 0.171
-            elsif nyc_taxable_income > 12_000 && nyc_taxable_income <= 500_000
-              21 + ((nyc_taxable_income - 12_000) * 0.228)
-            end
-          when 4
-            if nyc_taxable_income.positive? && nyc_taxable_income <= 14_400
-              nyc_taxable_income * 0.171
-            elsif nyc_taxable_income > 14_400 && nyc_taxable_income <= 500_000
-              25 + ((nyc_taxable_income - 14_400) * 0.228)
-            end
-          else
-            0
+        return 0 unless full_year_nyc_resident? && @claimed_as_dependent == false
+
+        case @filing_status
+        when :married_filing_jointly, :qualifying_widow
+          if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
+            nyc_taxable_income * 0.171
+          elsif nyc_taxable_income > 21_600 && nyc_taxable_income <= 500_000
+            37 + ((nyc_taxable_income - 21_600) * 0.228)
+          end
+        when :single, :married_filing_separately
+          if nyc_taxable_income.positive? && nyc_taxable_income <= 12_000
+            nyc_taxable_income * 0.171
+          elsif nyc_taxable_income > 12_000 && nyc_taxable_income <= 500_000
+            21 + ((nyc_taxable_income - 12_000) * 0.228)
+          end
+        when :head_of_household
+          if nyc_taxable_income.positive? && nyc_taxable_income <= 14_400
+            nyc_taxable_income * 0.171
+          elsif nyc_taxable_income > 14_400 && nyc_taxable_income <= 500_000
+            25 + ((nyc_taxable_income - 14_400) * 0.228)
           end
         else
-          0
+          raise "Unknown filing status!"
         end
       end
 
       def calculate_line_70
-        # Taken from excel formula as the PDF was more complicated
-        if full_year_nyc_resident? && @claimed_as_dependent == false
-          @it215.calculate[:line27]
-        else
-          0
-        end
+        0 # TODO: computed from IT-215
       end
 
       def calculate_line_72
