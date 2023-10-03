@@ -24,14 +24,21 @@ module Efile
       end
 
       def calculate
+        set_line(:AMT_1, @direct_file_data, :fed_wages)
+        set_line(:AMT_2, @direct_file_data, :fed_taxable_income)
         set_line(:AMT_60E, -> { @it227.calculate[:part2_line1] })
         set_line(:AMT_65, -> { @it215.calculate[:line16] })
         set_line(:AMT_67, -> { @it214.calculate[:line33] })
+        set_line(:AMT_14, @direct_file_data, :fed_unemployment)
+        set_line(:AMT_15, @direct_file_data, :fed_taxable_ssb)
         set_line(:AMT_17, :calculate_line_17)
+        set_line(:AMT_18, @direct_file_data, :total_fed_adjustments)
         set_line(:AMT_19, :calculate_line_19)
         set_line(:AMT_19A, :calculate_line_19a)
+        set_line(:AMT_21, -> { 0 }) # TODO: this will be a certain subset of the w2 income
         set_line(:AMT_24, :calculate_line_24)
         set_line(:AMT_25, -> { @lines[:AMT_4]&.value })
+        set_line(:AMT_27, @direct_file_data, :fed_taxable_ssb)
         set_line(:AMT_32, :calculate_line_32)
         set_line(:AMT_33, :calculate_line_33)
         set_line(:AMT_34, :calculate_line_34)
@@ -59,6 +66,7 @@ module Efile
         set_line(:AMT_69, :calculate_line_69)
         set_line(:AMT_69A, :calculate_line_69a)
         set_line(:AMT_70, :calculate_line_70)
+        set_line(:AMT_72, @direct_file_data, :total_state_tax_withheld)
         set_line(:AMT_73, :calculate_line_72)
         set_line(:AMT_73, :calculate_line_73)
         set_line(:AMT_76, :calculate_line_76)
