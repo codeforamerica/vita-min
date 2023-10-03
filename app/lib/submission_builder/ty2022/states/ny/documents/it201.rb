@@ -27,7 +27,7 @@ module SubmissionBuilder
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2
                 xml.DEP_CLAIM_IND claimed: CLAIMED_AS_DEP[@submission.data_source.claimed_as_dep.to_sym]
-                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_resident_e.to_sym]
+                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 # TODO: DAYS_NYC_NMBR are we only taking full-year nyc residents?
                 xml.WG_AMT claimed: calculated_fields.fetch('AMT_1')
                 xml.INT_AMT claimed: calculated_fields.fetch('AMT_2')

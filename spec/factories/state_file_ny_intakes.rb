@@ -29,7 +29,7 @@
 #  ny_mailing_street              :string
 #  ny_mailing_zip                 :string
 #  ny_other_additions             :integer
-#  nyc_resident_e                 :integer          default("unfilled"), not null
+#  nyc_full_year_resident         :integer          default(0), not null
 #  occupied_residence             :integer          default("unfilled"), not null
 #  permanent_apartment            :string
 #  permanent_city                 :string
@@ -70,7 +70,7 @@ FactoryBot.define do
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
-    nyc_resident_e { 'yes' }
+    nyc_full_year_resident { 'yes' }
     school_district { 123 }
     school_district_number { 'Cool School' }
 

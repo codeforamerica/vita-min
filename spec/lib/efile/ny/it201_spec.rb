@@ -8,6 +8,7 @@ describe Efile::Ny::It201 do
       year: 2022,
       filing_status: filing_status,
       claimed_as_dependent: false,
+      nyc_full_year_resident: true,
       dependent_count: 0,
       input_lines: {
         AMT_2: Efile::TaxFormLine.from_data_source(:AMT_2, OpenStruct.new(field1: 1234), :field1),

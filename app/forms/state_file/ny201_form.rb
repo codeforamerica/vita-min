@@ -14,7 +14,7 @@ module StateFile
                        :permanent_apartment,
                        :permanent_city,
                        :permanent_zip,
-                       :nyc_resident_e,
+                       :nyc_full_year_resident,
                        :ny_414h_retirement,
                        :ny_other_additions,
                        :sales_use_tax,

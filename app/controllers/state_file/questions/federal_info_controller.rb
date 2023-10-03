@@ -50,7 +50,7 @@ module StateFile
             permanent_apartment: "3",
             permanent_city: "New York",
             permanent_zip: "10112",
-            nyc_resident_e: "yes",
+            nyc_full_year_resident: "yes",
             ny_414h_retirement: 567,
             ny_other_additions: 123,
             sales_use_tax: 345,
