@@ -396,7 +396,33 @@ module Efile
       end
 
       def calculate_line_69a
-        0 # TODO: Import table from https://www.tax.ny.gov/forms/html-instructions/2022/it/it201i-2022.htm 'Line 69a'
+        nyc_taxable_income = line_or_zero(:AMT_47)
+        if full_year_nyc_resident?
+          case @filing_status
+          when 2 || 5
+            if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
+              nyc_taxable_income * 0.171
+            elsif nyc_taxable_income > 21_600 && nyc_taxable_income <= 500_000
+              37 + ((nyc_taxable_income - 21_600) * 0.228)
+            end
+          when 1 || 3
+            if nyc_taxable_income.positive? && nyc_taxable_income <= 12_000
+              nyc_taxable_income * 0.171
+            elsif nyc_taxable_income > 12_000 && nyc_taxable_income <= 500_000
+              21 + ((nyc_taxable_income - 12_000) * 0.228)
+            end
+          when 4
+            if nyc_taxable_income.positive? && nyc_taxable_income <= 14_400
+              nyc_taxable_income * 0.171
+            elsif nyc_taxable_income > 14_400 && nyc_taxable_income <= 500_000
+              25 + ((nyc_taxable_income - 14_400) * 0.228)
+            end
+          else
+            0
+          end
+        else
+          0
+        end
       end
 
       def calculate_line_70
@@ -551,6 +577,14 @@ module Efile
         else
           @lines["F_1_NBR"]&.value == 12
         end
+      end
+
+      def filing_status_mfj?
+        @filing_status == :married_filing_jointly
+      end
+
+      def filing_status_single?
+        @filing_status == :single
       end
 
       def line_or_zero(line)
