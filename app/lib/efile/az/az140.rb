@@ -15,7 +15,7 @@ module Efile
       end
 
       def calculate
-        set_line(:AMT_14, -> { calculate_line_14 })
+        set_line(:AMT_14, :calculate_line_14)
         @lines.transform_values(&:value)
       end
 
