@@ -19,7 +19,8 @@ module PdfFiller
       answers = {
         'Your last name' => @submission.data_source.primary.full_name,
         'Your SSN' => @submission.data_source.primary.ssn,
-        'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND')
+        'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND'),
+        'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'E_INV_INC_IND'),
       }
     end
 
@@ -27,6 +28,10 @@ module PdfFiller
 
     FIELD_OPTIONS = {
       'Line 1' => {
+        1 => 'Yes',
+        2 => 'No'
+      },
+      'Line 2' => {
         1 => 'Yes',
         2 => 'No'
       }

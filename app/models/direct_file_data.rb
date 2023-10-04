@@ -184,6 +184,10 @@ class DirectFileData
     (parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i || 0).positive?
   end
 
+  def fed_eic_qc_claimed
+    parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
+  end
+
   def attributes
     [
       :tax_return_year,

@@ -11,7 +11,10 @@ module Efile
 
       def calculate
         set_line(:IT215_LINE_1, @direct_file_data, :fed_eic_claimed)
- 
+        set_line(:IT215_LINE_1A, -> {false})
+        set_line(:IT215_LINE_2, -> {false})
+        set_line(:IT215_LINE_3, -> {0}) #TODO
+        set_line(:IT215_LINE_1, @direct_file_data, :fed_eic_claimed)
         set_line(:IT215_LINE_16, -> { 0 })
       end
     end
