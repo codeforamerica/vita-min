@@ -21,7 +21,26 @@ module PdfFiller
         'Your SSN' => @submission.data_source.primary.ssn,
         'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND'),
         'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'E_INV_INC_IND'),
+        'Line 4' => xml_value_to_pdf_checkbox('Line 4', 'E_CHLD_CLM_IND'),
+        'Line 5' => xml_value_to_pdf_checkbox('Line 5', 'E_IRS_FED_EITC_IND'),
+        'Line 6' => claimed_attr_value('E_FED_WG_AMT'),
+        'Line 9' => claimed_attr_value('E_FED_FEDAGI_AMT'),
+        'Line 10' => claimed_attr_value('E_FED_EITC_CR_AMT'),
+        'Line 12' => claimed_attr_value('E_TNTV_EITC_CR_AMT')
       }
+      @submission.data_source.dependents.each_with_index do |dependent, index|
+        answers.merge!({
+                         "ln34fn#{index}" => dependent.first_name,
+                         "ln3mi#{index}" => dependent.middle_initial,
+                         "ln34ln#{index}" => dependent.last_name,
+                         "ln34suf#{index}" => dependent.suffix,
+                         "ln34real#{index}" => dependent.relationship,
+                         "ln34ssn#{index}" => dependent.ssn,
+                         "ln34birth#{index}" => dependent.dob.strftime("%m%d%Y")
+                         # TODO: need to populate missing fields and compare to available information in 1040
+                       })
+      end
+      answers
     end
 
     private
@@ -29,12 +48,20 @@ module PdfFiller
     FIELD_OPTIONS = {
       'Line 1' => {
         1 => 'Yes',
-        2 => 'No'
+        2 => 'No',
       },
       'Line 2' => {
         1 => 'Yes',
         2 => 'No'
-      }
+      },
+      'Line 4' => {
+        1 => 'Yes',
+        2 => 'No'
+      },
+      'Line 5' => {
+        1 => 'Yes',
+        2 => 'No'
+      },
     }
 
     def xml_value_to_pdf_checkbox(pdf_field, xml_field)

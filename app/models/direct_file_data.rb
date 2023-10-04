@@ -144,6 +144,10 @@ class DirectFileData
     parsed_xml.at('WagesAmt').content = value
   end
 
+  def fed_wages_salaries_tips
+    parsed_xml.at('WagesSalariesAndTipsAmt')&.text&.to_i
+  end
+
   def fed_taxable_income
     parsed_xml.at('TaxableInterestAmt')&.text&.to_i
   end
@@ -182,6 +186,10 @@ class DirectFileData
 
   def fed_eic_claimed
     (parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i || 0).positive?
+  end
+
+  def fed_eic
+    parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i
   end
 
   def fed_eic_qc_claimed
