@@ -180,6 +180,10 @@ class DirectFileData
     0 # TODO
   end
 
+  def fed_eic_claimed
+    (parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i || 0).positive?
+  end
+
   def attributes
     [
       :tax_return_year,

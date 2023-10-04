@@ -28,7 +28,8 @@ module Efile
         )
         @it215 = Efile::Ny::It215.new(
           value_access_tracker: @value_access_tracker,
-          lines: @lines
+          lines: @lines,
+          direct_file_data: direct_file_data
         )
         @it227 = Efile::Ny::It227.new(
           value_access_tracker: @value_access_tracker,

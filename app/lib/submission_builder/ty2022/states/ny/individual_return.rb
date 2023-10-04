@@ -115,7 +115,12 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Ny213Pdf,
                 include: true
-              }
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
+              #   # pdf: PdfFiller::Ny215Pdf,
+                include: true
+              },
             ]
             supported_docs
           end
