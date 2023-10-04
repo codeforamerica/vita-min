@@ -1,10 +1,15 @@
 module Efile
   module Ny
-    class It227
+    class It227 < ::Efile::TaxCalculator
       attr_accessor :lines, :value_access_tracker
 
+      def initialize(value_access_tracker:, lines:)
+        @value_access_tracker = value_access_tracker
+        @lines = lines
+      end
+
       def calculate
-        {"part2_line1": 0}
+        set_line(:IT227_PART_2_LINE_1, -> { 0 })
       end
     end
   end

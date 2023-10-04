@@ -1,9 +1,11 @@
 module Efile
   module Ny
     class It213 < ::Efile::TaxCalculator
-      attr_accessor :lines, :value_access_tracker
+      attr_reader :lines, :value_access_tracker
 
-      def initialize(filing_status:, direct_file_data:, federal_dependent_child_count:, federal_dependent_child_count_between_4_and_17:)
+      def initialize(value_access_tracker:, lines:, filing_status:, direct_file_data:, federal_dependent_child_count:, federal_dependent_child_count_between_4_and_17:)
+        @value_access_tracker = value_access_tracker
+        @lines = lines
         @filing_status = filing_status
         @direct_file_data = direct_file_data
         @federal_dependent_child_count = federal_dependent_child_count

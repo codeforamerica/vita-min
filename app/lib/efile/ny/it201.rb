@@ -3,32 +3,42 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, nyc_full_year_resident:, dependent_count:, input_lines:, it213:, it214:, it215:, it227:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
+        @intake = intake
+        @direct_file_data = direct_file_data
         @nyc_full_year_resident = nyc_full_year_resident
         @dependent_count = dependent_count # number
         @value_access_tracker = Efile::ValueAccessTracker.new
-        input_lines.each_value { |l| l.value_access_tracker = @value_access_tracker }
-        @lines = HashWithIndifferentAccess.new(input_lines)
-        [it213, it214, it215, it227].each do |form|
-          form.value_access_tracker = @value_access_tracker
-          form.lines = @lines
-        end
-        @it213 = it213
-        @it214 = it214
-        @it215 = it215
-        @it227 = it227
+        @lines = HashWithIndifferentAccess.new
+        @it213 = Efile::Ny::It213.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          filing_status: filing_status.to_sym,
+          direct_file_data: direct_file_data,
+          federal_dependent_child_count: @intake.dependents.length,
+          federal_dependent_child_count_between_4_and_17: @intake.dependents.length, # TODO
+        )
+        @it214 = Efile::Ny::It214.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines
+        )
+        @it215 = Efile::Ny::It215.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines
+        )
+        @it227 = Efile::Ny::It227.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines
+        )
       end
 
       def calculate
         set_line(:AMT_1, @direct_file_data, :fed_wages)
         set_line(:AMT_2, @direct_file_data, :fed_taxable_income)
-        set_line(:AMT_60E, -> { @it227.calculate[:part2_line1] })
-        set_line(:AMT_65, -> { @it215.calculate[:line16] })
-        set_line(:AMT_67, -> { @it214.calculate[:line33] })
         set_line(:AMT_14, @direct_file_data, :fed_unemployment)
         set_line(:AMT_15, @direct_file_data, :fed_taxable_ssb)
         set_line(:AMT_17, :calculate_line_17)
@@ -36,6 +46,7 @@ module Efile
         set_line(:AMT_19, :calculate_line_19)
         set_line(:AMT_19A, :calculate_line_19a)
         set_line(:AMT_21, -> { 0 }) # TODO: this will be a certain subset of the w2 income
+        set_line(:AMT_23, @intake, :ny_other_additions)
         set_line(:AMT_24, :calculate_line_24)
         set_line(:AMT_25, -> { @lines[:AMT_4]&.value })
         set_line(:AMT_27, @direct_file_data, :fed_taxable_ssb)
@@ -59,10 +70,17 @@ module Efile
         set_line(:AMT_54, :calculate_line_54)
         set_line(:AMT_54B, :calculate_line_54b)
         set_line(:AMT_58, :calculate_line_58)
+        set_line(:AMT_59, @intake, :sales_use_tax)
+        @it227.calculate
+        set_line(:AMT_60E, -> { @lines[:IT227_PART_2_LINE_1].value })
         set_line(:AMT_61, :calculate_line_61)
         set_line(:AMT_62, :calculate_line_62)
         @it213.calculate
         set_line(:AMT_63, -> { @lines[:IT213_AMT_16].value })
+        @it215.calculate
+        set_line(:AMT_65, -> { @lines[:IT215_LINE_16].value })
+        @it214.calculate
+        set_line(:AMT_67, -> { @lines[:IT214_LINE_33].value })
         set_line(:AMT_69, :calculate_line_69)
         set_line(:AMT_69A, :calculate_line_69a)
         set_line(:AMT_70, :calculate_line_70)

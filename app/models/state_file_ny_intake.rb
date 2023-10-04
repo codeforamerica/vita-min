@@ -69,32 +69,14 @@ class StateFileNyIntake < StateFileBaseIntake
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
 
   def tax_calculator
-    field_by_line_id = {
-      AMT_23: [self, :ny_other_additions],
-      AMT_59: [self, :sales_use_tax],
-      # AMT_73: :total_city_tax_withheld, TODO
-    }
-    input_lines = {}
-    field_by_line_id.each do |line_id, value|
-      source, field = value
-      input_lines[line_id] = Efile::TaxFormLine.from_data_source(line_id, source, field)
-    end
     Efile::Ny::It201.new(
       year: 2022,
       filing_status: filing_status.to_sym,
       claimed_as_dependent: claimed_as_dep_yes?,
+      intake: self,
+      direct_file_data: direct_file_data,
       nyc_full_year_resident: nyc_full_year_resident_yes?,
-      dependent_count: dependents.length,
-      input_lines: input_lines,
-      it213: Efile::Ny::It213.new(
-        filing_status: filing_status.to_sym,
-        direct_file_data: direct_file_data,
-        federal_dependent_child_count: dependents.length,
-        federal_dependent_child_count_between_4_and_17: dependents.length, # TODO
-      ),
-      it214: Efile::Ny::It214.new,
-      it215: Efile::Ny::It215.new,
-      it227: Efile::Ny::It227.new
+      dependent_count: dependents.length
     )
   end
 end
