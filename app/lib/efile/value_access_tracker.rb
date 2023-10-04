@@ -1,5 +1,11 @@
 module Efile
   class ValueAccessTracker
+    attr_reader :include_source
+
+    def initialize(include_source: false)
+      @include_source = include_source
+    end
+
     def with_tracking
       @accesses = Set.new
       result = yield

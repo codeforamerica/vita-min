@@ -15,7 +15,7 @@ module Efile
         if value_fn.is_a?(Symbol)
           value_fn = method(value_fn_or_data_source)
         end
-        source_description = value_fn.source.strip_heredoc
+        source_description = value_fn.source.strip_heredoc if @value_access_tracker.include_source
       end
       value, accesses = @value_access_tracker.with_tracking { value_fn.call }
       @lines[line_id] = TaxFormLine.new(line_id, value, source_description, accesses)

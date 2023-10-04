@@ -3,7 +3,7 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -12,7 +12,7 @@ module Efile
         @direct_file_data = direct_file_data
         @nyc_full_year_resident = nyc_full_year_resident
         @dependent_count = dependent_count # number
-        @value_access_tracker = Efile::ValueAccessTracker.new
+        @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
         @it213 = Efile::Ny::It213.new(
           value_access_tracker: @value_access_tracker,

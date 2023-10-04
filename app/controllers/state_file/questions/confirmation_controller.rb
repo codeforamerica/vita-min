@@ -19,7 +19,7 @@ module StateFile
         if Rails.env.development?
           MethodSource.instance_variable_set(:@lines_for_file, {})
         end
-        @calculator = current_intake.tax_calculator
+        @calculator = current_intake.tax_calculator(include_source: true)
         @calculator.calculate
       end
 
