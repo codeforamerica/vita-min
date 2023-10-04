@@ -118,7 +118,7 @@ module SubmissionBuilder
               },
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
-              #   # pdf: PdfFiller::Ny215Pdf,
+                pdf: PdfFiller::Ny215Pdf,
                 include: true
               },
             ]
