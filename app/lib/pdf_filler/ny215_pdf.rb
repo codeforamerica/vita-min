@@ -23,10 +23,10 @@ module PdfFiller
         'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'E_INV_INC_IND'),
         'Line 4' => xml_value_to_pdf_checkbox('Line 4', 'E_CHLD_CLM_IND'),
         'Line 5' => xml_value_to_pdf_checkbox('Line 5', 'E_IRS_FED_EITC_IND'),
-        'Line 6' => claimed_attr_value('E_FED_WG_AMT'),
-        'Line 9' => claimed_attr_value('E_FED_FEDAGI_AMT'),
-        'Line 10' => claimed_attr_value('E_FED_EITC_CR_AMT'),
-        'Line 12' => claimed_attr_value('E_TNTV_EITC_CR_AMT')
+        '6 dollars15' => claimed_attr_value('E_FED_WG_AMT'),
+        '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'),
+        '10 dollars15' => claimed_attr_value('E_FED_EITC_CR_AMT'),
+        '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT')
       }
       @submission.data_source.dependents.each_with_index do |dependent, index|
         answers.merge!({

@@ -25,7 +25,7 @@ module Efile
       end
 
       def calculate_line_12
-        @lines[:IT215_LINE_10].value * @lines[:IT215_LINE_11].value
+        (@lines[:IT215_LINE_10].value * @lines[:IT215_LINE_11].value).round
       end
     end
   end
