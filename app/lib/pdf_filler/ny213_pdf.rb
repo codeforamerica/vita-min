@@ -19,7 +19,7 @@ module PdfFiller
       answers = {
         'Your last name' => @submission.data_source.primary.full_name,
         'Your SSN' => @submission.data_source.primary.ssn,
-        'Line 6 Dollars' => @calculator.lines[:IT213_AMT_6].value
+        'Line 6 Dollars' => @calculator.lines[:IT213_AMT_6].value,
       }
     end
 
