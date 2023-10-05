@@ -84,7 +84,7 @@ module Efile
         set_line(:AMT_67, -> { @lines[:IT214_LINE_33].value })
         set_line(:AMT_69, :calculate_line_69)
         set_line(:AMT_69A, :calculate_line_69a)
-        set_line(:AMT_70, :calculate_line_70)
+        set_line(:AMT_70, -> { @lines[:IT215_LINE_27].value})
         set_line(:AMT_72, @direct_file_data, :total_state_tax_withheld)
         set_line(:AMT_73, :calculate_line_72)
         set_line(:AMT_73, :calculate_line_73)
@@ -450,10 +450,6 @@ module Efile
                    raise "Unknown filing status!"
                  end
         (result || 0).round
-      end
-
-      def calculate_line_70
-        0 # TODO: computed from IT-215
       end
 
       def calculate_line_72
