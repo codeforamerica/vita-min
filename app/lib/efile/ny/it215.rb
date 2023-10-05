@@ -21,11 +21,24 @@ module Efile
         set_line(:IT215_LINE_10, @direct_file_data, :fed_eic)
         set_line(:IT215_LINE_11, -> { 0.3 })
         set_line(:IT215_LINE_12, :calculate_line_12)
+        set_line(:IT_215_WK_B_LINE_1, -> { @lines[:AMT_39].value })
+        set_line(:IT_215_WK_B_LINE_2, -> { 0 })
+        set_line(:IT_215_WK_B_LINE_3, -> { 0 })
+        set_line(:IT_215_WK_B_LINE_4, :calculate_wk_b_line_4)
+        set_line(:IT_215_WK_B_LINE_5, :calculate_wk_b_line_5)
         set_line(:IT215_LINE_16, -> { 0 })
       end
 
       def calculate_line_12
         (@lines[:IT215_LINE_10].value * @lines[:IT215_LINE_11].value).round
+      end
+
+      def calculate_wk_b_line_4
+        @lines[:IT_215_WK_B_LINE_2].value + @lines[:IT_215_WK_B_LINE_3].value
+      end
+
+      def calculate_wk_b_line_5
+        [@lines[:IT_215_WK_B_LINE_1].value - @lines[:IT_215_WK_B_LINE_4].value, 0].min
       end
     end
   end

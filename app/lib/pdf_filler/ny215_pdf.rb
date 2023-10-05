@@ -26,7 +26,12 @@ module PdfFiller
         '6 dollars15' => claimed_attr_value('E_FED_WG_AMT'),
         '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'),
         '10 dollars15' => claimed_attr_value('E_FED_EITC_CR_AMT'),
-        '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT')
+        '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT'),
+        'Worksheet B 1 dollars15' => claimed_attr_value('E_TX_AMT'),
+        'Worksheet B 2 dollars15' => claimed_attr_value('E_RSDT_CR_AMT'),
+        'Worksheet B 3 dollars15' => claimed_attr_value('E_ACM_DIST_AMT'),
+        'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
+        'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT'),
       }
       @submission.data_source.dependents.each_with_index do |dependent, index|
         answers.merge!({
