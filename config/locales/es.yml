@@ -1579,10 +1579,6 @@ es:
         separator: "."
         unit: "$"
   portal:
-    closed_logins:
-      show:
-        title: Lo sentimos, estamos cerrados por el año.
-        body_html: Si desea recibir una notificación sobre cuándo abriremos el próximo año en enero, regístrese <a href="%{link}">aquí</a>.
     client_logins:
       account_locked:
         body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
