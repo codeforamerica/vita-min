@@ -75,11 +75,11 @@ class DirectFileData
   end
 
   def spouse_ssn
-    parsed_xml.at('Filer PrimarySSN')&.text
+    parsed_xml.at('Filer SpouseSSN')&.text
   end
 
   def spouse_ssn=(value)
-    parsed_xml.at('Filer PrimarySSN').content = value
+    parsed_xml.at('Filer SpouseSSN').content = value
   end
 
   def spouse_occupation
