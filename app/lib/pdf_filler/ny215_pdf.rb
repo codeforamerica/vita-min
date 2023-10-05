@@ -27,16 +27,16 @@ module PdfFiller
         '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'),
         '10 dollars15' => claimed_attr_value('E_FED_EITC_CR_AMT'),
         '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT'),
-        'Worksheet B 1 dollars15' => claimed_attr_value('E_TX_AMT'),
-        'Worksheet B 2 dollars15' => claimed_attr_value('E_RSDT_CR_AMT'),
-        'Worksheet B 3 dollars15' => claimed_attr_value('E_ACM_DIST_AMT'),
-        'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
-        'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT'),
         '13 dollars15' => claimed_attr_value('E_TX_B4CR_AMT'),
         '14 dollars15' => claimed_attr_value('E_HH_CR_AMT'),
         '15 dollars15' => claimed_attr_value('E_EITC_LMT_AMT'),
         '16 dollars15' => claimed_attr_value('E_EITC_CR_AMT'),
-        '27 dollars15' => claimed_attr_value('E_NYC_EITC_CR_AMT')
+        '27 dollars15' => claimed_attr_value('E_NYC_EITC_CR_AMT'),
+        'Worksheet B 1 dollars15' => claimed_attr_value('E_TX_AMT'),
+        'Worksheet B 2 dollars15' => claimed_attr_value('E_RSDT_CR_AMT'),
+        'Worksheet B 3 dollars15' => claimed_attr_value('E_ACM_DIST_AMT'),
+        'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
+        'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
       @submission.data_source.dependents.each_with_index do |dependent, index|
         answers.merge!({
