@@ -337,7 +337,7 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_finishing_in_progress_intakes?
 
   def closed_for_in_progress_intakes?
-    app_time >= Rails.configuration.end_of_in_progress_intake
+    app_time >= Rails.configuration.end_of_in_progress_intake && app_time <= Rails.configuration.end_of_login
   end
   helper_method :closed_for_in_progress_intakes?
 
