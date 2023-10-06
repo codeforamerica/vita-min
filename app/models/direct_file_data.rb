@@ -79,7 +79,13 @@ class DirectFileData
   end
 
   def spouse_ssn=(value)
-    parsed_xml.at('Filer SpouseSSN').content = value
+    unless parsed_xml.at('Filer SpouseSSN').present? && value.present?
+      parsed_xml.at('Filer').add_child('<SpouseSSN/>')
+    end
+
+    if parsed_xml.at('Filer SpouseSSN')
+      parsed_xml.at('Filer SpouseSSN').content = value
+    end
   end
 
   def spouse_occupation
@@ -87,6 +93,10 @@ class DirectFileData
   end
 
   def spouse_occupation=(value)
+    unless parsed_xml.at('IRS1040 SpouseOccupationTxt').present? && value.present?
+      parsed_xml.at('IRS1040').add_child('<SpouseOccupationTxt/>')
+    end
+
     if parsed_xml.at('SpouseOccupationTxt')
       parsed_xml.at('SpouseOccupationTxt').content = value
     end
