@@ -4,10 +4,6 @@ module StateFile
       layout "state_file/question"
 
       def show_xml
-        # fixes Rails hot reload, see method source gem PR #73
-        if Rails.env.development?
-          MethodSource.instance_variable_set(:@lines_for_file, {})
-        end
         submission = EfileSubmission.where(data_source: current_intake).first
         submission_content = case params[:us_state]
                              when "ny"
@@ -23,7 +19,7 @@ module StateFile
         if Rails.env.development?
           MethodSource.instance_variable_set(:@lines_for_file, {})
         end
-        @calculator = current_intake.tax_calculator
+        @calculator = current_intake.tax_calculator(include_source: true)
         @calculator.calculate
       end
 

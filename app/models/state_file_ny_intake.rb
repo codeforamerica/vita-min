@@ -68,7 +68,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
 
-  def tax_calculator
+  def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
       year: 2022,
       filing_status: filing_status.to_sym,
@@ -76,7 +76,8 @@ class StateFileNyIntake < StateFileBaseIntake
       intake: self,
       direct_file_data: direct_file_data,
       nyc_full_year_resident: nyc_full_year_resident_yes?,
-      dependent_count: dependents.length
+      dependent_count: dependents.length,
+      include_source: include_source
     )
   end
 end
