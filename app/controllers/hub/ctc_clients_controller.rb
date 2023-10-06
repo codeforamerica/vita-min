@@ -3,7 +3,6 @@ module Hub
     include AccessControllable
 
     before_action :require_sign_in
-    before_action :load_vita_partners, only: [:index]
     load_and_authorize_resource :client, parent: false
     layout "hub"
 
@@ -32,10 +31,6 @@ module Hub
     end
 
     private
-
-    def load_vita_partners
-      @vita_partners = super.where(processes_ctc: true)
-    end
 
     def update_client_form_params
       params.require(UpdateCtcClientForm.form_param).permit(UpdateCtcClientForm.permitted_params)

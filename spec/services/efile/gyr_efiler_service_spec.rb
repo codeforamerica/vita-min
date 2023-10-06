@@ -215,11 +215,11 @@ RSpec.describe Efile::GyrEfilerService do
 
     context "when there is are >5 simultaneous callers" do
       before do
-        ActiveRecord::Base.clear_all_connections!
+        ActiveRecord::Base.connection_handler.clear_all_connections!
       end
 
       after do
-        ActiveRecord::Base.clear_all_connections!
+        ActiveRecord::Base.connection_handler.clear_all_connections!
       end
 
       it "runs the block with lock_acquired=false" do
