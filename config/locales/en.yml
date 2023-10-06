@@ -1617,6 +1617,10 @@ en:
         one_form_of_contact: 'Please enter one form of contact below:'
         send_code: Send code
         title: We’ll send you a secure code to sign in
+    closed_logins:
+      show:
+        body_html: If you would like to receive a notification for when we open next year in January, please sign up <a href="%{link}">here</a>.
+        title: Sorry, we are closed for the year.
     messages:
       create:
         message_sent: Message sent!
