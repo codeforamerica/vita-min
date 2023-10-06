@@ -1,6 +1,6 @@
 RSpec.describe "view usage" do
   it "should have an associated controller for any view with a resourcey name" do
-    view_paths = ActionView::ViewPaths.get_view_paths(ActionController::Base)
+    view_paths = ActionView::PathRegistry.get_view_paths(ActionController::Base)
     gyr_view_path = view_paths.select { |vp| vp.path == Rails.root.join('app', 'views').to_s }.first
 
     # Sanity check these are the right paths to be fiddling with

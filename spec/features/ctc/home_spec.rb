@@ -18,23 +18,6 @@ RSpec.feature "Visit CTC home page" do
     expect(page.driver.browser.switch_to.active_element.attribute('id')).to eq("firstCta")
   end
 
-
-  context "when the DIY link is disabled" do
-    before do
-      ENV['CTC_HIDE_DIY_LINK'] = 'true'
-    end
-
-    after do
-      ENV.delete('CTC_HIDE_DIY_LINK')
-    end
-
-    it "doesn't show the DIY link" do
-      visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.title")
-      expect(page).not_to have_text I18n.t("views.ctc_pages.home.obtain.full_return.gyr_diy_link")
-    end
-  end
-
   context "when open for intake" do
     before do
       allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return true

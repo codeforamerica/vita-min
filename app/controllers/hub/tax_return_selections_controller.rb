@@ -6,7 +6,7 @@ module Hub
     layout "hub"
 
     before_action :require_sign_in, :load_vita_partners, :load_users
-    before_action :load_selection, only: [:show, :bulk_action]
+    before_action :load_selection, only: [:show]
 
     ALLOWED_ACTION_TYPES = ["change-organization", "send-a-message", "change-assignee-and-status"]
 
