@@ -13,12 +13,12 @@ module Efile
       end
 
       def calculate
-        set_line(:IT214_LINE_1, @nyc_full_year_resident)
-        set_line(:IT214_LINE_2,  @direct_file_data, :occupied_residence)
-        set_line(:IT214_LINE_3,  @direct_file_data, :property_over_limit)
-        set_line(:IT214_LINE_4,  @claimed_as_dependent)
-        set_line(:IT214_LINE_5,  @direct_file_data, :public_housing)
-        set_line(:IT214_LINE_6,  @direct_file_data, :nursing_home)
+        set_line(:IT214_LINE_1, -> { @nyc_full_year_resident })
+        set_line(:IT214_LINE_2,  @intake, :occupied_residence)
+        set_line(:IT214_LINE_3,  @intake, :property_over_limit)
+        set_line(:IT214_LINE_4, -> { @claimed_as_dependent })
+        set_line(:IT214_LINE_5,  @intake, :public_housing)
+        set_line(:IT214_LINE_6,  @intake, :nursing_home)
         set_line(:IT214_LINE_9, @direct_file_data, :fed_agi)
         set_line(:IT214_LINE_33, -> { 0 })
       end

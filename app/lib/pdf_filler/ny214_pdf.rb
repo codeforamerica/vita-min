@@ -51,7 +51,7 @@ module PdfFiller
         '14 dollars14' => claimed_attr_value('R_PUB_RELIEF_AMT'),
         '15 dollars14' => claimed_attr_value('R_OTHINC_AMT'),
         '16 dollars14' => claimed_attr_value('R_GRSS_INC_R_AMT'),
-        '17 dollars14' => claimed_attr_value('R_GRSS_INC_PCT'),
+        '17 number14' => claimed_attr_value('R_GRSS_INC_PCT'),
         '18 dollars14' => claimed_attr_value('R_GRSS_AVL_AMT'),
         '19 dollars14' => claimed_attr_value('R_RENT_PD_AMT'),
         '20 dollars14' => claimed_attr_value('R_ADJ_AMT'),

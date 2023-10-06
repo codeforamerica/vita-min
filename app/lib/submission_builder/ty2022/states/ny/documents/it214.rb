@@ -20,7 +20,7 @@ module SubmissionBuilder
 
                 # TODO: signature stuff is mostly here to make the xml valid, revisit later
                 xml.PR_SGN_IND claimed: 1
-                xml.ERO_SGN_IND claimed: 1
+                xml.SP_SGN_IND claimed: 1
               end
             end
 
