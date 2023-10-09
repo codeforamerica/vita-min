@@ -19,13 +19,13 @@ describe Efile::Ny::It201 do
   describe '#calculate' do
     it "populates line info for related documents like the 213" do
       instance.calculate
-      expect(instance.lines[:IT213_AMT_16].value).to eq(330)
+      expect(instance.lines[:IT213_LINE_16].value).to eq(330)
     end
   end
 
   describe '#calculate_line_17' do
     it "adds up some of the prior lines" do
-      expect(instance.calculate[:AMT_17]).to eq(35151)
+      expect(instance.calculate[:IT201_LINE_17]).to eq(35151)
     end
   end
 end
