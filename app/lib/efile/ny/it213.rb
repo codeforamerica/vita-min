@@ -16,9 +16,9 @@ module Efile
         # TODO: Do we need to consider Worksheet B?
         # TODO: Only calculate Worksheet A if yes on line 2? Should only happen if they clicked the wrong federal button?
         # TODO: Only run calculate if yes in line 1, and 3
-        set_line(:IT213_AMT_3, :calculate_line_3)
-        set_line(:IT213_AMT_4, -> { @federal_dependent_child_count})
-        set_line(:IT213_AMT_5, -> { @federal_dependent_child_count_between_4_and_17})
+        set_line(:IT213_LINE_3, :calculate_line_3)
+        set_line(:IT213_LINE_4, -> { @federal_dependent_child_count})
+        set_line(:IT213_LINE_5, -> { @federal_dependent_child_count_between_4_and_17})
         set_line(:IT213_WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
         set_line(:IT213_WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
         set_line(:IT213_WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
@@ -31,41 +31,41 @@ module Efile
           set_line(:IT213_WORKSHEET_A_LINE_8, :calculate_worksheet_a_line_8)
           set_line(:IT213_WORKSHEET_A_LINE_9, :calculate_worksheet_a_line_9)
           set_line(:IT213_WORKSHEET_A_LINE_10, :calculate_worksheet_a_line_10)
-          set_line(:IT213_AMT_6, -> { @lines[:IT213_WORKSHEET_A_LINE_10].value })
-          set_line(:IT213_AMT_7, -> { 0 }) # TODO revisit if worksheet C
+          set_line(:IT213_LINE_6, -> { @lines[:IT213_WORKSHEET_A_LINE_10].value })
+          set_line(:IT213_LINE_7, -> { 0 }) # TODO revisit if worksheet C
         else
           # TODO: When rest of worksheet A is done, revisit
-          set_line(:IT213_AMT_6, -> { 0 })
-          set_line(:IT213_AMT_7, -> { 0 })
+          set_line(:IT213_LINE_6, -> { 0 })
+          set_line(:IT213_LINE_7, -> { 0 })
         end
 
-        set_line(:IT213_AMT_8, :calculate_line_8)
-        if @lines[:IT213_AMT_8].value > 0
-          set_line(:IT213_AMT_9, :calculate_line_9)
-          set_line(:IT213_AMT_10, :calculate_line_10)
-          set_line(:IT213_AMT_11, :calculate_line_11)
-          set_line(:IT213_AMT_12, :calculate_line_12)
-          set_line(:IT213_AMT_13, :calculate_line_13)
-          if @lines[:IT213_AMT_3].value == true
-            set_line(:IT213_AMT_14, :calculate_line_14)
-            set_line(:IT213_AMT_15, :calculate_line_15)
-            set_line(:IT213_AMT_16, :calculate_line_16)
+        set_line(:IT213_LINE_8, :calculate_line_8)
+        if @lines[:IT213_LINE_8].value > 0
+          set_line(:IT213_LINE_9, :calculate_line_9)
+          set_line(:IT213_LINE_10, :calculate_line_10)
+          set_line(:IT213_LINE_11, :calculate_line_11)
+          set_line(:IT213_LINE_12, :calculate_line_12)
+          set_line(:IT213_LINE_13, :calculate_line_13)
+          if @lines[:IT213_LINE_3].value == true
+            set_line(:IT213_LINE_14, :calculate_line_14)
+            set_line(:IT213_LINE_15, :calculate_line_15)
+            set_line(:IT213_LINE_16, :calculate_line_16)
           else
-            set_line(:IT213_AMT_16, -> { @lines[:IT213_AMT_13].value })
+            set_line(:IT213_LINE_16, -> { @lines[:IT213_LINE_13].value })
           end
           # TODO: if spouse filing separate line 17 and 18
         else
-          set_line(:IT213_AMT_13, -> { 0 })
-          set_line(:IT213_AMT_14, :calculate_line_14)
-          set_line(:IT213_AMT_15, :calculate_line_15)
-          set_line(:IT213_AMT_16, :calculate_line_16)
+          set_line(:IT213_LINE_13, -> { 0 })
+          set_line(:IT213_LINE_14, :calculate_line_14)
+          set_line(:IT213_LINE_15, :calculate_line_15)
+          set_line(:IT213_LINE_16, :calculate_line_16)
         end
       end
 
       private
 
       def calculate_line_3
-        @lines[:AMT_19A].value <= cutoff_for_filing_status
+        @lines[:IT201_LINE_19A].value <= cutoff_for_filing_status
       end
 
       def calculate_worksheet_a_line_1
@@ -73,7 +73,7 @@ module Efile
       end
 
       def calculate_worksheet_a_line_2
-        @lines[:AMT_19A].value
+        @lines[:IT201_LINE_19A].value
       end
 
       def calculate_worksheet_a_line_3
@@ -112,39 +112,39 @@ module Efile
       end
 
       def calculate_line_8
-        @lines[:IT213_AMT_6].value + @lines[:IT213_AMT_7].value
+        @lines[:IT213_LINE_6].value + @lines[:IT213_LINE_7].value
       end
 
       def calculate_line_9
-        @lines[:IT213_AMT_4].value
+        @lines[:IT213_LINE_4].value
       end
 
       def calculate_line_10
-        @lines[:IT213_AMT_8].value / @lines[:IT213_AMT_9].value
+        @lines[:IT213_LINE_8].value / @lines[:IT213_LINE_9].value
       end
 
       def calculate_line_11
-        @lines[:IT213_AMT_5].value
+        @lines[:IT213_LINE_5].value
       end
 
       def calculate_line_12
-        @lines[:IT213_AMT_10].value * @lines[:IT213_AMT_11].value
+        @lines[:IT213_LINE_10].value * @lines[:IT213_LINE_11].value
       end
 
       def calculate_line_13
-        (@lines[:IT213_AMT_12].value * 0.33).round
+        (@lines[:IT213_LINE_12].value * 0.33).round
       end
 
       def calculate_line_14
-        @lines[:IT213_AMT_5].value
+        @lines[:IT213_LINE_5].value
       end
 
       def calculate_line_15
-        @lines[:IT213_AMT_14].value * 100
+        @lines[:IT213_LINE_14].value * 100
       end
 
       def calculate_line_16
-        [@lines[:IT213_AMT_13].value, @lines[:IT213_AMT_15].value].max
+        [@lines[:IT213_LINE_13].value, @lines[:IT213_LINE_15].value].max
       end
 
       def cutoff_for_filing_status

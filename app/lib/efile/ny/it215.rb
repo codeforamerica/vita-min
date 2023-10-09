@@ -18,17 +18,17 @@ module Efile
         set_line(:IT215_LINE_4, @direct_file_data, :fed_eic_qc_claimed)
         set_line(:IT215_LINE_5, -> {false})
         set_line(:IT215_LINE_6, @direct_file_data, :fed_wages_salaries_tips)
-        set_line(:IT215_LINE_9, -> { @lines[:AMT_19].value })
+        set_line(:IT215_LINE_9, -> { @lines[:IT201_LINE_19].value })
         set_line(:IT215_LINE_10, @direct_file_data, :fed_eic)
         set_line(:IT215_LINE_11, -> { 0.3 })
         set_line(:IT215_LINE_12, :calculate_line_12)
-        set_line(:IT215_WK_B_LINE_1, -> { @lines[:AMT_39].value })
+        set_line(:IT215_WK_B_LINE_1, -> { @lines[:IT201_LINE_39].value })
         set_line(:IT215_WK_B_LINE_2, -> { 0 })
         set_line(:IT215_WK_B_LINE_3, -> { 0 })
         set_line(:IT215_WK_B_LINE_4, :calculate_wk_b_line_4)
         set_line(:IT215_WK_B_LINE_5, :calculate_wk_b_line_5)
         set_line(:IT215_LINE_13, -> { @lines[:IT215_WK_B_LINE_5].value })
-        set_line(:IT215_LINE_14, -> { @lines[:AMT_40].value })
+        set_line(:IT215_LINE_14, -> { @lines[:IT201_LINE_40].value })
         set_line(:IT215_LINE_15, :calculate_line_15)
         set_line(:IT215_LINE_16, :calculate_line_16)
         if @nyc_full_year_resident
@@ -74,7 +74,7 @@ module Efile
         ]
 
         ln_3_hardval = 0.00002
-        ny_agi = @lines[:AMT_33].value
+        ny_agi = @lines[:IT201_LINE_33].value
         rates_line = rates.find { |line| ny_agi >= line[0] && ny_agi < line[1] }
         return rates_line[4] if rates_line[4].present?
 
