@@ -182,6 +182,18 @@ class DirectFileData
     parsed_xml.at('TaxableSocSecAmt').content = value
   end
 
+  def fed_ssb
+    parsed_xml.at('SocSecBnftAmt')&.text&.to_i
+  end
+
+  def fed_ssb=(value)
+    parsed_xml.at('SocSecBnftAmt').content = value
+  end
+
+  def fed_non_taxable_ssb
+    fed_ssb - fed_taxable_ssb
+  end
+
   def total_fed_adjustments_identify
     "wrenches" # TODO
   end
