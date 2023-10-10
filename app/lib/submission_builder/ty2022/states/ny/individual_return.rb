@@ -107,7 +107,6 @@ module SubmissionBuilder
           def supported_documents
             tax_calculator = @submission.data_source.tax_calculator
             calculated_fields = tax_calculator.calculate
-            ap calculated_fields
             receiving_214_credit = calculated_fields[:IT214_LINE_33] > 0
             supported_docs = [
               {
