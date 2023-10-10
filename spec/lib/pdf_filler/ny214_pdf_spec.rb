@@ -3,8 +3,16 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Ny214Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_ny_intake) }
+  let(:intake) { create(:state_file_ny_intake,) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
+
+  before do
+    intake.direct_file_data.fed_agi = 2500
+    intake.direct_file_data.fed_unemployment = 500
+    intake.direct_file_data.fed_taxable_ssb = 400
+    intake.direct_file_data.fed_wages = 900
+  end
 
   describe 'field mappings' do
     it "uses the available options from the PDF" do

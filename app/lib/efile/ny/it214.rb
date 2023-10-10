@@ -16,27 +16,27 @@ module Efile
         set_line(:IT214_LINE_1, -> { 1 })
         set_line(:IT214_LINE_2, @intake, :occupied_residence)
         if @lines[:IT214_LINE_2].value == 2
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_3, @intake, :property_over_limit)
         if @lines[:IT214_LINE_3].value == 1
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_4, -> { @claimed_as_dependent })
         if @claimed_as_dependent
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_5, @intake, :public_housing)
         if @lines[:IT214_LINE_5].value == 1
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_6, @intake, :nursing_home)
         if @lines[:IT214_LINE_6].value == 1
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_9, @direct_file_data, :fed_agi) # TODO Need to add additional household members deductions if applicable
@@ -48,7 +48,7 @@ module Efile
         set_line(:IT214_LINE_15, @intake, :household_other_income)
         set_line(:IT214_LINE_16, :calculate_line_16)
         if @lines[:IT214_LINE_16].value > 18000
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_17, :calculate_line_17)
@@ -58,7 +58,7 @@ module Efile
           set_line(:IT214_LINE_20,  @intake, :household_rent_adjustments)
           set_line(:IT214_LINE_21, :calculate_line_21)
           if @lines[:IT214_LINE_21].value > 450
-            # TODO: Maybe set some final value to 0
+            offboard
             return
           end
           set_line(:IT214_LINE_22, :calculate_line_22)
@@ -71,12 +71,12 @@ module Efile
           set_line(:IT214_LINE_28, -> {@lines[:IT215_LINE_27].value })
         end
         if @lines[:IT214_LINE_28].value <= 0
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_29, -> {@lines[:IT215_LINE_18].value })
         if @lines[:IT215_LINE_29].value >= @lines[:IT215_LINE_28].value
-          # TODO: Maybe set some final value to 0
+          offboard
           return
         end
         set_line(:IT214_LINE_30, :calculate_line_30)
@@ -86,6 +86,10 @@ module Efile
       end
 
       private
+
+      def offboard
+        set_line(:IT214_LINE_33, -> { 0 })
+      end
 
       def calculate_line_16
         result = 0
