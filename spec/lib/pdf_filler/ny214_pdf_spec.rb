@@ -3,7 +3,14 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Ny214Pdf do
   include PdfSpecHelper
 
-  let(:intake) { create(:state_file_ny_intake, household_rent_own: 'own', household_own_propety_tax: 123, household_own_assessments: 22) }
+  let(:intake) do
+    create(
+      :state_file_ny_intake,
+      household_rent_own: 'own',
+      household_own_propety_tax: 4000,
+      household_own_assessments: 22
+    )
+  end
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
 
