@@ -3,7 +3,7 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -12,7 +12,7 @@ module Efile
         @direct_file_data = direct_file_data
         @nyc_full_year_resident = nyc_full_year_resident
         @dependent_count = dependent_count # number
-        @value_access_tracker = Efile::ValueAccessTracker.new
+        @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
         @it213 = Efile::Ny::It213.new(
           value_access_tracker: @value_access_tracker,
@@ -43,61 +43,61 @@ module Efile
       end
 
       def calculate
-        set_line(:AMT_1, @direct_file_data, :fed_wages)
-        set_line(:AMT_2, @direct_file_data, :fed_taxable_income)
-        set_line(:AMT_14, @direct_file_data, :fed_unemployment)
-        set_line(:AMT_15, @direct_file_data, :fed_taxable_ssb)
-        set_line(:AMT_17, :calculate_line_17)
-        set_line(:AMT_18, @direct_file_data, :total_fed_adjustments)
-        set_line(:AMT_19, :calculate_line_19)
-        set_line(:AMT_19A, :calculate_line_19a)
-        set_line(:AMT_21, -> { 0 }) # TODO: this will be a certain subset of the w2 income
-        set_line(:AMT_23, @intake, :ny_other_additions)
-        set_line(:AMT_24, :calculate_line_24)
-        set_line(:AMT_25, -> { @lines[:AMT_4]&.value })
-        set_line(:AMT_27, @direct_file_data, :fed_taxable_ssb)
-        set_line(:AMT_32, :calculate_line_32)
-        set_line(:AMT_33, :calculate_line_33)
-        set_line(:AMT_34, :calculate_line_34)
-        set_line(:AMT_35, :calculate_line_35)
-        set_line(:AMT_36, -> { @dependent_count })
-        set_line(:AMT_37, :calculate_line_37)
-        set_line(:AMT_38, -> { @lines[:AMT_37]&.value })
-        set_line(:AMT_39, :calculate_line_39)
-        set_line(:AMT_40, :calculate_line_40)
-        set_line(:AMT_43, :calculate_line_43)
-        set_line(:AMT_44, :calculate_line_44)
-        set_line(:AMT_46, :calculate_line_46)
-        set_line(:AMT_47, :calculate_line_47)
-        set_line(:AMT_47A, :calculate_line_47a)
-        set_line(:AMT_48, :calculate_line_48)
-        set_line(:AMT_49, :calculate_line_49)
-        set_line(:AMT_52, :calculate_line_52)
-        set_line(:AMT_54, :calculate_line_54)
-        set_line(:AMT_54B, :calculate_line_54b)
-        set_line(:AMT_58, :calculate_line_58)
-        set_line(:AMT_59, @intake, :sales_use_tax)
+        set_line(:IT201_LINE_1, @direct_file_data, :fed_wages)
+        set_line(:IT201_LINE_2, @direct_file_data, :fed_taxable_income)
+        set_line(:IT201_LINE_14, @direct_file_data, :fed_unemployment)
+        set_line(:IT201_LINE_15, @direct_file_data, :fed_taxable_ssb)
+        set_line(:IT201_LINE_17, :calculate_line_17)
+        set_line(:IT201_LINE_18, @direct_file_data, :total_fed_adjustments)
+        set_line(:IT201_LINE_19, :calculate_line_19)
+        set_line(:IT201_LINE_19A, :calculate_line_19a)
+        set_line(:IT201_LINE_21, -> { 0 }) # TODO: this will be a certain subset of the w2 income
+        set_line(:IT201_LINE_23, @intake, :ny_other_additions)
+        set_line(:IT201_LINE_24, :calculate_line_24)
+        set_line(:IT201_LINE_25, -> { @lines[:IT201_LINE_4]&.value })
+        set_line(:IT201_LINE_27, @direct_file_data, :fed_taxable_ssb)
+        set_line(:IT201_LINE_32, :calculate_line_32)
+        set_line(:IT201_LINE_33, :calculate_line_33)
+        set_line(:IT201_LINE_34, :calculate_line_34)
+        set_line(:IT201_LINE_35, :calculate_line_35)
+        set_line(:IT201_LINE_36, -> { @dependent_count })
+        set_line(:IT201_LINE_37, :calculate_line_37)
+        set_line(:IT201_LINE_38, -> { @lines[:IT201_LINE_37]&.value })
+        set_line(:IT201_LINE_39, :calculate_line_39)
+        set_line(:IT201_LINE_40, :calculate_line_40)
+        set_line(:IT201_LINE_43, :calculate_line_43)
+        set_line(:IT201_LINE_44, :calculate_line_44)
+        set_line(:IT201_LINE_46, :calculate_line_46)
+        set_line(:IT201_LINE_47, :calculate_line_47)
+        set_line(:IT201_LINE_47A, :calculate_line_47a)
+        set_line(:IT201_LINE_48, :calculate_line_48)
+        set_line(:IT201_LINE_49, :calculate_line_49)
+        set_line(:IT201_LINE_52, :calculate_line_52)
+        set_line(:IT201_LINE_54, :calculate_line_54)
+        set_line(:IT201_LINE_54B, :calculate_line_54b)
+        set_line(:IT201_LINE_58, :calculate_line_58)
+        set_line(:IT201_LINE_59, @intake, :sales_use_tax)
         @it227.calculate
-        set_line(:AMT_60E, -> { @lines[:IT227_PART_2_LINE_1].value })
-        set_line(:AMT_61, :calculate_line_61)
-        set_line(:AMT_62, :calculate_line_62)
+        set_line(:IT201_LINE_60E, -> { @lines[:IT227_PART_2_LINE_1].value })
+        set_line(:IT201_LINE_61, :calculate_line_61)
+        set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
-        set_line(:AMT_63, -> { @lines[:IT213_AMT_16].value })
+        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_16].value })
         @it215.calculate
-        set_line(:AMT_65, -> { @lines[:IT215_LINE_16].value })
+        set_line(:IT201_LINE_65, -> { @lines[:IT215_LINE_16].value })
         @it214.calculate
-        set_line(:AMT_67, -> { @lines[:IT214_LINE_33].value })
-        set_line(:AMT_69, :calculate_line_69)
-        set_line(:AMT_69A, :calculate_line_69a)
-        set_line(:AMT_70, -> { @lines[:IT215_LINE_27].value})
-        set_line(:AMT_72, @direct_file_data, :total_state_tax_withheld)
-        set_line(:AMT_73, :calculate_line_72)
-        set_line(:AMT_73, :calculate_line_73)
-        set_line(:AMT_76, :calculate_line_76)
-        set_line(:AMT_77, :calculate_line_77)
-        set_line(:AMT_78, :calculate_line_78)
-        set_line(:AMT_78B, :calculate_line_78b)
-        set_line(:AMT_80, :calculate_line_80)
+        set_line(:IT201_LINE_67, -> { @lines[:IT214_LINE_33].value })
+        set_line(:IT201_LINE_69, :calculate_line_69)
+        set_line(:IT201_LINE_69A, :calculate_line_69a)
+        set_line(:IT201_LINE_70, -> { @lines[:IT215_LINE_27].value})
+        set_line(:IT201_LINE_72, @direct_file_data, :total_state_tax_withheld)
+        set_line(:IT201_LINE_73, :calculate_line_72)
+        set_line(:IT201_LINE_73, :calculate_line_73)
+        set_line(:IT201_LINE_76, :calculate_line_76)
+        set_line(:IT201_LINE_77, :calculate_line_77)
+        set_line(:IT201_LINE_78, :calculate_line_78)
+        set_line(:IT201_LINE_78B, :calculate_line_78b)
+        set_line(:IT201_LINE_80, :calculate_line_80)
         @lines.transform_values(&:value)
       end
 
@@ -107,26 +107,26 @@ module Efile
         result = 0
         (1..16).each do |line_num|
           next if line_num == 12
-          result += line_or_zero("AMT_#{line_num}")
+          result += line_or_zero("IT201_LINE_#{line_num}")
         end
 
         result
       end
 
       def calculate_line_19
-        line_or_zero(:AMT_17) - line_or_zero(:AMT_18).abs
+        line_or_zero(:IT201_LINE_17) - line_or_zero(:IT201_LINE_18).abs
       end
 
       def calculate_line_19a
         # TODO: Add line 19A worksheet, not supporting IT-558
-        line_or_zero(:AMT_19)
+        line_or_zero(:IT201_LINE_19)
       end
 
       def calculate_line_24
         result = 0
-        result += line_or_zero(:AMT_19A)
+        result += line_or_zero(:IT201_LINE_19A)
         (20..23).each do |line_num|
-          result += line_or_zero("AMT_#{line_num}")
+          result += line_or_zero("IT201_LINE_#{line_num}")
         end
         result
       end
@@ -134,13 +134,13 @@ module Efile
       def calculate_line_32
         result = 0
         (25..31).each do |line_num|
-          result += line_or_zero("AMT_#{line_num}")
+          result += line_or_zero("IT201_LINE_#{line_num}")
         end
         result
       end
 
       def calculate_line_33
-        line_or_zero(:AMT_24) - line_or_zero(:AMT_32)
+        line_or_zero(:IT201_LINE_24) - line_or_zero(:IT201_LINE_32)
       end
 
       def calculate_line_34
@@ -158,12 +158,12 @@ module Efile
       end
 
       def calculate_line_35
-        result = line_or_zero(:AMT_33) - line_or_zero(:AMT_34)
+        result = line_or_zero(:IT201_LINE_33) - line_or_zero(:IT201_LINE_34)
         [result, 0].max
       end
 
       def calculate_line_37
-        result = line_or_zero(:AMT_35) - (line_or_zero(:AMT_36) * 1000)
+        result = line_or_zero(:IT201_LINE_35) - (line_or_zero(:IT201_LINE_36) * 1000)
         [result, 0].max
       end
 
@@ -207,8 +207,8 @@ module Efile
       end
 
       def calculate_line_39
-        agi = line_or_zero(:AMT_33)
-        taxable_income = line_or_zero(:AMT_38)
+        agi = line_or_zero(:IT201_LINE_33)
+        taxable_income = line_or_zero(:IT201_LINE_38)
         if agi <= 107_650
           return nys_tax_from_tables(taxable_income).round
         end
@@ -345,25 +345,25 @@ module Efile
           0
         else
           # assumption: we don't support Build America Bonds (special condition code A6)
-          nys_household_credit(line_or_zero(:AMT_19A))
+          nys_household_credit(line_or_zero(:IT201_LINE_19A))
         end
       end
 
       def calculate_line_43
-        line_or_zero(:AMT_40) + line_or_zero(:AMT_41) + line_or_zero(:AMT_42)
+        line_or_zero(:IT201_LINE_40) + line_or_zero(:IT201_LINE_41) + line_or_zero(:IT201_LINE_42)
       end
 
       def calculate_line_44
-        [line_or_zero(:AMT_39) - line_or_zero(:AMT_43), 0].max
+        [line_or_zero(:IT201_LINE_39) - line_or_zero(:IT201_LINE_43), 0].max
       end
 
       def calculate_line_46
-        line_or_zero(:AMT_44) + line_or_zero(:AMT_45)
+        line_or_zero(:IT201_LINE_44) + line_or_zero(:IT201_LINE_45)
       end
 
       def calculate_line_47
         if @nyc_full_year_resident
-          line_or_zero(:AMT_38)
+          line_or_zero(:IT201_LINE_38)
         else
           0
         end
@@ -371,7 +371,7 @@ module Efile
 
       def calculate_line_47a
         if @nyc_full_year_resident
-          nyc_tax_from_tables(@lines[:AMT_47].value)
+          nyc_tax_from_tables(@lines[:IT201_LINE_47].value)
         else
           0
         end
@@ -382,40 +382,40 @@ module Efile
         if @claimed_as_dependent || !@nyc_full_year_resident
           0
         else
-          nyc_household_credit(line_or_zero(:AMT_19A))
+          nyc_household_credit(line_or_zero(:IT201_LINE_19A))
         end
       end
 
       def calculate_line_49
-        [line_or_zero(:AMT_47A) - line_or_zero(:AMT_48), 0].max
+        [line_or_zero(:IT201_LINE_47A) - line_or_zero(:IT201_LINE_48), 0].max
       end
 
       def calculate_line_52
-        line_or_zero(:AMT_49) + line_or_zero(:AMT_50) + line_or_zero(:AMT_51)
+        line_or_zero(:IT201_LINE_49) + line_or_zero(:IT201_LINE_50) + line_or_zero(:IT201_LINE_51)
       end
 
       def calculate_line_54
-        [line_or_zero(:AMT_52) - line_or_zero(:AMT_53), 0].max
+        [line_or_zero(:IT201_LINE_52) - line_or_zero(:IT201_LINE_53), 0].max
       end
 
       def calculate_line_54b
-        (line_or_zero(:AMT_54A) * 0.0034).round
+        (line_or_zero(:IT201_LINE_54A) * 0.0034).round
       end
 
       def calculate_line_58
-        line_or_zero(:AMT_54) + line_or_zero(:AMT_54B) + line_or_zero(:AMT_55) + line_or_zero(:AMT_56) + line_or_zero(:AMT_57)
+        line_or_zero(:IT201_LINE_54) + line_or_zero(:IT201_LINE_54B) + line_or_zero(:IT201_LINE_55) + line_or_zero(:IT201_LINE_56) + line_or_zero(:IT201_LINE_57)
       end
 
       def calculate_line_61
-        line_or_zero(:AMT_46) + line_or_zero(:AMT_58) + line_or_zero(:AMT_59) + line_or_zero(:AMT_60)
+        line_or_zero(:IT201_LINE_46) + line_or_zero(:IT201_LINE_58) + line_or_zero(:IT201_LINE_59) + line_or_zero(:IT201_LINE_60)
       end
 
       def calculate_line_62
-        line_or_zero(:AMT_61)
+        line_or_zero(:IT201_LINE_61)
       end
 
       def calculate_line_69
-        if line_or_zero(:AMT_19) < 250_000 && @nyc_full_year_resident
+        if line_or_zero(:IT201_LINE_19) < 250_000 && @nyc_full_year_resident
           # income calculated as 19a - 9. 9 is not supported and 19a is 19
           if @filing_status.in?([:single, :married_filing_separately, :head_of_household])
             63
@@ -431,7 +431,7 @@ module Efile
         return 0 unless @nyc_full_year_resident && @claimed_as_dependent == false
 
 
-        nyc_taxable_income = line_or_zero(:AMT_47)
+        nyc_taxable_income = line_or_zero(:IT201_LINE_47)
         result = case @filing_status
                  when :married_filing_jointly, :qualifying_widow
                    if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
@@ -468,26 +468,26 @@ module Efile
       def calculate_line_76
         result = 0
         (63..75).each do |line_num|
-          result += line_or_zero("AMT_#{line_num}")
+          result += line_or_zero("IT201_LINE_#{line_num}")
         end
-        result += line_or_zero("AMT_69A")
+        result += line_or_zero("IT201_LINE_69A")
         result
       end
 
       def calculate_line_77
-        [line_or_zero(:AMT_76) - line_or_zero(:AMT_62), 0].max
+        [line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62), 0].max
       end
 
       def calculate_line_78
-        line_or_zero(:AMT_77)
+        line_or_zero(:IT201_LINE_77)
       end
 
       def calculate_line_78b
-        line_or_zero(:AMT_78)
+        line_or_zero(:IT201_LINE_78)
       end
 
       def calculate_line_80
-        [line_or_zero(:AMT_62) - line_or_zero(:AMT_76), 0].max
+        [line_or_zero(:IT201_LINE_62) - line_or_zero(:IT201_LINE_76), 0].max
       end
 
       def nyc_tax_from_tables(amount)

@@ -40,7 +40,7 @@ module Efile
           return
         end
         set_line(:IT214_LINE_9, @direct_file_data, :fed_agi) # TODO Need to add additional household members deductions if applicable
-        set_line(:IT214_LINE_10, -> {@lines[:AMT_24].value }) # TODO Need to add additional household members deductions if applicable
+        set_line(:IT214_LINE_10, -> { @lines[:IT201_LINE_24].value }) # TODO Need to add additional household members deductions if applicable
         set_line(:IT214_LINE_11, @direct_file_data, :fed_non_taxable_ssb)
         set_line(:IT214_LINE_12, @intake, :household_ssi)
         set_line(:IT214_LINE_13, -> { 0 })

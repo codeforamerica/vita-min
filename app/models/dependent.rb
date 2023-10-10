@@ -47,7 +47,6 @@
 # Indexes
 #
 #  index_dependents_on_creation_token  (creation_token)
-#  index_dependents_on_hashed_ssn      (hashed_ssn)
 #  index_dependents_on_intake_id       (intake_id)
 #
 # Foreign Keys

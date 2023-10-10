@@ -19,7 +19,7 @@ RSpec.describe "GYR offseason redirects", type: :request do
   describe "login pages" do
     it_behaves_like :a_normal_page_when_intake_is_open, Portal::ClientLoginsController, action: :new
     it_behaves_like :a_normal_page_when_intake_is_closed, Portal::ClientLoginsController, action: :new
-    it_behaves_like :a_redirect_home_when_login_is_closed, Portal::ClientLoginsController, action: :new
+    it_behaves_like :a_redirect_to_closed_login_when_login_is_closed, Portal::ClientLoginsController, action: :new
   end
 
   describe "portal pages when logged-in" do

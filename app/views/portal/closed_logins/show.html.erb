@@ -1,0 +1,7 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= @title %></h1>
+  <p><%= t(".body_html", link: new_signup_url) %></p>
+<% end %>
