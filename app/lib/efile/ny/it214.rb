@@ -13,12 +13,32 @@ module Efile
       end
 
       def calculate
-        set_line(:IT214_LINE_1, -> { 0 })
-        set_line(:IT214_LINE_2,  @intake, :occupied_residence)
-        set_line(:IT214_LINE_3,  @intake, :property_over_limit)
+        set_line(:IT214_LINE_1, -> { 1 })
+        set_line(:IT214_LINE_2, @intake, :occupied_residence)
+        if @lines[:IT214_LINE_2].value == 2
+          # TODO: Maybe set some final value to 0
+          return
+        end
+        set_line(:IT214_LINE_3, @intake, :property_over_limit)
+        if @lines[:IT214_LINE_3].value == 1
+          # TODO: Maybe set some final value to 0
+          return
+        end
         set_line(:IT214_LINE_4, -> { @claimed_as_dependent })
-        set_line(:IT214_LINE_5,  @intake, :public_housing)
-        set_line(:IT214_LINE_6,  @intake, :nursing_home)
+        if @claimed_as_dependent
+          # TODO: Maybe set some final value to 0
+          return
+        end
+        set_line(:IT214_LINE_5, @intake, :public_housing)
+        if @lines[:IT214_LINE_5].value == 1
+          # TODO: Maybe set some final value to 0
+          return
+        end
+        set_line(:IT214_LINE_6, @intake, :nursing_home)
+        if @lines[:IT214_LINE_6].value == 1
+          # TODO: Maybe set some final value to 0
+          return
+        end
         set_line(:IT214_LINE_9, @direct_file_data, :fed_agi) # TODO Need to add additional household members deductions if applicable
         set_line(:IT214_LINE_10, -> {@lines[:AMT_24].value }) # TODO Need to add additional household members deductions if applicable
         set_line(:IT214_LINE_11, @direct_file_data, :fed_non_taxable_ssb)
