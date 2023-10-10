@@ -62,20 +62,20 @@ module Efile
             return
           end
           set_line(:IT214_LINE_22, :calculate_line_22)
-          set_line(:IT214_LINE_28, -> {@lines[:IT215_LINE_22].value })
+          set_line(:IT214_LINE_28, -> {@lines[:IT214_LINE_22].value })
         elsif @intake.household_rent_own_own?
           set_line(:IT214_LINE_23, @intake, :household_own_propety_tax)
           set_line(:IT214_LINE_24, @intake, :household_own_assessments)
           set_line(:IT214_LINE_25, :calculate_line_25)
-          set_line(:IT214_LINE_27, -> {@lines[:IT215_LINE_25].value })
-          set_line(:IT214_LINE_28, -> {@lines[:IT215_LINE_27].value })
+          set_line(:IT214_LINE_27, -> {@lines[:IT214_LINE_25].value })
+          set_line(:IT214_LINE_28, -> {@lines[:IT214_LINE_27].value })
         end
         if @lines[:IT214_LINE_28].value <= 0
           offboard
           return
         end
-        set_line(:IT214_LINE_29, -> {@lines[:IT215_LINE_18].value })
-        if @lines[:IT215_LINE_29].value >= @lines[:IT215_LINE_28].value
+        set_line(:IT214_LINE_29, -> {@lines[:IT214_LINE_18].value })
+        if @lines[:IT214_LINE_29].value >= @lines[:IT214_LINE_28].value
           offboard
           return
         end
@@ -115,7 +115,7 @@ module Efile
       end
 
       def calculate_line_18
-        @lines[:IT214_LINE_16].value * @lines[:IT214_LINE_17].value
+        (@lines[:IT214_LINE_16].value * @lines[:IT214_LINE_17].value).round
       end
 
       def calculate_line_21
@@ -132,7 +132,7 @@ module Efile
       end
 
       def calculate_line_30
-        @lines[:IT215_LINE_28].value - @lines[:IT215_LINE_29].value
+        @lines[:IT214_LINE_28].value - @lines[:IT214_LINE_29].value
       end
 
       def calculate_line_31
