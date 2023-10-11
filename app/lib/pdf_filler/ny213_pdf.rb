@@ -17,10 +17,10 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        'Your last name' => @submission.data_source.primary.full_name,
+        'Your last name' => @submission.data_source.primary.last_name,
         'Your SSN' => @submission.data_source.primary.ssn,
-        'Spouse \'s last name' => @submission.data_source.primary.ssn,
-        'Spouse \'s SSN' => @submission.data_source.primary.ssn,
+        'Spouse \'s last name' => @submission.data_source.spouse.last_name,
+        'Spouse \'s SSN' => @submission.data_source.spouse.ssn,
         'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'ESC_RSDT_IND'),
         'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'ESC_FED_CR_IND'),
         'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'ESC_FAGI_LMT_IND'),
