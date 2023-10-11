@@ -39,6 +39,7 @@ module PdfFiller
         'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
       @submission.data_source.dependents.each_with_index do |dependent, index|
+        index += 1
         answers.merge!({
                          "ln34fn#{index}" => dependent.first_name,
                          "ln3mi#{index}" => dependent.middle_initial,
