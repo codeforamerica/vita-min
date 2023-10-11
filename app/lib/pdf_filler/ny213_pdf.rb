@@ -26,10 +26,30 @@ module PdfFiller
         'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'ESC_FAGI_LMT_IND'),
         'Line 4' => claimed_attr_value('ESC_FED_CHLD_NMBR'),
         'Line 5' => claimed_attr_value('ESC_QUAL_CHLD_NMBR'),
+      }
+
+      if @submission.data_source.dependents.length > 6
+        raise "Too many dependents to handle on IT213!"
+      end
+
+      @submission.data_source.dependents.select { |d| d.dob >= 17.years.ago }.each_with_index do |dependent, index|
+        index += 1
+        answers.merge!({
+                         "First Name #{index}" => dependent.first_name,
+                         "MI #{index}" => dependent.middle_initial,
+                         "Last Name #{index}" => dependent.last_name,
+                         "Suffix #{index}" => dependent.suffix,
+                         "SSN #{index}" => dependent.ssn,
+                         "Year of Birth #{index}" => dependent.dob.strftime("%m%d%Y")
+                       })
+      end
+
+
+      answers.merge!(
         'Line 6 Dollars' => claimed_attr_value('ESC_FED_CR_AMT'),
         'Line 7 Dollars' => claimed_attr_value('ESC_FED_ADDL_AMT'),
         'Line 8 Dollars' => claimed_attr_value('ESC_FED_TOT_AMT'),
-      }
+      )
 
       if @xml_document.at('ESC_FED_AVG_AMT')
         answers.merge!(
