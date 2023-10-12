@@ -105,9 +105,6 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            tax_calculator = @submission.data_source.tax_calculator
-            calculated_fields = tax_calculator.calculate
-            receiving_214_credit = calculated_fields[:IT214_LINE_33] > 0
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It201,
@@ -118,11 +115,6 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213Pdf,
                 include: true
-              },
-              {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It214,
-                pdf: PdfFiller::Ny214Pdf,
-                include: receiving_214_credit
               },
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,

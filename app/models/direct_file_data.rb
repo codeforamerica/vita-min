@@ -75,17 +75,11 @@ class DirectFileData
   end
 
   def spouse_ssn
-    parsed_xml.at('Filer SpouseSSN')&.text
+    parsed_xml.at('Filer PrimarySSN')&.text
   end
 
   def spouse_ssn=(value)
-    unless parsed_xml.at('Filer SpouseSSN').present? && value.present?
-      parsed_xml.at('Filer').add_child('<SpouseSSN/>')
-    end
-
-    if parsed_xml.at('Filer SpouseSSN')
-      parsed_xml.at('Filer SpouseSSN').content = value
-    end
+    parsed_xml.at('Filer PrimarySSN').content = value
   end
 
   def spouse_occupation
@@ -93,10 +87,6 @@ class DirectFileData
   end
 
   def spouse_occupation=(value)
-    unless parsed_xml.at('IRS1040 SpouseOccupationTxt').present? && value.present?
-      parsed_xml.at('IRS1040').add_child('<SpouseOccupationTxt/>')
-    end
-
     if parsed_xml.at('SpouseOccupationTxt')
       parsed_xml.at('SpouseOccupationTxt').content = value
     end
@@ -146,10 +136,6 @@ class DirectFileData
     parsed_xml.at('ReturnData AdjustedGrossIncomeAmt')&.text&.to_i
   end
 
-  def fed_agi=(value)
-    parsed_xml.at('ReturnData AdjustedGrossIncomeAmt').content = value
-  end
-
   def fed_wages
     parsed_xml.at('WagesAmt')&.text&.to_i
   end
@@ -184,18 +170,6 @@ class DirectFileData
 
   def fed_taxable_ssb=(value)
     parsed_xml.at('TaxableSocSecAmt').content = value
-  end
-
-  def fed_ssb
-    parsed_xml.at('SocSecBnftAmt')&.text&.to_i
-  end
-
-  def fed_ssb=(value)
-    parsed_xml.at('SocSecBnftAmt').content = value
-  end
-
-  def fed_non_taxable_ssb
-    fed_ssb - fed_taxable_ssb
   end
 
   def total_fed_adjustments_identify

@@ -24,11 +24,7 @@ module Efile
         )
         @it214 = Efile::Ny::It214.new(
           value_access_tracker: @value_access_tracker,
-          lines: @lines,
-          direct_file_data: direct_file_data,
-          intake: @intake,
-          claimed_as_dependent: claimed_as_dependent,
-          nyc_full_year_resident: nyc_full_year_resident
+          lines: @lines
         )
         @it215 = Efile::Ny::It215.new(
           value_access_tracker: @value_access_tracker,
