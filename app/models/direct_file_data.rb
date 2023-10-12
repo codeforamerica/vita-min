@@ -222,6 +222,50 @@ class DirectFileData
     parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
   end
 
+  def fed_65_primary_spouse
+    elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
+    value = 0
+
+    elements_to_check.each do |element_name|
+      if parsed_xml.at(element_name)
+        value += 1
+      end
+    end
+    value
+  end
+
+  def blind_primary_spouse
+    elements_to_check = ['PrimaryBlindInd', 'SpouseBlindInd']
+    value = 0
+
+    elements_to_check.each do |element_name|
+      if parsed_xml.at(element_name)
+        value += 1
+      end
+    end
+    value
+  end
+
+  def first_dependent_first_name
+    parsed_xml.at('DependentFirstNm')&.text
+  end
+
+  def first_dependent_last_name
+    parsed_xml.at('DependentLastNm')&.text
+  end
+
+  def first_dependent_ssn
+    parsed_xml.at('DependentLastNm')&.text
+  end
+
+  def first_dependent_relationship
+    parsed_xml.at('DependentLastNm')&.text
+  end
+
+  def first_dependent_months_in_home
+    parsed_xml.at('DependentLastNm')&.text
+  end
+
   def attributes
     [
       :tax_return_year,
