@@ -26,10 +26,10 @@ module PdfFiller
         Spouse_DOB: @xml_document.at('tiSpouse SP_DOB_DT')&.text,
         Spouse_SSN: @xml_document.at('tiSpouse SP_SSN_NMBR')&.text,
         TP_mail_address: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text, # TODO: Awaiting changes in The Spreadsheet
-        NYS_county_residence: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text, # TODO: Prolly not the right field
+        NYS_county_residence: @xml_document.at('tiPrime COUNTY_CD')&.text,
         TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
         TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text,
-        TP_mail_country: @xml_document.at('tiPrime COUNTY_CD')&.text,
+        TP_mail_country: 'United Sates',
         SD_name: @xml_document.at('tiPrime SCHOOL_NAME')&.text,
         TP_home_address: @xml_document.at('tiPrime PERM_LN_1_ADR')&.text,
         SD_code: @xml_document.at('tiPrime SCHOOL_CD')&.text,
