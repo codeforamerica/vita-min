@@ -119,7 +119,7 @@ module Efile
       end
 
       def calculate_line_21
-        months_paid_rent = 12  # TODO: collect from intake someday
+        months_paid_rent = 12 # TODO: collect from intake someday
         (@lines[:IT214_LINE_20].value / months_paid_rent.to_f).round
       end
 
