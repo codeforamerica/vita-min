@@ -11,9 +11,10 @@ class IrsApiService
     # TODO: there will be a JWT in there with some details about what we want to access, also encrypted
     # TODO: the result we get will have to be decrypted
 
-    client_cert_path = './client.crt'
-    client_key_path = './client.key'
-    server_ca_cert_path = './ca.crt'
+    certs_dir =  File.join(__dir__, '..', '..', 'fake_api_server')
+    client_cert_path = File.join(certs_dir, 'client.crt')
+    client_key_path = File.join(certs_dir, 'client.key')
+    server_ca_cert_path = File.join(certs_dir, 'ca.crt')
 
     server_url = URI.parse('https://localhost:443/')
 
@@ -33,5 +34,7 @@ class IrsApiService
 
     puts "Response Code: #{response.code}"
     puts "Response Body: #{response.body}"
+
+    response.body
   end
 end

@@ -1,0 +1,4 @@
+# foreman start --procfile Procfile.fake_api_server
+
+nginx: nginx -p . -c nginx.conf -g daemon\ off\;
+sinatra: ruby api_server.rb
