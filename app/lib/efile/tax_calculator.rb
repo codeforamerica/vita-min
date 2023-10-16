@@ -33,7 +33,5 @@ module Efile
     def line_or_zero(line)
       @lines[line.to_sym]&.value || 0
     end
-
-
   end
 end
