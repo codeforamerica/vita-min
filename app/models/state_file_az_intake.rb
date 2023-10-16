@@ -22,7 +22,10 @@ class StateFileAzIntake < StateFileBaseIntake
       year: 2022,
       filing_status: filing_status.to_sym,
       claimed_as_dependent: claimed_as_dep_yes?,
+      intake: self,
       dependent_count: dependents.length,
+      federal_dependent_count_under_17: 2, #todo: change
+      federal_dependent_count_over_17: 1, #todo: change
       direct_file_data: direct_file_data,
       include_source: include_source
     )
