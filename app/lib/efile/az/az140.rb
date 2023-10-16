@@ -3,11 +3,12 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
+        @intake = intake
         @dependent_count = dependent_count # number
         @federal_dependent_count_under_17 = federal_dependent_count_under_17
         @federal_dependent_count_over_17 = federal_dependent_count_over_17
@@ -19,14 +20,14 @@ module Efile
       def calculate
         set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
-        set_line(:AMT_10A, @federal_dependent_count_under_17)
-        set_line(:AMT_10B, @federal_dependent_count_over_17)
-        set_line(:AMT_11A, "") # TODO how do we find this information
-        set_line(:AMT_10c_first, :dependent_first_name)
-        set_line(:AMT_10c_last, :dependent_last_name)
-        set_line(:AMT_10c_ssn, :dependent_ssn)
-        set_line(:AMT_10c_relationship, :dependent_relationship)
-        set_line(:AMT_10c_mo_in_home, :dependent_months_in_home)
+        set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })
+        set_line(:AMT_10B, -> {@federal_dependent_count_over_17})
+        set_line(:AMT_11A, -> {""}) # TODO how do we find this information
+        set_line(:AMT_10c_first, @direct_file_data,:first_dependent_first_name)
+        set_line(:AMT_10c_last, @direct_file_data, :first_dependent_last_name)
+        set_line(:AMT_10c_ssn, @direct_file_data,:first_dependent_ssn)
+        set_line(:AMT_10c_relationship, @direct_file_data,:first_dependent_relationship)
+        set_line(:AMT_10c_mo_in_home, @direct_file_data,:first_dependent_months_in_home)
         set_line(:AMT_12, @direct_file_data, :fed_agi)
         set_line(:AMT_14, :calculate_line_14)
         set_line(:AMT_19, :calculate_line_19)
@@ -43,6 +44,7 @@ module Efile
         set_line(:AMT_44C, :calculate_line_44C)
         set_line(:AMT_45, :calculate_line_45)
         set_line(:AMT_46, :calculate_line_46)
+        set_line(:AMT_48, :calculate_line_48)
         @lines.transform_values(&:value)
       end
 
@@ -83,7 +85,7 @@ module Efile
       def calculate_line_42
         subtractions = 0
         (38..41).each do |line_num|
-          subtractions += line_or_zero("AMT_#{line_num}")
+          subtractions += line_or_zero("AMT_#{line_num}").to_i
         end
         [line_or_zero(:AMT_37) - subtractions, 0].max
       end
@@ -109,7 +111,7 @@ module Efile
       def calculate_line_45
         subtractions = 0
         (33..44).each do |line_num|
-          subtractions += line_or_zero("AMT_#{line_num}")
+          subtractions += line_or_zero("AMT_#{line_num}").to_i
         end
         [line_or_zero(:AMT_42) - subtractions, 0].max
       end
@@ -121,14 +123,17 @@ module Efile
           elsif line_or_zero(:AMT_45) > 28653
             ((line_or_zero(:AMT_45) - 28653) * 0.0298) + 731
           end
-          if filing_status_mfj?  || filing_status_hoh?
-            if line_or_zero(:AMT_45) <= 57305
-              line_or_zero(:AMT_45) * 0.0255
-            elsif line_or_zero(:AMT_45) > 57305
-              ((line_or_zero(:AMT_45) - 57305) * 0.0298) + 1461
-            end
+        elsif filing_status_mfj? || filing_status_hoh? #this should be an elsif no?
+          if line_or_zero(:AMT_45) <= 57305
+            line_or_zero(:AMT_45) * 0.0255
+          elsif line_or_zero(:AMT_45) > 57305
+            ((line_or_zero(:AMT_45) - 57305) * 0.0298) + 1461
           end
         end
+      end
+
+      def calculate_line_48
+        line_or_zero(:AMT_46) + line_or_zero(:AMT_47) #or just 0 since we don't support line 47?
       end
     end
   end

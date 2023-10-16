@@ -30,6 +30,10 @@ module Efile
       @filing_status == :single
     end
 
+    def filing_status_hoh?
+      @filing_status == :head_of_household
+    end
+
     def line_or_zero(line)
       @lines[line.to_sym]&.value || 0
     end
