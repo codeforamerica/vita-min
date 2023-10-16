@@ -3,7 +3,7 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:, charitable_cash:, charitable_noncash:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -12,22 +12,25 @@ module Efile
         @dependent_count = dependent_count # number
         @federal_dependent_count_under_17 = federal_dependent_count_under_17
         @federal_dependent_count_over_17 = federal_dependent_count_over_17
+        @sentenced_for_60_days = sentenced_for_60_days
         @direct_file_data = direct_file_data
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
+        @charitable_cash = charitable_cash
+        @charitable_noncash = charitable_noncash
       end
 
       def calculate
         set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })
-        set_line(:AMT_10B, -> {@federal_dependent_count_over_17})
-        set_line(:AMT_11A, -> {""}) # TODO how do we find this information
-        set_line(:AMT_10c_first, @direct_file_data,:first_dependent_first_name)
+        set_line(:AMT_10B, -> { @federal_dependent_count_over_17 })
+        set_line(:AMT_11A, -> { "" }) # TODO Tie up dependent information once we know if we have access to fed database or just 1040
+        set_line(:AMT_10c_first, @direct_file_data, :first_dependent_first_name)
         set_line(:AMT_10c_last, @direct_file_data, :first_dependent_last_name)
-        set_line(:AMT_10c_ssn, @direct_file_data,:first_dependent_ssn)
-        set_line(:AMT_10c_relationship, @direct_file_data,:first_dependent_relationship)
-        set_line(:AMT_10c_mo_in_home, @direct_file_data,:first_dependent_months_in_home)
+        set_line(:AMT_10c_ssn, @direct_file_data, :first_dependent_ssn)
+        set_line(:AMT_10c_relationship, @direct_file_data, :first_dependent_relationship)
+        set_line(:AMT_10c_mo_in_home, @direct_file_data, :first_dependent_months_in_home)
         set_line(:AMT_12, @direct_file_data, :fed_agi)
         set_line(:AMT_14, :calculate_line_14)
         set_line(:AMT_19, :calculate_line_19)
@@ -44,9 +47,38 @@ module Efile
         set_line(:AMT_44C, :calculate_line_44C)
         set_line(:AMT_45, :calculate_line_45)
         set_line(:AMT_46, :calculate_line_46)
+        set_line(:AMT_47, -> { 0 })
         set_line(:AMT_48, :calculate_line_48)
+        set_line(:AMT_49, :calculate_line_49)
+        set_line(:AMT_50, :calculate_line_50)
+        set_line(:AMT_51, -> { 0 })
+        set_line(:AMT_52, :calculate_line_52)
+        set_line(:AMT_53, -> { 0 }) # included in 1040?
+        set_line(:AMT_56, :calculate_line_56)
+        set_line(:AMT_59, :calculate_line_59)
+        set_line(:AMT_60, :calculate_line_60)
+        unless line_or_zero(:AMT_52) > line_or_zero(:AMT_59)
+          set_line(:AMT_61, :calculate_line_61)
+          set_line(:AMT_62, -> { 0 })
+          set_line(:AMT_63, :calculate_line_63)
+        end
+        # todo line 77-1, 77-2, 77-3, 78
+        set_line(:AMT_79, -> { 0 })
+        set_line(:AMT_79, :calculate_line_79)
+        set_line(:AMT_80, :calculate_line_80)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c, -> { @charitable_cash })
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c, -> { @charitable_noncash })
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c, :calculate_charitable_contributions_worksheet_4c)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c, :calculate_charitable_contributions_worksheet_6c)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c, :calculate_charitable_contributions_worksheet_7c)
         @lines.transform_values(&:value)
       end
+
+      # add to intake
+      # bank routing number, bank account number, bank account type => add state file base intake
+      # last names used in four prior years
+      # gifts by cash or check
+      # gifts other than by cash or check
 
       private
 
@@ -60,7 +92,8 @@ module Efile
 
       def calculate_line_35
         subtractions = 0
-        (30..32).each do |line_num| # Lines 31 and 32 are only included if there is time to as it is labeled as a maybe
+        (30..32).each do |line_num|
+          # Lines 31 and 32 are only included if there is time to as it is labeled as a maybe
           subtractions += line_or_zero("AMT_#{line_num}")
         end
         line_or_zero(:AMT_19) - subtractions
@@ -101,11 +134,13 @@ module Efile
       end
 
       def calculate_line_44
-        # TODO Need to figure out page 3 worksheet math if these values are from the client
+        line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c)
       end
 
       def calculate_line_44C
-        # TODO Need to figure out page 3 worksheet math if these values are from the client
+        if line_or_zero(:AMT_44) > 0
+          "X" # TODO figure out checkmarks on PDF
+        end
       end
 
       def calculate_line_45
@@ -123,7 +158,7 @@ module Efile
           elsif line_or_zero(:AMT_45) > 28653
             ((line_or_zero(:AMT_45) - 28653) * 0.0298) + 731
           end
-        elsif filing_status_mfj? || filing_status_hoh? #this should be an elsif no?
+        elsif filing_status_mfj? || filing_status_hoh?
           if line_or_zero(:AMT_45) <= 57305
             line_or_zero(:AMT_45) * 0.0255
           elsif line_or_zero(:AMT_45) > 57305
@@ -133,7 +168,116 @@ module Efile
       end
 
       def calculate_line_48
-        line_or_zero(:AMT_46) + line_or_zero(:AMT_47) #or just 0 since we don't support line 47?
+        line_or_zero(:AMT_46) + line_or_zero(:AMT_47)
+      end
+
+      def calculate_line_49
+        (100 * line_or_zero(:AMT_10A)) + (25 * line_or_zero(:AMT_10B))
+      end
+
+      def calculate_line_50
+        # line 42 + line 38 + line 39 + line 40 + line 41
+        wrksht_1_line_8 = 0
+        (38..42).each do |line_num|
+          wrksht_1_line_8 += line_or_zero("AMT_#{line_num}").to_i
+        end
+        wrksht_2_line_2 = 1
+        if filing_status_mfj?
+          max_income = [
+            [1, 20_000],
+            [2, 23_600],
+            [3, 27_300],
+            [Float::INFINITY, 31_000]
+          ]
+          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }
+            return 0
+          end
+          wrksht_2_line_2 = 2
+          wrksht_2_line_5 = 240
+        elsif filing_status_hoh?
+          max_income = [
+            [1, 20_000],
+            [2, 20_135],
+            [3, 23_800],
+            [4, 25_200],
+            [Float::INFINITY, 26_575]
+          ]
+          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }[1]
+            return 0
+          end
+          wrksht_2_line_5 = 240
+        else
+          if wrksht_1_line_8 > 10_000
+            return 0
+          end
+          wrksht_2_line_5 = 120
+        end
+
+        #wrksheet 2
+        wrksht_2_line_3 = @dependent_count + wrksht_2_line_2
+        wrksht_2_line_4 = wrksht_2_line_3 * 40
+        [wrksht_2_line_4, wrksht_2_line_5].min
+      end
+
+      def calculate_line_52
+        line_52_value = line_or_zero(:AMT_48) - (line_or_zero(:AMT_49) + line_or_zero(:AMT_50) + line_or_zero(:AMT_51))
+        [line_52_value, 0].max
+      end
+
+      def calculate_line_56
+        if @direct_file_data.primary_ssn.present? && !@claimed_as_dependent && !@sentenced_for_60_days
+          # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
+          if filing_status_mfj? || filing_status_hoh?
+            return 0 unless line_or_zero(:AMT_12) <= 25000
+          elsif filing_status_single?
+            return 0 unless line_or_zero(:AMT_12) <= 12500
+          end
+          wrksht_line_2 = filing_status_mfj? ? 2 : 1
+          wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
+          return [wrksht_line_4, 100].min
+        end
+
+        0
+      end
+
+      def calculate_line_59
+        result = 0
+        (53..58).each do |line_num|
+          result += line_or_zero("AMT_#{line_num}").to_i
+        end
+        result
+      end
+
+      def calculate_line_60
+        [line_or_zero(:AMT_52) - line_or_zero(:AMT_59), 0].max
+      end
+
+      def calculate_line_61
+        line_or_zero(:AMT_59) - line_or_zero(:AMT_52)
+      end
+
+      def calculate_line_63
+        line_or_zero(:AMT_61) - line_or_zero(:AMT_62)
+      end
+
+      def calculate_line_79
+        line_or_zero(:AMT_80) if line_or_zero(:AMT_63) - line_or_zero(:AMT_78) < 0
+      end
+
+      def calculate_line_80
+        line_or_zero(:AMT_60) + line_or_zero(:AMT_78)
+      end
+
+      def calculate_charitable_contributions_worksheet_4c
+        line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c) + line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c)
+      end
+
+      def calculate_charitable_contributions_worksheet_6c
+        line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c)
+      end
+
+      def calculate_charitable_contributions_worksheet_7c
+        line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c) * 0.27
       end
     end
   end
