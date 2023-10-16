@@ -9,8 +9,6 @@ class IrsApiService
     end
 
     # make an http request to a local fake webserver including mTLS
-    # TODO: there will be a JWT in there with some details about what we want to access, also encrypted
-    # TODO: the result we get will have to be decrypted
 
     certs_dir =  File.join(__dir__, '..', '..', 'fake_api_server')
     client_cert_path = File.join(certs_dir, 'client.crt')
@@ -22,33 +20,16 @@ class IrsApiService
     client_cert = OpenSSL::X509::Certificate.new(File.read(client_cert_path))
     client_key = OpenSSL::PKey::RSA.new(File.read(client_key_path))
 
-    # Adding JWT
-    # requirtement : JWT header with a JWT signed with a private key from the state.
-    # A valid authorization code must be included with the HTTP request in order
-    #  each authorization code may only be used one time and expire within 15 minutes.
-    ## JWT Structure
-    # header = {
-    #   "alg": "RS256",
-    #   "kid": private_key.thumbprint(),
-    # }
-    # claim = {
-    #   "iss": state_account_id, # State identifier provided by the IRS
-    #   "iat": time.time(), # Issued at time
-    #   "nonce": secrets.token_hex(8), # In combination with iat, verify this is a unique transaction
-    #   "sub": authorization_code, # User authorization code from Direct File
-    # }
-
-
     claim = {
-        "iss": "MD_ID", # State identifier provided by the IRS
-        "iat": 0, # Issued at time, add ruby time.time()
-        "nonce": "cool_nonce", # In combination with iat, verify this is a unique transaction :secrets.token_hex(8)
-        "sub": "cool_auth_code", # User authorization code from Direct File
-      }
+      "iss": "MD_ID", # State identifier provided by the IRS
+      "iat": Time.now.to_i, # Issued at time
+      "nonce": SecureRandom.hex(8), # In combination with iat, verify this is a unique transaction :secrets.token_hex(8)
+      "sub": "cool_auth_code", # User authorization code from Direct File
+    }
 
     puts claim
 
-    token = JWT.encode claim, client_key, 'RS256'
+    token = JWT.encode claim, client_key, 'RS256', kid: client_key.thumbprint
 
     puts token
     # verifying that JWT was actually sent
@@ -69,18 +50,18 @@ class IrsApiService
 
     response = http.request(request)
 
+    decipher = OpenSSL::Cipher.new('aes-256-gcm')
+    decipher.decrypt
+    decipher.key = client_key.private_decrypt(Base64.decode64(response.header['SESSION-KEY']))
+    decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
+    decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
+    plain = decipher.update(Base64.decode64(response.body)) + decipher.final
+
     puts "Response Code: #{response.code}"
-    puts "Response Body: #{response.body}"
+    puts "Response Body: #{plain}"
+    # File.write('sinatra_response.html', response.body)
 
-    response.body
-
-
-
-
-
-
-
-
+    plain
   end
 end
 
