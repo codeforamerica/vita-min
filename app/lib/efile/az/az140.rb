@@ -3,7 +3,7 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:, charitable_cash:, charitable_noncash:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -16,8 +16,6 @@ module Efile
         @direct_file_data = direct_file_data
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
-        @charitable_cash = charitable_cash
-        @charitable_noncash = charitable_noncash
       end
 
       def calculate
@@ -66,8 +64,8 @@ module Efile
         set_line(:AMT_79, -> { 0 })
         set_line(:AMT_79, :calculate_line_79)
         set_line(:AMT_80, :calculate_line_80)
-        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c, -> { @charitable_cash })
-        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c, -> { @charitable_noncash })
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c, @intake, :charitable_cash)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c, @intake, :charitable_noncash)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c, :calculate_charitable_contributions_worksheet_4c)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c, :calculate_charitable_contributions_worksheet_6c)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c, :calculate_charitable_contributions_worksheet_7c)

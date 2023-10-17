@@ -3,9 +3,11 @@ module SubmissionBuilder::Ty2022::States::Az::Documents
     include SubmissionBuilder::FormattingMethods
 
     def document
-      build_xml_doc("IT215") do |xml|
-        xml.LNPriorYrs claimed:1 # TODO change to @submission.data_source.primary.prior_last_names once we migrate
-
+      build_xml_doc("Form140") do |xml|
+        xml.LNPriorYrs claimed: @submission.data_source&.prior_last_names
+        xml.FilingStatus claimed: @submission.data_source.filing_status
+        xml.Exemptions claimed: 1 # TODO fix after we figure out dependent information
+        xml.QualifyingParentsAncestors claimed: 1 # TODO fix after we figure out dependent information
 
       end
     end
