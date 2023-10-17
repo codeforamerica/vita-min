@@ -1,6 +1,8 @@
 <%= extends :application do %>
-  <% content_for :app_name do %>State File
-  <% end %>
+  <% content_for :app_name do %>State File<% end %>
+  <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
+  <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
+  <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
   <% content_for :header do %>
     <header class="main-header sticky-header">
@@ -16,7 +18,38 @@
     </header>
   <% end %>
   <% content_for :footer do %>
-    <div></div>
+    <footer class="footer">
+      <div class="slab slab--footer">
+        <div class="grid">
+          <div class="grid__item width-three-fourths footer-description">
+            <p>
+              <%= image_tag("checkbox-logo--white.png", alt: "") %>
+            </p>
+            <p>
+              <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
+              StateTaxesDirectFile.org is a non-profit tool built by <%= cfa_link %> in partnership with the IRS and the state of <%= state_full_name %>.
+            </p>
+          </div>
+
+          <ul class="grid__item width-one-fourth footer-links">
+            <li>
+              <% if I18n.locale != :en %>
+                <%= link_to_english %>
+              <% end %>
+              <% if I18n.locale != :es %>
+                <%= link_to_spanish %>
+              <% end %>
+            </li>
+
+            <li>
+              <%= link_to "https://www.getyourrefundstatus.org/" do %>
+                <%= t("views.shared.footer.service_status") %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
   <% end %>
 
   <% content_for :meta_tags do %>

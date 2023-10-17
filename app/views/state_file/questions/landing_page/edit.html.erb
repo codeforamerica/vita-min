@@ -1,10 +1,16 @@
-<% title = "The future landing page" %>
+<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
+
+<% title = "File your #{state_full_name} state taxes for free" %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="form-question"><%= title %></h1>
+  <h1 class="h1"><%= title %></h1>
 
-  <%= link_to next_path, class: "button button--wide text--centered" do %>
-    <%= t("general.continue") %>
+  <h2 class="h2">
+    We've partnered with the state of <%= state_full_name %> to help you complete your state taxes online for free.
+  </h2>
+
+  <%= link_to next_path, class: "button button--primary" do %>
+    <%= t("general.get_started") %>
   <% end %>
 <% end %>
