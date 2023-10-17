@@ -60,8 +60,6 @@ module Efile
           set_line(:AMT_62, -> { 0 })
           set_line(:AMT_63, :calculate_line_63)
         end
-        # todo line 77-1, 77-2, 77-3, 78
-        set_line(:AMT_79, -> { 0 })
         set_line(:AMT_79, :calculate_line_79)
         set_line(:AMT_80, :calculate_line_80)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c, @intake, :charitable_cash)
@@ -71,12 +69,6 @@ module Efile
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c, :calculate_charitable_contributions_worksheet_7c)
         @lines.transform_values(&:value)
       end
-
-      # add to intake
-      # bank routing number, bank account number, bank account type => add state file base intake
-      # last names used in four prior years
-      # gifts by cash or check
-      # gifts other than by cash or check
 
       private
 
