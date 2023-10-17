@@ -4,6 +4,8 @@ module SubmissionBuilder::Ty2022::States::Az::Documents
 
     def document
       build_xml_doc("IT215") do |xml|
+        xml.LNPriorYrs claimed:1 # TODO change to @submission.data_source.primary.prior_last_names once we migrate
+
 
       end
     end
