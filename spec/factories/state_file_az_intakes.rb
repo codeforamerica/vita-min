@@ -3,11 +3,17 @@
 # Table name: state_file_az_intakes
 #
 #  id                     :bigint           not null, primary key
+#  bank_account_number    :string
+#  bank_account_type      :integer
+#  bank_routing_number    :string
+#  charitable_cash        :integer
+#  charitable_noncash     :integer
 #  claimed_as_dep         :integer
 #  current_step           :string
 #  primary_first_name     :string
 #  primary_last_name      :string
 #  primary_middle_initial :string
+#  prior_last_names       :string
 #  raw_direct_file_data   :text
 #  spouse_first_name      :string
 #  spouse_last_name       :string

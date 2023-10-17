@@ -23,6 +23,9 @@ module SubmissionBuilder
             document.at("ReturnState").add_child(return_header)
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
             document.at("ReturnDataState").add_child(documents_wrapper)
+            attached_documents.each do |attached|
+              document.at('forms').add_child(document_fragment(attached))
+            end
             document
           end
 
@@ -40,7 +43,7 @@ module SubmissionBuilder
 
           private
 
-           def documents_wrapper
+          def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.FiledUnderExtension "No"
               xml.FilingStatus FILING_STATUSES.fetch(@submission.data_source.filing_status.to_sym)
@@ -63,6 +66,10 @@ module SubmissionBuilder
                 xml.TaxDue 0
               end
               xml.AmtOwed 0
+
+              xml.composition do
+                xml.forms
+              end
             end
 
             xml_doc.at('*')
@@ -99,10 +106,10 @@ module SubmissionBuilder
           def supported_documents
             supported_docs = [
               {
-                xml: nil,
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az140,
                 pdf: PdfFiller::Az140Pdf,
                 include: true
-              },
+              }
             ]
             supported_docs
           end
