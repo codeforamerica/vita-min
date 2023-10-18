@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'nokogiri'
 require 'jwt'
+require 'json'
 
 set :port, 9494
 
@@ -32,5 +33,8 @@ get '/' do
   headers['INITIALIZATION-VECTOR'] = Base64.encode64(iv)
   headers['AUTHENTICATION-TAG'] = Base64.encode64(tag)
 
-  Base64.encode64(encrypted)
+  {
+    status: 'success',
+    taxReturn: Base64.encode64(encrypted)
+  }.to_json
 end
