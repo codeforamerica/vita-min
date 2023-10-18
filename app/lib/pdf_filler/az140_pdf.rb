@@ -16,17 +16,17 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         # TODO: name information doesn't seem to exist in AZ schema, just NameControl
-        "1a" => [@submission.data_source.primary.first_name, @submission.data_source.primary.middle_initial].map(&:presence).compact.join(' '),
-        "1b" => @submission.data_source.primary.last_name,
-        "1c" => @submission.data_source.primary.ssn,
-        "1d" => [@submission.data_source.spouse.first_name, @submission.data_source.spouse.middle_initial].map(&:presence).compact.join(' '),
-        "1e" => @submission.data_source.spouse.last_name,
-        "1f" => @submission.data_source.spouse.ssn,
-        "2a" => @submission.data_source.direct_file_data.mailing_street,
-        "2c" => [@submission.data_source.direct_file_data.phone_daytime_area_code, @submission.data_source.direct_file_data.phone_daytime].join(' '),
-        "City, Town, Post Office" => @submission.data_source.direct_file_data.mailing_city,
-        "State" => "AZ",
-        "ZIP Code" => @submission.data_source.direct_file_data.mailing_zip,
+        "1a" => @xml_document.at('Primary TaxpayerName FirstName')&.text, # middle initial?
+        "1b" => @xml_document.at('Primary TaxpayerName LastName')&.text,
+        "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
+        "1d" => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        "1e" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,
+        "2c" => @xml_document.at("USPhone")&.text,
+        "City, Town, Post Office" => @xml_document.at("CityNm")&.text,
+        "State" => @xml_document.at("StateAbbreviationCd")&.text,
+        "ZIP Code" => @xml_document.at("ZIPCd")&.text,
         "Filing Status" => filing_status,
         "8" => calculated_fields.fetch(:AMT_8),
         "9" => calculated_fields.fetch(:AMT_9),
@@ -45,72 +45,36 @@ module PdfFiller
         "10e Mo in Home" => "TODO",
         "10d_10a check box" => "TODO",
         "10e_10a check box" => "TODO",
+        "10d_10b check box" => "TODO",
+        "10e_10b check box" => "TODO",
+        "10d educ" => "TODO",
+        "10e educ" => "TODO",
+        "11c First" => "TODO",
+        "11c Last" => "TODO",
+        "11c SSN" => "TODO",
+        "11c Relationship" => "TODO",
+        "11c died" => "TODO",
+        "11a check box" => "TODO",
+        "19" => @xml_document.at('AzAdjSubtotal')&.text,
         "12" => @xml_document.at('FedAdjGrossIncome')&.text,
         "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
+        "30" =>  @xml_document.at('USSSRailRoadBnft')&.text,
+        "43" =>  @xml_document.at('AZDeductions')&.text,
+        "44" =>  @xml_document.at('ClaimCharitableDed')&.text,
+        "45" =>  @xml_document.at('AZTaxableInc')&.text,
+        "46" =>  @xml_document.at('ComputedTax')&.text,
+        "48" =>  @xml_document.at('SubTotal')&.text,
+        "49" =>  @xml_document.at('DepTaxCredit')&.text,
+        "50" =>  @xml_document.at('FamilyIncomeTaxCredit')&.text,
+        "52" =>  @xml_document.at('BalanceOfTaxDue')&.text,
+        "53" =>  @xml_document.at('TotalPaymentAndCreditsType')&.text,
+        "56" =>  @xml_document.at('IncrExciseTaxCr')&.text,
       }
       answers
     end
 
-
-
-    # FieldType: Button
-    # FieldName: 10d_10b check box
-    # FieldFlags: 0
-    # FieldJustification: Left
-    # FieldStateOption: Yes
-    # FieldStateOption: Off
-    # ---
-    # FieldType: Button
-    # FieldName: 10e_10b check box
-    # FieldFlags: 0
-    # FieldJustification: Left
-    # FieldStateOption: Yes
-    # FieldStateOption: Off
-    # ---
-    # FieldType: Button
-    # FieldName: 10d educ
-    # FieldFlags: 0
-    # FieldJustification: Left
-    # FieldStateOption: Yes
-    # FieldStateOption: Off
-    # ---
-    # FieldType: Button
-    # FieldName: 10e educ
-    # FieldFlags: 0
-    # FieldJustification: Left
-    # FieldStateOption: Yes
-    # FieldStateOption: Off
-    # ---
-    # FieldType: Text
-    # FieldName: 11c First
-    # FieldFlags: 12582912
-    # FieldJustification: Left
-    # ---
-    # FieldType: Text
-    # FieldName: 11c Last
-    # FieldFlags: 12582912
-    # FieldJustification: Left
-    # ---
-    # FieldType: Text
-    # FieldName: 11c SSN
-    # FieldFlags: 12582912
-    # FieldJustification: Center
-    # ---
-    # FieldType: Text
-    # FieldName: 11c Relationship
-    # FieldFlags: 12582912
-    # FieldJustification: Center
-    # ---
-    # FieldType: Button
-    # FieldName: 11c died
-    # FieldFlags: 0
-    # FieldJustification: Left
-    # FieldStateOption: Yes
-    # FieldStateOption: Off
-    # ---
-    # FieldType: Button
-    # FieldName: 11a check box
     private
+
     def calculated_fields
       @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
