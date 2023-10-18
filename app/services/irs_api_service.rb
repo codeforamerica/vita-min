@@ -2,6 +2,8 @@ require 'net/http'
 require 'net/https'
 require 'uri'
 require 'jwt'
+require 'nokogiri'
+
 class IrsApiService
   def self.import_federal_data(token)
     unless ENV['USE_FAKE_API_SERVER']
@@ -62,8 +64,11 @@ class IrsApiService
 
     unless response.header['SESSION-KEY']
       puts "Could not find key in response, bailing out..."
+      puts response.body
       return
     end
+
+    # File.write('sinatra_response.html', response.body)
 
     # ap({
     #      sk: Base64.decode64(response.header['SESSION-KEY']),
@@ -75,13 +80,22 @@ class IrsApiService
     decipher.decrypt
     decipher.key = client_key.private_decrypt(Base64.decode64(response.header['SESSION-KEY']))
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
-    decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
-    plain = decipher.update(Base64.decode64(JSON.parse(response.body)['taxReturn'])) + decipher.final
+    encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
+
+    if ENV['IRS_STATE_ACCOUNT_ID']
+      char_array = encrypted_tax_return_bytes.unpack("C*")
+      encrypted_tax_return_bytes = char_array[0..-17].pack("C*")
+      auth_tag = char_array.last(16).pack("C*")
+
+      decipher.auth_tag = auth_tag
+    else
+      decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
+    end
+    plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
 
     # puts "Response Code: #{response.code}"
     # puts "Response Body: #{plain}"
-    # File.write('sinatra_response.html', response.body)
 
-    plain
+    Nokogiri::XML(JSON.parse(plain)['xml']).to_xml
   end
 end
