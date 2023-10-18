@@ -29,7 +29,7 @@ class IrsApiService
 
     puts claim
 
-    token = JWT.encode claim, client_key, 'RS256', kid: client_key.thumbprint
+    token = JWT.encode claim, client_key, 'RS256'
 
     puts token
     # verifying that JWT was actually sent
@@ -46,7 +46,7 @@ class IrsApiService
     http.ca_file = server_ca_cert_path
 
     request = Net::HTTP::Get.new(server_url.request_uri)
-    request.initialize_http_header({'Authorization' => "JWT #{token}"})
+    request.initialize_http_header({'Authorization' => "Bearer #{token}"})
 
     response = http.request(request)
 
