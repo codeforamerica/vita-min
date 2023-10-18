@@ -440,6 +440,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_161420) do
     t.index ["vita_partner_id"], name: "index_arcint_2021_on_vita_partner_id"
   end
 
+  create_table "at_capacity_waitlists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "intake_id", null: false
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["intake_id"], name: "index_at_capacity_waitlists_on_intake_id"
+  end
+
   create_table "bank_accounts", force: :cascade do |t|
     t.text "account_number"
     t.integer "account_type"
@@ -664,6 +672,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_161420) do
     t.index ["active_job_id"], name: "index_delayed_jobs_on_active_job_id"
     t.index ["job_class", "job_object_id"], name: "index_delayed_jobs_on_job_class_and_job_object_id"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "deleted_document_histories", force: :cascade do |t|
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.string "display_name"
+    t.integer "document_id"
+    t.string "document_type"
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_deleted_document_histories_on_client_id"
   end
 
   create_table "dependents", force: :cascade do |t|
@@ -2001,6 +2020,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_161420) do
   add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"
   add_foreign_key "archived_intakes_2021", "vita_partners"
+  add_foreign_key "at_capacity_waitlists", "intakes"
   add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_action_notifications", "tax_return_selections"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
@@ -2021,6 +2041,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_161420) do
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
+  add_foreign_key "deleted_document_histories", "clients"
   add_foreign_key "dependents", "intakes"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"

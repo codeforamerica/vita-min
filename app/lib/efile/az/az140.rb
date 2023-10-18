@@ -19,6 +19,8 @@ module Efile
       end
 
       def calculate
+        # spouse?
+        set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })
@@ -102,7 +104,7 @@ module Efile
       end
 
       def calculate_line_41
-        line_or_zero(:AMT_11A) * 10_000
+        line_or_zero(:AMT_11A).to_i * 10_000
       end
 
       def calculate_line_42
