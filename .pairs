@@ -2,27 +2,19 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  ab: Anthony Bibbs
-  al: Asheesh Laroia
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
-  ja: Jacky Alcine
+  it: Ivan Trujillo-Priego
   jh: Jenny Heath
-  nn: Nishi Nelson
   ti: Tahsina Islam
   tc: Tiffany Chang
-  tg: Travis Grathwelle
-  it: Ivan Trujillo-Priego
+  tg: Travis Grathwell
 email_addresses:
-  ab: abibbs@codeforamerica.org
-  al: alaroia@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
-  ja: jalcine@codeforamerica.org
+  it: itrujillopriego@codeforamerica.org
   jh: jheath@codeforamerica.org
-  nn: nnelson@codeforamerica.org
   ti: tislam@codeforamerica.org
   tc: tchang@codeforamerica.org
   tg: tgrathwell@codeforamerica.org
-  it: itrujillopriego@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects
