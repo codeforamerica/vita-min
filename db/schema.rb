@@ -1574,8 +1574,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_161420) do
     t.string "bank_account_number"
     t.integer "bank_account_type"
     t.string "bank_routing_number"
-    t.integer "charitable_cash"
-    t.integer "charitable_noncash"
+    t.integer "charitable_cash", default: 0
+    t.integer "charitable_noncash", default: 0
     t.integer "claimed_as_dep"
     t.datetime "created_at", null: false
     t.string "current_step"

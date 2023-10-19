@@ -56,17 +56,24 @@ module Efile
         set_line(:AMT_53, -> { 0 }) # included in 1040?
         set_line(:AMT_56, :calculate_line_56)
         set_line(:AMT_59, :calculate_line_59)
-        set_line(:AMT_60, :calculate_line_60)
-        unless line_or_zero(:AMT_52) > line_or_zero(:AMT_59)
+        if line_or_zero(:AMT_52) > line_or_zero(:AMT_59)
+          set_line(:AMT_60, :calculate_line_60)
+        else
           set_line(:AMT_61, :calculate_line_61)
           set_line(:AMT_62, -> { 0 })
           set_line(:AMT_63, :calculate_line_63)
         end
+        if (line_or_zero(:AMT_63) - line_or_zero(:AMT_78)) >= 0
+          set_line(:AMT_79, :calculate_line_79)
+        else
+          set_line(:AMT_80, :calculate_line_80)
+        end
         set_line(:AMT_79, :calculate_line_79)
-        set_line(:AMT_80, :calculate_line_80)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c, @intake, :charitable_cash)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c, @intake, :charitable_noncash)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_3c, -> { 0 })
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c, :calculate_charitable_contributions_worksheet_4c)
+        set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_5c, -> { 0 })
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c, :calculate_charitable_contributions_worksheet_6c)
         set_line(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c, :calculate_charitable_contributions_worksheet_7c)
         @lines.transform_values(&:value)
@@ -130,7 +137,7 @@ module Efile
       end
 
       def calculate_line_44C
-        if line_or_zero(:AMT_44) > 0
+        if line_or_zero(:AMT_44).positive?
           "X" # TODO figure out checkmarks on PDF
         end
       end
@@ -146,15 +153,15 @@ module Efile
       def calculate_line_46
         if filing_status_single?
           if line_or_zero(:AMT_45) <= 28653
-            line_or_zero(:AMT_45) * 0.0255
+            (line_or_zero(:AMT_45) * 0.0255).round
           elsif line_or_zero(:AMT_45) > 28653
-            ((line_or_zero(:AMT_45) - 28653) * 0.0298) + 731
+            (((line_or_zero(:AMT_45) - 28653) * 0.0298) + 731).round
           end
         elsif filing_status_mfj? || filing_status_hoh?
           if line_or_zero(:AMT_45) <= 57305
-            line_or_zero(:AMT_45) * 0.0255
+            (line_or_zero(:AMT_45) * 0.0255).round
           elsif line_or_zero(:AMT_45) > 57305
-            ((line_or_zero(:AMT_45) - 57305) * 0.0298) + 1461
+            (((line_or_zero(:AMT_45) - 57305) * 0.0298) + 1461).round
           end
         end
       end
@@ -253,7 +260,7 @@ module Efile
       end
 
       def calculate_line_79
-        line_or_zero(:AMT_80) if line_or_zero(:AMT_63) - line_or_zero(:AMT_78) < 0
+        line_or_zero(:AMT_63) - line_or_zero(:AMT_78)
       end
 
       def calculate_line_80
@@ -269,7 +276,7 @@ module Efile
       end
 
       def calculate_charitable_contributions_worksheet_7c
-        line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c) * 0.27
+        (line_or_zero(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c) * 0.27).round
       end
     end
   end

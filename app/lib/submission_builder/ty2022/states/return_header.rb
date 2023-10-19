@@ -31,7 +31,7 @@ module SubmissionBuilder
                   xml.FirstName @submission.data_source.spouse.first_name
                   xml.LastName @submission.data_source.spouse.last_name
                 end
-                xml.TaxpayerSSN @submission.data_source.spouse.ssn
+                xml.TaxpayerSSN "123456789" # TODO add spouse_ssn field to intake
               end
               xml.USAddress do |xml|
                 xml.AddressLine1Txt @submission.data_source.direct_file_data.mailing_street

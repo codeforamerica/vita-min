@@ -6,8 +6,8 @@
 #  bank_account_number    :string
 #  bank_account_type      :integer
 #  bank_routing_number    :string
-#  charitable_cash        :integer
-#  charitable_noncash     :integer
+#  charitable_cash        :integer          default(0)
+#  charitable_noncash     :integer          default(0)
 #  claimed_as_dep         :integer
 #  current_step           :string
 #  primary_first_name     :string
