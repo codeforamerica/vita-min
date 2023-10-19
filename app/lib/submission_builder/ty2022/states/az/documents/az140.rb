@@ -4,7 +4,6 @@ module SubmissionBuilder::Ty2022::States::Az::Documents
 
 
     def document
-
     end
 
     private

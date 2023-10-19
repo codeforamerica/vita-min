@@ -53,10 +53,10 @@ module SubmissionBuilder
                 xml.VisionExemp 1
                 xml.DependentsUnder17 1
                 xml.Dependents17AndOlder 1
-                xml.QualifyingParentsAncestors  1
+                xml.QualifyingParentsAncestors 1
               end # TODO fix after we figure out dependent information
               # TODO fix after we figure out dependent information
-              xml.SupplementPageAttached  'X' # TODO fix after we figure out source of dependent information
+              xml.SupplementPageAttached 'X' # TODO fix after we figure out source of dependent information
               xml.Dependents do
                 xml.DependentDetails do
                   xml.Name do
@@ -71,52 +71,80 @@ module SubmissionBuilder
                 end
               end
               xml.Additions do
-                xml.FedAdjGrossIncome  calculated_fields.fetch(:AMT_12)
-                xml.ModFedAdjGrossInc  calculated_fields.fetch(:AMT_14)
+                xml.FedAdjGrossIncome calculated_fields.fetch(:AMT_12)
+                xml.ModFedAdjGrossInc calculated_fields.fetch(:AMT_14)
               end
-              xml.AzAdjSubtotal  calculated_fields.fetch(:AMT_19)
+              xml.AzAdjSubtotal calculated_fields.fetch(:AMT_19)
               xml.Subtractions do
-                xml.USSSRailRoadBnft  calculated_fields.fetch(:AMT_30)
+                xml.USSSRailRoadBnft calculated_fields.fetch(:AMT_30)
               end
-              xml.TotalSubtractions  calculated_fields.fetch(:AMT_35)
+              xml.TotalSubtractions calculated_fields.fetch(:AMT_35)
               xml.Subtotal calculated_fields.fetch(:AMT_37)
               xml.AzSubtrAmts do
-                xml.ExemAmtAge65OrOver  calculated_fields.fetch(:AMT_38)
-                xml.ExemAmtBlind  calculated_fields.fetch(:AMT_39)
+                xml.ExemAmtAge65OrOver calculated_fields.fetch(:AMT_38)
+                xml.ExemAmtBlind calculated_fields.fetch(:AMT_39)
                 xml.ExemAmtParentsAncestors calculated_fields.fetch(:AMT_41)
               end
-              xml.AZAdjGrossIncome  calculated_fields.fetch(:AMT_42)
+              xml.AZAdjGrossIncome calculated_fields.fetch(:AMT_42)
               xml.DeductionAmt do
-                xml. DeductionTypeIndc 'Standard' # todo: we only support standard tho
-                xml.AZDeductions  calculated_fields.fetch(:AMT_43)
-                xml.ClaimCharitableDed  do #calculated_fields.fetch(:AMT_44)
+                xml.DeductionTypeIndc 'Standard' # todo: we only support standard tho 43S
+                xml.AZDeductions calculated_fields.fetch(:AMT_43)
+
+                xml.ClaimCharitableDed do
+                  #calculated_fields.fetch(:AMT_44)
                   xml.CharitableDeduction "X"
                   xml.IncStdCharitableDed 2
                   xml.IncreaseStdDed do
-                  #   xml.GiftByCashOrCheck "sdfhjsd"
+                    xml.GiftByCashOrCheck calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c)
+                    xml.OtherThanCashOrCheck calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c)
+                    xml.CarrPriorYear calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_3c)
+                    xml.SubTotalContributions calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c)
+                    xml.TotalContributions calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_5c)
+                    xml.SubTotal calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c)
+                    xml.TotalIncStdDeduction calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c)
                   end
-                  # xml.sdhjfhdsj "sdfhjsd"
                 end
-                xml.AZTaxableInc  calculated_fields.fetch(:AMT_45)
-                xml.ComputedTax  calculated_fields.fetch(:AMT_46)
-                xml.SubTotal  calculated_fields.fetch(:AMT_48)
-                xml.DepTaxCredit  calculated_fields.fetch(:AMT_49)
-                xml.FamilyIncomeTaxCredit  calculated_fields.fetch(:AMT_50)
-                xml.BalanceOfTaxDue  calculated_fields.fetch(:AMT_52)
+                xml.AZTaxableInc calculated_fields.fetch(:AMT_45)
+                xml.ComputedTax calculated_fields.fetch(:AMT_46)
+                xml.SubTotal calculated_fields.fetch(:AMT_48)
+                xml.DepTaxCredit calculated_fields.fetch(:AMT_49)
+                xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AMT_50)
+                xml.BalanceOfTaxDue calculated_fields.fetch(:AMT_52)
               end
-              xml.TotalPayments  calculated_fields.fetch(:AMT_59)
+              xml.TotalPaymentAndCredits do
+                xml.AzIncTaxWithheld calculated_fields.fetch(:AMT_53)
+                xml.IncrExciseTaxCr calculated_fields.fetch(:AMT_56)
+              end
+              xml.TotalPayments calculated_fields.fetch(:AMT_59)
               xml.TaxDueOrOverpayment do
-                xml.LineNumber60  calculated_fields.fetch(:AMT_60)
-                xml.LineNumber61  calculated_fields.fetch(:AMT_61)
-                xml.LineNumber63  calculated_fields.fetch(:AMT_63)
+                if calculated_fields[:AMT_60]
+                  xml.TaxDue calculated_fields.fetch(:AMT_60)
+                else
+                  xml.OverPaymentGrp do
+                    xml.OverPaymentOfTax calculated_fields.fetch(:AMT_61)
+                    xml.OverPaymentApplied calculated_fields.fetch(:AMT_62)
+                    xml.OverPaymentBalance calculated_fields.fetch(:AMT_63)
+                  end
+                end
               end
-              xml.RefundAmt  calculated_fields.fetch(:AMT_79)
-              xml.AmtOwed  calculated_fields.fetch(:AMT_80)
-              xml.OtherExempInfo  1 # TODO fix after we figure out source of dependent information
+              if calculated_fields[:AMT_79]
+                xml.RefundAmt calculated_fields.fetch(:AMT_79)
+              else
+                xml.AmtOwed calculated_fields.fetch(:AMT_80)
+              end
+              xml.OtherExempInfo do
+                xml.Name do
+                  xml.FirstName "sdjfhdjs"
+                  xml.MiddleInitial "M"
+                  xml.LastName "fjsdhfjd"
+                end
+                xml.Over65
 
-              xml.QualParentsAncestors  1 # TODO fix after we figure out source of dependent information
-              xml.TotalPaymentAndCreditsType  calculated_fields.fetch(:AMT_53)
-              xml.IncrExciseTaxCr  calculated_fields.fetch(:AMT_56)
+              end # TODO fix after we figure out source of dependent information
+
+              xml.QualParentsAncestors 1 # TODO fix after we figure out source of dependent information
+              xml.TotalPaymentAndCreditsType calculated_fields.fetch(:AMT_53)
+              xml.IncrExciseTaxCr calculated_fields.fetch(:AMT_56)
 
               # do we have to put spouse in here
             end
