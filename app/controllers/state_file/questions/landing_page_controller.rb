@@ -5,9 +5,7 @@ module StateFile
 
       private
 
-      def illustration_path
-        "welcome.svg"
-      end
+      def illustration_path; end
     end
   end
 end

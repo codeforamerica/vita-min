@@ -19,8 +19,8 @@ RSpec.feature "Completing a state file intake" do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text "The future landing page"
-      click_on "Continue"
+      expect(page).to have_text "File your New York state taxes for free"
+      click_on "Get Started", id: "firstCta"
 
       expect(page).to have_text "Log in"
       fill_in "Email", with: "kermit@example.com"
@@ -66,8 +66,9 @@ RSpec.feature "Completing a state file intake" do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text "The future landing page"
-      click_on "Continue"
+      expect(page).to have_text "File your Arizona state taxes for free"
+      click_on "Get Started", id: "firstCta"
+
       expect(page).to have_text "Log in"
       fill_in "Email", with: "kermit@example.com"
       fill_in "Password", with: "therainbowconnection"
