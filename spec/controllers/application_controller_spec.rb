@@ -1194,7 +1194,7 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe '#show_offseason_filing_banner?' do
+  describe "#homepage_banner" do
     around do |example|
       freeze_time do
         example.run
@@ -1203,45 +1203,45 @@ RSpec.describe ApplicationController do
     let(:past) { 1.minute.ago }
     let(:future) { Time.now + 1.minute }
 
-    context "when between intake opening and tax deadline" do
+    context "when before tax deadline" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return true
         allow(Rails.application.config).to receive(:tax_deadline).and_return(future)
       end
 
-      it "is false" do
-        expect(subject.show_offseason_filing_banner?).to be false
+      it "show document deadline warning banner" do
+        expect(subject.homepage_banner).to eq :before_tax_deadline
       end
     end
 
-    context "when between tax deadline and intake closing" do
+    context "when during open intake" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return true
         allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(future)
       end
 
-      it "is true" do
-        expect(subject.show_offseason_filing_banner?).to be true
+      it "show off season filing banner" do
+        expect(subject.homepage_banner).to eq :open_intake
       end
     end
 
-    context "when between intake closing and intake opening" do
+    context "when after end of inprogress intake and before end of login" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return true
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_login).and_return(future)
       end
 
-      it "is true" do
-        expect(subject.show_offseason_filing_banner?).to be true
+      it "show end of docs banner" do
+        expect(subject.homepage_banner).to eq :end_of_in_progress_intake
       end
     end
 
-    context "when it is a hub path or controller method" do
-      controller(Hub::UsersController) do
-        def hub_path; end
+    context "when after end of login" do
+      before do
+        allow(Rails.application.config).to receive(:end_of_login).and_return(past)
       end
 
-      it "is false" do
-        expect(subject.show_offseason_filing_banner?).to be false
+      it "show end of login/closed banner" do
+        expect(subject.homepage_banner).to eq :end_of_login
       end
     end
   end
