@@ -16,10 +16,10 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         # TODO: name information doesn't seem to exist in AZ schema, just NameControl
-        "1a" => @xml_document.at('Primary TaxpayerName FirstName')&.text, # middle initial?
+        "1a" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '), # middle initial?
         "1b" => @xml_document.at('Primary TaxpayerName LastName')&.text,
         "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "1d" => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        "1d" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' '),
         "1e" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
         "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
         "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,

@@ -137,13 +137,18 @@ module SubmissionBuilder
                   xml.MiddleInitial "M"
                   xml.LastName "fjsdhfjd"
                 end
-                xml.Over65 do
-                  xml.SSN "123456789"
-                  xml.CareFacility "X"
+                if true # todo
+                  xml.StillBorn do
+                    xml.StillBornNbr 2
+                    xml.StillBorn "X"
+                  end
+                elsif true # todo
+                  xml.Over65 do
+                    xml.SSN "123456789"
+                    xml.CareFacility "X"
+                  end
                 end
               end #TODO fix after we figure out source of dependent information
-
-              # do we have to put spouse in here
             end
 
             xml_doc.at('*')
@@ -187,14 +192,13 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            supported_docs = [
+            [
               {
                 xml: nil, #SubmissionBuilder::Ty2022::States::Az::Documents::Az140,
                 pdf: PdfFiller::Az140Pdf,
                 include: true
               }
             ]
-            supported_docs
           end
 
           def calculated_fields

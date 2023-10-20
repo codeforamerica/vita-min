@@ -2,7 +2,7 @@ module SubmissionBuilder::Ty2022::States::Az::Documents
   class Az140 < SubmissionBuilder::Document
     include SubmissionBuilder::FormattingMethods
 
-
+    # todo: remove this file and refactor individual header?
     def document
     end
 
