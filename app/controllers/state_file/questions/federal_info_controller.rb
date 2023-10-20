@@ -9,7 +9,9 @@ module StateFile
           redirect_to action: :edit, us_state: params[:us_state]
         else
           create_sample_intake
-          current_intake.update(raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')))
+          direct_file_xml = IrsApiService.import_federal_data('fake_auth_token')
+
+          current_intake.update(raw_direct_file_data: direct_file_xml)
           redirect_to action: :edit, us_state: params[:us_state]
         end
       end
