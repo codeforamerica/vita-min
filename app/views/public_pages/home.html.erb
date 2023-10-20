@@ -3,30 +3,7 @@
 <% end %>
 
 <% content_for :notice do %>
-  <% if closed_for_in_progress_intakes? %>
-    <div class="slab slab--banner">
-      <div class="grid">
-        <div class="grid__item">
-          <strong><%= t('views.public_pages.home.closed_open_for_login_banner_html') %></strong>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <% unless open_for_gyr_logged_in_clients? %>
-    <div class="slab slab--banner">
-      <div class="grid">
-        <div class="grid__item">
-          <strong><%= t('views.public_pages.home.closed_banner') %></strong>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <% if show_offseason_filing_banner? %>
-    <%= render 'shared/offseason_filing_banner' %>
-  <% end %>
-  <% if open_for_gyr_intake? && !show_offseason_filing_banner? %>
-    <%= render 'shared/document_deadline_warning' %>
-  <% end %>
+  <%= render "shared/homepage_banner" %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>

@@ -315,12 +315,18 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def show_offseason_filing_banner?
-    return false if hub?
-
-    app_time >= Rails.configuration.tax_deadline && app_time <= Rails.configuration.end_of_in_progress_intake
+  def homepage_banner
+    if app_time <= Rails.configuration.tax_deadline
+      :before_tax_deadline
+    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake) #&& open_for_gyr_intake?
+      :open_intake
+    elsif app_time.between?(Rails.configuration.end_of_in_progress_intake, Rails.configuration.end_of_login)
+      :end_of_in_progress_intake
+    elsif Rails.configuration.end_of_login <= app_time
+      :end_of_login
+    end
   end
-  helper_method :show_offseason_filing_banner?
+  helper_method :homepage_banner
 
   def open_for_gyr_intake?
     return true if cookies[:used_unique_link] == "yes" &&
@@ -335,11 +341,6 @@ class ApplicationController < ActionController::Base
     app_time >= Rails.configuration.end_of_intake && app_time <= Rails.configuration.end_of_in_progress_intake
   end
   helper_method :open_for_finishing_in_progress_intakes?
-
-  def closed_for_in_progress_intakes?
-    app_time >= Rails.configuration.end_of_in_progress_intake && app_time <= Rails.configuration.end_of_login
-  end
-  helper_method :closed_for_in_progress_intakes?
 
   def open_for_gyr_logged_in_clients?
     app_time >= Rails.configuration.start_of_unique_links_only_intake && app_time <= Rails.configuration.end_of_login
