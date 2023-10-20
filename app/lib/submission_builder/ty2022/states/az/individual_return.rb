@@ -48,25 +48,28 @@ module SubmissionBuilder
               xml.LNPriorYrs @submission.data_source&.prior_last_names
               xml.FilingStatus filing_status
               xml.Exemptions do
-                # todo: what about the other exemptions?
-                xml.AgeExemp 1
-                xml.VisionExemp 1
-                xml.DependentsUnder17 1
-                xml.Dependents17AndOlder 1
-                xml.QualifyingParentsAncestors 1
+                xml.AgeExemp calculated_fields.fetch(:AMT_8)
+                xml.VisionExemp calculated_fields.fetch(:AMT_9)
+                xml.DependentsUnder17 calculated_fields.fetch(:AMT_10A)
+                xml.Dependents17AndOlder calculated_fields.fetch(:AMT_10B)
+                xml.QualifyingParentsAncestors calculated_fields.fetch(:AMT_11A)
               end # TODO fix after we figure out dependent information
-              xml.SupplementPageAttached 'X' # TODO fix after we figure out source of dependent information
+              xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
                 xml.DependentDetails do
                   xml.Name do
-                    xml.FirstName "Ldjfhdjs"
-                    xml.MiddleInitial "M"
-                    xml.LastName "Fjsdhfjd"
+                    xml.FirstName calculated_fields.fetch(:AMT_10c_first)
+                    xml.MiddleInitial calculated_fields.fetch(:AMT_10c_middle)
+                    xml.LastName calculated_fields.fetch(:AMT_10c_last)
                   end
-                  xml.DependentSSN "123456789" # TODO fix after we figure out dependent information
-                  xml.RelationShip "son"
-                  xml.NumMonthsLived 4
-                  xml.DepUnder17 'X'
+                  xml.DependentSSN calculated_fields.fetch(:AMT_10c_ssn) # TODO fix after we figure out dependent information
+                  xml.RelationShip calculated_fields.fetch(:AMT_10c_last)
+                  xml.NumMonthsLived calculated_fields.fetch(:AMT_10c_mo_in_home)
+                  if calculated_fields[:AMT_10c_under_17]
+                    xml.DepUnder17 calculated_fields.fetch(:AMT_10c_under_17)
+                  else
+                    xml.DepOver17 calculated_fields.fetch(:AMT_10c_over_17)
+                  end
                 end
               end
               xml.Additions do
@@ -137,13 +140,15 @@ module SubmissionBuilder
                   xml.MiddleInitial "M"
                   xml.LastName "fjsdhfjd"
                 end
-                xml.Over65 do
-                  xml.SSN "123456789"
-                  xml.CareFacility "X"
+                xml.StillBorn do
+                  xml.StillBornNbr "dnv"
+                  xml.StillBorn "X"
                 end
+                #xml.Over65 do
+                # xml.SSN "123456789"
+                #  xml.CareFacility "X"
+                #end
               end #TODO fix after we figure out source of dependent information
-
-              # do we have to put spouse in here
             end
 
             xml_doc.at('*')
