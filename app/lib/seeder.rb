@@ -10,6 +10,8 @@ class Seeder
   include ActiveSupport::Testing::TimeHelpers
 
   def self.load_fraud_indicators
+    return unless File.exist?('config/fraud_indicators.key')
+
     JSON.parse(Rails.application.encrypted('app/models/fraud/indicators.json.enc', key_path: 'config/fraud_indicators.key', env_key: 'FRAUD_INDICATORS_KEY').read).each do |indicator_attributes|
       indicator = Fraud::Indicator.find_or_initialize_by(name: indicator_attributes['name'])
 
