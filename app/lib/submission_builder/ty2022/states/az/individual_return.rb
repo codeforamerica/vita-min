@@ -55,16 +55,15 @@ module SubmissionBuilder
                 xml.Dependents17AndOlder 1
                 xml.QualifyingParentsAncestors 1
               end # TODO fix after we figure out dependent information
-              # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO fix after we figure out source of dependent information
               xml.Dependents do
                 xml.DependentDetails do
                   xml.Name do
-                    xml.FirstName "sdjfhdjs"
+                    xml.FirstName "Ldjfhdjs"
                     xml.MiddleInitial "M"
-                    xml.LastName "fjsdhfjd"
+                    xml.LastName "Fjsdhfjd"
                   end
-                  xml.DependentSSN "123456789"
+                  xml.DependentSSN "123456789" # TODO fix after we figure out dependent information
                   xml.RelationShip "son"
                   xml.NumMonthsLived 4
                   xml.DepUnder17 'X'
@@ -138,13 +137,11 @@ module SubmissionBuilder
                   xml.MiddleInitial "M"
                   xml.LastName "fjsdhfjd"
                 end
-                xml.Over65
-
-              end # TODO fix after we figure out source of dependent information
-
-              xml.QualParentsAncestors 1 # TODO fix after we figure out source of dependent information
-              xml.TotalPaymentAndCreditsType calculated_fields.fetch(:AMT_53)
-              xml.IncrExciseTaxCr calculated_fields.fetch(:AMT_56)
+                xml.Over65 do
+                  xml.SSN "123456789"
+                  xml.CareFacility "X"
+                end
+              end #TODO fix after we figure out source of dependent information
 
               # do we have to put spouse in here
             end
