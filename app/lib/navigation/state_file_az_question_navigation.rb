@@ -6,6 +6,7 @@ module Navigation
       StateFile::Questions::LandingPageController,
       StateFile::Questions::LoginController,
       StateFile::Questions::FederalInfoController,
+      StateFile::Questions::FederalDependentsController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze

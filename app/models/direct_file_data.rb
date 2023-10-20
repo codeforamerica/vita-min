@@ -222,6 +222,37 @@ class DirectFileData
     parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
   end
 
+  def dependents
+    parsed_xml.css('DependentDetail').map do |node|
+      Dependent.new(
+        first_name: node.at('DependentFirstNm')&.text,
+        last_name: node.at('DependentLastNm')&.text,
+        ssn: node.at('DependentSSN')&.text,
+        relationship: node.at('DependentRelationshipCd')&.text,
+      )
+    end
+  end
+
+  class Dependent
+    attr_reader :first_name, :last_name, :ssn, :relationship
+
+    def initialize(first_name:, last_name:, ssn:, relationship:)
+      @first_name = first_name
+      @last_name = last_name
+      @ssn = ssn
+      @relationship = relationship
+    end
+
+    def attributes
+      {
+        first_name: @first_name,
+        last_name: @last_name,
+        ssn: @ssn,
+        relationship: @relationship,
+      }
+    end
+  end
+
   def attributes
     [
       :tax_return_year,
