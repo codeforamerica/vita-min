@@ -34,6 +34,7 @@ module Efile
         set_line(:AMT_10c_mo_in_home, -> { @dependent_months_in_home })
         set_line(:AMT_10c_under_17, -> { "X" }) # TODO Tie up dependent information
         set_line(:AMT_10c_over_17, -> { "" }) # TODO Tie up dependent information
+        # TODO Need to ad Qualifying parents and grandparents fields for 11
         set_line(:AMT_12, @direct_file_data, :fed_agi)
         set_line(:AMT_14, :calculate_line_14)
         set_line(:AMT_19, :calculate_line_19)
