@@ -36,6 +36,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
@@ -76,6 +77,11 @@ RSpec.feature "Completing a state file intake" do
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
+
+      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "TESSA TESTERSON"
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
