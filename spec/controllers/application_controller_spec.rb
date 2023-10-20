@@ -1216,8 +1216,8 @@ RSpec.describe ApplicationController do
 
     context "when between tax deadline and intake closing" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return true
         allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(future)
       end
 
       it "is true" do
@@ -1227,11 +1227,13 @@ RSpec.describe ApplicationController do
 
     context "when between intake closing and intake opening" do
       before do
-        allow(subject).to receive(:open_for_gyr_intake?).and_return true
+        allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_login).and_return(future)
       end
 
-      it "is true" do
-        expect(subject.show_offseason_filing_banner?).to be true
+      it "is false" do
+        expect(subject.show_offseason_filing_banner?).to be false
       end
     end
 
