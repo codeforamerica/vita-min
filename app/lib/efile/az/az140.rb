@@ -3,7 +3,7 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:, prior_last_names:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -19,7 +19,7 @@ module Efile
       end
 
       def calculate
-        set_line(:AMT_97, -> {@prior_last_names})
+        set_line(:AMT_97, @intake, :prior_last_names)
         set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })

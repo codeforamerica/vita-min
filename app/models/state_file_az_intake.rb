@@ -36,7 +36,6 @@ class StateFileAzIntake < StateFileBaseIntake
       federal_dependent_count_over_17: 1, #todo: will they give us the number or do we calculate based on certain date
       sentenced_for_60_days: false, # todo: ask this question
       direct_file_data: direct_file_data,
-      prior_last_names: prior_last_names,
       include_source: include_source,
     )
   end
