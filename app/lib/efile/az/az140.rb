@@ -3,7 +3,7 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:, dependent_months_in_home:)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
@@ -14,6 +14,7 @@ module Efile
         @federal_dependent_count_over_17 = federal_dependent_count_over_17
         @sentenced_for_60_days = sentenced_for_60_days
         @direct_file_data = direct_file_data
+        @dependent_months_in_home = dependent_months_in_home
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
       end
@@ -24,13 +25,13 @@ module Efile
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })
         set_line(:AMT_10B, -> { @federal_dependent_count_over_17 })
-        set_line(:AMT_11A, -> { "" }) # TODO Tie up dependent information once we know if we have access to fed database or just 1040
+        set_line(:AMT_11A, -> { 1 }) # TODO Tie up dependent information once we know if we have access to fed database or just 1040
         set_line(:AMT_10c_first, @direct_file_data, :first_dependent_first_name)
-        set_line(:AMT_10c_middle, -> { "" }) # TODO Tie up dependent information
+        set_line(:AMT_10c_middle, -> { "L" }) # TODO Tie up dependent information
         set_line(:AMT_10c_last, @direct_file_data, :first_dependent_last_name)
         set_line(:AMT_10c_ssn, @direct_file_data, :first_dependent_ssn)
         set_line(:AMT_10c_relationship, @direct_file_data, :first_dependent_relationship)
-        set_line(:AMT_10c_mo_in_home, @direct_file_data, :first_dependent_months_in_home)
+        set_line(:AMT_10c_mo_in_home, -> { @dependent_months_in_home })
         set_line(:AMT_10c_under_17, -> { "X" }) # TODO Tie up dependent information
         set_line(:AMT_10c_over_17, -> { "" }) # TODO Tie up dependent information
         set_line(:AMT_12, @direct_file_data, :fed_agi)

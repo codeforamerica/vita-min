@@ -255,15 +255,11 @@ class DirectFileData
   end
 
   def first_dependent_ssn
-    parsed_xml.at('DependentLastNm')&.text
+    parsed_xml.at('DependentSSN')&.text
   end
 
   def first_dependent_relationship
-    parsed_xml.at('DependentLastNm')&.text
-  end
-
-  def first_dependent_months_in_home
-    parsed_xml.at('DependentLastNm')&.text
+    parsed_xml.at('DependentRelationshipCd')&.text
   end
 
   def attributes

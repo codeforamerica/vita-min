@@ -37,6 +37,7 @@ class StateFileAzIntake < StateFileBaseIntake
       sentenced_for_60_days: false, # todo: ask this question
       direct_file_data: direct_file_data,
       include_source: include_source,
+      dependent_months_in_home: 12, #todo: change, is this from 1040? waiting for response
     )
   end
 end
