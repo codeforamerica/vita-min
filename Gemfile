@@ -70,6 +70,7 @@ gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'pycall'
 gem 'acts_as_list'
 gem 'paper_trail'
+gem 'jwt'
 
 # Use Flipper for feature flagging
 gem 'flipper'

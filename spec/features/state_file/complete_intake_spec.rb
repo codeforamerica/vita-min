@@ -19,8 +19,8 @@ RSpec.feature "Completing a state file intake" do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text "The future landing page"
-      click_on "Continue"
+      expect(page).to have_text "File your New York state taxes for free"
+      click_on "Get Started", id: "firstCta"
 
       expect(page).to have_text "Log in"
       fill_in "Email", with: "kermit@example.com"
@@ -36,6 +36,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
@@ -66,8 +67,9 @@ RSpec.feature "Completing a state file intake" do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text "The future landing page"
-      click_on "Continue"
+      expect(page).to have_text "File your Arizona state taxes for free"
+      click_on "Get Started", id: "firstCta"
+
       expect(page).to have_text "Log in"
       fill_in "Email", with: "kermit@example.com"
       fill_in "Password", with: "therainbowconnection"
@@ -75,6 +77,11 @@ RSpec.feature "Completing a state file intake" do
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
+
+      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "TESSA TESTERSON"
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"

@@ -246,20 +246,35 @@ class DirectFileData
     value
   end
 
-  def first_dependent_first_name
-    parsed_xml.at('DependentFirstNm')&.text
+  def dependents
+    parsed_xml.css('DependentDetail').map do |node|
+      Dependent.new(
+        first_name: node.at('DependentFirstNm')&.text,
+        last_name: node.at('DependentLastNm')&.text,
+        ssn: node.at('DependentSSN')&.text,
+        relationship: node.at('DependentRelationshipCd')&.text,
+      )
+    end
   end
 
-  def first_dependent_last_name
-    parsed_xml.at('DependentLastNm')&.text
-  end
+  class Dependent
+    attr_reader :first_name, :last_name, :ssn, :relationship
 
-  def first_dependent_ssn
-    parsed_xml.at('DependentSSN')&.text
-  end
+    def initialize(first_name:, last_name:, ssn:, relationship:)
+      @first_name = first_name
+      @last_name = last_name
+      @ssn = ssn
+      @relationship = relationship
+    end
 
-  def first_dependent_relationship
-    parsed_xml.at('DependentRelationshipCd')&.text
+    def attributes
+      {
+        first_name: @first_name,
+        last_name: @last_name,
+        ssn: @ssn,
+        relationship: @relationship,
+      }
+    end
   end
 
   def attributes

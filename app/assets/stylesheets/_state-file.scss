@@ -1,0 +1,85 @@
+.state-file-html-bg--az {
+  background-color: $color-az-grey;
+}
+
+.state-file-html-bg--ny {
+  background-color: $color-ny-blue;
+}
+
+.state-file {
+  background-color: $color-state-file-bg;
+  font-family: $font-state-file;
+
+  .button {
+    border-radius: 0.4rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    height: 6rem;
+    letter-spacing: 0rem;
+    line-height: 2.5rem;
+    padding: 1.6rem 2.4rem 1.6rem 2.4rem;
+    text-align: center;
+    width: 33.8rem;
+  }
+
+  .h1 {
+    font-size: 4.8rem;
+    font-weight: 700;
+    line-height: 5.6rem;
+  }
+
+  .h2 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 3.3rem;
+  }
+
+  .main-header {
+    height: 5.4rem;
+    line-height: 2.4rem;
+
+    .toolbar {
+      align-items: center;
+    }
+  }
+}
+
+.us-state--az {
+  .button {
+    border: 2px solid $color-az-grey;
+    color: $color-az-grey;
+  }
+
+  .button--primary {
+    background-color: $color-az-grey;
+    color: $color-white;
+  }
+
+  .main-header {
+    background-color: $color-az-grey;
+  }
+
+  .slab--footer {
+    background-color: $color-az-grey;
+  }
+}
+
+.us-state--ny {
+  .button {
+    border: 2px solid $color-ny-blue;
+    color: $color-ny-blue;
+  }
+
+  .button--primary {
+    background-color: $color-ny-blue;
+    color: $color-white;
+  }
+
+  .main-header {
+    background-color: $color-ny-blue;
+  }
+
+  .slab--footer {
+    background-color: $color-ny-blue;
+  }
+}

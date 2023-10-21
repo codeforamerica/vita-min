@@ -9,7 +9,13 @@ module StateFile
           redirect_to action: :edit, us_state: params[:us_state]
         else
           create_sample_intake
-          current_intake.update(raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')))
+          direct_file_xml = IrsApiService.import_federal_data('fake_auth_token')
+
+          current_intake.update(raw_direct_file_data: direct_file_xml)
+          current_intake.direct_file_data.dependents.each do |direct_file_dependent|
+            # TODO: in reality dob will not be provided at this time, we need to force people to enter it later
+            current_intake.dependents.create(direct_file_dependent.attributes.merge(dob: 6.years.ago))
+          end
           redirect_to action: :edit, us_state: params[:us_state]
         end
       end
@@ -66,22 +72,6 @@ module StateFile
             primary_signature: "beep boop",
             spouse_signature: "hup",
             **it214_fields
-          )
-          intake.dependents.create(
-            first_name: "Adult",
-            middle_initial: 'C',
-            last_name: "Deppy",
-            relationship: Efile::Relationship.find('grandparent').irs_enum,
-            ssn: '555003333',
-            dob: 60.years.ago
-          )
-          intake.dependents.create(
-            first_name: "Child",
-            middle_initial: 'E',
-            last_name: "Deppy",
-            relationship: Efile::Relationship.find('daughter').irs_enum,
-            ssn: '555004444',
-            dob: 6.years.ago
           )
         when "az"
           intake = StateFileAzIntake.create(

@@ -4,7 +4,6 @@ pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
-  it: Ivan Trujillo-Priego
   jh: Jenny Heath
   lm: Lusen Mendel
   ti: Tahsina Islam
@@ -13,7 +12,6 @@ pairs:
 email_addresses:
   dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
-  it: itrujillopriego@codeforamerica.org
   jh: jheath@codeforamerica.org
   lm: lusen@codeforameric.org
   ti: tislam@codeforamerica.org
