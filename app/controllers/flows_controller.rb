@@ -3,6 +3,8 @@ class FlowsController < ApplicationController
     gyr: { emoji: "💵", name: "GetYourRefund Flow", host: :gyr },
     ctc: { emoji: "👶", name: "CTC Flow", host: :ctc },
     diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
+    state_file_az: { emoji: "🌵", name: "State File - Arizona", host: :gyr },
+    state_file_ny: { emoji: "🍎", name: "State File - New York", host: :gyr },
   }
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
@@ -97,6 +99,20 @@ class FlowsController < ApplicationController
           controller_list: Navigation::DiyNavigation::FLOW,
           form: nil
         )
+      when :state_file_az
+        FlowParams.new(
+          controller: controller,
+          reference_object: StateFileAzIntake.new,
+          controller_list: Navigation::StateFileAzQuestionNavigation::FLOW,
+          form: nil
+        )
+      when :state_file_ny
+        FlowParams.new(
+          controller: controller,
+          reference_object: StateFileNyIntake.new,
+          controller_list: Navigation::StateFileNyQuestionNavigation::FLOW,
+          form: nil
+        )
       end
     end
 
@@ -111,7 +127,8 @@ class FlowsController < ApplicationController
     end
 
     def pretty_reference_object
-      parts = [@reference_object.class.name, "##{@reference_object.id}", "(name: #{@reference_object.preferred_name})"]
+      parts = [@reference_object.class.name, "##{@reference_object.id}"]
+      parts << "(name: #{@reference_object.preferred_name})" if @reference_object.respond_to?(:preferred_name)
       parts.join(' ')
     end
 
@@ -130,16 +147,17 @@ class FlowsController < ApplicationController
     def controller_actions
       @controllers.map do |controller_class|
         controller_class.navigation_actions.map do |controller_action|
-          DecoratedController.new(controller_class, controller_action, @current_controller)
+          DecoratedController.new(controller_class, controller_action, @current_controller, @reference_object)
         end
       end.flatten
     end
 
     class DecoratedController < Delegator
-      def initialize(controller_class, controller_action, current_controller)
+      def initialize(controller_class, controller_action, current_controller, reference_object)
         @controller_class = controller_class
         @controller_action = controller_action
         @current_controller = current_controller
+        @reference_object = reference_object
       end
 
       def __getobj__
@@ -184,6 +202,11 @@ class FlowsController < ApplicationController
           end
           if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
+          end
+          if @reference_object.is_a?(StateFileAzIntake)
+            url_params[:us_state] = 'az'
+          elsif @reference_object.is_a?(StateFileNyIntake)
+            url_params[:us_state] = 'ny'
           end
           @current_controller.url_for(url_params)
         end

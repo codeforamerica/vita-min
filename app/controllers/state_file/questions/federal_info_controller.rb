@@ -49,7 +49,7 @@ module StateFile
             claimed_as_dep: "no",
             primary_email: "whatever@example.com",
             date_electronic_withdrawal: Date.today,
-            residence_county: "County",
+            residence_county: "COUN",
             school_district: "Pizza District",
             school_district_number: 234,
             permanent_street: "123 Main St",
