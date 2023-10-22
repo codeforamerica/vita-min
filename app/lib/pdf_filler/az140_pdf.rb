@@ -33,19 +33,51 @@ module PdfFiller
         "10a" => @xml_document.at("DependentsUnder17")&.text,
         "10b" => @xml_document.at("Dependents17AndOlder")&.text,
         "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
-        "10d First" => @xml_document.at("FirstName")&.text,
-        "10d Last" => @xml_document.at("LastName")&.text,
-        "10d SSN" => @xml_document.at("DependentSSN")&.text,
-        "10d Relationship" => @xml_document.at("RelationShip")&.text,
-        "10d Mo in Home" => @xml_document.at("NumMonthsLived")&.text,
-        "10d_10a check box" => @xml_document.at("DepUnder17")&.text,
-        "10d_10b check box" => @xml_document.at("DepOver17")&.text,
-        "11c First" => "TODO",
-        "11c Last" => "TODO",
-        "11c SSN" => "TODO",
-        "11c Relationship" => "TODO",
-        "11c died" => "TODO",
-        "11a check box" => "TODO",
+      }
+
+      if @xml_document.css('DependentsDetail').length > 14
+        # TODO: 14 is the 3 on page 1 plus the 11 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
+        raise "Can't handle this many dependents for Form 140!"
+      end
+
+      answers["10a_10b check box"] = 'Yes' if @xml_document.css('DependentsDetail').length > 3
+
+      @xml_document.css('DependentDetails').each_with_index do |dependents_node, index|
+        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+        prefix = "10#{('c'..'p').to_a[index]}"
+        answers.merge!(
+          "#{prefix} First" => dependents_node.at("FirstName")&.text,
+          "#{prefix} Last" => dependents_node.at("LastName")&.text,
+          "#{prefix} SSN" => dependents_node.at("DependentSSN")&.text,
+          "#{prefix} Relationship" => dependents_node.at("RelationShip")&.text,
+          "#{prefix} Mo in Home" => dependents_node.at("NumMonthsLived")&.text,
+          "#{prefix}_10a check box" => dependents_node.at("DepUnder17")&.text,
+          "#{prefix}_10b check box" => dependents_node.at("Dep17AndOlder")&.text,
+        )
+      end
+
+      if @xml_document.css('QualParentsAncestors').length > 8
+        # TODO: 8 is the 2 on page 1 plus the 6 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
+        raise "Can't handle this many dependents for Form 140!"
+      end
+
+      answers["11a check box"] = 'Yes' if @xml_document.css('QualParentsAncestors').length > 2
+
+      @xml_document.css('QualParentsAncestors').each_with_index do |qualifying_relative_node, index|
+        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+        prefix = "11#{('b'..'i').to_a[index]}"
+        answers.merge!(
+          "#{prefix} First" => qualifying_relative_node.at("FirstName")&.text,
+          "#{prefix} Last" => qualifying_relative_node.at("LastName")&.text,
+          "#{prefix} SSN" => qualifying_relative_node.at("DependentSSN")&.text,
+          "#{prefix} Relationship" => qualifying_relative_node.at("RelationShip")&.text,
+          "#{prefix} Mo in Home" => qualifying_relative_node.at("NumMonthsLived")&.text,
+          "#{prefix} over 65" => qualifying_relative_node.at("IsOverSixtyFive")&.text,
+          "#{prefix} died" => qualifying_relative_node.at("DiedInTaxYear")&.text,
+        )
+      end
+
+      answers.merge!({
         "19" => @xml_document.at('AzAdjSubtotal')&.text,
         "12" => @xml_document.at('FedAdjGrossIncome')&.text,
         "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
@@ -60,7 +92,7 @@ module PdfFiller
         "52" =>  @xml_document.at('BalanceOfTaxDue')&.text,
         "53" =>  @xml_document.at('TotalPaymentAndCreditsType')&.text,
         "56" =>  @xml_document.at('IncrExciseTaxCr')&.text,
-      }
+      })
       answers
     end
 

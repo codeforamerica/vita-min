@@ -3,18 +3,14 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false, federal_dependent_count_under_17:, federal_dependent_count_over_17:, sentenced_for_60_days:, dependent_months_in_home:)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @intake = intake
         @dependent_count = dependent_count # number
-        @federal_dependent_count_under_17 = federal_dependent_count_under_17
-        @federal_dependent_count_over_17 = federal_dependent_count_over_17
-        @sentenced_for_60_days = sentenced_for_60_days
         @direct_file_data = direct_file_data
-        @dependent_months_in_home = dependent_months_in_home
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
       end
@@ -23,18 +19,9 @@ module Efile
         set_line(:AMT_97, @intake, :prior_last_names)
         set_line(:AMT_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AMT_9, @direct_file_data, :blind_primary_spouse)
-        set_line(:AMT_10A, -> { @federal_dependent_count_under_17 })
-        set_line(:AMT_10B, -> { @federal_dependent_count_over_17 })
-        set_line(:AMT_11A, -> { 1 }) # TODO Tie up dependent information once we know if we have access to fed database or just 1040
-        set_line(:AMT_10c_first, @direct_file_data, :first_dependent_first_name)
-        set_line(:AMT_10c_middle, -> { "L" }) # TODO Tie up dependent information
-        set_line(:AMT_10c_last, @direct_file_data, :first_dependent_last_name)
-        set_line(:AMT_10c_ssn, @direct_file_data, :first_dependent_ssn)
-        set_line(:AMT_10c_relationship, @direct_file_data, :first_dependent_relationship)
-        set_line(:AMT_10c_mo_in_home, -> { @dependent_months_in_home })
-        set_line(:AMT_10c_under_17, -> { "X" }) # TODO Tie up dependent information
-        set_line(:AMT_10c_over_17, -> { "" }) # TODO Tie up dependent information
-        # TODO Need to ad Qualifying parents and grandparents fields for 11
+        set_line(:AMT_10A, @intake, :federal_dependent_count_under_17)
+        set_line(:AMT_10B, @intake, :federal_dependent_count_over_17)
+        set_line(:AMT_11A, @intake, :qualifying_parents_and_grandparents)
         set_line(:AMT_12, @direct_file_data, :fed_agi)
         set_line(:AMT_14, :calculate_line_14)
         set_line(:AMT_19, :calculate_line_19)
@@ -228,7 +215,7 @@ module Efile
       end
 
       def calculate_line_56
-        if @direct_file_data.primary_ssn.present? && !@claimed_as_dependent && !@sentenced_for_60_days
+        if @direct_file_data.primary_ssn.present? && !@claimed_as_dependent && !@intake.sentenced_for_60_days
           # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
           if filing_status_mfj? || filing_status_hoh?
             return 0 unless line_or_zero(:AMT_12) <= 25000

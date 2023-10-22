@@ -7,7 +7,7 @@ module SubmissionBuilder
 
         def document
           build_xml_doc("efile:ReturnHeaderState") do |xml|
-            xml.Jurisdiction "#{@submission&.bundle_class&.state_abbreviation}ST"
+            xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST"
             xml.ReturnTs datetime_type(@submission.created_at)
             xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
             xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
@@ -22,7 +22,7 @@ module SubmissionBuilder
               xml.Primary do
                 xml.TaxpayerName do
                   xml.FirstName @submission.data_source.primary.first_name
-                  xml.MiddleInitial @submission.data_source.primary.middle_initial
+                  xml.MiddleInitial @submission.data_source.primary.middle_initial if @submission.data_source.primary.middle_initial.present?
                   xml.LastName @submission.data_source.primary.last_name
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn
@@ -31,7 +31,7 @@ module SubmissionBuilder
                 xml.Secondary do
                   xml.TaxpayerName do
                     xml.FirstName @submission.data_source.spouse.first_name
-                    xml.MiddleInitial @submission.data_source.spouse.middle_initial
+                    xml.MiddleInitial @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
                     xml.LastName @submission.data_source.spouse.last_name
                   end
                   xml.TaxpayerSSN @submission.data_source.spouse.ssn

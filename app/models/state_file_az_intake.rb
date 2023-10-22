@@ -32,12 +32,27 @@ class StateFileAzIntake < StateFileBaseIntake
       claimed_as_dependent: claimed_as_dep_yes?,
       intake: self,
       dependent_count: dependents.length,
-      federal_dependent_count_under_17: 2, #todo: change, is this from 1040? waiting for response
-      federal_dependent_count_over_17: 1, #todo: will they give us the number or do we calculate based on certain date
-      sentenced_for_60_days: false, # todo: ask this question
       direct_file_data: direct_file_data,
       include_source: include_source,
-      dependent_months_in_home: 12, #todo: change, is this from 1040? waiting for response
     )
+  end
+
+  def federal_dependent_count_under_17
+    # TODO
+    1
+  end
+
+  def federal_dependent_count_over_17
+    # TODO
+    0
+  end
+
+  def qualifying_parents_and_grandparents
+    # TODO
+    0
+  end
+
+  def sentenced_for_60_days
+    # TODO
   end
 end

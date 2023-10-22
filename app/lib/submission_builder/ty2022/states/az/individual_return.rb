@@ -45,7 +45,7 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
-              xml.LNPriorYrs @submission.data_source&.prior_last_names
+              xml.LNPriorYrs @submission.data_source.prior_last_names
               xml.FilingStatus filing_status
               xml.Exemptions do
                 xml.AgeExemp calculated_fields.fetch(:AMT_8)
@@ -56,21 +56,21 @@ module SubmissionBuilder
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
-                xml.DependentDetails do
-                  xml.Name do
-                    xml.FirstName calculated_fields.fetch(:AMT_10c_first)
-                    xml.MiddleInitial calculated_fields.fetch(:AMT_10c_middle)
-                    xml.LastName calculated_fields.fetch(:AMT_10c_last)
-                  end
-                  xml.DependentSSN calculated_fields.fetch(:AMT_10c_ssn) # TODO fix after we figure out dependent information
-                  xml.RelationShip calculated_fields.fetch(:AMT_10c_last)
-                  xml.NumMonthsLived calculated_fields.fetch(:AMT_10c_mo_in_home)
-                  if calculated_fields[:AMT_10c_under_17]
-                    xml.DepUnder17 calculated_fields.fetch(:AMT_10c_under_17)
-                  else
-                    xml.DepOver17 calculated_fields.fetch(:AMT_10c_over_17)
+                @submission.data_source.dependents.each do |dependent|
+                  xml.DependentDetails do
+                    xml.Name do
+                      xml.FirstName dependent.first_name
+                      xml.MiddleInitial dependent.middle_initial # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.LastName dependent.last_name
+                    end
+                    xml.DependentSSN dependent.ssn
+                    xml.RelationShip dependent.relationship
+                    xml.NumMonthsLived 12 # TODO: need to merge data from Federal Schedule EIC QualifyingChildInformation *or* re-ask client
+                    xml.DepUnder17 dependent.dob < 17.years.ago ? 'X' : nil # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                    xml.Dep17AndOlder dependent.dob >= 17.years.ago ? 'X' : nil # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
                   end
                 end
+                # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
               end
               xml.Additions do
                 xml.FedAdjGrossIncome calculated_fields.fetch(:AMT_12)
