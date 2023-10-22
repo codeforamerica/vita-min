@@ -4,17 +4,9 @@ RSpec.feature "Completing a state file intake" do
   let(:fake_xml) { "<haha>Your xml here</haha>" }
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
-
-    fake_response = SubmissionBuilder::Response.new(errors: [], document: fake_xml)
-    allow_any_instance_of(
-      SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-    ).to receive(:build).and_return(fake_response)
-    allow_any_instance_of(
-      SubmissionBuilder::Ty2022::States::Az::IndividualReturn
-    ).to receive(:build).and_return(fake_response)
   end
 
-  context "NY" do
+  context "NY", :flow_explorer_screenshot do
     it "has content" do
       visit "/"
       click_on "Start Test NY"
@@ -30,7 +22,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "The page with all the info from the 1040"
 
       # pretend to get federal data
-      expect(find_field("tax return year").value).to be_nil
+      expect(find_field("tax return year").value).not_to be_present
       click_on "Fetch 1040 data from IRS"
       expect(page).to have_field("tax return year", with: "2022")
       click_on "Continue"
@@ -50,7 +42,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "You have successfully submitted your taxes"
       expect(page).to have_link "Download PDF"
       click_on "Show XML"
-      expect(page.body).to include(fake_xml)
+      expect(page.body).to include('efile:ReturnState')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
@@ -62,7 +54,7 @@ RSpec.feature "Completing a state file intake" do
     end
   end
 
-  context "AZ" do
+  context "AZ", :flow_explorer_screenshot do
     it "has content" do
       visit "/"
       click_on "Start Test AZ"
@@ -85,7 +77,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
-      expect(page.body).to include(fake_xml)
+      expect(page.body).to include('efile:ReturnState')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
