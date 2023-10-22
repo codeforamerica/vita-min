@@ -166,6 +166,22 @@ RSpec.describe FlowsController do
       end
     end
 
+    context 'for the state file az flow' do
+      it 'renders successfully' do
+        get :show, params: { id: :state_file_az }
+
+        expect(response.body).to have_content('State File - Arizona')
+      end
+    end
+
+    context 'for the state file ny flow' do
+      it 'renders successfully' do
+        get :show, params: { id: :state_file_ny }
+
+        expect(response.body).to have_content('State File - New York')
+      end
+    end
+
     context 'for a nonexistent flow' do
       it 'renders 404' do
         expect do
