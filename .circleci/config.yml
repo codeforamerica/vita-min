@@ -175,6 +175,7 @@ jobs:
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
+      - install_efile_schemas
       - setup_test_db
       - run: bundle exec rake assets:precompile
       - run: bundle exec rake flow_explorer:capture_screenshots flow_explorer:upload_screenshots
