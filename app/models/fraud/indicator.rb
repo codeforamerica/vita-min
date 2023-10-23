@@ -52,14 +52,8 @@ module Fraud
     end
 
     def gem(references)
-      attribute1 = indicator_attributes[0]
-      attribute2 = indicator_attributes[1]
-      attribute3 = indicator_attributes[2]
-
-      record = scoped_records(references).first
-
-      result_is_fraudy = FraudGem.new.send(name, value1: record.send(attribute1), value2: record.send(attribute2), value3: record.send(attribute3))
-      result_is_fraudy ? response(points) : passing_response
+      # DEPRECATED: we used to import a private fraud-gem gem that had some bespoke checks in its FraudGem class
+      passing_response
     end
 
     def average_under(references)

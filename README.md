@@ -37,22 +37,6 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 ```sh
 brew install git-duet/tap/git-duet
 ```
-### Add git-credential-manager
-Get one of the maintainers to add you to the [GetYourRefund](https://github.com/orgs/codeforamerica/teams/getyourrefund) github group
-
-Install [Git Credential Manager](https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md) which will help you authenticate across projects, in this case helping you get access to the private fraud-gem.
-```sh
-brew install --cask git-credential-manager
-```
-
-Login to your Github account via git-credential-manager
-```sh
-git-credential-manager github login
-```
-
-There should be a pop-up window for Github sign-in. Choose `Sign in with your browser` and then `Authorize git-ecoystem`.
-
-If you previously tried to authenticate by adding `GITHUB__COM x-access-token` to `.bundle/config` you may need to remove it.
 
 ### Add efile resources locally
 
