@@ -44,42 +44,30 @@
   }
 }
 
-.us-state--az {
-  .button {
-    border: 2px solid $color-az-grey;
-    color: $color-az-grey;
-  }
+$state-colors: (
+  ny: $color-ny-blue,
+  az: $color-az-grey
+);
 
-  .button--primary {
-    background-color: $color-az-grey;
-    color: $color-white;
-  }
+@each $state_key, $state-color in $state-colors {
+  .us-state--#{$state_key} {
+    .button {
+      border: 2px solid $state-color;
+      color: $state-color;
+    }
 
-  .main-header {
-    background-color: $color-az-grey;
-  }
+    .button--primary {
+      background-color: $state-color;
+      color: $color-white;
+    }
 
-  .slab--footer {
-    background-color: $color-az-grey;
+    .main-header {
+      background-color: $state-color;
+    }
+
+    .slab--footer {
+      background-color: $state-color;
+    }
   }
 }
 
-.us-state--ny {
-  .button {
-    border: 2px solid $color-ny-blue;
-    color: $color-ny-blue;
-  }
-
-  .button--primary {
-    background-color: $color-ny-blue;
-    color: $color-white;
-  }
-
-  .main-header {
-    background-color: $color-ny-blue;
-  }
-
-  .slab--footer {
-    background-color: $color-ny-blue;
-  }
-}
