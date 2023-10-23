@@ -92,7 +92,14 @@ module PdfFiller
         "52" =>  @xml_document.at('BalanceOfTaxDue')&.text,
         "53" =>  @xml_document.at('TotalPaymentAndCreditsType')&.text,
         "56" =>  @xml_document.at('IncrExciseTaxCr')&.text,
-      })
+        "59" =>  @xml_document.at('TotalPayments')&.text,
+        "60" => @xml_document.at('TaxDueOrOverpayment')&.text,
+        "61" => @xml_document.at('OverPaymentOfTax')&.text,
+        "63" => @xml_document.at('RefundAmt')&.text,
+        "80" => @xml_document.at('AmtOwed')&.text,
+        "61" => @xml_document.at('OverPaymentOfTax ')&.text,
+        "61" => @xml_document.at('OverPaymentOfTax ')&.text,
+                     })
       answers
     end
 
