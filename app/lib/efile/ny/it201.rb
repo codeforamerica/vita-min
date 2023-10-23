@@ -595,22 +595,6 @@ module Efile
         end
         table_row.amount + ((household_size - 1) * table_row.household_member_increment)
       end
-
-      def filing_status_hoh?
-        @filing_status == :head_of_household
-      end
-
-      def filing_status_mfj?
-        @filing_status == :married_filing_jointly
-      end
-
-      def filing_status_single?
-        @filing_status == :single
-      end
-
-      def line_or_zero(line)
-        @lines[line.to_sym]&.value || 0
-      end
     end
 
     class TaxTableRow

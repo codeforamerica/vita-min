@@ -46,6 +46,9 @@ module StateFile
             primary_first_name: "Testy",
             primary_middle_initial: "T",
             primary_last_name: "Testerson",
+            spouse_first_name: "Joe",
+            spouse_middle_initial: "R",
+            spouse_last_name: "Buck",
             claimed_as_dep: "no",
             primary_email: "whatever@example.com",
             date_electronic_withdrawal: Date.today,
@@ -76,6 +79,9 @@ module StateFile
             primary_first_name: "Testy",
             primary_middle_initial: "T",
             primary_last_name: "Testerson",
+            spouse_first_name: "Joe",
+            spouse_middle_initial: "R",
+            spouse_last_name: "Buck",
           )
         else
           raise "No state specified"

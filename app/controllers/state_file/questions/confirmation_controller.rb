@@ -5,13 +5,13 @@ module StateFile
 
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
-        submission_content = case params[:us_state]
-                             when "ny"
-                               SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission).document
-                             when "az"
-                               SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission).document
-                             end
-        render xml: submission_content
+        builder_response = case params[:us_state]
+                           when "ny"
+                             SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
+                           when "az"
+                             SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
+                           end
+        builder_response.errors.present? ? render(plain: builder_response.errors.join("\n")) : render(xml: builder_response.document)
       end
 
       def explain_calculations

@@ -22,16 +22,29 @@ module SubmissionBuilder
               xml.Primary do
                 xml.TaxpayerName do
                   xml.FirstName @submission.data_source.primary.first_name
+                  xml.MiddleInitial @submission.data_source.primary.middle_initial if @submission.data_source.primary.middle_initial.present?
                   xml.LastName @submission.data_source.primary.last_name
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn
               end
+              if @submission.data_source&.spouse.ssn.present?
+                xml.Secondary do
+                  xml.TaxpayerName do
+                    xml.FirstName @submission.data_source.spouse.first_name
+                    xml.MiddleInitial @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
+                    xml.LastName @submission.data_source.spouse.last_name
+                  end
+                  xml.TaxpayerSSN @submission.data_source.spouse.ssn
+                end
+              end
               xml.USAddress do |xml|
                 xml.AddressLine1Txt @submission.data_source.direct_file_data.mailing_street
+                xml.AddressLine2Txt @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment
                 xml.CityNm @submission.data_source.direct_file_data.mailing_city
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
                 xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip
               end
+              # xml.USPhone [@submission.data_source.direct_file_data.phone_daytime_area_code, @submission.data_source.direct_file_data.phone_daytime].join(' ')
             end
           end
         end

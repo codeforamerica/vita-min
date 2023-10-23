@@ -16,26 +16,98 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         # TODO: name information doesn't seem to exist in AZ schema, just NameControl
-        "1a" => [@submission.data_source.primary.first_name, @submission.data_source.primary.middle_initial].map(&:presence).compact.join(' '),
-        "1b" => @submission.data_source.primary.last_name,
-        "1c" => @submission.data_source.primary.ssn,
-        "1d" => [@submission.data_source.spouse.first_name, @submission.data_source.spouse.middle_initial].map(&:presence).compact.join(' '),
-        "1e" => @submission.data_source.spouse.last_name,
-        "1f" => @submission.data_source.spouse.ssn,
-        "2a" => @submission.data_source.direct_file_data.mailing_street,
-        "2c" => [@submission.data_source.direct_file_data.phone_daytime_area_code, @submission.data_source.direct_file_data.phone_daytime].join(' '),
-        "City, Town, Post Office" => @submission.data_source.direct_file_data.mailing_city,
-        "State" => "AZ",
-        "ZIP Code" => @submission.data_source.direct_file_data.mailing_zip,
+        "1a" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
+        "1b" => @xml_document.at('Primary TaxpayerName LastName')&.text,
+        "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
+        "1d" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' '),
+        "1e" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,
+        "2c" => @xml_document.at("USPhone")&.text,
+        "City, Town, Post Office" => @xml_document.at("CityNm")&.text,
+        "State" => @xml_document.at("StateAbbreviationCd")&.text,
+        "ZIP Code" => @xml_document.at("ZIPCd")&.text,
         "Filing Status" => filing_status,
+        "8" => @xml_document.at("AgeExemp")&.text,
+        "9" => @xml_document.at("VisionExemp")&.text,
+        "10a" => @xml_document.at("DependentsUnder17")&.text,
+        "10b" => @xml_document.at("Dependents17AndOlder")&.text,
+        "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
+      }
+
+      if @xml_document.css('DependentsDetail').length > 14
+        # TODO: 14 is the 3 on page 1 plus the 11 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
+        raise "Can't handle this many dependents for Form 140!"
+      end
+
+      answers["10a_10b check box"] = 'Yes' if @xml_document.css('DependentsDetail').length > 3
+
+      @xml_document.css('DependentDetails').each_with_index do |dependents_node, index|
+        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+        prefix = "10#{('c'..'p').to_a[index]}"
+        answers.merge!(
+          "#{prefix} First" => dependents_node.at("FirstName")&.text,
+          "#{prefix} Last" => dependents_node.at("LastName")&.text,
+          "#{prefix} SSN" => dependents_node.at("DependentSSN")&.text,
+          "#{prefix} Relationship" => dependents_node.at("RelationShip")&.text,
+          "#{prefix} Mo in Home" => dependents_node.at("NumMonthsLived")&.text,
+          "#{prefix}_10a check box" => dependents_node.at("DepUnder17")&.text,
+          "#{prefix}_10b check box" => dependents_node.at("Dep17AndOlder")&.text,
+        )
+      end
+
+      if @xml_document.css('QualParentsAncestors').length > 8
+        # TODO: 8 is the 2 on page 1 plus the 6 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
+        raise "Can't handle this many dependents for Form 140!"
+      end
+
+      answers["11a check box"] = 'Yes' if @xml_document.css('QualParentsAncestors').length > 2
+
+      @xml_document.css('QualParentsAncestors').each_with_index do |qualifying_relative_node, index|
+        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+        prefix = "11#{('b'..'i').to_a[index]}"
+        answers.merge!(
+          "#{prefix} First" => qualifying_relative_node.at("FirstName")&.text,
+          "#{prefix} Last" => qualifying_relative_node.at("LastName")&.text,
+          "#{prefix} SSN" => qualifying_relative_node.at("DependentSSN")&.text,
+          "#{prefix} Relationship" => qualifying_relative_node.at("RelationShip")&.text,
+          "#{prefix} Mo in Home" => qualifying_relative_node.at("NumMonthsLived")&.text,
+          "#{prefix} over 65" => qualifying_relative_node.at("IsOverSixtyFive")&.text,
+          "#{prefix} died" => qualifying_relative_node.at("DiedInTaxYear")&.text,
+        )
+      end
+
+      answers.merge!({
+        "19" => @xml_document.at('AzAdjSubtotal')&.text,
         "12" => @xml_document.at('FedAdjGrossIncome')&.text,
         "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
-      }
+        "30" =>  @xml_document.at('USSSRailRoadBnft')&.text,
+        "43" =>  @xml_document.at('AZDeductions')&.text,
+        "44" =>  @xml_document.at('ClaimCharitableDed')&.text,
+        "45" =>  @xml_document.at('AZTaxableInc')&.text,
+        "46" =>  @xml_document.at('ComputedTax')&.text,
+        "48" =>  @xml_document.at('SubTotal')&.text,
+        "49" =>  @xml_document.at('DepTaxCredit')&.text,
+        "50" =>  @xml_document.at('FamilyIncomeTaxCredit')&.text,
+        "52" =>  @xml_document.at('BalanceOfTaxDue')&.text,
+        "53" =>  @xml_document.at('TotalPaymentAndCreditsType')&.text,
+        "56" =>  @xml_document.at('IncrExciseTaxCr')&.text,
+        "59" =>  @xml_document.at('TotalPayments')&.text,
+        "60" => @xml_document.at('TaxDueOrOverpayment')&.text,
+        "61" => @xml_document.at('OverPaymentOfTax')&.text,
+        "63"=> @xml_document.at('OverPaymentBalance')&.text,
+        "79" => @xml_document.at('RefundAmt')&.text,
+        "80" => @xml_document.at('AmtOwed')&.text,
+                     })
       answers
     end
 
     private
 
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+    end
+    
     FILING_STATUS_OPTIONS = {
       "MarriedJoint" => 'Choice1',
       "HeadHousehold" => 'Choice2',
