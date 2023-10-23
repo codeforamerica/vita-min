@@ -60,14 +60,17 @@ module SubmissionBuilder
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
                       xml.LastName dependent.last_name
                     end
                     xml.DependentSSN dependent.ssn
                     xml.RelationShip dependent.relationship
                     xml.NumMonthsLived 12 # TODO: need to merge data from Federal Schedule EIC QualifyingChildInformation *or* re-ask client
-                    xml.DepUnder17 dependent.dob < 17.years.ago ? 'X' : nil # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
-                    xml.Dep17AndOlder dependent.dob >= 17.years.ago ? 'X' : nil # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                    if dependent.dob > 17.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                      xml.DepUnder17 'X'
+                    else
+                      xml.Dep17AndOlder 'X'
+                    end
                   end
                 end
                 # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
