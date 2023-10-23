@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/codeforamerica/fraud-gem.git
-  revision: afad555930ee305051599cb35eab0cc300393946
-  tag: v1.0.5
-  specs:
-    fraud-gem (1.0.5)
-
-GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
   revision: 4c6f873f55704ec34fd518906f131133b290e56a
   ref: 4c6f873f55704ec34fd518906f131133b290e56a
@@ -727,7 +720,6 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
-  fraud-gem!
   git-pair
   guard-rspec
   http_accept_language
