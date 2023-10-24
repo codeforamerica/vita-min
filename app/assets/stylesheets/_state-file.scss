@@ -34,12 +34,27 @@
     line-height: 3.3rem;
   }
 
+  .text--body {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.4rem;
+  }
+
   .main-header {
     height: 5.4rem;
     line-height: 2.4rem;
 
     .toolbar {
       align-items: center;
+    }
+  }
+
+  .partner-logo-wrapper {
+    display: flex;
+    align-items: center;
+
+    .partner-logo-image {
+      margin-right: 1rem;
     }
   }
 }
