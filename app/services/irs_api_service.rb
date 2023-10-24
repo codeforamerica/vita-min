@@ -12,22 +12,15 @@ class IrsApiService
 
     # make an http request to a local fake webserver including mTLS
 
-    certs_dir =  File.join(__dir__, '..', '..', 'fake_api_server')
+    certs_dir = File.join(__dir__, '..', '..', 'fake_api_server')
 
     if ENV['IRS_STATE_ACCOUNT_ID']
-      client_cert_path = File.join(certs_dir, 'az-cert.pem.txt')
-      client_key_path = File.join(certs_dir, 'az-key.pem.txt')
+      state_prefix = ENV['IRS_STATE_ACCOUNT_ID'].start_with?('0') ? 'az' : 'ny'
+      client_cert_path = File.join(certs_dir, "#{state_prefix}-cert.pem.txt")
+      client_key_path = File.join(certs_dir, "#{state_prefix}-key.pem.txt")
     else
       client_cert_path = File.join(certs_dir, 'client.crt')
       client_key_path = File.join(certs_dir, 'client.key')
-    end
-    server_ca_cert_path = File.join(certs_dir, 'ca.crt')
-
-
-    if ENV['IRS_STATE_ACCOUNT_ID']
-      server_url = URI.parse('https://state-api-staging.app.cloud.gov/state-api/export-return')
-    else
-      server_url = URI.parse('https://localhost:443/')
     end
 
     client_cert = OpenSSL::X509::Certificate.new(File.read(client_cert_path))
@@ -49,11 +42,21 @@ class IrsApiService
 
     http = Net::HTTP.new(server_url.host, server_url.port)
     http.use_ssl = true
-    unless ENV['IRS_STATE_ACCOUNT_ID']
+
+    if server_url.host.include?('irs.gov')
+      # Just cert and key are required
       http.cert = client_cert
       http.key = client_key
+    elsif server_url.host.include?('cloud.gov')
+      # No mTLS on this endpoint
+    elsif server_url.host.include?('localhost')
+      # nginx config for fake API server currently expects a cert + key + CA
+      http.cert = client_cert
+      http.key = client_key
+
       # In most cases, we can omit this as the signing CA cert is already in the system's trust store.
       # However, since we are self-signing and it currently isn't in the trust store we need to provide it.
+      server_ca_cert_path = File.join(certs_dir, 'ca.crt')
       http.ca_file = server_ca_cert_path
     end
 
@@ -97,5 +100,17 @@ class IrsApiService
     # puts "Response Body: #{plain}"
 
     Nokogiri::XML(JSON.parse(plain)['xml']).to_xml
+  end
+
+  private
+
+  def self.server_url
+    if ENV['IRS_MTLS']
+      URI.parse('https://df.alt.services.irs.gov/DFStateTaxReturns/1.0.0/state-api/export-return')
+    elsif ENV['IRS_STATE_ACCOUNT_ID']
+      URI.parse('https://state-api-staging.app.cloud.gov/state-api/export-return')
+    else
+      URI.parse('https://localhost:443/')
+    end
   end
 end
