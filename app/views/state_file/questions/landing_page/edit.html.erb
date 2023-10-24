@@ -1,4 +1,5 @@
 <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
+<% state_image_path = params[:us_state] == "ny" ? "partner-logos/nygov-logo.svg" : "partner-logos/azgov-logo.svg" %>
 
 <% title = "File your #{state_full_name} state taxes for free" %>
 <% content_for :page_title, title %>
@@ -9,6 +10,13 @@
   <h2 class="h2">
     We've partnered with the state of <%= state_full_name %> to help you complete your state taxes online for free.
   </h2>
+
+  <div class="partner-logo-wrapper spacing-below-35">
+    <div class="partner-logo-image">
+      <%= image_tag state_image_path, alt: "#{state_full_name} state logo", class: "" %>
+    </div>
+    <div class="text--body text--bold">Supported by the state of <%= state_full_name %> and the IRS</div>
+  </div>
 
   <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
     <%= t("general.get_started") %>
