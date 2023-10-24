@@ -20,7 +20,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.13
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: wschaefer@codeforamerica.org
+          heroku_email: jheath@codeforamerica.org
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
