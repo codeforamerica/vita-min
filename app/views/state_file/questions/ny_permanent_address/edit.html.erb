@@ -1,0 +1,29 @@
+<% title = "Was this your permanent home address on December 31, 2023?" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <p>Mark no if the address listed is a PO Box or if you lived in a different home on December 31, 2023</p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+      <div class="form-card">
+        <% content_for :address_text do %>
+          <div class = "text--bold">Address</div>
+          <div><%= current_intake.direct_file_data.mailing_street %></div>
+          <div><%= current_intake.direct_file_data.mailing_city %>, New York <%= current_intake.direct_file_data.mailing_zip %></div>
+        <% end %>
+        <%=
+            f.cfa_radio_set(
+              :confirmed_permanent_address,
+              label_text: content_for(:address_text),
+              collection: [
+                { value: :yes, label: "Yes" },
+                { value: :no, label: "No" },
+              ]
+            )
+        %>
+      </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>
