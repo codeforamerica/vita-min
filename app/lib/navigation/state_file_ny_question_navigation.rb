@@ -6,6 +6,7 @@ module Navigation
       StateFile::Questions::LandingPageController,
       StateFile::Questions::LoginController,
       StateFile::Questions::FederalInfoController,
+      StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,

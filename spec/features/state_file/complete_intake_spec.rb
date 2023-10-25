@@ -27,6 +27,10 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_field("tax return year", with: "2022")
       click_on "Continue"
 
+      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      select "Yes", from: "state_file_permanent_address_form_was_perm_address" # this form label will probably be different i just made something up
+      click_on "Continue"
+
       expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
