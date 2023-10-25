@@ -8,6 +8,33 @@ fi
 
 # Increase the # of max open files to avoid https://stackoverflow.com/questions/59890432/rack-error-runtimeerror-failed-to-get-urandom-in-a-rails-app-rails-5-0-6-ru
 ulimit -n 16384
-
-EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
+  # this is a temporary fix for getting started in state filing
+  # it prevents running the full test suite which can take 10 minutes
+  # we will want to adjust this list, and put more files into modules
+  # to make them easier to separate
+  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests \
+      spec/features/state_file \
+      spec/controllers/state_file \
+      spec/services/efile \
+      spec/lib/efile \
+      spec/lib/pdf_filler/az140_pdf_spec.rb \
+      spec/lib/pdf_filler/ny201_pdf_spec.rb \
+      spec/lib/pdf_filler/ny213_pdf_spec.rb \
+      spec/lib/pdf_filler/ny214_pdf_spec.rb \
+      spec/lib/pdf_filler/ny215_pdf_spec.rb \
+      spec/lib/submission_builder/ty2022 \
+      spec/lib/submission_builder/shared/return_header1040_spec.rb \
+      spec/lib/submission_builder/federal_manifest_spec.rb \
+      spec/lib/submission_builder/formatting_methods_spec.rb \
+      spec/jobs/gyr_efiler \
+      spec/models/efile_security_information_spec.rb \
+      spec/models/efile_submission_spec.rb \
+      spec/models/efile_submission_dependent_spec.rb \
+      spec/models/efile_submission_transition_spec.rb
+else
+  # Full test suite
+  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
 yarn jest
+fi
+
