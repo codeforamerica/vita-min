@@ -1,5 +1,6 @@
 module StateFile
   class Ny214Form < QuestionsForm
+    # TODO: triple check that ny_mailing_etc is redundant with permanent_etc and if so, remove from this page
     set_attributes_for :intake,
                        :ny_mailing_street,
                        :ny_mailing_apartment,

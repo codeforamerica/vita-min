@@ -90,6 +90,7 @@ module StateFile
       end
 
       def it214_fields
+        # TODO: see ny214_form comment
         {
           ny_mailing_street: "123 Homeowner way",
           ny_mailing_apartment: "B",
