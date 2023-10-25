@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
 

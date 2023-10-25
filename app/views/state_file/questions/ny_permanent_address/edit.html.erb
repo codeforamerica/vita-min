@@ -7,7 +7,7 @@
   <p>Mark no if the address listed is a PO Box or if you lived in a different home on December 31, 2023</p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-      <div class="form-card-ny">
+      <div class="form-card">
         <% content_for :address_text do %>
           <div class = "text--bold">Address</div>
           <div><%= current_intake.ny_mailing_street %></div>
@@ -27,15 +27,3 @@
     <%= f.continue %>
   <% end %>
 <% end %>
-
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--        $('input[name="[address_confirmation]"]').change(function() {-->
-<!--            if (this.value === "no") {-->
-<!--                $('#follow-up-content').show();-->
-<!--            } else {-->
-<!--                $('#follow-up-content').hide();-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
