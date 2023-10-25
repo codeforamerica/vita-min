@@ -34,6 +34,21 @@
     line-height: 3.3rem;
   }
 
+  .form-card-ny{
+    border: 2px solid #52DAF2;
+    background-color: #E7F6F8;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 18px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 31px;
+
+    .notice--warning {
+      max-width: 30em;
+    }
+  }
+
   .text--body {
     font-size: 1.6rem;
     font-weight: 700;

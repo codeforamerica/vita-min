@@ -1,0 +1,22 @@
+<% title = "Was this your permanent home address on December 31, 2023?" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="form-card-ny">
+      <p>
+      <div class = "text--bold" >Address</div>
+      <div> <%= current_intake.ny_mailing_street %> </div>
+      <div> <%= current_intake.ny_mailing_city %>, New York <%= current_intake.ny_mailing_zip %> </div>
+      </p>
+      <div class="radio-buttons">
+        <p><%= f.radio_button(:address_confirmation, :yes) %> Yes</p>
+        <p><%= f.radio_button(:address_confirmation, :no) %> No </p>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+
+<% end %>
