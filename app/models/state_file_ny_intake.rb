@@ -8,6 +8,7 @@
 #  amount_electronic_withdrawal   :integer
 #  amount_owed_pay_electronically :integer          default("unfilled"), not null
 #  claimed_as_dep                 :integer          not null
+#  confirmed_permanent_address    :integer          default("unfilled"), not null
 #  current_step                   :string
 #  date_electronic_withdrawal     :date
 #  household_cash_assistance      :integer
@@ -67,6 +68,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
   enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
+  enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
 
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(

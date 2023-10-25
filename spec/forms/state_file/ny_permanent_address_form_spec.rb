@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe StateFile::NyPermanentAddressForm do
-  let(:intake) { StateFileNyIntake.new }
+  let(:intake) { create :state_file_ny_intake }
 
   describe "#save" do
     context "address was correct" do
       let(:valid_params) do
         {
-          imported_permanent_address_confirmed: true,
+          confirmed_permanent_address: "yes",
         }
       end
 
@@ -16,7 +16,7 @@ RSpec.describe StateFile::NyPermanentAddressForm do
         form.valid?
         form.save
 
-        expect(intake.imported_permanent_address_confirmed).to eq true
+        expect(intake.confirmed_permanent_address).to eq "yes"
       end
     end
   end

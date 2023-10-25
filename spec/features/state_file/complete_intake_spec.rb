@@ -28,7 +28,7 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
-      select "Yes", from: "state_file_permanent_address_form_was_perm_address" # this form label will probably be different i just made something up
+      choose "Yes"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
