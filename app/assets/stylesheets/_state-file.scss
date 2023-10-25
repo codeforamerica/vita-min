@@ -10,6 +10,10 @@
   background-color: $color-state-file-bg;
   font-family: $font-state-file;
 
+  .form-card {
+    background-color: transparent;
+  }
+
   .button {
     border-radius: 0.4rem;
     font-size: 2.2rem;
