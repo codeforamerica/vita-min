@@ -10,8 +10,8 @@
       <div class="form-card">
         <% content_for :address_text do %>
           <div class = "text--bold">Address</div>
-          <div><%= current_intake.ny_mailing_street %></div>
-          <div><%= current_intake.ny_mailing_city %>, New York <%= current_intake.ny_mailing_zip %></div>
+          <div><%= current_intake.direct_file_data.mailing_street %></div>
+          <div><%= current_intake.direct_file_data.mailing_city %>, New York <%= current_intake.direct_file_data.mailing_zip %></div>
         <% end %>
         <%=
             f.cfa_radio_set(
