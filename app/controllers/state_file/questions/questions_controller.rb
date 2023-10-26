@@ -4,6 +4,9 @@ module StateFile
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
 
+      # default layout for all state file questions
+      layout "state_file/question"
+
       private
 
       def current_intake
@@ -40,6 +43,9 @@ module StateFile
         end
         prev_step.to_path_helper(options)
       end
+
+      # by default, most state file questions have no illustration
+      def illustration_path; end
 
       class << self
         def resource_name
