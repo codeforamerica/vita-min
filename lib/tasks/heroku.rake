@@ -13,7 +13,7 @@ end
 namespace :heroku do
   desc 'Heroku release task (runs on every code push; on review app creation, runs before postdeploy task)'
   task release: :environment do
-    if ActiveRecord::SchemaMigration.table_exists?
+    if ActiveRecord::Base.connection.schema_migration.table_exists?
       Rake::Task['db:migrate'].invoke
     else
       Rails.logger.info "Database not initialized, skipping database migration."
