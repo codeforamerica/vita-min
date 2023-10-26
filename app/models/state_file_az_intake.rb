@@ -9,6 +9,7 @@
 #  charitable_cash        :integer          default(0)
 #  charitable_noncash     :integer          default(0)
 #  claimed_as_dep         :integer
+#  contact_preference     :integer          default("unfilled"), not null
 #  current_step           :string
 #  primary_first_name     :string
 #  primary_last_name      :string
