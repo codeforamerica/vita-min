@@ -28,7 +28,11 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
-      choose "Yes"
+      choose "No"
+      fill_in "Street Address", with: "321 Peanut Way"
+      fill_in "Apartment/Unit Number", with: "B"
+      fill_in "City", with: "New York"
+      fill_in "Zip code", with: "11102"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"

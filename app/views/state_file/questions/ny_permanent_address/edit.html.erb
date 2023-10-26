@@ -4,26 +4,42 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p>Mark no if the address listed is a PO Box or if you lived in a different home on December 31, 2023</p>
+  <p>Mark no if the address listed is a PO Box <strong>or</strong> if you lived in a different home on December 31, 2023
+  </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-      <div class="form-card">
-        <% content_for :address_text do %>
-          <div class = "text--bold">Address</div>
-          <div><%= current_intake.direct_file_data.mailing_street %></div>
-          <div><%= current_intake.direct_file_data.mailing_city %>, New York <%= current_intake.direct_file_data.mailing_zip %></div>
-        <% end %>
-        <%=
+    <div class="form-card">
+      <% content_for :address_text do %>
+        <div class="text--bold">Address</div>
+        <div><%= current_intake.direct_file_data.mailing_street %></div>
+        <div><%= current_intake.direct_file_data.mailing_city %>, New
+          York <%= current_intake.direct_file_data.mailing_zip %></div>
+      <% end %>
+
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%=
             f.cfa_radio_set(
               :confirmed_permanent_address,
               label_text: content_for(:address_text),
               collection: [
                 { value: :yes, label: "Yes" },
-                { value: :no, label: "No" },
+                { value: :no, label: "No", input_html: { "data-follow-up": "#permanent-address-fields" } },
               ]
             )
-        %>
+          %>
+        </div>
+        <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
+          <p><strong>If no</strong>, what was your home address as of December 31, 2023?</p>
+          <div class="spacing-below-25">
+            <%= f.cfa_input_field(:permanent_street, "Street Address") %>
+            <%= f.cfa_input_field(:permanent_apartment, "Apartment/Unit Number") %>
+            <%= f.cfa_input_field(:permanent_city, "City") %>
+            <%= f.cfa_input_field(:permanent_zip, "Zip code") %>
+          </div>
+        </div>
       </div>
+    </div>
     <%= f.continue %>
   <% end %>
 <% end %>

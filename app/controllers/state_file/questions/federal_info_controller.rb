@@ -55,10 +55,6 @@ module StateFile
             residence_county: "COUN",
             school_district: "Pizza District",
             school_district_number: 234,
-            permanent_street: "123 Main St",
-            permanent_apartment: "3",
-            permanent_city: "New York",
-            permanent_zip: "10112",
             nyc_full_year_resident: "yes",
             ny_414h_retirement: 567,
             ny_other_additions: 123,
@@ -90,7 +86,6 @@ module StateFile
       end
 
       def it214_fields
-        # TODO: see ny214_form comment
         {
           ny_mailing_street: "123 Homeowner way",
           ny_mailing_apartment: "B",

@@ -33,7 +33,6 @@ module PdfFiller
         'State 1' => @submission.data_source.mailing_state,
         'ZIPcode 1' => @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text,
         'Country' => @submission.data_source.mailing_country,
-        # TODO: read permanent address from xml
         'permanent home address' => @submission.data_source.ny_mailing_street,
         'Apartment number 2' => @submission.data_source.ny_mailing_apartment,
         'city, village or post office 2' => @submission.data_source.ny_mailing_city,
