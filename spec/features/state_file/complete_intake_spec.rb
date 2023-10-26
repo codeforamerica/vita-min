@@ -27,12 +27,16 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_field("tax return year", with: "2022")
       click_on "Continue"
 
-      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      expect(page).to have_text "You’re almost done filing! Before you finish, we have some final questions that may help you maximize your refund."
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
       expect(page).to have_text "TESSA TESTERSON"
+      click_on "Continue"
+
+      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "Your date of birth"
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
