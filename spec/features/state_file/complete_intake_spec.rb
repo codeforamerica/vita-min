@@ -35,12 +35,11 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "Date of birth for Tessa"
       select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       click_on "Continue"
-      
+
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
       choose "Yes"
       click_on "Continue"
-
-      expect(page).to have_text "The page with all the info from the 201"
+      expect(page).to have_text "Select the county and school district where you lived on December 31, 2023"
       click_on "Go back"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -51,6 +50,12 @@ RSpec.feature "Completing a state file intake" do
       fill_in "Apartment/Unit Number", with: "B"
       fill_in "City", with: "New York"
       fill_in "Zip code", with: "11102"
+      click_on "Continue"
+
+      expect(page).to have_text "Select the county and school district where you lived on December 31, 2023"
+      select("Bronx", from: "County")
+      select("Bronx Community Schools", from: "School District Name")
+      select("District 10", from: "School District Code")
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
