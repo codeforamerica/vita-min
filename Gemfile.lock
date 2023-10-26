@@ -412,8 +412,8 @@ GEM
     paper_trail (15.1.0)
       activerecord (>= 6.1)
       request_store (~> 1.4)
-    parallel (1.22.1)
-    parallel_tests (4.2.0)
+    parallel (1.23.0)
+    parallel_tests (4.3.0)
       parallel
     parser (3.2.1.1)
       ast (~> 2.4.1)
@@ -446,7 +446,7 @@ GEM
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.1)
-    puma (6.3.1)
+    puma (6.4.0)
       nio4r (~> 2.0)
     pycall (1.4.2)
     racc (1.7.1)
@@ -761,6 +761,7 @@ DEPENDENCIES
   lograge
   mailgun-ruby
   memory_profiler
+  method_source
   mixpanel-ruby
   nokogiri (>= 1.10.8)
   omniauth

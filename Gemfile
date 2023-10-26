@@ -70,6 +70,7 @@ gem 'pycall'
 gem 'acts_as_list'
 gem 'paper_trail'
 gem 'jwt'
+gem 'method_source'
 
 # Use Flipper for feature flagging
 gem 'flipper'
