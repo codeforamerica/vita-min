@@ -51,6 +51,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Zip code", with: "11102"
       click_on "Continue"
 
+      expect(page).to have_text "Let's see if you qualify for the Real Property Tax Credit. Did you live at this address for over half of 2023?"
+      choose "Yes"
+      click_on "Continue"
+
       expect(page).to have_text "Select the county where you lived on December 31, 2023"
       select("Nassau", from: "County")
       click_on "Continue"
