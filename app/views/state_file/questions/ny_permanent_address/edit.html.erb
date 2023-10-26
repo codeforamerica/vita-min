@@ -35,6 +35,7 @@
             <%= f.cfa_input_field(:permanent_street, "Street Address") %>
             <%= f.cfa_input_field(:permanent_apartment, "Apartment/Unit Number") %>
             <%= f.cfa_input_field(:permanent_city, "City") %>
+            <%= f.cfa_input_field(:unfillable, "State", options: { value: "New York", disabled: true }) %>
             <%= f.cfa_input_field(:permanent_zip, "Zip code") %>
           </div>
         </div>
