@@ -1,8 +1,6 @@
 module StateFile
   module Questions
     class FederalDependentsController < QuestionsController
-      layout "state_file/question"
-
       def self.navigation_actions
         [:index, :new]
       end

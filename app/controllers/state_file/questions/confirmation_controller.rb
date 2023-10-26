@@ -1,8 +1,6 @@
 module StateFile
   module Questions
     class ConfirmationController < QuestionsController
-      layout "state_file/question"
-
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
         builder_response = case params[:us_state]
@@ -22,8 +20,6 @@ module StateFile
         @calculator = current_intake.tax_calculator(include_source: true)
         @calculator.calculate
       end
-
-      def illustration_path; end
 
       private
 
