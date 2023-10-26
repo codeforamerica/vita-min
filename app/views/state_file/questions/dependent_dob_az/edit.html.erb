@@ -1,0 +1,29 @@
+<% content_for :page_title, "The confirmation page" %>
+
+<% content_for :card do %>
+  <p>You’re almost done filing! Before you finish, we have some final questions that may help you maximize your
+    refund.</p>
+  <p>First, please provide more information about the people in your family.</p>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card form-card--long' do |f| %>
+    <%= f.fields_for :dependents do |ff| %>
+      <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="date-select spacing-below-5">
+          <%= ff.vita_min_date_text_fields(:dob, "Date of birth for #{ff&.object&.first_name&.capitalize}", classes: ["ctc-intake-date-text-input"]) %>
+        </div>
+        <%= ff.cfa_input_field(:months_in_home, "Number of months they lived with you in #{current_intake.most_recent_filing_year}", classes: ["form-width--med"]) %>
+      </div>
+    <% end %>
+    <% if @form.errors %>
+      <% @form.errors.each do |e| %>
+      <p class="text--error"><i class="icon-warning"></i>
+        <%= e.message %>
+      </p>
+        <% end %>
+    <% end %>
+    <button class="button button--primary" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+
+<% end %>

@@ -20,15 +20,12 @@
 #
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
-class StateFileDependent < ApplicationRecord
-  belongs_to :intake, polymorphic: true
-
-  # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
-  delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
-
-  def full_name
-    parts = [first_name, middle_initial, last_name]
-    parts << suffix if suffix.present?
-    parts.compact.join(' ')
+FactoryBot.define do
+  factory :state_file_dependent do
+    intake
+    first_name { "Ali" }
+    middle_initial {"U"}
+    last_name { "Poppyseed" }
+    relationship { "DAUGHTER" }
   end
 end

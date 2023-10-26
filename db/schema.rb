@@ -1583,6 +1583,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_27_154329) do
     t.string "intake_type", null: false
     t.string "last_name"
     t.string "middle_initial"
+    t.integer "months_in_home"
     t.string "relationship"
     t.string "ssn"
     t.string "suffix"
