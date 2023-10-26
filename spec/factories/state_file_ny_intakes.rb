@@ -9,6 +9,7 @@
 #  amount_owed_pay_electronically :integer          default("unfilled"), not null
 #  claimed_as_dep                 :integer          not null
 #  confirmed_permanent_address    :integer          default("unfilled"), not null
+#  contact_preference             :integer          default("unfilled"), not null
 #  current_step                   :string
 #  date_electronic_withdrawal     :date
 #  household_cash_assistance      :integer
