@@ -110,6 +110,11 @@ module SubmissionBuilder
             receiving_214_credit = calculated_fields[:IT214_LINE_33] > 0
             supported_docs = [
               {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
+                pdf: PdfFiller::Ny201Pdf,
+                include: true
+              },
+              {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It201,
                 pdf: PdfFiller::Ny201Pdf,
                 include: true

@@ -66,7 +66,7 @@ module StateFile
             amount_owed_pay_electronically: "yes",
             refund_choice: "paper",
             account_type: "personal_checking",
-            routing_number: "34567878",
+            routing_number: "013456789",
             account_number: "456789008765",
             amount_electronic_withdrawal: 768,
             primary_signature: "beep boop",

@@ -47,6 +47,8 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_link "Download PDF"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<ABA_NMBR claimed="013456789"/>')
+      expect(page.body).to include('<BANK_ACCT_NMBR claimed="456789008765"/>')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
@@ -82,6 +84,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last

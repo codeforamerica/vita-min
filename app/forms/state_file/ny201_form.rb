@@ -27,6 +27,8 @@ module StateFile
                        :primary_signature,
                        :spouse_signature
 
+    validates :routing_number, length: { is: 9 }, allow_blank: true, routing_number: true
+
     def save
       exceptions = [:date_electronic_withdrawal_year, :date_electronic_withdrawal_month, :date_electronic_withdrawal_day]
       @intake.update(
