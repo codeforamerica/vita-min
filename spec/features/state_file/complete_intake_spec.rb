@@ -91,6 +91,14 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
+      expect(page).to have_text "First, please provide more information about the people in your family."
+      expect(page).to have_text "Date of birth for Tessa"
+      select "July", from: "state_file_az_dependents_dob_form_dependents_attributes_0_dob_month"
+      select "12", from: "state_file_az_dependents_dob_form_dependents_attributes_0_dob_day"
+      select "1976", from: "state_file_az_dependents_dob_form_dependents_attributes_0_dob_year"
+      click_on "Continue"
+
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
