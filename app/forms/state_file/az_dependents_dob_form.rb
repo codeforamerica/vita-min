@@ -3,6 +3,15 @@ module StateFile
     include DateHelper
     attr_accessor :dependents_attributes
 
+    def initialize(intake = nil, params = nil)
+      super
+      if params
+        formatted_dependents_attributes.each do |k,v|
+          @intake.dependents.find { |i| i.id == v[:id].to_i }.assign_attributes(v)
+        end
+      end
+    end
+
     def dependents
       @intake.dependents
     end
@@ -12,7 +21,6 @@ module StateFile
     end
 
     def valid?
-      # need to call save before valid? otherwise will be looking for missing dob before they have been saved
       form_valid = super
       dependents_valid = dependents.map { |d| d.valid?(:dob_form) }
       form_valid && !dependents_valid.include?(false)
@@ -21,11 +29,11 @@ module StateFile
     private
 
     def formatted_dependents_attributes
-      dependents_attributes&.map { |k, v| [k, formatted_dependent_attributes(v)] }.to_h
+      dependents_attributes&.map { |k, v| [k, formatted_dependent_attrs(v)] }.to_h
     end
 
-    def formatted_dependent_attributes(attrs)
-      if attrs[:dob_month] && attrs[:dob_month] && attrs[:dob_year]
+    def formatted_dependent_attrs(attrs)
+      if attrs[:dob_day] && attrs[:dob_month] && attrs[:dob_year]
         attrs[:dob] = "#{attrs[:dob_year]}-#{attrs[:dob_month]}-#{attrs[:dob_day]}"
       end
       attrs.except!(:dob_month, :dob_day, :dob_year)

@@ -5,6 +5,36 @@ RSpec.describe StateFile::AzDependentsDobForm do
   let!(:first_dependent) { intake.dependents.first }
   let(:second_dependent) { intake.dependents.second }
 
+  describe "#valid?" do
+    context "with invalid params" do
+      let(:invalid_params) do
+        {
+          dependents_attributes: {
+            "0": {
+              id: first_dependent.id,
+              dob_year: "2015",
+              dob_day: "24",
+              dob_month: "8",
+              months_in_home: 8
+            },
+            "1": {
+              id: second_dependent.id,
+              dob_year: "year",
+              dob_day: "day",
+              dob_month: "1",
+              months_in_home: "10"
+            }
+          }
+        }
+      end
+
+      it "returns false" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+      end
+    end
+  end
+
   describe "#save" do
     context "with valid params" do
       let(:valid_params) do
@@ -30,6 +60,7 @@ RSpec.describe StateFile::AzDependentsDobForm do
 
       it "saves dob and months in home" do
         form = described_class.new(intake, valid_params)
+        expect(form).to be_valid
         form.save
 
         expect(first_dependent.reload.months_in_home).to eq 8
@@ -37,42 +68,6 @@ RSpec.describe StateFile::AzDependentsDobForm do
 
         expect(second_dependent.reload.dob).to eq Date.parse("January 11, 2013")
         expect(second_dependent.reload.months_in_home).to eq 10
-        expect(form).to be_valid
-      end
-    end
-
-    context "with invalid params" do
-      let(:invalid_params) do
-        {
-          dependents_attributes: {
-            "0": {
-              id: first_dependent.id,
-              dob_year: "2015",
-              dob_day: "24",
-              dob_month: "8",
-              months_in_home: 8
-            },
-            "1": {
-              id: second_dependent.id,
-              dob_year: "year",
-              dob_day: "day",
-              dob_month: "1",
-              months_in_home: "10"
-            }
-          }
-        }
-      end
-
-      it "saves valid params but not invalid ones" do
-        form = described_class.new(intake, invalid_params)
-        form.save
-
-        expect(first_dependent.reload.months_in_home).to eq 8
-        expect(first_dependent.reload.dob).to eq Date.parse("August 24, 2015")
-
-        expect(second_dependent.reload.dob).to eq nil
-        expect(second_dependent.reload.months_in_home).to eq 10
-        expect(form).not_to be_valid
       end
     end
   end
