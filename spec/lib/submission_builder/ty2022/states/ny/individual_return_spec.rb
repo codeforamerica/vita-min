@@ -9,7 +9,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       it 'generates XML from the database models' do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        xml = described_class.build(submission).document
         expect(xml.at("tiPrime FIRST_NAME").text).to eq(intake.primary.first_name)
         expect(xml.at("tiSpouse")).to be_nil
       end
@@ -20,7 +20,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'married_filing_jointly' }
 
       it 'generates XML from the database models' do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        xml = described_class.build(submission).document
         expect(xml.at("tiSpouse FIRST_NAME").text).to eq(intake.spouse.first_name)
       end
     end
@@ -30,7 +30,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'married_filing_jointly' }
 
       it 'includes the IT215 document' do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        xml = described_class.build(submission).document
         expect(xml.at("IT215 E_FED_EITC_IND").attribute('claimed').value).to eq("1")
       end
     end
@@ -40,7 +40,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       it 'generates XML from the database models' do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        xml = described_class.build(submission).document
         expect(xml.at("rtnHeader ABA_NMBR").attribute('claimed').value).to eq(intake.routing_number)
         expect(xml.at("rtnHeader BANK_ACCT_NMBR").attribute('claimed').value).to eq(intake.account_number)
         expect(xml.at("rtnHeader ACCT_TYPE_CD").attribute('claimed').value).to eq("1")
