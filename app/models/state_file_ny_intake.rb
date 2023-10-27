@@ -12,6 +12,7 @@
 #  contact_preference             :integer          default("unfilled"), not null
 #  current_step                   :string
 #  date_electronic_withdrawal     :date
+#  email_address                  :citext
 #  household_cash_assistance      :integer
 #  household_fed_agi              :integer
 #  household_ny_additions         :integer
@@ -37,6 +38,7 @@
 #  permanent_city                 :string
 #  permanent_street               :string
 #  permanent_zip                  :string
+#  phone_number                   :string
 #  primary_email                  :string
 #  primary_first_name             :string
 #  primary_last_name              :string
