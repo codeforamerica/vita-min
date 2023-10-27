@@ -60,8 +60,4 @@ class StateFileAzIntake < StateFileBaseIntake
   def sentenced_for_60_days
     # TODO
   end
-
-  def most_recent_filing_year
-    2023
-  end
 end

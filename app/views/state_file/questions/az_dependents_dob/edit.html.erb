@@ -18,7 +18,7 @@
         </div>
         <%= ff.cfa_select(
               :months_in_home,
-              "Number of months they lived with you in #{current_intake.most_recent_filing_year}",
+              "Number of months they lived with you in #{Rails.configuration.state_file_filing_year}",
               (0..12).map { |i| [i.to_s, i] }.reverse
             ) %>
       </div>
