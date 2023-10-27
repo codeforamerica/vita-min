@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class DependentDobAzController < QuestionsController
+    class AzDependentsDobController < QuestionsController
       layout "state_file/question"
 
       def edit
