@@ -32,6 +32,19 @@ RSpec.feature "Completing a state file intake" do
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
+      click_on "Go back"
+
+      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      choose "No"
+      # if they previously confirmed their address from DF, don't show it filled in on the form for a new permanent address
+      expect(find_field("state_file_ny_permanent_address_form[permanent_street]").value).to eq ""
+      fill_in "Street Address", with: "321 Peanut Way"
+      fill_in "Apartment/Unit Number", with: "B"
+      fill_in "City", with: "New York"
+      fill_in "Zip code", with: "11102"
+      click_on "Continue"
+
+      expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 

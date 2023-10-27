@@ -81,9 +81,7 @@ module StateFile
         [:dob_year, :dob_month, :dob_day]
       end
 
-      def illustration_path
-        "wages.svg"
-      end
+      def illustration_path; end
     end
   end
 end
