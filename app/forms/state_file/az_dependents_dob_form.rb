@@ -3,19 +3,12 @@ module StateFile
     include DateHelper
     attr_accessor :dependents_attributes
 
-    def initialize(intake, form_params = nil)
-      @intake = intake
-      @params = form_params
-      super
-    end
-
     def dependents
       @intake.dependents
     end
 
     def save
       @intake.update!(state_file_dependents_attributes: formatted_dependents_attributes)
-      @intake.save!
     end
 
     def valid?
@@ -28,10 +21,10 @@ module StateFile
     private
 
     def formatted_dependents_attributes
-      dependents_attributes&.map { |k, v| [k, formatted_dependent_attrs(v)] }.to_h
+      dependents_attributes&.map { |k, v| [k, formatted_dependent_attributes(v)] }.to_h
     end
 
-    def formatted_dependent_attrs(attrs)
+    def formatted_dependent_attributes(attrs)
       if attrs[:dob_month] && attrs[:dob_month] && attrs[:dob_year]
         attrs[:dob] = "#{attrs[:dob_year]}-#{attrs[:dob_month]}-#{attrs[:dob_day]}"
       end

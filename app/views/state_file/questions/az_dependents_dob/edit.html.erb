@@ -5,7 +5,7 @@
     refund.</p>
   <p>First, please provide more information about the people in your family.</p>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card form-card--long' do |f| %>
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
       <div class="highlight-box highlight-box--blue spacing-below-15">
         <div class="date-select spacing-below-5">
