@@ -5,6 +5,7 @@
   <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_select(:residence_county , "County", ny_counties_for_select) %>
 
     <%= f.continue %>
   <% end %>
