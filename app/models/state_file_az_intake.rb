@@ -26,8 +26,7 @@
 #  visitor_id             :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  has_many :state_file_dependents, as: :intake
-  accepts_nested_attributes_for :state_file_dependents, update_only: true
+  accepts_nested_attributes_for :dependents, update_only: true
 
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
   def tax_calculator(include_source: false)

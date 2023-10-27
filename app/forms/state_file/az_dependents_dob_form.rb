@@ -5,10 +5,8 @@ module StateFile
 
     def initialize(intake = nil, params = nil)
       super
-      if params
-        formatted_dependents_attributes.each do |k,v|
-          @intake.dependents.find { |i| i.id == v[:id].to_i }.assign_attributes(v)
-        end
+      if params.present?
+        @intake.assign_attributes(dependents_attributes: formatted_dependents_attributes)
       end
     end
 
@@ -17,7 +15,7 @@ module StateFile
     end
 
     def save
-      @intake.update!(state_file_dependents_attributes: formatted_dependents_attributes)
+      @intake.update!(dependents_attributes: formatted_dependents_attributes)
     end
 
     def valid?

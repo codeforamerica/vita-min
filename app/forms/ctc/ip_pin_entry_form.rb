@@ -7,8 +7,14 @@ module Ctc
     validates :primary_ip_pin, presence: true, ip_pin: true, if: -> { @intake.has_primary_ip_pin_yes? }
     validates :spouse_ip_pin, presence: true, ip_pin: true, if: -> { @intake.has_spouse_ip_pin_yes? }
 
+    def initialize(intake = nil, params = nil)
+      super
+      if params.present?
+        @intake.assign_attributes(dependents_attributes: dependents_attributes.to_h)
+      end
+    end
+
     def dependents
-      @intake.assign_attributes(dependents_attributes: dependents_attributes.to_h)
       @intake.dependents.select { |dep| dep.has_ip_pin_yes? }
     end
 
