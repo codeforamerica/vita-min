@@ -1,5 +1,6 @@
 const webpack = require('webpack')
-const { webpackConfig, merge } = require('shakapacker')
+const { generateWebpackConfig, merge } = require('shakapacker')
+const webpackConfig = generateWebpackConfig()
 
 // See the shakacode/shakapacker README and docs directory for advice on customizing your webpackConfig.
 
