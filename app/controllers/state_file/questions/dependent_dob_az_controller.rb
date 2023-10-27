@@ -11,7 +11,7 @@ module StateFile
 
       def update
         @form = form_class.new(current_intake, form_params)
-        if @form.valid? && @form.save
+        if @form.save && @form.valid?
           redirect_to next_path
         else
           render :edit

@@ -25,6 +25,7 @@ class StateFileDependent < ApplicationRecord
 
   # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
+  validates_presence_of :dob, on: :dob_form
 
   def full_name
     parts = [first_name, middle_initial, last_name]

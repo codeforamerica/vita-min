@@ -9,17 +9,19 @@
     <%= f.fields_for :dependents do |ff| %>
       <div class="highlight-box highlight-box--blue spacing-below-15">
         <div class="date-select spacing-below-5">
-          <%= ff.vita_min_date_text_fields(:dob, "Date of birth for #{ff&.object&.first_name&.capitalize}", classes: ["ctc-intake-date-text-input"]) %>
+          <%= ff.cfa_date_select(:dob,
+                                 "Date of birth for #{ff&.object&.first_name&.capitalize}",
+                                 options: {
+                                   start_year: Time.now.year,
+                                   end_year: Time.now.year - 100,
+                                 }) %>
         </div>
-        <%= ff.cfa_input_field(:months_in_home, "Number of months they lived with you in #{current_intake.most_recent_filing_year}", classes: ["form-width--med"]) %>
+        <%= ff.cfa_select(
+              :months_in_home,
+              "Number of months they lived with you in #{current_intake.most_recent_filing_year}",
+              (0..12).map { |i| [i.to_s, i] }.reverse
+            ) %>
       </div>
-    <% end %>
-    <% if @form.errors %>
-      <% @form.errors.each do |e| %>
-      <p class="text--error"><i class="icon-warning"></i>
-        <%= e.message %>
-      </p>
-        <% end %>
     <% end %>
     <button class="button button--primary" type="submit">
       <%= t("general.continue") %>
