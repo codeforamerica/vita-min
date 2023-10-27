@@ -11,6 +11,7 @@ module StateFile
     validates :permanent_street, presence: true, if: -> { confirmed_permanent_address == "no" }
     validates :permanent_city, presence: true, if: -> { confirmed_permanent_address == "no" }
     validates :permanent_zip, presence: true, if: -> { confirmed_permanent_address == "no" }
+    validates :permanent_zip, zip_code: true, if: -> { permanent_zip.present? }
 
     def initialize(intake = nil, params = nil)
       if params[:confirmed_permanent_address] == "yes"
