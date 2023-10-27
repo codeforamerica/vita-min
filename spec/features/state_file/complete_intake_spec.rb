@@ -27,12 +27,21 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_field("tax return year", with: "2022")
       click_on "Continue"
 
-      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
-      choose "Yes"
-      click_on "Continue"
-
       expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
+      click_on "Continue"
+
+      expect(page).to have_text "First, please enter the date of birth for you and everyone in your household."
+      select "June", from: "state_file_ny_dob_form_primary_birth_date_month"
+      select "21", from: "state_file_ny_dob_form_primary_birth_date_day"
+      select "1978", from: "state_file_ny_dob_form_primary_birth_date_year"
+      select "July", from: "state_file_ny_dob_form_dependents_attributes_0_dob_month"
+      select "12", from: "state_file_ny_dob_form_dependents_attributes_0_dob_day"
+      select "2017", from: "state_file_ny_dob_form_dependents_attributes_0_dob_year"
+      click_on "Continue"
+
+      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      choose "Yes"
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
