@@ -11,6 +11,8 @@
 #  claimed_as_dep         :integer
 #  contact_preference     :integer          default("unfilled"), not null
 #  current_step           :string
+#  email_address          :citext
+#  phone_number           :string
 #  primary_first_name     :string
 #  primary_last_name      :string
 #  primary_middle_initial :string
@@ -56,5 +58,4 @@ class StateFileAzIntake < StateFileBaseIntake
   def sentenced_for_60_days
     # TODO
   end
-
 end
