@@ -37,6 +37,7 @@
 #  permanent_city                 :string
 #  permanent_street               :string
 #  permanent_zip                  :string
+#  primary_birth_date             :date
 #  primary_email                  :string
 #  primary_first_name             :string
 #  primary_last_name              :string
@@ -51,6 +52,7 @@
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  spouse_birth_date              :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string
 #  spouse_middle_initial          :string

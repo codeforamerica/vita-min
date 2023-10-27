@@ -37,6 +37,7 @@
 #  permanent_city                 :string
 #  permanent_street               :string
 #  permanent_zip                  :string
+#  primary_birth_date             :date
 #  primary_email                  :string
 #  primary_first_name             :string
 #  primary_last_name              :string
@@ -51,6 +52,7 @@
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  spouse_birth_date              :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string
 #  spouse_middle_initial          :string
@@ -60,6 +62,9 @@
 #  visitor_id                     :string
 #
 class StateFileNyIntake < StateFileBaseIntake
+  has_many :state_file_dependents, as: :intake
+  accepts_nested_attributes_for :state_file_dependents, update_only: true
+
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
   enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type

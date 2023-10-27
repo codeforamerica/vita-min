@@ -1,0 +1,47 @@
+<% content_for :page_title, "Date of birth" %>
+<% content_for :card do %>
+  <p>You’re almost done filing! Before you finish, we have some final questions that may help you maximize your
+    refund.</p>
+
+  <p>First, please enter the date of birth for you and everyone in your household.</p>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card form-card--long' do |f| %>
+    <div class="highlight-box highlight-box--blue spacing-below-15">
+      <div class="date-select spacing-below-5">
+        <%= f.cfa_date_select(:primary_birth_date,
+                              "Date of birth for #{f&.object&.intake&.primary_first_name&.capitalize}",
+                              options: {
+                                start_year: Time.now.year,
+                                end_year: Time.now.year - 100,
+                              }) %>
+      </div>
+    </div>
+    <% if f&.object&.intake&.spouse_first_name&.present? %>
+      <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="date-select spacing-below-5">
+          <%= f.cfa_date_select(:spouse_birth_date,
+                                "Date of birth for #{f&.object&.intake&.spouse_first_name&.capitalize}",
+                                options: {
+                                  start_year: Time.now.year,
+                                  end_year: Time.now.year - 100,
+                                }) %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.fields_for :dependents do |ff| %>
+      <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="date-select spacing-below-5">
+          <%= ff.cfa_date_select(:dob,
+                                 "Date of birth for #{ff&.object&.first_name&.capitalize}",
+                                 options: {
+                                   start_year: Time.now.year,
+                                   end_year: Time.now.year - 100,
+                                 }) %>
+        </div>
+      </div>
+    <% end %>
+    <button class="button button--primary" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
