@@ -111,7 +111,7 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
-                pdf: PdfFiller::Ny201Pdf,
+                pdf: nil,
                 include: true
               },
               {
