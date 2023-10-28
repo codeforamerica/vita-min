@@ -64,4 +64,12 @@ class StateFileAzIntake < StateFileBaseIntake
   def ask_months_in_home?
     true
   end
+
+  def ask_primary_dob?
+    false
+  end
+
+  def ask_spouse_dob?
+    false
+  end
 end

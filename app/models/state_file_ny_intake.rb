@@ -39,6 +39,7 @@
 #  permanent_street               :string
 #  permanent_zip                  :string
 #  phone_number                   :string
+#  primary_birth_date             :date
 #  primary_email                  :string
 #  primary_first_name             :string
 #  primary_last_name              :string
@@ -53,6 +54,7 @@
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  spouse_birth_date              :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string
 #  spouse_middle_initial          :string
@@ -89,5 +91,13 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def ask_months_in_home?
     false
+  end
+
+  def ask_primary_dob?
+    true
+  end
+
+  def ask_spouse_dob?
+    filing_status == :married_filing_jointly
   end
 end

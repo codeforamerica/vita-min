@@ -36,38 +36,88 @@ RSpec.describe StateFile::DobForm do
   end
 
   describe "#save" do
-    context "with valid params" do
-      let(:valid_params) do
-        {
-          dependents_attributes: {
-            "0": {
-              id: first_dependent.id,
-              dob_year: "2015",
-              dob_day: "24",
-              dob_month: "8",
-              months_in_home: "8"
-            },
-            "1": {
-              id: second_dependent.id,
-              dob_year: "2013",
-              dob_day: "11",
-              dob_month: "1",
-              months_in_home: "10"
+    context "when primary dob is required" do
+      let!(:intake) { create :state_file_ny_intake, filing_status: 'married_filing_jointly', dependents: [create(:state_file_dependent), create(:state_file_dependent)] }
+
+      context "with valid params" do
+        let(:valid_params) do
+          {
+            primary_birth_date_month: "3",
+            primary_birth_date_day: "12",
+            primary_birth_date_year: "1987",
+            spouse_birth_date_month: "5",
+            spouse_birth_date_day: "8",
+            spouse_birth_date_year: "1986",
+            dependents_attributes: {
+              "0": {
+                id: first_dependent.id,
+                dob_year: "2015",
+                dob_day: "24",
+                dob_month: "8",
+                months_in_home: "8"
+              },
+              "1": {
+                id: second_dependent.id,
+                dob_year: "2013",
+                dob_day: "11",
+                dob_month: "1",
+                months_in_home: "10"
+              }
             }
           }
-        }
+        end
+
+        it "saves dob and months in home" do
+          form = described_class.new(intake, valid_params)
+          expect(form).to be_valid
+          form.save
+
+          expect(intake.reload.primary_birth_date).to eq Date.parse("March 12, 1987")
+          expect(intake.reload.spouse_birth_date).to eq Date.parse("May 8, 1986")
+
+          expect(first_dependent.reload.months_in_home).to eq 8
+          expect(first_dependent.reload.dob).to eq Date.parse("August 24, 2015")
+
+          expect(second_dependent.reload.dob).to eq Date.parse("January 11, 2013")
+          expect(second_dependent.reload.months_in_home).to eq 10
+        end
       end
+    end
 
-      it "saves dob and months in home" do
-        form = described_class.new(intake, valid_params)
-        expect(form).to be_valid
-        form.save
+    context "when primary dob is optional" do
+      context "with valid params" do
+        let(:valid_params) do
+          {
+            dependents_attributes: {
+              "0": {
+                id: first_dependent.id,
+                dob_year: "2015",
+                dob_day: "24",
+                dob_month: "8",
+                months_in_home: "8"
+              },
+              "1": {
+                id: second_dependent.id,
+                dob_year: "2013",
+                dob_day: "11",
+                dob_month: "1",
+                months_in_home: "10"
+              }
+            }
+          }
+        end
 
-        expect(first_dependent.reload.months_in_home).to eq 8
-        expect(first_dependent.reload.dob).to eq Date.parse("August 24, 2015")
+        it "saves dob and months in home" do
+          form = described_class.new(intake, valid_params)
+          expect(form).to be_valid
+          form.save
 
-        expect(second_dependent.reload.dob).to eq Date.parse("January 11, 2013")
-        expect(second_dependent.reload.months_in_home).to eq 10
+          expect(first_dependent.reload.months_in_home).to eq 8
+          expect(first_dependent.reload.dob).to eq Date.parse("August 24, 2015")
+
+          expect(second_dependent.reload.dob).to eq Date.parse("January 11, 2013")
+          expect(second_dependent.reload.months_in_home).to eq 10
+        end
       end
     end
   end

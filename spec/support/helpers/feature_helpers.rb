@@ -150,4 +150,10 @@ module FeatureHelpers
     find("#{element} .tagify__input").send_keys value
     find("#{element} .tagify__input").send_keys :enter
   end
+
+  def select_cfa_date(base_name, date)
+    select Date::MONTHNAMES[date.month], from: "#{base_name}_month"
+    select date.day, from: "#{base_name}_day"
+    select date.year, from: "#{base_name}_year"
+  end
 end

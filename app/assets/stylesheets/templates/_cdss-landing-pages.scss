@@ -1,10 +1,13 @@
 .highlight-box {
   padding: 2rem;
-  min-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 2.5rem;
+
+  .form-group {
+    margin-bottom: 0;
+  }
 }
 .highlight-box--blue {
   background-color: #EBF9FC;

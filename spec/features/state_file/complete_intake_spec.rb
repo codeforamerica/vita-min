@@ -31,11 +31,10 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
-      expect(page).to have_text "First, please provide more information about the people in your family."
+      expect(page).to have_text I18n.t('state_file.questions.dob.edit.title2_you_and_household')
+      select_cfa_date "state_file_dob_form_primary_birth_date", Date.new(1978, 6, 21)
       expect(page).to have_text "Date of birth for Tessa"
-      select "July", from: "state_file_dob_form_dependents_attributes_0_dob_month"
-      select "12", from: "state_file_dob_form_dependents_attributes_0_dob_day"
-      select "1976", from: "state_file_dob_form_dependents_attributes_0_dob_year"
+      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       click_on "Continue"
       
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -102,9 +101,7 @@ RSpec.feature "Completing a state file intake" do
 
       expect(page).to have_text "First, please provide more information about the people in your family."
       expect(page).to have_text "Date of birth for Tessa"
-      select "July", from: "state_file_dob_form_dependents_attributes_0_dob_month"
-      select "12", from: "state_file_dob_form_dependents_attributes_0_dob_day"
-      select "1976", from: "state_file_dob_form_dependents_attributes_0_dob_year"
+      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       select "12", from: I18n.t('state_file.questions.dob.edit.dependent_months_lived_label', year: Rails.configuration.state_file_filing_year)
       click_on "Continue"
 
