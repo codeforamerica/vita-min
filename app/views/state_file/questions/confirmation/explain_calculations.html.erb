@@ -12,9 +12,12 @@
     </thead>
     <% @calculator.lines.each do |line_id, line| %>
       <tr>
-        <td id="<%= line.line_id %>"><%= line.line_id %></td>
-        <td><%= line.value %></td>
-        <td style="white-space: nowrap;">
+        <td style="vertical-align: top;" id="<%= line.line_id %>">
+          <%= line.line_id %>
+          <div style="font-weight: 300;"><%= line.pdf_label %></div>
+        </td>
+        <td style="vertical-align: top;"><%= line.value %></td>
+        <td style="vertical-align: top; white-space: nowrap;">
           <% line.inputs.each do |line_id| %>
             <div>
               <a href="#<%= line_id %>"><%= line_id %></a>: <%= @calculator.lines[line_id]&.value %>

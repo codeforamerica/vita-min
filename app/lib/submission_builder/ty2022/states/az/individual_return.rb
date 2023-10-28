@@ -48,11 +48,11 @@ module SubmissionBuilder
               xml.LNPriorYrs @submission.data_source.prior_last_names
               xml.FilingStatus filing_status
               xml.Exemptions do
-                xml.AgeExemp calculated_fields.fetch(:AMT_8)
-                xml.VisionExemp calculated_fields.fetch(:AMT_9)
-                xml.DependentsUnder17 calculated_fields.fetch(:AMT_10A)
-                xml.Dependents17AndOlder calculated_fields.fetch(:AMT_10B)
-                xml.QualifyingParentsAncestors calculated_fields.fetch(:AMT_11A)
+                xml.AgeExemp calculated_fields.fetch(:AZ140_LINE_8)
+                xml.VisionExemp calculated_fields.fetch(:AZ140_LINE_9)
+                xml.DependentsUnder17 calculated_fields.fetch(:AZ140_LINE_10A)
+                xml.Dependents17AndOlder calculated_fields.fetch(:AZ140_LINE_10B)
+                xml.QualifyingParentsAncestors calculated_fields.fetch(:AZ140_LINE_11A)
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
@@ -76,66 +76,66 @@ module SubmissionBuilder
                 # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
               end
               xml.Additions do
-                xml.FedAdjGrossIncome calculated_fields.fetch(:AMT_12)
-                xml.ModFedAdjGrossInc calculated_fields.fetch(:AMT_14)
+                xml.FedAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_12)
+                xml.ModFedAdjGrossInc calculated_fields.fetch(:AZ140_LINE_14)
               end
-              xml.AzAdjSubtotal calculated_fields.fetch(:AMT_19)
+              xml.AzAdjSubtotal calculated_fields.fetch(:AZ140_LINE_19)
               xml.Subtractions do
-                xml.USSSRailRoadBnft calculated_fields.fetch(:AMT_30)
+                xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
               end
-              xml.TotalSubtractions calculated_fields.fetch(:AMT_35)
-              xml.Subtotal calculated_fields.fetch(:AMT_37)
+              xml.TotalSubtractions calculated_fields.fetch(:AZ140_LINE_35)
+              xml.Subtotal calculated_fields.fetch(:AZ140_LINE_37)
               xml.AzSubtrAmts do
-                xml.ExemAmtAge65OrOver calculated_fields.fetch(:AMT_38)
-                xml.ExemAmtBlind calculated_fields.fetch(:AMT_39)
-                xml.ExemAmtParentsAncestors calculated_fields.fetch(:AMT_41)
+                xml.ExemAmtAge65OrOver calculated_fields.fetch(:AZ140_LINE_38)
+                xml.ExemAmtBlind calculated_fields.fetch(:AZ140_LINE_39)
+                xml.ExemAmtParentsAncestors calculated_fields.fetch(:AZ140_LINE_41)
               end
-              xml.AZAdjGrossIncome calculated_fields.fetch(:AMT_42)
+              xml.AZAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_42)
               xml.DeductionAmt do
                 xml.DeductionTypeIndc 'Standard' # todo: we only support standard tho 43S
-                xml.AZDeductions calculated_fields.fetch(:AMT_43)
+                xml.AZDeductions calculated_fields.fetch(:AZ140_LINE_43)
 
                 xml.ClaimCharitableDed do
-                  #calculated_fields.fetch(:AMT_44)
+                  #calculated_fields.fetch(:AZ140_LINE_44)
                   xml.CharitableDeduction "X"
                   xml.IncStdCharitableDed 2
                   xml.IncreaseStdDed do
-                    xml.GiftByCashOrCheck calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_1c)
-                    xml.OtherThanCashOrCheck calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_2c)
-                    xml.CarrPriorYear calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_3c)
-                    xml.SubTotalContributions calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_4c)
-                    xml.TotalContributions calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_5c)
-                    xml.SubTotal calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_6c)
-                    xml.TotalIncStdDeduction calculated_fields.fetch(:CHARITABLE_CONTRIBUTIONS_WORKSHEET_7c)
+                    xml.GiftByCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_1c)
+                    xml.OtherThanCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_2c)
+                    xml.CarrPriorYear calculated_fields.fetch(:AZ140_CCWS_LINE_3c)
+                    xml.SubTotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_4c)
+                    xml.TotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_5c)
+                    xml.SubTotal calculated_fields.fetch(:AZ140_CCWS_LINE_6c)
+                    xml.TotalIncStdDeduction calculated_fields.fetch(:AZ140_CCWS_LINE_7c)
                   end
                 end
-                xml.AZTaxableInc calculated_fields.fetch(:AMT_45)
-                xml.ComputedTax calculated_fields.fetch(:AMT_46)
-                xml.SubTotal calculated_fields.fetch(:AMT_48)
-                xml.DepTaxCredit calculated_fields.fetch(:AMT_49)
-                xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AMT_50)
-                xml.BalanceOfTaxDue calculated_fields.fetch(:AMT_52)
+                xml.AZTaxableInc calculated_fields.fetch(:AZ140_LINE_45)
+                xml.ComputedTax calculated_fields.fetch(:AZ140_LINE_46)
+                xml.SubTotal calculated_fields.fetch(:AZ140_LINE_48)
+                xml.DepTaxCredit calculated_fields.fetch(:AZ140_LINE_49)
+                xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AZ140_LINE_50)
+                xml.BalanceOfTaxDue calculated_fields.fetch(:AZ140_LINE_52)
               end
               xml.TotalPaymentAndCredits do
-                xml.AzIncTaxWithheld calculated_fields.fetch(:AMT_53)
-                xml.IncrExciseTaxCr calculated_fields.fetch(:AMT_56)
+                xml.AzIncTaxWithheld calculated_fields.fetch(:AZ140_LINE_53)
+                xml.IncrExciseTaxCr calculated_fields.fetch(:AZ140_LINE_56)
               end
-              xml.TotalPayments calculated_fields.fetch(:AMT_59)
+              xml.TotalPayments calculated_fields.fetch(:AZ140_LINE_59)
               xml.TaxDueOrOverpayment do
-                if calculated_fields[:AMT_60]
-                  xml.TaxDue calculated_fields.fetch(:AMT_60)
+                if calculated_fields[:AZ140_LINE_60]
+                  xml.TaxDue calculated_fields.fetch(:AZ140_LINE_60)
                 else
                   xml.OverPaymentGrp do
-                    xml.OverPaymentOfTax calculated_fields.fetch(:AMT_61)
-                    xml.OverPaymentApplied calculated_fields.fetch(:AMT_62)
-                    xml.OverPaymentBalance calculated_fields.fetch(:AMT_63)
+                    xml.OverPaymentOfTax calculated_fields.fetch(:AZ140_LINE_61)
+                    xml.OverPaymentApplied calculated_fields.fetch(:AZ140_LINE_62)
+                    xml.OverPaymentBalance calculated_fields.fetch(:AZ140_LINE_63)
                   end
                 end
               end
-              if calculated_fields[:AMT_79]
-                xml.RefundAmt calculated_fields.fetch(:AMT_79)
+              if calculated_fields[:AZ140_LINE_79]
+                xml.RefundAmt calculated_fields.fetch(:AZ140_LINE_79)
               else
-                xml.AmtOwed calculated_fields.fetch(:AMT_80)
+                xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
               end
               xml.OtherExempInfo do
                 xml.Name do
