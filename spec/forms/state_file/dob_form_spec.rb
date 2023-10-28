@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::AzDependentsDobForm do
+RSpec.describe StateFile::DobForm do
   let!(:intake) { create :state_file_az_intake, dependents: [create(:state_file_dependent), create(:state_file_dependent)] }
   let!(:first_dependent) { intake.dependents.first }
   let(:second_dependent) { intake.dependents.second }

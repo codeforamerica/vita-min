@@ -1,7 +1,10 @@
 module StateFile
-  class AzDependentsDobForm < QuestionsForm
+  class DobForm < QuestionsForm
     include DateHelper
     attr_accessor :dependents_attributes
+    attr_reader :intake
+
+    delegate :ask_months_in_home?, to: :intake
 
     def initialize(intake = nil, params = nil)
       super

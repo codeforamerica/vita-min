@@ -26,8 +26,6 @@
 #  visitor_id             :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  accepts_nested_attributes_for :dependents, update_only: true
-
   encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
 
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
@@ -61,5 +59,9 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def sentenced_for_60_days
     # TODO
+  end
+
+  def ask_months_in_home?
+    true
   end
 end

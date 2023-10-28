@@ -86,4 +86,8 @@ class StateFileNyIntake < StateFileBaseIntake
       include_source: include_source
     )
   end
+
+  def ask_months_in_home?
+    false
+  end
 end

@@ -1,26 +1,27 @@
 <% content_for :page_title, "Dependents' date of birth and months in home" %>
 
 <% content_for :card do %>
-  <p>You’re almost done filing! Before you finish, we have some final questions that may help you maximize your
-    refund.</p>
-  <p>First, please provide more information about the people in your family.</p>
+  <p><%= t('.title1') %></p>
+  <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
       <div class="highlight-box highlight-box--blue spacing-below-15">
         <div class="date-select spacing-below-5">
           <%= ff.cfa_date_select(:dob,
-                                 "Date of birth for #{ff&.object&.first_name&.capitalize}",
+                                 t('.dependent_dob_label', name: ff&.object&.first_name&.capitalize),
                                  options: {
                                    start_year: Time.now.year,
                                    end_year: Time.now.year - 100,
                                  }) %>
         </div>
-        <%= ff.cfa_select(
-              :months_in_home,
-              "Number of months they lived with you in #{Rails.configuration.state_file_filing_year}",
-              (0..12).map { |i| [i.to_s, i] }.reverse
-            ) %>
+        <% if f.object.ask_months_in_home? %>
+          <%= ff.cfa_select(
+                :months_in_home,
+                t('.dependent_months_lived_label', year: Rails.configuration.state_file_filing_year),
+                (0..12).map { |i| [i.to_s, i] }.reverse
+              ) %>
+        <% end %>
       </div>
     <% end %>
     <button class="button button--primary" type="submit">
