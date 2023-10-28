@@ -10,6 +10,10 @@ module Efile
       @inputs = inputs
     end
 
+    def pdf_label
+      self.class.line_data[@line_id.to_s]&.fetch('label')
+    end
+
     def value
       @value_access_tracker&.track(line_id)
       @value
@@ -17,6 +21,10 @@ module Efile
 
     def self.from_data_source(line_id, data_source, field)
       new(line_id, data_source.send(field), "#{data_source.class}##{field}", [])
+    end
+
+    def self.line_data
+      @line_data ||= YAML.load_file(Rails.root.join('app', 'lib', 'efile', 'line_data.yml'))
     end
   end
 end
