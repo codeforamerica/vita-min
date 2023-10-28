@@ -8,5 +8,10 @@ module StateFile
 
     def home
     end
+
+    def clear_session
+      session.delete(:state_file_intake)
+      redirect_to action: :home
+    end
   end
 end
