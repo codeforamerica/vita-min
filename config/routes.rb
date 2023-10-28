@@ -571,6 +571,7 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#home"
+        post "/clear_session", to: 'state_file_pages#clear_session'
       end
     end
   end

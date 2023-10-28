@@ -148,7 +148,7 @@ class Seeder
       sms_notification_opt_in: :yes,
       email_notification_opt_in: :yes,
       bank_name: "Self-help United",
-      bank_routing_number: "12345678",
+      bank_routing_number: "011234567",
       bank_account_number: "87654321",
       bank_account_type: "checking",
       client_attributes: {

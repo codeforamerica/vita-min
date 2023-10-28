@@ -28,7 +28,10 @@
 class StateFileAzIntake < StateFileBaseIntake
   accepts_nested_attributes_for :dependents, update_only: true
 
+  encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
+
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
+
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
       year: 2022,

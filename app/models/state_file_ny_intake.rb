@@ -62,6 +62,7 @@
 #  visitor_id                     :string
 #
 class StateFileNyIntake < StateFileBaseIntake
+  encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
   enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type

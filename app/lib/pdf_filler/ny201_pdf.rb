@@ -93,13 +93,16 @@ module PdfFiller
         # TODO - 'to pay by electronic funds withdrawal' checkbox. not 100% confident what it maps to in the xml
         # Line80_box: ,
         Line80: claimed_attr_value('BAL_DUE_AMT'),
-        # TODO - personal checking / personal savings / etc
-        # Line83_account: ,
-        Line83b_routing: claimed_attr_value('ABA_NMBR'),
-        Line83c_account_num: claimed_attr_value('BANK_ACCT_NMBR'),
-        Line84_withdrawal_Date: claimed_attr_value('ELC_AUTH_EFCTV_DT'),
-        Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
       )
+      unless @xml_document.at('ACCT_TYPE_CD').nil?
+        answers.merge!(
+          Line83a_account: xml_value_to_pdf_checkbox("Line83a_account", 'ACCT_TYPE_CD'),
+          Line83b_routing: claimed_attr_value('ABA_NMBR'),
+          Line83c_account_num: claimed_attr_value('BANK_ACCT_NMBR'),
+          Line84_withdrawal_Date: claimed_attr_value('ELC_AUTH_EFCTV_DT'),
+          Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
+        )
+      end
       answers
     end
 
@@ -132,8 +135,8 @@ module PdfFiller
       'Line83a_account' => {
         "TODO1" => "business checking",
         "TODO2" => "business savings",
-        "TODO3" => "personal checking",
-        "TODO4" => "personal savings"
+        1 => "personal checking",
+        2 => "personal savings"
       }
     }
 
