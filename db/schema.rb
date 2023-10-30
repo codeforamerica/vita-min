@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_27_203055) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_27_221327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1568,6 +1568,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_27_203055) do
     t.string "primary_middle_initial"
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
+    t.string "referrer"
+    t.string "source"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
@@ -1638,13 +1640,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_27_203055) do
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
+    t.string "referrer"
     t.integer "refund_choice", default: 0, null: false
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sales_use_tax"
     t.string "school_district"
     t.integer "school_district_number"
-    t.date "spouse_birth_date"
+    t.string "source"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
