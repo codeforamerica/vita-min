@@ -7,6 +7,10 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_select(:residence_county , "County", ny_counties_for_select) %>
 
+    <%= f.cfa_select(:school_district , "School District Name", ny_district_names_for_select) %>
+
+    <%= f.cfa_select(:school_district_number , "School District Code", ny_district_codes_for_select) %>
+
     <%= f.continue %>
   <% end %>
 <% end %>

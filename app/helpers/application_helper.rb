@@ -1,8 +1,17 @@
 module ApplicationHelper
 
   def ny_counties_for_select
-    ["Albany", "Allegany", "Bronx", "Broome", "Cattaraugus", "Cayuga", "Chautauqua", "Chemung", "Chenango", "Clinton", "Columbia", "Cortland", "Delaware", "Dutchess", "Erie", "Essex", "Franklin", "Fulton", "Genesee", "Greene", "Hamilton", "Herkimer", "Jefferson", "Kings (Brooklyn)", "Lewis", "Livingston", "Madison", "Monroe", "Montgomery", "Nassau", "New York (Manhattan)", "Niagara", "Oneida", "Onondaga", "Ontario", "Orange", "Orleans", "Oswego", "Otsego", "Putnam", "Queens", "Rensselaer", "Richmond (Staten Island)", "Rockland", "Saratoga", "Schenectady", "Schoharie", "Schuyler", "Seneca", "St. Lawrence", "Steuben", "Suffolk", "Sullivan", "Tioga", "Tompkins", "Ulster", "Warren", "Washington", "Wayne", "Westchester", "Wyoming", "Yates"]
+    [["Albany", "Albany"], ["Bronx", "Bronx"], ["Broome", "Broome"]]
   end
+
+  def ny_district_names_for_select
+    [["Bronx Community Schools", "Bronx Community Schools"]]
+  end
+
+  def ny_district_codes_for_select
+    [["District 10", 10]]
+  end
+
   def will_paginate(collection_or_options = nil, options = {})
     if collection_or_options.is_a? Hash
       options, collection_or_options = collection_or_options, nil
