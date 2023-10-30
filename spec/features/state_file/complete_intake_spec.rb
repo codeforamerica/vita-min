@@ -24,7 +24,7 @@ RSpec.feature "Completing a state file intake" do
       # pretend to get federal data
       expect(find_field("tax return year").value).not_to be_present
       click_on "Fetch 1040 data from IRS"
-      expect(page).to have_field("tax return year", with: "2022")
+      expect(page).to have_field("tax return year", with: "2023")
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"

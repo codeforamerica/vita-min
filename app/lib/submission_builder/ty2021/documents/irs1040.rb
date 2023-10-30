@@ -36,7 +36,7 @@ module SubmissionBuilder
 
             if include_w2_detail
               w2_wages = intake.total_wages_amount
-              if tax_return.year == 2022
+              if tax_return.year >= 2022
                 xml.WagesAmt w2_wages
               end
               xml.WagesSalariesAndTipsAmt w2_wages # Line 1
@@ -49,7 +49,7 @@ module SubmissionBuilder
             else
               xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction # 12a
             end
-            unless tax_return.year == 2022
+            if tax_return.year < 2022
               xml.TotDedCharitableContriAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 12c
             end
             xml.TotalDeductionsAmt tax_return.standard_deduction unless tax_return.standard_deduction.nil? # 14
@@ -63,7 +63,7 @@ module SubmissionBuilder
               xml.UndSpcfdAgeStsfyRqrEICInd "X" if benefits.youngish_without_eitc_dependents? # line 27a checkbox
             end
 
-            unless tax_return.year == 2022
+            if tax_return.year < 2022
               # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i)
               xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 

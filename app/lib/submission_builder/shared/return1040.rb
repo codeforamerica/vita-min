@@ -7,7 +7,7 @@ module SubmissionBuilder
       end
 
       def document
-        document = build_xml_doc('efile:Return', returnVersion: @schema_version == '2022v5.3' ? '2022v5.2' : @schema_version)
+        document = build_xml_doc('efile:Return', returnVersion: @schema_version)
         document.at("Return").add_child(return_header)
         document.at("Return").add_child("<ReturnData documentCnt='#{attached_documents.length}'></ReturnData>")
         attached_documents.each do |attached|

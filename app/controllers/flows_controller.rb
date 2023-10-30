@@ -338,7 +338,7 @@ class FlowsController < ApplicationController
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z"
         }],
-        tax_returns_attributes: [{ year: Date.today.year - 1, is_ctc: true, filing_status: 'single' }],
+        tax_returns_attributes: [{ year: Intake::CtcIntake::TEST_ENV_TAX_YEAR, is_ctc: true, filing_status: 'single' }],
       )
       unless client.valid?
         return
