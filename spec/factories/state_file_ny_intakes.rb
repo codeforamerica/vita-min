@@ -7,7 +7,7 @@
 #  account_type                   :integer          default("unfilled"), not null
 #  amount_electronic_withdrawal   :integer
 #  amount_owed_pay_electronically :integer          default("unfilled"), not null
-#  claimed_as_dep                 :integer          not null
+#  claimed_as_dep                 :integer          default("unfilled"), not null
 #  confirmed_permanent_address    :integer          default("unfilled"), not null
 #  contact_preference             :integer          default("unfilled"), not null
 #  current_step                   :string
