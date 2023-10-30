@@ -1,0 +1,34 @@
+<% content_for :page_title, "Out-of-state purchases" %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t('.title', year: "2023") %></h1>
+  <p><%= t(".subtitle") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="form-card">
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%=
+            f.cfa_radio_set(
+              :confirmed_permanent_address,
+              label_text: content_for(:address_text),
+              collection: [
+                { value: :yes, label: "Yes" },
+                { value: :no, label: "No", input_html: { "data-follow-up": "#permanent-address-fields" } },
+              ]
+            )
+          %>
+        </div>
+        <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
+          <p>Select one of the following:</p>
+          <div class="spacing-below-25">
+            <%= f.cfa_input_field(:permanent_street, "Street Address") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+  <div class="highlight-box highlight-box--blue spacing-below-15">
+    hi
+  </div>
+<% end %>

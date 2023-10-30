@@ -1833,6 +1833,10 @@ en:
           subtitle: With an account, you’ll receive updates when your state tax return is accepted.
           text_message_option: Text me a code
           title: Next, set up your account with a quick code
+      ny_out_of_state_purchases:
+        edit:
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          subtitle: For example, online purchases with no sales tax applied.
       dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

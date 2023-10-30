@@ -13,6 +13,7 @@ module Navigation
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::DobController,
       StateFile::Questions::NyPermanentAddressController,
+      StateFile::Questions::NyOutOfStatePurchasesController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::SubmitReturnController,
