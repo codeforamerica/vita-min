@@ -48,12 +48,14 @@
 #  property_over_limit            :integer          default("unfilled"), not null
 #  public_housing                 :integer          default("unfilled"), not null
 #  raw_direct_file_data           :text
+#  referrer                       :string
 #  refund_choice                  :integer          default("unfilled"), not null
 #  residence_county               :string
 #  routing_number                 :string
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  source                         :string
 #  spouse_birth_date              :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string

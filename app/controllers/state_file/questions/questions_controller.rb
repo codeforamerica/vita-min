@@ -9,9 +9,13 @@ module StateFile
 
       private
 
+      def intake_class
+        question_navigator.intake_class
+      end
+
       def current_intake
         intake = GlobalID.find(session[:state_file_intake])
-        return nil if intake && !intake.is_a?(question_navigator.intake_class)
+        return nil if intake && !intake.is_a?(intake_class)
         intake
       end
 

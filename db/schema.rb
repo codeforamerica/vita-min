@@ -1585,7 +1585,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_27_221327) do
     t.string "intake_type", null: false
     t.string "last_name"
     t.string "middle_initial"
-    t.integer "months_in_home"
     t.string "relationship"
     t.string "ssn"
     t.string "suffix"
@@ -1631,7 +1630,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_27_221327) do
     t.string "permanent_street"
     t.string "permanent_zip"
     t.string "phone_number"
-    t.date "primary_birth_date"
     t.string "primary_email"
     t.string "primary_first_name"
     t.string "primary_last_name"

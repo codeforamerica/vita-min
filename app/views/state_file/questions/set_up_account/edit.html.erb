@@ -1,0 +1,20 @@
+<% title = "Next, set up your account with a quick code" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <p>With an account, you’ll receive updates when your state tax return is accepted.</p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button", "aria-describedby": "main-question" do %>
+          Text me a code
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "email", class: "button", "aria-describedby": "main-question" do %>
+          Email me a code
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

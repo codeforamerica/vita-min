@@ -4,6 +4,7 @@ module Navigation
 
     FLOW = [
       StateFile::Questions::LandingPageController,
+      StateFile::Questions::SetUpAccountController,
       StateFile::Questions::LoginController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
