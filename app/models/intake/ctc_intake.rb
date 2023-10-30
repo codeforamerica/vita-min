@@ -308,6 +308,8 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
+  TEST_ENV_TAX_YEAR = 2023
+
   attribute :eip1_amount_received, :money
   attribute :eip2_amount_received, :money
   attribute :primary_prior_year_agi_amount, :money
@@ -413,7 +415,11 @@ class Intake::CtcIntake < Intake
   end
 
   def default_tax_return
-    tax_returns.find_by(year: product_year - 1)
+    if Rails.env.test?
+      tax_returns.find_by(year: product_year - 1)
+    else
+      tax_returns.find_by(year: TEST_ENV_TAX_YEAR)
+    end
   end
 
   # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP
