@@ -16,6 +16,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
   EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests \
       spec/features/state_file \
       spec/controllers/state_file \
+      spec/forms/state_file \
       spec/services/efile \
       spec/lib/efile \
       spec/lib/pdf_filler/az140_pdf_spec.rb \

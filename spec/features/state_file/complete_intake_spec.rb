@@ -14,10 +14,8 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your New York state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Log in"
-      fill_in "Email", with: "kermit@example.com"
-      fill_in "Password", with: "therainbowconnection"
-      click_on "Continue"
+      expect(page).to have_text "Next, set up your account with a quick code"
+      click_on "Text me a code"
 
       expect(page).to have_text "The page with all the info from the 1040"
 
@@ -87,10 +85,8 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Log in"
-      fill_in "Email", with: "kermit@example.com"
-      fill_in "Password", with: "therainbowconnection"
-      click_on "Continue"
+      expect(page).to have_text "Next, set up your account with a quick code"
+      click_on "Text me a code"
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
