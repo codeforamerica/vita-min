@@ -8,7 +8,7 @@
 #  bank_routing_number    :string
 #  charitable_cash        :integer          default(0)
 #  charitable_noncash     :integer          default(0)
-#  claimed_as_dep         :integer
+#  claimed_as_dep         :integer          default("unfilled")
 #  contact_preference     :integer          default("unfilled"), not null
 #  current_step           :string
 #  email_address          :citext
