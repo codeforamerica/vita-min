@@ -7,7 +7,7 @@
 #  account_type                   :integer          default("unfilled"), not null
 #  amount_electronic_withdrawal   :integer
 #  amount_owed_pay_electronically :integer          default("unfilled"), not null
-#  claimed_as_dep                 :integer          not null
+#  claimed_as_dep                 :integer          default("unfilled"), not null
 #  confirmed_permanent_address    :integer          default("unfilled"), not null
 #  contact_preference             :integer          default("unfilled"), not null
 #  current_step                   :string
@@ -48,12 +48,14 @@
 #  property_over_limit            :integer          default("unfilled"), not null
 #  public_housing                 :integer          default("unfilled"), not null
 #  raw_direct_file_data           :text
+#  referrer                       :string
 #  refund_choice                  :integer          default("unfilled"), not null
 #  residence_county               :string
 #  routing_number                 :string
 #  sales_use_tax                  :integer
 #  school_district                :string
 #  school_district_number         :integer
+#  source                         :string
 #  spouse_birth_date              :date
 #  spouse_first_name              :string
 #  spouse_last_name               :string

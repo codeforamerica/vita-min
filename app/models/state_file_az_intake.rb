@@ -8,7 +8,7 @@
 #  bank_routing_number    :string
 #  charitable_cash        :integer          default(0)
 #  charitable_noncash     :integer          default(0)
-#  claimed_as_dep         :integer
+#  claimed_as_dep         :integer          default("unfilled")
 #  contact_preference     :integer          default("unfilled"), not null
 #  current_step           :string
 #  email_address          :citext
@@ -18,6 +18,8 @@
 #  primary_middle_initial :string
 #  prior_last_names       :string
 #  raw_direct_file_data   :text
+#  referrer               :string
+#  source                 :string
 #  spouse_first_name      :string
 #  spouse_last_name       :string
 #  spouse_middle_initial  :string

@@ -1,7 +1,7 @@
 class StateFileBaseIntake < ApplicationRecord
   self.abstract_class = true
 
-  enum claimed_as_dep: { yes: 1, no: 2 }, _prefix: :claimed_as_dep
+  enum claimed_as_dep: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claimed_as_dep
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
   has_one_attached :submission_pdf
 
