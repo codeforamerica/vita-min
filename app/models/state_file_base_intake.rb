@@ -8,6 +8,8 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
 
+  accepts_nested_attributes_for :dependents, update_only: true
+
   delegate :tax_return_year, to: :direct_file_data
 
   def direct_file_data

@@ -27,11 +27,21 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_field("tax return year", with: "2022")
       click_on "Continue"
 
+      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "TESSA TESTERSON"
+      click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.dob.edit.title2_you_and_household')
+      select_cfa_date "state_file_dob_form_primary_birth_date", Date.new(1978, 6, 21)
+      expect(page).to have_text "Date of birth for Tessa"
+      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      click_on "Continue"
+      
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "The page with all the info from the 201"
       click_on "Go back"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -42,10 +52,6 @@ RSpec.feature "Completing a state file intake" do
       fill_in "Apartment/Unit Number", with: "B"
       fill_in "City", with: "New York"
       fill_in "Zip code", with: "11102"
-      click_on "Continue"
-
-      expect(page).to have_text "The page that shows your dependents"
-      expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
@@ -92,6 +98,13 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
+
+      expect(page).to have_text "First, please provide more information about the people in your family."
+      expect(page).to have_text "Date of birth for Tessa"
+      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      select "12", from: I18n.t('state_file.questions.dob.edit.dependent_months_lived_label', year: Rails.configuration.state_file_filing_year)
+      click_on "Continue"
+
 
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"

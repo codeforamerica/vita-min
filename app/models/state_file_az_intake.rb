@@ -27,7 +27,9 @@
 #
 class StateFileAzIntake < StateFileBaseIntake
   encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
+
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
+
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
       year: 2022,
@@ -57,5 +59,17 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def sentenced_for_60_days
     # TODO
+  end
+
+  def ask_months_in_home?
+    true
+  end
+
+  def ask_primary_dob?
+    false
+  end
+
+  def ask_spouse_dob?
+    false
   end
 end
