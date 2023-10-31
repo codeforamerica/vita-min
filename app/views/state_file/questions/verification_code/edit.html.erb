@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <h1 class="h2" id="main-question"><%= title %></h1>
-    <p><%= t(".subtitle_html", contact_method: @contact_method) %></p>
+    <p><%= t(".subtitle_html", contact_info: @contact_info) %></p>
     <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
 
     <%= f.submit t(".action") %>
