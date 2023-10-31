@@ -1798,6 +1798,11 @@ es:
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
+  state_file:
+    questions:
+      verification_code:
+        edit:
+          subtitle_html: "{contact_info}"
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
