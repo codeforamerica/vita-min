@@ -1817,6 +1817,12 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      contact_preference:
+        edit:
+          email_option: Email me a code
+          subtitle: With an account, you’ll receive updates when your state tax return is accepted.
+          text_message_option: Text me a code
+          title: Next, set up your account with a quick code
       dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

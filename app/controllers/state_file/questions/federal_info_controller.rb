@@ -4,45 +4,27 @@ module StateFile
       layout "state_file/question"
 
       def import_federal_data
-        if current_intake.persisted?
-          flash[:alert] = "not overriding existing session intake for now"
-          redirect_to action: :edit, us_state: params[:us_state]
-        else
-          create_sample_intake
-          direct_file_xml = IrsApiService.import_federal_data('fake_auth_token')
+        update_intake_with_sample_data
+        direct_file_xml = IrsApiService.import_federal_data('fake_auth_token')
 
-          current_intake.update(raw_direct_file_data: direct_file_xml)
-          current_intake.direct_file_data.dependents.each do |direct_file_dependent|
-            # TODO: in reality dob will not be provided at this time, we need to force people to enter it later
-            current_intake.dependents.create(direct_file_dependent.attributes.merge(dob: 6.years.ago))
-          end
-          redirect_to action: :edit, us_state: params[:us_state]
+        current_intake.update(raw_direct_file_data: direct_file_xml)
+        current_intake.direct_file_data.dependents.each do |direct_file_dependent|
+          # TODO: in reality dob will not be provided at this time, we need to force people to enter it later
+          current_intake.dependents.create(direct_file_dependent.attributes.merge(dob: 6.years.ago))
         end
+        redirect_to action: :edit, us_state: params[:us_state]
       end
 
       private
-
-      def current_intake
-        super_value = super
-        if super_value.present?
-          super_value
-        else
-          question_navigator.intake_class.new
-        end
-      end
 
       def illustration_path
         "wages.svg"
       end
 
-      def after_update_success
-        session[:state_file_intake] = current_intake.to_global_id
-      end
-
-      def create_sample_intake
+      def update_intake_with_sample_data
         case params[:us_state]
         when "ny"
-          intake = StateFileNyIntake.create(
+          current_intake.update(
             primary_first_name: "Testy",
             primary_middle_initial: "T",
             primary_last_name: "Testerson",
@@ -70,7 +52,7 @@ module StateFile
             **it214_fields
           )
         when "az"
-          intake = StateFileAzIntake.create(
+          intake = current_intake.update(
             claimed_as_dep: "no",
             primary_first_name: "Testy",
             primary_middle_initial: "T",
@@ -82,7 +64,6 @@ module StateFile
         else
           raise "No state specified"
         end
-        session[:state_file_intake] = intake.to_global_id
       end
 
       def it214_fields

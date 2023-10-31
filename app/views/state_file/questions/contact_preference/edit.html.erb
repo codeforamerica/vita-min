@@ -1,0 +1,19 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <p><%= t(".subtitle") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button", "aria-describedby": "main-question" do %>
+          <%= t(".text_message_option") %>
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "email", class: "button", "aria-describedby": "main-question" do %>
+          <%= t(".email_option") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

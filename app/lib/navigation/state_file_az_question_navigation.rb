@@ -4,7 +4,7 @@ module Navigation
 
     FLOW = [
       StateFile::Questions::LandingPageController,
-      StateFile::Questions::LoginController,
+      StateFile::Questions::ContactPreferenceController, # creates state_intake (StartIntakeConcern)
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::DobController,
