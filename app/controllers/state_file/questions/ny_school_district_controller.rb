@@ -7,11 +7,13 @@ module StateFile
 
       def edit
         # @school_districts = county_school_districts_from_csv(current_intake.residence_county)
+        # TODO: in edit, we only need to construct the options for the dropdowns
         map_county_school_districts_from_csv(current_intake.residence_county)
         super
       end
 
       def update
+        # TODO: in update, we only need to construct the mapping for the school codes
         map_county_school_districts_from_csv(current_intake.residence_county)
         super
       end
@@ -47,6 +49,7 @@ module StateFile
           if elementary_school_district_with_code.present?
             @elementary_school_districts.add([elementary_school_district_with_code, elementary_school_district_with_code])
 
+            # TODO: this code will only become relevant if we have to dynamically update the elementary school dropdown to only show the districts associated with the selected district
             # if @combined_district_mapping[school_district].present?
             #   @combined_district_mapping[school_district] << elementary_school_district_with_code
             # else

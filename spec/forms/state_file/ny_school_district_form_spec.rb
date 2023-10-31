@@ -11,6 +11,7 @@ RSpec.describe StateFile::NySchoolDistrictForm do
         let(:invalid_params) do
           {
             school_district: nil,
+            school_district_number: nil,
           }
         end
 
@@ -18,6 +19,7 @@ RSpec.describe StateFile::NySchoolDistrictForm do
           expect(form.valid?).to eq false
 
           expect(form.errors[:school_district]).to include "Can't be blank."
+          expect(form.errors[:school_district_number]).to include "Can't be blank."
         end
       end
     end
@@ -28,6 +30,7 @@ RSpec.describe StateFile::NySchoolDistrictForm do
     let(:valid_params) do
       {
         school_district: "Carle Place",
+        school_district_number: 88
       }
     end
 

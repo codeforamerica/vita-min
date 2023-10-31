@@ -6,8 +6,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_select(:school_district , "School District Name", @school_districts) %>
-
-    <%= f.cfa_select(:elementary_school_district , "Elementary School District Name", @elementary_school_districts) %>
+    <%= f.cfa_select(:elementary_school_district , "Elementary School District Name", @elementary_school_districts, include_blank: true) %>
 
     <%= f.continue %>
   <% end %>
