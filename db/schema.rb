@@ -1647,6 +1647,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_31_060333) do
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sales_use_tax"
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.string "school_district"
     t.integer "school_district_number"
     t.string "source"
@@ -1655,6 +1656,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_31_060333) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end

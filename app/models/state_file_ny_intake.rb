@@ -77,6 +77,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
+  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
 
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
