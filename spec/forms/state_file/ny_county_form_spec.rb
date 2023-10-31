@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::NyCountySchoolDistrictForm do
+RSpec.describe StateFile::NyCountyForm do
   let(:intake) { create :state_file_ny_intake,
                         residence_county: nil,
                         school_district: nil,

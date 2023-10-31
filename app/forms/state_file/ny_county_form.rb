@@ -1,5 +1,5 @@
 module StateFile
-  class NyCountySchoolDistrictForm < QuestionsForm
+  class NyCountyForm < QuestionsForm
     set_attributes_for :intake,
                        :residence_county, :school_district, :school_district_number
 

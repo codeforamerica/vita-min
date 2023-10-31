@@ -54,8 +54,9 @@ RSpec.feature "Completing a state file intake" do
 
       expect(page).to have_text "Select the county and school district where you lived on December 31, 2023"
       select("Bronx", from: "County")
+      click_on "Continue"
+
       select("Bronx Community Schools", from: "School District Name")
-      select("District 10", from: "School District Code")
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"

@@ -1,0 +1,12 @@
+<% title = "Select the county and school district where you lived on December 31, 2023" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_select(:school_district , "School District Name", @school_districts) %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
