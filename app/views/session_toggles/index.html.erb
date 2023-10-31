@@ -12,14 +12,14 @@
             <%= f.hidden_field :name %>
             <%=
               f.cfa_input_field(
-                  :value,
-                  "App time (Pacific)",
-                  type: 'datetime-local',
-                  options: {
-                      value: f.object.value&.in_time_zone("America/Los_Angeles")&.strftime('%Y-%m-%dT%H:%M')
-                  },
-                  classes: ['form-width--long'],
-                  )
+                :value,
+                "App time (Pacific)",
+                type: 'datetime-local',
+                options: {
+                  value: f.object.value&.in_time_zone("America/Los_Angeles")&.strftime('%Y-%m-%dT%H:%M')
+                },
+                classes: ['form-width--long', 'session-toggle-date-input'],
+              )
             %>
 
             <button class="button button--cta spacing-above-0" type="submit">
@@ -34,21 +34,33 @@
         <hr class="spacing-above-5 spacing-below-15"/>
       <% end %>
 
+      <script>
+          const setSessionToggleDate = (e) => {
+              document.querySelector('.session-toggle-date-input').value = e.target.dataset.date;
+              document.querySelector('.session-toggle-date-input').closest('form').submit();
+          }
+      </script>
+
       <p>Relevant times in this environment:</p>
       <span>(🏛️ means the past, 🔮 means the future)</span>
-      <h4><%= link_to 'Get Your Refund', url_for(host: MultiTenantService.new(:gyr).host, controller: :session_toggles) %></h4>
-      <ul class="list--bulleted">
-        <% @gyr_times.each do |toggle_time| %>
-          <li><%= toggle_time.past?(app_time) ? '🏛️️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %></li>
-        <% end %>
-      </ul>
+      <% @toggle_times.each do |toggle_time_data| %>
+        <h4><%= link_to toggle_time_data[:service_name], toggle_time_data[:service_url] %></h4>
+        <ul class="list--bulleted">
+          <% toggle_time_data[:times].each_with_index do |toggle_time, index| %>
+            <li>
+              <% prev_time = index > 0 ? toggle_time_data[:times][index - 1] : nil %>
+              <% next_time = index < toggle_time_data[:times].length - 1 ? toggle_time_data[:times][index + 1] : nil %>
 
-      <h4><%= link_to 'GetCTC', url_for(host: MultiTenantService.new(:ctc).host, controller: :session_toggles) %></h4>
-      <ul class="list--bulleted">
-        <% @ctc_times.each do |toggle_time| %>
-          <li><%= toggle_time.past?(app_time) ? '🏛️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %></li>
-        <% end %>
-      </ul>
+              <% before_ts = prev_time ? (prev_time.value.to_i + toggle_time.value.to_i) / 2 : toggle_time.value.to_i - 10.days.to_i %>
+              <% after_ts = next_time ? (next_time.value.to_i + toggle_time.value.to_i) / 2 : toggle_time.value.to_i + 10.days.to_i %>
+
+              <%= toggle_time.past?(app_time) ? '🏛️️' : '🔮' %> <%= toggle_time.name %>: <%= timestamp(toggle_time.value) %>
+              <%= link_to '⬆️', '#', onclick: "setSessionToggleDate(event)", data: { date: Time.at(before_ts).to_datetime.strftime('%Y-%m-%dT%H:%M') } %>
+              <%= link_to '⬇️', '#', onclick: "setSessionToggleDate(event)", data: { date: Time.at(after_ts).to_datetime.strftime('%Y-%m-%dT%H:%M') } %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   </div>
 <% end %>
