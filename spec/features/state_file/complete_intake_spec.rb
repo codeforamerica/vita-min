@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Completing a state file intake" do
+  include StateFileIntakeHelper
+
   let(:fake_xml) { "<haha>Your xml here</haha>" }
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
@@ -14,8 +16,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your New York state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Next, set up your account with a quick code"
-      click_on "Text me a code"
+      step_through_initial_authentication(contact_preference: :text_message)
 
       expect(page).to have_text "The page with all the info from the 1040"
 
@@ -85,8 +86,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Next, set up your account with a quick code"
-      click_on "Text me a code"
+      step_through_initial_authentication(contact_preference: :text_message)
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
