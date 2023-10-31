@@ -52,11 +52,12 @@ RSpec.feature "Completing a state file intake" do
       fill_in "Zip code", with: "11102"
       click_on "Continue"
 
-      expect(page).to have_text "Select the county and school district where you lived on December 31, 2023"
+      expect(page).to have_text "Select the county where you lived on December 31, 2023"
       select("Bronx", from: "County")
       click_on "Continue"
 
-      select("Bronx Community Schools", from: "School District Name")
+      expect(page).to have_text "Select the school district where you lived on December 31, 2023"
+      select("Bronx", from: "School District Name")
       click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
