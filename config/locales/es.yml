@@ -1802,7 +1802,7 @@ es:
     questions:
       verification_code:
         edit:
-          subtitle_html: "{contact_info}"
+          subtitle_html: "%{contact_info}"
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
