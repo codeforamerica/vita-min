@@ -1,0 +1,15 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+    <% if current_intake.contact_preference == "email" %>
+      <p><%= t(".subtitle_email") %></p>
+    <% elsif current_intake.contact_preference == "text" %>
+      <p><%= t(".subtitle_text") %></p>
+    <% end %>
+
+    <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
+      <%= t("general.continue") %>
+    <% end %>
+<% end %>

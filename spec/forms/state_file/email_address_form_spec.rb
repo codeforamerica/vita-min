@@ -26,14 +26,11 @@ RSpec.describe StateFile::EmailAddressForm do
   end
 
   describe "#save" do
-    it "saves the contact preference to the intake" do
+    it "saves the email to the intake" do
       form = described_class.new(intake, valid_params)
       expect do
         form.save
       end.to change(intake, :email_address).to("someone@example.com")
     end
   end
-  let(:intake) { create :intake }
-
-
 end
