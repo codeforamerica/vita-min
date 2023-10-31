@@ -18,7 +18,7 @@ module SubmissionBuilder
           }.freeze
 
           def document
-            document = build_xml_doc('efile:ReturnState', stateSchemaVersion: "AZIndividual2022v1.1")
+            document = build_xml_doc('efile:ReturnState', stateSchemaVersion: "AZIndividual2023v1.0")
             document.at("ReturnState").add_child(authentication_header)
             document.at("ReturnState").add_child(return_header)
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
@@ -182,7 +182,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            File.join(Rails.root, "vendor", "us_states", "unpacked", "AZIndividual2022v1.1", "AZIndividual", "IndividualReturnAZ140.xsd")
+            File.join(Rails.root, "vendor", "us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
           def attached_documents

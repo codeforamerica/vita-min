@@ -9,7 +9,7 @@ namespace :setup do
     ["efile1040x_2022v5.3.zip", "irs"],
     ["efile1040x_2023v3.0.zip", "irs"],
     ["NYSIndividual2022V5.0.zip", "us_states"],
-    ["AZIndividual2022v1.1.zip", "us_states"],
+    ["AZIndividual2023v1.0.zip", "us_states"],
   ].freeze
 
   # These Rake tasks download IRS e-file schemas from S3.
@@ -55,7 +55,18 @@ namespace :setup do
       next if missing_files.present?
 
       Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
-        Dir.chdir(Rails.root.join('vendor', download_folder, 'unpacked')) do
+        # A zip file like AZIndividual2022v1.1.zip will either contain files like AZIndividual2022v1.1/AZIndividual/etc
+        # *or* just AZIndividual. Here we normalize by always trying to unzip in such a way that results in a unique
+        # folder for every unzip
+        path_parts = ['vendor', download_folder, 'unpacked']
+        zip_filename = File.basename(zip_file.name, '.zip')
+        if download_folder == 'us_states' && !zip_file.first.name.start_with?(zip_filename)
+          path_parts << zip_filename
+        end
+        unpack_path = Rails.root.join(*path_parts)
+        FileUtils.mkdir_p(unpack_path)
+
+        Dir.chdir(unpack_path) do
           zip_file.each do |entry|
             raise StandardError.new("Unsafe filename; exiting") unless entry.name_safe?
 
