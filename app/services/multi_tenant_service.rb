@@ -9,7 +9,15 @@ class MultiTenantService
   end
 
   def url(locale: :en)
-    base = service_type == :ctc ? Rails.configuration.ctc_url : Rails.configuration.gyr_url
+    base =
+      case service_type
+      when :ctc
+        Rails.configuration.ctc_url
+      when :gyr
+        Rails.configuration.gyr_url
+      when :statefile
+        Rails.configuration.state_file_url
+      end
     [base, locale].compact.join("/")
   end
 
