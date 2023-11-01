@@ -11,7 +11,7 @@ module StateFile
     end
 
     def dependents
-      @intake.dependents.az_qualifying_senior
+      @intake.dependents.select(&:ask_senior_questions?)
     end
 
     def save
@@ -19,9 +19,7 @@ module StateFile
     end
 
     def valid?
-      is_valid = super && dependents.all? { |d| d.valid?(:az_senior_form) }
-      binding.pry
-      is_valid
+      super && dependents.all? { |d| d.valid?(:az_senior_form) }
     end
   end
 end

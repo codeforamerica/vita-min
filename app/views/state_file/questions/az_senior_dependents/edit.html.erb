@@ -3,14 +3,6 @@
 <% content_for :card do %>
   <p><%= t('.title1') %></p>
 
-  <% if @form.errors.any? %>
-    <div class="notice--error">
-      <% @form.errors.full_messages.each do |msg| %>
-        <div><%= msg %></div>
-      <% end %>
-    </div>
-  <% end %>
-
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
         <div class="highlight-box highlight-box--blue spacing-below-15">

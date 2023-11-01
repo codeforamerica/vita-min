@@ -52,7 +52,7 @@ module SubmissionBuilder
                 xml.VisionExemp calculated_fields.fetch(:AZ140_LINE_9)
                 xml.DependentsUnder17 calculated_fields.fetch(:AZ140_LINE_10A)
                 xml.Dependents17AndOlder calculated_fields.fetch(:AZ140_LINE_10B)
-                # xml.QualifyingParentsAncestors calculated_fields.fetch(:AZ140_LINE_11A)
+                xml.QualifyingParentsAncestors calculated_fields.fetch(:AZ140_LINE_11A)
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do

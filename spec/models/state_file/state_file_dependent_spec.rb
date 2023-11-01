@@ -5,21 +5,21 @@ describe StateFileDependent do
     context "in the az_senior_form context" do
       context "when needed assistance is yes" do
         it "is valid" do
-          dependent = build(:state_file_dependent, needed_assistance: "yes")
+          dependent = build(:state_file_dependent, needed_assistance: "yes", passed_away: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq true
         end
       end
 
       context "when needed assistance is no" do
         it "is valid" do
-          dependent = build(:state_file_dependent, needed_assistance: "no")
+          dependent = build(:state_file_dependent, needed_assistance: "no", passed_away: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq true
         end
       end
 
       context "when needed assistance is unfilled" do
         it "is not valid" do
-          dependent = build(:state_file_dependent, needed_assistance: "unfilled")
+          dependent = build(:state_file_dependent, needed_assistance: "unfilled", passed_away: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq false
           expect(dependent.errors).to include :needed_assistance
         end
@@ -27,21 +27,21 @@ describe StateFileDependent do
 
       context "when passed_away is yes" do
         it "is valid" do
-          dependent = build(:state_file_dependent, passed_away: "yes")
+          dependent = build(:state_file_dependent, passed_away: "yes", needed_assistance: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq true
         end
       end
 
       context "when passed_away is no" do
         it "is valid" do
-          dependent = build(:state_file_dependent, passed_away: "no")
+          dependent = build(:state_file_dependent, passed_away: "no", needed_assistance: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq true
         end
       end
 
       context "when passed_away is unfilled" do
         it "is not valid" do
-          dependent = build(:state_file_dependent, passed_away: "unfilled")
+          dependent = build(:state_file_dependent, passed_away: "unfilled", needed_assistance: "yes")
           expect(dependent.valid?(:az_senior_form)).to eq false
           expect(dependent.errors).to include :passed_away
         end

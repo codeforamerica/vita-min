@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe StateFile::AzSeniorDependentsForm do
-  let(:intake) { create :state_file_az_intake }
-  let!(:first_dependent) { create(:state_file_dependent, intake: intake) }
-  let!(:second_dependent) { create(:az_senior_dependent, intake: intake) }
-
   describe "#valid?" do
+    let(:intake) { create :state_file_az_intake }
+    let!(:first_dependent) { create(:state_file_dependent, intake: intake) }
+    let!(:second_dependent) { create(:az_senior_dependent, intake: intake) }
+
     context "with invalid params" do
       let(:invalid_params) do
         {
@@ -20,7 +20,7 @@ RSpec.describe StateFile::AzSeniorDependentsForm do
       it "returns false" do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
-        expect(form.dependents.first).not_to be_valid
+        expect(form.dependents.first.valid?(:az_senior_form)).to eq false
         expect(form.dependents.first.errors).to include :needed_assistance
         expect(form.dependents.first.errors).to include :passed_away
       end
@@ -29,7 +29,9 @@ RSpec.describe StateFile::AzSeniorDependentsForm do
 
   describe "#save" do
     context "when all dependents are over 65 and are parents/grandparents and lived with the filer for 12 months" do
-      let(:intake) { create :state_file_az_intake, dependents: [create(:state_file_dependent, dob: Date.parse("August 24, 1952"), relationship: "PARENT", months_in_home: 12), create(:state_file_dependent, dob: Date.parse("August 24, 1944"), relationship: "PARENT", months_in_home: 12)] }
+      let(:intake) { create :state_file_az_intake }
+      let!(:first_dependent) { create(:az_senior_dependent, intake: intake) }
+      let!(:second_dependent) { create(:az_senior_dependent, intake: intake) }
 
       context "with valid params" do
         let(:valid_params) do
@@ -64,7 +66,9 @@ RSpec.describe StateFile::AzSeniorDependentsForm do
     end
 
     context "when only one dependent is over 65 and are parents/grandparents and lived with the filer for 12 months" do
-      let(:intake) { create :state_file_az_intake, dependents: [create(:state_file_dependent, dob: Date.parse("August 24, 1984")), create(:state_file_dependent, dob: Date.parse("August 24, 1944"))] }
+      let(:intake) { create :state_file_az_intake }
+      let!(:first_dependent) { create(:state_file_dependent, intake: intake) }
+      let!(:second_dependent) { create(:az_senior_dependent, intake: intake) }
 
       context "with valid params" do
         let(:valid_params) do

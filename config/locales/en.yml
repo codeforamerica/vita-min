@@ -1819,9 +1819,7 @@ en:
     questions:
       az_senior_dependents:
         edit:
-          affirmative: 'Yes'
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
-          negative: 'No'
           passed_away_label: Did %{name} pass away in 2023?
           title1: Please provide some more information about the people in your family who are 65 years of age or older.
       code_verified:

@@ -31,7 +31,8 @@ class StateFileDependent < ApplicationRecord
   # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :dob, on: :dob_form
-  validates_presence_of :needed_assistance, :passed_away, on: :az_senior_form
+  validates :needed_assistance, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
+  validates :passed_away, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
 
   scope :az_qualifying_senior, -> do
     where(['dob <= ?', senior_cutoff_date])

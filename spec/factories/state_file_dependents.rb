@@ -30,8 +30,6 @@ FactoryBot.define do
     last_name { "Poppyseed" }
     relationship { "DAUGHTER" }
     ssn { "123456789" }
-    needed_assistance { "yes" }
-    passed_away { "no" }
 
     factory :az_senior_dependent do
       dob { StateFileDependent.senior_cutoff_date }
