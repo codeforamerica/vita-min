@@ -102,14 +102,14 @@ class FlowsController < ApplicationController
       when :state_file_az
         FlowParams.new(
           controller: controller,
-          reference_object: StateFileAzIntake.new,
+          reference_object: controller.current_intake&.is_a?(StateFileAzIntake) ? controller.current_intake : nil,
           controller_list: Navigation::StateFileAzQuestionNavigation::FLOW,
           form: nil
         )
       when :state_file_ny
         FlowParams.new(
           controller: controller,
-          reference_object: StateFileNyIntake.new,
+          reference_object: controller.current_intake&.is_a?(StateFileNyIntake) ? controller.current_intake : nil,
           controller_list: Navigation::StateFileNyQuestionNavigation::FLOW,
           form: nil
         )
@@ -203,9 +203,9 @@ class FlowsController < ApplicationController
           if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
           end
-          if @reference_object.is_a?(StateFileAzIntake)
+          if @current_controller.params[:id] == 'state_file_az'
             url_params[:us_state] = 'az'
-          elsif @reference_object.is_a?(StateFileNyIntake)
+          elsif @current_controller.params[:id] == 'state_file_ny'
             url_params[:us_state] = 'ny'
           end
           @current_controller.url_for(url_params)

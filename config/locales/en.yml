@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      code_verified:
+        edit:
+          subtitle_email: You’ll now receive email updates when your state tax return is accepted.
+          subtitle_text: You’ll now receive text updates when your state tax return is accepted.
+          title: Code verified!
       contact_preference:
         edit:
           email_option: Email me a code
@@ -1831,6 +1836,22 @@ en:
           title2_family: First, please provide more information about the people in your family.
           title2_you_and_household: First, please enter the date of birth for you and everyone in your household.
           your_dob: Your date of birth
+      email_address:
+        edit:
+          action: Send code
+          email_address_label: Your email address (avoid using a temporary email)
+          title: Enter your email address
+      phone_number:
+        edit:
+          action: Send code
+          phone_number_label: Your phone number
+          title: Enter your phone number
+      verification_code:
+        edit:
+          action: Verify code
+          subtitle_html: A message with your code has been sent to <strong>%{contact_info}</strong>.
+          title: Verify the code to continue
+          verification_code_label: Enter the 6-digit code
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
