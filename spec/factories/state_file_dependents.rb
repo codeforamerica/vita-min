@@ -2,19 +2,21 @@
 #
 # Table name: state_file_dependents
 #
-#  id             :bigint           not null, primary key
-#  dob            :date
-#  first_name     :string
-#  intake_type    :string           not null
-#  last_name      :string
-#  middle_initial :string
-#  months_in_home :integer
-#  relationship   :string
-#  ssn            :string
-#  suffix         :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  intake_id      :bigint           not null
+#  id                :bigint           not null, primary key
+#  dob               :date
+#  first_name        :string
+#  intake_type       :string           not null
+#  last_name         :string
+#  middle_initial    :string
+#  months_in_home    :integer
+#  needed_assistance :integer          default(0), not null
+#  passed_away       :integer          default(0), not null
+#  relationship      :string
+#  ssn               :string
+#  suffix            :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  intake_id         :bigint           not null
 #
 # Indexes
 #
@@ -27,5 +29,6 @@ FactoryBot.define do
     middle_initial {"U"}
     last_name { "Poppyseed" }
     relationship { "DAUGHTER" }
+    ssn { "123456789" }
   end
 end

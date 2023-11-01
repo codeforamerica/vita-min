@@ -12,6 +12,7 @@ module Navigation
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::DobController,
+      StateFile::Questions::AzSeniorDependentsController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze
