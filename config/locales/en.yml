@@ -1841,6 +1841,14 @@ en:
           action: Send code
           email_address_label: Your email address (avoid using a temporary email)
           title: Enter your email address
+      ny_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31, %{filing_year}
+      ny_school_district:
+        edit:
+          school_district_name: School District Name
+          title: Select the school district where you lived on December 31, %{filing_year}
       phone_number:
         edit:
           action: Send code

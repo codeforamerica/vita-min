@@ -7,15 +7,13 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
   end
 
   describe "#edit" do
-    it "assigns the correct data structure to @school_districts" do
+    it "assigns the correct data structure to @school_districts including combined district names" do
       get :edit, params: { us_state: "ny" }
 
       school_districts = assigns(:school_districts)
-      expect(school_districts).to include(['Bellmore-Merrick CHS', 'Bellmore-Merrick CHS'])
+      expect(school_districts).to include(['Bellmore-Merrick CHS North Bellmore', 'Bellmore-Merrick CHS North Bellmore'])
       expect(school_districts).to include(['Carle Place', 'Carle Place'])
-
-      # TODO: leaving this commented expectation in case we do go back to constructing an array instead of a set
-      # expect(school_districts).to eq school_districts.uniq
+      expect(school_districts).to eq school_districts.uniq
     end
   end
 
@@ -42,13 +40,12 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
       let(:form_params) {
         {
           state_file_ny_school_district_form: {
-            school_district: "Bellmore-Merrick CHS",
-            elementary_school_district: "North Bellmore"
+            school_district: "Bellmore-Merrick CHS North Bellmore",
           }
         }
       }
 
-      it "sets the correct district number in params" do
+      it "sets the district name back to the original and uses the correct district number" do
         post :update, params: { us_state: "ny" }.merge(form_params)
 
         intake.reload

@@ -1,11 +1,11 @@
-<% title = "Select the county where you lived on December 31, 2023" %>
+<% title = t(".title", filing_year: Rails.configuration.state_file_filing_year) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.cfa_select(:residence_county , "County", @counties) %>
+    <%= f.cfa_select(:residence_county , t(".county"), @counties) %>
 
     <%= f.continue %>
   <% end %>

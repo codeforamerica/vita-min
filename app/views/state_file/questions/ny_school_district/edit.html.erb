@@ -1,12 +1,11 @@
-<% title = "Select the school district where you lived on December 31, 2023" %>
+<% title = t(".title", filing_year: Rails.configuration.state_file_filing_year) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.cfa_select(:school_district , "School District Name", @school_districts) %>
-    <%= f.cfa_select(:elementary_school_district , "Elementary School District Name", @elementary_school_districts, include_blank: true) %>
+    <%= f.cfa_select(:school_district , t(".school_district_name"), @school_districts) %>
 
     <%= f.continue %>
   <% end %>
