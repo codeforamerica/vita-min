@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      az_senior_dependents:
+        edit:
+          assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
+          passed_away_label: Did %{name} pass away in 2023?
+          title1: Please provide some more information about the people in your family who are 65 years of age or older.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.

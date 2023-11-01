@@ -55,8 +55,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def qualifying_parents_and_grandparents
-    # TODO
-    0
+    dependents.select(&:ask_senior_questions?).length
   end
 
   def sentenced_for_60_days
