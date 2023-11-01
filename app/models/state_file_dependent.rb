@@ -9,8 +9,8 @@
 #  last_name         :string
 #  middle_initial    :string
 #  months_in_home    :integer
-#  needed_assistance :integer          default(0), not null
-#  passed_away       :integer          default(0), not null
+#  needed_assistance :integer          default("unfilled"), not null
+#  passed_away       :integer          default("unfilled"), not null
 #  relationship      :string
 #  ssn               :string
 #  suffix            :string
