@@ -84,11 +84,12 @@ class StateFileNyIntake < StateFileBaseIntake
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
-      self.update!(sales_use_tax_calculation_method: "unfilled", sales_use_tax: nil)
+      self.sales_use_tax_calculation_method = "unfilled"
+      self.sales_use_tax = nil
     end
 
-    if sales_use_tax_calculation_method_changed?(to: "automated") || sales_use_tax_calculation_method_changed?(to: "unfilled")
-      self.update!(sales_use_tax: calculate_sales_use_tax)
+    if sales_use_tax_calculation_method_changed?(to: "automated")
+      self.sales_use_tax = calculate_sales_use_tax
     end
   end
 
@@ -106,8 +107,26 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def calculate_sales_use_tax
-    # add calulcation here
-    nil
+    return unless household_fed_agi
+
+    if household_fed_agi <= 15_000
+      3
+    elsif household_fed_agi.between?(15_001, 30_000)
+      7
+    elsif household_fed_agi.between?(30_001, 50_000)
+      11
+    elsif household_fed_agi.between?(50_001, 75_000)
+      17
+    elsif household_fed_agi.between?(75_001, 100_000)
+      23
+    elsif household_fed_agi.between?(100_001, 150_000)
+      29
+    elsif household_fed_agi.between?(150_001, 200_000)
+      38
+    elsif household_fed_agi >= 200_001
+      sut = (0.000195 * household_fed_agi).round
+      [sut, 125].min
+    end
   end
 
   def ask_months_in_home?
