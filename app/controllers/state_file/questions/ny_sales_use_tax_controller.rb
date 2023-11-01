@@ -1,10 +1,10 @@
 module StateFile
   module Questions
-    class NyOutOfStatePurchasesController < QuestionsController
+    class NySalesUseTaxController < QuestionsController
+
       def edit
         super
       end
-
 
     end
   end

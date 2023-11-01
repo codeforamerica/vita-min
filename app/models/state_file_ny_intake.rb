@@ -82,6 +82,16 @@ class StateFileNyIntake < StateFileBaseIntake
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
 
+  before_save do
+    if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
+      self.update!(sales_use_tax_calculation_method: "unfilled", sales_use_tax: nil)
+    end
+
+    if sales_use_tax_calculation_method_changed?(to: "automated") || sales_use_tax_calculation_method_changed?(to: "unfilled")
+      self.update!(sales_use_tax: calculate_sales_use_tax)
+    end
+  end
+
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
       year: 2022,
@@ -93,6 +103,11 @@ class StateFileNyIntake < StateFileBaseIntake
       dependent_count: dependents.length,
       include_source: include_source
     )
+  end
+
+  def calculate_sales_use_tax
+    # add calulcation here
+    nil
   end
 
   def ask_months_in_home?

@@ -1833,10 +1833,14 @@ en:
           subtitle: With an account, you’ll receive updates when your state tax return is accepted.
           text_message_option: Text me a code
           title: Next, set up your account with a quick code
-      ny_out_of_state_purchases:
+      ny_sales_use_tax:
         edit:
           title: Did you make any out-of-state purchases in %{year} that went untaxed?
           subtitle: For example, online purchases with no sales tax applied.
+          select_one: "Select one of the following:"
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+          calculated_use_tax: Enter calculated use tax
       dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

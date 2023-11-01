@@ -1,0 +1,39 @@
+<% content_for :page_title, "Out-of-state purchases" %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t('.title', year: "2023") %></h1>
+  <p><%= t(".subtitle") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <%=
+          f.cfa_radio_set(
+            :untaxed_out_of_state_purchases,
+            collection: [
+              { value: :yes, label: "Yes", input_html: { "data-follow-up": "#sut-method-field" } },
+              { value: :no, label: "No" },
+            ]
+          )
+        %>
+      </div>
+      <div class="question-with-follow-up__follow-up nested-question-with-follow-up highlight-box highlight-box--blue" id="sut-method-field">
+        <div class="nested-question-with-follow-up__question">
+          <%=
+            f.cfa_radio_set(
+              :sales_use_tax_calculation_method,
+              label_text: t(".select_one"),
+              collection: [
+                { value: :automated, label: t(".use_tax_method_automated") },
+                { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "nested-data-follow-up": "#sut-field" } },
+              ]
+            )
+          %>
+        </div>
+        <div class="nested-question-with-follow-up__follow-up" id="sut-field">
+          <%= f.cfa_input_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
+        </div>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>
