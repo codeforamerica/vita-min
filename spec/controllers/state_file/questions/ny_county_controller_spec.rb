@@ -6,8 +6,8 @@ RSpec.describe StateFile::Questions::NyCountyController do
       get :edit, params: { us_state: "ny" }
 
       counties = assigns(:counties)
-      expect(counties).to include(%w[Montgomery Montgomery])
-      expect(counties).to include(%w[Nassau Nassau])
+      expect(counties).to include('Montgomery')
+      expect(counties).to include('Nassau')
       expect(counties).to eq counties.uniq
     end
   end
