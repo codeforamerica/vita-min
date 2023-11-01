@@ -32,9 +32,9 @@ describe MultiTenantService do
     end
 
     it "returns the specific config values for GYR & GetCTC" do
-      expect(described_class.new(:ctc).current_tax_year).to eq 2017
-      expect(described_class.new(:gyr).current_tax_year).to eq 2018
-      expect(described_class.new(:statefile).current_tax_year).to eq 2023
+      expect(described_class.ctc.current_tax_year).to eq 2017
+      expect(described_class.gyr.current_tax_year).to eq 2018
+      expect(described_class.statefile.current_tax_year).to eq 2023
     end
   end
 

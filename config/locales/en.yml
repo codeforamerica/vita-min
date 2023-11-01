@@ -1824,8 +1824,6 @@ en:
           negative: 'No'
           passed_away_label: Did %{name} pass away in 2023?
           title1: Please provide some more information about the people in your family who are 65 years of age or older.
-          affirmative: "Yes"
-          negative: "No"
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.

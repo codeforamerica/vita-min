@@ -31,6 +31,13 @@ class StateFileDependent < ApplicationRecord
   # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :dob, on: :dob_form
+  validates_presence_of :needed_assistance, :passed_away, on: :az_senior_form
+
+  scope :az_qualifying_senior, -> do
+    where(['dob <= ?', senior_cutoff_date])
+      .where(months_in_home: 12)
+      .where(relationship: ['PARENT', 'GRANDPARENT'])
+  end
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -40,6 +47,10 @@ class StateFileDependent < ApplicationRecord
 
   def ask_senior_questions?
     return false if dob.nil?
-    dob <= MultiTenantService.new(:statefile).end_of_current_tax_year.years_ago(65) && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
+    dob <= StateFileDependent.senior_cutoff_date && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
+  end
+
+  def self.senior_cutoff_date
+    MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
   end
 end

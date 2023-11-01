@@ -19,8 +19,8 @@
                   :needed_assistance,
                   label_text: t(".assistance_label", name: ff&.object&.first_name&.capitalize),
                   collection: [
-                    { value: "yes", label: t(".affirmative") },
-                    { value: "no", label: t(".negative") },
+                    { value: "yes", label: t("general.affirmative") },
+                    { value: "no", label: t("general.negative") },
                   ]
                 ) %>
           </div>
@@ -31,8 +31,8 @@
                   :passed_away,
                   label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize),
                   collection: [
-                    { value: "yes", label: t(".affirmative") },
-                    { value: "no", label: t(".negative") },
+                    { value: "yes", label: t("general.affirmative") },
+                    { value: "no", label: t("general.negative") },
                   ]
                 ) %>
           </div>

@@ -91,4 +91,18 @@ class MultiTenantService
   def backtax_years
     filing_years.without(current_tax_year)
   end
+
+  class << self
+    def ctc
+      new(:ctc)
+    end
+
+    def gyr
+      new(:gyr)
+    end
+
+    def statefile
+      new(:statefile)
+    end
+  end
 end

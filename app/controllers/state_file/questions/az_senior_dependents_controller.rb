@@ -2,7 +2,7 @@ module StateFile
   module Questions
     class AzSeniorDependentsController < QuestionsController
       def self.show?(intake)
-        !intake.nil? && intake.dependents.select(&:ask_senior_questions?).size.positive?
+        intake.dependents.az_qualifying_senior.exists?
       end
 
       private

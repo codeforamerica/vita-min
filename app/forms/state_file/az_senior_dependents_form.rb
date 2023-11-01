@@ -11,7 +11,7 @@ module StateFile
     end
 
     def dependents
-      @intake.dependents.select(&:ask_senior_questions?)
+      @intake.dependents.az_qualifying_senior
     end
 
     def save
@@ -19,14 +19,9 @@ module StateFile
     end
 
     def valid?
-      form_valid = super
-      dependents_attributes.each do |_index, dependent_attributes|
-        form_valid = false if dependent_attributes[:needed_assistance].nil? || dependent_attributes[:needed_assistance] == "unfilled" || dependent_attributes[:passed_away].nil? || dependent_attributes[:passed_away] == "unfilled"
-      end
-      # TODO: real error handling
-      errors.add(:base, "You must select a value") unless form_valid
-      form_valid
+      is_valid = super && dependents.all? { |d| d.valid?(:az_senior_form) }
+      binding.pry
+      is_valid
     end
-
   end
 end
