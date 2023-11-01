@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_30_203927) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_01_193117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1549,6 +1549,25 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_30_203927) do
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
+  end
+
+  create_table "state_file1099s", force: :cascade do |t|
+    t.integer "address_confirmation", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "federal_income_tax_withheld"
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "payer_name"
+    t.integer "payer_name_is_default", default: 0, null: false
+    t.integer "recipient", default: 0, null: false
+    t.string "recipient_city"
+    t.string "recipient_state"
+    t.string "recipient_street_address"
+    t.string "recipient_zip"
+    t.integer "state_income_tax_withheld"
+    t.integer "unemployment_compensation"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099s_on_intake"
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|

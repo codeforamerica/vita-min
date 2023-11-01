@@ -15,6 +15,7 @@ module Navigation
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
+      StateFile::Questions::NyUnemploymentController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze

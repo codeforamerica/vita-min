@@ -59,6 +59,16 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "The page with all the info from the IT-214"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.ny_unemployment.edit.title')
+      choose "Yes"
+      choose "NY Department of Labor"
+      choose "Myself"
+      choose "Yes, that’s the address"
+      fill_in "Box 1, Unemployment compensation", with: "123"
+      fill_in "Box 4, Federal income tax withheld", with: "456"
+      fill_in "Box 11, State income tax withheld", with: "789"
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "You have successfully submitted your taxes"

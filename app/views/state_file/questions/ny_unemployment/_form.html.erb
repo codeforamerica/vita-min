@@ -1,0 +1,88 @@
+<% @main_heading = t("state_file.questions.ny_unemployment.edit.title") %>
+
+<% content_for :page_title, @main_heading %>
+
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths">
+      <main role="main">
+        <%= form_with model: @state_file1099, url: { action: @state_file1099.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+          <h1 class="form-question">
+            <%= @main_heading %>
+          </h1>
+          <div class="question-with-follow-up">
+            <div class="question-with-follow-up__question">
+              <%=
+                f.cfa_radio_set(
+                  :confirmed_address,
+                  label_text: t('state_file.questions.ny_unemployment.edit.had_box_11'),
+                  collection: [
+                    { value: :yes, label: "Yes" },
+                    { value: :no, label: "No", input_html: { "data-follow-up": "#unemployment-not-listed" } },
+                  ]
+                )
+              %>
+            </div>
+            <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
+              <h1 class="form-question"><%=t('state_file.questions.ny_unemployment.edit.need_additional_information') %></h1>
+              <%=
+                f.cfa_radio_set(
+                  :payer_name_is_default,
+                  label_text: t('state_file.questions.ny_unemployment.edit.payer_question'),
+                  collection: [
+                    { value: :yes, label: @state_file1099.default_payer_name },
+                    { value: :no, label: "Other" },
+                  ]
+                )
+              %>
+              <%= f.cfa_input_field(:payer_name, "", classes: ["form-width--long"]) %>
+              <%=
+                f.cfa_radio_set(
+                  :payer_name_is_default,
+                  label_text: t('state_file.questions.ny_unemployment.edit.recipient_question'),
+                  collection: [
+                    { value: :primary, label: t('state_file.questions.ny_unemployment.edit.recipient_myself') },
+                    { value: :spouse, label: t('state_file.questions.ny_unemployment.edit.recipient_my_spouse') },
+                  ]
+                )
+              %>
+              <div class="question-with-follow-up">
+                <div class="question-with-follow-up__question">
+                  <% content_for :address_text do %>
+                    <div class="text--bold">Address</div>
+                    <div><%= current_intake.direct_file_data.mailing_street %></div>
+                    <div><%= current_intake.direct_file_data.mailing_city %>, New
+                      York <%= current_intake.direct_file_data.mailing_zip %></div>
+                  <% end %>
+                  <h1 class="form-question"><%=t('state_file.questions.ny_unemployment.edit.confirm_address') %></h1>
+                  <%=
+                    f.cfa_radio_set(
+                      :address_confirmation,
+                      label_text: content_for(:address_text),
+                      collection: [
+                        { value: :yes, label: "Yes, that's the address" },
+                        { value: :no, label: "No, I need to edit", input_html: { "data-follow-up": "#recipient-address-fields" } },
+                      ]
+                    )
+                  %>
+                </div>
+                <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
+                  <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.ny_unemployment.edit.street_address'), classes: ["form-width--long"]) %>
+                  <%= f.cfa_input_field(:recipient_city, t('state_file.questions.ny_unemployment.edit.city'), classes: ["form-width--long"]) %>
+                  <%= f.cfa_input_field(:recipient_state, t('state_file.questions.ny_unemployment.edit.state'), classes: ["form-width--long"]) %>
+                  <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.ny_unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
+                </div>
+              </div>
+
+              <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.ny_unemployment.edit.unemployment_compensation'), classes: ["form-width--long"]) %>
+            </div>
+          </div>
+
+          <button class="button button--primary button--wide button--icon text--left" type="submit">
+            <%= t("views.dependents.form.save_cta") %>
+          </button>
+        <% end %>
+      </main>
+    </div>
+  </div>
+</section>
