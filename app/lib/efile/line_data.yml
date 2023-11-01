@@ -245,12 +245,10 @@ IT201_LINE_63:
   label: '63 Empire State child credit'
 IT215_LINE_1:
   label: 'Did you claim the federal earned income credit?'
-IT215_LINE_1A:
-  label: 'Did you file a NYS Form IT-558?'
 IT215_LINE_2:
   label: 'Is your investment income (see instructions) greater than $10,300?'
 IT215_LINE_3:
-  label: 'Have you already filed your New York State income tax return?'
+  label: 'Is your federal filing status MFS and do you meet the requirements to be considered unmarried for the purposes of the earned income credit'
 IT215_LINE_4:
   label: 'Did you claim qualifying children on your federal Schedule EIC?'
 IT215_LINE_5:
