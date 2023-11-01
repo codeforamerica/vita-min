@@ -62,11 +62,18 @@ class MultiTenantService
   end
 
   def current_tax_year
-    if service_type == :ctc
+    case service_type
+    when :ctc
       Rails.configuration.ctc_current_tax_year
-    else
+    when :gyr
       Rails.configuration.gyr_current_tax_year
+    when :statefile
+      Rails.configuration.statefile_current_tax_year
     end
+  end
+
+  def end_of_current_tax_year
+    DateTime.new(current_tax_year).end_of_year
   end
 
   def prior_tax_year

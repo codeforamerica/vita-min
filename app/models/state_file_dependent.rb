@@ -40,6 +40,6 @@ class StateFileDependent < ApplicationRecord
 
   def ask_senior_questions?
     return false if dob.nil?
-    dob <= DateTime.new(2023, 12, 31).years_ago(65) && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
+    dob <= MultiTenantService.new(:statefile).end_of_current_tax_year.years_ago(65) && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
   end
 end
