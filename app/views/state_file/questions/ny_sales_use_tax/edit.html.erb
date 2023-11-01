@@ -10,8 +10,8 @@
           f.cfa_radio_set(
             :untaxed_out_of_state_purchases,
             collection: [
-              { value: :yes, label: "Yes", input_html: { "data-follow-up": "#sut-method-field" } },
-              { value: :no, label: "No" },
+              { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-method-field" } },
+              { value: :no, label: t("general.negative") },
             ]
           )
         %>
