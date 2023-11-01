@@ -1,0 +1,24 @@
+<% title = "The page that shows your 1099s" %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <% if @state_file1099s.present? %>
+    <ul class="review-box">
+      <% @state_file1099s.each do |form1099| %>
+        <li class="form1099">
+          <div class="form1099__details">
+            <h3 class="form1099__label">
+              <%= form1099.id %>
+            </h3>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= link_to(next_path, class: "button button--primary button--wide button--icon") do %>
+    <%= "Continue" %>
+  <% end %>
+<% end %>

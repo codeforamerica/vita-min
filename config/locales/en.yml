@@ -1854,7 +1854,7 @@ en:
           recipient_myself: Myself
           recipient_my_spouse: My spouse
           confirm_address: "Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form."
-          confirm_address_yes: Yes, that’s the address
+          confirm_address_yes: Yes, that's the address
           confirm_address_no: No, I need to edit
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           street_address: Street Address

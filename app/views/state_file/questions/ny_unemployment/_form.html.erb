@@ -17,8 +17,8 @@
                   :confirmed_address,
                   label_text: t('state_file.questions.ny_unemployment.edit.had_box_11'),
                   collection: [
-                    { value: :yes, label: "Yes" },
-                    { value: :no, label: "No", input_html: { "data-follow-up": "#unemployment-not-listed" } },
+                    { value: :yes, label: "Yes", input_html: { "data-follow-up": "#unemployment-not-listed" } },
+                    { value: :no, label: "No" },
                   ]
                 )
               %>
@@ -60,8 +60,8 @@
                       :address_confirmation,
                       label_text: content_for(:address_text),
                       collection: [
-                        { value: :yes, label: "Yes, that's the address" },
-                        { value: :no, label: "No, I need to edit", input_html: { "data-follow-up": "#recipient-address-fields" } },
+                        { value: :yes, label: t('state_file.questions.ny_unemployment.edit.confirm_address_yes') },
+                        { value: :no, label: t('state_file.questions.ny_unemployment.edit.confirm_address_no'), input_html: { "data-follow-up": "#recipient-address-fields" } },
                       ]
                     )
                   %>
@@ -75,11 +75,13 @@
               </div>
 
               <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.ny_unemployment.edit.unemployment_compensation'), classes: ["form-width--long"]) %>
+              <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.ny_unemployment.edit.federal_income_tax_withheld'), classes: ["form-width--long"]) %>
+              <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.ny_unemployment.edit.state_income_tax_withheld'), classes: ["form-width--long"]) %>
             </div>
           </div>
 
           <button class="button button--primary button--wide button--icon text--left" type="submit">
-            <%= t("views.dependents.form.save_cta") %>
+            <%= t("general.continue") %>
           </button>
         <% end %>
       </main>

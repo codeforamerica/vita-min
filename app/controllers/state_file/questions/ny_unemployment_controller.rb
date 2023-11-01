@@ -19,7 +19,7 @@ module StateFile
 
       def update
         @state_file1099 = current_intake.state_file1099s.find(params[:id])
-        if @state_file1099.update(dependent_params)
+        if @state_file1099.update(state_file1099_params)
           redirect_to action: :index
         else
           render :edit
@@ -27,7 +27,7 @@ module StateFile
       end
 
       def create
-        @state_file1099 = Dependent.new(dependent_params.merge(intake: current_intake))
+        @state_file1099 = StateFile1099.new(state_file1099_params.merge(intake: current_intake))
 
         if @state_file1099.save
           redirect_to action: :index
@@ -45,6 +45,10 @@ module StateFile
       end
 
       private
+
+      def state_file1099_params
+        params.require(:state_file1099).permit()
+      end
     end
   end
 end
