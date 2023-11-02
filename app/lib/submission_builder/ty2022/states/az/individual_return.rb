@@ -87,7 +87,7 @@ module SubmissionBuilder
                     end
                     xml.RelationShip dependent.relationship
                     xml.NumMonthsLived dependent.months_in_home
-                    if dependent.dob <= 65.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                    if dependent.dob <= MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
                       xml.IsOverSixtyFive 'X'
                     end
                     if dependent.passed_away_yes?
