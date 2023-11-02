@@ -22,9 +22,6 @@ module StateFile
 
     def save
       attributes = attributes_for(:intake)
-      attributes[:untaxed_out_of_state_purchases] = "unfilled" unless attributes[:untaxed_out_of_state_purchases].present?
-      attributes[:sales_use_tax_calculation_method] = "unfilled" unless attributes[:sales_use_tax_calculation_method].present?
-      attributes[:sales_use_tax] = intake.calculate_sales_use_tax if attributes[:sales_use_tax_calculation_method] == :automated
 
       @intake.update!(attributes)
     end
