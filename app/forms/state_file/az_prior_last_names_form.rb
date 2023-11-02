@@ -2,6 +2,7 @@ module StateFile
   class AzPriorLastNamesForm < QuestionsForm
     set_attributes_for :intake, :prior_last_names, :has_prior_last_names
 
+    validates :has_prior_last_names, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
     validates :prior_last_names, presence: true, allow_blank: false, if: -> { has_prior_last_names == "yes" }
 
     def save

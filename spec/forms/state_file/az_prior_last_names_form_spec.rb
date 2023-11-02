@@ -4,10 +4,24 @@ RSpec.describe StateFile::AzPriorLastNamesForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
 
-    context "with invalid params" do
+    context "with empty last names" do
       let(:invalid_params) do
         {
           has_prior_last_names: "yes",
+          prior_last_names: ""
+        }
+      end
+
+      it "returns false" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+      end
+    end
+
+    context "with no radio selected" do
+      let(:invalid_params) do
+        {
+          has_prior_last_names: "unfilled",
           prior_last_names: ""
         }
       end
