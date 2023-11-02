@@ -70,6 +70,8 @@ AZ140_LINE_79:
   label: 'REFUND: Subtract line 78 from line 63. If less than zero, enter amount owed on line 80'
 AZ140_LINE_80:
   label: '80 AMOUNT OWED: Add lines 60 and 78.'
+AZ140_LINE_97:
+  label: 'Last Names Used in Last Four Prior Year(s)  (if different)'
 AZ140_CCWS_LINE_1c:
   label: '1C 2022 Gifts by cash or check.'
 AZ140_CCWS_LINE_2c:
