@@ -48,7 +48,9 @@ module SubmissionBuilder
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip
-                xml.COUNTY_CD @submission.data_source.residence_county
+                # TODO: do we need county code? what about other school district fields?
+                # xml.COUNTY_CD @submission.data_source.residence_county
+                xml.COUNTY_NAME @submission.data_source.residence_county
                 xml.PERM_LN_1_ADR @submission.data_source.permanent_street
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city
                 xml.PERM_ST_ADR "NY" # TODO: make sure we do want to hardcode this

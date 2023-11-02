@@ -81,8 +81,8 @@ FactoryBot.define do
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
     nyc_full_year_resident { 'yes' }
-    school_district { 123 }
-    school_district_number { 'Cool School' }
+    school_district { "Cool School" }
+    school_district_number { 123 }
 
     after(:build) do |intake, evaluator|
       if evaluator.filing_status
