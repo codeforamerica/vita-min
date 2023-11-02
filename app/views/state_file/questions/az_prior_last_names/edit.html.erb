@@ -10,17 +10,10 @@
       <div class="question-with-follow-up__question">
         <div class="highlight-box highlight-box--blue spacing-below-15">
           <div class="spacing-below-5">
-            <% if !f.object.prior_last_names.nil? && !f.object.prior_last_names.empty? %>
-              <%= f.cfa_radio_set(:has_prior_last_names, collection: [
-                { value: "yes", label: t("general.affirmative"), input_html: { "checked": true, "data-follow-up": "#prior-last-names" } },
-                { value: "no", label: t("general.negative") },
-              ]) %>
-            <% else %>
-              <%= f.cfa_radio_set(:has_prior_last_names, collection: [
-                { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
-                { value: "no", label: t("general.negative") },
-              ]) %>
-            <% end %>
+            <%= f.cfa_radio_set(:has_prior_last_names, collection: [
+              { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
+              { value: "no", label: t("general.negative") },
+            ]) %>
           </div>
         </div>
       </div>

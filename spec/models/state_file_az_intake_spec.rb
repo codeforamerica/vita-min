@@ -12,6 +12,7 @@
 #  contact_preference     :integer          default("unfilled"), not null
 #  current_step           :string
 #  email_address          :citext
+#  has_prior_last_names   :integer          default("unfilled"), not null
 #  phone_number           :string
 #  primary_first_name     :string
 #  primary_last_name      :string
