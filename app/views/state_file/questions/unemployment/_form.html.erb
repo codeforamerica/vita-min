@@ -26,7 +26,7 @@
             label_text: t('state_file.questions.unemployment.edit.payer_question'),
             collection: [
               { value: :yes, label: @state_file1099.default_payer_name },
-              { value: :no, label: "Other" },
+              { value: :no, label: t('state_file.questions.unemployment.edit.payer_other') },
             ]
           )
         %>
@@ -69,6 +69,7 @@
           </div>
         </div>
 
+        <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></h1>
         <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation'), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld'), classes: ["form-width--long"]) %>

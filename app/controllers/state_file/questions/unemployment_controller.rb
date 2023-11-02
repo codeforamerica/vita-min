@@ -6,7 +6,6 @@ module StateFile
       end
 
       def index
-        ap current_intake.state_file1099s
         @state_file1099s = current_intake.state_file1099s
       end
 
