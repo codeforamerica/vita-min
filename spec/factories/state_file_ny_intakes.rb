@@ -94,6 +94,7 @@ FactoryBot.define do
           qualifying_widow: 5,
         }[evaluator.filing_status.to_sym] || evaluator.filing_status
         intake.direct_file_data.filing_status = numeric_status
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
   end

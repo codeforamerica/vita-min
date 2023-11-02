@@ -30,6 +30,10 @@ class StateFileBaseIntake < ApplicationRecord
     }[direct_file_data&.filing_status]
   end
 
+  def filing_status_mfj?
+    filing_status == :married_filing_jointly
+  end
+
   def primary
     Person.new(self, :primary)
   end

@@ -138,6 +138,6 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def ask_spouse_dob?
-    filing_status == :married_filing_jointly
+    filing_status_mfj?
   end
 end

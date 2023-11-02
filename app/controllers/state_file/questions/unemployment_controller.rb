@@ -63,7 +63,7 @@ module StateFile
           :recipient_street_address,
           :recipient_zip
         )
-        unless current_intake.filing_status == :married_filing_jointly
+        unless current_intake.filing_status_mfj?
           state_file_params[:recipient] = 'primary'
         end
         state_file_params

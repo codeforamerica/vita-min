@@ -31,7 +31,7 @@
           )
         %>
         <%= f.cfa_input_field(:payer_name, "", classes: ["form-width--long"]) %>
-        <% if current_intake.filing_status == :married_filing_jointly %>
+        <% if current_intake.filing_status_mfj? %>
           <%=
             f.cfa_radio_set(
               :recipient,
