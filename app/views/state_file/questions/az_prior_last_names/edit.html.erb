@@ -1,0 +1,40 @@
+<% content_for :page_title, t(".title1") %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
+  <p><%= t(".title2") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+
+
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="highlight-box highlight-box--blue spacing-below-15">
+          <div class="spacing-below-5">
+            <% if !f.object.prior_last_names.nil? && !f.object.prior_last_names.empty? %>
+              <%= f.cfa_radio_set(:has_prior_last_names, collection: [
+                { value: "yes", label: t("general.affirmative"), input_html: { "checked": true, "data-follow-up": "#prior-last-names" } },
+                { value: "no", label: t("general.negative") },
+              ]) %>
+            <% else %>
+              <%= f.cfa_radio_set(:has_prior_last_names, collection: [
+                { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
+                { value: "no", label: t("general.negative") },
+              ]) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="prior-last-names">
+        <div class="highlight-box highlight-box--blue spacing-below-15">
+          <div class="spacing-below-5">
+            <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label"), classes: ["form-width--long"]) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="button button--primary" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

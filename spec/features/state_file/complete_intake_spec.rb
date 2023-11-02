@@ -120,6 +120,11 @@ RSpec.feature "Completing a state file intake" do
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
       click_on "Continue"
 
+      expect(page).to have_text "Did you file with a different last name in the last four years?"
+      choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
+      fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
