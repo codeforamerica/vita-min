@@ -56,6 +56,19 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       expect(state_file1099_g.unemployment_compensation).to eq 789
     end
 
+    context "if the intake was anything other than married filing jointly" do
+      before do
+        params[:state_file1099_g].delete(:recipient)
+      end
+
+      it "saves 'recipient' as 'primary'" do
+        post :create, params: params
+
+        state_file1099_g = StateFile1099G.last
+        expect(state_file1099_g.recipient).to eq 'primary'
+      end
+    end
+
     context "with invalid params" do
       render_views
 

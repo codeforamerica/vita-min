@@ -49,7 +49,7 @@ module StateFile
       private
 
       def state_file1099_params
-        params.require(:state_file1099_g).permit(
+        state_file_params = params.require(:state_file1099_g).permit(
           :had_box_11,
           :address_confirmation,
           :payer_name_is_default,
@@ -63,6 +63,10 @@ module StateFile
           :recipient_street_address,
           :recipient_zip
         )
+        unless current_intake.filing_status == :married_filing_jointly
+          state_file_params[:recipient] = 'primary'
+        end
+        state_file_params
       end
     end
   end
