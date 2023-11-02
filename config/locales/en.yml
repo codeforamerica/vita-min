@@ -661,7 +661,7 @@ en:
       create:
         success_message: Client successfully created.
       destroy:
-        success_message: The client has been successfully deleteddeleted
+        success_message: The client has been successfully deleted
       edit:
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
