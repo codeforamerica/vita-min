@@ -23,6 +23,15 @@ class NySchoolDistricts
     end
   end
 
+  def self.combined_name(intake)
+    if intake.school_district_number.present? && intake.school_district.present?
+      row = self.county_rows_from_csv(intake.residence_county).find do |row|
+        intake.school_district == row['School District'] && intake.school_district_number == row['Code Number'].to_i
+      end
+      [row['School District'], row['Use Elementary School District']].join(" ").strip if row
+    end
+  end
+
   def self.county_rows_from_csv(county)
     csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
     csv_content = File.read(csv_file_path)

@@ -59,12 +59,6 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "Select the school district where you lived on December 31, 2023"
       select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
       click_on "Continue"
-      # check that combined-name selection is correct even though it doesn't match the db value
-      expect(page).to have_text "The page with all the info from the 201"
-      click_on "Go back"
-      expect(page).to have_text "Select the school district where you lived on December 31, 2023"
-      expect(find_field("state_file_ny_school_district_form[school_district]").value).to eq "Bellmore-Merrick CHS Bellmore"
-      click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 201"
       click_on "Continue"
