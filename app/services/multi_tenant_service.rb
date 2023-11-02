@@ -9,7 +9,15 @@ class MultiTenantService
   end
 
   def url(locale: :en)
-    base = service_type == :ctc ? Rails.configuration.ctc_url : Rails.configuration.gyr_url
+    base =
+      case service_type
+      when :ctc
+        Rails.configuration.ctc_url
+      when :gyr
+        Rails.configuration.gyr_url
+      when :statefile
+        Rails.configuration.statefile_url
+      end
     [base, locale].compact.join("/")
   end
 
@@ -21,7 +29,7 @@ class MultiTenantService
       when :gyr
         Rails.configuration.gyr_url
       when :statefile
-        Rails.configuration.state_file_url
+        Rails.configuration.statefile_url
       end
     URI(base).hostname
   end
@@ -62,11 +70,18 @@ class MultiTenantService
   end
 
   def current_tax_year
-    if service_type == :ctc
+    case service_type
+    when :ctc
       Rails.configuration.ctc_current_tax_year
-    else
+    when :gyr
       Rails.configuration.gyr_current_tax_year
+    when :statefile
+      Rails.configuration.statefile_current_tax_year
     end
+  end
+
+  def end_of_current_tax_year
+    DateTime.new(current_tax_year).end_of_year
   end
 
   def prior_tax_year
@@ -83,5 +98,19 @@ class MultiTenantService
 
   def backtax_years
     filing_years.without(current_tax_year)
+  end
+
+  class << self
+    def ctc
+      new(:ctc)
+    end
+
+    def gyr
+      new(:gyr)
+    end
+
+    def statefile
+      new(:statefile)
+    end
   end
 end

@@ -9,6 +9,9 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099s, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099', inverse_of: :intake, dependent: :destroy
 
+  validates :email_address, 'valid_email_2/email': true
+  validates :phone_number, allow_blank: true, e164_phone: true
+
   accepts_nested_attributes_for :dependents, update_only: true
 
   delegate :tax_return_year, to: :direct_file_data

@@ -63,13 +63,35 @@ module SubmissionBuilder
                       xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
                       xml.LastName dependent.last_name
                     end
-                    xml.DependentSSN dependent.ssn
+                    unless dependent.ssn.nil?
+                      xml.DependentSSN dependent.ssn.delete('-')
+                    end
                     xml.RelationShip dependent.relationship
-                    xml.NumMonthsLived 12 # TODO: need to merge data from Federal Schedule EIC QualifyingChildInformation *or* re-ask client
+                    xml.NumMonthsLived dependent.months_in_home
                     if dependent.dob > 17.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
                       xml.DepUnder17 'X'
                     else
                       xml.Dep17AndOlder 'X'
+                    end
+                  end
+                end
+                @submission.data_source.dependents.select(&:ask_senior_questions?).each do |dependent|
+                  xml.QualParentsAncestors do
+                    xml.Name do
+                      xml.FirstName dependent.first_name
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.LastName dependent.last_name
+                    end
+                    unless dependent.ssn.nil?
+                      xml.DependentSSN dependent.ssn.delete('-')
+                    end
+                    xml.RelationShip dependent.relationship
+                    xml.NumMonthsLived dependent.months_in_home
+                    if dependent.dob <= 65.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                      xml.IsOverSixtyFive 'X'
+                    end
+                    if dependent.passed_away_yes?
+                      xml.DiedInTaxYear 'X'
                     end
                   end
                 end

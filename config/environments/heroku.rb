@@ -9,7 +9,7 @@ Rails.application.configure do
   state_file_hostname = "statefile.#{gyr_hostname}"
 
   config.ctc_url = "https://#{ctc_hostname}"
-  config.state_file_url = "https://#{state_file_hostname}"
+  config.statefile_url = "https://#{state_file_hostname}"
   config.gyr_url = "https://#{gyr_hostname}"
 
   ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"

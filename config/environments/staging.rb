@@ -4,7 +4,7 @@ Rails.application.configure do
   config.active_storage.service = :s3_staging
 
   config.ctc_url = "https://ctc.staging.getyourrefund.org"
-  config.state_file_url = "https://statefile.staging.getyourrefund.org"
+  config.statefile_url = "https://staging.fileyourstatetaxes.org"
   config.gyr_url = "https://staging.getyourrefund.org"
   ctc_email_from_domain = "mg-staging-ctc.getyourrefund-testing.org"
   gyr_email_from_domain = "mg-staging.getyourrefund-testing.org"

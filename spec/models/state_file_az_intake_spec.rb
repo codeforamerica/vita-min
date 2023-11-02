@@ -27,50 +27,8 @@
 #  updated_at             :datetime         not null
 #  visitor_id             :string
 #
-class StateFileAzIntake < StateFileBaseIntake
-  encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
+require "rails_helper"
 
-  enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
-
-  def tax_calculator(include_source: false)
-    Efile::Az::Az140.new(
-      year: 2022,
-      filing_status: filing_status.to_sym,
-      claimed_as_dependent: claimed_as_dep_yes?,
-      intake: self,
-      dependent_count: dependents.length,
-      direct_file_data: direct_file_data,
-      include_source: include_source,
-    )
-  end
-
-  def federal_dependent_count_under_17
-    # TODO
-    1
-  end
-
-  def federal_dependent_count_over_17
-    # TODO
-    0
-  end
-
-  def qualifying_parents_and_grandparents
-    dependents.select(&:ask_senior_questions?).length
-  end
-
-  def sentenced_for_60_days
-    # TODO
-  end
-
-  def ask_months_in_home?
-    true
-  end
-
-  def ask_primary_dob?
-    false
-  end
-
-  def ask_spouse_dob?
-    false
-  end
+describe StateFileAzIntake do
+  it_behaves_like :state_file_base_intake, factory: :state_file_az_intake
 end
