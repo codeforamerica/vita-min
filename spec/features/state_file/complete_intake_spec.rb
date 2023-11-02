@@ -142,6 +142,19 @@ RSpec.feature "Completing a state file intake" do
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
+      choose "Yes"
+      choose "AZ Department of Economic Security"
+      # TODO: test 'Myself'/'Spouse' radio for married filing jointly situation
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
+      fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
+      click_on "Continue"
+
+      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"

@@ -557,6 +557,7 @@ Rails.application.routes.draw do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
           end
         end
+        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
       end
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
