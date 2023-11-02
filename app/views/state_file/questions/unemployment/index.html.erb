@@ -13,8 +13,10 @@
               <%= t('.1099_label', name: form1099.recipient_name) %>
             </h3>
             <%= t('.unemployment_compensation', amount: form1099.unemployment_compensation) %>
-            <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(us_state: params[:us_state], id: form1099), class: "button button--inline-action" %>
-            <%= link_to t("general.delete"), StateFile::Questions::UnemploymentController.to_path_helper(action: :destroy, us_state: params[:us_state], id: form1099), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button button--inline-action" %>
+            <div>
+              <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(us_state: params[:us_state], id: form1099), class: "button button--small button--inline-action" %>
+              <%= link_to t("general.delete"), StateFile::Questions::UnemploymentController.to_path_helper(action: :destroy, us_state: params[:us_state], id: form1099), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button button--inline-action" %>
+            </div>
           </div>
         </li>
       <% end %>

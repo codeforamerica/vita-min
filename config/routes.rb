@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     # but `namespace :ctc` would look for Ctc::Ctc::XyzController.
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
+        next if controller_class.navigation_actions.length > 1
+
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
           if resource_name
@@ -561,9 +563,9 @@ Rails.application.routes.draw do
         namespace :state_file do
           namespace :questions do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-            resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy]
           end
         end
+        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
       end
     end
 
