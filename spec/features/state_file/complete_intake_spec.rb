@@ -35,12 +35,10 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "Date of birth for Tessa"
       select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       click_on "Continue"
-      
+
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
       choose "Yes"
       click_on "Continue"
-
-      expect(page).to have_text "The page with all the info from the 201"
       click_on "Go back"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -52,6 +50,18 @@ RSpec.feature "Completing a state file intake" do
       fill_in "City", with: "New York"
       fill_in "Zip code", with: "11102"
       click_on "Continue"
+
+      expect(page).to have_text "Select the county where you lived on December 31, 2023"
+      select("Nassau", from: "County")
+      click_on "Continue"
+
+      expect(page).to have_text "Select the school district where you lived on December 31, 2023"
+      select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
+      click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text "The page with all the info from the 201"
       click_on "Continue"

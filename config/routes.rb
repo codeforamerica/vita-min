@@ -106,9 +106,6 @@ Rails.application.routes.draw do
         post '/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
       end
 
-      # DEPRECATED: exists just to redirect to proper Questions::DependentsController version
-      resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-
       resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do
         get "/confirmation", to: "signups#confirmation", on: :collection
       end
