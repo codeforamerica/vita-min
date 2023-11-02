@@ -59,7 +59,6 @@ module Efile
           set_line(:AZ140_LINE_80, :calculate_line_80)
         end
         set_line(:AZ140_LINE_79, :calculate_line_79)
-        set_line(:AZ140_LINE_97, @intake, :prior_last_names)
         set_line(:AZ140_CCWS_LINE_1c, @intake, :charitable_cash)
         set_line(:AZ140_CCWS_LINE_2c, @intake, :charitable_noncash)
         set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
