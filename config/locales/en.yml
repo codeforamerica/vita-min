@@ -1941,6 +1941,24 @@ en:
           title1: You're done! Let's review before you submit your state tax return.
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
+      ny_primary_id:
+        edit:
+          title: Please provide information for your state issued ID
+          id_type_question:
+            label: Your ID Type
+            drivers_license: Driver’s license
+            dmv: DMV/BMV State ID
+            no_id: No driver’s license or state ID
+          id_details:
+            number: ID Number
+            issue_month: Issue Month
+            issue_day: Issue Day
+            issue_year: Issue Year
+            expiration_month: Expiration Month
+            expiration_day: Expiration Day
+            expiration_year: Expiration Year
+            issue_state: Issue State
+            doc_numb_characters: First three characters of the document number
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
