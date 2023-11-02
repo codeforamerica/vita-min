@@ -1,0 +1,30 @@
+<% title = t('.lets_review') %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <% if @state_file1099s.present? %>
+    <ul class="review-box">
+      <% @state_file1099s.each do |form1099| %>
+        <li class="form1099">
+          <div class="form1099__details">
+            <h3 class="form1099__label">
+              <%= t('.1099_label', name: form1099.recipient_name) %>
+            </h3>
+            <%= t('.unemployment_compensation', amount: form1099.unemployment_compensation) %>
+            <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(us_state: params[:us_state], id: form1099), class: "button button--inline-action" %>
+            <%= link_to t("general.delete"), StateFile::Questions::UnemploymentController.to_path_helper(action: :destroy, us_state: params[:us_state], id: form1099), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button button--inline-action" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= link_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :new, us_state: params[:us_state]), class: "button button--primary button--wide button--icon") do %>
+    <%= t('.add_another') %>
+  <% end %>
+  <%= link_to(next_path, class: "button button--primary button--wide button--icon") do %>
+    <%= t('general.continue') %>
+  <% end %>
+<% end %>

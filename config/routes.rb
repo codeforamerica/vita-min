@@ -561,7 +561,7 @@ Rails.application.routes.draw do
         namespace :state_file do
           namespace :questions do
             resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-            resources :ny_unemployment, only: [:index, :new, :create, :edit, :update, :destroy]
+            resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy]
           end
         end
       end

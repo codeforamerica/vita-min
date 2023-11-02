@@ -1555,6 +1555,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_01_193117) do
     t.integer "address_confirmation", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "federal_income_tax_withheld"
+    t.integer "had_box_11", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "payer_name"

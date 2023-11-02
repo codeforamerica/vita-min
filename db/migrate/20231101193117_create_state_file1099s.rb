@@ -1,6 +1,7 @@
 class CreateStateFile1099s < ActiveRecord::Migration[7.1]
   def change
     create_table :state_file1099s do |t|
+      t.integer :had_box_11, default: 0, null: false
       t.string :payer_name
       t.integer :payer_name_is_default, default: 0, null: false
       t.integer :recipient, default: 0, null: false

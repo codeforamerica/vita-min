@@ -5,6 +5,7 @@
 #  id                          :bigint           not null, primary key
 #  address_confirmation        :integer          default("unfilled"), not null
 #  federal_income_tax_withheld :integer
+#  had_box_11                  :integer          default("unfilled"), not null
 #  intake_type                 :string           not null
 #  payer_name                  :string
 #  payer_name_is_default       :integer          default("unfilled"), not null

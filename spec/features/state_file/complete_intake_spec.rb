@@ -59,16 +59,17 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "The page with all the info from the IT-214"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_unemployment.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose "Yes"
       choose "NY Department of Labor"
       choose "Myself"
-      choose I18n.t('state_file.questions.ny_unemployment.edit.confirm_address_yes')
-      fill_in I18n.t('state_file.questions.ny_unemployment.edit.unemployment_compensation'), with: "123"
-      fill_in I18n.t('state_file.questions.ny_unemployment.edit.federal_income_tax_withheld'), with: "456"
-      fill_in I18n.t('state_file.questions.ny_unemployment.edit.state_income_tax_withheld'), with: "789"
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
+      fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
       click_on "Continue"
 
+      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
       click_on "Continue"
 
       click_on "Submit My Fake Taxes"

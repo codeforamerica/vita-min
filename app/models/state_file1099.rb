@@ -5,6 +5,7 @@
 #  id                          :bigint           not null, primary key
 #  address_confirmation        :integer          default("unfilled"), not null
 #  federal_income_tax_withheld :integer
+#  had_box_11                  :integer          default("unfilled"), not null
 #  intake_type                 :string           not null
 #  payer_name                  :string
 #  payer_name_is_default       :integer          default("unfilled"), not null
@@ -27,10 +28,23 @@ class StateFile1099 < ApplicationRecord
   belongs_to :intake, polymorphic: true
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
+  enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
   enum payer_name_is_default: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payer_name_is_default
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
+  def recipient_name
+    if recipient_primary?
+      intake.primary.full_name
+    elsif recipient_spouse?
+      intake.spouse.full_name
+    end
+  end
+
   def default_payer_name
-    'NY Department of Labor'
+    if intake.is_a?(StateFileNyIntake)
+      'NY Department of Labor'
+    elsif intake.is_a?(StateFileAzIntake)
+      'AZ Department of Economic Security'
+    end
   end
 end
