@@ -16,7 +16,7 @@ class MultiTenantService
       when :gyr
         Rails.configuration.gyr_url
       when :statefile
-        Rails.configuration.state_file_url
+        Rails.configuration.statefile_url
       end
     [base, locale].compact.join("/")
   end
@@ -29,7 +29,7 @@ class MultiTenantService
       when :gyr
         Rails.configuration.gyr_url
       when :statefile
-        Rails.configuration.state_file_url
+        Rails.configuration.statefile_url
       end
     URI(base).hostname
   end

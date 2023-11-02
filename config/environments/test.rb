@@ -75,7 +75,7 @@ Rails.application.configure do
   config.i18n.available_locales = [:en, :es]
   config.hide_ctc = false
   config.ctc_url = "http://ctc.test.localhost"
-  config.state_file_url = "http://statefile.test.localhost"
+  config.statefile_url = "http://statefile.test.localhost"
   config.gyr_url = "http://test.localhost"
   config.signature_log_bucket = "vita-min-test-signatures"
   config.efile_environment = ""
