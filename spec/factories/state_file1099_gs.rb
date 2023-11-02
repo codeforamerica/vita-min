@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: state_file1099s
+# Table name: state_file1099_gs
 #
 #  id                          :bigint           not null, primary key
 #  address_confirmation        :integer          default("unfilled"), not null
@@ -22,10 +22,10 @@
 #
 # Indexes
 #
-#  index_state_file1099s_on_intake  (intake_type,intake_id)
+#  index_state_file1099_gs_on_intake  (intake_type,intake_id)
 #
-require 'rails_helper'
-
-RSpec.describe StateFile1099, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+FactoryBot.define do
+  factory :state_file1099_g do
+    
+  end
 end

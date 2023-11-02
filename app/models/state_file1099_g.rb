@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: state_file1099s
+# Table name: state_file1099_gs
 #
 #  id                          :bigint           not null, primary key
 #  address_confirmation        :integer          default("unfilled"), not null
@@ -22,10 +22,29 @@
 #
 # Indexes
 #
-#  index_state_file1099s_on_intake  (intake_type,intake_id)
+#  index_state_file1099_gs_on_intake  (intake_type,intake_id)
 #
-FactoryBot.define do
-  factory :state_file1099 do
-    
+class StateFile1099G < ApplicationRecord
+  belongs_to :intake, polymorphic: true
+
+  enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
+  enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
+  enum payer_name_is_default: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payer_name_is_default
+  enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
+
+  def recipient_name
+    if recipient_primary?
+      intake.primary.full_name
+    elsif recipient_spouse?
+      intake.spouse.full_name
+    end
+  end
+
+  def default_payer_name
+    if intake.is_a?(StateFileNyIntake)
+      'NY Department of Labor'
+    elsif intake.is_a?(StateFileAzIntake)
+      'AZ Department of Economic Security'
+    end
   end
 end

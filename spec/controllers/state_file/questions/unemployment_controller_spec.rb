@@ -9,8 +9,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   describe "#index" do
     context "with existing dependents" do
       render_views
-      let!(:form1099a) { create :state_file1099, intake: intake, recipient: :primary }
-      let!(:form1099b) { create :state_file1099, intake: intake, recipient: :spouse }
+      let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
+      let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
 
       it "renders information about each dependent" do
         get :index, params: { us_state: :ny }
@@ -25,7 +25,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     let(:params) do
       {
         us_state: :ny,
-        state_file1099: {
+        state_file1099_g: {
           had_box_11: 'yes',
           payer_name_is_default: 'yes',
           recipient: 'primary',
@@ -41,19 +41,19 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     it "creates a new dependent linked to the current intake and redirects to the index" do
       expect do
         post :create, params: params
-      end.to change(StateFile1099, :count).by 1
+      end.to change(StateFile1099G, :count).by 1
 
       expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index, us_state: :ny))
 
-      state_file1099 = StateFile1099.last
-      expect(state_file1099.intake).to eq intake
-      expect(state_file1099.had_box_11).to eq 'yes'
-      expect(state_file1099.payer_name_is_default).to eq 'yes'
-      expect(state_file1099.recipient).to eq 'primary'
-      expect(state_file1099.address_confirmation).to eq "yes"
-      expect(state_file1099.federal_income_tax_withheld).to eq 123
-      expect(state_file1099.state_income_tax_withheld).to eq 456
-      expect(state_file1099.unemployment_compensation).to eq 789
+      state_file1099_g = StateFile1099G.last
+      expect(state_file1099_g.intake).to eq intake
+      expect(state_file1099_g.had_box_11).to eq 'yes'
+      expect(state_file1099_g.payer_name_is_default).to eq 'yes'
+      expect(state_file1099_g.recipient).to eq 'primary'
+      expect(state_file1099_g.address_confirmation).to eq "yes"
+      expect(state_file1099_g.federal_income_tax_withheld).to eq 123
+      expect(state_file1099_g.state_income_tax_withheld).to eq 456
+      expect(state_file1099_g.unemployment_compensation).to eq 789
     end
 
     context "with invalid params" do
@@ -62,7 +62,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       let(:params) do
         {
           us_state: :ny,
-          state_file1099: {
+          state_file1099_g: {
             recipient: :globgor,
           }
         }
@@ -71,7 +71,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       it "renders new with validation errors" do
         expect do
           post :create, params: params
-        end.not_to change(StateFile1099, :count)
+        end.not_to change(StateFile1099G, :count)
 
         expect(response).to render_template(:new)
 
@@ -83,7 +83,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   describe "#edit" do
     let(:client) { intake.client }
     let!(:form1099) do
-      create :state_file1099,
+      create :state_file1099_g,
              intake: intake,
              recipient: 'primary',
              unemployment_compensation: 456
@@ -101,7 +101,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe "#update" do
     let!(:form1099) do
-      create :state_file1099,
+      create :state_file1099_g,
              intake: intake,
              had_box_11: 'yes',
              payer_name_is_default: 'yes',
@@ -116,7 +116,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       {
         us_state: :ny,
         id: form1099.id,
-        state_file1099: {
+        state_file1099_g: {
           had_box_11: 'yes',
           payer_name_is_default: 'yes',
           recipient: 'spouse',
@@ -145,7 +145,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         {
           us_state: :ny,
           id: form1099.id,
-          state_file1099: {
+          state_file1099_g: {
             recipient: :globgor,
           }
         }
@@ -154,7 +154,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       it "renders edit with validation errors" do
         expect do
           post :update, params: params
-        end.not_to change(StateFile1099, :count)
+        end.not_to change(StateFile1099G, :count)
 
         expect(response).to render_template(:edit)
 
@@ -165,7 +165,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe "#destroy" do
     let!(:form1099) do
-      create :state_file1099,
+      create :state_file1099_g,
              intake: intake,
              recipient: 'primary'
     end
@@ -174,7 +174,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     it "deletes the 1099 and adds a flash message and redirects to index path" do
       expect do
         delete :destroy, params: params
-      end.to change(StateFile1099, :count).by(-1)
+      end.to change(StateFile1099G, :count).by(-1)
 
       expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index)
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
