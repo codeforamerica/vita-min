@@ -1,25 +1,23 @@
 class NySchoolDistricts
   def self.county_school_districts_labels_for_select(county)
-    @school_districts ||= self.county_rows_from_csv(county).map do |row|
+    self.county_rows_from_csv(county).map do |row|
       combined_name = [row['School District'], row['Use Elementary School District']].join(" ").strip
       [combined_name, combined_name]
     end.uniq
   end
 
   def self.combined_name_to_code_number_map(county)
-    @name_to_code ||= self.county_rows_from_csv(county).reduce({}) do |hash, row|
+    self.county_rows_from_csv(county).each_with_object({}) do |row, hash|
       combined_name = [row['School District'], row['Use Elementary School District']].join(" ").strip
       hash[combined_name] = row['Code Number']
-      hash
     end
   end
 
   # includes districts where combined name is same as original
   def self.combined_name_to_original_name_map(county)
-    @combined_name_to_original_name ||= self.county_rows_from_csv(county).reduce({}) do |hash, row|
+    self.county_rows_from_csv(county).each_with_object({}) do |row, hash|
       combined_name = [row['School District'], row['Use Elementary School District']].join(" ").strip
       hash[combined_name] = row['School District']
-      hash
     end
   end
 
@@ -33,10 +31,14 @@ class NySchoolDistricts
   end
 
   def self.county_rows_from_csv(county)
-    csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
-    csv_content = File.read(csv_file_path)
-    io = StringIO.new(csv_content)
-    @county_rows ||= CSV.parse(io, headers: true).filter { |row| row["County"] == county }
+    @county_rows ||= begin
+      csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
+      CSV.read(csv_file_path, headers: true).each_with_object({}) do |row, hash|
+        hash[row["County"]] ||= []
+        hash[row["County"]] << row
+      end
+    end
+    @county_rows[county]
   end
 end
 
