@@ -222,7 +222,7 @@ module SubmissionBuilder
           def supported_documents
             [
               {
-                xml: nil, #SubmissionBuilder::Ty2022::States::Az::Documents::Az140,
+                xml: nil,
                 pdf: PdfFiller::Az140Pdf,
                 include: true
               }

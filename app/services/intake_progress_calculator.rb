@@ -14,11 +14,6 @@ class IntakeProgressCalculator
   def self.get_progress(controller, current_controller)
     return 0 if controller == POSSIBLE_STEPS.first
 
-    # The DependentsController is not in the QuestionsFlow, so we hold progress at the HadDependentsController until they move on
-    if controller == DependentsController
-      controller = Questions::HadDependentsController
-    end
-
     # From the Documents::OverviewController the user has the option to go add any relevant but optional documents
     # Pin the progress bar to the OverviewController for these optional document controllers
     intake = current_controller.visitor_record

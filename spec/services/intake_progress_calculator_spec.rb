@@ -17,10 +17,6 @@ describe IntakeProgressCalculator do
       expect(progress).to eq 100
     end
 
-    it "returns the same values for the DependentsController and the Questions:HadDependentsController" do
-      expect(IntakeProgressCalculator.get_progress(DependentsController, controller)).to eq IntakeProgressCalculator.get_progress(Questions::HadDependentsController, controller)
-    end
-
     it "adjusts possible future steps based on answers" do
       ever_married_yes = Intake::GyrIntake.new(ever_married: :yes)
       ever_married_no = Intake::GyrIntake.new(ever_married: :no)
