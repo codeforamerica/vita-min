@@ -135,6 +135,14 @@ module SubmissionBuilder
                 include: true
               },
             ]
+            @submission.data_source.state_file1099_gs.each do |form1099g|
+              supported_docs << {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
+                pdf: nil,
+                include: true,
+                kwargs: { form1099g: form1099g }
+              }
+            end
             supported_docs
           end
         end
