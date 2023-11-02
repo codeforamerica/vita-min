@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Completing a state file intake" do
+  include StateFileIntakeHelper
+
   let(:fake_xml) { "<haha>Your xml here</haha>" }
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
@@ -14,8 +16,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your New York state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Next, set up your account with a quick code"
-      click_on "Text me a code"
+      step_through_initial_authentication(contact_preference: :text_message)
 
       expect(page).to have_text "The page with all the info from the 1040"
 
@@ -85,28 +86,46 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      expect(page).to have_text "Next, set up your account with a quick code"
-      click_on "Text me a code"
+      step_through_initial_authentication(contact_preference: :text_message)
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
+      click_on "Add a person"
+
+      expect(page).to have_text "Tell us about your dependent."
+      fill_in "First name", with: "Grampy"
+      fill_in "Last name", with: "Gramps"
+      fill_in "ssn", with: "123-45-6789"
+      select "GRANDPARENT", from: "Relationship to you"
+      select_cfa_date "state_file_dependent_dob", Date.new(1950, 10, 31)
+      click_on "Save this person"
+
+      expect(page).to have_text "The page that shows your dependents"
+      expect(page).to have_text "Grampy Gramps 10/31/1950"
       click_on "Continue"
 
       expect(page).to have_text "First, please provide more information about the people in your family."
       expect(page).to have_text "Date of birth for Tessa"
       select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-      select "12", from: I18n.t('state_file.questions.dob.edit.dependent_months_lived_label', year: Rails.configuration.state_file_filing_year)
+      select "12", from: "state_file_dob_form_dependents_attributes_0_months_in_home"
       click_on "Continue"
 
+      expect(page).to have_text "Please provide some more information about the people in your family who are 65 years of age or older."
+      expect(page).to have_text "Did Grampy need assistance with daily living activities"
+      expect(page).to have_text "Did Grampy pass away"
+      choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
+      choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
+      click_on "Continue"
 
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<QualParentsAncestors>')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last

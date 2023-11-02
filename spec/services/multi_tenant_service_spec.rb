@@ -28,11 +28,23 @@ describe MultiTenantService do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
       allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+      allow(Rails.application.config).to receive(:statefile_current_tax_year).and_return(2023)
     end
 
     it "returns the specific config values for GYR & GetCTC" do
-      expect(described_class.new(:ctc).current_tax_year).to eq 2017
-      expect(described_class.new(:gyr).current_tax_year).to eq 2018
+      expect(described_class.ctc.current_tax_year).to eq 2017
+      expect(described_class.gyr.current_tax_year).to eq 2018
+      expect(described_class.statefile.current_tax_year).to eq 2023
+    end
+  end
+
+  describe "#end_of_current_tax_year" do
+    before do
+      allow(Rails.application.config).to receive(:statefile_current_tax_year).and_return(2023)
+    end
+
+    it "returns the last day of the tax year" do
+      expect(described_class.new(:statefile).end_of_current_tax_year).to eq DateTime.new(2023).end_of_year
     end
   end
 
