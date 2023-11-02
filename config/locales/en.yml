@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      az_prior_last_names:
+        edit:
+          prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'
+          title1: Did you file with a different last name in the last four years?
+          title2: This includes tax years 2019-2022.
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
@@ -1846,6 +1851,14 @@ en:
           action: Send code
           email_address_label: Your email address (avoid using a temporary email)
           title: Enter your email address
+      ny_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          select_one: 'Select one of the following:'
+          subtitle: For example, online purchases with no sales tax applied.
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
       phone_number:
         edit:
           action: Send code

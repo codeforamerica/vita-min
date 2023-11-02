@@ -40,7 +40,7 @@ RSpec.feature "Completing a state file intake" do
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "The page with all the info from the 201"
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       click_on "Go back"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -52,6 +52,10 @@ RSpec.feature "Completing a state file intake" do
       fill_in "City", with: "New York"
       fill_in "Zip code", with: "11102"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text "The page with all the info from the 201"
       click_on "Continue"
@@ -131,6 +135,11 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "Did Grampy pass away"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
+      click_on "Continue"
+
+      expect(page).to have_text "Did you file with a different last name in the last four years?"
+      choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
+      fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on "Continue"
 
       click_on "Submit My Fake Taxes"
