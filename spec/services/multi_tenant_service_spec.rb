@@ -15,12 +15,12 @@ describe MultiTenantService do
     before do
       allow(Rails.configuration).to receive(:ctc_url).and_return "https://getctc.org"
       allow(Rails.configuration).to receive(:gyr_url).and_return "https://getyourrefund.org"
+      allow(Rails.configuration).to receive(:statefile_url).and_return "https://fileyourstatetaxes.org"
     end
     it "creates a url based on the service name, locale, and passed path if any" do
       expect(described_class.new(:ctc).url(locale: "en")).to eq "https://getctc.org/en"
-
       expect(described_class.new(:gyr).url(locale: "es")).to eq "https://getyourrefund.org/es"
-
+      expect(described_class.new(:statefile).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en"
     end
   end
 
