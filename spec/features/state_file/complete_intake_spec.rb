@@ -40,7 +40,7 @@ RSpec.feature "Completing a state file intake" do
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: "2023")
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       click_on "Go back"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -53,7 +53,7 @@ RSpec.feature "Completing a state file intake" do
       fill_in "Zip code", with: "11102"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: "2023")
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 

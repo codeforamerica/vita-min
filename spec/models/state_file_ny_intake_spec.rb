@@ -124,5 +124,12 @@ describe StateFileNyIntake do
         expect(intake.calculate_sales_use_tax).to eq 125
       end
     end
+
+    context "when the federal agi is nil" do
+      let(:household_fed_agi) { nil }
+      it "returns nil" do
+        expect(intake.calculate_sales_use_tax).to eq nil
+      end
+    end
   end
 end

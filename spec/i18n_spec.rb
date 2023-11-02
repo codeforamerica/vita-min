@@ -23,9 +23,7 @@ RSpec.describe I18n do
     views.ctc_pages.home.obtain.full_return.body1_html
     views.documents.employment.help_text_html
     views.public_pages.sms_terms.terms.rates_html
-    state_file.questions.ny_sales_use_tax.edit.use_tax_method_manual_html
   )
-  #TODO: remove when unignore state file translations
 
   it "should have the same HTML tags in each locale" do
     inconsistent_html_keys = []

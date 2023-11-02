@@ -1,5 +1,5 @@
-<% title = t('.title', year: "2023") %>
-   <% content_for :page_title, title %>
+<% title = t('.title', year: MultiTenantService.statefile.current_tax_year) %>
+<% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
