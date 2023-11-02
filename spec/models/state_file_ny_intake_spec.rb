@@ -66,34 +66,69 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  visitor_id                       :string
-#
-FactoryBot.define do
-  factory :state_file_ny_intake do
-    transient do
-      filing_status { 'single' }
+
+require "rails_helper"
+
+describe StateFileNyIntake do
+  it_behaves_like :state_file_base_intake, factory: :state_file_ny_intake
+
+  describe "before_save" do
+    let(:intake) { create :state_file_ny_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "manual", sales_use_tax: "350", household_fed_agi: 102_000 }
+
+    context "when untaxed_out_of_state_purchases changes to no" do
+      it "clears sales use tax calculation method and sales use tax" do
+        expect {
+          intake.update(untaxed_out_of_state_purchases: "no")
+        }.to change(intake, :sales_use_tax_calculation_method).to("unfilled")
+         .and change(intake, :sales_use_tax).to(nil)
+      end
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    claimed_as_dep { 'no' }
-    primary_first_name { "New" }
-    primary_last_name { "Yorker" }
-    permanent_street { direct_file_data.mailing_street }
-    permanent_city { direct_file_data.mailing_city }
-    permanent_zip { direct_file_data.mailing_zip }
-    nyc_full_year_resident { 'yes' }
-    school_district { "Cool School" }
-    school_district_number { 123 }
+    context "when sales_use_tax_calculation_method changes to automated" do
+      it "calculates sales use tax" do
+        expect {
+          intake.update(sales_use_tax_calculation_method: "automated")
+        }.to change(intake, :sales_use_tax).to(29)
+      end
+    end
 
-    after(:build) do |intake, evaluator|
-      if evaluator.filing_status
-        numeric_status = {
-          single: 1,
-          married_filing_jointly: 2,
-          married_filing_separately: 3,
-          head_of_household: 4,
-          qualifying_widow: 5,
-        }[evaluator.filing_status.to_sym] || evaluator.filing_status
-        intake.direct_file_data.filing_status = numeric_status
+  end
+
+  describe "#calculate_sales_use_tax" do
+    let(:intake) { build :state_file_ny_intake, household_fed_agi: household_fed_agi }
+    let(:household_fed_agi) { 14_000 }
+
+    context "when the federal agi is 14,000" do
+      it "returns 3" do
+        expect(intake.calculate_sales_use_tax).to eq 3
+      end
+    end
+
+    context "when the federal agi is 75,001" do
+      let(:household_fed_agi) { 75_001 }
+      it "returns 23" do
+        expect(intake.calculate_sales_use_tax).to eq 23
+      end
+    end
+
+    context "when the federal agi is 201,000" do
+      let(:household_fed_agi) { 201_000 }
+      it "returns calculation" do
+        expect(intake.calculate_sales_use_tax).to eq (201_000 * 0.000195).round
+      end
+    end
+
+    context "when the federal agi is 700,000" do
+      let(:household_fed_agi) { 700_000 }
+      it "returns 125" do
+        expect(intake.calculate_sales_use_tax).to eq 125
+      end
+    end
+
+    context "when the federal agi is nil" do
+      let(:household_fed_agi) { nil }
+      it "returns nil" do
+        expect(intake.calculate_sales_use_tax).to eq nil
       end
     end
   end

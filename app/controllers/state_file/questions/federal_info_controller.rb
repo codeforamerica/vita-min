@@ -40,7 +40,6 @@ module StateFile
             nyc_full_year_resident: "yes",
             ny_414h_retirement: 567,
             ny_other_additions: 123,
-            sales_use_tax: 345,
             amount_owed_pay_electronically: "yes",
             refund_choice: "paper",
             account_type: "personal_checking",

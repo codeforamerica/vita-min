@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      az_senior_dependents:
+        edit:
+          assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
+          passed_away_label: Did %{name} pass away in 2023?
+          title1: Please provide some more information about the people in your family who are 65 years of age or older.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
@@ -1845,6 +1850,14 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      ny_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          select_one: 'Select one of the following:'
+          subtitle: For example, online purchases with no sales tax applied.
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
       ny_school_district:
         edit:
           school_district_name: School District Name

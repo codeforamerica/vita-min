@@ -49,7 +49,9 @@ module StateFile
       def dependent_params
         dependent_attribute_keys = [
           :first_name,
+          :middle_initial,
           :last_name,
+          :ssn,
           :relationship,
         ]
         permitted_params = params.require(:state_file_dependent).permit(

@@ -15,6 +15,7 @@ module Navigation
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,
       StateFile::Questions::NySchoolDistrictController,
+      StateFile::Questions::NySalesUseTaxController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::SubmitReturnController,
