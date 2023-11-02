@@ -57,6 +57,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
 
     context "if the intake was anything other than married filing jointly" do
+      let(:intake) { create :state_file_ny_intake, filing_status: :single, spouse_first_name: nil, spouse_last_name: nil }
+
       before do
         params[:state_file1099_g].delete(:recipient)
       end
