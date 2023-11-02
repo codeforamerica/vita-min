@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      az_prior_last_names:
+        edit:
+          prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'
+          title1: Did you file with a different last name in the last four years?
+          title2: This includes tax years 2019-2022.
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
