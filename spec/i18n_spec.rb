@@ -43,6 +43,7 @@ RSpec.describe I18n do
 
         (@i18n.locales - [@i18n.base_locale]).each do |other_locale|
           node = @i18n.data[other_locale].first.children[key]
+          next if node.nil?
           if node&.value&.is_a?(Array)
             other_locale_value = node.value[index]
           else
