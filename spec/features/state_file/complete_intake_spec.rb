@@ -160,6 +160,13 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on "Continue"
 
+      expect(page).to have_text("Do any of the following scenarios apply to you? (Less common)")
+      check "state_file_az_state_credits_form_tribal_member"
+      fill_in "state_file_az_state_credits_form_tribal_wages", with: "100"
+      check "state_file_az_state_credits_form_armed_forces_member"
+      fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"

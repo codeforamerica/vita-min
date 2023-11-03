@@ -4,7 +4,9 @@ module StateFile
       private
 
       def form_params
-        params.require(:state_file_az_state_credits_form).permit([:prior_last_names, :has_prior_last_names])
+        params.require(:state_file_az_state_credits_form).permit(
+          [:armed_forces_member, :armed_forces_wages, :tribal_member, :tribal_wages]
+        )
       end
     end
   end
