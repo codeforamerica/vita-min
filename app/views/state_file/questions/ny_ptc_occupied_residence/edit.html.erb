@@ -1,0 +1,29 @@
+<% title = t(".title", year: Rails.configuration.statefile_current_tax_year) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="form-card">
+      <% content_for :address_text do %>
+        <div class="text--bold"><%= t("general.address") %></div>
+        <div><%= current_intake.permanent_street %></div>
+        <div><%= current_intake.permanent_city %>, New York <%= current_intake.permanent_zip %></div>
+      <% end %>
+
+      <%=
+        f.cfa_radio_set(
+          :occupied_residence,
+          label_text: content_for(:address_text),
+          collection: [
+            { value: :yes, label: t("general.affirmative") },
+            { value: :no, label: t("general.negative") },
+          ]
+        )
+      %>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+

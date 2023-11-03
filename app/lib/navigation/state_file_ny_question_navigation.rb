@@ -13,6 +13,7 @@ module Navigation
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::DobController,
       StateFile::Questions::NyPermanentAddressController,
+      StateFile::Questions::NyPtcOccupiedResidenceController,
       StateFile::Questions::NyCountyController,
       StateFile::Questions::NySchoolDistrictController,
       StateFile::Questions::NySalesUseTaxController,
