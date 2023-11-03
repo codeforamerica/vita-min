@@ -104,11 +104,11 @@ var followUpQuestion = (function() {
                 });
 
                 // add click listeners to initial question inputs
-                $(self).find('.question-with-follow-up__question input').click(function(e) {
+                $(self).find('> .question-with-follow-up__question input').click(function(e) {
                     // reset follow ups
-                    $(self).find('.question-with-follow-up__follow-up input').attr('checked', false);
-                    $(self).find('.question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
-                    $(self).find('.question-with-follow-up__follow-up').hide();
+                    $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
+                    $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
+                    $(self).find('> .question-with-follow-up__follow-up').hide();
 
                     // show the current follow up
                     if($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
@@ -122,40 +122,6 @@ var followUpQuestion = (function() {
         init: fUQ.init
     }
 })();
-
-var nestedFollowUpQuestion = (function() {
-    var fUQ = {
-        init: function() {
-            $('.nested-question-with-follow-up').each(function(index, q) {
-                var self = this;
-
-                // set initial state of follow-ups based on the page
-                $(this).find('input').each(function(index, input) {
-                    if($(this).attr('nested-data-follow-up') != null) {
-                        $($(this).attr('nested-data-follow-up')).toggle($(this).is(':checked'));
-                    }
-                });
-
-                // add click listeners to initial q inputs
-                $(self).find('.nested-question-with-follow-up__question input').click(function(e) {
-                    // reset follow ups
-                    $(self).find('.nested-question-with-follow-up__follow-up input').attr('checked', false);
-                    $(self).find('.nested-question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
-                    $(self).find('.nested-question-with-follow-up__follow-up').hide();
-
-                    // show the current follow up
-                    if($(this).is(':checked') && $(this).attr('nested-data-follow-up') != null) {
-                        $($(this).attr('nested-data-follow-up')).show();
-                    }
-                })
-            });
-        }
-    }
-    return {
-        init: fUQ.init
-    }
-})();
-
 
 var revealer = (function() {
     var rv = {
@@ -346,7 +312,6 @@ var honeycrispInit = function() {
     radioSelector.init();
     checkboxSelector.init();
     followUpQuestion.init();
-    nestedFollowUpQuestion.init();
     immediateUpload.init();
     revealer.init();
     inputGroupSelector.init();

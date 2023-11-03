@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     # but `namespace :ctc` would look for Ctc::Ctc::XyzController.
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
+        next if controller_class.navigation_actions.length > 1
+
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
           if resource_name
@@ -538,28 +540,16 @@ Rails.application.routes.draw do
       end
 
       scope ':us_state', constraints: { us_state: /az|ny/ } do
-        namespace :state_file do
-          namespace :questions do
-            resources :submission_pdfs, only: [:show]
-          end
-        end
+        resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
+        resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
+        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
         scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
-        namespace :state_file do
-          namespace :questions do
-            resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-          end
-        end
       end
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        namespace :state_file do
-          namespace :questions do
-            resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-          end
-        end
       end
     end
 
