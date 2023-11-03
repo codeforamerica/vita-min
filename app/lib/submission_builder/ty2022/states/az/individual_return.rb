@@ -104,6 +104,8 @@ module SubmissionBuilder
               xml.AzAdjSubtotal calculated_fields.fetch(:AZ140_LINE_19)
               xml.Subtractions do
                 xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
+                xml.WageAmIndian calculated_fields.fetch(:AZ140_LINE_31)
+                xml.CompNtnlGrdArmdFrcs calculated_fields.fetch(:AZ140_LINE_32)
               end
               xml.TotalSubtractions calculated_fields.fetch(:AZ140_LINE_35)
               xml.Subtotal calculated_fields.fetch(:AZ140_LINE_37)

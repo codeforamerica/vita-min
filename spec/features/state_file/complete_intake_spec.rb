@@ -173,6 +173,8 @@ RSpec.feature "Completing a state file intake" do
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Testy</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
+      expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
+      expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
