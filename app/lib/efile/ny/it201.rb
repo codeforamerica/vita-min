@@ -457,7 +457,7 @@ module Efile
       end
 
       def calculate_line_72
-        0 # TODO: Computed from W-2 forms and their NYS wrapper, IT-2
+        0 # TODO: Computed from W-2 and 1099G forms and their NYS wrapper, IT-2
       end
 
       def calculate_line_73

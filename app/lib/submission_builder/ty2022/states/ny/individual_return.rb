@@ -60,7 +60,7 @@ module SubmissionBuilder
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
-              if @submission.data_source.filing_status == :married_filing_jointly
+              if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
                   xml.FIRST_NAME @submission.data_source.spouse.first_name
                   xml.MI_NAME @submission.data_source.spouse.middle_initial
@@ -137,6 +137,14 @@ module SubmissionBuilder
                 include: true
               },
             ]
+            @submission.data_source.state_file1099_gs.each do |form1099g|
+              supported_docs << {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
+                pdf: nil,
+                include: true,
+                kwargs: { form1099g: form1099g }
+              }
+            end
             supported_docs
           end
         end

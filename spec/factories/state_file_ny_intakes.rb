@@ -13,6 +13,7 @@
 #  current_step                     :string
 #  date_electronic_withdrawal       :date
 #  email_address                    :citext
+#  email_address_verified_at        :datetime
 #  household_cash_assistance        :integer
 #  household_fed_agi                :integer
 #  household_ny_additions           :integer
@@ -39,6 +40,7 @@
 #  permanent_street                 :string
 #  permanent_zip                    :string
 #  phone_number                     :string
+#  phone_number_verified_at         :datetime
 #  primary_birth_date               :date
 #  primary_email                    :string
 #  primary_first_name               :string
@@ -94,6 +96,7 @@ FactoryBot.define do
           qualifying_widow: 5,
         }[evaluator.filing_status.to_sym] || evaluator.filing_status
         intake.direct_file_data.filing_status = numeric_status
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
   end

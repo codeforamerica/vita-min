@@ -14,9 +14,8 @@ module Navigation
       StateFile::Questions::DobController,
       StateFile::Questions::AzSeniorDependentsController,
       StateFile::Questions::AzPriorLastNamesController,
-      StateFile::Questions::AzPriorLastNamesController,
-      StateFile::Questions::AzStateCreditsController,
-      StateFile::Questions::SubmitReturnController,
+      StateFile::Questions::UnemploymentController,
+      StateFile::Questions::AzStateCreditsController,StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze
 

@@ -7,6 +7,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
+  has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
@@ -27,6 +28,10 @@ class StateFileBaseIntake < ApplicationRecord
       4 => :head_of_household,
       5 => :qualifying_widow,
     }[direct_file_data&.filing_status]
+  end
+
+  def filing_status_mfj?
+    filing_status == :married_filing_jointly
   end
 
   def primary

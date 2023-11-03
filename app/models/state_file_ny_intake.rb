@@ -13,6 +13,7 @@
 #  current_step                     :string
 #  date_electronic_withdrawal       :date
 #  email_address                    :citext
+#  email_address_verified_at        :datetime
 #  household_cash_assistance        :integer
 #  household_fed_agi                :integer
 #  household_ny_additions           :integer
@@ -39,6 +40,7 @@
 #  permanent_street                 :string
 #  permanent_zip                    :string
 #  phone_number                     :string
+#  phone_number_verified_at         :datetime
 #  primary_birth_date               :date
 #  primary_email                    :string
 #  primary_first_name               :string
@@ -138,6 +140,6 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def ask_spouse_dob?
-    filing_status == :married_filing_jointly
+    filing_status_mfj?
   end
 end

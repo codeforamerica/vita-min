@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_03_162002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1551,9 +1551,27 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
+  create_table "state_file1099_gs", force: :cascade do |t|
+    t.integer "address_confirmation", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "federal_income_tax_withheld"
+    t.integer "had_box_11", default: 0, null: false
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "payer_name"
+    t.integer "payer_name_is_default", default: 0, null: false
+    t.integer "recipient", default: 0, null: false
+    t.string "recipient_city"
+    t.string "recipient_state"
+    t.string "recipient_street_address"
+    t.string "recipient_zip"
+    t.integer "state_income_tax_withheld"
+    t.integer "unemployment_compensation"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
+  end
+
   create_table "state_file_az_intakes", force: :cascade do |t|
-    t.integer "armed_forces_member", default: 0, null: false
-    t.integer "armed_forces_wages"
     t.string "bank_account_number"
     t.integer "bank_account_type"
     t.string "bank_routing_number"
@@ -1564,8 +1582,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
     t.datetime "created_at", null: false
     t.string "current_step"
     t.citext "email_address"
+    t.datetime "email_address_verified_at"
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "phone_number"
+    t.datetime "phone_number_verified_at"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1576,8 +1596,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.integer "tribal_member", default: 0, null: false
-    t.integer "tribal_wages"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end
@@ -1612,6 +1630,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.citext "email_address"
+    t.datetime "email_address_verified_at"
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"
@@ -1638,6 +1657,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_224357) do
     t.string "permanent_street"
     t.string "permanent_zip"
     t.string "phone_number"
+    t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
     t.string "primary_email"
     t.string "primary_first_name"

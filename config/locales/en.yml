@@ -1883,6 +1883,35 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
+      unemployment:
+        destroy:
+          removed: Removed 1099-G for %{name}
+        edit:
+          city: City
+          confirm_address: 'Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form.'
+          confirm_address_no: No, I need to edit
+          confirm_address_yes: Yes, that's the address
+          federal_income_tax_withheld: Box 4, Federal income tax withheld
+          had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
+          money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
+          need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
+          payer_other: Other
+          payer_question: To start, please confirm the payer listed on Form 1099-G is
+          recipient_my_spouse: My spouse
+          recipient_myself: Myself
+          recipient_question: Who is this form for?
+          state: State
+          state_income_tax_withheld: Box 11, State income tax withheld
+          street_address: Street Address
+          title: It looks like you received unemployment benefits in 2023
+          unemployment_compensation: Box 1, Unemployment compensation
+          zip_code: Zip code
+        index:
+          1099_label: 1099-G for %{name}
+          add_another: Add another 1099-G form
+          delete_confirmation: Are you sure you want to delete this 1099-G?
+          lets_review: 'Great! Thanks for providing             that information. Let’s review.'
+          unemployment_compensation: 'Unemployment compensation: %{amount}'
       verification_code:
         edit:
           action: Verify code
