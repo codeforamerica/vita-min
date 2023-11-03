@@ -15,7 +15,7 @@
       ["married filing separately", 3],
       ["head of household", 4],
       ["qualifying widow", 5],
-    ]) %>
+    ], include_blank: true) %>
 
     <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
 

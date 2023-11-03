@@ -38,6 +38,14 @@ module StateFile
                        :total_fed_adjustments,
                        :total_state_tax_withheld
 
+    validate :direct_file_data_must_be_imported
+
+    def direct_file_data_must_be_imported
+      if @intake.raw_direct_file_data.blank?
+        errors.add(:filing_status, "Must import from Direct File to continue!")
+      end
+    end
+
     def save
       exceptions = [
         :tax_return_year,
