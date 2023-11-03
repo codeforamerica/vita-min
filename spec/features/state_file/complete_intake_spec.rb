@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.feature "Completing a state file intake" do
   include StateFileIntakeHelper
 
-  let(:fake_xml) { "<haha>Your xml here</haha>" }
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
