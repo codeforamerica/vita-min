@@ -53,16 +53,17 @@ describe TextMessageVerificationCodeService do
     end
 
     context "message sent is different based on service type" do
-      let(:service_type) { :ctc }
       context "service_type is :ctc" do
+        let(:service_type) { :ctc }
         it "sends a message that mentions GetCTC" do
           described_class.request_code(**params)
           text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after two days."
 
-          expect(TwilioService).to have_received(:send_text_message).with(a_hash_including(
-                                                                              to: phone_number,
-                                                                              body: text_body
-                                                                          ))
+          expect(TwilioService).to have_received(:send_text_message).with(
+            a_hash_including(
+                to: phone_number,
+                body: text_body
+            ))
         end
       end
 
@@ -73,9 +74,23 @@ describe TextMessageVerificationCodeService do
           text_body = "Your 6-digit GetYourRefund verification code is: 123456. This code will expire after two days."
 
           expect(TwilioService).to have_received(:send_text_message).with(a_hash_including(
-                                                                              to: phone_number,
-                                                                              body: text_body
-                                                                          ))
+              to: phone_number,
+              body: text_body
+          ))
+        end
+      end
+
+      context "service_type is :statefile" do
+        let(:service_type) { :statefile }
+        it "sends a message that mentions CFA State File" do
+          described_class.request_code(**params)
+          text_body = "Your 6-digit CFA State File verification code is: 123456. This code will expire after two days."
+
+          expect(TwilioService).to have_received(:send_text_message).with(
+            a_hash_including(
+              to: phone_number,
+              body: text_body
+            ))
         end
       end
     end

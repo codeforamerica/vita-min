@@ -1,6 +1,7 @@
 require "rails_helper"
 
-RSpec.feature "Completing a state file intake" do
+RSpec.feature "Completing a state file intake", active_job: true do
+  include MockTwilio
   include StateFileIntakeHelper
 
   before do
@@ -108,7 +109,7 @@ RSpec.feature "Completing a state file intake" do
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"
 
-      step_through_initial_authentication(contact_preference: :text_message)
+      step_through_initial_authentication(contact_preference: :email)
 
       click_on "Fetch 1040 data from IRS"
       click_on "Continue"

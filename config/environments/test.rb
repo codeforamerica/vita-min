@@ -42,11 +42,25 @@ Rails.application.configure do
 
   ctc_email_from_domain = "ctc.test.localhost"
   gyr_email_from_domain = "test.localhost"
+  statefile_email_from_domain = "statefile.test.localhost"
   config.email_from = {
-    default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
-    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"},
-    support: {ctc: "support@#{ctc_email_from_domain}", gyr: "support@#{gyr_email_from_domain}"}
+    default: {
+      ctc: "hello@#{ctc_email_from_domain}",
+      gyr: "hello@#{gyr_email_from_domain}",
+      statefile: "hello@#{statefile_email_from_domain}"
+    },
+    noreply: {
+      ctc: "no-reply@#{ctc_email_from_domain}",
+      gyr: "no-reply@#{gyr_email_from_domain}",
+      statefile: "no-reply@#{statefile_email_from_domain}"
+    },
+    support: {
+      ctc: "support@#{ctc_email_from_domain}",
+      gyr: "support@#{gyr_email_from_domain}",
+      statefile: "support@#{statefile_email_from_domain}"
+    }
   }
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
