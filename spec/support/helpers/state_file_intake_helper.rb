@@ -13,6 +13,10 @@ module StateFileIntakeHelper
 
       expect(page).to have_text "Verify the code to continue"
       expect(page).to have_text "A message with your code has been sent to (415) 333-4444."
+
+      perform_enqueued_jobs
+      sms = FakeTwilioClient.messages.last
+      code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
     when :email
       click_on "Email me a code"
 
@@ -22,6 +26,10 @@ module StateFileIntakeHelper
 
       expect(page).to have_text "Verify the code to continue"
       expect(page).to have_text "A message with your code has been sent to someone@example.com."
+
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
     end
 
     # sending the authentication code is currently non-functional

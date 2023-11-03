@@ -37,6 +37,25 @@ describe VerificationCodeMailer, type: :mailer do
         expect(email.text_part.decoded.strip).to include "GetCTC"
       end
     end
+
+    context "for a state file client" do
+      it "delivers an email with state file branding and a no-reply@ address" do
+        email = described_class.with(
+          to: "example@example.com",
+          locale: :en,
+          service_type: :statefile
+        ).with_code
+
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "Update from CFA State File"
+        expect(email.from).to eq ["no-reply@statefile.test.localhost"]
+        expect(email.to).to eq ["example@example.com"]
+        expect(email.text_part.decoded.strip).to include "CFA State File"
+      end
+    end
   end
 
   context "#no_match_found" do
