@@ -6,6 +6,18 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     session[:state_file_intake] = intake.to_global_id
   end
 
+  describe ".show?" do
+    it "is true if the federal return had any unemployment amount" do
+      expect(described_class.show?(intake)).to be_truthy
+    end
+
+    it "is false if the federal return had no unemployment amount" do
+      intake.direct_file_data.fed_unemployment = 0
+
+      expect(described_class.show?(intake)).to be_falsey
+    end
+  end
+
   describe "#index" do
     context "with existing dependents" do
       render_views
@@ -54,6 +66,18 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       expect(state_file1099_g.federal_income_tax_withheld).to eq 123
       expect(state_file1099_g.state_income_tax_withheld).to eq 456
       expect(state_file1099_g.unemployment_compensation).to eq 789
+    end
+
+    context "when 'no' was selected for had_box_11" do
+      before do
+        params[:state_file1099_g][:had_box_11] = 'no'
+      end
+
+      it "creates nothing" do
+        expect do
+          post :create, params: params
+        end.not_to change(StateFile1099G, :count)
+      end
     end
 
     context "if the intake was anything other than married filing jointly" do
@@ -151,6 +175,20 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       form1099.reload
       expect(form1099.recipient).to eq "spouse"
+    end
+
+    context "when 'no' was selected for had_box_11" do
+      before do
+        params[:state_file1099_g][:had_box_11] = 'no'
+      end
+
+      it "deletes the 1099" do
+        expect do
+          post :update, params: params
+        end.to change(StateFile1099G, :count).by(-1)
+
+        expect { form1099.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
     context "with invalid params" do

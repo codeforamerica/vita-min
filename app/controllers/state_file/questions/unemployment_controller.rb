@@ -1,6 +1,10 @@
 module StateFile
   module Questions
     class UnemploymentController < QuestionsController
+      def self.show?(intake)
+        intake.direct_file_data.fed_unemployment > 0
+      end
+
       def self.navigation_actions
         [:new, :index]
       end
@@ -20,6 +24,12 @@ module StateFile
       def update
         @state_file1099_g = current_intake.state_file1099_gs.find(params[:id])
         @state_file1099_g.assign_attributes(state_file1099_params)
+
+        if @state_file1099_g.had_box_11_no?
+          @state_file1099_g.destroy
+          return redirect_to action: :index
+        end
+
         if @state_file1099_g.valid?
           @state_file1099_g.save
           redirect_to action: :index
@@ -30,6 +40,10 @@ module StateFile
 
       def create
         @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
+        if @state_file1099_g.had_box_11_no?
+          return redirect_to next_path
+        end
+
         if @state_file1099_g.valid?
           @state_file1099_g.save
           redirect_to action: :index

@@ -26,6 +26,6 @@
 #
 FactoryBot.define do
   factory :state_file1099_g do
-    
+    had_box_11 { 'yes' }
   end
 end
