@@ -16,6 +16,10 @@ AZ140_LINE_19:
   label: '19 Subtotal: Add lines 14 through 18 and enter the total .'
 AZ140_LINE_30:
   label: '30 U.S. Social Security or Railroad Retirement Act benefits included as income on your federal return (taxable amount)'
+AZ140_LINE_31:
+  label: 'Certain wages of American Indians'
+AZ140_LINE_32:
+  label: 'Pay received for active service as a member of the reserves, national guard or the U.S. armed forces'
 AZ140_LINE_35:
   label: '35 Subtract lines 24 through 34c from line 19. Enter the difference.'
 AZ140_LINE_37:

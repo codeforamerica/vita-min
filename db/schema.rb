@@ -1572,6 +1572,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_162002) do
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
+    t.integer "armed_forces_member", default: 0, null: false
+    t.integer "armed_forces_wages"
     t.string "bank_account_number"
     t.integer "bank_account_type"
     t.string "bank_routing_number"
@@ -1596,6 +1598,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_162002) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "tribal_member", default: 0, null: false
+    t.integer "tribal_wages"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
   end

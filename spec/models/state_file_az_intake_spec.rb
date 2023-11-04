@@ -3,6 +3,8 @@
 # Table name: state_file_az_intakes
 #
 #  id                        :bigint           not null, primary key
+#  armed_forces_member       :integer          default("unfilled"), not null
+#  armed_forces_wages        :integer
 #  bank_account_number       :string
 #  bank_account_type         :integer
 #  bank_routing_number       :string
@@ -26,6 +28,8 @@
 #  spouse_first_name         :string
 #  spouse_last_name          :string
 #  spouse_middle_initial     :string
+#  tribal_member             :integer          default("unfilled"), not null
+#  tribal_wages              :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  visitor_id                :string

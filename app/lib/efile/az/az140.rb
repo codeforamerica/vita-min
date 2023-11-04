@@ -25,6 +25,8 @@ module Efile
         set_line(:AZ140_LINE_14, :calculate_line_14)
         set_line(:AZ140_LINE_19, :calculate_line_19)
         set_line(:AZ140_LINE_30, @direct_file_data, :fed_taxable_ssb)
+        set_line(:AZ140_LINE_31, :calculate_line_31)
+        set_line(:AZ140_LINE_32, :calculate_line_32)
         set_line(:AZ140_LINE_35, :calculate_line_35)
         set_line(:AZ140_LINE_37, :calculate_line_37)
         set_line(:AZ140_LINE_38, :calculate_line_38)
@@ -79,10 +81,17 @@ module Efile
         line_or_zero(:AZ140_LINE_14)
       end
 
+      def calculate_line_31
+        @intake.tribal_member_yes? ? @intake.tribal_wages : 0
+      end
+
+      def calculate_line_32
+        @intake.armed_forces_member_yes? ? @intake.armed_forces_wages : 0
+      end
+
       def calculate_line_35
         subtractions = 0
         (30..32).each do |line_num|
-          # Lines 31 and 32 are only included if there is time to as it is labeled as a maybe
           subtractions += line_or_zero("AZ140_LINE_#{line_num}")
         end
         line_or_zero(:AZ140_LINE_19) - subtractions

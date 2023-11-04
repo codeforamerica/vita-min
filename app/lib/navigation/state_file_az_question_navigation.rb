@@ -15,6 +15,7 @@ module Navigation
       StateFile::Questions::AzSeniorDependentsController,
       StateFile::Questions::AzPriorLastNamesController,
       StateFile::Questions::UnemploymentController,
+      StateFile::Questions::AzStateCreditsController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze
