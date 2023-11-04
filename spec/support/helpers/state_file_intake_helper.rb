@@ -32,8 +32,7 @@ module StateFileIntakeHelper
       code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
     end
 
-    # sending the authentication code is currently non-functional
-    # this page is a place holder and does not validate the code
+    fill_in "Enter the 6-digit code", with: code
     click_on "Verify code"
 
     expect(page).to have_text "Code verified!"

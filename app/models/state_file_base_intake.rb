@@ -16,6 +16,8 @@ class StateFileBaseIntake < ApplicationRecord
 
   delegate :tax_return_year, to: :direct_file_data
 
+  alias_attribute :sms_phone_number, :phone_number
+
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
