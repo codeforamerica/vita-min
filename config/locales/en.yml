@@ -1830,11 +1830,11 @@ en:
       az_state_credits:
         edit:
           armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. armed forces.
-          armed_forces_wages_label_html: How much did you receive in active duty pay? <br/><br/> <b>Note:</b> this should not exceed %{wages} <br/><br/>
+          armed_forces_wages_label_html: How much did you receive in active duty pay? <br><br> <b>Note:</b> this should not exceed %{wages}
           title1: Do any of the following scenarios apply to you? (Less common)
           title2: Check every box that applies to you. If it does not apply, leave blank and continue.
           tribal_member_label_html: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on the tribe’s reservation.
-          tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation? <br/><br/> <b>Note:</b> this should not exceed %{wages} <br/><br/>
+          tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation? <br><br> <b>Note:</b> this should not exceed %{wages}
           wages_tip: Enter amount earned
       code_verified:
         edit:
