@@ -50,12 +50,4 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       end
     end
   end
-
-  describe "#update" do
-    xit "validates the verification code" do
-    end
-
-    xit "authenticates the user" do
-    end
-  end
 end

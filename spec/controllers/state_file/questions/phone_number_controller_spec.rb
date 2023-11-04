@@ -16,9 +16,4 @@ RSpec.describe StateFile::Questions::PhoneNumberController do
       end
     end
   end
-
-  describe "#update" do
-    xit "enqueues job to send the verification code" do
-    end
-  end
 end
