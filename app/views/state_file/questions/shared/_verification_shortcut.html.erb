@@ -1,0 +1,9 @@
+<% unless Rails.env.production? %>
+  <%=
+    link_to(
+        "I'm on a #{Rails.env} environment, skip this",
+        StateFile::Questions::CodeVerifiedController.to_path_helper(us_state: params[:us_state]),
+        class: 'dev-button'
+    )
+  %>
+<% end %>
