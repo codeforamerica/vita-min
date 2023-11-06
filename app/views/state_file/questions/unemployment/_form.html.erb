@@ -20,17 +20,23 @@
       </div>
       <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
         <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.need_additional_information') %></h1>
-        <%=
-          f.cfa_radio_set(
-            :payer_name_is_default,
-            label_text: t('state_file.questions.unemployment.edit.payer_question'),
-            collection: [
-              { value: :yes, label: @state_file1099_g.default_payer_name },
-              { value: :no, label: t('state_file.questions.unemployment.edit.payer_other') },
-            ]
-          )
-        %>
-        <%= f.cfa_input_field(:payer_name, "", classes: ["form-width--long"]) %>
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <%=
+              f.cfa_radio_set(
+                :payer_name_is_default,
+                label_text: t('state_file.questions.unemployment.edit.payer_question'),
+                collection: [
+                  { value: :yes, label: @state_file1099_g.default_payer_name },
+                  { value: :no, label: t('state_file.questions.unemployment.edit.payer_other'), input_html: { "data-follow-up": "#payer-not-default" }  },
+                ]
+              )
+            %>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="payer-not-default">
+            <%= f.cfa_input_field(:payer_name, "", classes: ["form-width--long"]) %>
+          </div>
+        </div>
         <% if current_intake.filing_status_mfj? %>
           <%=
             f.cfa_radio_set(

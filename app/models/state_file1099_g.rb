@@ -26,6 +26,7 @@
 #
 class StateFile1099G < ApplicationRecord
   belongs_to :intake, polymorphic: true
+  before_save :update_conditional_attributes
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
@@ -33,6 +34,18 @@ class StateFile1099G < ApplicationRecord
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: -> (_object, _data) { I18n.t("errors.messages.blank") }
+
+  def update_conditional_attributes
+    if payer_name_is_default_yes?
+      self.payer_name = nil
+    end
+    if address_confirmation_yes?
+      self.recipient_city = nil
+      self.recipient_state = nil
+      self.recipient_street_address = nil
+      self.recipient_zip = nil
+    end
+  end
 
   def recipient_name
     if recipient_primary?
@@ -44,7 +57,7 @@ class StateFile1099G < ApplicationRecord
 
   def default_payer_name
     if intake.is_a?(StateFileNyIntake)
-      'NY Department of Labor'
+      'NYS Department of Labor'
     elsif intake.is_a?(StateFileAzIntake)
       'AZ Department of Economic Security'
     end

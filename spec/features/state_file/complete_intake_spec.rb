@@ -71,7 +71,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose "Yes"
-      choose "NY Department of Labor"
+      choose "NYS Department of Labor"
       # TODO: test 'Myself'/'Spouse' radio for married filing jointly situation
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
