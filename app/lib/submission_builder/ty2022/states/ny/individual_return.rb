@@ -141,7 +141,7 @@ module SubmissionBuilder
               supported_docs << {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
                 pdf: nil,
-                include: true,
+                include: form1099g.payer_name_is_default_yes?,
                 kwargs: { form1099g: form1099g }
               }
             end
