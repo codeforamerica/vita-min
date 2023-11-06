@@ -23,7 +23,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT201") do |xml|
-                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
+                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date&.strftime("%Y-%m-%d")
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2
                 xml.DEP_CLAIM_IND claimed: CLAIMED_AS_DEP[@submission.data_source.claimed_as_dep.to_sym]

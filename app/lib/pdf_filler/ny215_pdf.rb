@@ -47,10 +47,10 @@ module PdfFiller
                          "ln34suf#{index}" => dependents_node.at("DEP_CHLD_SFX_NAME")&.text,
                          "ln34real#{index}" => dependents_node.at("DEP_RELATION_DESC")&.text,
                          "month#{index}" => dependents_node.at("DEP_MNTH_LVD_NMBR")&.text,
-                         "ln34disability#{index}" =>  xml_value_to_pdf_checkbox('Disability', 'DEP_DISAB_IND'),
-                         "ln34student#{index}" =>  xml_value_to_pdf_checkbox('Student', 'DEP_STUDENT_IND'),
+                         "ln34disability#{index}" =>  dependents_node.at("DEP_DISAB_IND")&.text == '1' ? "Yes" : "Off",
+                         "ln34student#{index}" =>  dependents_node.at("DEP_STUDENT_IND")&.text == '1' ? "Yes" : "Off",
                          "ln34ssn#{index}" => dependents_node.at("DEP_SSN_NMBR")&.text,
-                         "ln34birth#{index}" => (Date.parse(dependents_node.at("DOB_DT")&.text)).strftime("%m%d%Y"),
+                         "ln34birth#{index}" => (Date.parse(dependents_node.at("DOB_DT")&.text)).strftime("%m%d%Y")
                        })
       end
       answers
@@ -72,14 +72,6 @@ module PdfFiller
         2 => 'No'
       },
       'Line 5' => {
-        1 => 'Yes',
-        2 => 'No'
-      },
-      'Disability' => {
-        1 => 'Yes',
-        2 => 'No'
-      },
-      'Student' => {
         1 => 'Yes',
         2 => 'No'
       }
