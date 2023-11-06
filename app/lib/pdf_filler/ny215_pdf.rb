@@ -38,17 +38,19 @@ module PdfFiller
         'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
         'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
-      @submission.data_source.dependents.each_with_index do |dependent, index|
+      @xml_document.css('dependent').each_with_index do |dependents_node, index|
         index += 1
         answers.merge!({
-                         "ln34fn#{index}" => dependent.first_name,
-                         "ln3mi#{index}" => dependent.middle_initial,
-                         "ln34ln#{index}" => dependent.last_name,
-                         "ln34suf#{index}" => dependent.suffix,
-                         "ln34real#{index}" => dependent.relationship,
-                         "ln34ssn#{index}" => dependent.ssn,
-                         "ln34birth#{index}" => dependent.dob.strftime("%m%d%Y")
-                         # TODO: need to populate missing fields and compare to available information in 1040
+                         "ln34fn#{index}" => dependents_node.at("DEP_CHLD_FRST_NAME")&.text,
+                         "ln3mi#{index}" => dependents_node.at("DEP_CHLD_MI_NAME")&.text,
+                         "ln34ln#{index}" => dependents_node.at("DEP_CHLD_LAST_NAME")&.text,
+                         "ln34suf#{index}" => dependents_node.at("DEP_CHLD_SFX_NAME")&.text,
+                         "ln34real#{index}" => dependents_node.at("DEP_RELATION_DESC")&.text,
+                         "month#{index}" => dependents_node.at("DEP_MNTH_LVD_NMBR")&.text,
+                         "ln34disability#{index}" =>  xml_value_to_pdf_checkbox('Disability', 'DEP_DISAB_IND'),
+                         "ln34student#{index}" =>  xml_value_to_pdf_checkbox('Student', 'DEP_STUDENT_IND'),
+                         "ln34ssn#{index}" => dependents_node.at("DEP_SSN_NMBR")&.text,
+                         "ln34birth#{index}" => (Date.parse(dependents_node.at("DOB_DT")&.text)).strftime("%m%d%Y"),
                        })
       end
       answers
@@ -73,10 +75,19 @@ module PdfFiller
         1 => 'Yes',
         2 => 'No'
       },
+      'Disability' => {
+        1 => 'Yes',
+        2 => 'No'
+      },
+      'Student' => {
+        1 => 'Yes',
+        2 => 'No'
+      }
     }
 
     def xml_value_to_pdf_checkbox(pdf_field, xml_field)
-      FIELD_OPTIONS[pdf_field][@xml_document.at(xml_field).attribute('claimed').value.to_i]
+      key = claimed_attr_value(xml_field)&.to_i || @xml_document.at(xml_field)&.text&.to_i
+      FIELD_OPTIONS[pdf_field][key]
     end
 
     def claimed_attr_value(xml_field)
