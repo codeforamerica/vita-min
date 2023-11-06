@@ -4,11 +4,10 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
 
-    context "with empty last names" do
+    context "with no radio selected" do
       let(:invalid_params) do
         {
-          has_prior_last_names: "yes",
-          prior_last_names: ""
+          charitable_contributions: "unfilled",
         }
       end
 
@@ -18,11 +17,12 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       end
     end
 
-    context "with no radio selected" do
+    context "when non cash contributions exceed 500" do
       let(:invalid_params) do
         {
-          has_prior_last_names: "unfilled",
-          prior_last_names: ""
+          charitable_contributions: "yes",
+          charitable_cash: 100,
+          charitable_noncash: 600,
         }
       end
 
@@ -32,57 +32,66 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       end
     end
   end
+
+
 
   describe "#save" do
     let(:intake) { create :state_file_az_intake }
     let(:valid_params) do
       {
-        has_prior_last_names: "yes",
-        prior_last_names: "Smith, Jones"
+        charitable_contributions: "yes",
+        charitable_cash: 100,
+        charitable_noncash: 100,
       }
     end
 
-    it "saves the prior last names to the intake" do
-      form = described_class.new(intake, valid_params)
-      expect(form).to be_valid
-      expect do
-        form.save
-      end.to change { intake.reload.prior_last_names }.to("Smith, Jones")
-    end
-  end
-
-  describe "no prior last names to save" do
-    let(:intake) { create :state_file_az_intake }
-    let(:valid_params) do
-      {
-        has_prior_last_names: "no",
-        prior_last_names: ""
-      }
-    end
-
-    it "proceeds with nil prior last names" do
+    it "saves the charitable contributions amount to the intake" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
-      expect(intake.reload.prior_last_names).to be_nil
+      expect(intake.reload.charitable_cash).to eq 100
+      expect(intake.reload.charitable_noncash).to eq 100
     end
   end
 
-  describe "going back and removing prior last names" do
-    let(:intake) { create :state_file_az_intake, prior_last_names: "Jordan, Pippin" }
+  describe "no charitable contributions to save" do
+    let(:intake) { create :state_file_az_intake }
     let(:valid_params) do
       {
-        has_prior_last_names: "no",
-        prior_last_names: "Jordan, Pippin"
+        charitable_contributions: "no",
+        charitable_cash: "",
+        charitable_noncash: "",
       }
     end
 
-    it "proceeds with nil prior last names" do
+    it "proceeds with nil for cash and non-cash contributions" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
-      expect do
-        form.save
-      end.to change { intake.reload.prior_last_names }.to(nil)
+      form.save
+      expect(intake.reload.charitable_cash).to be_nil
+      expect(intake.reload.charitable_noncash).to be_nil
+    end
+  end
+
+  describe "going back and saying no to charitable contributions" do
+    let(:intake) { create :state_file_az_intake, charitable_cash: 100, charitable_noncash: 100}
+    let(:valid_params) do
+      {
+        charitable_contributions: "no",
+        charitable_cash: 100,
+        charitable_noncash: 100,
+      }
+    end
+
+    it "proceeds with nil amounts for cash and noncash contributions" do
+      form = described_class.new(intake, valid_params)
+      expect(form).to be_valid
+      form.save
+      expect(intake.reload.charitable_cash).to be_nil
+      expect(intake.reload.charitable_noncash).to be_nil
     end
   end
 end
+
+
+

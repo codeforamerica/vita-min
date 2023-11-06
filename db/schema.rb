@@ -1551,10 +1551,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
-  create_table "state_file1099s", force: :cascade do |t|
+  create_table "state_file1099_gs", force: :cascade do |t|
     t.integer "address_confirmation", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "federal_income_tax_withheld"
+    t.integer "had_box_11", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "payer_name"
@@ -1567,7 +1568,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
     t.integer "state_income_tax_withheld"
     t.integer "unemployment_compensation"
     t.datetime "updated_at", null: false
-    t.index ["intake_type", "intake_id"], name: "index_state_file1099s_on_intake"
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
