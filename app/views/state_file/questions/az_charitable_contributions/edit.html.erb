@@ -1,11 +1,8 @@
 <% content_for :page_title, t(".title") %>
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= t(".title") %></h1>
-  <p><%= t(".title") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-
-
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="highlight-box highlight-box--blue spacing-below-15">
@@ -21,7 +18,7 @@
         <div class="highlight-box highlight-box--blue spacing-below-15">
           <div class="spacing-below-5">
             <%= f.cfa_input_field(:charitable_cash, t(".charitable_cash"), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:charitable_noncash, t(".charitable_cash"), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charitable_noncash, t(".charitable_noncash"), classes: ["form-width--long"]) %>
           </div>
         </div>
       </div>
