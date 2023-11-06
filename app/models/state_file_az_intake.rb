@@ -9,6 +9,7 @@
 #  bank_account_type         :integer
 #  bank_routing_number       :string
 #  charitable_cash           :integer          default(0)
+#  charitable_contributions  :integer          default("unfilled"), not null
 #  charitable_noncash        :integer          default(0)
 #  claimed_as_dep            :integer          default("unfilled")
 #  contact_preference        :integer          default("unfilled"), not null
@@ -41,6 +42,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
+  enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
 
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
