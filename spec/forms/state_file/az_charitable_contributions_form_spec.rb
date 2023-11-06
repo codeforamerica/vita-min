@@ -30,6 +30,7 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       it "returns false" do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
+        expect(form.errors).to include(:charitable_noncash)
       end
     end
   end
