@@ -3,6 +3,7 @@
   <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
   <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
   <% content_for :head_links do %>
+    <%= stylesheet_link_tag 'statefile', media: 'all' %>
     <link href='https://fonts.googleapis.com/css?family=Public Sans' rel='stylesheet' />
   <% end %>
   <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
