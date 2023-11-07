@@ -186,7 +186,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
-      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
       expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
       expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')

@@ -88,15 +88,32 @@ FactoryBot.define do
     school_district_number { 123 }
 
     after(:build) do |intake, evaluator|
-      if evaluator.filing_status
-        numeric_status = {
-          single: 1,
-          married_filing_jointly: 2,
-          married_filing_separately: 3,
-          head_of_household: 4,
-          qualifying_widow: 5,
-        }[evaluator.filing_status.to_sym] || evaluator.filing_status
-        intake.direct_file_data.filing_status = numeric_status
+      numeric_status = {
+        single: 1,
+        married_filing_jointly: 2,
+        married_filing_separately: 3,
+        head_of_household: 4,
+        qualifying_widow: 5,
+      }[evaluator.filing_status.to_sym] || evaluator.filing_status
+      intake.direct_file_data.filing_status = numeric_status
+      intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    trait :mfj_with_complete_spouse do
+      transient do
+        filing_status { 'married_filing_jointly' }
+        spouse_ssn { "123456789" }
+        spouse_occupation { "123456789" }
+      end
+
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_first_name { "Spousel" }
+      spouse_last_name { "Testerson" }
+      spouse_middle_initial { "T" }
+
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn
+        intake.direct_file_data.spouse_occupation = evaluator.spouse_occupation
         intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
