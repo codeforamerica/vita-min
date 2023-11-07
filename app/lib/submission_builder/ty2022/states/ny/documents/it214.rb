@@ -8,7 +8,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT214") do |xml|
-                xml.PR_DOB_DT claimed: @submission.data_source.primary_birth_date&.strftime("%Y-%m-%d")
+                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
                 xml.R_RSDT_IND claimed: calculated_fields.fetch('IT214_LINE_1')
                 xml.R_OCCPY_RSDT_IND claimed: calculated_fields.fetch('IT214_LINE_2')
                 xml.R_RL_PROP_VL_IND claimed: calculated_fields.fetch('IT214_LINE_3')
