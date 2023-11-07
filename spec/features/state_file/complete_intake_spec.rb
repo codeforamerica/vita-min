@@ -30,10 +30,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.dob.edit.title2_you_and_household')
-      select_cfa_date "state_file_dob_form_primary_birth_date", Date.new(1978, 6, 21)
+      expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title2_you_and_household')
+      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
       expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       click_on "Continue"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -132,8 +132,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "First, please provide more information about the people in your family."
       expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-      select "12", from: "state_file_dob_form_dependents_attributes_0_months_in_home"
+      select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
       click_on "Continue"
 
       expect(page).to have_text "Please provide some more information about the people in your family who are 65 years of age or older."

@@ -1847,7 +1847,12 @@ en:
           subtitle: With an account, you’ll receive updates when your state tax return is accepted.
           text_message_option: Text me a code
           title: Next, set up your account with a quick code
-      dob:
+      email_address:
+        edit:
+          action: Send code
+          email_address_label: Your email address (avoid using a temporary email)
+          title: Enter your email address
+      name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dob_label: Date of birth for %{name}
@@ -1855,11 +1860,6 @@ en:
           title2_family: First, please provide more information about the people in your family.
           title2_you_and_household: First, please enter the date of birth for you and everyone in your household.
           your_dob: Your date of birth
-      email_address:
-        edit:
-          action: Send code
-          email_address_label: Your email address (avoid using a temporary email)
-          title: Enter your email address
       ny_county:
         edit:
           county: County

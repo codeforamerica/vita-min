@@ -1,5 +1,5 @@
 module StateFile
-  class DobForm < QuestionsForm
+  class NameDobForm < QuestionsForm
     include DateHelper
     attr_accessor :dependents_attributes
     attr_reader :intake

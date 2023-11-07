@@ -11,7 +11,7 @@ module Navigation
       StateFile::Questions::CodeVerifiedController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
-      StateFile::Questions::DobController,
+      StateFile::Questions::NameDobController,
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,
       StateFile::Questions::NySchoolDistrictController,
