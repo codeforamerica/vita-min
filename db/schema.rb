@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_03_162002) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1607,6 +1607,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_162002) do
   create_table "state_file_dependents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "dob"
+    t.boolean "eic_disability"
+    t.boolean "eic_qualifying"
+    t.boolean "eic_student"
     t.string "first_name"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false

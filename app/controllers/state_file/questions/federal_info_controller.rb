@@ -9,8 +9,7 @@ module StateFile
 
         current_intake.update(raw_direct_file_data: direct_file_xml)
         current_intake.direct_file_data.dependents.each do |direct_file_dependent|
-          # TODO: in reality dob will not be provided at this time, we need to force people to enter it later
-          current_intake.dependents.create(direct_file_dependent.attributes.merge(dob: 6.years.ago))
+          current_intake.dependents.create(direct_file_dependent.attributes)
         end
         redirect_to action: :edit, us_state: params[:us_state]
       end

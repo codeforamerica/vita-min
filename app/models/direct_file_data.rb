@@ -31,15 +31,6 @@ class DirectFileData
     # TODO
   end
 
-  def primary_dob
-    raw_date = parsed_xml.at('SelfSelectPINGrp PrimaryBirthDt')&.text
-    Date.parse(raw_date) if raw_date.present?
-  end
-
-  def primary_dob=(date)
-    parsed_xml.at('SelfSelectPINGrp PrimaryBirthDt').content = date&.strftime("%Y-%m-%d")
-  end
-
   # TODO: primary_first_name, primary_last_name and primary_middle_initial need to come over from DF 
 
   def primary_ssn
@@ -58,21 +49,7 @@ class DirectFileData
     parsed_xml.at('PrimaryOccupationTxt').content = value
   end
 
-  # TODO: spouse_first_name, spouse_last_name and spouse_middle_initial need to come over from DF 
-
-  def spouse_dob
-    raw_date = parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')&.text
-    Date.parse(raw_date) if raw_date.present?
-  end
-
-  def spouse_dob=(date)
-    if date && !parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')
-      parsed_xml.at('SelfSelectPINGrp').add_child('<SpouseBirthDt/>')
-    end
-    if parsed_xml.at('SelfSelectPINGrp SpouseBirthDt')
-      parsed_xml.at('SelfSelectPINGrp SpouseBirthDt').content = date&.strftime("%Y-%m-%d")
-    end
-  end
+  # TODO: spouse_first_name, spouse_last_name and spouse_middle_initial need to come over from DF
 
   def spouse_ssn
     parsed_xml.at('Filer SpouseSSN')&.text
@@ -247,7 +224,7 @@ class DirectFileData
   end
 
   def dependents
-    parsed_xml.css('DependentDetail').map do |node|
+    dependents = parsed_xml.css('DependentDetail').map do |node|
       Dependent.new(
         first_name: node.at('DependentFirstNm')&.text,
         last_name: node.at('DependentLastNm')&.text,
@@ -255,16 +232,52 @@ class DirectFileData
         relationship: node.at('DependentRelationshipCd')&.text,
       )
     end
+
+    parsed_xml.css('IRS1040ScheduleEIC QualifyingChildInformation').map.with_index do |node|
+      dependent = dependents.map { |d| d if d.ssn == node.at('QualifyingChildSSN')&.text }.first
+      next unless dependent
+      if dependent.present?
+        dependent.eic_qualifying = true
+        dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
+        dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
+        dependent.months_in_home = node.at('MonthsChildLivedWithYouCnt')&.text
+      else
+        dependents << Dependent.new(
+          first_name: node.at('ChildFirstAndLastName PersonFirstNm')&.text,
+          last_name: node.at('ChildFirstAndLastName PersonLastNm')&.text,
+          ssn: node.at('QualifyingChildSSN')&.text,
+          relationship: node.at('ChildRelationshipCd')&.text,
+          eic_qualifying: true,
+          eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
+          eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
+          months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
+          )
+      end
+    end
+    dependents
   end
 
   class Dependent
-    attr_reader :first_name, :last_name, :ssn, :relationship
+    attr_accessor :first_name,
+                  :last_name,
+                  :ssn,
+                  :relationship,
+                  :eic_student,
+                  :eic_disability,
+                  :months_in_home,
+                  :eic_qualifying
 
-    def initialize(first_name:, last_name:, ssn:, relationship:)
+    def initialize(first_name:, last_name:, ssn:, relationship:,
+                   eic_student: nil, eic_disability: nil, months_in_home: nil, eic_qualifying: nil)
+
       @first_name = first_name
       @last_name = last_name
       @ssn = ssn
       @relationship = relationship
+      @eic_student = eic_student
+      @eic_disability = eic_disability
+      @months_in_home = months_in_home
+      @eic_qualifying = eic_qualifying
     end
 
     def attributes
@@ -273,6 +286,10 @@ class DirectFileData
         last_name: @last_name,
         ssn: @ssn,
         relationship: @relationship,
+        eic_student: @eic_student,
+        eic_disability: @eic_disability,
+        months_in_home: @months_in_home,
+        eic_qualifying: @eic_qualifying,
       }
     end
   end
@@ -283,10 +300,8 @@ class DirectFileData
       :filing_status,
       :phone_daytime,
       :phone_daytime_area_code,
-      :primary_dob,
       :primary_ssn,
       :primary_occupation,
-      :spouse_dob,
       :spouse_ssn,
       :spouse_occupation,
       :mailing_city,

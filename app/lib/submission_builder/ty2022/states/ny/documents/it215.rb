@@ -12,7 +12,6 @@ module SubmissionBuilder
                 xml.E_FED_ADJ_IND claimed: calculated_fields.fetch("IT215_LINE_1A") ? 1 : 2
                 xml.E_INV_INC_IND claimed: calculated_fields.fetch("IT215_LINE_2") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
-                # TODO need to fill in dependents to XML
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
                 xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
                 xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")

@@ -26,11 +26,12 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when claiming the state EIC" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose") }
+      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose", dependents: [create(:state_file_dependent, eic_qualifying: true)]) }
       let(:filing_status) { 'married_filing_jointly' }
 
-      it 'includes the IT215 document' do
+      it 'includes the IT215 document and EIC dependents' do
         xml = described_class.build(submission).document
+        expect(xml.at("dependent DEP_CHLD_FRST_NAME").text).to eq(intake.dependents.first.first_name)
         expect(xml.at("IT215 E_FED_EITC_IND").attribute('claimed').value).to eq("1")
       end
     end

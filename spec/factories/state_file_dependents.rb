@@ -4,6 +4,9 @@
 #
 #  id                :bigint           not null, primary key
 #  dob               :date
+#  eic_disability    :boolean
+#  eic_qualifying    :boolean
+#  eic_student       :boolean
 #  first_name        :string
 #  intake_type       :string           not null
 #  last_name         :string

@@ -79,6 +79,7 @@ FactoryBot.define do
     claimed_as_dep { 'no' }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
+    primary_birth_date{ Date.parse("May 1, 1979") }
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
