@@ -1,0 +1,8 @@
+<% title = t(".title_html") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+  <% if Rails.env.test? %>
+    <%= link_to "HIDDEN TEST-ONLY BUTTON", next_path, class: "button button--primary" %>
+  <% end %>
+<% end %>

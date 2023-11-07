@@ -533,7 +533,7 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       namespace :state_file do
         namespace :questions do
-          get "import_federal_data", to: "federal_info#import_federal_data"
+          get "update_with_sample_data", to: "federal_info#update_with_sample_data"
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
         end
@@ -558,6 +558,7 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#home"
+        get "/fake_direct_file_transfer_page", to: "state_file_pages#fake_direct_file_transfer_page"
         post "/clear_session", to: 'state_file_pages#clear_session'
       end
     end

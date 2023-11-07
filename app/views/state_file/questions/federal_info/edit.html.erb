@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= title %></h1>
 
-  <%= link_to "Fetch 1040 data from IRS", state_file_questions_import_federal_data_path(us_state: params[:us_state]), class: "button button--small" %>
+  <%= link_to "Populate with sample data", state_file_questions_update_with_sample_data_path(us_state: params[:us_state]), class: "button button--small" %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_input_field :tax_return_year, "tax return year" %>

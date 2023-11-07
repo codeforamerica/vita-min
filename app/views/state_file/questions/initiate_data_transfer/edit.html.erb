@@ -1,0 +1,11 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+    <p><%= t('.description') %></p>
+
+    <%= link_to state_file_fake_direct_file_transfer_page_path(redirect: next_path), class: "button button--primary", id: "firstCta" do %>
+      <%= t(".button") %>
+    <% end %>
+    <span><%= t('.button_help_text') %></span>
+<% end %>
