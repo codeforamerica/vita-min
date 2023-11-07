@@ -78,8 +78,7 @@ module PdfFiller
     }
 
     def xml_value_to_pdf_checkbox(pdf_field, xml_field)
-      key = claimed_attr_value(xml_field)&.to_i || @xml_document.at(xml_field)&.text&.to_i
-      FIELD_OPTIONS[pdf_field][key]
+      FIELD_OPTIONS[pdf_field][@xml_document.at(xml_field).attribute('claimed').value.to_i]
     end
 
     def claimed_attr_value(xml_field)
