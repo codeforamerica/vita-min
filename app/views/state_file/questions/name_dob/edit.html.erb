@@ -1,16 +1,15 @@
-<% content_for :page_title, "Dependents' date of birth and months in home" %>
+<% content_for :page_title, t('.title') %>
 
 <% content_for :card do %>
   <p><%= t('.title1') %></p>
-  <% if @form.ask_primary_dob? %>
-    <p><%= t('.title2_you_and_household') %></p>
-  <% else %>
-    <p><%= t('.title2_family') %></p>
-  <% end %>
+  <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-    <% if f.object.ask_primary_dob? %>
-      <div class="highlight-box highlight-box--blue spacing-below-15">
+    <div class="highlight-box highlight-box--blue spacing-below-15">
+      <p><%= t(".primary_name") %></p>
+      <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+      <% if f.object.ask_primary_dob? %>
         <div class="date-select spacing-below-5">
           <%= f.cfa_date_select(:primary_birth_date,
                                 t('.your_dob'),
@@ -19,18 +18,23 @@
                                   end_year: Time.now.year - 100,
                                 }) %>
         </div>
-      </div>
-    <% end %>
-    <% if f.object.ask_spouse_dob? %>
+      <% end %>
+    </div>
+    <% if f.object.filing_status_mfj? %>
       <div class="highlight-box highlight-box--blue spacing-below-15">
-        <div class="date-select spacing-below-5">
-          <%= f.cfa_date_select(:spouse_birth_date,
-                                t('.dob_label', name: f.object.intake.spouse_first_name.capitalize),
-                                options: {
-                                  start_year: Time.now.year,
-                                  end_year: Time.now.year - 100,
-                                }) %>
-        </div>
+        <p><%= t(".spouse_name") %></p>
+        <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:spouse_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+        <% if f.object.ask_spouse_dob? %>
+            <div class="date-select spacing-below-5">
+              <%= f.cfa_date_select(:spouse_birth_date,
+                                    t('.dob_label', name: f.object.intake.spouse_first_name.capitalize),
+                                    options: {
+                                      start_year: Time.now.year,
+                                      end_year: Time.now.year - 100,
+                                    }) %>
+            </div>
+        <% end %>
       </div>
     <% end %>
     <%= f.fields_for :dependents do |ff| %>

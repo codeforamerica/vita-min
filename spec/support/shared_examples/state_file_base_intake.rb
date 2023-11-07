@@ -36,4 +36,13 @@ shared_examples :state_file_base_intake do |factory:|
       end
     end
   end
+
+  describe "Person" do
+    describe "#full_name" do
+      it "returns all the names" do
+        intake = build(:state_file_az_intake, primary_first_name: "Te", primary_last_name: "Sting")
+        expect(intake.primary.full_name).to eq "Te Sting"
+      end
+    end
+  end
 end

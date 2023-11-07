@@ -4,8 +4,9 @@ module StateFile
       private
 
       def form_params
-        permitted_attributes = []
+        permitted_attributes = [:primary_first_name, :primary_last_name]
         permitted_attributes.concat([:primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year]) if current_intake.ask_primary_dob?
+        permitted_attributes.concat([:spouse_first_name, :spouse_last_name]) if current_intake.filing_status_mfj?
         permitted_attributes.concat([:spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year]) if current_intake.ask_primary_dob?
 
         dependents_attributes = [:id, :dob_month, :dob_day, :dob_year]
