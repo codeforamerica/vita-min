@@ -247,6 +247,7 @@ class DirectFileData
           last_name: node.at('ChildFirstAndLastName PersonLastNm')&.text,
           ssn: node.at('QualifyingChildSSN')&.text,
           relationship: node.at('ChildRelationshipCd')&.text,
+          eic_qualifying: true,
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
           months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
