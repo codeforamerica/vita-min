@@ -1,0 +1,21 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="highlight-box highlight-box--blue spacing-below-15">
+      <%=
+        f.cfa_radio_set(
+          :untaxed_out_of_state_purchases,
+          label_text: t(".id_type_question.label"),
+          collection: [
+            { value: :yes, label: t(".id_type_question.drivers_license")},
+            { value: :no, label: t(".id_type_question.dmv") },
+            { value: :no, label: t(".id_type_question.no_id") },
+          ]
+        )
+      %>
+    </div>
+  <% end %>
+<% end %>

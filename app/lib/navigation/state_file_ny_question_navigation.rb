@@ -22,6 +22,7 @@ module Navigation
       StateFile::Questions::NyCountyController,
       StateFile::Questions::NySchoolDistrictController,
       StateFile::Questions::NySalesUseTaxController,
+      StateFile::Questions::NyPrimaryStateIdController,
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::UnemploymentController,

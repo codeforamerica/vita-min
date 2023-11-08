@@ -1941,7 +1941,7 @@ en:
           title1: You're done! Let's review before you submit your state tax return.
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
-      ny_primary_id:
+      ny_primary_state_id:
         edit:
           title: Please provide information for your state issued ID
           id_type_question:
