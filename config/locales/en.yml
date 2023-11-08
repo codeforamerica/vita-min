@@ -1822,6 +1822,17 @@ en:
           prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'
           title1: Did you file with a different last name in the last four years?
           title2: This includes tax years 2019-2022.
+      az_review:
+        edit:
+          armed_forces_member: Member of the U.S. armed forces
+          armed_forces_wages: Amount earned while serving on active duty
+          last_names: Other last names in the last four years
+          title1: You're done! Let's review before you submit your state tax return.
+          tribal_member: Member of a federally recognized American Indian tribe
+          tribal_wages: Amount earned while living and working on the reservation
+          view_pdf: View PDF of state return
+          your_refund: Your estimated refund
+          your_tax_owed: Your estimated tax owed
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?

@@ -1,0 +1,47 @@
+<% content_for :page_title, t(".title1") %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
+
+  <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
+      <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount) %></p>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-15">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
+      <p><%=current_intake.prior_last_names || t("general.none") %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::AzPriorLastNamesController.to_path_helper(us_state: "az"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-15">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
+      <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.tribal_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".tribal_wages") %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages) %></p>
+      <% end %>
+      <p class="text--bold spacing-below-5"><%=t(".armed_forces_member") %></p>
+      <p><%=current_intake.armed_forces_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.armed_forces_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
+        <p><%=number_to_currency(current_intake.armed_forces_wages) %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzStateCreditsController.to_path_helper(us_state: "az"), class: "button button--small" %>
+    </div>
+  </div>
+
+<!--   TODO: add charitable contributions once the story is done -->
+
+  <%= link_to next_path, class: "button button--primary button--wide spacing-above-35 spacing-below-15" do %>
+    <%= t("general.continue") %>
+  <% end %>
+  <%= link_to t(".view_pdf"),
+              StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: "az", action: :show, id: EfileSubmission.where(data_source: current_intake).first),
+              target: "_blank",
+              class: "button button--wide" %>
+<% end %>

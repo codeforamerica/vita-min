@@ -55,12 +55,8 @@ module Efile
           set_line(:AZ140_LINE_62, -> { 0 })
           set_line(:AZ140_LINE_63, :calculate_line_63)
         end
-        if (line_or_zero(:AZ140_LINE_63) - line_or_zero(:AZ140_LINE_78)) >= 0
-          set_line(:AZ140_LINE_79, :calculate_line_79)
-        else
-          set_line(:AZ140_LINE_80, :calculate_line_80)
-        end
         set_line(:AZ140_LINE_79, :calculate_line_79)
+        set_line(:AZ140_LINE_80, :calculate_line_80)
         set_line(:AZ140_CCWS_LINE_1c, @intake, :charitable_cash)
         set_line(:AZ140_CCWS_LINE_2c, @intake, :charitable_noncash)
         set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
@@ -142,11 +138,9 @@ module Efile
       end
 
       def calculate_line_45
-        subtractions = 0
-        (33..44).each do |line_num|
-          subtractions += line_or_zero("AZ140_LINE_#{line_num}").to_i
-        end
-        [line_or_zero(:AZ140_LINE_42) - subtractions, 0].max
+        taxable_income = line_or_zero(:AZ140_LINE_42)
+        deductions_and_charity = line_or_zero(:AZ140_LINE_43) + line_or_zero(:AZ140_LINE_44)
+        [taxable_income - deductions_and_charity, 0].max
       end
 
       def calculate_line_46

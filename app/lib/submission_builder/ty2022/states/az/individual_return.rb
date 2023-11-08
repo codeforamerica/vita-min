@@ -156,7 +156,7 @@ module SubmissionBuilder
                   end
                 end
               end
-              if calculated_fields[:AZ140_LINE_79]
+              if calculated_fields[:AZ140_LINE_79] > 0
                 xml.RefundAmt calculated_fields.fetch(:AZ140_LINE_79)
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)

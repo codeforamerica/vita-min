@@ -168,7 +168,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
       click_on "Continue"
 
-      click_on "Submit My Fake Taxes"
+      expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
+      click_on "Continue"
+
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
