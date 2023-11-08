@@ -29,10 +29,11 @@ class ApplicationController < ActionController::Base
 
   def self.to_path_helper(options = {})
     action = options.delete(:action) || :edit
+    full_url = options.delete(:full_url) || false
     Rails.application.routes.url_helpers.url_for({
       controller: controller_path,
       action: action,
-      only_path: true,
+      only_path: !full_url,
       # url_for sometimes uses the current path to determine the right URL in some situations,
       # explicitly sending an empty _recall disables that behavior
       _recall: {}

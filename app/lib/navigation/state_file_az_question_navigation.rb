@@ -9,6 +9,8 @@ module Navigation
       StateFile::Questions::EmailAddressController,
       StateFile::Questions::VerificationCodeController,
       StateFile::Questions::CodeVerifiedController,
+      StateFile::Questions::InitiateDataTransferController,
+      StateFile::Questions::WaitingToLoadDataController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::FederalDependentsController,
       StateFile::Questions::NameDobController,

@@ -18,12 +18,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :text_message)
 
+      step_through_df_data_transfer
+
       expect(page).to have_text "The page with all the info from the 1040"
 
-      # pretend to get federal data
-      expect(find_field("tax return year").value).not_to be_present
-      click_on "Fetch 1040 data from IRS"
       expect(page).to have_field("tax return year", with: "2023")
+      click_on "Populate with sample data"
       select "married filing jointly", from: "filing status"
       click_on "Continue"
 
@@ -125,7 +125,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
-      click_on "Fetch 1040 data from IRS"
+      step_through_df_data_transfer
+
+      click_on "Populate with sample data"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"

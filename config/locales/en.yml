@@ -1854,6 +1854,12 @@ en:
           action: Send code
           email_address_label: Your email address (avoid using a temporary email)
           title: Enter your email address
+      initiate_data_transfer:
+        edit:
+          button: Transfer data from IRS site
+          button_help_text: Don’t worry, you'll be redirected back here
+          description: To pre-fill, you need to transfer your federal tax return from the IRS Direct File site to this tool. This usually takes three minutes or less.
+          title: Now, let's pre-fill parts of your state tax return
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -1921,6 +1927,9 @@ en:
           subtitle_html: A message with your code has been sent to <strong>%{contact_info}</strong>.
           title: Verify the code to continue
           verification_code_label: Enter the 6-digit code
+      waiting_to_load_data:
+        edit:
+          title_html: Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return. <br/><br/> This usually takes a minute or two. Don't close this page.
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
