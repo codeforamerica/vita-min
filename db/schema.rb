@@ -1578,6 +1578,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
     t.integer "bank_account_type"
     t.string "bank_routing_number"
     t.integer "charitable_cash", default: 0
+    t.integer "charitable_contributions", default: 0, null: false
     t.integer "charitable_noncash", default: 0
     t.integer "claimed_as_dep", default: 0
     t.integer "contact_preference", default: 0, null: false

@@ -116,21 +116,21 @@ module SubmissionBuilder
               end
               xml.AZAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_42)
               xml.DeductionAmt do
-                xml.DeductionTypeIndc 'Standard' # todo: we only support standard tho 43S
+                xml.DeductionTypeIndc calculated_fields.fetch(:AZ140_LINE_43S)
                 xml.AZDeductions calculated_fields.fetch(:AZ140_LINE_43)
-
-                xml.ClaimCharitableDed do
-                  #calculated_fields.fetch(:AZ140_LINE_44)
-                  xml.CharitableDeduction "X"
-                  xml.IncStdCharitableDed 2
-                  xml.IncreaseStdDed do
-                    xml.GiftByCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_1c)
-                    xml.OtherThanCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_2c)
-                    xml.CarrPriorYear calculated_fields.fetch(:AZ140_CCWS_LINE_3c)
-                    xml.SubTotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_4c)
-                    xml.TotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_5c)
-                    xml.SubTotal calculated_fields.fetch(:AZ140_CCWS_LINE_6c)
-                    xml.TotalIncStdDeduction calculated_fields.fetch(:AZ140_CCWS_LINE_7c)
+                if calculated_fields[:AZ140_LINE_44C]
+                  xml.ClaimCharitableDed do
+                    xml.CharitableDeduction calculated_fields.fetch(:AZ140_LINE_44C)
+                    xml.IncStdCharitableDed calculated_fields.fetch(:AZ140_LINE_44)
+                    xml.IncreaseStdDed do
+                      xml.GiftByCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_1c)
+                      xml.OtherThanCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_2c)
+                      xml.CarrPriorYear calculated_fields.fetch(:AZ140_CCWS_LINE_3c)
+                      xml.SubTotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_4c)
+                      xml.TotalContributions calculated_fields.fetch(:AZ140_CCWS_LINE_5c)
+                      xml.SubTotal calculated_fields.fetch(:AZ140_CCWS_LINE_6c)
+                      xml.TotalIncStdDeduction calculated_fields.fetch(:AZ140_CCWS_LINE_7c)
+                    end
                   end
                 end
                 xml.AZTaxableInc calculated_fields.fetch(:AZ140_LINE_45)
