@@ -18,6 +18,7 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
     step_through_initial_authentication(contact_preference: :text_message)
 
     step_through_df_data_transfer
+    click_on "Continue"
 
     expect(page).to have_text "The page with all the info from the 1040"
   end

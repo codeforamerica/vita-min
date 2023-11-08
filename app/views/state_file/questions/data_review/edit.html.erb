@@ -1,0 +1,43 @@
+<% content_for :page_title, "The page with the submit button" %>
+
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= t('.title') %>
+  </h1>
+
+  <strong>
+    <%= t(".basic_household_info_title") %>
+  </strong>
+  <p>
+    <%= t(".basic_household_info_description") %>
+    <%= image_tag("icons/exclamation.svg", alt: "") %>
+  </p>
+
+  <strong>
+    <%= t(".filing_status_title") %>
+  </strong>
+  <p>
+    <%= t(".complete_description") %>
+    <%= image_tag("icons/check.svg", alt: "") %>
+  </p>
+
+  <strong>
+    <%= t(".income_and_deductions_title") %>
+  </strong>
+  <p>
+    <%= t(".income_and_deductions_description") %>
+    <%= image_tag("icons/exclamation.svg", alt: "") %>
+  </p>
+
+  <strong>
+    <%= t(".state_tax_withheld_title", name: current_intake.state_name) %>
+  </strong>
+  <p>
+    <%= t(".complete_description") %>
+    <%= image_tag("icons/check.svg", alt: "") %>
+  </p>
+
+  <%= link_to next_path, class: "button button--primary" do %>
+    <%= t("general.continue") %>
+  <% end %>
+<% end %>

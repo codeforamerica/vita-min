@@ -1854,6 +1854,16 @@ en:
           subtitle: With an account, you’ll receive updates when your state tax return is accepted.
           text_message_option: Text me a code
           title: Next, set up your account with a quick code
+      data_review:
+        edit:
+          basic_household_info_description: Partially filled, will need to complete
+          basic_household_info_title: Basic household information
+          complete_description: Complete
+          filing_status_title: Filing status
+          income_and_deductions_description: Partially filled, will need to complete
+          income_and_deductions_title: Most income and deductions
+          state_tax_withheld_title: "%{name} state tax withheld"
+          title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
       email_address:
         edit:
           action: Send code
