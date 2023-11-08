@@ -80,6 +80,10 @@ class StateFileAzIntake < StateFileBaseIntake
     false
   end
 
+  def ask_spouse_name?
+    filing_status_mfj?
+  end
+
   def ask_spouse_dob?
     false
   end

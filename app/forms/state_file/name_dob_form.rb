@@ -13,10 +13,15 @@ module StateFile
                        :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
 
 
-    delegate :ask_months_in_home?, :ask_primary_dob?, :ask_spouse_dob?, :filing_status_mfj?, to: :intake
+    delegate :ask_months_in_home?,
+             :ask_primary_dob?,
+             :ask_spouse_dob?,
+             :ask_spouse_name?,
+             :filing_status_mfj?,
+             to: :intake
 
     validates_presence_of :primary_first_name, :primary_last_name
-    validates_presence_of :spouse_first_name, :spouse_last_name, if: -> { @intake.filing_status_mfj? }
+    validates_presence_of :spouse_first_name, :spouse_last_name, if: -> { @intake.ask_spouse_name? }
     validate :primary_birth_date_is_valid_date, if: -> { @intake.ask_primary_dob? }
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
 
@@ -37,7 +42,7 @@ module StateFile
         primary_last_name: primary_last_name,
         dependents_attributes: formatted_dependents_attributes
       }
-      if @intake.filing_status_mfj?
+      if @intake.ask_spouse_name?
         attributes_to_update.merge!(
           spouse_first_name: spouse_first_name,
           spouse_last_name: spouse_last_name,
