@@ -140,7 +140,7 @@ module Efile
       end
 
       def calculate_line_44C
-        @intake.charitable_contributions_yes? ? "X" : ""
+        @intake.charitable_contributions_yes? ? "X" : nil
       end
 
       def calculate_line_45
