@@ -9,7 +9,7 @@ module StateFile
         permitted_attributes.concat([:spouse_first_name, :spouse_last_name]) if current_intake.filing_status_mfj?
         permitted_attributes.concat([:spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year]) if current_intake.ask_primary_dob?
 
-        dependents_attributes = [:id, :dob_month, :dob_day, :dob_year]
+        dependents_attributes = [:id, :first_name, :last_name, :dob_month, :dob_day, :dob_year]
         dependents_attributes << :months_in_home if current_intake.ask_months_in_home?
 
         params.require(:state_file_name_dob_form).permit(permitted_attributes + [{ dependents_attributes: dependents_attributes }])

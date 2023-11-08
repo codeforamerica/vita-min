@@ -28,7 +28,7 @@
         <% if f.object.ask_spouse_dob? %>
             <div class="date-select spacing-below-5">
               <%= f.cfa_date_select(:spouse_birth_date,
-                                    t('.dob_label', name: f.object.intake.spouse_first_name.capitalize),
+                                    t('.spouse_dob'),
                                     options: {
                                       start_year: Time.now.year,
                                       end_year: Time.now.year - 100,
@@ -37,11 +37,18 @@
         <% end %>
       </div>
     <% end %>
+
     <%= f.fields_for :dependents do |ff| %>
-      <div class="highlight-box highlight-box--blue spacing-below-15">
+      <div id="dependent-<%= ff.index %>" class="highlight-box highlight-box--blue spacing-below-15">
+
+        <p><%= t(".dependent_name_dob", number: ff.index + 1) %></p>
+
+        <%= ff.cfa_input_field(:first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+        <%= ff.cfa_input_field(:last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+
         <div class="date-select spacing-below-5">
           <%= ff.cfa_date_select(:dob,
-                                 t('.dob_label', name: ff&.object&.first_name&.capitalize),
+                                 t('general.date_of_birth'),
                                  options: {
                                    start_year: Time.now.year,
                                    end_year: Time.now.year - 100,
@@ -56,6 +63,7 @@
         <% end %>
       </div>
     <% end %>
+
     <button class="button button--primary" type="submit">
       <%= t("general.continue") %>
     </button>

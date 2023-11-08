@@ -42,8 +42,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_name_dob_form_spouse_last_name", with: "Testerson"
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
-      expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      within "#dependent-0" do
+        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      end
       click_on "Continue"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -145,9 +149,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
 
-      expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-      select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
+      within "#dependent-0" do
+        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+        select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
+      end
       click_on "Continue"
 
       expect(page).to have_text "Please provide some more information about the people in your family who are 65 years of age or older."

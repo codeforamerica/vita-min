@@ -20,6 +20,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
       it 'generates XML from the database models' do
         xml = described_class.build(submission).document
+        # TODO: where do we put spouse birth date? Filling SP_DOB_DT causes an error
+        # expect(xml.at("rtnHeader SP_DOB_DT").text).to eq intake.spouse.birth_date.strftime("%m%d%Y")
         expect(xml.at("tiSpouse FIRST_NAME").text).to eq(intake.spouse.first_name)
         expect(xml.at("tiSpouse MI_NAME").text).to eq(intake.spouse.middle_initial)
         expect(xml.at("tiSpouse LAST_NAME").text).to eq(intake.spouse.last_name)

@@ -49,9 +49,8 @@ module StateFile
     end
 
     def valid?
-      form_valid = super
       dependents_valid = dependents.map { |d| d.valid?(:dob_form) }
-      form_valid && !dependents_valid.include?(false)
+      super && dependents_valid.all?
     end
 
     def self.existing_attributes(intake)

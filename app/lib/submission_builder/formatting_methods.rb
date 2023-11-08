@@ -18,6 +18,12 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
+    def date_no_dash(date)
+      return nil unless date.present?
+
+      date.strftime("%m%d%Y")
+    end
+
     def person_name_type(name, length: 20)
       return "" unless name.present?
 
