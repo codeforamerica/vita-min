@@ -3,13 +3,7 @@ module StateFile
     include DateHelper
 
     set_attributes_for :intake,
-                       :claimed_as_dep,
-                       :primary_first_name,
-                       :primary_middle_initial,
-                       :primary_last_name,
-                       :spouse_first_name,
-                       :spouse_middle_initial,
-                       :spouse_last_name
+                       :claimed_as_dep
 
     set_attributes_for :direct_file_data,
                        :tax_return_year,

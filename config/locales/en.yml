@@ -399,6 +399,7 @@ en:
     filing_years: Filing Years
     find_location: Find a location
     find_vita_site: Find a VITA site near you
+    first_name: First name
     flagged: Flagged
     forgot_password: Forgot your password?
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
@@ -434,6 +435,7 @@ en:
       zh: Mandarin
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
+    last_name: Last name
     less_than_one_day: "<1 day"
     lived_with_spouse: Lived with spouse
     locked: Locked
@@ -1852,14 +1854,6 @@ en:
           subtitle: With an account, you’ll receive updates when your state tax return is accepted.
           text_message_option: Text me a code
           title: Next, set up your account with a quick code
-      dob:
-        edit:
-          dependent_months_lived_label: Number of months they lived with you in %{year}
-          dob_label: Date of birth for %{name}
-          title1: You’re almost done filing! Before you finish, we have some final questions that may help you maximize your refund.
-          title2_family: First, please provide more information about the people in your family.
-          title2_you_and_household: First, please enter the date of birth for you and everyone in your household.
-          your_dob: Your date of birth
       email_address:
         edit:
           action: Send code
@@ -1871,6 +1865,17 @@ en:
           button_help_text: Don’t worry, you'll be redirected back here
           description: To pre-fill, you need to transfer your federal tax return from the IRS Direct File site to this tool. This usually takes three minutes or less.
           title: Now, let's pre-fill parts of your state tax return
+      name_dob:
+        edit:
+          dependent_months_lived_label: Number of months they lived with you in %{year}
+          dependent_name_dob: Dependent %{number} name and date of birth
+          primary_name: Your name
+          spouse_dob: Your spouse's date of birth
+          spouse_name: Your spouse’s name
+          title: You’re almost done filing!
+          title1: You’re almost done filing! Before you finish, we have some final questions that may help you maximize your refund.
+          title2: First, please provide some more information about you and the people in your family.
+          your_dob: Your date of birth
       ny_county:
         edit:
           county: County

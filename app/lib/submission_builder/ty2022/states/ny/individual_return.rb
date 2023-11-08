@@ -65,8 +65,8 @@ module SubmissionBuilder
                   xml.FIRST_NAME @submission.data_source.spouse.first_name
                   xml.MI_NAME @submission.data_source.spouse.middle_initial
                   xml.LAST_NAME @submission.data_source.spouse.last_name
-                  xml.SP_DOB_DT @submission.data_source.spouse.birth_date
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
+                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation
                 end
               end
 

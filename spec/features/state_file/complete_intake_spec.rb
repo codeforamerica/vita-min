@@ -24,16 +24,30 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_field("tax return year", with: "2023")
       click_on "Populate with sample data"
+      select "married filing jointly", from: "filing status"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
       expect(page).to have_text "TESSA TESTERSON"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.dob.edit.title2_you_and_household')
-      select_cfa_date "state_file_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-      expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      # name dob page
+      expect(page).to have_text "You’re almost done filing!"
+      expect(page).to have_text "First, please provide some more information about you and the people in your family"
+      fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
+      fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
+      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
+
+      fill_in "state_file_name_dob_form_spouse_first_name", with: "Taliesen"
+      fill_in "state_file_name_dob_form_spouse_last_name", with: "Testerson"
+      select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
+
+      within "#dependent-0" do
+        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+      end
       click_on "Continue"
 
       expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
@@ -72,7 +86,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose "Yes"
       choose "NYS Department of Labor"
-      # TODO: test 'Myself'/'Spouse' radio for married filing jointly situation
+      choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
@@ -132,10 +146,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Grampy Gramps 10/31/1950"
       click_on "Continue"
 
-      expect(page).to have_text "First, please provide more information about the people in your family."
-      expect(page).to have_text "Date of birth for Tessa"
-      select_cfa_date "state_file_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-      select "12", from: "state_file_dob_form_dependents_attributes_0_months_in_home"
+      expect(page).to have_text "You’re almost done filing!"
+      expect(page).to have_text "First, please provide some more information about you and the people in your family"
+      fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
+      fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
+
+      within "#dependent-0" do
+        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
+        expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+        select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
+      end
       click_on "Continue"
 
       expect(page).to have_text "Please provide some more information about the people in your family who are 65 years of age or older."
@@ -153,7 +175,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose "Yes"
       choose "AZ Department of Economic Security"
-      # TODO: test 'Myself'/'Spouse' radio for married filing jointly situation
+
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
@@ -180,7 +202,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
-      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
       expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
       expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')

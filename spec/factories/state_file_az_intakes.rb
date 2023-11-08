@@ -37,9 +37,25 @@
 #
 FactoryBot.define do
   factory :state_file_az_intake do
+    transient do
+      filing_status { 'single' }
+    end
+
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     claimed_as_dep { 'no' }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
+
+    after(:build) do |intake, evaluator|
+      numeric_status = {
+        single: 1,
+        married_filing_jointly: 2,
+        married_filing_separately: 3,
+        head_of_household: 4,
+        qualifying_widow: 5,
+      }[evaluator.filing_status.to_sym] || evaluator.filing_status
+      intake.direct_file_data.filing_status = numeric_status
+      intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
   end
 end

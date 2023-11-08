@@ -39,4 +39,20 @@ require "rails_helper"
 
 describe StateFileAzIntake do
   it_behaves_like :state_file_base_intake, factory: :state_file_az_intake
+
+  describe "#ask_spouse_name?" do
+    context "when married filing jointly" do
+      it "returns true" do
+        intake = build(:state_file_az_intake, filing_status: "married_filing_jointly")
+        expect(intake.ask_spouse_name?).to eq true
+      end
+    end
+
+    context "when married filing separate" do
+      it "returns false" do
+        intake = build(:state_file_az_intake, filing_status: "married_filing_separately")
+        expect(intake.ask_spouse_name?).to eq false
+      end
+    end
+  end
 end

@@ -1,17 +1,29 @@
 module StateFile
-  class DobForm < QuestionsForm
+  class NameDobForm < QuestionsForm
     include DateHelper
+
     attr_accessor :dependents_attributes
-    attr_reader :intake
-
-    delegate :ask_months_in_home?, :ask_primary_dob?, :ask_spouse_dob?, to: :intake
-
-    validate :primary_birth_date_is_valid_date, if: -> { @intake.ask_primary_dob? }
-    validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
 
     set_attributes_for :intake,
+                       :primary_first_name,
+                       :primary_last_name,
+                       :spouse_first_name,
+                       :spouse_last_name,
                        :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year,
                        :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
+
+
+    delegate :ask_months_in_home?,
+             :ask_primary_dob?,
+             :ask_spouse_dob?,
+             :ask_spouse_name?,
+             :filing_status_mfj?,
+             to: :intake
+
+    validates_presence_of :primary_first_name, :primary_last_name
+    validates_presence_of :spouse_first_name, :spouse_last_name, if: -> { @intake.ask_spouse_name? }
+    validate :primary_birth_date_is_valid_date, if: -> { @intake.ask_primary_dob? }
+    validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
 
     def initialize(intake = nil, params = nil)
       super
@@ -25,16 +37,25 @@ module StateFile
     end
 
     def save
-      attributes_to_update = { dependents_attributes: formatted_dependents_attributes }
+      attributes_to_update = {
+        primary_first_name: primary_first_name,
+        primary_last_name: primary_last_name,
+        dependents_attributes: formatted_dependents_attributes
+      }
+      if @intake.ask_spouse_name?
+        attributes_to_update.merge!(
+          spouse_first_name: spouse_first_name,
+          spouse_last_name: spouse_last_name,
+        )
+      end
       attributes_to_update[:primary_birth_date] = primary_birth_date if @intake.ask_primary_dob?
       attributes_to_update[:spouse_birth_date] = spouse_birth_date if @intake.ask_spouse_dob?
       @intake.update!(attributes_to_update)
     end
 
     def valid?
-      form_valid = super
       dependents_valid = dependents.map { |d| d.valid?(:dob_form) }
-      form_valid && !dependents_valid.include?(false)
+      super && dependents_valid.all?
     end
 
     def self.existing_attributes(intake)

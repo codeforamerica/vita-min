@@ -16,12 +16,17 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when married" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose") }
-      let(:filing_status) { 'married_filing_jointly' }
+      let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
 
       it 'generates XML from the database models' do
         xml = described_class.build(submission).document
+        # TODO: where do we put spouse birth date? Filling SP_DOB_DT causes an error
+        # expect(xml.at("rtnHeader SP_DOB_DT").text).to eq intake.spouse.birth_date.strftime("%m%d%Y")
         expect(xml.at("tiSpouse FIRST_NAME").text).to eq(intake.spouse.first_name)
+        expect(xml.at("tiSpouse MI_NAME").text).to eq(intake.spouse.middle_initial)
+        expect(xml.at("tiSpouse LAST_NAME").text).to eq(intake.spouse.last_name)
+        expect(xml.at("tiSpouse SP_SSN_NMBR").text).to eq(intake.spouse.ssn)
+        expect(xml.at("tiSpouse SP_EMP_DESC").text).to eq(intake.direct_file_data.spouse_occupation)
       end
     end
 

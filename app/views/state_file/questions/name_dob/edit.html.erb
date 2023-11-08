@@ -1,0 +1,72 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :card do %>
+  <p><%= t('.title1') %></p>
+  <p><%= t('.title2') %></p>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
+    <div class="highlight-box highlight-box--blue spacing-below-15">
+      <p><%= t(".primary_name") %></p>
+      <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+      <% if f.object.ask_primary_dob? %>
+        <div class="date-select spacing-below-5">
+          <%= f.cfa_date_select(:primary_birth_date,
+                                t('.your_dob'),
+                                options: {
+                                  start_year: Time.now.year,
+                                  end_year: Time.now.year - 100,
+                                }) %>
+        </div>
+      <% end %>
+    </div>
+    <% if f.object.filing_status_mfj? %>
+      <div class="highlight-box highlight-box--blue spacing-below-15">
+        <p><%= t(".spouse_name") %></p>
+        <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:spouse_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+        <% if f.object.ask_spouse_dob? %>
+            <div class="date-select spacing-below-5">
+              <%= f.cfa_date_select(:spouse_birth_date,
+                                    t('.spouse_dob'),
+                                    options: {
+                                      start_year: Time.now.year,
+                                      end_year: Time.now.year - 100,
+                                    }) %>
+            </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= f.fields_for :dependents do |ff| %>
+      <div id="dependent-<%= ff.index %>" class="highlight-box highlight-box--blue spacing-below-15">
+
+        <p><%= t(".dependent_name_dob", number: ff.index + 1) %></p>
+
+        <%= ff.cfa_input_field(:first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+        <%= ff.cfa_input_field(:last_name, t("general.last_name"), classes: ["form-width--long"]) %>
+
+        <div class="date-select spacing-below-5">
+          <%= ff.cfa_date_select(:dob,
+                                 t('general.date_of_birth'),
+                                 options: {
+                                   start_year: Time.now.year,
+                                   end_year: Time.now.year - 100,
+                                 }) %>
+        </div>
+        <% if f.object.ask_months_in_home? %>
+          <%= ff.cfa_select(
+                :months_in_home,
+                t('.dependent_months_lived_label', year: MultiTenantService.statefile.current_tax_year),
+                (0..12).map { |i| [i.to_s, i] }.reverse
+              ) %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <button class="button button--primary" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+
+<% end %>

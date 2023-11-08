@@ -401,6 +401,7 @@ es:
     filing_years: Años para declarar
     find_location: Buscar una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
+    first_name: Primer nombre
     flagged: Marcada
     forgot_password: "¿Ha olvidado su contraseña?"
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.
@@ -436,6 +437,7 @@ es:
       zh: Mandarín
     languages: Idiomas
     last_four_ssn: Últimos 4 de SSN)/ITIN
+    last_name: Apellido
     less_than_one_day: "<1 día"
     lived_with_spouse: Vivieron con su cónyuge
     locked: Bloqueada

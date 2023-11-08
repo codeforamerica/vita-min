@@ -135,4 +135,27 @@ describe StateFileNyIntake do
       end
     end
   end
+
+  describe "#ask_spouse_name?" do
+    context "when married filing jointly" do
+      it "returns true" do
+        intake = build(:state_file_ny_intake, filing_status: "married_filing_jointly")
+        expect(intake.ask_spouse_name?).to eq true
+      end
+    end
+
+    context "when married filing separate" do
+      it "returns true" do
+        intake = build(:state_file_ny_intake, filing_status: "married_filing_separately")
+        expect(intake.ask_spouse_name?).to eq true
+      end
+    end
+
+    context "with any non-married filing status" do
+      it "returns false" do
+        intake = build(:state_file_ny_intake, filing_status: "head_of_household")
+        expect(intake.ask_spouse_name?).to eq false
+      end
+    end
+  end
 end
