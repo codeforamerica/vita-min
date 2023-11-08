@@ -116,13 +116,12 @@ module SubmissionBuilder
               end
               xml.AZAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_42)
               xml.DeductionAmt do
-                xml.DeductionTypeIndc 'Standard' # todo: we only support standard tho 43S
+                xml.DeductionTypeIndc calculated_fields.fetch(:AZ140_LINE_43S)
                 xml.AZDeductions calculated_fields.fetch(:AZ140_LINE_43)
 
                 xml.ClaimCharitableDed do
-                  #calculated_fields.fetch(:AZ140_LINE_44)
-                  xml.CharitableDeduction "X"
-                  xml.IncStdCharitableDed 2
+                  xml.CharitableDeduction calculated_fields.fetch(:AZ140_LINE_44C)
+                  xml.IncStdCharitableDed calculated_fields.fetch(:AZ140_LINE_44)
                   xml.IncreaseStdDed do
                     xml.GiftByCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_1c)
                     xml.OtherThanCashOrCheck calculated_fields.fetch(:AZ140_CCWS_LINE_2c)
