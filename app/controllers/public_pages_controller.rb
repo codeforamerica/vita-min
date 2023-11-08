@@ -93,6 +93,20 @@ class PublicPagesController < ApplicationController
     end
   end
 
+  def acme_challenge
+    website_text =
+      if Routes::StateFileDomain.new.matches?(request) && params[:id] == "nAiwr5D4js5JKPcdlY7oN2Dxim4UUq-N6kNOvHew18o"
+        # AZ demo.fileyourstatetaxes.org cert challenge
+        "nAiwr5D4js5JKPcdlY7oN2Dxim4UUq-N6kNOvHew18o.cwZpB_0Yw5Z-XZHRGYZPtCj4fUivbvN1yK4zBuNBVBk"
+      else
+        "Unknown ACME challenge."
+      end
+    respond_to do |format|
+      format.text { render plain: website_text  }
+      format.any { head 404 }
+    end
+  end
+
   private
 
   def markdown_content_from_file(file_name)
