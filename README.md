@@ -229,12 +229,6 @@ They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
 
 You can upload them to the correct S3 bucket with the task `rake flow_explorer:upload_screenshots`
 
-### Translations
-
-Transifex is no longer used for translations.
-
-They are now maintained in the locales in config/locales/[].yml
-
 ## Deploying the Application 🚀☁️
 
 Notes on deployment can be found in [docs/deployment](docs/deployment.md).
