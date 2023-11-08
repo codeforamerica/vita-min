@@ -7,6 +7,8 @@ module StateFile
       intake.direct_file_data.dependents.each do |direct_file_dependent|
         intake.dependents.create(direct_file_dependent.attributes)
       end
+
+      DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
 
     def priority

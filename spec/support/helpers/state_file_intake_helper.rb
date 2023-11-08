@@ -47,9 +47,13 @@ module StateFileIntakeHelper
     click_on "Transfer my 2023 federal tax return to FileYourStateTaxes"
 
     expect(page).to have_text "Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return."
+    if Capybara.current_driver == Capybara.javascript_driver
+      # Ensure JavaScript is waiting for our broadcast before we run the job that will do it
+      expect(page).to have_css('[data-after-data-transfer-button][data-subscribed]', visible: :any)
+    end
     perform_enqueued_jobs
     unless Capybara.current_driver == Capybara.javascript_driver
-      click_on "HIDDEN TEST-ONLY BUTTON"
+      find_link("HIDDEN BUTTON", visible: :any).click
     end
   end
 end

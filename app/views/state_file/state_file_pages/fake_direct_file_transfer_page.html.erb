@@ -1,3 +1,27 @@
-Your 2023 federal tax return is ready to transfer to your state tax return.
+<div style="width: 400px; margin: 50px;">
+  <h1>Your 2023 federal tax return is ready to transfer to your state tax return.</h1>
 
-<%= link_to "Transfer my 2023 federal tax return to FileYourStateTaxes", params[:redirect] %>
+  <style>
+    .transfer-button {
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid #7a7ab7;
+        background: #d5bdd5;
+        display: inline-block;
+        border-radius: 3px;
+        padding: 5px;
+    }
+  </style>
+
+  <%
+    state_file_link = URI(params[:redirect])
+    state_file_link.query = { authorization_code: 'abcdefg' }.to_query
+  %>
+  <%=
+    link_to(
+      "Transfer my 2023 federal tax return to FileYourStateTaxes",
+      state_file_link.to_s,
+      class: 'transfer-button'
+    )
+  %>
+</div>

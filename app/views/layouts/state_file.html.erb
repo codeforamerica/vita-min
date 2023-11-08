@@ -5,6 +5,9 @@
   <% content_for :head_links do %>
     <link href='https://fonts.googleapis.com/css?family=Public Sans' rel='stylesheet' />
   <% end %>
+  <% content_for :head_js do %>
+    <%= javascript_pack_tag 'application', 'state_file', defer: true %>
+  <% end %>
   <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
   <% content_for :header do %>

@@ -10,7 +10,7 @@ module StateFile
     end
 
     def fake_direct_file_transfer_page
-
+      render layout: nil
     end
 
     def clear_session
