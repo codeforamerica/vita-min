@@ -372,7 +372,6 @@ Rails.application.routes.draw do
 
     mount ActionCable.server => '/cable'
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
-    get '/.well-known/acme-challenge/:id', to: 'public_pages#acme_challenge'
   end
 
   constraints(Routes::CtcDomain.new) do
@@ -563,6 +562,8 @@ Rails.application.routes.draw do
         post "/clear_session", to: 'state_file_pages#clear_session'
       end
     end
+
+    get '/.well-known/acme-challenge/:id', to: 'public_pages#acme_challenge'
   end
 
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|
