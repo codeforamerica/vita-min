@@ -170,6 +170,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
       click_on "Continue"
 
+      expect(page).to have_text "Did you make charitable contributions to a qualifying organization in 2023?"
+      choose "Yes"
+      fill_in "Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
+      click_on "Continue"
+
       expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
       click_on "Continue"
 

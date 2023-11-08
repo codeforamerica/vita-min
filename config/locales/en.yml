@@ -1817,6 +1817,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      az_charitable_contributions:
+        edit:
+          charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash: 'Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
+          title: Did you make charitable contributions to a qualifying organization in 2023?
       az_prior_last_names:
         edit:
           prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'

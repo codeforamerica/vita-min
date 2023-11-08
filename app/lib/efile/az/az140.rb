@@ -34,7 +34,7 @@ module Efile
         set_line(:AZ140_LINE_41, :calculate_line_41)
         set_line(:AZ140_LINE_42, :calculate_line_42)
         set_line(:AZ140_LINE_43, :calculate_line_43)
-        set_line(:AZ140_LINE_43S, -> { "X" }) # TODO if this the way to mark an x on the box?
+        set_line(:AZ140_LINE_43S, :calculate_line_43S)
         set_line(:AZ140_LINE_44, :calculate_line_44)
         set_line(:AZ140_LINE_44C, :calculate_line_44C)
         set_line(:AZ140_LINE_45, :calculate_line_45)
@@ -127,14 +127,16 @@ module Efile
         end
       end
 
+      def calculate_line_43S
+        'Standard'
+      end
+
       def calculate_line_44
         line_or_zero(:AZ140_CCWS_LINE_7c)
       end
 
       def calculate_line_44C
-        if line_or_zero(:AZ140_LINE_44).positive?
-          "X" # TODO figure out checkmarks on PDF
-        end
+        @intake.charitable_contributions_yes? ? "X" : nil
       end
 
       def calculate_line_45

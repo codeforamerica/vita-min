@@ -88,8 +88,10 @@ module PdfFiller
         "35" => @xml_document.at('TotalSubtractions')&.text,
         "37" => @xml_document.at('Form140/Subtotal')&.text,
         "42" => @xml_document.at('AZAdjGrossIncome')&.text,
+        "Itemized/Standard" => 'Choice2',
         "43" => @xml_document.at('AZDeductions')&.text,
         "44" => @xml_document.at('TotalIncStdDeduction')&.text,
+        "44C" => charitable_contributions,
         "45" => @xml_document.at('AZTaxableInc')&.text,
         "46" => @xml_document.at('ComputedTax')&.text,
         "48" => @xml_document.at('Form140/DeductionAmt/SubTotal')&.text,
@@ -104,6 +106,13 @@ module PdfFiller
         "63" => @xml_document.at('OverPaymentBalance')&.text,
         "79" => @xml_document.at('RefundAmt')&.text,
         "80" => @xml_document.at('AmtOwed')&.text,
+        "3_1c" => @xml_document.at('GiftByCashOrCheck')&.text,
+        "3_2c" => @xml_document.at('OtherThanCashOrCheck')&.text,
+        "3_3c" => @xml_document.at('CarrPriorYear')&.text,
+        "3_4c" => @xml_document.at('SubTotalContributions')&.text,
+        "3_5c" => @xml_document.at('TotalContributions')&.text,
+        "3_6c" => @xml_document.at('SubTotal')&.text,
+        "3_7c" => @xml_document.at('TotalIncStdDeduction')&.text,
       })
       answers
     end
@@ -123,6 +132,14 @@ module PdfFiller
 
     def filing_status
       FILING_STATUS_OPTIONS[@xml_document.at('FilingStatus')&.text]
+    end
+
+    def charitable_contributions
+      if @xml_document.at('CharitableDeduction')&.text == 'X'
+        'Yes'
+      else
+        "Off"
+      end
     end
   end
 end

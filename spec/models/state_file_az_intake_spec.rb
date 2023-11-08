@@ -9,6 +9,7 @@
 #  bank_account_type         :integer
 #  bank_routing_number       :string
 #  charitable_cash           :integer          default(0)
+#  charitable_contributions  :integer          default("unfilled"), not null
 #  charitable_noncash        :integer          default(0)
 #  claimed_as_dep            :integer          default("unfilled")
 #  contact_preference        :integer          default("unfilled"), not null
