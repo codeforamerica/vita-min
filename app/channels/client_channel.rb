@@ -1,5 +1,7 @@
 class ClientChannel < ApplicationCable::Channel
   def subscribed
+    reject and return if current_user.blank?
+
     begin
       @client = Client.accessible_to_user(current_user).find(params[:id])
     rescue ActiveRecord::RecordNotFound

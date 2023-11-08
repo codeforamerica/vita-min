@@ -51,7 +51,11 @@
     <%= render 'shared/mixpanel_configuration' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
 
-    <%= javascript_pack_tag 'application', defer: true %>
+    <% if content_for :head_js %>
+      <%= yield :head_js %>
+    <% else %>
+      <%= javascript_pack_tag 'application', defer: true %>
+    <% end %>
   </head>
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>

@@ -9,14 +9,6 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
     allow(env).to receive(:[]).with('warden').and_return(warden)
   end
 
-  context "with no logged-in user" do
-    let(:user) { nil }
-
-    it "rejects the connection" do
-      expect { connect "/cable" }.to have_rejected_connection
-    end
-  end
-
   context "with logged-in user" do
     let(:user) { create(:user) }
 
@@ -36,7 +28,7 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
       end
 
       it "avoids the crash and increments a datadog metric" do
-        expect { connect "/cable" }.to raise_error(ActionCable::Connection::Authorization::UnauthorizedError)
+        expect { connect("/cable").current_user }.to raise_error(ActionCable::Connection::Authorization::UnauthorizedError)
 
         expect(@emit_point_params).to eq([
                                            ["vita-min.dogapi.application_cable.uncaught_throw_warden_error", 1, {:tags=>["env:test"], :type=>"count"}]

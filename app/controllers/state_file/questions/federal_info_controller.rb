@@ -3,14 +3,8 @@ module StateFile
     class FederalInfoController < QuestionsController
       layout "state_file/question"
 
-      def import_federal_data
+      def update_with_sample_data
         update_intake_with_sample_data
-        direct_file_xml = IrsApiService.import_federal_data('fake_auth_token')
-
-        current_intake.update(raw_direct_file_data: direct_file_xml)
-        current_intake.direct_file_data.dependents.each do |direct_file_dependent|
-          current_intake.dependents.create(direct_file_dependent.attributes)
-        end
         redirect_to action: :edit, us_state: params[:us_state]
       end
 
