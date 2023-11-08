@@ -6,8 +6,9 @@ ruby ruby_version
 gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
-gem 'sass-rails', '~> 5.0'
-gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
+gem 'sprockets-rails', require: 'sprockets/railtie'
+gem "dartsass-rails", "~> 0.5.0"
+# gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: :main
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 gem "activerecord-cte" # Can be removed when we move to Rails 7.1
@@ -117,6 +118,7 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'foreman'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.4.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

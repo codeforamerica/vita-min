@@ -1,15 +1,3 @@
-GIT
-  remote: https://github.com/codeforamerica/honeycrisp-gem
-  revision: 4c6f873f55704ec34fd518906f131133b290e56a
-  ref: 4c6f873f55704ec34fd518906f131133b290e56a
-  branch: main
-  specs:
-    cfa-styleguide (0.10.5)
-      autoprefixer-rails
-      bourbon
-      jquery-rails
-      sass
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -103,8 +91,6 @@ GEM
     ast (2.4.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
-    autoprefixer-rails (10.4.15.0)
-      execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
     aws-partitions (1.841.0)
@@ -145,8 +131,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    bourbon (7.0.0)
-      thor (~> 1.0)
     builder (3.2.4)
     bundle-audit (0.1.0)
       bundler-audit
@@ -179,6 +163,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    dartsass-rails (0.5.0)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     data_migrate (9.0.0)
       activerecord (>= 6.0)
       railties (>= 6.0)
@@ -235,7 +222,6 @@ GEM
     erubi (1.12.0)
     erubis (2.7.0)
     excon (0.99.0)
-    execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -262,10 +248,14 @@ GEM
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, <= 4.0.0)
       sanitize (< 7)
+    foreman (0.87.2)
     formatador (1.1.0)
     git-pair (0.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (3.25.0)
+    google-protobuf (3.25.0-aarch64-linux)
+    google-protobuf (3.25.0-x86_64-linux)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -317,10 +307,6 @@ GEM
       rdoc
       reline (>= 0.3.8)
     jmespath (1.6.2)
-    jquery-rails (4.5.1)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     json (2.6.3)
     jwt (2.7.0)
     launchy (2.5.2)
@@ -328,7 +314,13 @@ GEM
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     libdatadog (1.0.1.1.0)
+    libdatadog (1.0.1.1.0-aarch64-linux)
+    libdatadog (1.0.1.1.0-x86_64-linux)
     libddwaf (1.5.1.0.1)
+      ffi (~> 1.0)
+    libddwaf (1.5.1.0.1-aarch64-linux)
+      ffi (~> 1.0)
+    libddwaf (1.5.1.0.1-x86_64-linux)
       ffi (~> 1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -382,6 +374,10 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.4-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -590,17 +586,13 @@ GEM
     sanitize (6.0.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sass-embedded (1.69.5)
+      google-protobuf (~> 3.23)
+      rake (>= 13.0.0)
+    sass-embedded (1.69.5-aarch64-linux-gnu)
+      google-protobuf (~> 3.23)
+    sass-embedded (1.69.5-x86_64-linux-gnu)
+      google-protobuf (~> 3.23)
     scenic (1.7.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
@@ -643,9 +635,9 @@ GEM
     spring (4.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    sprockets (3.7.2)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
+      rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
@@ -710,7 +702,9 @@ GEM
     zxcvbn-ruby (1.2.0)
 
 PLATFORMS
+  aarch64-linux
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-cte
@@ -728,8 +722,8 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  cfa-styleguide (= 0.10.5)!
   combine_pdf
+  dartsass-rails (~> 0.5.0)
   data_migrate
   database_cleaner
   ddtrace (~> 1.9.0)
@@ -748,6 +742,7 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
+  foreman
   git-pair
   guard-rspec
   http_accept_language
@@ -794,7 +789,6 @@ DEPENDENCIES
   rubocop-performance (~> 1.16.0)
   rubocop-rspec (~> 2.18.0)
   rubyzip
-  sass-rails (~> 5.0)
   scenic
   selenium-webdriver
   sentry-delayed_job
@@ -805,6 +799,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
+  sprockets-rails
   stackprof
   statesman (~> 9.0)
   strong_migrations
