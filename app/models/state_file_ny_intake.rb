@@ -82,7 +82,7 @@
 class StateFileNyIntake < StateFileBaseIntake
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
-  accepts_nested_attributes_for :primary_state_id
+  accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice

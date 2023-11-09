@@ -1,5 +1,5 @@
 module StateFile
-  class NyPrimaryStateIdForm < QuestionsForm
+  class NySpouseStateIdForm < QuestionsForm
     include DateHelper
     set_attributes_for :state_id, :id_type, :id_number, :state, :first_three_doc_num
 
@@ -11,9 +11,6 @@ module StateFile
                        :expiration_date_month,
                        :expiration_date_year
 
-    # maybe the validation shouldn't be so harsh? Do we know what the constraints are
-    # I wrote these based on NY but people can probably use ids from other states
-    # and other states can have different formats no?
     validates :id_type, presence: true
     validates :id_number, alphanumeric: true, length: {is: 9}, unless: -> { id_type == "no_id" }
     validate :issue_date_is_valid_date, unless: -> { id_type == "no_id" }
@@ -22,11 +19,11 @@ module StateFile
     validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, unless: -> { id_type == "no_id" }
 
     def save
-      @intake.update!(primary_state_id_attributes: attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
+      @intake.update!(spouse_state_id_attributes: attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
     end
 
     def self.existing_attributes(intake)
-      state_id = intake.primary_state_id
+      state_id = intake.spouse_state_id
       state_id.present? ? existing_state_id_attrs(super, state_id) : super
     end
 

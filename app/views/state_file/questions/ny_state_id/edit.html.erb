@@ -1,4 +1,4 @@
-<% title = t(".title") %>
+<% title = @person_type == :primary ? t(".title.primary") : t(".title.spouse_html") %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>

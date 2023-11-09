@@ -1,8 +1,12 @@
 module StateFile
   module Questions
-    class NyPrimaryStateIdController < QuestionsController
+    class NySpouseStateIdController < QuestionsController
+      def self.show?(intake)
+        intake.filing_status_mfj?
+      end
+
       def edit
-        @person_type = :primary
+        @person_type = :spouse
         super
       end
 

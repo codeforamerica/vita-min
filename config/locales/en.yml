@@ -1943,7 +1943,9 @@ en:
           your_tax_owed: Your estimated tax owed
       ny_primary_state_id:
         edit:
-          title: Please provide information for your state issued ID
+          title:
+            primary: Please provide information for your state issued ID
+            spouse_html: Please provide information for <strong>your spouse’s</strong> state issued ID
           id_type_question:
             label: Your ID Type
             drivers_license: Driver’s license

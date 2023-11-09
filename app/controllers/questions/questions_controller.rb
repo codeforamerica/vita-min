@@ -12,6 +12,7 @@ module Questions
 
     def edit
       @form = initialized_edit_form
+      render edit_template
     end
 
     def update
@@ -24,7 +25,7 @@ module Questions
       else
         after_update_failure
         track_validation_error
-        render :edit
+        render edit_template
       end
     end
 
@@ -40,6 +41,10 @@ module Questions
     def prev_path
       prev_step = form_navigation&.prev
       prev_step&.to_path_helper(action: prev_step.navigation_actions.first)
+    end
+
+    def edit_template
+      :edit
     end
 
     def has_unsure_option?

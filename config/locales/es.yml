@@ -1805,6 +1805,10 @@ es:
       ny_sales_use_tax:
         edit:
           use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+      ny_state_id:
+        edit:
+          title:
+            spouse_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       verification_code:
         edit:
           subtitle_html: "<strong>%{contact_info}</strong>"
