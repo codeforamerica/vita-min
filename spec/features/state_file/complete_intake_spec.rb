@@ -198,9 +198,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
       click_on "Continue"
 
+      expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
+
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
+
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
