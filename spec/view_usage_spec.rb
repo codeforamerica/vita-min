@@ -18,7 +18,6 @@ RSpec.describe "view usage" do
       true
     end
 
-    missing_controllers = missing_controllers - StateFile::Questions::NyStateIdController
     expect(missing_controllers).to be_empty, "Expected all views to have matching controller, these controllers were not found:\n#{missing_controllers.sort.join("\n")}"
   end
 end

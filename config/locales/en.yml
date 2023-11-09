@@ -1974,8 +1974,10 @@ en:
         edit:
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
-      ny_state_id:
+      ny_primary_state_id:
         edit:
+          title: Please provide information for your state issued ID
+        state_id:
           id_details:
             expiration_day: Expiration Day
             expiration_month: Expiration Month
@@ -1992,9 +1994,21 @@ en:
             label: Your ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
-          title:
-            primary: Please provide information for your state issued ID
-            spouse_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+      ny_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          select_one: 'Select one of the following:'
+          subtitle: For example, online purchases with no sales tax applied.
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+      ny_school_district:
+        edit:
+          school_district_name: School District Name
+          title: Select the school district where you lived on December 31, %{filing_year}
+      ny_spouse_state_id:
+        edit:
+          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       phone_number:
         edit:
           action: Send code
