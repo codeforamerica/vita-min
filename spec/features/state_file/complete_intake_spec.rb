@@ -115,7 +115,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
       click_on "Continue"
 
-      click_on "Submit My Fake Taxes"
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.ny.body_html'))
+      check "state_file_esign_declaration_form_esigned_return"
+      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text "Your 2023 New York state tax return is now submitted!"
       expect(page).to have_link "Download your state return"
@@ -223,7 +226,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
       click_on "Continue"
 
-      click_on "Submit My Fake Taxes"
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.az.body_html'))
+      check "state_file_esign_declaration_form_esigned_return"
+      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text "Your 2023 Arizona state tax return is now submitted!"
       expect(page).to have_link "Download your state return"

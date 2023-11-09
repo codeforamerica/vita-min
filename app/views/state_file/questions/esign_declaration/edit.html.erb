@@ -8,7 +8,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <div class="spacing-above-60">
       <%= f.cfa_checkbox(:esigned_return, t(".esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.submit("Submit my state return", class: "button button--primary button--wide") %>
+      <%= f.submit(t(".submit"), class: "button button--primary button--wide") %>
     </div>
   <% end %>
 <% end %>
