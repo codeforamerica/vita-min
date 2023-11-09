@@ -98,7 +98,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Submit My Fake Taxes"
 
-      expect(page).to have_text "You have successfully submitted your taxes"
+      expect(page).to have_text "Your 2023 New York state tax return is now submitted!"
       expect(page).to have_link "Download PDF"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
@@ -203,7 +203,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Submit My Fake Taxes"
 
-      expect(page).to have_text "You have successfully submitted your taxes"
+      expect(page).to have_text "Your 2023 Arizona state tax return is now submitted!"
       click_on "Show XML"
 
       expect(page.body).to include('efile:ReturnState')

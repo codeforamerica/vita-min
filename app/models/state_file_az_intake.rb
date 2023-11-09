@@ -44,10 +44,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
 
-  def state_name
-    'Arizona'
-  end
-
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
       year: 2022,

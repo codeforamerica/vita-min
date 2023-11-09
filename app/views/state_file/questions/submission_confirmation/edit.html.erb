@@ -1,10 +1,11 @@
-<% content_for :page_title, "The page with the submit button" %>
+<% title = t('.title', state_name: States.name_for_key(params[:us_state].upcase)) %>
 
+<% content_for :page_title, title %>
 <% content_for :card do %>
   <%= image_tag("icons/check.svg", alt: "") %>
 
   <h1 class="h2">
-    <%= t('.title', state_name: current_intake.state_name) %>
+    <%= title %>
   </h1>
 
   <p>
@@ -13,17 +14,17 @@
 
   <p>
     <%= t(".help_friend_or_family") %>
-    # TODO - replace with real link
-    <%= link_to 'Share the IRS DirectFile link', "" %>
+    <!-- TODO - replace with real link -->
+    <%= link_to t(".share_direct_file_link"), "" %>
   </p>
 
   <p>
-    <%= link_to t(".register_to_vote"), "https://www.google.com" %>
+    <%= link_to t(".register_to_vote"), "" %>
   </p>
 
   <p>
-    # TODO - replace with real link
-    <%= link_to t(".apply_to_state_benefits", state_name: current_intake.state_name), "" %>
+    <!-- TODO - replace with real link -->
+    <%= link_to t(".apply_to_state_benefits", state_name: States.name_for_key(params[:us_state].upcase)), "" %>
   </p>
 
   <p>
