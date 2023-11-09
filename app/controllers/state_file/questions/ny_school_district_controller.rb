@@ -3,7 +3,6 @@ require 'csv'
 module StateFile
   module Questions
     class NySchoolDistrictController < QuestionsController
-      layout "state_file/question"
       before_action :get_county_school_districts_from_csv, only: [:edit]
 
       private

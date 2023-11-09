@@ -16,6 +16,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "File your New York state taxes for free"
       click_on "Get Started", id: "firstCta"
 
+      expect(page).to have_text "First, let's see if you can use this tool to file your taxes"
+      choose "Yes", from: "Did you live in New York for all of 2023?"
+      choose "No", from: "Did you live or earn income in Yonkers at any time in 2023?"
+      click_on "Continue"
+
       step_through_initial_authentication(contact_preference: :text_message)
 
       step_through_df_data_transfer
@@ -123,6 +128,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
     it "has content" do
       visit "/"
       click_on "Start Test AZ"
+
+      expect(page).to have_text "First, let's see if you can use this tool to file your taxes"
+      choose "Yes", from: "Did you live in Arizona for all of 2023?"
+      choose "No", from: "Are you filing as “married filing separately”?"
+      click_on "Continue"
 
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"

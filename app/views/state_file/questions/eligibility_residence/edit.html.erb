@@ -1,0 +1,42 @@
+<% title = t(".title") %>
+<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <p><%= t(".subtitle") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_radio_set(
+          :eligibility_lived_in_state,
+          label_text: t(".lived_in_state", state: state_full_name),
+          collection: [
+            { value: "yes", label: t("general.affirmative") },
+            { value: "no", label: t("general.negative") },
+          ]
+        ) %>
+
+    <% if params[:us_state] == "ny" %>
+      <%= f.cfa_radio_set(
+            :eligibility_yonkers,
+            label_text: t(".lived_or_income_in_yonkers"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    <% end %>
+
+    <% if params[:us_state] == "az" %>
+      <%= f.cfa_radio_set(
+            :eligibility_married_filing_separately,
+            label_text: t(".filing_status_married_filing_separately"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

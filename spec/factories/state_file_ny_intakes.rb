@@ -12,6 +12,8 @@
 #  contact_preference               :integer          default("unfilled"), not null
 #  current_step                     :string
 #  date_electronic_withdrawal       :date
+#  eligibility_lived_in_state       :integer          default("unfilled"), not null
+#  eligibility_yonkers              :integer          default("unfilled"), not null
 #  email_address                    :citext
 #  email_address_verified_at        :datetime
 #  household_cash_assistance        :integer

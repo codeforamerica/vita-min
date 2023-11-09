@@ -1878,6 +1878,13 @@ en:
           income_and_deductions_title: Most income and deductions
           state_tax_withheld_title: "%{name} state tax withheld"
           title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
+      eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: Are you filing as “married filing separately”?
+          lived_in_state: Did you live in %{state} for all of 2023?
+          lived_or_income_in_yonkers: Did you live or earn income in Yonkers at any time in 2023?
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       email_address:
         edit:
           action: Send code
