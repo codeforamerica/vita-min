@@ -21,9 +21,15 @@
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".residence_county") %></p>
       <p><%=current_intake.residence_county %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(us_state: "ny"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".school_district") %></p>
       <p><%=current_intake.school_district %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(us_state: "ny"), class: "button button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NySchoolDistrictController.to_path_helper(us_state: "ny"), class: "button button--small" %>
     </div>
   </div>
 
