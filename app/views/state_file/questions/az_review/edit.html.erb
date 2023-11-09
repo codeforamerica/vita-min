@@ -35,13 +35,27 @@
     </div>
   </div>
 
-<!--   TODO: add charitable contributions once the story is done -->
+  <div class="highlight-box highlight-box--blue spacing-below-25">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".charitable_contributions") %></p>
+      <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.charitable_contributions_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".charitable_cash") %></p>
+        <p><%=number_to_currency(current_intake.charitable_cash) || t("general.none") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".charitable_noncash") %></p>
+        <p><%=number_to_currency(current_intake.charitable_noncash) || t("general.none") %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzCharitableContributionsController.to_path_helper(us_state: "az"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="spacing-below-10">
+    <p class="text--small">
+      <%=t(".download_pdf") %>
+    </p>
+  </div>
 
   <%= link_to next_path, class: "button button--primary button--wide spacing-above-35 spacing-below-15" do %>
     <%= t("general.continue") %>
   <% end %>
-  <%= link_to t(".view_pdf"),
-              StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: "az", action: :show, id: EfileSubmission.where(data_source: current_intake).first),
-              target: "_blank",
-              class: "button button--wide" %>
 <% end %>

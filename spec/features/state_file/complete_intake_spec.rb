@@ -179,8 +179,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
       click_on "Continue"
 
+      click_on "Submit My Fake Taxes"
+
       expect(page).to have_text "You have successfully submitted your taxes"
       click_on "Show XML"
+
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Testy</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')

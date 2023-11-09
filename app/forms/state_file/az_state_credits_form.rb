@@ -10,14 +10,6 @@ module StateFile
       attributes_to_save[:tribal_wages] = nil if tribal_member == "no"
       attributes_to_save[:armed_forces_wages] = nil if armed_forces_member == "no"
       @intake.update(attributes_to_save)
-
-      # Create submission now so PDF link button can be shown on the next page
-      efile_submission = EfileSubmission.create!(
-        data_source: @intake,
-        )
-      if Rails.env.development? || Rails.env.test?
-        efile_submission.transition_to(:preparing)
-      end
     end
   end
 end
