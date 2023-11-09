@@ -1914,6 +1914,7 @@ en:
       submission_confirmation:
         edit:
           apply_to_state_benefits: Apply to %{state_name} benefits
+          download_state_return_pdf: Download your state return
           email_text_update: You'll receive and email or text update when your state tax return is accepted.
           help_friend_or_family: Help a friend or family member file their taxes for free.
           register_to_vote: Register to vote
