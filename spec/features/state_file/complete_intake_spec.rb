@@ -19,6 +19,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_initial_authentication(contact_preference: :text_message)
 
       step_through_df_data_transfer
+      click_on "Continue"
 
       expect(page).to have_text "The page with all the info from the 1040"
 
@@ -126,6 +127,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_initial_authentication(contact_preference: :email)
 
       step_through_df_data_transfer
+      click_on "Continue"
 
       click_on "Populate with sample data"
       click_on "Continue"

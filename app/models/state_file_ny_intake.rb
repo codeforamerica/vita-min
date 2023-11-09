@@ -95,6 +95,10 @@ class StateFileNyIntake < StateFileBaseIntake
     end
   end
 
+  def state_name
+    'New York'
+  end
+
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
       year: 2022,
