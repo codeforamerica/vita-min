@@ -10,6 +10,7 @@
     "@rails/actiontext": "7.1.1",
     "@rails/activestorage": "7.1.1",
     "@rails/ujs": "7.1.1",
+    "@uswds/uswds": "^3.7.0",
     "@yaireo/tagify": "4.9.8",
     "babel-loader": "8",
     "compression-webpack-plugin": "9",
