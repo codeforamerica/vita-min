@@ -26,11 +26,14 @@ module StateFile
     end
 
     def self.existing_attributes(intake)
-      state_id = intake.primary_state_id
-      state_id.present? ? existing_state_id_attrs(super, state_id) : super
+      self.state_id(intake).present? ? existing_state_id_attrs(super, self.state_id(intake)) : super
     end
 
     private
+
+    def self.state_id(intake)
+      intake.primary_state_id
+    end
 
     def self.existing_state_id_attrs(attrs, state_id)
       attrs.merge(

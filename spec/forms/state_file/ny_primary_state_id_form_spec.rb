@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::NyPrimaryStateIdForm do
-  let!(:intake) { create :state_file_ny_intake }
+  let!(:intake) { create :state_file_ny_intake, primary_state_id: nil }
   let(:valid_params) do
     {
         "id_type" => "driver_license",
@@ -25,6 +25,7 @@ RSpec.describe StateFile::NyPrimaryStateIdForm do
         form.save
 
         intake.reload
+        expect(intake.primary_state_id).to be_present
         expect(intake.primary_state_id.id_type).to eq "driver_license"
         expect(intake.primary_state_id.id_number).to eq "123456789"
         expect(intake.primary_state_id.issue_date).to eq Date.parse("March 6, 2016")
