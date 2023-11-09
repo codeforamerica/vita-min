@@ -1,0 +1,13 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= t(".body_html") %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <div class="spacing-above-60">
+      <%= f.cfa_checkbox(:esigned_return, t(".esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.submit("Submit my state return", class: "button button--primary button--wide") %>
+    </div>
+  <% end %>
+<% end %>

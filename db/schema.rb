@@ -1590,6 +1590,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "esigned_return", default: 0, null: false
+    t.datetime "esigned_return_at"
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -1648,6 +1650,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.integer "eligibility_yonkers", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "esigned_return", default: 0, null: false
+    t.datetime "esigned_return_at"
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"

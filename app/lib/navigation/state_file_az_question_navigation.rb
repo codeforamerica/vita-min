@@ -24,7 +24,7 @@ module Navigation
       StateFile::Questions::AzStateCreditsController,
       StateFile::Questions::AzCharitableContributionsController,
       StateFile::Questions::AzReviewController,
-      StateFile::Questions::SubmitReturnController,
+      StateFile::Questions::EsignDeclarationController,
       StateFile::Questions::SubmissionConfirmationController,
     ].freeze
 

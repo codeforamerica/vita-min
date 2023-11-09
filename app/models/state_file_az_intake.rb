@@ -49,6 +49,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
+  enum esigned_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :esigned_return
 
   def state_name
     'Arizona'
