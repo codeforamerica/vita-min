@@ -1931,6 +1931,15 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
+      submission_confirmation:
+        edit:
+          apply_to_state_benefits: Apply to %{state_name} benefits
+          download_state_return_pdf: Download your state return
+          email_text_update: You'll receive and email or text update when your state tax return is accepted.
+          help_friend_or_family: Help a friend or family member file their taxes for free.
+          register_to_vote: Register to vote
+          share_direct_file_link: Share the IRS DirectFile link
+          title: Your 2023 %{state_name} state tax return is now submitted!
       unemployment:
         destroy:
           removed: Removed 1099-G for %{name}

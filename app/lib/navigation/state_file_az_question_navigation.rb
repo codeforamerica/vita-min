@@ -22,7 +22,7 @@ module Navigation
       StateFile::Questions::AzCharitableContributionsController,
       StateFile::Questions::AzReviewController,
       StateFile::Questions::SubmitReturnController,
-      StateFile::Questions::ConfirmationController
+      StateFile::Questions::SubmissionConfirmationController,
     ].freeze
 
     def self.intake_class

@@ -24,7 +24,7 @@ module Navigation
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::NyReviewController,
       StateFile::Questions::SubmitReturnController,
-      StateFile::Questions::ConfirmationController
+      StateFile::Questions::SubmissionConfirmationController,
     ].freeze
 
     def self.intake_class
