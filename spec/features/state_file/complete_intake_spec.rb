@@ -96,6 +96,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
       click_on "Continue"
 
+      expect(page).to have_text("You're done! Let's review before you submit your state tax return.")
+      click_on "Continue"
+
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "You have successfully submitted your taxes"

@@ -67,6 +67,7 @@ module Efile
         set_line(:IT201_LINE_40, :calculate_line_40)
         set_line(:IT201_LINE_43, :calculate_line_43)
         set_line(:IT201_LINE_44, :calculate_line_44)
+        set_line(:IT201_LINE_45, :calculate_line_45)
         set_line(:IT201_LINE_46, :calculate_line_46)
         set_line(:IT201_LINE_47, :calculate_line_47)
         set_line(:IT201_LINE_47A, :calculate_line_47a)
@@ -89,7 +90,7 @@ module Efile
         set_line(:IT201_LINE_67, -> { @lines[:IT214_LINE_33].value })
         set_line(:IT201_LINE_69, :calculate_line_69)
         set_line(:IT201_LINE_69A, :calculate_line_69a)
-        set_line(:IT201_LINE_70, -> { @lines[:IT215_LINE_27].value})
+        set_line(:IT201_LINE_70, -> { @lines[:IT215_LINE_27] ? @lines[:IT215_LINE_27].value : 0})
         set_line(:IT201_LINE_72, :calculate_line_72)
         set_line(:IT201_LINE_73, :calculate_line_73)
         set_line(:IT201_LINE_76, :calculate_line_76)
@@ -348,12 +349,26 @@ module Efile
         end
       end
 
+      def calculate_line_42
+        # '42 Arizona adjusted gross income: Subtract lines 38 through 41 from line 37. If less than zero, enter “0”.'
+        sum = 0
+        (38..41).each do |line_num|
+          sum += line_or_zero("IT201_LINE_#{line_num}").to_i
+        end
+
+        [line_or_zero(:IT201_LINE_37) - sum, 0].max
+      end
+
       def calculate_line_43
         line_or_zero(:IT201_LINE_40) + line_or_zero(:IT201_LINE_41) + line_or_zero(:IT201_LINE_42)
       end
 
       def calculate_line_44
         [line_or_zero(:IT201_LINE_39) - line_or_zero(:IT201_LINE_43), 0].max
+      end
+
+      def calculate_line_45
+        [line_or_zero(:IT201_LINE_42) - (line_or_zero(:IT201_LINE_43) + line_or_zero(:IT201_LINE_44)), 0].max
       end
 
       def calculate_line_46
