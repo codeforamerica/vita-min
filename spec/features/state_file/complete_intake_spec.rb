@@ -80,6 +80,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.ny_state_id.edit.title.primary')
+      choose I18n.t('state_file.questions.ny_state_id.edit.id_type_question.no_id')
+      click_on "Continue"
+
+      expect(page).to have_text "Please provide information for your spouse’s state issued ID"
+      choose I18n.t('state_file.questions.ny_state_id.edit.id_type_question.dmv')
+      fill_in  I18n.t('state_file.questions.ny_state_id.edit.id_details.number'), with: "012345678"
+      select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
+      select_cfa_date "state_file_ny_spouse_state_id_form_expiration_date", Time.now + 4.year
+      select("New York", from: I18n.t('state_file.questions.ny_state_id.edit.id_details.issue_state'))
+      fill_in  I18n.t('state_file.questions.ny_state_id.edit.id_details.first_three_doc_num'), with: "ABC"
+      click_on "Continue"
+
       expect(page).to have_text "The page with all the info from the 201"
       click_on "Continue"
 
