@@ -99,7 +99,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "Your 2023 New York state tax return is now submitted!"
-      expect(page).to have_link "Download PDF"
+      expect(page).to have_link "Download your state return"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<ABA_NMBR claimed="013456789"/>')
@@ -204,6 +204,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on "Submit My Fake Taxes"
 
       expect(page).to have_text "Your 2023 Arizona state tax return is now submitted!"
+      expect(page).to have_link "Download your state return"
       click_on "Show XML"
 
       expect(page.body).to include('efile:ReturnState')
