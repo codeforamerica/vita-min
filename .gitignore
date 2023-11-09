@@ -71,3 +71,6 @@ fake_api_server/*.crt
 fake_api_server/*.srl
 fake_api_server/*.key
 fake_api_server/*.txt
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

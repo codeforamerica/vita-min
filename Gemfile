@@ -6,8 +6,12 @@ ruby ruby_version
 gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
-gem 'sass-rails', '~> 5.0'
-gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
+
+gem 'sprockets-rails', require: 'sprockets/railtie'
+gem "dartsass-rails", "~> 0.5.0"
+
+gem 'cfa-styleguide', path: "../honeycrisp-gem"
+
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 gem "activerecord-cte" # Can be removed when we move to Rails 7.1

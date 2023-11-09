@@ -1,3 +1,4 @@
 server: rails s -p 3000
 worker: rails jobs:work
 webpack: bin/shakapacker-dev-server
+css: bin/rails dartsass:watch
