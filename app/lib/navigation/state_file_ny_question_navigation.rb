@@ -22,6 +22,7 @@ module Navigation
       StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::UnemploymentController,
+      StateFile::Questions::NyReviewController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::ConfirmationController
     ].freeze

@@ -140,6 +140,8 @@ IT201_LINE_43:
   label: '43 Add lines 40, 41, and 42'
 IT201_LINE_44:
   label: '44 Subtract line 43 from line 39'
+IT201_LINE_45:
+  label: 'Arizona taxable income:  Subtract lines 43 and 44 from line 42.  If less than zero, enter “0”'
 IT201_LINE_46:
   label: '46 Total New York State taxes'
 IT201_LINE_47:
@@ -169,6 +171,28 @@ IT201_LINE_61:
  voluntary contributions (add lines 46, 58, 59, and 60) .'
 IT201_LINE_62:
   label: '62 Enter amount from line 61 '
+IT201_LINE_67:
+  label: '67 Real property tax credit'
+IT201_LINE_69:
+  label: '69 NYC school tax credit (fixed amount) ('
+IT201_LINE_69A:
+  label: 'NYC school tax credit (rate reduction amount)'
+IT201_LINE_70:
+  label: '70 NYC earned income credit'
+IT201_LINE_72:
+  label: '72 Total New York State tax withheld'
+IT201_LINE_73:
+  label: '73 Total New York City tax withheld'
+IT201_LINE_76:
+  label: '76 Total payments (add lines 63 through 75)'
+IT201_LINE_77:
+  label: '77 Amount overpaid (if line 76 is more than line 62, subtract line 62 from line 76) .'
+IT201_LINE_78:
+  label: '78 Amount of line 77 available for refund (subtract line 79 from line 77)'
+IT201_LINE_78B:
+  label: '78b Total refund after NYS 529 account deposit (subtract line 78a from line 78)'
+IT201_LINE_80:
+  label: '80 Amount you owe (if line 76 is less than line 62, subtract line 76 from line 62)'
 IT213_LINE_3:
   label: 'Is your NY recomputed federal adjusted gross income on Form IT-201, line 19a (see instructions)'
 IT213_LINE_4:
@@ -332,25 +356,3 @@ IT214_LINE_32:
   label: '32 Credit limit'
 IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
-IT201_LINE_67:
-  label: '67 Real property tax credit'
-IT201_LINE_69:
-  label: '69 NYC school tax credit (fixed amount) ('
-IT201_LINE_69A:
-  label: 'NYC school tax credit (rate reduction amount)'
-IT201_LINE_70:
-  label: '70 NYC earned income credit'
-IT201_LINE_72:
-  label: '72 Total New York State tax withheld'
-IT201_LINE_73:
-  label: '73 Total New York City tax withheld'
-IT201_LINE_76:
-  label: '76 Total payments (add lines 63 through 75)'
-IT201_LINE_77:
-  label: '77 Amount overpaid (if line 76 is more than line 62, subtract line 62 from line 76) .'
-IT201_LINE_78:
-  label: '78 Amount of line 77 available for refund (subtract line 79 from line 77)'
-IT201_LINE_78B:
-  label: '78b Total refund after NYS 529 account deposit (subtract line 78a from line 78)'
-IT201_LINE_80:
-  label: '80 Amount you owe (if line 76 is less than line 62, subtract line 76 from line 62)'

@@ -57,5 +57,12 @@ FactoryBot.define do
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
+
+    factory :state_file_az_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
   end
 end

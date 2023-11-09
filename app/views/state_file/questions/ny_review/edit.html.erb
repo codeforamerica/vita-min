@@ -1,0 +1,53 @@
+<% content_for :page_title, t(".title1") %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
+
+  <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
+      <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount) %></p>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".nyc_full_year_resident") %></p>
+      <p><%=current_intake.nyc_full_year_resident_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::Ny201Controller.to_path_helper(us_state: "ny"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".residence_county") %></p>
+      <p><%=current_intake.residence_county %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(us_state: "ny"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".school_district") %></p>
+      <p><%=current_intake.school_district %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NySchoolDistrictController.to_path_helper(us_state: "ny"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %>&nbsp;<%=number_to_currency(current_intake.sales_use_tax) %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NySalesUseTaxController.to_path_helper(us_state: "ny"), class: "button button--small" %>
+    </div>
+  </div>
+
+  <div class="spacing-below-10">
+    <p class="text--small">
+      <%=t(".download_pdf") %>
+    </p>
+  </div>
+
+  <%= link_to next_path, class: "button button--primary button--wide spacing-above-35 spacing-below-15" do %>
+    <%= t("general.continue") %>
+  <% end %>
+<% end %>

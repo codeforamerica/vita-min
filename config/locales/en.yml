@@ -1904,6 +1904,16 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      ny_review:
+        edit:
+          download_pdf: You can download a PDF of your full state tax return after you submit.
+          nyc_full_year_resident: New York City full-year resident
+          out_of_state_purchases: Out of state purchases/Use Tax Applied
+          residence_county: County
+          school_district: School District
+          title1: You're done! Let's review before you submit your state tax return.
+          your_refund: Your estimated refund
+          your_tax_owed: Your estimated tax owed
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
