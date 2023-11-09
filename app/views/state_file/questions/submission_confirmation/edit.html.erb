@@ -1,0 +1,31 @@
+<% content_for :page_title, "The page with the submit button" %>
+
+<% content_for :card do %>
+  <%= image_tag("icons/check.svg", alt: "") %>
+
+  <h1 class="h2">
+    <%= t('.title', state_name: current_intake.state_name) %>
+  </h1>
+
+  <p>
+    <%= t(".email_text_update") %>
+  </p>
+
+  <p>
+    <%= t(".help_friend_or_family") %>
+    <%= link_to 'Share the IRS DirectFile link', "https://www.google.com" %>
+  </p>
+
+  <p>
+    <%= link_to t(".register_to_vote"), "https://www.google.com" %>
+  </p>
+
+  <p>
+    <%= link_to t(".apply_to_state_benefits", state_name: current_intake.state_name), "https://www.google.com" %>
+  </p>
+
+  <p>
+  <%= link_to "Show XML", StateFile::Questions::ConfirmationController.to_path_helper(us_state: params[:us_state], action: :show_xml), class: 'dev-button' %>
+    <%= link_to "Explain Calculations", StateFile::Questions::ConfirmationController.to_path_helper(us_state: params[:us_state], action: :explain_calculations), class: 'dev-button' %>
+  </p>
+<% end %>
