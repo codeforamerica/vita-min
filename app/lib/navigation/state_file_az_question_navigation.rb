@@ -22,7 +22,6 @@ module Navigation
       StateFile::Questions::AzReviewController,
       StateFile::Questions::SubmitReturnController,
       StateFile::Questions::SubmissionConfirmationController,
-      StateFile::Questions::ConfirmationController
     ].freeze
 
     def self.intake_class
