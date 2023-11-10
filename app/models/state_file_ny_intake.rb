@@ -12,6 +12,8 @@
 #  contact_preference               :integer          default("unfilled"), not null
 #  current_step                     :string
 #  date_electronic_withdrawal       :date
+#  eligibility_lived_in_state       :integer          default("unfilled"), not null
+#  eligibility_yonkers              :integer          default("unfilled"), not null
 #  email_address                    :citext
 #  email_address_verified_at        :datetime
 #  household_cash_assistance        :integer
@@ -83,6 +85,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_yonkers: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_yonkers
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")

@@ -1,4 +1,17 @@
 module StateFileIntakeHelper
+  def step_through_eligibility_screener(us_state:)
+    expect(page).to have_text "First, let's see if you can use this tool to file your taxes"
+    case us_state
+    when "ny"
+      choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
+      choose "state_file_ny_eligibility_residence_form_eligibility_yonkers_no"
+    when "az"
+      choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
+      choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
+    end
+    click_on "Continue"
+  end
+
   def step_through_initial_authentication(contact_preference: :text_message)
     expect(page).to have_text "Next, set up your account with a quick code"
 

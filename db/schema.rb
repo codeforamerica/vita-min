@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_09_001024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1584,6 +1584,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_married_filing_separately", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "has_prior_last_names", default: 0, null: false
@@ -1637,6 +1639,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_164646) do
     t.datetime "created_at", null: false
     t.string "current_step"
     t.date "date_electronic_withdrawal"
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_yonkers", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "household_cash_assistance"

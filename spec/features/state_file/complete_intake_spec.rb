@@ -16,6 +16,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "File your New York state taxes for free"
       click_on "Get Started", id: "firstCta"
 
+      step_through_eligibility_screener(us_state: "ny")
+
       step_through_initial_authentication(contact_preference: :text_message)
 
       step_through_df_data_transfer
@@ -126,6 +128,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "File your Arizona state taxes for free"
       click_on "Get Started", id: "firstCta"
+
+      step_through_eligibility_screener(us_state: "az")
 
       step_through_initial_authentication(contact_preference: :email)
 

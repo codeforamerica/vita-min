@@ -1,0 +1,8 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
+<% end %>
