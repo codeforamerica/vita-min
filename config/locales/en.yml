@@ -1878,6 +1878,16 @@ en:
           income_and_deductions_title: Most income and deductions
           state_tax_withheld_title: "%{name} state tax withheld"
           title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
+      eligibility_offboarding:
+        edit:
+          body_html: |
+            You are not qualified because you %{ineligible_reason}. This means you can't use this tool this year. (Is this a mistake? <a href=%{prev_link}>Go back to correct.</a>)
+            <br/><br/>
+            <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
+          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
+          not_full_year_resident: were not a full-year resident of your state
+          yonkers: lived or earned income in Yonkers
+          married_filing_separately: are filing as married filing separately
       eligibility_residence:
         edit:
           filing_status_married_filing_separately: Are you filing as “married filing separately”?

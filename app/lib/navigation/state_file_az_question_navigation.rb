@@ -5,6 +5,7 @@ module Navigation
     FLOW = [
       StateFile::Questions::LandingPageController,
       StateFile::Questions::EligibilityResidenceController, # creates state_intake (StartIntakeConcern)
+      StateFile::Questions::EligibilityOffboardingController,
       StateFile::Questions::ContactPreferenceController,
       StateFile::Questions::PhoneNumberController,
       StateFile::Questions::EmailAddressController,
