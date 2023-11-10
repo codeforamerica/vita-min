@@ -3,6 +3,9 @@ class StateFileBaseIntake < ApplicationRecord
 
   enum claimed_as_dep: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claimed_as_dep
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+
   has_one_attached :submission_pdf
 
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
