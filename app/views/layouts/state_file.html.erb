@@ -3,6 +3,9 @@
   <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
   <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
   <% content_for :head_links do %>
+
+    <%= stylesheet_link_tag '@uswds/uswds/dist/css/uswds.css', media: 'all' %>
+    <%= javascript_include_tag '@uswds/uswds/dist/js/uswds.js', media: 'all' %>
     <link href='https://fonts.googleapis.com/css?family=Public Sans' rel='stylesheet' />
   <% end %>
   <% content_for :head_js do %>
