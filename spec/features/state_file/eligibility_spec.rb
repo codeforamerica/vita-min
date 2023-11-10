@@ -20,7 +20,7 @@ RSpec.feature "Going through the eligibility screener" do
       choose "state_file_ny_eligibility_residence_form_eligibility_yonkers_no"
       click_on "Continue"
 
-      expect(page).to have_text "Unfortunately, you can’t use this tool this year. Don’t worry, there are other filing options."
+      expect(page).to have_text "Unfortunately, you can't use this tool this year. Don't worry, there are other filing options."
     end
 
     it "AZ: shows them the offboarding page if they don't meet the residency requirement" do
@@ -35,7 +35,7 @@ RSpec.feature "Going through the eligibility screener" do
       choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
       click_on "Continue"
 
-      expect(page).to have_text "Unfortunately, you can’t use this tool this year. Don’t worry, there are other filing options."
+      expect(page).to have_text "Unfortunately, you can't use this tool this year. Don't worry, there are other filing options."
     end
   end
 end
