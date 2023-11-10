@@ -13,12 +13,7 @@ module StateFile
       end
 
       def form_name
-        case params[:us_state]
-        when 'az'
-          "state_file_az_eligibility_residence_form"
-        when 'ny'
-          "state_file_ny_eligibility_residence_form"
-        end
+        form_class.to_s.underscore.gsub("/", "_")
       end
     end
   end
