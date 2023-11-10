@@ -12,8 +12,8 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
       }
 
       context "they are eligible" do
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
+        it "returns false" do
+          expect(described_class.show?(intake)).to eq false
         end
       end
 
@@ -21,16 +21,16 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
         context "eligibility_lived_in_state is no" do
           let(:eligibility_lived_in_state) { "no" }
 
-          it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+          it "returns true" do
+            expect(described_class.show?(intake)).to eq true
           end
         end
 
         context "eligibility_yonkers is yes" do
           let(:eligibility_yonkers) { "yes" }
 
-          it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+          it "returns true" do
+            expect(described_class.show?(intake)).to eq true
           end
         end
       end
@@ -46,8 +46,8 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
       }
 
       context "they are eligible" do
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
+        it "returns false" do
+          expect(described_class.show?(intake)).to eq false
         end
       end
 
@@ -55,16 +55,16 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
         context "eligibility_lived_in_state is no" do
           let(:eligibility_lived_in_state) { "no" }
 
-          it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+          it "returns true" do
+            expect(described_class.show?(intake)).to eq true
           end
         end
 
         context "eligibility_married_filing_separately is yes" do
           let(:eligibility_married_filing_separately) { "yes" }
 
-          it "returns false" do
-            expect(described_class.show?(intake)).to eq false
+          it "returns true" do
+            expect(described_class.show?(intake)).to eq true
           end
         end
       end
