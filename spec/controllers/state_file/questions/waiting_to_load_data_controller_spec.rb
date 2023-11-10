@@ -23,7 +23,7 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
 
       it 'queues a job to import the data' do
         expect do
-          get :edit, params: { authorization_code: 'abcde', us_state: :ny }
+          get :edit, params: { authorizationCode: 'abcde', us_state: :ny }
         end.to have_enqueued_job(StateFile::ImportFromDirectFileJob).with(token: 'abcde', intake: intake)
       end
     end
