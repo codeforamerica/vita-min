@@ -45,7 +45,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <% if content_for :main_stylesheet %>
+      <%= yield :main_stylesheet %>
+    <% else %>
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+    <% end %>
 
     <%= render 'shared/favicon' %>
     <%= render 'shared/mixpanel_configuration' %>

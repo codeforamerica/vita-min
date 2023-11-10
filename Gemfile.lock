@@ -262,6 +262,7 @@ GEM
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, <= 4.0.0)
       sanitize (< 7)
+    foreman (0.87.2)
     formatador (1.1.0)
     git-pair (0.1.0)
     globalid (1.2.1)
@@ -748,6 +749,7 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
+  foreman
   git-pair
   guard-rspec
   http_accept_language

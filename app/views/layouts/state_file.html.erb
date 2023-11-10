@@ -2,8 +2,8 @@
   <% content_for :app_name do %>State File<% end %>
   <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
   <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
-  <% content_for :head_links do %>
-
+  <% content_for :main_stylesheet do %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag '@uswds/uswds/dist/css/uswds.css', media: 'all' %>
     <%= javascript_include_tag '@uswds/uswds/dist/js/uswds.js', media: 'all' %>
     <link href='https://fonts.googleapis.com/css?family=Public Sans' rel='stylesheet' />

@@ -18,6 +18,8 @@
                                   end_year: Time.now.year - 100,
                                 }) %>
         </div>
+
+        <%= render "shared/usa_memorable_date" %>
       <% end %>
     </div>
     <% if f.object.filing_status_mfj? %>
