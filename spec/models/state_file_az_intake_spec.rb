@@ -59,4 +59,58 @@ describe StateFileAzIntake do
       end
     end
   end
+
+  describe "#disqualifying_eligibility_answer" do
+    it "returns nil when they haven't answered any questions yet" do
+      intake = build(:state_file_az_intake)
+      expect(intake.disqualifying_eligibility_answer).to be_nil
+    end
+
+    it "returns :eligibility_lived_in_state when they haven't been a resident the whole year" do
+      intake = build(:state_file_az_intake, eligibility_lived_in_state: "no")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_lived_in_state
+    end
+
+    it "returns :eligibility_married_filing_separately when they are married filing separately" do
+      intake = build(:state_file_az_intake, eligibility_married_filing_separately: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_married_filing_separately
+    end
+
+    it "returns :eligibility_out_of_state_income when they earned income in another state" do
+      intake = build(:state_file_az_intake, eligibility_out_of_state_income: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_out_of_state_income
+    end
+
+    it "returns :eligibility_529_for_non_qual_expense when they used a 529 withdrawal for a non qualifying expense" do
+      intake = build(:state_file_az_intake, eligibility_529_for_non_qual_expense: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_529_for_non_qual_expense
+    end
+  end
+
+  describe "#has_disqualifying_eligibility_answer?" do
+    it "returns false when they haven't answered any questions yet" do
+      intake = build(:state_file_az_intake)
+      expect(intake.has_disqualifying_eligibility_answer?).to eq false
+    end
+
+    it "returns true when they haven't been a resident the whole year" do
+      intake = build(:state_file_az_intake, eligibility_lived_in_state: "no")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they are married filing separately" do
+      intake = build(:state_file_az_intake, eligibility_married_filing_separately: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they earned income in another state" do
+      intake = build(:state_file_az_intake, eligibility_out_of_state_income: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they used a 529 withdrawal for a non qualifying expense" do
+      intake = build(:state_file_az_intake, eligibility_529_for_non_qual_expense: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+  end
 end

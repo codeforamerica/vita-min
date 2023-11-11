@@ -1,15 +1,14 @@
 module StateFile
   module Questions
-    class EligibilityResidenceController < QuestionsController
-      include StartIntakeConcern
+    class EligibilityOutOfStateIncomeController < QuestionsController
       include EligibilityOffboardingConcern
 
       def form_class
         case params[:us_state]
         when 'az'
-          StateFile::AzEligibilityResidenceForm
+          StateFile::AzEligibilityOutOfStateIncomeForm
         when 'ny'
-          StateFile::NyEligibilityResidenceForm
+          StateFile::NyEligibilityOutOfStateIncomeForm
         end
       end
 

@@ -163,4 +163,58 @@ describe StateFileNyIntake do
       end
     end
   end
+
+  describe "#disqualifying_eligibility_answer" do
+    it "returns nil when they haven't answered any questions yet" do
+      intake = build(:state_file_ny_intake)
+      expect(intake.disqualifying_eligibility_answer).to be_nil
+    end
+
+    it "returns :eligibility_lived_in_state when they haven't been a resident the whole year" do
+      intake = build(:state_file_ny_intake, eligibility_lived_in_state: "no")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_lived_in_state
+    end
+
+    it "returns :eligibility_yonkers when they lived or worked in yonkers" do
+      intake = build(:state_file_ny_intake, eligibility_yonkers: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_yonkers
+    end
+
+    it "returns :eligibility_out_of_state_income when they earned income in another state" do
+      intake = build(:state_file_ny_intake, eligibility_out_of_state_income: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_out_of_state_income
+    end
+
+    it "returns :eligibility_part_year_nyc_resident when they were a part year nyc resident" do
+      intake = build(:state_file_ny_intake, eligibility_part_year_nyc_resident: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_part_year_nyc_resident
+    end
+  end
+
+  describe "#has_disqualifying_eligibility_answer?" do
+    it "returns false when they haven't answered any questions yet" do
+      intake = build(:state_file_ny_intake)
+      expect(intake.has_disqualifying_eligibility_answer?).to eq false
+    end
+
+    it "returns true when they haven't been a resident the whole year" do
+      intake = build(:state_file_ny_intake, eligibility_lived_in_state: "no")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they lived or worked in yonkers" do
+      intake = build(:state_file_ny_intake, eligibility_yonkers: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they earned income in another state" do
+      intake = build(:state_file_ny_intake, eligibility_out_of_state_income: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they were a part year nyc resident" do
+      intake = build(:state_file_ny_intake, eligibility_part_year_nyc_resident: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+  end
 end

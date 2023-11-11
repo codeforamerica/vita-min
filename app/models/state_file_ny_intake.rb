@@ -158,4 +158,13 @@ class StateFileNyIntake < StateFileBaseIntake
   def ask_spouse_dob?
     filing_status_mfj?
   end
+
+  def disqualifying_eligibility_answers
+    {
+      eligibility_lived_in_state: "no",
+      eligibility_yonkers: "yes",
+      eligibility_out_of_state_income: "yes",
+      eligibility_part_year_nyc_resident: "yes",
+    }
+  end
 end

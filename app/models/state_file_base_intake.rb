@@ -75,4 +75,16 @@ class StateFileBaseIntake < ApplicationRecord
       [@first_name, @middle_initial, @last_name].map(&:presence).compact.join(' ')
     end
   end
+
+  def disqualifying_eligibility_answer
+    disqualifying_eligibility_answers.each do |col, value|
+      return col if self.public_send(col) == value
+    end
+
+    nil
+  end
+
+  def has_disqualifying_eligibility_answer?
+    disqualifying_eligibility_answer.present?
+  end
 end
