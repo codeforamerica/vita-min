@@ -1906,6 +1906,14 @@ en:
           lived_or_income_in_yonkers: Did you live or earn income in Yonkers at any time in 2023?
           subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      eligible:
+        edit:
+          empire_state_ctc: Empire State Child Tax Credit
+          not_supported: What credits does this tool not support this year?
+          nys_eic: NYS Earned Income Credit
+          nys_hh_credit: NYS Household Credit
+          real_property_credit: Real Property Tax Credit
+          title: Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.
       email_address:
         edit:
           action: Send code

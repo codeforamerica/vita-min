@@ -22,6 +22,9 @@ module StateFileIntakeHelper
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
     end
     click_on "Continue"
+
+    expect(page).to have_text("Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.")
+    click_on "Continue"
   end
 
   def step_through_initial_authentication(contact_preference: :text_message)
