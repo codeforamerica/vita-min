@@ -159,7 +159,7 @@ class StateFileNyIntake < StateFileBaseIntake
     filing_status_mfj?
   end
 
-  def disqualifying_eligibility_answers
+  def disqualifying_eligibility_rules
     {
       eligibility_lived_in_state: "no",
       eligibility_yonkers: "yes",

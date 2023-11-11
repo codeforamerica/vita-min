@@ -77,7 +77,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def disqualifying_eligibility_answer
-    disqualifying_eligibility_answers.each do |col, value|
+    disqualifying_eligibility_rules.each do |col, value|
       return col if self.public_send(col) == value
     end
 

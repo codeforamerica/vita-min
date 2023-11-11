@@ -99,8 +99,8 @@ class StateFileAzIntake < StateFileBaseIntake
   def ask_spouse_dob?
     false
   end
-  
-  def disqualifying_eligibility_answers
+
+  def disqualifying_eligibility_rules
     {
       eligibility_lived_in_state: "no",
       eligibility_married_filing_separately: "yes",
