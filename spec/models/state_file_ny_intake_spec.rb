@@ -189,6 +189,11 @@ describe StateFileNyIntake do
       intake = build(:state_file_ny_intake, eligibility_part_year_nyc_resident: "yes")
       expect(intake.disqualifying_eligibility_answer).to eq :eligibility_part_year_nyc_resident
     end
+
+    it "returns :eligibility_withdrew_529 when they withdrew from a 529 account" do
+      intake = build(:state_file_ny_intake, eligibility_withdrew_529: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :eligibility_withdrew_529
+    end
   end
 
   describe "#has_disqualifying_eligibility_answer?" do
@@ -214,6 +219,11 @@ describe StateFileNyIntake do
 
     it "returns true when they were a part year nyc resident" do
       intake = build(:state_file_ny_intake, eligibility_part_year_nyc_resident: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they withdrew from a 529 account" do
+      intake = build(:state_file_ny_intake, eligibility_withdrew_529: "yes")
       expect(intake.has_disqualifying_eligibility_answer?).to eq true
     end
   end

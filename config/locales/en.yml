@@ -1890,13 +1890,14 @@ en:
             eligibility_married_filing_separately: are filing as married filing separately
             eligibility_out_of_state_income: earned income in another state
             eligibility_part_year_nyc_resident: moved in or out of NYC
+            eligibility_withdrew_529: withdrew money from a 529 college savings account
             eligibility_yonkers: lived or earned income in Yonkers
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
       eligibility_out_of_state_income:
         edit:
-          out_of_state_income: 'Did you earn any income in             another state in 2023?'
-          part_year_nyc_resident: 'Were you a part-year New York City resident in 2023? (Moved in or out             of NYC during 2023. This includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.)'
-          title: 'First, let''s see if you can use             this tool to file your taxes'
+          out_of_state_income: Did you earn any income in another state in 2023?
+          part_year_nyc_resident: Were you a part-year New York City resident in 2023? (Moved in or out of NYC during 2023. This includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.)
+          title: First, let's see if you can use this tool to file your taxes
           used_529_for_non_qual_expense: Did you withdraw money from a 529 college savings account and use it for non-qualifying expenses in 2023?
       eligibility_residence:
         edit:
@@ -1931,6 +1932,10 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      ny_eligibility_college_savings_withdrawal:
+        edit:
+          title: First, let's see if you can use this tool to file your taxes
+          withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
       ny_review:
         edit:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -1994,7 +1999,7 @@ en:
           1099_label: 1099-G for %{name}
           add_another: Add another 1099-G form
           delete_confirmation: Are you sure you want to delete this 1099-G?
-          lets_review: 'Great! Thanks for providing             that information. Let’s review.'
+          lets_review: Great! Thanks for providing that information. Let’s review.
           unemployment_compensation: 'Unemployment compensation: %{amount}'
       verification_code:
         edit:

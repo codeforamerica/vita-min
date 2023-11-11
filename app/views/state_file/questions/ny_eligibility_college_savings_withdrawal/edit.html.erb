@@ -1,0 +1,18 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_radio_set(
+          :eligibility_withdrew_529,
+          label_text: t(".withdraw_529"),
+          collection: [
+            { value: "yes", label: t("general.affirmative") },
+            { value: "no", label: t("general.negative") },
+          ]
+        ) %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
