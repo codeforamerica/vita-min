@@ -5,9 +5,17 @@ module StateFileIntakeHelper
     when "ny"
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_ny_eligibility_residence_form_eligibility_yonkers_no"
+      click_on "Continue"
+
+      choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
+      choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
     when "az"
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
+      click_on "Continue"
+
+      choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
+      choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
     end
     click_on "Continue"
   end

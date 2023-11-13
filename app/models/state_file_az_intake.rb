@@ -14,8 +14,10 @@
 #  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
+#  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null
+#  eligibility_out_of_state_income       :integer          default("unfilled"), not null
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
 #  has_prior_last_names                  :integer          default("unfilled"), not null
@@ -45,8 +47,8 @@ class StateFileAzIntake < StateFileBaseIntake
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
+  enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
 
   def state_name
     'Arizona'
@@ -96,5 +98,14 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def ask_spouse_dob?
     false
+  end
+
+  def disqualifying_eligibility_rules
+    {
+      eligibility_lived_in_state: "no",
+      eligibility_married_filing_separately: "yes",
+      eligibility_out_of_state_income: "yes",
+      eligibility_529_for_non_qual_expense: "yes",
+    }
   end
 end

@@ -1884,10 +1884,20 @@ en:
             You are not qualified because you %{ineligible_reason}. This means you can't use this tool this year. (Is this a mistake? <a href=%{prev_link}>Go back to correct.</a>)
             <br/><br/>
             <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
-          married_filing_separately: are filing as married filing separately
-          not_full_year_resident: were not a full-year resident of your state
+          ineligible_reason:
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense
+            eligibility_lived_in_state: were not a full-year resident of your state
+            eligibility_married_filing_separately: are filing as married filing separately
+            eligibility_out_of_state_income: earned income in another state
+            eligibility_part_year_nyc_resident: moved in or out of NYC
+            eligibility_yonkers: lived or earned income in Yonkers
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
-          yonkers: lived or earned income in Yonkers
+      eligibility_out_of_state_income:
+        edit:
+          out_of_state_income: 'Did you earn any income in             another state in 2023?'
+          part_year_nyc_resident: 'Were you a part-year New York City resident in 2023? (Moved in or out             of NYC during 2023. This includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.)'
+          title: 'First, let''s see if you can use             this tool to file your taxes'
+          used_529_for_non_qual_expense: Did you withdraw money from a 529 college savings account and use it for non-qualifying expenses in 2023?
       eligibility_residence:
         edit:
           filing_status_married_filing_separately: Are you filing as “married filing separately”?
