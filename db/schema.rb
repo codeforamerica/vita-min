@@ -1681,6 +1681,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_signature"
+    t.bigint "primary_state_id_id"
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
@@ -1698,9 +1699,23 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
+    t.bigint "spouse_state_id_id"
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
+    t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_ids", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "expiration_date"
+    t.string "first_three_doc_num"
+    t.string "id_number"
+    t.integer "id_type", default: 0, null: false
+    t.date "issue_date"
+    t.string "state"
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_routing_fractions", force: :cascade do |t|
