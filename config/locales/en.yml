@@ -1908,7 +1908,11 @@ en:
           title: First, let's see if you can use this tool to file your taxes
       eligible:
         edit:
+          dependent_credit: Dependent Credit
           empire_state_ctc: Empire State Child Tax Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
           not_supported: What credits does this tool not support this year?
           nys_eic: NYS Earned Income Credit
           nys_hh_credit: NYS Household Credit
