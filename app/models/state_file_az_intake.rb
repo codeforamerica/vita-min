@@ -20,6 +20,8 @@
 #  eligibility_out_of_state_income       :integer          default("unfilled"), not null
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
+#  esigned_return                        :integer          default("unfilled"), not null
+#  esigned_return_at                     :datetime
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime

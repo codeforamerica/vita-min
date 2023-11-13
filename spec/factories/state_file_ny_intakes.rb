@@ -19,6 +19,8 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  esigned_return                     :integer          default("unfilled"), not null
+#  esigned_return_at                  :datetime
 #  household_cash_assistance          :integer
 #  household_fed_agi                  :integer
 #  household_ny_additions             :integer
