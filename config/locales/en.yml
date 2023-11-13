@@ -1919,7 +1919,7 @@ en:
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
-          dependent_name_dob: Dependent %{number} name and date of birth
+          dependent_name_dob: Your %{number} dependent's name and date of birth
           primary_name: Your name
           spouse_dob: Your spouse's date of birth
           spouse_name: Your spouse’s name
