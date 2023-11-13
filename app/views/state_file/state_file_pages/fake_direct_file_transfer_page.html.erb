@@ -15,7 +15,7 @@
 
   <%
     state_file_link = URI(params[:redirect])
-    state_file_link.query = { authorization_code: 'abcdefg' }.to_query
+    state_file_link.query = { authorizationCode: 'abcdefg' }.to_query
   %>
   <%=
     link_to(
