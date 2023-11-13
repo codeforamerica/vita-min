@@ -46,7 +46,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
       within "#dependent-0" do
-        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(page).to have_text "Your first dependent's name and date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
@@ -174,7 +174,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
 
       within "#dependent-0" do
-        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(page).to have_text "Your first dependent's name and date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
