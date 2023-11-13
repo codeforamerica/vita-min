@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe StateFile::EsignDeclarationForm do
-  let!(:intake) { create :state_file_az_intake, esigned_return: "unfilled", esigned_return_at: nil }
+  let!(:intake) { create :state_file_az_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled" }
   let(:params) do
-    { esigned_return: "yes" }
+    { primary_esigned: "yes" }
   end
 
   describe "#save" do
@@ -14,8 +14,8 @@ RSpec.describe StateFile::EsignDeclarationForm do
         form.save
 
         intake.reload
-        expect(intake.esigned_return).to eq "yes"
-        expect(intake.esigned_return_at).to be_present
+        expect(intake.primary_esigned).to eq "yes"
+        expect(intake.primary_esigned_at).to be_present
       end
 
       it "creates a submission" do
@@ -28,7 +28,20 @@ RSpec.describe StateFile::EsignDeclarationForm do
     end
 
     context "when has agreed to esign in new york" do
-      let!(:intake) { create :state_file_ny_intake, esigned_return: "unfilled", esigned_return_at: nil }
+      let!(:intake) {
+        create :state_file_ny_intake,
+               primary_esigned: "unfilled",
+               primary_esigned_at: nil,
+               spouse_esigned: "unfilled",
+               spouse_esigned_at: nil,
+               filing_status: :married_filing_jointly
+      }
+      let(:params) do
+        {
+          primary_esigned: "yes",
+          spouse_esigned: "yes"
+        }
+      end
 
       it "esigns the return" do
         form = described_class.new(intake, params)
@@ -36,11 +49,12 @@ RSpec.describe StateFile::EsignDeclarationForm do
         form.save
 
         intake.reload
-        expect(intake.esigned_return).to eq "yes"
-        expect(intake.esigned_return_at).to be_present
+        expect(intake.primary_esigned).to eq "yes"
+        expect(intake.primary_esigned_at).to be_present
+        expect(intake.spouse_esigned).to eq "yes"
+        expect(intake.spouse_esigned_at).to be_present
       end
     end
   end
 
 end
-# todo: make sure we esign in the XML

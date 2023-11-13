@@ -1,13 +1,17 @@
 module StateFile
   class EsignDeclarationForm < QuestionsForm
     set_attributes_for :intake,
-                       :esigned_return
+                       :primary_esigned,
+                       :spouse_esigned
 
-    validates :esigned_return, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validates :primary_esigned, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validates :spouse_esigned, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }, if: -> { @intake.filing_status_mfj? }
 
     def save
-      @intake.update(attributes_for(:intake))
-      @intake.touch(:esigned_return_at) if @intake.esigned_return_yes?
+      attrs = @intake.filing_status_mfj? ? attributes_for(:intake) : attributes_for(:intake).except(:spouse_esigned)
+      @intake.update!(attrs)
+      @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
+      @intake.touch(:spouse_esigned_at) if @intake.spouse_esigned_yes? && @intake.filing_status_mfj?
 
       # Submits return
       efile_submission = EfileSubmission.create!(
