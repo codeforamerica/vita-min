@@ -17,21 +17,23 @@
           )
         %>
       </div>
-      <div class="question-with-follow-up__follow-up question-with-follow-up highlight-box highlight-box--blue" id="sut-method-field">
-        <div class="question-with-follow-up__question">
-          <%=
-            f.cfa_radio_set(
-              :sales_use_tax_calculation_method,
-              label_text: t(".select_one"),
-              collection: [
-                { value: :automated, label: t(".use_tax_method_automated") },
-                { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "data-follow-up": "#sut-field" } },
-              ]
-            )
-          %>
-        </div>
-        <div class="question-with-follow-up__follow-up" id="sut-field">
-          <%= f.cfa_input_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
+      <div class="question-with-follow-up__follow-up" id="sut-method-field">
+        <div class="question-with-follow-up highlight-box highlight-box--blue">
+          <div class="question-with-follow-up__question">
+            <%=
+              f.cfa_radio_set(
+                :sales_use_tax_calculation_method,
+                label_text: t(".select_one"),
+                collection: [
+                  { value: :automated, label: t(".use_tax_method_automated") },
+                  { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "data-follow-up": "#sut-field" } },
+                ]
+              )
+            %>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="sut-field">
+            <%= f.cfa_input_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
+          </div>
         </div>
       </div>
     </div>
