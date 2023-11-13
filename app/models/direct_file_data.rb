@@ -1,4 +1,26 @@
 class DirectFileData
+  SELECTORS = {
+    tax_return_year: 'ReturnHeader TaxYr',
+    filing_status: 'IRS1040 IndividualReturnFilingStatusCd',
+    primary_ssn: 'ReturnHeader Filer PrimarySSN',
+    primary_occupation: 'IRS1040 PrimaryOccupationTxt',
+    spouse_ssn: 'ReturnHeader Filer SpouseSSN',
+    spouse_occupation: 'IRS1040 SpouseOccupationTxt',
+    mailing_city: 'ReturnHeader Filer USAddress CityNm',
+    mailing_street: 'ReturnHeader Filer USAddress AddressLine1Txt',
+    mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
+    mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
+    fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
+    fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
+    fed_wages: 'IRS1040 WagesAmt',
+    fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
+    fed_taxable_income: 'IRS1040 TaxableInterestAmt',
+    fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
+    fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
+    fed_ssb: 'IRS1040 SocSecBnftAmt',
+    fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+  }.freeze
+
   def initialize(raw_xml)
     @raw_xml = raw_xml
   end
@@ -12,15 +34,15 @@ class DirectFileData
   end
 
   def tax_return_year
-    parsed_xml.at('TaxYr')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def filing_status
-    parsed_xml.at('IndividualReturnFilingStatusCd')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def filing_status=(value)
-    parsed_xml.at('IndividualReturnFilingStatusCd').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def phone_daytime
@@ -31,28 +53,24 @@ class DirectFileData
     # TODO
   end
 
-  # TODO: primary_first_name, primary_last_name and primary_middle_initial need to come over from DF 
-
   def primary_ssn
-    parsed_xml.at('Filer PrimarySSN')&.text
+    df_xml_value(__method__)
   end
 
   def primary_ssn=(value)
-    parsed_xml.at('Filer PrimarySSN').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def primary_occupation
-    parsed_xml.at('PrimaryOccupationTxt')&.text
+    df_xml_value(__method__)
   end
 
   def primary_occupation=(value)
-    parsed_xml.at('PrimaryOccupationTxt').content = value
+    write_df_xml_value(__method__, value)
   end
 
-  # TODO: spouse_first_name, spouse_last_name and spouse_middle_initial need to come over from DF
-
   def spouse_ssn
-    parsed_xml.at('Filer SpouseSSN')&.text
+    df_xml_value(__method__)
   end
 
   def spouse_ssn=(value)
@@ -66,7 +84,7 @@ class DirectFileData
   end
 
   def spouse_occupation
-    parsed_xml.at('SpouseOccupationTxt')&.text
+    df_xml_value(__method__)
   end
 
   def spouse_occupation=(value)
@@ -80,19 +98,19 @@ class DirectFileData
   end
 
   def mailing_city
-    parsed_xml.at('USAddress CityNm')&.text
+    df_xml_value(__method__)
   end
 
   def mailing_city=(value)
-    parsed_xml.at('USAddress CityNm').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def mailing_street
-    parsed_xml.at('USAddress AddressLine1Txt')&.text
+    df_xml_value(__method__)
   end
 
   def mailing_street=(value)
-    parsed_xml.at('USAddress AddressLine1Txt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def mailing_apartment
@@ -100,11 +118,11 @@ class DirectFileData
   end
 
   def mailing_state
-    parsed_xml.at('USAddress StateAbbreviationCd')&.text
+    df_xml_value(__method__)
   end
 
   def mailing_state=(value)
-    parsed_xml.at('USAddress StateAbbreviationCd').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def mailing_zip
@@ -112,63 +130,63 @@ class DirectFileData
   end
 
   def mailing_zip=(value)
-    parsed_xml.at('USAddress ZIPCd').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_tax
-    parsed_xml.at('TotalTaxBeforeCrAndOthTaxesAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_agi
-    parsed_xml.at('ReturnData AdjustedGrossIncomeAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_agi=(value)
-    parsed_xml.at('ReturnData AdjustedGrossIncomeAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_wages
-    parsed_xml.at('WagesAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_wages=(value)
-    parsed_xml.at('WagesAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_wages_salaries_tips
-    parsed_xml.at('WagesSalariesAndTipsAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_taxable_income
-    parsed_xml.at('TaxableInterestAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_taxable_income=(value)
-    parsed_xml.at('TaxableInterestAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_unemployment
-    parsed_xml.at('IRS1040Schedule1 UnemploymentCompAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_unemployment=(value)
-    parsed_xml.at('IRS1040Schedule1 UnemploymentCompAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_taxable_ssb
-    parsed_xml.at('TaxableSocSecAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_taxable_ssb=(value)
-    parsed_xml.at('TaxableSocSecAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_ssb
-    parsed_xml.at('SocSecBnftAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_ssb=(value)
-    parsed_xml.at('SocSecBnftAmt').content = value
+    write_df_xml_value(__method__, value)
   end
 
   def fed_non_taxable_ssb
@@ -188,11 +206,11 @@ class DirectFileData
   end
 
   def fed_eic_claimed
-    (parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i || 0).positive?
+    (fed_eic || 0).positive?
   end
 
   def fed_eic
-    parsed_xml.at('EarnedIncomeCreditAmt')&.text&.to_i
+    df_xml_value(__method__)&.to_i
   end
 
   def fed_eic_qc_claimed
@@ -318,5 +336,23 @@ class DirectFileData
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end
+  end
+
+  def can_override?(attribute)
+    return false if Rails.env.production?
+
+    respond_to?("#{attribute}=")
+  end
+
+  private
+
+  def df_xml_value(key)
+    parsed_xml.at(SELECTORS[key])&.text
+  end
+
+  def write_df_xml_value(key, value)
+    # Remove trailing equals sign from method e.g. :filing_status= -> :filing_status
+    selector = SELECTORS[key.to_s.sub(/=$/, '').to_sym]
+    parsed_xml.at(selector).content = value
   end
 end

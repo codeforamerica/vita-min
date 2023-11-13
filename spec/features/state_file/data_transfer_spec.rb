@@ -21,7 +21,6 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
 
     step_through_df_data_transfer
     click_on "Continue"
-
-    expect(page).to have_text "The page with all the info from the 1040"
+    expect(page).to have_select("state_file_federal_info_form[filing_status]", selected: "head of household")
   end
 end

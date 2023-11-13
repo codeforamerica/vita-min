@@ -11,7 +11,7 @@ module StateFile
       private
 
       def illustration_path
-        "wages.svg"
+        nil
       end
 
       def update_intake_with_sample_data

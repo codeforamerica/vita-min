@@ -23,11 +23,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
       click_on "Continue"
 
-      expect(page).to have_text "The page with all the info from the 1040"
+      expect(page).to have_text "Direct File Data Overrides"
 
       expect(page).to have_field("tax return year", with: "2023")
       click_on "Populate with sample data"
-      select "married filing jointly", from: "filing status"
+      select "married filing jointly", from: "state_file_federal_info_form[filing_status]"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
