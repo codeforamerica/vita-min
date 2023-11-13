@@ -1931,6 +1931,26 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      ny_primary_state_id:
+        edit:
+          title: Please provide information for your state issued ID
+        state_id:
+          id_details:
+            expiration_day: Expiration Day
+            expiration_month: Expiration Month
+            expiration_year: Expiration Year
+            first_three_doc_num: First three characters of the document number
+            issue_day: Issue Day
+            issue_month: Issue Month
+            issue_state: Issue State
+            issue_year: Issue Year
+            number: ID Number
+          id_type_question:
+            dmv: DMV/BMV State ID
+            drivers_license: Driver’s license
+            label: Your ID Type
+            no_id: No driver’s license or state ID
+          info_link: View where to find this information
       ny_review:
         edit:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -1953,6 +1973,9 @@ en:
         edit:
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
+      ny_spouse_state_id:
+        edit:
+          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       phone_number:
         edit:
           action: Send code

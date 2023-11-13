@@ -1,0 +1,7 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id' %>
+<% end %>

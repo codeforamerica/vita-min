@@ -72,7 +72,14 @@
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
+#  primary_state_id_id                :bigint
+#  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
+#
+# Indexes
+#
+#  index_state_file_ny_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 
 require "rails_helper"

@@ -72,9 +72,19 @@
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
+#  primary_state_id_id                :bigint
+#  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #
+# Indexes
+#
+#  index_state_file_ny_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
+#
 class StateFileNyIntake < StateFileBaseIntake
+  belongs_to :primary_state_id, class_name: "StateId", optional: true
+  belongs_to :spouse_state_id, class_name: "StateId", optional: true
+  accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
