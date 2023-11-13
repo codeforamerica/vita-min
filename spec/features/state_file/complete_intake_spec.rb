@@ -117,7 +117,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
       expect(page).to have_text("I have examined the information on my 2023 New York State electronic personal income tax return")
-      check "state_file_esign_declaration_form_esigned_return"
+      check "state_file_esign_declaration_form_primary_esigned"
+      check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text "Your 2023 New York state tax return is now submitted!"
@@ -228,7 +229,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
-      check "state_file_esign_declaration_form_esigned_return"
+      check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text "Your 2023 Arizona state tax return is now submitted!"
