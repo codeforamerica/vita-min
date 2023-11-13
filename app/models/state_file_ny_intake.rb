@@ -175,6 +175,7 @@ class StateFileNyIntake < StateFileBaseIntake
       eligibility_yonkers: "yes",
       eligibility_out_of_state_income: "yes",
       eligibility_part_year_nyc_resident: "yes",
+      eligibility_withdrew_529: "yes"
     }
   end
 end

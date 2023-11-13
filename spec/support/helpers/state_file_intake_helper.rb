@@ -9,6 +9,10 @@ module StateFileIntakeHelper
 
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
+      click_on "Continue"
+
+      expect(page).to have_text("Did you withdraw money from a 529 college savings account in 2023?")
+      choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
     when "az"
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
