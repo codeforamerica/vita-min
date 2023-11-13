@@ -1885,13 +1885,13 @@ en:
             <br/><br/>
             <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense
-            eligibility_lived_in_state: were not a full-year resident of your state
-            eligibility_married_filing_separately: are filing as married filing separately
-            eligibility_out_of_state_income: earned income in another state
-            eligibility_part_year_nyc_resident: moved in or out of NYC
-            eligibility_withdrew_529: withdrew money from a 529 college savings account
-            eligibility_yonkers: lived or earned income in Yonkers
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_lived_in_state: did not live in %{state} for all of 2023
+            eligibility_married_filing_separately: are filing “married filing separately”
+            eligibility_out_of_state_income: earned income in another state in 2023
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_yonkers: lived or earned income in Yonkers in 2023
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
       eligibility_out_of_state_income:
         edit:
@@ -1906,6 +1906,18 @@ en:
           lived_or_income_in_yonkers: Did you live or earn income in Yonkers at any time in 2023?
           subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      eligible:
+        edit:
+          dependent_credit: Dependent Credit
+          empire_state_ctc: Empire State Child Tax Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
+          not_supported: What credits does this tool not support this year?
+          nys_eic: NYS Earned Income Credit
+          nys_hh_credit: NYS Household Credit
+          real_property_credit: Real Property Tax Credit
+          title: Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.
       email_address:
         edit:
           action: Send code

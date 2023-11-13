@@ -7,6 +7,7 @@ module Navigation
       StateFile::Questions::EligibilityResidenceController, # creates state_intake (StartIntakeConcern)
       StateFile::Questions::EligibilityOutOfStateIncomeController,
       StateFile::Questions::EligibilityOffboardingController,
+      StateFile::Questions::EligibleController,
       StateFile::Questions::ContactPreferenceController,
       StateFile::Questions::PhoneNumberController,
       StateFile::Questions::EmailAddressController,

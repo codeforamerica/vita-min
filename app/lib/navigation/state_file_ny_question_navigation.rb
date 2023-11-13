@@ -8,6 +8,7 @@ module Navigation
       StateFile::Questions::EligibilityOutOfStateIncomeController,
       StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController,
       StateFile::Questions::EligibilityOffboardingController,
+      StateFile::Questions::EligibleController,
       StateFile::Questions::ContactPreferenceController,
       StateFile::Questions::PhoneNumberController,
       StateFile::Questions::EmailAddressController,

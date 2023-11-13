@@ -7,11 +7,14 @@ module StateFile
     private
 
     def offboarding_path
-      StateFile::Questions::EligibilityOffboardingController.to_path_helper(action: :edit, us_state: params[:us_state])
+      StateFile::Questions::EligibilityOffboardingController.to_path_helper(us_state: params[:us_state])
     end
 
     def next_path
-      return offboarding_path if current_intake.has_disqualifying_eligibility_answer?
+      if current_intake.has_disqualifying_eligibility_answer?
+        session[:offboarded_from] = self.class.to_path_helper(us_state: params[:us_state])
+        return offboarding_path
+      end
 
       super
     end
