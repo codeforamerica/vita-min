@@ -18,6 +18,16 @@ class IrsApiService
       state_prefix = ENV['IRS_STATE_ACCOUNT_ID'].start_with?('0') ? 'az' : 'ny'
       client_cert_path = File.join(certs_dir, "#{state_prefix}-cert.pem.txt")
       client_key_path = File.join(certs_dir, "#{state_prefix}-key.pem.txt")
+
+      unless File.exist?(client_cert_path) && File.exist?(client_key_path)
+        client_cert_base64_encoded = EnvironmentCredentials.dig('statefile', "#{state_prefix}_cert_base64")
+        File.write(client_cert_path, Base64.decode64(client_cert_base64_encoded), mode: "wb")
+
+        private_key_base64_encoded = EnvironmentCredentials.dig('statefile', "#{state_prefix}_private_key_base64")
+        File.write(client_key_path, Base64.decode64(private_key_base64_encoded), mode: "wb")
+      end
+
+
     else
       client_cert_path = File.join(certs_dir, 'client.crt')
       client_key_path = File.join(certs_dir, 'client.key')
@@ -43,21 +53,12 @@ class IrsApiService
     http = Net::HTTP.new(server_url.host, server_url.port)
     http.use_ssl = true
 
-    if server_url.host.include?('irs.gov')
+    if server_url.host.include?('irs.gov') || server_url.host.include?('localhost')
       # Just cert and key are required
       http.cert = client_cert
       http.key = client_key
     elsif server_url.host.include?('cloud.gov')
       # No mTLS on this endpoint
-    elsif server_url.host.include?('localhost')
-      # nginx config for fake API server currently expects a cert + key + CA
-      http.cert = client_cert
-      http.key = client_key
-
-      # In most cases, we can omit this as the signing CA cert is already in the system's trust store.
-      # However, since we are self-signing and it currently isn't in the trust store we need to provide it.
-      server_ca_cert_path = File.join(certs_dir, 'ca.crt')
-      http.ca_file = server_ca_cert_path
     end
 
     request = Net::HTTP::Get.new(server_url.request_uri)
