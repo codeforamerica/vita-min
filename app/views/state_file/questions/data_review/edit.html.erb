@@ -36,9 +36,13 @@
     <%= t(".complete_description") %>
     <%= image_tag("icons/check.svg", alt: "") %>
   </p>
-
-  <%= link_to next_path, class: "button button--primary" do %>
-    <%= t("general.continue") %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field(:device_type) %>
+    <%= f.hidden_field(:ip_address) %>
+    <%= f.hidden_field(:ip_port_num) %>
+    <%= f.hidden_field(:ipts) %>
+    <%= f.hidden_field(:device_id) %>
+    <%= f.continue %>
   <% end %>
 
   <% unless Rails.env.production? %>

@@ -53,6 +53,7 @@ module SubmissionBuilder
             end
             xml.TransmissionDetail do
               xml.InitialCreation do
+                # ip address, IPT, device-id, device-type-cd, ip-port-num
                 xml.IPAddress do
                   xml.IPv4AddressTxt '1.2.3.4'
                 end
