@@ -42,6 +42,9 @@
     <%= f.cfa_input_field :primary_signature, "primary signature" %>
     <%= f.cfa_input_field :spouse_signature, "spouse signature" %>
 
-    <%= f.submit(t("general.continue"), review: params[:review], class: "button button--primary button--wide") %>
+    <% unless params[:return_to_review].nil? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
   <% end %>
 <% end %>

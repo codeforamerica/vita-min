@@ -3,6 +3,8 @@ require 'csv'
 module StateFile
   module Questions
     class NyCountyController < QuestionsController
+      include ReturnToReviewConcern
+      
       def edit
         @counties = counties_from_csv
         super

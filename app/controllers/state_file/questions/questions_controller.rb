@@ -24,18 +24,14 @@ module StateFile
         end
       end
 
+      def next_step
+        form_navigation.next
+      end
+
       def next_path
-        next_step = form_navigation.next
-        unless params[:review].nil?
-          case params[:us_state]
-          when 'az'
-            next_step = StateFile::Questions::AzReviewController
-          when 'ny'
-            next_step = StateFile::Questions::NyReviewController
-          end
-        end
-        options = { us_state: params[:us_state], action: next_step.navigation_actions.first }
-        if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
+        step_for_next_path = next_step
+        options = { us_state: params[:us_state], action: step_for_next_path.navigation_actions.first }
+        if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
         next_step.to_path_helper(options)

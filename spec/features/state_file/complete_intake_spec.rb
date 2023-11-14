@@ -112,9 +112,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
+      # From the review page, the user can go back to certain screens to edit and then should return directly to the
+      # review page. This is well-covered by unit tests, but let's test just one of those screens here
       expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
-      # From the review page, the user can go back to certain pages to edit and then should return directly to the review page
-      step_through_ny_review_screens
+      within "#county" do
+        click_on I18n.t("general.edit")
+      end
+      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      click_on I18n.t("general.continue")
+      expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+
+
       click_on I18n.t("general.continue")
 
       click_on "Submit My Fake Taxes"
@@ -222,10 +230,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
       click_on I18n.t("general.continue")
 
+      # From the review page, the user can go back to certain screens to edit and then should return directly to the
+      # review page. This is well-covered by unit tests, but let's test just one of those screens here
       expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
-
-      # From the review page, the user can go back to certain pages to edit and then should return directly to the review page
-      step_through_az_review_screens
+      within "#prior-last-names" do
+        click_on I18n.t("general.edit")
+      end
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
+      click_on I18n.t("general.continue")
+      expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
       click_on I18n.t("general.continue")
 
       click_on "Submit My Fake Taxes"
