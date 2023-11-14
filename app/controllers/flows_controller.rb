@@ -9,6 +9,8 @@ class FlowsController < ApplicationController
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
+    state_file_az: [:head_of_household],
+    state_file_ny: [:head_of_household],
   }.freeze
 
   def index
@@ -27,10 +29,18 @@ class FlowsController < ApplicationController
       intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params, ip_address: ip_for_irs)
     elsif type == :gyr
       intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+    elsif type == :state_file_az
+      intake = SampleStateFileIntakeGenerator.new('az').generate_state_file_intake(params)
+    elsif type == :state_file_ny
+      intake = SampleStateFileIntakeGenerator.new('ny').generate_state_file_intake(params)
     end
 
     if intake
-      sign_in(intake.client)
+      if intake.respond_to?(:client)
+        sign_in(intake.client)
+      elsif [:state_file_az, :state_file_ny].include?(type)
+        session[:state_file_intake] = intake.to_global_id
+      end
     else
       flash[:alert] = "Unable to create intake, maybe your name or email or phone number was bad?"
     end
@@ -61,6 +71,14 @@ class FlowsController < ApplicationController
     respond_to do |format|
       format.html { render layout: 'flow_explorer' }
       format.js
+    end
+  end
+
+  def current_intake
+    if %w[state_file_az state_file_ny].include?(params[:type])
+      GlobalID.find(session[:state_file_intake])
+    else
+      super
     end
   end
 
@@ -104,14 +122,14 @@ class FlowsController < ApplicationController
           controller: controller,
           reference_object: controller.current_intake&.is_a?(StateFileAzIntake) ? controller.current_intake : nil,
           controller_list: Navigation::StateFileAzQuestionNavigation::FLOW,
-          form: nil
+          form: SampleStateFileIntakeGenerator.new('az').form
         )
       when :state_file_ny
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(StateFileNyIntake) ? controller.current_intake : nil,
           controller_list: Navigation::StateFileNyQuestionNavigation::FLOW,
-          form: nil
+          form: SampleStateFileIntakeGenerator.new('ny').form
         )
       end
     end
@@ -532,6 +550,116 @@ class FlowsController < ApplicationController
       end
 
       client.intake
+    end
+  end
+
+  class SampleStateFileIntakeGenerator
+    def initialize(us_state)
+      @us_state = us_state
+    end
+
+    def form
+      SampleIntakeForm.new(
+        first_name: 'Testuser',
+        last_name: 'Testuser',
+        sms_phone_number: nil,
+        email_address: "testuser+#{Time.now.to_i.to_s(36)}@example.com",
+      )
+    end
+
+    def self.common_attributes
+      {
+        created_at: 1.minute.ago,
+        updated_at: 1.minute.ago,
+        visitor_id: SecureRandom.hex(26),
+        referrer: "None",
+      }
+    end
+
+    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
+      common_attributes.merge(
+        account_type: "personal_checking",
+        amount_owed_pay_electronically: "unfilled",
+        claimed_as_dep: "no",
+        confirmed_permanent_address: "no",
+        contact_preference: "text",
+        current_step: "/en/questions/confirmation",
+        eligibility_lived_in_state: "yes",
+        eligibility_out_of_state_income: "no",
+        eligibility_part_year_nyc_resident: "no",
+        eligibility_withdrew_529: "no",
+        eligibility_yonkers: "no",
+        household_rent_own: "unfilled",
+        nursing_home: "unfilled",
+        nyc_full_year_resident: "no",
+        occupied_residence: "unfilled",
+        permanent_apartment: "B",
+        permanent_city: "New York",
+        permanent_street: "321 Peanut Way",
+        permanent_zip: "11102",
+        phone_number: "+14153334444",
+        phone_number_verified_at: 1.minute.ago,
+        primary_birth_date: Date.parse('1978-06-21'),
+        primary_first_name: first_name,
+        primary_last_name: last_name,
+        property_over_limit: "unfilled",
+        public_housing: "unfilled",
+        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
+        refund_choice: "paper",
+        residence_county: "Nassau",
+        sales_use_tax_calculation_method: "unfilled",
+        school_district: "Bellmore-Merrick CHS",
+        school_district_number: 46,
+        spouse_birth_date: Date.parse('1979-06-22'),
+        spouse_first_name: "Taliesen",
+        spouse_last_name: "Testerson",
+        spouse_state_id_id: 2,
+        untaxed_out_of_state_purchases: "no",
+      )
+    end
+
+    def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser')
+      common_attributes.merge(
+        armed_forces_member: "yes",
+        armed_forces_wages: 100,
+        charitable_cash: 123,
+        charitable_contributions: "yes",
+        charitable_noncash: 123,
+        claimed_as_dep: "no",
+        contact_preference: "email",
+        current_step: "/en/questions/confirmation",
+        eligibility_529_for_non_qual_expense: "no",
+        eligibility_lived_in_state: "yes",
+        eligibility_married_filing_separately: "no",
+        eligibility_out_of_state_income: "no",
+        email_address: "someone@example.com",
+        email_address_verified_at: 1.minute.ago,
+        has_prior_last_names: "yes",
+        primary_first_name: first_name,
+        primary_last_name: last_name,
+        prior_last_names: "Jordan, Pippen, Rodman",
+        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
+        tribal_member: "yes",
+        tribal_wages: 100,
+      )
+    end
+
+    def generate_state_file_intake(params)
+      _type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
+      first_name = params[:flows_controller_sample_intake_form][:first_name]
+      last_name = params[:flows_controller_sample_intake_form][:last_name]
+
+      if @us_state == 'ny'
+        StateFileNyIntake.create(self.class.ny_attributes(
+          first_name: first_name,
+          last_name: last_name
+        ))
+      elsif @us_state == 'az'
+        StateFileAzIntake.create(self.class.az_attributes(
+          first_name: first_name,
+          last_name: last_name
+        ))
+      end
     end
   end
 end

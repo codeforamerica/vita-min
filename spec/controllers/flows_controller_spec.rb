@@ -103,6 +103,47 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.email_address).to be_nil
       end
     end
+
+    context 'for a state file az intake' do
+      let(:default_params) do
+        {
+          type: :state_file_az,
+          flows_controller_sample_intake_form: {
+            first_name: 'Testuser',
+            last_name: 'Testuser',
+            email_address: 'testuser@example.com',
+          },
+        }
+      end
+
+      it 'can generate a single intake' do
+        expect do
+          post :generate, params: default_params.merge({ submit_single: 'Head Of Household ✨' })
+        end.to change(StateFileAzIntake, :count).by(1)
+        expect(controller.current_intake.filing_status).to eq(:head_of_household)
+      end
+    end
+
+    context 'for a state file ny intake' do
+      let(:default_params) do
+        {
+          type: :state_file_ny,
+          flows_controller_sample_intake_form: {
+            first_name: 'Testuser',
+            last_name: 'Testuser',
+            email_address: 'testuser@example.com',
+          },
+        }
+      end
+
+      it 'can generate a single intake' do
+        expect do
+          post :generate, params: default_params.merge({ submit_single: 'Head Of Household ✨' })
+        end.to change(StateFileNyIntake, :count).by(1)
+        expect(controller.current_intake).to be_a(StateFileNyIntake)
+        expect(controller.current_intake.filing_status).to eq(:head_of_household)
+      end
+    end
   end
 
   describe '#show' do

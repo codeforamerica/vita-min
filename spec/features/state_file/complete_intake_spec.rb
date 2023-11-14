@@ -26,7 +26,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Direct File Data Overrides"
 
       expect(page).to have_field("tax return year", with: "2023")
-      click_on "Populate with sample data"
       select "married filing jointly", from: "state_file_federal_info_form[filing_status]"
       click_on "Continue"
 
@@ -125,8 +124,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_link "Download your state return"
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
-      expect(page.body).to include('<ABA_NMBR claimed="013456789"/>')
-      expect(page.body).to include('<BANK_ACCT_NMBR claimed="456789008765"/>')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+
+      assert_flow_explorer_sample_params_includes_everything('ny')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
@@ -153,7 +153,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
       click_on "Continue"
 
-      click_on "Populate with sample data"
+      expect(page).to have_text "Direct File Data Overrides"
       click_on "Continue"
 
       expect(page).to have_text "The page that shows your dependents"
@@ -241,6 +241,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page.body).to include('<QualParentsAncestors>')
       expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
       expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
+
+      assert_flow_explorer_sample_params_includes_everything('az')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last

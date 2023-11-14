@@ -5,8 +5,6 @@
   <h1 class="h2"><%= title %></h1>
   <h3>This page represents data that was imported from Direct File and does not exist in the real flow.</h3>
 
-  <%= link_to "Populate with sample data", state_file_questions_update_with_sample_data_path(us_state: params[:us_state]), class: "button button--small" %>
-
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: StateFileQaFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.state_file_qa_input_field :tax_return_year, "tax return year" %>
 

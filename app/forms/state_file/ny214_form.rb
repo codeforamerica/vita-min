@@ -21,6 +21,11 @@ module StateFile
                        :household_own_assessments
 
     def save
+      self.household_rent_own ||= 'unfilled'
+      self.nursing_home ||= 'unfilled'
+      self.occupied_residence ||= 'unfilled'
+      self.property_over_limit ||= 'unfilled'
+      self.public_housing ||= 'unfilled'
       @intake.update(attributes_for(:intake))
     end
   end
