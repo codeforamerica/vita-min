@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_13_211138) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1665,7 +1665,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_211138) do
     t.string "mailing_country"
     t.string "mailing_state"
     t.integer "nursing_home", default: 0, null: false
-    t.integer "ny_414h_retirement"
     t.string "ny_mailing_apartment"
     t.string "ny_mailing_city"
     t.string "ny_mailing_street"

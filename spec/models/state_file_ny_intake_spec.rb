@@ -32,7 +32,6 @@
 #  mailing_country                    :string
 #  mailing_state                      :string
 #  nursing_home                       :integer          default("unfilled"), not null
-#  ny_414h_retirement                 :integer
 #  ny_mailing_apartment               :string
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string

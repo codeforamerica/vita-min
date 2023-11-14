@@ -11,7 +11,6 @@ module StateFile
                        :school_district,
                        :school_district_number,
                        :nyc_full_year_resident,
-                       :ny_414h_retirement,
                        :ny_other_additions,
                        :amount_electronic_withdrawal,
                        :refund_choice,
