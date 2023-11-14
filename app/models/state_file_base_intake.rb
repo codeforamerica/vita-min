@@ -53,7 +53,6 @@ class StateFileBaseIntake < ApplicationRecord
     attr_reader :last_name
     attr_reader :birth_date
     attr_reader :ssn
-    attr_reader :state_id
 
     def initialize(intake, primary_or_spouse)
       @primary_or_spouse = primary_or_spouse
@@ -63,14 +62,12 @@ class StateFileBaseIntake < ApplicationRecord
         @middle_initial = intake.primary_middle_initial
         @birth_date = intake.primary_birth_date if intake.ask_primary_dob?
         @ssn = intake.direct_file_data.primary_ssn
-        @state_id = intake.primary_state_id
       else
         @first_name = intake.spouse_first_name
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
-        @state_id = intake.spouse_state_id
       end
     end
 
