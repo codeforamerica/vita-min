@@ -2030,7 +2030,6 @@ en:
           title: Your 2023 %{state_name} state tax return is now submitted!
       tax_refund:
         edit:
-          #TODO
           bank_title: "Please provide your bank details: "
           direct_deposit: Direct
           mail: Mail
