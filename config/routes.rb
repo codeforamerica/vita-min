@@ -550,6 +550,12 @@ Rails.application.routes.draw do
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
       end
+
+      unless Rails.env.production?
+        resources :flows, only: [:index, :show] do
+          post :generate, on: :collection
+        end
+      end
     end
 
     namespace :state_file, path: "/" do
