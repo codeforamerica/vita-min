@@ -1,8 +1,10 @@
+
 <% title = t(".title",
              state_name: States.name_for_key(params[:us_state].upcase),
-             refund_amount: '2,201'
+             refund_amount: tax_refund
              ) %>
 <!-- TODO which component gives us the refund amount? -->
+
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
@@ -14,8 +16,8 @@
     <%= f.cfa_radio_set(
           :deposit_type,
           collection: [
-            { value: "yes", label: t(".direct_deposit") },
-            { value: "no", label: t(".mail") },
+            { value: :deposit, label: t(".direct_deposit") },
+            { value: :mail, label: t(".mail") },
           ]
         ) %>
   <% end %>
