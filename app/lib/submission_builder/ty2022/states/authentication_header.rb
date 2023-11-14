@@ -30,20 +30,23 @@ module SubmissionBuilder
                   xml.DoNotHaveDrvrLcnsOrStIssdId "X"
                 end
               end
-              xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                state_id = @submission.data_source.spouse_state_id
-                if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
-                  xml.DrvrLcnsNum state_id.id_number
-                  xml.DrvrLcnsStCd state_id.state
-                  xml.DrvrLcnsExprDt do
-                    xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+              if @submission.data_source.filing_status_mfj?
+                xml.SpsDrvrLcnsOrStateIssdIdGrp do
+                  state_id = @submission.data_source.spouse_state_id
+                  if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
+                    xml.DrvrLcnsNum state_id.id_number
+                    xml.DrvrLcnsStCd state_id.state
+                    xml.DrvrLcnsExprDt do
+                      xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                    end
+                    xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
+                  else
+                    xml.DoNotHaveDrvrLcnsOrStIssdId "X"
                   end
-                  xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
-                else
-                  xml.DoNotHaveDrvrLcnsOrStIssdId "X"
                 end
               end
             else
+              # Arizona does not require us to collect state id info
               xml.PrimDrvrLcnsOrStateIssdIdGrp do
                 xml.DidNotProvideDLOrStIssuedId "X"
               end
