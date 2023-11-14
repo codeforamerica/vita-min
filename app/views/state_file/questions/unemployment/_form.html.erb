@@ -4,7 +4,6 @@
 
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
-  <!-- TODO -->
   <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
