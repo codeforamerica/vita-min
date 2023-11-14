@@ -51,7 +51,7 @@ module Efile
         set_line(:IT201_LINE_18, @direct_file_data, :total_fed_adjustments)
         set_line(:IT201_LINE_19, :calculate_line_19)
         set_line(:IT201_LINE_19A, :calculate_line_19a)
-        set_line(:IT201_LINE_21, -> { 0 }) # TODO: this will be a certain subset of the w2 income
+        set_line(:IT201_LINE_21, @direct_file_data, :ny_public_employee_retirement_contributions)
         set_line(:IT201_LINE_23, @intake, :ny_other_additions)
         set_line(:IT201_LINE_24, :calculate_line_24)
         set_line(:IT201_LINE_25, -> { @lines[:IT201_LINE_4]&.value })
