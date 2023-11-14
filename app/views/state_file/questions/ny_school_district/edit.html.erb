@@ -7,6 +7,6 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_select(:school_district , t(".school_district_name"), @school_districts) %>
 
-    <%= f.continue %>
+    <%= f.submit(t("general.continue"), review: params[:review], class: "button button--primary button--wide") %>
   <% end %>
 <% end %>

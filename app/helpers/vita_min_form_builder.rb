@@ -330,7 +330,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def submit(value, options = {})
     options[:data] ||= {}
     options[:data][:disable_with] = value
-    super(value, **options)
+    options.delete(:review) ? @template.hidden_field_tag(:review, 'y') + super(value, **options) : super(value, **options)
   end
 
   def continue(value = I18n.t("general.continue"))

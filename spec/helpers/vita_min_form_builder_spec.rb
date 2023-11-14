@@ -170,5 +170,28 @@ RSpec.describe VitaMinFormBuilder do
       expect(element.attribute('data-disable-with').text).to eq("Submit!")
       expect(element.attribute('data-existing-data')&.text).to eq("is retained")
     end
+
+    it "adds a hidden input field when the review param is present" do
+      class SampleForm < Cfa::Styleguide::FormExample
+        attr_accessor :birth_date_day, :birth_date_month, :birth_date_year
+        validates_presence_of :birth_date_day, :birth_date_month, :birth_date_year
+      end
+
+      form = SampleForm.new
+      form_builder = described_class.new("form", form, template, {})
+      output = form_builder.submit(
+        "Submit!",
+        class: "button button--wide",
+        review: "y",
+        )
+      expect(output).to be_html_safe
+      doc = Nokogiri::HTML(output)
+      hidden_input = doc.css('input[1]')
+      expect(hidden_input.attribute('type').text).to eq("hidden")
+      expect(hidden_input.attribute('name').text).to eq("review")
+      expect(hidden_input.attribute('value').text).to eq("y")
+      submit_button = doc.css('input[2]')
+      expect(submit_button.attribute('type')&.text).to eq("submit")
+    end
   end
 end

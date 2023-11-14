@@ -37,6 +37,7 @@
         </div>
       </div>
     </div>
-    <%= f.continue %>
+
+    <%= f.submit(t("general.continue"), review: params[:review], class: "button button--primary button--wide") %>
   <% end %>
 <% end %>

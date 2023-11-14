@@ -84,4 +84,64 @@ module StateFileIntakeHelper
       find_link("HIDDEN BUTTON", visible: :any).click
     end
   end
+
+  def step_through_az_review_screens
+    # Prior last names
+    within "#prior-last-names" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+
+    # AZ state specific credits
+    within "#state-credits" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t("state_file.questions.az_state_credits.edit.title1")
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+
+    # Charitable contributions
+    within "#charitable-contributions" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+  end
+
+  def step_through_ny_review_screens
+    # Full year resident
+    within "#full-year-resident" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text "The page with all the info from the 201"
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+
+    # County
+    within "#county" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+
+    # School District
+    within "#school-district" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+
+    # Out of state purchases/use tax
+    within "#use-tax" do
+      click_on I18n.t("general.edit")
+    end
+    expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+    click_on I18n.t("general.continue")
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+  end
 end
