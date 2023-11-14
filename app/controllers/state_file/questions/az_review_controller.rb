@@ -2,20 +2,34 @@ module StateFile
   module Questions
     class AzReviewController < QuestionsController
       def edit
-        calculated_fields = current_intake.tax_calculator.calculate
-        if calculated_fields[:AZ140_LINE_79] > 0
-          @refund_or_owed_label = I18n.t("state_file.questions.az_review.edit.your_refund")
-          @refund_or_owed_amount = calculated_fields.fetch(:AZ140_LINE_79)
-        else
-          @refund_or_owed_label = I18n.t("state_file.questions.az_review.edit.your_tax_owed")
-          @refund_or_owed_amount = calculated_fields.fetch(:AZ140_LINE_80)
-        end
+        @refund_or_owed_amount = amount_owed_or_refunded
+        @refund_or_owed_label = @refund_or_owed_amount > 0 ? I18n.t("state_file.questions.az_review.edit.your_refund") : I18n.t("state_file.questions.az_review.edit.your_tax_owed")
       end
 
       private
 
+      def calculator
+        calculator = current_intake.tax_calculator
+        calculator.calculate
+        calculator
+      end
+
+      def amount_owed_or_refunded
+        calculator.refund_or_owed_amount
+      end
+
       def form_class
         NullForm
+      end
+
+      def next_path
+        next_step = if amount_owed_or_refunded.positive?
+                      StateFile::Questions::TaxRefundController
+                    else
+                      StateFile::Questions::TaxesOwedController
+                    end
+        options = { us_state: params[:us_state], action: next_step.navigation_actions.first }
+        next_step.to_path_helper(options)
       end
     end
   end

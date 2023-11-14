@@ -16,6 +16,12 @@ module StateFile
       def form_name
         form_class.to_s.underscore.gsub("/", "_")
       end
+
+      def prev_path
+        prev_path = StateFile::Questions::AzReviewController
+        options = { us_state: params[:us_state], action: prev_path.navigation_actions.first }
+        prev_path.to_path_helper(options)
+      end
     end
   end
 end

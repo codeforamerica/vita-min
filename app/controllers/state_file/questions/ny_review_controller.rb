@@ -17,6 +17,16 @@ module StateFile
       def form_class
         NullForm
       end
+
+      def next_path
+        next_step = if amount_owed_or_refunded.positive?
+                      StateFile::Questions::TaxRefundController
+                    else
+                      StateFile::Questions::TaxesOwedController
+                    end
+        options = { us_state: params[:us_state], action: next_step.navigation_actions.first }
+        next_step.to_path_helper(options)
+      end
     end
   end
 end
