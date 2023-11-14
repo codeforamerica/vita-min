@@ -32,7 +32,6 @@
 #  mailing_country                    :string
 #  mailing_state                      :string
 #  nursing_home                       :integer          default("unfilled"), not null
-#  ny_414h_retirement                 :integer
 #  ny_mailing_apartment               :string
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
@@ -48,6 +47,8 @@
 #  phone_number_verified_at           :datetime
 #  primary_birth_date                 :date
 #  primary_email                      :string
+#  primary_esigned                    :integer          default("unfilled"), not null
+#  primary_esigned_at                 :datetime
 #  primary_first_name                 :string
 #  primary_last_name                  :string
 #  primary_middle_initial             :string
@@ -65,6 +66,8 @@
 #  school_district_number             :integer
 #  source                             :string
 #  spouse_birth_date                  :date
+#  spouse_esigned                     :integer          default("unfilled"), not null
+#  spouse_esigned_at                  :datetime
 #  spouse_first_name                  :string
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
@@ -101,6 +104,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_yonkers: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_yonkers
   enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
+  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
+  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")

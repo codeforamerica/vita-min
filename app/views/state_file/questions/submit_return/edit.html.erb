@@ -1,9 +1,0 @@
-<% content_for :page_title, "The page with the submit button" %>
-
-<% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-    <div class="spacing-above-60">
-      <%= f.submit("Submit My Fake Taxes", class: "button button--primary button--wide") %>
-    </div>
-  <% end %>
-<% end %>

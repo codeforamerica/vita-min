@@ -67,7 +67,6 @@ module PdfFiller
         '31 dollars14' => claimed_attr_value('R_TX_AVL_CR_AMT'),
         '32 dollars14' => claimed_attr_value('R_CR_LMT_AMT'),
         '33 dollars14' => claimed_attr_value('R_RL_PROP_CR_AMT'),
-        # TODO signature
       }
     end
 

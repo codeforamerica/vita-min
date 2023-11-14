@@ -1,15 +1,14 @@
-<% title = "The page with all the info from the 1040" %>
+<% title = "‍💻🛠️ Direct File Data Overrides 🛠️💻" %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="form-question"><%= title %></h1>
+  <h1 class="h2"><%= title %></h1>
+  <h3>This page represents data that was imported from Direct File and does not exist in the real flow.</h3>
 
-  <%= link_to "Populate with sample data", state_file_questions_update_with_sample_data_path(us_state: params[:us_state]), class: "button button--small" %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: StateFileQaFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.state_file_qa_input_field :tax_return_year, "tax return year" %>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <%= f.cfa_input_field :tax_return_year, "tax return year" %>
-
-    <%= f.cfa_select(:filing_status, "filing status", [
+    <%= f.state_file_qa_cfa_select(:filing_status, "filing_status", [
       ["single", 1],
       ["married filing jointly", 2],
       ["married filing separately", 3],
@@ -17,30 +16,35 @@
       ["qualifying widow", 5],
     ], include_blank: true) %>
 
-    <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
+    <%= f.state_file_qa_input_field :primary_ssn, "primary ssn" %>
+    <%= f.state_file_qa_input_field :primary_occupation, "primary occupation" %>
 
-    <%= f.cfa_input_field :phone_daytime, "daytime phone number" %>
-    <%= f.cfa_input_field :phone_daytime_area_code, "daytime phone area code" %>
+    <%= f.state_file_qa_input_field :spouse_ssn, "spouse ssn" %>
+    <%= f.state_file_qa_input_field :spouse_occupation, "spouse occupation" %>
 
-    <%= f.cfa_input_field :primary_ssn, "primary ssn" %>
-    <%= f.cfa_input_field :primary_occupation, "primary occupation" %>
+    <%= f.state_file_qa_input_field :mailing_street, "mailing address street" %>
+    <%= f.state_file_qa_input_field :mailing_apartment, "mailing address apartment number" %>
+    <%= f.state_file_qa_input_field :mailing_city, "mailing address city" %>
+    <%= f.state_file_qa_input_field :mailing_zip, "mailing address zip code" %>
 
-    <%= f.cfa_input_field :spouse_ssn, "spouse ssn" %>
-    <%= f.cfa_input_field :spouse_occupation, "spouse occupation" %>
+    <%= f.state_file_qa_input_field :fed_wages, "Wages, salaries, tips" %>
+    <%= f.state_file_qa_input_field :fed_taxable_income, "Taxable interest" %>
+    <%= f.state_file_qa_input_field :fed_unemployment, "Unemployment compensation" %>
+    <%= f.state_file_qa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
 
-    <%= f.cfa_input_field :mailing_street, "mailing address street" %>
-    <%= f.cfa_input_field :mailing_apartment, "mailing address apartment number" %>
-    <%= f.cfa_input_field :mailing_city, "mailing address city" %>
-    <%= f.cfa_input_field :mailing_zip, "mailing address zip code" %>
+    <div style="background: #eaacea; padding: 15px; margin-bottom: 15px;">
+      <h3>TODO ZONE: where do these things go?</h3>
 
-    <%= f.cfa_input_field :fed_wages, "Wages, salaries, tips" %>
-    <%= f.cfa_input_field :fed_taxable_income, "Taxable interest" %>
-    <%= f.cfa_input_field :fed_unemployment, "Unemployment compensation" %>
-    <%= f.cfa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
-    <%= f.cfa_input_field :total_fed_adjustments_identify, "Total Federal Adjustments (description)" %>
-    <%= f.cfa_input_field :total_fed_adjustments, "Total Federal Adjustments (amount)" %>
+      <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
 
-    <%= f.cfa_input_field :total_state_tax_withheld, "Total state tax withheld" %>
+      <%= f.state_file_qa_input_field :phone_daytime, "daytime phone number" %>
+      <%= f.state_file_qa_input_field :phone_daytime_area_code, "daytime phone area code" %>
+
+      <%= f.state_file_qa_input_field :total_fed_adjustments_identify, "Total Federal Adjustments (description)" %>
+      <%= f.state_file_qa_input_field :total_fed_adjustments, "Total Federal Adjustments (amount)" %>
+
+      <%= f.state_file_qa_input_field :total_state_tax_withheld, "Total state tax withheld" %>
+    </div>
 
     <%= f.continue %>
   <% end %>

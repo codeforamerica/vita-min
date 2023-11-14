@@ -1802,15 +1802,253 @@ es:
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
   state_file:
     questions:
+      az_charitable_contributions:
+        edit:
+          charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash: 'Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
+          title: Did you make charitable contributions to a qualifying organization in 2023?
+      az_prior_last_names:
+        edit:
+          prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'
+          title1: Did you file with a different last name in the last four years?
+          title2: This includes tax years 2019-2022.
+      az_review:
+        edit:
+          armed_forces_member: Member of the U.S. armed forces
+          armed_forces_wages: Amount earned while serving on active duty
+          charitable_cash: Cash contributions
+          charitable_contributions: Made charitable contributions
+          charitable_noncash: Non-cash contributions
+          download_pdf: You can download a PDF of your full state tax return after you submit.
+          last_names: Other last names in the last four years
+          title1: You're done! Let's review before you submit your state tax return.
+          tribal_member: Member of a federally recognized American Indian tribe
+          tribal_wages: Amount earned while living and working on the reservation
+          your_refund: Your estimated refund
+          your_tax_owed: Your estimated tax owed
+      az_senior_dependents:
+        edit:
+          assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
+          passed_away_label: Did %{name} pass away in 2023?
+          title1: Please provide some more information about the people in your family who are 65 years of age or older.
+      az_state_credits:
+        edit:
+          armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. armed forces.
+          armed_forces_wages_label_html: How much did you receive in active duty pay? <br><br> <b>Note:</b> this should not exceed %{wages}
+          title1: Do any of the following scenarios apply to you? (Less common)
+          title2: Check every box that applies to you. If it does not apply, leave blank and continue.
+          tribal_member_label_html: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on the tribe’s reservation.
+          tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation? <br><br> <b>Note:</b> this should not exceed %{wages}
+          wages_tip: Enter amount earned
+      code_verified:
+        edit:
+          subtitle_email: You’ll now receive email updates when your state tax return is accepted.
+          subtitle_text: You’ll now receive text updates when your state tax return is accepted.
+          title: Code verified!
+      contact_preference:
+        edit:
+          email_option: Email me a code
+          subtitle: With an account, you’ll receive updates when your state tax return is accepted.
+          text_message_option: Text me a code
+          title: Next, set up your account with a quick code
+      data_review:
+        edit:
+          basic_household_info_description: Partially filled, will need to complete
+          basic_household_info_title: Basic household information
+          complete_description: Complete
+          filing_status_title: Filing status
+          income_and_deductions_description: Partially filled, will need to complete
+          income_and_deductions_title: Most income and deductions
+          state_tax_withheld_title: "%{name} state tax withheld"
+          title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
+      eligibility_offboarding:
+        edit:
+          body_html: |
+            You are not qualified because you %{ineligible_reason}. This means you can't use this tool this year. (Is this a mistake? <a href=%{prev_link}>Go back to correct.</a>)
+            <br/><br/>
+            <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
+          ineligible_reason:
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_lived_in_state: did not live in %{state} for all of 2023
+            eligibility_married_filing_separately: are filing “married filing separately”
+            eligibility_out_of_state_income: earned income in another state in 2023
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_yonkers: lived or earned income in Yonkers in 2023
+          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
+      eligibility_out_of_state_income:
+        edit:
+          out_of_state_income: Did you earn any income in another state in 2023?
+          part_year_nyc_resident: Were you a part-year New York City resident in 2023? (Moved in or out of NYC during 2023. This includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.)
+          title: First, let's see if you can use this tool to file your taxes
+          used_529_for_non_qual_expense: Did you withdraw money from a 529 college savings account and use it for non-qualifying expenses in 2023?
+      eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: Are you filing as “married filing separately”?
+          lived_in_state: Did you live in %{state} for all of 2023?
+          lived_or_income_in_yonkers: Did you live or earn income in Yonkers at any time in 2023?
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
+      eligible:
+        edit:
+          dependent_credit: Dependent Credit
+          empire_state_ctc: Empire State Child Tax Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
+          not_supported: What credits does this tool not support this year?
+          nys_eic: NYS Earned Income Credit
+          nys_hh_credit: NYS Household Credit
+          real_property_credit: Real Property Tax Credit
+          title: Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.
+      email_address:
+        edit:
+          action: Send code
+          email_address_label: Your email address (avoid using a temporary email)
+          title: Enter your email address
+      esign_declaration:
+        edit:
+          az:
+            body_html: |
+              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete. I further declare that the amounts of Arizona adjusted gross income, total tax, Arizona income tax withheld, and refund (or amount owed) listed above are the amounts shown on the copy of my electronic Arizona income tax return.</p>
+              <ul class="list--bulleted">
+                <li>I consent that my refund be directly deposited as designated in the electronic portion of my 2022 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
+                <li>6b I do not want direct deposit of my refund or I am not receiving a refund.</li>
+                <li>6c I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
+              </ul>
+              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 18, 2023, I will remain liable for the tax liability and all applicable interest and penalties. When electronically filing my federal and state tax returns, I understand that if there is an error on my federal return, my state return will also be rejected.</p>
+              <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
+              <p>I authorize (ELECTRONIC RETURN ORIGINATOR) to make the election that I want my electronic signature to my electronic federal individual income tax return to serve as my signature to my electronic Arizona individual income tax return for the year ending December 31, 2022. I understand that when my ERO makes the election that my electronic signature to my federal individual income tax return will serve as my signature to my Arizona individual income tax return, I will have signed my Arizona individual income tax return and declared under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          ny:
+            body_html: |
+              <p>By checking the box shown below, I declare, under penalty of perjury, that I have examined the information on my 2023 New York State electronic personal income tax return, including any accompanying schedules, attachments, and statements, and certify that my electronic return is true, correct, and complete.</p>
+              <p>If I am paying my New York State personal income taxes owed by electronic funds withdrawal, I authorize the New York State Tax Department and its designated financial agents to initiate an electronic funds withdrawal from the financial institution account indicated on my 2023 electronic return, and I authorize my financial institution to debit the entry to my account. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than five (5) business days prior to the payment date.</p>
+          primary_esign: I have read the certification above and agree
+          spouse_esign: My spouse has read the certification above and agrees
+          submit: Submit my state return
+          title: Electronically sign your %{state_name} state tax return
+      initiate_data_transfer:
+        edit:
+          button: Transfer data from IRS site
+          button_help_text: Don’t worry, you'll be redirected back here
+          description: To pre-fill, you need to transfer your federal tax return from the IRS Direct File site to this tool. This usually takes three minutes or less.
+          title: Now, let's pre-fill parts of your state tax return
+      name_dob:
+        edit:
+          dependent_months_lived_label: Number of months they lived with you in %{year}
+          dependent_name_dob: Your %{number} dependent's name and date of birth
+          primary_name: Your name
+          spouse_dob: Your spouse's date of birth
+          spouse_name: Your spouse’s name
+          title: You’re almost done filing!
+          title1: You’re almost done filing! Before you finish, we have some final questions that may help you maximize your refund.
+          title2: First, please provide some more information about you and the people in your family.
+          your_dob: Your date of birth
+      ny_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31, %{filing_year}
+      ny_eligibility_college_savings_withdrawal:
+        edit:
+          title: First, let's see if you can use this tool to file your taxes
+          withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
+      ny_primary_state_id:
+        edit:
+          title: Please provide information for your state issued ID
+        state_id:
+          id_details:
+            expiration_day: Expiration Day
+            expiration_month: Expiration Month
+            expiration_year: Expiration Year
+            first_three_doc_num: First three characters of the document number
+            issue_day: Issue Day
+            issue_month: Issue Month
+            issue_state: Issue State
+            issue_year: Issue Year
+            number: ID Number
+          id_type_question:
+            dmv: DMV/BMV State ID
+            drivers_license: Driver’s license
+            label: Your ID Type
+            no_id: No driver’s license or state ID
+          info_link: View where to find this information
+      ny_review:
+        edit:
+          download_pdf: You can download a PDF of your full state tax return after you submit.
+          nyc_full_year_resident: New York City full-year resident
+          out_of_state_purchases: Out of state purchases/Use Tax Applied
+          residence_county: County
+          school_district: School District
+          title1: You're done! Let's review before you submit your state tax return.
+          your_refund: Your estimated refund
+          your_tax_owed: Your estimated tax owed
       ny_sales_use_tax:
         edit:
+          calculated_use_tax: Enter calculated use tax
+          select_one: 'Select one of the following:'
+          subtitle: For example, online purchases with no sales tax applied.
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
           use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+      ny_school_district:
+        edit:
+          school_district_name: School District Name
+          title: Select the school district where you lived on December 31, %{filing_year}
       ny_spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+      phone_number:
+        edit:
+          action: Send code
+          phone_number_label: Your phone number
+          title: Enter your phone number
+      submission_confirmation:
+        edit:
+          apply_to_state_benefits: Apply to %{state_name} benefits
+          download_state_return_pdf: Download your state return
+          email_text_update: You'll receive and email or text update when your state tax return is accepted.
+          help_friend_or_family: Help a friend or family member file their taxes for free.
+          register_to_vote: Register to vote
+          share_direct_file_link: Share the IRS DirectFile link
+          title: Your 2023 %{state_name} state tax return is now submitted!
+      unemployment:
+        destroy:
+          removed: Removed 1099-G for %{name}
+        edit:
+          city: City
+          confirm_address: 'Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form.'
+          confirm_address_no: No, I need to edit
+          confirm_address_yes: Yes, that's the address
+          federal_income_tax_withheld: Box 4, Federal income tax withheld
+          had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
+          money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
+          need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
+          payer_other: Other
+          payer_question: To start, please confirm the payer listed on Form 1099-G is
+          recipient_my_spouse: My spouse
+          recipient_myself: Myself
+          recipient_question: Who is this form for?
+          state: State
+          state_income_tax_withheld: Box 11, State income tax withheld
+          street_address: Street Address
+          title: It looks like you received unemployment benefits in 2023
+          unemployment_compensation: Box 1, Unemployment compensation
+          zip_code: Zip code
+        index:
+          1099_label: 1099-G for %{name}
+          add_another: Add another 1099-G form
+          delete_confirmation: Are you sure you want to delete this 1099-G?
+          lets_review: Great! Thanks for providing that information. Let’s review.
+          unemployment_compensation: 'Unemployment compensation: %{amount}'
       verification_code:
         edit:
-          subtitle_html: "<strong>%{contact_info}</strong>"
+          action: Verify code
+          subtitle_html: A message with your code has been sent to <strong>%{contact_info}</strong>.
+          title: Verify the code to continue
+          verification_code_label: Enter the 6-digit code
+      waiting_to_load_data:
+        edit:
+          title_html: Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return. <br/><br/> This usually takes a minute or two. Don't close this page.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.

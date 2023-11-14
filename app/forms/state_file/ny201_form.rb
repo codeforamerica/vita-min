@@ -11,17 +11,13 @@ module StateFile
                        :school_district,
                        :school_district_number,
                        :nyc_full_year_resident,
-                       :ny_414h_retirement,
                        :ny_other_additions,
-                       :sales_use_tax,
                        :amount_electronic_withdrawal,
                        :refund_choice,
                        :account_type,
                        :routing_number,
                        :account_number,
-                       :amount_electronic_withdrawal,
-                       :primary_signature,
-                       :spouse_signature
+                       :amount_electronic_withdrawal
 
     validates :routing_number, length: { is: 9 }, allow_blank: true, routing_number: true
 

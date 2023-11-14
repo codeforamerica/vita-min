@@ -35,18 +35,10 @@ module StateFile
     end
 
     def save
-      exceptions = [
-        :tax_return_year,
-        :phone_daytime,
-        :phone_daytime_area_code,
-        :mailing_apartment,
-        :total_fed_adjustments_identify,
-        :total_fed_adjustments,
-        :total_state_tax_withheld
-      ]
-      attributes_for(:direct_file_data)
-        .except(*exceptions).each do |attribute, value|
-        @intake.direct_file_data.send("#{attribute}=", value)
+      attributes_for(:direct_file_data).each do |attribute, value|
+        if @intake.direct_file_data.can_override?(attribute)
+          @intake.direct_file_data.send("#{attribute}=", value)
+        end
       end
 
       @intake.update(

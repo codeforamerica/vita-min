@@ -23,11 +23,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "The page with all the info from the 1040"
+      expect(page).to have_text "Direct File Data Overrides"
 
       expect(page).to have_field("tax return year", with: "2023")
-      click_on "Populate with sample data"
-      select "married filing jointly", from: "filing status"
+      select "married filing jointly", from: "state_file_federal_info_form[filing_status]"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "The page that shows your dependents"
@@ -46,7 +45,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
       within "#dependent-0" do
-        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(page).to have_text "Your first dependent's name and date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
@@ -125,14 +124,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("general.continue")
 
-      click_on "Submit My Fake Taxes"
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
+      expect(page).to have_text("I have examined the information on my 2023 New York State electronic personal income tax return")
+      check "state_file_esign_declaration_form_primary_esigned"
+      check "state_file_esign_declaration_form_spouse_esigned"
+      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
-      expect(page.body).to include('<ABA_NMBR claimed="013456789"/>')
-      expect(page.body).to include('<BANK_ACCT_NMBR claimed="456789008765"/>')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+
+      assert_flow_explorer_sample_params_includes_everything('ny')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last
@@ -159,7 +163,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
       click_on I18n.t("general.continue")
 
-      click_on "Populate with sample data"
+      expect(page).to have_text "Direct File Data Overrides"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "The page that shows your dependents"
@@ -184,7 +188,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
 
       within "#dependent-0" do
-        expect(page).to have_text "Dependent 1 name and date of birth"
+        expect(page).to have_text "Your first dependent's name and date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
@@ -241,7 +245,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
       click_on I18n.t("general.continue")
 
-      click_on "Submit My Fake Taxes"
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
+      expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
+      check "state_file_esign_declaration_form_primary_esigned"
+      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
@@ -252,6 +259,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page.body).to include('<QualParentsAncestors>')
       expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
       expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
+
+      assert_flow_explorer_sample_params_includes_everything('az')
 
       perform_enqueued_jobs
       submission = EfileSubmission.last

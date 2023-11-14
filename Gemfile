@@ -71,6 +71,7 @@ gem 'acts_as_list'
 gem 'paper_trail'
 gem 'jwt'
 gem 'method_source'
+gem 'ordinalize_full'
 
 # Use Flipper for feature flagging
 gem 'flipper'
