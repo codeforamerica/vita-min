@@ -5,7 +5,6 @@
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
-
   <h1 class="h2">
     <%= title %>
   </h1>
@@ -13,13 +12,50 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_radio_set(
           :deposit_type,
-          label_text: t(".deposit_type"),
           collection: [
             { value: "yes", label: t(".direct_deposit") },
             { value: "no", label: t(".mail") },
           ]
         ) %>
-    <%= f.continue %>
   <% end %>
+<% end %>
 
+
+<% content_for :card do %>
+  <% bank_title = t(".bank_title") %>
+
+
+  <% content_for :card do %>
+    <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long", autocomplete: "off" } do |f| %>
+      <h1 class="h2">
+        <%= bank_title %>
+      </h1>
+      <div class="form-card__content">
+        <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+        <%= f.cfa_radio_set(
+              :account_type,
+              label_text: t("views.questions.bank_details.account_type.label"),
+              collection: [
+                { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+                { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+              ]
+            )
+        %>
+
+        <%# = f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"], type: bank_account_field_type(:routing_number)) %>
+        <%= f.cfa_input_field(:bank_routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:bank_account_number, t(".account_number"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
+        <%# = recaptcha_v3(action: 'bank_account') %>
+      </div>
+
+      <strong>
+        <%= t(".disclaimer") %>
+      </strong>
+
+      <br/>
+      <%= f.continue %>
+    <% end %>
+  <% end %>
 <% end %>
