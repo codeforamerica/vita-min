@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_13_211138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1593,6 +1593,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1600,6 +1602,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.text "raw_direct_file_data"
     t.string "referrer"
     t.string "source"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
@@ -1677,6 +1681,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
     t.string "primary_email"
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1695,6 +1701,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_205748) do
     t.integer "school_district_number"
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"

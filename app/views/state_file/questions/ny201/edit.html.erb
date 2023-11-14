@@ -20,7 +20,6 @@
 
     <%= f.cfa_input_field :ny_414h_retirement, "Public employee 414(h) retirement contributions from your wage and tax statements" %>
     <%= f.cfa_input_field :ny_other_additions, "Other (form IT-225, line 9)" %>
-    <%= f.cfa_input_field :sales_use_tax, "Sales or use tax" %>
 
     <%=
         f.cfa_checkbox(
@@ -38,9 +37,6 @@
 
     <%= f.cfa_date_select :date_electronic_withdrawal, "Electronic funds withdrawal Date" %>
     <%= f.cfa_input_field :amount_electronic_withdrawal, "Electronic funds amount" %>
-
-    <%= f.cfa_input_field :primary_signature, "primary signature" %>
-    <%= f.cfa_input_field :spouse_signature, "spouse signature" %>
 
     <%= f.continue %>
   <% end %>

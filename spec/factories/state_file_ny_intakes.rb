@@ -48,6 +48,8 @@
 #  phone_number_verified_at           :datetime
 #  primary_birth_date                 :date
 #  primary_email                      :string
+#  primary_esigned                    :integer          default("unfilled"), not null
+#  primary_esigned_at                 :datetime
 #  primary_first_name                 :string
 #  primary_last_name                  :string
 #  primary_middle_initial             :string
@@ -65,6 +67,8 @@
 #  school_district_number             :integer
 #  source                             :string
 #  spouse_birth_date                  :date
+#  spouse_esigned                     :integer          default("unfilled"), not null
+#  spouse_esigned_at                  :datetime
 #  spouse_first_name                  :string
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string

@@ -1,0 +1,17 @@
+<% state_name = States.name_for_key(params[:us_state].upcase) %>
+<% title = t(".title", state_name: state_name) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= params[:us_state] == "ny" ? t(".ny.body_html") : t(".az.body_html") %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <div class="spacing-above-60">
+      <%= f.cfa_checkbox(:primary_esigned, t(".primary_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% if current_intake.filing_status_mfj? %>
+        <%= f.cfa_checkbox(:spouse_esigned, t(".spouse_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
+    <%= f.submit(t(".submit"), class: "button button--primary button--wide") %>
+    </div>
+  <% end %>
+<% end %>
