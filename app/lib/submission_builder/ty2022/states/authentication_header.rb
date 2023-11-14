@@ -17,7 +17,30 @@ module SubmissionBuilder
               end
             end
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
-              xml.DoNotHaveDrvrLcnsOrStIssdId "X"
+              state_id = @submission.data_source.primary.state_id
+              if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
+                xml.DrvrLcnsNum state_id.id_number
+                xml.DrvrLcnsStCd state_id.state
+                xml.DrvrLcnsExprDt do
+                  xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                end
+                xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
+              else
+                xml.DoNotHaveDrvrLcnsOrStIssdId "X"
+              end
+            end
+            xml.SpsDrvrLcnsOrStateIssdIdGrp do
+              state_id = @submission.data_source.spouse.state_id
+              if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
+                xml.DrvrLcnsNum state_id.id_number
+                xml.DrvrLcnsStCd state_id.state
+                xml.DrvrLcnsExprDt do
+                  xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                end
+                xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
+              else
+                xml.DoNotHaveDrvrLcnsOrStIssdId "X"
+              end
             end
             xml.TransmissionDetail do
               xml.InitialCreation do
