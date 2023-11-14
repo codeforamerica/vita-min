@@ -573,6 +573,10 @@ class FlowsController < ApplicationController
         updated_at: 1.minute.ago,
         visitor_id: SecureRandom.hex(26),
         referrer: "None",
+        primary_esigned: "yes",
+        primary_esigned_at: 1.minute.ago,
+        spouse_esigned: "yes",
+        spouse_esigned_at: 1.minute.ago,
       }
     end
 
