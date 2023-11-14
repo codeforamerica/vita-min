@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class TaxRefundController < QuestionsController
-      def edit; end
 
       def form_class
         DepositTypeForm
