@@ -3,8 +3,6 @@
              state_name: States.name_for_key(params[:us_state].upcase),
              refund_amount: tax_refund
              ) %>
-<!-- TODO which component gives us the refund amount? -->
-
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
@@ -12,6 +10,7 @@
     <%= title %>
   </h1>
 
+  <!-- TODO: Add anchor tag on AZTaxes.gov to https://aztaxes.gov/Home/PaymentIndividual/ -->
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_radio_set(
           :deposit_type,
