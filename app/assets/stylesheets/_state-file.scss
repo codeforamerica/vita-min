@@ -1,3 +1,8 @@
+$color-state-black: #1B1B1B;
+$color-state-cyan: #52DAF2;
+$color-state-cyan-light: rgb(234, 246, 248);
+
+
 .state-file-html-bg--az {
   background-color: $color-az-grey;
 }
@@ -39,8 +44,47 @@
     text-decoration: none;
   }
 
+  .slab.question-layout {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  .blue-group {
+    border: 2px solid $color-state-cyan;
+    background-color: $color-state-cyan-light;
+    border-radius: .6rem;
+    padding: 1.2rem
+
+  }
+
   .form-card {
     background-color: transparent;
+
+    .form-question {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      line-height: 2.2rem;
+    }
+  }
+
+  .date-select .select {
+    height: auto;
+    line-height: normal;
+    display: inline-block;
+    margin-right: 0.5rem;
+
+    &:after {
+      content: image-url('dropdown-arrows.svg');
+      width: 3rem;
+      font-size: 3.3rem;
+    }
+  }
+
+  .select__element {
+    font-weight: normal;
+    font-size: 1.6rem;
+    line-height: 4.8rem;
+    border: 1px solid $color-state-black;
+    padding: 0 3rem 0 1.2rem;
   }
 
   .h1 {
