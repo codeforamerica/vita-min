@@ -12,6 +12,7 @@
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
+#  deposit_type                       :integer          default("unfilled"), not null
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
 #  eligibility_part_year_nyc_resident :integer          default("unfilled"), not null
@@ -106,6 +107,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
+  enum deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :deposit_type
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")

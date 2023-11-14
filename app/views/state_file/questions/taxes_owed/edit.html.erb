@@ -1,0 +1,24 @@
+<% title = t('.title', state_name: States.name_for_key(params[:us_state].upcase)) %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <%= image_tag("icons/check.svg", alt: "") %>
+
+  <h1 class="h2">
+    <%= title %>
+  </h1>
+
+  <p>
+    <%= t(".email_text_update") %>
+  </p>
+
+  <p>
+    <%= t(".help_friend_or_family") %>
+    <!-- TODO - replace with real link -->
+    <%= link_to t(".share_direct_file_link"), "" %>
+  </p>
+
+  <p>
+    <%= link_to t(".register_to_vote"), "" %>
+  </p>
+
+<% end %>

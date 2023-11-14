@@ -14,6 +14,7 @@
 #  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
+#  deposit_type                          :integer          default("unfilled"), not null
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null
@@ -53,6 +54,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
+  enum deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :deposit_type
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
 

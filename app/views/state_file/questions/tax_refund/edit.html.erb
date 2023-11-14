@@ -1,0 +1,25 @@
+<% title = t(".title",
+             state_name: States.name_for_key(params[:us_state].upcase),
+             refund_amount: '2,201'
+             ) %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+
+  <h1 class="h2">
+    <%= title %>
+  </h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_radio_set(
+          :deposit_type,
+          label_text: t(".deposit_type"),
+          collection: [
+            { value: "yes", label: t(".direct_deposit") },
+            { value: "no", label: t(".mail") },
+          ]
+        ) %>
+    <%= f.continue %>
+  <% end %>
+
+<% end %>

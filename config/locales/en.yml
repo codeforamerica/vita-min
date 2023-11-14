@@ -2028,6 +2028,12 @@ en:
           register_to_vote: Register to vote
           share_direct_file_link: Share the IRS DirectFile link
           title: Your 2023 %{state_name} state tax return is now submitted!
+      tax_refund:
+        edit:
+          title: Good news, you're getting a %{state_name} state tax refund of $%{refund_amount} (estimated). How would you like to receive your refund?
+          deposit_type: Test
+          direct_deposit: Direct
+          mail: Mail
       unemployment:
         destroy:
           removed: Removed 1099-G for %{name}

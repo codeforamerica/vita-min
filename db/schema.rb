@@ -1584,6 +1584,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.integer "deposit_type", default: 0, null: false
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_married_filing_separately", default: 0, null: false
@@ -1645,6 +1646,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.datetime "created_at", null: false
     t.string "current_step"
     t.date "date_electronic_withdrawal"
+    t.integer "deposit_type", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.integer "eligibility_part_year_nyc_resident", default: 0, null: false

@@ -14,6 +14,7 @@
 #  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
+#  deposit_type                          :integer          default("unfilled"), not null
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null
