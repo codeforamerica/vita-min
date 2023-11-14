@@ -84,4 +84,30 @@ module StateFileIntakeHelper
       find_link("HIDDEN BUTTON", visible: :any).click
     end
   end
+
+  def assert_flow_explorer_sample_params_includes_everything(us_state)
+    # Enforce that the attributes used to generate state file intakes in the Flow Explorer
+    # include at least every property that a state file intake would have at the end of
+    # one of our feature tests
+    #
+    # e.g. if we introduced a new 'received_railroad_benefits' enum, and the feature test
+    # fills it out, it should be included in the params used by SampleStateFileIntakeGenerator
+
+    intake = {}
+    flow_explorer_params = {}
+
+    case us_state
+    when 'az'
+      intake = StateFileAzIntake.last
+      flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.az_attributes
+    when 'ny'
+      intake = StateFileNyIntake.last
+      flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.ny_attributes
+    end
+
+    intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys
+    flow_explorer_generated_intake_keys = flow_explorer_params.keys.map(&:to_s)
+    missing_keys = intake_attribute_keys - flow_explorer_generated_intake_keys - %w[id primary_state_id_id]
+    expect(missing_keys).to eq([])
+  end
 end

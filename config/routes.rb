@@ -533,7 +533,6 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       namespace :state_file do
         namespace :questions do
-          get "update_with_sample_data", to: "federal_info#update_with_sample_data"
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
         end
