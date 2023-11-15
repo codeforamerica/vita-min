@@ -7,7 +7,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.cfa_select(:school_district , t(".school_district_name"), @school_districts) %>
 
-    <% unless params[:return_to_review].nil? %>
+    <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
     <%= f.continue %>
