@@ -3,8 +3,8 @@ module Navigation
     include ControllerNavigation
 
     FLOW = [
-      StateFile::Questions::LandingPageController,
-      StateFile::Questions::EligibilityResidenceController, # creates state_intake (StartIntakeConcern)
+      StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
+      StateFile::Questions::EligibilityResidenceController,
       StateFile::Questions::EligibilityOutOfStateIncomeController,
       StateFile::Questions::EligibilityOffboardingController,
       StateFile::Questions::EligibleController,
