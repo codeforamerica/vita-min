@@ -18,7 +18,7 @@
     <div class="text--body text--bold">Supported by the state of <%= state_full_name %> and the IRS</div>
   </div>
 
-  <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
-    <%= t("general.get_started") %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.submit t("general.get_started"), class: "button button--primary", id: "firstCta" %>
   <% end %>
 <% end %>
