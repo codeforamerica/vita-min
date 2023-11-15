@@ -118,6 +118,10 @@ class StateFileNyIntake < StateFileBaseIntake
     end
   end
 
+  def state_code
+    'ny'
+  end
+
   def state_name
     'New York'
   end

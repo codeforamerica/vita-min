@@ -3,7 +3,7 @@ module StateFile
     def perform(token:, intake:)
       return if intake.raw_direct_file_data
 
-      direct_file_xml = IrsApiService.import_federal_data(token)
+      direct_file_xml = IrsApiService.import_federal_data(token, intake.state_code)
 
       intake.update(raw_direct_file_data: direct_file_xml)
       intake.direct_file_data.dependents.each do |direct_file_dependent|

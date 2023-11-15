@@ -56,6 +56,10 @@ class StateFileAzIntake < StateFileBaseIntake
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
 
+  def state_code
+    'az'
+  end
+
   def state_name
     'Arizona'
   end
