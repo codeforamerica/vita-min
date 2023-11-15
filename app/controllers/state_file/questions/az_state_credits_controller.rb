@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class AzStateCreditsController < QuestionsController
+      include ReturnToReviewConcern
+
       private
 
       def form_params

@@ -26,8 +26,9 @@
       </div>
     </div>
 
-    <button class="button button--primary" type="submit">
-      <%= t("general.continue") %>
-    </button>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
   <% end %>
 <% end %>

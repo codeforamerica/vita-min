@@ -37,6 +37,9 @@
     <%= f.cfa_date_select :date_electronic_withdrawal, "Electronic funds withdrawal Date" %>
     <%= f.cfa_input_field :amount_electronic_withdrawal, "Electronic funds amount" %>
 
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
     <%= f.continue %>
   <% end %>
 <% end %>
