@@ -183,7 +183,7 @@ module Efile
             [3, 27_300],
             [Float::INFINITY, 31_000]
           ]
-          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }
+          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }[1]
             return 0
           end
           wrksht_2_line_2 = 2
