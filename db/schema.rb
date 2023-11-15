@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
+
+ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1572,11 +1573,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
+    t.string "account_number"
+    t.integer "account_type"
     t.integer "armed_forces_member", default: 0, null: false
     t.integer "armed_forces_wages"
-    t.string "bank_account_number"
-    t.integer "bank_account_type"
-    t.string "bank_routing_number"
+    t.string "bank_name"
     t.integer "charitable_cash", default: 0
     t.integer "charitable_contributions", default: 0, null: false
     t.integer "charitable_noncash", default: 0
@@ -1584,7 +1585,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
-    t.integer "deposit_type", default: 0, null: false
+    t.date "date_electronic_withdrawal"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_married_filing_separately", default: 0, null: false
@@ -1592,6 +1593,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "has_prior_last_names", default: 0, null: false
+    t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.integer "primary_esigned", default: 0, null: false
@@ -1602,6 +1604,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.string "referrer"
+    t.string "routing_number"
     t.string "source"
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
@@ -1612,6 +1615,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "tribal_wages"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
+    t.integer "withdraw_amount"
   end
 
   create_table "state_file_dependents", force: :cascade do |t|
@@ -1640,13 +1644,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "account_type", default: 0, null: false
     t.integer "amount_electronic_withdrawal"
     t.integer "amount_owed_pay_electronically", default: 0, null: false
+    t.string "bank_name"
     t.integer "claimed_as_dep", default: 0, null: false
     t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
     t.date "date_electronic_withdrawal"
-    t.integer "deposit_type", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.integer "eligibility_part_year_nyc_resident", default: 0, null: false
@@ -1674,6 +1678,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "ny_other_additions"
     t.integer "nyc_full_year_resident", default: 0, null: false
     t.integer "occupied_residence", default: 0, null: false
+    t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"
     t.string "permanent_street"
@@ -1712,6 +1717,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_223411) do
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
+    t.integer "withdraw_amount"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
   end

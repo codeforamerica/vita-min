@@ -7,12 +7,12 @@
 #  account_type                       :integer          default("unfilled"), not null
 #  amount_electronic_withdrawal       :integer
 #  amount_owed_pay_electronically     :integer          default("unfilled"), not null
+#  bank_name                          :string
 #  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  deposit_type                       :integer          default("unfilled"), not null
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
 #  eligibility_part_year_nyc_resident :integer          default("unfilled"), not null
@@ -40,6 +40,7 @@
 #  ny_other_additions                 :integer
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
+#  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_apartment                :string
 #  permanent_city                     :string
 #  permanent_street                   :string
@@ -74,6 +75,7 @@
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
+#  withdraw_amount                    :integer
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  primary_state_id_id                :bigint
@@ -92,7 +94,7 @@ class StateFileNyIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
-  enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
+  enum account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :account_type
   enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
@@ -107,7 +109,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :deposit_type
+  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")

@@ -9,19 +9,34 @@ module StateFile
       end
       helper_method :taxes_owed
 
-      def form_class
-        DepositTypeForm
+      def pay_mail_online_link
+        case params[:us_state]
+        when "ny"
+          'https://www.tax.ny.gov/'
+        when 'az'
+          'https://www.aztaxes.gov/Home/PaymentIndividual/'
+        else
+          ''
+        end
       end
+      helper_method :pay_mail_online_link
 
-      def form_name
-        form_class.to_s.underscore.gsub("/", "_")
+      def pay_mail_online_text
+        case params[:us_state]
+        when "ny"
+          'Tax.NY.gov'
+        when 'az'
+          'AZTaxes.gov'
+        else
+          ''
+        end
       end
+      helper_method :pay_mail_online_text
 
       def prev_path
         prev_path = StateFile::Questions::AzReviewController
         options = { us_state: params[:us_state], action: prev_path.navigation_actions.first }
         prev_path.to_path_helper(options)
-        raise
       end
     end
   end

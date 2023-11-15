@@ -6,44 +6,58 @@
     <%= title %>
   </h1>
 
-  <!-- TODO: Add anchor tag on AZTaxes.gov to https://aztaxes.gov/Home/PaymentIndividual/ -->
-  <%= form_with model: @form, url: { action: :update }, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <%= f.cfa_radio_set(
-          :deposit_type,
+          :payment_or_deposit_type,
           collection: [
-            { value: :mail_or_online, label: t(".pay_mail_online") },
-            { value: :pay_from_bank, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
+            { value: :mail, label: t(".pay_mail_online_html",
+                                               pay_mail_online_link: pay_mail_online_link,
+                                               pay_mail_online_text: pay_mail_online_text,
+                                               ) },
+            { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
           ]
         ) %>
       </div>
       <div class="question-with-follow-up__follow-up" id="pay-from-bank">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long", autocomplete: "off" } do |f| %>
               <div class="form-card__content">
-                <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+
+                <%= f.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+
+                <div class="date-select">
+                  <%= f.cfa_date_select(
+                        :date_electronic_withdrawal,
+                        t(".date_withdraw_text"),
+                        options: {
+                          start_year: Time.now.year,
+                          end_year: Time.now.year,
+                        }
+                      ) %>
+                </div>
+
+                <%= f.cfa_input_field(:bank_name, t('.bank_name'), classes: ["form-width--long"]) %>
+
                 <%= f.cfa_radio_set(
                       :account_type,
-                      label_text: t("views.questions.bank_details.account_type.label"),
+                      label_text: t('.account_type_description'),
                       collection: [
-                        { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
-                        { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+                        { value: :checking, label: t(".checking")},
+                        { value: :savings, label: t(".savings")},
                       ]
-                    )
-                %>
-                <%= f.cfa_input_field(:bank_routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
+                    ) %>
+
+                <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:bank_account_number, t(".account_number"), classes: ["form-width--long"]) %>
+                <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
               </div>
-
-              <%= f.continue %>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
+    <%= f.continue %>
   <% end %>
 <% end %>

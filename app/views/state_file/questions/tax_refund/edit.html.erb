@@ -16,19 +16,18 @@
         <%= f.cfa_radio_set(
               :deposit_type,
               collection: [
-                { value: :deposit, label: t(".direct_deposit"), input_html: { "data-follow-up": "#pay-from-bank" } },
-                { value: :mail, label: t(".mail") },
+                { value: :deposit, label: t(".direct_deposit"), input_html: { "data-follow-up": "#deposit-to-bank" } },
+                { value: :mail, label: t(".mail"), input_html: { "data-follow-up": "#mail-check" } },
               ]
             ) %>
       </div>
-      <div class="question-with-follow-up__follow-up" id="pay-from-bank">
+      <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long", autocomplete: "off" } do |f| %>
-              <h1 class="h2">
+            <h1 class="h2">
                 <%= bank_title %>
               </h1>
-              <div class="form-card__content">
+            <div class="form-card__content">
                 <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
                 <%= f.cfa_radio_set(
                       :account_type,
@@ -40,24 +39,26 @@
                     )
                 %>
 
-                <!-- Is bank_account_field_type needed here? -->
-                <%# = f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"], type: bank_account_field_type(:routing_number)) %>
                 <%= f.cfa_input_field(:bank_routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:bank_account_number, t(".account_number"), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
               </div>
-
-              <strong>
-                <%= t(".disclaimer") %>
-              </strong>
-
-              <br/>
-              <%= f.continue %>
-            <% end %>
+            <%= t(".disclaimer_html") %>
+            <br/>
+            <%= f.continue %>
+          </div>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="mail-check">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <%= t('.mail_html', state_name: States.name_for_key(params[:us_state].upcase)) %>
+            <%= f.continue %>
           </div>
         </div>
       </div>
     </div>
   <% end %>
+
 <% end %>
