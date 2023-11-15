@@ -227,6 +227,11 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Az140Pdf,
                 include: true
+              },
+              {
+                xml: nil,
+                pdf: PdfFiller::Az8879Pdf,
+                include: true
               }
             ]
           end
