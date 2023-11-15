@@ -5,12 +5,21 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
     let(:intake) { create(:state_file_az_intake) }
     let(:submission) { create(:efile_submission, data_source: intake) }
 
-    before do
-      intake.dependents.create(dob: dob)
+    context "married filing jointly" do
+      let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
+
+      it "generates xml" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("FilingStatus").text).to eq('MarriedJoint')
+      end
     end
 
     context "when there are dependents" do
       let(:dob) { 12.years.ago }
+
+      before do
+        intake.dependents.create(dob: dob)
+      end
 
       context "when a dependent is under 17" do
         it "marks DepUnder17 checkbox as checked" do
