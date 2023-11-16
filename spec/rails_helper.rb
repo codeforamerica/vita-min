@@ -30,6 +30,7 @@ Capybara::Session.class_exec do
   def filling_in_ssn_without_dashes(args)
     args[0].is_a?(String) &&
       args[0].downcase.include?('ssn') &&
+      !args[0].include?('DependentSSN') &&
       !args[0].downcase.include?('last 4') &&
       !args[0].downcase.include?('4 últimos') &&
       !args[1][:with].to_s.match(/\d{3}-\d{2}-\d{4}/)

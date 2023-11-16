@@ -18,7 +18,6 @@ module Navigation
       StateFile::Questions::WaitingToLoadDataController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
-      StateFile::Questions::FederalDependentsController,
       StateFile::Questions::NameDobController,
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,

@@ -1,9 +1,6 @@
 module StateFile
   module Questions
     class DataReviewController < QuestionsController
-      def edit
-      end
-
       private
 
       def form_class

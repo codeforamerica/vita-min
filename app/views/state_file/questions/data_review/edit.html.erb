@@ -40,4 +40,15 @@
   <%= link_to next_path, class: "button button--primary" do %>
     <%= t("general.continue") %>
   <% end %>
+
+  <% unless Rails.env.production? %>
+    <%=
+      link_to(
+        "I'm on a #{Rails.env} environment, let me edit the response XML",
+        StateFile::Questions::FederalInfoController.to_path_helper(us_state: params[:us_state]),
+        class: 'dev-button',
+        id: 'visit_federal_info_controller'
+      )
+    %>
+  <% end %>
 <% end %>
