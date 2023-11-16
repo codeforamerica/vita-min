@@ -50,6 +50,17 @@ class StateFileQaFormBuilder < VitaMinFormBuilder
     )
   end
 
+  def state_file_nested_xml_field(
+    method
+  )
+    <<~HTML.html_safe
+      <div style="margin-bottom: 10px;">
+        #{label(method, "<#{method}>")}
+        <div>#{text_field(method)}</div>
+      </div>
+    HTML
+  end
+
   private
 
   def add_selector_to_label(method, label_text)
