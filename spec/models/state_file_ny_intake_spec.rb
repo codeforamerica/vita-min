@@ -98,7 +98,7 @@ describe StateFileNyIntake do
         expect {
           intake.update(untaxed_out_of_state_purchases: "no")
         }.to change(intake, :sales_use_tax_calculation_method).to("unfilled")
-         .and change(intake, :sales_use_tax).to(nil)
+                                                              .and change(intake, :sales_use_tax).to(nil)
       end
     end
 
@@ -111,31 +111,26 @@ describe StateFileNyIntake do
     end
 
     context "when payment_or_deposit_type changes to mail" do
-      let!(:intake) { create :state_file_ny_intake,
-                            payment_or_deposit_type: "unfilled",
-                            account_type: "checking",
-                            bank_name: "Wells Fargo",
-                            routing_number: "123456789",
-                            account_number: "123",
-                            withdraw_amount: 123,
-                            date_electronic_withdrawal: Date.parse("April 1, 2023")
-      }
-
-      it "clears other account fields" do
-        expect {
-          intake.update(payment_or_deposit_type: "mail")
-        }.to change(intake.reload, :account_type).to("unfilled")
-        .and change(intake.reload, :bank_name).to("nil")
-        .and change(intake.reload, :routing_number).to("nil")
-        .and change(intake.reload, :account_number).to("nil")
-        .and change(intake.reload, :withdraw_amount).to("nil")
-        .and change(intake.reload, :date_electronic_withdrawal).to("nil")
+      let!(:intake) do
+        create :state_file_ny_intake,
+               payment_or_deposit_type: "direct_deposit",
+               account_type: "checking",
+               bank_name: "Wells Fargo",
+               routing_number: "123456789",
+               account_number: "123",
+               withdraw_amount: 123,
+               date_electronic_withdrawal: Date.parse("April 1, 2023")
       end
 
       it "clears other account fields" do
         expect {
           intake.update(payment_or_deposit_type: "mail")
-        }.to change(intake.reload, :bank_name).to("nil")
+        }.to change(intake.reload, :account_type).to("unfilled")
+        .and change(intake.reload, :bank_name).to(nil)
+        .and change(intake.reload, :routing_number).to(nil)
+        .and change(intake.reload, :account_number).to(nil)
+        .and change(intake.reload, :withdraw_amount).to(nil)
+        .and change(intake.reload, :date_electronic_withdrawal).to(nil)
       end
     end
 

@@ -62,7 +62,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
 
   before_save do
-    if payment_or_deposit_type_changed?(to: "mail")
+    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
       self.account_type = "unfilled"
       self.bank_name = nil
       self.routing_number = nil

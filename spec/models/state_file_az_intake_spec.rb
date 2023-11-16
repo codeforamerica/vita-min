@@ -52,6 +52,32 @@ require "rails_helper"
 describe StateFileAzIntake do
   it_behaves_like :state_file_base_intake, factory: :state_file_az_intake
 
+  describe "before_save" do
+    context "when payment_or_deposit_type changes to mail" do
+      let!(:intake) do
+        create :state_file_ny_intake,
+               payment_or_deposit_type: "direct_deposit",
+               account_type: "checking",
+               bank_name: "Wells Fargo",
+               routing_number: "123456789",
+               account_number: "123",
+               withdraw_amount: 123,
+               date_electronic_withdrawal: Date.parse("April 1, 2023")
+      end
+
+      it "clears other account fields" do
+        expect {
+          intake.update(payment_or_deposit_type: "mail")
+        }.to change(intake.reload, :account_type).to("unfilled")
+         .and change(intake.reload, :bank_name).to(nil)
+         .and change(intake.reload, :routing_number).to(nil)
+         .and change(intake.reload, :account_number).to(nil)
+         .and change(intake.reload, :withdraw_amount).to(nil)
+         .and change(intake.reload, :date_electronic_withdrawal).to(nil)
+      end
+    end
+  end
+
   describe "#ask_spouse_name?" do
     context "when married filing jointly" do
       it "returns true" do

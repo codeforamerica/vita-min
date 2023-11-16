@@ -116,7 +116,7 @@ class StateFileNyIntake < StateFileBaseIntake
       self.sales_use_tax = calculate_sales_use_tax
     end
 
-    if payment_or_deposit_type_changed?(to: "mail")
+    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
       self.account_type = "unfilled"
       self.bank_name = nil
       self.routing_number = nil
