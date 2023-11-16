@@ -48,7 +48,7 @@ module Efile
         set_line(:IT201_LINE_14, @direct_file_data, :fed_unemployment)
         set_line(:IT201_LINE_15, @direct_file_data, :fed_taxable_ssb)
         set_line(:IT201_LINE_17, :calculate_line_17)
-        set_line(:IT201_LINE_18, @direct_file_data, :total_fed_adjustments)
+        set_line(:IT201_LINE_18, @direct_file_data, :fed_total_adjustments)
         set_line(:IT201_LINE_19, :calculate_line_19)
         set_line(:IT201_LINE_19A, :calculate_line_19a)
         set_line(:IT201_LINE_21, @direct_file_data, :ny_public_employee_retirement_contributions)

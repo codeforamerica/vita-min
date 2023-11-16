@@ -22,8 +22,6 @@ module StateFile
                        :fed_taxable_income,
                        :fed_unemployment,
                        :fed_taxable_ssb,
-                       :total_fed_adjustments_identify,
-                       :total_fed_adjustments,
                        :total_state_tax_withheld
 
     validate :direct_file_data_must_be_imported
