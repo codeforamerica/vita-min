@@ -67,8 +67,11 @@ class StateFileAzIntake < StateFileBaseIntake
       self.bank_name = nil
       self.routing_number = nil
       self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
     end
   end
+
   def state_code
     'az'
   end
