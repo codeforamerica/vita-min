@@ -36,7 +36,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
-gem 'valid_email2'
+gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
 gem 'ddtrace', '~> 1.9.0'
 gem 'dogapi'
@@ -57,7 +57,7 @@ gem 'business_time'
 gem 'scenic'
 gem 'rubyzip'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
-gem 'statesman', '~> 9.0'
+gem 'statesman'
 gem 'redcarpet'
 gem 'platform-api'
 gem 'data_migrate'
@@ -80,7 +80,6 @@ gem 'flipper-ui'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
-  gem 'faker'
 end
 
 group :demo, :development, :heroku, :staging, :production do
@@ -132,7 +131,7 @@ end
 group :test do
   gem 'webmock'
   gem 'simplecov', require: false
-  gem 'shoulda-matchers', '~> 4.3.0'
+  gem 'shoulda-matchers'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
   gem 'percy-capybara'
