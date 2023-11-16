@@ -7,8 +7,8 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
             ACCOUNT_TYPES = {
               unfilled: 0,
-              personal_checking: 1,
-              personal_savings: 2,
+              checking: 1,
+              savings: 2,
               business_checking: 3,
               business_savings: 4
             }.freeze

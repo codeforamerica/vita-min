@@ -27,9 +27,9 @@
           options: { checked_value: "yes", unchecked_value: "no" }
         )
     %>
-
+<!--duplicate column?-->
     <%= f.cfa_select :refund_choice, "refund choice", ["paper", "direct_deposit"].map { |v| [v.humanize, v] } %>
-    <%= f.cfa_select :account_type, "account type", ["personal_checking", "personal_savings", "business_checking", "business_savings"].map { |v| [v.humanize, v] } %>
+    <%= f.cfa_select :account_type, "account type", ["checking", "savings"].map { |v| [v.humanize, v] } %>
 
     <%= f.cfa_input_field :routing_number, "routing number" %>
     <%= f.cfa_input_field :account_number, "account number" %>

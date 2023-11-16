@@ -576,7 +576,7 @@ class FlowsController < ApplicationController
 
     def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
       common_attributes.merge(
-        account_type: "personal_checking",
+        account_type: "checking",
         amount_owed_pay_electronically: "unfilled",
         claimed_as_dep: "no",
         confirmed_permanent_address: "no",
