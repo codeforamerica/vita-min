@@ -84,7 +84,6 @@ class StateFileAzIntake < StateFileBaseIntake
     Efile::Az::Az140.new(
       year: 2022,
       filing_status: filing_status.to_sym,
-      claimed_as_dependent: claimed_as_dep_yes?,
       intake: self,
       dependent_count: dependents.length,
       direct_file_data: direct_file_data,
@@ -140,4 +139,6 @@ class StateFileAzIntake < StateFileBaseIntake
       eligibility_529_for_non_qual_expense: "yes",
     }
   end
+
+  #todo do a rollback on claimed_as_dep field
 end

@@ -25,6 +25,7 @@ class DirectFileData
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+    total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt'
   }.freeze
 
   def initialize(raw_xml)
@@ -234,6 +235,18 @@ class DirectFileData
     parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
   end
 
+  def total_exempt_primary_spouse
+    df_xml_value(__method__).to_i
+  end
+
+  def total_exempt_primary_spouse=(value)
+    write_df_xml_value(__method__, value.to_i)
+  end
+
+  def claimed_as_dependent?
+    total_exempt_primary_spouse.zero?
+  end
+
   def fed_65_primary_spouse
     elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
     value = 0
@@ -391,7 +404,8 @@ class DirectFileData
       :fed_taxable_ssb,
       :fed_adjustments_claimed,
       :fed_total_adjustments,
-      :total_state_tax_withheld
+      :total_state_tax_withheld,
+      :total_exempt_primary_spouse
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end
