@@ -5,8 +5,6 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  amount_electronic_withdrawal       :integer
-#  amount_owed_pay_electronically     :integer          default("unfilled"), not null
 #  bank_name                          :string
 #  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
@@ -59,7 +57,6 @@
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
 #  referrer                           :string
-#  refund_choice                      :integer          default("unfilled"), not null
 #  residence_county                   :string
 #  routing_number                     :string
 #  sales_use_tax                      :integer
@@ -93,9 +90,7 @@ class StateFileNyIntake < StateFileBaseIntake
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
-  enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
-  enum account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :account_type
-  enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
+  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing

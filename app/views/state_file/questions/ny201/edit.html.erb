@@ -20,23 +20,6 @@
 
     <%= f.cfa_input_field :ny_other_additions, "Other (form IT-225, line 9)" %>
 
-    <%=
-        f.cfa_checkbox(
-          :amount_owed_pay_electronically,
-          "Pay by electronic funds withdrawal?",
-          options: { checked_value: "yes", unchecked_value: "no" }
-        )
-    %>
-<!--duplicate column?-->
-    <%= f.cfa_select :refund_choice, "refund choice", ["paper", "direct_deposit"].map { |v| [v.humanize, v] } %>
-    <%= f.cfa_select :account_type, "account type", ["checking", "savings"].map { |v| [v.humanize, v] } %>
-
-    <%= f.cfa_input_field :routing_number, "routing number" %>
-    <%= f.cfa_input_field :account_number, "account number" %>
-
-    <%= f.cfa_date_select :date_electronic_withdrawal, "Electronic funds withdrawal Date" %>
-    <%= f.cfa_input_field :amount_electronic_withdrawal, "Electronic funds amount" %>
-
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>

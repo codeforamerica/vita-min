@@ -102,11 +102,7 @@ module Efile
       end
 
       def refund_or_owed_amount
-        if @lines.fetch(:IT201_LINE_78).value > 0
-          @lines.fetch(:IT201_LINE_78).value
-        else
-          @lines.fetch(:IT201_LINE_80).value
-        end
+        line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62)
       end
 
       private

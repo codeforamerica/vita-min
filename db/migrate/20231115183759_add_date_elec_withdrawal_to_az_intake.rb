@@ -11,6 +11,9 @@ class AddDateElecWithdrawalToAzIntake < ActiveRecord::Migration[7.1]
       add_column :state_file_ny_intakes, :bank_name, :string
       add_column :state_file_az_intakes, :withdraw_amount, :integer
       add_column :state_file_ny_intakes, :withdraw_amount, :integer
+      remove_column :state_file_ny_intakes, :refund_choice, :integer
+      remove_column :state_file_ny_intakes, :amount_electronic_withdrawal, :integer
+      remove_column :state_file_ny_intakes, :amount_owed_pay_electronically, :integer
     end
   end
 end

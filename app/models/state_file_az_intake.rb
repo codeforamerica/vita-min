@@ -50,7 +50,7 @@
 class StateFileAzIntake < StateFileBaseIntake
   encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
 
-  enum account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :account_type
+  enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member

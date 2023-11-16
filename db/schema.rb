@@ -1641,8 +1641,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
   create_table "state_file_ny_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
-    t.integer "amount_electronic_withdrawal"
-    t.integer "amount_owed_pay_electronically", default: 0, null: false
     t.string "bank_name"
     t.integer "claimed_as_dep", default: 0, null: false
     t.integer "confirmed_permanent_address", default: 0, null: false
@@ -1697,7 +1695,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
     t.string "referrer"
-    t.integer "refund_choice", default: 0, null: false
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sales_use_tax"

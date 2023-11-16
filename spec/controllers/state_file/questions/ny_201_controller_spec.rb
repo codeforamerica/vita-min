@@ -15,9 +15,7 @@ RSpec.describe StateFile::Questions::Ny201Controller do
         {
           us_state: "ny",
           state_file_ny201_form: {
-            account_type: "checking",
             nyc_full_year_resident: "yes",
-            refund_choice: "direct_deposit"
           }
         }
       end

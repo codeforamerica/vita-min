@@ -9,8 +9,6 @@ module SubmissionBuilder
               unfilled: 0,
               checking: 1,
               savings: 2,
-              business_checking: 3,
-              business_savings: 4
             }.freeze
 
             def document
