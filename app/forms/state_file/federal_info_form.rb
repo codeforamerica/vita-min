@@ -8,8 +8,6 @@ module StateFile
     set_attributes_for :direct_file_data,
                        :tax_return_year,
                        :filing_status,
-                       :phone_daytime,
-                       :phone_daytime_area_code,
                        :primary_ssn,
                        :primary_occupation,
                        :spouse_ssn,

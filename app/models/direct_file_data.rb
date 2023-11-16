@@ -10,6 +10,7 @@ class DirectFileData
     mailing_street: 'ReturnHeader Filer USAddress AddressLine1Txt',
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
+    cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
@@ -45,12 +46,8 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
-  def phone_daytime
-    # TODO
-  end
-
-  def phone_daytime_area_code
-    # TODO
+  def cell_phone_number
+    df_xml_value(__method__)
   end
 
   def primary_ssn
@@ -332,8 +329,6 @@ class DirectFileData
     [
       :tax_return_year,
       :filing_status,
-      :phone_daytime,
-      :phone_daytime_area_code,
       :primary_ssn,
       :primary_occupation,
       :spouse_ssn,
@@ -342,6 +337,7 @@ class DirectFileData
       :mailing_street,
       :mailing_apartment,
       :mailing_zip,
+      :cell_phone_number,
       :fed_wages,
       :fed_taxable_income,
       :fed_unemployment,
