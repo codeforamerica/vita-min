@@ -1,11 +1,11 @@
 module StateFile
   module Questions
     class TaxesOwedController < QuestionsController
-
+      def self.show?(intake)
+        intake.calculated_refund_or_owed_amount.negative? # what happens if zero?
+      end
       def taxes_owed
-        calculator = current_intake.tax_calculator
-        calculator.calculate
-        calculator.refund_or_owed_amount
+        current_intake.calculated_refund_or_owed_amount.abs
       end
       helper_method :taxes_owed
 
@@ -32,12 +32,6 @@ module StateFile
         end
       end
       helper_method :pay_mail_online_text
-
-      def prev_path
-        prev_path = StateFile::Questions::AzReviewController
-        options = { us_state: params[:us_state], action: prev_path.navigation_actions.first }
-        prev_path.to_path_helper(options)
-      end
     end
   end
 end

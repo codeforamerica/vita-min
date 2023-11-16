@@ -2031,8 +2031,8 @@ en:
       tax_refund:
         edit:
           bank_title: "Please provide your bank details: "
-          direct_deposit: Direct
-          mail: Mail
+          direct_deposit: Direct deposit (fastest)
+          mail: Mail my payment (slower)
           mail_html: |
             You can get your tax refund on a debit card issued by %{state_name} state. Debit cards allow you to:
             <ul>
