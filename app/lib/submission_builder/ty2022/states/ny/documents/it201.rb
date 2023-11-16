@@ -18,7 +18,8 @@ module SubmissionBuilder
             }
             NYC_RES = {
               yes: 1,
-              no: 2
+              no: 2,
+              unfilled: 2 # it was failing on filling out xml.NYC_LVNG_QTR_IND without this, nyc_full_year_resident should always be set? perhaps the calculator calls are resetting it?
             }
 
             def document

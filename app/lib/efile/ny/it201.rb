@@ -101,6 +101,14 @@ module Efile
         @lines.transform_values(&:value)
       end
 
+      def refund_or_owed_amount
+        if @lines.fetch(:IT201_LINE_78).value > 0
+          @lines.fetch(:IT201_LINE_78).value
+        else
+          @lines.fetch(:IT201_LINE_80).value
+        end
+      end
+
       private
 
       def calculate_line_17

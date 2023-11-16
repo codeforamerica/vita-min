@@ -120,6 +120,13 @@ class StateFileNyIntake < StateFileBaseIntake
     if sales_use_tax_calculation_method_changed?(to: "automated")
       self.sales_use_tax = calculate_sales_use_tax
     end
+
+    if payment_or_deposit_type_changed?(to: "mail")
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+    end
   end
 
   def state_code
@@ -141,6 +148,12 @@ class StateFileNyIntake < StateFileBaseIntake
       dependent_count: dependents.length,
       include_source: include_source
     )
+  end
+
+  def calculated_refund_or_owed_amount
+    calculator = tax_calculator
+    calculator.calculate
+    calculator.refund_or_owed_amount
   end
 
   def calculate_sales_use_tax

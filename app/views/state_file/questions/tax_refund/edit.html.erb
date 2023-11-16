@@ -46,7 +46,6 @@
               </div>
             <%= t(".disclaimer_html") %>
             <br/>
-            <%= f.continue %>
           </div>
         </div>
       </div>
@@ -54,11 +53,10 @@
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
             <%= t('.mail_html', state_name: States.name_for_key(params[:us_state].upcase)) %>
-            <%= f.continue %>
           </div>
         </div>
       </div>
+      <%= f.continue %>
     </div>
   <% end %>
-
 <% end %>

@@ -61,6 +61,14 @@ class StateFileAzIntake < StateFileBaseIntake
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
 
+  before_save do
+    if payment_or_deposit_type_changed?(to: "mail")
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+    end
+  end
   def state_code
     'az'
   end

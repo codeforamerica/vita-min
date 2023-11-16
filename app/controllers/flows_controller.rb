@@ -613,6 +613,7 @@ class FlowsController < ApplicationController
         spouse_last_name: "Testerson",
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
+        payment_or_deposit_type: "mail"
       )
     end
 
@@ -639,6 +640,7 @@ class FlowsController < ApplicationController
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         tribal_member: "yes",
         tribal_wages: 100,
+        payment_or_deposit_type: "mail"
       )
     end
 
