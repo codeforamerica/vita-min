@@ -5,7 +5,7 @@
   <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
-      <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount) %></p>
+      <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount.abs) %></p>
     </div>
   </div>
 
