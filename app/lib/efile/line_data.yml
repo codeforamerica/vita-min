@@ -193,64 +193,92 @@ IT201_LINE_78B:
   label: '78b Total refund after NYS 529 account deposit (subtract line 78a from line 78)'
 IT201_LINE_80:
   label: '80 Amount you owe (if line 76 is less than line 62, subtract line 76 from line 62)'
+IT213_LINE_1:
+  label: 'Were you (and your spouse if filing a joint New York State return) New York State residents for the full year? If you marked an X in the No box, stop; you do not qualify for this credit.'
+IT213_LINE_2:
+  label: 'Did you claim the federal child tax credit or additional child tax credit?'
 IT213_LINE_3:
-  label: 'Is your NY recomputed federal adjusted gross income on Form IT-201, line 19a (see instructions)'
+  label: 'Is your federal adjusted gross income on Form IT-201, line 19 (see instructions)'
 IT213_LINE_4:
-  label: 'Enter the number of children who qualify for the federal child tax credit, additional child tax credit, or credit for other dependents'
+  label: 'Enter the number of children who qualify for the federal child tax credit or additional child tax credit (see instructions)'
 IT213_LINE_5:
-  label: 'Enter the number of children from line 4 that were at least four but less than 17 years of age on December 31'
+  label: 'Enter the number of qualifying children who have an individual taxpayer identification number (ITIN) and those without an SSN by the due date of the return (see instructions)'
 IT213_WORKSHEET_A_LINE_1:
   label: '1. Multiply the number of children from Form IT-213, line 4 by $1,000 and enter the result.'
 IT213_WORKSHEET_A_LINE_2:
-  label: '2. Enter your NY recomputed FAGI from Form IT-201, line 19a.'
+  label: '2. Enter your FAGI from Form IT-201, line 19.'
 IT213_WORKSHEET_A_LINE_3:
-  label: '3. Enter the amount shown below for your filing status:'
+  label: '3. If you filed federal Form 1040, enter the total of any: Exclusion of income from Puerto Rico, plus Amounts from federal Forms 2555, lines 45 and 50, and 4563, line 15 If you filed federal Form 1040NR, enter 0.'
 IT213_WORKSHEET_A_LINE_4:
-  label: '4. Is the amount on line 2 more than the amount on line 3? If No, Leave line 4 blank. Enter 0 on line 5 and go to line 6. If Yes, Subtract line 3 from line 2. If the result is not a multiple of $1,000, increase it to the next multiple of $1,000.'
+  label: '4. Add lines 2 and 3. Enter the total.'
 IT213_WORKSHEET_A_LINE_5:
-  label: '5. Multiply the amount on line 4 by 5% (.05). Enter the result.'
+  label: '5. Enter the amount shown below for your filing status: Married filing jointly - $110,000 Single, head of household, or qualifying surviving spouse - $75,000 Married filing separately - $55,000'
 IT213_WORKSHEET_A_LINE_6:
-  label: '6. Is the amount on line 1 more than the amount on line 5? If Yes. Subtract line 5 from line 1. Enter the result and complete Part 2.'
+  label: '6. Is the amount on line 4 more than the amount on line 5? No. Leave line 6 blank. Enter 0 on line 7 and go to line 8. Yes. Subtract line 5 from line 4. If the result is not a multiple of $1,000, increase it to the next multiple of $1,000. For example, increase $425 to $1,000, increase $1,025 to $2,000.'
 IT213_WORKSHEET_A_LINE_7:
-  label: '7. Enter your 2022 federal tax (Form 1040 or Form 1040NR, line 18).'
+  label: '7. Multiply the amount on line 6 by 5% (.05). Enter the result.'
 IT213_WORKSHEET_A_LINE_8:
-  label: '8. Are the amounts on Form IT-201 lines 19 and 19a the same?'
+  label: '8. Is the amount on line 1 more than the amount on line 7? No. Stop here. Enter 0 on Form IT-213, line 6 and 0 on Form IT-213, line 7. Yes. Subtract line 7 from line 1. Enter the result and complete Part 2.'
 IT213_WORKSHEET_A_LINE_9:
-  label: '9. Are the amounts on lines 7 and 8 the same?'
+  label: '9. Enter your 2023 federal tax (Form 1040 or Form 1040NR, line 18).'
 IT213_WORKSHEET_A_LINE_10:
-  label: '10. Is the amount on line 6 more than the amount on line 9? If Yes, enter the amount from line 9 here and on Form IT-213, line 6. If No, Enter the amount from line 6 here and on Form IT-213, line 6. If Yes, Stop here. Enter 0 on Form IT-213, line 6. If No, Subtract line 8 from line 7. Enter the result.'
+  label: '10. Enter the credits claimed on your 2023 federal income tax return, if applicable: Form 1040, Schedule 3, line 1 b. Form 1040, Schedule 3, line 2 c. Form 1040, Schedule 3, line 3 d. Form 1040, Schedule 3, line 4 e. Form 1040, Schedule 3, line 5b f. Form 1040, Schedule 3, line 6d g. Form 1040, Schedule 3, line 6f h. Form 1040, Schedule 3, line 6l i. Form 1040, Schedule 3, line 6m. Add lines a through i.'
+IT213_WORKSHEET_A_LINE_11:
+  label: '11. Did you claim any of the following federal credits on your 2023 federal income tax return? Mortgage interest credit (federal Form 8396) Adoption credit (federal Form 8839) Residential clean energy credit (federal Form 5695, Part 1) District of Columbia first-time homebuyer credit (federal Form 8859) No. Enter the amount from line 10. Yes. If you filed federal Form 2555, enter the amount from line 10. Otherwise, complete the Line 11 Worksheet below, to compute the amount to enter here.'
+IT213_WORKSHEET_A_LINE_12:
+  label: '12. Subtract line 11 from line 9. Enter the result.'
+IT213_WORKSHEET_A_LINE_13:
+  label: '13. Is the amount on line 8 of this worksheet more than the amount on line 12? No. Stop here. Enter the amount from line 8 here and on Form IT-213, line 6; and enter 0 on Form IT-213, line 7. Yes. Enter the amount from line 12 here and on Form IT-213, line 6; and complete Worksheet B: Additional child tax credit amount.'
+IT213_WORKSHEET_B_LINE_1:
+  label: '1. Enter the amount from Worksheet A, line 8.'
+IT213_WORKSHEET_B_LINE_2:
+  label: '2. Enter the amount from Form IT-213, line 6. If the amount on line 2 is greater than or equal to the amount on line 1, stop here; you do not qualify for the additional child credit. Enter 0 on Form IT-213, line 7. If the amount on line 2 is less than the amount on line 1, go to line 3.'
+IT213_WORKSHEET_B_LINE_3:
+  label: '3. Subtract line 2 from line 1. Enter the result.'
+IT213_WORKSHEET_B_LINE_4A:
+  label: '4a. Enter your earned income from your federal instructions for Schedule 8812, Earned Income Worksheet, line 7.'
+IT213_WORKSHEET_B_LINE_4B:
+  label: '4b. Nontaxable combat pay (from federal Form W-2, Wage and Tax Statement, box 12, with code Q).'
+IT213_WORKSHEET_B_LINE_5:
+  label: '5. Is the amount on line 4a more than $3,000? No. Leave line 5 blank and enter 0 on line 6. Yes. Subtract $3,000 from the amount on line 4a. Enter the result on line 5.'
+IT213_WORKSHEET_B_LINE_6:
+  label: '6. Multiply the amount on line 5 by 15% (.15). Enter the result.'
+IT213_WORKSHEET_B_LINE_7:
+  label: '7. Do you have three or more children (from Form IT-213, line 4)? No. Stop here and enter the smaller of lines 3 or 6 on Form IT-213, line 7. Yes. If line 6 is equal to or more than line 3, stop here and enter the amount from line 3 on Form IT-213, line 7. If line 6 is less than line 3, enter the amount from your federal Schedule 8812, line 25 here and continue with line 8'
+IT213_WORKSHEET_B_LINE_8:
+  label: '8. Enter the larger of line 6 or line 7.'
+IT213_WORKSHEET_B_LINE_9:
+  label: '9. Enter the smaller of line 3 or line 8 here and on Form IT-213, line 7.'
 IT213_LINE_6:
-  label: 'Enter the amount from Worksheet A, line 10 or Worksheet B, line 13 '
+  label: 'Enter the amount from Worksheet A, line 13 (see instructions)'
 IT213_LINE_7:
-  label: 'Enter your additional child tax credit amount from Worksheet C'
+  label: 'Enter your additional child tax credit amount from Worksheet B (see instructions)'
 IT213_LINE_8:
-  label: 'Add lines 6 and 7.'
+  label: 'Add lines 6 and 7'
 IT213_LINE_9:
-  label: 'Enter the number of children from line 4'
+  label: 'Multiply line 8 by 33% (.33)'
 IT213_LINE_10:
-  label: 'Divide line 8 by line 9'
+  label: 'Enter the number of children from line 4'
 IT213_LINE_11:
   label: 'Enter the number of children from line 5 .'
 IT213_LINE_12:
-  label: 'Multiply line 10 by line 11'
+  label: 'Add lines 10 and 11'
 IT213_LINE_13:
-  label: 'Multiply line 12 by 33% (.33)'
+  label: 'Multiply line 12 by 100'
 IT213_LINE_14:
-  label: 'Enter the number of children from line 5'
+  label: 'Empire State child credit (enter the amount from line 9 or line 13, whichever is greater)'
 IT213_LINE_15:
-  label: 'Multiply line 14 by 100'
+  label: 'Enter the full-year resident spouse’s share of the line 14 amount; do not leave line 15 blank'
 IT213_LINE_16:
-  label: 'Empire State child credit (enter the amount from line 13 or line 15, whichever is greater) .'
+  label: 'Enter the part-year resident or nonresident spouse’s share of the line 14 amount; do not leave line 16 blank'
 IT201_LINE_63:
   label: '63 Empire State child credit'
 IT215_LINE_1:
   label: 'Did you claim the federal earned income credit?'
-IT215_LINE_1A:
-  label: 'Did you file a NYS Form IT-558?'
 IT215_LINE_2:
   label: 'Is your investment income (see instructions) greater than $10,300?'
 IT215_LINE_3:
-  label: 'Have you already filed your New York State income tax return?'
+  label: 'Is your federal filing status MFS and do you meet the requirements to be considered unmarried for the purposes of the earned income credit'
 IT215_LINE_4:
   label: 'Did you claim qualifying children on your federal Schedule EIC?'
 IT215_LINE_5:

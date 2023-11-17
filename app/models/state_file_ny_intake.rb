@@ -128,11 +128,12 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
-      year: 2022,
+      year: MultiTenantService.statefile.current_tax_year,
       filing_status: filing_status.to_sym,
       claimed_as_dependent: claimed_as_dep_yes?,
       intake: self,
       direct_file_data: direct_file_data,
+      eligibility_lived_in_state: eligibility_lived_in_state_yes?,
       nyc_full_year_resident: nyc_full_year_resident_yes?,
       dependent_count: dependents.length,
       include_source: include_source

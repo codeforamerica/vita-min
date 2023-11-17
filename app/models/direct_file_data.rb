@@ -20,6 +20,19 @@ class DirectFileData
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+    fed_ctc: 'IRS1040 AdditionalChildTaxCreditAmt',
+    fed_calculated_difference_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp CalculatedDifferenceAmt',
+    fed_nontaxable_combat_pay_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp NontaxableCombatPayAmt',
+    fed_total_earned_income_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp TotalEarnedIncomeAmt',
+    fed_puerto_rico_income_exclusion_amount: "IRS1040 ExcldSect933PuertoRicoIncmAmt",
+    fed_total_income_exclusion_amount: 'IRS1040Schedule1 TotalIncomeExclusionAmt',
+    fed_housing_deduction_amount: 'IRS1040Schedule1 HousingDeductionAmt',
+    fed_gross_income_exclusion_amount: 'IRS1040Schedule1 GrossIncomeExclusionAmt',
+    fed_irs_1040_nr: 'IRS1040NR',
+    fed_mortgage_interest_credit_amount: 'IRS8396 MortgageInterestCreditAmt',
+    fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
+    fed_residential_clean_energy_credit_amount: 'IRS5695 ResidentialCleanEnergyCrAmt',
+    fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
   }.freeze
 
   def initialize(raw_xml)
@@ -196,6 +209,114 @@ class DirectFileData
 
   def total_state_tax_withheld
     0 # TODO
+  end
+
+  def fed_ctc_claimed
+    fed_ctc.positive?
+  end
+
+  def fed_ctc
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_ctc=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_calculated_difference_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_calculated_difference_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_nontaxable_combat_pay_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_nontaxable_combat_pay_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_total_earned_income_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_total_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_puerto_rico_income_exclusion_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_puerto_rico_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_total_income_exclusion_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_total_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_housing_deduction_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_housing_deduction_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_gross_income_exclusion_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_gross_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_mortgage_interest_credit_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_mortgage_interest_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_dc_homebuyer_credit_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_dc_homebuyer_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_residential_clean_energy_credit_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_residential_clean_energy_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_adoption_credit_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_adoption_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_irs_1040_nr_filed
+    fed_irs_1040_nr.present?
+  end
+
+  def fed_irs_1040_nr
+    df_xml_value(__method__)
   end
 
   def fed_eic_claimed

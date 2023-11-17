@@ -3,13 +3,14 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
+      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, eligibility_lived_in_state:, nyc_full_year_resident:, dependent_count:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @claimed_as_dependent = claimed_as_dependent # true/false
         @intake = intake
         @direct_file_data = direct_file_data
+        @eligibility_lived_in_state = eligibility_lived_in_state
         @nyc_full_year_resident = nyc_full_year_resident
         @dependent_count = dependent_count # number
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
@@ -19,8 +20,8 @@ module Efile
           lines: @lines,
           filing_status: filing_status.to_sym,
           direct_file_data: direct_file_data,
-          federal_dependent_child_count: @intake.dependents.length,
-          federal_dependent_child_count_between_4_and_17: @intake.dependents.length, # TODO
+          eligibility_lived_in_state: eligibility_lived_in_state,
+          federal_dependent_child_count: @intake.dependents.length
         )
         @it214 = Efile::Ny::It214.new(
           value_access_tracker: @value_access_tracker,
@@ -83,7 +84,7 @@ module Efile
         set_line(:IT201_LINE_61, :calculate_line_61)
         set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
-        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_16].value })
+        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_14].value })
         @it215.calculate
         set_line(:IT201_LINE_65, -> { @lines[:IT215_LINE_16].value })
         @it214.calculate

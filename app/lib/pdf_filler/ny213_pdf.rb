@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "it213-TY2022"
+      "it213-TY2023"
     end
 
     def initialize(submission)
@@ -25,7 +25,7 @@ module PdfFiller
         'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'ESC_FED_CR_IND'),
         'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'ESC_FAGI_LMT_IND'),
         'Line 4' => claimed_attr_value('ESC_FED_CHLD_NMBR'),
-        'Line 5' => claimed_attr_value('ESC_QUAL_CHLD_NMBR'),
+        'Line 5' => claimed_attr_value('ESC_SSN_CHLD_NMBR'),
       }
 
       if @submission.data_source.dependents.length > 6
@@ -45,34 +45,29 @@ module PdfFiller
       end
 
 
-      answers.merge!(
-        'Line 6 Dollars' => claimed_attr_value('ESC_FED_CR_AMT'),
-        'Line 7 Dollars' => claimed_attr_value('ESC_FED_ADDL_AMT'),
-        'Line 8 Dollars' => claimed_attr_value('ESC_FED_TOT_AMT'),
-      )
-
-      if @xml_document.at('ESC_FED_AVG_AMT')
+      if @xml_document.at('ESC_FED_CR_IND').attribute('claimed').value.to_i == 1
         answers.merge!(
-          'Line 9' => claimed_attr_value('ESC_FED_CHLD_NMBR'),
-          'Line 10 Dollars' => claimed_attr_value('ESC_FED_AVG_AMT'),
-          'Line 11' => claimed_attr_value('ESC_QUAL_CHLD_NMBR'),
-          'Line 12 Dollars' => claimed_attr_value('ESC_AVL_BASE_AMT'),
+          'Line 6 Dollars' => claimed_attr_value('ESC_FED_CR_AMT'),
+          'Line 7 Dollars' => claimed_attr_value('ESC_FED_ADDL_AMT'),
+          'Line 8 Dollars' => claimed_attr_value('ESC_FED_TOT_AMT'),
+        )
+      end
+
+      answers['Line 9 Dollars'] = claimed_attr_value('ESC_LMT_1_AMT')
+
+      if @xml_document.at('ESC_FAGI_LMT_IND').attribute('claimed').value.to_i == 1
+        answers.merge!(
+          'Line 10' => claimed_attr_value('ESC_FED_CHLD_NMBR'),
+          'Line 11' => claimed_attr_value('ESC_SSN_CHLD_NMBR'),
+          'Line 12' => claimed_attr_value('ESC_TOT_CHLD_NMBR'),
+          'Line 13 Dollars' => claimed_attr_value('ESC_LMT_2_AMT'),
         )
       end
 
       answers.merge!(
-        'Line 13 Dollars' => claimed_attr_value('ESC_LMT_1_AMT'),
-      )
-
-      if @xml_document.at('ESC_LMT_2_AMT')
-        answers.merge!(
-          'Line 14' => claimed_attr_value('ESC_QUAL_CHLD_NMBR'),
-          'Line 15 Dollars' => claimed_attr_value('ESC_LMT_2_AMT'),
-        )
-      end
-
-      answers.merge!(
-        'Line 16 Dollars' => claimed_attr_value('ESC_CHLD_CR_AMT'),
+        'Line 14 Dollars' => claimed_attr_value('ESC_CHLD_CR_AMT'),
+        'Line 15 Dollars' => claimed_attr_value('ESC_FY_SP_SHR_AMT'),
+        'Line 16 Dollars' => claimed_attr_value('ESC_PY_SP_SHR_AMT'),
       )
     end
 
