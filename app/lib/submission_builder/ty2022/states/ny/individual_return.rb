@@ -153,6 +153,11 @@ module SubmissionBuilder
                 pdf: PdfFiller::Ny215Pdf,
                 include: true
               },
+              {
+                xml: nil,
+                pdf: PdfFiller::NyTr579ItPdf,
+                include: true
+              }
             ]
             @submission.data_source.state_file1099_gs.each do |form1099g|
               supported_docs << {
