@@ -135,7 +135,7 @@
         </IRS1040>
         <IRS1040Schedule1 documentId="Schedule10001">
             <UnemploymentCompAmt>8500</UnemploymentCompAmt>
-            <TotalAdditionalmIncomeAt>8500</TotalAdditionalmIncomeAt>
+            <TotalAdditionalIncomeAmt>8500</TotalAdditionalIncomeAmt>
             <EducatorExpensesAmt>300</EducatorExpensesAmt>
             <StudentLoanInterestDedAmt>2500</StudentLoanInterestDedAmt>
             <TotalAdjustmentsAmt>2800</TotalAdjustmentsAmt>
