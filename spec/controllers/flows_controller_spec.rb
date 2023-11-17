@@ -150,10 +150,16 @@ RSpec.describe FlowsController do
     render_views
 
     context 'for the gyr flow' do
-      it 'renders successfully' do
-        get :show, params: { id: :gyr }
+      context "when on the gyr hostname" do
+        before do
+          @request.host = MultiTenantService.new(:gyr).host
+        end
 
-        expect(response.body).to have_content('GetYourRefund Flow')
+        it 'renders successfully' do
+          get :show, params: { id: :gyr }
+
+          expect(response.body).to have_content('GetYourRefund Flow')
+        end
       end
 
       context "when on the ctc hostname" do
@@ -208,6 +214,12 @@ RSpec.describe FlowsController do
     end
 
     context 'for the state file az flow' do
+      let(:host) { MultiTenantService.new(:statefile).host }
+
+      before do
+        @request.host = host
+      end
+
       it 'renders successfully' do
         get :show, params: { id: :state_file_az }
 
@@ -216,6 +228,12 @@ RSpec.describe FlowsController do
     end
 
     context 'for the state file ny flow' do
+      let(:host) { MultiTenantService.new(:statefile).host }
+
+      before do
+        @request.host = host
+      end
+
       it 'renders successfully' do
         get :show, params: { id: :state_file_ny }
 

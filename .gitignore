@@ -66,8 +66,8 @@ vendor/us_states/unpacked
 vendor/us_states/*.zip
 vendor/gyr_efiler/*.zip
 
-fake_api_server/*.csr
-fake_api_server/*.crt
-fake_api_server/*.srl
-fake_api_server/*.key
-fake_api_server/*.txt
+df_api/*.csr
+df_api/*.crt
+df_api/*.srl
+df_api/*.key
+df_api/*.txt

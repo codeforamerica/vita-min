@@ -3,8 +3,8 @@ module Navigation
     include ControllerNavigation
 
     FLOW = [
-      StateFile::Questions::LandingPageController,
-      StateFile::Questions::EligibilityResidenceController, # creates state_intake (StartIntakeConcern)
+      StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
+      StateFile::Questions::EligibilityResidenceController,
       StateFile::Questions::EligibilityOutOfStateIncomeController,
       StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController,
       StateFile::Questions::EligibilityOffboardingController,
@@ -18,7 +18,6 @@ module Navigation
       StateFile::Questions::WaitingToLoadDataController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
-      StateFile::Questions::FederalDependentsController,
       StateFile::Questions::NameDobController,
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,
@@ -30,6 +29,8 @@ module Navigation
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::NyReviewController,
+      StateFile::Questions::TaxesOwedController,
+      StateFile::Questions::TaxRefundController,
       StateFile::Questions::EsignDeclarationController,
       StateFile::Questions::SubmissionConfirmationController,
     ].freeze

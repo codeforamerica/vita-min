@@ -24,7 +24,7 @@ module SubmissionBuilder
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
             document.at("ReturnDataState").add_child(documents_wrapper)
             attached_documents.each do |attached|
-              document.at('forms').add_child(document_fragment(attached))
+              document.at('ReturnDataState').add_child(document_fragment(attached))
             end
             document
           end
@@ -180,7 +180,6 @@ module SubmissionBuilder
                 end
               end #TODO fix after we figure out source of dependent information
             end
-
             xml_doc.at('*')
           end
 
@@ -222,7 +221,7 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            [
+            supported_docs = [
               {
                 xml: nil,
                 pdf: PdfFiller::Az140Pdf,
@@ -234,6 +233,15 @@ module SubmissionBuilder
                 include: true
               }
             ]
+            @submission.data_source.state_file1099_gs.each do |form1099g|
+              supported_docs << {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::State1099G,
+                pdf: nil,
+                include: true,
+                kwargs: { form1099g: form1099g }
+              }
+            end
+            supported_docs
           end
 
           def calculated_fields

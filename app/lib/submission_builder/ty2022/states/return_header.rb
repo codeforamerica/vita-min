@@ -44,7 +44,6 @@ module SubmissionBuilder
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
                 xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip
               end
-              # xml.USPhone [@submission.data_source.direct_file_data.phone_daytime_area_code, @submission.data_source.direct_file_data.phone_daytime].join(' ')
             end
           end
         end

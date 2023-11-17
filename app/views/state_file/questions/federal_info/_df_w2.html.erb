@@ -1,0 +1,8 @@
+<div class="with-padding-med df-w2-form">
+  <h2>W2 <%= f.object.id %></h2>
+  <%= f.state_file_nested_xml_field :WagesAmt %>
+  <%= f.state_file_nested_xml_field :WithholdingAmt %>
+
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.df-w2-form', { class: "button button--small"} %>
+</div>

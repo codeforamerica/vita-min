@@ -5,8 +5,7 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  amount_electronic_withdrawal       :integer
-#  amount_owed_pay_electronically     :integer          default("unfilled"), not null
+#  bank_name                          :string
 #  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
@@ -39,6 +38,7 @@
 #  ny_other_additions                 :integer
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
+#  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_apartment                :string
 #  permanent_city                     :string
 #  permanent_street                   :string
@@ -57,7 +57,6 @@
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
 #  referrer                           :string
-#  refund_choice                      :integer          default("unfilled"), not null
 #  residence_county                   :string
 #  routing_number                     :string
 #  sales_use_tax                      :integer
@@ -73,6 +72,7 @@
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
+#  withdraw_amount                    :integer
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  primary_state_id_id                :bigint
@@ -90,9 +90,7 @@ class StateFileNyIntake < StateFileBaseIntake
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   encrypts :account_number, :routing_number, :raw_direct_file_data
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
-  enum refund_choice: { unfilled: 0, paper: 1, direct_deposit: 2 }, _prefix: :refund_choice
-  enum account_type: { unfilled: 0, personal_checking: 1, personal_savings: 2, business_checking: 3, business_savings: 4 }, _prefix: :account_type
-  enum amount_owed_pay_electronically: { unfilled: 0, yes: 1, no: 2 }, _prefix: :amount_owed_pay_electronically
+  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
@@ -106,6 +104,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
+  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
 
   before_save do
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
@@ -116,6 +115,19 @@ class StateFileNyIntake < StateFileBaseIntake
     if sales_use_tax_calculation_method_changed?(to: "automated")
       self.sales_use_tax = calculate_sales_use_tax
     end
+
+    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
+    end
+  end
+
+  def state_code
+    'ny'
   end
 
   def state_name
@@ -133,6 +145,12 @@ class StateFileNyIntake < StateFileBaseIntake
       dependent_count: dependents.length,
       include_source: include_source
     )
+  end
+
+  def calculated_refund_or_owed_amount
+    calculator = tax_calculator
+    calculator.calculate
+    calculator.refund_or_owed_amount
   end
 
   def calculate_sales_use_tax

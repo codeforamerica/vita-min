@@ -3,8 +3,8 @@ class FlowsController < ApplicationController
     gyr: { emoji: "💵", name: "GetYourRefund Flow", host: :gyr },
     ctc: { emoji: "👶", name: "CTC Flow", host: :ctc },
     diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
-    state_file_az: { emoji: "🌵", name: "State File - Arizona", host: :gyr },
-    state_file_ny: { emoji: "🍎", name: "State File - New York", host: :gyr },
+    state_file_az: { emoji: "🌵", name: "State File - Arizona", host: :statefile },
+    state_file_ny: { emoji: "🍎", name: "State File - New York", host: :statefile },
   }
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
@@ -52,15 +52,9 @@ class FlowsController < ApplicationController
     flow_config = FLOW_CONFIGS[params[:id].to_sym]
     raise ActionController::RoutingError.new('Not Found') if flow_config.nil?
 
-    on_ctc_hostname = request.host == MultiTenantService.new(:ctc).host
-    if on_ctc_hostname
-      if flow_config[:host] == :gyr
-        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:gyr).host), allow_other_host: true)
-      end
-    else
-      if flow_config[:host] == :ctc
-        return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(:ctc).host), allow_other_host: true)
-      end
+    on_canonical_host = request.host == MultiTenantService.new(flow_config[:host]).host
+    unless on_canonical_host
+      return redirect_to(flow_url(id: params[:id], host: MultiTenantService.new(flow_config[:host]).host), allow_other_host: true)
     end
 
     type = params[:id].to_sym
@@ -75,7 +69,7 @@ class FlowsController < ApplicationController
   end
 
   def current_intake
-    if %w[state_file_az state_file_ny].include?(params[:type])
+    if %w[state_file_az state_file_ny].include?(params[:id] || params[:type])
       GlobalID.find(session[:state_file_intake])
     else
       super
@@ -582,8 +576,6 @@ class FlowsController < ApplicationController
 
     def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
       common_attributes.merge(
-        account_type: "personal_checking",
-        amount_owed_pay_electronically: "unfilled",
         claimed_as_dep: "no",
         confirmed_permanent_address: "no",
         contact_preference: "text",
@@ -609,7 +601,6 @@ class FlowsController < ApplicationController
         property_over_limit: "unfilled",
         public_housing: "unfilled",
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
-        refund_choice: "paper",
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district: "Bellmore-Merrick CHS",
@@ -619,6 +610,8 @@ class FlowsController < ApplicationController
         spouse_last_name: "Testerson",
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
+        payment_or_deposit_type: "mail",
+        account_type: 'unfilled'
       )
     end
 
@@ -645,6 +638,8 @@ class FlowsController < ApplicationController
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         tribal_member: "yes",
         tribal_wages: 100,
+        payment_or_deposit_type: "mail",
+        account_type: 'unfilled'
       )
     end
 

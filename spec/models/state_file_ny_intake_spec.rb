@@ -5,8 +5,7 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  amount_electronic_withdrawal       :integer
-#  amount_owed_pay_electronically     :integer          default("unfilled"), not null
+#  bank_name                          :string
 #  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
@@ -39,6 +38,7 @@
 #  ny_other_additions                 :integer
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
+#  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_apartment                :string
 #  permanent_city                     :string
 #  permanent_street                   :string
@@ -57,7 +57,6 @@
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
 #  referrer                           :string
-#  refund_choice                      :integer          default("unfilled"), not null
 #  residence_county                   :string
 #  routing_number                     :string
 #  sales_use_tax                      :integer
@@ -73,6 +72,7 @@
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
+#  withdraw_amount                    :integer
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  primary_state_id_id                :bigint
@@ -98,7 +98,7 @@ describe StateFileNyIntake do
         expect {
           intake.update(untaxed_out_of_state_purchases: "no")
         }.to change(intake, :sales_use_tax_calculation_method).to("unfilled")
-         .and change(intake, :sales_use_tax).to(nil)
+                                                              .and change(intake, :sales_use_tax).to(nil)
       end
     end
 
@@ -107,6 +107,30 @@ describe StateFileNyIntake do
         expect {
           intake.update(sales_use_tax_calculation_method: "automated")
         }.to change(intake, :sales_use_tax).to(29)
+      end
+    end
+
+    context "when payment_or_deposit_type changes to mail" do
+      let!(:intake) do
+        create :state_file_ny_intake,
+               payment_or_deposit_type: "direct_deposit",
+               account_type: "checking",
+               bank_name: "Wells Fargo",
+               routing_number: "123456789",
+               account_number: "123",
+               withdraw_amount: 123,
+               date_electronic_withdrawal: Date.parse("April 1, 2023")
+      end
+
+      it "clears other account fields" do
+        expect {
+          intake.update(payment_or_deposit_type: "mail")
+        }.to change(intake.reload, :account_type).to("unfilled")
+        .and change(intake.reload, :bank_name).to(nil)
+        .and change(intake.reload, :routing_number).to(nil)
+        .and change(intake.reload, :account_number).to(nil)
+        .and change(intake.reload, :withdraw_amount).to(nil)
+        .and change(intake.reload, :date_electronic_withdrawal).to(nil)
       end
     end
 

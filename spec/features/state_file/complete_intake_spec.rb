@@ -21,16 +21,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_initial_authentication(contact_preference: :text_message)
 
       step_through_df_data_transfer
-      click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Direct File Data Overrides"
+      click_on "visit_federal_info_controller"
 
       expect(page).to have_field("tax return year", with: "2023")
       select "married filing jointly", from: "state_file_federal_info_form[filing_status]"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text "The page that shows your dependents"
-      expect(page).to have_text "TESSA TESTERSON"
       click_on I18n.t("general.continue")
 
       # name dob page
@@ -120,8 +115,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+      click_on I18n.t("general.continue")
 
-
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 364, state_name: "New York")
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
@@ -148,7 +145,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-  context "AZ", :flow_explorer_screenshot do
+  context "AZ", :flow_explorer_screenshot, js: true do
     it "has content" do
       visit "/"
       click_on "Start Test AZ"
@@ -161,25 +158,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_initial_authentication(contact_preference: :email)
 
       step_through_df_data_transfer
-      click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Direct File Data Overrides"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text "The page that shows your dependents"
-      expect(page).to have_text "TESSA TESTERSON"
-      click_on "Add a person"
-
-      expect(page).to have_text "Tell us about your dependent."
-      fill_in "First name", with: "Grampy"
-      fill_in "Last name", with: "Gramps"
-      fill_in "ssn", with: "123-45-6789"
-      select "GRANDPARENT", from: "Relationship to you"
-      select_cfa_date "state_file_dependent_dob", Date.new(1950, 10, 31)
-      click_on "Save this person"
-
-      expect(page).to have_text "The page that shows your dependents"
-      expect(page).to have_text "Grampy Gramps 10/31/1950"
+      click_on "visit_federal_info_controller"
+      click_on "New Dependent Detail"
+      within page.all('.df-dependent-detail-form')[1] do
+        fill_in '<DependentSSN>', with: "123456789"
+        fill_in '<DependentFirstNm>', with: "Grampy"
+        fill_in '<DependentLastNm>', with: "Gramps"
+        select "GRANDPARENT", from: "<DependentRelationshipCd>"
+      end
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "You’re almost done filing!"
@@ -193,6 +180,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
         select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
+      end
+      within "#dependent-1" do
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1950, 10, 31)
+        select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
       end
       click_on I18n.t("general.continue")
 
@@ -243,6 +234,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 789, state_name: "Arizona")
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))

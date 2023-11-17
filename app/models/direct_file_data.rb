@@ -10,6 +10,7 @@ class DirectFileData
     mailing_street: 'ReturnHeader Filer USAddress AddressLine1Txt',
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
+    cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
@@ -45,12 +46,8 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
-  def phone_daytime
-    # TODO
-  end
-
-  def phone_daytime_area_code
-    # TODO
+  def cell_phone_number
+    df_xml_value(__method__)
   end
 
   def primary_ssn
@@ -74,12 +71,10 @@ class DirectFileData
   end
 
   def spouse_ssn=(value)
-    unless parsed_xml.at('Filer SpouseSSN').present? && value.present?
-      parsed_xml.at('Filer').add_child('<SpouseSSN/>')
-    end
+    create_or_destroy_df_xml_node(__method__, value)
 
-    if parsed_xml.at('Filer SpouseSSN')
-      parsed_xml.at('Filer SpouseSSN').content = value
+    if value.present?
+      write_df_xml_value(__method__, value)
     end
   end
 
@@ -88,12 +83,10 @@ class DirectFileData
   end
 
   def spouse_occupation=(value)
-    unless parsed_xml.at('IRS1040 SpouseOccupationTxt').present? && value.present?
-      parsed_xml.at('IRS1040').add_child('<SpouseOccupationTxt/>')
-    end
+    create_or_destroy_df_xml_node(__method__, value)
 
-    if parsed_xml.at('SpouseOccupationTxt')
-      parsed_xml.at('SpouseOccupationTxt').content = value
+    if value.present?
+      write_df_xml_value(__method__, value)
     end
   end
 
@@ -126,7 +119,7 @@ class DirectFileData
   end
 
   def mailing_zip
-    parsed_xml.at('USAddress ZIPCd')&.text
+    df_xml_value(__method__)
   end
 
   def mailing_zip=(value)
@@ -257,6 +250,24 @@ class DirectFileData
     box14_total
   end
 
+  def dependent_detail_nodes
+    parsed_xml.css('DependentDetail')
+  end
+
+  def build_new_dependent_detail_node
+    dd = parsed_xml.css('DependentDetail').first
+    parsed_xml.css('DependentDetail').last.add_next_sibling(dd.to_s)
+  end
+
+  def w2_nodes
+    parsed_xml.css('IRSW2')
+  end
+
+  def build_new_w2_node
+    w2 = parsed_xml.css('IRSW2').first
+    parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
+  end
+
   def dependents
     dependents = parsed_xml.css('DependentDetail').map do |node|
       Dependent.new(
@@ -332,8 +343,6 @@ class DirectFileData
     [
       :tax_return_year,
       :filing_status,
-      :phone_daytime,
-      :phone_daytime_area_code,
       :primary_ssn,
       :primary_occupation,
       :spouse_ssn,
@@ -342,6 +351,7 @@ class DirectFileData
       :mailing_street,
       :mailing_apartment,
       :mailing_zip,
+      :cell_phone_number,
       :fed_wages,
       :fed_taxable_income,
       :fed_unemployment,
@@ -366,9 +376,23 @@ class DirectFileData
     parsed_xml.at(SELECTORS[key])&.text
   end
 
+  def create_or_destroy_df_xml_node(key, value)
+    selector = setter_symbol_to_selector(key)
+    if value.present? && !parsed_xml.at(selector).present?
+      *_parents, containing_node_name, new_node_name = selector.split(' ')
+      parsed_xml.at(containing_node_name).add_child("<#{new_node_name}/>")
+    elsif value.blank? && parsed_xml.at(selector).present?
+      parsed_xml.at(selector).remove
+    end
+  end
+
   def write_df_xml_value(key, value)
-    # Remove trailing equals sign from method e.g. :filing_status= -> :filing_status
-    selector = SELECTORS[key.to_s.sub(/=$/, '').to_sym]
+    selector = setter_symbol_to_selector(key)
     parsed_xml.at(selector).content = value
+  end
+
+  def setter_symbol_to_selector(method_name)
+    # Remove trailing equals sign from method e.g. :filing_status= -> :filing_status
+    SELECTORS[method_name.to_s.sub(/=$/, '').to_sym]
   end
 end

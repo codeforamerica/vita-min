@@ -32,13 +32,28 @@
     <%= f.state_file_qa_input_field :fed_unemployment, "Unemployment compensation" %>
     <%= f.state_file_qa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
 
+    <div>
+      <h1>Dependent Detail Zone</h1>
+
+      <%= f.fields_for :dependent_details do |ff| %>
+        <%= render "df_dependent_detail", f: ff %>
+      <% end %>
+      <%= link_to_add_fields "New Dependent Detail", f, :dependent_details, { class: "button button--small", model: StateFile::FederalInfoForm::DfDependentDetailForm }, partial: "df_dependent_detail" %>
+    </div>
+
+    <div>
+      <h1>W2 Zone</h1>
+
+      <%= f.fields_for :w2s do |ff| %>
+        <%= render "df_w2", f: ff %>
+      <% end %>
+      <%= link_to_add_fields "New W2", f, :w2s, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrsW2Form }, partial: "df_w2" %>
+    </div>
+
     <div style="background: #eaacea; padding: 15px; margin-bottom: 15px;">
       <h3>TODO ZONE: where do these things go?</h3>
 
       <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
-
-      <%= f.state_file_qa_input_field :phone_daytime, "daytime phone number" %>
-      <%= f.state_file_qa_input_field :phone_daytime_area_code, "daytime phone area code" %>
 
       <%= f.state_file_qa_input_field :total_fed_adjustments_identify, "Total Federal Adjustments (description)" %>
       <%= f.state_file_qa_input_field :total_fed_adjustments, "Total Federal Adjustments (amount)" %>

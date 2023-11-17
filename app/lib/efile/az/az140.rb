@@ -45,7 +45,7 @@ module Efile
         set_line(:AZ140_LINE_50, :calculate_line_50)
         set_line(:AZ140_LINE_51, -> { 0 })
         set_line(:AZ140_LINE_52, :calculate_line_52)
-        set_line(:AZ140_LINE_53, -> { 0 }) # included in 1040?
+        set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
         if line_or_zero(:AZ140_LINE_52) > line_or_zero(:AZ140_LINE_59)
@@ -65,6 +65,10 @@ module Efile
         set_line(:AZ140_CCWS_LINE_6c, :calculate_ccws_line_6c)
         set_line(:AZ140_CCWS_LINE_7c, :calculate_ccws_line_7c)
         @lines.transform_values(&:value)
+      end
+
+      def refund_or_owed_amount
+        calculate_line_79
       end
 
       private
@@ -183,7 +187,7 @@ module Efile
             [3, 27_300],
             [Float::INFINITY, 31_000]
           ]
-          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }
+          if wrksht_1_line_8 > max_income.find { |row| @dependent_count <= row[0] }[1]
             return 0
           end
           wrksht_2_line_2 = 2
@@ -217,6 +221,16 @@ module Efile
         line_52_value = line_or_zero(:AZ140_LINE_48) - (line_or_zero(:AZ140_LINE_49) + line_or_zero(:AZ140_LINE_50) + line_or_zero(:AZ140_LINE_51))
         [line_52_value, 0].max
       end
+
+      def calculate_line_53
+        total_state_taxes_withheld = 0
+        state_file_1099gs = @intake.state_file1099_gs
+        state_file_1099gs.each do |state_file_1099g|
+          total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
+        end
+        total_state_taxes_withheld
+      end
+
 
       def calculate_line_56
         if @direct_file_data.primary_ssn.present? && !@claimed_as_dependent && !@intake.sentenced_for_60_days

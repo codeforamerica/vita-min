@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class EligibilityResidenceController < QuestionsController
-      include StartIntakeConcern
       include EligibilityOffboardingConcern
 
       def form_class

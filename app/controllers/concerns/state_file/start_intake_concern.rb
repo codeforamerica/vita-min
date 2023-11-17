@@ -3,6 +3,8 @@ module StateFile
     # This concern can be included in the first controller in a
     # navigation flow that needs to create an intake.
     # It depends on having access to a question_navigator method.
+    # The page where this is used needs to be making a post request to update,
+    # as this concern relies on after_update_success being called.
     extend ActiveSupport::Concern
 
     private
@@ -15,6 +17,7 @@ module StateFile
     end
 
     def after_update_success
+      current_intake.save unless current_intake.persisted?
       session[:state_file_intake] = current_intake.to_global_id
     end
   end
