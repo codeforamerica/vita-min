@@ -1,0 +1,42 @@
+<% content_for :card do %>
+  <section class="scrollable-table-wrapper">
+    <% if @intakes.present? %>
+      <table class="index-table client-table">
+        <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th scope="col" class="index-table__header index-table__header--sticky">
+            <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: "Intake ID", column_name: "id" %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody class="index-table__body intakes-table">
+        <% @intakes.each do |intake| %>
+          <tr id="intake-<%= intake.id %>" class="index-table__row intake-row">
+            <%= tag.td(
+              scope: "row",
+              class: "index-table__row-header index-table__row-header--sticky index-table__header--tooltip-z-positioning intake-attribute__name",
+              ) do %>
+              <%= tag.strong do %>
+                <%= link_to hub_intake_path(id: intake) do %>
+                  <%= intake.preferred_name || "No name given" %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <td class="index-table__cell"><%= intake.id %></td>
+            <td class="index-table__cell text--no-wrap"><%= formatted_datetime(intake.updated_at) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <h1 class="sr-only">No Intakes whoopsie</h1>
+    <% end %>
+  </section>
+<% end %>
