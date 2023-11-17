@@ -33,7 +33,7 @@ module PdfFiller
       elsif @submission.data_source.account_type == 'business_savings'
         answers.merge!('Business savings' => 'On')
       end
-      if @submission.data_source.primary_esigned_yes? && @submission.data_source.primary_esigned_at > 3.years.ago
+      if @submission.data_source.primary_esigned_yes?
         answers.merge!({
                          'Taxpayers signature' => @submission.data_source.primary.full_name,
                          'Date' => @submission.data_source.primary_esigned_at.to_date,
@@ -42,7 +42,7 @@ module PdfFiller
                          'Date_3' => @submission.data_source.primary_esigned_at.to_date
                        })
       end
-      if @submission.data_source.spouse_esigned_yes? && @submission.data_source.spouse_esigned_at > 3.years.ago
+      if @submission.data_source.spouse_esigned_yes?
         answers.merge!({
                          'Spouses signature jointly filed return only' => @submission.data_source.spouse.full_name,
                          'Date_2' => @submission.data_source.spouse_esigned_at.to_date
