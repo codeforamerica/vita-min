@@ -36,7 +36,10 @@ module PdfFiller
       if @submission.data_source.primary_esigned_yes? && @submission.data_source.primary_esigned_at > 3.years.ago
         answers.merge!({
                          'Taxpayers signature' => @submission.data_source.primary.full_name,
-                         'Date' => @submission.data_source.primary_esigned_at.to_date
+                         'Date' => @submission.data_source.primary_esigned_at.to_date,
+                         'EROs signature' => 'Code for America Labs, Inc.',
+                         'Print name' => 'Code for America Labs, Inc.',
+                         'Date_3' => @submission.data_source.primary_esigned_at.to_date
                        })
       end
       if @submission.data_source.spouse_esigned_yes? && @submission.data_source.spouse_esigned_at > 3.years.ago
@@ -45,12 +48,6 @@ module PdfFiller
                          'Date_2' => @submission.data_source.spouse_esigned_at.to_date
                        })
       end
-      answers.merge!({
-                       'EROs signature' => 'Code for America Labs, Inc.',
-                       'Print name' => 'Code for America Labs, Inc.',
-                       'Date_3' => @submission.data_source.primary_esigned_at.to_date
-                     }
-      )
       answers
     end
 
