@@ -15,12 +15,12 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "Your First Name and Initial" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
-        "Your Last Name" => @xml_document.at('Primary TaxpayerName LastName')&.text,
-        "Your SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "Spouse First Name and Initial" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' '),
-        "Spouse Last Name" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
-        "Spouse SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "Your First Name and Initial" => @submission.data_source.primary.first_name_and_middle_initial,
+        "Your Last Name" => @submission.data_source.primary.last_name,
+        "Your SSN" => @submission.data_source.primary.ssn,
+        "Spouse First Name and Initial" => @submission.data_source.spouse.first_name_and_middle_initial,
+        "Spouse Last Name" => @submission.data_source.spouse.last_name,
+        "Spouse SSN" => @submission.data_source.spouse.ssn,
         "1 AZ AGI" => @xml_document.at('AZAdjGrossIncome')&.text,
         "2 Balance of Tax" => @xml_document.at("BalanceOfTaxDue")&.text,
         "3 AZ Income Tax Withheld" => @xml_document.at("AzIncTaxWithheld")&.text,
@@ -45,7 +45,7 @@ module PdfFiller
       answers.merge!(
         "Routing Number" => @submission.data_source.routing_number,
         "Account Number" => @submission.data_source.account_number,
-        "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal,
+        "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal.strftime("%m%d%Y"),
         "Direct Debit Amount" => @submission.data_source.withdraw_amount,
         "Electronic Return Originator" => 'Code for America Labs, Inc'
       )
