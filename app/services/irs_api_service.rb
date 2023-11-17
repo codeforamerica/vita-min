@@ -5,9 +5,13 @@ require 'jwt'
 require 'nokogiri'
 
 class IrsApiService
+  def self.df_return_sample
+    File.read(File.join(__dir__, '..', '..', 'app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+  end
+
   def self.import_federal_data(token, state_code)
     unless server_url
-      return File.read(File.join(__dir__, '..', '..', 'app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      return df_return_sample
     end
 
     account_id = EnvironmentCredentials.dig('statefile', state_code, "account_id")

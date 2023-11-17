@@ -107,3 +107,28 @@ $state-colors: (
   }
 }
 
+.federal-info-controller-subform, .federal-info-controller-subform-section {
+  table {
+    td:first-child {
+      vertical-align: middle;
+      font-size: 14px;
+      font-family: monospace;
+    }
+  }
+
+  .federal-info-controller-subform-title, .federal-info-controller-subform-section-title {
+    padding: 5px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #c7c7c7;
+  }
+
+  .federal-info-controller-subform-content, .federal-info-controller-subform-section-content {
+    padding: 18px;
+    border-width: 0 1px 1px 1px;
+    border-style: dotted;
+    border-color: black;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}

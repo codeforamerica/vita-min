@@ -162,10 +162,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on "visit_federal_info_controller"
       click_on "New Dependent Detail"
       within page.all('.df-dependent-detail-form')[1] do
-        fill_in '<DependentSSN>', with: "123456789"
-        fill_in '<DependentFirstNm>', with: "Grampy"
-        fill_in '<DependentLastNm>', with: "Gramps"
-        select "GRANDPARENT", from: "<DependentRelationshipCd>"
+        fill_in 'DependentSSN', with: "123456789"
+        fill_in 'DependentFirstNm', with: "Grampy"
+        fill_in 'DependentLastNm', with: "Gramps"
+        select "GRANDPARENT", from: "DependentRelationshipCd"
       end
       click_on I18n.t("general.continue")
 

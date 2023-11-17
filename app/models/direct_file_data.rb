@@ -1,4 +1,6 @@
 class DirectFileData
+  include DfXmlCrudMethods
+
   SELECTORS = {
     tax_return_year: 'ReturnHeader TaxYr',
     filing_status: 'IRS1040 IndividualReturnFilingStatusCd',
@@ -26,8 +28,16 @@ class DirectFileData
     @raw_xml = raw_xml
   end
 
+  def selectors
+    SELECTORS
+  end
+
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
+  end
+
+  def node
+    parsed_xml
   end
 
   def to_s
@@ -259,6 +269,15 @@ class DirectFileData
     parsed_xml.css('DependentDetail').last.add_next_sibling(dd.to_s)
   end
 
+  def qualifying_child_information_nodes
+    parsed_xml.css('QualifyingChildInformation')
+  end
+
+  def build_new_qualifying_child_information_node
+    dd = parsed_xml.css('QualifyingChildInformation').first
+    parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -368,31 +387,5 @@ class DirectFileData
     return false if Rails.env.production?
 
     respond_to?("#{attribute}=")
-  end
-
-  private
-
-  def df_xml_value(key)
-    parsed_xml.at(SELECTORS[key])&.text
-  end
-
-  def create_or_destroy_df_xml_node(key, value)
-    selector = setter_symbol_to_selector(key)
-    if value.present? && !parsed_xml.at(selector).present?
-      *_parents, containing_node_name, new_node_name = selector.split(' ')
-      parsed_xml.at(containing_node_name).add_child("<#{new_node_name}/>")
-    elsif value.blank? && parsed_xml.at(selector).present?
-      parsed_xml.at(selector).remove
-    end
-  end
-
-  def write_df_xml_value(key, value)
-    selector = setter_symbol_to_selector(key)
-    parsed_xml.at(selector).content = value
-  end
-
-  def setter_symbol_to_selector(method_name)
-    # Remove trailing equals sign from method e.g. :filing_status= -> :filing_status
-    SELECTORS[method_name.to_s.sub(/=$/, '').to_sym]
   end
 end
