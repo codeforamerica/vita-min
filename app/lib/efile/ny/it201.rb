@@ -102,6 +102,10 @@ module Efile
         @lines.transform_values(&:value)
       end
 
+      def refund_or_owed_amount
+        line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62)
+      end
+
       private
 
       def calculate_line_17

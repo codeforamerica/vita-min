@@ -108,7 +108,7 @@ FactoryBot.define do
     end
 
     factory :admin_user do
-      sequence(:email) { |n| "#{Faker::Name.first_name}#{n}@example.com" }
+      sequence(:email) { |n| e = "admin.user.#{n}@example.com" }
 
       sequence(:name) { |n| "Admin the #{n}th" }
 

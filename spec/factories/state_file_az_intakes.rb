@@ -3,17 +3,18 @@
 # Table name: state_file_az_intakes
 #
 #  id                                    :bigint           not null, primary key
+#  account_number                        :string
+#  account_type                          :integer
 #  armed_forces_member                   :integer          default("unfilled"), not null
 #  armed_forces_wages                    :integer
-#  bank_account_number                   :string
-#  bank_account_type                     :integer
-#  bank_routing_number                   :string
+#  bank_name                             :string
 #  charitable_cash                       :integer          default(0)
 #  charitable_contributions              :integer          default("unfilled"), not null
 #  charitable_noncash                    :integer          default(0)
 #  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
+#  date_electronic_withdrawal            :date
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null
@@ -21,6 +22,7 @@
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
 #  has_prior_last_names                  :integer          default("unfilled"), not null
+#  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
 #  primary_esigned                       :integer          default("unfilled"), not null
@@ -31,6 +33,7 @@
 #  prior_last_names                      :string
 #  raw_direct_file_data                  :text
 #  referrer                              :string
+#  routing_number                        :string
 #  source                                :string
 #  spouse_esigned                        :integer          default("unfilled"), not null
 #  spouse_esigned_at                     :datetime
@@ -39,6 +42,7 @@
 #  spouse_middle_initial                 :string
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  visitor_id                            :string
