@@ -13,9 +13,11 @@ module StateFile
     validates :payment_or_deposit_type, presence: true
     validates :bank_name, presence: true, unless: -> { payment_or_deposit_type == "mail" }
     validates :account_type, presence: true, unless: -> { payment_or_deposit_type == "mail" }
-    validates :routing_number, presence: true, unless: -> { payment_or_deposit_type == "mail" }
-    validates :routing_number_confirmation, presence: true, unless: -> { payment_or_deposit_type == "mail" }
+    validates :routing_number, presence: true, length: {is: 9}, unless: -> { payment_or_deposit_type == "mail" }
+    # validates_numericality_of :routing_number, only_numeric: true
+    validates :routing_number_confirmation, presence: true, length: {is: 9}, unless: -> { payment_or_deposit_type == "mail" }
     validates :account_number, presence: true, unless: -> { payment_or_deposit_type == "mail" }
+    #validates_numericality_of :account_number, only_numeric: true
     validates :account_number_confirmation, presence: true, unless: -> { payment_or_deposit_type == "mail" }
 
     with_options if: -> { (account_number.present? && account_number != @intake.account_number) || account_number_confirmation.present? } do
