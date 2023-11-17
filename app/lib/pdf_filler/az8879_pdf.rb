@@ -14,7 +14,7 @@ module PdfFiller
     end
 
     def hash_for_pdf
-      {
+      answers = {
         "Your First Name and Initial" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
         "Your Last Name" => @xml_document.at('Primary TaxpayerName LastName')&.text,
         "Your SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
@@ -24,27 +24,47 @@ module PdfFiller
         "1 AZ AGI" => @xml_document.at('AZAdjGrossIncome')&.text,
         "2 Balance of Tax" => @xml_document.at("BalanceOfTaxDue")&.text,
         "3 AZ Income Tax Withheld" => @xml_document.at("AzIncTaxWithheld")&.text,
-        "4 Refund Checkbox" => @xml_document.at('RefundAmt').present? ? 'X' : '',
-        "4 Refund Amount" => @xml_document.at('RefundAmt').present? ? @xml_document.at("RefundAmt")&.text : 0,
-        "5 Owed Checkbox" => @xml_document.at('AmtOwed').present? ? 'X' : '',
-        "5 Owed Amount" => @xml_document.at('AmtOwed').present? ? @xml_document.at("AmtOwed")&.text : 0,
-        "Electronic Return Originator" => "Code for America Labs, Inc",
-        "6a Refund Deposit Consent" => @submission.data_source.primary_esigned_yes? ? 'X' : '',
-        "6b Refund Deposit Waiver" => @submission.data_source.primary_esigned_yes? ? 'X' : '',
-        "6c Tax Withdrawal Consent" => @submission.data_source.primary_esigned_yes? ? 'X' : '',
-        "Your Signature" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' '),
-        "Your Date Signed" => strftime_date(@submission.data_source.primary_esigned_at),
-        "Spouse Signature" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text].join(' '),
-        "Spouse Date Signed" => strftime_date(@submission.data_source.spouse_esigned_at),
-        # TODO complete these fields when the banking/refund info is available
-        # "Foreign Account Checkbox" => '',
-        # "Type of Account Checkbox - Checking" => '',
-        # "Type of Account Checkbox - Savings" => '',
-        # "Routing Number" => '',
-        # "Account Number" => '',
-        # "Direct Debit Date" => '',
-        # "Direct Debit Amount" => '',
       }
+
+      if @xml_document.at('RefundAmt').present?
+        answers["4 Refund Checkbox"] = 'Yes'
+        answers["4 Refund Amount"] = @xml_document.at("RefundAmt")&.text
+      elsif @xml_document.at('AmtOwed').present?
+        answers["5 Owed Checkbox"] = 'Yes'
+        answers["5 Owed Amount"] = @xml_document.at("AmtOwed")&.text
+      end
+
+      # TODO: double check assumption that "Foreign Account Checkbox" will always be unchecked
+      case @submission.data_source.account_type
+      when 'checking'
+        answers['Account Type Checkbox - Checking'] = 'Yes'
+      when 'savings'
+        answers['Account Type Checkbox - Savings'] = 'Yes'
+      end
+      
+      answers.merge!(
+        "Routing Number" => @submission.data_source.routing_number,
+        "Account Number" => @submission.data_source.account_number,
+        "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal,
+        "Direct Debit Amount" => @submission.data_source.withdraw_amount,
+        "Electronic Return Originator" => 'Code for America Labs, Inc'
+      )
+
+      if @submission.data_source.primary_esigned_yes?
+        answers["Your Signature"] = @submission.data_source.primary.full_name 
+        answers["Your Date Signed"] = @submission.data_source.primary_esigned_at.to_date
+        if @xml_document.at('RefundAmt').present?
+          answers["6a Checkbox"] = 'Yes'
+        elsif @xml_document.at('AmtOwed').present?
+          answers["6b Checkbox"] = 'Yes'
+          answers["6c Checkbox"] = 'Yes'
+        end
+      end
+      if @submission.data_source.spouse_esigned_yes?
+        answers["Spouse Signature"] = @submission.data_source.spouse.full_name
+        answers["Spouse Date Signed"] = @submission.data_source.spouse_esigned_at.to_date
+      end
+      answers
     end
 
     private
