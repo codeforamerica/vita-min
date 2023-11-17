@@ -55,10 +55,9 @@ describe DirectFileData do
       end
 
       it "generates a hash with all known types" do
-        expect(@direct_file_data.fed_adjustments_claimed).to eq({
-                                                                  fed_educator_expenses: 300,
-                                                                  fed_student_loan_interest: 2500
-                                                                })
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_educator_expenses][:amount]).to eq(300)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_student_loan_interest][:amount]).to eq(2500)
+
         expect(@direct_file_data.fed_total_adjustments).to eq(2800)
       end
     end
@@ -71,9 +70,9 @@ describe DirectFileData do
       end
 
       it "generates a hash with only the types that were present" do
-        expect(@direct_file_data.fed_adjustments_claimed).to eq({
-                                                                  fed_student_loan_interest: 2500
-                                                                })
+        expect(@direct_file_data.fed_adjustments_claimed).not_to have_key(:fed_educator_expenses)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_student_loan_interest][:amount]).to eq(2500)
+
         expect(@direct_file_data.fed_total_adjustments).to eq(2500)
       end
     end
@@ -86,9 +85,9 @@ describe DirectFileData do
       end
 
       it "generates a hash with only the types that had positive values" do
-        expect(@direct_file_data.fed_adjustments_claimed).to eq({
-                                                                  fed_educator_expenses: 300
-                                                                })
+        expect(@direct_file_data.fed_adjustments_claimed).not_to have_key(:fed_student_loan_interest)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_educator_expenses][:amount]).to eq(300)
+
         expect(@direct_file_data.fed_total_adjustments).to eq(300)
       end
     end

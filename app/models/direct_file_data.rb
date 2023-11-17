@@ -190,9 +190,18 @@ class DirectFileData
   end
 
   def fed_adjustments_claimed
-    keys = [:fed_educator_expenses, :fed_student_loan_interest]
-    adjustments = keys.to_h { |k| [k, df_xml_value(k)&.to_i] }
-    adjustments.select { |k, v| v.present? && v > 0}
+    adjustments = {
+      fed_educator_expenses: {
+        pdf_label: "ed expenses",
+        xml_label: "Educator Expenses"
+      },
+      fed_student_loan_interest: {
+        pdf_label: "stud loan ded",
+        xml_label: "Student Loan Interest Deduction"
+      }
+    }
+    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i }
+    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
   end
 
   def fed_total_adjustments
@@ -301,7 +310,7 @@ class DirectFileData
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
           months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
-          )
+        )
       end
     end
     dependents
