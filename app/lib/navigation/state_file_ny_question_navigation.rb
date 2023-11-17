@@ -29,6 +29,8 @@ module Navigation
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::NyReviewController,
+      StateFile::Questions::TaxesOwedController,
+      StateFile::Questions::TaxRefundController,
       StateFile::Questions::EsignDeclarationController,
       StateFile::Questions::SubmissionConfirmationController,
     ].freeze

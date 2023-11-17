@@ -1,0 +1,62 @@
+<% title = t(".title",
+             state_name: States.name_for_key(params[:us_state].upcase),
+             refund_amount: refund_amount
+             ) %>
+<% bank_title = t(".bank_title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= title %>
+  </h1>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <%= f.cfa_radio_set(
+              :payment_or_deposit_type,
+              collection: [
+                { value: :direct_deposit, label: t(".direct_deposit"), input_html: { "data-follow-up": "#deposit-to-bank" } },
+                { value: :mail, label: t(".mail"), input_html: { "data-follow-up": "#mail-check" } },
+              ]
+            ) %>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <h1 class="h2">
+                <%= bank_title %>
+              </h1>
+            <div class="form-card__content">
+                <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+                <%= f.cfa_radio_set(
+                      :account_type,
+                      label_text: t("views.questions.bank_details.account_type.label"),
+                      collection: [
+                        { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+                        { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+                      ]
+                    )
+                %>
+
+                <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
+                <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
+                <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long"]) %>
+                <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
+              </div>
+            <%= t(".disclaimer_html") %>
+            <br/>
+          </div>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="mail-check">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <%= t('.mail_html', state_name: States.name_for_key(params[:us_state].upcase)) %>
+          </div>
+        </div>
+      </div>
+      <%= f.continue %>
+    </div>
+  <% end %>
+<% end %>

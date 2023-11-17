@@ -576,8 +576,6 @@ class FlowsController < ApplicationController
 
     def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
       common_attributes.merge(
-        account_type: "personal_checking",
-        amount_owed_pay_electronically: "unfilled",
         claimed_as_dep: "no",
         confirmed_permanent_address: "no",
         contact_preference: "text",
@@ -603,7 +601,6 @@ class FlowsController < ApplicationController
         property_over_limit: "unfilled",
         public_housing: "unfilled",
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
-        refund_choice: "paper",
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district: "Bellmore-Merrick CHS",
@@ -613,6 +610,8 @@ class FlowsController < ApplicationController
         spouse_last_name: "Testerson",
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
+        payment_or_deposit_type: "mail",
+        account_type: 'unfilled'
       )
     end
 
@@ -639,6 +638,8 @@ class FlowsController < ApplicationController
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         tribal_member: "yes",
         tribal_wages: 100,
+        payment_or_deposit_type: "mail",
+        account_type: 'unfilled'
       )
     end
 

@@ -115,8 +115,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+      click_on I18n.t("general.continue")
 
-
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 364, state_name: "New York")
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
@@ -232,6 +234,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 789, state_name: "Arizona")
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
