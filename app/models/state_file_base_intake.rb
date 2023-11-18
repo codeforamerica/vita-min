@@ -20,6 +20,9 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :tax_return_year, to: :direct_file_data
 
   alias_attribute :sms_phone_number, :phone_number
+  alias_attribute :legal_name, :preferred_name
+
+  scope :accessible, -> { where.not(raw_direct_file_data: nil) }
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
@@ -53,6 +56,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def spouse
     Person.new(self, :spouse)
+  end
+
+  def preferred_name
+    primary.full_name
   end
 
   class Person

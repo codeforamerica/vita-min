@@ -8,10 +8,11 @@ module Hub
     layout "hub"
 
     def index
-      @intakes = Intake.all
+      @intakes = StateFileAzIntake.accessible
     end
 
     def show
+      @intake = StateFileAzIntake.find(params[:id])
     end
 
   end

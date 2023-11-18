@@ -1,0 +1,48 @@
+<% content_for :card do %>
+  <div class="spacing-above-25 submissions-index">
+    <table class="index-table spacing-above-25">
+      <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          Status
+        </th>
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
+        <th scope="col" class="index-table__header sortable">
+          Primary Filer
+        </th>
+        <th scope="col" class="index-table__header sortable">
+          Last updated
+        </th>
+        <th scope="col" class="index-table__header">
+          Errors
+        </th>
+      </tr>
+      </thead>
+      <tbody class="index-table__body submission-table">
+
+      <% @efile_submissions.each do |submission| %>
+        <% intake = submission.data_source %>
+        <tr class="index-table__row">
+          <td class="index-table__cell status"><%= link_to submission.current_state.humanize(capitalize: false), hub_state_efile_submission_path(submission.data_source_id), class: "underline" %></td>
+          <td class="index-table__cell"><%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_efile_submission_path(submission.data_source_id)) : "" %></td>
+          <td class="index-table__cell">
+            <%= link_to intake.legal_name, hub_state_efile_submission_path(submission.data_source_id), class: "underline" %>
+          </td>
+          <td class="index-table__cell">
+            <%= timestamp submission.updated_at %>
+          </td>
+          <td class="index-table__cell">
+            <% submission.last_transition&.efile_errors&.each do |error| %>
+                <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                  <%= link_to hub_efile_error_path(id: error.id) do %>
+                    <div class="label label--red"><%= error.code %></div>
+                  <% end %>
+                </span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -31,16 +31,16 @@
                      item_label: "Tools",
                      icon_path: image_path("icons/tools.svg")
           %>
-          <%= render "hub/components/menu_item",
-                     link: hub_intakes_path,
-                     item_label: "All Intakes",
-                     icon_path: image_path("icons/all-clients.svg")
-          %>
           <% if current_user.admin? %>
             <%= render "hub/components/menu_item",
                        link: hub_admin_tools_path,
                        item_label: "Admin Tools",
                        icon_path: image_path("icons/admin-tools.svg")
+            %>
+            <%= render "hub/components/menu_item",
+                       link: hub_intakes_path,
+                       item_label: "State File AZ Intakes",
+                       icon_path: image_path("icons/all-clients.svg")
             %>
           <% end %>
         <% end %>

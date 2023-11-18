@@ -1,0 +1,25 @@
+<% content_for :card do %>
+  <%= render "hub/intakes/navigation" %>
+    <div class="slab slab--not-padded spacing-above-25 submission" id="body">
+      <div class="log-wrapper">
+        <h4 class="spacing-below-10">Status Logs</h4>
+        <% @intake.efile_submissions.each_with_index do |efile_submission, i| %>
+          <hr/>
+          <div>
+            <%= i.zero? ? "Submission" : "Resubmission" %>
+            <strong><%= efile_submission.irs_submission_id %></strong>
+            <% if efile_submission.submission_bundle.present? %>
+              <%= link_to("(Download submission bundle)",
+                          download_hub_efile_submission_path(id: efile_submission.id)
+                  )
+              %>
+            <% end %>
+          </div>
+
+          <ul role="list" class="logs">
+            <%= render(partial: "log", collection: efile_submission.efile_submission_transitions, as: :transition) || "No logs yet" %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+<% end %>

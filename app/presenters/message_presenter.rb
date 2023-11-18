@@ -2,7 +2,7 @@ class MessagePresenter
   def self.grouped_messages(client)
     messages = (
       client.outgoing_text_messages.includes(:user) +
-      client.incoming_text_messages +
+      IncomingTextMessage.where(phone_number: client.phone_number) +
       client.outgoing_emails.includes(:user) +
       client.incoming_emails +
       client.incoming_portal_messages +

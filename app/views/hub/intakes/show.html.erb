@@ -1,0 +1,28 @@
+<%= content_for :back_to, "intakes" %>
+
+<% content_for :page_title, "#{@intake.preferred_name} ##{@intake.id}" %>
+
+<% content_for :card do %>
+
+  <%= render "navigation" %>
+
+  <section class="client-profile slab slab--padded">
+    <div class="client-container">
+      <div class="client-profile__column-container">
+        <div class="client-profile__column">
+
+          <!-- Basic info-->
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t("hub.clients.show.basic_info") %></h2>
+            <div class="field-display">
+              <span class="form-question"><%= t("hub.clients.show.preferred_name") %>:</span>
+              <span class="label-value"><%= @intake.preferred_name %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+<% end %>
