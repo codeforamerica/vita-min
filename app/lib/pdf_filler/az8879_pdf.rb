@@ -45,7 +45,7 @@ module PdfFiller
       answers.merge!(
         "Routing Number" => @submission.data_source.routing_number,
         "Account Number" => @submission.data_source.account_number,
-        "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal.strftime("%m%d%Y"),
+        "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal&.strftime("%m%d%Y"),
         "Direct Debit Amount" => @submission.data_source.withdraw_amount,
         "Electronic Return Originator" => 'Code for America Labs, Inc'
       )
