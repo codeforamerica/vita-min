@@ -12,7 +12,7 @@ module Efile
 
       def calculate
         set_line(:IT215_LINE_1, @direct_file_data, :fed_eic_claimed)
-        set_line(:IT215_LINE_2, -> {false})
+        set_line(:IT215_LINE_2, -> { false })
         set_line(:IT215_LINE_3, -> { false }) # TODO: validate this is true for everybody, it has to do with MFS status
         set_line(:IT215_LINE_4, @direct_file_data, :fed_eic_qc_claimed)
         set_line(:IT215_LINE_5, -> {false})
