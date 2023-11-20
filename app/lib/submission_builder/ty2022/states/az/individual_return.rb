@@ -224,8 +224,13 @@ module SubmissionBuilder
           def supported_documents
             supported_docs = [
               {
-                xml: nil,
+                xml: nil, # this xml is filled above
                 pdf: PdfFiller::Az140Pdf,
+                include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::FinancialTransaction,
+                pdf: nil,
                 include: true
               }
             ]
