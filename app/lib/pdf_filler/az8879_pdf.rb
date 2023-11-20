@@ -66,11 +66,5 @@ module PdfFiller
       end
       answers
     end
-
-    private
-
-    def calculated_fields
-      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
-    end
   end
 end
