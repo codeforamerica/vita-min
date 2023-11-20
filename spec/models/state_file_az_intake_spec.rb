@@ -11,7 +11,6 @@
 #  charitable_cash                       :integer          default(0)
 #  charitable_contributions              :integer          default("unfilled"), not null
 #  charitable_noncash                    :integer          default(0)
-#  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
 #  date_electronic_withdrawal            :date

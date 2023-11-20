@@ -6,7 +6,6 @@
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
-#  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_step                       :string

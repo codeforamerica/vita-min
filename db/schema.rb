@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_20_213825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1580,7 +1580,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
     t.integer "charitable_cash", default: 0
     t.integer "charitable_contributions", default: 0, null: false
     t.integer "charitable_noncash", default: 0
-    t.integer "claimed_as_dep", default: 0
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
@@ -1642,7 +1641,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_183759) do
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
-    t.integer "claimed_as_dep", default: 0, null: false
     t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false

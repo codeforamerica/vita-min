@@ -88,9 +88,8 @@ class StateFileNyIntake < StateFileBaseIntake
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
-  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
@@ -102,11 +101,10 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_yonkers: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_yonkers
   enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
-  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
-  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
 
   before_save do
+    super
+
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
       self.sales_use_tax_calculation_method = "unfilled"
       self.sales_use_tax = nil
@@ -114,15 +112,6 @@ class StateFileNyIntake < StateFileBaseIntake
 
     if sales_use_tax_calculation_method_changed?(to: "automated")
       self.sales_use_tax = calculate_sales_use_tax
-    end
-
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
     end
   end
 
@@ -138,7 +127,6 @@ class StateFileNyIntake < StateFileBaseIntake
     Efile::Ny::It201.new(
       year: 2022,
       filing_status: filing_status.to_sym,
-      claimed_as_dependent: claimed_as_dep_yes?,
       intake: self,
       direct_file_data: direct_file_data,
       nyc_full_year_resident: nyc_full_year_resident_yes?,

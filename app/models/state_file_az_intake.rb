@@ -48,29 +48,12 @@
 #  visitor_id                            :string
 #
 class StateFileAzIntake < StateFileBaseIntake
-  encrypts :bank_account_number, :bank_routing_number, :raw_direct_file_data
-
-  enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
-  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
-  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
-  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-
-  before_save do
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
 
   def state_code
     'az'
@@ -139,6 +122,4 @@ class StateFileAzIntake < StateFileBaseIntake
       eligibility_529_for_non_qual_expense: "yes",
     }
   end
-
-  #todo do a rollback on claimed_as_dep field
 end
