@@ -4,10 +4,6 @@ class StateFileBaseIntake < ApplicationRecord
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
-  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
-  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
 
   has_one_attached :submission_pdf
 
