@@ -12,22 +12,18 @@ module SubmissionBuilder
               head_of_household: 4,
               qualifying_widow: 5,
             }.freeze
-            CLAIMED_AS_DEP = {
-              true: 1,
-              false: 2
-            }
             NYC_RES = {
               yes: 1,
               no: 2,
               unfilled: 2 # it was failing on filling out xml.NYC_LVNG_QTR_IND without this, nyc_full_year_resident should always be set? perhaps the calculator calls are resetting it?
-            }
+            }.freeze
 
             def document
               build_xml_doc("IT201") do |xml|
                 xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2
-                xml.DEP_CLAIM_IND claimed: CLAIMED_AS_DEP[@submission.data_source.direct_file_data.claimed_as_dependent?.to_sym]
+                xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2
                 xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 # TODO: DAYS_NYC_NMBR are we only taking full-year nyc residents?
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
