@@ -161,6 +161,7 @@ module SubmissionBuilder
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
               end
+              # TODO: can't find place to add account number, routing number or account type
               xml.OtherExempInfo do
                 xml.Name do
                   xml.FirstName "sdjfhdjs"

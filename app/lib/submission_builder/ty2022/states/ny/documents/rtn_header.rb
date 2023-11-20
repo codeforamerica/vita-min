@@ -40,10 +40,9 @@ module SubmissionBuilder
                 unless @submission.data_source.withdraw_amount.nil?
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
-                # one of the following must be included DCMT_RCVD_DT, PSTMRK_DT or ACH_IND?
                 # xml.DCMT_RCVD_DT
-                # xml.PSTMRK_DT #postmark date?
-                xml.ACH_IND claimed: 2 #ACH debit block
+                # xml.PSTMRK_DT
+                xml.ACH_IND claimed: 2 # no ACH debit block
                 xml.RFND_OWE_IND claimed:  REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
 
