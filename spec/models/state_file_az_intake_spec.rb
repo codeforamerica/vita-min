@@ -75,6 +75,17 @@ describe StateFileAzIntake do
          .and change(intake.reload, :date_electronic_withdrawal).to(nil)
       end
     end
+
+    context "when enum that has unfilled type is set to nil" do
+      let(:intake) { create :state_file_az_intake, armed_forces_member: "yes", account_type: "checking", spouse_esigned_at: DateTime.now }
+      it "saves as unfilled" do
+        expect {
+          intake.update(armed_forces_member: nil, account_type: nil, spouse_esigned_at: nil)
+        }.to change(intake, :armed_forces_member).to("unfilled")
+        .and change(intake, :account_type).to("unfilled")
+        .and change(intake, :spouse_esigned_at).to(nil)
+      end
+    end
   end
 
   describe "#ask_spouse_name?" do

@@ -53,7 +53,6 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    claimed_as_dep { 'no' }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
 

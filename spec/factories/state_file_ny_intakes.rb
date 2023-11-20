@@ -90,7 +90,6 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    claimed_as_dep { 'no' }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
     primary_birth_date{ Date.parse("May 1, 1979") }

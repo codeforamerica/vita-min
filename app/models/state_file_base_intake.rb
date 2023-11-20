@@ -1,24 +1,23 @@
 class StateFileBaseIntake < ApplicationRecord
   self.abstract_class = true
-
-  enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-
   has_one_attached :submission_pdf
-
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
-
   accepts_nested_attributes_for :dependents, update_only: true
-
   delegate :tax_return_year, to: :direct_file_data
-
   alias_attribute :sms_phone_number, :phone_number
+
+  enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
+  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
+  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
+  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
@@ -93,5 +92,14 @@ class StateFileBaseIntake < ApplicationRecord
 
   def has_disqualifying_eligibility_answer?
     disqualifying_eligibility_answer.present?
+  end
+
+  def save_nil_enums_with_unfilled
+    keys_with_unfilled = self.defined_enums.map{ |e| e.first if e.last.include?("unfilled") }
+    keys_with_unfilled.each do |key|
+      if self.send(key) == nil
+        self.send("#{key}=", "unfilled")
+      end
+    end
   end
 end
