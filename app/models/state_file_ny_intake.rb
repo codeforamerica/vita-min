@@ -153,6 +153,17 @@ class StateFileNyIntake < StateFileBaseIntake
     calculator.refund_or_owed_amount
   end
 
+  def refund_or_owe_taxes_type
+    amt = calculated_refund_or_owed_amount
+    if amt == 0
+      :none
+    elsif amt > 0
+      :refund
+    elsif amt < 0
+      :owe
+    end
+  end
+
   def calculate_sales_use_tax
     return unless household_fed_agi
 
