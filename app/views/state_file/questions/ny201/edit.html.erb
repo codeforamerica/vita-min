@@ -4,11 +4,7 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <%= f.cfa_input_field :primary_email, "email" %>
 
-    <%= f.cfa_input_field :residence_county, "residence county" %>
-    <%= f.cfa_input_field :school_district, "school district" %>
-    <%= f.cfa_input_field :school_district_number, "school district number" %>
 
     <%=
         f.cfa_checkbox(
