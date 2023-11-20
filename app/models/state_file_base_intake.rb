@@ -1,6 +1,5 @@
 class StateFileBaseIntake < ApplicationRecord
   self.abstract_class = true
-  encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
@@ -24,17 +23,6 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :tax_return_year, to: :direct_file_data
 
   alias_attribute :sms_phone_number, :phone_number
-
-  before_save do
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

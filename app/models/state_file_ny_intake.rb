@@ -85,6 +85,7 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
+  encrypts :account_number, :routing_number, :raw_direct_file_data
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
@@ -103,8 +104,6 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   before_save do
-    super
-
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
       self.sales_use_tax_calculation_method = "unfilled"
       self.sales_use_tax = nil
@@ -112,6 +111,15 @@ class StateFileNyIntake < StateFileBaseIntake
 
     if sales_use_tax_calculation_method_changed?(to: "automated")
       self.sales_use_tax = calculate_sales_use_tax
+    end
+
+    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
     end
   end
 
