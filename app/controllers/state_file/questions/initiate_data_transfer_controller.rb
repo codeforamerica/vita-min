@@ -7,6 +7,10 @@ module StateFile
 
         @link = URI(state_file_fake_direct_file_transfer_page_path)
         @link.query = { redirect: return_url }.to_param
+        if ENV["IRS_TRANSFER_AUTH_URL"].present?
+          @irs_testing_link = URI(ENV["IRS_TRANSFER_AUTH_URL"])
+          @irs_testing_link.query = { redirect: return_url }.to_param
+        end
       end
 
       private
