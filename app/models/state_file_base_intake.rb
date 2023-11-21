@@ -80,6 +80,10 @@ class StateFileBaseIntake < ApplicationRecord
     def full_name
       [@first_name, @middle_initial, @last_name].map(&:presence).compact.join(' ')
     end
+
+    def first_name_and_middle_initial
+      [@first_name, @middle_initial].map(&:presence).compact.join(' ')
+    end
   end
 
   def disqualifying_eligibility_answer

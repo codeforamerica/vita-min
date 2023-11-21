@@ -67,7 +67,7 @@ module Efile
       end
 
       def refund_or_owed_amount
-        calculate_line_79
+        calculate_line_79 - calculate_line_80
       end
 
       private
