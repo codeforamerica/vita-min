@@ -17,7 +17,7 @@ module Navigation
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::CanceledDataTransferController, # show? false
       StateFile::Questions::WaitingToLoadDataController,
-      StateFile::Questions::DataReviewController, # collect info here
+      StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::NameDobController,
       StateFile::Questions::NyPermanentAddressController,
@@ -31,8 +31,8 @@ module Navigation
       StateFile::Questions::NyReviewController,
       StateFile::Questions::TaxesOwedController,
       StateFile::Questions::TaxRefundController,
-      StateFile::Questions::EsignDeclarationController, #here
-      StateFile::Questions::SubmissionConfirmationController, # or here
+      StateFile::Questions::EsignDeclarationController,
+      StateFile::Questions::SubmissionConfirmationController,
     ].freeze
 
     def self.intake_class

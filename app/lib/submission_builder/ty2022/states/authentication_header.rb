@@ -52,32 +52,25 @@ module SubmissionBuilder
               end
             end
             xml.TransmissionDetail do
-              initial_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "initial_creation").first
-              submission_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "submission").first
-
-              # IP and device info
-              if initial_device_info.present?
-                xml.InitialCreation do
-                  # ip address, IPT, device-id, device-type-cd, ip-port-num
-                  xml.IPAddress do
-                    xml.IPv4AddressTxt initial_device_info.ip_address if initial_device_info.ip_address.ipv4?
-                    xml.IPv6AddressTxt initial_device_info.ip_address if initial_device_info.ip_address.ipv6?
-                  end
-                  xml.IPTs datetime_type(initial_device_info.created_at)
-                  xml.DeviceId initial_device_info.device_id || 'AB' * 20 # 40 alphanumeric character field for device ID
-                  xml.DeviceTypeCd 'Browser-based'
+              xml.InitialCreation do
+                device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "initial_creation").where.not(device_id: nil).first
+                xml.IPAddress do
+                  xml.IPv4AddressTxt device_info.ip_address if device_info.ip_address.ipv4?
+                  xml.IPv6AddressTxt device_info.ip_address if device_info.ip_address.ipv6?
                 end
+                xml.IPTs datetime_type(device_info.created_at)
+                xml.DeviceId device_info.device_id || 'AB' * 20 # 40 alphanumeric character field for device ID
+                xml.DeviceTypeCd 'Browser-based'
               end
-              if submission_device_info.present?
-                xml.Submission do
-                  xml.IPAddress do
-                    xml.IPv4AddressTxt submission_device_info.ip_address if submission_device_info.ip_address.ipv4?
-                    xml.IPv6AddressTxt submission_device_info.ip_address if submission_device_info.ip_address.ipv6?
-                  end
-                  xml.IPTs datetime_type(submission_device_info.created_at)
-                  xml.DeviceId submission_device_info.device_id || 'AB' * 20
-                  xml.DeviceTypeCd 'Browser-based'
+              xml.Submission do
+                device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "submission").where.not(device_id: nil).first
+                xml.IPAddress do
+                  xml.IPv4AddressTxt device_info.ip_address if device_info.ip_address.ipv4?
+                  xml.IPv6AddressTxt device_info.ip_address if device_info.ip_address.ipv6?
                 end
+                xml.IPTs datetime_type(device_info.created_at)
+                xml.DeviceId device_info.device_id || 'AB' * 20
+                xml.DeviceTypeCd 'Browser-based'
               end
               xml.TotActiveTimePrepSubmissionTs '30' # total_active_preparation_minutes -- Total Active Time Preparation Submission Time Span
               xml.TotalPreparationSubmissionTs '5' # total_preparation_submission_minutes

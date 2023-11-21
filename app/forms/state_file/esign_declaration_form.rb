@@ -22,7 +22,7 @@ module StateFile
         efile_submission.transition_to(:preparing)
       end
 
-      efile_info = StateFileEfileDeviceInfo.find_or_create_by!(event_type: "submission", intake: @intake)
+      efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info.update!(attributes_for(:state_file_efile_device_info))
     end
 
