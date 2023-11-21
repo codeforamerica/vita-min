@@ -1,7 +1,12 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
-  let!(:intake) { create :state_file_ny_intake, payment_or_deposit_type: "unfilled" }
+  let!(:withdraw_amount) { 912 }
+  let!(:intake) {
+    create :state_file_ny_intake,
+           payment_or_deposit_type: "unfilled",
+           withdraw_amount: withdraw_amount
+  }
   let(:valid_params) do
     {
       payment_or_deposit_type: "mail"
@@ -31,7 +36,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           account_number_confirmation: "123",
           account_type: "checking",
           bank_name: "Bank official",
-          withdraw_amount: 912,
+          withdraw_amount: withdraw_amount,
           date_electronic_withdrawal_month: '1',
           date_electronic_withdrawal_year: '2023',
           date_electronic_withdrawal_day: '01'
