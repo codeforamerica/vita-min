@@ -25,6 +25,7 @@ module Navigation
       StateFile::Questions::AzCharitableContributionsController,
       StateFile::Questions::AzReviewController,
       StateFile::Questions::TaxesOwedController,
+      StateFile::Questions::TaxBreakEvenController,
       StateFile::Questions::TaxRefundController,
       StateFile::Questions::EsignDeclarationController,
       StateFile::Questions::SubmissionConfirmationController,

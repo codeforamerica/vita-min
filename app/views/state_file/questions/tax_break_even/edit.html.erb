@@ -1,0 +1,14 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= title %>
+  </h1>
+
+  <%= t(".taxes_owed_html") %>
+<% end %>
+
+<% content_for :card do %>
+  <%= t(".household_info_html") %>
+<% end %>
