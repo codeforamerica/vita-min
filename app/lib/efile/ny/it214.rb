@@ -23,8 +23,9 @@ module Efile
           offboard
           return
         end
-        set_line(:IT214_LINE_4, -> { @claimed_as_dependent })
-        if @claimed_as_dependent
+        # Dependent on federal return?
+        set_line(:IT214_LINE_4, -> { 2 })
+        if false #if value is 1 then offboard
           offboard
           return
         end
