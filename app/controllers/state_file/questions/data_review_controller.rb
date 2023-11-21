@@ -3,13 +3,13 @@ module StateFile
     class DataReviewController < QuestionsController
       def edit
         super
-        # todo: create only if not already created
-        StateFileEfileDeviceInfo.create!(
+        #update device id later
+        StateFileEfileDeviceInfo.find_or_create_by!(
+          event_type: "initial_creation",
           ip_address: request.remote_ip,
           device_id: nil,
-          event_type: "initial_creation",
           intake: current_intake,
-          )
+        )
       end
 
       private
