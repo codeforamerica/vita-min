@@ -41,4 +41,56 @@ describe DirectFileData do
       end
     end
   end
+
+  describe '#fed_adjustments_claimed' do
+
+    before do
+      xml = File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      @doc = Nokogiri::XML(xml)
+    end
+
+    context "when all known adjustment types are present" do
+      before do
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "generates a hash with all known types" do
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_educator_expenses][:amount]).to eq(300)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_student_loan_interest][:amount]).to eq(2500)
+
+        expect(@direct_file_data.fed_total_adjustments).to eq(2800)
+      end
+    end
+
+    context "when not all known adjustment types are present" do
+      before do
+        @doc.at("IRS1040Schedule1 EducatorExpensesAmt").remove
+        @doc.at("IRS1040Schedule1 TotalAdjustmentsAmt").content = "2500"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "generates a hash with only the types that were present" do
+        expect(@direct_file_data.fed_adjustments_claimed).not_to have_key(:fed_educator_expenses)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_student_loan_interest][:amount]).to eq(2500)
+
+        expect(@direct_file_data.fed_total_adjustments).to eq(2500)
+      end
+    end
+
+    context "when some adjustment types have an amount of 0" do
+      before do
+        @doc.at("IRS1040Schedule1 StudentLoanInterestDedAmt").content = "0"
+        @doc.at("IRS1040Schedule1 TotalAdjustmentsAmt").content = "300"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "generates a hash with only the types that had positive values" do
+        expect(@direct_file_data.fed_adjustments_claimed).not_to have_key(:fed_student_loan_interest)
+        expect(@direct_file_data.fed_adjustments_claimed[:fed_educator_expenses][:amount]).to eq(300)
+
+        expect(@direct_file_data.fed_total_adjustments).to eq(300)
+      end
+    end
+
+  end
 end

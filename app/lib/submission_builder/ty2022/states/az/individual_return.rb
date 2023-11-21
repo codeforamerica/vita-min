@@ -226,6 +226,11 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Az140Pdf,
                 include: true
+              },
+              {
+                xml: nil,
+                pdf: PdfFiller::Az8879Pdf,
+                include: true
               }
             ]
             @submission.data_source.state_file1099_gs.each do |form1099g|

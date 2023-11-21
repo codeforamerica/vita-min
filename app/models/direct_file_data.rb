@@ -1,4 +1,6 @@
 class DirectFileData
+  include DfXmlCrudMethods
+
   SELECTORS = {
     tax_return_year: 'ReturnHeader TaxYr',
     filing_status: 'IRS1040 IndividualReturnFilingStatusCd',
@@ -11,23 +13,36 @@ class DirectFileData
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
+    tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
+    fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
+    fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
+    fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+    total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt'
   }.freeze
 
   def initialize(raw_xml)
     @raw_xml = raw_xml
   end
 
+  def selectors
+    SELECTORS
+  end
+
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
+  end
+
+  def node
+    parsed_xml
   end
 
   def to_s
@@ -47,6 +62,10 @@ class DirectFileData
   end
 
   def cell_phone_number
+    df_xml_value(__method__)
+  end
+
+  def tax_payer_email
     df_xml_value(__method__)
   end
 
@@ -186,12 +205,23 @@ class DirectFileData
     fed_ssb - fed_taxable_ssb
   end
 
-  def total_fed_adjustments_identify
-    "wrenches" # TODO
+  def fed_adjustments_claimed
+    adjustments = {
+      fed_educator_expenses: {
+        pdf_label: "ed expenses",
+        xml_label: "Educator Expenses"
+      },
+      fed_student_loan_interest: {
+        pdf_label: "stud loan ded",
+        xml_label: "Student Loan Interest Deduction"
+      }
+    }
+    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i }
+    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
   end
 
-  def total_fed_adjustments
-    0 # TODO
+  def fed_total_adjustments
+    df_xml_value(__method__)&.to_i
   end
 
   def total_state_tax_withheld
@@ -208,6 +238,18 @@ class DirectFileData
 
   def fed_eic_qc_claimed
     parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
+  end
+
+  def total_exempt_primary_spouse
+    df_xml_value(__method__).to_i
+  end
+
+  def total_exempt_primary_spouse=(value)
+    write_df_xml_value(__method__, value.to_i)
+  end
+
+  def claimed_as_dependent?
+    total_exempt_primary_spouse.zero?
   end
 
   def fed_65_primary_spouse
@@ -259,6 +301,15 @@ class DirectFileData
     parsed_xml.css('DependentDetail').last.add_next_sibling(dd.to_s)
   end
 
+  def qualifying_child_information_nodes
+    parsed_xml.css('QualifyingChildInformation')
+  end
+
+  def build_new_qualifying_child_information_node
+    dd = parsed_xml.css('QualifyingChildInformation').first
+    parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -296,7 +347,7 @@ class DirectFileData
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
           months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
-          )
+        )
       end
     end
     dependents
@@ -356,9 +407,9 @@ class DirectFileData
       :fed_taxable_income,
       :fed_unemployment,
       :fed_taxable_ssb,
-      :total_fed_adjustments_identify,
-      :total_fed_adjustments,
-      :total_state_tax_withheld
+      :fed_adjustments_claimed,
+      :fed_total_adjustments,
+      :total_exempt_primary_spouse
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end
@@ -368,31 +419,5 @@ class DirectFileData
     return false if Rails.env.production?
 
     respond_to?("#{attribute}=")
-  end
-
-  private
-
-  def df_xml_value(key)
-    parsed_xml.at(SELECTORS[key])&.text
-  end
-
-  def create_or_destroy_df_xml_node(key, value)
-    selector = setter_symbol_to_selector(key)
-    if value.present? && !parsed_xml.at(selector).present?
-      *_parents, containing_node_name, new_node_name = selector.split(' ')
-      parsed_xml.at(containing_node_name).add_child("<#{new_node_name}/>")
-    elsif value.blank? && parsed_xml.at(selector).present?
-      parsed_xml.at(selector).remove
-    end
-  end
-
-  def write_df_xml_value(key, value)
-    selector = setter_symbol_to_selector(key)
-    parsed_xml.at(selector).content = value
-  end
-
-  def setter_symbol_to_selector(method_name)
-    # Remove trailing equals sign from method e.g. :filing_status= -> :filing_status
-    SELECTORS[method_name.to_s.sub(/=$/, '').to_sym]
   end
 end

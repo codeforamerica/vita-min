@@ -3,14 +3,12 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
+      def initialize(year:, filing_status:, intake:, direct_file_data:, dependent_count:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
-        @claimed_as_dependent = claimed_as_dependent # true/false
         @intake = intake
         @direct_file_data = direct_file_data
-        @nyc_full_year_resident = nyc_full_year_resident
         @dependent_count = dependent_count # number
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
@@ -26,15 +24,13 @@ module Efile
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           direct_file_data: direct_file_data,
-          intake: @intake,
-          claimed_as_dependent: claimed_as_dependent,
-          nyc_full_year_resident: nyc_full_year_resident
+          intake: @intake
         )
         @it215 = Efile::Ny::It215.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           direct_file_data: direct_file_data,
-          nyc_full_year_resident: nyc_full_year_resident
+          intake: @intake
         )
         @it227 = Efile::Ny::It227.new(
           value_access_tracker: @value_access_tracker,
@@ -48,11 +44,10 @@ module Efile
         set_line(:IT201_LINE_14, @direct_file_data, :fed_unemployment)
         set_line(:IT201_LINE_15, @direct_file_data, :fed_taxable_ssb)
         set_line(:IT201_LINE_17, :calculate_line_17)
-        set_line(:IT201_LINE_18, @direct_file_data, :total_fed_adjustments)
+        set_line(:IT201_LINE_18, @direct_file_data, :fed_total_adjustments)
         set_line(:IT201_LINE_19, :calculate_line_19)
         set_line(:IT201_LINE_19A, :calculate_line_19a)
         set_line(:IT201_LINE_21, @direct_file_data, :ny_public_employee_retirement_contributions)
-        set_line(:IT201_LINE_23, @intake, :ny_other_additions)
         set_line(:IT201_LINE_24, :calculate_line_24)
         set_line(:IT201_LINE_25, -> { @lines[:IT201_LINE_4]&.value })
         set_line(:IT201_LINE_27, @direct_file_data, :fed_taxable_ssb)
@@ -149,7 +144,7 @@ module Efile
 
       def calculate_line_34
         if filing_status_single?
-          if @claimed_as_dependent
+          if @direct_file_data.claimed_as_dependent?
             3100
           else
             8000
@@ -345,7 +340,7 @@ module Efile
       end
 
       def calculate_line_40
-        if @claimed_as_dependent
+        if @direct_file_data.claimed_as_dependent?
           0
         else
           # assumption: we don't support Build America Bonds (special condition code A6)
@@ -380,7 +375,7 @@ module Efile
       end
 
       def calculate_line_47
-        if @nyc_full_year_resident
+        if @intake.nyc_full_year_resident_yes?
           line_or_zero(:IT201_LINE_38)
         else
           0
@@ -388,7 +383,7 @@ module Efile
       end
 
       def calculate_line_47a
-        if @nyc_full_year_resident
+        if @intake.nyc_full_year_resident_yes?
           nyc_tax_from_tables(@lines[:IT201_LINE_47].value)
         else
           0
@@ -397,7 +392,7 @@ module Efile
 
       def calculate_line_48
         # If you are married and filing a joint New York State return and only one of you was a resident of New York City for all of 2022, do not enter an amount here. See the instructions for line 51.
-        if @claimed_as_dependent || !@nyc_full_year_resident
+        if @direct_file_data.claimed_as_dependent? || @intake.nyc_full_year_resident_no?
           0
         else
           nyc_household_credit(line_or_zero(:IT201_LINE_19A))
@@ -433,7 +428,7 @@ module Efile
       end
 
       def calculate_line_69
-        if line_or_zero(:IT201_LINE_19) < 250_000 && @nyc_full_year_resident
+        if line_or_zero(:IT201_LINE_19) < 250_000 && @intake.nyc_full_year_resident_yes?
           # income calculated as 19a - 9. 9 is not supported and 19a is 19
           if @filing_status.in?([:single, :married_filing_separately, :head_of_household])
             63
@@ -446,8 +441,7 @@ module Efile
       end
 
       def calculate_line_69a
-        return 0 unless @nyc_full_year_resident && @claimed_as_dependent == false
-
+        return 0 unless @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)
         result = case @filing_status

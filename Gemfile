@@ -72,6 +72,7 @@ gem 'paper_trail'
 gem 'jwt'
 gem 'method_source'
 gem 'ordinalize_full'
+gem 'awesome_print'
 
 # Use Flipper for feature flagging
 gem 'flipper'
@@ -91,7 +92,6 @@ end
 
 group :development, :test do
   gem 'annotate'
-  gem 'awesome_print'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'axe-matchers'

@@ -7,6 +7,12 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default.
 
+  # Silence unhelpful deprecation warnings:
+  # https://github.com/heartcombo/devise/issues/5644
+  # Can be removed once we are using a new devise release that
+  # incorporates https://github.com/heartcombo/devise/pull/5645
+  config.secret_key = Rails.application.secret_key_base
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   config.parent_controller = 'BaseDeviseController'

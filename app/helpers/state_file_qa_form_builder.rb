@@ -54,10 +54,10 @@ class StateFileQaFormBuilder < VitaMinFormBuilder
     method
   )
     <<~HTML.html_safe
-      <div style="margin-bottom: 10px;">
-        #{label(method, "<#{method}>")}
-        <div>#{text_field(method)}</div>
-      </div>
+      <tr>
+        <td>#{label(method, method)}</td>
+        <td>#{text_field(method)}</td>
+      </tr>
     HTML
   end
 
