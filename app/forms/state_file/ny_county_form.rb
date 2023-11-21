@@ -12,7 +12,7 @@ module StateFile
     end
 
     def set_nyc_full_year_resident
-      nyc_counties = ['New York', 'Kings', 'Richmond', 'Queens', 'Bronx']
+      nyc_counties = ['New York (Manhattan)', 'Manhattan (see New York)', 'Kings (Brooklyn)', 'Richmond (Staten Island)', 'Queens', 'Bronx']
       if nyc_counties.include?(residence_county)
         self.nyc_full_year_resident = 'yes'
       else
