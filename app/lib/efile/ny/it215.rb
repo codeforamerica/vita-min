@@ -3,11 +3,11 @@ module Efile
     class It215 < ::Efile::TaxCalculator
       attr_accessor :lines, :value_access_tracker
 
-      def initialize(value_access_tracker:, lines:, direct_file_data:, nyc_full_year_resident:)
+      def initialize(value_access_tracker:, lines:, direct_file_data:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
         @direct_file_data = direct_file_data
-        @nyc_full_year_resident = nyc_full_year_resident
+        @intake = intake
       end
 
       def calculate
@@ -31,7 +31,7 @@ module Efile
         set_line(:IT215_LINE_14, -> { @lines[:IT201_LINE_40].value })
         set_line(:IT215_LINE_15, :calculate_line_15)
         set_line(:IT215_LINE_16, :calculate_line_16)
-        if @nyc_full_year_resident
+        if @intake.nyc_full_year_resident_yes?
           set_line(:IT215_WK_C_LINE_1, -> { @lines[:IT215_LINE_10].value })
           set_line(:IT215_WK_C_LINE_2, :calculate_wk_c_line_2)
           set_line(:IT215_WK_C_LINE_3, :calculate_wk_c_line_3)

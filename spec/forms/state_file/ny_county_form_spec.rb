@@ -39,4 +39,21 @@ RSpec.describe StateFile::NyCountyForm do
       expect(intake.residence_county).to eq "Albany"
     end
   end
+
+  describe "if a NYC county is selected" do
+    let(:form) { described_class.new(intake, valid_params) }
+    let(:valid_params) do
+      {
+        residence_county: "Bronx",
+      }
+    end
+
+    it "saves attributes" do
+      expect(form.valid?).to eq true
+      form.save
+
+      expect(intake.residence_county).to eq "Bronx"
+      expect(intake.nyc_full_year_resident).to eq "yes"
+    end
+  end
 end

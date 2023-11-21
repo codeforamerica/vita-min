@@ -138,7 +138,6 @@ class StateFileNyIntake < StateFileBaseIntake
       filing_status: filing_status.to_sym,
       intake: self,
       direct_file_data: direct_file_data,
-      nyc_full_year_resident: nyc_full_year_resident_yes?,
       dependent_count: dependents.length,
       include_source: include_source
     )

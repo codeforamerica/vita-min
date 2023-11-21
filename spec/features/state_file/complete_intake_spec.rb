@@ -87,9 +87,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in  I18n.t('state_file.questions.ny_primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "The page with all the info from the 201"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text "The page with all the info from the IT-214"
       click_on I18n.t("general.continue")
 

@@ -25,7 +25,6 @@ module Navigation
       StateFile::Questions::NySalesUseTaxController,
       StateFile::Questions::NyPrimaryStateIdController,
       StateFile::Questions::NySpouseStateIdController,
-      StateFile::Questions::Ny201Controller,
       StateFile::Questions::Ny214Controller,
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::NyReviewController,
