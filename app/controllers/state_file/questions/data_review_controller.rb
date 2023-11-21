@@ -3,14 +3,14 @@ module StateFile
     class DataReviewController < QuestionsController
       def edit
         super
-      end
-
-      def update
-        binding.pry
-        user_ip = request.remote_ip
-        puts "***********"
-        puts user_ip
-        super
+        # todo: create only if not already created
+        StateFileEfileDeviceInfo.create!(
+          ip_address: request.remote_ip,
+          user_agent: request.user_agent,
+          device_id: nil,
+          event_type: "initial_creation",
+          intake: current_intake,
+          )
       end
 
       private

@@ -31,9 +31,7 @@ module Navigation
       StateFile::Questions::NyReviewController,
       StateFile::Questions::TaxesOwedController,
       StateFile::Questions::TaxRefundController,
-      StateFile::Questions::EsignDeclarationController,
-      StateFile::Questions::SubmissionConfirmationController,
-      StateFile::Questions::SubmitReturnController, # here
+      StateFile::Questions::EsignDeclarationController, #here
       StateFile::Questions::SubmissionConfirmationController, # or here
     ].freeze
 

@@ -52,27 +52,34 @@ module SubmissionBuilder
               end
             end
             xml.TransmissionDetail do
-              xml.InitialCreation do
-                # ip address, IPT, device-id, device-type-cd, ip-port-num
-                xml.IPAddress do
-                  xml.IPv4AddressTxt '1.2.3.4'
+              initial_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "initial_creation").first
+              submission_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "submission").first
+
+              if initial_device_info.present?
+                xml.InitialCreation do
+                  # ip address, IPT, device-id, device-type-cd, ip-port-num
+                  xml.IPAddress do
+                    xml.IPv4AddressTxt initial_device_info.ip_address if initial_device_info.ip_address.ipv4?
+                    xml.IPv6AddressTxt initial_device_info.ip_address if initial_device_info.ip_address.ipv6?
+                  end
+                  xml.IPTs datetime_type(initial_device_info.created_at)
+                  xml.DeviceId 'AB' * 20 # 40 alphanumeric character field for device ID
+                  xml.DeviceTypeCd 'Browser-based'
                 end
-                xml.IPTs '2023-10-10T12:00:00-05:00'
-                xml.DeviceId 'AB' * 20
-                xml.DeviceTypeCd 'Desktop'
-                xml.IPPortNum '1234'
               end
-              xml.Submission do
-                xml.IPAddress do
-                  xml.IPv4AddressTxt '1.2.3.4'
+              if submission_device_info.present?
+                xml.Submission do
+                  xml.IPAddress do
+                    xml.IPv4AddressTxt submission_device_info.ip_address if submission_device_info.ip_address.ipv4?
+                    xml.IPv6AddressTxt submission_device_info.ip_address if submission_device_info.ip_address.ipv6?
+                  end
+                  xml.IPTs datetime_type(submission_device_info.created_at)
+                  xml.DeviceId 'AB' * 20
+                  xml.DeviceTypeCd 'Browser-based'
                 end
-                xml.IPTs '2023-10-10T12:00:00-05:00'
-                xml.DeviceId 'AB' * 20
-                xml.DeviceTypeCd 'Desktop'
-                xml.FinalIPPortNumberSubmit '1234'
               end
-              xml.TotActiveTimePrepSubmissionTs '30'
-              xml.TotalPreparationSubmissionTs '5'
+              xml.TotActiveTimePrepSubmissionTs '30'#total_active_preparation_minutes #Total Active Time Preparation Submission Time Span
+              xml.TotalPreparationSubmissionTs '5'#total_preparation_submission_minutes
             end
           end
         end
