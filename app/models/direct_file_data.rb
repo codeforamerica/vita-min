@@ -13,6 +13,7 @@ class DirectFileData
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
+    tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
@@ -61,6 +62,10 @@ class DirectFileData
   end
 
   def cell_phone_number
+    df_xml_value(__method__)
+  end
+
+  def tax_payer_email
     df_xml_value(__method__)
   end
 

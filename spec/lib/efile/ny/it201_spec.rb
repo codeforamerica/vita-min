@@ -10,7 +10,6 @@ describe Efile::Ny::It201 do
       filing_status: filing_status,
       intake: intake,
       direct_file_data: intake.direct_file_data,
-      nyc_full_year_resident: true,
       dependent_count: 0
     )
   end

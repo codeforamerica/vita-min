@@ -14,8 +14,7 @@ module SubmissionBuilder
             }.freeze
             NYC_RES = {
               yes: 1,
-              no: 2,
-              unfilled: 2 # it was failing on filling out xml.NYC_LVNG_QTR_IND without this, nyc_full_year_resident should always be set? perhaps the calculator calls are resetting it?
+              no: 2
             }.freeze
 
             def document
@@ -34,7 +33,6 @@ module SubmissionBuilder
                 xml.FEDADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_18)
                 xml.FEDAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_19)
                 xml.A_PBEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_21)
-                xml.A_OTH_AMT claimed: calculated_fields.fetch(:IT201_LINE_23) || 0 # TODO: might be a bit more to it than this
                 xml.A_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_24)
                 xml.S_TXBL_SS_AMT claimed: calculated_fields.fetch(:IT201_LINE_27)
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_32)
