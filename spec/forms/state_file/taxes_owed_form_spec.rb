@@ -31,7 +31,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           account_number_confirmation: "123",
           account_type: "checking",
           bank_name: "Bank official",
-          withdraw_amount: 1281,
+          withdraw_amount: 912,
           date_electronic_withdrawal_month: '1',
           date_electronic_withdrawal_year: '2023',
           date_electronic_withdrawal_day: '01'
