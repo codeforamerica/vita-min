@@ -18,7 +18,7 @@
 class StateFileEfileDeviceInfo < ApplicationRecord
   belongs_to :intake, polymorphic: true
 
-  EVENT_TYPES = ["initial_creation", "submission"]
+  EVENT_TYPES = %w[initial_creation submission].freeze
   validate :valid_event_type
 
   private

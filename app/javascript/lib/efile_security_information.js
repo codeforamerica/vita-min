@@ -31,5 +31,3 @@ export function getEfileSecurityInformation(formName) {
         }
     });
 }
-
-

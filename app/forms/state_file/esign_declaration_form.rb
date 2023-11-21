@@ -1,5 +1,6 @@
 module StateFile
   class EsignDeclarationForm < QuestionsForm
+    set_attributes_for :state_file_efile_device_info, :device_id
     set_attributes_for :intake,
                        :primary_esigned,
                        :spouse_esigned
@@ -20,6 +21,9 @@ module StateFile
       if Rails.env.development? || Rails.env.test?
         efile_submission.transition_to(:preparing)
       end
+
+      efile_info = StateFileEfileDeviceInfo.find_or_create_by!(event_type: "submission", intake: @intake)
+      efile_info.update!(attributes_for(:state_file_efile_device_info))
     end
 
   end

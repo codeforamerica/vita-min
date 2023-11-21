@@ -3,7 +3,6 @@ module StateFile
     class DataReviewController < QuestionsController
       def edit
         super
-        #update device id later
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "initial_creation",
           ip_address: request.remote_ip,
@@ -12,11 +11,16 @@ module StateFile
         )
       end
 
-      private
-
-      def form_class
-        StateFile::EfileDeviceInfoForm
+      def update
+        if form_params["device_id"].blank?
+          flash[:alert] = I18n.t("general.enable_javascript")
+          render :edit
+        else
+          super
+        end
       end
+
+      private
 
       def prev_path
         nil

@@ -55,6 +55,7 @@ module SubmissionBuilder
               initial_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "initial_creation").first
               submission_device_info = StateFileEfileDeviceInfo.where(intake: @submission.data_source, event_type: "submission").first
 
+              # IP and device info
               if initial_device_info.present?
                 xml.InitialCreation do
                   # ip address, IPT, device-id, device-type-cd, ip-port-num
@@ -63,7 +64,7 @@ module SubmissionBuilder
                     xml.IPv6AddressTxt initial_device_info.ip_address if initial_device_info.ip_address.ipv6?
                   end
                   xml.IPTs datetime_type(initial_device_info.created_at)
-                  xml.DeviceId 'AB' * 20 # 40 alphanumeric character field for device ID
+                  xml.DeviceId initial_device_info.device_id || 'AB' * 20 # 40 alphanumeric character field for device ID
                   xml.DeviceTypeCd 'Browser-based'
                 end
               end
@@ -74,12 +75,12 @@ module SubmissionBuilder
                     xml.IPv6AddressTxt submission_device_info.ip_address if submission_device_info.ip_address.ipv6?
                   end
                   xml.IPTs datetime_type(submission_device_info.created_at)
-                  xml.DeviceId 'AB' * 20
+                  xml.DeviceId submission_device_info.device_id || 'AB' * 20
                   xml.DeviceTypeCd 'Browser-based'
                 end
               end
-              xml.TotActiveTimePrepSubmissionTs '30'#total_active_preparation_minutes #Total Active Time Preparation Submission Time Span
-              xml.TotalPreparationSubmissionTs '5'#total_preparation_submission_minutes
+              xml.TotActiveTimePrepSubmissionTs '30' # total_active_preparation_minutes -- Total Active Time Preparation Submission Time Span
+              xml.TotalPreparationSubmissionTs '5' # total_preparation_submission_minutes
             end
           end
         end
