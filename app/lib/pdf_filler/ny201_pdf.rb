@@ -46,7 +46,7 @@ module PdfFiller
         Line14: claimed_attr_value('TX_UNEMP_AMT'),
         Line15: claimed_attr_value('SSINC_AMT'),
         Line17: claimed_attr_value('FEDAGI_B4_ADJ_AMT'),
-        "18_identify" => claimed_attr_value('IT201FEDADJID'),
+        "18_identify" => fed_adjustments_identify,
         Line18: claimed_attr_value('FEDADJ_AMT'),
         Line19: claimed_attr_value('FEDAGI_AMT'),
         Line21: claimed_attr_value('A_PBEMP_AMT'),
@@ -165,6 +165,11 @@ module PdfFiller
         answers["H_dependent_dob#{index}"] = dependent.dob.strftime("%m/%d/%Y")
       end
       answers
+    end
+
+    def fed_adjustments_identify
+      adjustments_claimed = @submission.data_source.direct_file_data.fed_adjustments_claimed.values
+      adjustments_claimed.map{ |info| info[:pdf_label] }.join(", ")
     end
   end
 end

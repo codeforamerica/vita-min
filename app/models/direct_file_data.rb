@@ -19,6 +19,9 @@ class DirectFileData
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
+    fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
+    fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
+    fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
@@ -196,12 +199,23 @@ class DirectFileData
     fed_ssb - fed_taxable_ssb
   end
 
-  def total_fed_adjustments_identify
-    "wrenches" # TODO
+  def fed_adjustments_claimed
+    adjustments = {
+      fed_educator_expenses: {
+        pdf_label: "ed expenses",
+        xml_label: "Educator Expenses"
+      },
+      fed_student_loan_interest: {
+        pdf_label: "stud loan ded",
+        xml_label: "Student Loan Interest Deduction"
+      }
+    }
+    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i }
+    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
   end
 
-  def total_fed_adjustments
-    0 # TODO
+  def fed_total_adjustments
+    df_xml_value(__method__)&.to_i
   end
 
   def total_state_tax_withheld
@@ -315,7 +329,7 @@ class DirectFileData
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
           months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
-          )
+        )
       end
     end
     dependents
@@ -375,8 +389,8 @@ class DirectFileData
       :fed_taxable_income,
       :fed_unemployment,
       :fed_taxable_ssb,
-      :total_fed_adjustments_identify,
-      :total_fed_adjustments,
+      :fed_adjustments_claimed,
+      :fed_total_adjustments,
       :total_state_tax_withheld
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
