@@ -4,7 +4,6 @@ module StateFile
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.zero?
       end
-
     end
   end
 end
