@@ -444,7 +444,7 @@ module Efile
       end
 
       def calculate_line_69a
-        return 0 unless @nyc_full_year_resident && @direct_file_data.claimed_as_dependent? == false
+        return 0 unless @nyc_full_year_resident && !@direct_file_data.claimed_as_dependent?
 
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)

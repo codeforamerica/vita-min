@@ -404,7 +404,6 @@ class DirectFileData
       :fed_taxable_ssb,
       :fed_adjustments_claimed,
       :fed_total_adjustments,
-      :total_state_tax_withheld,
       :total_exempt_primary_spouse
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
