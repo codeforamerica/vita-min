@@ -4,7 +4,6 @@ module Efile
       attr_reader :lines
 
       def initialize(year:, filing_status:, intake:, direct_file_data:, dependent_count:, include_source: false)
->>>>>>> f7e9c0f39 (Fix tests and remove controller)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
