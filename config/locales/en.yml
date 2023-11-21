@@ -1843,6 +1843,10 @@ en:
           tribal_wages: Amount earned while living and working on the reservation
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
+          taxes_owed_html: |
+            <b>Your estimated refund or taxes owed</b> $0. <br/>
+            You broke even on your state tax return. This means that you <b>will not</b>
+            receive a state refund and you <b>do not</b> owe state taxes.
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
@@ -1999,6 +2003,10 @@ en:
           title1: You're done! Let's review before you submit your state tax return.
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
+          taxes_owed_html: |
+            <b>Your estimated refund or taxes owed</b> $0. <br/>
+            You broke even on your state tax return. This means that you <b>will not</b>
+            receive a state refund and you <b>do not</b> owe state taxes.
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
@@ -2028,17 +2036,6 @@ en:
           register_to_vote: Register to vote
           share_direct_file_link: Share the IRS DirectFile link
           title: Your 2023 %{state_name} state tax return is now submitted!
-      tax_break_even:
-        edit:
-          household_info_html: |
-            <br/><br/>
-            <b>Household Information</b>
-          taxes_owed_html: |
-            <br/>
-            <b>Your estimated refund or taxes owed</b> $0. <br/>
-            You broke even on your state tax return. This means that you <b>will not</b>
-            receive a state refund and you <b>do not</b> owe state taxes.
-          title: You're done! Review your state tax return before you submit.
       tax_refund:
         edit:
           account_number: Account Number

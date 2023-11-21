@@ -30,7 +30,6 @@ module Navigation
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::NyReviewController,
       StateFile::Questions::TaxesOwedController,
-      StateFile::Questions::TaxBreakEvenController,
       StateFile::Questions::TaxRefundController,
       StateFile::Questions::EsignDeclarationController,
       StateFile::Questions::SubmissionConfirmationController,
