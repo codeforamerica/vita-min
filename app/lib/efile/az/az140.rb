@@ -3,11 +3,10 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, dependent_count:, direct_file_data:, include_source: false)
+      def initialize(year:, filing_status:, intake:, dependent_count:, direct_file_data:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
-        @claimed_as_dependent = claimed_as_dependent # true/false
         @intake = intake
         @dependent_count = dependent_count # number
         @direct_file_data = direct_file_data
@@ -233,7 +232,7 @@ module Efile
 
 
       def calculate_line_56
-        if @direct_file_data.primary_ssn.present? && !@claimed_as_dependent && !@intake.sentenced_for_60_days
+        if @direct_file_data.primary_ssn.present? && !@direct_file_data.claimed_as_dependent? && !@intake.sentenced_for_60_days
           # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
           if filing_status_mfj? || filing_status_hoh?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 25000

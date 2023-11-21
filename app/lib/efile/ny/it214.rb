@@ -3,13 +3,12 @@ module Efile
     class It214 < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
-      def initialize(value_access_tracker:, lines:, direct_file_data:, intake:, nyc_full_year_resident:, claimed_as_dependent:)
+      def initialize(value_access_tracker:, lines:, direct_file_data:, intake:, nyc_full_year_resident:)
         @value_access_tracker = value_access_tracker
         @lines = lines
         @direct_file_data = direct_file_data
         @intake = intake
         @nyc_full_year_resident = nyc_full_year_resident
-        @claimed_as_dependent = claimed_as_dependent
       end
 
       def calculate
@@ -24,8 +23,9 @@ module Efile
           offboard
           return
         end
-        set_line(:IT214_LINE_4, -> { @claimed_as_dependent })
-        if @claimed_as_dependent
+        # Todo: Dependent on federal return?
+        set_line(:IT214_LINE_4, -> { 2 })
+        if false #todo: if value is 1 then offboard
           offboard
           return
         end

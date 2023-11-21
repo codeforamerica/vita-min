@@ -3,11 +3,10 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, claimed_as_dependent:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
+      def initialize(year:, filing_status:, intake:, direct_file_data:, nyc_full_year_resident:, dependent_count:, include_source: false)
         @year = year
 
         @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
-        @claimed_as_dependent = claimed_as_dependent # true/false
         @intake = intake
         @direct_file_data = direct_file_data
         @nyc_full_year_resident = nyc_full_year_resident
@@ -27,7 +26,6 @@ module Efile
           lines: @lines,
           direct_file_data: direct_file_data,
           intake: @intake,
-          claimed_as_dependent: claimed_as_dependent,
           nyc_full_year_resident: nyc_full_year_resident
         )
         @it215 = Efile::Ny::It215.new(
@@ -149,7 +147,7 @@ module Efile
 
       def calculate_line_34
         if filing_status_single?
-          if @claimed_as_dependent
+          if @direct_file_data.claimed_as_dependent?
             3100
           else
             8000
@@ -345,7 +343,7 @@ module Efile
       end
 
       def calculate_line_40
-        if @claimed_as_dependent
+        if @direct_file_data.claimed_as_dependent?
           0
         else
           # assumption: we don't support Build America Bonds (special condition code A6)
@@ -397,7 +395,7 @@ module Efile
 
       def calculate_line_48
         # If you are married and filing a joint New York State return and only one of you was a resident of New York City for all of 2022, do not enter an amount here. See the instructions for line 51.
-        if @claimed_as_dependent || !@nyc_full_year_resident
+        if @direct_file_data.claimed_as_dependent? || !@nyc_full_year_resident
           0
         else
           nyc_household_credit(line_or_zero(:IT201_LINE_19A))
@@ -446,7 +444,7 @@ module Efile
       end
 
       def calculate_line_69a
-        return 0 unless @nyc_full_year_resident && @claimed_as_dependent == false
+        return 0 unless @nyc_full_year_resident && !@direct_file_data.claimed_as_dependent?
 
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)

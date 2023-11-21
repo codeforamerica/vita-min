@@ -6,7 +6,6 @@
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
-#  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_step                       :string
@@ -91,7 +90,6 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    claimed_as_dep { 'no' }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
     primary_birth_date{ Date.parse("May 1, 1979") }
