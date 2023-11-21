@@ -1643,13 +1643,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_222303) do
   create_table "state_file_efile_device_infos", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "device_id"
-    t.integer "device_type", default: 0, null: false
     t.string "event_type"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.inet "ip_address"
     t.datetime "updated_at", null: false
-    t.string "user_agent"
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
   end
 

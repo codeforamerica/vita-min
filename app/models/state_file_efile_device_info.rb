@@ -3,11 +3,9 @@
 # Table name: state_file_efile_device_infos
 #
 #  id          :bigint           not null, primary key
-#  device_type :integer          default(0), not null
 #  event_type  :string
 #  intake_type :string           not null
 #  ip_address  :inet
-#  user_agent  :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  device_id   :string
