@@ -23,9 +23,9 @@ module Efile
           offboard
           return
         end
-        # Dependent on federal return?
+        # Todo: Dependent on federal return?
         set_line(:IT214_LINE_4, -> { 2 })
-        if false #if value is 1 then offboard
+        if false #todo: if value is 1 then offboard
           offboard
           return
         end
