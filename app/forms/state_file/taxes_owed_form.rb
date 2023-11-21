@@ -14,7 +14,8 @@ module StateFile
 
     validate :date_electronic_withdrawal_is_valid_date, unless: -> { payment_or_deposit_type == "mail" }
     validates :withdraw_amount, presence: true, unless: -> { payment_or_deposit_type == "mail" }
-    validate :withdraw_amount_too_high?, unless: -> { payment_or_deposit_type == "mail" }
+    validate :withdraw_amount_higher_than_owed?, unless: -> { payment_or_deposit_type == "mail" }
+    validate :withdraw_amount_lower_than_owed?, unless: -> { payment_or_deposit_type == "mail" }
 
     def save
       attrs = attributes_for(:intake)
@@ -41,10 +42,28 @@ module StateFile
       valid_text_date(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day, :date_electronic_withdrawal)
     end
 
-    def withdraw_amount_too_high?
+    def withdraw_amount_higher_than_owed?
       owed_amount = intake.calculated_refund_or_owed_amount.abs
       if self.withdraw_amount.to_i > owed_amount
-        self.errors.add(:withdraw_amount, "Please enter in an amount less than or equal to #{owed_amount}")
+        self.errors.add(
+          :withdraw_amount,
+          "Please enter in an amount less than or equal to #{owed_amount}"
+        )
+      end
+    end
+
+    def withdraw_amount_lower_than_owed?
+      owed_amount = intake.calculated_refund_or_owed_amount.abs
+      pay_url = if intake.class.name == 'StateFileAzIntake'
+                  'https://aztaxes.gov/Home/PaymentIndividual'
+                elsif intake.class.name == 'StateFileNyIntake'
+                  'https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm'
+                end
+      validation_msg = "Your total amount due is $#{owed_amount}, if you want"\
+        " less than this amount to be withdrawn from your account, you can pay"\
+        " the rest online at #{pay_url}"
+      if self.withdraw_amount.to_i < owed_amount
+        self.errors.add(:withdraw_amount, validation_msg)
       end
     end
   end
