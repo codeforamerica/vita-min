@@ -1839,9 +1839,9 @@ en:
           download_pdf: You can download a PDF of your full state tax return after you submit.
           last_names: Other last names in the last four years
           taxes_owed_html: |
-            <b>Your estimated refund or taxes owed</b> $0. <br/>
-            You broke even on your state tax return. This means that you <b>will not</b>
-            receive a state refund and you <b>do not</b> owe state taxes.
+            <strong>Your estimated refund or taxes owed</strong> $0. <br/>
+            You broke even on your state tax return. This means that you <strong>will not</strong>
+            receive a state refund and you <strong>do not</strong> owe state taxes.
           title1: You're done! Let's review before you submit your state tax return.
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation
@@ -2001,9 +2001,9 @@ en:
           residence_county: County
           school_district: School District
           taxes_owed_html: |
-            <b>Your estimated refund or taxes owed</b> $0. <br/>
-            You broke even on your state tax return. This means that you <b>will not</b>
-            receive a state refund and you <b>do not</b> owe state taxes.
+            <strong>Your estimated refund or taxes owed</strong> $0. <br/>
+            You broke even on your state tax return. This means that you <strong>will not</strong>
+            receive a state refund and you <strong>do not</strong> owe state taxes.
           title1: You're done! Let's review before you submit your state tax return.
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
