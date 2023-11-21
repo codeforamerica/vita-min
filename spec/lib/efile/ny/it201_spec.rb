@@ -9,11 +9,9 @@ describe Efile::Ny::It201 do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
       filing_status: filing_status,
-      claimed_as_dependent: false,
       intake: intake,
       direct_file_data: intake.direct_file_data,
       eligibility_lived_in_state: eligibility_lived_in_state,
-      nyc_full_year_resident: true,
       dependent_count: 0
     )
   end

@@ -13,12 +13,16 @@ class DirectFileData
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
+    tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
+    fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
+    fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
+    fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
@@ -35,6 +39,7 @@ class DirectFileData
     fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
     fed_residential_clean_energy_credit_amount: 'IRS5695 ResidentialCleanEnergyCrAmt',
     fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
+    total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt'
   }.freeze
 
   def initialize(raw_xml)
@@ -70,6 +75,10 @@ class DirectFileData
   end
 
   def cell_phone_number
+    df_xml_value(__method__)
+  end
+
+  def tax_payer_email
     df_xml_value(__method__)
   end
 
@@ -209,12 +218,23 @@ class DirectFileData
     fed_ssb - fed_taxable_ssb
   end
 
-  def total_fed_adjustments_identify
-    "wrenches" # TODO
+  def fed_adjustments_claimed
+    adjustments = {
+      fed_educator_expenses: {
+        pdf_label: "ed expenses",
+        xml_label: "Educator Expenses"
+      },
+      fed_student_loan_interest: {
+        pdf_label: "stud loan ded",
+        xml_label: "Student Loan Interest Deduction"
+      }
+    }
+    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i }
+    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
   end
 
-  def total_fed_adjustments
-    0 # TODO
+  def fed_total_adjustments
+    df_xml_value(__method__)&.to_i
   end
 
   def total_state_tax_withheld
@@ -341,6 +361,18 @@ class DirectFileData
     parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
   end
 
+  def total_exempt_primary_spouse
+    df_xml_value(__method__).to_i
+  end
+
+  def total_exempt_primary_spouse=(value)
+    write_df_xml_value(__method__, value.to_i)
+  end
+
+  def claimed_as_dependent?
+    total_exempt_primary_spouse.zero?
+  end
+
   def fed_65_primary_spouse
     elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
     value = 0
@@ -436,7 +468,7 @@ class DirectFileData
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
           months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
-          )
+        )
       end
     end
     dependents
@@ -496,9 +528,9 @@ class DirectFileData
       :fed_taxable_income,
       :fed_unemployment,
       :fed_taxable_ssb,
-      :total_fed_adjustments_identify,
-      :total_fed_adjustments,
-      :total_state_tax_withheld
+      :fed_adjustments_claimed,
+      :fed_total_adjustments,
+      :total_exempt_primary_spouse
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

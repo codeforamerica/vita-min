@@ -6,7 +6,6 @@
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
-#  claimed_as_dep                     :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_step                       :string
@@ -35,7 +34,6 @@
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
-#  ny_other_additions                 :integer
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
@@ -134,6 +132,15 @@ describe StateFileNyIntake do
       end
     end
 
+    context "when enum that has unfilled type is set to nil" do
+      let(:intake) { create :state_file_ny_intake, eligibility_yonkers: "yes", account_type: "checking" }
+      it "saves as unfilled" do
+        expect {
+          intake.update(eligibility_yonkers: nil, account_type: nil)
+        }.to change(intake.reload, :eligibility_yonkers).to("unfilled")
+        .and change(intake.reload, :account_type).to("unfilled")
+      end
+    end
   end
 
   describe "#calculate_sales_use_tax" do

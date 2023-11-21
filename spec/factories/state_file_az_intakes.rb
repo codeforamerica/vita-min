@@ -11,7 +11,6 @@
 #  charitable_cash                       :integer          default(0)
 #  charitable_contributions              :integer          default("unfilled"), not null
 #  charitable_noncash                    :integer          default(0)
-#  claimed_as_dep                        :integer          default("unfilled")
 #  contact_preference                    :integer          default("unfilled"), not null
 #  current_step                          :string
 #  date_electronic_withdrawal            :date
@@ -54,7 +53,6 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    claimed_as_dep { 'no' }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
 

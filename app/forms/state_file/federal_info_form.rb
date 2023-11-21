@@ -2,8 +2,7 @@ module StateFile
   class FederalInfoForm < QuestionsForm
     include DateHelper
 
-    set_attributes_for :intake,
-                       :claimed_as_dep
+    set_attributes_for :intake
 
     set_attributes_for :direct_file_data,
                        :tax_return_year,
@@ -20,9 +19,8 @@ module StateFile
                        :fed_taxable_income,
                        :fed_unemployment,
                        :fed_taxable_ssb,
-                       :total_fed_adjustments_identify,
-                       :total_fed_adjustments,
-                       :total_state_tax_withheld
+                       :total_state_tax_withheld,
+                       :total_exempt_primary_spouse
 
     set_attributes_for :form, :skip_schema_validation
 
@@ -154,8 +152,7 @@ module StateFile
     end
 
     def self.existing_attributes(intake)
-      attributes = HashWithIndifferentAccess.new(intake.attributes.merge(intake.direct_file_data.attributes))
-      attributes
+      HashWithIndifferentAccess.new(intake.attributes.merge(intake.direct_file_data.attributes))
     end
 
     class DfDependentDetailForm

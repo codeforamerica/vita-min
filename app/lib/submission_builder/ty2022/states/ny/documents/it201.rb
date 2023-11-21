@@ -12,22 +12,17 @@ module SubmissionBuilder
               head_of_household: 4,
               qualifying_widow: 5,
             }.freeze
-            CLAIMED_AS_DEP = {
-              yes: 1,
-              no: 2
-            }
             NYC_RES = {
               yes: 1,
-              no: 2,
-              unfilled: 2 # it was failing on filling out xml.NYC_LVNG_QTR_IND without this, nyc_full_year_resident should always be set? perhaps the calculator calls are resetting it?
-            }
+              no: 2
+            }.freeze
 
             def document
               build_xml_doc("IT201") do |xml|
                 xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2
-                xml.DEP_CLAIM_IND claimed: CLAIMED_AS_DEP[@submission.data_source.claimed_as_dep.to_sym]
+                xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2
                 xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 # TODO: DAYS_NYC_NMBR are we only taking full-year nyc residents?
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
@@ -38,7 +33,6 @@ module SubmissionBuilder
                 xml.FEDADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_18)
                 xml.FEDAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_19)
                 xml.A_PBEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_21)
-                xml.A_OTH_AMT claimed: calculated_fields.fetch(:IT201_LINE_23) || 0 # TODO: might be a bit more to it than this
                 xml.A_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_24)
                 xml.S_TXBL_SS_AMT claimed: calculated_fields.fetch(:IT201_LINE_27)
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_32)
@@ -86,8 +80,14 @@ module SubmissionBuilder
                 # xml.PYMT_AMT claimed: TODO
                 xml.PR_SGN_IND claimed: 1
 
-                # TODO: this one is not a 'claimed' style field apparently
-                # xml.IT201FEDADJID claimed: @submission.data_source.total_fed_adjustments_identify
+                xml.IT201FEDADJID do
+                  @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |type, info|
+                    xml.descAmt do
+                      xml.DESCRIPTION claimed: info[:xml_label]
+                      xml.AMOUNT claimed: info[:amount]
+                    end
+                  end
+                end
               end
             end
 
