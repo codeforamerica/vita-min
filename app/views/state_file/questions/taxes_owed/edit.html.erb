@@ -24,8 +24,16 @@
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
               <div class="form-card__content">
-
+                <h1 class="h2">
+                  <%= t(".bank_title") %>
+                </h1>
                 <%= f.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+                <p>
+                  <%= image_tag("icons/exclamation.svg", alt: "") %>
+                  <strong>
+                    <%= t(".payment_notice", owed_amount: taxes_owed, pay_url: pay_mail_online_link) %>
+                  </strong>
+                </p>
 
                 <div class="date-select">
                   <%= f.cfa_date_select(
