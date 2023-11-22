@@ -40,7 +40,7 @@ module SubmissionBuilder
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
-                xml.RFND_OWE_IND claimed:  REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
+                xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
 
                 # xml.SBMSN_ID

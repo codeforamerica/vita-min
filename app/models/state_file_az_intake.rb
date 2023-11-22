@@ -110,12 +110,6 @@ class StateFileAzIntake < StateFileBaseIntake
     # TODO
   end
 
-  def calculated_refund_or_owed_amount
-    calculator = tax_calculator
-    calculator.calculate
-    calculator.refund_or_owed_amount
-  end
-
   def ask_months_in_home?
     true
   end

@@ -33,6 +33,23 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def calculated_refund_or_owed_amount
+    calculator = tax_calculator
+    calculator.calculate
+    calculator.refund_or_owed_amount
+  end
+
+  def refund_or_owe_taxes_type
+    amt = calculated_refund_or_owed_amount
+    if amt.zero?
+      :none
+    elsif amt.positive?
+      :refund
+    elsif amt.negative?
+      :owe
+    end
+  end
+
   def filing_status
     {
       1 => :single,
