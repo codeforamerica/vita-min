@@ -5,7 +5,7 @@ module StateFile
         raise ActionController::RoutingError, 'Not Found' unless params[:authorizationCode]
         return redirect_to next_path if current_intake.raw_direct_file_data.present?
 
-        StateFile::ImportFromDirectFileJob.perform_later(token: params[:authorizationCode], intake: current_intake)
+        StateFile::ImportFromDirectFileJob.perform_later(authorization_code: params[:authorizationCode], intake: current_intake)
       end
 
       private
