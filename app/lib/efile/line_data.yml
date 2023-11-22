@@ -249,6 +249,28 @@ IT213_WORKSHEET_B_LINE_8:
   label: '8. Enter the larger of line 6 or line 7.'
 IT213_WORKSHEET_B_LINE_9:
   label: '9. Enter the smaller of line 3 or line 8 here and on Form IT-213, line 7.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1:
+  label: '1. Enter the amount from line 8 of Worksheet A.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2:
+  label: '2. Enter your earned income from the federal instructions for Schedule 8812, Earned Income Worksheet, line 7.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3:
+  label: '3. Is the amount on line 2 more than $3,000?'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4:
+  label: '4. Multiply the amount on line 3 by 15% (.15) and enter the result.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_5:
+  label: '5. Is the amount on line 1 of Worksheet A $3,000 or more?'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_6:
+  label: '6. Enter the amount from your federal instructions for Schedule 8812, Credit Limit Worksheet B, line 11, if applicable.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_7:
+  label: '7. Enter the larger of line 4 or line 6.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_8:
+  label: '8. Is the amount on line 7 more than the amount on line 1?'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_9:
+  label: '9. Enter the amount from your federal instructions for Schedule 8812, Credit Limit Worksheet B, line 15, if applicable.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_10:
+  label: '10. Enter the amount from line 10 of Worksheet A.'
+IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_11:
+  label: '11. Add lines 9 and 10, enter the result here and on line 11 of Worksheet A.'
 IT213_LINE_6:
   label: 'Enter the amount from Worksheet A, line 13 (see instructions)'
 IT213_LINE_7:

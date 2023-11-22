@@ -52,7 +52,7 @@ describe Efile::Ny::It201 do
     end
 
     context "when the client is eligible and has an IT213 credit" do
-      it "populates line info for related documents like the 213" do
+      it "populates line 14 with the final credit amount" do
         instance.calculate
         expect(instance.lines[:IT213_LINE_14].value).to eq(330)
       end

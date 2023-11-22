@@ -91,6 +91,193 @@ describe DirectFileData do
         expect(@direct_file_data.fed_total_adjustments).to eq(300)
       end
     end
+  end
 
+  describe '#fed_IRS1040Schedule1_fields' do
+    before do
+      xml = File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      @doc = Nokogiri::XML(xml)
+    end
+
+    context "when all fields are present" do
+      before do
+        @doc.at("IRS1040Schedule1").add_child(Nokogiri::XML::Node.new('HousingDeductionAmt', @doc))
+        @doc.at("IRS1040Schedule1 HousingDeductionAmt").content = "1000"
+        @doc.at("IRS1040Schedule1").add_child(Nokogiri::XML::Node.new('GrossIncomeExclusionAmt', @doc))
+        @doc.at("IRS1040Schedule1 GrossIncomeExclusionAmt").content = "2000"
+        @doc.at("IRS1040Schedule1").add_child(Nokogiri::XML::Node.new('TotalIncomeExclusionAmt', @doc))
+        @doc.at("IRS1040Schedule1 TotalIncomeExclusionAmt").content = "3000"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_unemployment).to eq(8500)
+        expect(@direct_file_data.fed_housing_deduction_amount).to eq(1000)
+        expect(@direct_file_data.fed_gross_income_exclusion_amount).to eq(2000)
+        expect(@direct_file_data.fed_total_income_exclusion_amount).to eq(3000)
+      end
+    end
+
+    context "when all fields are missing" do
+      before do
+        @doc.at("IRS1040Schedule1 UnemploymentCompAmt").remove
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_unemployment).to be_nil
+        expect(@direct_file_data.fed_housing_deduction_amount).to be_nil
+        expect(@direct_file_data.fed_gross_income_exclusion_amount).to be_nil
+        expect(@direct_file_data.fed_total_income_exclusion_amount).to be_nil
+      end
+    end
+  end
+
+  describe '#fed_IRS1040Schedule3_fields' do
+    before do
+      xml = File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      @doc = Nokogiri::XML(xml)
+    end
+
+    context "when all fields are present" do
+      before do
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS1040Schedule3', @doc))
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('ForeignTaxCreditAmt', @doc))
+        @doc.at("IRS1040Schedule3 ForeignTaxCreditAmt").content = "100"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('CreditForChildAndDepdCareAmt', @doc))
+        @doc.at("IRS1040Schedule3 CreditForChildAndDepdCareAmt").content = "200"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('EducationCreditAmt', @doc))
+        @doc.at("IRS1040Schedule3 EducationCreditAmt").content = "300"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('RtrSavingsContributionsCrAmt', @doc))
+        @doc.at("IRS1040Schedule3 RtrSavingsContributionsCrAmt").content = "400"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('EgyEffcntHmImprvCrAmt', @doc))
+        @doc.at("IRS1040Schedule3 EgyEffcntHmImprvCrAmt").content = "500"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('CreditForElderlyOrDisabledAmt', @doc))
+        @doc.at("IRS1040Schedule3 CreditForElderlyOrDisabledAmt").content = "600"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('CleanVehPrsnlUsePartCrAmt', @doc))
+        @doc.at("IRS1040Schedule3 CleanVehPrsnlUsePartCrAmt").content = "700"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('TotRptgYrTxIncreaseDecreaseAmt', @doc))
+        @doc.at("IRS1040Schedule3 TotRptgYrTxIncreaseDecreaseAmt").content = "800"
+        @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('MaxPrevOwnedCleanVehCrAmt', @doc))
+        @doc.at("IRS1040Schedule3 MaxPrevOwnedCleanVehCrAmt").content = "900"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_foreign_tax_credit_amount).to eq(100)
+        expect(@direct_file_data.fed_credit_for_child_and_dependent_care_amount).to eq(200)
+        expect(@direct_file_data.fed_education_credit_amount).to eq(300)
+        expect(@direct_file_data.fed_retirement_savings_contribution_credit_amount).to eq(400)
+        expect(@direct_file_data.fed_energy_efficiency_home_improvement_credit_amount).to eq(500)
+        expect(@direct_file_data.fed_credit_for_elderly_or_disabled_amount).to eq(600)
+        expect(@direct_file_data.fed_clean_vehicle_personal_use_credit_amount).to eq(700)
+        expect(@direct_file_data.fed_total_reporting_year_tax_increase_or_decrease_amount).to eq(800)
+        expect(@direct_file_data.fed_previous_owned_clean_vehicle_credit_amount).to eq(900)
+      end
+    end
+
+    context "when all fields are missing" do
+      before do
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_foreign_tax_credit_amount).to be_nil
+        expect(@direct_file_data.fed_credit_for_child_and_dependent_care_amount).to be_nil
+        expect(@direct_file_data.fed_education_credit_amount).to be_nil
+        expect(@direct_file_data.fed_retirement_savings_contribution_credit_amount).to be_nil
+        expect(@direct_file_data.fed_energy_efficiency_home_improvement_credit_amount).to be_nil
+        expect(@direct_file_data.fed_credit_for_elderly_or_disabled_amount).to be_nil
+        expect(@direct_file_data.fed_clean_vehicle_personal_use_credit_amount).to be_nil
+        expect(@direct_file_data.fed_total_reporting_year_tax_increase_or_decrease_amount).to be_nil
+        expect(@direct_file_data.fed_previous_owned_clean_vehicle_credit_amount).to be_nil
+      end
+    end
+  end
+
+  describe '#fed_IRS1040Schedule8812_fields' do
+    before do
+      xml = File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      @doc = Nokogiri::XML(xml)
+    end
+
+    context "when all fields are present" do
+      before do
+        @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp").add_child(Nokogiri::XML::Node.new('CalculatedDifferenceAmt', @doc))
+        @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp CalculatedDifferenceAmt").content = "1000"
+        @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp").add_child(Nokogiri::XML::Node.new('NontaxableCombatPayAmt', @doc))
+        @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp NontaxableCombatPayAmt").content = "2000"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_total_earned_income_amount).to eq(21000)
+        expect(@direct_file_data.fed_calculated_difference_amount).to eq(1000)
+        expect(@direct_file_data.fed_nontaxable_combat_pay_amount).to eq(2000)
+      end
+    end
+
+    context "when all fields are missing" do
+      before do
+        @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp TotalEarnedIncomeAmt").remove
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_total_earned_income_amount).to be_nil
+        expect(@direct_file_data.fed_calculated_difference_amount).to be_nil
+        expect(@direct_file_data.fed_nontaxable_combat_pay_amount).to be_nil
+      end
+    end
+  end
+
+  describe '#fed_OtherForm_fields' do
+    before do
+      xml = File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+      @doc = Nokogiri::XML(xml)
+    end
+
+    context "when all fields are present" do
+      before do
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS1040NR', @doc))
+        @doc.at("IRS1040NR").add_child(Nokogiri::XML::Node.new('AmendedReturnInd', @doc))
+        @doc.at("IRS1040NR AmendedReturnInd").content = "X"
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS5695', @doc))
+        @doc.at("IRS5695").add_child(Nokogiri::XML::Node.new('ResidentialCleanEnergyCrAmt', @doc))
+        @doc.at("IRS5695 ResidentialCleanEnergyCrAmt").content = "1000"
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS8396', @doc))
+        @doc.at("IRS8396").add_child(Nokogiri::XML::Node.new('MortgageInterestCreditAmt', @doc))
+        @doc.at("IRS8396 MortgageInterestCreditAmt").content = "2000"
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS8839', @doc))
+        @doc.at("IRS8839").add_child(Nokogiri::XML::Node.new('AdoptionCreditAmt', @doc))
+        @doc.at("IRS8839 AdoptionCreditAmt").content = "3000"
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS8859', @doc))
+        @doc.at("IRS8859").add_child(Nokogiri::XML::Node.new('DCHmByrCurrentYearCreditAmt', @doc))
+        @doc.at("IRS8859 DCHmByrCurrentYearCreditAmt").content = "4000"
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_irs_1040_nr_filed).to be_truthy
+        expect(@direct_file_data.fed_residential_clean_energy_credit_amount).to eq(1000)
+        expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq(2000)
+        expect(@direct_file_data.fed_adoption_credit_amount).to eq(3000)
+        expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq(4000)
+      end
+    end
+
+    context "when all fields are missing" do
+      before do
+        @direct_file_data = DirectFileData.new(@doc.to_s)
+      end
+
+      it "sets the correct values" do
+        expect(@direct_file_data.fed_irs_1040_nr_filed).to be_falsey
+        expect(@direct_file_data.fed_residential_clean_energy_credit_amount).to be_nil
+        expect(@direct_file_data.fed_mortgage_interest_credit_amount).to be_nil
+        expect(@direct_file_data.fed_adoption_credit_amount).to be_nil
+        expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to be_nil
+      end
+    end
   end
 end

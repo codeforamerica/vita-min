@@ -19,19 +19,19 @@ module Efile
           set_line(:IT213_LINE_2, -> { @direct_file_data.fed_ctc_claimed })
           set_line(:IT213_LINE_3, :calculate_line_3)
           # If lines 2 and 3 are false, stop, you do not qualify for this credit
-          if @lines[:IT213_LINE_2].value == true || @lines[:IT213_LINE_3].value == true
+          if @lines[:IT213_LINE_2].value || @lines[:IT213_LINE_3].value
             set_line(:IT213_LINE_4, -> { @federal_dependent_child_count})
             set_line(:IT213_LINE_5, -> { 0 }) # TODO: double check that people with children without SSN/ITIN are out of scope
             # If line 2 is true, you must complete Worksheet A and B before you continue with line 6.
             # If line 2 is false, skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
-            if @lines[:IT213_LINE_2].value == true
+            if @lines[:IT213_LINE_2].value
               calculate_worksheets
             else
               set_line(:IT213_LINE_9, -> { 0 })
             end
             # If line 3 is false, skip lines 10 through 13, and enter the amount from line 9 on line 14.
             # All others continue with line 10.
-            if @lines[:IT213_LINE_3].value == true
+            if @lines[:IT213_LINE_3].value
               set_line(:IT213_LINE_10, :calculate_line_10)
               set_line(:IT213_LINE_11, :calculate_line_11)
               set_line(:IT213_LINE_12, :calculate_line_12)
@@ -40,7 +40,7 @@ module Efile
             else
               set_line(:IT213_LINE_14, -> { @lines[:IT213_LINE_9].value })
             end
-            # TODO: if spouse filing separate, lines 15 and 16 could have share of credit for spouse
+            # TODO: If we wanted to support spouse filing separate, lines 15 and 16 could have share of credit for spouse
             set_line(:IT213_LINE_15, -> { 0 })
             set_line(:IT213_LINE_16, -> { 0 })
           else
@@ -85,8 +85,8 @@ module Efile
               set_line(:IT213_LINE_7, -> { 0 })
             else
               set_line(:IT213_WORKSHEET_B_LINE_3, :calculate_worksheet_b_line_3)
-              set_line(:IT213_WORKSHEET_B_LINE_4A, @direct_file_data.fed_total_earned_income_amount)
-              set_line(:IT213_WORKSHEET_B_LINE_4B, @direct_file_data.fed_nontaxable_combat_pay_amount)
+              set_line(:IT213_WORKSHEET_B_LINE_4A, @direct_file_data.fed_total_earned_income_amount || 0)
+              set_line(:IT213_WORKSHEET_B_LINE_4B, @direct_file_data.fed_nontaxable_combat_pay_amount || 0) # this is never used for anything, thanks worksheet b
               set_line(:IT213_WORKSHEET_B_LINE_5, :calculate_worksheet_b_line_5)
               set_line(:IT213_WORKSHEET_B_LINE_6, :calculate_worksheet_b_line_6)
               # Do you have three or more children (from Form IT-213, line 4)?
@@ -98,7 +98,7 @@ module Efile
                 if @lines[:IT213_WORKSHEET_B_LINE_6].value >= @lines[:IT213_WORKSHEET_B_LINE_3].value
                   set_line(:IT213_LINE_7, -> { @lines[:IT213_WORKSHEET_B_LINE_3].value.to_i })
                 else
-                  set_line(:IT213_WORKSHEET_B_LINE_7, @direct_file_data.fed_calculated_difference_amount)
+                  set_line(:IT213_WORKSHEET_B_LINE_7, @direct_file_data.fed_calculated_difference_amount || 0)
                   set_line(:IT213_WORKSHEET_B_LINE_8, :calculate_worksheet_b_line_8)
                   set_line(:IT213_WORKSHEET_B_LINE_9, :calculate_worksheet_b_line_9)
                   set_line(:IT213_LINE_7, -> { @lines[:IT213_WORKSHEET_B_LINE_9].value.to_i })
@@ -138,8 +138,8 @@ module Efile
         # fed form 2555 line 45 TotalIncomeExclusionAmt + fed form 2555 line 50 HousingDeductionAmt +
         # fed form 4563 line 15 GrossIncomeExclusionAmt + fed section 933 Exclusion of income from Puerto Rico
         return 0 if @direct_file_data.fed_irs_1040_nr_filed
-        @direct_file_data.fed_total_income_exclusion_amount + @direct_file_data.fed_housing_deduction_amount +
-          @direct_file_data.fed_gross_income_exclusion_amount + @direct_file_data.fed_puerto_rico_income_exclusion_amount
+        (@direct_file_data.fed_total_income_exclusion_amount || 0) + (@direct_file_data.fed_housing_deduction_amount || 0) +
+          (@direct_file_data.fed_gross_income_exclusion_amount || 0) + (@direct_file_data.fed_puerto_rico_income_exclusion_amount || 0)
       end
 
       def calculate_worksheet_a_line_4
@@ -170,10 +170,19 @@ module Efile
       end
 
       def calculate_worksheet_a_line_10
-        0 # TODO: check if we always set schedule 3 credits to 0
+        (@direct_file_data.fed_foreign_tax_credit_amount || 0) +
+          (@direct_file_data.fed_credit_for_child_and_dependent_care_amount || 0) +
+          (@direct_file_data.fed_education_credit_amount || 0) +
+          (@direct_file_data.fed_retirement_savings_contribution_credit_amount || 0) +
+          (@direct_file_data.fed_energy_efficiency_home_improvement_credit_amount || 0) +
+          (@direct_file_data.fed_credit_for_elderly_or_disabled_amount || 0) +
+          (@direct_file_data.fed_clean_vehicle_personal_use_credit_amount || 0) +
+          (@direct_file_data.fed_total_reporting_year_tax_increase_or_decrease_amount || 0) +
+          (@direct_file_data.fed_previous_owned_clean_vehicle_credit_amount || 0)
       end
 
       def calculate_worksheet_a_line_11
+        # TODO: Check if we support these cases, if so implement worksheet for line 11 of worksheet A when they are > 0
         # If any of these credits are > 0 then we need to do some more calculations, otherwise return value of
         # worksheet a line 10
         #   Mortgage interest credit (federal Form 8396)
@@ -181,13 +190,29 @@ module Efile
         #   Residential clean energy credit (federal Form 5695, Part 1)
         #   District of Columbia first-time homebuyer credit (federal Form 8859)
 
-        # TODO: implement worksheet for line 100 of worksheet A (!!)
-        # total_credits = @direct_file_data.fed_mortgage_interest_credit_amount +
-        #                 @direct_file_data.fed_adoption_credit_amount +
-        #                 @direct_file_data.fed_residential_clean_energy_credit_amount +
-        #                 @direct_file_data.fed_dc_homebuyer_credit_amount
-
-        # if total_credits > 0
+        # total_other_federal_credits = (@direct_file_data.fed_mortgage_interest_credit_amount || 0) +
+        #   (@direct_file_data.fed_adoption_credit_amount || 0) +
+        #   (@direct_file_data.fed_residential_clean_energy_credit_amount || 0) +
+        #   (@direct_file_data.fed_dc_homebuyer_credit_amount || 0)
+        #
+        # if total_other_federal_credits > 0
+        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1, -> { @lines[:IT213_WORKSHEET_A_LINE_8].value })
+        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2, -> { @direct_file_data.fed_total_earned_income_amount || 0 })
+        #   if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value > 3000
+        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value - 3000 })
+        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3].value * 0.15 })
+        #   else
+        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { 0 })
+        #   end
+        #
+        #   if @lines[:IT213_WORKSHEET_A_LINE_1].value >= 3000
+        #     if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4].value >= @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1].value
+        #       set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_6, -> { 0 })
+        #     else
+        #       # TODO: on line 6, Enter the amount from your federal instructions for Schedule 8812, Credit Limit Worksheet B, line 11, if applicable.
+        #     end
+        #   else
+        #   end
         # end
         @lines[:IT213_WORKSHEET_A_LINE_10].value
       end
