@@ -6,7 +6,6 @@ module StateFile
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "initial_creation",
           ip_address: ip_for_irs,
-          device_id: nil,
           intake: current_intake,
         )
       end
