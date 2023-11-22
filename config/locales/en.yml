@@ -2064,6 +2064,7 @@ en:
           account_number: Account Number
           account_type_description: What type of account is this?
           bank_name: Bank Name
+          bank_title: Please provide your bank details
           checking: Checking
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
@@ -2072,6 +2073,7 @@ en:
           pay_mail_online_html: |
             Pay by mail or online at a later time at
             <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
+          payment_notice: Your total amount due is $%{owed_amount}. If you want less than this amount to be withdrawn from your account, you'll need to pay the rest at %{pay_url} on or before April 15, 2024.
           routing_number: Routing Number
           savings: Savings
           title: You owe $%{owed_amount}. How would you like to pay your taxes owed?
