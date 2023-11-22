@@ -4,6 +4,8 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
   describe '.build' do
     let(:intake) { create(:state_file_az_intake) }
     let(:submission) { create(:efile_submission, data_source: intake) }
+    let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
+    let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
 
     context "married filing jointly" do
       let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
