@@ -161,7 +161,6 @@ module SubmissionBuilder
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
               end
-              # TODO: can't find place to add account number, routing number or account type
               xml.OtherExempInfo do
                 xml.Name do
                   xml.FirstName "sdjfhdjs"
@@ -224,13 +223,8 @@ module SubmissionBuilder
           def supported_documents
             supported_docs = [
               {
-                xml: nil, # this xml is filled above
+                xml: nil,
                 pdf: PdfFiller::Az140Pdf,
-                include: true
-              },
-              {
-                xml: SubmissionBuilder::Ty2022::States::Az::Documents::FinancialTransaction,
-                pdf: nil,
                 include: true
               }
             ]

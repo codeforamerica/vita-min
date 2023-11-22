@@ -27,7 +27,6 @@ module SubmissionBuilder
                   xml.ABA_NMBR claimed: @submission.data_source.routing_number
                 end
 
-                # Bank info
                 unless @submission.data_source.account_number.nil?
                   xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-')
                 end
@@ -40,9 +39,7 @@ module SubmissionBuilder
                 unless @submission.data_source.withdraw_amount.nil?
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
-                # xml.DCMT_RCVD_DT
-                # xml.PSTMRK_DT
-                xml.ACH_IND claimed: 2 # no ACH debit block
+                xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
                 xml.RFND_OWE_IND claimed:  REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
 
