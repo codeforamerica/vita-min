@@ -10,7 +10,7 @@ class IrsApiService
   end
 
   def self.import_federal_data(authorization_code, state_code)
-    unless server_url
+    if authorization_code == "abcdefg"
       return df_return_sample
     end
 
