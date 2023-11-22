@@ -16,6 +16,7 @@ module StateFile
           flash[:alert] = I18n.t("general.enable_javascript")
           render :edit
         else
+          flash.clear
           super
         end
       end

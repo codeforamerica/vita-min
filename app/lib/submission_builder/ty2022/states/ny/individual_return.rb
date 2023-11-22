@@ -100,7 +100,6 @@ module SubmissionBuilder
           end
 
           def authentication_header
-            #whats validate false
             SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
           end
 
