@@ -142,9 +142,9 @@ class IrsApiService
 
   def self.server_url
     if ENV['IRS_API_MTLS']
-      URI.parse('https://df.alt.services.irs.gov/DFStateTaxReturns/1.0.0/state-api/export-return')
+      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     elsif ENV['IRS_API_NO_MTLS']
-      URI.parse('https://state-api-staging.app.cloud.gov/state-api/export-return')
+      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_no_mtls))
     elsif ENV['IRS_API_LOCALHOST']
       URI.parse('https://localhost:443/')
     end
