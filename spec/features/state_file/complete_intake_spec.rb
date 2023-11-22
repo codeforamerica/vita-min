@@ -8,7 +8,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  context "NY", :flow_explorer_screenshot do
+  context "NY", :flow_explorer_screenshot, js: true do
     it "has content" do
       visit "/"
       click_on "Start Test NY"
@@ -129,7 +129,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York") #no javascript enabled
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')

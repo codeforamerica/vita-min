@@ -5,7 +5,7 @@ module StateFile
         super
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "submission",
-          ip_address: request.remote_ip,
+          ip_address: ip_for_irs,
           device_id: nil,
           intake: current_intake,
           )
@@ -21,7 +21,6 @@ module StateFile
           super
         end
       end
-
     end
   end
 end

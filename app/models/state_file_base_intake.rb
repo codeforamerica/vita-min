@@ -116,6 +116,16 @@ class StateFileBaseIntake < ApplicationRecord
     disqualifying_eligibility_answer.present?
   end
 
+  def initial_efile_device_info
+    with_device_id = efile_device_infos.where(event_type: "initial_creation").where.not(device_id: nil).first
+    with_device_id.present? ? with_device_id : efile_device_infos.where(event_type: "initial_creation").first
+  end
+
+  def submission_efile_device_info
+    with_device_id = efile_device_infos.where(event_type: "submission").where.not(device_id: nil).first
+    with_device_id.present? ? with_device_id : efile_device_infos.where(event_type: "submission").first
+  end
+
   def save_nil_enums_with_unfilled
     keys_with_unfilled = self.defined_enums.map{ |e| e.first if e.last.include?("unfilled") }
     keys_with_unfilled.each do |key|

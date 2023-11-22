@@ -643,7 +643,7 @@ class FlowsController < ApplicationController
         intake: intake
       )
       StateFileEfileDeviceInfo.find_or_create_by!(
-        event_type: "initial_creation",
+        event_type: "submission",
         ip_address: "72.34.67.178",
         device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         intake: intake
