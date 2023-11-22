@@ -24,7 +24,12 @@ module SubmissionBuilder
                 xml.FED_ITZDED_IND claimed: 2
                 xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2
                 xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
-                # TODO: DAYS_NYC_NMBR are we only taking full-year nyc residents?
+                if @submission.data_source.nyc_full_year_resident_yes?
+                  xml.PR_NYC_MNTH_NMBR claimed: 12
+                  if @submission.data_source.filing_status_mfj?
+                    xml.SP_NYC_MNTH_NMBR claimed: 12
+                  end
+                end
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
                 xml.INT_AMT claimed: calculated_fields.fetch(:IT201_LINE_2)
                 xml.TX_UNEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_14)
@@ -96,6 +101,8 @@ module SubmissionBuilder
             def calculated_fields
               @it201_fields ||= @submission.data_source.tax_calculator.calculate
             end
+
+            
           end
         end
       end

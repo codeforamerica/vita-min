@@ -38,6 +38,8 @@ module PdfFiller
         Filing_status: xml_value_to_pdf_checkbox('Filing_status', "FS_CD"),
         Itemized: xml_value_to_pdf_checkbox('Itemized', 'FED_ITZDED_IND'),
         Dependent: xml_value_to_pdf_checkbox('Dependent', 'DEP_CLAIM_IND'),
+        F1_NYC: @xml_document.at('PR_NYC_MNTH_NMBR')&.text,
+        F2_NYC: @xml_document.at('SP_NYC_MNTH_NMBR')&.text,
       }
       answers.merge!(dependents_info(@submission.data_source.dependents))
       answers.merge!(
