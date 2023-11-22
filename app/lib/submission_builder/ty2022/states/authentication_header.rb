@@ -59,7 +59,7 @@ module SubmissionBuilder
                   xml.IPv6AddressTxt device_info.ip_address if device_info.ip_address.ipv6?
                 end
                 xml.IPTs datetime_type(device_info.created_at)
-                xml.DeviceId device_info.device_id || 'AB' * 20 # 40 alphanumeric character field for device ID
+                xml.DeviceId device_info.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
               xml.Submission do

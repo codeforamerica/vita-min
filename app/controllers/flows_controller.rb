@@ -571,6 +571,12 @@ class FlowsController < ApplicationController
         primary_esigned_at: 1.minute.ago,
         spouse_esigned: "yes",
         spouse_esigned_at: 1.minute.ago,
+        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
+        payment_or_deposit_type: "mail",
+        account_type: 'unfilled',
+        current_step: "/en/questions/confirmation",
+        eligibility_lived_in_state: "yes",
+        eligibility_out_of_state_income: "no",
       }
     end
 
@@ -578,9 +584,6 @@ class FlowsController < ApplicationController
       common_attributes.merge(
         confirmed_permanent_address: "no",
         contact_preference: "text",
-        current_step: "/en/questions/confirmation",
-        eligibility_lived_in_state: "yes",
-        eligibility_out_of_state_income: "no",
         eligibility_part_year_nyc_resident: "no",
         eligibility_withdrew_529: "no",
         eligibility_yonkers: "no",
@@ -599,7 +602,6 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         property_over_limit: "unfilled",
         public_housing: "unfilled",
-        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district: "Bellmore-Merrick CHS",
@@ -609,8 +611,6 @@ class FlowsController < ApplicationController
         spouse_last_name: "Testerson",
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
-        payment_or_deposit_type: "mail",
-        account_type: 'unfilled'
       )
     end
 
@@ -622,22 +622,31 @@ class FlowsController < ApplicationController
         charitable_contributions: "yes",
         charitable_noncash: 123,
         contact_preference: "email",
-        current_step: "/en/questions/confirmation",
         eligibility_529_for_non_qual_expense: "no",
-        eligibility_lived_in_state: "yes",
         eligibility_married_filing_separately: "no",
-        eligibility_out_of_state_income: "no",
         email_address: "someone@example.com",
         email_address_verified_at: 1.minute.ago,
         has_prior_last_names: "yes",
         primary_first_name: first_name,
         primary_last_name: last_name,
         prior_last_names: "Jordan, Pippen, Rodman",
-        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         tribal_member: "yes",
         tribal_wages: 100,
-        payment_or_deposit_type: "mail",
-        account_type: 'unfilled'
+      )
+    end
+
+    def generate_efile_device_info(intake)
+      StateFileEfileDeviceInfo.find_or_create_by!(
+        event_type: "initial_creation",
+        ip_address: "72.34.67.178",
+        device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        intake: intake
+      )
+      StateFileEfileDeviceInfo.find_or_create_by!(
+        event_type: "initial_creation",
+        ip_address: "72.34.67.178",
+        device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        intake: intake
       )
     end
 
@@ -647,16 +656,19 @@ class FlowsController < ApplicationController
       last_name = params[:flows_controller_sample_intake_form][:last_name]
 
       if @us_state == 'ny'
-        StateFileNyIntake.create(self.class.ny_attributes(
+        intake = StateFileNyIntake.create(self.class.ny_attributes(
           first_name: first_name,
           last_name: last_name
         ))
       elsif @us_state == 'az'
-        StateFileAzIntake.create(self.class.az_attributes(
+        intake = StateFileAzIntake.create(self.class.az_attributes(
           first_name: first_name,
           last_name: last_name
         ))
       end
+      generate_efile_device_info(intake)
+
+      intake
     end
   end
 end
