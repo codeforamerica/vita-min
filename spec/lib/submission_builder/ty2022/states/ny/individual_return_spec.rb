@@ -6,7 +6,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     let(:submission) { create(:efile_submission, data_source: intake) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
-    
+
     context "when single" do
       let(:filing_status) { 'single' }
 

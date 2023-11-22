@@ -56,8 +56,8 @@ module SubmissionBuilder
                 device_info = @submission.data_source.initial_efile_device_info
                 # ip_for_irs for test env
                 xml.IPAddress do
-                  xml.IPv4AddressTxt device_info&.ip_address if device_info.ip_address.ipv4?
-                  xml.IPv6AddressTxt device_info&.ip_address if device_info.ip_address.ipv6?
+                  xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
+                  xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
                 xml.IPTs datetime_type(device_info&.created_at)
                 xml.DeviceId device_info&.device_id || 'AB' * 20
@@ -66,10 +66,10 @@ module SubmissionBuilder
               xml.Submission do
                 device_info = @submission.data_source.submission_efile_device_info
                 xml.IPAddress do
-                  xml.IPv4AddressTxt device_info&.ip_address if device_info.ip_address.ipv4?
-                  xml.IPv6AddressTxt device_info&.ip_address if device_info.ip_address.ipv6?
+                  xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
+                  xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs datetime_type(device_info.created_at)
+                xml.IPTs datetime_type(device_info&.created_at)
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
