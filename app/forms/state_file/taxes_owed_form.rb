@@ -14,6 +14,7 @@ module StateFile
 
     validate :date_electronic_withdrawal_is_valid_date, unless: -> { payment_or_deposit_type == "mail" }
     validates :withdraw_amount, presence: true, unless: -> { payment_or_deposit_type == "mail" }
+    validate :withdraw_amount_higher_than_owed?, unless: -> { payment_or_deposit_type == "mail" }
 
     def save
       attrs = attributes_for(:intake)
@@ -38,6 +39,16 @@ module StateFile
 
     def date_electronic_withdrawal_is_valid_date
       valid_text_date(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day, :date_electronic_withdrawal)
+    end
+
+    def withdraw_amount_higher_than_owed?
+      owed_amount = intake.calculated_refund_or_owed_amount.abs
+      if self.withdraw_amount.to_i > owed_amount
+        self.errors.add(
+          :withdraw_amount,
+          "Please enter in an amount less than or equal to #{owed_amount}"
+        )
+      end
     end
   end
 end

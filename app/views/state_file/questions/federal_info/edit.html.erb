@@ -39,6 +39,7 @@
     <%= f.state_file_qa_input_field :fed_taxable_income, "Taxable interest" %>
     <%= f.state_file_qa_input_field :fed_unemployment, "Unemployment compensation" %>
     <%= f.state_file_qa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
+    <%= f.state_file_qa_input_field :total_exempt_primary_spouse, "Total exempt primary and spouse count" %>
 
     <div class="federal-info-controller-subform-section with-padding-med">
       <div class="federal-info-controller-subform-section-title">Dependent Detail Zone</div>
@@ -75,9 +76,6 @@
 
     <div style="background: #eaacea; padding: 15px; margin-bottom: 15px;">
       <h3>TODO ZONE: where do these things go?</h3>
-
-      <%= f.cfa_checkbox(:claimed_as_dep, "claimed as dependent?", options: { checked_value: "yes", unchecked_value: "no" }) %>
-
       <%= f.state_file_qa_input_field :total_state_tax_withheld, "Total state tax withheld" %>
     </div>
 

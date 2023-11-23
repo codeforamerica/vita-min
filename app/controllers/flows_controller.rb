@@ -576,7 +576,6 @@ class FlowsController < ApplicationController
 
     def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
       common_attributes.merge(
-        claimed_as_dep: "no",
         confirmed_permanent_address: "no",
         contact_preference: "text",
         current_step: "/en/questions/confirmation",
@@ -622,7 +621,6 @@ class FlowsController < ApplicationController
         charitable_cash: 123,
         charitable_contributions: "yes",
         charitable_noncash: 123,
-        claimed_as_dep: "no",
         contact_preference: "email",
         current_step: "/en/questions/confirmation",
         eligibility_529_for_non_qual_expense: "no",

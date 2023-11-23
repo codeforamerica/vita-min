@@ -8,10 +8,8 @@ describe Efile::Ny::It201 do
     described_class.new(
       year: 2022,
       filing_status: filing_status,
-      claimed_as_dependent: false,
       intake: intake,
       direct_file_data: intake.direct_file_data,
-      nyc_full_year_resident: true,
       dependent_count: 0
     )
   end

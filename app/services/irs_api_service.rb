@@ -9,8 +9,8 @@ class IrsApiService
     File.read(File.join(__dir__, '..', '..', 'app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
   end
 
-  def self.import_federal_data(token, state_code)
-    unless server_url
+  def self.import_federal_data(authorization_code, state_code)
+    if authorization_code == "abcdefg"
       return df_return_sample
     end
 
@@ -18,16 +18,15 @@ class IrsApiService
     cert_finder = CertificateFinder.new(server_url, state_code)
 
     claim = {
-      "iss": account_id, # State identifier provided by the IRS
+      "iss": account_id.to_s, # State identifier provided by the IRS
       "iat": Time.now.to_i, # Issued at time
-      "sub": token, # User authorization code from Direct File
+      "sub": authorization_code, # User authorization code from Direct File
     }
 
     token = JWT.encode claim, cert_finder.client_key, 'RS256'
-
     # puts token
     # # verifying that JWT was actually sent
-    # decoded_token = JWT.decode token, client_cert.public_key, true, { algorithm: 'RS256' }
+    # decoded_token = JWT.decode token, cert_finder.client_cert.public_key, true, { algorithm: 'RS256' }
     #
     # puts decoded_token
 
