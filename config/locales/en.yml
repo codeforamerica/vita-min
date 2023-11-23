@@ -1882,6 +1882,10 @@ en:
           income_and_deductions_title: Most income and deductions
           state_tax_withheld_title: "%{name} state tax withheld"
           title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
+      data_transfer_offboarding:
+        edit:
+          offboarding_reason: You cannot use this tool this year because you %{reason}
+          title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
       eligibility_offboarding:
         edit:
           body_html: |

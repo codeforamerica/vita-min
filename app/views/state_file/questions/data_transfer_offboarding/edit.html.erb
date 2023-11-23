@@ -1,0 +1,50 @@
+<%#  title = t('.title') %>
+<% title = 'Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.' %>
+
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= title %>
+  </h1>
+
+  <p>
+    <%#= t('.offboarding_reason', reason: ineligible_reason) %>
+    You cannot use this tool this year because you sucks.
+  </p>
+
+  <p>
+    <%#= t('.dontworry') %>
+    <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers
+    at <strong>GetYourRefund.</strong>
+  </p>
+
+  <div class="accordion spacing-above-10">
+    <a href="#" class="accordion__button" aria-expanded="true" aria-controls="gyr">
+      <%= image_tag("icons/exclamation-black.svg", alt: "") %> <span>What is GetYourRefund?</span>
+    </a>
+    <div class="accordion__content" id="gyr">
+      <%= render partial: "gyr" %>
+      <%#= render partial: "gyr", locals: { fraud_score: 'rick' } %>
+    </div>
+  </div>
+
+  <div class="accordion spacing-above-10">
+    <a href="#" class="accordion__button" aria-expanded="true" aria-controls="other">
+      <%= image_tag("icons/exclamation-black.svg", alt: "") %> <span>What are my other state filing options?</span>
+    </a>
+    <div class="accordion__content" id="other">
+      <%= render partial: "other_options" %>
+    </div>
+  </div>
+
+  <div>
+    <% gyr_url = root_url(host: MultiTenantService.new(:gyr).host) %>
+    <%= link_to 'Get started with GetYourRefund by...', gyr_url %>
+  </div>
+
+  <div>
+    <%= link_to 'Visit our FAQ', url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq") %>
+  </div>
+
+<% end %>

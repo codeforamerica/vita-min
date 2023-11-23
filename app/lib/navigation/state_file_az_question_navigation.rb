@@ -6,7 +6,7 @@ module Navigation
       StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
       StateFile::Questions::EligibilityResidenceController,
       StateFile::Questions::EligibilityOutOfStateIncomeController,
-      # StateFile::Questions::EligibilityOffboardingController,
+      StateFile::Questions::EligibilityOffboardingController,
       StateFile::Questions::EligibleController,
       StateFile::Questions::ContactPreferenceController,
       StateFile::Questions::PhoneNumberController,
@@ -15,6 +15,7 @@ module Navigation
       StateFile::Questions::CodeVerifiedController,
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::WaitingToLoadDataController,
+      StateFile::Questions::DataTransferOffboardingController,
       # Do ineligible screen here
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
