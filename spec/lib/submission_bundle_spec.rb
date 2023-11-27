@@ -73,7 +73,7 @@ describe SubmissionBundle do
   describe "state filing" do
     context "NY state" do
       let(:submission) {
-        create(:efile_submission, data_source: create(:state_file_ny_intake), irs_submission_id: "12345202201011234570")
+        create(:efile_submission, data_source: create(:state_file_ny_intake, :with_efile_device_infos), irs_submission_id: "12345202201011234570")
       }
       it "can bundle a minimal NY return" do
         expect(described_class.new(submission).build.errors).to eq([])
@@ -82,7 +82,7 @@ describe SubmissionBundle do
 
     context "AZ state" do
       let(:submission) {
-        create(:efile_submission, data_source: create(:state_file_az_intake), irs_submission_id: "12345202201011234570")
+        create(:efile_submission, data_source: create(:state_file_az_intake, :with_efile_device_infos), irs_submission_id: "12345202201011234570")
       }
 
       it "can bundle a minimal AZ return" do

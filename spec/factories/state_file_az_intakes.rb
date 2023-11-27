@@ -74,5 +74,12 @@ FactoryBot.define do
         intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
+
+    trait :with_efile_device_infos do
+      after(:build) do |intake|
+        create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
+        create :state_file_efile_device_info, :filled, :submission, intake: intake
+      end
+    end
   end
 end
