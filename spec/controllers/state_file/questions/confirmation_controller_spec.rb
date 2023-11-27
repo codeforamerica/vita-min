@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StateFile::Questions::ConfirmationController do
   describe "#show_xml" do
     context "in ny" do
-      let(:ny_intake) { create :state_file_ny_intake, primary_first_name: "Jerry" }
+      let(:ny_intake) { create :state_file_ny_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
       let(:efile_submission) { create :efile_submission, :for_state, data_source: ny_intake }
 
       before do
@@ -27,7 +27,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
     end
 
     context "in ny" do
-      let(:intake) { create :state_file_ny_intake, primary_first_name: "Jerry" }
+      let(:intake) { create :state_file_ny_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
 
       it "shows a little bit about how each line was calculated" do
         get :explain_calculations, params: { us_state: "ny", id: efile_submission.id }
@@ -37,7 +37,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
     end
 
     context "in az" do
-      let(:intake) { create :state_file_az_intake, primary_first_name: "Jerry" }
+      let(:intake) { create :state_file_az_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
 
       it "shows a little bit about how each line was calculated" do
         get :explain_calculations, params: { us_state: "az", id: efile_submission.id }
