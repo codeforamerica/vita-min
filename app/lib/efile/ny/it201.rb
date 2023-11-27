@@ -102,7 +102,6 @@ module Efile
 
       private
 
-
       def calculate_line_17
         result = 0
         (1..16).each do |line_num|
