@@ -142,12 +142,6 @@ class StateFileNyIntake < StateFileBaseIntake
     )
   end
 
-  def calculated_refund_or_owed_amount
-    calculator = tax_calculator
-    calculator.calculate
-    calculator.refund_or_owed_amount
-  end
-
   def calculate_sales_use_tax
     return unless household_fed_agi
 
@@ -185,6 +179,10 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def ask_spouse_dob?
     filing_status_mfj?
+  end
+
+  def ach_debit_transaction?
+    refund_or_owe_taxes_type == :owe && self.payment_or_deposit_type_direct_deposit?
   end
 
   def disqualifying_eligibility_rules

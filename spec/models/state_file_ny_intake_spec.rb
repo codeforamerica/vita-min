@@ -268,4 +268,29 @@ describe StateFileNyIntake do
       expect(intake.has_disqualifying_eligibility_answer?).to eq true
     end
   end
+
+  describe "#ach_debit_transaction?" do
+    let(:payment_or_deposit_type) { "direct_deposit" }
+    let(:intake) { build :state_file_ny_intake, payment_or_deposit_type: payment_or_deposit_type }
+
+    context "when they owe taxes and selected direct debit payment option" do
+      before do
+        allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:owe)
+      end
+
+      it "returns true" do
+        expect(intake.ach_debit_transaction?).to eq true
+      end
+    end
+
+    context "when they have a refund and selected direct deposit payment option" do
+      before do
+        allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:refund)
+      end
+
+      it "returns false" do
+        expect(intake.ach_debit_transaction?).to eq false
+      end
+    end
+  end
 end
