@@ -16,7 +16,6 @@ module Navigation
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::WaitingToLoadDataController,
       StateFile::Questions::DataTransferOffboardingController,
-      # Do ineligible screen here
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::NameDobController,
