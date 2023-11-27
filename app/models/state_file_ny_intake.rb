@@ -187,6 +187,10 @@ class StateFileNyIntake < StateFileBaseIntake
     filing_status_mfj?
   end
 
+  def disqualifying_eligibility_df_data_rules
+    { }
+  end
+
   def disqualifying_eligibility_rules
     {
       eligibility_lived_in_state: "no",

@@ -94,8 +94,18 @@ class StateFileBaseIntake < ApplicationRecord
     nil
   end
 
+  def disqualifying_df_data
+    disqualifying_eligibility_df_data_rules.each do |key, value|
+      return key if self.direct_file_data.public_send(key) == value
+    end
+  end
+
   def has_disqualifying_eligibility_answer?
-    disqualifying_eligibility_answer.present?
+    if direct_file_data.present?
+      disqualifying_df_data.present? || disqualifying_eligibility_answer.present?
+    else
+      disqualifying_eligibility_answer.present?
+    end
   end
 
   def save_nil_enums_with_unfilled

@@ -128,6 +128,10 @@ class StateFileAzIntake < StateFileBaseIntake
     false
   end
 
+  def disqualifying_eligibility_df_data_rules
+    { filing_status: 3 }
+  end
+
   def disqualifying_eligibility_rules
     {
       eligibility_lived_in_state: "no",
