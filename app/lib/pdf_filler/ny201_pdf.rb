@@ -26,7 +26,7 @@ module PdfFiller
         Spouse_DOB: @xml_document.at('tiSpouse SP_DOB_DT')&.text,
         Spouse_SSN: @xml_document.at('tiSpouse SP_SSN_NMBR')&.text,
         TP_mail_address: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text, # TODO: Awaiting changes in The Spreadsheet
-        NYS_county_residence: @xml_document.at('tiPrime COUNTY_CD')&.text,
+        NYS_county_residence: @xml_document.at('tiPrime COUNTY_NAME')&.text,
         TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
         TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text,
         TP_mail_country: 'United Sates',
@@ -38,9 +38,13 @@ module PdfFiller
         Filing_status: xml_value_to_pdf_checkbox('Filing_status', "FS_CD"),
         Itemized: xml_value_to_pdf_checkbox('Itemized', 'FED_ITZDED_IND'),
         Dependent: xml_value_to_pdf_checkbox('Dependent', 'DEP_CLAIM_IND'),
-        F1_NYC: @xml_document.at('PR_NYC_MNTH_NMBR')&.text,
-        F2_NYC: @xml_document.at('SP_NYC_MNTH_NMBR')&.text,
       }
+      if @submission.data_source.nyc_full_year_resident_yes?
+        answers[:F1_NYC] = '12'
+        if @submission.data_source.filing_status_mfj?
+          answers[:F2_NYC] = '12'
+        end
+      end
       answers.merge!(dependents_info(@submission.data_source.dependents))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
