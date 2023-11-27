@@ -88,7 +88,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   def disqualifying_eligibility_answer
     disqualifying_eligibility_rules.each do |col, value|
-      return col # if self.public_send(col) == value
+      return col if self.public_send(col) == value
     end
 
     nil
@@ -96,8 +96,6 @@ class StateFileBaseIntake < ApplicationRecord
 
   def has_disqualifying_eligibility_answer?
     disqualifying_eligibility_answer.present?
-    # TODO - get rid of line below.  This is to force the ineligibility of the client.
-    true
   end
 
   def save_nil_enums_with_unfilled
