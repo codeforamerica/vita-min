@@ -70,9 +70,3 @@ en:
           misc_info:
             info_box:
               requirement_title: "Requirement"
-  state_file:
-    questions:
-      data_transfer_offboarding:
-        edit:
-          title: "Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options. "
-          offboarding_reason: "You cannot use this tool this year because you %{reason}"

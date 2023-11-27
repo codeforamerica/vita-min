@@ -1884,8 +1884,15 @@ en:
           title: Your federal tax return is now transferred. We pre-filled some sections to save you time.
       data_transfer_offboarding:
         edit:
+          dontworry_html: |
+            <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers
+            at <strong>GetYourRefund.</strong>
+          get_started_gyr: Get started with GetYourRefund by...
           offboarding_reason: You cannot use this tool this year because you %{reason}
+          other_options: What are my other state filing options?
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
+          visit_faq: Visit our FAQ
+          what_is_gyr: What is GetYourRefund?
       eligibility_offboarding:
         edit:
           body_html: |
