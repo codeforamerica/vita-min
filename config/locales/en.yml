@@ -2083,6 +2083,8 @@ en:
         destroy:
           removed: Removed 1099-G for %{name}
         edit:
+          box_10a: Box 10a, State
+          box_10b: Box 10b, State identification number
           city: City
           confirm_address: 'Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form.'
           confirm_address_no: No, I need to edit
@@ -2091,8 +2093,10 @@ en:
           had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
-          payer_other: Other
-          payer_question: To start, please confirm the payer listed on Form 1099-G is
+          payer_name: Payer's Name
+          payer_question: Please enter the payer’s information <b>located in the top left corner</b> of the form
+          payer_address: Payer's Street Address
+          payer_tin: Payer’s TIN (XX-XXXXXXX)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?

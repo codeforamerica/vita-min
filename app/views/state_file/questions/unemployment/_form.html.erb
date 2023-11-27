@@ -20,23 +20,13 @@
       </div>
       <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
         <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.need_additional_information') %></h1>
-        <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <%=
-              f.cfa_radio_set(
-                :payer_name_is_default,
-                label_text: t('state_file.questions.unemployment.edit.payer_question'),
-                collection: [
-                  { value: :yes, label: @state_file1099_g.default_payer_name },
-                  { value: :no, label: t('state_file.questions.unemployment.edit.payer_other'), input_html: { "data-follow-up": "#payer-not-default" }  },
-                ]
-              )
-            %>
-          </div>
-          <div class="question-with-follow-up__follow-up" id="payer-not-default">
-            <%= f.cfa_input_field(:payer_name, "", classes: ["form-width--long"]) %>
-          </div>
-        </div>
+        <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.payer_question') %></h1>
+        <%= f.cfa_input_field(:payer_name, t('state_file.questions.unemployment.edit.payer_name'), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:payer_address, t('state_file.questions.unemployment.edit.payer_address'), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:payer_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:payer_state, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:payer_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:payer_tin, t('state_file.questions.unemployment.edit.payer_tin'), classes: ["form-width--long"]) %>
         <% if current_intake.filing_status_mfj? %>
           <%=
             f.cfa_radio_set(
