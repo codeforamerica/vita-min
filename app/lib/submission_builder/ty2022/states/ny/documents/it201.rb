@@ -101,8 +101,6 @@ module SubmissionBuilder
             def calculated_fields
               @it201_fields ||= @submission.data_source.tax_calculator.calculate
             end
-
-            
           end
         end
       end
