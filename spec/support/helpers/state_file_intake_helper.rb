@@ -23,7 +23,7 @@ module StateFileIntakeHelper
     end
     click_on "Continue"
 
-    expect(page).to have_text("Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.")
+    expect(page).to have_text("Good news, you can use this tool this year to file your state taxes. Here are the credits and deductions you can claim with this tool to maximize your refund.")
     click_on "Continue"
   end
 

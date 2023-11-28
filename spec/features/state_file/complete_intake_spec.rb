@@ -29,7 +29,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # name dob page
-      expect(page).to have_text "You’re almost done filing!"
+      expect(page).to have_text "You're almost done filing!"
       expect(page).to have_text "First, please provide some more information about you and the people in your family"
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
       fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
@@ -40,19 +40,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
       within "#dependent-0" do
-        expect(page).to have_text "Your first dependent's name and date of birth"
+        expect(page).to have_text "Please review %{number} dependent's name and enter a date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      expect(page).to have_text "Did you live at this address on December 31, 2023?"
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
       click_on "Go back"
 
-      expect(page).to have_text "Was this your permanent home address on December 31, 2023?"
+      expect(page).to have_text "Did you live at this address on December 31, 2023?"
       choose I18n.t("general.negative")
       # if they previously confirmed their address from DF, don't show it filled in on the form for a new permanent address
       expect(find_field("state_file_ny_permanent_address_form[permanent_street]").value).to eq ""
@@ -78,7 +78,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.ny_primary_state_id.state_id.id_type_question.no_id')
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Please provide information for your spouse’s state issued ID"
+      expect(page).to have_text "Your spouse's name (as shown on their Social Security card or ITIN letter) and date of birth"
       choose I18n.t('state_file.questions.ny_primary_state_id.state_id.id_type_question.dmv')
       fill_in  I18n.t('state_file.questions.ny_primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
@@ -166,13 +166,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "You’re almost done filing!"
-      expect(page).to have_text "First, please provide some more information about you and the people in your family"
+      expect(page).to have_text "You're almost done filing! Before you finish, we have some final questions that may help you maximize your refund."
+      expect(page).to have_text "First, we need some more information about you and the people in your family."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
 
       within "#dependent-0" do
-        expect(page).to have_text "Your first dependent's name and date of birth"
+        expect(page).to have_text "Please review %{number} dependent's name and enter a date of birth"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_first_name").value).to eq "TESSA"
         expect(find_field("state_file_name_dob_form_dependents_attributes_0_last_name").value).to eq "TESTERSON"
         select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
