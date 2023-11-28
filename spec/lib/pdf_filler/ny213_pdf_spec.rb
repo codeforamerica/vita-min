@@ -7,8 +7,8 @@ RSpec.describe PdfFiller::Ny213Pdf do
     create :efile_submission,
            tax_return: nil,
            data_source: create(:state_file_ny_intake,
-                               eligibility_lived_in_state: 1, dependents: [create(:state_file_dependent,
-                                                                                  dob: 7.years.ago)])
+                               eligibility_lived_in_state: 1,
+                               dependents: [create(:state_file_dependent, dob: 7.years.ago)])
   }
   let(:pdf) { described_class.new(submission) }
 
