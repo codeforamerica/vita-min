@@ -3,13 +3,13 @@ module Efile
     class It213 < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
-      def initialize(value_access_tracker:, lines:, filing_status:, direct_file_data:, eligibility_lived_in_state:, federal_dependent_child_count:)
+      def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
-        @filing_status = filing_status
-        @direct_file_data = direct_file_data
-        @eligibility_lived_in_state = eligibility_lived_in_state
-        @federal_dependent_child_count = federal_dependent_child_count
+        @filing_status = intake.filing_status.to_sym
+        @direct_file_data = intake.direct_file_data
+        @eligibility_lived_in_state = intake.eligibility_lived_in_state_yes?
+        @federal_dependent_child_count = intake.dependents.length
       end
 
       def calculate
@@ -43,13 +43,11 @@ module Efile
             # TODO: If we wanted to support spouse filing separate, lines 15 and 16 could have share of credit for spouse
             set_line(:IT213_LINE_15, -> { 0 })
             set_line(:IT213_LINE_16, -> { 0 })
-          else
-            offboard
             return
           end
-        else
-          offboard
         end
+        # You do not qualify for the credit, just set line 14 to 0 and you're done
+        set_line(:IT213_LINE_14, -> { 0 })
       end
 
       private
@@ -71,11 +69,11 @@ module Efile
           set_line(:IT213_WORKSHEET_A_LINE_10, :calculate_worksheet_a_line_10)
           set_line(:IT213_WORKSHEET_A_LINE_11, :calculate_worksheet_a_line_11)
           set_line(:IT213_WORKSHEET_A_LINE_12, :calculate_worksheet_a_line_12)
-          # Is the amount on line 8 of this worksheet more than the amount on line 12?
+          # Worksheet A Line 13 Instructions: Is the amount on line 8 of this worksheet more than the amount on line 12?
           # If No: Stop here. Enter the amount from line 8 here and on Form IT-213, line 6; and enter 0 on Form IT-213, line 7.
           # If Yes: Enter the amount from line 12 here and on Form IT-213, line 6; and complete Worksheet B: Additional child tax credit amount.
-          set_line(:IT213_WORKSHEET_A_LINE_13, :calculate_worksheet_a_line_13)
           if @lines[:IT213_WORKSHEET_A_LINE_8].value > @lines[:IT213_WORKSHEET_A_LINE_12].value
+            set_line(:IT213_WORKSHEET_A_LINE_13, -> { @lines[:IT213_WORKSHEET_A_LINE_12].value.to_i })
             set_line(:IT213_LINE_6, -> { @lines[:IT213_WORKSHEET_A_LINE_12].value.to_i })
             set_line(:IT213_WORKSHEET_B_LINE_1, :calculate_worksheet_b_line_1)
             set_line(:IT213_WORKSHEET_B_LINE_2, :calculate_worksheet_b_line_2)
@@ -108,6 +106,7 @@ module Efile
               end
             end
           else
+            set_line(:IT213_WORKSHEET_A_LINE_13, -> { @lines[:IT213_WORKSHEET_A_LINE_8].value.to_i })
             set_line(:IT213_LINE_6, -> { @lines[:IT213_WORKSHEET_A_LINE_8].value.to_i })
             set_line(:IT213_LINE_7, -> { 0 })
           end
@@ -221,10 +220,6 @@ module Efile
         [@lines[:IT213_WORKSHEET_A_LINE_9].value - @lines[:IT213_WORKSHEET_A_LINE_11].value, 0].max
       end
 
-      def calculate_worksheet_a_line_13
-        [@lines[:IT213_WORKSHEET_A_LINE_8].value, @lines[:IT213_WORKSHEET_A_LINE_12].value].min
-      end
-
       def calculate_worksheet_b_line_1
         @lines[:IT213_WORKSHEET_A_LINE_8].value
       end
@@ -279,10 +274,6 @@ module Efile
 
       def calculate_line_14
         [line_or_zero(:IT213_LINE_9), line_or_zero(:IT213_LINE_13)].max
-      end
-
-      def offboard
-        set_line(:IT213_LINE_14, -> { 0 })
       end
 
       def cutoff_for_filing_status

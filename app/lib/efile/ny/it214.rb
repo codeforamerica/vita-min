@@ -3,10 +3,10 @@ module Efile
     class It214 < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
-      def initialize(value_access_tracker:, lines:, direct_file_data:, intake:)
+      def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
-        @direct_file_data = direct_file_data
+        @direct_file_data = intake.direct_file_data
         @intake = intake
       end
 
