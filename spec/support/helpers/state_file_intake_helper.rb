@@ -28,7 +28,7 @@ module StateFileIntakeHelper
   end
 
   def step_through_initial_authentication(contact_preference: :text_message)
-    expect(page).to have_text "Next, set up your account with a quick code"
+    expect(page).to have_text "Next, create your account with a quick code"
 
     case contact_preference
     when :text_message

@@ -1885,17 +1885,17 @@ en:
       eligibility_offboarding:
         edit:
           body_html: |
-            You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>)
+            You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
             <br/><br/>
             You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: <strong>withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023</strong>
-            eligibility_lived_in_state: <strong>did not live in %{state} for all of 2023</strong>
-            eligibility_married_filing_separately: <strong>are filing “married filing separately”</strong>
-            eligibility_out_of_state_income: <strong>earned income in another state in 2023</strong>
-            eligibility_part_year_nyc_resident: <strong>were a part-time New York City resident in 2023</strong>
-            eligibility_withdrew_529: <strong>withdrew money from a 529 college savings account in 2023</strong>
-            eligibility_yonkers: <strong>lived or earned income in Yonkers in 2023</strong>
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_lived_in_state: did not live in %{state} for all of 2023
+            eligibility_married_filing_separately: are filing “married filing separately”
+            eligibility_out_of_state_income: earned income in another state in 2023</strong>
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_yonkers: lived or earned income in Yonkers in 2023
           title: Unfortunately you can't use this tool this year. Don't worry, here are other filing options.
       eligibility_out_of_state_income:
         edit:
