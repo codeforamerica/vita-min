@@ -2,11 +2,11 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
-    <p><%= t('.description') %></p>
+  <p><%= t('.description') %></p>
 
-    <%= link_to @link.to_s, class: "button button--primary", id: "firstCta" do %>
-      <%= t(".button") %>
-    <% end %>
+  <%= link_to @link.to_s, class: "button button--primary", id: "firstCta" do %>
+    <%= t(".button") %>
+  <% end %>
 
   <% if ENV["IRS_TRANSFER_AUTH_URL"].present? %>
     <%= link_to @irs_testing_link.to_s, class: "button", id: "firstCta" do %>
@@ -14,5 +14,5 @@
     <% end %>
   <% end %>
 
-    <div><%= t('.button_help_text') %></div>
+  <div><%= t('.button_help_text') %></div>
 <% end %>

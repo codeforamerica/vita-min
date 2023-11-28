@@ -10,7 +10,7 @@ class IrsApiService
   end
 
   def self.import_federal_data(authorization_code, state_code)
-    unless server_url
+    if authorization_code == "abcdefg"
       return df_return_sample
     end
 
@@ -18,13 +18,12 @@ class IrsApiService
     cert_finder = CertificateFinder.new(server_url, state_code)
 
     claim = {
-      "iss": account_id, # State identifier provided by the IRS
+      "iss": account_id.to_s, # State identifier provided by the IRS
       "iat": Time.now.to_i, # Issued at time
       "sub": authorization_code, # User authorization code from Direct File
     }
 
     token = JWT.encode claim, cert_finder.client_key, 'RS256'
-    
     # puts token
     # # verifying that JWT was actually sent
     # decoded_token = JWT.decode token, cert_finder.client_cert.public_key, true, { algorithm: 'RS256' }
@@ -143,9 +142,9 @@ class IrsApiService
 
   def self.server_url
     if ENV['IRS_API_MTLS']
-      URI.parse('https://df.alt.services.irs.gov/DFStateTaxReturns/1.0.0/state-api/export-return')
+      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     elsif ENV['IRS_API_NO_MTLS']
-      URI.parse('https://state-api-staging.app.cloud.gov/state-api/export-return')
+      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_no_mtls))
     elsif ENV['IRS_API_LOCALHOST']
       URI.parse('https://localhost:443/')
     end

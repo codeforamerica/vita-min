@@ -94,6 +94,7 @@ module Efile
       end
 
       def refund_or_owed_amount
+        #refund if amount is positive, owed if amount is negative
         line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62)
       end
 

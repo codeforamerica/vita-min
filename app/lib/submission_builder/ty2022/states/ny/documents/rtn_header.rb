@@ -10,6 +10,11 @@ module SubmissionBuilder
               checking: 1,
               savings: 2,
             }.freeze
+            REFUND_OR_OWE_TYPES = {
+              none: 0,
+              refund: 1,
+              owe: 2,
+            }.freeze
 
             def document
               build_xml_doc("rtnHeader") do |xml|
@@ -19,8 +24,9 @@ module SubmissionBuilder
                 # xml.THRD_PRTY_PIN_NMBR
                 xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn
                 unless @submission.data_source.routing_number.nil?
-                  xml.ABA_NMBR claimed: @submission.data_source.routing_number unless @submission.data_source.routing_number.nil?
+                  xml.ABA_NMBR claimed: @submission.data_source.routing_number
                 end
+
                 unless @submission.data_source.account_number.nil?
                   xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-')
                 end
@@ -30,12 +36,13 @@ module SubmissionBuilder
                 unless @submission.data_source.date_electronic_withdrawal.nil?
                   xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal
                 end
-                # xml.PYMT_AMT
-                # xml.DCMT_RCVD_DT
-                # xml.PSTMRK_DT
-                xml.ACH_IND
-                xml.RFND_OWE_IND
+                unless @submission.data_source.withdraw_amount.nil?
+                  xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
+                end
+                xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
+                xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
+
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
