@@ -6,6 +6,11 @@
   background-color: $color-ny-blue;
 }
 
+.numbered-list{
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
 .state-file {
   background-color: $color-state-file-bg;
   font-family: $font-state-file;
@@ -78,6 +83,7 @@
     font-weight: 700;
     line-height: 2.4rem;
   }
+
 }
 
 $state-colors: (

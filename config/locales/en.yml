@@ -2091,6 +2091,16 @@ en:
           confirm_address_yes: Yes, that's the address
           federal_income_tax_withheld: Box 4, Federal income tax withheld
           had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
+          information_html: <b>How do I find this information?</b>
+          information_content_html: | 
+           Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
+           Next, find the requested information in the following locations: </br>
+           <ol class="numbered-list">
+             <li><b>Who does this form belong to?</b>The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name."</li>
+             <li><b>Your mailing address</b> is listed under “recipient’s name” on the left side of the form. Make sure the address matches what you enter here.</li>
+             <li><b>Payer’s information,</b> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
+             <li><b>Boxes 1, 4, 10b, and 11</b> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
+           </ol>
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
           payer_address: Payer's Street Address
