@@ -1912,15 +1912,15 @@ en:
           title: First, let's see if you can use this tool to file your taxes
       eligible:
         edit:
-          dependent_credit: <a href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions">Dependent Credit</a>
-          empire_state_ctc: <a href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm">Empire State Child Tax Credit</a>
+          dependent_credit: Dependent Credit
+          empire_state_ctc: Empire State Child Tax Credit
           family_income_credit: Family Income Credit
           increased_deduction: An increased deduction for charitable contributions
-          increased_excise_credit: <a href="https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes">Increased Excise Credit</a>
+          increased_excise_credit: Increased Excise Credit
           not_supported: What credits and deductions does this tool <strong>not</strong> support this year?
-          nys_eic: <a href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm">NYS Earned Income Credit</a>
-          nys_hh_credit: <a href="https://www.tax.ny.gov/pit/credits/household_credit.htm">NYS Household Credit</a>
-          real_property_credit: <a href="https://www.tax.ny.gov/pit/credits/real_property_tax_credit.htm">Real Property Tax Credit</a>
+          nys_eic: NYS Earned Income Credit
+          nys_hh_credit: NYS Household Credit
+          real_property_credit: Real Property Tax Credit
           title: Good news, you can use this tool this year to file your state taxes. Here are the credits and deductions you can claim with this tool to maximize your refund.
       email_address:
         edit:
