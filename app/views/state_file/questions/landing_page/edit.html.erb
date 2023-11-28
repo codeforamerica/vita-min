@@ -8,14 +8,14 @@
   <h1 class="h1"><%= title %></h1>
 
   <h2 class="h2">
-    We've partnered with the state of <%= state_full_name %> to help you complete your state taxes online for free.
+    <strong>FileYourStateTaxes<strong> is built in partnership with the state of <%= state_full_name %> to integrate with the IRS Direct File tool.
   </h2>
 
   <div class="partner-logo-wrapper spacing-below-35">
     <div class="partner-logo-image">
       <%= image_tag state_image_path, alt: "#{state_full_name} state logo", class: "" %>
     </div>
-    <div class="text--body text--bold">Supported by the state of <%= state_full_name %> and the IRS</div>
+    <div class="text--body text--bold">Supported by the state of <%= state_full_name %></div>
   </div>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>

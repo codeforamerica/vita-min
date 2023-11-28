@@ -1,10 +1,10 @@
-<% title = "Was this your permanent home address on December 31, 2023?" %>
+<% title = "Did you live at this address on December 31, 2023?" %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p>Mark no if the address listed is a PO Box <strong>or</strong> if you lived in a different home on December 31, 2023
+  <p>Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
   </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
@@ -30,7 +30,7 @@
           %>
         </div>
         <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
-          <p><strong>If no</strong>, what was your home address as of December 31, 2023?</p>
+          <p>Where did you live on December 31, 2023?</p>
           <div class="spacing-below-25">
             <%= f.cfa_input_field(:permanent_street, "Street Address") %>
             <%= f.cfa_input_field(:permanent_apartment, "Apartment/Unit Number") %>

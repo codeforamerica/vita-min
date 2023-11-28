@@ -1,5 +1,5 @@
 <%= extends :application do %>
-  <% content_for :app_name do %>State File<% end %>
+  <% content_for :app_name do %>FileYourStateTaxes<% end %>
   <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
   <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
   <% content_for :head_links do %>
@@ -16,7 +16,7 @@
         <div class="toolbar__left">
           <div class="toolbar__item main-header__title">
             <%= link_to state_file_root_path, class: "toolbar__logo-text main-header__logo" do %>
-              State File
+              FileYourStateTaxes
             <% end %>
           </div>
         </div>
@@ -33,7 +33,7 @@
             </p>
             <p>
               <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-              StateTaxesDirectFile.org is a non-profit tool built by <%= cfa_link %> in partnership with the IRS and the state of <%= state_full_name %>.
+              FileYourStateTaxes.org is built by <%= cfa_link %> in partnership with the state of <%= state_full_name %> to integrate with the IRS Direct File tool.
             </p>
           </div>
 
@@ -59,7 +59,7 @@
   <% end %>
 
   <% content_for :meta_tags do %>
-    <meta name="description" content="State file">
+    <meta name="description" content="FileYourStateTaxes">
     <meta property="og:title" content="<%= content_for(:page_title) %>">
     <meta property="twitter:title" content="<%= content_for(:page_title) %>">
   <% end %>
