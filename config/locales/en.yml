@@ -1893,6 +1893,8 @@ en:
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
           visit_faq: Visit our FAQ
           what_is_gyr: What is GetYourRefund?
+          ineligible_reason:
+            filing_status: MARRIED FILING SEPARATELY
       eligibility_offboarding:
         edit:
           body_html: |

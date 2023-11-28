@@ -4,15 +4,16 @@ RSpec.describe StateFile::Questions::DataTransferOffboardingController do
   describe "#edit" do
     let(:intake) { create :state_file_az_intake }
 
-    context "when the client is ineligible" do
+    context "when the client's Direct File data disqualifies them" do
       before do
         session[:state_file_intake] = intake.to_global_id
         allow(subject).to receive(:params).and_return({us_state: 'az'})
-        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_eligibility_answer).and_return(:eligibility_lived_in_state)
+        # TODO: Why can't I set this directly by saying `intake.direct_file_data.filing_status = 3`?
+        allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(3)
       end
 
       it "gets the correct values for ineligible_reason" do
-        expect(subject.ineligible_reason).to eq('did not live in Arizona for all of 2023')
+        expect(subject.ineligible_reason).to eq('MARRIED FILING SEPARATELY')
       end
     end
 

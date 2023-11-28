@@ -181,12 +181,12 @@ class StateFileNyIntake < StateFileBaseIntake
     filing_status_mfj?
   end
 
-  def disqualifying_eligibility_df_data_rules
-    { }
-  end
-  
   def ach_debit_transaction?
     refund_or_owe_taxes_type == :owe && self.payment_or_deposit_type_direct_deposit?
+  end
+
+  def disqualifying_eligibility_df_data_rules
+    { }
   end
 
   def disqualifying_eligibility_rules
