@@ -19,14 +19,36 @@ class DirectFileData
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
-    fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
     fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
     fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
-    total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt'
+    fed_ctc: 'IRS1040 AdditionalChildTaxCreditAmt',
+    fed_puerto_rico_income_exclusion_amount: "IRS1040 ExcldSect933PuertoRicoIncmAmt",
+    total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt',
+    fed_irs_1040_nr: 'IRS1040NR',
+    fed_unemployment: 'IRS1040Schedule1 UnemploymentCompAmt',
+    fed_housing_deduction_amount: 'IRS1040Schedule1 HousingDeductionAmt',
+    fed_gross_income_exclusion_amount: 'IRS1040Schedule1 GrossIncomeExclusionAmt',
+    fed_total_income_exclusion_amount: 'IRS1040Schedule1 TotalIncomeExclusionAmt',
+    fed_foreign_tax_credit_amount: 'IRS1040Schedule3 ForeignTaxCreditAmt',
+    fed_credit_for_child_and_dependent_care_amount: 'IRS1040Schedule3 CreditForChildAndDepdCareAmt',
+    fed_education_credit_amount: 'IRS1040Schedule3 EducationCreditAmt',
+    fed_retirement_savings_contribution_credit_amount: 'IRS1040Schedule3 RtrSavingsContributionsCrAmt',
+    fed_energy_efficiency_home_improvement_credit_amount: 'IRS1040Schedule3 EgyEffcntHmImprvCrAmt',
+    fed_credit_for_elderly_or_disabled_amount: 'IRS1040Schedule3 CreditForElderlyOrDisabledAmt',
+    fed_clean_vehicle_personal_use_credit_amount: 'IRS1040Schedule3 CleanVehPrsnlUsePartCrAmt',
+    fed_total_reporting_year_tax_increase_or_decrease_amount: 'IRS1040Schedule3 TotRptgYrTxIncreaseDecreaseAmt',
+    fed_previous_owned_clean_vehicle_credit_amount: 'IRS1040Schedule3 MaxPrevOwnedCleanVehCrAmt',
+    fed_calculated_difference_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp CalculatedDifferenceAmt',
+    fed_nontaxable_combat_pay_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp NontaxableCombatPayAmt',
+    fed_total_earned_income_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp TotalEarnedIncomeAmt',
+    fed_residential_clean_energy_credit_amount: 'IRS5695 ResidentialCleanEnergyCrAmt',
+    fed_mortgage_interest_credit_amount: 'IRS8396 MortgageInterestCreditAmt',
+    fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
+    fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
   }.freeze
 
   def initialize(raw_xml)
@@ -228,6 +250,186 @@ class DirectFileData
     0 # TODO
   end
 
+  def fed_ctc_claimed
+    (fed_ctc || 0).positive?
+  end
+
+  def fed_ctc
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_ctc=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_calculated_difference_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_calculated_difference_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_nontaxable_combat_pay_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_nontaxable_combat_pay_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_total_earned_income_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_total_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_puerto_rico_income_exclusion_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_puerto_rico_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_total_income_exclusion_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_total_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_housing_deduction_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_housing_deduction_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_gross_income_exclusion_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_gross_income_exclusion_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_mortgage_interest_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_mortgage_interest_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_dc_homebuyer_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_dc_homebuyer_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_residential_clean_energy_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_residential_clean_energy_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_adoption_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_adoption_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_foreign_tax_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_foreign_tax_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_credit_for_child_and_dependent_care_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_credit_for_child_and_dependent_care_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_education_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_education_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_retirement_savings_contribution_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_retirement_savings_contribution_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_energy_efficiency_home_improvement_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_energy_efficiency_home_improvement_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_credit_for_elderly_or_disabled_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_credit_for_elderly_or_disabled_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_clean_vehicle_personal_use_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_clean_vehicle_personal_use_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_total_reporting_year_tax_increase_or_decrease_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_total_reporting_year_tax_increase_or_decrease_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_previous_owned_clean_vehicle_credit_amount
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_previous_owned_clean_vehicle_credit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_irs_1040_nr_filed
+    fed_irs_1040_nr.present?
+  end
+
+  def fed_irs_1040_nr
+    df_xml_value(__method__)
+  end
+
   def fed_eic_claimed
     (fed_eic || 0).positive?
   end
@@ -403,13 +605,41 @@ class DirectFileData
       :mailing_apartment,
       :mailing_zip,
       :cell_phone_number,
+      :tax_payer_email,
+      :fed_tax,
+      :fed_agi,
       :fed_wages,
+      :fed_wages_salaries_tips,
       :fed_taxable_income,
-      :fed_unemployment,
-      :fed_taxable_ssb,
-      :fed_adjustments_claimed,
       :fed_total_adjustments,
-      :total_exempt_primary_spouse
+      :fed_taxable_ssb,
+      :fed_ssb,
+      :fed_eic,
+      :fed_ctc,
+      :fed_puerto_rico_income_exclusion_amount,
+      :total_exempt_primary_spouse,
+      :fed_irs_1040_nr,
+      :fed_unemployment,
+      :fed_housing_deduction_amount,
+      :fed_gross_income_exclusion_amount,
+      :fed_total_income_exclusion_amount,
+      :fed_foreign_tax_credit_amount,
+      :fed_credit_for_child_and_dependent_care_amount,
+      :fed_education_credit_amount,
+      :fed_retirement_savings_contribution_credit_amount,
+      :fed_energy_efficiency_home_improvement_credit_amount,
+      :fed_credit_for_elderly_or_disabled_amount,
+      :fed_clean_vehicle_personal_use_credit_amount,
+      :fed_total_reporting_year_tax_increase_or_decrease_amount,
+      :fed_previous_owned_clean_vehicle_credit_amount,
+      :fed_calculated_difference_amount,
+      :fed_nontaxable_combat_pay_amount,
+      :fed_total_earned_income_amount,
+      :fed_residential_clean_energy_credit_amount,
+      :fed_mortgage_interest_credit_amount,
+      :fed_adoption_credit_amount,
+      :fed_dc_homebuyer_credit_amount,
+      :fed_adjustments_claimed
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

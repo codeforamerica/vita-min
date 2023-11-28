@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "it215-TY2022"
+      "it215-TY2023"
     end
 
     def initialize(submission)
@@ -16,12 +16,15 @@ module PdfFiller
     end
 
     def hash_for_pdf
+      # Note: the 2023 form was updated to have lines 1, 2, 3, 4 instead of 1, 1a, 2, 3 -- but the fillable field names
+      # were not updated, so line 1a = line 2 in the form, line 2 = line 3 in the form, and line 3 = line 4 in the form
       answers = {
         'Your last name' => @submission.data_source.primary.full_name,
         'Your SSN' => @submission.data_source.primary.ssn,
         'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND'),
-        'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'E_INV_INC_IND'),
-        'Line 4' => xml_value_to_pdf_checkbox('Line 4', 'E_CHLD_CLM_IND'),
+        'Line 1a' => xml_value_to_pdf_checkbox('Line 1a', 'E_INV_INC_IND'),
+        'Line 2' => 'No', # Should always be no because we don't support "married filing separate" filing status
+        'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'E_CHLD_CLM_IND'),
         'Line 5' => xml_value_to_pdf_checkbox('Line 5', 'E_IRS_FED_EITC_IND'),
         '6 dollars15' => claimed_attr_value('E_FED_WG_AMT'),
         '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'),
@@ -58,16 +61,18 @@ module PdfFiller
 
     private
 
+    # Note: the 2023 form was updated to have lines 1, 2, 3, 4 instead of 1, 1a, 2, 3 -- but the fillable field names
+    # were not updated, so line 1a = line 2 in the form, line 2 = line 3 in the form, and line 3 = line 4 in the form
     FIELD_OPTIONS = {
       'Line 1' => {
         1 => 'Yes',
         2 => 'No',
       },
-      'Line 2' => {
+      'Line 1a' => {
         1 => 'Yes',
         2 => 'No'
       },
-      'Line 4' => {
+      'Line 3' => {
         1 => 'Yes',
         2 => 'No'
       },

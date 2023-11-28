@@ -3,33 +3,30 @@ module Efile
     class It201 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, intake:, direct_file_data:, dependent_count:, include_source: false)
+      def initialize(year:, intake:, include_source: false)
         @year = year
-
-        @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @intake = intake
-        @direct_file_data = direct_file_data
-        @dependent_count = dependent_count # number
+        @filing_status = intake.filing_status.to_sym # single, married_filing_jointly, that's all we support for now
+        @direct_file_data = intake.direct_file_data
+        @eligibility_lived_in_state = intake.eligibility_lived_in_state
+        @dependent_count = intake.dependents.length
+
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
+
         @it213 = Efile::Ny::It213.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
-          filing_status: filing_status.to_sym,
-          direct_file_data: direct_file_data,
-          federal_dependent_child_count: @intake.dependents.length,
-          federal_dependent_child_count_between_4_and_17: @intake.dependents.length, # TODO
+          intake: @intake
         )
         @it214 = Efile::Ny::It214.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
-          direct_file_data: direct_file_data,
           intake: @intake
         )
         @it215 = Efile::Ny::It215.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
-          direct_file_data: direct_file_data,
           intake: @intake
         )
         @it227 = Efile::Ny::It227.new(
@@ -78,7 +75,7 @@ module Efile
         set_line(:IT201_LINE_61, :calculate_line_61)
         set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
-        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_16].value })
+        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_14].value })
         @it215.calculate
         set_line(:IT201_LINE_65, -> { @lines[:IT215_LINE_16].value })
         @it214.calculate
