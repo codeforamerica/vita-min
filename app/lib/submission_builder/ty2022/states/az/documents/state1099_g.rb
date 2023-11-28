@@ -10,8 +10,16 @@ module SubmissionBuilder
               form1099g = @kwargs[:form1099g]
 
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
-                xml.PayerName payerNameControl: form1099g.default_payer_name.gsub(/\s+/, '').upcase[0..3] do
-                  xml.BusinessNameLine1Txt form1099g.default_payer_name
+                if form1099g.payer_name && form1099g.payer_name != ''
+                  xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
+                    xml.BusinessNameLine1Txt form1099g.payer_name
+                  end
+                  xml.PayerUSAddress do
+                    xml.AddressLine1Txt form1099g.payer_street_address
+                    xml.CityNm form1099g.payer_city
+                    xml.StateAbbreviationCd "AZ"
+                    xml.ZIPCd form1099g.payer_zip
+                  end
                 end
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary

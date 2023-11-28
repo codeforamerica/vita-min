@@ -2093,9 +2093,9 @@ en:
           had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
-          payer_name: Payer's Name
-          payer_question: Please enter the payer’s information <b>located in the top left corner</b> of the form
           payer_address: Payer's Street Address
+          payer_name: Payer's Name
+          payer_question_html: Please enter the payer’s information <b>located in the top left corner</b> of the form
           payer_tin: Payer’s TIN (XX-XXXXXXX)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
