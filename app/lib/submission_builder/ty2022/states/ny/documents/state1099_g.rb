@@ -20,8 +20,8 @@ module SubmissionBuilder
                     xml.StateAbbreviationCd "NY"
                     xml.ZIPCd form1099g.payer_zip
                   end
+                  xml.PayerEIN form1099g.payer_tin
                 end
-                xml.PayerEIN form1099g.payer_tin
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary
                 elsif form1099g.recipient_spouse?

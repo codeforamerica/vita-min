@@ -253,7 +253,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     let!(:form1099) do
       create :state_file1099_g,
              intake: intake,
-             recipient: 'primary'
+             recipient: 'primary',
+             payer_name: 'Business',
+             payer_street_address: '123 Main St',
+             payer_city: 'New York',
+             payer_zip: '11102',
+             payer_tin: '123456789'
     end
     let(:params) { { us_state: :ny, id: form1099.id } }
 

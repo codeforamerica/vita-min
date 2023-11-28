@@ -20,6 +20,7 @@ module SubmissionBuilder
                     xml.StateAbbreviationCd "AZ"
                     xml.ZIPCd form1099g.payer_zip
                   end
+                  xml.PayerEIN form1099g.payer_tin
                 end
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary
