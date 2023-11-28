@@ -110,7 +110,7 @@ en:
       email:
         body: |
           Hello <<Client.PreferredName>>,
-          We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
+          We received your request for a reminder. Please <a "<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
           Your tax team at GetYourRefund
         subject: Your tax document reminder
       notice: Great! We just sent you a reminder link.
@@ -1028,7 +1028,7 @@ en:
         title: Add site
     source_params:
       already_applied: "%{code} is already applied to this partner."
-      already_taken: "%{code} is already in use by <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_taken: "%{code} is already in use by <a %{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added unique link %{code} to %{name}.
     ssn_itins:
@@ -1303,7 +1303,7 @@ en:
     waiting_on: Waiting on
     zip_codes:
       already_applied: "%{zip_code} is already routed to this partner."
-      already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_taken: "%{zip_code} is already routed to <a %{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added %{code} to %{name}.
   invitations:
@@ -1522,7 +1522,7 @@ en:
 
           Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
 
-          If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
+          If you have any questions you can contact your tax team via email <a "mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
           We’re here to help!
           Your tax team at GetYourRefund.org
@@ -1552,7 +1552,7 @@ en:
       completion:
         email:
           body: |
-            Thank you for choosing GetYourRefund! If your tax return was accepted, you can check the status of your refund at the IRS website <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
+            Thank you for choosing GetYourRefund! If your tax return was accepted, you can check the status of your refund at the IRS website <a "https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
             We would love feedback on your experience so we can improve this service! Could you tell us about how it went?
 
@@ -1573,7 +1573,7 @@ en:
         sms: 'Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
     unmonitored_replies:
       email:
-        body: Replies not monitored. Write %{support_email} for assistance. To check on your refund status, go to <a href="https://www.irs.gov/refunds">Where's My Refund?</a> To access your tax record, get <a href="https://www.irs.gov/individuals/get-transcript">your transcript.</a>
+        body: Replies not monitored. Write %{support_email} for assistance. To check on your refund status, go to <a "https://www.irs.gov/refunds">Where's My Refund?</a> To access your tax record, get <a "https://www.irs.gov/individuals/get-transcript">your transcript.</a>
         subject: Replies not monitored
       sms:
         body: Replies not monitored. Write %{support_email} for assistance.
@@ -1600,7 +1600,7 @@ en:
   portal:
     client_logins:
       account_locked:
-        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
+        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a "mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
         title: This account has been locked
       edit:
         confirm_identity: Protecting your tax information is our priority. To continue, please confirm your identity below.
@@ -1621,7 +1621,7 @@ en:
         title: We’ll send you a secure code to sign in
     closed_logins:
       show:
-        body_html: If you would like to receive a notification for when we open next year in January, please sign up <a href="%{link}">here</a>.
+        body_html: If you would like to receive a notification for when we open next year in January, please sign up <a "%{link}">here</a>.
         title: Sorry, we are closed for the year.
     messages:
       create:
@@ -1725,7 +1725,7 @@ en:
       success: Successfully uploaded document!
   public_pages:
     forbidden:
-      body_html: Oops! Looks like you're trying to access a page or client you do not have access to. Please contact Partner Support at <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> if you need to merge a duplicate client you do not have access to.
+      body_html: Oops! Looks like you're trying to access a page or client you do not have access to. Please contact Partner Support at <a "mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> if you need to merge a duplicate client you do not have access to.
       title: Access not allowed
     home:
       already_started: Already started? Sign in
@@ -1815,7 +1815,7 @@ en:
         - Receiving a GetYourRefund Verification Code
         - Tax return notifications
         03_message_freq: Message frequency will vary. Standard message rates apply. Text HELP to 11111 for help. Text STOP to 11111 to cancel. Carriers (e.g. AT&T, Verizon, etc.) are not responsible or liable for undelivered or delayed messages.
-        04_detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
+        04_detail_links_html: See our <a "%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a "%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
@@ -1858,8 +1858,8 @@ en:
           armed_forces_wages_label_html: How much did you receive in active duty pay? <br><br> <b>Note:</b> this should not exceed %{wages}
           title1: Do any of the following scenarios apply to you?
           title2: Check every box that applies to you. If it does not apply, leave blank and continue.
-          tribal_member_label_html: You or your spouse are an enrolled member of a <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes">Go back to correctfederally recognized American Indian tribe</a> and you earned wages while living and working on that tribe’s reservation.
-          tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation?<br><br> <b>Note:</b> this should not exceed %{wages}
+          tribal_member_label_html: You or your spouse are an enrolled member of a <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes">Go back to correct federally recognized American Indian tribe</a> and you earned wages while living and working on that tribe's reservation.
+          tribal_wages_label_html: How much did you earn while living and working on your tribe's reservation?<br><br> <b>Note:</b> this should not exceed %{wages}
           wages_tip: Enter amount earned
       code_verified:
         edit:
@@ -2016,7 +2016,7 @@ en:
           subtitle: For example, online purchases with no sales tax applied.
           title: Did you make any out-of-state purchases in %{year} that went untaxed?
           use_tax_method_automated: All of my purchases were less than $1,000 each. Calculate the amount of use tax for me.
-          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more - search 'exact calculation method')</a>
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more</a> - search 'exact calculation method')
       ny_school_district:
         edit:
           school_district_name: School District Name
@@ -2035,7 +2035,7 @@ en:
           download_state_return_pdf: Download your state return
           email_text_update: You'll receive an email or text update when your state return is accepted.
           help_friend_or_family: Help a friend or family member file their taxes for free. Tell them about IRS Direct File.
-          register_to_vote: <a href="https://vote.gov/">Register to vote/a>
+          register_to_vote: <a href="https://vote.gov/">Register to vote</a>
           share_direct_file_link: Share the IRS DirectFile link
           title: Your 2023 %{state_name} state tax return is now submitted!
       tax_refund:
