@@ -1885,7 +1885,7 @@ en:
       eligibility_offboarding:
         edit:
           body_html: |
-            You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+            You cannot use this tool this year because you %{ineligible_reason}. (Is this a mistake? <a href=%{prev_link}>Go back to correct.</a>)
             <br/><br/>
             You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
           ineligible_reason:

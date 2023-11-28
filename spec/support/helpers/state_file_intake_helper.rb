@@ -39,7 +39,7 @@ module StateFileIntakeHelper
       click_on "Send code"
 
 
-      expect(page).to have_text "Verify the code to continue"
+      expect(page).to have_text "Enter the code to continue"
       expect(page).to have_text "A message with your code has been sent to (415) 333-4444."
 
       perform_enqueued_jobs
