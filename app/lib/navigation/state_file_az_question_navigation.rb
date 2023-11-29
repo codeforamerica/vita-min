@@ -15,7 +15,6 @@ module Navigation
       StateFile::Questions::CodeVerifiedController,
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::WaitingToLoadDataController,
-      StateFile::Questions::PendingFederalReturnController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::NameDobController,
