@@ -1,7 +1,5 @@
 module Hub
-  class FaqItemsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class FaqItemsController < Hub::BaseController
     before_action :require_admin
     before_action :set_paper_trail_whodunnit
     before_action :load_faq_category

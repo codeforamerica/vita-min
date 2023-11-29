@@ -1,10 +1,7 @@
 module Hub
-  class AssignedClientsController < ApplicationController
+  class AssignedClientsController < Hub::BaseController
     FILTER_COOKIE_NAME = "assigned_clients_filters".freeze
-    include AccessControllable
     include ClientSortable
-
-    before_action :require_sign_in
     before_action :ensure_always_current_user_assigned, :load_vita_partners, :load_users, only: [:index]
     load_and_authorize_resource :client, parent: false
     before_action :setup_sortable_client, only: [:index]

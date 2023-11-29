@@ -1,11 +1,6 @@
 module Hub
-  class PortalStatesController < ApplicationController
-    include AccessControllable
-
-    layout "hub"
+  class PortalStatesController < Hub::BaseController
     load_and_authorize_resource class: false
-
-    before_action :require_sign_in
 
     def index
       @tax_returns = (TaxReturnStateMachine.states - ['intake_before_consent']).map do |state|

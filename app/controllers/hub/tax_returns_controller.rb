@@ -1,9 +1,6 @@
 module Hub
-  class TaxReturnsController < ApplicationController
-    include AccessControllable
+  class TaxReturnsController < Hub::BaseController
     include TaxReturnAssignableUsers
-
-    before_action :require_sign_in
     load_and_authorize_resource except: [:new, :create]
     # on new/create, authorize through client but initialize tax return object
     before_action :load_client, only: [:new, :create]

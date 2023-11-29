@@ -1,8 +1,6 @@
 module Hub
   module Admin
-    class ExperimentsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class ExperimentsController < Hub::BaseController
       before_action :load_vita_partners, only: [:edit]
       load_and_authorize_resource
       layout "hub"

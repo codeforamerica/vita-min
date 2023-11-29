@@ -1,7 +1,5 @@
 module Hub
-  class AdminTogglesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class AdminTogglesController < Hub::BaseController
     layout "hub"
     load_and_authorize_resource
 

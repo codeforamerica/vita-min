@@ -1,6 +1,5 @@
 module Hub
-  class IntentionalLogController < ApplicationController
-    include AccessControllable
+  class IntentionalLogController < Hub::BaseController
     before_action :require_engineer
     layout "hub"
 

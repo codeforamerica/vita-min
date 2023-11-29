@@ -1,9 +1,6 @@
 module Hub
-  class UserNotificationsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class UserNotificationsController < Hub::BaseController
     layout "hub"
-
     after_action :flush_memoized_data, only: [:index]
 
     def index

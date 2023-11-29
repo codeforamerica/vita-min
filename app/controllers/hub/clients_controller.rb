@@ -1,10 +1,8 @@
 module Hub
-  class ClientsController < ApplicationController
+  class ClientsController < Hub::BaseController
     FILTER_COOKIE_NAME = "all_clients_filters".freeze
-    include AccessControllable
     include ClientSortable
 
-    before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, only: [:index]
     load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]

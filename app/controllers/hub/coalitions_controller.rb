@@ -1,7 +1,5 @@
 module Hub
-  class CoalitionsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class CoalitionsController < Hub::BaseController
     load_and_authorize_resource :coalition, parent: false
 
     layout "hub"

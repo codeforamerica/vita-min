@@ -1,7 +1,5 @@
 module Hub
-  class BulkMessageCsvsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class BulkMessageCsvsController < Hub::BaseController
     load_and_authorize_resource
     before_action :load_bulk_message_csvs
 

@@ -1,8 +1,5 @@
 module Hub
-  class OutgoingEmailsController < ApplicationController
-    include AccessControllable
-
-    before_action :require_sign_in
+  class OutgoingEmailsController < Hub::BaseController
     load_and_authorize_resource :client
 
     def create

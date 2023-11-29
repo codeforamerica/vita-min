@@ -1,8 +1,6 @@
 module Hub
   module Admin
-    class ExperimentParticipantsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class ExperimentParticipantsController < Hub::BaseController
       load_and_authorize_resource
       layout "hub"
       before_action :redirect_on_prod, only: [:update]

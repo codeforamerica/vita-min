@@ -480,6 +480,13 @@ class ApplicationController < ActionController::Base
     "application"
   end
 
+  def set_cache_headers
+    # prevents browser caching on pages set with before action
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Mon, 01 Jan 1990 00:00:00 GMT"
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html do

@@ -1,7 +1,5 @@
 module Hub
-  class StateRoutingsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class StateRoutingsController < Hub::BaseController
     before_action :load_state_and_routing_targets, :load_independent_organizations, only: [:edit, :update, :add_organizations]
     authorize_resource :state_routing_target
     layout "hub"

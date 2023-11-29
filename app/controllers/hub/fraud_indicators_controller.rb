@@ -1,10 +1,7 @@
 module Hub
-  class FraudIndicatorsController < ApplicationController
-    include AccessControllable
-
-    before_action :require_sign_in
-    layout "hub"
+  class FraudIndicatorsController < Hub::BaseController
     load_and_authorize_resource class: Fraud::Indicator
+    layout "hub"
 
     def index
       @fraud_indicators = Fraud::Indicator.unscoped

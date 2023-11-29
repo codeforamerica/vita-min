@@ -1,8 +1,6 @@
 module Hub
   module Clients
-    class OrganizationsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class OrganizationsController < Hub::BaseController
       load_and_authorize_resource :client, parent: false
       before_action :redirect_to_client_show_if_archived
       before_action :redirect_if_no_vita_partner_selected, only: [:update]

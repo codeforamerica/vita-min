@@ -1,8 +1,5 @@
 module Hub
-  class OutgoingTextMessagesController < ApplicationController
-    include AccessControllable
-
-    before_action :require_sign_in
+  class OutgoingTextMessagesController < Hub::BaseController
     load_and_authorize_resource :client
 
     def create

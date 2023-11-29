@@ -1,12 +1,9 @@
 module Hub
-  class TaxReturnSelectionsController < ApplicationController
-    include AccessControllable
+  class TaxReturnSelectionsController < Hub::BaseController
     include ClientSortable
-
-    layout "hub"
-
-    before_action :require_sign_in, :load_vita_partners, :load_users
+    before_action :load_vita_partners, :load_users
     before_action :load_selection, only: [:show]
+    layout "hub"
 
     ALLOWED_ACTION_TYPES = ["change-organization", "send-a-message", "change-assignee-and-status"]
 

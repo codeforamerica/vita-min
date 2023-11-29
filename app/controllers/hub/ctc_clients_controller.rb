@@ -1,8 +1,5 @@
 module Hub
-  class CtcClientsController < ApplicationController
-    include AccessControllable
-
-    before_action :require_sign_in
+  class CtcClientsController < Hub::BaseController
     load_and_authorize_resource :client, parent: false
     layout "hub"
 

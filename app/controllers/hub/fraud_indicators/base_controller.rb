@@ -1,8 +1,6 @@
 module Hub
   module FraudIndicators
-    class BaseController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class BaseController < Hub::BaseController
       helper_method :page_title, :form_attributes, :resource_name, :resource_class
       layout "hub"
 

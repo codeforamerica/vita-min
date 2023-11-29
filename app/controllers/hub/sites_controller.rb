@@ -1,9 +1,6 @@
 module Hub
-  class SitesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class SitesController < Hub::BaseController
     before_action :load_organizations, only: [:new, :create, :edit, :update]
-
     load_and_authorize_resource :site, parent: false
 
     layout "hub"

@@ -1,14 +1,10 @@
 module Hub
   module BulkActions
-    class BaseBulkActionsController < ApplicationController
-      include AccessControllable
-
-      layout "hub"
-
-      before_action :require_sign_in
+    class BaseBulkActionsController < Hub::BaseController
       load_and_authorize_resource :tax_return_selection
       before_action :load_clients, :load_template_variables
       before_action :load_edit_form, only: :edit
+      layout "hub"
 
       def edit; end
 
