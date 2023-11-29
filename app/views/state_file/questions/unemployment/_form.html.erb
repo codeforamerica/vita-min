@@ -66,7 +66,10 @@
           <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
             <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:recipient_state, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"]) %>
+            <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.state') %></h1>
+            <div class="text-input-group spacing-below-15 form-width--long">
+              <div class="text-input-group__prefix "><div class="text-input"><%= state_full_name %></div></div>
+            </div>
             <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
           </div>
         </div>
