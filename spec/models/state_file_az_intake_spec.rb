@@ -164,7 +164,7 @@ describe StateFileAzIntake do
       intake.direct_file_data.filing_status = 3
     end
     it "returns filing status when direct file data has a filing status of married filing separately" do
-      expect(intake.disqualifying_df_data).to eq :filing_status
+      expect(intake.disqualifying_df_data_field).to eq :filing_status
     end
   end
 end
