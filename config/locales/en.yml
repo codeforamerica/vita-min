@@ -1876,8 +1876,7 @@ en:
           wages_tip: Enter amount earned
       canceled_data_transfer:
         edit:
-          go_back: Go back to correct.
-          mistake: Is this a mistake?
+          faq: Visit our FAQ
           other_options_html: |
             <strong>Want to file using a different product or service?</strong>
             <br/>
