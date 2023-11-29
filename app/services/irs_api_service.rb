@@ -55,6 +55,12 @@ class IrsApiService
 
     response = http.request(request)
 
+    if ENV['IRS_SAVE_RESPONSE']
+      # Capture the entire response (body + headers) from the IRS in a file
+      filename = "irs_api_response-#{authorization_code}-#{Time.now.strftime("%Y-%m-%d")}.txt"
+      save_response(response, filename)
+    end
+
     unless response.header['SESSION-KEY']
       puts "Could not find key in response, bailing out..."
       puts response.body
@@ -148,5 +154,16 @@ class IrsApiService
     elsif ENV['IRS_API_LOCALHOST']
       URI.parse('https://localhost:443/')
     end
+  end
+
+  def self.save_response(response, filename)
+    File.open(filename, 'w') do |file|
+      response.each_header do |key, value|
+        file.puts "#{key}: #{value}"
+      end
+      file.puts "-" * 20
+      file.write(response.body)
+    end
+    puts "Response saved to #{filename}"
   end
 end
