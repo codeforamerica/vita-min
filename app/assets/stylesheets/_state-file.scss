@@ -1,3 +1,8 @@
+// when no us_state in the params, class will be "state-file-html-bg--"
+.state-file-html-bg-- {
+  background-color: $color-az-grey; // set default background color on <html> so the footer doesn't look weird on shared pages
+}
+
 .state-file-html-bg--az {
   background-color: $color-az-grey;
 }
@@ -66,6 +71,7 @@
   .main-header {
     height: 5.4rem;
     line-height: 2.4rem;
+    background-color: $color-az-grey; // default color when no US state in path
 
     .toolbar {
       align-items: center;
@@ -79,6 +85,10 @@
     .partner-logo-image {
       margin-right: 1rem;
     }
+  }
+
+  .slab--footer {
+    background-color: $color-az-grey; // default color when no US state in path
   }
 
   .text--body {
