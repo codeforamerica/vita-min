@@ -10,6 +10,14 @@
   background-color: $color-state-file-bg;
   font-family: $font-state-file;
 
+  .big-illustration {
+    display: flex;
+
+    @media screen and (max-width: $tablet-up) {
+      justify-content: center;
+    }
+  }
+
   .button {
     border-radius: 0.4rem;
     font-size: 2.2rem;
