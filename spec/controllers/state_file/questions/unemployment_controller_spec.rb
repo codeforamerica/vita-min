@@ -21,18 +21,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   describe "#index" do
     context "with existing dependents" do
       render_views
-      let!(:form1099a) { 
-        create :state_file1099_g, intake: intake, recipient: :primary, payer_name: 'Business',
-                                                   payer_street_address: '123 Main St',
-                                                   payer_city: 'New York',
-                                                   payer_zip: '11102',
-                                                   payer_tin: '123456789' }
-      let!(:form1099b) { 
-        create :state_file1099_g, intake: intake, recipient: :spouse, payer_name: 'Business',
-                                                   payer_street_address: '123 Main St',
-                                                   payer_city: 'New York',
-                                                   payer_zip: '11102',
-                                                   payer_tin: '123456789' }
+      let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
+      let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
 
       it "renders information about each dependent" do
         get :index, params: { us_state: :ny }
@@ -73,11 +63,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
       expect(state_file1099_g.had_box_11).to eq 'yes'
-      expect(state_file1099_g.payer_name).to eq 'Business'
-      expect(state_file1099_g.payer_street_address).to eq '123 Main St'
-      expect(state_file1099_g.payer_city).to eq 'New York'
-      expect(state_file1099_g.payer_zip).to eq '11102'
-      expect(state_file1099_g.payer_tin).to eq '123456789'
       expect(state_file1099_g.recipient).to eq 'primary'
       expect(state_file1099_g.address_confirmation).to eq "yes"
       expect(state_file1099_g.federal_income_tax_withheld).to eq 123
@@ -142,12 +127,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       create :state_file1099_g,
              intake: intake,
              recipient: 'primary',
-             unemployment_compensation: 456,
-             payer_name: 'Business',
-             payer_street_address: '123 Main St',
-             payer_city: 'New York',
-             payer_zip: '11102',
-             payer_tin: '123456789'
+             unemployment_compensation: 456
     end
     let(:params) { { us_state: :ny, id: form1099.id } }
 
@@ -167,11 +147,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              had_box_11: 'yes',
              recipient: 'primary',
              address_confirmation: 'yes',
-             payer_name: 'Business',
-             payer_street_address: '123 Main St',
-             payer_city: 'New York',
-             payer_zip: '11102',
-             payer_tin: '123456789',
              federal_income_tax_withheld: 123,
              state_income_tax_withheld: 456,
              unemployment_compensation: 789
@@ -184,11 +159,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           had_box_11: 'yes',
           recipient: 'spouse',
           address_confirmation: 'yes',
-          payer_name: 'Business',
-          payer_street_address: '123 Main St',
-          payer_city: 'New York',
-          payer_zip: '11102',
-          payer_tin: '123456789',
           federal_income_tax_withheld: 123,
           state_income_tax_withheld: 456,
           unemployment_compensation: 789,
@@ -228,11 +198,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           id: form1099.id,
           state_file1099_g: {
             recipient: :globgor,
-            payer_name: 'Business',
-            payer_street_address: '123 Main St',
-            payer_city: 'New York',
-            payer_zip: '11102',
-            payer_tin: '123456789'
           }
         }
       end
@@ -253,12 +218,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     let!(:form1099) do
       create :state_file1099_g,
              intake: intake,
-             recipient: 'primary',
-             payer_name: 'Business',
-             payer_street_address: '123 Main St',
-             payer_city: 'New York',
-             payer_zip: '11102',
-             payer_tin: '123456789'
+             recipient: 'primary'
     end
     let(:params) { { us_state: :ny, id: form1099.id } }
 

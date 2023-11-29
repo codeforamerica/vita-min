@@ -163,7 +163,7 @@ module SubmissionBuilder
               supported_docs << {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
                 pdf: nil,
-                include: form1099g.had_box_11_yes?,
+                include: true,
                 kwargs: { form1099g: form1099g }
               }
             end

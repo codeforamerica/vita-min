@@ -37,12 +37,11 @@ class StateFile1099G < ApplicationRecord
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
-  validates_presence_of :payer_name, :message => "Please enter a valid name"
-  validates_presence_of :payer_street_address, :message => "Please enter a valid street address"
-  validates_presence_of :payer_city, :message => "Please enter a valid city"
-  validates_presence_of :payer_zip, :message => "Please enter a valid zip code"
-  validates :payer_tin, :format => { :with => /\d{9}/, :message => "Please enter a valid 9-digit TIN" }
-
+  validates_presence_of :payer_name, :message => I18n.t("errors.attributes.payer_name.blank")
+  validates_presence_of :payer_street_address, :message => I18n.t("errors.attributes.address.street_address.blank")
+  validates_presence_of :payer_city, :message => I18n.t("errors.attributes.address.city.blank")
+  validates_presence_of :payer_zip, :message => I18n.t("errors.attributes.address.zip.blank")
+  validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
 
   def update_conditional_attributes
     if address_confirmation_yes?

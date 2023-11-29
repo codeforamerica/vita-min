@@ -122,6 +122,13 @@ en:
       notice: Thank you! We updated your tax specialist.
   errors:
     attributes:
+      address:
+        city:
+          blank: Please enter a valid city.
+        street_address:
+          blank: Please enter a valid street address.
+        zip:
+          blank: Please enter a valid zip code.
       birth_date:
         blank: Please enter a valid date.
         must_be_sixteen: Primary tax filer must be at least 16.
@@ -161,6 +168,10 @@ en:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
         too_short: The password must be a minimum %{count} characters.
+      payer_name:
+        blank: Please enter a valid name.
+      payer_tin:
+        blank: Please enter a valid 9-digit TIN.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -2094,7 +2105,7 @@ en:
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
             Next, find the requested information in the following locations: </br>
-            <ol class="numbered-list">
+            <ol class="list--numbered">
               <li><b>Who does this form belong to?</b>The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name."</li>
               <li><b>Your mailing address</b> is listed under “recipient’s name” on the left side of the form. Make sure the address matches what you enter here.</li>
               <li><b>Payer’s information,</b> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>

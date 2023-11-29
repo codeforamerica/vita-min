@@ -31,5 +31,10 @@
 FactoryBot.define do
   factory :state_file1099_g do
     had_box_11 { 'yes' }
+    payer_name {'Business'}
+    payer_street_address {'123 Main St'}
+    payer_city {'New York'}
+    payer_zip {'11102'}
+    payer_tin {'123456789'}
   end
 end
