@@ -1889,9 +1889,9 @@ en:
             at <strong>GetYourRefund.</strong>
           get_started_gyr: Get started with GetYourRefund by...
           ineligible_reason:
-            married_filing_separately: you are filing “married filing separately”.
             has_irc_125_code: your W2 lists IRC 125 benefit plan amounts.
             has_yonkers_income: you lived or earned income in Yonkers in 2023.
+            married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this tool this year because %{reason}
           other_options: What are my other state filing options?
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.

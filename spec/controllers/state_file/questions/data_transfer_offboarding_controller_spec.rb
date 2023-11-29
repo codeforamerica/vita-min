@@ -13,7 +13,7 @@ RSpec.describe StateFile::Questions::DataTransferOffboardingController do
       end
 
       it "gets the correct values for ineligible_reason" do
-        expect(subject.ineligible_reason).to eq('MARRIED FILING SEPARATELY')
+        expect(subject.ineligible_reason).to eq(I18n.t('state_file.questions.data_transfer_offboarding.edit.ineligible_reason.married_filing_separately'))
       end
     end
 
