@@ -66,16 +66,20 @@ module StateFile
         state_file_params = params.require(:state_file1099_g).permit(
           :had_box_11,
           :address_confirmation,
-          :payer_name_is_default,
           :recipient,
+          :payer_city,
           :payer_name,
+          :payer_street_address,
+          :payer_tin,
+          :payer_zip,
           :federal_income_tax_withheld,
           :state_income_tax_withheld,
           :unemployment_compensation,
           :recipient_city,
           :recipient_state,
           :recipient_street_address,
-          :recipient_zip
+          :recipient_zip,
+          :state_identification_number
         )
         unless current_intake.filing_status_mfj?
           state_file_params[:recipient] = 'primary'

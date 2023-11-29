@@ -122,6 +122,13 @@ en:
       notice: Thank you! We updated your tax specialist.
   errors:
     attributes:
+      address:
+        city:
+          blank: Please enter a valid city.
+        street_address:
+          blank: Please enter a valid street address.
+        zip:
+          blank: Please enter a valid zip code.
       birth_date:
         blank: Please enter a valid date.
         must_be_sixteen: Primary tax filer must be at least 16.
@@ -161,6 +168,10 @@ en:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
         too_short: The password must be a minimum %{count} characters.
+      payer_name:
+        blank: Please enter a valid name.
+      payer_tin:
+        blank: Please enter a valid 9-digit TIN.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -197,6 +208,8 @@ en:
         confirmation: Please double check that the provided numbers match.
       state:
         inclusion: Please select a state.
+      state_id_number:
+        empty: Please enter a valid state identification number.
       state_of_residence:
         inclusion: Please select a state from the list.
     messages:
@@ -2083,16 +2096,30 @@ en:
         destroy:
           removed: Removed 1099-G for %{name}
         edit:
+          box_10a: Box 10a, State
+          box_10b: Box 10b, State identification number
           city: City
           confirm_address: 'Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form.'
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
           federal_income_tax_withheld: Box 4, Federal income tax withheld
           had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
+          information_content_html: |
+            Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
+            Next, find the requested information in the following locations: </br>
+            <ol class="list--numbered">
+              <li><b>Who does this form belong to?</b>The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name."</li>
+              <li><b>Your mailing address</b> is listed under “recipient’s name” on the left side of the form. Make sure the address matches what you enter here.</li>
+              <li><b>Payer’s information,</b> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
+              <li><b>Boxes 1, 4, 10b, and 11</b> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
+            </ol>
+          information_html: "<b>How do I find this information?</b>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
-          payer_other: Other
-          payer_question: To start, please confirm the payer listed on Form 1099-G is
+          payer_address: Payer's Street Address
+          payer_name: Payer's Name
+          payer_question_html: Please enter the payer’s information <b>located in the top left corner</b> of the form
+          payer_tin: Payer’s TIN (XX-XXXXXXX)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?

@@ -7,13 +7,17 @@
 #  federal_income_tax_withheld :integer
 #  had_box_11                  :integer          default("unfilled"), not null
 #  intake_type                 :string           not null
+#  payer_city                  :string
 #  payer_name                  :string
-#  payer_name_is_default       :integer          default("unfilled"), not null
+#  payer_street_address        :string
+#  payer_tin                   :string
+#  payer_zip                   :string
 #  recipient                   :integer          default("unfilled"), not null
 #  recipient_city              :string
 #  recipient_state             :string
 #  recipient_street_address    :string
 #  recipient_zip               :string
+#  state_identification_number :string
 #  state_income_tax_withheld   :integer
 #  unemployment_compensation   :integer
 #  created_at                  :datetime         not null
@@ -28,16 +32,6 @@ require 'rails_helper'
 
 RSpec.describe StateFile1099G do
   describe "conditional attributes" do
-    describe '#payer_name_is_default' do
-      it 'clears payer_name if set to yes' do
-        state_file_1099 = create(:state_file1099_g, intake: create(:state_file_ny_intake), payer_name_is_default: 'no', payer_name: 'Steve')
-        state_file_1099.payer_name_is_default = 'yes'
-        expect do
-          state_file_1099.save
-        end.to change { state_file_1099.payer_name }.to(nil)
-      end
-    end
-
     describe '#address_confirmation' do
       it 'clears address attributes if set to yes' do
         state_file_1099 = create(

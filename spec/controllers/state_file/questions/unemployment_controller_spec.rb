@@ -39,13 +39,17 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         us_state: :ny,
         state_file1099_g: {
           had_box_11: 'yes',
-          payer_name_is_default: 'yes',
           recipient: 'primary',
           address_confirmation: 'yes',
-          payer_name: '',
+          payer_name: 'Business',
+          payer_street_address: '123 Main St',
+          payer_city: 'New York',
+          payer_zip: '11102',
+          payer_tin: '123456789',
           federal_income_tax_withheld: 123,
           state_income_tax_withheld: 456,
           unemployment_compensation: 789,
+          state_identification_number: '123456789',
         }
       }
     end
@@ -60,7 +64,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
       expect(state_file1099_g.had_box_11).to eq 'yes'
-      expect(state_file1099_g.payer_name_is_default).to eq 'yes'
       expect(state_file1099_g.recipient).to eq 'primary'
       expect(state_file1099_g.address_confirmation).to eq "yes"
       expect(state_file1099_g.federal_income_tax_withheld).to eq 123
@@ -143,10 +146,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       create :state_file1099_g,
              intake: intake,
              had_box_11: 'yes',
-             payer_name_is_default: 'yes',
              recipient: 'primary',
              address_confirmation: 'yes',
-             payer_name: '',
              federal_income_tax_withheld: 123,
              state_income_tax_withheld: 456,
              unemployment_compensation: 789
@@ -157,10 +158,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         id: form1099.id,
         state_file1099_g: {
           had_box_11: 'yes',
-          payer_name_is_default: 'yes',
           recipient: 'spouse',
           address_confirmation: 'yes',
-          payer_name: '',
           federal_income_tax_withheld: 123,
           state_income_tax_withheld: 456,
           unemployment_compensation: 789,

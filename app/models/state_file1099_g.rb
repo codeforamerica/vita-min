@@ -7,13 +7,17 @@
 #  federal_income_tax_withheld :integer
 #  had_box_11                  :integer          default("unfilled"), not null
 #  intake_type                 :string           not null
+#  payer_city                  :string
 #  payer_name                  :string
-#  payer_name_is_default       :integer          default("unfilled"), not null
+#  payer_street_address        :string
+#  payer_tin                   :string
+#  payer_zip                   :string
 #  recipient                   :integer          default("unfilled"), not null
 #  recipient_city              :string
 #  recipient_state             :string
 #  recipient_street_address    :string
 #  recipient_zip               :string
+#  state_identification_number :string
 #  state_income_tax_withheld   :integer
 #  unemployment_compensation   :integer
 #  created_at                  :datetime         not null
@@ -30,15 +34,17 @@ class StateFile1099G < ApplicationRecord
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
-  enum payer_name_is_default: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payer_name_is_default
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
-  validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: -> (_object, _data) { I18n.t("errors.messages.blank") }
+  validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
+  validates_presence_of :payer_name, :message => I18n.t("errors.attributes.payer_name.blank")
+  validates_presence_of :payer_street_address, :message => I18n.t("errors.attributes.address.street_address.blank")
+  validates_presence_of :payer_city, :message => I18n.t("errors.attributes.address.city.blank")
+  validates_presence_of :payer_zip, :message => I18n.t("errors.attributes.address.zip.blank")
+  validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
+  validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
 
   def update_conditional_attributes
-    if payer_name_is_default_yes?
-      self.payer_name = nil
-    end
     if address_confirmation_yes?
       self.recipient_city = nil
       self.recipient_state = nil
@@ -52,14 +58,6 @@ class StateFile1099G < ApplicationRecord
       intake.primary.full_name
     elsif recipient_spouse?
       intake.spouse.full_name
-    end
-  end
-
-  def default_payer_name
-    if intake.is_a?(StateFileNyIntake)
-      'NYS Department of Labor'
-    elsif intake.is_a?(StateFileAzIntake)
-      'AZ Department of Economic Security'
     end
   end
 end

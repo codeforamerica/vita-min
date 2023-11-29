@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_164438) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_27_195350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1558,13 +1558,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_164438) do
     t.integer "had_box_11", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
+    t.string "payer_city"
     t.string "payer_name"
-    t.integer "payer_name_is_default", default: 0, null: false
+    t.string "payer_street_address"
+    t.string "payer_tin"
+    t.string "payer_zip"
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
     t.string "recipient_state"
     t.string "recipient_street_address"
     t.string "recipient_zip"
+    t.string "state_identification_number"
     t.integer "state_income_tax_withheld"
     t.integer "unemployment_compensation"
     t.datetime "updated_at", null: false

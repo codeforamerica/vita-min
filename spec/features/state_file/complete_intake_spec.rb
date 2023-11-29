@@ -92,11 +92,16 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose I18n.t("general.affirmative")
-      choose "NYS Department of Labor"
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "New York", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
       fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
       click_on I18n.t("general.continue")
 
@@ -198,11 +203,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose I18n.t("general.affirmative")
-      choose "AZ Department of Economic Security"
-
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Phoenix", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
       fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
       click_on I18n.t("general.continue")
 

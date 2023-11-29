@@ -123,6 +123,13 @@ es:
       notice: "¡Gracias! Actualizamos a su especialista en impuestos."
   errors:
     attributes:
+      address:
+        city:
+          blank: Por favor introduzca una ciudad válida.
+        street_address:
+          blank: Por favor ingrese una dirección postal válida.
+        zip:
+          blank: Por favor ingrese un código postal válido.
       birth_date:
         blank: Por favor, ingrese una fecha válida.
         must_be_sixteen: El contribuyente principal debe tener al menos 16 años.
@@ -162,6 +169,10 @@ es:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
+      payer_name:
+        blank: Por favor ingrese un nombre valido.
+      payer_tin:
+        blank: Ingrese un TIN válido de 9 dígitos.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -198,6 +209,8 @@ es:
         confirmation: Por favor, vuelva a rectificar que los números proporcionados sean los correctos.
       state:
         inclusion: Por favor, seleccione un estado.
+      state_id_number:
+        empty: Ingrese un número de identificación estatal válido.
       state_of_residence:
         inclusion: Por favor, seleccione un estado de la lista.
     messages:

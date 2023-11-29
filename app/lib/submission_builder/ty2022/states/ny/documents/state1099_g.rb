@@ -10,8 +10,17 @@ module SubmissionBuilder
               form1099g = @kwargs[:form1099g]
 
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
-                xml.PayerName payerNameControl: form1099g.default_payer_name.gsub(/\s+/, '').upcase[0..3] do
-                  xml.BusinessNameLine1Txt form1099g.default_payer_name
+                if form1099g.payer_name && form1099g.payer_name != ''
+                  xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
+                    xml.BusinessNameLine1Txt form1099g.payer_name
+                  end
+                  xml.PayerUSAddress do
+                    xml.AddressLine1Txt form1099g.payer_street_address
+                    xml.CityNm form1099g.payer_city
+                    xml.StateAbbreviationCd "NY"
+                    xml.ZIPCd form1099g.payer_zip
+                  end
+                  xml.PayerEIN form1099g.payer_tin
                 end
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary
@@ -20,6 +29,15 @@ module SubmissionBuilder
                 end
                 xml.RecipientSSN recipient.ssn
                 xml.RecipientName recipient.full_name
+                xml.UnemploymentCompensation form1099g.unemployment_compensation
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
+                xml.State1099GStateLocalTaxGrp do
+                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld
+                  xml.StateAbbreviationCd "NY"
+                  if form1099g.state_identification_number && form1099g.state_identification_number != ''
+                    xml.PayerStateIdNumber form1099g.state_identification_number
+                  end
+                end
               end
             end
           end
