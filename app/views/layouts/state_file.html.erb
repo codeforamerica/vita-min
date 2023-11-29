@@ -52,6 +52,10 @@
                 <%= t("views.shared.footer.service_status") %>
               <% end %>
             </li>
+
+            <% unless Rails.env.production? %>
+              <li><%= link_to "Flow explorer", flows_path %></li>
+            <% end %>
           </ul>
         </div>
       </div>

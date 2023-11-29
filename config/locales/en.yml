@@ -2095,6 +2095,7 @@ en:
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
           direct_deposit: Direct deposit (fastest)
+          account_routing_error: Routing number and account number can not be the same
           disclaimer_html: |
             <strong>
             Check to make sure your bank information is correct. You won't be able to correct this after you submit your return.
