@@ -4,7 +4,7 @@ module StateFile
       helper_method :ineligible_reason
 
       def ineligible_reason
-        key = current_intake.disqualifying_df_data_field
+        key = current_intake.disqualifying_df_data_reason
         if key.present?
           I18n.t(
             "state_file.questions.data_transfer_offboarding.edit.ineligible_reason.#{key}",
@@ -14,7 +14,7 @@ module StateFile
       end
 
       def self.show?(intake)
-        intake.has_disqualifying_df_data_field?
+        intake.disqualifying_df_data_reason.present?
       end
     end
   end

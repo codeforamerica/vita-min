@@ -185,8 +185,18 @@ class StateFileNyIntake < StateFileBaseIntake
     refund_or_owe_taxes_type == :owe && self.payment_or_deposit_type_direct_deposit?
   end
 
-  def disqualifying_eligibility_df_data_rules
-    { }
+  def disqualifying_df_data_reason
+    box_14_nodes = direct_file_data.parsed_xml.css('IRSW2 OtherDeductionsBenefitsGrp')
+    irc_125_code = 'IRC125S'
+    return :has_irc_125_code if box_14_nodes.any? do |deduction|
+      deduction.at('Desc')&.text == irc_125_code
+    end
+
+    yonkers_codes = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
+    box_20_nodes = direct_file_data.parsed_xml.css('IRSW2 W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalityNm')
+    return :has_yonkers_income if box_20_nodes.any? do |locality_name|
+      yonkers_codes.include?(locality_name.text)
+    end
   end
 
   def disqualifying_eligibility_rules

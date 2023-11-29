@@ -115,18 +115,6 @@ class StateFileBaseIntake < ApplicationRecord
     disqualifying_eligibility_answer.present?
   end
 
-  def disqualifying_df_data_field
-    disqualifying_eligibility_df_data_rules.each do |key, value|
-      return key if self.direct_file_data.public_send(key) == value
-    end
-
-    nil
-  end
-
-  def has_disqualifying_df_data_field?
-    disqualifying_df_data_field.present?
-  end
-
   def save_nil_enums_with_unfilled
     keys_with_unfilled = self.defined_enums.map{ |e| e.first if e.last.include?("unfilled") }
     keys_with_unfilled.each do |key|

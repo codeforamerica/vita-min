@@ -158,13 +158,16 @@ describe StateFileAzIntake do
     end
   end
 
-  describe "#disqualifying_df_data" do
+  describe "#disqualifying_df_data_reason" do
     let(:intake) { create :state_file_az_intake }
-    before do
+    it "returns married_filing_separately when direct file data has a filing status of married filing separately" do
       intake.direct_file_data.filing_status = 3
+
+      expect(intake.disqualifying_df_data_reason).to eq :married_filing_separately
     end
-    it "returns filing status when direct file data has a filing status of married filing separately" do
-      expect(intake.disqualifying_df_data_field).to eq :filing_status
+
+    it "returns nil when direct file data has no disqualifying fields" do
+      expect(intake.disqualifying_df_data_reason).to be_nil
     end
   end
 end

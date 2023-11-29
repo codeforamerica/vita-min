@@ -122,8 +122,8 @@ class StateFileAzIntake < StateFileBaseIntake
     false
   end
 
-  def disqualifying_eligibility_df_data_rules
-    { filing_status: 3 }
+  def disqualifying_df_data_reason
+    :married_filing_separately if direct_file_data.filing_status == 3
   end
 
   def disqualifying_eligibility_rules
