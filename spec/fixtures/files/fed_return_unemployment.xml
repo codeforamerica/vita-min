@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>123456789</PrimarySSN>
+      <NameLine1Txt>ONEDEPENDENT&lt;WITHUNEMPLOYMENT</NameLine1Txt>
+      <PrimaryNameControlTxt>WITH</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Tucson</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85641</ZIPCd>
+      </USAddress>
+      <PhoneNum>4155551234</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>{email=test012@test.com}</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Firstsimple</DependentFirstNm>
+        <DependentLastNm>Dependent</DependentLastNm>
+        <DependentNameControlTxt>DEPE</DependentNameControlTxt>
+        <DependentSSN>123456789</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt>0</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <WagesSalariesAndTipsAmt>0</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>5000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>5000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>0</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>500</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <RefundableCreditsAmt>0</RefundableCreditsAmt>
+      <TotalPaymentsAmt>500</TotalPaymentsAmt>
+      <OverpaidAmt>500</OverpaidAmt>
+      <RefundAmt>500</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>electrician</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>5000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+  </ReturnData>
+</Return>
