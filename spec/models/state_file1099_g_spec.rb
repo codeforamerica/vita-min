@@ -45,10 +45,10 @@ RSpec.describe StateFile1099G do
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
-        expect(state_file_1099.recipient_city).to be_nil
-        expect(state_file_1099.recipient_state).to be_nil
-        expect(state_file_1099.recipient_street_address).to be_nil
-        expect(state_file_1099.recipient_zip).to be_nil
+        expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
+        expect(state_file_1099.recipient_state).to eq state_file_1099.intake.direct_file_data.mailing_state
+        expect(state_file_1099.recipient_street_address).to eq state_file_1099.intake.direct_file_data.mailing_street
+        expect(state_file_1099.recipient_zip).to eq state_file_1099.intake.direct_file_data.mailing_zip
       end
     end
   end

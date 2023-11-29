@@ -46,10 +46,10 @@ class StateFile1099G < ApplicationRecord
 
   def update_conditional_attributes
     if address_confirmation_yes?
-      self.recipient_city = nil
-      self.recipient_state = nil
-      self.recipient_street_address = nil
-      self.recipient_zip = nil
+      self.recipient_city = intake.direct_file_data.mailing_city
+      self.recipient_state = intake.direct_file_data.mailing_state
+      self.recipient_street_address = intake.direct_file_data.mailing_street
+      self.recipient_zip = intake.direct_file_data.mailing_zip
     end
   end
 
