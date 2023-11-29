@@ -33,7 +33,7 @@ module SubmissionBuilder
                 xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
                 xml.State1099GStateLocalTaxGrp do
                   xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld
-                  xml.StateAbbreviationCd "AZ"
+                  xml.StateAbbreviationCd "NY"
                   if form1099g.state_identification_number && form1099g.state_identification_number != ''
                     xml.PayerStateIdNumber form1099g.state_identification_number
                   end
