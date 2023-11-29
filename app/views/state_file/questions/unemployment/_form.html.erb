@@ -48,7 +48,7 @@
             <% content_for :address_text do %>
               <div class="text--bold">Address</div>
               <div><%= current_intake.direct_file_data.mailing_street %></div>
-              <div><%= current_intake.direct_file_data.mailing_city %>,<%= state_full_name %>
+              <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_full_name %>
                 <%= current_intake.direct_file_data.mailing_zip %></div>
             <% end %>
             <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.confirm_address') %></h1>
