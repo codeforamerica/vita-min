@@ -14,7 +14,6 @@
 #  payer_zip                   :string
 #  recipient                   :integer          default("unfilled"), not null
 #  recipient_city              :string
-#  recipient_state             :string
 #  recipient_street_address    :string
 #  recipient_zip               :string
 #  state_identification_number :string
@@ -33,20 +32,18 @@ require 'rails_helper'
 RSpec.describe StateFile1099G do
   describe "conditional attributes" do
     describe '#address_confirmation' do
-      it 'clears address attributes if set to yes' do
+      it 'sets address to default address that was confirmed' do
         state_file_1099 = create(
           :state_file1099_g,
           intake: create(:state_file_ny_intake),
           address_confirmation: 'no',
           recipient_city: 'New York',
-          recipient_state: 'New York',
           recipient_street_address: '123 Main St',
           recipient_zip: '11102',
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
         expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
-        expect(state_file_1099.recipient_state).to eq state_file_1099.intake.direct_file_data.mailing_state
         expect(state_file_1099.recipient_street_address).to eq state_file_1099.intake.direct_file_data.mailing_street
         expect(state_file_1099.recipient_zip).to eq state_file_1099.intake.direct_file_data.mailing_zip
       end

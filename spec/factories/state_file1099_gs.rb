@@ -14,7 +14,6 @@
 #  payer_zip                   :string
 #  recipient                   :integer          default("unfilled"), not null
 #  recipient_city              :string
-#  recipient_state             :string
 #  recipient_street_address    :string
 #  recipient_zip               :string
 #  state_identification_number :string
