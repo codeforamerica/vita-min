@@ -1,6 +1,7 @@
 module Hub
   class PortalStatesController < Hub::BaseController
     load_and_authorize_resource class: false
+    layout "hub"
 
     def index
       @tax_returns = (TaxReturnStateMachine.states - ['intake_before_consent']).map do |state|
