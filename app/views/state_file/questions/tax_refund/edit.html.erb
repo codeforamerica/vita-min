@@ -49,13 +49,15 @@
           </div>
         </div>
       </div>
-      <div class="question-with-follow-up__follow-up" id="mail-check">
-        <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <%= t('.mail_html', state_name: States.name_for_key(params[:us_state].upcase)) %>
+      <% if params[:us_state] == "az" %>
+        <div class="question-with-follow-up__follow-up" id="mail-check">
+          <div class="question-with-follow-up">
+            <div class="question-with-follow-up__question">
+              <%= t('.mail_html', state_name: States.name_for_key(params[:us_state].upcase)) %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
       <%= f.continue %>
     </div>
   <% end %>
