@@ -29,6 +29,15 @@ module SubmissionBuilder
                 end
                 xml.RecipientSSN recipient.ssn
                 xml.RecipientName recipient.full_name
+                xml.UnemploymentCompensation form1099g.unemployment_compensation
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
+                xml.State1099GStateLocalTaxGrp do
+                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld
+                  xml.StateAbbreviationCd "AZ"
+                  if form1099g.state_identification_number && form1099g.state_identification_number != ''
+                    xml.PayerStateIdNumber form1099g.state_identification_number
+                  end
+                end
               end
             end
           end

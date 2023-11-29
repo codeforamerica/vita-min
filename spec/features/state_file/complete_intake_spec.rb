@@ -101,6 +101,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
       fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
       click_on I18n.t("general.continue")
 
@@ -210,6 +211,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
       fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
+      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
       fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
       click_on I18n.t("general.continue")
 

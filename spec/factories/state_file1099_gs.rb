@@ -36,5 +36,6 @@ FactoryBot.define do
     payer_city {'New York'}
     payer_zip {'11102'}
     payer_tin {'123456789'}
+    state_identification_number {'123456789'}
   end
 end

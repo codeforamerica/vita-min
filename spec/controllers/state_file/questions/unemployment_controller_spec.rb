@@ -49,6 +49,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           federal_income_tax_withheld: 123,
           state_income_tax_withheld: 456,
           unemployment_compensation: 789,
+          state_identification_number: '123456789',
         }
       }
     end

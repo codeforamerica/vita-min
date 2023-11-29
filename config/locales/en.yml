@@ -208,6 +208,8 @@ en:
         confirmation: Please double check that the provided numbers match.
       state:
         inclusion: Please select a state.
+      state_id_number:
+        empty: Please enter a valid state identification number.
       state_of_residence:
         inclusion: Please select a state from the list.
     messages:
