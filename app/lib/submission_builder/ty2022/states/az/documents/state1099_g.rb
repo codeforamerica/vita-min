@@ -29,6 +29,12 @@ module SubmissionBuilder
                 end
                 xml.RecipientSSN recipient.ssn
                 xml.RecipientName recipient.full_name
+                xml.RecipientUSAddress do
+                  xml.AddressLine1Txt form1099g.recipient_street_address
+                  xml.CityNm form1099g.recipient_city
+                  xml.StateAbbreviationCd form1099g.recipient_state
+                  xml.ZIPCd form1099g.recipient_zip
+                end
                 xml.UnemploymentCompensation form1099g.unemployment_compensation
                 xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
                 xml.State1099GStateLocalTaxGrp do
