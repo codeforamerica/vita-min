@@ -10,6 +10,7 @@
         display: inline-block;
         border-radius: 3px;
         padding: 5px;
+        margin-bottom: 10px;
     }
   </style>
 
@@ -22,6 +23,13 @@
       "Transfer my 2023 federal tax return to FileYourStateTaxes",
       state_file_link.to_s,
       class: 'transfer-button'
+    )
+  %>
+
+  <%=
+    link_to(
+      "See page for pending federal return",
+      state_file_questions_pending_federal_return_path
     )
   %>
 </div>
