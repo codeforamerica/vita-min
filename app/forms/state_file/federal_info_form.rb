@@ -15,6 +15,7 @@ module StateFile
                        :mailing_street,
                        :mailing_apartment,
                        :mailing_zip,
+                       :fed_agi,
                        :fed_wages,
                        :fed_taxable_income,
                        :fed_unemployment,
