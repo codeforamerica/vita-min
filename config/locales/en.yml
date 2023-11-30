@@ -2012,7 +2012,7 @@ en:
         edit:
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
-      ny_primary_state_id:
+      primary_state_id:
         edit:
           title: Please provide information for your state issued ID
         state_id:
@@ -2058,7 +2058,7 @@ en:
         edit:
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
-      ny_spouse_state_id:
+      spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       pending_federal_return:
