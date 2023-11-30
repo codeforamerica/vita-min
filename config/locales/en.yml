@@ -1948,7 +1948,7 @@ en:
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
           primary_esign: I have read the certification above and agree
           spouse_esign: My spouse has read the certification above and agrees
-          submit: Submit my state return
+          submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
       initiate_data_transfer:
         edit:
