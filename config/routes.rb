@@ -536,6 +536,7 @@ Rails.application.routes.draw do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
           get "pending_federal_return", to: "pending_federal_return#edit"
+          get "canceled_data_transfer", to: "canceled_data_transfer#edit"
         end
       end
 

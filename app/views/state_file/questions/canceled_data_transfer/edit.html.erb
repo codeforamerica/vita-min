@@ -1,0 +1,18 @@
+<% title = t(".title_html") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <div class="text--small spacing-below-35">
+    <div class="spacing-above-25"><%= t(".other_options_html") %></div>
+
+    <!--    TODO: replace with real FAQ link-->
+    <div class="spacing-above-35"><%= link_to t(".faq"), root_path %></div>
+  </div>
+
+  <%= link_to @link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>
+    <%= image_tag("icons/link-white.svg", alt: "") %>
+
+    <%= t("state_file.questions.initiate_data_transfer.edit.button") %>
+  <% end %>
+<% end %>

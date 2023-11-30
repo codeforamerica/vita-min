@@ -1874,6 +1874,17 @@ en:
           tribal_member_label_html: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on the tribe’s reservation.
           tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation? <br><br> <b>Note:</b> this should not exceed %{wages}
           wages_tip: Enter amount earned
+      canceled_data_transfer:
+        edit:
+          faq: Visit our FAQ
+          other_options_html: |
+            <strong>Want to file using a different product or service?</strong>
+            <br/>
+            Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Additional fees may apply.
+          title_html: |
+            You canceled the transfer of your federal return.
+            <br/><br/>
+            Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
