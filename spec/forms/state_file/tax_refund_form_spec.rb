@@ -94,5 +94,24 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(form.errors).to include :routing_number, :account_number
       end
     end
+
+    context "when the routing and account number are not the same" do
+      let(:params) do
+        {
+          payment_or_deposit_type: "direct_deposit",
+          routing_number: "123456789",
+          routing_number_confirmation: "123456789",
+          account_number: "123",
+          account_number_confirmation: "123",
+          account_type: "checking",
+          bank_name: "Bank official",
+        }
+      end
+      it "is valid" do
+        form = described_class.new(intake, params)
+
+        expect(form).to be_valid
+      end
+    end
   end
 end
