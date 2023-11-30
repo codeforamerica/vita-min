@@ -2,8 +2,12 @@ require "rails_helper"
 
 RSpec.describe StateFile::EsignDeclarationForm do
   let!(:intake) { create :state_file_az_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled" }
+  let!(:efile_device_info){ create :state_file_efile_device_info, :submission, intake: intake }
+  let(:device_id) { "AA" * 20 }
   let(:params) do
-    { primary_esigned: "yes" }
+    { primary_esigned: "yes",
+      device_id: device_id,
+    }
   end
 
   describe "#save" do
@@ -16,6 +20,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
         intake.reload
         expect(intake.primary_esigned).to eq "yes"
         expect(intake.primary_esigned_at).to be_present
+        expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
 
       it "creates a submission" do
@@ -39,7 +44,8 @@ RSpec.describe StateFile::EsignDeclarationForm do
       let(:params) do
         {
           primary_esigned: "yes",
-          spouse_esigned: "yes"
+          spouse_esigned: "yes",
+          device_id: device_id
         }
       end
 
@@ -53,6 +59,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.primary_esigned_at).to be_present
         expect(intake.spouse_esigned).to eq "yes"
         expect(intake.spouse_esigned_at).to be_present
+        expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
     end
   end

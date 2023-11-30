@@ -7,6 +7,14 @@ module StateFile
       # default layout for all state file questions
       layout "state_file/question"
 
+      def ip_for_irs
+        if Rails.env.test?
+          "72.34.67.178"
+        else
+          request.remote_ip
+        end
+      end
+
       private
 
       def current_intake

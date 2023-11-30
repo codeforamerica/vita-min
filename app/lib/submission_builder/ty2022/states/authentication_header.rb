@@ -53,25 +53,28 @@ module SubmissionBuilder
             end
             xml.TransmissionDetail do
               xml.InitialCreation do
+                device_info = @submission.data_source.initial_efile_device_info
+                # ip_for_irs for test env
                 xml.IPAddress do
-                  xml.IPv4AddressTxt '1.2.3.4'
+                  xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
+                  xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs '2023-10-10T12:00:00-05:00'
-                xml.DeviceId 'AB' * 20
-                xml.DeviceTypeCd 'Desktop'
-                xml.IPPortNum '1234'
+                xml.IPTs datetime_type(device_info&.updated_at)
+                xml.DeviceId device_info&.device_id || 'AB' * 20
+                xml.DeviceTypeCd 'Browser-based'
               end
               xml.Submission do
+                device_info = @submission.data_source.submission_efile_device_info
                 xml.IPAddress do
-                  xml.IPv4AddressTxt '1.2.3.4'
+                  xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
+                  xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs '2023-10-10T12:00:00-05:00'
-                xml.DeviceId 'AB' * 20
-                xml.DeviceTypeCd 'Desktop'
-                xml.FinalIPPortNumberSubmit '1234'
+                xml.IPTs datetime_type(device_info&.updated_at)
+                xml.DeviceId device_info&.device_id || 'AB' * 20
+                xml.DeviceTypeCd 'Browser-based'
               end
-              xml.TotActiveTimePrepSubmissionTs '30'
-              xml.TotalPreparationSubmissionTs '5'
+              xml.TotActiveTimePrepSubmissionTs '30' # total_active_preparation_minutes -- Total Active Time Preparation Submission Time Span
+              xml.TotalPreparationSubmissionTs '5' # total_preparation_submission_minutes
             end
           end
         end

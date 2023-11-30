@@ -1640,6 +1640,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_222303) do
     t.index ["intake_type", "intake_id"], name: "index_state_file_dependents_on_intake"
   end
 
+  create_table "state_file_efile_device_infos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "device_id"
+    t.string "event_type"
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.inet "ip_address"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
   create_table "state_file_ny_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false

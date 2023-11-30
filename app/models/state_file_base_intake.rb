@@ -4,6 +4,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
+  has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
@@ -113,6 +114,16 @@ class StateFileBaseIntake < ApplicationRecord
 
   def has_disqualifying_eligibility_answer?
     disqualifying_eligibility_answer.present?
+  end
+
+  def initial_efile_device_info
+    with_device_id = efile_device_infos.where(event_type: "initial_creation").where.not(device_id: nil).first
+    with_device_id.present? ? with_device_id : efile_device_infos.where(event_type: "initial_creation").first
+  end
+
+  def submission_efile_device_info
+    with_device_id = efile_device_infos.where(event_type: "submission").where.not(device_id: nil).first
+    with_device_id.present? ? with_device_id : efile_device_infos.where(event_type: "submission").first
   end
 
   def save_nil_enums_with_unfilled
