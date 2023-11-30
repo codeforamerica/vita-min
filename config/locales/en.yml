@@ -186,8 +186,6 @@ en:
         blank: An SSN or ITIN is required.
       primary_tin_type:
         blank: Identification type is required.
-      routing_number:
-        not_account_number: Routing number and account number can not be the same
       signature_method:
         inclusion: Please select a pickup method.
       sms_phone_number:
@@ -234,6 +232,8 @@ en:
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
+      routing_account_number:
+        not_same: Routing number and account number can not be the same
       state_routings:
         delegated_routing: You can only submit routing percentages for an organization OR its child sites, not both.
         must_equal_100: Routing percentages must total 100%.

@@ -187,8 +187,6 @@ es:
         blank: Es necesario un Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       primary_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
-      routing_number:
-        not_account_number: El número de ruta y el número de cuenta no pueden ser iguales
       signature_method:
         inclusion: Por favor, seleccione un método de recogida.
       sms_phone_number:
@@ -235,6 +233,8 @@ es:
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
+      routing_account_number:
+        not_same: El número de ruta y el número de cuenta no pueden ser iguales
       state_routings:
         delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
