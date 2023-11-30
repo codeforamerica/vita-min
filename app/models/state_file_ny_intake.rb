@@ -185,20 +185,20 @@ class StateFileNyIntake < StateFileBaseIntake
     refund_or_owe_taxes_type == :owe && self.payment_or_deposit_type_direct_deposit?
   end
 
+  IRC_125_CODES = ['IRC125S', 'IRS125']
+  YONKERS_CODES = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
   def disqualifying_df_data_reason
     box_14_nodes = direct_file_data.parsed_xml.css('IRSW2 OtherDeductionsBenefitsGrp')
-    irc_125_codes = ['IRC125S', 'IRS125']
     return :has_irc_125_code if box_14_nodes.any? do |deduction|
-      irc_125_codes.include?(deduction.at('Desc')&.text)
+      IRC_125_CODES.include?(deduction.at('Desc')&.text)
     end
 
-    yonkers_codes = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
     return :has_yonkers_income if box_14_nodes.any? do |deduction|
-      yonkers_codes.include?(deduction.at('Desc')&.text)
+      YONKERS_CODES.include?(deduction.at('Desc')&.text)
     end
     box_20_nodes = direct_file_data.parsed_xml.css('IRSW2 W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalityNm')
     return :has_yonkers_income if box_20_nodes.any? do |locality_name|
-      yonkers_codes.include?(locality_name.text)
+      YONKERS_CODES.include?(locality_name.text)
     end
   end
 
