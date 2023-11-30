@@ -472,7 +472,12 @@ module Efile
       end
 
       def calculate_line_72
-        0 # TODO: Computed from W-2 and 1099G forms and their NYS wrapper, IT-2
+        total_state_taxes_withheld = @direct_file_data.total_state_tax_withheld
+        state_file_1099gs = @intake.state_file1099_gs
+        state_file_1099gs.each do |state_file_1099g|
+          total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
+        end
+        total_state_taxes_withheld
       end
 
       def calculate_line_73

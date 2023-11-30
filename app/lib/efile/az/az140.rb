@@ -222,7 +222,7 @@ module Efile
       end
 
       def calculate_line_53
-        total_state_taxes_withheld = 0
+        total_state_taxes_withheld = @direct_file_data.total_state_tax_withheld
         state_file_1099gs = @intake.state_file1099_gs
         state_file_1099gs.each do |state_file_1099g|
           total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
