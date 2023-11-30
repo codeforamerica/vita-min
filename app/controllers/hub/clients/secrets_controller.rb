@@ -1,8 +1,6 @@
 module Hub
   module Clients
-    class SecretsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class SecretsController < Hub::BaseController
       load_and_authorize_resource :client, parent: false
       respond_to :js
 

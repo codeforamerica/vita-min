@@ -1,7 +1,5 @@
 module Hub
-  class EfileErrorsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class EfileErrorsController < Hub::BaseController
     load_and_authorize_resource
     layout "hub"
 

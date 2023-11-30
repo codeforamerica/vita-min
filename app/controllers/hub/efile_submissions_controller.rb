@@ -1,9 +1,6 @@
 module Hub
-  class EfileSubmissionsController < ApplicationController
-    include AccessControllable
+  class EfileSubmissionsController < Hub::BaseController
     include FilesConcern
-
-    before_action :require_sign_in
     authorize_resource
     load_resource except: [:index, :show]
     layout "hub"

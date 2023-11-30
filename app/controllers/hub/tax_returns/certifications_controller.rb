@@ -1,8 +1,6 @@
 module Hub
   module TaxReturns
-    class CertificationsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class CertificationsController < Hub::BaseController
       load_and_authorize_resource :tax_return, parent: false
 
       def update

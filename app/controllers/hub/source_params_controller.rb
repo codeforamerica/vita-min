@@ -1,7 +1,5 @@
 module Hub
-  class SourceParamsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class SourceParamsController < Hub::BaseController
     authorize_resource :vita_partner, parent: false, only: :create
 
     def create

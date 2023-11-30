@@ -1,8 +1,5 @@
 module Hub
-  class MessagesController < ApplicationController
-    include AccessControllable
-
-    before_action :require_sign_in
+  class MessagesController < Hub::BaseController
     load_and_authorize_resource :client
     layout "hub"
 

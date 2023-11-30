@@ -1,8 +1,5 @@
 module Hub
-  class OrganizationsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
-
+  class OrganizationsController < Hub::BaseController
     before_action :load_coalitions
     load_and_authorize_resource
 

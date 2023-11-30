@@ -1,9 +1,6 @@
 module Hub
-  class UsersController < ApplicationController
-    include AccessControllable
+  class UsersController < Hub::BaseController
     include RoleHelper
-
-    before_action :require_sign_in
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
     load_and_authorize_resource

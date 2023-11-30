@@ -1,7 +1,5 @@
 module Hub
-  class AnalyticsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class AnalyticsController < Hub::BaseController
     before_action :require_admin
     load_and_authorize_resource :client
     load_and_authorize_resource :user, parent: false, only: [:index]

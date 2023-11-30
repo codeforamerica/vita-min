@@ -1,8 +1,6 @@
 module Hub
   module Clients
-    class BankAccountsController < ApplicationController
-      include AccessControllable
-      before_action :require_sign_in
+    class BankAccountsController < Hub::BaseController
       load_and_authorize_resource :client, parent: false
 
       def show

@@ -1,7 +1,5 @@
 module Hub
-  class ZipCodesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class ZipCodesController < Hub::BaseController
     authorize_resource :vita_partner_zip_code
     authorize_resource :vita_partner, parent: false, only: :create
 

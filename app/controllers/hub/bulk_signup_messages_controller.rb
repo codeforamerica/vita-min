@@ -1,9 +1,7 @@
 require 'csv'
 
 module Hub
-  class BulkSignupMessagesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class BulkSignupMessagesController < Hub::BaseController
     load_and_authorize_resource
 
     layout "hub"

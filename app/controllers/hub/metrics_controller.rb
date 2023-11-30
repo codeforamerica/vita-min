@@ -1,10 +1,8 @@
 module Hub
-  class MetricsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
-    layout "hub"
+  class MetricsController < Hub::BaseController
     load_and_authorize_resource :vita_partner, parent: false
     load_and_authorize_resource :organization, parent: false
+    layout "hub"
 
     def index
       generated_in_last_10_minutes = Report.arel_table[:generated_at].gteq(10.minutes.ago)

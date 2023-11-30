@@ -1,9 +1,7 @@
 require 'csv'
 
 module Hub
-  class SignupSelectionsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class SignupSelectionsController < Hub::BaseController
     before_action :set_main_heading, only: [:index, :create]
     load_and_authorize_resource
 

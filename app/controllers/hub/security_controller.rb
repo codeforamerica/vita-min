@@ -1,7 +1,5 @@
 module Hub
-  class SecurityController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class SecurityController < Hub::BaseController
     load_and_authorize_resource :client, parent: false
     layout "hub"
 

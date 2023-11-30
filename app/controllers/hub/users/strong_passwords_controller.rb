@@ -2,6 +2,7 @@ module Hub
   module Users
     class StrongPasswordsController < ApplicationController
       before_action :redirect_away_if_needed
+      before_action :set_no_cache_headers
 
       layout "hub"
 

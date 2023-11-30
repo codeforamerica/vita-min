@@ -1,11 +1,8 @@
 module Hub
-  class BulkClientMessagesController < ApplicationController
-    include AccessControllable
-
-    layout "hub"
-
-    before_action :require_sign_in, :load_vita_partners, :load_users
+  class BulkClientMessagesController < Hub::BaseController
+    before_action :load_vita_partners, :load_users
     before_action :load_bulk_message, :load_selection, :load_clients, only: [:show]
+    layout "hub"
 
     def show
       @hide_filters = true

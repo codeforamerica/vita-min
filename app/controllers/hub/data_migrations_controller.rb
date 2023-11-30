@@ -1,6 +1,5 @@
 module Hub
-  class DataMigrationsController < ApplicationController
-    include AccessControllable
+  class DataMigrationsController < Hub::BaseController
     before_action :require_engineer
     layout "hub"
 

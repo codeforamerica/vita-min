@@ -1,7 +1,5 @@
 module Hub
-  class NotesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class NotesController < Hub::BaseController
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client, only: [:create]
     load_and_authorize_resource :user, parent: false, only: [:index]

@@ -1,7 +1,5 @@
 module Hub
-  class AutomatedMessagesController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class AutomatedMessagesController < Hub::BaseController
     before_action :require_admin
     layout "hub"
 

@@ -1,9 +1,6 @@
 module Hub
-  class DocumentsController < ApplicationController
-    include AccessControllable
+  class DocumentsController < Hub::BaseController
     include FilesConcern
-
-    before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
     before_action :load_document_type_options

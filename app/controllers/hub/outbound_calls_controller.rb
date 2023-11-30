@@ -1,7 +1,5 @@
 module Hub
-  class OutboundCallsController < ApplicationController
-    include AccessControllable
-    before_action :require_sign_in
+  class OutboundCallsController < Hub::BaseController
     load_and_authorize_resource :client
     before_action :redirect_unless_editable
 
