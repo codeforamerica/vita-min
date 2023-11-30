@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ip_for_irs
-    if Rails.env.development? || Rails.env.test?
+    if Rails.env.development?
       "72.34.67.178"
     else
       request.remote_ip
