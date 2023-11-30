@@ -19,10 +19,10 @@
           color: #ef1831;
           border: 1px solid #ef1831;
           background: #d5bdbd;
-          display: inline-block;
+          display: block;
           border-radius: 3px;
           padding: 5px;
-          margin-top: 10px;
+          margin-bottom: 10px;
       }
   </style>
 
@@ -40,16 +40,16 @@
 
   <%=
     link_to(
-      "See page for pending federal return",
-      state_file_questions_pending_federal_return_path
+      "Cancel",
+      state_file_questions_canceled_data_transfer_path,
+      class: 'cancel-button'
     )
   %>
 
   <%=
     link_to(
-      "Cancel",
-      state_file_questions_canceled_data_transfer_path,
-      class: 'cancel-button'
+      "See page for pending federal return",
+      state_file_questions_pending_federal_return_path
     )
   %>
 </div>
