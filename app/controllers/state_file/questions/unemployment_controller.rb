@@ -76,7 +76,6 @@ module StateFile
           :state_income_tax_withheld,
           :unemployment_compensation,
           :recipient_city,
-          :recipient_state,
           :recipient_street_address,
           :recipient_zip,
           :state_identification_number

@@ -14,7 +14,6 @@
 #  payer_zip                   :string
 #  recipient                   :integer          default("unfilled"), not null
 #  recipient_city              :string
-#  recipient_state             :string
 #  recipient_street_address    :string
 #  recipient_zip               :string
 #  state_identification_number :string
@@ -47,7 +46,6 @@ class StateFile1099G < ApplicationRecord
   def update_conditional_attributes
     if address_confirmation_yes?
       self.recipient_city = intake.direct_file_data.mailing_city
-      self.recipient_state = intake.direct_file_data.mailing_state
       self.recipient_street_address = intake.direct_file_data.mailing_street
       self.recipient_zip = intake.direct_file_data.mailing_zip
     end

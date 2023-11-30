@@ -32,7 +32,7 @@ module SubmissionBuilder
                 xml.RecipientUSAddress do
                   xml.AddressLine1Txt form1099g.recipient_street_address
                   xml.CityNm form1099g.recipient_city
-                  xml.StateAbbreviationCd form1099g.recipient_state
+                  xml.StateAbbreviationCd "AZ"
                   xml.ZIPCd form1099g.recipient_zip
                 end
                 xml.UnemploymentCompensation form1099g.unemployment_compensation
