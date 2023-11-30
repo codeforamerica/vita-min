@@ -18,6 +18,7 @@ module Navigation
       StateFile::Questions::WaitingToLoadDataController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
+      StateFile::Questions::DataTransferOffboardingController,
       StateFile::Questions::NameDobController,
       StateFile::Questions::AzSeniorDependentsController,
       StateFile::Questions::AzPriorLastNamesController,
