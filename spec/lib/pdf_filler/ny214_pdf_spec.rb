@@ -33,32 +33,34 @@ RSpec.describe PdfFiller::Ny214Pdf do
     end
   end
 
-  describe '#hash_for_pdf' do
-    let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
-
-    it 'uses field names that exist in the pdf' do
-      missing_fields = pdf.hash_for_pdf.keys.map { |k| k.gsub("'", "&apos;").to_s } - pdf_fields.keys
-      expect(missing_fields).to eq([])
-    end
-
-    context "when the household are homeowners" do
-      it 'calculates the IT214 lines correctly' do
-        expect(pdf_fields['19 dollars14']).to eq ""
-        expect(pdf_fields['27 dollars14']).not_to be_nil
-      end
-    end
-
-    context 'when the household rents' do
-      before do
-        intake.household_rent_own = 'rent'
-        intake.household_rent_amount = 4800
-        intake.household_rent_adjustments = 4800
-      end
-
-      it 'calculates the IT214 lines correctly' do
-        expect(pdf_fields['19 dollars14']).not_to be_nil
-        expect(pdf_fields['27 dollars14']).to eq ""
-      end
-    end
-  end
+  # We aren't supporting IT-214 currently so the generated submission will never contain the values these tests expect
+  # We should reinstate these tests if we ever add IT-214 support back in.
+  # describe '#hash_for_pdf' do
+  #   let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
+  #
+  #   it 'uses field names that exist in the pdf' do
+  #     missing_fields = pdf.hash_for_pdf.keys.map { |k| k.gsub("'", "&apos;").to_s } - pdf_fields.keys
+  #     expect(missing_fields).to eq([])
+  #   end
+  #
+  #   context "when the household are homeowners" do
+  #     it 'calculates the IT214 lines correctly' do
+  #       expect(pdf_fields['19 dollars14']).to eq ""
+  #       expect(pdf_fields['27 dollars14']).not_to be_nil
+  #     end
+  #   end
+  #
+  #   context 'when the household rents' do
+  #     before do
+  #       intake.household_rent_own = 'rent'
+  #       intake.household_rent_amount = 4800
+  #       intake.household_rent_adjustments = 4800
+  #     end
+  #
+  #     it 'calculates the IT214 lines correctly' do
+  #       expect(pdf_fields['19 dollars14']).not_to be_nil
+  #       expect(pdf_fields['27 dollars14']).to eq ""
+  #     end
+  #   end
+  # end
 end

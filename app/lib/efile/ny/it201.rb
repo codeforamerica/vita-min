@@ -19,11 +19,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
-        @it214 = Efile::Ny::It214.new(
-          value_access_tracker: @value_access_tracker,
-          lines: @lines,
-          intake: @intake
-        )
+        # We aren't supporting the real property tax credit so IT-214 is not needed
+        # @it214 = Efile::Ny::It214.new(
+        #   value_access_tracker: @value_access_tracker,
+        #   lines: @lines,
+        #   intake: @intake
+        # )
         @it215 = Efile::Ny::It215.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
@@ -78,8 +79,11 @@ module Efile
         set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_14].value })
         @it215.calculate
         set_line(:IT201_LINE_65, -> { @lines[:IT215_LINE_16].value })
-        @it214.calculate
-        set_line(:IT201_LINE_67, -> { @lines[:IT214_LINE_33].value })
+        # These two lines would be needed to add support for the IT-214 real property tax credit
+        # We currently aren't supporting this, so IT-201 line 67 is always set to 0
+        # @it214.calculate
+        # set_line(:IT201_LINE_67, -> { @lines[:IT214_LINE_33].value })
+        set_line(:IT201_LINE_67, -> { 0 })
         set_line(:IT201_LINE_69, :calculate_line_69)
         set_line(:IT201_LINE_69A, :calculate_line_69a)
         set_line(:IT201_LINE_70, -> { @lines[:IT215_LINE_27] ? @lines[:IT215_LINE_27].value : 0})

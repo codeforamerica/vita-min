@@ -126,8 +126,8 @@ module SubmissionBuilder
           def supported_documents
             tax_calculator = @submission.data_source.tax_calculator
             calculated_fields = tax_calculator.calculate
-            receiving_213_credit = calculated_fields[:IT213_LINE_14] > 0
-            receiving_214_credit = calculated_fields[:IT214_LINE_33] > 0
+            receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0
+            receiving_214_credit = calculated_fields[:IT214_LINE_33].present? && calculated_fields[:IT214_LINE_33] > 0
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
