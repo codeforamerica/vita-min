@@ -251,6 +251,10 @@ class DirectFileData
     df_xml_value(__method__)&.to_i
   end
 
+  def total_state_tax_withheld=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def fed_ctc_claimed
     (fed_ctc || 0).positive?
   end
