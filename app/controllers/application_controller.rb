@@ -480,7 +480,7 @@ class ApplicationController < ActionController::Base
     "application"
   end
 
-  def set_cache_headers
+  def set_no_cache_headers
     # prevents browser caching on pages set with before action
     response.headers["Cache-Control"] = "no-cache, no-store"
     response.headers["Pragma"] = "no-cache"
