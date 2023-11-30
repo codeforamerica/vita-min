@@ -3,6 +3,12 @@ module Efile
     class It214 < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
+      ENUM_OPTIONS = {
+        unfilled: 0,
+        yes: 1,
+        no: 2,
+      }.freeze
+
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
@@ -12,34 +18,37 @@ module Efile
 
       def calculate
         set_line(:IT214_LINE_1, -> { 1 })
-        set_line(:IT214_LINE_2, @intake, :occupied_residence)
+        set_line(:IT214_LINE_2, -> { ENUM_OPTIONS[@intake.occupied_residence.to_sym] })
         if @lines[:IT214_LINE_2].value == 2
           offboard
           return
         end
-        set_line(:IT214_LINE_3, @intake, :property_over_limit)
+        set_line(:IT214_LINE_3, -> { ENUM_OPTIONS[@intake.property_over_limit.to_sym] })
         if @lines[:IT214_LINE_3].value == 1
           offboard
           return
         end
-        # Todo: Dependent on federal return?
+        # TODO: "Can you be claimed as a dependent on another taxpayer’s 2023 federal return?" Currently always setting this to NO, do we have the real answer?
         set_line(:IT214_LINE_4, -> { 2 })
-        if false #todo: if value is 1 then offboard
+        if @lines[:IT214_LINE_4].value == 1
           offboard
           return
         end
-        set_line(:IT214_LINE_5, @intake, :public_housing)
+        set_line(:IT214_LINE_5, -> { ENUM_OPTIONS[@intake.public_housing.to_sym] })
         if @lines[:IT214_LINE_5].value == 1
           offboard
           return
         end
-        set_line(:IT214_LINE_6, @intake, :nursing_home)
+        set_line(:IT214_LINE_6, -> { ENUM_OPTIONS[@intake.nursing_home.to_sym] })
         if @lines[:IT214_LINE_6].value == 1
           offboard
           return
         end
-        set_line(:IT214_LINE_9, @direct_file_data, :fed_agi) # TODO Need to add additional household members deductions if applicable
-        set_line(:IT214_LINE_10, -> { @lines[:IT201_LINE_24].value }) # TODO Need to add additional household members deductions if applicable
+        # TODO: Line 7 is a table of qualifying household member 65 or older with 1 entry
+        # TODO: Line 8 is a table of all household members not included on line 7 with up to 3 entries
+        # TODO: Lines 9-16 Need to include "all amounts, even if not taxable, that you, your spouse (if married), and all other household members received during 2023"
+        set_line(:IT214_LINE_9, @direct_file_data, :fed_agi) 
+        set_line(:IT214_LINE_10, -> { @lines[:IT201_LINE_24].value })
         set_line(:IT214_LINE_11, @direct_file_data, :fed_non_taxable_ssb)
         set_line(:IT214_LINE_12, @intake, :household_ssi)
         set_line(:IT214_LINE_13, -> { 0 })
@@ -66,6 +75,7 @@ module Efile
           set_line(:IT214_LINE_23, @intake, :household_own_propety_tax)
           set_line(:IT214_LINE_24, @intake, :household_own_assessments)
           set_line(:IT214_LINE_25, :calculate_line_25)
+          # TODO: do we need to handle line 26? "Exemption for homeowners 65 and over (optional - see instructions)"
           set_line(:IT214_LINE_27, -> {@lines[:IT214_LINE_25].value })
           set_line(:IT214_LINE_28, -> {@lines[:IT214_LINE_27].value })
         end

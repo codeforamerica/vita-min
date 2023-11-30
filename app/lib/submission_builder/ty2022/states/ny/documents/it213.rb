@@ -9,13 +9,13 @@ module SubmissionBuilder
             def document
               build_xml_doc("IT213") do |xml|
                 if @submission.data_source.eligibility_lived_in_state_yes?
-                  xml.ESC_RSDT_IND claimed: 1
-                  xml.ESC_FED_CR_IND claimed: @submission.data_source.direct_file_data.fed_ctc_claimed ? 1 : 2
-                  xml.ESC_FAGI_LMT_IND claimed: calculated_fields.fetch(:IT213_LINE_3) ? 1 : 2
-                  if @submission.data_source.direct_file_data.fed_ctc_claimed && calculated_fields.fetch(:IT213_LINE_3)
+                  xml.ESC_RSDT_IND claimed: calculated_fields.fetch(:IT213_LINE_1)
+                  xml.ESC_FED_CR_IND claimed: calculated_fields.fetch(:IT213_LINE_2)
+                  xml.ESC_FAGI_LMT_IND claimed: calculated_fields.fetch(:IT213_LINE_3)
+                  if calculated_fields.fetch(:IT213_LINE_2) == 1 || calculated_fields.fetch(:IT213_LINE_3) == 1
                     xml.ESC_FED_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_4)
                     xml.ESC_SSN_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_5)
-                    if @submission.data_source.direct_file_data.fed_ctc_claimed
+                    if calculated_fields.fetch(:IT213_LINE_2) == 1
                       xml.ESC_FED_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_6)
                       xml.ESC_FED_ADDL_AMT claimed: calculated_fields.fetch(:IT213_LINE_7)
                       xml.ESC_FED_TOT_AMT claimed: calculated_fields.fetch(:IT213_LINE_8)

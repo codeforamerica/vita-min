@@ -3,35 +3,39 @@ module Efile
     class It213 < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
+      ENUM_OPTIONS = {
+        unfilled: 0,
+        yes: 1,
+        no: 2,
+      }.freeze
+
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
-        @filing_status = intake.filing_status.to_sym
+        @intake = intake
         @direct_file_data = intake.direct_file_data
-        @eligibility_lived_in_state = intake.eligibility_lived_in_state_yes?
-        @federal_dependent_child_count = intake.dependents.length
       end
 
       def calculate
-        set_line(:IT213_LINE_1, -> { @eligibility_lived_in_state })
-        # If line 1 is false, stop, you do not qualify for the credit
-        if @eligibility_lived_in_state
-          set_line(:IT213_LINE_2, -> { @direct_file_data.fed_ctc_claimed })
+        set_line(:IT213_LINE_1, -> { ENUM_OPTIONS[@intake.eligibility_lived_in_state.to_sym] })
+        # If line 1 is true (1), continue. If false (2), stop, you do not qualify for the credit
+        if @lines[:IT213_LINE_1].value == 1
+          set_line(:IT213_LINE_2, :calculate_line_2 )
           set_line(:IT213_LINE_3, :calculate_line_3)
-          # If lines 2 and 3 are false, stop, you do not qualify for this credit
-          if @lines[:IT213_LINE_2].value || @lines[:IT213_LINE_3].value
-            set_line(:IT213_LINE_4, -> { @federal_dependent_child_count})
+          # If either line 2 or line 3 are true (1), continue. If lines 2 and 3 are both false (2), stop, you do not qualify for this credit
+          if @lines[:IT213_LINE_2].value == 1 || @lines[:IT213_LINE_3].value == 1
+            set_line(:IT213_LINE_4, -> { @intake.dependents.length })
             set_line(:IT213_LINE_5, -> { 0 }) # TODO: double check that people with children without SSN/ITIN are out of scope
-            # If line 2 is true, you must complete Worksheet A and B before you continue with line 6.
-            # If line 2 is false, skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
-            if @lines[:IT213_LINE_2].value
+            # If line 2 is true (1), you must complete Worksheet A and B before you continue with line 6.
+            # If line 2 is false (2), skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
+            if @lines[:IT213_LINE_2].value == 1
               calculate_worksheets
             else
               set_line(:IT213_LINE_9, -> { 0 })
             end
-            # If line 3 is false, skip lines 10 through 13, and enter the amount from line 9 on line 14.
-            # All others continue with line 10.
-            if @lines[:IT213_LINE_3].value
+            # If line 3 is true (1), continue with line 10.
+            # If line 3 is false (2), skip lines 10 through 13, and enter the amount from line 9 on line 14.
+            if @lines[:IT213_LINE_3].value == 1
               set_line(:IT213_LINE_10, :calculate_line_10)
               set_line(:IT213_LINE_11, :calculate_line_11)
               set_line(:IT213_LINE_12, :calculate_line_12)
@@ -40,13 +44,14 @@ module Efile
             else
               set_line(:IT213_LINE_14, -> { @lines[:IT213_LINE_9].value })
             end
-            # TODO: If we wanted to support spouse filing separate, lines 15 and 16 could have share of credit for spouse
+            # We are not supporting this so we can set these to zero.
+            # If we wanted to support spouse filing separate, lines 15 and 16 would have the spouse's share of the credit
             set_line(:IT213_LINE_15, -> { 0 })
             set_line(:IT213_LINE_16, -> { 0 })
             return
           end
         end
-        # You do not qualify for the credit, just set line 14 to 0 and you're done
+        # You do not qualify for the credit. Set line 14 to 0 and exit.
         set_line(:IT213_LINE_14, -> { 0 })
       end
 
@@ -118,12 +123,16 @@ module Efile
         set_line(:IT213_LINE_9, :calculate_line_9)
       end
 
+      def calculate_line_2
+        @direct_file_data.fed_ctc_claimed ? 1 : 2
+      end
+
       def calculate_line_3
-        @lines[:IT201_LINE_19].value <= cutoff_for_filing_status
+        @lines[:IT201_LINE_19].value <= cutoff_for_filing_status ? 1 : 2
       end
 
       def calculate_worksheet_a_line_1
-        @federal_dependent_child_count * 1000
+        @intake.dependents.length * 1000
       end
 
       def calculate_worksheet_a_line_2
@@ -277,7 +286,7 @@ module Efile
       end
 
       def cutoff_for_filing_status
-        case @filing_status
+        case @intake.filing_status.to_sym
         when :married_filing_jointly
           110_000
         when :single, :head_of_household, :qualifying_surviving_spouse
