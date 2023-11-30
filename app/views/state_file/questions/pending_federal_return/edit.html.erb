@@ -1,0 +1,10 @@
+<% title = t(".title_html") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <div class="big-illustration spacing-above-35">
+    <%= image_tag "state-file-big-logo.svg", alt: "" %>
+  </div>
+<% end %>
+

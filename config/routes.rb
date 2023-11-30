@@ -535,6 +535,7 @@ Rails.application.routes.draw do
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
+          get "pending_federal_return", to: "pending_federal_return#edit"
         end
       end
 
