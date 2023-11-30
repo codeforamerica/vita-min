@@ -186,6 +186,8 @@ en:
         blank: An SSN or ITIN is required.
       primary_tin_type:
         blank: Identification type is required.
+      routing_number:
+        not_account_number: Routing number and account number can not be the same
       signature_method:
         inclusion: Please select a pickup method.
       sms_phone_number:
@@ -2095,7 +2097,6 @@ en:
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
           direct_deposit: Direct deposit (fastest)
-          account_routing_error: Routing number and account number can not be the same
           disclaimer_html: |
             <strong>
             Check to make sure your bank information is correct. You won't be able to correct this after you submit your return.

@@ -43,8 +43,8 @@ module StateFile
 
     def bank_numbers_not_equal
       if routing_number == account_number
-        errors.add(:account_number, I18n.t(".state_file.questions.tax_refund.edit.account_routing_error"))
-        errors.add(:routing_number, I18n.t(".state_file.questions.tax_refund.edit.account_routing_error"))
+        errors.add(:account_number, I18n.t(".errors.attributes.routing_number.not_account_number"))
+        errors.add(:routing_number, I18n.t(".errors.attributes.routing_number.not_account_number"))
       end
     end
   end

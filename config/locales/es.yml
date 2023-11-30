@@ -187,6 +187,8 @@ es:
         blank: Es necesario un Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
       primary_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
+      routing_number:
+        not_account_number: El número de ruta y el número de cuenta no pueden ser iguales
       signature_method:
         inclusion: Por favor, seleccione un método de recogida.
       sms_phone_number:
