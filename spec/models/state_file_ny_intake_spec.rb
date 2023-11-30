@@ -306,6 +306,15 @@ describe StateFileNyIntake do
       expect(intake.disqualifying_df_data_reason).to eq :has_irc_125_code
     end
 
+    it "returns has_yonkers_income when direct file data has a Yonkers code in their W2 box 14" do
+      w2 = intake.direct_file_data.w2_nodes.first
+      box_14 = w2.at("AllocatedTipsAmt").add_next_sibling("<OtherDeductionsBenefitsGrp/>").first
+      box_14.add_child("<Desc>YNK</Desc>")
+      box_14.add_child("<Amount>999</Amount>")
+
+      expect(intake.disqualifying_df_data_reason).to eq :has_yonkers_income
+    end
+
     it "returns has_yonkers_income when direct file data has a Yonkers code in their W2 box 20" do
       w2 = intake.direct_file_data.w2_nodes.first
       state_tax_group = w2.at("W2StateLocalTaxGrp W2StateTaxGrp")
