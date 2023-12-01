@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe StateFile::Questions::NyReviewController do
   describe "#edit" do
     context "when the client is estimated to owe taxes" do
-      # Not being an NYC full year resident eliminates a credit that makes the default client owe tax
-      let(:intake) { create :state_file_ny_intake, nyc_full_year_resident: "no" }
+      # Not being an NYC full year resident and increased unemployment contributions result in owed amount
+      let(:intake) { create :state_file_ny_owed_intake}
       before do
         session[:state_file_intake] = intake.to_global_id
       end

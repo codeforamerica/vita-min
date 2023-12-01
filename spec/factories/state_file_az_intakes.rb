@@ -76,6 +76,13 @@ FactoryBot.define do
       end
     end
 
+    factory :state_file_az_owed_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
+
     trait :with_efile_device_infos do
       after(:build) do |intake|
         create :state_file_efile_device_info, :filled, :initial_creation, intake: intake

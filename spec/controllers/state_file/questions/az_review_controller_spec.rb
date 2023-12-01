@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe StateFile::Questions::AzReviewController do
   describe "#edit" do
     context "when the client is estimated to owe taxes" do
-      # Default fixtures result in tax owed
-      let(:intake) { create :state_file_az_intake }
+      # Higher adjusted agi to result in an owed amount
+      let(:intake) { create :state_file_az_owed_intake}
       before do
         session[:state_file_intake] = intake.to_global_id
       end
