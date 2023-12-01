@@ -626,6 +626,7 @@ class DirectFileData
       :fed_wages,
       :fed_wages_salaries_tips,
       :fed_taxable_income,
+      :fed_total_adjustments,
       :fed_taxable_ssb,
       :fed_ssb,
       :fed_eic,
