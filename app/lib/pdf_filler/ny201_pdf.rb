@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "it201-TY2022"
+      "it201-TY2023"
     end
 
     def initialize(submission)
@@ -125,8 +125,8 @@ module PdfFiller
       },
       'Filing_status' => {
         1 => '1 Single',
-        2 => '2 Married Filing Joint Return (enter spouse’s social security number above)',
-        3 => '3 Married Filing Seperate Return (enter spouse’s social security number above)',
+        2 => '2 Married Filing Joint Return',
+        3 => '3 Married Filing Separate Return',
         4 => 'Head of Household (with qualifying person)',
         5 => 'Qualifying widow(er) with dependent child',
       },

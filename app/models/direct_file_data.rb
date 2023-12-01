@@ -112,7 +112,7 @@ class DirectFileData
   end
 
   def spouse_ssn=(value)
-    create_or_destroy_df_xml_node(__method__, value)
+    create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
 
     if value.present?
       write_df_xml_value(__method__, value)
@@ -247,7 +247,21 @@ class DirectFileData
   end
 
   def total_state_tax_withheld
-    0 # TODO
+    total = 0
+    parsed_xml.css('IRSW2').map do |w2|
+      amt = w2.at('StateIncomeTaxAmt')&.text.to_i
+      total += amt
+    end
+    total
+  end
+
+  def total_local_tax_withheld
+    total = 0
+    parsed_xml.css('IRSW2').map do |w2|
+      amt = w2.at('LocalIncomeTaxAmt')&.text.to_i
+      total += amt
+    end
+    total
   end
 
   def fed_ctc_claimed
@@ -606,6 +620,7 @@ class DirectFileData
       :mailing_zip,
       :cell_phone_number,
       :tax_payer_email,
+      :total_state_tax_withheld,
       :fed_tax,
       :fed_agi,
       :fed_wages,

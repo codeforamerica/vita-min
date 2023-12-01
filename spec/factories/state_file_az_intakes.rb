@@ -65,12 +65,20 @@ FactoryBot.define do
         qualifying_widow: 5,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
+      intake.direct_file_data.fed_agi = 120000
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
     factory :state_file_az_refund_intake do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
+
+    factory :state_file_az_owed_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 120000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
