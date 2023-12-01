@@ -1959,7 +1959,7 @@ en:
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
-          dependent_name_dob: Please review your %{number} dependent's name and enter a date of birth
+          dependent_name_dob: Please tell us your dependent's date of birth
           primary_name: Your name as shown on your Social Security card or ITIN letter
           spouse_dob: Your spouse's date of birth
           spouse_name: Your spouse's name as shown on their Social Security card or ITIN letter
