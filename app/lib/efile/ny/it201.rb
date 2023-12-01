@@ -481,7 +481,7 @@ module Efile
       end
 
       def calculate_line_73
-        0 # TODO: Computed from W-2 forms and their NYS wrapper, IT-2
+        @direct_file_data.total_local_tax_withheld
       end
 
       def calculate_line_76

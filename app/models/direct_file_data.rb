@@ -14,7 +14,6 @@ class DirectFileData
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
-    total_state_tax_withheld: 'IRSW2 W2StateLocalTaxGrp W2StateTaxGrp StateIncomeTaxAmt',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
@@ -248,11 +247,25 @@ class DirectFileData
   end
 
   def total_state_tax_withheld
-    df_xml_value(__method__)&.to_i
+    total = 0
+    parsed_xml.css('IRSW2').map do |w2|
+      amt = w2.at('StateIncomeTaxAmt')&.text.to_i
+      total += amt
+    end
+    total
   end
 
   def total_state_tax_withheld=(value)
     write_df_xml_value(__method__, value)
+  end
+
+  def total_local_tax_withheld
+    total = 0
+    parsed_xml.css('IRSW2').map do |w2|
+      amt = w2.at('LocalIncomeTaxAmt')&.text.to_i
+      total += amt
+    end
+    total
   end
 
   def fed_ctc_claimed
@@ -617,7 +630,6 @@ class DirectFileData
       :fed_wages,
       :fed_wages_salaries_tips,
       :fed_taxable_income,
-      :fed_total_adjustments,
       :fed_taxable_ssb,
       :fed_ssb,
       :fed_eic,

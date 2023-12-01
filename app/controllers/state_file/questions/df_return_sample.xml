@@ -250,5 +250,43 @@
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRSW2>
+        <IRSW2 documentId="W20001">
+            <EmployeeSSN>555002222</EmployeeSSN>
+            <EmployerEIN>121234567</EmployerEIN>
+            <EmployerNameControlTxt>APPL</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Apple Tree School</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>273 Spencer Avenue</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10128</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Testy T Testerson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10128</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>21000</WagesAmt>
+            <WithholdingAmt>1302</WithholdingAmt>
+            <SocialSecurityWagesAmt>21000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1302</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>21000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>305</MedicareTaxWithheldAmt>
+            <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+            <AllocatedTipsAmt>0</AllocatedTipsAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NY</StateAbbreviationCd>
+                    <EmployerStateIdNum>911123456</EmployerStateIdNum>
+                    <StateWagesAmt>21000</StateWagesAmt>
+                    <StateIncomeTaxAmt>450</StateIncomeTaxAmt>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
     </ReturnData>
 </Return>
