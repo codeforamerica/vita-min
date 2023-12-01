@@ -96,24 +96,24 @@ IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
   label: '2 Taxable interest income'
+IT201_LINE_9:
+  label: '9 Taxable amount of IRA distributions. If received as a beneficiary, mark an X in the box'
 IT201_LINE_14:
   label: '14 Unemployment compensation'
 IT201_LINE_15:
-  label: '15 Taxable amount of Social Security benefits'
+  label: '15 Taxable amount of Social Security benefits (also enter on line 27)'
 IT201_LINE_17:
   label: '17 Add lines 1 through 11 and 13 through 16'
 IT201_LINE_18:
   label: '18 Total federal adjustments to income'
 IT201_LINE_19:
   label: '19 Federal adjusted gross income  (subtract line 18 from line 17)'
-IT201_LINE_19A:
-  label: '19a Recomputed federal adjusted gross income (see Line 19a worksheet) .'
 IT201_LINE_21:
-  label: '21 Public employee 414(h) retirement contributions from your wage and tax statement'
+  label: '21 Public employee 414(h) retirement contributions from your wage and tax statements'
 IT201_LINE_23:
   label: '23 Other (Form IT-225, line 9)'
 IT201_LINE_24:
-  label: '24 Add lines 19a through 23'
+  label: '24 Add lines 19 through 23'
 IT201_LINE_25:
   label: '25 Taxable refunds, credits, or offsets of state and local income taxes (from line 4)'
 IT201_LINE_27:
@@ -140,8 +140,6 @@ IT201_LINE_43:
   label: '43 Add lines 40, 41, and 42'
 IT201_LINE_44:
   label: '44 Subtract line 43 from line 39'
-IT201_LINE_45:
-  label: 'Arizona taxable income:  Subtract lines 43 and 44 from line 42.  If less than zero, enter “0”'
 IT201_LINE_46:
   label: '46 Total New York State taxes'
 IT201_LINE_47:
@@ -156,21 +154,31 @@ IT201_LINE_52:
   label: '52 Add lines 49, 50, and 51'
 IT201_LINE_54:
   label: '54 Subtract line 53 from line 52 (if line 53 is more than line 52, leave blank)'
+IT201_LINE_54A:
+  label: '54a MCTMT net earnings base for Zone 1'
 IT201_LINE_54B:
-  label: '54b MCTMT'
+  label: '54b MCTMT net earnings base for Zone 2'
+IT201_LINE_54C:
+  label: '54c MCTMT for Zone 1'
+IT201_LINE_54D:
+  label: '54d MCTMT for Zone 1'
+IT201_LINE_54E:
+  label: '54e Total MCTMT (add lines 54c and 54d)'
 IT201_LINE_58:
   label: '58 Total New York City and Yonkers taxes / surcharges and MCTMT'
 IT201_LINE_59:
   label: '59 Sales or use tax'
-IT227_PART_2_LINE_1:
-  label: ''
-IT201_LINE_60E:
+IT201_LINE_60:
   label: '60 Voluntary contributions (Form IT-227, Part 2, line 1)'
 IT201_LINE_61:
   label: '61 Total New York State, New York City, Yonkers, and sales or use taxes, MCTMT, and
  voluntary contributions (add lines 46, 58, 59, and 60) .'
 IT201_LINE_62:
   label: '62 Enter amount from line 61 '
+IT201_LINE_63:
+  label: '63 Empire State child credit'
+IT201_LINE_65:
+  label: '65 NYS earned income credit (EIC)'
 IT201_LINE_67:
   label: '67 Real property tax credit'
 IT201_LINE_69:
@@ -293,8 +301,6 @@ IT213_LINE_15:
   label: 'Enter the full-year resident spouse’s share of the line 14 amount; do not leave line 15 blank'
 IT213_LINE_16:
   label: 'Enter the part-year resident or nonresident spouse’s share of the line 14 amount; do not leave line 16 blank'
-IT201_LINE_63:
-  label: '63 Empire State child credit'
 IT215_LINE_1:
   label: 'Did you claim the federal earned income credit?'
 IT215_LINE_2:
@@ -343,8 +349,6 @@ IT215_WK_C_LINE_4:
   label: '4. If your New York City filing status is Married filing separate return, the NYC EIC credit on line 3 above can be divided between spouses in any manner you wish. Enter on line 4 the amount of the credit you are claiming.'
 IT215_LINE_27:
   label: 'Enter the amount from Worksheet C, here'
-IT201_LINE_65:
-  label: '65 NYS earned income credit (EIC)'
 IT214_LINE_1:
   label: '1 Were you a New York State resident for all of 2022?'
 IT214_LINE_2:
@@ -406,3 +410,5 @@ IT214_LINE_32:
   label: '32 Credit limit'
 IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
+IT227_PART_2_LINE_1:
+  label: ''
