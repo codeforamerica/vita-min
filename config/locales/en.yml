@@ -2053,9 +2053,6 @@ en:
             label: Your ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
-      spouse_state_id:
-        edit:
-          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2074,6 +2071,9 @@ en:
           your_name: Your name
           your_refund: Your estimated refund
           your_tax_owed: Your estimated tax owed
+      spouse_state_id:
+        edit:
+          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       submission_confirmation:
         edit:
           apply_to_state_benefits: Apply to %{state_name} benefits
