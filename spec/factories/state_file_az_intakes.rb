@@ -44,7 +44,14 @@
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  primary_state_id_id                   :bigint
+#  spouse_state_id_id                    :bigint
 #  visitor_id                            :string
+#
+# Indexes
+#
+#  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
   factory :state_file_az_intake do

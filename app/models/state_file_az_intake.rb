@@ -44,10 +44,20 @@
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  primary_state_id_id                   :bigint
+#  spouse_state_id_id                    :bigint
 #  visitor_id                            :string
+#
+# Indexes
+#
+#  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
+  belongs_to :primary_state_id, class_name: "StateId", optional: true
+  belongs_to :spouse_state_id, class_name: "StateId", optional: true
+  accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member

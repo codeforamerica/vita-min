@@ -1,7 +1,7 @@
 module StateFile
-  class NyPrimaryStateIdForm < QuestionsForm
+  class AzPrimaryStateIdForm < QuestionsForm
     include DateHelper
-    set_attributes_for :state_id, :id_type, :id_number, :state, :first_three_doc_num
+    set_attributes_for :state_id, :id_type, :id_number, :state
 
     set_attributes_for :dates,
                        :issue_date_day,
@@ -16,7 +16,6 @@ module StateFile
     validate :issue_date_is_valid_date, unless: -> { id_type == "no_id" }
     validate :expiration_date_is_valid_date, unless: -> { id_type == "no_id" }
     validates :state, presence: true, inclusion: { in: States.keys }, unless: -> { id_type == "no_id" }
-    validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, unless: -> { id_type == "no_id" }
 
     def save
       @intake.update!(primary_state_id_attributes: attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
@@ -36,7 +35,6 @@ module StateFile
       attrs.merge(
         id_type: state_id.id_type,
         id_number: state_id.id_number,
-        first_three_doc_num: state_id.first_three_doc_num,
         state: state_id.state,
         issue_date_day: state_id.issue_date&.day,
         issue_date_month: state_id.issue_date&.month,

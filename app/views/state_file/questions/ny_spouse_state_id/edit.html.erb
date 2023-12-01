@@ -3,5 +3,5 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= render 'state_file/questions/ny_primary_state_id/state_id' %>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: { include_first_three_doc_num: true } %>
 <% end %>
