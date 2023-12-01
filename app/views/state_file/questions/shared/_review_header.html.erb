@@ -1,49 +1,55 @@
 <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
 
-<% if @refund_or_owed_amount == 0 %>
-  <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
-    <div class="spacing-below-5">
-      <%= t(".taxes_owed_html") %>
+<div class="review-header">
+  <% if @refund_or_owed_amount == 0 %>
+    <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
+      <div class="spacing-below-5">
+        <%= t(".taxes_owed_html") %>
+      </div>
     </div>
-  </div>
-<% else %>
-  <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
-    <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
-      <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount.abs) %></p>
+  <% else %>
+    <div class="highlight-box highlight-box--blue spacing-below-15 padding-20">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
+        <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount.abs) %></p>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<div id="household-info" class="highlight-box highlight-box--blue spacing-below-25 padding-20">
-  <div class="spacing-below-25">
-    <p class="text--bold spacing-below-5"><%=t(".household_info") %></p>
-  </div>
-  <div class="spacing-below-5">
-    <p class="text--bold spacing-below-5"><%=t(".your_name") %></p>
-    <p><%=current_intake.primary.full_name %></p>
-  </div>
-  <% if current_intake.filing_status_mfj? %>
-    <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".spouse_name") %></p>
-      <p><%=current_intake.spouse.full_name %></p>
-    </div>
-  <% end %>
-  <% current_intake.dependents.each do | dependent |  %>
-    <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".dependent_name") %></p>
-      <p><%=dependent.full_name %></p>
+  <div id="household-info" class="highlight-box highlight-box--blue spacing-below-25 padding-20">
+    <div class="spacing-below-25">
+      <p class="text--bold spacing-below-5"><%=t(".household_info") %></p>
     </div>
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".dependent_dob") %></p>
-      <p><%=dependent.dob %></p>
+      <p class="text--bold spacing-below-5"><%=t(".your_name") %></p>
+      <p><%=current_intake.primary.full_name %></p>
     </div>
+    <% if current_intake.filing_status_mfj? %>
+      <div class="spacing-below-5 with-top-separator">
+        <p class="text--bold spacing-below-5"><%=t(".spouse_name") %></p>
+        <p><%=current_intake.spouse.full_name %></p>
+      </div>
+    <% end %>
+    <% current_intake.dependents.each_with_index do | dependent, index |  %>
+      <div class="spacing-below-5 with-top-separator">
+        <% if index == 0 %>
+          <p class="text--bold spacing-below-5"><%=t(".dependent_name") %></p>
+        <% else %>
+          <p class="text--bold spacing-below-5"><%=t(".nth_dependent_name", ordinal: number_in_words(index + 1)) %></p>
+        <% end %>
+        <p><%=dependent.full_name %></p>
+      </div>
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".dependent_dob") %></p>
+        <p><%=dependent.dob %></p>
+      </div>
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></p>
+        <p><%=dependent.months_in_home %></p>
+      </div>
+    <% end %>
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></p>
-      <p><%=dependent.months_in_home %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NameDobController.to_path_helper(us_state: us_state, return_to_review: "y"), class: "button button--small" %>
     </div>
-  <% end %>
-  <div class="spacing-below-5">
-    <%= link_to t("general.edit"), StateFile::Questions::NameDobController.to_path_helper(us_state: us_state, return_to_review: "y"), class: "button button--small" %>
   </div>
 </div>

@@ -2060,10 +2060,11 @@ en:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
         review_header:
-          dependent_dob: Your dependent's date of birth
+          dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
           household_info: Household information
+          nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_html: |
             <strong>Your estimated refund or taxes owed</strong> $0. <br/>
