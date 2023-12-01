@@ -2012,26 +2012,6 @@ en:
         edit:
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
-      primary_state_id:
-        edit:
-          title: Please provide information for your state issued ID
-        state_id:
-          id_details:
-            expiration_day: Expiration Day
-            expiration_month: Expiration Month
-            expiration_year: Expiration Year
-            first_three_doc_num: First three characters of the document number
-            issue_day: Issue Day
-            issue_month: Issue Month
-            issue_state: Issue State
-            issue_year: Issue Year
-            number: ID Number
-          id_type_question:
-            dmv: DMV/BMV State ID
-            drivers_license: Driver’s license
-            label: Your ID Type
-            no_id: No driver’s license or state ID
-          info_link: View where to find this information
       ny_review:
         edit:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2058,9 +2038,6 @@ en:
         edit:
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
-      spouse_state_id:
-        edit:
-          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       pending_federal_return:
         edit:
           title_html: |
@@ -2072,6 +2049,29 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
+      primary_state_id:
+        edit:
+          title: Please provide information for your state issued ID
+        state_id:
+          id_details:
+            expiration_day: Expiration Day
+            expiration_month: Expiration Month
+            expiration_year: Expiration Year
+            first_three_doc_num: First three characters of the document number
+            issue_day: Issue Day
+            issue_month: Issue Month
+            issue_state: Issue State
+            issue_year: Issue Year
+            number: ID Number
+          id_type_question:
+            dmv: DMV/BMV State ID
+            drivers_license: Driver’s license
+            label: Your ID Type
+            no_id: No driver’s license or state ID
+          info_link: View where to find this information
+      spouse_state_id:
+        edit:
+          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       submission_confirmation:
         edit:
           apply_to_state_benefits: Apply to %{state_name} benefits

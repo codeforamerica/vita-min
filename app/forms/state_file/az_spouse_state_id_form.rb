@@ -1,6 +1,6 @@
 module StateFile
-  class AzSpouseStateIdForm < AzPrimaryStateIdForm
-    set_attributes_for :state_id, :id_type, :id_number, :state, :first_three_doc_num
+  class AzSpouseStateIdForm < StateIdForm
+    set_attributes_for :state_id, :id_type, :id_number, :state
 
     set_attributes_for :dates,
                        :issue_date_day,
