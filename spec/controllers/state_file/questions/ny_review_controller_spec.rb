@@ -13,7 +13,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
         get :edit, params: { us_state: "ny" }
 
         refund_or_owed_label = assigns(:refund_or_owed_label)
-        expect(refund_or_owed_label).to eq I18n.t("state_file.questions.ny_review.edit.your_tax_owed")
+        expect(refund_or_owed_label).to eq I18n.t("state_file.questions.shared.review_header.your_tax_owed")
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
         get :edit, params: { us_state: "ny" }
 
         refund_or_owed_label = assigns(:refund_or_owed_label)
-        expect(refund_or_owed_label).to eq I18n.t("state_file.questions.ny_review.edit.your_refund")
+        expect(refund_or_owed_label).to eq I18n.t("state_file.questions.shared.review_header.your_refund")
       end
     end
   end
