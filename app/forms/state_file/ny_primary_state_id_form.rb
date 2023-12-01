@@ -13,14 +13,10 @@ module StateFile
 
     validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, unless: -> { id_type == "no_id" }
 
-    def save
-      @intake.update!(primary_state_id_attributes: attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
-    end
-
     private
 
-    def self.state_id(intake)
-      intake.primary_state_id
+    def self.record_type
+      :primary_state_id
     end
 
     def self.existing_state_id_attrs(state_id)

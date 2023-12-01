@@ -9,7 +9,7 @@ module StateFile
     validates :state, presence: true, inclusion: { in: States.keys }, unless: -> { id_type == "no_id" }
 
     def save
-      raise NotImplementedError, "Implement this method in a child class"
+      @intake.update!("#{self.class.record_type}_attributes": attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
     end
 
     def self.existing_attributes(intake)
@@ -19,7 +19,7 @@ module StateFile
     private
 
     def self.state_id(intake)
-      raise NotImplementedError, "Implement this method in a child class"
+      intake.send(self.record_type)
     end
 
     def self.existing_state_id_attrs(state_id)

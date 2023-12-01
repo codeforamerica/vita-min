@@ -10,14 +10,10 @@ module StateFile
                        :expiration_date_month,
                        :expiration_date_year
 
-    def save
-      @intake.update!(spouse_state_id_attributes: attributes_for(:state_id).merge(issue_date: issue_date, expiration_date: expiration_date))
-    end
-
     private
 
-    def self.state_id(intake)
-      intake.spouse_state_id
+    def self.record_type
+      :spouse_state_id
     end
   end
 end
