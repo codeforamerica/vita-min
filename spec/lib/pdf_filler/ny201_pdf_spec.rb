@@ -12,14 +12,6 @@ RSpec.describe PdfFiller::Ny201Pdf do
 
       described_class::FIELD_OPTIONS.each do |pdf_field_name, ruby_field_options|
         file_field_options = field_defs.find { |d| d.name == pdf_field_name }.options
-
-        if pdf_field_name == 'Filing_status'
-          # pdftk reports the apostrophe character used in the MFJ option as \u0090 which is wrong.
-          # Ultimately we will either edit the PDF or come up with some crazy workaround
-          # this is a hack to make the test pass that should someday be destroyed one way or another
-          file_field_options.map! { |ffo| ffo.gsub(/\u0090/, '’') }
-        end
-
         expect(ruby_field_options.values).to match_array(file_field_options - ["Off"])
       end
     end
