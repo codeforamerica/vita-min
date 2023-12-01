@@ -39,12 +39,12 @@ module Efile
       def calculate
         set_line(:IT201_LINE_1, @direct_file_data, :fed_wages)
         set_line(:IT201_LINE_2, @direct_file_data, :fed_taxable_income)
+        set_line(:IT201_LINE_9, -> { 0 })
         set_line(:IT201_LINE_14, @direct_file_data, :fed_unemployment)
         set_line(:IT201_LINE_15, @direct_file_data, :fed_taxable_ssb)
         set_line(:IT201_LINE_17, :calculate_line_17)
         set_line(:IT201_LINE_18, @direct_file_data, :fed_total_adjustments)
         set_line(:IT201_LINE_19, :calculate_line_19)
-        set_line(:IT201_LINE_19A, :calculate_line_19a)
         set_line(:IT201_LINE_21, @direct_file_data, :ny_public_employee_retirement_contributions)
         set_line(:IT201_LINE_24, :calculate_line_24)
         set_line(:IT201_LINE_25, -> { @lines[:IT201_LINE_4]&.value })
@@ -60,7 +60,6 @@ module Efile
         set_line(:IT201_LINE_40, :calculate_line_40)
         set_line(:IT201_LINE_43, :calculate_line_43)
         set_line(:IT201_LINE_44, :calculate_line_44)
-        set_line(:IT201_LINE_45, :calculate_line_45)
         set_line(:IT201_LINE_46, :calculate_line_46)
         set_line(:IT201_LINE_47, :calculate_line_47)
         set_line(:IT201_LINE_47A, :calculate_line_47a)
@@ -68,11 +67,12 @@ module Efile
         set_line(:IT201_LINE_49, :calculate_line_49)
         set_line(:IT201_LINE_52, :calculate_line_52)
         set_line(:IT201_LINE_54, :calculate_line_54)
-        set_line(:IT201_LINE_54B, :calculate_line_54b)
+        # TODO: are we supporting MCTMT lines 54a-54e?
         set_line(:IT201_LINE_58, :calculate_line_58)
         set_line(:IT201_LINE_59, @intake, :sales_use_tax)
         @it227.calculate
-        set_line(:IT201_LINE_60E, -> { @lines[:IT227_PART_2_LINE_1].value })
+        # TODO: this is always 0, should we know the real value?
+        set_line(:IT201_LINE_60, -> { @lines[:IT227_PART_2_LINE_1].value })
         set_line(:IT201_LINE_61, :calculate_line_61)
         set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
@@ -118,15 +118,9 @@ module Efile
         line_or_zero(:IT201_LINE_17) - line_or_zero(:IT201_LINE_18).abs
       end
 
-      def calculate_line_19a
-        # TODO: Add line 19A worksheet, not supporting IT-558
-        line_or_zero(:IT201_LINE_19)
-      end
-
       def calculate_line_24
         result = 0
-        result += line_or_zero(:IT201_LINE_19A)
-        (20..23).each do |line_num|
+        (19..23).each do |line_num|
           result += line_or_zero("IT201_LINE_#{line_num}")
         end
         result
@@ -346,7 +340,7 @@ module Efile
           0
         else
           # assumption: we don't support Build America Bonds (special condition code A6)
-          nys_household_credit(line_or_zero(:IT201_LINE_19A))
+          nys_household_credit(line_or_zero(:IT201_LINE_19))
         end
       end
 
@@ -366,10 +360,6 @@ module Efile
 
       def calculate_line_44
         [line_or_zero(:IT201_LINE_39) - line_or_zero(:IT201_LINE_43), 0].max
-      end
-
-      def calculate_line_45
-        [line_or_zero(:IT201_LINE_42) - (line_or_zero(:IT201_LINE_43) + line_or_zero(:IT201_LINE_44)), 0].max
       end
 
       def calculate_line_46
@@ -397,7 +387,7 @@ module Efile
         if @direct_file_data.claimed_as_dependent? || @intake.nyc_full_year_resident_no?
           0
         else
-          nyc_household_credit(line_or_zero(:IT201_LINE_19A))
+          nyc_household_credit(line_or_zero(:IT201_LINE_19))
         end
       end
 
@@ -413,10 +403,6 @@ module Efile
         [line_or_zero(:IT201_LINE_52) - line_or_zero(:IT201_LINE_53), 0].max
       end
 
-      def calculate_line_54b
-        (line_or_zero(:IT201_LINE_54A) * 0.0034).round
-      end
-
       def calculate_line_58
         line_or_zero(:IT201_LINE_54) + line_or_zero(:IT201_LINE_54B) + line_or_zero(:IT201_LINE_55) + line_or_zero(:IT201_LINE_56) + line_or_zero(:IT201_LINE_57)
       end
@@ -430,8 +416,11 @@ module Efile
       end
 
       def calculate_line_69
-        if line_or_zero(:IT201_LINE_19) < 250_000 && @intake.nyc_full_year_resident_yes?
-          # income calculated as 19a - 9. 9 is not supported and 19a is 19
+        # From IT-201 instructions: Income, for purposes of determining your New York City school tax credit, means your
+        # federal adjusted gross income from Form IT-201, line 19, minus distributions from an individual retirement
+        # account and an individual retirement annuity, from Form IT-201, line 9, if they were included in your federal
+        # adjusted gross income.
+        if (line_or_zero(:IT201_LINE_19) - line_or_zero(:IT201_LINE_9)) < 250_000 && @intake.nyc_full_year_resident_yes?
           if @filing_status.in?([:single, :married_filing_separately, :head_of_household])
             63
           else

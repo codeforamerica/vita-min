@@ -151,12 +151,12 @@ describe Efile::Ny::It201 do
   #
   #     it "stops calculating IT214 after line 21 and sets IT214_LINE_33 to 0" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_19].value).to be 12000
-  #       expect(instance.lines[:IT214_LINE_19].value).to be 12000
-  #       expect(instance.lines[:IT214_LINE_20].value).to be 6000
-  #       expect(instance.lines[:IT214_LINE_21].value).to be 500
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_19].value).to eq(12000)
+  #       expect(instance.lines[:IT214_LINE_19].value).to eq(12000)
+  #       expect(instance.lines[:IT214_LINE_20].value).to eq(6000)
+  #       expect(instance.lines[:IT214_LINE_21].value).to eq(500)
   #       expect(instance.lines[:IT214_LINE_22]).to be_nil
   #       expect(instance.lines[:IT214_LINE_33].value).to eq(0)
   #     end
@@ -179,13 +179,13 @@ describe Efile::Ny::It201 do
   #
   #     it "stops calculating IT214 after line 28 and sets IT214_LINE_33 to 0" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_19].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_20].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_21].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_22].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 0
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_19].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_20].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_21].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_22].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(0)
   #       expect(instance.lines[:IT214_LINE_29]).to be_nil
   #       expect(instance.lines[:IT214_LINE_33].value).to eq(0)
   #     end
@@ -208,14 +208,14 @@ describe Efile::Ny::It201 do
   #
   #     it "stops calculating IT214 after line 29 and sets IT214_LINE_33 to 0" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_19].value).to be 6000
-  #       expect(instance.lines[:IT214_LINE_20].value).to be 3000
-  #       expect(instance.lines[:IT214_LINE_21].value).to be 250
-  #       expect(instance.lines[:IT214_LINE_22].value).to be 750
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 750 # if this is less than line 18 then the client is ineligible
-  #       expect(instance.lines[:IT214_LINE_29].value).to be 800
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_19].value).to eq(6000)
+  #       expect(instance.lines[:IT214_LINE_20].value).to eq(3000)
+  #       expect(instance.lines[:IT214_LINE_21].value).to eq(250)
+  #       expect(instance.lines[:IT214_LINE_22].value).to eq(750)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(750) # if this is less than line 18 then the client is ineligible
+  #       expect(instance.lines[:IT214_LINE_29].value).to eq(800)
   #       expect(instance.lines[:IT214_LINE_30]).to be_nil
   #       expect(instance.lines[:IT214_LINE_33].value).to eq(0)
   #     end
@@ -238,18 +238,18 @@ describe Efile::Ny::It201 do
   #
   #     it "finishes calculating IT214 and sets IT214_LINE_33 to the final credit value of $34" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 683
-  #       expect(instance.lines[:IT214_LINE_19].value).to be 6000
-  #       expect(instance.lines[:IT214_LINE_20].value).to be 3000
-  #       expect(instance.lines[:IT214_LINE_21].value).to be 250
-  #       expect(instance.lines[:IT214_LINE_22].value).to be 750
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 750 # if this is less than line 18 then the client is ineligible
-  #       expect(instance.lines[:IT214_LINE_29].value).to be 683
-  #       expect(instance.lines[:IT214_LINE_30].value).to be 67
-  #       expect(instance.lines[:IT214_LINE_31].value).to be 34
-  #       expect(instance.lines[:IT214_LINE_32].value).to be 53
-  #       expect(instance.lines[:IT214_LINE_33].value).to be 34
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(683)
+  #       expect(instance.lines[:IT214_LINE_19].value).to eq(6000)
+  #       expect(instance.lines[:IT214_LINE_20].value).to eq(3000)
+  #       expect(instance.lines[:IT214_LINE_21].value).to eq(250)
+  #       expect(instance.lines[:IT214_LINE_22].value).to eq(750)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(750) # if this is less than line 18 then the client is ineligible
+  #       expect(instance.lines[:IT214_LINE_29].value).to eq(683)
+  #       expect(instance.lines[:IT214_LINE_30].value).to eq(67)
+  #       expect(instance.lines[:IT214_LINE_31].value).to eq(34)
+  #       expect(instance.lines[:IT214_LINE_32].value).to eq(53)
+  #       expect(instance.lines[:IT214_LINE_33].value).to eq(34)
   #     end
   #   end
   #
@@ -270,13 +270,13 @@ describe Efile::Ny::It201 do
   #
   #     it "stops calculating IT214 after line 28 and sets IT214_LINE_33 to 0" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_23].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_24].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_25].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_27].value).to be 0
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 0
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_23].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_24].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_25].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_27].value).to eq(0)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(0)
   #       expect(instance.lines[:IT214_LINE_29]).to be_nil
   #       expect(instance.lines[:IT214_LINE_33].value).to eq(0)
   #     end
@@ -299,14 +299,14 @@ describe Efile::Ny::It201 do
   #
   #     it "stops calculating IT214 after line 28 and sets IT214_LINE_33 to 0" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_23].value).to be 500
-  #       expect(instance.lines[:IT214_LINE_24].value).to be 250
-  #       expect(instance.lines[:IT214_LINE_25].value).to be 750
-  #       expect(instance.lines[:IT214_LINE_27].value).to be 750
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 750 # if this is less than line 18 the client is ineligible
-  #       expect(instance.lines[:IT214_LINE_29].value).to be 800
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_23].value).to eq(500)
+  #       expect(instance.lines[:IT214_LINE_24].value).to eq(250)
+  #       expect(instance.lines[:IT214_LINE_25].value).to eq(750)
+  #       expect(instance.lines[:IT214_LINE_27].value).to eq(750)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(750) # if this is less than line 18 the client is ineligible
+  #       expect(instance.lines[:IT214_LINE_29].value).to eq(800)
   #       expect(instance.lines[:IT214_LINE_30]).to be_nil
   #       expect(instance.lines[:IT214_LINE_33].value).to eq(0)
   #     end
@@ -329,18 +329,18 @@ describe Efile::Ny::It201 do
   #
   #     it "finishes calculating IT214 and sets IT214_LINE_33 to the final credit value of $49" do
   #       instance.calculate
-  #       expect(instance.lines[:IT214_LINE_17].value).to be 0.06
-  #       expect(instance.lines[:IT214_LINE_18].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_23].value).to be 5000
-  #       expect(instance.lines[:IT214_LINE_24].value).to be 2500
-  #       expect(instance.lines[:IT214_LINE_25].value).to be 7500
-  #       expect(instance.lines[:IT214_LINE_27].value).to be 7500
-  #       expect(instance.lines[:IT214_LINE_28].value).to be 7500 # if this is less than line 18 the client is ineligible
-  #       expect(instance.lines[:IT214_LINE_29].value).to be 800
-  #       expect(instance.lines[:IT214_LINE_30].value).to be 6700
-  #       expect(instance.lines[:IT214_LINE_31].value).to be 3350
-  #       expect(instance.lines[:IT214_LINE_32].value).to be 49
-  #       expect(instance.lines[:IT214_LINE_33].value).to be 49
+  #       expect(instance.lines[:IT214_LINE_17].value).to eq(0.06)
+  #       expect(instance.lines[:IT214_LINE_18].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_23].value).to eq(5000)
+  #       expect(instance.lines[:IT214_LINE_24].value).to eq(2500)
+  #       expect(instance.lines[:IT214_LINE_25].value).to eq(7500)
+  #       expect(instance.lines[:IT214_LINE_27].value).to eq(7500)
+  #       expect(instance.lines[:IT214_LINE_28].value).to eq(7500) # if this is less than line 18 the client is ineligible
+  #       expect(instance.lines[:IT214_LINE_29].value).to eq(800)
+  #       expect(instance.lines[:IT214_LINE_30].value).to eq(6700)
+  #       expect(instance.lines[:IT214_LINE_31].value).to eq(3350)
+  #       expect(instance.lines[:IT214_LINE_32].value).to eq(49)
+  #       expect(instance.lines[:IT214_LINE_33].value).to eq(49)
   #     end
   #   end
   # end
