@@ -108,13 +108,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
       within "#county" do
         click_on I18n.t("general.edit")
       end
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1715, state_name: "New York")
@@ -240,13 +240,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
       within "#prior-last-names" do
         click_on I18n.t("general.edit")
       end
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.az_review.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1239, state_name: "Arizona")

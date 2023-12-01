@@ -1849,17 +1849,9 @@ en:
           charitable_cash: Cash contributions
           charitable_contributions: Made charitable contributions
           charitable_noncash: Non-cash contributions
-          download_pdf: You can download a PDF of your full state tax return after you submit.
           last_names: Other last names in the last four years
-          taxes_owed_html: |
-            <strong>Your estimated refund or taxes owed</strong> $0. <br/>
-            You broke even on your state tax return. This means that you <strong>will not</strong>
-            receive a state refund and you <strong>do not</strong> owe state taxes.
-          title1: You're done! Let's review before you submit your state tax return.
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation
-          your_refund: Your estimated refund
-          your_tax_owed: Your estimated tax owed
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
@@ -2014,18 +2006,10 @@ en:
           withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
       ny_review:
         edit:
-          download_pdf: You can download a PDF of your full state tax return after you submit.
           nyc_full_year_resident: New York City full-year resident
           out_of_state_purchases: Out of state purchases/Use Tax Applied
           residence_county: County
           school_district: School District
-          taxes_owed_html: |
-            <strong>Your estimated refund or taxes owed</strong> $0. <br/>
-            You broke even on your state tax return. This means that you <strong>will not</strong>
-            receive a state refund and you <strong>do not</strong> owe state taxes.
-          title1: You're done! Let's review before you submit your state tax return.
-          your_refund: Your estimated refund
-          your_tax_owed: Your estimated tax owed
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
@@ -2072,6 +2056,24 @@ en:
       spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+      shared:
+        review_footer:
+          download_pdf: You can download a PDF of your full state tax return after you submit.
+        review_header:
+          dependent_dob: Their date of birth
+          dependent_months_in_home: Number of months they lived with you
+          dependent_name: Your dependent's name
+          household_info: Household information
+          nth_dependent_name: Your %{ordinal} dependent's name
+          spouse_name: Your spouse's name
+          taxes_owed_html: |
+            <strong>Your estimated refund or taxes owed</strong> $0. <br/>
+            You broke even on your state tax return. This means that you <strong>will not</strong>
+            receive a state refund and you <strong>do not</strong> owe state taxes.
+          title1: You're done! Let's review before you submit your state tax return.
+          your_name: Your name
+          your_refund: Your estimated refund
+          your_tax_owed: Your estimated tax owed
       submission_confirmation:
         edit:
           apply_to_state_benefits: Apply to %{state_name} benefits

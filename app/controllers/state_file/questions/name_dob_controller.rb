@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class NameDobController < QuestionsController
+      include ReturnToReviewConcern
+
       private
 
       def form_params
