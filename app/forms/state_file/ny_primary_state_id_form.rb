@@ -23,8 +23,8 @@ module StateFile
       intake.primary_state_id
     end
 
-    def self.existing_state_id_attrs(attrs, state_id)
-      attrs.merge(
+    def self.existing_state_id_attrs(state_id)
+      super.merge(
         first_three_doc_num: state_id.first_three_doc_num,
       )
     end

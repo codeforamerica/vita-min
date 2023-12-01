@@ -13,7 +13,7 @@ module StateFile
     end
 
     def self.existing_attributes(intake)
-      self.state_id(intake).present? ? existing_state_id_attrs(super, self.state_id(intake)) : super
+      self.state_id(intake).present? ? existing_state_id_attrs(self.state_id(intake)) : {}
     end
 
     private
@@ -22,8 +22,8 @@ module StateFile
       raise NotImplementedError, "Implement this method in a child class"
     end
 
-    def self.existing_state_id_attrs(attrs, state_id)
-      attrs.merge(
+    def self.existing_state_id_attrs(state_id)
+      {
         id_type: state_id.id_type,
         id_number: state_id.id_number,
         state: state_id.state,
@@ -33,7 +33,7 @@ module StateFile
         expiration_date_day: state_id.expiration_date&.day,
         expiration_date_month: state_id.expiration_date&.month,
         expiration_date_year: state_id.expiration_date&.year,
-      )
+      }
     end
 
     def issue_date
