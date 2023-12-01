@@ -255,10 +255,6 @@ class DirectFileData
     total
   end
 
-  def total_state_tax_withheld=(value)
-    write_df_xml_value(__method__, value)
-  end
-
   def total_local_tax_withheld
     total = 0
     parsed_xml.css('IRSW2').map do |w2|
