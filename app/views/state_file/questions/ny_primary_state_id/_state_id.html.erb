@@ -4,35 +4,37 @@
       <%=
         f.cfa_radio_set(
           :id_type,
-          label_text: t(".id_type_question.label"),
+          label_text: t("state_file.questions.primary_state_id.state_id.id_type_question.label"),
           collection: [
-            { value: :driver_license, label: t(".id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
-            { value: :dmv_bmv, label: t(".id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
-            { value: :no_id, label: t(".id_type_question.no_id") },
+            { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
+            { value: :dmv_bmv, label: t("state_file.questions.primary_state_id.state_id.id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
+            { value: :no_id, label: t("state_file.questions.primary_state_id.state_id.id_type_question.no_id") },
           ]
         )
       %>
     </div>
     <div class="question-with-follow-up__follow-up" id="id-details-fields">
       <div class="highlight-box highlight-box--blue spacing-below-15">
-        <%= f.cfa_input_field(:id_number, t(".id_details.number"), classes: ["form-width--long, spacing-below-15"]) %>
+        <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long, spacing-below-15"]) %>
         <%= f.cfa_date_select(:issue_date,
-                              t(".id_details.issue_month") + " / " + t(".id_details.issue_day") + " / " + t(".id_details.issue_year"),
+                              t("state_file.questions.primary_state_id.state_id.id_details.issue_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_year"),
                               options: {
                                 start_year: Time.now.year,
                                 end_year: Time.now.year - 9,
                               }
             ) %>
         <%= f.cfa_date_select(:expiration_date,
-                              t(".id_details.expiration_month") + " / " + t(".id_details.expiration_day") + " / " + t(".id_details.expiration_year"),
+                              t("state_file.questions.primary_state_id.state_id.id_details.expiration_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_year"),
                               options: {
                                 start_year: Time.now.year + 9,
                                 end_year: Time.now.year - 2,
                               }) %>
-        <%= f.cfa_select(:state, t(".id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short"]) %>
-        <%= f.cfa_input_field(:first_three_doc_num, t(".id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
+        <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short"]) %>
+        <% if options[:include_first_three_doc_num] == true %>
+          <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
+        <% end %>
         <div class="spacing-above-25">
-          <a href="https://dmv.ny.gov/id-card/sample-photo-documents" target="_blank" rel="nofollow noopener"><%= t('.info_link') %></a>
+          <a href="https://dmv.ny.gov/id-card/sample-photo-documents" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
         </div>
       </div>
     </div>

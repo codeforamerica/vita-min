@@ -75,17 +75,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.ny_primary_state_id.state_id.id_type_question.no_id')
+      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.no_id')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Please provide information for your spouse’s state issued ID"
-      choose I18n.t('state_file.questions.ny_primary_state_id.state_id.id_type_question.dmv')
-      fill_in  I18n.t('state_file.questions.ny_primary_state_id.state_id.id_details.number'), with: "012345678"
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      fill_in  I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
       select_cfa_date "state_file_ny_spouse_state_id_form_expiration_date", Time.now + 4.year
-      select("New York", from: I18n.t('state_file.questions.ny_primary_state_id.state_id.id_details.issue_state'))
-      fill_in  I18n.t('state_file.questions.ny_primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
+      select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
+      fill_in  I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
@@ -228,6 +228,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
       fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      fill_in  I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
+      select_cfa_date "state_file_az_primary_state_id_form_issue_date", Time.now - 4.year
+      select_cfa_date "state_file_az_primary_state_id_form_expiration_date", Time.now + 4.year
+      select("Arizona", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the

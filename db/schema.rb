@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_222303) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_30_231317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1602,6 +1602,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_222303) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.bigint "primary_state_id_id"
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.string "referrer"
@@ -1612,11 +1613,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_222303) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.bigint "spouse_state_id_id"
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
   end
 
   create_table "state_file_dependents", force: :cascade do |t|

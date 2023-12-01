@@ -2004,7 +2004,36 @@ en:
         edit:
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: Did you withdraw money from a 529 college savings account in 2023?
-      ny_primary_state_id:
+      ny_review:
+        edit:
+          nyc_full_year_resident: New York City full-year resident
+          out_of_state_purchases: Out of state purchases/Use Tax Applied
+          residence_county: County
+          school_district: School District
+      ny_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          select_one: 'Select one of the following:'
+          subtitle: For example, online purchases with no sales tax applied.
+          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
+          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+      ny_school_district:
+        edit:
+          school_district_name: School District Name
+          title: Select the school district where you lived on December 31, %{filing_year}
+      pending_federal_return:
+        edit:
+          title_html: |
+            We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
+            <br/><br/>
+            You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
+      phone_number:
+        edit:
+          action: Send code
+          phone_number_label: Your phone number
+          title: Enter your phone number
+      primary_state_id:
         edit:
           title: Please provide information for your state issued ID
         state_id:
@@ -2024,38 +2053,9 @@ en:
             label: Your ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
-      ny_review:
-        edit:
-          nyc_full_year_resident: New York City full-year resident
-          out_of_state_purchases: Out of state purchases/Use Tax Applied
-          residence_county: County
-          school_district: School District
-      ny_sales_use_tax:
-        edit:
-          calculated_use_tax: Enter calculated use tax
-          select_one: 'Select one of the following:'
-          subtitle: For example, online purchases with no sales tax applied.
-          title: Did you make any out-of-state purchases in %{year} that went untaxed?
-          use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
-          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
-      ny_school_district:
-        edit:
-          school_district_name: School District Name
-          title: Select the school district where you lived on December 31, %{filing_year}
-      ny_spouse_state_id:
+      spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
-      pending_federal_return:
-        edit:
-          title_html: |
-            We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
-            <br/><br/>
-            You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
-      phone_number:
-        edit:
-          action: Send code
-          phone_number_label: Your phone number
-          title: Enter your phone number
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
