@@ -1985,6 +1985,11 @@ en:
           button_help_text: Don’t worry, you'll be redirected back here
           description: To pre-fill, you need to transfer your federal tax return from the IRS Direct File site to this tool. This usually takes three minutes or less.
           title: Now, let's pre-fill parts of your state tax return
+      landing_page:
+        edit:
+          built_with_html: "<b>FileYourStateTaxes</b> is built in partnership with the state of %{state_full_name} to integrate with the IRS Direct File tool."
+          supported_by: Supported by the state of %{state_full_name}
+          title: File your %{state_full_name} state taxes for free
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

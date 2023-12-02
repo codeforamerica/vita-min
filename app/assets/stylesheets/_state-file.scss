@@ -82,12 +82,25 @@
     }
   }
 
+  .landing-page-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .partner-logo-wrapper {
     display: flex;
     align-items: center;
 
+    .partner-logo-text {
+      max-width: 200px;
+    }
+
     .partner-logo-image {
       margin-right: 1rem;
+
+      img {
+        vertical-align: middle;
+      }
     }
   }
 
