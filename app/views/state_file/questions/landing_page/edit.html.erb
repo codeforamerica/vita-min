@@ -1,24 +1,28 @@
 <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 <% state_image_path = params[:us_state] == "ny" ? "partner-logos/nygov-logo.svg" : "partner-logos/azgov-logo.svg" %>
+<% title = t(".title", state_full_name: state_full_name) %>
 
-<% title = "File your #{state_full_name} state taxes for free" %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="h1"><%= title %></h1>
+  <div class="landing-page-content">
+    <h1 class="h1"><%= title %></h1>
 
-  <h2 class="h2">
-    We've partnered with the state of <%= state_full_name %> to help you complete your state taxes online for free.
-  </h2>
+    <h2 class="h2">
+      <%=t('.built_with_html', state_full_name: state_full_name) %>
+    </h2>
 
-  <div class="partner-logo-wrapper spacing-below-35">
-    <div class="partner-logo-image">
-      <%= image_tag state_image_path, alt: "#{state_full_name} state logo", class: "" %>
+    <div class="partner-logo-wrapper spacing-below-35">
+      <div class="partner-logo-image">
+        <%= image_tag state_image_path, alt: "#{state_full_name} state logo", class: "" %>
+      </div>
+      <div class="partner-logo-text text--body text--bold">
+        <%=t('.supported_by', state_full_name: state_full_name) %>
+      </div>
     </div>
-    <div class="text--body text--bold">Supported by the state of <%= state_full_name %> and the IRS</div>
-  </div>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.submit t("general.get_started"), class: "button button--primary", id: "firstCta" %>
-  <% end %>
+    <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+      <%= f.submit t("general.get_started"), class: "button button--primary", id: "firstCta" %>
+    <% end %>
+  </div>
 <% end %>

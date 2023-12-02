@@ -13,8 +13,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text "File your New York state taxes for free"
-      click_on "Get Started", id: "firstCta"
+      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.title", state_full_name: "New York")
+      click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "ny")
 
@@ -150,8 +150,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text "File your Arizona state taxes for free"
-      click_on "Get Started", id: "firstCta"
+      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.title", state_full_name: "Arizona")
+      click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "az")
 
