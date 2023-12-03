@@ -74,43 +74,111 @@ RSpec.describe StateFile::TaxRefundForm do
   end
 
   describe "#valid?" do
+    let(:payment_or_deposit_type) { "direct_deposit" }
+    let(:routing_number) { "123456789" }
+    let(:routing_number_confirmation) { "123456789" }
+    let(:account_number) { "123" }
+    let(:account_number_confirmation) { "123" }
+    let(:account_type) { "checking" }
+    let(:bank_name) { "Bank official" }
     let(:params) do
       {
-        payment_or_deposit_type: "direct_deposit",
-        routing_number: "123456789",
-        routing_number_confirmation: "123456789",
-        account_number: "123456789",
-        account_number_confirmation: "123456789",
-        account_type: "checking",
-        bank_name: "Bank official",
+        payment_or_deposit_type: payment_or_deposit_type,
+        routing_number: routing_number,
+        routing_number_confirmation: routing_number_confirmation,
+        account_number: account_number,
+        account_number_confirmation: account_number_confirmation,
+        account_type: account_type,
+        bank_name: bank_name
       }
     end
 
-    context "when the routing and account number are the same" do
-      it "is not valid and returns error" do
-        form = described_class.new(intake, params)
-
-        expect(form).not_to be_valid
-        expect(form.errors).to include :routing_number, :account_number
-      end
-    end
-
-    context "when the routing and account number are not the same" do
-      let(:params) do
-        {
-          payment_or_deposit_type: "direct_deposit",
-          routing_number: "123456789",
-          routing_number_confirmation: "123456789",
-          account_number: "123",
-          account_number_confirmation: "123",
-          account_type: "checking",
-          bank_name: "Bank official",
-        }
-      end
+    context "when the payment_or_deposit_type is mail and no other params" do
+      let(:params) { { payment_or_deposit_type: "mail" } }
       it "is valid" do
         form = described_class.new(intake, params)
 
         expect(form).to be_valid
+      end
+    end
+
+    context "when the payment_or_deposit_type is direct_deposit" do
+      context "all other params present" do
+        it "is valid" do
+          form = described_class.new(intake, params)
+          expect(form).to be_valid
+        end
+      end
+
+      context "missing account type" do
+        let(:account_type) { nil }
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_type
+        end
+      end
+
+      context "account number is letters" do
+        let(:account_number) { "ABC" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number
+        end
+      end
+
+      context "routing number is letters" do
+        let(:routing_number) { "ABC123456" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "routing number is 3 numbers long" do
+        let(:routing_number) { "123" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "account number confirmation is not equal to the account number" do
+        let(:account_number_confirmation) { "1234" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number_confirmation
+        end
+      end
+
+      context "routing number confirmation is not equal to the routing number" do
+        let(:routing_number_confirmation) { "999999999" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number_confirmation
+        end
+      end
+
+      context "when the routing and account number are the same" do
+        let(:routing_number) { "123456789" }
+        let(:account_number) { "123456789" }
+
+        it "is not valid and returns error" do
+          form = described_class.new(intake, params)
+
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number, :account_number
+        end
       end
     end
   end
