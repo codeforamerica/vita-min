@@ -39,10 +39,10 @@
                   )
               %>
 
-              <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
-              <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablecopypaste"]) %>
-              <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long"]) %>
-              <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablecopypaste"]) %>
+              <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long", "disablecopy"]) %>
+              <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+              <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
+              <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
             </div>
             <%= t(".disclaimer_html") %>
             <br/>
@@ -66,13 +66,16 @@
 <% content_for :script do %>
   <script>
       document.addEventListener("DOMContentLoaded", function() {
-          var elements = document.querySelectorAll('input.disablecopypaste');
-          elements.forEach(function(element) {
-              element.addEventListener('copy', function(e) {
+          var disable_paste_elements = document.querySelectorAll('input.disablepaste');
+          disable_paste_elements.forEach(function(element) {
+              element.addEventListener('paste', function(e) {
                   e.preventDefault();
               });
+          });
 
-              element.addEventListener('paste', function(e) {
+          var disable_copy_elements = document.querySelectorAll('input.disablecopy');
+          disable_copy_elements.forEach(function(element) {
+              element.addEventListener('copy', function(e) {
                   e.preventDefault();
               });
           });
