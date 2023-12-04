@@ -198,5 +198,26 @@ RSpec.describe StateFile::NameDobForm do
         end
       end
     end
+
+    context "when married filing separately in new york" do
+      let!(:intake) { create :state_file_ny_intake, filing_status: "married_filing_separately" }
+      context "with valid params" do
+        let(:valid_params) do
+          {
+            primary_first_name: "Taliesen",
+            primary_last_name: "Testingson",
+            primary_birth_date_month: "3",
+            primary_birth_date_day: "12",
+            primary_birth_date_year: "1987",
+          }
+        end
+
+        it "saves primary name" do
+          form = described_class.new(intake, valid_params)
+          expect(form).to be_valid
+          form.save
+        end
+      end
+    end
   end
 end

@@ -193,7 +193,7 @@ describe StateFileNyIntake do
     context "when married filing separate" do
       it "returns true" do
         intake = build(:state_file_ny_intake, filing_status: "married_filing_separately")
-        expect(intake.ask_spouse_name?).to eq true
+        expect(intake.ask_spouse_name?).to eq false
       end
     end
 
