@@ -2124,6 +2124,37 @@ en:
           savings: Savings
           title: You owe $%{owed_amount}. How would you like to pay your taxes owed?
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is $%{owed_amount}.)
+      terms_and_conditions:
+        edit:
+          accept: Accept
+          body_text_html: |
+            <b>When you use the FileYourStateTaxes service, here's what you're agreeing to:</b><br>
+            <ul class="list--numbered">
+              <li><b>Easy Tax Filing:</b> FileYourStateTaxes is a free and easy to use tool built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li>
+              <li><b>Data Transfer:</b> You're letting us use your federal return data as the starting point for your state tax return.</li>
+              <li><b>Questions for Accuracy:</b> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li>
+              <li><b>Modernized eFile:</b> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li>
+              <li><b>Your Responsibility:</b> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li>
+              <li><b>No Guarantees:</b> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li>
+              <li><b>Privacy and Security:</b> We're serious about protecting your privacy and data. Check out our Privacy Policy for all the details.</li>
+              <li><b>Stay Updated:</b> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important info.</li>
+              <li><b>Your Choice:</b> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li>
+              <li><b>Data Removal:</b> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li>
+              <li><b>Questions and Concerns:</b> If you have any questions or concerns about these terms, feel free to reach out to us at help@fileyourstatetaxes.org.</li>
+            </ul>
+            <b>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms. Thanks for choosing us for your tax filing needs!</b>
+          decline: Decline
+          ny_text_html: |
+            <b>E-file your New York State income tax return at no extra charge.</b><br><br>
+            Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
+            <ul class="list--bulleted">
+             <li>90% of New Yorkers e-file their income tax returns.</li>
+             <li>E-filing is fast, easy, and secure.</li>
+             <li>E-filers get their refunds faster than paper filers.</li>
+             <li>Not only is free e-filing a good value, it’s also the law: New York State requires most taxpayers to file electronically if they are using tax software to prepare their return.</li>
+            </ul>
+          read_text: Please read terms and conditions before making your decision.
+          title: Next, review and accept the terms and conditions
       unemployment:
         destroy:
           removed: Removed 1099-G for %{name}
