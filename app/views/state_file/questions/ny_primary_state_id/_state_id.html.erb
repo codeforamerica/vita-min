@@ -33,9 +33,11 @@
         <% if options[:include_first_three_doc_num] == true %>
           <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
         <% end %>
-        <div class="spacing-above-25">
-          <a href="https://dmv.ny.gov/id-card/sample-photo-documents" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
-        </div>
+        <% if options[:info_link] %>
+          <div class="spacing-above-25">
+             <a href="<%= options[:info_link] %>" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

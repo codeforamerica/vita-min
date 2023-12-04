@@ -3,5 +3,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {} %>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {
+    info_link: "https://azdot.gov/mvd/services/driver-services/driver-license-information/license-features"
+  } %>
 <% end %>
