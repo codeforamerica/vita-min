@@ -23,6 +23,14 @@
     }
   }
 
+  .blue-group {
+    padding: 1.9rem;
+    margin-bottom: 2.5rem;
+    background: $color-state-file-blue-box;
+    border: 2px solid $color-state-file-blue-box-border;
+    border-radius: 6px;
+  }
+
   .button {
     border-radius: 0.4rem;
     font-size: 2.2rem;
@@ -58,6 +66,12 @@
 
   .form-card {
     background-color: transparent;
+
+    .blue-group {
+      .form-group:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .h1 {

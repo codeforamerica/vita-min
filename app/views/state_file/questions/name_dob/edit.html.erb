@@ -5,7 +5,7 @@
   <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-    <div class="highlight-box highlight-box--blue spacing-below-15">
+    <div class="blue-group spacing-below-15">
       <p><%= t(".primary_name") %></p>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <% if f.object.ask_spouse_name?  %>
-      <div class="highlight-box highlight-box--blue spacing-below-15">
+      <div class="blue-group spacing-below-15">
         <p><%= t(".spouse_name") %></p>
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
@@ -39,7 +39,7 @@
     <% end %>
 
     <%= f.fields_for :dependents do |ff| %>
-      <div id="dependent-<%= ff.index %>" class="highlight-box highlight-box--blue spacing-below-15">
+      <div id="dependent-<%= ff.index %>" class="blue-group spacing-below-15">
 
         <p><%= t(".dependent_name_dob", number: number_in_words(ff.index + 1))%></p>
 

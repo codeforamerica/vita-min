@@ -5,7 +5,7 @@
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group spacing-below-15">
           <div class="spacing-below-5">
             <%= ff.cfa_radio_set(
                   :needed_assistance,
@@ -17,7 +17,7 @@
                 ) %>
           </div>
         </div>
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group spacing-below-15">
           <div class="spacing-below-5">
             <%= ff.cfa_radio_set(
                   :passed_away,
