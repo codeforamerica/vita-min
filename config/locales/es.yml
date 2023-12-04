@@ -244,6 +244,9 @@ es:
       tax_returns_attributes:
         certification_level: nivel de certificación
         is_hsa: es HSA
+      taxes_owed:
+        withdraw_amount_higher_than_owed: Por favor ingrese una cantidad menor o igual a %{owed_amount}
+        withdrawal_date_deadline: Ingrese una fecha anterior al 15 de abril de %{year}
   general:
     NA: N/A
     access_denied: Usted no está autorizado a tomar esta acción.
