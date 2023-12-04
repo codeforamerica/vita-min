@@ -1837,6 +1837,9 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      about:
+        edit:
+          title: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
       az_charitable_contributions:
         edit:
           charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
