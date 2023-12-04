@@ -58,10 +58,10 @@
                       ]
                     ) %>
 
-                <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
+                <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long", "disablecopy"]) %>
+                <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+                <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
+                <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
                 <p class="spacing-above-25"><strong><%= t(".double_check") %></strong></p>
               </div>
           </div>
@@ -70,4 +70,8 @@
     </div>
     <%= f.continue %>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <%= render 'shared/disable_copy_paste' %>
 <% end %>
