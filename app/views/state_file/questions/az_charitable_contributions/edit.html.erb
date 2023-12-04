@@ -5,7 +5,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group spacing-below-15">
           <div class="spacing-below-5">
             <%= f.cfa_radio_set(:charitable_contributions, collection: [
               { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#charitable_contributions" } },
@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="charitable_contributions">
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group spacing-below-15">
           <div class="spacing-below-25">
             <%= f.cfa_input_field(:charitable_cash, t(".charitable_cash"), classes: ["form-width--long"]) %>
           </div>

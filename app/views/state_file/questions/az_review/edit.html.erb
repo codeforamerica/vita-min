@@ -2,7 +2,7 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header", us_state: 'az' %>
 
-  <div id="prior-last-names" class="highlight-box highlight-box--blue spacing-below-15">
+  <div id="prior-last-names" class="blue-group spacing-below-15">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
       <p><%=current_intake.prior_last_names || t("general.none") %></p>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div id="state-credits" class="highlight-box highlight-box--blue spacing-below-15">
+  <div id="state-credits" class="blue-group spacing-below-15">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
       <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div id="charitable-contributions" class="highlight-box highlight-box--blue spacing-below-25">
+  <div id="charitable-contributions" class="blue-group spacing-below-25">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".charitable_contributions") %></p>
       <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>

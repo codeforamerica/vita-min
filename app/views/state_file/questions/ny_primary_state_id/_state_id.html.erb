@@ -1,6 +1,6 @@
 <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
   <div class="question-with-follow-up spacing-below-25">
-    <div class="question-with-follow-up__question highlight-box highlight-box--blue spacing-below-15">
+    <div class="question-with-follow-up__question blue-group spacing-below-15">
       <%=
         f.cfa_radio_set(
           :id_type,
@@ -14,7 +14,7 @@
       %>
     </div>
     <div class="question-with-follow-up__follow-up" id="id-details-fields">
-      <div class="highlight-box highlight-box--blue spacing-below-15">
+      <div class="blue-group spacing-below-15">
         <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long, spacing-below-15"]) %>
         <%= f.cfa_date_select(:issue_date,
                               t("state_file.questions.primary_state_id.state_id.id_details.issue_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_year"),
