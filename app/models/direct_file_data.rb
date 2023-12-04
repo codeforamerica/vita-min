@@ -171,6 +171,10 @@ class DirectFileData
     df_xml_value(__method__)&.to_i
   end
 
+  def fed_tax=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def fed_agi
     df_xml_value(__method__)&.to_i
   end

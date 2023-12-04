@@ -25,7 +25,7 @@ describe Efile::Ny::It201 do
 
       it "stops calculating IT213 after line 1 and sets IT213_LINE_14 to 0" do
         instance.calculate
-        expect(instance.lines[:IT213_LINE_1].value).to eq(2)
+        expect(instance.lines[:IT213_LINE_1].value).to eq(2) # did not live in NY state all year
         expect(instance.lines[:IT213_LINE_2]).to be_nil
         expect(instance.lines[:IT213_LINE_14].value).to eq(0)
       end
@@ -39,18 +39,125 @@ describe Efile::Ny::It201 do
 
       it "stops calculating after line 3 and sets IT213_LINE_14 to 0" do
         instance.calculate
-        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
-        expect(instance.lines[:IT213_LINE_2].value).to eq(2)
-        expect(instance.lines[:IT213_LINE_3].value).to eq(2)
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
+        expect(instance.lines[:IT213_LINE_2].value).to eq(2) # did not claim federal CTC
+        expect(instance.lines[:IT213_LINE_3].value).to eq(2) # did not have eligible wages
         expect(instance.lines[:IT213_LINE_4]).to be_nil
         expect(instance.lines[:IT213_LINE_14].value).to eq(0)
       end
     end
 
-    context "when the client is eligible and has an IT213 credit" do
-      it "populates line 14 with the final credit amount" do
+    context "when the client has claimed fed_ctc > 0 and worksheet A line 8 <= worksheet A line 12" do
+      before do
+        intake.direct_file_data.fed_ctc = 1000
+      end
+
+      it "calculated worksheets and finishes calculations" do
         instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1) # claimed federal CTC
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1) # had eligible wages
+        expect(instance.lines[:IT213_LINE_4].value).to eq(1) # one dependent
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(1000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(1000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(1000)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(1000)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(0)
         expect(instance.lines[:IT213_LINE_14].value).to eq(330)
+      end
+    end
+
+    context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
+      before do
+        intake.dependents.create(dob: 5.years.ago)
+        intake.direct_file_data.fed_ctc = 1000
+      end
+
+      it "calculates worksheets and finishes calculations" do
+        instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_4].value).to eq(2) # dependents
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(2000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(2000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(1123)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_1].value).to eq(2000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_2].value).to eq(1123)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_3].value).to eq(877)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4A].value).to eq(21000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4B].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_5].value).to eq(18000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_6].value).to eq(2700)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(877)
+        expect(instance.lines[:IT213_LINE_14].value).to eq(660)
+      end
+    end
+
+    context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and has 3 dependents" do
+      before do
+        intake.dependents.create(dob: 5.years.ago)
+        intake.dependents.create(dob: 3.years.ago)
+        intake.direct_file_data.fed_tax = 0
+        intake.direct_file_data.fed_ctc = 1000
+      end
+
+      it "calculates worksheets and finishes calculations" do
+        instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_4].value).to eq(3) # dependents
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(3000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(3000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(0)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_1].value).to eq(3000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_2].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_3].value).to eq(3000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4A].value).to eq(21000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4B].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_5].value).to eq(18000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_6].value).to eq(2700)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_8].value).to eq(2700)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_9].value).to eq(2700)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(2700)
+        expect(instance.lines[:IT213_LINE_14].value).to eq(891)
       end
     end
   end
