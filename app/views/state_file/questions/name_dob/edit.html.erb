@@ -20,7 +20,7 @@
         </div>
       <% end %>
     </div>
-    <% if f.object.filing_status_mfj? %>
+    <% if f.object.ask_spouse_name?  %>
       <div class="highlight-box highlight-box--blue spacing-below-15">
         <p><%= t(".spouse_name") %></p>
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>

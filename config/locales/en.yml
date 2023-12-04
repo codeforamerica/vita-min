@@ -1985,6 +1985,11 @@ en:
           button_help_text: Don’t worry, you'll be redirected back here
           description: To pre-fill, you need to transfer your federal tax return from the IRS Direct File site to this tool. This usually takes three minutes or less.
           title: Now, let's pre-fill parts of your state tax return
+      landing_page:
+        edit:
+          built_with_html: "<b>FileYourStateTaxes</b> is built in partnership with the state of %{state_full_name} to integrate with the IRS Direct File tool."
+          supported_by: Supported by the state of %{state_full_name}
+          title: File your %{state_full_name} state taxes for free
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2087,10 +2092,10 @@ en:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
       submission_confirmation:
         edit:
-          apply_to_state_benefits: Apply to %{state_name} benefits
           download_state_return_pdf: Download your state return
           email_text_update: You'll receive and email or text update when your state tax return is accepted.
           help_friend_or_family: Help a friend or family member file their taxes for free.
+          ny_notifications_signup_html: <a href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote
           share_direct_file_link: Share the IRS DirectFile link
           title: Your 2023 %{state_name} state tax return is now submitted!

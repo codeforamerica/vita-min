@@ -23,9 +23,9 @@
   </p>
 
   <p>
-    <!-- TODO - replace with real link -->
-    <%= link_to t(".apply_to_state_benefits", state_name: States.name_for_key(params[:us_state].upcase)), "" %>
+    <%= t(".ny_notifications_signup_html") %>
   </p>
+
   <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: params[:us_state], action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary" %>
   <p>
   <%= link_to "Show XML", StateFile::Questions::ConfirmationController.to_path_helper(us_state: params[:us_state], action: :show_xml), class: 'dev-button' %>
