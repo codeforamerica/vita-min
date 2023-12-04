@@ -18,9 +18,9 @@ module Navigation
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::CanceledDataTransferController, # show? false
       StateFile::Questions::WaitingToLoadDataController,
-      StateFile::Questions::DataTransferOffboardingController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
+      StateFile::Questions::DataTransferOffboardingController,
       StateFile::Questions::NameDobController,
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,
