@@ -1,0 +1,18 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <div>
+    <h1 class="h2" id="main-question"><%= title %></h1>
+    <% if params[:us_state] == "ny" %>
+      <p><%=t(".ny_text_html") %></p>
+    <% end %>
+    <p><%=t(".body_text_html") %></p>
+  </div>
+  <p><%=t(".read_text") %></p>
+  <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
+    <%= t(".accept") %>
+  <% end %>
+  <div><button class="button">
+    <%= t(".decline") %>
+  </button></div>
+<% end %>

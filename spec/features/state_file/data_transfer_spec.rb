@@ -19,6 +19,9 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
 
     step_through_initial_authentication(contact_preference: :text_message)
 
+    expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+    click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
     step_through_df_data_transfer
     click_on "visit_federal_info_controller"
     expect(page).to have_select("state_file_federal_info_form[filing_status]", selected: "head of household")
