@@ -1918,6 +1918,16 @@ en:
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
           visit_faq: Visit our FAQ
           what_is_gyr: What is GetYourRefund?
+      declined_terms_and_conditions:
+        edit:
+          action_html: <b>Is this a mistake?</b>
+          drop_down_html: |
+            <b>Want to file using a different product or service?</b><br>
+            Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Additional fees may apply.
+          faq_link: Visit our FAQ
+          go_back_link: Go back to correct.
+          subtitle: Unfortunately, in order to continue filing with FileYourStateTaxes, you must accept the terms and conditions.
+          title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
           body_html: |

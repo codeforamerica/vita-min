@@ -12,7 +12,7 @@
   <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
     <%= t(".accept") %>
   <% end %>
-  <div><button class="button">
+  <%= link_to(StateFile::Questions::DeclinedTermsAndConditionsController.to_path_helper(action: :edit, us_state: params[:us_state]), class: "button") do %>
     <%= t(".decline") %>
-  </button></div>
+  <% end %>
 <% end %>
