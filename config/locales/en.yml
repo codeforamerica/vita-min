@@ -1920,7 +1920,7 @@ en:
           what_is_gyr: What is GetYourRefund?
       declined_terms_and_conditions:
         edit:
-          action_html: <b>Is this a mistake?</b>
+          action_html: "<b>Is this a mistake?</b>"
           drop_down_html: |
             <b>Want to file using a different product or service?</b><br>
             Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Additional fees may apply.
