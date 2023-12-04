@@ -233,6 +233,8 @@ es:
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
+      routing_account_number:
+        not_same: El número de ruta y el número de cuenta no pueden ser iguales
       state_routings:
         delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
@@ -242,6 +244,9 @@ es:
       tax_returns_attributes:
         certification_level: nivel de certificación
         is_hsa: es HSA
+      taxes_owed:
+        withdraw_amount_higher_than_owed: Por favor ingrese una cantidad menor o igual a %{owed_amount}
+        withdrawal_date_deadline: Ingrese una fecha anterior al 15 de abril de %{year}
   general:
     NA: N/A
     access_denied: Usted no está autorizado a tomar esta acción.

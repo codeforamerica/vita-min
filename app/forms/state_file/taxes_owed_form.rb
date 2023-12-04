@@ -12,9 +12,12 @@ module StateFile
     set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
     set_attributes_for :date, :date_electronic_withdrawal_month, :date_electronic_withdrawal_year, :date_electronic_withdrawal_day
 
-    validate :date_electronic_withdrawal_is_valid_date, unless: -> { payment_or_deposit_type == "mail" }
-    validates :withdraw_amount, presence: true, unless: -> { payment_or_deposit_type == "mail" }
-    validate :withdraw_amount_higher_than_owed?, unless: -> { payment_or_deposit_type == "mail" }
+    with_options unless: -> { payment_or_deposit_type == "mail" } do
+      validate :date_electronic_withdrawal_is_valid_date
+      validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? }
+      validates :withdraw_amount, presence: true
+      validate :withdraw_amount_higher_than_owed?
+    end
 
     def save
       attrs = attributes_for(:intake)
@@ -46,9 +49,19 @@ module StateFile
       if self.withdraw_amount.to_i > owed_amount
         self.errors.add(
           :withdraw_amount,
-          "Please enter in an amount less than or equal to #{owed_amount}"
+          I18n.t("forms.errors.taxes_owed.withdraw_amount_higher_than_owed", owed_amount: owed_amount)
         )
       end
+    end
+
+    def withdrawal_date_before_deadline
+      unless date_electronic_withdrawal.between?(DateTime.current.to_date, withdrawal_date_deadline)
+        self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year))
+      end
+    end
+
+    def withdrawal_date_deadline
+      DateTime.parse("April 15th, #{MultiTenantService.new(:statefile).current_tax_year + 1}")
     end
   end
 end

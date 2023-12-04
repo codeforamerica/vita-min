@@ -36,12 +36,13 @@
                 </p>
 
                 <div class="date-select">
+                  <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>
                   <%= f.cfa_date_select(
                         :date_electronic_withdrawal,
                         t(".date_withdraw_text"),
                         options: {
-                          start_year: Time.now.year,
-                          end_year: Time.now.year,
+                          start_year: year,
+                          end_year: year,
                         }
                       ) %>
                 </div>
