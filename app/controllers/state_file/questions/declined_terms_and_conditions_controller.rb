@@ -3,10 +3,8 @@ module StateFile
     class DeclinedTermsAndConditionsController < QuestionsController
 
       def self.show?(_intake)
-        false
+        _intake.consented_to_terms_and_conditions_no?
       end
-
-      private
     end
   end
 end

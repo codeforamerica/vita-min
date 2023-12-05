@@ -11,12 +11,10 @@
   <p><%=t(".read_text") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field :consented_to_terms_and_conditions, value: 'yes' %>
-    <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
+    <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary', type: 'submit' do %>
       <%= t(".accept") %>
     <% end %>
-    <%= f.hidden_field :consented_to_terms_and_conditions, value: 'no' %>
-    <%= link_to(StateFile::Questions::DeclinedTermsAndConditionsController.to_path_helper(action: :edit, us_state: params[:us_state]), class: "button") do %>
+    <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'no', class: 'button', type: 'submit' do %>
       <%= t(".decline") %>
     <% end %>
   <%end %>
