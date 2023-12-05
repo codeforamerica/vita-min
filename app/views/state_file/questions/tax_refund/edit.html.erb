@@ -10,7 +10,7 @@
     <%= title %>
   </h1>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <%= f.cfa_radio_set(
@@ -28,22 +28,22 @@
               <%= bank_title %>
             </h1>
             <div class="form-card__content">
-                <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
-                <%= f.cfa_radio_set(
-                      :account_type,
-                      label_text: t("views.questions.bank_details.account_type.label"),
-                      collection: [
-                        { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
-                        { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
-                      ]
-                    )
-                %>
+              <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+              <%= f.cfa_radio_set(
+                    :account_type,
+                    label_text: t("views.questions.bank_details.account_type.label"),
+                    collection: [
+                      { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+                      { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+                    ]
+                  )
+              %>
 
-                <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long"]) %>
-              </div>
+              <%= f.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long", "disablecopy"]) %>
+              <%= f.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+              <%= f.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
+              <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+            </div>
             <%= t(".disclaimer_html") %>
             <br/>
           </div>
@@ -61,4 +61,8 @@
       <%= f.continue %>
     </div>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <%= render 'shared/disable_copy_paste' %>
 <% end %>

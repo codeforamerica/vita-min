@@ -88,8 +88,8 @@ module Efile
               set_line(:IT213_LINE_7, -> { 0 })
             else
               set_line(:IT213_WORKSHEET_B_LINE_3, :calculate_worksheet_b_line_3)
-              set_line(:IT213_WORKSHEET_B_LINE_4A, @direct_file_data.fed_total_earned_income_amount || 0)
-              set_line(:IT213_WORKSHEET_B_LINE_4B, @direct_file_data.fed_nontaxable_combat_pay_amount || 0) # this is never used for anything, thanks worksheet b
+              set_line(:IT213_WORKSHEET_B_LINE_4A, -> { @direct_file_data.fed_total_earned_income_amount || 0 })
+              set_line(:IT213_WORKSHEET_B_LINE_4B, -> { @direct_file_data.fed_nontaxable_combat_pay_amount || 0 }) # this is never used for anything, thanks worksheet b
               set_line(:IT213_WORKSHEET_B_LINE_5, :calculate_worksheet_b_line_5)
               set_line(:IT213_WORKSHEET_B_LINE_6, :calculate_worksheet_b_line_6)
               # Do you have three or more children (from Form IT-213, line 4)?
@@ -101,7 +101,7 @@ module Efile
                 if @lines[:IT213_WORKSHEET_B_LINE_6].value >= @lines[:IT213_WORKSHEET_B_LINE_3].value
                   set_line(:IT213_LINE_7, -> { @lines[:IT213_WORKSHEET_B_LINE_3].value.to_i })
                 else
-                  set_line(:IT213_WORKSHEET_B_LINE_7, @direct_file_data.fed_calculated_difference_amount || 0)
+                  set_line(:IT213_WORKSHEET_B_LINE_7, -> { @direct_file_data.fed_calculated_difference_amount || 0 })
                   set_line(:IT213_WORKSHEET_B_LINE_8, :calculate_worksheet_b_line_8)
                   set_line(:IT213_WORKSHEET_B_LINE_9, :calculate_worksheet_b_line_9)
                   set_line(:IT213_LINE_7, -> { @lines[:IT213_WORKSHEET_B_LINE_9].value.to_i })
@@ -289,7 +289,7 @@ module Efile
         case @intake.filing_status.to_sym
         when :married_filing_jointly
           110_000
-        when :single, :head_of_household, :qualifying_surviving_spouse
+        when :single, :head_of_household, :qualifying_widow
           75_000
         when :married_filing_separately
           55_000

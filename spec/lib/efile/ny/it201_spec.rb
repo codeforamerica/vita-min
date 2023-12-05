@@ -12,7 +12,359 @@ describe Efile::Ny::It201 do
 
   describe '#calculate_line_17' do
     it "adds up some of the prior lines" do
-      expect(instance.calculate[:IT201_LINE_17]).to eq(35151)
+      expect(instance.calculate[:IT201_LINE_17]).to eq(35_151)
+    end
+  end
+
+  describe 'Line 39 New York State tax from tables' do
+    context 'when the filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_wages = 20_000
+        intake.direct_file_data.fed_taxable_income = 20_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_38].value).to eq(28_200) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_437)
+      end
+    end
+
+    context 'when the filing status is mfj' do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+        intake.direct_file_data.fed_wages = 20_000
+        intake.direct_file_data.fed_taxable_income = 20_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_38].value).to eq(20_150) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(821)
+      end
+    end
+
+    context 'when the filing status is mfs' do
+      before do
+        intake.direct_file_data.filing_status = 3 # mfs
+        intake.direct_file_data.fed_wages = 20_000
+        intake.direct_file_data.fed_taxable_income = 20_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_38].value).to eq(36_200) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_905)
+      end
+    end
+
+    context 'when the filing status is hoh' do
+      before do
+        intake.direct_file_data.filing_status = 4 # hoh
+        intake.direct_file_data.fed_wages = 20_000
+        intake.direct_file_data.fed_taxable_income = 20_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_38].value).to eq(25_000) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_141)
+      end
+    end
+
+    context 'when the filing status is qw' do
+      before do
+        intake.direct_file_data.filing_status = 5 # qw
+        intake.direct_file_data.fed_wages = 20_000
+        intake.direct_file_data.fed_taxable_income = 20_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_38].value).to eq(36_200) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_688)
+      end
+    end
+  end
+
+  describe 'Line 40 NYS household credit' do
+    context 'when the filer has been claimed as a dependent' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_40].value).to eq(0)
+      end
+    end
+
+    context 'when filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_40].value).to eq(75)
+      end
+    end
+
+    context 'when filing status is married filing separately' do
+      before do
+        intake.direct_file_data.filing_status = 3 # mfs
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_40].value).to eq(60)
+      end
+    end
+
+    context 'when filing status is married filing jointly' do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_40].value).to eq(120)
+      end
+    end
+  end
+
+  describe 'Line 48 NYC household credit' do
+    context 'when the filer has been claimed as a dependent' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_48].value).to eq(0)
+      end
+    end
+
+    context 'when the filer was not a full year NYC resident' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 2 # no
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_48].value).to eq(0)
+      end
+    end
+
+    context 'when filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_48].value).to eq(15)
+      end
+    end
+
+    context 'when filing status is married filing separately' do
+      before do
+        intake.direct_file_data.filing_status = 3 # mfs
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_48].value).to eq(45)
+      end
+    end
+
+    context 'when filing status is married filing jointly' do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'uses the correct table to set the value of the credit' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+        expect(instance.lines[:IT201_LINE_48].value).to eq(90)
+      end
+    end
+  end
+
+  describe 'Line 69 NYC school tax credit' do
+    context 'when the filer has been claimed as a dependent' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(0)
+      end
+    end
+
+    context 'when the filer was not a full year NYC resident' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 2 # no
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(0)
+      end
+    end
+
+    context 'when the filer had more than $250,000 in income' do
+      before do
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 200_000
+        intake.direct_file_data.fed_taxable_income = 200_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to 0 because the filer is ineligible' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(0)
+      end
+    end
+
+    context 'when the filer is eligible and filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to the proper value' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(63)
+      end
+    end
+
+    context 'when the filer is eligible and filing status is mfj' do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to the proper value' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(125)
+      end
+    end
+
+    context 'when the filer is eligible and filing status is mfs' do
+      before do
+        intake.direct_file_data.filing_status = 3 # mfs
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to the proper value' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(63)
+      end
+    end
+
+    context 'when the filer is eligible and filing status is hoh' do
+      before do
+        intake.direct_file_data.filing_status = 4 # hoh
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to the proper value' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(63)
+      end
+    end
+
+    context 'when the filer is eligible and filing status is qualifying_widow' do
+      before do
+        intake.direct_file_data.filing_status = 5 # qualifying_widow
+        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
+        intake.nyc_full_year_resident = 1 # yes
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+      end
+
+      it 'sets the credit to the proper value' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_69].value).to eq(125)
+      end
     end
   end
 
@@ -25,7 +377,7 @@ describe Efile::Ny::It201 do
 
       it "stops calculating IT213 after line 1 and sets IT213_LINE_14 to 0" do
         instance.calculate
-        expect(instance.lines[:IT213_LINE_1].value).to eq(2)
+        expect(instance.lines[:IT213_LINE_1].value).to eq(2) # did not live in NY state all year
         expect(instance.lines[:IT213_LINE_2]).to be_nil
         expect(instance.lines[:IT213_LINE_14].value).to eq(0)
       end
@@ -33,24 +385,183 @@ describe Efile::Ny::It201 do
 
     context "when the client is not eligible because they didn't claim federal CTC or have low enough AGI" do
       before do
-        intake.direct_file_data.fed_wages = 200000
+        intake.direct_file_data.fed_wages = 200_000
         intake.direct_file_data.fed_ctc = 0
       end
 
       it "stops calculating after line 3 and sets IT213_LINE_14 to 0" do
         instance.calculate
-        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
-        expect(instance.lines[:IT213_LINE_2].value).to eq(2)
-        expect(instance.lines[:IT213_LINE_3].value).to eq(2)
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
+        expect(instance.lines[:IT213_LINE_2].value).to eq(2) # did not claim federal CTC
+        expect(instance.lines[:IT213_LINE_3].value).to eq(2) # did not have eligible wages
         expect(instance.lines[:IT213_LINE_4]).to be_nil
         expect(instance.lines[:IT213_LINE_14].value).to eq(0)
       end
     end
 
-    context "when the client is eligible and has an IT213 credit" do
-      it "populates line 14 with the final credit amount" do
+    context "when the client has claimed fed_ctc > 0 and worksheet A line 8 <= worksheet A line 12" do
+      before do
+        intake.direct_file_data.fed_ctc = 1_000
+      end
+
+      it "calculated worksheets and finishes calculations" do
         instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1) # claimed federal CTC
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1) # had eligible wages
+        expect(instance.lines[:IT213_LINE_4].value).to eq(1) # one dependent
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(1_000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(1_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(1_000)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(1_000)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(0)
         expect(instance.lines[:IT213_LINE_14].value).to eq(330)
+      end
+    end
+
+    context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
+      before do
+        intake.dependents.create(dob: 5.years.ago)
+        intake.direct_file_data.fed_ctc = 1_000
+      end
+
+      it "calculates worksheets and finishes calculations" do
+        instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_4].value).to eq(2) # dependents
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(2_000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(2_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(1_123)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_1].value).to eq(2_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_2].value).to eq(1_123)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_3].value).to eq(877)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4A].value).to eq(21_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4B].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_5].value).to eq(18_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_6].value).to eq(2_700)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(877)
+        expect(instance.lines[:IT213_LINE_14].value).to eq(660)
+      end
+    end
+
+    context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and has 3 dependents" do
+      before do
+        intake.dependents.create(dob: 5.years.ago)
+        intake.dependents.create(dob: 3.years.ago)
+        intake.direct_file_data.fed_tax = 0
+        intake.direct_file_data.fed_ctc = 1_000
+      end
+
+      it "calculates worksheets and finishes calculations" do
+        instance.calculate
+        expect(instance.lines[:IT213_LINE_1].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_2].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_3].value).to eq(1)
+        expect(instance.lines[:IT213_LINE_4].value).to eq(3) # dependents
+        expect(instance.lines[:IT213_LINE_5].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(3_000) # 1000 * 1 dependent
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_3].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_4].value).to eq(32_351)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_6].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to eq(3_000)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_10].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_11].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_13].value).to eq(0)
+        expect(instance.lines[:IT213_LINE_6].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_1].value).to eq(3_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_2].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_3].value).to eq(3_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4A].value).to eq(21_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_4B].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_5].value).to eq(18_000)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_6].value).to eq(2_700)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_7].value).to eq(0)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_8].value).to eq(2_700)
+        expect(instance.lines[:IT213_WORKSHEET_B_LINE_9].value).to eq(2_700)
+        expect(instance.lines[:IT213_LINE_7].value).to eq(2_700)
+        expect(instance.lines[:IT213_LINE_14].value).to eq(891)
+      end
+    end
+  end
+
+  describe 'IT-213 cutoff for filing status' do
+    context 'when filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+      end
+      it 'sets the cutoff correctly' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
+      end
+    end
+
+    context 'when filing status is mfj' do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+      end
+      it 'sets the cutoff correctly' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(110_000)
+      end
+    end
+
+    context 'when filing status is mfs' do
+      before do
+        intake.direct_file_data.filing_status = 3 # mfs
+      end
+      it 'sets the cutoff correctly' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(55_000)
+      end
+    end
+
+    context 'when filing status is hoh' do
+      before do
+        intake.direct_file_data.filing_status = 4 # hoh
+      end
+      it 'sets the cutoff correctly' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
+      end
+    end
+
+    context 'when filing status is qualifying_widow' do
+      before do
+        intake.direct_file_data.filing_status = 5 # qualifying_widow
+      end
+      it 'sets the cutoff correctly' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_5].value).to eq(75_000)
       end
     end
   end
