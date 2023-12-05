@@ -1842,15 +1842,11 @@ en:
           action1_text: Get Started at IRS Direct File
           action2: Already started your state return?
           action2_text: Sign in here.
-          answers_here_html: 'Get answers to more of your questions <a href=%{answers_url}>here</a>.
-
-            '
+          answers_here_html: Get answers to more of your questions <a href=%{answers_url}>here</a>.
           az_section: Arizona taxpayers
           common_questions: Common questions
           credits_deductions: Which state credits and deductions does this tool support?
-          credits_deductions_not_html: 'Which state credits and deductions does this tool <strong>not</strong> currently support?
-
-            '
+          credits_deductions_not_html: Which state credits and deductions does this tool <strong>not</strong> currently support?
           header: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
           ny_section: New York taxpayers
           other_options: What are my other state filing options?

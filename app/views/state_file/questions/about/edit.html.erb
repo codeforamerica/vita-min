@@ -21,57 +21,12 @@
 
   <section>
     <strong><%= t('.az_section') %></strong>
-    <div class="spacing-above-15">
-      <%= link_to t(".who_can_use_text"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".credits_deductions"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".credits_deductions_not_html"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".other_options"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".when_file_by"), "" %>
-    </div>
-
-    <div class="spacing-above-15 spacing-below-15">
-      <%= t(".answers_here_html", answers_url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq")) %>
-    </div>
+    <%= render 'state_taxpayers' %>
   </section>
 
   <section>
     <strong><%= t('.ny_section') %></strong>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".who_can_use_text"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".credits_deductions"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".credits_deductions_not_html"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".other_options"), "" %>
-    </div>
-
-    <div class="spacing-above-15">
-      <%= link_to t(".when_file_by"), "" %>
-    </div>
-
-    <div class="spacing-above-15 spacing-below-15">
-      <%= t(".answers_here_html", answers_url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq")) %>
-    </div>
+    <%= render 'state_taxpayers' %>
   </section>
 <% end %>
 
