@@ -577,6 +577,7 @@ class FlowsController < ApplicationController
         current_step: "/en/questions/confirmation",
         eligibility_lived_in_state: "yes",
         eligibility_out_of_state_income: "no",
+        consented_to_terms_and_conditions: "yes",
       }
     end
 

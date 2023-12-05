@@ -11,11 +11,15 @@
   <p><%=t(".read_text") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary', type: 'submit' do %>
-      <%= t(".accept") %>
-    <% end %>
-    <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'no', class: 'button', type: 'submit' do %>
-      <%= t(".decline") %>
-    <% end %>
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary' do %>
+          <%= t(".accept") %>
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'no', class: 'button' do %>
+          <%= t(".decline") %>
+        <% end %>
+      </div>
+    </div>
   <%end %>
 <% end %>
