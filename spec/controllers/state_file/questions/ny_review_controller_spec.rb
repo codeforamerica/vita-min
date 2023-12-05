@@ -18,8 +18,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
     end
 
     context "when the client is estimated to get a refund" do
-      # The default fixtures result in an expected refund
-      let(:intake) { create :state_file_ny_intake }
+      let(:intake) { create :state_file_ny_refund_intake }
       before do
         session[:state_file_intake] = intake.to_global_id
       end

@@ -60,7 +60,7 @@ module SubmissionBuilder
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
-              if @submission.data_source.filing_status_mfj?
+              if @submission.data_source.filing_status_mfj? || @submission.data_source.filing_status_mfs?
                 xml.tiSpouse do
                   xml.FIRST_NAME @submission.data_source.spouse.first_name
                   xml.MI_NAME @submission.data_source.spouse.middle_initial

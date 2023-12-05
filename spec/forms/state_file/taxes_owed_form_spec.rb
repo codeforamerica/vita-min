@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
-  let!(:withdraw_amount) { 912 }
+  let!(:withdraw_amount) { 150 }
   let!(:intake) {
     create :state_file_ny_intake,
            payment_or_deposit_type: "unfilled",
@@ -163,7 +163,7 @@ RSpec.describe StateFile::TaxesOwedForm do
 
       context "withdraw amount is higher than owed amount" do
         before do
-          allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(200)
+          allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
         end
 
         it "is not valid" do

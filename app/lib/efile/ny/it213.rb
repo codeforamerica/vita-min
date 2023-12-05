@@ -289,7 +289,7 @@ module Efile
         case @intake.filing_status.to_sym
         when :married_filing_jointly
           110_000
-        when :single, :head_of_household, :qualifying_surviving_spouse
+        when :single, :head_of_household, :qualifying_widow
           75_000
         when :married_filing_separately
           55_000
