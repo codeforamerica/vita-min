@@ -13,6 +13,9 @@ module StateFile
       render layout: nil
     end
 
+    def about_page
+    end
+
     def clear_session
       session.delete(:state_file_intake)
       redirect_to action: :home
