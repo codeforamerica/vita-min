@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class PendingFederalReturnController < LandingPageController
+    class PendingFederalReturnController < QuestionsController
       def prev_path
         nil
       end

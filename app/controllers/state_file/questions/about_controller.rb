@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AboutController < LandingPageController
+    class AboutController < QuestionsController
       def prev_path
         nil
       end
