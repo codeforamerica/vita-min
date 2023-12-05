@@ -9,10 +9,15 @@
     <p><%=t(".body_text_html") %></p>
   </div>
   <p><%=t(".read_text") %></p>
-  <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
-    <%= t(".accept") %>
-  <% end %>
-  <%= link_to(StateFile::Questions::DeclinedTermsAndConditionsController.to_path_helper(action: :edit, us_state: params[:us_state]), class: "button") do %>
-    <%= t(".decline") %>
-  <% end %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field :consented_to_terms_and_conditions, value: 'yes' %>
+    <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
+      <%= t(".accept") %>
+    <% end %>
+    <%= f.hidden_field :consented_to_terms_and_conditions, value: 'no' %>
+    <%= link_to(StateFile::Questions::DeclinedTermsAndConditionsController.to_path_helper(action: :edit, us_state: params[:us_state]), class: "button") do %>
+      <%= t(".decline") %>
+    <% end %>
+  <%end %>
 <% end %>
