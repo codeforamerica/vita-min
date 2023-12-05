@@ -15,6 +15,7 @@ RSpec.describe StateFile::Questions::EsignDeclarationController do
   end
   before do
     session[:state_file_intake] = intake.to_global_id
+    sign_in intake
   end
 
   describe "#edit" do
@@ -50,5 +51,4 @@ RSpec.describe StateFile::Questions::EsignDeclarationController do
       end
     end
   end
-
 end

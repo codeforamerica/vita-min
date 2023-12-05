@@ -2,12 +2,14 @@ require "rails_helper"
 
 RSpec.describe StateFile::Questions::NyReviewController do
   describe "#edit" do
+    before do
+      session[:state_file_intake] = intake.to_global_id
+      sign_in intake
+    end
+
     context "when the client is estimated to owe taxes" do
       # Not being an NYC full year resident and increased unemployment contributions result in owed amount
       let(:intake) { create :state_file_ny_owed_intake}
-      before do
-        session[:state_file_intake] = intake.to_global_id
-      end
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
         get :edit, params: { us_state: "ny" }
@@ -19,9 +21,6 @@ RSpec.describe StateFile::Questions::NyReviewController do
 
     context "when the client is estimated to get a refund" do
       let(:intake) { create :state_file_ny_refund_intake }
-      before do
-        session[:state_file_intake] = intake.to_global_id
-      end
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
         get :edit, params: { us_state: "ny" }

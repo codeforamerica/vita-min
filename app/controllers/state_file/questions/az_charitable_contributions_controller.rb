@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzCharitableContributionsController < QuestionsController
+    class AzCharitableContributionsController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
       private

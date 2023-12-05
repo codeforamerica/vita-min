@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class UnemploymentController < QuestionsController
+    class UnemploymentController < AuthenticatedQuestionsController
       def self.show?(intake)
         intake.direct_file_data.fed_unemployment > 0
       end

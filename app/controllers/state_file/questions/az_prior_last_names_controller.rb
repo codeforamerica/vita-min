@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzPriorLastNamesController < QuestionsController
+    class AzPriorLastNamesController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
       private

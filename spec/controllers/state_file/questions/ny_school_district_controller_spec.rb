@@ -4,6 +4,7 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
   let(:intake) { create :state_file_ny_intake, residence_county: "Nassau" }
   before do
     session[:state_file_intake] = intake.to_global_id
+    sign_in intake
   end
 
   describe "#edit" do

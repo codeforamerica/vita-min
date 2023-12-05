@@ -577,6 +577,12 @@ class FlowsController < ApplicationController
         current_step: "/en/questions/confirmation",
         eligibility_lived_in_state: "yes",
         eligibility_out_of_state_income: "no",
+        current_sign_in_at: nil,
+        current_sign_in_ip: nil,
+        failed_attempts: 0,
+        last_sign_in_at: nil,
+        last_sign_in_ip: nil,
+        sign_in_count: 0
       }
     end
 

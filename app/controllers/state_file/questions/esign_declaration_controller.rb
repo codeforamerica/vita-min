@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class EsignDeclarationController < QuestionsController
+    class EsignDeclarationController < AuthenticatedQuestionsController
       def edit
         super
         StateFileEfileDeviceInfo.find_or_create_by!(
