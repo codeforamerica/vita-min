@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzStateCreditsController < QuestionsController
+    class AzStateCreditsController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
       private

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  devise_for :state_file_az_intakes
+  devise_for :state_file_ny_intakes
   devise_for :clients
 
   devise_scope :client do

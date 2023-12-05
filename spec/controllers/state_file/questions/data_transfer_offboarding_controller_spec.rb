@@ -4,6 +4,10 @@ RSpec.describe StateFile::Questions::DataTransferOffboardingController do
   describe "#edit" do
     let(:intake) { create :state_file_az_intake }
 
+    before do
+      sign_in intake
+    end
+
     context "when the client's Direct File data disqualifies them" do
       before do
         session[:state_file_intake] = intake.to_global_id

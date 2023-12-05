@@ -8,6 +8,8 @@
 #  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
+#  current_sign_in_at                 :datetime
+#  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
@@ -17,6 +19,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  failed_attempts                    :integer          default(0), not null
 #  household_cash_assistance          :integer
 #  household_fed_agi                  :integer
 #  household_ny_additions             :integer
@@ -27,6 +30,9 @@
 #  household_rent_amount              :integer
 #  household_rent_own                 :integer          default("unfilled"), not null
 #  household_ssi                      :integer
+#  last_sign_in_at                    :datetime
+#  last_sign_in_ip                    :inet
+#  locked_at                          :datetime
 #  mailing_country                    :string
 #  mailing_state                      :string
 #  nursing_home                       :integer          default("unfilled"), not null
@@ -61,6 +67,7 @@
 #  sales_use_tax_calculation_method   :integer          default("unfilled"), not null
 #  school_district                    :string
 #  school_district_number             :integer
+#  sign_in_count                      :integer          default(0), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null

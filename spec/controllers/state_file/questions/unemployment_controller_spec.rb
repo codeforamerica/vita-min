@@ -4,6 +4,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   let(:intake) { create :state_file_ny_intake, filing_status: :married_filing_jointly, spouse_first_name: "Glenn", spouse_last_name: "Gary" }
   before do
     session[:state_file_intake] = intake.to_global_id
+    sign_in intake
   end
 
   describe ".show?" do

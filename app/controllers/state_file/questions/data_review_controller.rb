@@ -8,6 +8,7 @@ module StateFile
           ip_address: ip_for_irs,
           intake: current_intake,
         )
+        sign_in current_intake
       end
 
       def update

@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  devise :lockable, :timeoutable, :trackable
+
   self.abstract_class = true
   has_one_attached :submission_pdf
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
