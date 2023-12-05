@@ -1837,32 +1837,6 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
-      about:
-        edit:
-          action1_text: Get Started at IRS Direct File
-          action2: Already started your state return?
-          action2_text: Sign in here.
-          answers_here_html: Get answers to more of your questions <a href=%{answers_url}>here</a>.
-          az_section: Arizona taxpayers
-          common_questions: Common questions
-          credits_deductions: Which state credits and deductions does this tool support?
-          credits_deductions_not_html: Which state credits and deductions does this tool <strong>not</strong> currently support?
-          header: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
-          ny_section: New York taxpayers
-          other_options: What are my other state filing options?
-          section1_html: |
-            <strong>How does it work?</strong>
-            <ol class="list--numbered">
-              <li>File and submit your federal return with IRS <a href=%{direct_file_url}>Direct File</a> before using this tool.</li>
-              <li>Click "continue to file your state taxes"</li>
-              <li>Answer a few questions to make sure this is the right service for you. See more about eligibility below.</li>
-              <li>Transfer your federal return to fill in most of your state return.</li>
-              <li>Answer a few additional questions to help maximize your state tax refund.</li>
-              <li>E-file your return for free!</li>
-            </ol>
-          subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
-          when_file_by: When do I have to file by?
-          who_can_use_text: Who can use FileYourStateTaxes in Arizona?
       az_charitable_contributions:
         edit:
           charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
@@ -2256,6 +2230,32 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return. <br/><br/> This usually takes a minute or two. Don't close this page.
+    state_file_pages:
+      about_page:
+        action1_text: Get Started at IRS Direct File
+        action2: Already started your state return?
+        action2_text: Sign in here.
+        answers_here_html: Get answers to more of your questions <a href=%{answers_url}>here</a>.
+        az_section: Arizona taxpayers
+        common_questions: Common questions
+        credits_deductions: Which state credits and deductions does this tool support?
+        credits_deductions_not_html: Which state credits and deductions does this tool <strong>not</strong> currently support?
+        header: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
+        ny_section: New York taxpayers
+        other_options: What are my other state filing options?
+        section1_html: |
+          <strong>How does it work?</strong>
+          <ol class="list--numbered">
+            <li>File and submit your federal return with IRS <a href=%{direct_file_url}>Direct File</a> before using this tool.</li>
+            <li>Click "continue to file your state taxes"</li>
+            <li>Answer a few questions to make sure this is the right service for you. See more about eligibility below.</li>
+            <li>Transfer your federal return to fill in most of your state return.</li>
+            <li>Answer a few additional questions to help maximize your state tax refund.</li>
+            <li>E-file your return for free!</li>
+          </ol>
+        subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
+        when_file_by: When do I have to file by?
+        who_can_use_text: Who can use FileYourStateTaxes in Arizona?
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.

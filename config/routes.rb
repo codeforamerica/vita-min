@@ -537,8 +537,8 @@ Rails.application.routes.draw do
           get "explain_calculations", to: "confirmation#explain_calculations"
           get "pending_federal_return", to: "pending_federal_return#edit"
           get "canceled_data_transfer", to: "canceled_data_transfer#edit"
-          get "about", to: "about#edit"
         end
+        get "about_page", to: "state_file_pages#about_page"
       end
 
       scope ':us_state', constraints: { us_state: /az|ny/ } do
