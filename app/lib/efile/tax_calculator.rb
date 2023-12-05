@@ -26,12 +26,20 @@ module Efile
       @filing_status == :married_filing_jointly
     end
 
+    def filing_status_mfs?
+      @filing_status == :married_filing_separately
+    end
+
     def filing_status_single?
       @filing_status == :single
     end
 
     def filing_status_hoh?
       @filing_status == :head_of_household
+    end
+
+    def filing_status_qw?
+      @filing_status == :qualifying_widow
     end
 
     def line_or_zero(line)
