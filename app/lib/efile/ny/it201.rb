@@ -139,16 +139,14 @@ module Efile
       end
 
       def calculate_line_34
-        if filing_status_single?
-          if @direct_file_data.claimed_as_dependent?
-            3100
-          else
-            8000
-          end
+        if filing_status_single? && @direct_file_data.claimed_as_dependent?
+          3100
+        elsif filing_status_single? || filing_status_mfs?
+          8000
+        elsif filing_status_mfj? || filing_status_qw?
+          16050
         elsif filing_status_hoh?
           11200
-        elsif filing_status_mfj?
-          16050
         end
       end
 
