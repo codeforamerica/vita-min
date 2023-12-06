@@ -5,91 +5,112 @@
 
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
-  <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+  <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <%=
-          f.cfa_radio_set(
-            :had_box_11,
-            label_text: t('state_file.questions.unemployment.edit.had_box_11'),
-            collection: [
-              { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#unemployment-not-listed" } },
-              { value: :no, label: t('general.negative') },
-            ]
-          )
-        %>
-      </div>
-      <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
-        <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.need_additional_information') %></h1>
-        <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.payer_question_html') %></h1>
-        <%= f.cfa_input_field(:payer_name, t('state_file.questions.unemployment.edit.payer_name'), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:payer_street_address, t('state_file.questions.unemployment.edit.payer_address'), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:payer_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-        <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.state') %></h1>
-        <div class="text-input-group spacing-below-15 form-width--long">
-          <div class="text-input-group__prefix "><div class="text-input"><%= state_full_name %></div></div>
-        </div>
-        <%= f.cfa_input_field(:payer_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:payer_tin, t('state_file.questions.unemployment.edit.payer_tin'), classes: ["form-width--long"]) %>
-        <% if current_intake.filing_status_mfj? %>
+        <div class="blue-group spacing-below-15">
           <%=
             f.cfa_radio_set(
-              :recipient,
-              label_text: t('state_file.questions.unemployment.edit.recipient_question'),
+              :had_box_11,
+              label_text: t('state_file.questions.unemployment.edit.had_box_11'),
               collection: [
-                { value: :primary, label: t('state_file.questions.unemployment.edit.recipient_myself') },
-                { value: :spouse, label: t('state_file.questions.unemployment.edit.recipient_my_spouse') },
+                { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#unemployment-not-listed" } },
+                { value: :no, label: t('general.negative') },
               ]
             )
           %>
-        <% end %>
-        <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <% content_for :address_text do %>
-              <div class="text--bold">Address</div>
-              <div><%= current_intake.direct_file_data.mailing_street %></div>
-              <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_full_name %>
-                <%= current_intake.direct_file_data.mailing_zip %></div>
-            <% end %>
-            <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.confirm_address') %></h1>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
+        <div class="blue-group spacing-below-15">
+          <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.need_additional_information') %></h1>
+          <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.payer_question_html') %></h1>
+          <%= f.cfa_input_field(:payer_name, t('state_file.questions.unemployment.edit.payer_name'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:payer_street_address, t('state_file.questions.unemployment.edit.payer_address'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:payer_tin, t('state_file.questions.unemployment.edit.payer_tin'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:payer_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:payer_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
+          <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.state') %></h1>
+          <div class="text-input-group spacing-below-15 form-width--long">
+            <div class="text-input-group__prefix ">
+              <div class="text-input"><%= state_full_name %></div>
+            </div>
+          </div>
+          <p>
+            <%=  t('state_file.questions.unemployment.edit.other_tax_filing_options_html', link: StateFile::Questions::OtherFilingOptionsController.to_path_helper(us_state: params[:us_state], action: :edit)) %>
+          </p>
+        </div>
+        <% if current_intake.filing_status_mfj? %>
+          <div class="blue-group spacing-below-15">
             <%=
               f.cfa_radio_set(
-                :address_confirmation,
-                label_text: content_for(:address_text),
+                :recipient,
+                label_text: t('state_file.questions.unemployment.edit.recipient_question'),
                 collection: [
-                  { value: :yes, label: t('state_file.questions.unemployment.edit.confirm_address_yes') },
-                  { value: :no, label: t('state_file.questions.unemployment.edit.confirm_address_no'), input_html: { "data-follow-up": "#recipient-address-fields" } },
+                  { value: :primary, label: t('state_file.questions.unemployment.edit.recipient_myself') },
+                  { value: :spouse, label: t('state_file.questions.unemployment.edit.recipient_my_spouse') },
                 ]
               )
             %>
           </div>
-          <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
-            <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-            <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.state') %></h1>
-            <div class="text-input-group spacing-below-15 form-width--long">
-              <div class="text-input-group__prefix "><div class="text-input"><%= state_full_name %></div></div>
+        <% end %>
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <div class="blue-group spacing-below-15">
+              <% content_for :address_text do %>
+                <div class="text--bold">Address</div>
+                <div><%= current_intake.direct_file_data.mailing_street %></div>
+                <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_full_name %>
+                  <%= current_intake.direct_file_data.mailing_zip %></div>
+              <% end %>
+              <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.confirm_address') %></h1>
+
+              <%=
+                f.cfa_radio_set(
+                  :address_confirmation,
+                  label_text: content_for(:address_text),
+                  collection: [
+                    { value: :yes, label: t('state_file.questions.unemployment.edit.confirm_address_yes') },
+                    { value: :no, label: t('state_file.questions.unemployment.edit.confirm_address_no'), input_html: { "data-follow-up": "#recipient-address-fields" } },
+                  ]
+                )
+              %>
             </div>
-            <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
+            <div class="blue-group spacing-below-15">
+              <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
+              <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
+              <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.state') %></h1>
+              <div class="text-input-group spacing-below-15 form-width--long">
+                <div class="text-input-group__prefix ">
+                  <div class="text-input"><%= state_full_name %></div>
+                </div>
+              </div>
+              <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
+            </div>
           </div>
         </div>
-
-        <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></h1>
-        <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation'), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), classes: ["form-width--long"]) %>
-        <h1 class="form-question"><%=t('state_file.questions.unemployment.edit.box_10a') %></h1>
-        <div class="text-input-group spacing-below-15 form-width--long">
-          <div class="text-input-group__prefix "><div class="text-input"><%= state_full_name %></div></div>
+        <div class="blue-group spacing-below-15">
+          <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></h1>
+          <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), classes: ["form-width--long"]) %>
+          <h1 class="form-question"><%= t('state_file.questions.unemployment.edit.box_10a') %></h1>
+          <div class="text-input-group spacing-below-15 form-width--long">
+            <div class="text-input-group__prefix ">
+              <div class="text-input"><%= state_full_name %></div>
+            </div>
+          </div>
+          <%= f.cfa_input_field(:state_identification_number, t('state_file.questions.unemployment.edit.box_10b'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld'), classes: ["form-width--long"]) %>
         </div>
-        <%= f.cfa_input_field(:state_identification_number, t('state_file.questions.unemployment.edit.box_10b'), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld'), classes: ["form-width--long"]) %>
         <div class="reveal">
-          <p><a href="#" class="reveal__link"><%= t('state_file.questions.unemployment.edit.information_html') %></a></p>
+          <p><a href="#" class="reveal__link"><%= t('state_file.questions.unemployment.edit.information_html') %></a>
+          </p>
           <div class="reveal__content"><%= t('state_file.questions.unemployment.edit.information_content_html') %></div>
         </div>
       </div>
     </div>
-
     <button class="button button--primary button--wide button--icon text--left" type="submit">
       <%= t("general.continue") %>
     </button>
