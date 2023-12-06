@@ -27,7 +27,7 @@ module SubmissionBuilder
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn
               end
-              if @submission.data_source&.spouse.ssn.present?
+              if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
                 xml.Secondary do
                   xml.TaxpayerName do
                     xml.FirstName @submission.data_source.spouse.first_name
