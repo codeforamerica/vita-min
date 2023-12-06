@@ -3,7 +3,7 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".subtitle", state: (params[:us_state] == "az" ? "Arizona" : "New York")) %></p>
+  <p><%= t(".subtitle", state: States.name_for_key(params[:us_state].upcase)) %></p>
   <div class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.learn_more') %></a>
     </p>
