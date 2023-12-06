@@ -9,10 +9,17 @@
     <p><%=t(".body_text_html") %></p>
   </div>
   <p><%=t(".read_text") %></p>
-  <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
-    <%= t(".accept") %>
-  <% end %>
-  <div><button class="button">
-    <%= t(".decline") %>
-  </button></div>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary' do %>
+          <%= t(".accept") %>
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'no', class: 'button' do %>
+          <%= t(".decline") %>
+        <% end %>
+      </div>
+    </div>
+  <%end %>
 <% end %>

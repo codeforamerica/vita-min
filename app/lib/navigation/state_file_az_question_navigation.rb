@@ -14,6 +14,7 @@ module Navigation
       StateFile::Questions::VerificationCodeController,
       StateFile::Questions::CodeVerifiedController,
       StateFile::Questions::TermsAndConditionsController,
+      StateFile::Questions::DeclinedTermsAndConditionsController,
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::CanceledDataTransferController, # show? false
       StateFile::Questions::WaitingToLoadDataController,
