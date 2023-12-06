@@ -26,3 +26,6 @@
   <strong><%= t('.ny_section') %></strong>
   <%= render 'state_taxpayers' %>
 </section>
+<!--TODO - remove me-->
+<%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
+<%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
