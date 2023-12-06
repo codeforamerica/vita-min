@@ -7,17 +7,6 @@ RSpec.describe StateFile::Questions::NyCountyController do
     sign_in intake
   end
 
-  describe "#edit" do
-    it "assigns the correct data structure to @counties" do
-      get :edit, params: { us_state: "ny" }
-
-      counties = assigns(:counties)
-      expect(counties).to include('Montgomery')
-      expect(counties).to include('Nassau')
-      expect(counties).to eq counties.uniq
-    end
-  end
-
   describe "#update" do
     # use the return_to_review_concern shared example if the page
     # should skip to the review page when the return_to_review param is present

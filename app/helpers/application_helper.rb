@@ -119,6 +119,20 @@ module ApplicationHelper
     ]
   end
 
+  def ny_county_options_for_select
+    csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
+    csv_content = File.read(csv_file_path)
+
+    io = StringIO.new(csv_content)
+    CSV.parse(io, headers: true).map do |row|
+      row['County']
+    end.uniq
+  end
+
+  def ny_school_district_options_for_select(county)
+    NySchoolDistricts.county_school_districts_labels_for_select(county)
+  end
+
   def submission_status_icon(status)
     case status
     when "intake_in_progress", "fraud_hold"

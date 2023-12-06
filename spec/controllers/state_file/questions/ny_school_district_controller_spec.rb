@@ -7,17 +7,6 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
     sign_in intake
   end
 
-  describe "#edit" do
-    it "assigns the correct data structure to @school_districts including combined district names" do
-      get :edit, params: { us_state: "ny" }
-
-      school_districts = assigns(:school_districts)
-      expect(school_districts).to include(['Bellmore-Merrick CHS North Bellmore', 'Bellmore-Merrick CHS North Bellmore'])
-      expect(school_districts).to include(['Carle Place', 'Carle Place'])
-      expect(school_districts).to eq school_districts.uniq
-    end
-  end
-
   describe "#update" do
     context "when the code maps to the district name" do
       let(:form_params) {

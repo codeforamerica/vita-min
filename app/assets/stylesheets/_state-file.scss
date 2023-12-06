@@ -23,12 +23,69 @@
     }
   }
 
+  .h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 2.9rem;
+  }
+
+  .subtitle {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.4rem;
+  }
+
   .blue-group {
     padding: 1.9rem;
     margin-bottom: 2.5rem;
     background: $color-state-file-blue-box;
     border: 2px solid $color-state-file-blue-box-border;
     border-radius: 6px;
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-question {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-label--bold .form-question {
+      font-weight: 700;
+    }
+
+    .radio-button {
+      border: none;
+      background-color: transparent;
+      font-size: 1.6rem;
+      font-weight: normal;
+      margin: 0;
+      min-height: auto;
+      padding: 1rem 0 0 3.5rem;
+
+      input[type='radio'] {
+        left: 0.5rem;
+        top: 1.3rem;
+      }
+    }
+
+    .select {
+      height: 3.9rem;
+      line-height: 3.9rem;
+
+      .select__element {
+        font-size: 1.3rem;
+        font-weight: 400;
+        border: 1px solid #1B1B1B;
+        padding: 0 5.3rem 0 1rem;
+
+        ::after {
+          width: 5.3rem;
+        }
+      }
+    }
   }
 
   .button {
@@ -36,11 +93,10 @@
     font-size: 2.2rem;
     font-weight: 700;
     height: 6rem;
-    letter-spacing: 0rem;
+    letter-spacing: 0;
     line-height: 2.5rem;
     padding: 1.6rem 2.4rem 1.6rem 2.4rem;
     text-align: center;
-    width: 33.8rem;
   }
 
   .button--icon {
@@ -144,8 +200,8 @@
 }
 
 $state-colors: (
-  ny: $color-ny-blue,
-  az: $color-az-grey
+        ny: $color-ny-blue,
+        az: $color-az-grey
 );
 
 @each $state_key, $state-color in $state-colors {

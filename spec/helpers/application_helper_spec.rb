@@ -44,4 +44,22 @@ describe ApplicationHelper do
       expect(ctc_prior_tax_year).to eq(2017)
     end
   end
+
+  describe "ny_county_options_for_select" do
+    it "loads the correct data structure for NY counties" do
+      counties = ny_county_options_for_select
+      expect(counties).to include('Montgomery')
+      expect(counties).to include('Nassau')
+      expect(counties).to eq counties.uniq
+    end
+  end
+
+  describe "ny_school_district_options_for_select" do
+    it "loads the correct data structure for NY School Districts" do
+      school_districts = ny_school_district_options_for_select('Nassau')
+      expect(school_districts).to include(['Bellmore-Merrick CHS North Bellmore', 'Bellmore-Merrick CHS North Bellmore'])
+      expect(school_districts).to include(['Carle Place', 'Carle Place'])
+      expect(school_districts).to eq school_districts.uniq
+    end
+  end
 end
