@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyPrimaryStateIdController < QuestionsController
+    class NyPrimaryStateIdController < AuthenticatedQuestionsController
     end
   end
 end

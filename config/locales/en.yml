@@ -1926,6 +1926,16 @@ en:
           tip3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
           tip4: Additional fees may apply.
           title: 'Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:'
+      declined_terms_and_conditions:
+        edit:
+          action_html: "<b>Is this a mistake?</b>"
+          drop_down_html: |
+            <b>Want to file using a different product or service?</b><br>
+            Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Additional fees may apply.
+          faq_link: Visit our FAQ
+          go_back_link: Go back to correct.
+          subtitle: Unfortunately, in order to continue filing with FileYourStateTaxes, you must accept the terms and conditions.
+          title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
           body_html: |

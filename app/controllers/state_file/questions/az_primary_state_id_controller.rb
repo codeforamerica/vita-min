@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzPrimaryStateIdController < QuestionsController
+    class AzPrimaryStateIdController < AuthenticatedQuestionsController
     end
   end
 end

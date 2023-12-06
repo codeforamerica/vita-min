@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class SubmissionConfirmationController < QuestionsController
+    class SubmissionConfirmationController < AuthenticatedQuestionsController
       def edit
         raise ActiveRecord::RecordNotFound unless EfileSubmission.where(data_source: current_intake).present?
       end

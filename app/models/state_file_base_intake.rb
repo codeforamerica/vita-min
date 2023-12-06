@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  devise :lockable, :timeoutable, :trackable
+
   self.abstract_class = true
   has_one_attached :submission_pdf
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
@@ -22,6 +24,7 @@ class StateFileBaseIntake < ApplicationRecord
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
+  enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

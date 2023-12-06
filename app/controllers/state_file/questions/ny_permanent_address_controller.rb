@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyPermanentAddressController < QuestionsController
+    class NyPermanentAddressController < AuthenticatedQuestionsController
     end
   end
 end

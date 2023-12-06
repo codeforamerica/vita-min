@@ -1,9 +1,10 @@
 module StateFile
   module Questions
-    class TaxRefundController < QuestionsController
+    class TaxRefundController < AuthenticatedQuestionsController
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.positive?
       end
+
       def refund_amount
         current_intake.calculated_refund_or_owed_amount
       end

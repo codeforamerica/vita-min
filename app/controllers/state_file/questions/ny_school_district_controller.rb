@@ -2,7 +2,7 @@ require 'csv'
 
 module StateFile
   module Questions
-    class NySchoolDistrictController < QuestionsController
+    class NySchoolDistrictController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
       before_action :get_county_school_districts_from_csv, only: [:edit]

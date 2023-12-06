@@ -1,0 +1,16 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <h1 class="h2"><%= t(".subtitle") %></h1>
+
+  <div><%= t(".action_html") %></div>
+  <%= link_to(StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit, us_state: params[:us_state])) do %>
+    <%= t('.go_back_link') %>
+  <% end %>
+
+  <p class="spacing-above-35" > <%= t('.drop_down_html') %></p>
+  <!--    TODO: replace with real FAQ link-->
+  <%= link_to t(".faq_link"), root_path %>
+<% end %>
