@@ -209,12 +209,16 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def disqualifying_eligibility_rules
-    {
+    rules = {
       eligibility_lived_in_state: "no",
       eligibility_yonkers: "yes",
       eligibility_out_of_state_income: "yes",
       eligibility_part_year_nyc_resident: "yes",
       eligibility_withdrew_529: "yes"
     }
+    if direct_file_data.mailing_state != 'NY'
+      rules.merge!(confirmed_permanent_address: "yes")
+    end
+    rules 
   end
 end
