@@ -58,7 +58,7 @@
     <% end %>
   </head>
 
-  <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
+  <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% elsif state_file? %>class="state-file"<% end %>>
     <div class="page-wrapper">
       <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
       <% unless hub? %>
@@ -70,6 +70,8 @@
           <%= yield :header %>
         <% elsif hub? %>
           <%= render 'shared/hub_header' %>
+        <% elsif state_file? %>
+          <%= render 'state_file/state_file_pages/header' %>
         <% else %>
           <%= render 'shared/header', variation: "gyr", home_link: root_path %>
         <% end %>
@@ -86,7 +88,13 @@
           <%= yield(:notice) if content_for?(:notice) %>
 
           <%= content_for?(:main) ? yield(:main) : yield %>
-          <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
+          <% if content_for :footer %>
+            <%= yield :footer %>
+          <% elsif state_file? %>
+            <%= render 'state_file/state_file_pages/footer' %>
+          <% else %>
+            <%= render 'shared/footer' %>
+          <% end %>
         </div>
       </div>
     </div>

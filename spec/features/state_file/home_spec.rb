@@ -7,6 +7,6 @@ RSpec.feature "Visit State File home page" do
 
   it "has content" do
     visit "/"
-    expect(page).to have_text "State File"
+    expect(page).to have_text "FileYourStateTaxes"
   end
 end
