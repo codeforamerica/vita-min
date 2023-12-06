@@ -22,7 +22,7 @@
     </div>
 
     <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-      <%= f.submit t("general.get_started"), class: "button button--primary", id: "firstCta" %>
+      <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
     <% end %>
   </div>
 <% end %>

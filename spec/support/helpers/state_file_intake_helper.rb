@@ -1,6 +1,6 @@
 module StateFileIntakeHelper
   def step_through_eligibility_screener(us_state:)
-    expect(page).to have_text "First, let's see if you can use this tool to file your taxes"
+    expect(page).to have_text I18n.t("state_file.questions.eligibility_residence.edit.title")
     case us_state
     when "ny"
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
@@ -11,7 +11,7 @@ module StateFileIntakeHelper
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
       click_on "Continue"
 
-      expect(page).to have_text("Did you withdraw money from a 529 college savings account in 2023?")
+      expect(page).to have_text I18n.t("state_file.questions.ny_eligibility_college_savings_withdrawal.edit.withdraw_529")
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
     when "az"
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
@@ -23,7 +23,7 @@ module StateFileIntakeHelper
     end
     click_on "Continue"
 
-    expect(page).to have_text("Good news, you can use this tool this year to file your state taxes. Here are the credits you can claim with this tool to maximize your refund.")
+    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
     click_on "Continue"
   end
 
