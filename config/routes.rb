@@ -561,8 +561,6 @@ Rails.application.routes.draw do
     end
 
     namespace :state_file, path: "/" do
-      root to: "state_file_pages#redirect_locale_home", as: :state_file_redirected_root
-
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#about_page"
         get "/fake_direct_file_transfer_page", to: "state_file_pages#fake_direct_file_transfer_page"
