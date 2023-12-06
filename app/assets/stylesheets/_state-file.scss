@@ -194,8 +194,8 @@
 }
 
 $state-colors: (
-        ny: $color-ny-blue,
-        az: $color-az-grey
+  ny: $color-ny-blue,
+  az: $color-az-grey
 );
 
 @each $state_key, $state-color in $state-colors {
