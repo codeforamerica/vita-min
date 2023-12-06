@@ -1,0 +1,39 @@
+<% title = t(".header") %>
+<h1 class="h2 strong" style="font-weight: bold"><%= title %></h1>
+<div>
+  <%= t(".subheader_html") %>
+</div><br>
+<div>
+  <%= link_to t(".action1_text"), "" %>
+</div><br>
+<div>
+  <%= t(".action2") %>
+  <%= link_to t(".action2_text"), "" %>
+</div>
+
+<div class="blue-group spacing-below-15 spacing-above-15">
+  <%= t(".section1_html", direct_file_url: '') %>
+</div>
+
+<h1 class="h2"><%= t('.common_questions') %></h1>
+
+<section>
+  <strong><%= t('.az_section') %></strong>
+  <%= render 'state_taxpayers' %>
+</section>
+
+<section>
+  <strong><%= t('.ny_section') %></strong>
+  <%= render 'state_taxpayers' %>
+</section>
+
+<% unless Rails.env.production? %>
+  <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
+  <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
+  <% if session[:state_file_intake] %>
+    <div class="with-padding-med">
+      Your session has this intake: <b><%= session[:state_file_intake] %></b>
+      <%= button_to "Clear", StateFile::StateFilePagesController.to_path_helper(action: :clear_session) %>
+    </div>
+  <% end %>
+<% end %>

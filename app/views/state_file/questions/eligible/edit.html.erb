@@ -1,28 +1,32 @@
-<% title = t(".title") %>
+<% title1 = t(".title1") %>
 
-<% content_for :page_title, title %>
+<% content_for :page_title, title1 %>
 <% content_for :card do %>
-  <h1 class="h2"><%= title %></h1>
+  <h1 class="h2"><%= title1 %></h1>
+  <h2 class="h2"><%= t(".title2") %></h2>
 
-  <% if params[:us_state] == "az" %>
-    <ul>
-      <li><%= t(".increased_deduction") %></li>
-      <li><a href="#"><%= t(".dependent_credit") %></a></li>
-      <li><a href="#"><%= t(".family_income_credit") %></a></li>
-      <li><a href="#"><%= t(".increased_excise_credit") %></a></li>
-    </ul>
-  <% else %>
-    <ul>
-      <li><a href="#"><%= t(".nys_hh_credit") %></a></li>
-      <li><a href="#"><%= t(".empire_state_ctc") %></a></li>
-      <li><a href="#"><%= t(".nys_eic") %></a></li>
-      <li><a href="#"><%= t(".real_property_credit") %></a></li>
-    </ul>
-  <% end %>
+  <div class="blue-group">
+      <% if params[:us_state] == "az" %>
+        <ul class="list--bulleted">
+          <li><%= t(".increased_deduction") %></li>
+          <li><a href="#"><%= t(".dependent_credit") %></a></li>
+          <li><a href="#"><%= t(".family_income_credit") %></a></li>
+          <li><a href="#"><%= t(".increased_excise_credit") %></a></li>
+        </ul>
+      <% else %>
+        <ul class="list--bulleted">
+          <li><a href="#"><%= t(".nys_hh_credit") %></a></li>
+          <li><a href="#"><%= t(".empire_state_ctc") %></a></li>
+          <li><a href="#"><%= t(".nys_eic") %></a></li>
+          <li><a href="#"><%= t(".real_property_credit") %></a></li>
+        </ul>
+      <% end %>
+  </div>
 
+  <!-- TODO: This is supposed to be an expandable help section -->
   <p><%= t(".not_supported") %></p>
 
-  <%= link_to next_path, class: "button button--primary", id: "firstCta" do %>
+  <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
     <%= t("general.continue") %>
   <% end %>
 <% end %>

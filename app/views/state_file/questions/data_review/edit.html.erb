@@ -1,15 +1,16 @@
-<% content_for :page_title, "The page with the submit button" %>
+<% title = t('.title') %>
+<% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2">
-    <%= t('.title') %>
+    <%= title %>
   </h1>
 
   <strong>
     <%= t(".basic_household_info_title") %>
   </strong>
   <p>
-    <%= t(".basic_household_info_description") %>
+    <%= t(".partially_complete_description") %>
     <%= image_tag("icons/exclamation.svg", alt: "") %>
   </p>
 
@@ -25,7 +26,7 @@
     <%= t(".income_and_deductions_title") %>
   </strong>
   <p>
-    <%= t(".income_and_deductions_description") %>
+    <%= t(".partially_complete_description") %>
     <%= image_tag("icons/exclamation.svg", alt: "") %>
   </p>
 
