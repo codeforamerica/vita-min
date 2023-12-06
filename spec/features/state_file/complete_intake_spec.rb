@@ -32,8 +32,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # name dob page
-      expect(page).to have_text "You’re almost done filing!"
-      expect(page).to have_text "First, please provide some more information about you and the people in your family"
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
       fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
       select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
@@ -43,7 +43,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
       within "#dependent-0" do
-        expect(page).to have_text "Your first dependent's name and date of birth"
+        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
         expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
         expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
 
@@ -84,11 +84,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "Please provide information for your spouse’s state issued ID"
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
-      fill_in  I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
+      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
       select_cfa_date "state_file_ny_spouse_state_id_form_expiration_date", Time.now + 4.year
       select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
-      fill_in  I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
+      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
@@ -175,13 +175,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "You’re almost done filing!"
-      expect(page).to have_text "First, please provide some more information about you and the people in your family"
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
 
       within "#dependent-0" do
-        expect(page).to have_text "Your first dependent's name and date of birth"
+        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
         expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
         expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
 

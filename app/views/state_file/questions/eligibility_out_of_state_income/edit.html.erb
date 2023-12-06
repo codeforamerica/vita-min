@@ -4,36 +4,43 @@
 <% content_for :card do %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.cfa_radio_set(
-          :eligibility_out_of_state_income,
-          label_text: t(".out_of_state_income"),
-          collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]
-        ) %>
-
-    <% if params[:us_state] == "ny" %>
+    <div class="blue-group">
       <%= f.cfa_radio_set(
-            :eligibility_part_year_nyc_resident,
-            label_text: t(".part_year_nyc_resident"),
+            :eligibility_out_of_state_income,
+            label_text: t(".out_of_state_income"),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
             ]
           ) %>
+    </div>
+
+    <% if params[:us_state] == "ny" %>
+      <div class="blue-group">
+        <%= f.cfa_radio_set(
+              :eligibility_part_year_nyc_resident,
+              label_text: t(".part_year_nyc_resident_html"),
+              collection: [
+                { value: "yes", label: t("general.affirmative") },
+                { value: "no", label: t("general.negative") },
+              ]
+            ) %>
+      </div>
     <% end %>
 
     <% if params[:us_state] == "az" %>
-      <%= f.cfa_radio_set(
-            :eligibility_529_for_non_qual_expense,
-            label_text: t(".used_529_for_non_qual_expense"),
-            collection: [
-              { value: "yes", label: t("general.affirmative") },
-              { value: "no", label: t("general.negative") },
-            ]
-          ) %>
+      <div class="blue-group">
+        <%= f.cfa_radio_set(
+              :eligibility_529_for_non_qual_expense,
+              label_text: t(".used_529_for_non_qual_expense"),
+              collection: [
+                { value: "yes", label: t("general.affirmative") },
+                { value: "no", label: t("general.negative") },
+              ]
+            ) %>
+      </div>
     <% end %>
+
     <%= f.continue %>
   <% end %>
 <% end %>
