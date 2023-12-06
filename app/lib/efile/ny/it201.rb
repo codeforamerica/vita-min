@@ -164,19 +164,7 @@ module Efile
 
       def nys_tax_from_tables(taxable_income)
         table =
-          if filing_status_mfj?
-            [
-              TaxTableRow.new(-Float::INFINITY, 17_150, 0, 0.0400),
-              TaxTableRow.new(17_150, 23_600, 686, 0.0450),
-              TaxTableRow.new(23_600, 27_900, 976, 0.0525),
-              TaxTableRow.new(27_900, 161_550, 1_202, 0.0585),
-              TaxTableRow.new(161_550, 323_200, 9_021, 0.0625),
-              TaxTableRow.new(323_200, 2_155_350, 19_124, 0.0685),
-              TaxTableRow.new(2_155_350, 5_000_000, 144_626, 0.0965),
-              TaxTableRow.new(5_000_000, 25_000_000, 419_135, 0.103),
-              TaxTableRow.new(25_000_000, Float::INFINITY, 247_9135, 0.109)
-            ]
-          else
+          if filing_status_single? || filing_status_mfs?
             [
               TaxTableRow.new(-Float::INFINITY, 8_500, 0, 0.0400),
               TaxTableRow.new(8_500, 11_700, 340, 0.0450),
@@ -188,9 +176,33 @@ module Efile
               TaxTableRow.new(5_000_000, 25_000_000, 450_500, 0.103),
               TaxTableRow.new(25_000_000, Float::INFINITY, 2_510_500, 0.109)
             ]
+          elsif filing_status_mfj? || filing_status_qw?
+            [
+              TaxTableRow.new(-Float::INFINITY, 17_150, 0, 0.0400),
+              TaxTableRow.new(17_150, 23_600, 686, 0.0450),
+              TaxTableRow.new(23_600, 27_900, 976, 0.0525),
+              TaxTableRow.new(27_900, 161_550, 1_202, 0.0585),
+              TaxTableRow.new(161_550, 323_200, 9_021, 0.0625),
+              TaxTableRow.new(323_200, 2_155_350, 19_124, 0.0685),
+              TaxTableRow.new(2_155_350, 5_000_000, 144_626, 0.0965),
+              TaxTableRow.new(5_000_000, 25_000_000, 419_135, 0.103),
+              TaxTableRow.new(25_000_000, Float::INFINITY, 2_479_135, 0.109)
+            ]
+          else # head of household
+            [
+              TaxTableRow.new(-Float::INFINITY, 12_800, 0, 0.0400),
+              TaxTableRow.new(12_800, 17_650, 512, 0.0450),
+              TaxTableRow.new(17_650, 20_900, 730, 0.0525),
+              TaxTableRow.new(20_900, 107_650, 901, 0.0585),
+              TaxTableRow.new(107_650, 269_300, 5_976, 0.0625),
+              TaxTableRow.new(269_300, 1_616_450, 16_079, 0.0685),
+              TaxTableRow.new(1_616_450, 5_000_000, 108_359, 0.0965),
+              TaxTableRow.new(5_000_000, 25_000_000, 434_871, 0.103),
+              TaxTableRow.new(25_000_000, Float::INFINITY, 2_494_871, 0.109)
+            ]
           end
-        table_row = table.reverse.find do |table_row|
-          taxable_income > table_row.floor && (taxable_income <= table_row.ceiling)
+        table_row = table.reverse.find do |tr|
+          taxable_income > tr.floor && (taxable_income <= tr.ceiling)
         end
 
         table_row.compute(taxable_income)
@@ -420,39 +432,36 @@ module Efile
         # federal adjusted gross income from Form IT-201, line 19, minus distributions from an individual retirement
         # account and an individual retirement annuity, from Form IT-201, line 9, if they were included in your federal
         # adjusted gross income.
-        if (line_or_zero(:IT201_LINE_19) - line_or_zero(:IT201_LINE_9)) < 250_000 && @intake.nyc_full_year_resident_yes?
-          if @filing_status.in?([:single, :married_filing_separately, :head_of_household])
-            63
-          else
-            125
-          end
-        else
-          0
-        end
+        income_eligible = (line_or_zero(:IT201_LINE_19) - line_or_zero(:IT201_LINE_9)) < 250_000
+        # TODO: The instructions provide a credit to part-year nyc residents based on number of months in NYC - should we support that?
+        return 0 unless income_eligible && @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
+
+        @filing_status.in?([:single, :married_filing_separately, :head_of_household]) ? 63 : 125
       end
 
       def calculate_line_69a
+        # TODO: The instructions provide a credit to part-year nyc residents based on number of months in NYC - should we support that?
         return 0 unless @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)
         result = case @filing_status
                  when :married_filing_jointly, :qualifying_widow
                    if nyc_taxable_income.positive? && nyc_taxable_income <= 21_600
-                     nyc_taxable_income * 0.171
+                     nyc_taxable_income * 0.00171
                    elsif nyc_taxable_income > 21_600 && nyc_taxable_income <= 500_000
-                     37 + ((nyc_taxable_income - 21_600) * 0.228)
+                     37 + ((nyc_taxable_income - 21_600) * 0.00228)
                    end
                  when :single, :married_filing_separately
                    if nyc_taxable_income.positive? && nyc_taxable_income <= 12_000
-                     nyc_taxable_income * 0.171
+                     nyc_taxable_income * 0.00171
                    elsif nyc_taxable_income > 12_000 && nyc_taxable_income <= 500_000
-                     21 + ((nyc_taxable_income - 12_000) * 0.228)
+                     21 + ((nyc_taxable_income - 12_000) * 0.00228)
                    end
                  when :head_of_household
                    if nyc_taxable_income.positive? && nyc_taxable_income <= 14_400
-                     nyc_taxable_income * 0.171
+                     nyc_taxable_income * 0.00171
                    elsif nyc_taxable_income > 14_400 && nyc_taxable_income <= 500_000
-                     25 + ((nyc_taxable_income - 14_400) * 0.228)
+                     25 + ((nyc_taxable_income - 14_400) * 0.00228)
                    end
                  else
                    raise "Unknown filing status!"
@@ -506,19 +515,26 @@ module Efile
         # I want to leave it in here until we have at least one more such tax table.
         row = Struct.new(:floor, :ceiling, :cumulative, :rate)
         table =
-          if filing_status_mfj?
+          if filing_status_mfj? || filing_status_qw?
             [
-              row.new(-Float::INFINITY, 21600, 0, 0.03078),
-              row.new(21600, 45000, 665, 0.03762),
-              row.new(45000, 90000, 1545, 0.03819),
-              row.new(90000, Float::INFINITY, 3264, 0.03876)
+              row.new(-Float::INFINITY, 21_600, 0, 0.03078),
+              row.new(21_600, 45_000, 665, 0.03762),
+              row.new(45_000, 90_000, 1_545, 0.03819),
+              row.new(90_000, Float::INFINITY, 3_264, 0.03876)
+            ]
+          elsif filing_status_hoh?
+            [
+              row.new(-Float::INFINITY, 14_400, 0, 0.03078),
+              row.new(14_400, 30_000, 443, 0.03762),
+              row.new(30_000, 60_000, 1_030, 0.03819),
+              row.new(60_000, Float::INFINITY, 2_176, 0.03876)
             ]
           else
             [
-              row.new(-Float::INFINITY, 12000, 0, 0.03078),
-              row.new(12000, 25000, 369, 0.03762),
-              row.new(25000, 50000, 858, 0.03819),
-              row.new(50000, Float::INFINITY, 1813, 0.03876)
+              row.new(-Float::INFINITY, 12_000, 0, 0.03078),
+              row.new(12_000, 25_000, 369, 0.03762),
+              row.new(25_000, 50_000, 858, 0.03819),
+              row.new(50_000, Float::INFINITY, 1_813, 0.03876)
             ]
           end
 
@@ -531,78 +547,96 @@ module Efile
 
       def nys_household_credit(amount)
         # The NYS household credit table in IT-201 instructions starts at
-        # household size of 1. So `amount` in the struct is for household
+        # household size of 1. So `amount_1` in the struct is for household
         # size of 1.
-        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
+        row = Struct.new(:floor, :ceiling, :amounts, :household_member_increment)
         table =
-          if filing_status_mfj?
+          if filing_status_single?
             [
-              row.new(-Float::INFINITY, 5000, 45, 8),
-              row.new(5_000, 6_000, 38, 8),
-              row.new(6_000, 7_000, 33, 8),
-              row.new(7_000, 20_000, 30, 8),
-              row.new(20_000, 22_000, 30, 5),
-              row.new(22_000, 25_000, 25, 5),
-              row.new(25_000, 28_000, 20, 3),
-              row.new(28_000, 32_000, 10, 3),
-              row.new(32_000, Float::INFINITY, 0, 0)
+              row.new(-Float::INFINITY, 5000, [75, 75, 75, 75, 75, 75, 75], 0),
+              row.new(5_000, 6_000, [60, 60, 60, 60, 60, 60, 60], 0),
+              row.new(6_000, 7_000, [50, 50, 50, 50, 50, 50, 50], 0),
+              row.new(7_000, 20_000, [45, 45, 45, 45, 45, 45, 45], 0),
+              row.new(20_000, 25_000, [40, 40, 40, 40, 40, 40, 40], 0),
+              row.new(25_000, 28_000, [20, 20, 20, 20, 20, 20, 20], 0),
+              row.new(28_000, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
+            ]
+          elsif filing_status_mfs?
+            [
+              row.new(-Float::INFINITY, 5_000, [45, 53, 60, 68, 75, 83, 90], 8),
+              row.new(5_000, 6_000, [38, 45, 53, 60, 68, 75, 84], 8),
+              row.new(6_000, 7_000, [33, 40, 48, 55, 63, 70, 78], 8),
+              row.new(7_000, 20_000, [30, 38, 45, 53, 60, 68, 75], 8),
+              row.new(20_000, 22_000, [30, 35, 40, 45, 50, 55, 60], 5),
+              row.new(22_000, 25_000, [25, 30, 35, 40, 45, 50, 55], 5),
+              row.new(25_000, 28_000, [20, 23, 25, 28, 30, 33, 35], 3),
+              row.new(28_000, 32_000, [10, 13, 15, 18, 20, 23, 25], 3),
+              row.new(32_000, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
           else
             [
-              row.new(-Float::INFINITY, 5000, 75, 0),
-              row.new(5_000, 6_000, 60, 0),
-              row.new(6_000, 7_000, 50, 0),
-              row.new(7_000, 20_000, 45, 0),
-              row.new(20_000, 25_000, 40, 0),
-              row.new(25_000, 28_000, 20, 0),
-              row.new(28_000, Float::INFINITY, 0, 0)
+              row.new(-Float::INFINITY, 5_000, [90, 105, 120, 135, 150, 165, 180], 15),
+              row.new(5_000, 6_000, [75, 90, 105, 120, 135, 150, 165], 15),
+              row.new(6_000, 7_000, [65, 80, 95, 110, 125, 140, 155], 15),
+              row.new(7_000, 20_000, [60, 75, 90, 105, 120, 135, 150], 15),
+              row.new(20_000, 22_000, [60, 70, 80, 90, 100, 110, 120], 10),
+              row.new(22_000, 25_000, [50, 60, 70, 80, 90, 100, 110], 10),
+              row.new(25_000, 28_000, [40, 45, 50, 55, 60, 65, 70], 5),
+              row.new(28_000, 32_000, [20, 25, 30, 35, 40, 45, 50], 5),
+              row.new(32_000, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
           end
-        num_filers =
-          if filing_status_mfj?
-            2
-          else
-            1
-          end
+        num_filers = filing_status_mfj? || filing_status_mfs? ? 2 : 1
         household_size = @dependent_count + num_filers
-        table_row = table.reverse.find do |table_row|
-          amount > table_row.floor && (amount <= table_row.ceiling)
+        table_row = table.reverse.find do |tr|
+          amount > tr.floor && (amount <= tr.ceiling)
         end
-        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
+        if household_size > 7
+          table_row.amounts[6] + ((household_size - 7) * table_row.household_member_increment)
+        else
+          table_row.amounts[household_size - 1]
+        end
       end
 
       def nyc_household_credit(amount)
         # The NYC household credit table in IT-201 instructions starts at
-        # household size of 1. So `amount` in the struct is for household
+        # household size of 1. So `amount_1` in the struct is for household
         # size of 1.
-        row = Struct.new(:floor, :ceiling, :amount, :household_member_increment)
-        table = if filing_status_mfj?
-          [
-            row.new(-Float::INFINITY, 15_000, 30, 30),
-            row.new(15_000, 17_500, 25, 25),
-            row.new(17_500, 20_000, 15, 15),
-            row.new(20_000, 22_500, 10, 10),
-            row.new(22_500, Float::INFINITY, 0, 0)
-          ]
-        else
-          [
-            row.new(-Float::INFINITY, 10_000, 15, 0),
-            row.new(10_000, 12_500, 10, 0),
-            row.new(12_500, Float::INFINITY, 0, 0)
-          ]
-        end
-
-        num_filers =
-          if filing_status_mfj?
-            2
+        row = Struct.new(:floor, :ceiling, :amounts, :household_member_increment)
+        table =
+          if filing_status_single?
+            [
+              row.new(-Float::INFINITY, 10_000, [15, 15, 15, 15, 15, 15, 15], 0),
+              row.new(10_000, 12_500, [10, 10, 10, 10, 10, 10, 10], 0),
+              row.new(12_500, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
+            ]
+          elsif filing_status_mfs?
+            [
+              row.new(-Float::INFINITY, 15_000, [5, 30, 45, 60, 75, 90, 105], 15),
+              row.new(15_000, 17_500, [3, 25, 38, 50, 63, 75, 88], 13),
+              row.new(17_500, 20_000, [8, 15, 23, 30, 38, 45, 53], 8),
+              row.new(20_000, 22_500, [5, 10, 15, 20, 25, 30, 35], 5),
+              row.new(22_500, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
+            ]
           else
-            1
+            [
+              row.new(-Float::INFINITY, 15_000, [30, 60, 90, 120, 150, 180, 210], 30),
+              row.new(15_000, 17_500, [25, 50, 75, 100, 125, 150, 175], 25),
+              row.new(17_500, 20_000, [15, 30, 45, 60, 75, 90, 105], 15),
+              row.new(20_000, 22_500, [10, 20, 30, 40, 50, 60, 70], 10),
+              row.new(22_500, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
+            ]
           end
+        num_filers = filing_status_mfj? || filing_status_mfs? ? 2 : 1
         household_size = @dependent_count + num_filers
-        table_row = table.reverse.find do |table_row|
-          amount > table_row.floor && (amount <= table_row.ceiling)
+        table_row = table.reverse.find do |tr|
+          amount > tr.floor && (amount <= tr.ceiling)
         end
-        table_row.amount + ((household_size - 1) * table_row.household_member_increment)
+        if household_size > 7
+          table_row.amounts[6] + ((household_size - 7) * table_row.household_member_increment)
+        else
+          table_row.amounts[household_size - 1]
+        end
       end
     end
 

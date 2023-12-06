@@ -13,6 +13,8 @@
 #  charitable_noncash                    :integer          default(0)
 #  consented_to_terms_and_conditions     :integer          default("unfilled"), not null
 #  contact_preference                    :integer          default("unfilled"), not null
+#  current_sign_in_at                    :datetime
+#  current_sign_in_ip                    :inet
 #  current_step                          :string
 #  date_electronic_withdrawal            :date
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
@@ -21,7 +23,11 @@
 #  eligibility_out_of_state_income       :integer          default("unfilled"), not null
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
+#  failed_attempts                       :integer          default(0), not null
 #  has_prior_last_names                  :integer          default("unfilled"), not null
+#  last_sign_in_at                       :datetime
+#  last_sign_in_ip                       :inet
+#  locked_at                             :datetime
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
@@ -34,6 +40,7 @@
 #  raw_direct_file_data                  :text
 #  referrer                              :string
 #  routing_number                        :string
+#  sign_in_count                         :integer          default(0), not null
 #  source                                :string
 #  spouse_esigned                        :integer          default("unfilled"), not null
 #  spouse_esigned_at                     :datetime

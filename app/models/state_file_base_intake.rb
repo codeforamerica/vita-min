@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  devise :lockable, :timeoutable, :trackable
+
   self.abstract_class = true
   has_one_attached :submission_pdf
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
@@ -65,6 +67,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def filing_status_mfj?
     filing_status == :married_filing_jointly
+  end
+
+  def filing_status_mfs?
+    filing_status == :married_filing_separately
   end
 
   def primary

@@ -2,7 +2,7 @@ require 'csv'
 
 module StateFile
   module Questions
-    class NyCountyController < QuestionsController
+    class NyCountyController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
       
       def edit

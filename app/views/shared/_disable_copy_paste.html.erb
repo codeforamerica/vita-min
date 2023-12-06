@@ -1,0 +1,17 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var disable_paste_elements = document.querySelectorAll('input.disablepaste');
+        disable_paste_elements.forEach(function(element) {
+            element.addEventListener('paste', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        var disable_copy_elements = document.querySelectorAll('input.disablecopy');
+        disable_copy_elements.forEach(function(element) {
+            element.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+        });
+    });
+</script>

@@ -18,10 +18,21 @@ RSpec.describe PdfFiller::Ny201Pdf do
   end
 
   describe '#hash_for_pdf' do
+    let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
+
     it 'uses field names that exist in the pdf' do
-      pdf_fields = filled_in_values(submission.generate_filing_pdf.path)
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
       expect(missing_fields).to eq([])
+    end
+
+    context 'when the filing status is married filing separately' do
+      before do
+        submission.data_source.direct_file_data.filing_status = 3
+        submission.data_source.direct_file_data.spouse_ssn = '555123456'
+      end
+      it 'fills in the spouse SSN field correctly' do
+        expect(pdf_fields['Spouse_SSN']).to eq '555123456'
+      end
     end
   end
 end

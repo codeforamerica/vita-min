@@ -7,6 +7,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
       let(:intake) { create :state_file_az_owed_intake}
       before do
         session[:state_file_intake] = intake.to_global_id
+        sign_in intake
       end
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
@@ -22,6 +23,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
       let(:intake) { create :state_file_az_refund_intake }
       before do
         session[:state_file_intake] = intake.to_global_id
+        sign_in intake
       end
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do

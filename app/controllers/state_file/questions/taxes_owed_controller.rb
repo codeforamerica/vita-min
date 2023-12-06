@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class TaxesOwedController < QuestionsController
+    class TaxesOwedController < AuthenticatedQuestionsController
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.negative? # what happens if zero?
       end
