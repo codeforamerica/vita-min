@@ -1838,6 +1838,14 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     questions:
+      return_status:
+        edit:
+          download_state_return_pdf: Download your state return
+          explain_calcs: Explain Calculations
+          show_xml: Show XML
+        pending:
+          receive_email: You'll receive an email or text update when your state tax return is accepted. This can take 1-2 days.
+          more_than_two_days: "If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us."
       az_charitable_contributions:
         edit:
           charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
