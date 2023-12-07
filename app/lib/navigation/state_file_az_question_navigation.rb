@@ -33,7 +33,7 @@ module Navigation
       StateFile::Questions::TaxesOwedController,
       StateFile::Questions::TaxRefundController,
       StateFile::Questions::EsignDeclarationController,
-      StateFile::Questions::SubmissionConfirmationController,
+      # StateFile::Questions::SubmissionConfirmationController,
       StateFile::Questions::ReturnStatusController,
     ].freeze
 
