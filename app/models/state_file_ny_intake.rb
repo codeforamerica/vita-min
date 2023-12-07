@@ -46,6 +46,7 @@
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
+#  permanent_address_outside_ny       :integer          default("unfilled"), not null
 #  permanent_apartment                :string
 #  permanent_city                     :string
 #  permanent_street                   :string
@@ -109,6 +110,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_yonkers: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_yonkers
   enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
+  enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
 
   before_save do
     save_nil_enums_with_unfilled
@@ -209,16 +211,13 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def disqualifying_eligibility_rules
-    rules = {
+    {
       eligibility_lived_in_state: "no",
       eligibility_yonkers: "yes",
       eligibility_out_of_state_income: "yes",
       eligibility_part_year_nyc_resident: "yes",
-      eligibility_withdrew_529: "yes"
+      eligibility_withdrew_529: "yes",
+      permanent_address_outside_ny: "yes",
     }
-    if direct_file_data.mailing_state != 'NY'
-      rules.merge!(confirmed_permanent_address: "yes")
-    end
-    rules 
   end
 end

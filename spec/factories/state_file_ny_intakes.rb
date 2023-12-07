@@ -46,6 +46,7 @@
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
+#  permanent_address_outside_ny       :integer          default("unfilled"), not null
 #  permanent_apartment                :string
 #  permanent_city                     :string
 #  permanent_street                   :string

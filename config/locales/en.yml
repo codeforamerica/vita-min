@@ -1964,7 +1964,7 @@ en:
             <br/><br/>
             <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
           ineligible_reason:
-            confirmed_permanent_address: you did not live in New York for all of 2023
+            permanent_address_outside_ny: you did not live in New York for all of 2023
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
