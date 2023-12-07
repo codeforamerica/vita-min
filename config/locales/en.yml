@@ -2063,6 +2063,14 @@ en:
         edit:
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
+      other_filing_options:
+        edit:
+          faq_link: Visit our FAQ
+          learn_more: Learn more about this process
+          state_options: What are my other state filing options?
+          subtitle: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
+          title: Can’t use this tool this year? Don’t worry, here are other filing options.
+          vita_link: Get started with VITA now
       pending_federal_return:
         edit:
           title_html: |
@@ -2209,7 +2217,7 @@ en:
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
           federal_income_tax_withheld: Box 4, Federal income tax withheld
-          had_box_11: On your unemployment compensation (Form 1099-G), did you have an amount listed for state income tax withheld (Box 11)?
+          had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
             Next, find the requested information in the following locations: </br>
@@ -2219,12 +2227,13 @@ en:
               <li><b>Payer’s information,</b> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
               <li><b>Boxes 1, 4, 10b, and 11</b> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
-          information_html: "<b>How do I find this information?</b>"
+          information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need to ask for some additional information about what’s on Form 1099-G. (If you had more than one 1099-G, don’t worry, you can add it at the end.)
+          other_tax_filing_options_html: <strong>Reminder:</strong> In 2024, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
-          payer_question_html: Please enter the payer’s information <b>located in the top left corner</b> of the form
+          payer_question_html: Please enter the payer’s information <b>located in the top left corner</b> of the form&#58;
           payer_tin: Payer’s TIN (XX-XXXXXXX)
           recipient_my_spouse: My spouse
           recipient_myself: Myself

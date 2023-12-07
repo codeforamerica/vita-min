@@ -43,7 +43,7 @@ module SubmissionBuilder
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_32)
                 xml.NYSAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_33)
                 xml.STD_ITZ_IND claimed: 1
-                xml.DED_AMT claimed: calculated_fields.fetch(:IT201_LINE_34)
+                xml.DED_AMT claimed: calculated_fields.fetch(:IT201_LINE_34) #returning empty
                 xml.INC_B4_EXMPT_AMT claimed: calculated_fields.fetch(:IT201_LINE_35)
                 xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
                 xml.TXBL_INC_AMT claimed: calculated_fields.fetch(:IT201_LINE_37)
