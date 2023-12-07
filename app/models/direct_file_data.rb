@@ -124,7 +124,7 @@ class DirectFileData
   end
 
   def spouse_occupation=(value)
-    create_or_destroy_df_xml_node(__method__, value)
+    create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
