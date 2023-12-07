@@ -8,58 +8,13 @@
   <% content_for :head_js do %>
     <%= javascript_pack_tag 'application', 'state_file', defer: true %>
   <% end %>
-  <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
   <% content_for :header do %>
-    <header class="main-header sticky-header">
-      <div class="toolbar">
-        <div class="toolbar__left">
-          <div class="toolbar__item main-header__title">
-            <%= link_to state_file_root_path, class: "toolbar__logo-text main-header__logo" do %>
-              State File
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </header>
+    <% render 'state_file/state_file_pages/header' %>
   <% end %>
+
   <% content_for :footer do %>
-    <footer class="footer">
-      <div class="slab slab--footer">
-        <div class="grid">
-          <div class="grid__item width-three-fourths footer-description">
-            <p>
-              <%= image_tag("checkbox-logo--white.png", alt: "") %>
-            </p>
-            <p>
-              <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-              StateTaxesDirectFile.org is a non-profit tool built by <%= cfa_link %> in partnership with the IRS and the state of <%= state_full_name %>.
-            </p>
-          </div>
-
-          <ul class="grid__item width-one-fourth footer-links">
-            <li>
-              <% if I18n.locale != :en %>
-                <%= link_to_english %>
-              <% end %>
-              <% if I18n.locale != :es %>
-                <%= link_to_spanish %>
-              <% end %>
-            </li>
-
-            <li>
-              <%= link_to "https://www.getyourrefundstatus.org/" do %>
-                <%= t("views.shared.footer.service_status") %>
-              <% end %>
-            </li>
-
-            <% unless Rails.env.production? %>
-              <li><%= link_to "Flow explorer", flows_path %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <% render 'state_file/state_file_pages/footer' %>
   <% end %>
 
   <% content_for :meta_tags do %>

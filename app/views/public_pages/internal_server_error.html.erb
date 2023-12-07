@@ -13,11 +13,17 @@
           </h1>
 
           <div class="offboarding--help-text">
-            <p><%=t("views.public_pages.error.body") %></p>
-
-            <p>
-              <strong><%=t("views.public_pages.error.contact_html", :email_link => mail_to("support@getyourrefund.org")) %></strong>
-            </p>
+            <% if state_file? %>
+              <p class="h2"><%=t("views.public_pages.error.body") %></p>
+              <p class="h2">
+                <%=t("views.public_pages.error.contact_html", :email_link => mail_to("help@fileyourstatetaxes.org")) %>
+              </p>
+            <% else %>
+              <p><%=t("views.public_pages.error.body") %></p>
+              <p>
+                <strong><%=t("views.public_pages.error.contact_html", :email_link => mail_to("support@getyourrefund.org")) %></strong>
+              </p>
+            <% end %>
           </div>
 
           <div class="buttons--vertical-stack">
