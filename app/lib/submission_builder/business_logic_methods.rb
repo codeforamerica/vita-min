@@ -43,6 +43,10 @@ module SubmissionBuilder
       ((submission.client.previous_sessions_active_seconds || 0) + current_session_duration) / 60
     end
 
+    def state_file_total_preparation_submission_minutes
+      (submission.created_at.to_datetime.to_i - submission.data_source.created_at.to_datetime.to_i) / 60
+    end
+
     def spouse_name_control(intake)
       name = intake.use_primary_name_for_name_control ? intake.primary.last_name : intake.spouse.last_name
       name_control_type(name)
