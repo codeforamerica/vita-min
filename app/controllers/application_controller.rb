@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   def state_file?
-    self.class.name.include?("StateFile::") || request.domain.include?("statefile") || request.domain.include?("fileyourstatetaxes")
+    self.class.name.include?("StateFile::") || request.domain&.include?("statefile") || request.domain&.include?("fileyourstatetaxes")
   end
 
   def current_intake
