@@ -4,6 +4,11 @@ module StateFile
   module Questions
     class NySchoolDistrictController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
+      helper_method :school_district_options
+
+      def school_district_options
+        NySchoolDistricts.county_school_districts_labels_for_select(current_intake.residence_county)
+      end
 
       private
 
