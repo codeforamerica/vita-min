@@ -9,11 +9,11 @@ module StateFile
       def title
         case return_status
         when 'accepted'
-          'Your 2023 Arizona state tax return is accepted'
+          I18n.t("state_file.questions.return_status.accepted.title")
         when 'rejected'
-          'Unfortunately, your 2023 Arizona state tax return was rejected'
+          I18n.t("state_file.questions.return_status.rejected.title")
         else
-          'You have submitted your 2023 Arizona tax return, and it is still waiting to be accepted.'
+          I18n.t("state_file.questions.return_status.pending.title")
         end
       end
 
