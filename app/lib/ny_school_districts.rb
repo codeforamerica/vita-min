@@ -1,4 +1,11 @@
 class NySchoolDistricts
+
+  def self.county_labels_for_select
+    self.all_county_rows_from_csv.map do |county_name, _county_rows|
+      county_name
+    end.uniq
+  end
+
   def self.county_school_districts_labels_for_select(county)
     self.county_rows_from_csv(county).map do |row|
       combined_name = [row['School District'], row['Use Elementary School District']].join(" ").strip
@@ -31,14 +38,20 @@ class NySchoolDistricts
   end
 
   def self.county_rows_from_csv(county)
-    @county_rows ||= begin
-      csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
-      CSV.read(csv_file_path, headers: true).each_with_object({}) do |row, hash|
-        hash[row["County"]] ||= []
-        hash[row["County"]] << row
+    self.all_county_rows_from_csv[county]
+  end
+
+  def self.all_county_rows_from_csv
+    @county_rows ||=
+      begin
+        csv_file_path = Rails.root.join("app/lib/efile/ny/school_districts.csv")
+        CSV.read(csv_file_path, headers: true).each_with_object({}) do |row, hash|
+          hash[row["County"]] ||= []
+          hash[row["County"]] << row
+        end
       end
-    end
-    @county_rows[county]
+
+    @county_rows
   end
 end
 

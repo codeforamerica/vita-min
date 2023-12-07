@@ -45,6 +45,44 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     label_text.html_safe
   end
 
+  def vita_min_state_file_select(
+    method,
+    label_text,
+    collection,
+    options = {},
+    &block
+  )
+
+    html_options = {
+      class: "select__element",
+    }
+
+    label_class = options[:label_class] || ""
+    label_class += options[:hide_label] ? " sr-only" : ""
+    formatted_label = label(
+      method,
+      label_contents(
+        label_text,
+        options[:help_text],
+        options[:optional],
+        ),
+      class: label_class,
+      )
+    html_options_with_errors = html_options.merge(error_attributes(method: method))
+
+    html_output = <<~HTML
+          <div class="form-group#{error_state(object, method)}">
+            #{formatted_label}
+            <div class="select">
+              #{select(method, collection, options, html_options_with_errors, &block)}
+            </div>
+            #{errors_for(object, method)}
+          </div>
+        HTML
+
+    html_output.html_safe
+  end
+
   def vita_min_select(
     method,
     label_text,

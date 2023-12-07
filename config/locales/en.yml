@@ -510,6 +510,7 @@ en:
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     select_file: Select file
+    select_prompt: "-Select-"
     send: Send
     send_message: Send message
     separated: Separated

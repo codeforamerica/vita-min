@@ -512,6 +512,7 @@ es:
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     select_file: Seleccionar archivo
+    select_prompt: "-Seleccionar-"
     send: Enviar
     send_message: Enviar un mensaje
     separated: Separado

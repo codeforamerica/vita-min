@@ -11,7 +11,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-15">
       <div class="question-with-follow-up__question">
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group">
           <div class="spacing-below-5">
             <% content_for :address_text do %>
               <div class="text--bold"><%=t(".address_header") %></div>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
-        <div class="highlight-box highlight-box--blue spacing-below-15">
+        <div class="blue-group">
           <div class="spacing-below-25">
             <%=t(".where_did_you_live") %>
           </div>

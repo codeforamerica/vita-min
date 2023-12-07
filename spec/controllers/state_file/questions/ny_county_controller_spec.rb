@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
     it "assigns the correct data structure to @counties" do
       get :edit, params: { us_state: "ny" }
 
-      counties = assigns(:counties)
+      counties = subject.county_options
       expect(counties).to include('Montgomery')
       expect(counties).to include('Nassau')
       expect(counties).to eq counties.uniq
