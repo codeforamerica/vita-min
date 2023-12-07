@@ -44,11 +44,6 @@ class EfileSubmission < ApplicationRecord
                                 WHERE efile_submissions.tax_return_id = tax_returns.id) AND year = ?", MultiTenantService.new(:ctc).current_tax_year)
   }
 
-  # scope :most_recent_by_current_year, lambda {
-  #   where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions
-  #                               WHERE year = ?", MultiTenantService.new(:ctc).current_tax_year)
-  # }
-
   scope :for_state_filing, lambda {
     where(data_source_type: STATE_INTAKE_CLASS_NAMES)
   }
