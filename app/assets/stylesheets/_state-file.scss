@@ -207,6 +207,11 @@
       border-top: 1px solid #BCBCBC;
     }
   }
+
+  .return-status {
+    p { text-align: center; }
+    img { height: 80px; width: 80px;}
+  }
 }
 
 $state-colors: (
