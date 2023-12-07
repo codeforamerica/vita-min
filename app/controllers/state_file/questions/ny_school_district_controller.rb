@@ -4,14 +4,13 @@ module StateFile
   module Questions
     class NySchoolDistrictController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
+      helper_method :school_district_options
 
-      before_action :get_county_school_districts_from_csv, only: [:edit]
+      def school_district_options
+        NySchoolDistricts.county_school_districts_labels_for_select(current_intake.residence_county)
+      end
 
       private
-
-      def get_county_school_districts_from_csv
-        @school_districts = NySchoolDistricts.county_school_districts_labels_for_select(current_intake.residence_county)
-      end
 
       def form_params
         school_district_from_params = params[:state_file_ny_school_district_form][:school_district]

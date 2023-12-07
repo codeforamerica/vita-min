@@ -1,0 +1,23 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle", state: States.name_for_key(params[:us_state].upcase)) %></p>
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.learn_more') %></a>
+    </p>
+    <!--    TODO: replace filler text-->
+    <div class="reveal__content"><%= t('.learn_more') %></div>
+  </div>
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.state_options') %></a>
+    </p>
+<!--    TODO: replace filler text-->
+    <div class="reveal__content"><%= t('.learn_more') %></div>
+  </div>
+
+  <p><%= link_to t(".vita_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home') %></p>
+<!--  TODO: replace with FAQ link once exists-->
+  <p><%= link_to t(".faq_link"), root_path %></p>
+<% end %>

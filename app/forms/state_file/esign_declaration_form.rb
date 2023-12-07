@@ -18,7 +18,7 @@ module StateFile
       efile_submission = EfileSubmission.create!(
         data_source: @intake,
       )
-      if Rails.env.development? || Rails.env.test?
+      if Rails.env.development? || Rails.env.test? || Rails.env.demo?
         efile_submission.transition_to(:preparing)
       end
 

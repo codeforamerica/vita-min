@@ -60,13 +60,17 @@ module SubmissionBuilder
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
-              if @submission.data_source.filing_status_mfj? || @submission.data_source.filing_status_mfs?
+              if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
                   xml.FIRST_NAME @submission.data_source.spouse.first_name
                   xml.MI_NAME @submission.data_source.spouse.middle_initial
                   xml.LAST_NAME @submission.data_source.spouse.last_name
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
                   xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation
+                end
+              elsif @submission.data_source.filing_status_mfs?
+                xml.tiSpouse do
+                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
                 end
               end
 

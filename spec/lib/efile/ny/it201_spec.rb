@@ -60,8 +60,8 @@ describe Efile::Ny::It201 do
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(36_200) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(1_905)
+        expect(instance.lines[:IT201_LINE_38].value).to eq(28_200) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_437)
       end
     end
 
@@ -92,8 +92,8 @@ describe Efile::Ny::It201 do
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(36_200) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(1_688)
+        expect(instance.lines[:IT201_LINE_38].value).to eq(20_150) # taxable income
+        expect(instance.lines[:IT201_LINE_39].value).to eq(821)
       end
     end
   end

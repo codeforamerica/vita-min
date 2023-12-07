@@ -4,23 +4,13 @@ module StateFile
   module Questions
     class NyCountyController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-      
-      def edit
-        @counties = counties_from_csv
-        super
+      helper_method :county_options
+
+      def county_options
+        NySchoolDistricts.county_labels_for_select
       end
 
       private
-
-      def counties_from_csv
-        csv_file_path = Rails.root.join('docs', 'ny_school_districts.csv')
-        csv_content = File.read(csv_file_path)
-
-        io = StringIO.new(csv_content)
-        CSV.parse(io, headers: true).map do |row|
-          row['County']
-        end.uniq
-      end
 
       def illustration_path; end
     end
