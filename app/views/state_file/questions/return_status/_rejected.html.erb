@@ -9,21 +9,30 @@
 </h1>
 
 <p>
-  <%= t('.receive_email') %>
+  <%#= t('.receive_email') %>
 </p>
 
 
 <p>
-  <%= t('.more_than_two_days') %>
+  <%#= t('.more_than_two_days') %>
 </p>
+<section class="spacing-below-15">
+  <strong><%= t('.reject_code') %></strong>
+  <%= reject_code %>
+</section>
 
-<p>
-  <strong><%= t('.whats_next') %></strong>
-  <%= t('.receive_email') %>
-</p>
+<section class="spacing-below-15">
+  <strong><%= t('.reject_desc') %></strong>
+  <%= reject_description %>
+</section>
 
+<section class="spacing-below-15">
+  <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
+  <%= t('.its_unusual') %>
+</section>
 
-<p>
-  <strong><%= t('.have_questions') %></strong>
-  <%= t('.more_than_two_days') %>
-</p>
+<section>
+  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+  <%= t('.contact_us') %>
+</section>
+
