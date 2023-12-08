@@ -25,6 +25,25 @@ RSpec.describe PdfFiller::Ny201Pdf do
       expect(missing_fields).to eq([])
     end
 
+    it 'sets static fields to the correct values' do
+      expect(pdf_fields['TP_mail_state']).to eq 'NY'
+      expect(pdf_fields['Foreign_account']).to eq 'no'
+      expect(pdf_fields['yonkers_freeze_credit']).to eq 'no'
+    end
+
+    context 'when primary and spouse dobs are set' do
+      before do
+        submission.data_source.direct_file_data.filing_status = 2
+        submission.data_source.primary_birth_date = Date.parse("1978-04-01")
+        submission.data_source.spouse_birth_date = Date.parse("1979-05-01")
+      end
+
+      it 'fills dob fields with the correct date format' do
+        expect(pdf_fields['TP_DOB']).to eq '04011978'
+        expect(pdf_fields['Spouse_DOB']).to eq '05011979'
+      end
+    end
+
     context 'when the filing status is married filing separately' do
       before do
         submission.data_source.direct_file_data.filing_status = 3
