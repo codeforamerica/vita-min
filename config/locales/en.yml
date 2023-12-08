@@ -2104,15 +2104,19 @@ en:
           info_link: View where to find this information
       return_status:
         accepted:
+          check_your_refund_html: '<a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
+
+            '
+          direct_debit_html: 'If you didn’t select direct debit, remember to pay your taxes by mail or online at <a target="_blank" rel="noopener nofollow" href="https://AZTaxes.gov">AZTaxes.gov</a> before the April 15 filing deadline.
+
+            '
+          help_friend_html: 'Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
+
+            '
+          register_to_vote_html: '<a target="_blank" rel="noopener nofollow" href="">Register to vote.</a>
+
+            '
           title: Your 2023 Arizona state tax return is accepted
-          check_your_refund_html: |
-            <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
-          help_friend_html: |
-            Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
-          register_to_vote_html: |
-            <a target="_blank" rel="noopener nofollow" href="">Register to vote.</a>
-          direct_debit_html: |
-            If you didn’t select direct debit, remember to pay your taxes by mail or online at <a target="_blank" rel="noopener nofollow" href="https://AZTaxes.gov">AZTaxes.gov</a> before the April 15 filing deadline.
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
@@ -2122,13 +2126,13 @@ en:
           receive_email: You'll receive an email or text update when your state tax return is accepted. This can take 1-2 days.
           title: You have submitted your 2023 Arizona tax return, and it is still waiting to be accepted.
         rejected:
-          title: Unfortunately, your 2023 Arizona state tax return was rejected
-          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to do anything else.
           contact_us: Contact our team of experts by clicking chat with us. Contact our team of Support Specialists by clicking chat with us.
           have_questions: Have questions?
+          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to do anything else.
+          reject_code: 'Reject Code:'
+          reject_desc: 'Reject Description:'
+          title: Unfortunately, your 2023 Arizona state tax return was rejected
           whats_next: What's next?
-          reject_code: "Reject Code:"
-          reject_desc: "Reject Description:"
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
