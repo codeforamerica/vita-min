@@ -95,7 +95,10 @@ class IrsApiService
     # puts "Response Code: #{response.code}"
     # puts "Response Body: #{plain}"
 
-    Nokogiri::XML(JSON.parse(plain)['xml']).to_xml
+    decrypted_json = JSON.parse(plain)
+    federal_submission_id = decrypted_json['submissionId']
+    federal_return_status = decrypted_json['status'] # "accepted", etc.
+    Nokogiri::XML(decrypted_json['xml']).to_xml
   end
 
   private
