@@ -472,6 +472,10 @@ class DirectFileData
     total_exempt_primary_spouse.zero?
   end
 
+  def primary_has_itin?
+    primary_ssn.start_with?("9")
+  end
+
   def fed_65_primary_spouse
     elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
     value = 0

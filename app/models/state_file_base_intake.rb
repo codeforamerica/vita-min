@@ -124,6 +124,10 @@ class StateFileBaseIntake < ApplicationRecord
     def first_name_and_middle_initial
       [@first_name, @middle_initial].map(&:presence).compact.join(' ')
     end
+
+    def has_itin?
+      @ssn.start_with?("9")
+    end
   end
 
   def disqualifying_eligibility_answer
