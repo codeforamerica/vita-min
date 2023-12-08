@@ -53,7 +53,7 @@ module SubmissionBuilder
                 xml.COUNTY_NAME @submission.data_source.residence_county
                 xml.PERM_LN_1_ADR @submission.data_source.permanent_street
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city
-                xml.PERM_ST_ADR "NY" # TODO: make sure we do want to hardcode this
+                xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
                 xml.SCHOOL_CD @submission.data_source.school_district_number
                 xml.SCHOOL_NAME @submission.data_source.school_district

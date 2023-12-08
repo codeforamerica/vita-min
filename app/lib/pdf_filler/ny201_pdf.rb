@@ -18,16 +18,17 @@ module PdfFiller
         TP_first_name: @xml_document.at('tiPrime FIRST_NAME')&.text,
         TP_MI: @xml_document.at('tiPrime MI_NAME')&.text,
         TP_last_name: @xml_document.at('tiPrime LAST_NAME')&.text,
-        TP_DOB: claimed_attr_value('PR_DOB_DT'),
+        TP_DOB: @submission.data_source.primary&.birth_date&.strftime("%m%d%Y"),
         TP_SSN: @xml_document.at('EXT_TP_ID')&.text,
         Spouse_first_name: @xml_document.at('tiSpouse FIRST_NAME')&.text,
         Spouse_MI: @xml_document.at('tiSpouse MI_NAME')&.text,
         Spouse_last_name: @xml_document.at('tiSpouse LAST_NAME')&.text,
-        Spouse_DOB: @xml_document.at('tiSpouse SP_DOB_DT')&.text,
+        Spouse_DOB: @submission.data_source.spouse&.birth_date&.strftime("%m%d%Y"),
         Spouse_SSN: @xml_document.at('tiSpouse SP_SSN_NMBR')&.text,
         TP_mail_address: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text, # TODO: Awaiting changes in The Spreadsheet
         NYS_county_residence: @xml_document.at('tiPrime COUNTY_NAME')&.text,
         TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
+        TP_mail_state: @xml_document.at('tiPrime MAIL_STATE_ADR')&.text,
         TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text,
         TP_mail_country: 'United Sates',
         SD_name: @xml_document.at('tiPrime SCHOOL_NAME')&.text,
@@ -38,6 +39,9 @@ module PdfFiller
         Filing_status: xml_value_to_pdf_checkbox('Filing_status', "FS_CD"),
         Itemized: xml_value_to_pdf_checkbox('Itemized', 'FED_ITZDED_IND'),
         Dependent: xml_value_to_pdf_checkbox('Dependent', 'DEP_CLAIM_IND'),
+        Foreign_account: xml_value_to_pdf_checkbox('Foreign_account', 'FORGN_ACCT_IND'),
+        yonkers_freeze_credit: xml_value_to_pdf_checkbox('yonkers_freeze_credit', 'YNK_LVNG_QTR_IND'),
+        E1: xml_value_to_pdf_checkbox('E1', 'NYC_LVNG_QTR_IND'),
       }
       if @submission.data_source.nyc_full_year_resident_yes?
         answers[:F1_NYC] = '12'
@@ -134,6 +138,18 @@ module PdfFiller
         1 => 'yes',
         2 => 'no',
       },
+      'Foreign_account' => {
+        1 => 'yes',
+        2 => 'no',
+      },
+      'yonkers_freeze_credit' => {
+        1 => 'yes',
+        2 => 'no',
+      },
+      'E1' => {
+        1 => 'yes',
+        2 => 'no',
+      },
       'Line78_refund' => {
         'TODO1' => 'direct deposit',
         'TODO2' => 'check',
@@ -168,7 +184,7 @@ module PdfFiller
         answers["H_last#{index}"] = dependent.last_name
         answers["H_relationship#{index}"] = dependent.relationship
         answers["H_dependent_ssn#{index}"] = dependent.ssn
-        answers["H_dependent_dob#{index}"] = dependent.dob.strftime("%m/%d/%Y")
+        answers["H_dependent_dob#{index}"] = dependent.dob.strftime("%m%d%Y")
       end
       answers
     end

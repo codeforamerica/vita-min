@@ -21,8 +21,10 @@ module SubmissionBuilder
               build_xml_doc("IT201") do |xml|
                 xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
                 xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
-                xml.FED_ITZDED_IND claimed: 2
-                xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2
+                xml.FED_ITZDED_IND claimed: 2 # Always 2 == NO
+                xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
+                xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
+                xml.YNK_LVNG_QTR_IND claimed: 2 # Always 2 == NO
                 xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 if @submission.data_source.nyc_full_year_resident_yes?
                   xml.PR_NYC_MNTH_NMBR claimed: 12
