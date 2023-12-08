@@ -18,14 +18,15 @@ module StateFile
       end
 
       def return_status
-        case current_intake.efile_submissions.last.current_state
-        when 'accepted'
-          'accepted'
-        when 'rejected'
-          'rejected'
-        else
-          'pending'
-        end
+        'rejected'
+        # case current_intake.efile_submissions.last.current_state
+        # when 'accepted'
+        #   'accepted'
+        # when 'rejected'
+        #   'rejected'
+        # else
+        #   'pending'
+        # end
       end
     end
   end

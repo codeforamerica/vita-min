@@ -2105,6 +2105,8 @@ en:
       return_status:
         accepted:
           title: Your 2023 Arizona state tax return is accepted
+          whats_next: What's next?
+          have_questions: Have questions?
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
