@@ -537,9 +537,31 @@ class DirectFileData
   def w2_nodes
     parsed_xml.css('IRSW2').map do |node|
       W2.new(
+        employee_ssn: node.at('EmployeeSSN')&.text,
+        employer_ein: node.at('EmployerEIN')&.text,
+        employer_name: node.at('EmployerNameControlTxt')&.text,
+        employer_street_address: node.at('EmployerUSAddress AddressLine1Txt')&.text,
+        employer_city: node.at('EmployerUSAddress AddressLine1Txt')&.text,
+        employer_state: node.at('EmployerUSAddress AddressLine1Txt')&.text,
+        employer_zip_code: node.at('EmployerUSAddress AddressLine1Txt')&.text,
+        wages_amount: node.at('WagesAmt')&.text,
+        box8_allocated_tips: node.at('AllocatedTipsAmt')&.text,
+        box10_dependent_care_benefits: node.at('DependentCareBenefitsAmt')&.text,
+        box11_nonqualified_plans: node.at('NonqualifiedPlansAmt')&.text,
+        box12a_code: node.at('EmployersUseGrp EmployersUseCd')&.text,
+        box12a_value: node.at('EmployersUseGrp EmployersUseAmt')&.text,
+        box12b_code: node.at('EmployersUseGrp EmployersUseCd')[1]&.text,
+        box12b_value: node.at('EmployersUseGrp EmployersUseAmt')[1]&.text,
+        box12c_code: node.at('EmployersUseGrp EmployersUseCd')[2]&.text,
+        box12c_value: node.at('EmployersUseGrp EmployersUseAmt')[2]&.text,
+        box12d_code: node.at('EmployersUseGrp EmployersUseCd')[3]&.text,
+        box12d_value: node.at('EmployersUseGrp EmployersUseAmt')[3]&.text,
+        box13_retirement_plan: node.at('RetirementPlanInd')&.text,
+        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text,
 
       )
     end
+    
   end
 
   def build_new_w2_node
