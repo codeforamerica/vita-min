@@ -24,6 +24,7 @@
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
 #  failed_attempts                       :integer          default(0), not null
+#  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
@@ -52,6 +53,7 @@
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  federal_submission_id                 :string
 #  primary_state_id_id                   :bigint
 #  spouse_state_id_id                    :bigint
 #  visitor_id                            :string
