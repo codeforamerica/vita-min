@@ -2105,6 +2105,14 @@ en:
       return_status:
         accepted:
           title: Your 2023 Arizona state tax return is accepted
+          check_your_refund_html: |
+            <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
+          help_friend_html: |
+            Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
+          register_to_vote_html: |
+            <a target="_blank" rel="noopener nofollow" href="">Register to vote.</a>
+          direct_debit_html: |
+            If you didn’t select direct debit, remember to pay your taxes by mail or online at <a target="_blank" rel="noopener nofollow" href="https://AZTaxes.gov">AZTaxes.gov</a> before the April 15 filing deadline.
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations

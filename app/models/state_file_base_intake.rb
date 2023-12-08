@@ -42,6 +42,7 @@ class StateFileBaseIntake < ApplicationRecord
     calculator = tax_calculator
     calculator.calculate
     calculator.refund_or_owed_amount
+    -417
   end
 
   def refund_or_owe_taxes_type

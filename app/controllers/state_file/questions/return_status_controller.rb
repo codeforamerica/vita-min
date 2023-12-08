@@ -1,7 +1,7 @@
 module StateFile
   module Questions
     class ReturnStatusController < AuthenticatedQuestionsController
-      helper_method :return_status, :title, :reject_code, :reject_description
+      helper_method :return_status, :title, :reject_code, :reject_description, :refund_or_owed_amount, :refund_url
 
       def edit; end
 
@@ -17,16 +17,43 @@ module StateFile
       end
 
       def return_status
-        # 'rejected'
-        case current_intake.efile_submissions.last.current_state
-        when 'accepted'
-          'accepted'
-        when 'rejected'
-          'rejected'
+        'accepted'
+        # case current_intake.efile_submissions.last.current_state
+        # when 'accepted'
+        #   'accepted'
+        # when 'rejected'
+        #   'rejected'
+        # else
+        #   'pending'
+        # end
+      end
+
+      def refund_or_owed_amount
+        current_intake.calculated_refund_or_owed_amount
+      end
+
+      def refund_url
+        case params[:us_state]
+        when 'ny'
+          'https://www.tax.ny.gov/pit/file/refund.htm'
+        when 'az'
+          'https://aztaxes.gov/home/checkrefund'
         else
-          'pending'
+          ''
         end
       end
+
+      def pay_mail_online_link
+        case params[:us_state]
+        when "ny"
+          'https://www.tax.ny.gov/'
+        when 'az'
+          'https://www.aztaxes.gov/Home/PaymentIndividual/'
+        else
+          ''
+        end
+      end
+      helper_method :pay_mail_online_link
 
       def e_file_error
         @error ||= current_intake.efile_submissions.last.last_transition.efile_errors.take
