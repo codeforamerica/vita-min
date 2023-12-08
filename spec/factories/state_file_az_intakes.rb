@@ -49,6 +49,7 @@
 #  spouse_middle_initial                 :string
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null

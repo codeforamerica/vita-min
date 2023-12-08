@@ -3,13 +3,12 @@ module Efile
     class Az140 < ::Efile::TaxCalculator
       attr_reader :lines
 
-      def initialize(year:, filing_status:, intake:, dependent_count:, direct_file_data:, include_source: false)
+      def initialize(year:, intake:, include_source: false)
         @year = year
-
-        @filing_status = filing_status # single, married_filing_jointly, that's all we support for now
         @intake = intake
-        @dependent_count = dependent_count # number
-        @direct_file_data = direct_file_data
+        @filing_status = intake.filing_status.to_sym # single, married_filing_jointly, that's all we support for now
+        @dependent_count = intake.dependents.length # number
+        @direct_file_data = intake.direct_file_data
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
         @lines = HashWithIndifferentAccess.new
       end
@@ -232,11 +231,11 @@ module Efile
 
 
       def calculate_line_56
-        if @direct_file_data.primary_ssn.present? && !@direct_file_data.claimed_as_dependent? && !@intake.sentenced_for_60_days
+        if @direct_file_data.primary_ssn.present? && !@direct_file_data.primary_ssn.start_with?("9") && !@direct_file_data.claimed_as_dependent? && !@intake.was_incarcerated_yes?
           # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
           if filing_status_mfj? || filing_status_hoh?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 25000
-          elsif filing_status_single?
+          elsif filing_status_single? || filing_status_mfs?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 12500
           end
           wrksht_line_2 = filing_status_mfj? ? 2 : 1

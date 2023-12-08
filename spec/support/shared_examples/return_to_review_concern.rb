@@ -26,7 +26,14 @@ shared_examples :return_to_review_concern do
         when "ny"
           controllers = Navigation::StateFileNyQuestionNavigation::FLOW.to_a
         end
-        next_controller = controllers[controllers.index(described_class) + 1]
+
+        next_controller_to_show = nil
+        increment = 1
+        while next_controller_to_show.nil?
+          next_controller = controllers[controllers.index(described_class) + increment]
+          next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
+          increment += 1
+        end
         expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first, us_state: form_params[:us_state])
       end
     end
