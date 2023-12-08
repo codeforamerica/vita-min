@@ -1843,6 +1843,10 @@ en:
           charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
           charitable_noncash: 'Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
           title: Did you make charitable contributions to a qualifying organization in 2023?
+      az_incarcerated:
+        edit:
+          title_single: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          title_spouse: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
       az_prior_last_names:
         edit:
           prior_last_names_label: 'If yes, enter all last names used in previous years. (Ex: Smith, Jones, Brown)'
@@ -1855,6 +1859,7 @@ en:
           charitable_cash: Cash contributions
           charitable_contributions: Made charitable contributions
           charitable_noncash: Non-cash contributions
+          incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
           last_names: Other last names in the last four years
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_05_211820) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_07_081909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1626,6 +1626,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_211820) do
     t.integer "tribal_wages"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
+    t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
     t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
