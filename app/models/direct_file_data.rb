@@ -536,7 +536,7 @@ class DirectFileData
 
   def w2_nodes
     parsed_xml.css('IRSW2').map do |node|
-      W2.new(
+      w2 = W2.new(
         employee_ssn: node.at('EmployeeSSN')&.text,
         employer_ein: node.at('EmployerEIN')&.text,
         employer_name: node.at('EmployerNameControlTxt')&.text,
@@ -560,6 +560,15 @@ class DirectFileData
         box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text,
 
       )
+      w2_state_fields_group = W2StateFieldsGroup.new(
+        box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
+        box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
+        box17_state_income_tax: node.at('W2StateTaxGrp StateIncomeTaxAmt')&.text,
+        box18_local_wages: node.at('W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt')&.text,
+        box19_local_income_tax: node.at('W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt')&.text,
+        box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
+        )
+      w2.w2_state_fields_group = w2_state_fields_group
     end
     
   end
