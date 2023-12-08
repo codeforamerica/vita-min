@@ -535,7 +535,11 @@ class DirectFileData
   end
 
   def w2_nodes
-    parsed_xml.css('IRSW2')
+    parsed_xml.css('IRSW2').map do |node|
+      W2.new(
+
+      )
+    end
   end
 
   def build_new_w2_node
