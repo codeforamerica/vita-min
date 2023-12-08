@@ -583,6 +583,7 @@ class DirectFileData
         w2.w2_box14 = w2_box14
       end
     end
+    
   end
 
   def build_new_w2_node
