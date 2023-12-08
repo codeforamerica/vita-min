@@ -43,18 +43,6 @@ module StateFile
         end
       end
 
-      def pay_mail_online_link
-        case params[:us_state]
-        when "ny"
-          'https://www.tax.ny.gov/'
-        when 'az'
-          'https://www.aztaxes.gov/Home/PaymentIndividual/'
-        else
-          ''
-        end
-      end
-      helper_method :pay_mail_online_link
-
       def e_file_error
         @error ||= current_intake.efile_submissions.last.last_transition.efile_errors.take
       end
