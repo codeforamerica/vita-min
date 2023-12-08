@@ -564,8 +564,6 @@ class DirectFileData
         box12d_value: employers_use_grps[3]&.dig(:value),
         box13_retirement_plan: node.at('RetirementPlanInd')&.text,
         box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text,
-
-        )
       w2_state_fields_group = W2StateFieldsGroup.new(
         box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
         box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
@@ -582,6 +580,8 @@ class DirectFileData
           )
         w2.w2_box14 = w2_box14
       end
+=======
+>>>>>>> 2843e8908 (Fill in more W2 logic)
     end
     
   end
