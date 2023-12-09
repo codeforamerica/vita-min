@@ -18,7 +18,7 @@ module SubmissionBuilder
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
-        # xml.IRSSubmissionId "abcdefg"
+        xml.IRSSubmissionId data_source.federal_submission_id
       end
     end
   end
