@@ -30,8 +30,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.federal_submission_id).to eq "91873649812736"
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
-        # it looks like there is a bug related to parsing dependents in the xml
-        # expect(intake.dependents.count).to eq(5)
+        expect(intake.dependents.count).to eq(5)
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
     end

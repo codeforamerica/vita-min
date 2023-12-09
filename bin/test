@@ -24,6 +24,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
       spec/lib/pdf_filler/ny213_pdf_spec.rb \
       spec/lib/pdf_filler/ny214_pdf_spec.rb \
       spec/lib/pdf_filler/ny215_pdf_spec.rb \
+      spec/lib/submission_bundle_spec.rb \
       spec/lib/submission_builder/ty2022 \
       spec/lib/submission_builder/shared/return_header1040_spec.rb \
       spec/lib/submission_builder/federal_manifest_spec.rb \
