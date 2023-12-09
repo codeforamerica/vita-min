@@ -1840,8 +1840,18 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash: 'Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash: 'Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
+          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
+          learn_more_content_html: |
+            Charitable contributions include cash and non-cash donations to qualifying organizations.<br><br>
+            Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check here to see if an organization qualifies.<br><br>
+            Do not include:<br>
+            <ul><li>gifts made directly to individuals;</li>
+            <li>political contributions;</li>
+            <li>all fees paid to public schools, including fees paid that qualify for the Public School Tax Credit;</li>
+            <li>money spent on fundraisers including raffles, bingo; or</li>
+            <li>items purchased for a fundraiser.</li></ul>
+          learn_more_title: What does this mean?
           title: Did you make charitable contributions to a qualifying organization in 2023?
       az_incarcerated:
         edit:
@@ -1872,6 +1882,11 @@ en:
         edit:
           armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. armed forces.
           armed_forces_wages_label_html: How much did you receive in active duty pay? <br><br> <b>Note:</b> this should not exceed %{wages}
+          learn_more_content_html: |
+            If you are a member of the U.S. armed forces, enter the amount of active duty pay that you reported on your federal tax return.<br><br>
+            If you are a member of the Reserves or the National Guard, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
+            You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
+          learn_more_title: Learn more
           title1: Do any of the following scenarios apply to you? (Less common)
           title2: Check every box that applies to you. If it does not apply, leave blank and continue.
           tribal_member_label_html: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on the tribe’s reservation.
@@ -2215,13 +2230,13 @@ en:
         destroy:
           removed: Removed 1099-G for %{name}
         edit:
-          box_10a: Box 10a, State
-          box_10b: Box 10b, State identification number
+          box_10a_html: "<strong>Box 10a</strong>, State"
+          box_10b_html: "<strong>Box 10b</strong>, State identification number"
           city: City
           confirm_address: 'Please confirm the mailing address listed on Form 1099-G. Note: this may be different than your current address. Please edit to match what’s on your form.'
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
-          federal_income_tax_withheld: Box 4, Federal income tax withheld
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld"
           had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
@@ -2244,10 +2259,10 @@ en:
           recipient_myself: Myself
           recipient_question: Who is this form for?
           state: State
-          state_income_tax_withheld: Box 11, State income tax withheld
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld"
           street_address: Street Address
           title: It looks like you received unemployment benefits in 2023
-          unemployment_compensation: Box 1, Unemployment compensation
+          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation"
           zip_code: Zip code
         index:
           1099_label: 1099-G for %{name}
