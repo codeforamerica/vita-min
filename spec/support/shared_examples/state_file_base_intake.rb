@@ -45,4 +45,14 @@ shared_examples :state_file_base_intake do |factory:|
       end
     end
   end
+
+  describe "synchronize_df_dependents_to_database" do
+    it "reads in dependents and adds all of them to the database" do
+      xml = File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents.xml"))
+      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      intake.synchronize_df_dependents_to_database
+
+      expect(intake.dependents.count).to eq 5
+    end
+  end
 end

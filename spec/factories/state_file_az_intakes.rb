@@ -64,6 +64,9 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
+  factory :minimal_state_file_az_intake, class: "StateFileAzIntake" do
+  end
+
   factory :state_file_az_intake do
     transient do
       filing_status { 'single' }
