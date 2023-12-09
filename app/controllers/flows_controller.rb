@@ -577,6 +577,8 @@ class FlowsController < ApplicationController
         current_step: "/en/questions/confirmation",
         eligibility_lived_in_state: "yes",
         eligibility_out_of_state_income: "no",
+        federal_submission_id: "000000000",
+        federal_return_status: "accepted",
         consented_to_terms_and_conditions: "yes",
         current_sign_in_at: nil,
         current_sign_in_ip: nil,
