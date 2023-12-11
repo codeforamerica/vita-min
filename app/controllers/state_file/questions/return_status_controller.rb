@@ -18,7 +18,6 @@ module StateFile
       end
 
       def return_status
-        #'accepted'
         case current_intake.efile_submissions.last.current_state
         when 'accepted'
           'accepted'
@@ -49,12 +48,10 @@ module StateFile
       end
 
       def reject_code
-        # "USPS-2147219401"
         e_file_error.try(:code)
       end
 
       def reject_description
-        # "Address Not Found."
         e_file_error.try(:message)
       end
     end
