@@ -6,26 +6,27 @@ module StateFile
       def edit; end
 
       def title
+        state_name = States.name_for_key(params[:us_state].upcase)
         case return_status
         when 'accepted'
-          I18n.t("state_file.questions.return_status.accepted.title")
+          I18n.t("state_file.questions.return_status.accepted.title", state_name: state_name)
         when 'rejected'
-          I18n.t("state_file.questions.return_status.rejected.title")
+          I18n.t("state_file.questions.return_status.rejected.title", state_name: state_name)
         else
-          I18n.t("state_file.questions.return_status.pending.title")
+          I18n.t("state_file.questions.return_status.pending.title", state_name: state_name)
         end
       end
 
       def return_status
-        'accepted'
-        # case current_intake.efile_submissions.last.current_state
-        # when 'accepted'
-        #   'accepted'
-        # when 'rejected'
-        #   'rejected'
-        # else
-        #   'pending'
-        # end
+        #'accepted'
+        case current_intake.efile_submissions.last.current_state
+        when 'accepted'
+          'accepted'
+        when 'rejected'
+          'rejected'
+        else
+          'pending'
+        end
       end
 
       def refund_or_owed_amount
