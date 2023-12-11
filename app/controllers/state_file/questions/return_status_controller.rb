@@ -18,14 +18,7 @@ module StateFile
       end
 
       def return_status
-        case current_intake.efile_submissions.last.current_state
-        when 'accepted'
-          'accepted'
-        when 'rejected'
-          'rejected'
-        else
-          'pending'
-        end
+        current_intake.return_status
       end
 
       def refund_or_owed_amount

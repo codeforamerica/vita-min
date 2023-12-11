@@ -144,4 +144,15 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
   end
+
+  def return_status
+    case self.efile_submissions.last.current_state
+    when 'accepted'
+      'accepted'
+    when 'rejected'
+      'rejected'
+    else
+      'pending'
+    end
+  end
 end
