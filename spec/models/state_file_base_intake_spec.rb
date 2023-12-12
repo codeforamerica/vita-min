@@ -21,8 +21,22 @@ describe StateFileBaseIntake do
       end
     end
 
-    context "with a pending return" do
-      before { allow_any_instance_of(EfileSubmission).to receive(:current_state).and_return('pending') }
+    context "with a bundling return" do
+      before { allow_any_instance_of(EfileSubmission).to receive(:current_state).and_return('bundling') }
+      it "it is pending" do
+        expect(intake.return_status).to eq('pending')
+      end
+    end
+
+    context "with a preparing return" do
+      before { allow_any_instance_of(EfileSubmission).to receive(:current_state).and_return('preparing') }
+      it "it is pending" do
+        expect(intake.return_status).to eq('pending')
+      end
+    end
+
+    context "with a resubmitted return" do
+      before { allow_any_instance_of(EfileSubmission).to receive(:current_state).and_return('resubmitted') }
       it "it is pending" do
         expect(intake.return_status).to eq('pending')
       end

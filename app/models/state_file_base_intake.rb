@@ -145,6 +145,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  # Any statuses besides an accepted/rejected can lead back to these terminal states via resubmission.
   def return_status
     case self.efile_submissions.last.current_state
     when 'accepted'
