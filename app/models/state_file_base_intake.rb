@@ -65,12 +65,24 @@ class StateFileBaseIntake < ApplicationRecord
     }[direct_file_data&.filing_status]
   end
 
+  def filing_status_single?
+    filing_status == :single
+  end
+
   def filing_status_mfj?
     filing_status == :married_filing_jointly
   end
 
   def filing_status_mfs?
     filing_status == :married_filing_separately
+  end
+
+  def filing_status_hoh?
+    filing_status == :head_of_household
+  end
+
+  def filing_status_qw?
+    filing_status == :qualifying_widow
   end
 
   def primary
@@ -111,6 +123,10 @@ class StateFileBaseIntake < ApplicationRecord
 
     def first_name_and_middle_initial
       [@first_name, @middle_initial].map(&:presence).compact.join(' ')
+    end
+
+    def has_itin?
+      @ssn.start_with?("9")
     end
   end
 

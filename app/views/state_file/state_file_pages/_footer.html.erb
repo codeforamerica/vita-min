@@ -1,0 +1,48 @@
+<% state_full_name =
+     if params[:us_state].present?
+       params[:us_state] == "ny" ? "New York" : "Arizona"
+     else
+       nil
+     end %>
+
+<footer class="footer">
+  <div class="slab slab--footer">
+    <div class="grid">
+      <div class="grid__item width-three-fourths footer-description">
+        <p>
+          <%= image_tag("checkbox-logo--white.png", alt: "") %>
+        </p>
+        <p>
+          <!-- TODO: externalize these strings -->
+          <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
+          <% if state_full_name.present? %>
+            <%=t('.state_file_with_state_description_html', link: cfa_link, state_full_name: state_full_name) %>
+          <% else %>
+            <%=t('.state_file_description_html', link: cfa_link) %>
+          <% end %>
+        </p>
+      </div>
+
+      <ul class="grid__item width-one-fourth footer-links">
+        <li>
+          <% if I18n.locale != :en %>
+            <%= link_to_english %>
+          <% end %>
+          <% if I18n.locale != :es %>
+            <%= link_to_spanish %>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to "https://www.getyourrefundstatus.org/" do %>
+            <%= t("views.shared.footer.service_status") %>
+          <% end %>
+        </li>
+
+        <% unless Rails.env.production? %>
+          <li><%= link_to "Flow explorer", flows_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</footer>

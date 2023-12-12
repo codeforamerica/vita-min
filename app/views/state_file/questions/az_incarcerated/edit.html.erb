@@ -1,0 +1,22 @@
+<% title = (current_intake.filing_status_mfj? || current_intake.filing_status_mfs?) ?
+             t(".title_spouse", tax_year: MultiTenantService.statefile.current_tax_year) :
+             t(".title_single", tax_year: MultiTenantService.statefile.current_tax_year) %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%=title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="blue-group">
+      <%= f.cfa_radio_set(:was_incarcerated, collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

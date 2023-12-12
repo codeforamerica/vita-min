@@ -577,6 +577,8 @@ class FlowsController < ApplicationController
         current_step: "/en/questions/confirmation",
         eligibility_lived_in_state: "yes",
         eligibility_out_of_state_income: "no",
+        federal_submission_id: "12345202201011234570",
+        federal_return_status: "accepted",
         consented_to_terms_and_conditions: "yes",
         current_sign_in_at: nil,
         current_sign_in_ip: nil,
@@ -639,6 +641,7 @@ class FlowsController < ApplicationController
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
         tribal_wages: 100,
+        was_incarcerated: "no"
       )
     end
 

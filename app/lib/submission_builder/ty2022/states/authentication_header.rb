@@ -66,8 +66,8 @@ module SubmissionBuilder
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
-              xml.TotActiveTimePrepSubmissionTs '30' # total_active_preparation_minutes -- Total Active Time Preparation Submission Time Span
-              xml.TotalPreparationSubmissionTs '5' # total_preparation_submission_minutes
+              xml.TotActiveTimePrepSubmissionTs state_file_total_preparation_submission_minutes
+              xml.TotalPreparationSubmissionTs state_file_total_preparation_submission_minutes
             end
           end
         end

@@ -5,12 +5,12 @@
   <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-    <div class="blue-group spacing-below-15">
-      <p><%= t(".primary_name") %></p>
+    <div class="blue-group">
+      <p><%= t(".primary_name", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %></p>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
       <% if f.object.ask_primary_dob? %>
-        <div class="date-select spacing-below-5">
+        <div class="date-select">
           <%= f.cfa_date_select(:primary_birth_date,
                                 t('.your_dob'),
                                 options: {
@@ -21,12 +21,12 @@
       <% end %>
     </div>
     <% if f.object.ask_spouse_name?  %>
-      <div class="blue-group spacing-below-15">
-        <p><%= t(".spouse_name") %></p>
+      <div class="blue-group">
+        <p><%= t(".spouse_name", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %></p>
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
         <% if f.object.ask_spouse_dob? %>
-            <div class="date-select spacing-below-5">
+            <div class="date-select">
               <%= f.cfa_date_select(:spouse_birth_date,
                                     t('.spouse_dob'),
                                     options: {
@@ -39,14 +39,14 @@
     <% end %>
 
     <%= f.fields_for :dependents do |ff| %>
-      <div id="dependent-<%= ff.index %>" class="blue-group spacing-below-15">
+      <div id="dependent-<%= ff.index %>" class="blue-group">
 
         <p><%= t(".dependent_name_dob", number: number_in_words(ff.index + 1))%></p>
 
         <%= ff.cfa_input_field(:first_name, t("general.first_name"), classes: ["form-width--long"], options: {disabled: true}) %>
         <%= ff.cfa_input_field(:last_name, t("general.last_name"), classes: ["form-width--long"], options: {disabled: true}) %>
 
-        <div class="date-select spacing-below-5">
+        <div class="date-select">
           <%= ff.cfa_date_select(:dob,
                                  t('general.date_of_birth'),
                                  options: {
@@ -67,7 +67,7 @@
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
-    <button class="button button--primary" type="submit">
+    <button class="button button--primary button--wide" type="submit">
       <%= t("general.continue") %>
     </button>
   <% end %>

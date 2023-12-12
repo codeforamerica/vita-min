@@ -4,24 +4,19 @@
   <p><%= t(".title2") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-
-
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= f.cfa_radio_set(:has_prior_last_names, collection: [
-              { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
-              { value: "no", label: t("general.negative") },
-            ]) %>
-          </div>
+        <div class="blue-group">
+          <%= f.cfa_radio_set(:has_prior_last_names, collection: [
+            { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
+            { value: "no", label: t("general.negative") },
+          ]) %>
         </div>
       </div>
+
       <div class="question-with-follow-up__follow-up" id="prior-last-names">
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label"), classes: ["form-width--long"]) %>
-          </div>
+        <div class="blue-group">
+          <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label"), classes: ["form-width--long"]) %>
         </div>
       </div>
     </div>

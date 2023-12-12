@@ -24,6 +24,7 @@
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
 #  failed_attempts                       :integer          default(0), not null
+#  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
@@ -49,9 +50,11 @@
 #  spouse_middle_initial                 :string
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  federal_submission_id                 :string
 #  primary_state_id_id                   :bigint
 #  spouse_state_id_id                    :bigint
 #  visitor_id                            :string
@@ -65,6 +68,7 @@ class StateFileAzIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
+  enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
@@ -94,12 +98,9 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
-      year: 2022,
-      filing_status: filing_status.to_sym,
+      year: MultiTenantService.statefile.current_tax_year,
       intake: self,
-      dependent_count: dependents.length,
-      direct_file_data: direct_file_data,
-      include_source: include_source,
+      include_source: include_source
     )
   end
 
@@ -115,10 +116,6 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def qualifying_parents_and_grandparents
     dependents.select(&:ask_senior_questions?).length
-  end
-
-  def sentenced_for_60_days
-    # TODO
   end
 
   def ask_months_in_home?

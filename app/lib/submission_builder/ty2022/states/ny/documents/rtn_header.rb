@@ -65,7 +65,9 @@ module SubmissionBuilder
                 # xml.PP_PH_NMBR
                 xml.IAT_IND
                 # xml.ORIG_SBMSN_ID
-                # xml.SP_DOB_DT # Tried to add this but filling it caused an error.
+                if @submission.data_source.spouse.present? && @submission.data_source.spouse.birth_date.present?
+                  xml.SP_DOB_DT claimed: @submission.data_source.spouse.birth_date.strftime("%Y-%m-%d")
+                end
                 # xml.FREE_FIL_IND
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND

@@ -1,36 +1,33 @@
 <% content_for :page_title, t('.title1') %>
 
 <% content_for :card do %>
-  <p><%= t('.title1') %></p>
+  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= ff.cfa_radio_set(
-                  :needed_assistance,
-                  label_text: t(".assistance_label", name: ff&.object&.first_name&.capitalize),
-                  collection: [
-                    { value: "yes", label: t("general.affirmative") },
-                    { value: "no", label: t("general.negative") },
-                  ]
-                ) %>
-          </div>
+        <div class="blue-group">
+          <%= ff.cfa_radio_set(
+                :needed_assistance,
+                label_text: t(".assistance_label", name: ff&.object&.first_name&.capitalize),
+                collection: [
+                  { value: "yes", label: t("general.affirmative") },
+                  { value: "no", label: t("general.negative") },
+                ]
+              ) %>
         </div>
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= ff.cfa_radio_set(
-                  :passed_away,
-                  label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize),
-                  collection: [
-                    { value: "yes", label: t("general.affirmative") },
-                    { value: "no", label: t("general.negative") },
-                  ]
-                ) %>
-          </div>
+        <div class="blue-group">
+          <%= ff.cfa_radio_set(
+                :passed_away,
+                label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize),
+                collection: [
+                  { value: "yes", label: t("general.affirmative") },
+                  { value: "no", label: t("general.negative") },
+                ]
+              ) %>
         </div>
     <% end %>
-    <button class="button button--primary" type="submit">
+
+    <button class="button button--primary button--wide" type="submit">
       <%= t("general.continue") %>
     </button>
   <% end %>

@@ -14,6 +14,15 @@
 .state-file {
   background-color: $color-state-file-bg;
   font-family: $font-state-file;
+  font-size: 1.6rem;
+
+  .main-header {
+    background-color: $color-state-file-black;
+  }
+
+  .footer {
+    background-color: $color-state-file-black;
+  }
 
   .big-illustration {
     display: flex;
@@ -36,8 +45,8 @@
   }
 
   .blue-group {
-    padding: 1.9rem;
-    margin-bottom: 2.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
     background: $color-state-file-blue-box;
     border: 2px solid $color-state-file-blue-box-border;
     border-radius: 6px;
@@ -49,11 +58,26 @@
     .form-question {
       font-size: 1.6rem;
       line-height: 2.4rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .form-label--bold .form-question {
       font-weight: 700;
+    }
+
+    .checkbox {
+      border: none;
+      background-color: transparent;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 2.4rem;
+      margin: 0;
+      width: auto;
+      padding-left: 3.5rem;
+
+      input[type='checkbox'] {
+        left: 0;
+      }
     }
 
     .radio-button {
@@ -63,32 +87,51 @@
       font-weight: normal;
       margin: 0;
       min-height: auto;
-      padding: 0.5rem 0 0.5rem 3.5rem;
+      padding: 1rem 0 1rem 3.5rem;
 
       input[type='radio'] {
         left: 0.5rem;
-        top: 0.8rem;
+        top: 1.3rem;
       }
     }
 
     .select {
-      height: 3.9rem;
-      line-height: 3.9rem;
+      height: 4rem;
+      line-height: 4rem;
 
       .select__element {
         font-size: 1.3rem;
         font-weight: 400;
-        border: 1px solid #1B1B1B;
-        padding: 0 5.3rem 0 1rem;
+        border: 1px solid $color-state-file-input-border;
+        padding: 0 4rem 0 1rem;
 
-        ::after {
-          width: 5.3rem;
-        }
       }
     }
 
+    .select:after {
+      width: 4rem;
+    }
+
     .text-input {
+      background-color: white;
+      border: 1px solid $color-state-file-input-border;
+      box-shadow: none;
+      height: 4rem;
       font-size: 1.6rem;
+      padding: 0 1rem;
+    }
+
+    .question-with-follow-up__follow-up {
+      margin: 0;
+
+      p.form-question {
+        font-size: 1.3rem;
+        line-height: 1.9rem;
+      }
+    }
+
+    .form1099__label {
+      margin-bottom: 0;
     }
   }
 
@@ -107,8 +150,33 @@
     font-size: 1.9rem;
   }
 
+  .button--primary {
+    background-color: $color-state-file-black;
+    border-color: $color-state-file-black;
+  }
+
   .button--small {
+    background-color: transparent;
+    border: 2px solid $color-state-file-black;
+    border-radius: 4px;
+    color: $color-state-file-black;
+    display: inline-block;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 1.2rem 2rem;
+    text-align: center;
+    text-decoration: none;
     width: auto;
+  }
+
+  .button--inline-action {
+    margin-right: 1rem;
+  }
+
+  .button--inline-action.last {
+    margin-right: 0;
   }
 
   .dev-button {
@@ -162,11 +230,37 @@
     }
   }
 
-  .form-group-tight p.form-question {
-    color: #121111;
-    font-size: 1.3rem;
-    margin-bottom: 0;
-    margin-top: 2rem;
+  .form-group-tight {
+    .form-question {
+      font-size: 1.3rem;
+      line-height: 1.9rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .form-group, .input-group--inline {
+      margin-bottom: 0;
+    }
+
+    .select, .text-input {
+      margin-bottom: 2rem;
+    }
+
+    radiogroup {
+      display: flex;
+      margin-bottom: 1.5rem;
+
+      .radio-button {
+        font-size: 1.3rem;
+        line-height: 1.9rem;
+        padding: 1rem 0 1rem 3.5rem;
+
+        input[type='radio'] {
+          left: 0.5rem;
+          top: 1rem;
+        }
+      }
+    }
   }
 
   .landing-page-content {
@@ -211,6 +305,65 @@
   .return-status {
     p { text-align: center; }
     img { height: 80px; width: 80px;}
+  }
+  
+  .info-link {
+    font-size: 1.6rem;
+    color: black;
+    line-height: 2.4rem;
+    display: inline-block;
+    padding-left: 3rem;
+    background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>');
+    background-repeat: no-repeat;
+    background-position-y: center;
+  }
+
+  .text--small {
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
+
+  .question-with-follow-up {
+    margin-bottom: 0;
+  }
+
+  .reveal {
+    color: black;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: $color-state-file-blue-box;
+    border: 2px solid $color-state-file-blue-box-border;
+    border-radius: 6px;
+
+    ul {
+      padding-left: 2rem;
+
+      li {
+        list-style: disc;
+      }
+    }
+  }
+
+  .reveal__link {
+    color: black;
+    line-height: 2.4rem;
+    padding-left: 3rem;
+    background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>');
+    background-repeat: no-repeat;
+    background-position-y: 0.3rem;
+  }
+
+  .reveal__link:after {
+    content: "\e5ce";
+    font-size: 2.4rem;
+    font-weight: normal;
+  }
+
+  .reveal.is-hiding-content .reveal__link:after {
+    content: "\e5cf";
+    font-size: 2.5rem;
+    font-weight: normal;
   }
 }
 

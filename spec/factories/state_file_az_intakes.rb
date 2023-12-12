@@ -24,6 +24,7 @@
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
 #  failed_attempts                       :integer          default(0), not null
+#  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
@@ -49,9 +50,11 @@
 #  spouse_middle_initial                 :string
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  federal_submission_id                 :string
 #  primary_state_id_id                   :bigint
 #  spouse_state_id_id                    :bigint
 #  visitor_id                            :string
@@ -62,6 +65,8 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
+  factory :minimal_state_file_az_intake, class: "StateFileAzIntake"
+
   factory :state_file_az_intake do
     transient do
       filing_status { 'single' }
