@@ -6,8 +6,9 @@ module PdfFiller
       "it2-TY2023"
     end
 
-    def initialize(submission)
+    def initialize(submission, kwargs: {})
       @submission = submission
+      @kwargs = kwargs
     end
 
     def hash_for_pdf
