@@ -1715,6 +1715,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_182242) do
     t.integer "nyc_full_year_resident", default: 0, null: false
     t.integer "occupied_residence", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
+    t.integer "permanent_address_outside_ny", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"
     t.string "permanent_street"
@@ -1757,6 +1758,48 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_182242) do
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_w2_tables", force: :cascade do |t|
+    t.integer "box10_dependent_care_benefits"
+    t.integer "box11_nonqualified_plans"
+    t.string "box12a_code"
+    t.integer "box12a_value"
+    t.string "box12b_code"
+    t.integer "box12b_value"
+    t.string "box12c_code"
+    t.integer "box12c_value"
+    t.string "box12d_code"
+    t.integer "box12d_value"
+    t.string "box13_retirement_plan"
+    t.string "box13_third_party_sick_pay"
+    t.integer "box14a_other_amount"
+    t.string "box14a_other_description"
+    t.integer "box14b_other_amount"
+    t.string "box14b_other_description"
+    t.integer "box14c_other_amount"
+    t.string "box14c_other_description"
+    t.integer "box14d_other_amount"
+    t.string "box14d_other_description"
+    t.integer "box16_state_wages"
+    t.integer "box17_state_income_tax"
+    t.integer "box18_local_wages"
+    t.integer "box19_local_income_tax"
+    t.string "box20_locality_name"
+    t.integer "box8_allocated_tips"
+    t.datetime "created_at", null: false
+    t.string "employee_ssn"
+    t.string "employer_city"
+    t.string "employer_ein"
+    t.string "employer_name"
+    t.string "employer_state"
+    t.string "employer_street_address"
+    t.string "employer_zip_code"
+    t.bigint "intake_id"
+    t.string "intake_type"
+    t.datetime "updated_at", null: false
+    t.integer "wages_amount"
+    t.index ["intake_type", "intake_id"], name: "index_state_file_w2_tables_on_intake"
   end
 
   create_table "state_ids", force: :cascade do |t|
@@ -2114,7 +2157,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_182242) do
     t.string "employer_zip_code"
     t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
-    t.string "intake_type"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
     t.index ["creation_token"], name: "index_w2s_on_creation_token"
