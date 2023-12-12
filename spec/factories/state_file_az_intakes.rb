@@ -26,6 +26,7 @@
 #  failed_attempts                       :integer          default(0), not null
 #  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
+#  hashed_ssn                            :string
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locked_at                             :datetime
@@ -61,6 +62,7 @@
 #
 # Indexes
 #
+#  index_state_file_az_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #

@@ -1,0 +1,11 @@
+<% content_for :page_title, t(".title") %>
+<h1 class="h2"><%= content_for(:page_title) %></h1>
+
+<p><%= t(".help_text_html", link: root_path) %></p>
+
+<%= link_to t(".phone_number_signin"),
+            StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "sms_phone_number", us_state: params[:us_state]),
+            class: "button" %>
+<%= link_to t(".email_signin"),
+            StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "email_address", us_state: params[:us_state]),
+            class: "button" %>

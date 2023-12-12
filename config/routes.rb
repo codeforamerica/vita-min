@@ -566,7 +566,16 @@ Rails.application.routes.draw do
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#about_page"
         get "/fake_direct_file_transfer_page", to: "state_file_pages#fake_direct_file_transfer_page"
-        post "/clear_session", to: 'state_file_pages#clear_session'
+        post "/clear_session", to: "state_file_pages#clear_session"
+
+        ["az", "ny"].each do |us_state|
+          scope ":us_state", as: us_state, constraints: { us_state: us_state.to_sym } do
+            get "login-options", to: "state_file_pages#login_options"
+            resources :intake_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: '' } do
+              # put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+            end
+          end
+        end
       end
     end
   end

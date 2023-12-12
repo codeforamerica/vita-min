@@ -16,5 +16,7 @@ module StateFile
       session.delete(:state_file_intake)
       redirect_to action: :about_page
     end
+
+    def login_options; end
   end
 end

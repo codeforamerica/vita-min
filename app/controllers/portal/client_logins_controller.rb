@@ -22,9 +22,9 @@ module Portal
         )
 
         @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
-        render :enter_verification_code
+        after_create_valid
       else
-        render :new
+        after_create_invalid
       end
     end
 
@@ -80,6 +80,14 @@ module Portal
     end
 
     private
+
+    def after_create_valid
+      render :enter_verification_code
+    end
+
+    def after_create_invalid
+      render :new
+    end
 
     def request_client_login_params
       params.require(:portal_request_client_login_form).permit(:email_address, :sms_phone_number)
