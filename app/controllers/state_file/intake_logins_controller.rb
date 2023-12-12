@@ -1,9 +1,12 @@
 module StateFile
   class IntakeLoginsController < Portal::ClientLoginsController
+    helper_method :prev_path, :illustration_path
     before_action :redirect_to_data_review_if_intake_authenticated
+    layout "state_file/question"
 
     def new
-      unless ["email_address", "sms_phone_number"].include?(params[:contact_method])
+      @contact_method = params[:contact_method]
+      unless ["email_address", "sms_phone_number"].include?(@contact_method)
         return render "public_pages/page_not_found", status: 404
       end
       super
@@ -11,15 +14,23 @@ module StateFile
 
     private
 
+    def prev_path; end
+
+    def illustration_path; end
+
     def after_create_valid
       # TODO: make new view for entering code
       super
     end
 
     def after_create_invalid
-      # TODO: params don't go through
-      # redirect_to action: :new, params: { us_state: params[:us_state], contact_method: params[:contact_method] }
-      super
+      @contact_method = params[:contact_method]
+      if @form.errors[:email_address].include?(I18n.t("forms.errors.need_one_communication_method"))
+        @form.errors.add(:sms_phone_number, I18n.t("errors.messages.blank"))
+        @form.errors.add(:email_address, I18n.t("errors.messages.blank"))
+        @form.errors[:email_address].delete(I18n.t("forms.errors.need_one_communication_method"))
+      end
+      render :new, params: params
     end
 
     def validate_token; # TODO: actually do something here?

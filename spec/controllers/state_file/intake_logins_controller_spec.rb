@@ -51,7 +51,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     let(:params) do
       {
         locale: "es",
-        us_state: "az" ,
+        us_state: "az",
+        contact_method: contact_method,
         portal_request_client_login_form: contact_info_params
       }
     end
@@ -62,6 +63,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       end
 
       context "with an email address" do
+        let(:contact_method) { :email_address }
         let(:contact_info_params) do
           {
             email_address: "client@example.com",
@@ -86,6 +88,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       end
 
       context "with an SMS phone number" do
+        let(:contact_method) { :sms_phone_number }
         let(:contact_info_params) do
           {
             email_address: nil,
@@ -110,18 +113,57 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "with invalid params" do
-      let(:contact_info_params) do
-        {
-          email_address: "client@example",
-          sms_phone_number: ""
-        }
+      context "bad email" do
+        let(:contact_method) { :email_address }
+        let(:contact_info_params) do
+          {
+            email_address: "client@example",
+            sms_phone_number: ""
+          }
+        end
+
+        it "does not enqueue a client login request and renders new" do
+          post :create, params: params
+
+          expect(response).to render_template :new
+          expect(RequestVerificationCodeForLoginJob).not_to have_been_enqueued
+        end
       end
 
-      it "does not enqueue a client login request and renders new" do
-        post :create, params: params
+      context "blank email" do
+        let(:contact_method) { :email_address }
+        let(:contact_info_params) do
+          {
+            email_address: nil,
+            sms_phone_number: ""
+          }
+        end
 
-        expect(response).to render_template :new
-        expect(RequestVerificationCodeForLoginJob).not_to have_been_enqueued
+        it "does not enqueue a client login request and renders new" do
+          post :create, params: params
+
+          expect(response).to render_template :new
+          expect(assigns(:form).errors[:email_address]).to include "No puede estar en blanco."
+          expect(RequestVerificationCodeForLoginJob).not_to have_been_enqueued
+        end
+      end
+
+      context "blank phone" do
+        let(:contact_method) { :sms_phone_number }
+        let(:contact_info_params) do
+          {
+            email_address: "",
+            sms_phone_number: nil
+          }
+        end
+
+        it "does not enqueue a client login request and renders new" do
+          post :create, params: params
+
+          expect(response).to render_template :new
+          expect(assigns(:form).errors[:sms_phone_number]).to include "No puede estar en blanco."
+          expect(RequestVerificationCodeForLoginJob).not_to have_been_enqueued
+        end
       end
     end
 
