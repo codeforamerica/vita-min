@@ -559,7 +559,7 @@ class DirectFileData
         box13_retirement_plan: node.at('RetirementPlanInd')&.text,
         box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text,
 
-      )
+        )
       w2_state_fields_group = W2StateFieldsGroup.new(
         box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
         box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
@@ -569,8 +569,14 @@ class DirectFileData
         box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
         )
       w2.w2_state_fields_group = w2_state_fields_group
+      parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
+        w2_box14 = W2Box14.new(
+          other_description: node.at('Desc')&.text,
+          other_amount: node.at('Amt')&.text,
+          )
+        w2.w2_box14 = w2_box14
+      end
     end
-    
   end
 
   def build_new_w2_node
