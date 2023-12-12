@@ -1,0 +1,29 @@
+<div class='return-status'>
+  <p>
+    <%= image_tag('icons/rejected.svg') %>
+  </p>
+</div>
+
+<h1 class="h2">
+  <%= @title %>
+</h1>
+
+<section class="spacing-below-15">
+  <strong><%= t('.reject_code') %></strong>
+  <%= @reject_code %>
+</section>
+
+<section class="spacing-below-15">
+  <strong><%= t('.reject_desc') %></strong>
+  <%= @reject_description %>
+</section>
+
+<section class="spacing-below-15">
+  <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
+  <%= t('.its_unusual') %>
+</section>
+
+<section>
+  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+  <%= t('.contact_us') %>
+</section>

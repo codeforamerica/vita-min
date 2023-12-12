@@ -1,0 +1,17 @@
+<div class='return-status'>
+  <p>
+    <%= image_tag('icons/check.svg') %>
+  </p>
+</div>
+
+<h1 class="h2">
+  <%= @title %>
+</h1>
+
+<% if @refund_or_owed_amount.positive? %>
+  <p><%= t('.check_your_refund_html', refund_url: refund_url) %></p>
+<% elsif @refund_or_owed_amount.negative? %>
+  <p><%= t('.direct_debit_html') %></p>
+<% end %>
+<p><%= t('.help_friend_html') %></p>
+<p><%= t('.register_to_vote_html') %></p>
