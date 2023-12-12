@@ -8,12 +8,10 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
-      <div class="spacing-below-5">
-        <%= f.cfa_radio_set(:was_incarcerated, collection: [
-          { value: "yes", label: t("general.affirmative") },
-          { value: "no", label: t("general.negative") },
-        ]) %>
-      </div>
+      <%= f.cfa_radio_set(:was_incarcerated, collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
     </div>
 
     <% if params[:return_to_review].present? %>

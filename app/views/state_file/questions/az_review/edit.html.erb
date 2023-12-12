@@ -2,15 +2,15 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header", us_state: 'az' %>
 
-  <div id="prior-last-names" class="blue-group spacing-below-15">
+  <div id="prior-last-names" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
       <p><%=current_intake.prior_last_names || t("general.none") %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::AzPriorLastNamesController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzPriorLastNamesController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
-  <div id="state-credits" class="blue-group spacing-below-15">
+  <div id="state-credits" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
       <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
@@ -24,11 +24,11 @@
         <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
         <p><%=number_to_currency(current_intake.armed_forces_wages) %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::AzStateCreditsController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzStateCreditsController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
-  <div id="charitable-contributions" class="blue-group spacing-below-15">
+  <div id="charitable-contributions" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".charitable_contributions") %></p>
       <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>
@@ -38,15 +38,15 @@
         <p class="text--bold spacing-below-5"><%=t(".charitable_noncash") %></p>
         <p><%=number_to_currency(current_intake.charitable_noncash) || t("general.none") %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::AzCharitableContributionsController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzCharitableContributionsController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
-  <div id="incarcerated" class="blue-group spacing-below-25">
+  <div id="incarcerated" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".incarcerated") %></p>
       <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::AzIncarceratedController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzIncarceratedController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

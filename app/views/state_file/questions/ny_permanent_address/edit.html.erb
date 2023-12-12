@@ -12,19 +12,16 @@
     <div class="question-with-follow-up spacing-below-15">
       <div class="question-with-follow-up__question">
         <div class="blue-group">
-          <div class="spacing-below-5">
-            <% content_for :address_text do %>
-              <div class="text--bold"><%=t(".address_header") %></div>
-              <div><%= current_intake.direct_file_data.mailing_street %></div>
-              <div><%= current_intake.direct_file_data.mailing_city %>, New
-                York <%= current_intake.direct_file_data.mailing_zip %></div>
-            <% end %>
+          <div class="form-question spacing-below-15">
+            <div class="text--bold"><%=t(".address_header") %></div>
+            <div><%= current_intake.direct_file_data.mailing_street %></div>
+            <div><%= current_intake.direct_file_data.mailing_city %>, New
+              York <%= current_intake.direct_file_data.mailing_zip %></div>
           </div>
-          <div class="spacing-below-5">
+          <div>
             <%=
               f.cfa_radio_set(
                 :confirmed_permanent_address,
-                label_text: content_for(:address_text),
                 collection: [
                   { value: :yes, label: t("general.affirmative") },
                   { value: :no, label: t("general.negative"), input_html: { "data-follow-up": "#permanent-address-fields" } },
@@ -37,7 +34,7 @@
 
       <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
         <div class="blue-group">
-          <div class="spacing-below-25">
+          <div class="form-question spacing-below-25">
             <%=t(".where_did_you_live") %>
           </div>
           <div class="form-group-tight">

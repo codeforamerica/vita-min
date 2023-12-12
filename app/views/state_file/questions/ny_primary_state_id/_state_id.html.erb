@@ -1,43 +1,50 @@
 <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
   <div class="question-with-follow-up spacing-below-25">
-    <div class="question-with-follow-up__question blue-group spacing-below-15">
-      <%=
-        f.cfa_radio_set(
-          :id_type,
-          label_text: t("state_file.questions.primary_state_id.state_id.id_type_question.label"),
-          collection: [
-            { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
-            { value: :dmv_bmv, label: t("state_file.questions.primary_state_id.state_id.id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
-            { value: :no_id, label: t("state_file.questions.primary_state_id.state_id.id_type_question.no_id") },
-          ]
-        )
-      %>
+    <div class="question-with-follow-up__question spacing-below-15">
+      <div class="blue-group">
+        <div class="form-question spacing-below-15">
+          <strong><%= t("state_file.questions.primary_state_id.state_id.id_type_question.label") %></strong>
+        </div>
+        <%=
+          f.cfa_radio_set(
+            :id_type,
+            collection: [
+              { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
+              { value: :dmv_bmv, label: t("state_file.questions.primary_state_id.state_id.id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
+              { value: :no_id, label: t("state_file.questions.primary_state_id.state_id.id_type_question.no_id") },
+            ]
+          )
+        %>
+      </div>
     </div>
+
     <div class="question-with-follow-up__follow-up" id="id-details-fields">
-      <div class="blue-group spacing-below-15">
-        <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long, spacing-below-15"]) %>
-        <%= f.cfa_date_select(:issue_date,
-                              t("state_file.questions.primary_state_id.state_id.id_details.issue_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_year"),
-                              options: {
-                                start_year: Time.now.year,
-                                end_year: Time.now.year - 9,
-                              }
-            ) %>
-        <%= f.cfa_date_select(:expiration_date,
-                              t("state_file.questions.primary_state_id.state_id.id_details.expiration_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_year"),
-                              options: {
-                                start_year: Time.now.year + 9,
-                                end_year: Time.now.year - 2,
-                              }) %>
-        <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short"]) %>
-        <% if options[:include_first_three_doc_num] == true %>
-          <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
-        <% end %>
-        <% if options[:info_link] %>
-          <div class="spacing-above-25">
-             <a href="<%= options[:info_link] %>" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
-          </div>
-        <% end %>
+      <div class="blue-group">
+        <div class="form-group-tight">
+          <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long"]) %>
+          <%= f.cfa_date_select(:issue_date,
+                                t("state_file.questions.primary_state_id.state_id.id_details.issue_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_year"),
+                                options: {
+                                  start_year: Time.now.year,
+                                  end_year: Time.now.year - 9,
+                                }
+              ) %>
+          <%= f.cfa_date_select(:expiration_date,
+                                t("state_file.questions.primary_state_id.state_id.id_details.expiration_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_year"),
+                                options: {
+                                  start_year: Time.now.year + 9,
+                                  end_year: Time.now.year - 2,
+                                }) %>
+          <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short, spacing-above-0"]) %>
+          <% if options[:include_first_three_doc_num] == true %>
+            <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
+          <% end %>
+          <% if options[:info_link] %>
+            <div class="spacing-above-25">
+              <a class="info-link" href="<%= options[:info_link] %>" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

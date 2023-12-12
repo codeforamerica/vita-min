@@ -100,10 +100,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
-      fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
-      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
-      fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
+      fill_in 'state_file1099_g_unemployment_compensation', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
@@ -214,10 +214,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in I18n.t('state_file.questions.unemployment.edit.unemployment_compensation'), with: "123"
-      fill_in I18n.t('state_file.questions.unemployment.edit.federal_income_tax_withheld'), with: "456"
-      fill_in I18n.t('state_file.questions.unemployment.edit.box_10b'), with: "123456789"
-      fill_in I18n.t('state_file.questions.unemployment.edit.state_income_tax_withheld'), with: "789"
+      fill_in 'state_file1099_g_unemployment_compensation', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
@@ -232,7 +232,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
       choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash or check contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of cash contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
       fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
       click_on I18n.t("general.continue")
 

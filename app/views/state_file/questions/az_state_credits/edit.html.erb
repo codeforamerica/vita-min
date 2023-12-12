@@ -6,25 +6,22 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-15">
       <div class="question-with-follow-up__question">
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= f.cfa_checkbox(:tribal_member, t(".tribal_member_label_html"),
-                               options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#tribal-wages" })
-            %>
-          </div>
+        <div class="blue-group">
+          <%= f.cfa_checkbox(:tribal_member, t(".tribal_member_label_html"),
+                             options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#tribal-wages" })
+          %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="tribal-wages">
-        <div class="blue-group spacing-below-15">
+        <div class="blue-group">
           <div class="spacing-below-25">
             <%=t(".tribal_wages_label_html",
                     wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %>
           </div>
-          <div>
+          <div class="form-group-tight">
             <%= f.cfa_input_field(
                   :tribal_wages,
-                  "",
-                  help_text: t(".wages_tip"),
+                  t(".wages_tip"),
                   classes: ["form-width--long"])
             %>
           </div>
@@ -34,12 +31,10 @@
 
     <div class="question-with-follow-up spacing-below-15">
       <div class="question-with-follow-up__question">
-        <div class="blue-group spacing-below-15">
-          <div class="spacing-below-5">
-            <%= f.cfa_checkbox(:armed_forces_member, t(".armed_forces_member_label"),
-                               options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#armed-forces-wages" })
-            %>
-          </div>
+        <div class="blue-group">
+          <%= f.cfa_checkbox(:armed_forces_member, t(".armed_forces_member_label"),
+                             options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#armed-forces-wages" })
+          %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="armed-forces-wages">
@@ -48,14 +43,17 @@
             <%=t(".armed_forces_wages_label_html",
                  wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %>
           </div>
-          <div>
+          <div class="form-group-tight">
             <%= f.cfa_input_field(
                   :armed_forces_wages,
-                  "",
-                  help_text: t(".wages_tip"),
+                  t(".wages_tip"),
                   classes: ["form-width--long"])
             %>
           </div>
+        </div>
+        <div class="reveal">
+          <p><a href="#" class="reveal__link"><%= t('.learn_more_title') %></a></p>
+          <div class="reveal__content"><%= t('.learn_more_content_html') %></div>
         </div>
       </div>
     </div>
