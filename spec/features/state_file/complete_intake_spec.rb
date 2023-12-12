@@ -130,7 +130,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text('You have submitted your 2023 New York tax return, and it is still waiting to be accepted.')
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
       expect(page.body).to include('efile:ReturnState')
@@ -264,7 +264,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text(I18n.t("state_file.questions.return_status.pending.title", state_name: 'Arizona'))
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
 
