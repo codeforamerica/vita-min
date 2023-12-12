@@ -7,6 +7,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
+  has_many :w2s, -> { order(created_at: :asc) }, as: :intake, class_name: 'W2', inverse_of: :intake, dependent: :destroy
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
@@ -19,6 +20,7 @@ class StateFileBaseIntake < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
   accepts_nested_attributes_for :dependents, update_only: true
+  accepts_nested_attributes_for :w2s
   delegate :tax_return_year, to: :direct_file_data
   alias_attribute :sms_phone_number, :phone_number
 

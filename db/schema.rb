@@ -2115,6 +2115,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_182242) do
     t.string "employer_zip_code"
     t.decimal "federal_income_tax_withheld", precision: 12, scale: 2
     t.bigint "intake_id"
+    t.string "intake_type"
     t.datetime "updated_at", null: false
     t.decimal "wages_amount", precision: 12, scale: 2
     t.index ["creation_token"], name: "index_w2s_on_creation_token"
