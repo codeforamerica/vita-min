@@ -47,6 +47,7 @@ module PdfFiller
         answers["14#{('a'..'d').to_a[index]}_description"] = box14.other_description
         answers["Box_14#{('a'..'d').to_a[index]}"] = box14.other_amount
       end
+
       answers
     end
 
