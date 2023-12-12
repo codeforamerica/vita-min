@@ -8,13 +8,18 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   end
 
   describe ".show?" do
-    it "is true if the federal return had any unemployment amount" do
+    it "is true for a return with unemployment income" do
+      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_unemployment.xml"))
       expect(described_class.show?(intake)).to be_truthy
     end
 
-    it "is false if the federal return had no unemployment amount" do
-      intake.direct_file_data.fed_unemployment = 0
+    it "is false for a return that did not have unemployment income" do
+      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_single_w2.xml"))
+      expect(described_class.show?(intake)).to be_falsey
+    end
 
+    it "is false for a return that has a zero unemployment income" do
+      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_educator_deduction.xml"))
       expect(described_class.show?(intake)).to be_falsey
     end
   end
