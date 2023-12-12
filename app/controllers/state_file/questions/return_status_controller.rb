@@ -1,9 +1,17 @@
 module StateFile
   module Questions
     class ReturnStatusController < AuthenticatedQuestionsController
-      helper_method :return_status, :title, :reject_code, :reject_description, :refund_or_owed_amount, :refund_url
 
-      def edit; end
+      def edit
+        @title = title
+        @return_status = return_status
+        @reject_code = reject_code
+        @reject_description = reject_description
+        @refund_or_owed_amount = refund_or_owed_amount
+        @refund_url = refund_url
+      end
+
+      private
 
       def title
         state_name = States.name_for_key(params[:us_state].upcase)

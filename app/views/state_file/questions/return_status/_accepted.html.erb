@@ -5,12 +5,12 @@
 </div>
 
 <h1 class="h2">
-  <%= title %>
+  <%= @title %>
 </h1>
 
-<% if refund_or_owed_amount.positive? %>
+<% if @refund_or_owed_amount.positive? %>
   <p><%= t('.check_your_refund_html', refund_url: refund_url) %></p>
-<% elsif refund_or_owed_amount.negative? %>
+<% elsif @refund_or_owed_amount.negative? %>
   <p><%= t('.direct_debit_html') %></p>
 <% end %>
 <p><%= t('.help_friend_html') %></p>
