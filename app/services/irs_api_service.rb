@@ -11,7 +11,11 @@ class IrsApiService
 
   def self.import_federal_data(authorization_code, state_code)
     if authorization_code == "abcdefg"
-      return df_return_sample
+      return {
+        'xml' => df_return_sample,
+        'submissionId' => "12345202201011234570",
+        'status' => "accepted"
+      }
     end
 
     account_id = EnvironmentCredentials.dig('statefile', state_code, "account_id")
@@ -95,7 +99,10 @@ class IrsApiService
     # puts "Response Code: #{response.code}"
     # puts "Response Body: #{plain}"
 
-    Nokogiri::XML(JSON.parse(plain)['xml']).to_xml
+    decrypted_json = JSON.parse(plain)
+    decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml
+
+    decrypted_json
   end
 
   private

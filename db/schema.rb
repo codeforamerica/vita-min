@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_07_081909) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1597,6 +1597,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_081909) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1684,6 +1686,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_081909) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"
