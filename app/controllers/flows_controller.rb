@@ -621,6 +621,7 @@ class FlowsController < ApplicationController
         spouse_last_name: "Testerson",
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
+        permanent_address_outside_ny: "no",
       )
     end
 

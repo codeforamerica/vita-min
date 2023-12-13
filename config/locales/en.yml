@@ -1971,6 +1971,7 @@ en:
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_yonkers: lived or earned income in Yonkers in 2023
+            permanent_address_outside_ny: you did not live in New York for all of 2023
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
       eligibility_out_of_state_income:
         edit:

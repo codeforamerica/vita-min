@@ -15,8 +15,7 @@
           <div class="form-question spacing-below-15">
             <div class="text--bold"><%=t(".address_header") %></div>
             <div><%= current_intake.direct_file_data.mailing_street %></div>
-            <div><%= current_intake.direct_file_data.mailing_city %>, New
-              York <%= current_intake.direct_file_data.mailing_zip %></div>
+            <div><%= current_intake.direct_file_data.mailing_city %>,<%= current_intake.direct_file_data.mailing_state %> <%= current_intake.direct_file_data.mailing_zip %></div>
           </div>
           <div>
             <%=

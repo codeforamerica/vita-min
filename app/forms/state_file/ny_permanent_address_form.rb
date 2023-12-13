@@ -5,7 +5,8 @@ module StateFile
                        :permanent_apartment,
                        :permanent_street,
                        :permanent_city,
-                       :permanent_zip
+                       :permanent_zip,
+                       :permanent_address_outside_ny
 
     validates :confirmed_permanent_address, presence: true
     validates :permanent_street, presence: true, if: -> { confirmed_permanent_address == "no" }
@@ -30,6 +31,7 @@ module StateFile
                                   permanent_street: @intake.direct_file_data.mailing_street,
                                   permanent_zip: @intake.direct_file_data.mailing_zip,
                                 } : {}
+      attributes_from_direct_file[:permanent_address_outside_ny] = @intake.direct_file_data.mailing_state != 'NY' && confirmed_permanent_address == "yes" ? "yes" : "no"
 
       @intake.update(attributes_for(:intake).merge(attributes_from_direct_file))
     end
