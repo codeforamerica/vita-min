@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_13_183820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1600,6 +1600,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false
+    t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
@@ -1630,6 +1631,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
+    t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
   end
@@ -1688,6 +1690,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.string "hashed_ssn"
     t.integer "household_cash_assistance"
     t.integer "household_fed_agi"
     t.integer "household_ny_additions"
@@ -1750,6 +1753,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_08_221742) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
   end
