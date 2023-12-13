@@ -15,7 +15,7 @@
                                 t('.your_dob'),
                                 options: {
                                   start_year: Time.now.year,
-                                  end_year: Time.now.year - 100,
+                                  end_year: 1900,
                                 }) %>
         </div>
       <% end %>
@@ -31,7 +31,7 @@
                                     t('.spouse_dob'),
                                     options: {
                                       start_year: Time.now.year,
-                                      end_year: Time.now.year - 100,
+                                      end_year: 1900,
                                     }) %>
             </div>
         <% end %>
@@ -51,7 +51,7 @@
                                  t('general.date_of_birth'),
                                  options: {
                                    start_year: Time.now.year,
-                                   end_year: Time.now.year - 100,
+                                   end_year: 1900,
                                  }) %>
         </div>
         <% if f.object.ask_months_in_home? %>
