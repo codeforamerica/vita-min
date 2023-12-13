@@ -585,7 +585,8 @@ class FlowsController < ApplicationController
         failed_attempts: 0,
         last_sign_in_at: nil,
         last_sign_in_ip: nil,
-        sign_in_count: 0
+        sign_in_count: 0,
+        hashed_ssn: "123456789abcde"
       }
     end
 
