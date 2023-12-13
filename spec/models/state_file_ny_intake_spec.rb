@@ -22,6 +22,7 @@
 #  email_address_verified_at          :datetime
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
+#  hashed_ssn                         :string
 #  household_cash_assistance          :integer
 #  household_fed_agi                  :integer
 #  household_ny_additions             :integer
@@ -89,6 +90,7 @@
 #
 # Indexes
 #
+#  index_state_file_ny_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_ny_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
