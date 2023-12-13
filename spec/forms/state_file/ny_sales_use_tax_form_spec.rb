@@ -126,11 +126,11 @@ RSpec.describe StateFile::NySalesUseTaxForm do
         end
       end
 
-      context "with a value less than 3" do
+      context "with a value less than 7" do
         let(:invalid_params) do
           {
             sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "2",
+            sales_use_tax: "6",
           }
         end
 
