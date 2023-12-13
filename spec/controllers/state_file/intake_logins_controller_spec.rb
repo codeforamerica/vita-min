@@ -207,7 +207,45 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     #  TODO: see client_logins_controller_spec
   end
 
-  xdescribe "#check_verification_code" do
-    #  TODO: see client_logins_controller_spec
+  describe "#check_verification_code" do
+    context "with valid params" do
+      let(:intake) { create :state_file_az_intake }
+      let(:email_address) { "example@example.com" }
+      let(:verification_code) { "000004" }
+      let(:hashed_verification_code) { "hashed_verification_code" }
+      let(:params) do
+        {
+          us_state: "az",
+          portal_verification_code_form: {
+            contact_info: email_address,
+            verification_code: verification_code
+          }
+        }
+      end
+
+      before do
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+        # TODO: decide whether to use same service, same method, etc.
+        allow_any_instance_of(ClientLoginService).to receive(:intakes_for_token).with(hashed_verification_code).and_return(intake)
+      end
+
+      it "redirects to the next page for login" do
+        post :check_verification_code, params: params
+
+        expect(response).to redirect_to(edit_state_file_az_intake_login_path(id: hashed_verification_code, us_state: "az"))
+      end
+
+      context "Datadog" do
+        it "increments a counter" do
+          post :check_verification_code, params: params
+
+          expect(DatadogApi).to have_received(:increment).with("intake_logins.verification_codes.right_code")
+        end
+      end
+    end
+
+    xcontext "with invalid params" do
+    #  TODO: see client logins controller spec
+    end
   end
 end
