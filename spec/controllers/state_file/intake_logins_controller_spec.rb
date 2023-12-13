@@ -178,35 +178,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
   end
 
-  describe "#edit" do
-    let(:params) do
-      {
-        id: "raw_token",
-        us_state: "ny"
-      }
-    end
-
-    context "as an unauthenticated client" do
-    #  TODO: see client_logins_controller_spec
-    end
-
-    context "as an authenticated client" do
-      before do
-        sign_in intake
-      end
-
-      it "redirects to data review page" do
-        get :edit, params: params
-
-        expect(response).to redirect_to ny_questions_data_review_path(us_state: "ny")
-      end
-    end
-  end
-
-  xdescribe "#update" do
-    #  TODO: see client_logins_controller_spec
-  end
-
   describe "#check_verification_code" do
     context "with valid params" do
       let(:intake) { create :state_file_az_intake }
@@ -245,7 +216,36 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     xcontext "with invalid params" do
-    #  TODO: see client logins controller spec
+      #  TODO: see client logins controller spec
     end
+  end
+
+  describe "#edit" do
+    let(:params) do
+      {
+        id: "raw_token",
+        us_state: "ny"
+      }
+    end
+
+    context "as an unauthenticated client" do
+    #  TODO: see client_logins_controller_spec
+    end
+
+    context "as an authenticated client" do
+      before do
+        sign_in intake
+      end
+
+      it "redirects to data review page" do
+        get :edit, params: params
+
+        expect(response).to redirect_to ny_questions_data_review_path(us_state: "ny")
+      end
+    end
+  end
+
+  xdescribe "#update" do
+    #  TODO: see client_logins_controller_spec
   end
 end

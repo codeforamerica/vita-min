@@ -4,6 +4,7 @@ module StateFile
     before_action :redirect_to_data_review_if_intake_authenticated
     layout "state_file/question"
 
+    # where they enter phone or email
     def new
       @contact_method = params[:contact_method]
       unless ["email_address", "sms_phone_number"].include?(@contact_method)
@@ -11,6 +12,8 @@ module StateFile
       end
       super
     end
+
+    # create is the submit on the phone/email page
 
     def edit
       # TODO: the place where they enter SSN
