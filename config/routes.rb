@@ -572,7 +572,7 @@ Rails.application.routes.draw do
           scope ":us_state", as: us_state, constraints: { us_state: us_state.to_sym } do
             get "login-options", to: "state_file_pages#login_options"
             resources :intake_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: '' } do
-              # put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+              put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
             end
           end
         end

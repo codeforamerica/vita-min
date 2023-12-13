@@ -1,0 +1,3 @@
+<%= render "state_file/questions/verification_code/enter_verification_code",
+           form: @verification_code_form,
+           url: StateFile::IntakeLoginsController.to_path_helper(action: :check_verification_code, us_state: params[:us_state], contact_method: @contact_method) %>

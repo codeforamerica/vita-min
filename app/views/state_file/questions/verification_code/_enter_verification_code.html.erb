@@ -1,0 +1,11 @@
+<% title = t("state_file.questions.verification_code.edit.title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <%= form_with model: form, url: url, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <h1 class="h2" id="main-question"><%= title %></h1>
+    <p><%= t("state_file.questions.verification_code.edit.subtitle_html", contact_info: @contact_info) %></p>
+    <%= f.cfa_input_field(:verification_code, t("state_file.questions.verification_code.edit.verification_code_label"), classes: ["form-width--long"]) %>
+
+    <%= f.submit t("state_file.questions.verification_code.edit.action") %>
+  <% end %>
+<% end %>

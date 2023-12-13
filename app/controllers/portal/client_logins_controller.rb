@@ -21,7 +21,8 @@ module Portal
           service_type: service_type
         )
 
-        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
+        @contact_info = @form.email_address.present? ? @form.email_address : @form.sms_phone_number
+        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @contact_info)
         after_create_valid
       else
         after_create_invalid

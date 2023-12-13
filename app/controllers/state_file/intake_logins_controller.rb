@@ -12,16 +12,21 @@ module StateFile
       super
     end
 
+    def edit
+      # TODO: the place where they enter SSN
+      super
+    end
+
+    def update
+      # TODO: the place where SSN is checked and they log in
+      super
+    end
+
     private
 
     def prev_path; end
 
     def illustration_path; end
-
-    def after_create_valid
-      # TODO: make new view for entering code
-      super
-    end
 
     def after_create_invalid
       @contact_method = params[:contact_method]
