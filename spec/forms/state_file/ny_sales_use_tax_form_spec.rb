@@ -97,6 +97,62 @@ RSpec.describe StateFile::NySalesUseTaxForm do
           expect(form.errors[:sales_use_tax]).to include "Can't be blank."
         end
       end
+
+      context "with a non numeric sales-use-tax" do
+        let(:invalid_params) do
+          {
+            sales_use_tax_calculation_method: "manual",
+            sales_use_tax: "NaN",
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+        end
+      end
+
+      context "with a non integer sales-use-tax" do
+        let(:invalid_params) do
+          {
+            sales_use_tax_calculation_method: "manual",
+            sales_use_tax: "30.5",
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+        end
+      end
+
+      context "with a value less than 7" do
+        let(:invalid_params) do
+          {
+            sales_use_tax_calculation_method: "manual",
+            sales_use_tax: "6",
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+        end
+      end
+
+      context "with a value greater than 125" do
+        let(:invalid_params) do
+          {
+            sales_use_tax_calculation_method: "manual",
+            sales_use_tax: "126",
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+        end
+      end
     end
   end
 
@@ -107,7 +163,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
       let(:valid_params) do
         { untaxed_out_of_state_purchases: "yes",
           sales_use_tax_calculation_method: "manual",
-          sales_use_tax: 350 }
+          sales_use_tax: 125 }
       end
 
       it "saves values" do
@@ -116,7 +172,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         expect(intake.untaxed_out_of_state_purchases).to eq "yes"
         expect(intake.sales_use_tax_calculation_method).to eq "manual"
-        expect(intake.sales_use_tax).to eq 350
+        expect(intake.sales_use_tax).to eq 125
       end
     end
   end

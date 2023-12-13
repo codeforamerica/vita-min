@@ -7,7 +7,16 @@ module StateFile
 
     validates :untaxed_out_of_state_purchases, presence: true
     validates :sales_use_tax_calculation_method, presence: true, if: -> { untaxed_out_of_state_purchases == "yes" }
-    validates :sales_use_tax, presence: true, if: -> { sales_use_tax_calculation_method == "manual" }
+    validates :sales_use_tax,
+      presence: true,
+      numericality: {
+        message: I18n.t("state_file.questions.ny_sales_use_tax.edit.enter_valid_dollar_amount"),
+        greater_than_or_equal_to: 7,
+        less_than_or_equal_to: 125,
+        only_integer: true,
+      },
+      if: -> { sales_use_tax_calculation_method == "manual" }
+    
 
     def initialize(intake = nil, params = nil)
       if params[:untaxed_out_of_state_purchases] == "no"
