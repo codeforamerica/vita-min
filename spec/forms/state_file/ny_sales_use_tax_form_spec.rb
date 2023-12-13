@@ -108,7 +108,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
         end
       end
 
@@ -122,7 +122,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
         end
       end
 
@@ -136,7 +136,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
         end
       end
 
@@ -150,7 +150,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 3 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
         end
       end
     end
