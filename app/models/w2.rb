@@ -51,9 +51,9 @@ class W2 < ApplicationRecord
   BOX12_OPTIONS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "Z", "AA", "BB", "DD", "EE", "FF", "GG", "HH"]
   BOX12_OFFBOARD_CODES = %w(A B K L M N R V W Z)
 
-  belongs_to :intake
+  belongs_to :intake, :polymorphic => true
   has_one :w2_state_fields_group, dependent: :destroy
-  has_one :w2_box14, dependent: :destroy
+  has_many :w2_box14, dependent: :destroy
 
   accepts_nested_attributes_for :w2_state_fields_group, update_only: true
   accepts_nested_attributes_for :w2_box14, update_only: true

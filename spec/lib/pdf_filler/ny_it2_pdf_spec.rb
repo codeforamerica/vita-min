@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PdfFiller::NyIt2Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_ny_w2) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_ny_intake) }
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf' do

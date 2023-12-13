@@ -667,7 +667,8 @@ class DirectFileData
                   :box10_dependent_care_benefits, :box11_nonqualified_plans, :box12a_code,
                   :box12a_value, :box12b_code, :box12b_value, :box12c_code, :box12c_value,
                   :box12d_code, :box12d_value, :box13_retirement_plan, :box13_third_party_sick_pay,
-                  :w2_state_fields_group, :w2_box14
+                  :box15_state, :box16_state_wages, :box17_state_income_tax,
+                  :box18_local_wages, :box19_local_income_tax, :box20_locality_name, :w2_box14
 
     def initialize(params = {})
       @employee_ssn = params[:employee_ssn]
@@ -691,7 +692,12 @@ class DirectFileData
       @box12d_value = params[:box12d_value]
       @box13_retirement_plan = params[:box13_retirement_plan]
       @box13_third_party_sick_pay = params[:box13_third_party_sick_pay]
-      @w2_state_fields_group = params[:w2_state_fields_group] || W2StateFieldsGroup.new
+      @box15_state = params[:box15_state]
+      @box16_state_wages = params[:box16_state_wages]
+      @box17_state_income_tax = params[:box17_state_income_tax]
+      @box18_local_wages = params[:box18_local_wages]
+      @box19_local_income_tax = params[:box19_local_income_tax]
+      @box20_locality_name = params[:box20_locality_name]
       @w2_box14 = params[:w2_box14] || []
     end
 
@@ -718,39 +724,24 @@ class DirectFileData
         box12d_value: @box12d_value,
         box13_retirement_plan: @box13_retirement_plan,
         box13_third_party_sick_pay: @box13_third_party_sick_pay,
-        w2_state_fields_group: @w2_state_fields_group&.attributes,
-        w2_box14: @w2_box14.map(&:attributes)
-      }
-    end
-  end
-
-  class W2StateFieldsGroup
-    attr_accessor :box15_state, :box16_state_wages, :box17_state_income_tax,
-                  :box18_local_wages, :box19_local_income_tax, :box20_locality_name
-
-    def initialize(params = {})
-      @box15_state = params[:box15_state]
-      @box16_state_wages = params[:box16_state_wages]
-      @box17_state_income_tax = params[:box17_state_income_tax]
-      @box18_local_wages = params[:box18_local_wages]
-      @box19_local_income_tax = params[:box19_local_income_tax]
-      @box20_locality_name = params[:box20_locality_name]
-    end
-
-    def attributes
-      {
         box15_state: @box15_state,
         box16_state_wages: @box16_state_wages,
         box17_state_income_tax: @box17_state_income_tax,
         box18_local_wages: @box18_local_wages,
         box19_local_income_tax: @box19_local_income_tax,
-        box20_locality_name: @box20_locality_name
+        box20_locality_name: @box20_locality_name,
+        w2_box14: @w2_box14.map(&:attributes)
       }
     end
   end
 
   class W2Box14
     attr_accessor :other_description, :other_amount
+
+    def initialize(params = {})
+      @other_description = params[:other_description]
+      @other_amount = params[:other_amount]
+    end
 
     def attributes
       {

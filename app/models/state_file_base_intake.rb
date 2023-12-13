@@ -45,6 +45,14 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def synchronize_df_w2s_to_database
+    direct_file_data.w2_nodes.each do |w2_node|
+      w2 = w2s.build
+      w2.assign_attributes(w2_node.attributes)
+      w2.save
+    end
+  end
+
   def calculated_refund_or_owed_amount
     calculator = tax_calculator
     calculator.calculate
