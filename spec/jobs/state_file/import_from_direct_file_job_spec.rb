@@ -31,6 +31,12 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
         expect(intake.dependents.count).to eq(5)
+        expected_hashed_ssn = OpenSSL::HMAC.hexdigest(
+          "SHA256",
+          EnvironmentCredentials.dig(:duplicate_hashing_key),
+          "ssn|123456789"
+        )
+        expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
     end
