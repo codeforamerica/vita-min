@@ -14,7 +14,10 @@ module StateFile
         hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
       )
       intake.synchronize_df_dependents_to_database
-
+      # binding.pry
+      intake.synchronize_df_w2s_to_database
+      puts "**************"
+      puts intake.w2s.count
       DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
 

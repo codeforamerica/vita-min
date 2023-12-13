@@ -543,8 +543,8 @@ class DirectFileData
         }
       end
       w2 = W2.new(
-        employee_ssn: node.at('EmployeeSSN')&.text,
-        employer_ein: node.at('EmployerEIN')&.text,
+        #employee_ssn: node.at('EmployeeSSN')&.text,
+        # employer_ein: node.at('EmployerEIN')&.text,
         employer_name: node.at('EmployerNameControlTxt')&.text,
         employer_street_address: node.at('EmployerUSAddress AddressLine1Txt')&.text,
         employer_city: node.at('EmployerUSAddress AddressLine1Txt')&.text,
@@ -563,16 +563,14 @@ class DirectFileData
         box12d_code: employers_use_grps[3]&.dig(:code),
         box12d_value: employers_use_grps[3]&.dig(:value),
         box13_retirement_plan: node.at('RetirementPlanInd')&.text,
-        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text)
-      w2_state_fields_group = W2StateFieldsGroup.new(
-        box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
-        box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
-        box17_state_income_tax: node.at('W2StateTaxGrp StateIncomeTaxAmt')&.text,
-        box18_local_wages: node.at('W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt')&.text,
-        box19_local_income_tax: node.at('W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt')&.text,
-        box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
+        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text
+        # box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
+        # box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
+        # box17_state_income_tax: node.at('W2StateTaxGrp StateIncomeTaxAmt')&.text,
+        # box18_local_wages: node.at('W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt')&.text,
+        # box19_local_income_tax: node.at('W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt')&.text,
+        # box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
         )
-      w2.w2_state_fields_group = w2_state_fields_group
       parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
         w2_box14 = W2Box14.new(
           other_description: node.at('Desc')&.text,
@@ -580,7 +578,9 @@ class DirectFileData
           )
         w2.w2_box14 = w2_box14
       end
+      w2
     end
+    
   end
 
   def build_new_w2_node
@@ -664,9 +664,9 @@ class DirectFileData
                   :employer_state, :employer_zip_code, :wages_amount, :box8_allocated_tips,
                   :box10_dependent_care_benefits, :box11_nonqualified_plans, :box12a_code,
                   :box12a_value, :box12b_code, :box12b_value, :box12c_code, :box12c_value,
-                  :box12d_code, :box12d_value, :box13_retirement_plan, :box13_third_party_sick_pay,
-                  :box15_state, :box16_state_wages, :box17_state_income_tax,
-                  :box18_local_wages, :box19_local_income_tax, :box20_locality_name, :w2_box14
+                  :box12d_code, :box12d_value, :box13_retirement_plan, :box13_third_party_sick_pay
+                  # :box15_state, :box16_state_wages, :box17_state_income_tax,
+                  # :box18_local_wages, :box19_local_income_tax, :box20_locality_name, :w2_box14
 
     def initialize(params = {})
       @employee_ssn = params[:employee_ssn]
@@ -690,12 +690,12 @@ class DirectFileData
       @box12d_value = params[:box12d_value]
       @box13_retirement_plan = params[:box13_retirement_plan]
       @box13_third_party_sick_pay = params[:box13_third_party_sick_pay]
-      @box15_state = params[:box15_state]
-      @box16_state_wages = params[:box16_state_wages]
-      @box17_state_income_tax = params[:box17_state_income_tax]
-      @box18_local_wages = params[:box18_local_wages]
-      @box19_local_income_tax = params[:box19_local_income_tax]
-      @box20_locality_name = params[:box20_locality_name]
+      # @box15_state = params[:box15_state]
+      # @box16_state_wages = params[:box16_state_wages]
+      # @box17_state_income_tax = params[:box17_state_income_tax]
+      # @box18_local_wages = params[:box18_local_wages]
+      # @box19_local_income_tax = params[:box19_local_income_tax]
+      # @box20_locality_name = params[:box20_locality_name]
       @w2_box14 = params[:w2_box14] || []
     end
 
@@ -722,12 +722,12 @@ class DirectFileData
         box12d_value: @box12d_value,
         box13_retirement_plan: @box13_retirement_plan,
         box13_third_party_sick_pay: @box13_third_party_sick_pay,
-        box15_state: @box15_state,
-        box16_state_wages: @box16_state_wages,
-        box17_state_income_tax: @box17_state_income_tax,
-        box18_local_wages: @box18_local_wages,
-        box19_local_income_tax: @box19_local_income_tax,
-        box20_locality_name: @box20_locality_name,
+        # box15_state: @box15_state,
+        # box16_state_wages: @box16_state_wages,
+        # box17_state_income_tax: @box17_state_income_tax,
+        # box18_local_wages: @box18_local_wages,
+        # box19_local_income_tax: @box19_local_income_tax,
+        # box20_locality_name: @box20_locality_name,
         w2_box14: @w2_box14.map(&:attributes)
       }
     end
