@@ -26,6 +26,9 @@ class StateId < ApplicationRecord
       self.issue_date = nil
       self.state = nil
     end
+    if self.non_expiring?
+      self.expiration_date = nil
+    end
   end
 
 end

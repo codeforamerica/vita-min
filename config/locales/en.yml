@@ -2116,6 +2116,7 @@ en:
             issue_month: Issue Month
             issue_state: Issue State
             issue_year: Issue Year
+            no_expiration_date: No expiration date
             number: ID Number
           id_type_question:
             dmv: DMV/BMV State ID

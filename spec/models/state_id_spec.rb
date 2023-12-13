@@ -37,5 +37,13 @@ describe StateId do
          .and change(state_id, :state).to(nil)
       end
     end
+    context "when non_expiring" do
+      it " clears expiration_date" do
+        state_id.non_expiring = true
+        expect {
+          state_id.update(id_type: "no_id")
+        }.to change(state_id, :expiration_date).to(nil)
+      end
+    end
   end
 end

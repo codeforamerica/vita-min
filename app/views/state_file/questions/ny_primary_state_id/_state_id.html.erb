@@ -35,6 +35,7 @@
                                   start_year: Time.now.year + 50,
                                   end_year: Time.now.year - 2,
                                 }) %>
+          <%= f.cfa_checkbox(:non_expiring, t("state_file.questions.primary_state_id.state_id.id_details.no_expiration_date")) %>
           <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short, spacing-above-0"]) %>
           <% if options[:include_first_three_doc_num] == true %>
             <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
