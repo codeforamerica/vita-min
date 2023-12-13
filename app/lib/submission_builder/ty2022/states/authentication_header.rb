@@ -22,7 +22,11 @@ module SubmissionBuilder
                 xml.DrvrLcnsNum state_id.id_number
                 xml.DrvrLcnsStCd state_id.state
                 xml.DrvrLcnsExprDt do
-                  xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                  if state_id.non_expiring
+                    xml.NonExpr "Non-Expiring"
+                  else
+                    xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                  end
                 end
                 xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
               else
