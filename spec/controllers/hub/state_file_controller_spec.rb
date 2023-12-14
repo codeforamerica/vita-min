@@ -23,9 +23,9 @@ describe Hub::StateFileController do
         sign_in user
       end
 
-      it "allows them to see the page" do
+      it "is forbidden" do
         get :index
-        expect(response).not_to be_ok
+        expect(response).to be_forbidden
       end
     end
   end
