@@ -10,10 +10,13 @@ class ClientLoginService
     to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
     emails = to_addresses.map { |to| to.split(",") }.flatten(1)
     email_intake_matches = service_class.accessible_intakes.where(email_address: emails)
-    spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
+    if service_class.column_names.include? "spouse_email_address"
+      spouse_email_intake_matches = service_class.accessible_intakes.where(spouse_email_address: emails)
+      email_intake_matches = email_intake_matches.or(spouse_email_intake_matches)
+    end
     phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
     phone_intake_matches = service_class.accessible_intakes.where(sms_phone_number: phone_numbers)
-    email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
+    email_intake_matches.or(phone_intake_matches)
   end
 
   def clients_for_token(raw_token)

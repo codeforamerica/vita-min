@@ -1,6 +1,54 @@
 require "rails_helper"
 
 describe ClientLoginService do
+  describe "#intakes_for_token" do
+    before do
+      allow(Devise.token_generator).to receive(:digest).and_return("hashed_token")
+    end
+
+    context "for state file" do
+      context "with AZ intakes" do
+        subject { described_class.new(:statefile_az) }
+
+        it "returns the intake with matching phone number" do
+          create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
+          matching_intake = create :state_file_az_intake_after_transfer, phone_number: "+16505551212"
+          create :state_file_az_intake_after_transfer, phone_number: "+15551231234"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+
+        it "returns the intake with matching email" do
+          create :email_access_token, token: "hashed_token", email_address: "someone@example.com"
+          matching_intake = create :state_file_az_intake_after_transfer, email_address: "someone@example.com"
+          create :state_file_az_intake_after_transfer, email_address: "someone_else@example.com"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+      end
+
+      context "with NY intakes" do
+        subject { described_class.new(:statefile_ny) }
+
+        it "returns the intake with matching phone number" do
+          create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
+          matching_intake = create :state_file_ny_intake_after_transfer, phone_number: "+16505551212"
+          create :state_file_ny_intake_after_transfer, phone_number: "+15551231234"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+
+        it "returns the intake with matching email" do
+          create :email_access_token, token: "hashed_token", email_address: "someone@example.com"
+          matching_intake = create :state_file_ny_intake_after_transfer, email_address: "someone@example.com"
+          create :state_file_ny_intake_after_transfer, email_address: "someone_else@example.com"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+      end
+    end
+  end
+
   describe "#clients_for_token" do
     let(:service_type) { "online_intake" }
     let!(:tax_return) { build :gyr_tax_return, service_type: service_type }
