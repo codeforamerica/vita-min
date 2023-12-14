@@ -13,8 +13,6 @@ module PdfFiller
 
     def hash_for_pdf
       w2 = @kwargs[:w2]
-      puts "************"
-      puts w2.inspect
       answers = {
         #'Box_a' => w2.employee_ssn,
         # 'Box_b' => w2.employer_ein,

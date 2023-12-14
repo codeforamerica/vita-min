@@ -534,7 +534,7 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
   end
 
-  def w2_nodes
+  def w2s
     parsed_xml.css('IRSW2').map do |node|
       employers_use_grps = node.css('EmployersUseGrp').map do |employer_use_grp|
         {

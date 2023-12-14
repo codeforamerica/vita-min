@@ -172,11 +172,10 @@ module SubmissionBuilder
                 kwargs: { form1099g: form1099g }
               }
             end
-            puts @submission.data_source
             @submission.data_source.w2s.each do |w2|
               supported_docs << {
                 xml: nil,
-                pdf: SubmissionBuilder::Ty2022::States::Ny::Documents::NyIt2Pdf,
+                pdf: PdfFiller::NyIt2Pdf,
                 include: true,
                 kwargs: { w2: w2 }
               }
