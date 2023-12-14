@@ -566,6 +566,24 @@ describe Efile::Ny::It201 do
     end
   end
 
+  describe "calculate IT-215" do
+    describe '#calculate_line_12' do
+      context "when federal EIC is not present" do
+        let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_unemployment.xml")) }
+
+        it "treats EIC as zero" do
+          expect(instance.calculate[:IT215_LINE_12]).to eq(0)
+        end
+      end
+
+      context "when federal EIC is present" do
+        it "calculates the value" do
+          expect(instance.calculate[:IT215_LINE_12]).to eq(533)
+        end
+      end
+    end
+  end
+
   # We aren't supporting IT-214 anymore, so the calculations being tested here aren't running. Restore these tests
   # if we ever implement this tax credit again.
   # describe '#calculate_it214' do
