@@ -11,11 +11,7 @@ module StateFile
         federal_return_status: direct_file_json['status']
       )
       intake.update(
-        hashed_ssn: OpenSSL::HMAC.hexdigest(
-          "SHA256",
-          EnvironmentCredentials.dig(:duplicate_hashing_key),
-          "ssn|#{intake.direct_file_data.primary_ssn}"
-        )
+        hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
       )
       intake.synchronize_df_dependents_to_database
 

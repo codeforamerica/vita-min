@@ -1837,6 +1837,10 @@ en:
         04_detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
+    intake_logins:
+      form:
+        errors:
+          bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
     questions:
       az_charitable_contributions:
         edit:
