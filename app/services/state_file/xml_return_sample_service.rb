@@ -15,6 +15,10 @@ module StateFile
       @_sample_lookup[key]
     end
 
+    def read(key)
+      lookup(key).read
+    end
+
     def old_sample
       lookup("abcdefg").read
     end

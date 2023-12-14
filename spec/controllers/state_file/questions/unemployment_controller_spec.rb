@@ -9,17 +9,17 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe ".show?" do
     it "is true for a return with unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_unemployment_az.xml"))
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("unemployment_az")
       expect(described_class.show?(intake)).to be_truthy
     end
 
     it "is false for a return that did not have unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_single_w2_ny.xml"))
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("single_w2_ny")
       expect(described_class.show?(intake)).to be_falsey
     end
 
     it "is false for a return that has a zero unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_educator_deduction_ny.xml"))
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("educator_deduction_ny")
       expect(described_class.show?(intake)).to be_falsey
     end
   end
