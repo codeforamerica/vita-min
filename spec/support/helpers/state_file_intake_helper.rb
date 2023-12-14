@@ -28,7 +28,7 @@ module StateFileIntakeHelper
   end
 
   def step_through_initial_authentication(contact_preference: :text_message)
-    expect(page).to have_text "Next, set up your account with a quick code"
+    expect(page).to have_text I18n.t("state_file.questions.contact_preference.edit.title")
 
     case contact_preference
     when :text_message
@@ -39,8 +39,8 @@ module StateFileIntakeHelper
       click_on "Send code"
 
 
-      expect(page).to have_text "Verify the code to continue"
-      expect(page).to have_text "A message with your code has been sent to (415) 333-4444."
+      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
+      expect(page).to have_text "We’ve sent your code to (415) 333-4444."
 
       perform_enqueued_jobs
       sms = FakeTwilioClient.messages.last
@@ -49,11 +49,11 @@ module StateFileIntakeHelper
       click_on "Email me a code"
 
       expect(page).to have_text "Enter your email address"
-      fill_in "Your email address (avoid using a temporary email)", with: "someone@example.com"
+      fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_text "Verify the code to continue"
-      expect(page).to have_text "A message with your code has been sent to someone@example.com."
+      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
+      expect(page).to have_text "We’ve sent your code to someone@example.com."
 
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
