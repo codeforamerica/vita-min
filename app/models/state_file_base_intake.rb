@@ -12,6 +12,9 @@ class StateFileBaseIntake < ApplicationRecord
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   scope :can_be_authenticated, -> { where.not(hashed_ssn: nil) }
+  class << self
+    alias :accessible_intakes :can_be_authenticated # integrate with legacy login service
+  end
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
