@@ -111,5 +111,9 @@ FactoryBot.define do
         create :state_file_efile_device_info, :filled, :submission, intake: intake
       end
     end
+
+    factory :state_file_az_intake_after_transfer do
+      sequence(:hashed_ssn) { |n| "abcdefg12346#{n}" }
+    end
   end
 end
