@@ -570,6 +570,32 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+
+  describe "#state_file_admin?" do
+    context "when the user has AdminRole type and state_file is true" do
+      let(:user) { create :admin_user, role: role }
+      let(:role) { create :admin_role, state_file: true }
+      it "returns true" do
+        expect(user.state_file_admin?).to be true
+      end
+    end
+
+    context "when the user does not have AdminRole type" do
+      let(:user) { create :greeter_user }
+      it "returns false" do
+        expect(user.state_file_admin?).to be false
+      end
+    end
+
+    context "when the user does have AdminRole type and state_file is false" do
+      let(:user) { create :admin_user, role: role }
+      let(:role) { create :admin_role, state_file: false }
+      it "returns false" do
+        expect(user.state_file_admin?).to be false
+      end
+    end
+  end
+
   describe ".active" do
     let!(:user) { create :user }
     let!(:suspended_user) { create :user, suspended_at: DateTime.now }

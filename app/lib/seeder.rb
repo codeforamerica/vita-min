@@ -120,7 +120,7 @@ class Seeder
         admin_user.update(
           name: admin_names[initials],
           password: Devise.friendly_token[0, 20])
-        admin_user.update(role: AdminRole.create(engineer: true)) if admin_user.role_type != AdminRole::TYPE
+        admin_user.update(role: AdminRole.create(engineer: true, state_file: true)) if admin_user.role_type != AdminRole::TYPE
       end
     end
 
@@ -128,7 +128,7 @@ class Seeder
     admin_user.update(
       name: "Admin Amdapynurian",
       password: "theforcevita")
-    admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
+    admin_user.update(role: AdminRole.create(state_file: true)) if admin_user.role_type != AdminRole::TYPE
 
     greeter_user = User.where(email: "greeter@example.com").first_or_initialize
     greeter_user.update(

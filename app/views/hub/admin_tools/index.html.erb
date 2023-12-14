@@ -4,9 +4,14 @@
 <% content_for :card do %>
   <div class="slab">
     <div class="grid">
-      <h1><%= @main_heading %></h1>
+      <h1>Get Your Refund Actions</h1>
 
       <%= render 'tools_table', actions: @actions %>
+
+      <% if @state_file_actions.present? %>
+      <h2>State File Actions</h2>
+      <%= render 'tools_table', actions: @state_file_actions %>
+      <% end %>
 
       <h2>Deprecated Actions</h2>
       <%= render 'tools_table', actions: @deprecated_actions %>
