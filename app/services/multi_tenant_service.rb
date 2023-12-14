@@ -1,7 +1,7 @@
 class MultiTenantService
   attr_accessor :service_type
 
-  SERVICE_TYPES = [:gyr, :ctc, :statefile]
+  SERVICE_TYPES = [:gyr, :ctc, :statefile, :statefile_az, :statefile_ny]
 
   def initialize(service_type)
     @service_type = service_type.to_sym
@@ -11,12 +11,9 @@ class MultiTenantService
   def url(locale: :en)
     base =
       case service_type
-      when :ctc
-        Rails.configuration.ctc_url
-      when :gyr
-        Rails.configuration.gyr_url
-      when :statefile
-        Rails.configuration.statefile_url
+      when :ctc then Rails.configuration.ctc_url
+      when :gyr then Rails.configuration.gyr_url
+      when :statefile then Rails.configuration.statefile_url
       end
     [base, locale].compact.join("/")
   end
@@ -39,6 +36,17 @@ class MultiTenantService
     when :ctc then "GetCTC"
     when :gyr then "GetYourRefund"
     when :statefile then "CFA State File"
+    end
+  end
+
+  def intake_model
+    case service_type
+    when :ctc then Intake::CtcIntake
+    when :gyr then Intake::GyrIntake
+    when :statefile_az then StateFileAzIntake
+    when :statefile_ny then StateFileNyIntake
+    when :statefile
+      raise StandardError, "No intake model for generic 'statefile' service type"
     end
   end
 
@@ -71,12 +79,9 @@ class MultiTenantService
 
   def current_tax_year
     case service_type
-    when :ctc
-      Rails.configuration.ctc_current_tax_year
-    when :gyr
-      Rails.configuration.gyr_current_tax_year
-    when :statefile
-      Rails.configuration.statefile_current_tax_year
+    when :ctc then Rails.configuration.ctc_current_tax_year
+    when :gyr then Rails.configuration.gyr_current_tax_year
+    when :statefile then Rails.configuration.statefile_current_tax_year
     end
   end
 

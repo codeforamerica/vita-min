@@ -83,4 +83,16 @@ describe MultiTenantService do
       expect(described_class.new(:gyr).backtax_years).to eq [2017, 2016, 2015]
     end
   end
+
+  describe "#intake_model" do
+    it "returns the correct model for the service" do
+      expect(described_class.new(:ctc).intake_model).to eq Intake::CtcIntake
+      expect(described_class.new(:gyr).intake_model).to eq Intake::GyrIntake
+      expect {
+        described_class.new(:statefile).intake_model
+      }.to raise_error
+      expect(described_class.new(:statefile_az).intake_model).to eq StateFileAzIntake
+      expect(described_class.new(:statefile_ny).intake_model).to eq StateFileNyIntake
+    end
+  end
 end
