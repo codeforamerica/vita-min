@@ -30,4 +30,10 @@ module AccessControllable
       redirect_to root_path
     end
   end
+
+  def require_state_file
+    unless current_user.present? && current_user.admin? && current_user.role.state_file?
+      redirect_to root_path
+    end
+  end
 end

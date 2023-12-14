@@ -237,6 +237,10 @@ class User < ApplicationRecord
     role_type == CoalitionLeadRole::TYPE
   end
 
+  def state_file_admin?
+    role_type == AdminRole::TYPE && role.state_file?
+  end
+
   def suspended?
     suspended_at.present?
   end

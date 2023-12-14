@@ -113,6 +113,10 @@ FactoryBot.define do
       sequence(:name) { |n| "Admin the #{n}th" }
 
       role { build(:admin_role) }
+
+      trait :state_file do
+        role { create(:admin_role, state_file: true) }
+      end
     end
 
     factory :greeter_user do

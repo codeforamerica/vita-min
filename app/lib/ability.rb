@@ -12,6 +12,13 @@ class Ability
     # Admins can do everything
     if user.admin?
       can :manage, :all
+      unless user.state_file_admin?
+        cannot :manage, StateFileAzIntake
+        cannot :manage, StateFileNyIntake
+        cannot :manage, StateFile1099G
+        cannot :manage, StateFileDependent
+        cannot :manage, StateId
+      end
       return
     end
 
@@ -61,6 +68,11 @@ class Ability
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
+    cannot :manage, StateFileAzIntake
+    cannot :manage, StateFileNyIntake
+    cannot :manage, StateFile1099G
+    cannot :manage, StateFileDependent
+    cannot :manage, StateId
 
     if user.role_type == CoalitionLeadRole::TYPE
       can :read, Coalition, id: user.role.coalition_id

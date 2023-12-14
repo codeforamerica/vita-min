@@ -4,7 +4,8 @@ describe Ability do
   let(:subject) { Ability.new(user) }
 
   context "as an admin" do
-    let(:user) { create(:user, role: create(:admin_role)) }
+    let(:user) { create :admin_user, role: role }
+    let(:role) { create :admin_role, state_file: false }
 
     it "can manage everything" do
       expect(subject.can?(:manage, Document.new)).to eq true
@@ -16,6 +17,28 @@ describe Ability do
       expect(subject.can?(:manage, SystemNote.new)).to eq true
       expect(subject.can?(:manage, User.new)).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq true
+    end
+
+    context "state_file true" do
+      let(:role) { create :admin_role, state_file: true }
+
+      it "can manage state file intakes" do
+        expect(subject.can?(:manage, StateFileAzIntake.new)).to eq true
+        expect(subject.can?(:manage, StateFileNyIntake.new)).to eq true
+        expect(subject.can?(:manage, StateFile1099G.new)).to eq true
+        expect(subject.can?(:manage, StateFileDependent.new)).to eq true
+        expect(subject.can?(:manage, StateId.new)).to eq true
+      end
+    end
+
+    context "state_file false" do
+      it "cannot manage state file intakes" do
+        expect(subject.can?(:manage, StateFileAzIntake.new)).to eq false
+        expect(subject.can?(:manage, StateFileNyIntake.new)).to eq false
+        expect(subject.can?(:manage, StateFile1099G.new)).to eq false
+        expect(subject.can?(:manage, StateFileDependent.new)).to eq false
+        expect(subject.can?(:manage, StateId.new)).to eq false
+      end
     end
 
     context "with a client data unrelated to the user" do
@@ -49,6 +72,14 @@ describe Ability do
       expect(subject.can?(:manage, GreeterRole)).to eq false
       expect(subject.can?(:manage, CoalitionLeadRole)).to eq false
       expect(subject.can?(:manage, OrganizationLeadRole)).to eq false
+    end
+
+    it "cannot manage state file intakes" do
+      expect(subject.can?(:manage, StateFileAzIntake.new)).to eq false
+      expect(subject.can?(:manage, StateFileNyIntake.new)).to eq false
+      expect(subject.can?(:manage, StateFile1099G.new)).to eq false
+      expect(subject.can?(:manage, StateFileDependent.new)).to eq false
+      expect(subject.can?(:manage, StateId.new)).to eq false
     end
   end
 
@@ -572,6 +603,20 @@ describe Ability do
           it "cannot manage" do
             expect(subject.can?(:manage, target_role)).to eq false
           end
+        end
+      end
+    end
+
+    context "Permissions regarding StateFile objects" do
+      let(:user) { create :team_member_user }
+
+      context "managing StateFile intakes" do
+        it "cannot manage state file intakes" do
+          expect(subject.can?(:manage, StateFileAzIntake.new)).to eq false
+          expect(subject.can?(:manage, StateFileNyIntake.new)).to eq false
+          expect(subject.can?(:manage, StateFile1099G.new)).to eq false
+          expect(subject.can?(:manage, StateFileDependent.new)).to eq false
+          expect(subject.can?(:manage, StateId.new)).to eq false
         end
       end
     end

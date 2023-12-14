@@ -15,6 +15,11 @@ module Hub
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
         [Hub::FaqCategoriesController.to_path_helper(action: :index), "Frequently Asked Questions"],
       ]
+      if current_user.state_file_admin?
+        @state_file_actions = [
+          [Hub::StateFileController.to_path_helper(action: :index), "State File"]
+        ]
+      end
       @deprecated_actions = [
         [hub_verification_attempts_path, "Client Verification"],
         [hub_fraud_indicators_path, "Fraud Indicators"],
