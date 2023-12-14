@@ -7,6 +7,10 @@ module StateFile
     end
 
     def fake_direct_file_transfer_page
+      @main_transfer_url = transfer_url("abcdefg", params[:redirect])
+      @xml_samples = XmlReturnSampleService.new.samples.map do |sample|
+        [sample.label, transfer_url(sample.key, params[:redirect])]
+      end.sort
       render layout: nil
     end
 
@@ -15,6 +19,15 @@ module StateFile
     def clear_session
       session.delete(:state_file_intake)
       redirect_to action: :about_page
+    end
+
+    private
+
+
+    def transfer_url(key, redirect_url)
+      uri = URI(redirect_url)
+      uri.query = { authorizationCode: key }.to_query
+      uri.to_s
     end
   end
 end
