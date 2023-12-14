@@ -25,15 +25,10 @@
           margin-bottom: 10px;
       }
   </style>
-
-  <%
-    state_file_link = URI(params[:redirect])
-    state_file_link.query = { authorizationCode: 'abcdefg' }.to_query
-  %>
   <%=
     link_to(
       "Transfer my 2023 federal tax return to FileYourStateTaxes",
-      state_file_link.to_s,
+      @main_transfer_url,
       class: 'transfer-button'
     )
   %>
@@ -52,4 +47,8 @@
       state_file_questions_pending_federal_return_path
     )
   %>
+
+  <% @xml_samples.each do |label, url| %>
+    <%= link_to("Transfer " + label, url, class: 'transfer-button') %>
+  <% end %>
 </div>

@@ -3,16 +3,18 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
+require 'state_file/xml_return_sample_service'
 
 class IrsApiService
   def self.df_return_sample
-    File.read(File.join(__dir__, '..', '..', 'app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml'))
+    StateFile::XmlReturnSampleService.new.old_sample
   end
 
   def self.import_federal_data(authorization_code, state_code)
-    if authorization_code == "abcdefg"
+    matching_fake_xml_sample = StateFile::XmlReturnSampleService.new.lookup(authorization_code)
+    if matching_fake_xml_sample
       return {
-        'xml' => df_return_sample,
+        'xml' => matching_fake_xml_sample.read,
         'submissionId' => "12345202201011234570",
         'status' => "accepted"
       }

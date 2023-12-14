@@ -5,7 +5,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
     let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
 
     let(:xml_result) do
-      File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents.xml"))
+      File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents_ny.xml"))
     end
 
     let(:json_result) do
