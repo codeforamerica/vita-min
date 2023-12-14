@@ -8,6 +8,7 @@
 #  id_number           :string
 #  id_type             :integer          default("unfilled"), not null
 #  issue_date          :date
+#  non_expiring        :boolean          default(FALSE)
 #  state               :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -34,6 +35,14 @@ describe StateId do
          .and change(state_id, :issue_date).to(nil)
          .and change(state_id, :first_three_doc_num).to(nil)
          .and change(state_id, :state).to(nil)
+      end
+    end
+    context "when non_expiring" do
+      it " clears expiration_date" do
+        state_id.non_expiring = true
+        expect {
+          state_id.update(id_type: "no_id")
+        }.to change(state_id, :expiration_date).to(nil)
       end
     end
   end

@@ -8,6 +8,7 @@
 #  id_number           :string
 #  id_type             :integer          default("unfilled"), not null
 #  issue_date          :date
+#  non_expiring        :boolean          default(FALSE)
 #  state               :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -24,6 +25,9 @@ class StateId < ApplicationRecord
       self.id_number = nil
       self.issue_date = nil
       self.state = nil
+    end
+    if self.non_expiring?
+      self.expiration_date = nil
     end
   end
 

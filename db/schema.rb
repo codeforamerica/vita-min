@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_13_183820) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_13_194846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1766,6 +1766,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_13_183820) do
     t.string "id_number"
     t.integer "id_type", default: 0, null: false
     t.date "issue_date"
+    t.boolean "non_expiring", default: false
     t.string "state"
     t.datetime "updated_at", null: false
   end
