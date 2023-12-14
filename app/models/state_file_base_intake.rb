@@ -11,6 +11,8 @@ class StateFileBaseIntake < ApplicationRecord
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
+  scope :can_be_authenticated, -> { where.not(hashed_ssn: nil) }
+
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
   accepts_nested_attributes_for :dependents, update_only: true

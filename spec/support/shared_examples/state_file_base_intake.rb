@@ -55,4 +55,13 @@ shared_examples :state_file_base_intake do |factory:|
       expect(intake.dependents.count).to eq 5
     end
   end
+
+  describe ".can_be_authenticated" do
+    let!(:authenticatable_intake) { create factory, hashed_ssn: "blabla12345" }
+    let!(:not_authenticatable_intake) { create factory, hashed_ssn: nil }
+
+    it "returns the intakes that have hashed_ssn" do
+      expect(described_class.can_be_authenticated).to match_array([authenticatable_intake])
+    end
+  end
 end
