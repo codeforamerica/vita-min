@@ -40,7 +40,7 @@ module Efile
       end
 
       def calculate_line_12
-        (@lines[:IT215_LINE_10].value * @lines[:IT215_LINE_11].value).round
+        (line_or_zero(:IT215_LINE_10) * @lines[:IT215_LINE_11].value).round
       end
 
       def calculate_wk_b_line_4
@@ -86,7 +86,7 @@ module Efile
       end
 
       def calculate_wk_c_line_3
-        (@lines[:IT215_WK_C_LINE_1].value * @lines[:IT215_WK_C_LINE_2].value).round
+        (line_or_zero(:IT215_WK_C_LINE_1) * @lines[:IT215_WK_C_LINE_2].value).round
       end
 
       def calculate_wk_c_line_4
