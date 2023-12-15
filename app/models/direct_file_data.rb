@@ -543,8 +543,8 @@ class DirectFileData
         }
       end
       w2 = W2.new(
-        #employee_ssn: node.at('EmployeeSSN')&.text,
-        # employer_ein: node.at('EmployerEIN')&.text,
+        employee_ssn: node.at('EmployeeSSN')&.text,
+        employer_ein: node.at('EmployerEIN')&.text,
         employer_name: node.at('EmployerNameControlTxt')&.text,
         employer_street_address: node.at('EmployerUSAddress AddressLine1Txt')&.text,
         employer_city: node.at('EmployerUSAddress AddressLine1Txt')&.text,

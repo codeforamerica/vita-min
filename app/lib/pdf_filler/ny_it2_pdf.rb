@@ -14,8 +14,8 @@ module PdfFiller
     def hash_for_pdf
       w2 = @kwargs[:w2]
       answers = {
-        #'Box_a' => w2.employee_ssn,
-        # 'Box_b' => w2.employer_ein,
+        'Box_a' => w2.employee_ssn,
+        'Box_b' => w2.employer_ein,
         'Box_c1' => w2.employer_name,
         'Box_c2' => w2.employer_street_address,
         'Box_c3_city' => w2.employer_city,

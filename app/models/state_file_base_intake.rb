@@ -48,7 +48,7 @@ class StateFileBaseIntake < ApplicationRecord
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each do |w2_node|
       w2 = w2s.build
-      w2.assign_attributes(w2_node.attributes.except(:employee_ssn, :employer_ein))
+      w2.assign_attributes(w2_node.attributes)
       w2.save
     end
   end

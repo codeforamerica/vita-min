@@ -67,7 +67,7 @@ class W2 < ApplicationRecord
   enum box13_retirement_plan: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_retirement_plan
   enum box13_third_party_sick_pay: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_third_party_sick_pay
 
-  delegate :first_name, :middle_initial, :suffix, :last_name, :ssn, to: :employee_obj, allow_nil: true, prefix: :employee
+  delegate :first_name, :middle_initial, :suffix, :last_name, to: :employee_obj, allow_nil: true, prefix: :employee
 
   def employee_obj
     if employee_primary?
