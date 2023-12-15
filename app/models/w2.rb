@@ -27,6 +27,7 @@
 #  creation_token                     :string
 #  employee                           :integer          default("unfilled"), not null
 #  employee_city                      :string
+#  employee_ssn                       :string
 #  employee_state                     :string
 #  employee_street_address            :string
 #  employee_zip_code                  :string
