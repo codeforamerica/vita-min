@@ -216,6 +216,8 @@ Rails.application.routes.draw do
 
         resources :state_file, only: [:index]
 
+        resources :efile, path: "efile_submissions", only: [:index, :show]
+
         resources :fraud_indicators, path: "fraud-indicators" do
           collection do
             resources :risky_domains, controller: 'fraud_indicators/risky_domains', path: "risky-domains"
