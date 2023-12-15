@@ -2,7 +2,16 @@ class ClientLoginService
   attr_accessor :service_class
 
   def initialize(service_type)
+    @service_type = service_type
     @service_class = MultiTenantService.new(service_type).intake_model
+  end
+
+  def login_records_for_token(raw_token)
+    if [:gyr, :ctc].include? @service_type
+      clients_for_token(raw_token)
+    else
+      intakes_for_token(raw_token) # state file
+    end
   end
 
   def intakes_for_token(raw_token)

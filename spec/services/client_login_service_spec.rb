@@ -1,6 +1,43 @@
 require "rails_helper"
 
 describe ClientLoginService do
+  describe "#login_records_for_token" do
+    before do
+      allow_any_instance_of(described_class).to receive(:intakes_for_token).and_return "intakes"
+      allow_any_instance_of(described_class).to receive(:clients_for_token).and_return "clients"
+    end
+
+    context "for state file" do
+      subject { described_class.new(:statefile_az) }
+
+      it "returns intake" do
+        expect(subject.login_records_for_token("token")).to eq "intakes"
+
+        expect(subject).to have_received(:intakes_for_token).with("token")
+      end
+    end
+
+    context "for gyr" do
+      subject { described_class.new(:gyr) }
+
+      it "returns clients" do
+        expect(subject.login_records_for_token("token")).to eq "clients"
+
+        expect(subject).to have_received(:clients_for_token).with("token")
+      end
+    end
+
+    context "for ctc" do
+      subject { described_class.new(:ctc) }
+
+      it "returns clients" do
+        expect(subject.login_records_for_token("token")).to eq "clients"
+
+        expect(subject).to have_received(:clients_for_token).with("token")
+      end
+    end
+  end
+
   describe "#intakes_for_token" do
     before do
       allow(Devise.token_generator).to receive(:digest).and_return("hashed_token")
@@ -164,7 +201,7 @@ describe ClientLoginService do
 
     context "service_type is :gyr" do
       subject { described_class.new(:gyr) }
-      let(:intake) { (build :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
+      let(:intake) { (build :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in) }
       let(:tax_return) { build :gyr_tax_return }
 
       context "when client phone number maps to online, consented return with sms opt in" do
@@ -199,7 +236,7 @@ describe ClientLoginService do
     context "service_type is :ctc" do
       subject { described_class.new(:ctc) }
 
-      let(:intake) { (build :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified)}
+      let(:intake) { (build :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified) }
       let(:tax_return) { build :ctc_tax_return }
       let(:sms_phone_number) { phone_number }
       let(:other_phone_number) { nil }

@@ -2345,6 +2345,11 @@ en:
       footer:
         state_file_description_html: FileYourStateTaxes is built by %{link} to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by %{link} in partnership with the state of %{state_full_name} to integrate with the IRS Direct File tool.
+      login_options:
+        email_signin: Sign in with email
+        help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
+        phone_number_signin: Sign in with phone number
+        title: Sign in to FileYourStateTaxes
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.

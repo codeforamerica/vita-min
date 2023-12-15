@@ -7,11 +7,11 @@ module Portal
     layout "portal"
 
     def new
-      @form = RequestClientLoginForm.new
+      @form = request_login_form_class.new
     end
 
     def create
-      @form = RequestClientLoginForm.new(request_client_login_params)
+      @form = request_login_form_class.new(request_client_login_params)
       if @form.valid?
         RequestVerificationCodeForLoginJob.perform_later(
           email_address: @form.email_address,
@@ -39,7 +39,7 @@ module Portal
       if @verification_code_form.valid?
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
 
-        if client_login_service.clients_for_token(hashed_verification_code).present?
+        if client_login_service.login_records_for_token(hashed_verification_code).present?
           DatadogApi.increment("client_logins.verification_codes.right_code")
           redirect_to edit_portal_client_login_path(id: hashed_verification_code)
           return
@@ -80,6 +80,10 @@ module Portal
     end
 
     private
+
+    def request_login_form_class
+      RequestClientLoginForm
+    end
 
     def request_client_login_params
       params.require(:portal_request_client_login_form).permit(:email_address, :sms_phone_number)
