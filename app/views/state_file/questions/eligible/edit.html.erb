@@ -9,22 +9,22 @@
       <% if params[:us_state] == "az" %>
         <ul class="list--bulleted">
           <li><%= t(".increased_deduction") %></li>
-          <li><a href="#"><%= t(".dependent_credit") %></a></li>
-          <li><a href="#"><%= t(".family_income_credit") %></a></li>
-          <li><a href="#"><%= t(".increased_excise_credit") %></a></li>
+          <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions" target="_blank" rel="noopener nofollow"><%= t(".dependent_credit") %></a></li>
+          <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow"><%= t(".family_income_credit") %></a></li>
+          <li><a href="https://www.google.com/url?q=https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes&sa=D&source=docs&ust=1702498005392291&usg=AOvVaw27BYuJkG6FJtRuvyRPR_W5" target="_blank" rel="noopener nofollow"><%= t(".increased_excise_credit") %></a></li>
         </ul>
       <% else %>
         <ul class="list--bulleted">
-          <li><a href="#"><%= t(".nys_hh_credit") %></a></li>
-          <li><a href="#"><%= t(".empire_state_ctc") %></a></li>
-          <li><a href="#"><%= t(".nys_eic") %></a></li>
-          <li><a href="#"><%= t(".real_property_credit") %></a></li>
+          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>
+          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".empire_state_ctc") %></a></li>
+          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".nys_eic") %></a></li>
+          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".real_property_credit") %></a></li>
         </ul>
       <% end %>
   </div>
 
   <!-- TODO: This is supposed to be an expandable help section -->
-  <p><%= t(".not_supported") %></p>
+  <p><%= t(".not_supported_html") %></p>
 
   <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
     <%= t("general.continue") %>
