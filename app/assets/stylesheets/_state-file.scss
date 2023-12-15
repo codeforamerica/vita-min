@@ -365,6 +365,68 @@
     font-size: 2.5rem;
     font-weight: normal;
   }
+
+  .text-input,
+  a,
+  .button,
+  .radio-button,
+  .radio-button input[type='radio'],
+  .select__element,
+  .checkbox,
+  .checkbox input[type='checkbox'] {
+    box-shadow: 0 0 0 5px rgba(33, 200, 52, 0);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .text-input:focus,
+  a:focus,
+  .button:focus,
+  .button:hover,
+  .radio-button input[type='radio']:focus,
+  .select__element:focus,
+  .checkbox input[type='checkbox']:focus {
+    box-shadow: 0 0 0 5px rgba(33, 200, 52, 1), inset 0px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  input[type='radio'] {
+    accent-color: #000;
+  }
+
+  // Hack to make radio buttons black instead of green
+  input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2.5px;
+    left: 0.5px;
+    position: relative;
+    background-color: #000;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+  }
+
+  // Hack to make checkboxes black instead of green
+  input[type='checkbox']:checked:after {
+    content: " ";
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMTczLjg5OCA0MzkuNDA0bC0xNjYuNC0xNjYuNGMtOS45OTctOS45OTctOS45OTctMjYuMjA2IDAtMzYuMjA0bDM2LjIwMy0zNi4yMDRjOS45OTctOS45OTggMjYuMjA3LTkuOTk4IDM2LjIwNCAwTDE5MiAzMTIuNjkgNDMyLjA5NSA3Mi41OTZjOS45OTctOS45OTcgMjYuMjA3LTkuOTk3IDM2LjIwNCAwbDM2LjIwMyAzNi4yMDRjOS45OTcgOS45OTcgOS45OTcgMjYuMjA2IDAgMzYuMjA0bC0yOTQuNCAyOTQuNDAxYy05Ljk5OCA5Ljk5Ny0yNi4yMDcgOS45OTctMzYuMjA0LS4wMDF6Ii8+PC9zdmc+);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: center center;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    left: -2px;
+    top: -2.5px;
+    text-align: center;
+    background-color: transparent;
+    font-size: 10px;
+    height: 20px;
+    width: 20px;
+  }
 }
 
 $state-colors: (
