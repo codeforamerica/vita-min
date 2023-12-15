@@ -6,7 +6,6 @@ RSpec.describe RequestVerificationCodeEmailJob, type: :job do
   end
 
   describe "#perform" do
-
     context "with email_address, visitor_id, and locale params" do
       it "requests a verification code by email using those params" do
         RequestVerificationCodeEmailJob.perform_now(email_address: "client@example.com", visitor_id: "87h2897gh2", locale: "es", service_type: :gyr)

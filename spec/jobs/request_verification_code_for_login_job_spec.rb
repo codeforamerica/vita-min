@@ -146,5 +146,35 @@ describe RequestVerificationCodeForLoginJob do
         end
       end
     end
+
+    context "for state file" do
+      context "with an email address" do
+        let(:params) do
+          {
+            email_address: "client@example.com",
+            visitor_id: "87h2897gh2",
+            locale: "es",
+            service_type: :statefile_az
+          }
+        end
+        let(:mailer_double) { double }
+        before do
+          allow(EmailVerificationCodeService).to receive(:request_code)
+          allow(VerificationCodeMailer).to receive(:no_match_found).and_return mailer_double
+          allow(mailer_double).to receive(:deliver_now)
+        end
+
+        context "when the email address is a match for an intake" do
+          before do
+            allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return true
+          end
+
+          it "requests a code from EmailVerificationCodeService" do
+            described_class.perform_now(**params)
+            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(**params, service_type: :statefile))
+          end
+        end
+      end
+    end
   end
 end
