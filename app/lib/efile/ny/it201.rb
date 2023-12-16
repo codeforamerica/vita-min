@@ -67,12 +67,9 @@ module Efile
         set_line(:IT201_LINE_49, :calculate_line_49)
         set_line(:IT201_LINE_52, :calculate_line_52)
         set_line(:IT201_LINE_54, :calculate_line_54)
-        # TODO: are we supporting MCTMT lines 54a-54e?
         set_line(:IT201_LINE_58, :calculate_line_58)
         set_line(:IT201_LINE_59, @intake, :sales_use_tax)
         @it227.calculate
-        # TODO: this is always 0, should we know the real value?
-        set_line(:IT201_LINE_60, -> { @lines[:IT227_PART_2_LINE_1].value })
         set_line(:IT201_LINE_61, :calculate_line_61)
         set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
@@ -140,13 +137,13 @@ module Efile
 
       def calculate_line_34
         if filing_status_single? && @direct_file_data.claimed_as_dependent?
-          3100
+          3_100
         elsif filing_status_single? || filing_status_mfs?
-          8000
+          8_000
         elsif filing_status_mfj? || filing_status_qw?
-          16050
+          16_050
         elsif filing_status_hoh?
-          11200
+          11_200
         end
       end
 
@@ -431,14 +428,12 @@ module Efile
         # account and an individual retirement annuity, from Form IT-201, line 9, if they were included in your federal
         # adjusted gross income.
         income_eligible = (line_or_zero(:IT201_LINE_19) - line_or_zero(:IT201_LINE_9)) < 250_000
-        # TODO: The instructions provide a credit to part-year nyc residents based on number of months in NYC - should we support that?
         return 0 unless income_eligible && @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
 
         @filing_status.in?([:single, :married_filing_separately, :head_of_household]) ? 63 : 125
       end
 
       def calculate_line_69a
-        # TODO: The instructions provide a credit to part-year nyc residents based on number of months in NYC - should we support that?
         return 0 unless @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)
