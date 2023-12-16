@@ -97,9 +97,9 @@ module PdfFiller
         Line76: claimed_attr_value('TOT_PAY_AMT'),
         Line77: claimed_attr_value('OVR_PAID_AMT'),
         Line78: claimed_attr_value('RFND_B4_EDU_AMT'),
+        Line78b: claimed_attr_value('RFND_AMT'),
         # TODO - direct deposit or check checkbox, indicated by a single linked field in the PDF but 2 separate fields in the XML,
         # Line78_refund:
-        Line78b: claimed_attr_value('RFND_AMT'),
         # TODO - 'to pay by electronic funds withdrawal' checkbox. not 100% confident what it maps to in the xml
         # Line80_box: ,
         Line80: claimed_attr_value('BAL_DUE_AMT'),

@@ -168,8 +168,6 @@ IT201_LINE_58:
   label: '58 Total New York City and Yonkers taxes / surcharges and MCTMT'
 IT201_LINE_59:
   label: '59 Sales or use tax'
-IT201_LINE_60:
-  label: '60 Voluntary contributions (Form IT-227, Part 2, line 1)'
 IT201_LINE_61:
   label: '61 Total New York State, New York City, Yonkers, and sales or use taxes, MCTMT, and
  voluntary contributions (add lines 46, 58, 59, and 60) .'

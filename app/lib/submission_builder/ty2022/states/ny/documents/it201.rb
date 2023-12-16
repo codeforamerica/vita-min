@@ -45,7 +45,7 @@ module SubmissionBuilder
                 xml.S_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_32)
                 xml.NYSAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_33)
                 xml.STD_ITZ_IND claimed: 1
-                xml.DED_AMT claimed: calculated_fields.fetch(:IT201_LINE_34) #returning empty
+                xml.DED_AMT claimed: calculated_fields.fetch(:IT201_LINE_34)
                 xml.INC_B4_EXMPT_AMT claimed: calculated_fields.fetch(:IT201_LINE_35)
                 xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
                 xml.TXBL_INC_AMT claimed: calculated_fields.fetch(:IT201_LINE_37)
@@ -75,16 +75,6 @@ module SubmissionBuilder
                 xml.OVR_PAID_AMT claimed: calculated_fields.fetch(:IT201_LINE_77)
                 xml.RFND_B4_EDU_AMT claimed: calculated_fields.fetch(:IT201_LINE_78)
                 xml.RFND_AMT claimed: calculated_fields.fetch(:IT201_LINE_78B)
-
-                # TODO: seems like most of the money transfer stuff goes in the return header instead
-                # xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
-                # xml.RFND_OWE_IND claimed: TODO
-                # xml.ACCT_TYPE_CD claimed: TODO
-                # xml.ABA_NMBR claimed: @submission.data_source.routing_number
-                # xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number
-                # xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal
-
-                # xml.PYMT_AMT claimed: TODO
                 xml.PR_SGN_IND claimed: 1
 
                 xml.IT201FEDADJID do
