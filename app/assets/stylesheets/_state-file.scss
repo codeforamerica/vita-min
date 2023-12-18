@@ -374,7 +374,7 @@
   .select__element,
   .checkbox,
   .checkbox input[type='checkbox'] {
-    box-shadow: 0 0 0 5px rgba(33, 200, 52, 0);
+    box-shadow: 0 0 0 5px rgba($color-state-file-primary, 0);
     transition: box-shadow 0.2s ease;
   }
 
@@ -385,7 +385,7 @@
   .radio-button input[type='radio']:focus,
   .select__element:focus,
   .checkbox input[type='checkbox']:focus {
-    box-shadow: 0 0 0 5px rgba(33, 200, 52, 1), inset 0px 2px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 5px $color-state-file-primary, inset 0px 2px 0px rgba(0, 0, 0, 0.15);
   }
 
   input[type='radio'] {
