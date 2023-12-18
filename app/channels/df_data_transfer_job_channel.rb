@@ -1,6 +1,10 @@
 class DfDataTransferJobChannel < ApplicationCable::Channel
   def subscribed
-    stream_for current_state_file_intake
+    intake = current_state_file_intake
+    if intake.raw_direct_file_data
+      broadcast_job_complete(intake)
+    end
+    stream_for intake
   end
 
   def self.broadcast_job_complete(intake)
