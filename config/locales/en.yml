@@ -2189,7 +2189,6 @@ en:
           email_text_update: You’ll receive an email or text update when your state return is accepted.
           ny_notifications_signup_html: <a href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote
-          share_direct_file_link: Share the IRS DirectFile link
           title: Your 2023 %{state_name} state tax return is now submitted!
       tax_refund:
         edit:
