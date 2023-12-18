@@ -1841,6 +1841,7 @@ en:
       form:
         errors:
           bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+      no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     questions:
       az_charitable_contributions:
         edit:

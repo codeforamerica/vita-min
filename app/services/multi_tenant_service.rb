@@ -14,6 +14,8 @@ class MultiTenantService
       when :ctc then Rails.configuration.ctc_url
       when :gyr then Rails.configuration.gyr_url
       when :statefile then Rails.configuration.statefile_url
+      when :statefile_az then Rails.configuration.statefile_url
+      when :statefile_ny then Rails.configuration.statefile_url
       end
     [base, locale].compact.join("/")
   end

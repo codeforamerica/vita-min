@@ -228,6 +228,18 @@ describe RequestVerificationCodeForLoginJob do
                                                                                             ))
           end
         end
+
+        context "when the phone number is not a match for an intake" do
+          it "sends a no match text" do
+            described_class.perform_now(**params)
+            expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
+            expect(TwilioService).to have_received(:send_text_message)
+                                       .with(a_hash_including(
+                                               body: I18n.t("state_file.intake_logins.no_match_sms", url: "http://statefile.test.localhost/en/az/questions/landing-page", locale: :en),
+                                               to: params[:phone_number]
+                                             ))
+          end
+        end
       end
     end
   end
