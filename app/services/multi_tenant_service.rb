@@ -39,6 +39,16 @@ class MultiTenantService
     end
   end
 
+  def service_type_or_parent
+    case service_type
+    when :ctc then :ctc
+    when :gyr then :gyr
+    when :statefile then :statefile
+    when :statefile_az then :statefile
+    when :statefile_ny then :statefile
+    end
+  end
+
   def intake_model
     case service_type
     when :ctc then Intake::CtcIntake

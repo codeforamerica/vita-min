@@ -18,6 +18,7 @@ describe EmailVerificationCodeService do
   describe "initialization" do
     context "service_type" do
       let(:service_type) { :unsupported }
+
       it "raises an error if service_type is not in the list" do
         expect {
           described_class.new(**params)
@@ -40,6 +41,7 @@ describe EmailVerificationCodeService do
 
     context "when service_type is ctc" do
       let(:service_type) { :ctc }
+
       it "creates a VerificationEmail, sends an email, and creates an EmailAccessToken object" do
         expect {
           described_class.request_code(**params)
@@ -57,20 +59,8 @@ describe EmailVerificationCodeService do
                                                                       mailgun_id: "mocked_mailer_id"
                                                                   ))
       end
-    end
-    context "when service type is GYR" do
-      let(:service_type) { :gyr }
-      it "the resulting email includes GetYourRefund" do
-        described_class.request_code(**params)
-        email = ActionMailer::Base.deliveries.last
-        expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
-      end
-    end
 
-    context "when service type is CTC" do
-      let(:service_type) { :ctc }
-      it "the resulting email includes GetCTC" do
+      it "sends an email that includes 'GetCTC'" do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
@@ -78,8 +68,26 @@ describe EmailVerificationCodeService do
       end
     end
 
+    context "when service type is GYR" do
+      let(:service_type) { :gyr }
 
+      it "sends an email that includes 'GetYourRefund'" do
+        described_class.request_code(**params)
+        email = ActionMailer::Base.deliveries.last
+        expect(email.to).to eq [email_address]
+        expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
+      end
+    end
 
+    context "when service type is statefile" do
+      let(:service_type) { :statefile }
 
+      it "sends an email that includes 'CFA State File'" do
+        described_class.request_code(**params)
+        email = ActionMailer::Base.deliveries.last
+        expect(email.to).to eq [email_address]
+        expect(email.body.encoded).to include "Your 6-digit CFA State File verification code is: 123456"
+      end
+    end
   end
 end

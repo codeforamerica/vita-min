@@ -74,5 +74,24 @@ describe VerificationCodeMailer, type: :mailer do
       expect(email.to).to eq ["example@example.com"]
       expect(email.text_part.decoded.strip).to include "GetYourRefund"
     end
+
+    context "for a state file client" do
+      it "delivers an email with state file branding and a no-reply@ address" do
+        email = described_class.no_match_found(
+          to: "example@example.com",
+          locale: :en,
+          service_type: :statefile
+        )
+
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "CFA State File Login Attempt"
+        expect(email.from).to eq ["no-reply@statefile.test.localhost"]
+        expect(email.to).to eq ["example@example.com"]
+        expect(email.text_part.decoded.strip).to include "CFA State File"
+      end
+    end
   end
 end

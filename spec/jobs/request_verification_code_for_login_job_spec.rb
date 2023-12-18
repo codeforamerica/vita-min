@@ -5,10 +5,10 @@ describe RequestVerificationCodeForLoginJob do
     context "with an email address" do
       let(:params) do
         {
-            email_address: "client@example.com",
-            visitor_id: "87h2897gh2",
-            locale: "es",
-            service_type: :gyr
+          email_address: "client@example.com",
+          visitor_id: "87h2897gh2",
+          locale: "es",
+          service_type: :gyr
         }
       end
       let(:mailer_double) { double }
@@ -71,8 +71,8 @@ describe RequestVerificationCodeForLoginJob do
         it "requests a code from TextMessageVerificationCodeService" do
           described_class.perform_now(**params)
           expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
-                                                                                        **params, service_type: service_type
-                                                                                    ))
+                                                                                            **params, service_type: service_type
+                                                                                          ))
         end
       end
 
@@ -142,6 +142,62 @@ describe RequestVerificationCodeForLoginJob do
                                                body: ctc_text_message_body_en,
                                                to: params[:phone_number]
                                              ))
+          end
+        end
+      end
+    end
+
+    context "for state file" do
+      context "with an email address" do
+        let(:params) do
+          {
+            email_address: "client@example.com",
+            visitor_id: "87h2897gh2",
+            locale: "es",
+            service_type: :statefile_az
+          }
+        end
+        let(:mailer_double) { double }
+        before do
+          allow(EmailVerificationCodeService).to receive(:request_code)
+          allow(VerificationCodeMailer).to receive(:no_match_found).and_return mailer_double
+          allow(mailer_double).to receive(:deliver_now)
+        end
+
+        context "when the email address is a match for an intake" do
+          before do
+            allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return true
+          end
+
+          it "requests a code from EmailVerificationCodeService" do
+            described_class.perform_now(**params)
+            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(**params, service_type: :statefile))
+          end
+        end
+
+        context "when the email address is not a match for an intake" do
+          let(:params) do
+            {
+              email_address: "client@example.com",
+              visitor_id: "87h2897gh2",
+              locale: "es",
+              service_type: :statefile_ny
+            }
+          end
+
+          before do
+            allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
+          end
+
+          it "sends a no match email" do
+            described_class.perform_now(**params)
+            expect(EmailVerificationCodeService).not_to have_received(:request_code)
+            expect(VerificationCodeMailer).to have_received(:no_match_found).with(
+              to: "client@example.com",
+              locale: "es",
+              service_type: :statefile
+            )
+            expect(mailer_double).to have_received(:deliver_now)
           end
         end
       end

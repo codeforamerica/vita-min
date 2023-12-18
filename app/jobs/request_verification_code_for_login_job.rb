@@ -14,13 +14,13 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           email_address: email_address,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type
+          service_type: multi_tenant_service.service_type_or_parent
         )
       else
         VerificationCodeMailer.no_match_found(
           to: email_address,
           locale: locale,
-          service_type: multi_tenant_service.service_type,
+          service_type: multi_tenant_service.service_type_or_parent,
         ).deliver_now
       end
     end
