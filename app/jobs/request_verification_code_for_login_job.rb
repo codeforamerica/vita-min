@@ -31,7 +31,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           phone_number: phone_number,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type
+          service_type: multi_tenant_service.service_type_or_parent
         )
       else
         service_name = multi_tenant_service.service_name

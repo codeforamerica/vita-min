@@ -201,6 +201,34 @@ describe RequestVerificationCodeForLoginJob do
           end
         end
       end
+
+      context "with a phone number" do
+        let(:params) do
+          {
+            phone_number: "+15125551234",
+            visitor_id: "87h2897gh2",
+            locale: "en",
+            service_type: :statefile_az
+          }
+        end
+        before do
+          allow(TextMessageVerificationCodeService).to receive(:request_code)
+          allow(TwilioService).to receive(:send_text_message)
+        end
+
+        context "when the phone number is a match for an intake" do
+          before do
+            allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return true
+          end
+
+          it "requests a code from TextMessageVerificationCodeService" do
+            described_class.perform_now(**params)
+            expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
+                                                                                              **params, service_type: :statefile
+                                                                                            ))
+          end
+        end
+      end
     end
   end
 end
