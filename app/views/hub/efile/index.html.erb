@@ -10,15 +10,9 @@
           Status
         </th>
         <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
-        <th scope="col" class="index-table__header sortable">
-          Primary Filer
-        </th>
         <th scope="col" style="width: 10rem"class="index-table__header sortable">
           Tax Year
         </th>
-<!--        <th scope="col" class="index-table__header sortable">-->
-<!--          Last updated-->
-<!--        </th>-->
         <th scope="col" class="index-table__header">
           Errors
         </th>
@@ -33,20 +27,14 @@
             <%= submission.id %>
           </td>
           <td class="index-table__cell status">
-            <%= link_to submission.current_state.humanize(capitalize: false), efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
+            <%= link_to submission.current_state.humanize(capitalize: false), hub_efile_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
           </td>
           <td class="index-table__cell">
             <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body")) : "" %>
           </td>
           <td class="index-table__cell">
-            <%= link_to tax_return.client.legal_name, efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
-          </td>
-          <td class="index-table__cell">
             <%= tax_return.year %>
           </td>
-<!--          <td class="index-table__cell">-->
-            <%#= timestamp submission.updated_at %>
-<!--          </td>-->
           <td class="index-table__cell">
             <% submission.last_transition&.efile_errors&.each do |error| %>
                 <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
