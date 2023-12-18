@@ -36,11 +36,11 @@ module PdfFiller
         '12d_code' => w2.box12d_code,
         'Box_13b' => map_box_answers(w2.box13_retirement_plan),
         'Box_13c' => map_box_answers(w2.box13_third_party_sick_pay),
-        # 'Box_16a' => w2.w2_state_fields_group.box16_state_wages,
-        # 'Box_17a' => w2.w2_state_fields_group.box17_state_income_tax,
-        # 'Box_18a' => w2.w2_state_fields_group.box18_local_wages,
-        # 'Box_19a' => w2.w2_state_fields_group.box19_local_income_tax,
-        # 'Box_20a' => w2.w2_state_fields_group.box20_locality_name,
+        'Box_16a' => w2.w2_state_fields_group.box16_state_wages,
+        'Box_17a' => w2.w2_state_fields_group.box17_state_income_tax,
+        'Box_18a' => w2.w2_state_fields_group.box18_local_wages,
+        'Box_19a' => w2.w2_state_fields_group.box19_local_income_tax,
+        'Box_20a' => w2.w2_state_fields_group.box20_locality_name,
       }
       w2.w2_box14.each_with_index do |box14, index|
         break if index >= 4
