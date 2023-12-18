@@ -29,7 +29,7 @@
     <% if f.object.ask_spouse_name?  %>
       <div class="blue-group">
         <p>
-          <% if f.object.ask_primary_dob? %>
+          <% if f.object.ask_spouse_dob? %>
             <%= t(".spouse_name_dob", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %>
           <% else %>
             <%= t(".spouse_name", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %>
