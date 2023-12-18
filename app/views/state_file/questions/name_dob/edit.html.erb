@@ -6,7 +6,13 @@
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <div class="blue-group">
-      <p><%= t(".primary_name", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %></p>
+      <p>
+        <% if f.object.ask_primary_dob? %>
+          <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
+        <% else %>
+          <%= t(".primary_name", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
+        <% end %>
+      </p>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
       <% if f.object.ask_primary_dob? %>
@@ -22,7 +28,13 @@
     </div>
     <% if f.object.ask_spouse_name?  %>
       <div class="blue-group">
-        <p><%= t(".spouse_name", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %></p>
+        <p>
+          <% if f.object.ask_spouse_dob? %>
+            <%= t(".spouse_name_dob", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %>
+          <% else %>
+            <%= t(".spouse_name", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %>
+          <% end %>
+        </p>
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_last_name, t("general.last_name"), classes: ["form-width--long"]) %>
         <% if f.object.ask_spouse_dob? %>
