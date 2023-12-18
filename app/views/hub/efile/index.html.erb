@@ -1,3 +1,64 @@
-Efile
+<% content_for :card do %>
+  <div class="spacing-above-25 submissions-index">
+    <table class="index-table spacing-above-25">
+      <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          ID
+        </th>
+        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          Status
+        </th>
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
+        <th scope="col" class="index-table__header sortable">
+          Primary Filer
+        </th>
+        <th scope="col" style="width: 10rem"class="index-table__header sortable">
+          Tax Year
+        </th>
+<!--        <th scope="col" class="index-table__header sortable">-->
+<!--          Last updated-->
+<!--        </th>-->
+        <th scope="col" class="index-table__header">
+          Errors
+        </th>
+      </tr>
+      </thead>
+      <tbody class="index-table__body submission-table">
 
-TODO
+      <% @efile_submissions.each do |submission| %>
+        <% tax_return = submission.tax_return %>
+        <tr class="index-table__row">
+          <td class="index-table__cell status">
+            <%= submission.id %>
+          </td>
+          <td class="index-table__cell status">
+            <%= link_to submission.current_state.humanize(capitalize: false), efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
+          </td>
+          <td class="index-table__cell">
+            <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body")) : "" %>
+          </td>
+          <td class="index-table__cell">
+            <%= link_to tax_return.client.legal_name, efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
+          </td>
+          <td class="index-table__cell">
+            <%= tax_return.year %>
+          </td>
+<!--          <td class="index-table__cell">-->
+            <%#= timestamp submission.updated_at %>
+<!--          </td>-->
+          <td class="index-table__cell">
+            <% submission.last_transition&.efile_errors&.each do |error| %>
+                <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                  <%= link_to hub_efile_error_path(id: error.id) do %>
+                    <div class="label label--red"><%= error.code %></div>
+                  <% end %>
+                </span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
