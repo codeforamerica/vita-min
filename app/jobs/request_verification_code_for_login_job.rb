@@ -31,12 +31,18 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           phone_number: phone_number,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type
+          service_type: multi_tenant_service.service_type_or_parent
         )
       else
-        service_name = multi_tenant_service.service_name
         url = multi_tenant_service.url(locale: locale)
-        body = service_name == "GetCTC" ? I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale) : I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
+        body = case service_type
+               when :ctc
+                 I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)
+               when :gyr
+                 I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
+               when :statefile_az, :statefile_ny
+                 I18n.t("state_file.intake_logins.no_match_sms", url: url, locale: locale)
+               end
         TwilioService.send_text_message(
           to: phone_number,
           body: body

@@ -9,13 +9,19 @@ class MultiTenantService
   end
 
   def url(locale: :en)
-    base =
-      case service_type
-      when :ctc then Rails.configuration.ctc_url
-      when :gyr then Rails.configuration.gyr_url
-      when :statefile then Rails.configuration.statefile_url
-      end
-    [base, locale].compact.join("/")
+    options_for_path_helper = {
+      full_url: true,
+      host: host,
+      locale: locale,
+      protocol: "https"
+    }
+    case service_type
+    when :ctc then [Rails.configuration.ctc_url, locale].compact.join("/")
+    when :gyr then [Rails.configuration.gyr_url, locale].compact.join("/")
+    when :statefile then [Rails.configuration.statefile_url, locale].compact.join("/")
+    when :statefile_az then Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az", **options_for_path_helper)
+    when :statefile_ny then Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny", **options_for_path_helper)
+    end
   end
 
   def host
@@ -25,7 +31,7 @@ class MultiTenantService
         Rails.configuration.ctc_url
       when :gyr
         Rails.configuration.gyr_url
-      when :statefile
+      when :statefile, :statefile_az, :statefile_ny
         Rails.configuration.statefile_url
       end
     URI(base).hostname

@@ -36,7 +36,6 @@ describe TextMessageVerificationCodeService do
       allow_any_instance_of(Mail::Message).to receive(:message_id).and_return("mocked_mailer_id")
     end
 
-
     it "creates a VerificationTextMessage, sends an email, and creates an TextMessageAccessToken object" do
       described_class.request_code(**params)
 
@@ -55,6 +54,7 @@ describe TextMessageVerificationCodeService do
     context "message sent is different based on service type" do
       context "service_type is :ctc" do
         let(:service_type) { :ctc }
+
         it "sends a message that mentions GetCTC" do
           described_class.request_code(**params)
           text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after two days."
@@ -69,6 +69,7 @@ describe TextMessageVerificationCodeService do
 
       context "service_type is :gyr" do
         let(:service_type) { :gyr }
+
         it "sends a message that mentions GetYourRefund" do
           described_class.request_code(**params)
           text_body = "Your 6-digit GetYourRefund verification code is: 123456. This code will expire after two days."
@@ -82,6 +83,7 @@ describe TextMessageVerificationCodeService do
 
       context "service_type is :statefile" do
         let(:service_type) { :statefile }
+
         it "sends a message that mentions CFA State File" do
           described_class.request_code(**params)
           text_body = "Your 6-digit CFA State File verification code is: 123456. This code will expire after two days."

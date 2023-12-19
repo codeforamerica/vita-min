@@ -28,6 +28,10 @@ class ClientLoginService
   end
 
   def can_login_by_sms_verification?(sms_phone_number)
-    service_class.accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").exists?
+    if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
+      return service_class.accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").exists?
+    elsif service_class == StateFileAzIntake || service_class == StateFileNyIntake
+      return service_class.can_be_authenticated.where(phone_number: sms_phone_number).exists?
+    end
   end
 end

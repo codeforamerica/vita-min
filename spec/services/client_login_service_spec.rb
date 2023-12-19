@@ -164,9 +164,9 @@ describe ClientLoginService do
 
     context "service_type is :gyr" do
       subject { described_class.new(:gyr) }
-
       let(:intake) { (build :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
       let(:tax_return) { build :gyr_tax_return }
+
       context "when client phone number maps to online, consented return with sms opt in" do
         it "is true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
@@ -234,6 +234,28 @@ describe ClientLoginService do
         it "returns true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
+      end
+    end
+  end
+
+  describe ".can_login_by_sms_verification? statefile service types" do
+    let(:phone_number) { "+16505551212" }
+
+    context ":statefile_az" do
+      subject { described_class.new(:statefile_az) }
+      let!(:intake) { create :state_file_az_intake_after_transfer, phone_number: phone_number }
+
+      it "returns true" do
+        expect(subject.can_login_by_sms_verification?(phone_number)).to be true
+      end
+    end
+
+    context ":statefile_ny" do
+      subject { described_class.new(:statefile_ny) }
+      let!(:intake) { create :state_file_ny_intake_after_transfer, phone_number: phone_number }
+
+      it "returns true" do
+        expect(subject.can_login_by_sms_verification?(phone_number)).to be true
       end
     end
   end

@@ -17,10 +17,13 @@ describe MultiTenantService do
       allow(Rails.configuration).to receive(:gyr_url).and_return "https://getyourrefund.org"
       allow(Rails.configuration).to receive(:statefile_url).and_return "https://fileyourstatetaxes.org"
     end
+
     it "creates a url based on the service name, locale, and passed path if any" do
       expect(described_class.new(:ctc).url(locale: "en")).to eq "https://getctc.org/en"
       expect(described_class.new(:gyr).url(locale: "es")).to eq "https://getyourrefund.org/es"
       expect(described_class.new(:statefile).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en"
+      expect(described_class.new(:statefile_az).url(locale: "es")).to eq "https://fileyourstatetaxes.org/es/az/questions/landing-page"
+      expect(described_class.new(:statefile_ny).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en/ny/questions/landing-page"
     end
   end
 
