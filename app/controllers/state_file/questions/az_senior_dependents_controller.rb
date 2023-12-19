@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class AzSeniorDependentsController < AuthenticatedQuestionsController
-
       def self.show?(intake)
         intake.dependents.az_qualifying_senior.exists?
       end

@@ -4,7 +4,6 @@ module StateFile
   module Questions
     class NySchoolDistrictController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-
       helper_method :school_district_options
 
       def school_district_options

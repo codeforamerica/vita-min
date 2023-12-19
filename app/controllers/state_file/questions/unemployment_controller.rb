@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class UnemploymentController < AuthenticatedQuestionsController
-
       def self.show?(intake)
         fed_unemployment = intake.direct_file_data.fed_unemployment
         fed_unemployment.present? && fed_unemployment > 0
