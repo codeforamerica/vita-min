@@ -76,7 +76,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             phone_number: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile
+            service_type: :statefile_az
           )
 
           expect(response).to be_ok
@@ -101,7 +101,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             email_address: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile
+            service_type: :statefile_az
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)
@@ -193,7 +193,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       before do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-        allow_any_instance_of(ClientLoginService).to receive(:intakes_for_token).with(hashed_verification_code).and_return(intake)
+        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(intake)
       end
 
       it "redirects to the next page for login" do
@@ -210,7 +210,103 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
       end
     end
+
+    context "with invalid params" do
+      let(:email_address) { "example@example.com" }
+      let(:params) {
+        {
+          us_state: "ny",
+          portal_verification_code_form: {
+            contact_info: email_address,
+            verification_code: verification_code,
+          }
+        }
+      }
+      let!(:intake) { create :state_file_ny_intake, email_address: email_address }
+
+      context "with clients matching the contact info but invalid verification code" do
+        let(:verification_code) { "000005" }
+        let(:hashed_wrong_verification_code) { "hashed_wrong_verification_code" }
+
+        before do
+          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_wrong_verification_code)
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_wrong_verification_code).and_return(StateFileNyIntake.none)
+        end
+
+        it "increments their lockout counter & shows an error in the form" do
+          expect {
+            post :check_verification_code, params: params
+          }.to change { intake.reload.failed_attempts }
+
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form]).to be_present
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
+        end
+
+        context "Datadog" do
+          it "increments a counter" do
+            post :check_verification_code, params: params
+
+            expect(DatadogApi).to have_received(:increment).with("intake_logins.verification_codes.wrong_code")
+          end
+        end
+      end
+
+      # TODO: match this behavior
+      xcontext "with clients matching the contact info & token but locked out" do
+        let(:verification_code) { "000005" }
+        let(:hashed_verification_code) { "hashed_verification_code" }
+
+        before do
+          intake.update(locked_at: DateTime.now)
+          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return([intake])
+        end
+
+        it "redirects to the account locked page" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+        end
+      end
+
+      context "with blank contact info" do
+        let(:params) {
+          {
+            us_state: "ny",
+            portal_verification_code_form: {
+              contact_info: "",
+              verification_code: "999999",
+            }
+          }
+        }
+
+        it "shows a Bad Request error" do
+          post :check_verification_code, params: params
+          expect(response.status).to eq(400)
+        end
+      end
+
+      context "with invalid data in the verification code" do
+        let(:params) {
+          {
+            us_state: "ny",
+            portal_verification_code_form: {
+              contact_info: email_address,
+              verification_code: "invalid",
+            }
+          }
+        }
+
+        it "re-renders the form with errors and does not increment lockout counter" do
+          expect {
+            post :check_verification_code, params: params
+          }.not_to change { intake.reload.failed_attempts }
+
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
+        end
+      end
+    end
   end
-
-
 end

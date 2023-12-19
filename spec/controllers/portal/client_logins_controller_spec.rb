@@ -345,7 +345,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
-          allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
         end
 
         it "increments their lockout counter & shows an error in the form" do
@@ -366,6 +366,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
       end
 
+      # TODO: this test description is actually inaccurate because the token does not match
       context "with clients matching the contact info & token but locked out" do
         let(:email_address) { "example@example.com" }
         let(:wrong_verification_code) { "000005" }
@@ -409,6 +410,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
       end
 
+      # TODO: this test seems redundant with "with clients matching the contact info but invalid verification code" because all it's doing is stubbing login_records_for_token
       context "with no clients matching the contact info" do
         let(:email_address) { "example@example.com" }
         let(:verification_code) { "000004" }
@@ -416,7 +418,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-          allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.none)
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(Client.none)
         end
 
         let(:params) { { portal_verification_code_form: {
