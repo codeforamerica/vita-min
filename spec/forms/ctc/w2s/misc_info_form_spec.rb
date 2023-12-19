@@ -62,8 +62,8 @@ describe Ctc::W2s::MiscInfoForm do
     expect(w2.box13_statutory_employee).to eq 'yes'
     expect(w2.box13_retirement_plan).to eq 'yes'
     expect(w2.box13_third_party_sick_pay).to eq 'no'
-    expect(w2.w2_box14s.first.other_description).to eq "description"
-    expect(w2.w2_box14s.first.other_amount).to eq 12
+    expect(w2.w2_box14.other_description).to eq "description"
+    expect(w2.w2_box14.other_amount).to eq 12
     expect(w2.w2_state_fields_group.box15_state).to eq "NY"
     expect(w2.w2_state_fields_group.box15_employer_state_id_number).to eq "abcd1234"
     expect(w2.w2_state_fields_group.box16_state_wages).to eq 1
@@ -75,7 +75,7 @@ describe Ctc::W2s::MiscInfoForm do
 
   it "updates an existing w2_state_fields_group and w2_box14" do
     w2.create_w2_state_fields_group(box16_state_wages: "100")
-    w2.w2_box14.create(other_description: 'banana', other_amount: 12)
+    w2.create_w2_box14(other_description: 'banana', other_amount: 12)
     params = {
       other_description: 'papaya',
       other_amount: '24',
