@@ -31,12 +31,6 @@ module SubmissionBuilder
       raise "Child classes of SubmissionBuilder::Base must define a schema_file method."
     end
 
-    def add_claimed(xml, key, claimed_value)
-      if claimed_value.present?
-        xml.send(key, claimed: value)
-      end
-    end
-
     def build
       errors = []
       if @validate
