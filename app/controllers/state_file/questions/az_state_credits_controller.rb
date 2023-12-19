@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class AzStateCreditsController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-      include StateSpecificQuestionConcern
 
       private
 

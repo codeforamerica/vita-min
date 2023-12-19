@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class UnemploymentController < AuthenticatedQuestionsController
-      include StateSpecificQuestionConcern
 
       def self.show?(intake)
         fed_unemployment = intake.direct_file_data.fed_unemployment

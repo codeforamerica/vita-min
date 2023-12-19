@@ -4,7 +4,6 @@ module StateFile
   module Questions
     class NyCountyController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-      include StateSpecificQuestionConcern
 
       helper_method :county_options
 

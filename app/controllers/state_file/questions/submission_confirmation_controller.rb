@@ -10,6 +10,9 @@ module StateFile
       def form_class
         NullForm
       end
+
+      def card_postscript; end
+
     end
   end
 end

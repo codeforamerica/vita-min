@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class AzIncarceratedController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-      include StateSpecificQuestionConcern
 
       def self.show?(intake)
         has_valid_ssn = intake.primary.ssn.present? && !intake.primary.has_itin?

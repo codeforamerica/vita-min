@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NyReviewController < AuthenticatedQuestionsController
-      include StateSpecificQuestionConcern
 
       def edit
         @refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount

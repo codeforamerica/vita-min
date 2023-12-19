@@ -4,7 +4,6 @@ module StateFile
   module Questions
     class NySchoolDistrictController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
-      include StateSpecificQuestionConcern
 
       helper_method :school_district_options
 
