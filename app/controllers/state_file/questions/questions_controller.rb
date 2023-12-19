@@ -3,6 +3,7 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
+      helper_method :card_postscript
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -58,6 +59,8 @@ module StateFile
 
       # by default, most state file questions have no illustration
       def illustration_path; end
+
+      def card_postscript; end
 
       class << self
         def resource_name

@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class NameDobController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
+      include StateSpecificQuestionConcern
 
       private
 

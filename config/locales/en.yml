@@ -2342,6 +2342,10 @@ en:
         subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
         when_file_by: When do I have to file by?
         who_can_use_text: Who can use FileYourStateTaxes in Arizona?
+      card_postscript:
+        responses_saved_html: 'Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
+
+          '
       footer:
         state_file_description_html: FileYourStateTaxes is built by %{link} to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by %{link} in partnership with the state of %{state_full_name} to integrate with the IRS Direct File tool.
