@@ -48,11 +48,6 @@ class EfileSubmission < ApplicationRecord
     where(data_source_type: STATE_INTAKE_CLASS_NAMES)
   }
 
-  scope :not_for_state_filing, lambda {
-    where.not(data_source_type: STATE_INTAKE_CLASS_NAMES)
-         .or(where(data_source_type: nil))
-  }
-
   default_scope { order(id: :asc) }
 
   def tax_year

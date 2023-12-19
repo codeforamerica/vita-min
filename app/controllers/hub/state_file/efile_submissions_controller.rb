@@ -6,7 +6,6 @@ module Hub
       layout "hub"
 
       def index
-        binding.pry
       end
 
       def show
