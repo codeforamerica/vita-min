@@ -232,33 +232,9 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           expect(assigns[:verification_code_form].errors).to include(:verification_code)
         end
       end
-
-      # TODO: this test seems redundant with "with clients matching the contact info but invalid verification code" because all it's doing is stubbing login_records_for_token
-      context "with no clients matching the contact info" do
-        let(:email_address) { "example@example.com" }
-        let(:verification_code) { "000004" }
-        let(:hashed_verification_code) { "hashed_verification_code" }
-
-        before do
-          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(Client.none)
-        end
-
-        let(:params) { { portal_verification_code_form: {
-          contact_info: email_address,
-          verification_code: verification_code
-        }}}
-
-        it "renders the page with an error in the verification code field" do
-          post :check_verification_code, params: params
-          expect(response).to be_ok
-          expect(assigns[:verification_code_form]).to be_present
-          expect(assigns[:verification_code_form].errors).to include(:verification_code)
-        end
-      end
     end
   end
-  
+
   describe "#edit" do
     let(:params) { { id: "raw_token" } }
 
