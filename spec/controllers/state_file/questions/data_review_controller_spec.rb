@@ -8,17 +8,27 @@ RSpec.describe StateFile::Questions::DataReviewController do
   end
 
   describe "#edit" do
-    it "renders edit template and creates an initial StateFileEfileDeviceInfo" do
-      expect do
-        get :edit, params: { us_state: "az", state_file_data_review_form: { device_id: "ABC123" } }
-      end.to change(StateFileEfileDeviceInfo, :count).by(1)
+    context "with valid federal data" do
+      it "renders edit template and creates an initial StateFileEfileDeviceInfo" do
+        expect do
+          get :edit, params: { us_state: "az", state_file_data_review_form: { device_id: "ABC123" } }
+        end.to change(StateFileEfileDeviceInfo, :count).by(1)
 
-      expect(response).to render_template :edit
-      efile_info = StateFileEfileDeviceInfo.last
-      expect(efile_info.event_type).to eq "initial_creation"
-      expect(efile_info.ip_address.to_s).to eq "72.34.67.178"
-      expect(efile_info.device_id).to eq nil
-      expect(efile_info.intake).to eq intake
+        expect(response).to render_template :edit
+        efile_info = StateFileEfileDeviceInfo.last
+        expect(efile_info.event_type).to eq "initial_creation"
+        expect(efile_info.ip_address.to_s).to eq "72.34.67.178"
+        expect(efile_info.device_id).to eq nil
+        expect(efile_info.intake).to eq intake
+      end
+    end
+
+    context "with invalid federal data" do
+      it "redirects to the offboard screen" do
+        intake.filing_status = "married_filing_separately"
+        response = get :edit, params: { us_state: "az" }
+        expect(response).to redirect_to(StateFile::Questions::EligibilityOffboardingController.to_path_helper(us_state: "az"))
+      end
     end
   end
 
