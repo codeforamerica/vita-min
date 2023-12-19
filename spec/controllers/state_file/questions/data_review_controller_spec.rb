@@ -25,9 +25,9 @@ RSpec.describe StateFile::Questions::DataReviewController do
 
     context "with invalid federal data" do
       it "redirects to the offboard screen" do
-        intake.filing_status = "married_filing_separately"
+        allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(3)
         response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(StateFile::Questions::EligibilityOffboardingController.to_path_helper(us_state: "az"))
+        expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper(us_state: "az"))
       end
     end
   end
