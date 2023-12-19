@@ -7,10 +7,10 @@
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="blue-group">
-          <%= f.cfa_radio_set(:charitable_contributions, collection: [
+          <%= f.cfa_radio_set(:charitable_contributions, label_text: title, collection: [
             { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#charitable_contributions" } },
             { value: "no", label: t("general.negative") },
-          ]) %>
+          ], legend_class: "sr-only") %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="charitable_contributions">
