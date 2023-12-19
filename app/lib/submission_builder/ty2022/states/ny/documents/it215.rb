@@ -15,7 +15,8 @@ module SubmissionBuilder
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
                 xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
                 xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")
-                xml.E_FED_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_10")
+                add_claimed(xml, :E_FED_EITC_CR_AMT, calculated_fields.fetch("IT215_LINE_10"))
+                #xml.E_FED_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_10")
                 xml.E_TNTV_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_12")
                 xml.E_TX_B4CR_AMT claimed: calculated_fields.fetch("IT215_LINE_13")
                 xml.E_HH_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_14")
