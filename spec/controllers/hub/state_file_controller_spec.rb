@@ -4,7 +4,7 @@ describe Hub::StateFileController do
 
   describe "#index" do
     context "when they are a state file admin" do
-      let(:user) { create(:admin_user, :state_file) }
+      let(:user) { create(:state_file_admin_user) }
 
       before do
         sign_in user

@@ -29,6 +29,14 @@ describe Ability do
         expect(subject.can?(:manage, StateFileDependent.new)).to eq true
         expect(subject.can?(:manage, StateId.new)).to eq true
       end
+
+      context "with a state efile submission" do
+        let!(:state_efile_submission) { create :efile_submission, :for_state }
+
+        it "can manage the state efile submission" do
+          expect(subject.can?(:manage, state_efile_submission)).to eq true
+        end
+      end
     end
 
     context "state_file false" do
@@ -38,6 +46,15 @@ describe Ability do
         expect(subject.can?(:manage, StateFile1099G.new)).to eq false
         expect(subject.can?(:manage, StateFileDependent.new)).to eq false
         expect(subject.can?(:manage, StateId.new)).to eq false
+      end
+
+      context "with a state efile submission" do
+        let!(:state_efile_submission) { create :efile_submission, :for_state }
+
+        it "cannot read or manage the state efile submission" do
+          expect(subject.can?(:read, state_efile_submission)).to eq false
+          expect(subject.can?(:manage, state_efile_submission)).to eq false
+        end
       end
     end
 

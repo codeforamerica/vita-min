@@ -18,6 +18,7 @@ class Ability
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
         cannot :manage, StateId
+        cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
       end
       return
     end
