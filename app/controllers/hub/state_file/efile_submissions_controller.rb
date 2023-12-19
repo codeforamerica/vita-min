@@ -1,28 +1,22 @@
 module Hub
-  #module StateFile
-    class EfileController < Hub::BaseController
-      include FilesConcern
-      # load_resource except: [:index, :show]
-      # authorize_resource
-      # binding.pry
-      binding.pry
-      load_and_authorize_resource :efile_submission, through: :data_source, only: [:index, :show]
+  module StateFile
+    class EfileSubmissionsController < Hub::BaseController
+      before_action :load_efile_submissions
+      load_and_authorize_resource
       layout "hub"
 
       def index
-        @efile_submissions = EfileSubmission.includes(:efile_submission_transitions, tax_return: [:client, :intake]).most_recent_by_current_year_tax_return.page(params[:page])
-        @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
+        binding.pry
       end
 
       def show
-        client = Client.find(params[:id])
-        authorize! :read, client
-        @client = Hub::ClientsController::HubClientPresenter.new(client)
-        # Eager-load tax returns with submissions and data we may need to render
-        @tax_returns = client.tax_returns.includes(:efile_submissions).where.not(tax_returns: {efile_submissions: nil}).load
-        @fraud_indicators = Fraud::Indicator.unscoped
-        redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.joins(:efile_submissions).size.nonzero?
+      end
+
+      private
+
+      def load_efile_submissions
+        @efile_submissions = EfileSubmission.for_state_filing
       end
     end
-  #end
+  end
 end
