@@ -54,7 +54,7 @@ module PdfFiller
     private
 
     def map_box_answers(value)
-      value == 'X' ? 'Yes' : 'Off'
+      value == 'yes' ? 'Yes' : 'Off'
     end
   end
 end

@@ -566,9 +566,16 @@ class DirectFileData
         box12c_value: employers_use_grps[2]&.dig(:value),
         box12d_code: employers_use_grps[3]&.dig(:code),
         box12d_value: employers_use_grps[3]&.dig(:value),
-        box13_retirement_plan: node.at('RetirementPlanInd')&.text,
-        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text
+        box13_retirement_plan: node.at('RetirementPlanInd')&.text == 'X' ? 'yes' : 'no',
+        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text == 'X' ? 'yes' : 'no'
         )
+      parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
+        w2_box14 = W2Box14.new(
+          other_description: node.at('Desc')&.text,
+          other_amount: node.at('Amt')&.text,
+          )
+        w2.w2_box14 << w2_box14
+      end
       w2.w2_state_fields_group = W2StateFieldsGroup.new(
         box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
         box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
@@ -577,13 +584,6 @@ class DirectFileData
         box19_local_income_tax: node.at('W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt')&.text,
         box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
       )
-      parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
-        w2_box14 = W2Box14.new(
-          other_description: node.at('Desc')&.text,
-          other_amount: node.at('Amt')&.text,
-          )
-        w2.w2_box14 = w2_box14
-      end
       w2
     end
     
@@ -722,52 +722,11 @@ class DirectFileData
         box13_retirement_plan: @box13_retirement_plan,
         box13_third_party_sick_pay: @box13_third_party_sick_pay,
         w2_state_fields_group: @w2_state_fields_group,
-        w2_box14: @w2_box14.map(&:attributes)
+        w2_box14: @w2_box14
       }
     end
   end
-  #
-  # class W2StateFieldsGroup
-  #   attr_accessor :box15_state, :box16_state_wages, :box17_state_income_tax,
-  #                 :box18_local_wages, :box19_local_income_tax, :box20_locality_name
-  #
-  #   def initialize(params = {})
-  #     @box15_state = params[:box15_state]
-  #     @box16_state_wages = params[:box16_state_wages]
-  #     @box17_state_income_tax = params[:box17_state_income_tax]
-  #     @box18_local_wages = params[:box18_local_wages]
-  #     @box19_local_income_tax = params[:box19_local_income_tax]
-  #     @box20_locality_name = params[:box20_locality_name]
-  #   end
-  #
-  #   def attributes
-  #     {
-  #       box15_state: @box15_state,
-  #       box16_state_wages: @box16_state_wages,
-  #       box17_state_income_tax: @box17_state_income_tax,
-  #       box18_local_wages: @box18_local_wages,
-  #       box19_local_income_tax: @box19_local_income_tax,
-  #       box20_locality_name: @box20_locality_name,
-  #     }
-  #   end
-  # end
-
-  # class W2Box14
-  #   attr_accessor :other_description, :other_amount
-  #
-  #   def initialize(params = {})
-  #     @other_description = params[:other_description]
-  #     @other_amount = params[:other_amount]
-  #   end
-  #
-  #   def attributes
-  #     {
-  #       other_description: @other_description,
-  #       other_amount: @other_amount
-  #     }
-  #   end
-  # end
-
+ 
   def attributes
     [
       :tax_return_year,
