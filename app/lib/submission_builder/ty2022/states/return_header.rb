@@ -39,7 +39,7 @@ module SubmissionBuilder
               end
               xml.USAddress do |xml|
                 xml.AddressLine1Txt @submission.data_source.direct_file_data.mailing_street
-                xml.AddressLine2Txt @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment
+                xml.AddressLine2Txt @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
                 xml.CityNm @submission.data_source.direct_file_data.mailing_city
                 xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation
                 xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip
