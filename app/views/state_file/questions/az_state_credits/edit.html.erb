@@ -1,13 +1,14 @@
-<% content_for :page_title, t(".title1") %>
+<% title = t(".title", count: current_intake.filer_count) %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
-  <p><%= t(".title2") %></p>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle", count: current_intake.filer_count) %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-15">
       <div class="question-with-follow-up__question">
         <div class="blue-group">
-          <%= f.cfa_checkbox(:tribal_member, t(".tribal_member_label_html"),
+          <%= f.cfa_checkbox(:tribal_member, t(".tribal_member_label", count: current_intake.filer_count),
                              options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#tribal-wages" })
           %>
         </div>
@@ -15,8 +16,8 @@
       <div class="question-with-follow-up__follow-up" id="tribal-wages">
         <div class="blue-group">
           <div class="spacing-below-25">
-            <%=t(".tribal_wages_label_html",
-                    wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %>
+            <p><%= t(".tribal_wages_label", count: current_intake.filer_count) %></p>
+            <p><%= t(".should_not_exceed_wages_html", wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %></p>
           </div>
           <div class="form-group-tight">
             <%= f.cfa_input_field(
@@ -40,8 +41,8 @@
       <div class="question-with-follow-up__follow-up" id="armed-forces-wages">
         <div class="blue-group spacing-below-15">
           <div class="spacing-below-25">
-            <%=t(".armed_forces_wages_label_html",
-                 wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %>
+            <p><%=t(".armed_forces_wages_label", count: current_intake.filer_count) %></p>
+            <p><%= t(".should_not_exceed_wages_html", wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %></p>
           </div>
           <div class="form-group-tight">
             <%= f.cfa_input_field(

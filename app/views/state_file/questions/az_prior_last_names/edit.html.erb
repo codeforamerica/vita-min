@@ -1,7 +1,8 @@
-<% content_for :page_title, t(".title1") %>
+<% title = t(".title", count: current_intake.filer_count) %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
-  <p><%= t(".title2") %></p>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
