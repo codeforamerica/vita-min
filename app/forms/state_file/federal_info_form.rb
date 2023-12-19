@@ -113,11 +113,11 @@ module StateFile
       end
     end
 
-    # def w2s
-    #   @intake.direct_file_data.w2_nodes.map do |node|
-    #     DfIrsW2Form.new(node)
-    #   end
-    # end
+    def w2s
+      @intake.direct_file_data.w2_nodes.map do |node|
+        DfIrsW2Form.new(node)
+      end
+    end
 
     def w2s_attributes=(attributes)
       index = 0

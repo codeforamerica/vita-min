@@ -4,8 +4,8 @@ RSpec.describe PdfFiller::NyIt2Pdf do
   include PdfSpecHelper
 
   let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_ny_intake) }
-  let(:kwargs) { create :w2}
-  let(:pdf) { described_class.new(submission, kwargs) }
+  let(:args) { create :w2}
+  let(:pdf) { described_class.new(submission, args) }
 
   describe '#hash_for_pdf' do
     it 'uses field names that exist in the pdf' do

@@ -534,7 +534,11 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
   end
 
-  def w2s
+  def w2_nodes
+    parsed_xml.css('IRSW2')
+  end
+
+  def w2_df_data
     parsed_xml.css('IRSW2').map do |node|
       employers_use_grps = node.css('EmployersUseGrp').map do |employer_use_grp|
         {
@@ -748,21 +752,21 @@ class DirectFileData
   #   end
   # end
 
-  class W2Box14
-    attr_accessor :other_description, :other_amount
-
-    def initialize(params = {})
-      @other_description = params[:other_description]
-      @other_amount = params[:other_amount]
-    end
-
-    def attributes
-      {
-        other_description: @other_description,
-        other_amount: @other_amount
-      }
-    end
-  end
+  # class W2Box14
+  #   attr_accessor :other_description, :other_amount
+  #
+  #   def initialize(params = {})
+  #     @other_description = params[:other_description]
+  #     @other_amount = params[:other_amount]
+  #   end
+  #
+  #   def attributes
+  #     {
+  #       other_description: @other_description,
+  #       other_amount: @other_amount
+  #     }
+  #   end
+  # end
 
   def attributes
     [
