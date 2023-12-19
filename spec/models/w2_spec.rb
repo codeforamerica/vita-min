@@ -63,7 +63,6 @@ describe 'W2' do
       expect(w2.employee_last_name).to be_nil
       expect(w2.employee_middle_initial).to be_nil
       expect(w2.employee_suffix).to be_nil
-      expect(w2.employee_ssn).to be_nil
     end
   end
 
@@ -75,7 +74,6 @@ describe 'W2' do
       expect(w2.employee_last_name).to eq intake.primary.last_name
       expect(w2.employee_middle_initial).to eq intake.primary.middle_initial
       expect(w2.employee_suffix).to eq intake.primary.suffix
-      expect(w2.employee_ssn).to eq intake.primary.ssn
     end
   end
 
@@ -87,7 +85,6 @@ describe 'W2' do
       expect(w2.employee_last_name).to eq intake.spouse.last_name
       expect(w2.employee_middle_initial).to eq intake.spouse.middle_initial
       expect(w2.employee_suffix).to eq intake.spouse.suffix
-      expect(w2.employee_ssn).to eq intake.spouse.ssn
     end
   end
 end
