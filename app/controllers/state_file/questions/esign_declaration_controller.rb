@@ -20,6 +20,12 @@ module StateFile
           super
         end
       end
+
+
+      private
+
+      def card_postscript; end
+
     end
   end
 end
