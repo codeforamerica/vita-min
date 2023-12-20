@@ -89,10 +89,17 @@ module Efile
       status_updates = 0
 
       doc.css('StatusRecordGrp').each do |status_record_group|
-        if status_record_group.css('SubmissionStatusTxt').text == 'Acknowledgement Received from State'
-          status_updates += 1
-          submission = EfileSubmission.find_by(irs_submission_id: status_record_group.css('SubmissionId').text)
+        status = status_record_group.css('SubmissionStatusTxt').text
+        status_updates += 1
+        submission = EfileSubmission.find_by(irs_submission_id: status_record_group.css('SubmissionId').text)
+        if status == 'Received'
           submission.transition_to(:ready_for_ack, raw_response: status_record_group.to_xml)
+        elsif status == 'Denied by IRS'
+          submission.transition_to(:rejected, raw_response: status_record_group.to_xml)
+        else
+          # At some point we'll get something like "Accepted" or "Accepted by IRS", and we will
+          # need to add that case here
+          submission.transition_to(:failed, raw_response: status_record_group.to_xml)
         end
       end
 
