@@ -75,7 +75,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -92,7 +92,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
