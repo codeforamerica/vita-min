@@ -19,6 +19,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
       spec/forms/state_file \
       spec/services/efile \
       spec/services/multi_tenant_service_spec.rb \
+      spec/lib/ability_spec.rb \
       spec/lib/efile \
       spec/lib/pdf_filler/az140_pdf_spec.rb \
       spec/lib/pdf_filler/ny201_pdf_spec.rb \
@@ -36,6 +37,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
       spec/models/efile_submission_dependent_spec.rb \
       spec/models/efile_submission_transition_spec.rb \
       spec/controllers/flows_controller_spec.rb \
+      spec/controllers/hub/state_file \
       spec/i18n_spec.rb
 else
   # Full test suite
