@@ -21,6 +21,11 @@
             </div>
           <% end %>
           <%= yield :card %>
+          <% if card_postscript.present? %>
+            <div class="card-postscript">
+              <%= card_postscript %>
+            </div>
+          <% end %>
         </main>
       </div>
     </div>

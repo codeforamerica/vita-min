@@ -55,6 +55,11 @@ module StateFile
       def reject_description
         e_file_error.try(:message)
       end
+
+      private
+
+      def card_postscript; end
+
     end
   end
 end

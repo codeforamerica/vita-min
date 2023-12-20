@@ -16,6 +16,11 @@ module StateFile
       def self.show?(intake)
         intake.disqualifying_df_data_reason.present?
       end
+
+      private
+
+      def card_postscript; end
+
     end
   end
 end

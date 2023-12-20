@@ -17,7 +17,7 @@ module Hub
       ]
       if current_user.state_file_admin?
         @state_file_actions = [
-          [Hub::StateFileController.to_path_helper(action: :index), "State File"]
+          [Hub::StateFile::EfileSubmissionsController.to_path_helper(action: :index), "Efile Submissions"],
         ]
       end
       @deprecated_actions = [

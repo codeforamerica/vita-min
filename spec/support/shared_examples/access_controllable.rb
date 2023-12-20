@@ -63,3 +63,17 @@ shared_examples :an_action_for_admins_only do |action:, method:|
     end
   end
 end
+
+shared_examples :an_action_for_state_file_admins_only do |action:, method:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with an admin user without the state file flag" do
+    before { sign_in( create :admin_user ) }
+
+    it "returns 403 Forbidden" do
+      send(method, action, params: params)
+
+      expect(response.status).to eq 403
+    end
+  end
+end

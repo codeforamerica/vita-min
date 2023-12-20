@@ -9,6 +9,12 @@ module StateFile
         current_intake.calculated_refund_or_owed_amount
       end
       helper_method :refund_amount
+
+
+      private
+
+      def card_postscript; end
+
     end
   end
 end

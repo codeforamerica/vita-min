@@ -114,7 +114,7 @@ FactoryBot.define do
 
       role { build(:admin_role) }
 
-      trait :state_file do
+      factory :state_file_admin_user do
         role { create(:admin_role, state_file: true) }
       end
     end
