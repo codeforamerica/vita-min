@@ -6,3 +6,4 @@
 */20 * * * * bundle exec rake client_status_updates:send_client_in_progress_automated_messages
 15 20 * * * bundle exec rake not_ready_reminders:remind
 */5 * * * * bundle exec rake worker_heartbeat:perform
+*/10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
