@@ -1,6 +1,7 @@
 module Hub
   module StateFile
     class EfileSubmissionsController < Hub::BaseController
+      before_action :require_state_file
       before_action :load_efile_submissions
       load_and_authorize_resource
       layout "hub"

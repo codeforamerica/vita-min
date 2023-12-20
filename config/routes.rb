@@ -214,8 +214,6 @@ Rails.application.routes.draw do
           get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
         end
 
-        resources :state_file, only: [:index]
-
         resources :efile_submissions, module: "state_file", path: "state-file/efile-submissions", only: [:index, :show], controller: 'efile_submissions', as: :state_file_efile_submissions
 
         resources :fraud_indicators, path: "fraud-indicators" do
