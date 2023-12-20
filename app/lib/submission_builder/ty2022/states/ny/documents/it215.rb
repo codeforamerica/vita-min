@@ -8,12 +8,10 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT215") do |xml|
-                if calculated_fields.fetch("IT215_LINE_1")
-                  xml.E_FED_EITC_IND claimed: 1
-                end
-                if calculated_fields.fetch("IT215_LINE_2")
-                  xml.E_INV_INC_IND claimed: 2
-                end
+                # If we got this far these values are known
+                xml.E_FED_EITC_IND claimed: 1
+                xml.E_INV_INC_IND claimed: 2
+
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2

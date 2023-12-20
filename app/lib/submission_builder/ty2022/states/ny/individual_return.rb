@@ -112,7 +112,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            File.join(Rails.root, "vendor", "us_states", "unpacked", "NYSIndividual2023V3.0", "Common", "NysReturnState.xsd")
+            File.join(Rails.root, "vendor", "us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
           end
 
           def attached_documents
@@ -132,6 +132,7 @@ module SubmissionBuilder
             calculated_fields = tax_calculator.calculate
             receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0
             receiving_214_credit = calculated_fields[:IT214_LINE_33].present? && calculated_fields[:IT214_LINE_33] > 0
+            receiving_215_credit = calculated_fields[:IT215_LINE_1].present? && !calculated_fields[:IT215_LINE_2]
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
@@ -156,7 +157,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
                 pdf: PdfFiller::Ny215Pdf,
-                include: true
+                include: receiving_215_credit
               },
               {
                 xml: nil,
