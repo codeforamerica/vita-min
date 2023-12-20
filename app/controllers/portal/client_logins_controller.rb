@@ -58,12 +58,12 @@ module Portal
     def account_locked; end
 
     def increment_failed_attempts_on_login_records
-      @clients = Client.by_contact_info(email_address: params[:portal_verification_code_form][:contact_info], phone_number: params[:portal_verification_code_form][:contact_info])
-      @clients.map(&:increment_failed_attempts)
+      @records = Client.by_contact_info(email_address: params[:portal_verification_code_form][:contact_info], phone_number: params[:portal_verification_code_form][:contact_info])
+      @records.map(&:increment_failed_attempts)
     end
 
     def edit
-      @form = ClientLoginForm.new(possible_clients: @clients)
+      @form = ClientLoginForm.new(possible_clients: @records)
     end
 
     def update
@@ -74,7 +74,7 @@ module Portal
         @form.client.touch :last_seen_at
         redirect_to session.delete(:after_client_login_path) || portal_root_path
       else
-        @clients.each(&:increment_failed_attempts)
+        @records.each(&:increment_failed_attempts)
 
         # Re-checking if account is locked after incrementing
         return if redirect_locked_clients
@@ -98,7 +98,7 @@ module Portal
     end
 
     def client_login_params
-      params.require(:portal_client_login_form).permit(:last_four_or_client_id).merge(possible_clients: @clients)
+      params.require(:portal_client_login_form).permit(:last_four_or_client_id).merge(possible_clients: @records)
     end
 
     def check_verification_code_params
@@ -106,8 +106,8 @@ module Portal
     end
 
     def validate_token
-      @clients = client_login_service.clients_for_token(params[:id])
-      redirect_to portal_client_logins_path unless @clients.present?
+      @records = client_login_service.login_records_for_token(params[:id])
+      redirect_to self.class.to_path_helper(action: :create, **extra_path_params) unless @records.present?
     end
 
     def client_login_service
@@ -119,7 +119,7 @@ module Portal
     end
 
     def redirect_locked_clients
-      redirect_to account_locked_portal_client_logins_path if @clients.map(&:access_locked?).any?
+      redirect_to account_locked_portal_client_logins_path if @records.map(&:access_locked?).any?
     end
 
     def redirect_to_portal_if_client_authenticated

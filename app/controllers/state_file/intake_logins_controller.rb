@@ -24,8 +24,8 @@ module StateFile
     def increment_failed_attempts_on_login_records
       model = MultiTenantService.new(service_type).intake_model
       contact_info = params[:portal_verification_code_form][:contact_info]
-      @intakes = model.where(email_address: contact_info).or(model.where(phone_number: contact_info))
-      @intakes.map(&:increment_failed_attempts)
+      @records = model.where(email_address: contact_info).or(model.where(phone_number: contact_info))
+      @records.map(&:increment_failed_attempts)
     end
 
     def request_login_form_class
@@ -41,11 +41,6 @@ module StateFile
 
     def redirect_to_data_review_if_intake_authenticated
       redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state]) if current_state_file_az_intake.present? || current_state_file_ny_intake.present?
-    end
-
-    def redirect_locked_clients
-      # TODO: make state file specific locked account page??
-      redirect_to account_locked_portal_client_logins_path if @intakes.map(&:access_locked?).any?
     end
   end
 end

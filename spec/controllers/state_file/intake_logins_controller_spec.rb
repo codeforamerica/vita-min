@@ -8,6 +8,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       sms_phone_number: "+15105551234"
     )
   end
+  let(:intake_query) { StateFileAzIntake.where(id: intake) }
 
   before do
     allow(DatadogApi).to receive(:increment)
@@ -306,6 +307,57 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           expect(response).to be_ok
           expect(assigns[:verification_code_form].errors).to include(:verification_code)
         end
+      end
+    end
+  end
+
+  describe "#edit" do
+    let(:params) { { us_state: "az", id: "raw_token" } }
+
+    context "as an unauthenticated client" do
+      context "with valid token" do
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query) }
+
+        it "it is ok" do
+          get :edit, params: params
+
+          expect(response).to be_ok
+        end
+
+        context "when the client account is locked" do
+          before do
+            intake.lock_access!
+          end
+
+          it "redirects to the lockout page" do
+            get :edit, params: params
+
+            expect(response).to redirect_to account_locked_portal_client_logins_path
+          end
+        end
+      end
+
+      context "with invalid token" do
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(StateFileAzIntake.none) }
+
+        it "redirects to the portal login page" do
+          get :edit, params: params
+
+          expect(response).to redirect_to(intake_logins_path(us_state: "az"))
+        end
+      end
+    end
+
+    context "as an authenticated intake" do
+      before do
+        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
+        sign_in intake
+      end
+
+      it "redirects to data review page" do
+        get :edit, params: params
+
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
       end
     end
   end
