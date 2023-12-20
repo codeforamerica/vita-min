@@ -6,7 +6,7 @@
 #  name_en      :string
 #  name_es      :string
 #  position     :integer
-#  product_type :integer          default(0), not null
+#  product_type :integer          default("gyr"), not null
 #  slug         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
