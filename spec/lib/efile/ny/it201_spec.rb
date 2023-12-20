@@ -573,12 +573,14 @@ describe Efile::Ny::It201 do
 
         it "treats EIC as zero" do
           expect(instance.calculate[:IT215_LINE_12]).to eq(0)
+          expect(instance.calculate[:IT201_LINE_65]).to eq(0)
         end
       end
 
       context "when federal EIC is present" do
         it "calculates the value" do
           expect(instance.calculate[:IT215_LINE_12]).to eq(533)
+          expect(instance.calculate[:IT201_LINE_65]).to eq(533)
         end
       end
     end

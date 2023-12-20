@@ -423,7 +423,7 @@ module Efile
       end
 
       def calculate_line_65
-        if @lines[:IT215_LINE_1].present? && !@lines[:IT215_LINE_2]
+        if @lines[:IT215_LINE_1]&.value.present? && !@lines[:IT215_LINE_2]&.value
           @lines[:IT215_LINE_16].value
         else
           0
