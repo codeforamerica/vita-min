@@ -5,7 +5,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     create(
       :state_file_az_intake,
       email_address: "client@example.com",
-      sms_phone_number: "+15105551234"
+      sms_phone_number: "+15105551234",
+      hashed_ssn: "hashed_ssn"
     )
   end
   let(:intake_query) { StateFileAzIntake.where(id: intake) }
@@ -165,7 +166,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       end
     end
 
-    context "as an authenticated client" do
+    context "as an authenticated intake" do
       before { sign_in intake }
 
       it "redirects to data review page" do
@@ -356,6 +357,119 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       it "redirects to data review page" do
         get :edit, params: params
+
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:ssn) { "111223333" }
+    let(:params) { { us_state: "az", id: "raw_token", ssn: ssn } }
+
+    context "as an unauthenticated intake" do
+      context "with a valid token" do
+        let(:params) do
+          {
+            us_state: "az",
+            id: "raw_token",
+            state_file_intake_login_form: {
+              ssn: ssn
+            }
+          }
+        end
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query) }
+
+        context "with a matching ssn" do
+          before do
+            allow(SsnHashingService).to receive(:hash).with(ssn).and_return intake.hashed_ssn
+          end
+
+          it "signs in the intake and redirects to data review page" do
+            post :update, params: params
+
+            expect(subject.current_state_file_az_intake).to eq(intake)
+            expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+          end
+
+          context "when they were trying to access a protected page" do
+            let(:original_path) { "/questions/fake-page?test=1234" }
+
+            before do
+              session[:after_state_file_intake_login_path] = original_path
+            end
+
+            it "redirects to that page and removes the path from the session" do
+              post :update, params: params
+
+              expect(response).to redirect_to original_path
+              expect(session).not_to include :after_state_file_intake_login_path
+            end
+          end
+
+          context "when they are locked out" do
+            before do
+              intake.lock_access!
+            end
+
+            it "redirects to an account-locked page" do
+              post :update, params: params
+
+              expect(response).to redirect_to account_locked_portal_client_logins_path
+            end
+          end
+        end
+
+        context "without a matching ssn" do
+          before do
+            allow(SsnHashingService).to receive(:hash).with(ssn).and_return "something_else"
+          end
+
+          it "renders the :edit template and increments a lockout number" do
+            expect do
+              post :update, params: params
+            end.to change { intake.reload.failed_attempts }.by 1
+
+            expect(subject.current_state_file_az_intake).to eq(nil)
+            expect(response).to render_template(:edit)
+          end
+
+          context "with 4 previous failed attempts" do
+            before do
+              intake.update(failed_attempts: 4)
+            end
+
+            it "locks the client account and redirects to a lockout page" do
+              expect do
+                post :update, params: params
+              end.to change { intake.reload.failed_attempts }.by 1
+              expect(intake.reload.access_locked?).to be_truthy
+
+              expect(response).to redirect_to(account_locked_portal_client_logins_path)
+            end
+          end
+        end
+      end
+
+      context "with an invalid token" do
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(StateFileAzIntake.none) }
+
+        it "redirects to the login page" do
+          post :update, params: params
+
+          expect(response).to redirect_to(intake_logins_path(us_state: "az"))
+        end
+      end
+    end
+
+    context "as an authenticated intake" do
+      before do
+        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
+        sign_in intake
+      end
+
+      it "redirects to data review page" do
+        post :update, params: params
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
       end

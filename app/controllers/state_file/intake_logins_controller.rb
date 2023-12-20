@@ -12,6 +12,25 @@ module StateFile
       super
     end
 
+    def edit
+      @form = IntakeLoginForm.new(possible_intakes: @records)
+    end
+
+    def update
+      @form = IntakeLoginForm.new(intake_login_params)
+      if @form.valid?
+        sign_in @form.intake
+        redirect_to session.delete(:after_state_file_intake_login_path) || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+      else
+        @records.each(&:increment_failed_attempts)
+
+        # Re-checking if account is locked after incrementing
+        return if redirect_locked_clients
+
+        render :edit
+      end
+    end
+
     private
 
     def extra_path_params
@@ -19,6 +38,10 @@ module StateFile
         hash[:us_state] = type.to_s.gsub("statefile_", "") if service_type == type
         hash
       }
+    end
+
+    def intake_login_params
+      params.require(:state_file_intake_login_form).permit(:ssn).merge(possible_intakes: @records)
     end
 
     def increment_failed_attempts_on_login_records

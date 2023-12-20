@@ -177,4 +177,11 @@ class StateFileBaseIntake < ApplicationRecord
       'pending'
     end
   end
+
+  def increment_failed_attempts
+    super
+    if attempts_exceeded?
+      lock_access! unless access_locked?
+    end
+  end
 end

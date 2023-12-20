@@ -548,7 +548,7 @@ Rails.application.routes.draw do
         resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-        resources :intake_logins, only: [:new, :create, :edit], module: 'state_file', path: "login" do
+        resources :intake_logins, only: [:new, :create, :edit, :update], module: 'state_file', path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         end
         get "login-options", to: "state_file_pages#login_options"
