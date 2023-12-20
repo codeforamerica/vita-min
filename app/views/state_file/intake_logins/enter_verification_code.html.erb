@@ -1,0 +1,15 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :card do %>
+  <%= form_with model: @verification_code_form, url: check_verification_code_intake_logins_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="form-card__content">
+      <h1 class="h2"><%= content_for :page_title %></h1>
+
+      <p class="spacing-below-15"><%= t(".code_sent_to_html", contact_info: @verification_code_form.formatted_contact_info) %></p>
+      <%= f.hidden_field(:contact_info) %>
+      <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>
+    </div>
+
+    <%= f.continue t(".verify") %>
+  <% end %>
+<% end %>
