@@ -34,9 +34,8 @@ module StateFile
     private
 
     def extra_path_params
-      [:statefile_az, :statefile_ny].reduce({}) { |hash, type|
-        hash[:us_state] = type.to_s.gsub("statefile_", "") if service_type == type
-        hash
+      {
+        us_state: params[:us_state]
       }
     end
 
