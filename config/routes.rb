@@ -239,6 +239,12 @@ Rails.application.routes.draw do
           resources :faq_items
         end
 
+        namespace :state_file do
+          resources :faq_categories, path: "faq" do
+            resources :faq_items
+          end
+        end
+
         resources :assigned_clients, path: "assigned", only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
