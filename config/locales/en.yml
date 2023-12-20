@@ -1838,10 +1838,14 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     intake_logins:
+      enter_verification_code:
+        code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
+        enter_6_digit_code: Enter the 6-digit code
+        title: Enter the code to continue
+        verify: Verify code
       form:
         errors:
           bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
-      no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
       new:
         email_address:
           label: Your email address (use an account you can access)
@@ -1849,11 +1853,7 @@ en:
         sms_phone_number:
           label: Your phone number
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
-      enter_verification_code:
-        title: "Enter the code to continue"
-        code_sent_to_html: "We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us."
-        enter_6_digit_code: "Enter the 6-digit code"
-        verify: "Verify code"
+      no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     questions:
       az_charitable_contributions:
         edit:
