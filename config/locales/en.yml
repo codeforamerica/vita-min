@@ -1887,7 +1887,7 @@ en:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
           passed_away_label: Did %{name} pass away in 2023?
-          title1: Please provide some more information about the people in your family who are 65 years of age or older.
+          title: Please provide some more information about the people in your family who are 65 years of age or older.
       az_state_credits:
         edit:
           armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
@@ -1900,8 +1900,8 @@ en:
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
           title:
-            one: Did any of the following scenarios apply to you in 2023?
-            other: Did any of the following scenarios apply to you or your spouse in 2023?
+            one: Did any of the following scenarios apply to you in %{year}?
+            other: Did any of the following scenarios apply to you or your spouse in %{year}?
           subtitle:
             one: Check every box that applies to you. If it does not apply, leave blank and continue.
             other: Check every box that applies to you or your spouse. If it does not apply, leave blank and continue.
@@ -2195,7 +2195,7 @@ en:
             <strong>Your estimated refund or taxes owed</strong> $0. <br/>
             You broke even on your state tax return. This means that you <strong>will not</strong>
             receive a state refund and you <strong>do not</strong> owe state taxes.
-          title1: You're done! Review your state tax return before you submit.
+          title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund
           your_tax_owed: Your taxes owed

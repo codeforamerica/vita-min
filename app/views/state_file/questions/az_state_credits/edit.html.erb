@@ -1,4 +1,4 @@
-<% title = t(".title", count: current_intake.filer_count) %>
+<% title = t(".title", count: current_intake.filer_count, year: MultiTenantService.statefile.current_tax_year) %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
