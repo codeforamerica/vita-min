@@ -11,33 +11,28 @@
   </p>
 
   <p>
-    <%= t('.dontworry_html') %>
+    <%= t('.file_with_vita') %>
   </p>
 
-  <div class="accordion spacing-above-10">
-    <a href="#" class="accordion__button" aria-expanded="true" aria-controls="gyr">
-      <%= image_tag("icons/exclamation-black.svg", alt: "") %>
-      <span><%= t('.what_is_gyr') %></span>
-    </a>
-    <div class="accordion__content" id="gyr">
-      <%= render partial: "gyr" %>
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.learn_more_title') %></a></p>
+    <div class="reveal__content">
+      <p><%= t('.learn_more_content_what') %></p>
+      <p><%= t('.learn_more_content_how') %></p>
+      <p><%= t('.learn_more_content_link_html') %></p>
     </div>
   </div>
 
-  <div class="accordion spacing-above-10">
-    <a href="#" class="accordion__button" aria-expanded="true" aria-controls="other">
-      <%= image_tag("icons/exclamation-black.svg", alt: "") %>
-      <span><%= t('.other_options') %></span>
-
-    </a>
-    <div class="accordion__content" id="other">
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.other_options') %></a></p>
+    <div class="reveal__content">
       <%= render partial: "other_options" %>
     </div>
   </div>
 
-  <div>
+  <div class="spacing-below-25">
     <% gyr_url = root_url(host: MultiTenantService.new(:gyr).host) %>
-    <%= link_to t('.get_started_gyr'), gyr_url %>
+    <%= link_to t('.get_started_with_vita'), gyr_url %>
   </div>
 
   <div>

@@ -50,6 +50,7 @@
       </div>
     <% end %>
 
+    <% asked_months = false %>
     <%= f.fields_for :dependents do |ff| %>
       <div id="dependent-<%= ff.index %>" class="blue-group">
 
@@ -67,6 +68,7 @@
                                  }) %>
         </div>
         <% if f.object.ask_months_in_home? %>
+          <% asked_months = true %>
           <%= ff.cfa_select(
                 :months_in_home,
                 t('.dependent_months_lived_label', year: MultiTenantService.statefile.current_tax_year),
@@ -74,6 +76,16 @@
               ) %>
         <% end %>
       </div>
+
+      <% if asked_months %>
+        <div class="reveal">
+          <p><a href="#" class="reveal__link"><%= t('.months_helper_heading') %></a></p>
+          <div class="reveal__content">
+            <p><%= t('.months_helper_description') %></p>
+            <p><%= t('.months_helper_born_died') %></p>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
     <% if params[:return_to_review].present? %>

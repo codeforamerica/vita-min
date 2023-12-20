@@ -133,6 +133,10 @@
     .form1099__label {
       margin-bottom: 0;
     }
+
+    .list--bulleted {
+      padding-left: 1.5rem;
+    }
   }
 
   .button {
@@ -298,7 +302,7 @@
   .review-header {
     .with-top-separator {
       padding-top: 25px;
-      border-top: 1px solid #BCBCBC;
+      border-top: 1px solid $color-state-file-separator;
     }
   }
 
@@ -336,11 +340,17 @@
     border: 2px solid $color-state-file-blue-box-border;
     border-radius: 6px;
 
+    div.with-top-separator {
+      padding-top: 25px;
+      border-top: 1px solid $color-state-file-separator;
+    }
+
     ul {
       padding-left: 2rem;
 
       li {
         list-style: disc;
+        margin-top: 2rem;
       }
     }
   }

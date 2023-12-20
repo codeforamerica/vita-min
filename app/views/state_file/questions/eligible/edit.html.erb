@@ -15,16 +15,29 @@
         </ul>
       <% else %>
         <ul class="list--bulleted">
-          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>
-          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".empire_state_ctc") %></a></li>
-          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".nys_eic") %></a></li>
-          <li><a href="#" target="_blank" rel="noopener nofollow"><%= t(".real_property_credit") %></a></li>
+          <li><a href="https://www.tax.ny.gov/pit/credits/household_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>
+          <li><a href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".empire_state_ctc") %></a></li>
+          <li><a href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_eic") %></a></li>
+          <li><%= t(".nyc_school_tax_credit") %></li>
         </ul>
       <% end %>
   </div>
 
-  <!-- TODO: This is supposed to be an expandable help section -->
-  <p><%= t(".not_supported_html") %></p>
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.not_supported') %></a></p>
+    <div class="reveal__content">
+      <% if params[:us_state] == "az" %>
+        <%= render partial: "state_file/questions/eligible/az_unsupported" %>
+      <% elsif params[:us_state] == "ny" %>
+        <%= render partial: "state_file/questions/eligible/ny_unsupported" %>
+      <% end %>
+      <div class="with-top-separator">
+        <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
+        <p><%=t('.want_to_claim_vita') %></p>
+        <p><%=t('.want_to_claim_learn_more_html') %></p>
+      </div>
+    </div>
+  </div>
 
   <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
     <%= t("general.continue") %>
