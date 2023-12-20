@@ -68,8 +68,7 @@ module SubmissionBuilder
                 xml.SALE_USE_AMT claimed: calculated_fields.fetch(:IT201_LINE_59) || 0
                 xml.TX_GFT_AMT claimed: calculated_fields.fetch(:IT201_LINE_61)
                 xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_63)
-                # STOP: THE LINE BELOW NEEDS TO BE CONFIRMED WITH COURTNEY BEFORE MERGE!!! 😱😱😱
-                xml.EITC_CR_AMT claimed: [calculated_fields.fetch(:IT201_LINE_65), 0].max
+                xml.EITC_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_65)
                 xml.RL_PROP_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_67)
                 xml.NYC_STAR_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_69)
                 xml.NYC_STAR_REDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_69A)
