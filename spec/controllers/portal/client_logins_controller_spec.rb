@@ -139,12 +139,24 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
       before do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-        allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
+        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
       end
 
       it "redirects to the next page for login" do
         post :check_verification_code, params: params
         expect(response).to redirect_to(edit_portal_client_login_path(id: hashed_verification_code))
+      end
+
+      context "when the matching client is locked out" do
+        before do
+          client.update(locked_at: DateTime.now)
+        end
+
+        it "redirects to the account locked page" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+        end
       end
 
       context "Datadog" do
@@ -181,28 +193,23 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           expect(assigns[:verification_code_form].errors).to include(:verification_code)
         end
 
+        context "with clients who are locked out" do
+          before do
+            client.update(locked_at: DateTime.now)
+          end
+
+          it "redirects to the account locked page" do
+            post :check_verification_code, params: params
+
+            expect(response).to redirect_to(account_locked_portal_client_logins_path)
+          end
+        end
+
         context "Datadog" do
           it "increments a counter" do
             post :check_verification_code, params: params
             expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.wrong_code")
           end
-        end
-      end
-
-      # TODO: this test description is actually inaccurate because the token does not match
-      context "with clients matching the contact info & token but locked out" do
-        let(:email_address) { "example@example.com" }
-        let(:wrong_verification_code) { "000005" }
-        let(:params) { { portal_verification_code_form: {
-          contact_info: email_address,
-          verification_code: wrong_verification_code,
-        }}}
-        let!(:client) { create(:client, intake: build(:intake, email_address: email_address), locked_at: DateTime.now) }
-
-        it "redirects to the account locked page" do
-          post :check_verification_code, params: params
-
-          expect(response).to redirect_to(account_locked_portal_client_logins_path)
         end
       end
 
@@ -240,7 +247,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
     context "as an unauthenticated client" do
       context "with valid token" do
-        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(client_query) }
 
         it "it is ok" do
           get :edit, params: params
@@ -262,7 +269,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with invalid token" do
-        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(Client.none) }
 
         it "redirects to the portal login page" do
           get :edit, params: { id: "invalid_token" }
@@ -300,7 +307,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
     context "as an unauthenticated client" do
       context "with a valid token" do
-        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(client_query) }
 
         context "with a matching ssn/client ID" do
           let(:params) do
@@ -401,7 +408,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with an invalid token" do
-        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(Client.none) }
 
         it "redirects to the portal login page" do
           post :update, params: { id: "invalid_token" }

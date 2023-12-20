@@ -38,15 +38,15 @@ module Portal
       @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: params[:verification_code])
       if @verification_code_form.valid?
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
-
-        if client_login_service.login_records_for_token(hashed_verification_code).present?
+        @records = client_login_service.login_records_for_token(hashed_verification_code)
+        return if redirect_locked_clients # check if any records are already locked
+        if @records.present? # we have at least one match and none are locked
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
           redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code, **extra_path_params)
           return
-        else
+        else # we have no matches for the verification code
           @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
           DatadogApi.increment("#{self.controller_name}.verification_codes.wrong_code")
-
           increment_failed_attempts_on_login_records
           return if redirect_locked_clients
         end

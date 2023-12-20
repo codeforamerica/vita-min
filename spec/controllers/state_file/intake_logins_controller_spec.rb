@@ -195,7 +195,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       before do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(intake)
+        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(intake_query)
       end
 
       it "redirects to the next page for login" do
@@ -254,15 +254,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
       end
 
-      # TODO: match this behavior
-      xcontext "with clients matching the contact info & token but locked out" do
+      context "with clients matching the contact info & token but locked out" do
         let(:verification_code) { "000005" }
         let(:hashed_verification_code) { "hashed_verification_code" }
 
         before do
           intake.update(locked_at: DateTime.now)
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return([intake])
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(intake_query)
         end
 
         it "redirects to the account locked page" do
