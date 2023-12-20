@@ -1868,10 +1868,10 @@ en:
       az_prior_last_names:
         edit:
           prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+          subtitle: This includes tax years 2019-2022.
           title:
             one: Did you file with a different last name in the last four years?
             other: Did you or your spouse file with a different last name in the last four years?
-          subtitle: This includes tax years 2019-2022.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. armed forces
@@ -1899,19 +1899,19 @@ en:
             If you are a member of the Reserves or the National Guard, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
-          title:
-            one: Did any of the following scenarios apply to you in %{year}?
-            other: Did any of the following scenarios apply to you or your spouse in %{year}?
+          should_not_exceed_wages_html: "<strong>Note:</strong> this should not exceed %{wages}"
           subtitle:
             one: Check every box that applies to you. If it does not apply, leave blank and continue.
             other: Check every box that applies to you or your spouse. If it does not apply, leave blank and continue.
+          title:
+            one: Did any of the following scenarios apply to you in %{year}?
+            other: Did any of the following scenarios apply to you or your spouse in %{year}?
           tribal_member_label:
             one: You are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
             other: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
             other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
-          should_not_exceed_wages_html: <strong>Note:</strong> this should not exceed %{wages}
           wages_tip: Enter amount earned&#58;
       canceled_data_transfer:
         edit:
