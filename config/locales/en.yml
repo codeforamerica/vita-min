@@ -2203,15 +2203,6 @@ en:
             Check to make sure your bank information is correct. You won't be able to correct this after you submit your return.
             </strong><br/>
           mail: Mail my payment (slower)
-          mail_html: |
-            You can get your tax refund on a debit card issued by %{state_name} state. Debit cards allow you to:
-            <ul>
-              <li>· Avoid check cashing fees</li>
-              <li>· Get cash at banks and ATMs</li>
-              <li>· Make purchases (and get cash back)</li>
-            </ul><br/>
-            In most cases, there's no fee for using the card.
-            <a href="">Learn more.</a>
           routing_number: Routing Number
           title: Good news, you're getting a %{state_name} state tax refund of $%{refund_amount}. How would you like to receive your refund?
       taxes_owed:
