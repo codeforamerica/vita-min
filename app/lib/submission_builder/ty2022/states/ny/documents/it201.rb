@@ -34,10 +34,14 @@ module SubmissionBuilder
                 end
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
                 xml.INT_AMT claimed: calculated_fields.fetch(:IT201_LINE_2)
-                xml.TX_UNEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_14)
+                if calculated_fields.fetch(:IT201_LINE_14).present?
+                  xml.TX_UNEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_14)
+                end
                 xml.SSINC_AMT claimed: calculated_fields.fetch(:IT201_LINE_15)
                 xml.FEDAGI_B4_ADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_17)
-                xml.FEDADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_18)
+                if calculated_fields.fetch(:IT201_LINE_18).present?
+                  xml.FEDADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_18)
+                end
                 xml.FEDAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_19)
                 xml.A_PBEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_21)
                 xml.A_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_24)

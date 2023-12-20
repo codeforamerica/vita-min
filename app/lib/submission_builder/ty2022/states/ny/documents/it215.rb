@@ -8,14 +8,18 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT215") do |xml|
-                xml.E_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_1") ? 1 : 2
-                xml.E_INV_INC_IND claimed: calculated_fields.fetch("IT215_LINE_2") ? 1 : 2
+                # If we got this far these values are known
+                xml.E_FED_EITC_IND claimed: 1
+                xml.E_INV_INC_IND claimed: 2
+
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
                 xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
                 xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")
-                xml.E_FED_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_10")
+                if calculated_fields.fetch("IT215_LINE_10").present?
+                  xml.E_FED_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_10")
+                end
                 xml.E_TNTV_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_12")
                 xml.E_TX_B4CR_AMT claimed: calculated_fields.fetch("IT215_LINE_13")
                 xml.E_HH_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_14")
