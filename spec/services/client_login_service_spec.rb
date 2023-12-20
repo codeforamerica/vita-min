@@ -297,6 +297,8 @@ describe ClientLoginService do
     end
   end
 
+  # TODO add tests for `can_login_by_email_verification?` ?
+
   describe ".handle_email_request" do
     context "when service_type is :gyr" do
       subject { described_class.new(:gyr) }

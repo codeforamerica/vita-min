@@ -1,7 +1,7 @@
 module StateFile
   class IntakeLoginsController < Portal::ClientLoginsController
+    helper_method :prev_path, :illustration_path
     before_action :redirect_to_data_review_if_intake_authenticated
-
     layout "state_file/question"
 
     def new
@@ -33,6 +33,10 @@ module StateFile
 
     private
 
+    def prev_path; end
+
+    def illustration_path; end
+
     def extra_path_params
       {
         us_state: params[:us_state]
@@ -52,6 +56,10 @@ module StateFile
 
     def request_login_form_class
       RequestIntakeLoginForm
+    end
+
+    def request_client_login_params
+      params.require(:state_file_request_intake_login_form).permit(:email_address, :sms_phone_number)
     end
 
     def service_type

@@ -1,0 +1,11 @@
+<% title = t(".#{@contact_method}.title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <%= form_with model: @form, url: StateFile::IntakeLoginsController.to_path_helper(action: :create, us_state: params[:us_state], contact_method: @contact_method), local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_input_field(@contact_method.to_sym, t(".#{@contact_method}.label"), classes: ["form-width--long"]) %>
+    <%= f.submit t("state_file.questions.email_address.edit.action") %>
+  <% end %>
+  <%= render 'state_file/questions/shared/verification_shortcut' %>
+<% end %>

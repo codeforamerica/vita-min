@@ -56,7 +56,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         locale: "es",
         us_state: "az",
         contact_method: contact_method,
-        portal_request_client_login_form: contact_info_params
+        state_file_request_intake_login_form: contact_info_params
       }
     end
 
