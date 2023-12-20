@@ -11,6 +11,7 @@ class Ability
 
     # Admins can do everything
     if user.admin?
+      # All admins who are also state file
       can :manage, :all
       unless user.state_file_admin?
         cannot :manage, StateFileAzIntake
@@ -18,6 +19,7 @@ class Ability
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
         cannot :manage, StateId
+        cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
       end
       return
     end
