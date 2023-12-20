@@ -10,30 +10,29 @@
           Status
         </th>
         <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
-        <th scope="col" style="width: 10rem"class="index-table__header sortable">
-          Tax Year
-        </th>
         <th scope="col" class="index-table__header">
           Errors
+        </th>
+        <th scope="col" class="index-table__header">
+          Data Source ID
+        </th>
+        <th scope="col" class="index-table__header">
+          Data Source type
         </th>
       </tr>
       </thead>
       <tbody class="index-table__body submission-table">
 
       <% @efile_submissions.each do |submission| %>
-        <% tax_return = submission.tax_return %>
         <tr class="index-table__row">
           <td class="index-table__cell status">
             <%= submission.id %>
           </td>
           <td class="index-table__cell status">
-            <%= link_to submission.current_state.humanize(capitalize: false), hub_efile_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
+            <%= link_to submission.current_state.humanize(capitalize: false), hub_state_file_efile_submission_path(id: submission.id), class: "underline" %>
           </td>
           <td class="index-table__cell">
-            <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body")) : "" %>
-          </td>
-          <td class="index-table__cell">
-            <%= tax_return.year %>
+            <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
           </td>
           <td class="index-table__cell">
             <% submission.last_transition&.efile_errors&.each do |error| %>
@@ -44,6 +43,8 @@
                 </span>
             <% end %>
           </td>
+          <td class="index-table__cell"><%= submission.data_source_id %></td>
+          <td class="index-table__cell"><%= submission.data_source_type %></td>
         </tr>
       <% end %>
       </tbody>
