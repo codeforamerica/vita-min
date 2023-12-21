@@ -1,22 +1,23 @@
-<% content_for :page_title, t(".title") %>
+<% title = t(".title", count: current_intake.filer_count, tax_year: MultiTenantService.statefile.current_tax_year) %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= t(".title") %></h1>
+  <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="blue-group">
-          <%= f.cfa_radio_set(:charitable_contributions, collection: [
+          <%= f.cfa_radio_set(:charitable_contributions, label_text: title, collection: [
             { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#charitable_contributions" } },
             { value: "no", label: t("general.negative") },
-          ]) %>
+          ], legend_class: "sr-only") %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="charitable_contributions">
         <div class="blue-group">
           <div class="form-group-tight">
-            <%= f.cfa_input_field(:charitable_cash, t(".charitable_cash_html"), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:charitable_noncash, t(".charitable_noncash_html"), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charitable_cash, t(".charitable_cash_html", tax_year: MultiTenantService.statefile.current_tax_year), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charitable_noncash, t(".charitable_noncash_html", tax_year: MultiTenantService.statefile.current_tax_year), classes: ["form-width--long"]) %>
           </div>
         </div>
       </div>

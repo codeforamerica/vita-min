@@ -90,6 +90,10 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status == :qualifying_widow
   end
 
+  def filer_count
+    filing_status_mfj? ? 2 : 1
+  end
+
   def primary
     Person.new(self, :primary)
   end
