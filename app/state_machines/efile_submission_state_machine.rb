@@ -75,8 +75,8 @@ class EfileSubmissionStateMachine
         message: AutomatedMessage::EfilePreparing,
       )
     end
-    if submission.tax_return
-      submission.tax_return.transition_to!(:file_ready_to_file)
+    if submission.source_record
+      submission.source_record.transition_to!(:file_ready_to_file)
     end
 
     BuildSubmissionBundleJob.perform_later(submission.id)
@@ -87,7 +87,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :fraud_hold) do |submission|
-    submission.tax_return.transition_to(:file_fraud_hold)
+    submission.source_record.transition_to(:file_fraud_hold)
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,
@@ -110,6 +110,7 @@ class EfileSubmissionStateMachine
 
     if transition.efile_errors.any?
       if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
+        # this will not run for state file
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
           message: AutomatedMessage::EfileFailed,
@@ -151,20 +152,20 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :investigating) do |submission|
-    submission.tax_return.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold)
   end
 
   after_transition(to: :waiting) do |submission|
-    submission.tax_return.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold)
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
-    @new_submission = submission.tax_return.efile_submissions.create
+    @new_submission = submission.source_record.efile_submissions.create
     @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
   end
 
   after_transition(to: :cancelled) do |submission|
-    submission.tax_return.transition_to(:file_not_filing)
+    submission.source_record.transition_to(:file_not_filing)
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
