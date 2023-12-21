@@ -209,4 +209,18 @@ describe Efile::Az::Az140 do
       expect(instance.lines[:AZ140_LINE_56].value).to eq(100) # (1 filer + 4 dependents) * 25 = 125 but max is 100
     end
   end
+
+  context 'sets line 7c correctly' do
+    before do
+      intake.charitable_cash = 50
+      intake.charitable_noncash = 50
+      intake.charitable_contributions = 'yes'
+    end
+
+    # 31% of 100 (50+50)
+    it 'sets the credit to the maximum amount' do
+      instance.calculate
+      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
+    end
+  end
 end
