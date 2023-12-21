@@ -25,7 +25,8 @@ module PdfFiller
         Spouse_last_name: @xml_document.at('tiSpouse LAST_NAME')&.text,
         Spouse_DOB: @submission.data_source.spouse&.birth_date&.strftime("%m%d%Y"),
         Spouse_SSN: @xml_document.at('tiSpouse SP_SSN_NMBR')&.text,
-        TP_mail_address: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text, # TODO: Awaiting changes in The Spreadsheet
+        TP_mail_address: @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text,
+        TP_mail_apt: @xml_document.at('tiPrime MAIL_LN_1_ADR')&.text,
         NYS_county_residence: @xml_document.at('tiPrime COUNTY_NAME')&.text,
         TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
         TP_mail_state: @xml_document.at('tiPrime MAIL_STATE_ADR')&.text,
