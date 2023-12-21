@@ -70,7 +70,8 @@
           <%= ff.cfa_select(
                 :months_in_home,
                 t('.dependent_months_lived_label', year: MultiTenantService.statefile.current_tax_year),
-                (0..12).map { |i| [i.to_s, i] }.reverse
+                (0..12).map { |i| [i.to_s, i] }.reverse,
+                prompt: t('general.select_prompt')
               ) %>
         <% end %>
       </div>
