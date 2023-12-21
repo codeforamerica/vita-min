@@ -17,7 +17,7 @@
 
       <div class="question-with-follow-up__follow-up" id="prior-last-names">
         <div class="blue-group">
-          <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label", count: current_intake.filer_count), classes: ["form-width--long"]) %>
         </div>
       </div>
     </div>

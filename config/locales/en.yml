@@ -1867,7 +1867,9 @@ en:
             other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
       az_prior_last_names:
         edit:
-          prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+          prior_last_names_label:
+            one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+            other: Enter all last names used by you and your spouse in the last four years.
           subtitle: This includes tax years 2019-2022.
           title:
             one: Did you file with a different last name in the last four years?
