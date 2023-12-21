@@ -2230,7 +2230,7 @@ en:
           checking: Checking
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'The date you would like funds withdrawn from your account (must be on or before April 15, 2024):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before April 15, 2024):'
           double_check: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
