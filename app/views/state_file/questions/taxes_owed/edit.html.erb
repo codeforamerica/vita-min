@@ -9,20 +9,23 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <%= f.cfa_radio_set(
-          :payment_or_deposit_type,
-          collection: [
-            { value: :mail, label: t(".pay_mail_online_html",
-                                               pay_mail_online_link: pay_mail_online_link,
-                                               pay_mail_online_text: pay_mail_online_text,
-                                               ) },
-            { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
-          ]
-        ) %>
+        <div class="blue-group">
+          <%= f.cfa_radio_set(
+            :payment_or_deposit_type,
+            collection: [
+              { value: :mail, label: t(".pay_mail_online_html",
+                                                 pay_mail_online_link: pay_mail_online_link,
+                                                 pay_mail_online_text: pay_mail_online_text,
+                                                 ) },
+              { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
+            ]
+          ) %>
+        </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="pay-from-bank">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
+            <div class="blue-group">
               <div class="form-card__content">
                 <h1 class="h2">
                   <%= t(".bank_title") %>
@@ -64,6 +67,7 @@
                 <%= f.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
                 <p class="spacing-above-25"><strong><%= t(".double_check") %></strong></p>
               </div>
+            </div>
           </div>
         </div>
       </div>
