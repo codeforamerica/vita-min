@@ -560,7 +560,6 @@ class DirectFileData
         dependent.eic_qualifying = true
         dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
         dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
-        dependent.months_in_home = node.at('MonthsChildLivedWithYouCnt')&.text
       else
         dependents << Dependent.new(
           first_name: node.at('ChildFirstAndLastName PersonFirstNm')&.text,
@@ -570,7 +569,6 @@ class DirectFileData
           eic_qualifying: true,
           eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
           eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
-          months_in_home: node.at('MonthsChildLivedWithYouCnt')&.text,
         )
       end
     end
@@ -584,11 +582,10 @@ class DirectFileData
                   :relationship,
                   :eic_student,
                   :eic_disability,
-                  :months_in_home,
                   :eic_qualifying
 
     def initialize(first_name:, last_name:, ssn:, relationship:,
-                   eic_student: nil, eic_disability: nil, months_in_home: nil, eic_qualifying: nil)
+                   eic_student: nil, eic_disability: nil, eic_qualifying: nil)
 
       @first_name = first_name
       @last_name = last_name
@@ -596,7 +593,6 @@ class DirectFileData
       @relationship = relationship
       @eic_student = eic_student
       @eic_disability = eic_disability
-      @months_in_home = months_in_home
       @eic_qualifying = eic_qualifying
     end
 
@@ -608,7 +604,6 @@ class DirectFileData
         relationship: @relationship,
         eic_student: @eic_student,
         eic_disability: @eic_disability,
-        months_in_home: @months_in_home,
         eic_qualifying: @eic_qualifying,
       }
     end
