@@ -142,11 +142,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def source_record
-    if ["StateFileNyIntake", "StateFileAzIntake"].include? data_source_type
-      data_source
-    else
-      tax_return
-    end
+    is_for_state_filing? ? data_source : tax_return
   end
 
   def generate_verified_address(i = 0)
