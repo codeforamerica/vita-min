@@ -74,10 +74,6 @@ class EfileSubmissionStateMachine
         client: submission.client,
         message: AutomatedMessage::EfilePreparing,
       )
-    end
-    if submission.is_for_state_filing?
-      submission.transition_to!(:file_ready_to_file)
-    elsif submission.is_for_federal_filing?
       submission.tax_return.transition_to!(:file_ready_to_file)
     end
 
