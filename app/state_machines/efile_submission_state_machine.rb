@@ -108,7 +108,6 @@ class EfileSubmissionStateMachine
 
     if transition.efile_errors.any?
       if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
-        # this will not run for state file
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
           message: AutomatedMessage::EfileFailed,
@@ -151,10 +150,13 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :investigating) do |submission|
     submission.source_record.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
+
 
   after_transition(to: :waiting) do |submission|
     submission.source_record.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -164,6 +166,7 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :cancelled) do |submission|
     submission.source_record.transition_to(:file_not_filing)
+    submission.source_record.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
