@@ -12,22 +12,26 @@ RSpec.describe AuthenticatedStateFileIntakeConcern, type: :controller do
 
     context "when a state file intake is not authenticated" do
       it "redirects to a login page" do
-        get :index
+        get :index, params: { us_state: "ny" }
 
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: "ny")
       end
 
       it "adds the current path to the session" do
-        get :index, params: { with_querystring: "cool" }
+        get :index, params: { us_state: "ny", with_querystring: "cool" }
 
-        expect(session[:after_state_file_intake_login_path]).to eq("/anonymous?with_querystring=cool")
+        stored_path = URI(session[:after_state_file_intake_login_path])
+        stored_params = Rack::Utils.parse_query stored_path.query
+        expect(stored_path.path).to eq("/anonymous")
+        expect(stored_params["with_querystring"]).to eq "cool"
+        expect(stored_params["us_state"]).to eq "ny"
       end
 
       context "with a POST request" do
         it "redirects but does not store the current path in the session" do
-          post :index
+          post :index, params: { us_state: "az" }
 
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: "az")
           expect(session).not_to include :after_state_file_intake_login_path
         end
       end

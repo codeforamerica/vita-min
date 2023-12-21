@@ -1838,9 +1838,25 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     intake_logins:
+      edit:
+        help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
+        ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
+        title: Code verified! Authentication needed to continue.
+      enter_verification_code:
+        code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
+        enter_6_digit_code: Enter the 6-digit code
+        title: Enter the code to continue
+        verify: Verify code
       form:
         errors:
           bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+      new:
+        email_address:
+          label: Your email address (use an account you can access)
+          title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
+        sms_phone_number:
+          label: Your phone number
+          title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     questions:
       az_charitable_contributions:
@@ -2337,6 +2353,11 @@ en:
       footer:
         state_file_description_html: FileYourStateTaxes is built by %{link} to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by %{link} in partnership with the state of %{state_full_name} to integrate with the IRS Direct File tool.
+      login_options:
+        email_signin: Sign in with email
+        help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
+        phone_number_signin: Sign in with phone number
+        title: Sign in to FileYourStateTaxes
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.

@@ -21,8 +21,9 @@ module StateFile
       redirect_to action: :about_page
     end
 
-    private
+    def login_options; end
 
+    private
 
     def transfer_url(key, redirect_url)
       uri = URI(redirect_url)

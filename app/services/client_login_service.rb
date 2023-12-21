@@ -2,7 +2,16 @@ class ClientLoginService
   attr_accessor :service_class
 
   def initialize(service_type)
+    @service_type = service_type
     @service_class = MultiTenantService.new(service_type).intake_model
+  end
+
+  def login_records_for_token(raw_token)
+    if [:gyr, :ctc].include? @service_type
+      clients_for_token(raw_token)
+    else
+      intakes_for_token(raw_token) # state file
+    end
   end
 
   def intakes_for_token(raw_token)
@@ -24,7 +33,11 @@ class ClientLoginService
   end
 
   def can_login_by_email_verification?(email_address)
-    service_class.accessible_intakes.where(email_address: email_address).or(service_class.accessible_intakes.where(spouse_email_address: email_address)).exists?
+    if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
+      return service_class.accessible_intakes.where(email_address: email_address).or(service_class.accessible_intakes.where(spouse_email_address: email_address)).exists?
+    elsif service_class == StateFileAzIntake || service_class == StateFileNyIntake
+      return service_class.accessible_intakes.where(email_address: email_address).exists?
+    end
   end
 
   def can_login_by_sms_verification?(sms_phone_number)
