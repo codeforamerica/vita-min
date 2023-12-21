@@ -1568,6 +1568,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_20_184706) do
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
     t.string "recipient_street_address"
+    t.string "recipient_street_address_apartment"
     t.string "recipient_zip"
     t.string "state_identification_number"
     t.integer "state_income_tax_withheld"

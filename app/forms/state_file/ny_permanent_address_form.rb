@@ -2,8 +2,8 @@ module StateFile
   class NyPermanentAddressForm < QuestionsForm
     set_attributes_for :intake,
                        :confirmed_permanent_address,
-                       :permanent_apartment,
                        :permanent_street,
+                       :permanent_apartment,
                        :permanent_city,
                        :permanent_zip,
                        :permanent_address_outside_ny
@@ -16,7 +16,7 @@ module StateFile
 
     def initialize(intake = nil, params = nil)
       if params[:confirmed_permanent_address] == "yes"
-        [:permanent_apartment, :permanent_street, :permanent_city, :permanent_zip].each do |param|
+        [:permanent_street, :permanent_apartment, :permanent_city, :permanent_zip].each do |param|
           params[param] = ""
         end
       end
@@ -26,9 +26,9 @@ module StateFile
     def save
       attributes_from_direct_file = confirmed_permanent_address == "yes" ?
                                 {
-                                  permanent_apartment: @intake.direct_file_data.mailing_apartment,
                                   permanent_city: @intake.direct_file_data.mailing_city,
                                   permanent_street: @intake.direct_file_data.mailing_street,
+                                  permanent_apartment: @intake.direct_file_data.mailing_apartment,
                                   permanent_zip: @intake.direct_file_data.mailing_zip,
                                 } : {}
       attributes_from_direct_file[:permanent_address_outside_ny] = @intake.direct_file_data.mailing_state != 'NY' && confirmed_permanent_address == "yes" ? "yes" : "no"

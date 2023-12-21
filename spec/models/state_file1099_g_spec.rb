@@ -2,26 +2,27 @@
 #
 # Table name: state_file1099_gs
 #
-#  id                          :bigint           not null, primary key
-#  address_confirmation        :integer          default("unfilled"), not null
-#  federal_income_tax_withheld :integer
-#  had_box_11                  :integer          default("unfilled"), not null
-#  intake_type                 :string           not null
-#  payer_city                  :string
-#  payer_name                  :string
-#  payer_street_address        :string
-#  payer_tin                   :string
-#  payer_zip                   :string
-#  recipient                   :integer          default("unfilled"), not null
-#  recipient_city              :string
-#  recipient_street_address    :string
-#  recipient_zip               :string
-#  state_identification_number :string
-#  state_income_tax_withheld   :integer
-#  unemployment_compensation   :integer
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  intake_id                   :bigint           not null
+#  id                                 :bigint           not null, primary key
+#  address_confirmation               :integer          default("unfilled"), not null
+#  federal_income_tax_withheld        :integer
+#  had_box_11                         :integer          default("unfilled"), not null
+#  intake_type                        :string           not null
+#  payer_city                         :string
+#  payer_name                         :string
+#  payer_street_address               :string
+#  payer_tin                          :string
+#  payer_zip                          :string
+#  recipient                          :integer          default("unfilled"), not null
+#  recipient_city                     :string
+#  recipient_street_address           :string
+#  recipient_street_address_apartment :string
+#  recipient_zip                      :string
+#  state_identification_number        :string
+#  state_income_tax_withheld          :integer
+#  unemployment_compensation          :integer
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
+#  intake_id                          :bigint           not null
 #
 # Indexes
 #
@@ -32,6 +33,13 @@ require 'rails_helper'
 RSpec.describe StateFile1099G do
   describe "conditional attributes" do
     describe '#address_confirmation' do
+      before do
+        allow_any_instance_of(DirectFileData).to receive(:mailing_street).and_return "321 Main St"
+        allow_any_instance_of(DirectFileData).to receive(:mailing_apartment).and_return "Apt D"
+        allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return "Buffalo"
+        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return "11105"
+      end
+
       it 'sets address to default address that was confirmed' do
         state_file_1099 = create(
           :state_file1099_g,
@@ -39,12 +47,14 @@ RSpec.describe StateFile1099G do
           address_confirmation: 'no',
           recipient_city: 'New York',
           recipient_street_address: '123 Main St',
+          recipient_street_address_apartment: 'Apt E',
           recipient_zip: '11102',
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
-        expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
         expect(state_file_1099.recipient_street_address).to eq state_file_1099.intake.direct_file_data.mailing_street
+        expect(state_file_1099.recipient_street_address_apartment).to eq state_file_1099.intake.direct_file_data.mailing_apartment
+        expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
         expect(state_file_1099.recipient_zip).to eq state_file_1099.intake.direct_file_data.mailing_zip
       end
     end

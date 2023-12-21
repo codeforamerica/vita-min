@@ -10,6 +10,7 @@ class DirectFileData
     spouse_occupation: 'IRS1040 SpouseOccupationTxt',
     mailing_city: 'ReturnHeader Filer USAddress CityNm',
     mailing_street: 'ReturnHeader Filer USAddress AddressLine1Txt',
+    mailing_apartment: 'ReturnHeader Filer USAddress AddressLine2Txt',
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
@@ -148,7 +149,7 @@ class DirectFileData
   end
 
   def mailing_apartment
-    # TODO
+    df_xml_value(__method__)
   end
 
   def mailing_state

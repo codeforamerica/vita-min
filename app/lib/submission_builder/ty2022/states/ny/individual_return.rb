@@ -45,6 +45,9 @@ module SubmissionBuilder
                 xml.MI_NAME @submission.data_source.primary.middle_initial
                 xml.LAST_NAME @submission.data_source.primary.last_name
                 xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street
+                if @submission.data_source.direct_file_data.mailing_apartment.present?
+                  xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment
+                end
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip
