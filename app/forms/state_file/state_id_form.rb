@@ -5,7 +5,7 @@ module StateFile
     validates :id_type, presence: true
     validates :id_number, alphanumeric: true, length: {is: 9}, unless: -> { id_type == "no_id" }
     validate :issue_date_is_valid_date, unless: -> { id_type == "no_id" }
-    validate :expiration_date_is_valid_date, unless: -> { id_type == "no_id" }
+    validate :expiration_date_is_valid_date, unless: -> { id_type == "no_id" || non_expiring }
     validates :state, presence: true, inclusion: { in: States.keys }, unless: -> { id_type == "no_id" }
 
     def save
@@ -33,6 +33,7 @@ module StateFile
         expiration_date_day: state_id.expiration_date&.day,
         expiration_date_month: state_id.expiration_date&.month,
         expiration_date_year: state_id.expiration_date&.year,
+        non_expiring: state_id.non_expiring,
       }
     end
 
