@@ -148,19 +148,7 @@ module Efile
       end
 
       def calculate_line_46
-        if filing_status_single?
-          if line_or_zero(:AZ140_LINE_45) <= 28653
-            (line_or_zero(:AZ140_LINE_45) * 0.0255).round
-          elsif line_or_zero(:AZ140_LINE_45) > 28653
-            (((line_or_zero(:AZ140_LINE_45) - 28653) * 0.0298) + 731).round
-          end
-        elsif filing_status_mfj? || filing_status_hoh?
-          if line_or_zero(:AZ140_LINE_45) <= 57305
-            (line_or_zero(:AZ140_LINE_45) * 0.0255).round
-          elsif line_or_zero(:AZ140_LINE_45) > 57305
-            (((line_or_zero(:AZ140_LINE_45) - 57305) * 0.0298) + 1461).round
-          end
-        end
+        (line_or_zero(:AZ140_LINE_45) * 0.025).round
       end
 
       def calculate_line_48
