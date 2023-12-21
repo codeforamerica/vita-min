@@ -1838,6 +1838,10 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     intake_logins:
+      edit:
+        help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
+        ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
+        title: Code verified! Authentication needed to continue.
       enter_verification_code:
         code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
         enter_6_digit_code: Enter the 6-digit code

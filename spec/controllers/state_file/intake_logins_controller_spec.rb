@@ -384,11 +384,12 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             allow(SsnHashingService).to receive(:hash).with(ssn).and_return intake.hashed_ssn
           end
 
-          it "signs in the intake and redirects to data review page" do
+          it "signs in the intake, updates the session, and redirects to data review page" do
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
             expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+            expect(GlobalID.find(session[:state_file_intake])).to eq intake
           end
 
           context "when they were trying to access a protected page" do

@@ -1,0 +1,14 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2" id="main-question"><%= title %></h1>
+
+  <p>
+    <%= t(".help_text") %>
+  </p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.cfa_input_field(:ssn, t(".ssn_label"), classes: ["form-width--long"]) %>
+    <%= f.submit t("general.continue") %>
+  <% end %>
+<% end %>

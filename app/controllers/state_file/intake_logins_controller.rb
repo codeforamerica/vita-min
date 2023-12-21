@@ -20,6 +20,7 @@ module StateFile
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
         sign_in @form.intake
+        session[:state_file_intake] = @form.intake.to_global_id
         redirect_to session.delete(:after_state_file_intake_login_path) || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
       else
         @records.each(&:increment_failed_attempts)
