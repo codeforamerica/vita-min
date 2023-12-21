@@ -209,4 +209,27 @@ describe Efile::Az::Az140 do
       expect(instance.lines[:AZ140_LINE_56].value).to eq(100) # (1 filer + 4 dependents) * 25 = 125 but max is 100
     end
   end
+
+  describe 'the Az flat tax rate is 2.5%' do
+    context 'when the filer has an income of $25,000' do
+      before do
+        intake.direct_file_data.fed_agi = 25_000
+      end
+      it 'the tax is 2.5%' do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(4323) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(108)
+      end
+    end
+    context 'when the filer has an income of $150,000' do
+      before do
+        intake.direct_file_data.fed_agi = 150_000
+      end
+      it 'the tax is 2.5%' do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(129323) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(3233)
+      end
+    end
+  end
 end
