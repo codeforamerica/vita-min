@@ -272,7 +272,7 @@ module Efile
       end
 
       def calculate_ccws_line_7c
-        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.27).round
+        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.31).round
       end
     end
   end
