@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Ctc::W2s::MiscInfoForm do
-  before { skip }
   let(:w2) { create(:w2, completed_at: completed_at) }
   let(:completed_at) { nil }
 

@@ -27,7 +27,6 @@
 #  creation_token                     :string
 #  employee                           :integer          default("unfilled"), not null
 #  employee_city                      :string
-#  employee_ssn                       :string
 #  employee_state                     :string
 #  employee_street_address            :string
 #  employee_zip_code                  :string
@@ -38,7 +37,6 @@
 #  employer_street_address            :string
 #  employer_zip_code                  :string
 #  federal_income_tax_withheld        :decimal(12, 2)
-#  intake_type                        :string
 #  wages_amount                       :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
@@ -53,7 +51,6 @@ FactoryBot.define do
   factory :w2 do
     intake
     employee { 'primary' }
-    employee_ssn { '123456789'}
     employee_street_address { "456 Somewhere Ave" }
     employee_city { "Cleveland" }
     employee_state { "OH" }

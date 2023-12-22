@@ -6,7 +6,6 @@ describe Ctc::Questions::W2s::MiscInfoController do
   let(:box12a_code) { 'F' }
 
   before do
-    skip
     sign_in intake.client
     Flipper.enable(:eitc)
   end

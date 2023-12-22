@@ -71,7 +71,7 @@
         <%= f.fields_for :w2s do |ff| %>
           <%= render "df_w2", f: ff %>
         <% end %>
-      <%= link_to_add_fields "New W2", f, :w2s, { class: "button button--small", model: StateFile::DfIrAAsW2Form }, partial: "df_w2" %>
+      <%= link_to_add_fields "New W2", f, :w2s, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrsW2Form }, partial: "df_w2" %>
       </div>
     </div>
 

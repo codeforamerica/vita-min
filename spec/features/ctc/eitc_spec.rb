@@ -4,7 +4,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
   include CtcIntakeFeatureHelper
 
   before do
-    skip
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
     Flipper.enable(:eitc)
   end

@@ -27,7 +27,6 @@
 #  creation_token                     :string
 #  employee                           :integer          default("unfilled"), not null
 #  employee_city                      :string
-#  employee_ssn                       :string
 #  employee_state                     :string
 #  employee_street_address            :string
 #  employee_zip_code                  :string
@@ -38,7 +37,6 @@
 #  employer_street_address            :string
 #  employer_zip_code                  :string
 #  federal_income_tax_withheld        :decimal(12, 2)
-#  intake_type                        :string
 #  wages_amount                       :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
@@ -63,6 +61,7 @@ describe 'W2' do
       expect(w2.employee_last_name).to be_nil
       expect(w2.employee_middle_initial).to be_nil
       expect(w2.employee_suffix).to be_nil
+      expect(w2.employee_ssn).to be_nil
     end
   end
 
@@ -74,6 +73,7 @@ describe 'W2' do
       expect(w2.employee_last_name).to eq intake.primary.last_name
       expect(w2.employee_middle_initial).to eq intake.primary.middle_initial
       expect(w2.employee_suffix).to eq intake.primary.suffix
+      expect(w2.employee_ssn).to eq intake.primary.ssn
     end
   end
 
@@ -85,6 +85,7 @@ describe 'W2' do
       expect(w2.employee_last_name).to eq intake.spouse.last_name
       expect(w2.employee_middle_initial).to eq intake.spouse.middle_initial
       expect(w2.employee_suffix).to eq intake.spouse.suffix
+      expect(w2.employee_ssn).to eq intake.spouse.ssn
     end
   end
 end

@@ -14,7 +14,6 @@ describe Ctc::Portal::W2s::MiscInfoController do
   end
 
   before do
-    skip
     sign_in intake.client
   end
 

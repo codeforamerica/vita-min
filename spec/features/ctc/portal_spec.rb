@@ -26,7 +26,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
   let!(:intake) { create :ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes", product_year: only_product_year_that_supports_login }
 
   before do
-    skip
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
     allow_any_instance_of(EfileSecurityInformation).to receive(:timezone).and_return("America/Chicago")
   end
