@@ -5,9 +5,24 @@
           <%= link_to("E-file Submissions", hub_state_file_efile_submissions_path) %>
           > <%= @efile_submission.irs_submission_id %> (<%= @efile_submission.current_state.humanize %>)</h1>
       </div>
-      <p><strong>Efile submission id:</strong> <%= @efile_submission.id  %></p>
-      <p><strong><%= @efile_submission.data_source_type %></strong>(id: <%= @efile_submission.data_source_id %>)</p>
-      <p><strong>Federal submission id:</strong> <%= @efile_submission.data_source.federal_submission_id  %></p>
+      <div class="field-display">
+        <span class="form-question">EfileSubmission id:</span>
+        <span class="label-value"><%= @efile_submission.id  %></span>
+      </div>
+      <div class="field-display">
+        <span class="form-question"><%= @efile_submission.data_source_type %> id:</span>
+        <span class="label-value"><%= @efile_submission.data_source_id %></span>
+      </div>
+      <div class="field-display">
+        <span class="form-question">federal_submission_id:</span>
+        <span class="label-value"><%= @efile_submission.data_source.federal_submission_id  %></span>
+      </div>
+      <% if @efile_submissions_same_intake.present? %>
+        <div class="field-display">
+          <span class="form-question">submissions with matching intake:</span>
+          <span class="label-value"><%= @efile_submissions_same_intake.map{ |submission| link_to(submission.id, hub_state_file_efile_submission_path(id: submission.id))}.join(', ').html_safe %></span>
+        </div>
+      <% end %>
 
       <div style="display: flex;">
         <% if @efile_submission.can_transition_to?(:resubmitted) %>
