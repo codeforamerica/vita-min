@@ -50,7 +50,6 @@ module SubmissionBuilder
               xml.Exemptions do
                 xml.AgeExemp calculated_fields.fetch(:AZ140_LINE_8)
                 xml.VisionExemp calculated_fields.fetch(:AZ140_LINE_9)
-                #Error
                 xml.DependentsUnder17 calculated_fields.fetch(:AZ140_LINE_10A)
                 xml.Dependents17AndOlder calculated_fields.fetch(:AZ140_LINE_10B)
                 xml.QualifyingParentsAncestors calculated_fields.fetch(:AZ140_LINE_11A)
