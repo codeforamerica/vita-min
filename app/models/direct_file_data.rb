@@ -544,50 +544,6 @@ class DirectFileData
     end
   end
 
-  def w2_df_data
-    parsed_xml.css('IRSW2').map do |node|
-      w2 = W2.new(
-        employee_ssn: node.at('EmployeeSSN')&.text,
-        employer_ein: node.at('EmployerEIN')&.text,
-        employer_name: node.at('EmployerNameControlTxt')&.text,
-        employer_street_address: node.at('EmployerUSAddress AddressLine1Txt')&.text,
-        employer_city: node.at('EmployerUSAddress AddressLine1Txt')&.text,
-        employer_state: node.at('EmployerUSAddress AddressLine1Txt')&.text,
-        employer_zip_code: node.at('EmployerUSAddress AddressLine1Txt')&.text,
-        wages_amount: node.at('WagesAmt')&.text,
-        box8_allocated_tips: node.at('AllocatedTipsAmt')&.text,
-        box10_dependent_care_benefits: node.at('DependentCareBenefitsAmt')&.text,
-        box11_nonqualified_plans: node.at('NonqualifiedPlansAmt')&.text,
-        box12a_code: employers_use_grps[0]&.dig(:code),
-        box12a_value: employers_use_grps[0]&.dig(:value),
-        box12b_code: employers_use_grps[1]&.dig(:code),
-        box12b_value: employers_use_grps[1]&.dig(:value),
-        box12c_code: employers_use_grps[2]&.dig(:code),
-        box12c_value: employers_use_grps[2]&.dig(:value),
-        box12d_code: employers_use_grps[3]&.dig(:code),
-        box12d_value: employers_use_grps[3]&.dig(:value),
-        box13_retirement_plan: node.at('RetirementPlanInd')&.text == 'X' ? 'yes' : 'no',
-        box13_third_party_sick_pay: node.at('ThirdPartySickPayInd')&.text == 'X' ? 'yes' : 'no'
-        )
-      parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
-        w2_box14 = W2Box14.new(
-          other_description: node.at('Desc')&.text,
-          other_amount: node.at('Amt')&.text,
-          )
-        w2.w2_box14 << w2_box14
-      end
-      w2.w2_state_fields_group = W2StateFieldsGroup.new(
-        box15_state: node.at('W2StateTaxGrp StateAbbreviationCd')&.text,
-        box16_state_wages: node.at('W2StateTaxGrp StateWagesAmt')&.text,
-        box17_state_income_tax: node.at('W2StateTaxGrp StateIncomeTaxAmt')&.text,
-        box18_local_wages: node.at('W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt')&.text,
-        box19_local_income_tax: node.at('W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt')&.text,
-        box20_locality_name: node.at('W2StateTaxGrp W2LocalTaxGrp LocalityNm')&.text,
-      )
-      w2
-    end
-  end
-
   def build_new_w2_node
     w2 = parsed_xml.css('IRSW2').first
     parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
@@ -633,7 +589,7 @@ class DirectFileData
     SELECTORS = {
       EmployeeSSN: 'EmployeeSSN',
       EmployerEIN: 'EmployerEIN',
-      EmployerNameControlTxt: 'EmployerNameControlTxt',
+      EmployerName: 'EmployerName BusinessNameLine1Txt',
       AddressLine1Txt: 'EmployerUSAddress AddressLine1Txt',
       City: 'EmployerUSAddress CityNm',
       State: 'EmployerUSAddress StateAbbreviationCd',
@@ -644,11 +600,6 @@ class DirectFileData
       NonqualifiedPlansAmt: 'NonqualifiedPlansAmt',
       RetirementPlanInd: 'RetirementPlanInd',
       ThirdPartySickPayInd: 'ThirdPartySickPayInd',
-      OtherDeductionsBenefitsGrp: {
-        Desc: 'OtherDeductionsBenefitsGrp Desc',
-        Amt: 'OtherDeductionsBenefitsGrp Amt'
-      },
-      StateAbbreviationCd: 'W2StateTaxGrp StateAbbreviationCd',
       StateWagesAmt: 'W2StateTaxGrp StateWagesAmt',
       StateIncomeTaxAmt: 'W2StateTaxGrp StateIncomeTaxAmt',
       LocalWagesAndTipsAmt: 'W2LocalTaxGrp LocalWagesAndTipsAmt',
@@ -693,16 +644,16 @@ class DirectFileData
       write_df_xml_value(__method__, value)
     end
 
-    def EmployerNameControlTxt
-      df_xml_value(__method__).to_i
+    def EmployerName
+      df_xml_value(__method__)
     end
 
-    def EmployerNameControlTxt=(value)
+    def EmployerName=(value)
       write_df_xml_value(__method__, value)
     end
 
     def AddressLine1Txt
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def AddressLine1Txt=(value)
@@ -710,7 +661,7 @@ class DirectFileData
     end
 
     def City
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def City=(value)
@@ -718,7 +669,7 @@ class DirectFileData
     end
 
     def State
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def State=(value)
@@ -726,7 +677,7 @@ class DirectFileData
     end
 
     def ZIP
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def ZIP=(value)
@@ -741,8 +692,16 @@ class DirectFileData
       write_df_xml_value(__method__, value)
     end
 
-    def box_12
-      parsed_xml.css('EmployersUseGrp').map do |node|
+    def RetirementPlanInd
+      df_xml_value(__method__)
+    end
+
+    def ThirdPartySickPayInd
+      df_xml_value(__method__)
+    end
+
+    def w2_box12
+      @node.css('EmployersUseGrp').map do |node|
         {
           code: node.at('EmployersUseCd')&.text,
           value: node.at('EmployersUseAmt')&.text
@@ -750,8 +709,8 @@ class DirectFileData
       end
     end
 
-    def box_14
-      parsed_xml.css('OtherDeductionsBenefitsGrp').map do |node|
+    def w2_box14
+      @node.css('OtherDeductionsBenefitsGrp').map do |node|
         {
           other_description: node.at('Desc')&.text,
           other_amount: node.at('Amt')&.text
