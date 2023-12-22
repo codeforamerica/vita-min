@@ -221,9 +221,10 @@ describe Efile::Az::Az140 do
     it 'sets the credit to the maximum amount' do
       instance.calculate
       expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(98392) # Charitable contribitions affect this; before was 98423
     end
   end
-  
 
   describe 'the Az flat tax rate is 2.5%' do
     context 'when the filer has an income of $25,000' do

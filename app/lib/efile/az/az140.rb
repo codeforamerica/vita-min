@@ -14,6 +14,13 @@ module Efile
       end
 
       def calculate
+        set_line(:AZ140_CCWS_LINE_1c, @intake, :charitable_cash)
+        set_line(:AZ140_CCWS_LINE_2c, @intake, :charitable_noncash)
+        set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
+        set_line(:AZ140_CCWS_LINE_4c, :calculate_ccws_line_4c)
+        set_line(:AZ140_CCWS_LINE_5c, -> { 0 })
+        set_line(:AZ140_CCWS_LINE_6c, :calculate_ccws_line_6c)
+        set_line(:AZ140_CCWS_LINE_7c, :calculate_ccws_line_7c)
         set_line(:AZ140_LINE_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AZ140_LINE_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AZ140_LINE_10A, @intake, :federal_dependent_count_under_17)
@@ -55,13 +62,6 @@ module Efile
         end
         set_line(:AZ140_LINE_79, :calculate_line_79)
         set_line(:AZ140_LINE_80, :calculate_line_80)
-        set_line(:AZ140_CCWS_LINE_1c, @intake, :charitable_cash)
-        set_line(:AZ140_CCWS_LINE_2c, @intake, :charitable_noncash)
-        set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
-        set_line(:AZ140_CCWS_LINE_4c, :calculate_ccws_line_4c)
-        set_line(:AZ140_CCWS_LINE_5c, -> { 0 })
-        set_line(:AZ140_CCWS_LINE_6c, :calculate_ccws_line_6c)
-        set_line(:AZ140_CCWS_LINE_7c, :calculate_ccws_line_7c)
         @lines.transform_values(&:value)
       end
 
