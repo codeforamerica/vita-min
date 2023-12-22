@@ -124,7 +124,7 @@ module Efile
         if filing_status_single?
           13_850
         elsif filing_status_mfj?
-          27_200
+          27_700
         elsif filing_status_hoh?
           20_800
         end
