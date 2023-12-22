@@ -1,22 +1,23 @@
-<% content_for :page_title, t(".title1") %>
+<% title = t(".title", count: current_intake.filer_count) %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
-  <p><%= t(".title2") %></p>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="blue-group">
-          <%= f.cfa_radio_set(:has_prior_last_names, collection: [
+          <%= f.cfa_radio_set(:has_prior_last_names, label_text: title, collection: [
             { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
             { value: "no", label: t("general.negative") },
-          ]) %>
+          ], legend_class: "sr-only") %>
         </div>
       </div>
 
       <div class="question-with-follow-up__follow-up" id="prior-last-names">
         <div class="blue-group">
-          <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label", count: current_intake.filer_count), classes: ["form-width--long"]) %>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<% @main_heading = t("state_file.questions.unemployment.edit.title") %>
+<% @main_heading = t("state_file.questions.unemployment.edit.title", count: current_intake.filer_count, year: MultiTenantService.statefile.current_tax_year) %>
 <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
 <% content_for :page_title, @main_heading %>

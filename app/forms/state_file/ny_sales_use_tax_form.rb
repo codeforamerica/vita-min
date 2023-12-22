@@ -11,8 +11,8 @@ module StateFile
       presence: true,
       numericality: {
         message: I18n.t("state_file.questions.ny_sales_use_tax.edit.enter_valid_dollar_amount"),
-        greater_than_or_equal_to: 7,
-        less_than_or_equal_to: 125,
+        greater_than_or_equal_to: 0,
+        less_than_or_equal_to: 1699,
         only_integer: true,
       },
       if: -> { sales_use_tax_calculation_method == "manual" }

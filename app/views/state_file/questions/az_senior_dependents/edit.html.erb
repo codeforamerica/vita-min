@@ -1,7 +1,8 @@
-<% content_for :page_title, t('.title1') %>
+<% title = t('.title') %>
+<% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= t(".title1") %></h1>
+  <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>

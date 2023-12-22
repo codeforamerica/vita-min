@@ -56,7 +56,7 @@ module SubmissionBuilder
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
-                @submission.data_source.dependents.each do |dependent|
+                @submission.data_source.dependents.reject(&:ask_senior_questions?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
@@ -161,24 +161,6 @@ module SubmissionBuilder
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
               end
-              xml.OtherExempInfo do
-                xml.Name do
-                  xml.FirstName "sdjfhdjs"
-                  xml.MiddleInitial "M"
-                  xml.LastName "fjsdhfjd"
-                end
-                if true # todo
-                  xml.StillBorn do
-                    xml.StillBornNbr 2
-                    xml.StillBorn "X"
-                  end
-                elsif true # todo
-                  xml.Over65 do
-                    xml.SSN "123456789"
-                    xml.CareFacility "X"
-                  end
-                end
-              end #TODO fix after we figure out source of dependent information
             end
             xml_doc.at('*')
           end

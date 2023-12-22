@@ -75,7 +75,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -92,7 +92,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
@@ -112,13 +112,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       within "#county" do
         click_on I18n.t("general.edit")
       end
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1715, state_name: "New York")
@@ -197,19 +197,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy")
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -226,17 +226,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_state_credits.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.az_state_credits.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
       check "state_file_az_state_credits_form_tribal_member"
       fill_in "state_file_az_state_credits_form_tribal_wages", with: "100"
       check "state_file_az_state_credits_form_armed_forces_member"
       fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in 2023. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in 2023 (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
+      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500.", with: "123"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
@@ -249,13 +249,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       within "#prior-last-names" do
         click_on I18n.t("general.edit")
       end
-      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title1")
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1239, state_name: "Arizona")

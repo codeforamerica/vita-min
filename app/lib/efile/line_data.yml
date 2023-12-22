@@ -91,7 +91,7 @@ AZ140_CCWS_LINE_6c:
   label: '6C Subtract line 5C from line 4C and enter the difference. If less than zero, enter
 “0”'
 AZ140_CCWS_LINE_7c:
-  label: '7C Multiply line 6C by 27% (.27) and enter the result'
+  label: '7C Multiply line 6C by 31% (.31) and enter the result'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:

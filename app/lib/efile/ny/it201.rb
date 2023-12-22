@@ -136,6 +136,7 @@ module Efile
       end
 
       def calculate_line_34
+        # NY Standard Deductions for 2023
         if filing_status_single? && @direct_file_data.claimed_as_dependent?
           3_100
         elsif filing_status_single? || filing_status_mfs?

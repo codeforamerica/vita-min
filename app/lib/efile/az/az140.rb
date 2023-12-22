@@ -120,12 +120,13 @@ module Efile
       end
 
       def calculate_line_43
+        # AZ Standard Deductions for 2023
         if filing_status_single?
-          12950
+          13_850
         elsif filing_status_mfj?
-          25900
+          27_700
         elsif filing_status_hoh?
-          19400
+          20_800
         end
       end
 
@@ -148,19 +149,7 @@ module Efile
       end
 
       def calculate_line_46
-        if filing_status_single?
-          if line_or_zero(:AZ140_LINE_45) <= 28653
-            (line_or_zero(:AZ140_LINE_45) * 0.0255).round
-          elsif line_or_zero(:AZ140_LINE_45) > 28653
-            (((line_or_zero(:AZ140_LINE_45) - 28653) * 0.0298) + 731).round
-          end
-        elsif filing_status_mfj? || filing_status_hoh?
-          if line_or_zero(:AZ140_LINE_45) <= 57305
-            (line_or_zero(:AZ140_LINE_45) * 0.0255).round
-          elsif line_or_zero(:AZ140_LINE_45) > 57305
-            (((line_or_zero(:AZ140_LINE_45) - 57305) * 0.0298) + 1461).round
-          end
-        end
+        (line_or_zero(:AZ140_LINE_45) * 0.025).round
       end
 
       def calculate_line_48
@@ -283,7 +272,7 @@ module Efile
       end
 
       def calculate_ccws_line_7c
-        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.27).round
+        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.31).round
       end
     end
   end

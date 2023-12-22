@@ -1861,8 +1861,8 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in 2023. (Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in 2023 (example: the fair market value of donated items). This cannot exceed $500.'
+          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500.'
           learn_more_content_html: |
             Charitable contributions include cash and non-cash donations to qualifying organizations.<br><br>
             Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check here to see if an organization qualifies.<br><br>
@@ -1873,16 +1873,23 @@ en:
             <li>money spent on fundraisers including raffles, bingo; or</li>
             <li>items purchased for a fundraiser.</li></ul>
           learn_more_title: What does this mean?
-          title: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in 2023?
+          title:
+            one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+            other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
       az_incarcerated:
         edit:
-          title_single: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-          title_spouse: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          title:
+            one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+            other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
       az_prior_last_names:
         edit:
-          prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
-          title1: Did you file with a different last name in the last four years?
-          title2: This includes tax years 2019-2022.
+          prior_last_names_label:
+            one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+            other: Enter all last names used by you and your spouse in the last four years.
+          subtitle: This includes tax years 2019-2022.
+          title:
+            one: Did you file with a different last name in the last four years?
+            other: Did you or your spouse file with a different last name in the last four years?
       az_review:
         edit:
           armed_forces_member: Member of the U.S. armed forces
@@ -1898,20 +1905,31 @@ en:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
           passed_away_label: Did %{name} pass away in 2023?
-          title1: Please provide some more information about the people in your family who are 65 years of age or older.
+          title: Please provide some more information about the people in your family who are 65 years of age or older.
       az_state_credits:
         edit:
           armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
-          armed_forces_wages_label_html: How much did you receive in active duty pay? <br><br> <b>Note:</b> this should not exceed %{wages}
+          armed_forces_wages_label:
+            one: How much did you receive in active duty pay?
+            other: How much did you or your spouse receive in active duty pay?
           learn_more_content_html: |
             If you are a member of the U.S. armed forces, enter the amount of active duty pay that you reported on your federal tax return.<br><br>
             If you are a member of the Reserves or the National Guard, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
-          title1: Do any of the following scenarios apply to you? (Less common)
-          title2: Check every box that applies to you. If it does not apply, leave blank and continue.
-          tribal_member_label_html: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
-          tribal_wages_label_html: How much did you earn while living and working on your tribe’s reservation? <br><br> <b>Note:</b> this should not exceed %{wages}
+          should_not_exceed_wages_html: "<strong>Note:</strong> this should not exceed %{wages}"
+          subtitle:
+            one: Check every box that applies to you. If it does not apply, leave blank and continue.
+            other: Check every box that applies to you or your spouse. If it does not apply, leave blank and continue.
+          title:
+            one: Did any of the following scenarios apply to you in %{year}?
+            other: Did any of the following scenarios apply to you or your spouse in %{year}?
+          tribal_member_label:
+            one: You are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
+            other: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
+          tribal_wages_label:
+            one: How much did you earn while living and working on your tribe’s reservation?
+            other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
           wages_tip: Enter amount earned&#58;
       canceled_data_transfer:
         edit:
@@ -2098,10 +2116,12 @@ en:
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          enter_valid_dollar_amount: Please enter a dollar amount between 7 and 125.
+          enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
           subtitle: For example, online purchases with no sales tax applied.
-          title: Did you make any out-of-state purchases in %{year} that went untaxed?
+          title:
+            one: Did you make any out-of-state purchases in %{year} that went untaxed?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
           use_tax_method_automated: All of your purchases were less than $1,000 each. We’ll calculate the amount of use tax.
           use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
       ny_school_district:
@@ -2193,7 +2213,7 @@ en:
             <strong>Your estimated refund or taxes owed</strong> $0. <br/>
             You broke even on your state tax return. This means that you <strong>will not</strong>
             receive a state refund and you <strong>do not</strong> owe state taxes.
-          title1: You're done! Review your state tax return before you submit.
+          title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund
           your_tax_owed: Your taxes owed
@@ -2230,7 +2250,7 @@ en:
           checking: Checking
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'The date you would like funds withdrawn from your account (must be on or before April 15, 2024):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before April 15, 2024):'
           double_check: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
@@ -2305,7 +2325,9 @@ en:
           state: State
           state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld"
           street_address: Street Address
-          title: It looks like you received unemployment benefits in 2023
+          title:
+            one: It looks like you received unemployment benefits in %{year}
+            other: It looks like you or your spouse received unemployment benefits in %{year}
           unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation"
           zip_code: Zip code
         index:
