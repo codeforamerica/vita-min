@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000017</PrimarySSN>
+      <SpouseSSN>600000015</SpouseSSN>
+      <NameLine1Txt>ROBERT &amp; LINDA&lt;BELCHER</NameLine1Txt>
+      <PrimaryNameControlTxt>BELC</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>BELC</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>20 W 34 St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10118</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555666</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>Linda Belcher</SpouseNm>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <ExemptSpouseNm>Linda Belcher</ExemptSpouseNm>
+      <ExemptSpouseNameControlTxt>BELC</ExemptSpouseNameControlTxt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Gene</DependentFirstNm>
+        <DependentLastNm>Belcher</DependentLastNm>
+        <DependentNameControlTxt>BELC</DependentNameControlTxt>
+        <DependentSSN>300000032</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Tina</DependentFirstNm>
+        <DependentLastNm>Belcher</DependentLastNm>
+        <DependentNameControlTxt>BELC</DependentNameControlTxt>
+        <DependentSSN>300000032</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Louise</DependentFirstNm>
+        <DependentLastNm>Belcher</DependentLastNm>
+        <DependentNameControlTxt>BELC</DependentNameControlTxt>
+        <DependentSSN>300000045</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>5</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">2800</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>2800</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>25000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>27800</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>27800</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>100</TaxableIncomeAmt>
+      <TaxAmt>11</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>11</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>11</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>11</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>0</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>550</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1271</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>1316</RefundableCreditsAmt>
+      <TotalPaymentsAmt>1866</TotalPaymentsAmt>
+      <OverpaidAmt>1866</OverpaidAmt>
+      <RefundAmt>1866</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Chef</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Unemployed</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>25000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>25000</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>27800</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>27800</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>2</OtherDependentCnt>
+      <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>3000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>3000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>11</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>11</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>2989</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1600</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>2800</TotalEarnedIncomeAmt>
+        <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>300</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>45</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+        <FromW2Amt>215</FromW2Amt>
+        <CalcFromW2AndReturnAmt>215</CalcFromW2AndReturnAmt>
+        <CalcAmtFromRetPlusTaxWhldAmt>1271</CalcAmtFromRetPlusTaxWhldAmt>
+        <CalculatedDifferenceAmt>0</CalculatedDifferenceAmt>
+        <LargerCalcIncomeOrDiffAmt>45</LargerCalcIncomeOrDiffAmt>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>45</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BELC</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Louise</PersonFirstNm>
+          <PersonLastNm>Belcher</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000045</QualifyingChildSSN>
+        <ChildBirthYr>1998</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>true</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BELC</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Gene</PersonFirstNm>
+          <PersonLastNm>Belcher</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000032</QualifyingChildSSN>
+        <ChildBirthYr>2002</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BELC</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Tina</PersonFirstNm>
+          <PersonLastNm>Belcher</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000032</QualifyingChildSSN>
+        <ChildBirthYr>2020</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000017</EmployeeSSN>
+      <EmployerEIN>678912345</EmployerEIN>
+      <EmployerNameControlTxt>BOBS</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Bob's Burgers</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Fake Street</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11238</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Robert Belcher</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>20 W 34 St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10118</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>2800</WagesAmt>
+      <WithholdingAmt>0</WithholdingAmt>
+      <SocialSecurityWagesAmt>2800</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>174</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>2800</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>41</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <EmployersUseGrp>
+        <EmployersUseCd>Q</EmployersUseCd>
+        <EmployersUseAmt>0</EmployersUseAmt>
+      </EmployersUseGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>2800</StateWagesAmt>
+          <StateIncomeTaxAmt>0</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>2800</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
