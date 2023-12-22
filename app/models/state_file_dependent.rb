@@ -59,9 +59,6 @@ class StateFileDependent < ApplicationRecord
   end
 
   def age
-    # Below is age as of today
-    ((Time.now.beginning_of_day - dob.to_time) / 1.year.seconds).floor
-    # Below is age as of the end of the year
-    # DateTime.current.year - dob.time.year
+    ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
   end
 end
