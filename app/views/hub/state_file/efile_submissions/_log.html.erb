@@ -11,7 +11,7 @@
           <%= error.message %>
         </div>
     <% end %>
-    <% if transition.metadata["raw_response"].present? %>
+    <% if transition.metadata["raw_response"].present? || transition.metadata["receipt"].present? %>
       <div class="accordion spacing-above-10">
         <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
           <h3>Details</h3>
@@ -20,6 +20,7 @@
           <pre>
             <code>
               <%= transition.metadata["raw_response"] %>
+              <%= transition.metadata["receipt"] %>
             </code>
           </pre>
         </div>

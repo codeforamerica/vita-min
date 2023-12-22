@@ -1,5 +1,25 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
+    <div class="slab slab--not-padded spacing-above-25">
+      <div class="pagination-wrapper">
+        <div class="count-wrapper">
+          <div>
+            <%= page_entries_info @efile_submissions %>
+          </div>
+        </div>
+        <div>
+          <%= will_paginate(
+                @clients,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 1,
+                outer_window: 1,
+                param_name: "page",
+                ) %>
+        </div>
+      </div>
+    </div>
+
     <table class="index-table spacing-above-25">
       <thead class="index-table__head">
       <tr class="index-table__row">

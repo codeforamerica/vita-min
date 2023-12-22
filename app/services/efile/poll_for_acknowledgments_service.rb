@@ -90,10 +90,20 @@ module Efile
       status_updates = 0
 
       doc.css('StatusRecordGrp').each do |status_record_group|
-        if status_record_group.css('SubmissionStatusTxt').text == 'Acknowledgement Received from State'
-          status_updates += 1
-          submission = EfileSubmission.find_by(irs_submission_id: status_record_group.css('SubmissionId').text)
-          submission.transition_to(:ready_for_ack, raw_response: status_record_group.to_xml)
+        status_updates += 1
+        irs_submission_id = status_record_group.css("SubmissionId").text.strip
+        status = status_record_group.css('SubmissionStatusTxt').text.strip
+        raw_response = status_record_group.to_xml
+        submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
+
+        if ["Acknowledgement Received from State", "Received", "Ready for Pickup", "Received by State"].include?(status)
+          submission.transition_to(:ready_for_ack, raw_response: raw_response)
+        elsif ["Denied by IRS", "Rejected Acknowledgment Created"].include?(status)
+          submission.transition_to(:rejected, raw_response: raw_response)
+        elsif ["Accepted Acknowledgment Created", "Accepted Acknowledgment Retrieved"].include?(status)
+          submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
+        else
+          submission.transition_to(:failed, raw_response: raw_response)
         end
       end
 
