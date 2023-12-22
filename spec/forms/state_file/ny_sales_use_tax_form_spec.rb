@@ -14,7 +14,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
         create :state_file_ny_intake,
                untaxed_out_of_state_purchases: "yes",
                sales_use_tax_calculation_method: "manual",
-               sales_use_tax: 350
+               sales_use_tax: 1800
       end
 
       let(:params) do
@@ -108,7 +108,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 0 and 1699."
         end
       end
 
@@ -122,35 +122,35 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 0 and 1699."
         end
       end
 
-      context "with a value less than 7" do
+      context "with a value less than 0" do
         let(:invalid_params) do
           {
             sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "6",
+            sales_use_tax: "-1",
           }
         end
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 0 and 1699."
         end
       end
 
-      context "with a value greater than 125" do
+      context "with a value greater than 1699" do
         let(:invalid_params) do
           {
             sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "126",
+            sales_use_tax: "1700",
           }
         end
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 7 and 125."
+          expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount between 0 and 1699."
         end
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
       let(:valid_params) do
         { untaxed_out_of_state_purchases: "yes",
           sales_use_tax_calculation_method: "manual",
-          sales_use_tax: 125 }
+          sales_use_tax: 1699 }
       end
 
       it "saves values" do
@@ -172,7 +172,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
 
         expect(intake.untaxed_out_of_state_purchases).to eq "yes"
         expect(intake.sales_use_tax_calculation_method).to eq "manual"
-        expect(intake.sales_use_tax).to eq 125
+        expect(intake.sales_use_tax).to eq 1699
       end
     end
   end
