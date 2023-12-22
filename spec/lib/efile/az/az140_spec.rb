@@ -221,6 +221,7 @@ describe Efile::Az::Az140 do
     it 'sets the credit to the maximum amount' do
       instance.calculate
       expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
     end
   end
   
