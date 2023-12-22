@@ -20,7 +20,7 @@ module Efile
         set_line(:IT213_LINE_1, -> { ENUM_OPTIONS[@intake.eligibility_lived_in_state.to_sym] })
         # If line 1 is true (1), continue. If false (2), stop, you do not qualify for the credit
         if @lines[:IT213_LINE_1].value == 1
-          set_line(:IT213_LINE_2, :calculate_line_2 )
+          set_line(:IT213_LINE_2, :calculate_line_2)
           set_line(:IT213_LINE_3, :calculate_line_3)
           # If either line 2 or line 3 are true (1), continue. If lines 2 and 3 are both false (2), stop, you do not qualify for this credit
           if @lines[:IT213_LINE_2].value == 1 || @lines[:IT213_LINE_3].value == 1
