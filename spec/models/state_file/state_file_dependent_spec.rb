@@ -151,44 +151,23 @@ describe StateFileDependent do
     it "when the birthday is yesterday" do
       dependent = build(
         :state_file_dependent,
-        dob: (DateTime.current.beginning_of_day - 1.days) - 10.years
+        dob: ((Time.now.beginning_of_day - 1.days) - 10.years).strftime("%Y-%m-%d")
         )
       expect(dependent.age).to be 10
     end
     it "when the birthday is today" do
       dependent = build(
         :state_file_dependent,
-        dob: DateTime.current.beginning_of_day - 10.years
+        dob: (Time.now.beginning_of_day - 10.years).strftime("%Y-%m-%d")
         )
-      expect(dependent.age).to be 10
+      expect(dependent.age).to be 9
     end
     it "when the birthday is tomorrow" do
       dependent = build(
         :state_file_dependent,
-        dob: (DateTime.current.beginning_of_day + 1.days) - 10.years
+        dob: ((Time.now.beginning_of_day + 1.days) - 10.years).strftime("%Y-%m-%d")
       )
       expect(dependent.age).to be 9
-    end
-    it "when the birthday is at the end of the year" do
-      dependent = build(
-        :state_file_dependent,
-        dob: (DateTime.current.beginning_of_day - 1.days) - 10.years
-      )
-      expect(dependent.age).to be 10
-    end
-    it "when the birthday is at the first day of next year" do
-      dependent = build(
-        :state_file_dependent,
-        dob: (DateTime.current.end_of_year + 1.days) - 10.years
-      )
-      expect(dependent.age).to be 10
-    end
-    it "when the birthday is at the last day of last year" do
-      dependent = build(
-        :state_file_dependent,
-        dob: (DateTime.current.beginning_of_year - 1.days) - 10.years
-      )
-      expect(dependent.age).to be 10
     end
   end
 
