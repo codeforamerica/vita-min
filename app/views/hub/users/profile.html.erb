@@ -23,5 +23,17 @@
       <span class="form-question"><%= t(".start_date") %></span>
       <span class="label-value"><%= default_date_format(current_user.start_date) %></span>
     </div>
+
+    <% if current_user.admin? %>
+      <div class="field-display">
+        <span class="form-question">State-File</span>
+        <span class="label-value"><%= current_user.role.state_file? %></span>
+      </div>
+
+      <div class="field-display">
+        <span class="form-question">Engineer</span>
+        <span class="label-value"><%= current_user.role.engineer? %></span>
+      </div>
+    <% end %>
   </section>
 <% end %>

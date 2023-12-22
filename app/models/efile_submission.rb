@@ -141,6 +141,10 @@ class EfileSubmission < ApplicationRecord
     previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
+  def source_record
+    is_for_state_filing? ? data_source : tax_return
+  end
+
   def generate_verified_address(i = 0)
     # TODO(state-file)
     return OpenStruct.new(valid?: true) unless intake

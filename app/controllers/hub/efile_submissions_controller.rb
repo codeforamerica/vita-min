@@ -26,28 +26,41 @@ module Hub
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:resubmitted, { initiated_by_id: current_user.id })
       flash[:notice] = "Resubmission initiated."
-      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+      redirect_after_action
+    end
+
+    def failed
+      # TODO: remove eventually, for testing only
+      authorize! :update, @efile_submission
+      @efile_submission.transition_to!(:failed, { initiated_by_id: current_user.id })
+      flash[:notice] = "Transition to failed (for testing purpose only)"
+      redirect_after_action
     end
 
     def cancel
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
       flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
-      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+      redirect_after_action
     end
 
     def investigate
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:investigating, { initiated_by_id: current_user.id })
       flash[:notice] = "Good luck on your investigation!"
-      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+      redirect_after_action
     end
 
     def wait
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:waiting, { initiated_by_id: current_user.id })
       flash[:notice] = "Waiting for client action."
-      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+      redirect_after_action
+    end
+
+    def redirect_after_action
+      path = @efile_submission.is_for_state_filing? ? hub_state_file_efile_submission_path(id: @efile_submission.id) : hub_efile_submission_path(id: @efile_submission.client.id)
+      redirect_back(fallback_location: path)
     end
 
     def state_counts
