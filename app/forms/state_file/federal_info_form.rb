@@ -137,7 +137,9 @@ module StateFile
       super
       attributes_for(:direct_file_data).each do |attribute, value|
         if @intake.direct_file_data.can_override?(attribute)
-          @intake.direct_file_data.send("#{attribute}=", value)
+          if @intake.direct_file_data.send(attribute) != value
+            @intake.direct_file_data.send("#{attribute}=", value)
+          end
         end
       end
     end
