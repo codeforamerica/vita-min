@@ -57,4 +57,8 @@ class StateFileDependent < ApplicationRecord
   def self.senior_cutoff_date
     MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
   end
+
+  def age
+    ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
+  end
 end

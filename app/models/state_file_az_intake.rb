@@ -107,13 +107,11 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def federal_dependent_count_under_17
-    # TODO
-    1
+    self.dependents.select{ |dependent| dependent.age < 17 }.length
   end
 
   def federal_dependent_count_over_17
-    # TODO
-    0
+    self.dependents.select{ |dependent| dependent.age >= 17 }.length
   end
 
   def qualifying_parents_and_grandparents
