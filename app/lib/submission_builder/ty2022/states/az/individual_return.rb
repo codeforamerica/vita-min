@@ -56,7 +56,7 @@ module SubmissionBuilder
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
-                @submission.data_source.dependents.each do |dependent|
+                @submission.data_source.dependents.reject(&:ask_senior_questions?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
@@ -95,6 +95,7 @@ module SubmissionBuilder
                     end
                   end
                 end
+                # ERROR HERE
                 # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
               end
               xml.Additions do
