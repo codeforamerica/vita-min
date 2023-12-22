@@ -74,8 +74,6 @@ class EfileSubmissionStateMachine
         client: submission.client,
         message: AutomatedMessage::EfilePreparing,
       )
-    end
-    if submission.tax_return
       submission.tax_return.transition_to!(:file_ready_to_file)
     end
 
@@ -87,7 +85,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :fraud_hold) do |submission|
-    submission.tax_return.transition_to(:file_fraud_hold)
+    submission.source_record.transition_to(:file_fraud_hold)
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,
@@ -151,20 +149,24 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :investigating) do |submission|
-    submission.tax_return.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
 
+
   after_transition(to: :waiting) do |submission|
-    submission.tax_return.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold)
+    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
-    @new_submission = submission.tax_return.efile_submissions.create
+    @new_submission = submission.source_record.efile_submissions.create
     @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
   end
 
   after_transition(to: :cancelled) do |submission|
-    submission.tax_return.transition_to(:file_not_filing)
+    submission.source_record.transition_to(:file_not_filing)
+    submission.source_record.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})

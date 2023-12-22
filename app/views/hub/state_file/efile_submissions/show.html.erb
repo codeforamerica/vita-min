@@ -5,9 +5,43 @@
           <%= link_to("E-file Submissions", hub_state_file_efile_submissions_path) %>
           > <%= @efile_submission.irs_submission_id %> (<%= @efile_submission.current_state.humanize %>)</h1>
       </div>
+      <p><strong>Efile submission id:</strong> <%= @efile_submission.id  %></p>
+      <p><strong><%= @efile_submission.data_source_type %></strong>(id: <%= @efile_submission.data_source_id %>)</p>
+      <p><strong>Federal submission id:</strong> <%= @efile_submission.data_source.federal_submission_id  %></p>
 
-      <p><%= @efile_submission.data_source_type %>(id: <%= @efile_submission.data_source_id %>)</p>
+      <div style="display: flex;">
+        <% if @efile_submission.can_transition_to?(:resubmitted) %>
+          <div style="margin-left: 10px;">
+            <%= button_to("Resubmit",
+                          resubmit_hub_efile_submission_path(id: @efile_submission.id),
+                          method: :patch,
+                          # disabled: @efile_submission.intake.refund_payment_method_direct_deposit? && !@efile_submission.intake.bank_account.present?,
+                          data: { confirm: "Have you updated the necessary information?" },
+                          class: "button button--small button--teal button--no-margin")
+            %>
+          </div>
+        <% end %>
 
+        <% if @efile_submission.can_transition_to?(:cancelled) %>
+          <div style="margin-left: 10px">
+            <%= link_to("Do not file",
+                        cancel_hub_efile_submission_path(id: @efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission as 'Not filing'?" },
+                        class: "button button--danger button--small") %>
+          </div>
+        <% end %>
+
+        <% if @efile_submission.can_transition_to?(:failed) %>
+          <div style="margin-left: 10px">
+            <%= link_to("Failed",
+                        failed_hub_efile_submission_path(id: @efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission as 'Failed'?" },
+                        class: "button button--danger button--small") %>
+          </div>
+        <% end %>
+      </div>
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
         <ul role="list" class="logs">

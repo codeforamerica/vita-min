@@ -47,6 +47,7 @@ module Efile
     def self.transmitted_state_submission_ids
       transmitted_submissions = EfileSubmission.in_state(:transmitted)
       state_submissions = transmitted_submissions.for_state_filing
+      state_submissions.touch_all(:last_checked_for_ack_at)
       state_submissions.pluck(:irs_submission_id)
     end
 

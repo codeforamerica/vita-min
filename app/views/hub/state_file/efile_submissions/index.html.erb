@@ -9,7 +9,8 @@
         <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
           Status
         </th>
-        <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">IRS Submission ID</th>
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">Federal Submission ID</th>
         <th scope="col" class="index-table__header">
           Errors
         </th>
@@ -33,6 +34,9 @@
           </td>
           <td class="index-table__cell">
             <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
+          </td>
+          <td class="index-table__cell">
+            <%= submission.data_source.federal_submission_id.present? ? link_to(submission.data_source.federal_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
           </td>
           <td class="index-table__cell">
             <% submission.last_transition&.efile_errors&.each do |error| %>

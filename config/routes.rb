@@ -207,6 +207,7 @@ Rails.application.routes.draw do
         resources :tax_returns, only: [:edit, :update, :show]
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
+          patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
