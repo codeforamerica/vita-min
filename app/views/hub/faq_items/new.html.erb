@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <% titles = [
-      ["Frequently Asked Questions", hub_faq_categories_path],
+      ["Frequently Asked Questions", send(@faq_return_path)],
       [@faq_category.name_en, hub_faq_category_path(id: @faq_category)],
       "New FAQ Item"
     ]

@@ -2,7 +2,8 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25 spacing-below-60">
-    <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@title} (##{@faq_category.id})"] %>
+    <% path = @faq_category.product_type_gyr? ? hub_faq_categories_path : hub_state_file_faq_categories_path %>
+    <% titles = [["Frequently Asked Questions", path], "#{@title} (##{@faq_category.id})"] %>
     <%= render 'header', titles: titles %>
     <%= render 'header_buttons', category: @faq_category %>
     <hr/>

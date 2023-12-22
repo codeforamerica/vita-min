@@ -1,10 +1,8 @@
 module Hub
   module StateFile
-    class EfileSubmissionsController < Hub::BaseController
-      before_action :require_state_file
+    class EfileSubmissionsController < Hub::StateFile::BaseController
       load_and_authorize_resource
       before_action :load_efile_submissions, only: [:index]
-      layout "hub"
 
       def index
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)

@@ -15,6 +15,7 @@ FactoryBot.define do
   factory :faq_category do
     name_en { "MyString" }
     name_es { "MyString" }
+    product_type { :gyr }
     slug { name_en.parameterize(separator: '_') }
   end
 end

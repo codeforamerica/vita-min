@@ -215,8 +215,6 @@ Rails.application.routes.draw do
           get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
         end
 
-        resources :efile_submissions, module: "state_file", path: "state-file/efile-submissions", only: [:index, :show], controller: 'efile_submissions', as: :state_file_efile_submissions
-
         resources :fraud_indicators, path: "fraud-indicators" do
           collection do
             resources :risky_domains, controller: 'fraud_indicators/risky_domains', path: "risky-domains"
@@ -239,7 +237,8 @@ Rails.application.routes.draw do
           resources :faq_items
         end
 
-        namespace :state_file do
+        namespace :state_file, path: "state-file" do
+          resources :efile_submissions, only: [:index, :show]
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
@@ -559,6 +558,10 @@ Rails.application.routes.draw do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         end
         get "login-options", to: "state_file/state_file_pages#login_options"
+        get "/faq", to: "faq#index"
+        # get "/faq/:section_key", to: "faq#section_index", as: :faq_section
+        # get "/faq/:section_key/:question_key", to: "faq#show", as: :faq_question
+        # put "/faq/:section_key/:question_key", to: "faq#answer_survey"
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do

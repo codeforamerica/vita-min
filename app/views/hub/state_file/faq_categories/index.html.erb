@@ -1,17 +1,25 @@
-<% @title = "Frequently Asked Questions" %>
+<% @title = "StateFile: Frequently Asked Questions" %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <%= render 'hub/faq_categories/header', titles: [@title]%>
-    <%= link_to "Add new FAQ Category", new_hub_faq_category_path(product_type: "state_file_az"), method: :get, class: "button spacing-below-0" %>
+    <%= link_to "Add new AZ FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_az"), method: :get, class: "button spacing-below-0" %>
+    <%= link_to "Add new NY FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_ny"), method: :get, class: "button spacing-below-0" %>
     <hr/>
     <h2>Arizona</h2>
     <% @az_faq_categories.each do |category| %>
       <%= render 'faq_categories_and_items', category: category %>
     <% end %>
-
+    <% unless @az_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
+      <p>No Arizona FAQ categories currently...perhaps reseed (run `FaqDatabaseExportService.export_yml_to_database` in console)</p>
+    <% end %>
+    <hr/>
+    <h2>New York</h2>
     <% @ny_faq_categories.each do |category| %>
       <%= render 'faq_categories_and_items', category: category %>
+    <% end %>
+    <% unless @ny_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
+      <p>No New York FAQ categories currently...perhaps reseed</p>
     <% end %>
   </div>
 <% end %>

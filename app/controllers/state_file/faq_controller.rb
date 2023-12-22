@@ -1,8 +1,9 @@
-class FaqController < ApplicationController
-  skip_before_action :check_maintenance_mode
+class StateFile::FaqController < ApplicationController
+  layout "state_file"
 
   def index
-    @faq_categories = FaqCategory.where(product_type: :gyr)
+    @az_faq_categories = FaqCategory.where(product_type: :az)
+    @ny_faq_categories = FaqCategory.where(product_type: :ny)
   end
 
   def section_index
