@@ -540,12 +540,6 @@ class DirectFileData
 
   def w2_df_data
     parsed_xml.css('IRSW2').map do |node|
-      employers_use_grps = node.css('EmployersUseGrp').map do |employer_use_grp|
-        {
-          code: employer_use_grp.at('EmployersUseCd')&.text,
-          value: employer_use_grp.at('EmployersUseAmt')&.text
-        }
-      end
       w2 = W2.new(
         employee_ssn: node.at('EmployeeSSN')&.text,
         employer_ein: node.at('EmployerEIN')&.text,
@@ -665,68 +659,6 @@ class DirectFileData
     end
   end
 
-  class W2
-    attr_accessor :employee_ssn, :employer_ein, :employer_name, :employer_street_address, :employer_city,
-                  :employer_state, :employer_zip_code, :wages_amount, :box8_allocated_tips,
-                  :box10_dependent_care_benefits, :box11_nonqualified_plans, :box12a_code,
-                  :box12a_value, :box12b_code, :box12b_value, :box12c_code, :box12c_value,
-                  :box12d_code, :box12d_value, :box13_retirement_plan, :box13_third_party_sick_pay, :w2_state_fields_group, :w2_box14
-
-    def initialize(params = {})
-      @employee_ssn = params[:employee_ssn]
-      @employer_ein = params[:employer_ein]
-      @employer_name = params[:employer_name]
-      @employer_street_address = params[:employer_street_address]
-      @employer_city = params[:employer_city]
-      @employer_state = params[:employer_state]
-      @employer_zip_code = params[:employer_zip_code]
-      @wages_amount = params[:wages_amount]
-      @box8_allocated_tips = params[:box8_allocated_tips]
-      @box10_dependent_care_benefits = params[:box10_dependent_care_benefits]
-      @box11_nonqualified_plans = params[:box11_nonqualified_plans]
-      @box12a_code = params[:box12a_code]
-      @box12a_value = params[:box12a_value]
-      @box12b_code = params[:box12b_code]
-      @box12b_value = params[:box12b_value]
-      @box12c_code = params[:box12c_code]
-      @box12c_value = params[:box12c_value]
-      @box12d_code = params[:box12d_code]
-      @box12d_value = params[:box12d_value]
-      @box13_retirement_plan = params[:box13_retirement_plan]
-      @box13_third_party_sick_pay = params[:box13_third_party_sick_pay]
-      @w2_state_fields_group = params[:w2_state_fields_group] || W2StateFieldsGroup.new
-      @w2_box14 = params[:w2_box14] || []
-    end
-
-    def attributes
-      {
-        employee_ssn: @employee_ssn,
-        employer_ein: @employer_ein,
-        employer_name: @employer_name,
-        employer_street_address: @employer_street_address,
-        employer_city: @employer_city,
-        employer_state: @employer_state,
-        employer_zip_code: @employer_zip_code,
-        wages_amount: @wages_amount,
-        box8_allocated_tips: @box8_allocated_tips,
-        box10_dependent_care_benefits: @box10_dependent_care_benefits,
-        box11_nonqualified_plans: @box11_nonqualified_plans,
-        box12a_code: @box12a_code,
-        box12a_value: @box12a_value,
-        box12b_code: @box12b_code,
-        box12b_value: @box12b_value,
-        box12c_code: @box12c_code,
-        box12c_value: @box12c_value,
-        box12d_code: @box12d_code,
-        box12d_value: @box12d_value,
-        box13_retirement_plan: @box13_retirement_plan,
-        box13_third_party_sick_pay: @box13_third_party_sick_pay,
-        w2_state_fields_group: @w2_state_fields_group,
-        w2_box14: @w2_box14
-      }
-    end
-  end
- 
   def attributes
     [
       :tax_return_year,

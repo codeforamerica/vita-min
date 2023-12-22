@@ -1,0 +1,13 @@
+<% @title = "Edit #{@faq_category.name_en}" %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <% titles = [["Frequently Asked Questions", hub_faq_categories_path], "#{@faq_category.name_en} (##{@faq_category.id})"] %>
+    <%= render 'header', titles: titles %>
+    <%= render 'header_buttons', category: @faq_category %>
+    <hr/>
+    <%= form_with model: @form, url: hub_faq_category_path, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_category_path(id: @faq_category.id), edit_form: true %>
+    <% end %>
+  </div>
+<% end %>

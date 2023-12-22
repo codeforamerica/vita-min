@@ -14,10 +14,6 @@ module StateFile
       AllocatedTipsAmt: 'AllocatedTipsAmt',
       DependentCareBenefitsAmt: 'DependentCareBenefitsAmt',
       NonqualifiedPlansAmt: 'NonqualifiedPlansAmt',
-      EmployersUseGrp: {
-        EmployersUseCd: 'EmployersUseGrp EmployersUseCd',
-        EmployersUseAmt: 'EmployersUseGrp EmployersUseAmt'
-      },
       RetirementPlanInd: 'RetirementPlanInd',
       ThirdPartySickPayInd: 'ThirdPartySickPayInd',
       OtherDeductionsBenefitsGrp: {
@@ -53,23 +49,100 @@ module StateFile
     def id
       @node['documentId']
     end
-
-    SELECTORS.each do |method, selector|
-      define_method(method) do
-        df_xml_value(selector)&.to_i
-      end
-
-      define_method("#{method}=") do |value|
-        write_df_xml_value(selector, value)
-      end
+    def EmployeeSSN
+      df_xml_value(__method__).to_i
     end
 
+    def EmployeeSSN=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def EmployerEIN
+      df_xml_value(__method__).to_i
+    end
+
+    def EmployerEIN=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def EmployerNameControlTxt
+      df_xml_value(__method__).to_i
+    end
+
+    def EmployerNameControlTxt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def AddressLine1Txt
+      df_xml_value(__method__).to_i
+    end
+
+    def AddressLine1Txt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def City
+      df_xml_value(__method__).to_i
+    end
+
+    def City=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def State
+      df_xml_value(__method__).to_i
+    end
+
+    def State=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def ZIP
+      df_xml_value(__method__).to_i
+    end
+
+    def ZIP=(value)
+      write_df_xml_value(__method__, value)
+    end
 
     def WagesAmt
       df_xml_value(__method__)&.to_i
     end
 
     def WagesAmt=(value)
+      write_df_xml_value(__method__, value)
+    end
+    
+    def box_12
+      parsed_xml.css('EmployersUseGrp').map do |employer_use_grp|
+        {
+          code: employer_use_grp.at('EmployersUseCd')&.text,
+          value: employer_use_grp.at('EmployersUseAmt')&.text
+        }
+      end
+    end
+    
+    def AllocatedTipsAmt
+      df_xml_value(__method__).to_i
+    end
+
+    def AllocatedTipsAmt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def DependentCareBenefitsAmt
+      df_xml_value(__method__).to_i
+    end
+
+    def DependentCareBenefitsAmt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def NonqualifiedPlansAmt
+      df_xml_value(__method__).to_i
+    end
+
+    def NonqualifiedPlansAmt=(value)
       write_df_xml_value(__method__, value)
     end
 
