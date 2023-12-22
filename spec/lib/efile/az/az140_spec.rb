@@ -232,8 +232,8 @@ describe Efile::Az::Az140 do
       end
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(4323) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(108)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(3423) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(86)
       end
     end
     context 'when the filer has an income of $150,000' do
@@ -242,8 +242,8 @@ describe Efile::Az::Az140 do
       end
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(129323) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(3233)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(128423) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(3211)
       end
     end
   end
