@@ -95,7 +95,6 @@ module SubmissionBuilder
                     end
                   end
                 end
-                # ERROR HERE
                 # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
               end
               xml.Additions do
