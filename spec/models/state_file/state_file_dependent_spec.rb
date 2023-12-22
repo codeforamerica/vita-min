@@ -148,24 +148,17 @@ describe StateFileDependent do
   end
 
   describe "age calculates correctly" do
-    it "when the birthday is yesterday" do
+    it "when the birthday is the last day of the tax year" do
       dependent = build(
         :state_file_dependent,
-        dob: ((Time.now.beginning_of_day - 1.days) - 10.years).strftime("%Y-%m-%d")
-        )
+        dob: (MultiTenantService.statefile.end_of_current_tax_year - 10.years).strftime("%Y-%m-%d")
+      )
       expect(dependent.age).to be 10
     end
-    it "when the birthday is today" do
+    it "when the birthday is the first day of the next tax year" do
       dependent = build(
         :state_file_dependent,
-        dob: (Time.now.beginning_of_day - 10.years).strftime("%Y-%m-%d")
-        )
-      expect(dependent.age).to be 9
-    end
-    it "when the birthday is tomorrow" do
-      dependent = build(
-        :state_file_dependent,
-        dob: ((Time.now.beginning_of_day + 1.days) - 10.years).strftime("%Y-%m-%d")
+        dob: (MultiTenantService.statefile.end_of_current_tax_year + 1.days - 10.years).strftime("%Y-%m-%d")
       )
       expect(dependent.age).to be 9
     end
