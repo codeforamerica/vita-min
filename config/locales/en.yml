@@ -1937,7 +1937,7 @@ en:
             has_yonkers_income: you lived or earned income in Yonkers in 2023.
             married_filing_separately: you are filing “married filing separately”.
           learn_more_content_how: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
-          learn_more_content_link_html: Learn more <a href="TODO">here</a>.
+          learn_more_content_link_html: Learn more <a href="%{link}">here</a>.
           learn_more_content_what: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in Arizona. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
           learn_more_title: Learn more about this process
           offboarding_reason: You cannot use this tool this year because %{reason}
@@ -1948,7 +1948,7 @@ en:
           how_it_works: If you choose this service, you’ll be connected with a VITA partner in your state. You will be asked to answer a few more questions and securely upload your tax and ID documents. This process can take 1-3 weeks to complete.
           what_it_is: GetYourRefund is a free, online service that connects you with an IRS-certified tax preparer from the IRS' Volunteer Income Tax Assistance (VITA) program. With your consent, volunteers will help prepare and e-file your state tax return for free.
         other_options:
-          learn_more_link_html: Learn more <a href="TODO">here</a>.
+          learn_more_link_html: Learn more <a href="%{link}">here</a>.
           tip1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return</strong>. You may need to reach out to their customer support to confirm.
           tip2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
           tip3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
@@ -2018,18 +2018,12 @@ en:
           other_credits_qcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Credit for Contributions to Qualifying Charitable Organizations</a>
           other_credits_qfcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Credit for Contributions to Qualifying Foster Care Charitable Organization</a>
           property_tax_credit_age: Be 65 or older; or receive Supplemental Security Income
-          property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:
-
-            '
+          property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:'
           property_tax_credit_income: have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others; and
           property_tax_credit_paid: have paid property taxes or rent on a home in Arizona during the year
-          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:
-
-            '
+          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:'
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
-          public_school_tax_credit_provide_info_html: 'Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
-
-            '
+          public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
           dependent_credit: Dependent Credit
           empire_state_ctc: Empire State Child Credit
@@ -2043,15 +2037,13 @@ en:
           title1: Good news, you can use this tool this year to file your state taxes.
           title2: Here are the credits and deductions you may be able to claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
-          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="TODO" target="_blank">here</a>.
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in Arizona. Note that this option may take 2-3 weeks to complete.
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
           long_term_care_credit: Long-term care insurance credit
-          non_custodial_nys_eic_html: 'Non-custodial NYS Earned Income Credit (for <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">parents who do not live with their children</a>)
-
-            '
+          non_custodial_nys_eic_html: Non-custodial NYS Earned Income Credit (for <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">parents who do not live with their children</a>)
           nys_child_dependent_care_credit: NYS Child and Dependent Care Credit
           other_credits_529: 529 college savings plan contributions
           other_credits_change_filing_status: Change in filing status from federal to state
@@ -2059,9 +2051,7 @@ en:
           other_credits_heading: 'Other credits, deductions and resources not supported this year:'
           other_credits_itemized_deductions: Itemized deductions
           real_property_tax_credit: Real Property Tax Credit
-          subtractions_225_heading_html: 'All NY <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">subtractions claimed on IT-225 including</a>:
-
-            '
+          subtractions_225_heading_html: 'All NY <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">subtractions claimed on IT-225 including</a>:'
           subtractions_225_health_care_worker: Health care and mental hygiene worker bonuses
           subtractions_225_help_loan: HELP loan interest
           subtractions_225_military: Military combat pay
@@ -2156,9 +2146,7 @@ en:
           use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
       ny_school_district:
         edit:
-          helper_description_html: 'You can try searching for your school district <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">here</a>. If you’re still unsure, you may need to contact your nearest public school to ask for the school district name.
-
-            '
+          helper_description_html: You can try searching for your school district <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">here</a>. If you’re still unsure, you may need to contact your nearest public school to ask for the school district name.
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
