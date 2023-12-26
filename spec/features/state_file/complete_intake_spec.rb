@@ -168,8 +168,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
 
       puts "TRACE:201"
-      puts page.body
+      puts current_url
       puts "TRACE:202"
+      puts page.body
+      puts "TRACE:203"
 
       click_on "visit_federal_info_controller"
       click_on "New Dependent Detail"
