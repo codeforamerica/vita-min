@@ -67,12 +67,12 @@ module StateFileIntakeHelper
     click_on "Continue"
   end
 
-  def step_through_df_data_transfer
+  def step_through_df_data_transfer(sample_name = "Transfer my 2023 federal tax return to FileYourStateTaxes")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.edit.button')
 
     expect(page).to have_text "Your 2023 federal tax return is ready to transfer to your state tax return."
-    click_on "Transfer my 2023 federal tax return to FileYourStateTaxes"
+    click_on sample_name
 
     expect(page).to have_text "Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return."
     if Capybara.current_driver == Capybara.javascript_driver
