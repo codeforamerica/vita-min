@@ -43,7 +43,7 @@ module StateFile
         if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
-        next_step.to_path_helper(options)
+        step_for_next_path.to_path_helper(options)
       end
 
       def prev_path

@@ -8,7 +8,11 @@ module StateFile
     validate :set_nyc_full_year_resident
 
     def save
-      @intake.update(attributes_for(:intake))
+      if @intake.residence_county != self.residence_county
+        @intake.school_district = nil
+      end
+      @intake.assign_attributes(attributes_for(:intake))
+      @intake.save
     end
 
     def set_nyc_full_year_resident
