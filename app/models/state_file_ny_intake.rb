@@ -196,6 +196,10 @@ class StateFileNyIntake < StateFileBaseIntake
   IRC_125_CODES = ['IRC125S', 'IRS125']
   YONKERS_CODES = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
   def disqualifying_df_data_reason
+    direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd').each do |state|
+      return :has_out_of_state_w2 if state.text != 'NY'
+    end
+
     box_14_nodes = direct_file_data.parsed_xml.css('IRSW2 OtherDeductionsBenefitsGrp')
     return :has_irc_125_code if box_14_nodes.any? do |deduction|
       IRC_125_CODES.include?(deduction.at('Desc')&.text)

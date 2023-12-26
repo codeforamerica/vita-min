@@ -136,6 +136,9 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def disqualifying_df_data_reason
     :married_filing_separately if direct_file_data.filing_status == 3
+    direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd').each do |state|
+      return :has_out_of_state_w2 if state.text != 'AZ'
+    end
   end
 
   def disqualifying_eligibility_rules
