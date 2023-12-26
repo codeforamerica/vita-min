@@ -42,7 +42,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
       context "without return_to_review_param set" do
         it "navigates to the next page in the flow" do
           post :update, params: form_params
-          controllers = Navigation::StateFileNyQuestionNavigation::FLOW.to_a
+          controllers = Navigation::StateFileNyQuestionNavigation::FLOW
 
           next_controller_to_show = nil
           increment = 1
