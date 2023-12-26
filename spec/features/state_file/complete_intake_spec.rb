@@ -25,6 +25,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer
 
+      puts "TRACE:101"
+      puts page.body
+      puts "TRACE:102"
+
       click_on "visit_federal_info_controller"
 
       expect(page).to have_field("tax return year", with: "2023")
@@ -166,6 +170,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
+
+      puts "TRACE:201"
+      puts page.body
+      puts "TRACE:202"
 
       click_on "visit_federal_info_controller"
       click_on "New Dependent Detail"
