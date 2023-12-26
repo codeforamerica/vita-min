@@ -14,6 +14,21 @@ module SubmissionBuilder
 
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
+                @submission.data_source.dependents.each do |dependent|
+                  xml.dependent do
+                    xml.DEP_SSN_NMBR dependent.ssn
+                    xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
+                    xml.DEP_FORM_ID 215
+                    xml.DEP_RELATION_DESC dependent.relationship
+                    xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
+                    xml.DEP_CHLD_LAST_NAME dependent.last_name
+                    xml.DEP_CHLD_FRST_NAME dependent.first_name
+                    xml.DEP_CHLD_MI_NAME dependent.middle_initial
+                    xml.DEP_CHLD_SFX_NAME dependent.suffix
+                    xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
+                    xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
+                  end
+                end
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
                 xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
                 xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")
@@ -32,23 +47,6 @@ module SubmissionBuilder
                   xml.E_ACM_DIST_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_3")
                   xml.E_TOT_OTHCR_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_4")
                   xml.E_NET_TX_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_5")
-                end
-                ######
-                @submission.data_source.dependents.each do |dependent|
-                  xml.dependent do
-                    xml.DEP_SSN_NMBR dependent.ssn
-                    xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
-                    xml.DEP_FORM_ID 215
-                    xml.DEP_RELATION_DESC dependent.relationship
-                    xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
-                    xml.DEP_CHLD_LAST_NAME dependent.last_name
-                    xml.DEP_CHLD_FRST_NAME dependent.first_name
-                    xml.DEP_CHLD_MI_NAME dependent.middle_initial
-                    xml.DEP_CHLD_SFX_NAME dependent.suffix
-                    xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                    xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
-                  end
-                  ####
                 end
               end
             end
