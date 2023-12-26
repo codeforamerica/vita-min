@@ -197,7 +197,7 @@ class StateFileNyIntake < StateFileBaseIntake
   YONKERS_CODES = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
-    return :has_out_of_state_w2 if w2_states.any do |state|
+    return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != 'NY'
     end
 
