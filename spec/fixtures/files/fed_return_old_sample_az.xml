@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v3.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <ReturnTs>2023-09-12T16:47:43-04:00</ReturnTs>
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareId>11111111</SoftwareId>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <OriginatorGrp>
+      <EFIN>111111</EFIN>
+      <OriginatorTypeCd>ERO</OriginatorTypeCd>
+    </OriginatorGrp>
+    <SelfSelectPINGrp>
+      <PrimaryBirthDt>1958-01-01</PrimaryBirthDt>
+      <PrimaryPriorYearAGIAmt>0</PrimaryPriorYearAGIAmt>
+    </SelfSelectPINGrp>
+    <PINTypeCd>Self-Select On-Line</PINTypeCd>
+    <JuratDisclosureCd>Online Self Select PIN</JuratDisclosureCd>
+    <PrimaryPINEnteredByCd>Taxpayer</PrimaryPINEnteredByCd>
+    <PrimarySignaturePIN>12345</PrimarySignaturePIN>
+    <PrimarySignatureDt>2015-11-12</PrimarySignatureDt>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>555002222</PrimarySSN>
+      <NameLine1Txt>TESTY T&lt;TESTERSON</NameLine1Txt>
+      <PrimaryNameControlTxt>TEST</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>10128</ZIPCd>
+      </USAddress>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <RefundProductElectionInd>false</RefundProductElectionInd>
+        <RefundDisbursementGrp>
+          <RefundDisbursementCd>3</RefundDisbursementCd>
+        </RefundDisbursementGrp>
+        <CellPhoneNum>8885551212</CellPhoneNum>
+        <EmailAddressTxt>testerson@example.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+      <TrustedCustomerGrp>
+        <TrustedCustomerCd>0</TrustedCustomerCd>
+      </TrustedCustomerGrp>
+    </AdditionalFilerInformation>
+    <FilingSecurityInformation>
+      <AtSubmissionCreationGrp>
+        <IPAddress>
+          <IPv4AddressTxt>76.122.220.120</IPv4AddressTxt>
+        </IPAddress>
+        <IPPortNum>58362</IPPortNum>
+        <DeviceId>0123456789AAAAAAAAAABBBBBBBBBBCCCCCCCCCC</DeviceId>
+        <DeviceTypeCd>0</DeviceTypeCd>
+      </AtSubmissionCreationGrp>
+      <AtSubmissionFilingGrp>
+        <IPAddress>
+          <IPv4AddressTxt>76.122.220.120</IPv4AddressTxt>
+        </IPAddress>
+        <DeviceId>0123456789AAAAAAAAAABBBBBBBBBBCCCCCCCCCC</DeviceId>
+        <DeviceTypeCd>0</DeviceTypeCd>
+      </AtSubmissionFilingGrp>
+      <FilingLicenseTypeCd>P</FilingLicenseTypeCd>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <AuthenticationReviewCd>0</AuthenticationReviewCd>
+      <VendorControlNum>IRSDIRTAXFPRD001</VendorControlNum>
+      <AuthenticationReviewTxt>58362#2023-03-11T02:13:50-06:00#2023-03-11T02:14:31-06:00</AuthenticationReviewTxt>
+    </FilingSecurityInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="8">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>TESSA</DependentFirstNm>
+        <DependentLastNm>TESTERSON</DependentLastNm>
+        <DependentNameControlTxt>TEST</DependentNameControlTxt>
+        <DependentSSN>555004444</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt>21000</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>21000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>24</TaxableInterestAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt>12203</SocSecBnftAmt>
+      <TaxableSocSecAmt>5627</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>8500</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>35151</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>2800</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>32351</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>21150</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>21150</TotalDeductionsAmt>
+      <TaxableIncomeAmt>11201</TaxableIncomeAmt>
+      <TaxAmt>1123</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>1123</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>1123</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1302</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>1302</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt>1776</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt>877</AdditionalChildTaxCreditAmt>
+      <TotalOtherPaymentsRfdblCrAmt>0</TotalOtherPaymentsRfdblCrAmt>
+      <RefundableCreditsAmt>2653</RefundableCreditsAmt>
+      <TotalPaymentsAmt>3955</TotalPaymentsAmt>
+      <OverpaidAmt>3955</OverpaidAmt>
+      <RefundAmt>3955</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Teacher</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="Schedule10001">
+      <UnemploymentCompAmt>8500</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>8500</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>300</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>2500</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>2800</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentId="Schedule88120001">
+      <AdjustedGrossIncomeAmt>32351</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>32351</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>1123</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>1123</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>877</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1500</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>877</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>21000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>18500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>2775</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>877</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="ScheduleEIC0001">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>TEST</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Tessa</PersonFirstNm>
+          <PersonLastNm>Testerson</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>555004444</QualifyingChildSSN>
+        <ChildBirthYr>2017</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRS1040ScheduleLEP documentId="ScheduleLEP0001">
+      <PersonNm>Testy T Testerson</PersonNm>
+      <SSN>555002222</SSN>
+      <LanguagePreferenceCd>001</LanguagePreferenceCd>
+    </IRS1040ScheduleLEP>
+    <IRS8862 documentId="88620001">
+      <TaxYr>2023</TaxYr>
+      <EICClaimedInd>X</EICClaimedInd>
+      <CTCACTCODCClaimedInd>X</CTCACTCODCClaimedInd>
+      <EICEligClmIncmIncorrectRptInd>false</EICEligClmIncmIncorrectRptInd>
+      <EICEligClmQlfyChldOfOtherInd>false</EICEligClmQlfyChldOfOtherInd>
+      <QualifyingChildInd>true</QualifyingChildInd>
+      <FilerWithQualifyingChildGrp>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Tessa</PersonFirstNm>
+          <PersonLastNm>Testerson</PersonLastNm>
+        </ChildFirstAndLastName>
+        <LiveInUSDayCnt>365</LiveInUSDayCnt>
+      </FilerWithQualifyingChildGrp>
+      <CTCACTCChildInformationGrp>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Tessa</PersonFirstNm>
+          <PersonLastNm>Testerson</PersonLastNm>
+        </ChildFirstAndLastName>
+        <LiveWithChildOverHalfYearInd>true</LiveWithChildOverHalfYearInd>
+        <QualifyingChildInd>true</QualifyingChildInd>
+        <DependentInd>true</DependentInd>
+        <USCitizenOrNationalInd>true</USCitizenOrNationalInd>
+      </CTCACTCChildInformationGrp>
+    </IRS8862>
+    <IRS9000 documentId="90000001">
+      <PersonNm>Testy T Testerson</PersonNm>
+      <SSN>555002222</SSN>
+      <AlternativeMediaCd>01</AlternativeMediaCd>
+    </IRS9000>
+    <IRSW2 documentId="W20001">
+      <EmployeeSSN>555002222</EmployeeSSN>
+      <EmployerEIN>121234567</EmployerEIN>
+      <EmployerNameControlTxt>APPL</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Apple Tree School</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>273 Spencer Avenue</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>10128</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Testy T Testerson</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>10128</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>21000</WagesAmt>
+      <WithholdingAmt>1302</WithholdingAmt>
+      <SocialSecurityWagesAmt>21000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1302</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>21000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>305</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>911123456</EmployerStateIdNum>
+          <StateWagesAmt>21000</StateWagesAmt>
+          <StateIncomeTaxAmt>450</StateIncomeTaxAmt>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

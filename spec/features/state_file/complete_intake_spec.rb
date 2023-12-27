@@ -167,7 +167,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer
+      step_through_df_data_transfer("Transfer AZ Old sample")
 
       click_on "visit_federal_info_controller"
       click_on "New Dependent Detail"

@@ -50,6 +50,7 @@ class DirectFileData
     fed_mortgage_interest_credit_amount: 'IRS8396 MortgageInterestCreditAmt',
     fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
     fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
+    fed_w2_state: 'W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd',
   }.freeze
 
   def initialize(raw_xml)
@@ -487,6 +488,14 @@ class DirectFileData
       end
     end
     value
+  end
+
+  def fed_w2_state
+    df_xml_value(__method__)
+  end
+
+  def fed_w2_state=(value)
+    write_df_xml_value(__method__, value)
   end
 
   def blind_primary_spouse

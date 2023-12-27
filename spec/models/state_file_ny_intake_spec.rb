@@ -340,5 +340,13 @@ describe StateFileNyIntake do
     it "returns nil when direct file data has no disqualifying fields" do
       expect(intake.disqualifying_df_data_reason).to be_nil
     end
+
+    it "returns has_out_of_state_w2 when direct file data has an out of state W2" do
+      w2 = intake.direct_file_data.w2_nodes.first
+      state_abbreviation_cd = w2.at("W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd")
+      state_abbreviation_cd.inner_html = "UT"
+
+      expect(intake.disqualifying_df_data_reason).to eq :has_out_of_state_w2
+    end
   end
 end

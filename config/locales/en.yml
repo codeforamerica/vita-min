@@ -1968,6 +1968,7 @@ en:
           get_started_with_vita: Get started with VITA now
           ineligible_reason:
             has_irc_125_code: your W2 lists IRC 125 benefit plan amounts.
+            has_out_of_state_w2: You have a W2 from outside the state.
             has_yonkers_income: you lived or earned income in Yonkers in 2023.
             married_filing_separately: you are filing “married filing separately”.
           learn_more_content_how: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
