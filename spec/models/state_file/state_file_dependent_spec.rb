@@ -1,6 +1,5 @@
 require "rails_helper"
 
-# TODO
 describe StateFileDependent do
   describe "validations" do
     context "in the az_senior_form context" do
@@ -165,7 +164,7 @@ describe StateFileDependent do
     end
   end
 
-  describe ".eligible_for_child_tax_credit" do
+  describe '.eligible_for_child_tax_credit' do
     let(:intake) { create :intake }
     let(:xml_data) {
       xml_data = <<~XML
@@ -209,7 +208,7 @@ describe StateFileDependent do
       )
     }
 
-    it "when the dependent is eligible for CTC" do
+    it 'when the dependent is eligible for CTC' do
       intake = double
       dependent = build(:state_file_dependent, first_name: 'Twyla', last_name: 'Sands', ssn: '300000002')
       allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
@@ -217,7 +216,7 @@ describe StateFileDependent do
 
       expect(dependent.eligible_for_child_tax_credit).to be_truthy
     end
-    it "when the dependent is NOT eligible for CTC" do
+    it 'when the dependent is NOT eligible for CTC' do
       intake = double
       dependent = build(:state_file_dependent, first_name: 'Ronnie', last_name: 'Lee', ssn: '123456789')
       allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
