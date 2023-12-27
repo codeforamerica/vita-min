@@ -139,7 +139,7 @@ class StateFileAzIntake < StateFileBaseIntake
 
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
-      (state.text || '').upcase != 'AZ'
+      (state.text || '').upcase != state_code.upcase
     end
   end
 
