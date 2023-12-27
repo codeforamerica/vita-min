@@ -64,7 +64,7 @@ class StateFileDependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit
-    dependents = self.intake.direct_file_data.parsed_xml.css('DependentDetail')
+    dependents = self.intake&.direct_file_data&.parsed_xml&.css('DependentDetail')
     dependents.any? do |dep|
       dp_str = dep.to_s
       (ELIGIBLE_CTC.in? dp_str) && (self.first_name.in? dp_str) && (self.last_name.in? dp_str) && (self.ssn.in? dp_str)
