@@ -170,35 +170,13 @@ describe StateFileDependent do
       xml_data = <<~XML
         <root>
           <DependentDetail>
-            <DependentFirstNm>Ronnie</DependentFirstNm>
-            <DependentLastNm>Lee</DependentLastNm>
+            <DependentFirstNm>Ronnie</DependentFirstNm><DependentLastNm>Lee</DependentLastNm>
           </DependentDetail>
           <DependentDetail>
-              <Name>Bob Currie</Name>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>Twyla Sands</Name>
-              <DependentSSN>300000002</DependentSSN>
-              <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>David Rose</Name>
-              <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>Roland Schitt</Name>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>Stevie Budd</Name>
-              <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>Wendy Kurtz</Name>
-            </DependentDetail>
-            <DependentDetail>
-              <Name>Alexis Rose</Name>
-              <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
-            </DependentDetail>
+            <Name>Twyla Sands</Name>
+            <DependentSSN>300000002</DependentSSN>
+            <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+          </DependentDetail>
         </root>
       XML
     }
