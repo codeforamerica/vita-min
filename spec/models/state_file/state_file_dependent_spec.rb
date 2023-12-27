@@ -194,6 +194,7 @@ describe StateFileDependent do
 
       expect(dependent.eligible_for_child_tax_credit).to be_truthy
     end
+
     it 'when the dependent is NOT eligible for CTC' do
       intake = double
       dependent = build(:state_file_dependent, first_name: 'Ronnie', last_name: 'Lee', ssn: '123456789')
