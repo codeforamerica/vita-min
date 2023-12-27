@@ -43,6 +43,8 @@ class StateFileDependent < ApplicationRecord
       .where(relationship: ['PARENT', 'GRANDPARENT'])
   end
 
+  ELIGIBLE_CTC = 'EligibleForChildTaxCreditInd'.freeze
+
   def full_name
     parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?
@@ -60,5 +62,19 @@ class StateFileDependent < ApplicationRecord
 
   def age
     ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
+  end
+
+  # Find if DependentDetail has EligibleForChildTaxCreditInd attribute
+  def eligible_for_child_tax_credit
+    # binding.pry
+    # dependent = StateFileDependent.find(79)
+    # dependent.eligible_for_child_tax_credit
+    # ap @submission.data_source.direct_file_data.parsed_xml.css('DependentDetail')
+    # test =  @submission.data_source.direct_file_data.parsed_xml.css('DependentDetail')
+    # test.each { |dep| p dep.text };nil
+    dependents = intake.direct_file_data.parsed_xml.css('DependentDetail')
+    dependents.any? do |dep|
+      dep.to_s.include?(ELIGIBLE_CTC && self.first_name && self.last_name && self.ssn)
+    end
   end
 end
