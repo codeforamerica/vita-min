@@ -14,8 +14,8 @@ module SubmissionBuilder
 
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
-                @submission.data_source.dependents.each do |dependent|
-                  xml.dependent do
+                @submission.data_source.dependents.each_with_index do |dependent, idx|
+                  xml.DEP_SEQ_NMBR do
                     xml.DEP_SSN_NMBR dependent.ssn
                     xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                     xml.DEP_FORM_ID 215
@@ -62,3 +62,12 @@ module SubmissionBuilder
     end
   end
 end
+
+=begin
+  # FormIT215BO.xsd
+	<xsd:sequence>
+		<xsd:element maxOccurs="8" name="DEP_SEQ_NMBR"/>
+		<xsd:element maxOccurs="8" name="DEP_SSN_NMBR"/>
+		<xsd:element maxOccurs="8" name="DEP_CHLD_FRST_NAME"/>
+	</xsd:sequence>
+=end
