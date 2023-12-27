@@ -29,7 +29,6 @@ module PdfFiller
       }
 
       dependents = @submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }
-
       if dependents.length > 6
         raise "Too many dependents to handle on IT213!"
       end
