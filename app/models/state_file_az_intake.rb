@@ -141,7 +141,6 @@ class StateFileAzIntake < StateFileBaseIntake
     :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != 'AZ'
     end
-
   end
 
   def disqualifying_eligibility_rules
