@@ -72,9 +72,15 @@ class StateFileDependent < ApplicationRecord
     # ap @submission.data_source.direct_file_data.parsed_xml.css('DependentDetail')
     # test =  @submission.data_source.direct_file_data.parsed_xml.css('DependentDetail')
     # test.each { |dep| p dep.text };nil
-    dependents = intake.direct_file_data.parsed_xml.css('DependentDetail')
-    dependents.any? do |dep|
-      dep.to_s.include?(ELIGIBLE_CTC && self.first_name && self.last_name && self.ssn)
+    dependents = self.intake.direct_file_data.parsed_xml.css('DependentDetail')
+    # binding.pry
+    # dependents.any? { |dep| dep.to_s.include?(ELIGIBLE_CTC && self.first_name && self.last_name && self.ssn) }
+
+    dependents.any? do |depn|
+      # binding.pry
+      dep = depn.to_s
+      (ELIGIBLE_CTC.in? dep) && (self.first_name.in? dep) && (self.last_name.in? dep) && (self.ssn.in? dep)
     end
+
   end
 end

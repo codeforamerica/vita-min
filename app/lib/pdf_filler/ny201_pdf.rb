@@ -50,7 +50,7 @@ module PdfFiller
           answers[:F2_NYC] = '12'
         end
       end
-      answers.merge!(dependents_info(@submission.data_source.dependents))
+      answers.merge!(dependents_info(@submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
         Line2: claimed_attr_value('INT_AMT'),

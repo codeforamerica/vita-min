@@ -28,11 +28,13 @@ module PdfFiller
         'Line 5' => claimed_attr_value('ESC_SSN_CHLD_NMBR'),
       }
 
-      if @submission.data_source.dependents.length > 6
+      dependents = @submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }
+
+      if dependents.length > 6
         raise "Too many dependents to handle on IT213!"
       end
 
-      @submission.data_source.dependents.select { |d| d.dob >= 17.years.ago }.each_with_index do |dependent, index|
+      dependents.select { |d| d.dob >= 17.years.ago }.each_with_index do |dependent, index|
         index += 1
         answers.merge!({
                          "First Name #{index}" => dependent.first_name,
