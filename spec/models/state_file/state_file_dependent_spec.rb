@@ -164,4 +164,44 @@ describe StateFileDependent do
     end
   end
 
+  describe '.eligible_for_child_tax_credit' do
+    let(:intake) { create :intake }
+    let(:xml_data) {
+      xml_data = <<~XML
+        <root>
+          <DependentDetail>
+            <DependentFirstNm>Ronnie</DependentFirstNm><DependentLastNm>Lee</DependentLastNm>
+          </DependentDetail>
+          <DependentDetail>
+            <Name>Twyla Sands</Name>
+            <DependentSSN>300000002</DependentSSN>
+            <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+          </DependentDetail>
+        </root>
+      XML
+    }
+    let(:parsed_xml) {
+      OpenStruct.new(
+        parsed_xml: Nokogiri::XML(xml_data)
+      )
+    }
+
+    it 'when the dependent is eligible for CTC' do
+      intake = double
+      dependent = build(:state_file_dependent, first_name: 'Twyla', last_name: 'Sands', ssn: '300000002')
+      allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+      allow(dependent).to receive(:intake).and_return(intake)
+
+      expect(dependent.eligible_for_child_tax_credit).to be_truthy
+    end
+
+    it 'when the dependent is NOT eligible for CTC' do
+      intake = double
+      dependent = build(:state_file_dependent, first_name: 'Ronnie', last_name: 'Lee', ssn: '123456789')
+      allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+      allow(dependent).to receive(:intake).and_return(intake)
+
+      expect(dependent.eligible_for_child_tax_credit).to be_falsey
+    end
+  end
 end
