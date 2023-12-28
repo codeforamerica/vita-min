@@ -1,0 +1,28 @@
+<div data-component="ClientMenuComponent" class="client-menu" data-target="toggle">
+  <div class="container">
+    <div>
+      <div class="client-menu-item">
+        <%= link_to "About", new_portal_client_login_path %>
+      </div>
+      <div class="client-menu-item">
+        <%= link_to t("general.faq"), faq_path %>
+      </div>
+      <div class="client-menu-item">
+        <%= link_to "Help", faq_path %>
+      </div>
+
+      <% if I18n.locale != :en %>
+        <div class="client-menu-item">
+          <%= link_to_english %>
+        </div>
+      <% end %>
+
+      <% if I18n.locale != :es %>
+        <div class="client-menu-item">
+          <%= link_to_spanish %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

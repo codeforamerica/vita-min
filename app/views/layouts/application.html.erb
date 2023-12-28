@@ -61,7 +61,9 @@
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% elsif state_file? %>class="state-file"<% end %>>
     <div class="page-wrapper">
       <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
-      <% unless hub? %>
+      <% if state_file? %>
+        <%= render 'state_file/state_file_pages/client_menu' %>
+      <% elsif !hub? %>
         <%= render "shared/client_menu" %>
       <% end %>
       <div class="page-content">
