@@ -199,7 +199,7 @@ describe StateFileAzIntake do
                                     dob: (MultiTenantService.statefile.end_of_current_tax_year - 10.years)
                                       .strftime("%Y-%m-%d")
       expect(intake.federal_dependent_count_under_17).to eq(1)
-      expect(intake.federal_dependent_count_over_17).to eq(0)
+      expect(intake.federal_dependent_count_over_17_non_senior).to eq(0)
       expect(intake.qualifying_parents_and_grandparents).to eq(0)
     end
 
@@ -208,14 +208,14 @@ describe StateFileAzIntake do
                                     dob: (MultiTenantService.statefile.end_of_current_tax_year - 20.years)
                                       .strftime("%Y-%m-%d")
       expect(intake.federal_dependent_count_under_17).to eq(0)
-      expect(intake.federal_dependent_count_over_17).to eq(1)
+      expect(intake.federal_dependent_count_over_17_non_senior).to eq(1)
       expect(intake.qualifying_parents_and_grandparents).to eq(0)
     end
 
     it 'returns the correct senior dependents' do
       create :az_senior_dependent, intake: intake
       expect(intake.federal_dependent_count_under_17).to eq(0)
-      expect(intake.federal_dependent_count_over_17).to eq(0)
+      expect(intake.federal_dependent_count_over_17_non_senior).to eq(0)
       expect(intake.qualifying_parents_and_grandparents).to eq(1)
     end
   end

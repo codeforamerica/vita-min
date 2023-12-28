@@ -110,7 +110,7 @@ class StateFileAzIntake < StateFileBaseIntake
     self.dependents.select{ |dependent| dependent.age < 17 }.length
   end
 
-  def federal_dependent_count_over_17
+  def federal_dependent_count_over_17_non_senior
     self.dependents.select{ |dependent| dependent.age >= 17 && !dependent.ask_senior_questions? }.length
   end
 
