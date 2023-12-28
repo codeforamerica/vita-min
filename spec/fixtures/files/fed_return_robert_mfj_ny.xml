@@ -46,7 +46,7 @@
         <DependentFirstNm>Tina</DependentFirstNm>
         <DependentLastNm>Belcher</DependentLastNm>
         <DependentNameControlTxt>BELC</DependentNameControlTxt>
-        <DependentSSN>300000032</DependentSSN>
+        <DependentSSN>300000031</DependentSSN>
         <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
@@ -186,7 +186,7 @@
           <PersonFirstNm>Tina</PersonFirstNm>
           <PersonLastNm>Belcher</PersonLastNm>
         </ChildFirstAndLastName>
-        <QualifyingChildSSN>300000032</QualifyingChildSSN>
+        <QualifyingChildSSN>300000031</QualifyingChildSSN>
         <ChildBirthYr>2020</ChildBirthYr>
         <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
         <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
