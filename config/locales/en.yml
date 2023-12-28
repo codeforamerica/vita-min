@@ -2061,14 +2061,14 @@ en:
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
           dependent_credit: Dependent Credit
-          empire_state_ctc: Empire State Child Credit
+          empire_state_ctc: Empire State Child Tax Credit
           family_income_credit: Family Income Credit
           increased_deduction: An increased deduction for charitable contributions
           increased_excise_credit: Increased Excise Credit
           not_supported: What credits and deductions does this tool not support this year?
           nyc_school_tax_credit: NYC School Tax Credit
-          nys_eic: NYS/NYC Earned Income Credit
-          nys_hh_credit: NYS/NYC Household Credit
+          nys_eic: NYS Earned Income Credit
+          nys_hh_credit: NYS Household Credit
           title1: Good news, you can use this tool this year to file your state taxes.
           title2: Here are the credits and deductions you may be able to claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
@@ -2238,7 +2238,7 @@ en:
           help_friend_html: 'Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
 
             '
-          register_to_vote_html: '<a target="_blank" rel="noopener nofollow" href="">Register to vote.</a>
+          register_to_vote_html: '<a target="_blank" rel="noopener nofollow" href="https://vote.gov/">Register to vote.</a>
 
             '
           title: Your 2023 %{state_name} state tax return is accepted
