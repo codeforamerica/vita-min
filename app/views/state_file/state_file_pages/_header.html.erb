@@ -8,6 +8,8 @@
       </div>
     </div>
     <div class="toolbar__right is-mobile-hidden">
+      <%= link_to t("general.about"), about_us_path, class: "toolbar__item text--small" %>
+      <%= link_to t("general.faq"), faq_path, class: "toolbar__item text--small" %>
       <% if I18n.locale != :en %>
         <%= link_to_english(class: "toolbar__item text--small") %>
       <% end %>
