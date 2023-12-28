@@ -172,12 +172,9 @@ module PdfFiller
     end
 
     def dependents_info(dependents)
-      if dependents.length > 7
-        raise "Can't handle #{dependents.length} dependents yet!"
-      end
-
       answers = {}
-      dependents.each_with_index do |dependent, index|
+      answers["H_additional_dependents"] = "yes" if dependents.length > 7
+      dependents.slice(0, 7).each_with_index do |dependent, index|
         index = index + 1
 
         answers["H_first#{index}"] = dependent.first_name
