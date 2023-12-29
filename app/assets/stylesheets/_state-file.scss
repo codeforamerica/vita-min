@@ -55,6 +55,11 @@
     background-color: $color-az-grey;
     top: 5.7rem;
     color: white;
+    width: 100%;
+
+    .container {
+      width: 100%;
+    }
 
     .client-menu-item {
       border-bottom: none;
