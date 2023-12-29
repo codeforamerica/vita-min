@@ -112,6 +112,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
 
+  devise :timeoutable, :timeout_in => 15.minutes
+
   before_save do
     save_nil_enums_with_unfilled
 
