@@ -5,13 +5,7 @@
 
 .state-file-html-bg--az {
   background-color: $color-az-grey;
-}
 
-.state-file-html-bg--ny {
-  background-color: $color-ny-blue;
-}
-
-.state-file.us-state--az{
   .main-header {
     background-color: $color-az-grey;
   }
@@ -23,7 +17,9 @@
   }
 }
 
-.state-file.us-state--ny{
+.state-file-html-bg--ny {
+  background-color: $color-ny-blue;
+
   .main-header {
     background-color: $color-ny-blue;
   }
@@ -41,7 +37,11 @@
 
   .main-header {
     .toolbar__item {
-      font-size: 1.5rem
+      font-size: 1.5rem;
+    }
+
+    .toolbar__right {
+      margin-top: 0;
     }
   }
 
