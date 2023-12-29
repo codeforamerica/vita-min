@@ -3,31 +3,24 @@
   background-color: $color-az-grey; // set default background color on <html> so the footer doesn't look weird on shared pages
 }
 
+// Color overrides for AZ (Only for html element as Az is the default for the rest)
 .state-file-html-bg--az {
   background-color: $color-az-grey;
-
-  .main-header {
-    background-color: $color-az-grey;
-  }
-  .client-menu-closer {
-    background-color: $color-az-grey;
-  }
-  .client-menu {
-    background-color: $color-az-grey;
-  }
 }
 
+// Color overrides for NY
 .state-file-html-bg--ny {
   background-color: $color-ny-blue;
-
-  .main-header {
-    background-color: $color-ny-blue;
-  }
-  .client-menu-closer {
-    background-color: $color-ny-blue;
-  }
-  .client-menu {
-    background-color: $color-ny-blue;
+  .state-file {
+    .main-header {
+      background-color: $color-ny-blue;
+    }
+    .client-menu-closer {
+      background-color: $color-ny-blue;
+    }
+    .client-menu {
+      background-color: $color-ny-blue;
+    }
   }
 }
 
@@ -36,6 +29,8 @@
   font-size: 1.6rem;
 
   .main-header {
+    background-color: $color-az-grey;
+
     .toolbar__item {
       font-size: 1.5rem;
     }
@@ -46,6 +41,7 @@
   }
 
   .client-menu-closer {
+    background-color: $color-az-grey;
     color: white;
     width: 5.4rem;
     height: 5.4rem;
@@ -56,6 +52,7 @@
   }
 
   .client-menu {
+    background-color: $color-az-grey;
     top: 5.7rem;
     color: white;
 
