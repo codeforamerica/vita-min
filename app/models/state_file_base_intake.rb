@@ -31,6 +31,8 @@ class StateFileBaseIntake < ApplicationRecord
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
 
+  ELIGIBLE_CTC = 'EligibleForChildTaxCreditInd'.freeze
+
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
@@ -187,5 +189,34 @@ class StateFileBaseIntake < ApplicationRecord
     if attempts_exceeded?
       lock_access! unless access_locked?
     end
+  end
+
+  def dependents_eligible_for_child_tax_credit
+    dependents = []
+    self.direct_file_data&.parsed_xml&.css('DependentDetail').each do |dependent|
+      if ELIGIBLE_CTC.in? dependent.to_s
+        first_name = dependent.at('DependentFirstNm').text
+        last_name = dependent.at('DependentLastNm').text
+        relationship = dependent.at('DependentRelationshipCd').text
+        # ssn = dependent.at('DependentSSN').text # Can't query on encrypted field.
+        dependents << StateFileDependent.where(
+          first_name: first_name, last_name: last_name, relationship: relationship
+        ).take
+      end
+    end
+    dependents
+  end
+
+  def dependents_eligible_for_eitc
+    dependents = []
+    self.direct_file_data&.parsed_xml&.css('IRS1040ScheduleEIC QualifyingChildInformation').each do |dependent|
+      first_name = dependent.at('PersonFirstNm').text
+      last_name = dependent.at('PersonLastNm').text
+      relationship = dependent.at('ChildRelationshipCd').text
+      dependents << StateFileDependent.where(
+        first_name: first_name, last_name: last_name, relationship: relationship
+      ).take
+    end
+    dependents
   end
 end

@@ -71,7 +71,6 @@ class StateFileDependent < ApplicationRecord
     end
   end
 
-  # Could this and the CTC METHOD be more efficient as methods on the intake which yields all the dependents?
   def eligible_for_eitc
     dependents = self.intake&.direct_file_data&.parsed_xml&.css('IRS1040ScheduleEIC QualifyingChildInformation')
     dependents.any? do |dep|
