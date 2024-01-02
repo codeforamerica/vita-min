@@ -12,6 +12,8 @@ class StateFileBaseIntake < ApplicationRecord
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   scope :can_be_authenticated, -> { where.not(hashed_ssn: nil) }
+  devise :timeoutable, :timeout_in => 15.minutes
+
   class << self
     alias :accessible_intakes :can_be_authenticated # integrate with legacy login service
   end
