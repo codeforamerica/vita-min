@@ -70,4 +70,13 @@ class StateFileDependent < ApplicationRecord
       (ELIGIBLE_CTC.in? dp_str) && (self.first_name.in? dp_str) && (self.last_name.in? dp_str) && (self.ssn.in? dp_str)
     end
   end
+
+  # Could this and the CTC METHOD be more efficient as methods on the intake which yields all the dependents?
+  def eligible_for_eitc
+    dependents = self.intake&.direct_file_data&.parsed_xml&.css('IRS1040ScheduleEIC QualifyingChildInformation')
+    dependents.any? do |dep|
+      dp_str = dep.to_s
+      (self.first_name.in? dp_str) && (self.last_name.in? dp_str) && (self.ssn.in? dp_str)
+    end
+  end
 end
