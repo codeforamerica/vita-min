@@ -111,7 +111,9 @@ module Efile
           submission.transition_to(:ready_for_ack, raw_response: raw_response)
         elsif ["Denied by IRS", "Rejected Acknowledgment Created"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
-        elsif ["Accepted Acknowledgment Created", "Accepted Acknowledgment Retrieved"].include?(status)
+        elsif ['Acknowledged', 'Acknowledgement Retrieved', "Notified"].include?(status)
+          # ["Accepted Acknowledgment Created", "Accepted Acknowledgment Retrieved"]
+          # read the acknowledgment file in AcceptanceStatus?
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
           submission.transition_to(:failed, raw_response: raw_response)
