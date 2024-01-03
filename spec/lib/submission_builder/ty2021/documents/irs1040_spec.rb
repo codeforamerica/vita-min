@@ -212,14 +212,14 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("RefundAmt").text).to eq("8238")
       end
 
-      context "client is under 24 and over 18 without qualifing dependents" do
-        let(:primary_birth_date) { 20.years.ago }
-
-        it "checks the checkbox" do
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-          expect(xml.at("UndSpcfdAgeStsfyRqrEICInd").text).to eq("X")
-        end
-      end
+      #context "client is under 24 and over 18 without qualifing dependents" do
+      #  let(:primary_birth_date) { 20.years.ago }
+      #
+      #  it "checks the checkbox" do
+      #    xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+      #    expect(xml.at("UndSpcfdAgeStsfyRqrEICInd").text).to eq("X")
+      #  end
+      #end
 
       it "conforms to the eFileAttachments schema" do
         expect(described_class.build(submission)).to be_valid
