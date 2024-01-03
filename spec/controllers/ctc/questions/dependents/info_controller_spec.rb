@@ -57,7 +57,7 @@ describe Ctc::Questions::Dependents::InfoController do
     end
 
     context "for an existing record" do
-      let(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter' }
+      let(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter', months_in_home: 12 }
       let(:birth_year) { 2.years.ago.year }
       let(:filed_joint_return) { "no" }
       context "with valid params" do
@@ -86,7 +86,7 @@ describe Ctc::Questions::Dependents::InfoController do
           recaptcha_score = intake.client.recaptcha_scores.last # do we want to capture the recaptcha score again for editing a dependent?
           expect(recaptcha_score.score).to eq 0.9
           expect(recaptcha_score.action).to eq 'dependents_info'
-          expect(response).to redirect_to child_expenses_questions_dependent_path(id: params[:id])
+          expect(response).to redirect_to does_not_qualify_ctc_questions_dependent_path(id: params[:id])
         end
 
         context "when dependent was born after the tax year" do
