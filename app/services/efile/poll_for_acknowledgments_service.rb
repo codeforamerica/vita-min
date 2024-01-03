@@ -102,12 +102,11 @@ module Efile
           "Ready for Pick-Up",
           "Sent to State",
           "Received by State",
-          "Acknowledgement Received from State",
         ]
 
         if processing_return_statuses.include?(status)
           submission.transition_to(:transmitted, raw_response: raw_response)
-        elsif ["Acknowledgement Retrieved", "Notified"].include?(status)
+        elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include?(status)
           submission.transition_to(:read_for_ack, raw_response: raw_response)
         elsif ["Denied by IRS", "Rejected Acknowledgment Created"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
