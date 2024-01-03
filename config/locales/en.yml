@@ -2236,13 +2236,10 @@ en:
           direct_debit_html: 'If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
 
             '
-          help_friend_html: 'Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
-
-            '
           register_to_vote_html: '<a target="_blank" rel="noopener nofollow" href="https://vote.gov/">Register to vote.</a>
 
             '
-          track_your_payment_html: '<a target="_blank" rel="noopener nofollow" href="https://vote.gov/">Register to vote.</a>
+          track_your_payment_html: 'Track your payment <a target="_blank" rel="noopener nofollow" href="">here.</a>
 
             '
           title: Your 2023 %{state_name} state tax return is accepted

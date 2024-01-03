@@ -27,7 +27,8 @@ module StateFile
       end
 
       def return_status
-        current_intake.return_status
+        # current_intake.return_status
+        'accepted'
       end
 
       def refund_or_owed_amount
