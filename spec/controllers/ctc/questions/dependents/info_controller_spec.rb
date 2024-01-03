@@ -57,7 +57,7 @@ describe Ctc::Questions::Dependents::InfoController do
     end
 
     context "for an existing record" do
-      let(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter', months_in_home: 12 }
+      let(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter' }
       let(:birth_year) { 2.years.ago.year }
       let(:filed_joint_return) { "no" }
       context "with valid params" do
