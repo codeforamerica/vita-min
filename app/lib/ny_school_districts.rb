@@ -46,8 +46,8 @@ class NySchoolDistricts
       begin
         csv_file_path = Rails.root.join("app/lib/efile/ny/school_districts.csv")
         CSV.read(csv_file_path, headers: true).each_with_object({}) do |row, hash|
-          hash[row["County"]] ||= []
-          hash[row["County"]] << row
+          hash[row["County"].strip] ||= []
+          hash[row["County"].strip] << row
         end
       end
 
