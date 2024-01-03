@@ -220,8 +220,8 @@ describe EfileSubmissionDependent do
       let(:birth_date) { 16.years.ago }
       let(:permanently_totally_disabled) { "yes" }
 
-      it "is nil" do
-        expect(efile_submission_dependent.schedule_eic_4b?).to eq nil
+      it "is truthy" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq true
       end
     end
 
