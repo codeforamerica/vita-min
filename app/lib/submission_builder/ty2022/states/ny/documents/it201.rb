@@ -89,33 +89,18 @@ module SubmissionBuilder
                     end
                   end
                 end
-                # binding.pry
                 xml.IT201DepExmpInfo do
-                  xml.depInfo do
-                    @submission.data_source.dependents.each_with_index do |dependent, index|
-                      # xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                      # xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
-                      # xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                      # xml.DEP_RELATION_DESC claimed: dependent.relationship
-                      # xml.DEP_SSN_NMBR claimed: dependent.ssn
-                      # xml.DOB_DT claimed: dependent.dob&.strftime("%Y-%m-%d")
-
-                      # xml.DEP_SSN_NMBR claimed: dependent.ssn
-                      # xml.DEP_SEQ_NMBR claimed: index+1
-                      # xml.DEP_DISAB_IND claimed: dependent.eic_disability == true ? 1 : 2
-                      # xml.DEP_FORM_ID claimed: 215
-                      # xml.DEP_RELATION_DESC claimed: dependent.relationship
-                      # xml.DEP_STUDENT_IND claimed: dependent.eic_student == true ? 1 : 2
-                      # xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                      # xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                      # xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
-                      # xml.DEP_CHLD_SFX_NAME claimed: dependent.suffix
-                      # xml.DEP_MNTH_LVD_NMBR claimed: dependent.months_in_home
-                      # xml.DOB_DT claimed: dependent.dob&.strftime("%Y-%m-%d")
+                  @submission.data_source.dependents.each_with_index do |dependent, index|
+                    xml.depInfo do
+                      xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
+                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
+                      xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
+                      xml.DEP_RELATION_DESC claimed: dependent.relationship
+                      xml.DEP_SSN_NMBR claimed: dependent.ssn
+                      xml.DOB_DT claimed: dependent.dob&.strftime("%Y-%m-%d")
                     end
                   end
                 end
-
               end
             end
 
