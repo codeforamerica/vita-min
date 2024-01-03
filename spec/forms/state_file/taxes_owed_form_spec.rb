@@ -42,9 +42,9 @@ RSpec.describe StateFile::TaxesOwedForm do
           account_type: "checking",
           bank_name: "Bank official",
           withdraw_amount: withdraw_amount,
-          date_electronic_withdrawal_month: '1',
-          date_electronic_withdrawal_year: current_year,
-          date_electronic_withdrawal_day: '01'
+          date_electronic_withdrawal_month: '4',
+          date_electronic_withdrawal_year: (MultiTenantService.new(:statefile).current_tax_year + 1).to_s,
+          date_electronic_withdrawal_day: '15'
         }
       end
 
