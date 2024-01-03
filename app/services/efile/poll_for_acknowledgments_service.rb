@@ -96,19 +96,19 @@ module Efile
         raw_response = status_record_group.to_xml
         submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
 
-        ready_for_acknowledgement_statuses = [
+        processing_return_statuses = [
           "Received",
           "Ready for Pickup",
           "Ready for Pick-Up",
           "Sent to State",
           "Received by State",
           "Acknowledgement Received from State",
-          # "Acknowledgement Retrieved", todo: come back to this, might have to "retrieve the Acknowledgement File and keep with the return records to prove the return was Accepted or Rejected"
-          # "Notified",
         ]
 
-        if ready_for_acknowledgement_statuses.include?(status)
-          submission.transition_to(:ready_for_ack, raw_response: raw_response)
+        if processing_return_statuses.include?(status)
+          submission.transition_to(:transmitted, raw_response: raw_response)
+        elsif ["Acknowledgement Retrieved", "Notified"].include?(status)
+          submission.transition_to(:read_for_ack, raw_response: raw_response)
         elsif ["Denied by IRS", "Rejected Acknowledgment Created"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
         elsif ["Accepted Acknowledgment Created", "Accepted Acknowledgment Retrieved"].include?(status)
