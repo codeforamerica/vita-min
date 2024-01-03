@@ -27,7 +27,7 @@ class EfileSubmissionStateMachine
   transition from: :preparing,         to: [:bundling, :fraud_hold]
   transition from: :bundling,          to: [:queued, :failed]
   transition from: :queued,            to: [:transmitted, :failed]
-  transition from: :transmitted,       to: [:accepted, :rejected, :failed, :ready_for_ack]
+  transition from: :transmitted,       to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted]
   transition from: :ready_for_ack,     to: [:accepted, :rejected, :failed, :ready_for_ack]
   transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
