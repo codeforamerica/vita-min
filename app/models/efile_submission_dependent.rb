@@ -47,8 +47,7 @@ class EfileSubmissionDependent < ApplicationRecord
   end
 
   def schedule_eic_4a?
-    return if skip_schedule_eic_question_4?
-
+    return false if skip_schedule_eic_question_4?
     full_time_student_yes? && age_during_tax_year < 24 && younger_than_filers
   end
 
