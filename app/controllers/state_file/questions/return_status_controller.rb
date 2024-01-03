@@ -9,6 +9,7 @@ module StateFile
         @reject_description = reject_description
         @refund_or_owed_amount = refund_or_owed_amount
         @refund_url = refund_url
+        @tax_payment_url = tax_payment_url
       end
 
       private
@@ -39,6 +40,17 @@ module StateFile
           'https://www.tax.ny.gov/pit/file/refund.htm'
         when 'az'
           'https://aztaxes.gov/home/checkrefund'
+        else
+          ''
+        end
+      end
+
+      def tax_payment_url
+        case params[:us_state]
+        when 'ny'
+          'Tax.NY.gov'
+        when 'az'
+          'AZTaxes.gov'
         else
           ''
         end
