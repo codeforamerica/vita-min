@@ -200,13 +200,12 @@ class StateFileBaseIntake < ApplicationRecord
         first_name = dependent.at('DependentFirstNm').text
         last_name = dependent.at('DependentLastNm').text
         relationship = dependent.at('DependentRelationshipCd').text
-        # ssn = dependent.at('DependentSSN').text # Can't query on encrypted field.
         dependents << StateFileDependent.where(
           first_name: first_name, last_name: last_name, relationship: relationship
         ).take
       end
     end
-    dependents
+    dependents.compact
   end
 
   def dependents_eligible_for_eitc
@@ -219,6 +218,6 @@ class StateFileBaseIntake < ApplicationRecord
         first_name: first_name, last_name: last_name, relationship: relationship
       ).take
     end
-    dependents
+    dependents.compact
   end
 end
