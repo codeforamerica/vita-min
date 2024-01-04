@@ -26,6 +26,13 @@ module SubmissionBuilder
                     xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_14)
                     xml.ESC_FY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_15)
                     xml.ESC_PY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_16)
+                    # xml.Process do
+                    #   @submission.data_source.dependents_eligible_for_child_tax_credit.each_with_index do |dependent, index|
+                    #     xml.Dependent do
+                    #       xml.DEP_SSN_NMBR claimed: dependent.ssn
+                    #     end
+                    #   end
+                    # end
                   end
                 end
               end
