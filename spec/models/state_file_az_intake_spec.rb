@@ -219,4 +219,22 @@ describe StateFileAzIntake do
       expect(intake.qualifying_parents_and_grandparents).to eq(1)
     end
   end
+
+  describe 'ask_whether_incarcerated' do
+    let(:intake) { create :state_file_az_intake }
+
+    context "when should ask" do
+      it 'asks whether incarcerated' do
+        intake.direct_file_data.fed_agi = 10000
+        expect(intake.ask_whether_incarcerated?).to eq true
+      end
+    end
+
+    context "when should not ask" do
+      it 'does not ask whether incarcerated' do
+        intake.direct_file_data.fed_agi = 20000
+        expect(intake.ask_whether_incarcerated?).to eq false
+      end
+    end
+  end
 end
