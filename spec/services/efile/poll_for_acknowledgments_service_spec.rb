@@ -128,18 +128,14 @@ describe Efile::PollForAcknowledgmentsService do
               expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
             end
 
-            # TODO: Not sure if this is still a valid case
-            xit "sends metrics to Datadog" do
+            it "sends metrics to Datadog" do
               Efile::PollForAcknowledgmentsService.run
 
-              #expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 100)
-              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.requested", 101)
+              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.requested", 0)
               expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.received", 0)
-              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 0)
-              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 0)
-
-              #expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 2)
-              #expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 1)
+              expect(DatadogApi).to have_received(:increment).with("efile.poll_for_submissions_status")
+              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 1)
+              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 1)
               expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
             end
 
