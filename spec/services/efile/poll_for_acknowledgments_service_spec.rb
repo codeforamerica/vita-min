@@ -105,7 +105,7 @@ describe Efile::PollForAcknowledgmentsService do
         context "when the IRS has an acknowledgement ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                                .with("test", "acks", efile_submission.irs_submission_id, state_efile_submission.irs_submission_id)
+                                                .with("test", "acks", state_efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
           end
 
@@ -122,8 +122,7 @@ describe Efile::PollForAcknowledgmentsService do
               allow(ClientPdfDocument).to receive(:create_or_update) # stub pdf creation in status change callback
             end
 
-            # TODO: Not sure if this is still a valid case
-            xit "changes the state from transmitted to rejected" do
+            it "changes the state from ready_for_ack to rejected" do
               Efile::PollForAcknowledgmentsService.run
               expect(efile_submission.current_state).to eq("rejected")
               expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
