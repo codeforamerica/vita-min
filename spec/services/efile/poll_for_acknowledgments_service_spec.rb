@@ -248,11 +248,10 @@ describe Efile::PollForAcknowledgmentsService do
       let(:gyr_efiler_lock_available) { true }
 
       before do
-        allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_submission_ids).and_return ["example_submission_id"]
+        allow(Efile::PollForAcknowledgmentsService).to receive(:ready_for_ack_submission_ids).and_return ["example_submission_id"]
         allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_raise(Efile::GyrEfilerService::RetryableError)
       end
 
-      # TODO: Not sure if this is still a valid case
       it "exits gracefully" do
         Efile::PollForAcknowledgmentsService.run
         expect(DatadogApi).not_to have_received(:increment).with("efile.poll_for_acks")
