@@ -110,7 +110,7 @@ module Efile
           submission.transition_to(:transmitted, raw_response: raw_response)
         elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include?(status)
           unless status == "Acknowledgement Received from State"
-            Rails.logger.warn("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
+            Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
           end
           submission.transition_to(:ready_for_ack, raw_response: raw_response)
         else

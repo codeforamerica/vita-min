@@ -86,15 +86,14 @@ describe Efile::PollForAcknowledgmentsService do
 
           before do
             efile_submission.transition_to!(:accepted)
-            allow(described_class).to receive(:transmitted_submission_ids).and_return [efile_submission.irs_submission_id]
+            allow(described_class).to receive(:ready_for_ack_submission_ids).and_return [efile_submission.irs_submission_id]
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
                                                 .with("test", "acks", efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
             allow(Sentry).to receive(:capture_message)
           end
 
-          # TODO: Not sure if this is still a valid case
-          xit "records a message to Sentry but does not raise an error" do
+          it "records a message to Sentry but does not raise an error" do
             expect {
               Efile::PollForAcknowledgmentsService.run
             }.not_to raise_error
