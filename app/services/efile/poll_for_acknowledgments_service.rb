@@ -109,7 +109,7 @@ module Efile
             "Received by State"].include?(status)
           # no action required - the IRS are still working on it
           submission.transition_to(:transmitted, raw_response: raw_response)
-        elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include(status)
+        elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include?(status)
           unless status == "Acknowledgement Received from State"
             Rails.logger.warn("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
           end
