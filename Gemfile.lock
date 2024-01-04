@@ -190,13 +190,18 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
-    ddtrace (1.9.0)
-      debase-ruby_core_source (>= 0.10.16, <= 3.2.0)
-      libdatadog (~> 1.0.1.1.0)
-      libddwaf (~> 1.5.1.0.0)
+    datadog-ci (0.5.1)
       msgpack
-    debase-ruby_core_source (3.2.0)
+    date (3.3.4)
+    ddtrace (1.18.0)
+      datadog-ci (~> 0.5.0)
+      debase-ruby_core_source (= 3.2.3)
+      libdatadog (~> 5.0.0.1.0)
+      libddwaf (~> 1.14.0.0.0)
+      msgpack
+    debase (3.0.0.beta.8)
+      debase-ruby_core_source (~> 3.2.2)
+    debase-ruby_core_source (3.2.3)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
     delayed_job_active_record (4.1.8)
@@ -328,8 +333,8 @@ GEM
       addressable (~> 2.8)
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
-    libdatadog (1.0.1.1.0)
-    libddwaf (1.5.1.0.1)
+    libdatadog (5.0.0.1.0)
+    libddwaf (1.14.0.0.0)
       ffi (~> 1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -732,7 +737,8 @@ DEPENDENCIES
   combine_pdf
   data_migrate
   database_cleaner
-  ddtrace (~> 1.9.0)
+  ddtrace (~> 1.18.0)
+  debase (= 3.0.0.beta.8)
   delayed_job_active_record
   delayed_job_web
   device_detector (~> 1.0.7)

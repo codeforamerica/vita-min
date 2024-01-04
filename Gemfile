@@ -38,7 +38,7 @@ gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
-gem 'ddtrace', '~> 1.9.0'
+gem 'ddtrace', '~> 1.18.0'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
@@ -113,6 +113,7 @@ group :development, :test do
   gem 'timecop'
   gem 'warning', require: false
   gem 'rspec_junit_formatter'
+  gem 'debase', '3.0.0.beta.8'
 end
 
 group :development do
@@ -126,6 +127,7 @@ group :development do
   gem 'stackprof'
   gem 'memory_profiler'
   gem "letter_opener"
+  gem 'debase', '3.0.0.beta.8'
 end
 
 group :test do
@@ -135,6 +137,7 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
   gem 'percy-capybara'
+  gem 'debase', '3.0.0.beta.8'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
