@@ -33,6 +33,9 @@ module SubmissionBuilder
                   else
                     xml.SP_NYC_MNTH_NMBR claimed: 0
                   end
+                else
+                  xml.PR_NYC_MNTH_NMBR claimed: 0
+                  xml.SP_NYC_MNTH_NMBR claimed: 0
                 end
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
                 xml.INT_AMT claimed: calculated_fields.fetch(:IT201_LINE_2)

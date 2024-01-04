@@ -43,14 +43,9 @@ module PdfFiller
         Foreign_account: xml_value_to_pdf_checkbox('Foreign_account', 'FORGN_ACCT_IND'),
         yonkers_freeze_credit: xml_value_to_pdf_checkbox('yonkers_freeze_credit', 'YNK_LVNG_QTR_IND'),
         E1: xml_value_to_pdf_checkbox('E1', 'NYC_LVNG_QTR_IND'),
+        F1_NYC: claimed_attr_value('PR_NYC_MNTH_NMBR'),
+        F2_NYC: claimed_attr_value('SP_NYC_MNTH_NMBR'),
       }
-      if @submission.data_source.nyc_full_year_resident_yes?
-        answers[:F1_NYC] = '12'
-        answers[:F2_NYC] = @submission.data_source.filing_status_mfj? ? '12' : '0'
-      else
-        answers[:F1_NYC] = '0'
-        answers[:F2_NYC] = '0'
-      end
       answers.merge!(dependents_info(@submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
