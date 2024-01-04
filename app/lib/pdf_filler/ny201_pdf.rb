@@ -46,9 +46,10 @@ module PdfFiller
       }
       if @submission.data_source.nyc_full_year_resident_yes?
         answers[:F1_NYC] = '12'
-        if @submission.data_source.filing_status_mfj?
-          answers[:F2_NYC] = '12'
-        end
+        answers[:F2_NYC] = @submission.data_source.filing_status_mfj? ? '12' : '0'
+      else
+        answers[:F1_NYC] = '0'
+        answers[:F2_NYC] = '0'
       end
       answers.merge!(dependents_info(@submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }))
       answers.merge!(

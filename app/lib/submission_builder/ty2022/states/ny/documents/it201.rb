@@ -30,6 +30,8 @@ module SubmissionBuilder
                   xml.PR_NYC_MNTH_NMBR claimed: 12
                   if @submission.data_source.filing_status_mfj?
                     xml.SP_NYC_MNTH_NMBR claimed: 12
+                  else
+                    xml.SP_NYC_MNTH_NMBR claimed: 0
                   end
                 end
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
