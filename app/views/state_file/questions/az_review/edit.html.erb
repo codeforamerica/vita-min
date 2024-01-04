@@ -42,13 +42,15 @@
     </div>
   </div>
 
-  <div id="incarcerated" class="blue-group">
-    <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".incarcerated") %></p>
-      <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::AzIncarceratedController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
+  <% if current_intake.ask_whether_incarcerated? %>
+    <div id="incarcerated" class="blue-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".incarcerated") %></p>
+        <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::AzIncarceratedController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

@@ -151,4 +151,10 @@ class StateFileAzIntake < StateFileBaseIntake
       eligibility_529_for_non_qual_expense: "yes",
     }
   end
+
+  def ask_whether_incarcerated?
+    has_valid_ssn = primary.ssn.present? && !primary.has_itin?
+    has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
+    has_valid_ssn && has_valid_agi
+  end
 end
