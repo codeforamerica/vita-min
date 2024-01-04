@@ -2405,6 +2405,9 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return. <br/><br/> This usually takes a minute or two. Don't close this page.
+    faq:
+      index:
+        title: Common questions from %{state} taxpayers
     state_file_pages:
       about_page:
         action1_text: Get Started at IRS Direct File

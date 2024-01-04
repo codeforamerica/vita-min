@@ -19,14 +19,15 @@
 
 <section>
   <strong><%= t('.az_section') %></strong>
-  <%= render 'state_taxpayers' %>
+  <%= render 'state_taxpayers', state: "az" %>
 </section>
 
-<section>
+<section class="spacing-above-35">
   <strong><%= t('.ny_section') %></strong>
-  <%= render 'state_taxpayers' %>
+  <%= render 'state_taxpayers', state: "ny" %>
 </section>
 
+<section class="spacing-above-35">
 <% unless Rails.env.production? %>
   <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
   <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
@@ -37,3 +38,4 @@
     </div>
   <% end %>
 <% end %>
+</section>

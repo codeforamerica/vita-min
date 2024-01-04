@@ -1,25 +1,7 @@
-<!--TODO - Fill in links when we have them-->
-
-<div class="spacing-above-15">
-  <%= link_to t("state_file.state_file_pages.about_page.who_can_use_text"), "" %>
-</div>
-
-<div class="spacing-above-15">
-  <%= link_to t("state_file.state_file_pages.about_page.credits_deductions"), "" %>
-</div>
-
-<div class="spacing-above-15">
-  <%= link_to t("state_file.state_file_pages.about_page.credits_deductions_not_html"), "" %>
-</div>
-
-<div class="spacing-above-15">
-  <%= link_to t("state_file.state_file_pages.about_page.other_options"), "" %>
-</div>
-
-<div class="spacing-above-15">
-  <%= link_to t("state_file.state_file_pages.about_page.when_file_by"), "" %>
-</div>
-
-<div class="spacing-above-15 spacing-below-15">
-  <%= t("state_file.state_file_pages.about_page.answers_here_html", answers_url: '') %>
-</div>
+<% product_type = state == 'az' ? :state_file_az : :state_file_ny %>
+<% categories = FaqCategory.where(product_type: product_type) %>
+<% categories.each do |cat| %>
+  <div class="spacing-above-15">
+    <%= link_to cat.name(I18n.locale), state_faq_section_path(section_key: cat.slug, us_state: state) %>
+  </div>
+<% end %>

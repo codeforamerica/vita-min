@@ -1,10 +1,7 @@
 class StateFile::FaqController < ApplicationController
   layout "state_file"
 
-  def index
-    @az_faq_categories = FaqCategory.where(product_type: :az)
-    @ny_faq_categories = FaqCategory.where(product_type: :ny)
-  end
+  def index; end
 
   def section_index
     # validate that it is actually good, 404 if not

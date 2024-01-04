@@ -558,15 +558,14 @@ Rails.application.routes.draw do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         end
         get "login-options", to: "state_file/state_file_pages#login_options"
-        get "/faq", to: "faq#index"
-        # get "/faq/:section_key", to: "faq#section_index", as: :faq_section
-        # get "/faq/:section_key/:question_key", to: "faq#show", as: :faq_question
-        # put "/faq/:section_key/:question_key", to: "faq#answer_survey"
+        get "/faq", to: "state_file/faq#index"
+        get "/faq/:section_key", to: "state_file/faq#section_index", as: :state_faq_section
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
         scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
       end
+
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
       end
