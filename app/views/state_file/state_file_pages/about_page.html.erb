@@ -18,12 +18,12 @@
 <h1 class="h2"><%= t('.common_questions') %></h1>
 
 <section>
-  <strong><%= t('.az_section') %></strong>
+  <strong><%= link_to t('.az_section'), state_faq_path(us_state: "az"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "az" %>
 </section>
 
 <section class="spacing-above-35">
-  <strong><%= t('.ny_section') %></strong>
+  <strong><%= link_to t('.ny_section'), state_faq_path(us_state: "ny"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "ny" %>
 </section>
 
