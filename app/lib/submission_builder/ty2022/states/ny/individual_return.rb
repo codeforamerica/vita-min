@@ -77,22 +77,23 @@ module SubmissionBuilder
                 end
               end
 
-              # @submission.data_source.dependents_eligible_for_child_tax_credit.each_with_index do |dependent, index|
-              #   xml.dependent do
-              #     xml.DEP_SSN_NMBR dependent.ssn
-              #     xml.DEP_SEQ_NMBR index+1
-              #     xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
-              #     xml.DEP_FORM_ID 213
-              #     xml.DEP_RELATION_DESC dependent.relationship
-              #     xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
-              #     xml.DEP_CHLD_LAST_NAME dependent.last_name
-              #     xml.DEP_CHLD_FRST_NAME dependent.first_name
-              #     xml.DEP_CHLD_MI_NAME dependent.middle_initial
-              #     xml.DEP_CHLD_SFX_NAME dependent.suffix
-              #     xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-              #     xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
-              #   end
-              # end
+              # These dependent are for NY IT-213
+              @submission.data_source.dependents_eligible_for_child_tax_credit.each_with_index do |dependent, index|
+                xml.dependent do
+                  xml.DEP_SSN_NMBR dependent.ssn
+                  xml.DEP_SEQ_NMBR index+1
+                  xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
+                  xml.DEP_FORM_ID 348
+                  xml.DEP_RELATION_DESC dependent.relationship
+                  xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
+                  xml.DEP_CHLD_LAST_NAME dependent.last_name
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial
+                  xml.DEP_CHLD_SFX_NAME dependent.suffix
+                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
+                  xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
+                end
+              end
 
               @submission.data_source.dependents_eligible_for_eitc.each_with_index do |dependent, index|
                 xml.dependent do
