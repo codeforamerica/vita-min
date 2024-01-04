@@ -204,4 +204,44 @@ describe StateFileDependent do
       expect(dependent.eligible_for_child_tax_credit).to be_falsey
     end
   end
+
+  describe '.eligible_for_eitc' do
+    let(:intake) { create :intake }
+    let(:xml_data) {
+      xml_data = <<~XML
+        <IRS1040ScheduleEIC>
+          <QualifyingChildInformation>
+            <PersonFirstNm>John</PersonFirstNm>
+            <PersonLastNm>Doe</PersonLastNm>
+            <ChildRelationshipCd>Son</ChildRelationshipCd>
+            <QualifyingChildSSN>300000024</QualifyingChildSSN>
+          </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+      XML
+    }
+    let(:parsed_xml) {
+      OpenStruct.new(
+        parsed_xml: Nokogiri::XML(xml_data)
+      )
+    }
+
+    it 'when the dependent is eligible for EIC/EITC' do
+      intake = double
+      dependent = build(:state_file_dependent, first_name: 'John', last_name: 'Doe', relationship: 'Son', ssn: '300000024')
+      allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+      allow(dependent).to receive(:intake).and_return(intake)
+
+      expect(dependent.eligible_for_eitc).to be_truthy
+    end
+
+    xit 'when the dependent is NOT eligible for EIC/EITC' do
+      intake = double
+      dependent = build(:state_file_dependent, first_name: 'Ronnie', last_name: 'Lee', ssn: '123456789')
+      allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+      allow(dependent).to receive(:intake).and_return(intake)
+
+      expect(dependent.eligible_for_eitc).to be_falsey
+    end
+  end
+
 end
