@@ -67,13 +67,12 @@ describe Efile::PollForAcknowledgmentsService do
           efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
           state_efile_submission.update!(irs_submission_id: "9999992021197yrv4rab")
           allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                              .with("test", "acks", efile_submission.irs_submission_id, state_efile_submission.irs_submission_id)
+                                              .with("test", "acks", state_efile_submission.irs_submission_id)
                                               .and_return("")
         end
 
         context "when the IRS has no acknowledgement ready for this submission" do
-          # TODO: Not sure if this is still a valid case
-          xit "does not change the state" do
+          it "does not change the state" do
             Efile::PollForAcknowledgmentsService.run
             expect(efile_submission.reload.current_state).to eq("transmitted")
           end
