@@ -10,6 +10,8 @@ module StateFile
         @refund_or_owed_amount = refund_or_owed_amount
         @refund_url = refund_url
         @tax_payment_url = tax_payment_url
+        @download_form_name = download_form_name
+        @mail_voucher_address = mail_voucher_address
       end
 
       private
@@ -56,6 +58,36 @@ module StateFile
           ''
         end
       end
+
+      def download_form_name
+        case params[:us_state]
+        when 'ny'
+          'Form IT-201-V'
+        when 'az'
+          'Form AZ-140V'
+        else
+          ''
+        end
+      end
+
+      def mail_voucher_address
+        case params[:us_state]
+        when 'ny'
+          "NYS Personal Income Tax<br/>"\
+          "Processing Center<br/>"\
+          "Box 4124<br/>"\
+          "Binghamton, NY 13902-4124".html_safe
+        when 'az'
+          "Arizona Department of Revenue<br/>"\
+          "PO Box 29085<br/>"\
+          "Phoenix, AZ 85038-9085".html_safe
+        else
+          ''
+        end
+      end
+
+
+
 
       def e_file_error
         @error ||= current_intake.efile_submissions.last.last_transition.efile_errors.take

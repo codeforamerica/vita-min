@@ -21,4 +21,37 @@
   <div>
     <strong>If you are paying by mail via check or money order:</strong>
   </div>
+
+  <div class="spacing-above-15">
+    You'll need to include the payment voucher form.
+    (<%= @download_form_name %>)
+  </div>
+
+  <div>
+    <!-- TODO update PDF file and add translation in en.yml-->
+    <!-- <a target="_blank" rel="noopener nofollow" href="">Download payment voucher form</a> -->
+    <!-- redirect_to ActionController::Base.helpers.asset_path('document.svg') -->
+    <%= link_to 'Download payment voucher form', ActionController::Base.helpers.asset_path('/pdfs/AZ-140V.pdf') %>
+    <%#= link_to 'Download PDF', '/pdfs/AZ-140V.pdf', download: 'AZ-140V.pdf' %>
+  </div>
+
+  <hr style="{ margin-top: 5px !important;}">
+
+  <% if params[:us_state] == 'az' %>
+
+    <div>
+    Make your check or money order payable to Arizona Department of Revenue.
+      Write your full SSN, “2023 Tax” and 140 on your payment.
+    </div>
+    <hr>
+  <% end %>
+
+  <div class="spacing-below-15">
+    Mail the voucher form and payment to:
+  </div>
+
+  <strong>
+    <%= @mail_voucher_address %>
+  </strong>
+
 </div>
