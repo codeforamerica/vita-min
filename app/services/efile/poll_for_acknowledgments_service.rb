@@ -10,7 +10,7 @@ module Efile
         state_submission_ids = transmitted_state_submission_ids
         poll(state_submission_ids, "submissions-status")
 
-        submission_ids = transmitted_submission_ids
+        submission_ids = ready_for_ack_submission_ids
         poll(submission_ids, "acks")
       end
     end
@@ -36,6 +36,12 @@ module Efile
       DatadogApi.increment("efile.poll_for_#{dd_tag}")
     end
 
+    def self.ready_for_ack_submission_ids
+      transmitted_submissions = EfileSubmission.in_state(:ready_for_ack)
+      transmitted_submissions.touch_all(:last_checked_for_ack_at)
+      transmitted_submissions.pluck(:irs_submission_id)
+    end
+
     def self.transmitted_submission_ids
       transmitted_submissions = EfileSubmission.in_state(:transmitted).where.not(tax_return: nil).or(
         EfileSubmission.in_state(:ready_for_ack)
@@ -47,7 +53,6 @@ module Efile
     def self.transmitted_state_submission_ids
       transmitted_submissions = EfileSubmission.in_state(:transmitted)
       state_submissions = transmitted_submissions.for_state_filing
-      state_submissions.touch_all(:last_checked_for_ack_at)
       state_submissions.pluck(:irs_submission_id)
     end
 
@@ -96,12 +101,18 @@ module Efile
         raw_response = status_record_group.to_xml
         submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
 
-        if ["Acknowledgement Received from State", "Received", "Ready for Pickup", "Received by State"].include?(status)
+        if ["Received",
+            "Ready for Pickup",
+            "Ready for Pick-Up",
+            "Sent to State",
+            "Received by State"].include?(status)
+          # no action required - the IRS are still working on it
+          submission.transition_to(:transmitted, raw_response: raw_response)
+        elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include?(status)
+          unless status == "Acknowledgement Received from State"
+            Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
+          end
           submission.transition_to(:ready_for_ack, raw_response: raw_response)
-        elsif ["Denied by IRS", "Rejected Acknowledgment Created"].include?(status)
-          submission.transition_to(:rejected, raw_response: raw_response)
-        elsif ["Accepted Acknowledgment Created", "Accepted Acknowledgment Retrieved"].include?(status)
-          submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
           submission.transition_to(:failed, raw_response: raw_response)
         end
