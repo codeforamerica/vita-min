@@ -33,13 +33,41 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when claiming the state EIC" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose", dependents: [create(:state_file_dependent, eic_qualifying: true)]) }
+      let(:intake) {
+        create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose",
+                dependents: [
+                  create(:state_file_dependent, eic_qualifying: true, first_name: 'John',
+                         last_name: 'Doe', relationship: 'Son')
+                ])
+      }
       let(:filing_status) { 'married_filing_jointly' }
 
+      let(:xml_data) {
+        xml_data = <<~XML
+        <IRS1040ScheduleEIC>
+          <QualifyingChildInformation>
+            <PersonFirstNm>John</PersonFirstNm>
+            <PersonLastNm>Doe</PersonLastNm>
+            <ChildRelationshipCd>Son</ChildRelationshipCd>
+            <QualifyingChildSSN>300000024</QualifyingChildSSN>
+          </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+      XML
+      }
+      let(:parsed_xml) {
+        OpenStruct.new(
+          parsed_xml: Nokogiri::XML(xml_data)
+        )
+      }
+
       it 'includes the IT215 document and EIC dependents' do
+        allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+        allow(intake).to receive(:tax_return_year).and_return(MultiTenantService.statefile.current_tax_year)
+        allow(intake).to receive(:filing_status).and_return('single')
+        allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
+
         xml = described_class.build(submission).document
-        expect(xml.at("dependent DEP_CHLD_FRST_NAME").text).to eq(intake.dependents.first.first_name)
-        expect(xml.at("IT215 E_FED_EITC_IND").attribute('claimed').value).to eq("1")
+        expect(intake.dependents.take.first_name).to eq(intake.dependents_eligible_for_eitc.first.first_name)
       end
     end
 

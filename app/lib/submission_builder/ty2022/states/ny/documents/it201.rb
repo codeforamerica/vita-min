@@ -82,7 +82,7 @@ module SubmissionBuilder
                 xml.PR_SGN_IND claimed: 1
 
                 xml.IT201FEDADJID do
-                  @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |type, info|
+                  @submission.data_source.direct_file_data.fed_adjustments_claimed&.each do |type, info|
                     xml.descAmt do
                       xml.DESCRIPTION claimed: info[:xml_label]
                       xml.AMOUNT claimed: info[:amount]
