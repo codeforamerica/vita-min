@@ -248,6 +248,7 @@ en:
         withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
   general:
     NA: N/A
+    about: About
     access_denied: You are not authorized to take this action.
     activate_all: Activate All
     active: active

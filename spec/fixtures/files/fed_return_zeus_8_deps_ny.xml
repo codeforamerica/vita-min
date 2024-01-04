@@ -70,7 +70,7 @@
         <DependentFirstNm>Poseidon</DependentFirstNm>
         <DependentLastNm>Storm</DependentLastNm>
         <DependentNameControlTxt>STOR</DependentNameControlTxt>
-        <DependentSSN>900000028</DependentSSN>
+        <DependentSSN>900500028</DependentSSN>
         <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
         <EligibleForODCInd>X</EligibleForODCInd>
       </DependentDetail>
@@ -94,7 +94,7 @@
         <DependentFirstNm>Helen</DependentFirstNm>
         <DependentLastNm>Troy</DependentLastNm>
         <DependentNameControlTxt>TROY</DependentNameControlTxt>
-        <DependentSSN>900000025</DependentSSN>
+        <DependentSSN>900500025</DependentSSN>
         <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
         <EligibleForODCInd>X</EligibleForODCInd>
       </DependentDetail>
@@ -202,16 +202,16 @@
         <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
       <QualifyingChildInformation>
-        <QualifyingChildNameControlTxt>TROY</QualifyingChildNameControlTxt>
+        <QualifyingChildNameControlTxt>THUN</QualifyingChildNameControlTxt>
         <ChildFirstAndLastName>
-          <PersonFirstNm>Helen</PersonFirstNm>
-          <PersonLastNm>Troy</PersonLastNm>
+          <PersonFirstNm>Hebe</PersonFirstNm>
+          <PersonLastNm>Thunder</PersonLastNm>
         </ChildFirstAndLastName>
-        <QualifyingChildSSN>900000025</QualifyingChildSSN>
-        <ChildBirthYr>2012</ChildBirthYr>
+        <QualifyingChildSSN>300000023</QualifyingChildSSN>
+        <ChildBirthYr>2008</ChildBirthYr>
         <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
         <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
-        <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
       <QualifyingChildInformation>

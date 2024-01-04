@@ -249,6 +249,7 @@ es:
         withdrawal_date_deadline: Ingrese una fecha anterior al 15 de abril de %{year}
   general:
     NA: N/A
+    about: Acerca de
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
