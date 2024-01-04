@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class DataTransferOffboardingController < AuthenticatedQuestionsController
       helper_method :ineligible_reason
+      skip_before_action :require_state_file_intake_login
 
       def ineligible_reason
         key = current_intake.disqualifying_df_data_reason
