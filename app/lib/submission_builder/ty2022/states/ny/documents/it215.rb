@@ -14,45 +14,6 @@ module SubmissionBuilder
 
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
-                # @submission.data_source.dependents_eligible_for_eitc.each_with_index do |dependent, idx|
-                #   xml.dependent do
-                #
-                #   end
-                #   xml.DEP_SSN_NMBR claimed: dependent.ssn
-                #   xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                #
-                #   # xml.dependent do
-                #   #   # xml.DEP_SSN_NMBR claimed: dependent.ssn
-                #   #   # xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                #   #
-                #   #   xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                #   #   xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
-                #   #   xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                #   #   xml.DEP_RELATION_DESC claimed: dependent.relationship
-                #   #   xml.DEP_SSN_NMBR claimed: dependent.ssn
-                #   #   xml.DOB_DT claimed: dependent.dob&.strftime("%Y-%m-%d")
-                #   # end
-                #
-                #   # xml.dependent do
-                #     # xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                #     # xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
-                #     # xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                #     # xml.DEP_CHLD_SFX_NAME claimed: dependent.suffix
-                #     # xml.DEP_SSN_NMBR claimed: dependent.ssn
-                #     # xml.DOB_DT claimed: dependent.dob&.strftime("%Y-%m-%d")
-                #
-                #     # xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
-                #     # xml.DEP_FORM_ID 215
-                #     # xml.DEP_RELATION_DESC dependent.relationship
-                #     # xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
-                #     # xml.DEP_CHLD_LAST_NAME dependent.last_name
-                #     # xml.DEP_CHLD_MI_NAME dependent.middle_initial
-                #     # xml.DEP_CHLD_SFX_NAME dependent.suffix
-                #     # xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                #     # xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
-                #   # end
-                # end
-
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
                 xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
                 xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")
