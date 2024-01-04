@@ -139,12 +139,11 @@ describe Efile::PollForAcknowledgmentsService do
               expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
             end
 
-            # TODO: Not sure if this is still a valid case
-            xit "updates the last_checked_for_ack_at" do
+            it "updates the last_checked_for_ack_at" do
               freeze_time do
-                expect(efile_submission.last_checked_for_ack_at).to eq(nil)
+                expect(state_efile_submission.last_checked_for_ack_at).to eq(nil)
                 Efile::PollForAcknowledgmentsService.run
-                expect(efile_submission.reload.last_checked_for_ack_at).to eq(Time.now)
+                expect(state_efile_submission.reload.last_checked_for_ack_at).to eq(Time.now)
               end
             end
           end
