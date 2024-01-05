@@ -2378,7 +2378,7 @@ en:
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Enter the payer’s information <strong>located in the top left corner</strong> of the form&#58;
-          payer_tin: Payer’s TIN (XX-XXXXXXX)
+          payer_tin: Payer’s TIN (XXXXXXXXX)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?
