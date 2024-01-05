@@ -26,6 +26,7 @@ module SubmissionBuilder
                 xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
                 xml.YNK_LVNG_QTR_IND claimed: 2 # Always 2 == NO
                 xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
+                xml.YNK_WRK_LVNG_IND claimed: 2 # Always 2 == NO
                 if @submission.data_source.nyc_full_year_resident_yes?
                   xml.PR_NYC_MNTH_NMBR claimed: 12
                   if @submission.data_source.filing_status_mfj?
