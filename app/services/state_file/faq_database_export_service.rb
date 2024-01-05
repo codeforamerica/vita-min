@@ -12,6 +12,9 @@ class StateFile::FaqDatabaseExportService
       :not_supported,
       :additionally
     ],
+    other_state_filing_options: [
+      :options
+    ]
   }.freeze
 
   NY_QUESTIONS = {
@@ -27,6 +30,9 @@ class StateFile::FaqDatabaseExportService
       :not_supported,
       :additionally
     ],
+    other_state_filing_options: [
+      :options
+    ]
   }.freeze
 
   def self.export_yml_to_database
@@ -79,5 +85,4 @@ class StateFile::FaqDatabaseExportService
       end
     end
   end
-
 end

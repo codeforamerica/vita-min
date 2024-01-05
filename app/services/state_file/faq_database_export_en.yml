@@ -1,4 +1,3 @@
-#  state_name => category_name [title, description_html] => item [question, answer_html]
 question_groups:
   az:
     who_can_use_this_tool:
@@ -57,7 +56,6 @@ question_groups:
             <li>Child Tax Credit</li>
             <li>Credit for Other Dependents</li>
           </ul>
-
     unsupported_credits_and_deductions:
       title: What Arizona credits and deductions does FileYourStateTaxes not support currently?
       not_supported:
@@ -84,7 +82,6 @@ question_groups:
             <li><a target="_blank" rel="nofollow noopener" href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/">Arizona 529 plan contributions deduction</a></li>
             <li>Itemized deductions</li>
           </ul>
-
       additionally:
         question: "Additionally, you cannot use this tool to:"
         answer_html: |
@@ -97,8 +94,36 @@ question_groups:
           </ul>
           <p>If you already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend checking out your other state filing options.</p>
           <p>If you haven’t already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend seeing if you are eligible to use <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/en">GetYourRefund</a> to file your federal and state returns for free.</p>
-
-
+    other_state_filing_options:
+      title: What are my other state filing options this year?
+      options:
+        question: If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>State Volunteer Income Tax Assistance (VITA) in your state</strong></li>
+            <p>We’ve partnered with VITA sites in your state to create a state-only filing process for eligible households. Volunteers will help prepare and e-file your state tax return for free. This process typically takes 2-3 weeks.</p>
+            <ul>
+              <li>The process:</li>
+            <ul>
+              <li>Complete a short form to request state-only assistance.</li>
+              <li>VITA volunteers will give you a call to ask for additional information.</li>
+              <li>The VITA partner will share a link to securely upload your federal tax form (1040), tax documents, and ID.</li>
+              <li>Once your return is ready, they’ll schedule a call to review and answer any of your questions.</li>
+              <li>You’ll sign your state tax form online.</li>
+              <li>The VITA site will e-file your state taxes.</li>
+            </ul>
+              <li>Get started by completing this short form.</li>
+            </ul>
+            <li><strong>Other companies and services</strong></li>
+            <p>Other companies offer state-only tax filing but be careful not to submit your federal return again if you have already used IRS Direct File. A few tips for choosing a state only tax filing service:</p>
+            <ul>
+              <li>Since you’ve already submitted your federal tax return, check to make sure the service or software you select will allow you to file a state-only tax return. You may need to reach out to their customer support to confirm if and how to do this.</li>
+              <li>Even though you only need to prepare your state return, you’ll be asked to reenter or provide the same information you reported on your federal return.</li>
+              <li>When you file, make sure you only submit your state tax return. If you submit your federal return again, it will likely be rejected.</li>
+              <li>Fees may apply.</li>
+            </ul>
+          </ul>
   ny:
     who_can_use_this_tool:
       title: Who can use FileYourStateTaxes?
@@ -200,4 +225,33 @@ question_groups:
           </ul>
           <p>If you already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend checking out your other state filing options.</p>
           <p>If you haven’t already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend seeing if you are eligible to use <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/en">GetYourRefund</a> to file your federal and state returns for free.</p>
-
+    other_state_filing_options:
+      title: What are my other state filing options this year?
+      options:
+        question: If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>State Volunteer Income Tax Assistance (VITA) in your state</strong></li>
+            <p>We’ve partnered with VITA sites in your state to create a state-only filing process for eligible households. Volunteers will help prepare and e-file your state tax return for free. This process typically takes 2-3 weeks.</p>
+            <ul>
+              <li>The process:</li>
+            <ul>
+              <li>Complete a short form to request state-only assistance.</li>
+              <li>VITA volunteers will give you a call to ask for additional information.</li>
+              <li>The VITA partner will share a link to securely upload your federal tax form (1040), tax documents, and ID.</li>
+              <li>Once your return is ready, they’ll schedule a call to review and answer any of your questions.</li>
+              <li>You’ll sign your state tax form online.</li>
+              <li>The VITA site will e-file your state taxes.</li>
+            </ul>
+              <li>Get started by completing this short form.</li>
+            </ul>
+            <li><strong>Other companies and services</strong></li>
+            <p>Other companies offer state-only tax filing but be careful not to submit your federal return again if you have already used IRS Direct File. A few tips for choosing a state only tax filing service:</p>
+            <ul>
+              <li>Since you’ve already submitted your federal tax return, check to make sure the service or software you select will allow you to file a state-only tax return. You may need to reach out to their customer support to confirm if and how to do this.</li>
+              <li>Even though you only need to prepare your state return, you’ll be asked to reenter or provide the same information you reported on your federal return.</li>
+              <li>When you file, make sure you only submit your state tax return. If you submit your federal return again, it will likely be rejected.</li>
+              <li>Fees may apply.</li>
+            </ul>
+          </ul>

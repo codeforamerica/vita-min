@@ -1,4 +1,3 @@
-#  state_name => category_name [title, description_html] => item [question, answer_html]
 question_groups:
   az:
     who_can_use_this_tool:
@@ -96,6 +95,36 @@ question_groups:
           </ul>
           <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
           <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
+    other_state_filing_options:
+      title: ¿Cuáles son mis otras opciones para presentar la declaración estatal este año?
+      options:
+        question: Si utilizaste IRS Direct File para presentar tu declaración federal y decides no usar FileYourStateTaxes, es probable que aún debas presentar una declaración de impuestos estatal. A continuación, encontrarás más información sobre tus otras opciones de presentación.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>Asistencia Voluntaria en Impuestos sobre los Ingresos (VITA por sus siglas en inglés) en tu estado</strong></li>
+            <p>Nos hemos asociado con sitios VITA en tu estado para crear un proceso de presentación exclusivamente estatal para hogares elegibles. Los voluntarios te ayudarán a preparar y presentar tu declaración de impuestos estatal sin costo. Este proceso suele tomar de 2 a 3 semanas.</p>
+            <ul>
+              <li>El proceso:</li>
+            <ul>
+              <li>Completa un formulario corto para solicitar asistencia solo para el estado.</li>
+              <li>Los voluntarios de VITA te llamarán para solicitar información adicional.</li>
+              <li>El voluntario de VITA compartirá un enlace para subir de forma segura en línea tu formulario de impuestos federales (1040), documentos fiscales e identificación.</li>
+              <li>Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.</li>
+              <li>Firmarás tu formulario de impuestos estatales en línea.</li>
+              <li>El sitio VITA presentará tu declaración de impuestos estatales de forma electrónica.</li>
+            </ul>
+              <li>Comienza completando este formulario.</li>
+            </ul>
+            <li><strong>Otras empresas y servicios</strong></li>
+            <p>Otras empresas ofrecen la presentación de impuestos <strong>sólo para el estado</strong>, pero ten cuidado de no volver a presentar tu declaración federal si ya utilizaste IRS Direct File. Al elegir un servicio de presentación de impuestos sólo para el estado, ten en cuenta lo siguiente:</p>
+            <ul>
+              <li>Dado que ya presentaste tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo la declaración de impuestos estatal. Es posible que debas comunicarte con su servicio de atención al cliente para confirmar si y cómo hacer esto.</li>
+              <li>Aunque solo necesitas preparar tu declaración estatal, es posible que te pidan que vuelvas a ingresar o compartas la misma información que informaste en tu declaración federal.</li>
+              <li>Al presentar, asegúrate de enviar sólo tu declaración de impuestos estatal. Si presentas tu declaración federal nuevamente, es probable que sea rechazada.</li>
+              <li>Se pueden aplicar tarifas.</li>
+            </ul>
+          </ul>
   ny:
     who_can_use_this_tool:
       title: ¿Quién puede utilizar FileYourStateTaxes?
@@ -198,5 +227,33 @@ question_groups:
           </ul>
           <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
           <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
-
-  
+    other_state_filing_options:
+      title: ¿Cuáles son mis otras opciones para presentar la declaración estatal este año?
+      options:
+        question: Si utilizaste IRS Direct File para presentar tu declaración federal y decides no usar FileYourStateTaxes, es probable que aún debas presentar una declaración de impuestos estatal. A continuación, encontrarás más información sobre tus otras opciones de presentación.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>Asistencia Voluntaria en Impuestos sobre los Ingresos (VITA por sus siglas en inglés) en tu estado</strong></li>
+            <p>Nos hemos asociado con sitios VITA en tu estado para crear un proceso de presentación exclusivamente estatal para hogares elegibles. Los voluntarios te ayudarán a preparar y presentar tu declaración de impuestos estatal sin costo. Este proceso suele tomar de 2 a 3 semanas.</p>
+            <ul>
+              <li>El proceso:</li>
+            <ul>
+              <li>Completa un formulario corto para solicitar asistencia solo para el estado.</li>
+              <li>Los voluntarios de VITA te llamarán para solicitar información adicional.</li>
+              <li>El voluntario de VITA compartirá un enlace para subir de forma segura en línea tu formulario de impuestos federales (1040), documentos fiscales e identificación.</li>
+              <li>Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.</li>
+              <li>Firmarás tu formulario de impuestos estatales en línea.</li>
+              <li>El sitio VITA presentará tu declaración de impuestos estatales de forma electrónica.</li>
+            </ul>
+              <li>Comienza completando este formulario.</li>
+            </ul>
+            <li><strong>Otras empresas y servicios</strong></li>
+            <p>Otras empresas ofrecen la presentación de impuestos <strong>sólo para el estado</strong>, pero ten cuidado de no volver a presentar tu declaración federal si ya utilizaste IRS Direct File. Al elegir un servicio de presentación de impuestos sólo para el estado, ten en cuenta lo siguiente:</p>
+            <ul>
+              <li>Dado que ya presentaste tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo la declaración de impuestos estatal. Es posible que debas comunicarte con su servicio de atención al cliente para confirmar si y cómo hacer esto.</li>
+              <li>Aunque solo necesitas preparar tu declaración estatal, es posible que te pidan que vuelvas a ingresar o compartas la misma información que informaste en tu declaración federal.</li>
+              <li>Al presentar, asegúrate de enviar sólo tu declaración de impuestos estatal. Si presentas tu declaración federal nuevamente, es probable que sea rechazada.</li>
+              <li>Se pueden aplicar tarifas.</li>
+            </ul>
+          </ul>
