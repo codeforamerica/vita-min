@@ -25,8 +25,8 @@ module SubmissionBuilder
                 xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
                 xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
                 xml.YNK_LVNG_QTR_IND claimed: 2 # Always 2 == NO
-                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 xml.YNK_WRK_LVNG_IND claimed: 2 # Always 2 == NO
+                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
                 if @submission.data_source.nyc_full_year_resident_yes?
                   xml.PR_NYC_MNTH_NMBR claimed: 12
                   if @submission.data_source.filing_status_mfj?
