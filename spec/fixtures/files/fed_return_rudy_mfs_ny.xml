@@ -7,18 +7,18 @@
     <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
-      <PrimarySSN>900000016</PrimarySSN>
+      <PrimarySSN>900500016</PrimarySSN>
       <SpouseSSN>600000014</SpouseSSN>
       <NameLine1Txt>RUDY&lt;GIULIANI&lt;&amp; KATE MCKINNON</NameLine1Txt>
       <PrimaryNameControlTxt>GIUL</PrimaryNameControlTxt>
       <SpouseNameControlTxt>MCKI</SpouseNameControlTxt>
       <USAddress>
-        <AddressLine1Txt>439 Van Brunt St Apt 4</AddressLine1Txt>
+        <AddressLine1Txt>319 Van Brunt St</AddressLine1Txt>
         <CityNm>Brooklyn</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
         <ZIPCd>11231</ZIPCd>
       </USAddress>
-      <PhoneNum>2125555556</PhoneNum>
+      <PhoneNum>7185556677</PhoneNum>
     </Filer>
     <AdditionalFilerInformation>
       <AtSubmissionFilingGrp>
@@ -31,8 +31,6 @@
       <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
       <SpouseNm>Kate McKinnon</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
-      <Primary65OrOlderInd>X</Primary65OrOlderInd>
-      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
         <DependentFirstNm>Count</DependentFirstNm>
@@ -66,15 +64,15 @@
       <TotalIncomeAmt>20000</TotalIncomeAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
       <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
-      <TotalItemizedOrStandardDedAmt>15350</TotalItemizedOrStandardDedAmt>
-      <TotalDeductionsAmt>15350</TotalDeductionsAmt>
-      <TaxableIncomeAmt>4650</TaxableIncomeAmt>
-      <TaxAmt>468</TaxAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>6150</TaxableIncomeAmt>
+      <TaxAmt>618</TaxAmt>
       <AdditionalTaxAmt>0</AdditionalTaxAmt>
-      <TotalTaxBeforeCrAndOthTaxesAmt>468</TotalTaxBeforeCrAndOthTaxesAmt>
-      <CTCODCAmt>468</CTCODCAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>618</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>618</CTCODCAmt>
       <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
-      <TotalCreditsAmt>468</TotalCreditsAmt>
+      <TotalCreditsAmt>618</TotalCreditsAmt>
       <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
       <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
       <TotalTaxAmt>0</TotalTaxAmt>
@@ -85,18 +83,16 @@
       <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
       <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">0</EarnedIncomeCreditAmt>
       <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
-      <RefundableCreditsAmt>1532</RefundableCreditsAmt>
-      <TotalPaymentsAmt>3532</TotalPaymentsAmt>
-      <OverpaidAmt>3532</OverpaidAmt>
-      <RefundAmt>3532</RefundAmt>
-      <RoutingTransitNum>123123123</RoutingTransitNum>
-      <BankAccountTypeCd>1</BankAccountTypeCd>
-      <DepositorAccountNum>123412341234</DepositorAccountNum>
+      <RefundableCreditsAmt>1382</RefundableCreditsAmt>
+      <TotalPaymentsAmt>3382</TotalPaymentsAmt>
+      <OverpaidAmt>3382</OverpaidAmt>
+      <RefundAmt>3382</RefundAmt>
       <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
       <OwedAmt>0</OwedAmt>
       <EsPenaltyAmt>0</EsPenaltyAmt>
       <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-      <PrimaryOccupationTxt>Hair dyer</PrimaryOccupationTxt>
+      <PrimaryOccupationTxt>Hair dryer</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Comedian</SpouseOccupationTxt>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
     <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
@@ -112,13 +108,13 @@
       <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
       <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
       <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
-      <ACTCTaxLiabiltyLimitAmt>468</ACTCTaxLiabiltyLimitAmt>
-      <CTCODCAmt>468</CTCODCAmt>
+      <ACTCTaxLiabiltyLimitAmt>618</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>618</CTCODCAmt>
       <ClaimACTCAllFilersGrp>
-        <ACTCBeforeLimitAmt>1532</ACTCBeforeLimitAmt>
+        <ACTCBeforeLimitAmt>1382</ACTCBeforeLimitAmt>
         <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
         <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
-        <ACTCAfterLimitAmt>1532</ACTCAfterLimitAmt>
+        <ACTCAfterLimitAmt>1382</ACTCAfterLimitAmt>
         <TotalEarnedIncomeAmt>20000</TotalEarnedIncomeAmt>
         <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
         <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
@@ -131,7 +127,7 @@
         <CalculatedDifferenceAmt>1530</CalculatedDifferenceAmt>
         <LargerCalcIncomeOrDiffAmt>2625</LargerCalcIncomeOrDiffAmt>
       </ClaimACTCAllFilersGrp>
-      <AdditionalChildTaxCreditAmt>1532</AdditionalChildTaxCreditAmt>
+      <AdditionalChildTaxCreditAmt>1382</AdditionalChildTaxCreditAmt>
     </IRS1040Schedule8812>
     <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
       <QualifyingChildInformation>
@@ -149,7 +145,7 @@
       </QualifyingChildInformation>
     </IRS1040ScheduleEIC>
     <IRSW2 documentId="W20001" documentName="IRSW2">
-      <EmployeeSSN>900000016</EmployeeSSN>
+      <EmployeeSSN>300008888</EmployeeSSN>
       <EmployerEIN>678912345</EmployerEIN>
       <EmployerNameControlTxt>FOUR</EmployerNameControlTxt>
       <EmployerName>
@@ -163,7 +159,7 @@
       </EmployerUSAddress>
       <EmployeeNm>Rudy Giuliani</EmployeeNm>
       <EmployeeUSAddress>
-        <AddressLine1Txt>439 Van Brunt St Apt 4</AddressLine1Txt>
+        <AddressLine1Txt>319 Van Brunt St</AddressLine1Txt>
         <CityNm>Brooklyn</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
         <ZIPCd>11231</ZIPCd>
@@ -186,7 +182,7 @@
           <StateAbbreviationCd>NY</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
           <StateWagesAmt>20000</StateWagesAmt>
-          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
             <LocalWagesAndTipsAmt>20000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
