@@ -1,0 +1,14 @@
+question_groups:
+  az:
+    who_can_use_this_tool:
+      title: Who can use this tool?
+      in_order_to_file:
+        answer_html: |
+          <p><strong>In order to file your 2023 Arizona state taxes using FileYourStateTaxes, you (and your spouse) must:</strong></p>
+          <ul>
+            <li>File your 2023 federal tax return using IRS Direct File and agree to transfer your federal tax return information to FileYourStateTaxes.</li>
+            <li>Have lived in Arizona for all of 2023.</li>
+            <li>Have no additional income from other states in 2023.</li>
+            <li>If you are married, you and your spouse must file 2023 taxes jointly (you cannot file “married filing separately”).</li>
+          </ul>
+        question: "In order to file your 2023 Arizona state taxes using FileYourStateTaxes, you (and your spouse) must:"

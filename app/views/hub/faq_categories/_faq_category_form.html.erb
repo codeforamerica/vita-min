@@ -25,6 +25,18 @@
   <%= f.cfa_input_field :name_es, "Name (Spanish)", classes: ["form-width--long"] %>
 </div>
 
+<% unless product_type == :gyr %>
+  <div class="spacing-above-25">
+    <%= f.label :description_en, "Description (English)", class: "h4" %>
+    <%= f.rich_text_area :description_en %>
+  </div>
+
+  <div class="spacing-above-25">
+    <%= f.label :description_es, "Description (Spanish)", class: "h4" %>
+    <%= f.rich_text_area :description_es %>
+  </div>
+<% end %>
+
 <% if edit_form %>
   <div class="spacing-above-25">
     <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>

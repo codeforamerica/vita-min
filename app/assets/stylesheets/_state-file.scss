@@ -188,10 +188,11 @@
     .list--bulleted {
       padding-left: 1.5rem;
     }
+  }
 
-    .bulleted ul {
-      list-style: disc;
-    }
+  .bulleted ul {
+    padding-left: 3rem;
+    list-style: disc;
   }
 
   .button {

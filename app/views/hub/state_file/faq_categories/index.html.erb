@@ -3,10 +3,11 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <%= render 'hub/faq_categories/header', titles: [@title]%>
-    <%= link_to "Add new AZ FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_az"), method: :get, class: "button spacing-below-0" %>
-    <%= link_to "Add new NY FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_ny"), method: :get, class: "button spacing-below-0" %>
+    <a href="#az-cats" class="button spacing-below-0">Jump to AZ ↓</a>
+    <a href="#ny-cats" class="button spacing-below-0">Jump to NY ↓</a>
     <hr/>
-    <h2>Arizona</h2>
+    <h2 id="az-cats">Arizona</h2>
+    <%= link_to "Add new AZ FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_az"), method: :get, class: "button spacing-below-35" %>
     <% @az_faq_categories.each do |category| %>
       <%= render 'faq_categories_and_items', category: category %>
     <% end %>
@@ -14,7 +15,8 @@
       <p>No Arizona FAQ categories currently...perhaps reseed (run `FaqDatabaseExportService.export_yml_to_database` in console)</p>
     <% end %>
     <hr/>
-    <h2>New York</h2>
+    <h2 id="ny-cats">New York</h2>
+    <%= link_to "Add new NY FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_ny"), method: :get, class: "button spacing-below-35" %>
     <% @ny_faq_categories.each do |category| %>
       <%= render 'faq_categories_and_items', category: category %>
     <% end %>

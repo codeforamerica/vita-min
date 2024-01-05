@@ -8,6 +8,8 @@ module Hub
       :slug,
       :name_en,
       :name_es,
+      :description_en,
+      :description_es,
       :product_type
     )
 
