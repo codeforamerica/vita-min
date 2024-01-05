@@ -234,7 +234,7 @@ describe StateFileDependent do
       expect(dependent.eligible_for_eitc).to be_truthy
     end
 
-    xit 'when the dependent is NOT eligible for EIC/EITC' do
+    it 'when the dependent is NOT eligible for EIC/EITC' do
       intake = double
       dependent = build(:state_file_dependent, first_name: 'Ronnie', last_name: 'Lee', ssn: '123456789')
       allow(intake).to receive(:direct_file_data).and_return(parsed_xml)
