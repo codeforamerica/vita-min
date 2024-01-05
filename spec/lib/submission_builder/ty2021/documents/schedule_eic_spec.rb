@@ -85,8 +85,8 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[0].at("IdentityProtectionPIN").text).to eq "123456"
     expect(dependent_nodes[0].at("QualifyingChildSSN").text).to eq "123001234"
     expect(dependent_nodes[0].at("ChildBirthYr").text).to eq submission.intake.dependents.first.birth_date.year.to_s
-    expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "true"
-    expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd")).to be_nil
+    expect(dependent_nodes[0].at("ChildIsAStudentUnder24Ind").text).to eq "false"
+    expect(dependent_nodes[0].at("ChildPermanentlyDisabledInd").text).to eq "false"
     expect(dependent_nodes[0].at("ChildRelationshipCd").text).to eq "DAUGHTER"
     expect(dependent_nodes[0].at("MonthsChildLivedWithYouCnt").text).to eq "10"
     # Second dependent
@@ -96,8 +96,8 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[1].at("IdentityProtectionPIN").text).to eq "123456"
     expect(dependent_nodes[1].at("QualifyingChildSSN").text).to eq "123001235"
     expect(dependent_nodes[1].at("ChildBirthYr").text).to eq submission.intake.dependents.second.birth_date.year.to_s
-    expect(dependent_nodes[1].at("ChildIsAStudentUnder24Ind")).to be_nil
-    expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd")).to be_nil
+    expect(dependent_nodes[1].at("ChildIsAStudentUnder24Ind").text).to eq "false"
+    expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd").text).to eq "true"
     expect(dependent_nodes[1].at("ChildRelationshipCd").text).to eq "SON"
     expect(dependent_nodes[1].at("MonthsChildLivedWithYouCnt").text).to eq "08"
     # Third dependent

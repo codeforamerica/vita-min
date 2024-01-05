@@ -192,7 +192,7 @@ describe EfileSubmissionDependent do
 
       it "they do not meet the conditions to fill out question 4" do
         expect(efile_submission_dependent.skip_schedule_eic_question_4?).to be_truthy
-        expect(efile_submission_dependent.schedule_eic_4a?).to eq nil
+        expect(efile_submission_dependent.schedule_eic_4a?).to be_falsey
       end
     end
 
@@ -220,8 +220,8 @@ describe EfileSubmissionDependent do
       let(:birth_date) { 16.years.ago }
       let(:permanently_totally_disabled) { "yes" }
 
-      it "is nil" do
-        expect(efile_submission_dependent.schedule_eic_4b?).to eq nil
+      it "is truthy" do
+        expect(efile_submission_dependent.schedule_eic_4b?).to eq true
       end
     end
 
