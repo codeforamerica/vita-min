@@ -1,10 +1,11 @@
+#  state_name => category_name [title, description_html] => item [question, answer_html]
 question_groups:
   az:
     who_can_use_this_tool:
-      title: Who can use this tool?
+      title: Who can use FileYourStateTaxes?
       in_order_to_file:
         answer_html: |
-          <p><strong>In order to file your 2023 Arizona state taxes using FileYourStateTaxes, you (and your spouse) must:</strong></p>
+          <p><strong>In order to file your 2023 Arizona state taxes using FileYourStateTaxes, you (and your spouse) <em>must</em>:</strong></p>  
           <ul>
             <li>File your 2023 federal tax return using IRS Direct File and agree to transfer your federal tax return information to FileYourStateTaxes.</li>
             <li>Have lived in Arizona for all of 2023.</li>
@@ -12,3 +13,191 @@ question_groups:
             <li>If you are married, you and your spouse must file 2023 taxes jointly (you cannot file “married filing separately”).</li>
           </ul>
         question: "In order to file your 2023 Arizona state taxes using FileYourStateTaxes, you (and your spouse) must:"
+      uncommon_situations_that_would_disqualify_you:
+        question: "Uncommon situations that would disqualify you from using FileYourStateTaxes:"
+        answer_html: |
+          <p>Uncommon situations that would disqualify you from using FileYourStateTaxes:</p>
+          <ul>
+            <li>If you withdrew money from a 529 college savings play and the funds were <strong>not</strong> used to pay for qualifying education expenses.</li>
+            <ul>
+              <li>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000. Most other expenses do not qualify.</li>
+            </ul>
+            <li>You want to file your federal and state tax returns using different filing statuses (for example you file as Head of Household on your federal tax return and want to file Single on your state tax return).</li>
+            <li>You want to submit an extension to file your state taxes later.</li>
+            <li>You or your spouse qualify as an <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/forms/individual/request-injured-spouse-protection-application-joint-overpayment-against-spouses">injured</a> spouse and are requesting protection from a reduction in your refund due to the other person’s delinquencies or debts.</li>
+            <li>You have additional income you are required to report on your Arizona return that was not included on your federal return (for example, interest income from a non-Arizona municipal bond). <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_INDIVIDUAL_2022_140BOOKLET.pdf#page=29" target="_blank" rel="nofollow noopener">See all additions on page 5 of AZ Form 140.</a></li>
+            <li>You received a notice from the Arizona Department of Revenue informing you that a credit you claimed in a previous tax year is subject to "recapture" (that is, you have to pay back a portion of a previously claimed credit).</li>
+          </ul>
+    az_supported_credits_and_deductions:
+      title: What Arizona credits and deductions does FileYourStateTaxes support this year?
+      fyst_help:
+        question: "FileYourStateTaxes can help you claim state credits, deductions, and exemptions to help you maximize your refund, including:"
+        answer_html: |
+          <p><strong>FileYourStateTaxes can help you claim state credits, deductions, and exemptions to help you maximize your refund, including:</strong></p>
+          <ul>
+            <li>Exemptions for you, your spouse, and dependents if:</li>
+            <ul>
+              <li>You or your spouse are 65 or older, or blind</li>
+              <li>You have dependents under the age of 17</li>
+              <li>You have qualifying parents and grandparents</li>
+            </ul>
+            <li>Standard deduction</li>
+            <li>An increased deduction for charitable contributions</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions">Dependent Credit</a></li>
+            <li>Family Income Credit</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes">Increased Excise Credit</a></li>
+            <li>Arizona state taxes withheld from your wages or unemployment benefits</li>
+          </ul>
+      irs_help:
+        question: "IRS Direct File will help you claim the most common federal tax credits before you use FileYourStateTaxes, including:"
+        answer_html: |
+          <p><strong>IRS Direct File will help you claim the most common federal tax credits before you use FileYourStateTaxes, including:</strong></p>
+          <ul>
+            <li>Earned Income Tax Credit</li>
+            <li>Child Tax Credit</li>
+            <li>Credit for Other Dependents</li>
+          </ul>
+
+    unsupported_credits_and_deductions:
+      title: What Arizona credits and deductions does FileYourStateTaxes not support currently?
+      not_supported:
+        question: "Currently, the tool does not support:"
+        answer_html: |
+          <p><strong>Currently, the tool does not support:</strong></p>
+          <ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/public-school-tax-credit">Public School Tax Credit.</a>To qualify for this credit, you must:</li>
+            <ul>
+              <li>Have paid school-related fees or donated money to a public school</li>
+              <li>Provide school information, including the <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf">CTDS code</a></li>
+            </ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits">Property Tax Credit.</a> To qualify for this credit you must:</li>
+            <ul>
+              <li>Be 65 or older; or receive Supplemental Security Income, and;</li>
+              <li>Have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others.</li>
+              <li>Have paid property taxes or rent on a home in Arizona during the year</li>
+            </ul>
+            <li>Nonrefundable credits listed on <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf">AZ Form 301</a>, including:</li>
+            <ul>
+              <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos">Credit for Contributions to Qualifying Charitable Organizations</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos">Credit for Contributions to Qualifying Foster Care Charitable Organizations</a></li>
+            </ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/">Arizona 529 plan contributions deduction</a></li>
+            <li>Itemized deductions</li>
+          </ul>
+
+      additionally:
+        question: "Additionally, you cannot use this tool to:"
+        answer_html: |
+          <p>Additionally, you <strong>cannot</strong> use this tool to:</p>
+          <ul>
+            <li>Add dependents not claimed on the federal return</li>
+            <li>Claim estimated taxes paid in 2023</li>
+            <li>Claim credits you want to carry over from a prior year tax return. For example, if you claimed a <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf">nonrefundable credit</a> last year that was greater than your taxes owed, you cannot use this tool to claim the remainder of that prior year credit.</li>
+            <li>Make voluntary contributions directly on your tax return</li>
+          </ul>
+          <p>If you already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend checking out your other state filing options.</p>
+          <p>If you haven’t already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend seeing if you are eligible to use <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/en">GetYourRefund</a> to file your federal and state returns for free.</p>
+
+
+  ny:
+    who_can_use_this_tool:
+      title: Who can use FileYourStateTaxes?
+      in_order_to_file:
+        question: "In order to use FileYourStateTaxes in New York, you (and your spouse) must:"
+        answer_html: |
+          <p><strong>In order to use FileYourStateTaxes in New York, you (and your spouse) <em>must</em>:</strong></p>  
+          <ul>
+            <li>File your federal tax return using IRS Direct File and agree to transfer your federal tax return information to FileYourStateTaxes.</li>
+            <li>Have lived in New York for all of 2023.</li>
+            <li>Have no income from other states in 2023.</li>
+            <li>Not have lived, earned income, or maintained a home in Yonkers in 2023.</li>
+            <li>Not have been <strong>part-year</strong> New York City residents in 2023. <em>Full-year NYC residents are eligible to use this tool.</em></li>
+            <ul>
+              <li>New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.</li>
+            </ul>
+            <li>Not have withdrawn funds from a 529 college savings plan.</li>
+          </ul>
+      uncommon_situations_that_would_disqualify_you:
+        question: "Uncommon situations that would disqualify you from using FileYourStateTaxes:"
+        answer_html: |
+          <p><strong>Uncommon situations that would disqualify you from using FileYourStateTaxes:</strong></p>
+          <ul>
+            <li>New York additions or subtractions to income reported on Form <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pdf/2022/printable-pdfs/inc/it225i-2022.pdf">IT-225</a>, including contributions to a NYC flexible benefit program reported on W-2, box 14, labeled “IRC 125”.</li>
+            <li>Filing with a special condition code on line G of IT-201.</li>
+            <ul>
+              <li>This includes extensions to file for specific purposes such as combat duty or death of a spouse.</li>
+            </ul>
+            <li>You want to file a state filing extension.</li>
+            <li>You need to file a 2023 amended state return to correct a return previously filed.</li>
+            <li>You want to file your federal and state tax returns using different filing statuses (for example you file as Head of Household on your federal tax return and want to file Single on your state tax return).</li>
+          </ul>
+    ny_supported_credits_and_deductions:
+      title: What New York credits and deductions does this tool support currently?
+      fyst_help:
+        question: "FileYourStateTaxes can help you claim state credits, deductions, and exemptions to help you maximize your refund, including:"
+        answer_html: |
+          <p><strong>FileYourStateTaxes can help you claim state credits, deductions, and exemptions to help you maximize your refund, including:</strong></p>
+          <ul>
+              <li>Dependent exemptions</li>
+              <li>Standard deduction</li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm">NYS Earned Income Credit</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm">Empire State Child Credit</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/household_credit.htm">NYS Household Credit</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/new_york_city_credits.htm">New York City Credits</a> and payments, for full-year NYC residents:</li>
+              <ul>
+                  <li>NYC Household credit</li>
+                  <li>NYC Earned Income Credit</li>
+                  <li>NYC School Tax Credit</li>
+                  <li>NYC local taxes withheld</li>
+              </ul>
+              <li>New York state taxes withheld from your wages or unemployment benefits</li>
+          </ul>
+      irs_help:
+        question: "IRS Direct File will help you claim the most common federal tax credits before you use FileYourStateTaxes, including:"
+        answer_html: |
+          <p><strong>IRS Direct File will help you claim the most common federal tax credits before you use FileYourStateTaxes, including:</strong></p>
+          <ul>
+            <li>Earned Income Tax Credit</li>
+            <li>Child Tax Credit</li>
+            <li>Credit for Other Dependents</li>
+          </ul>
+    unsupported_credits_and_deductions:
+      title: What New York credits and deductions does FileYourStateTaxes not support this year?
+      not_supported:
+        question: "Currently, the tool does not support:"
+        answer_html: |
+          <p><strong>Currently, the tool does not support:</strong></p>
+          <ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/child_and_dependent_care_credit.htm">NYS Child and Dependent Care Credit</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/real_property_tax_credit.htm">Real Property Tax Credit</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/college_tuition_credit.htm">College tuition credit or itemized deduction</a></li>
+            <li>NYS Earned Income Credit for <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/nceic.htm">parents who do not live with their children</a> (non-custodial). Parents who do live with their children can claim the NYS Earned Income Credit using FileYourStateTaxes.</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/volunteerfirefighters.htm">Volunteer firefighters’ and ambulance workers’ credit</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/longterm_care_insurance_credit.htm">Long-term care insurance credit</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart">Subtractions claimed on IT-225 including:</a></li>
+            <ul>
+              <li>Military combat pay</li>
+              <li>Native American Income Exclusion</li>
+              <li>HELP loan interest</li>
+              <li>Student loan forgiveness award</li>
+              <li>Health care and mental hygiene worker bonuses</li>
+            </ul>
+            <li>Other credits, deductions and resources not supported this year:</li>
+            <ul>
+              <li>Itemized deductions</li>
+              <li>Change in filing status from federal to state</li>
+              <li>Estimated tax, extension payments, and prior year credit forward</li>
+            </ul>
+          </ul>
+      additionally:
+        question: "Additionally, you cannot use this tool to:"
+        answer_html: |
+          <p>Additionally, you <strong>cannot</strong> use FileYourStateTaxes to:</p>
+          <ul>
+            <li>Claim estimated taxes paid in 2023</li>
+            <li>Claim credits you want to carry over from a prior year tax return. For example, if you claimed a nonrefundable credit last year that was greater than your taxes owed, you cannot use this tool to claim the remainder of that prior year credit.</li>
+            <li>Make voluntary contributions directly on your tax return</li>
+          </ul>
+          <p>If you already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend checking out your other state filing options.</p>
+          <p>If you haven’t already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend seeing if you are eligible to use <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/en">GetYourRefund</a> to file your federal and state returns for free.</p>
+

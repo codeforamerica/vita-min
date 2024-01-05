@@ -2,28 +2,46 @@ class StateFile::FaqDatabaseExportService
   AZ_QUESTIONS = {
     who_can_use_this_tool: [
       :in_order_to_file,
-    # :uncommon_situations_that_would_disqualify_you
+      :uncommon_situations_that_would_disqualify_you
     ],
-    # what_arizona_credits_and_deductions_does_this_tool_support_this_year: [
-    #   :fyst,
-    #   :irs_direct_file
-    # ],
+    az_supported_credits_and_deductions: [
+      :fyst_help,
+      :irs_help
+    ],
+    unsupported_credits_and_deductions: [
+      :not_supported,
+      :additionally
+    ],
+  }.freeze
+
+  NY_QUESTIONS = {
+    who_can_use_this_tool: [
+      :in_order_to_file,
+      :uncommon_situations_that_would_disqualify_you
+    ],
+    ny_supported_credits_and_deductions: [
+      :fyst_help,
+      :irs_help
+    ],
+    unsupported_credits_and_deductions: [
+      :not_supported,
+      :additionally
+    ],
   }.freeze
 
   def self.export_yml_to_database
     en_yml = YAML.load_file(Rails.root.join('app', 'services', "state_file", 'faq_database_export_en.yml'))['question_groups']
-    # es_yml = YAML.load_file(Rails.root.join('app', 'services', "state_file", 'faq_database_export_es.yml'))['question_groups']
+    es_yml = YAML.load_file(Rails.root.join('app', 'services', "state_file", 'faq_database_export_es.yml'))['question_groups']
 
-    create_faqs_from_yml('az', en_yml, AZ_QUESTIONS)
-    # create_faqs('ny', en_yml, es_yml, NY_QUESTIONS)
+    create_faqs_from_yml('az', en_yml, es_yml, AZ_QUESTIONS)
+    create_faqs_from_yml('ny', en_yml, es_yml, NY_QUESTIONS)
   end
 
   private
 
-  def self.create_faqs_from_yml(state, en_yml, questions) #add es_yml
+  def self.create_faqs_from_yml(state, en_yml, es_yml, questions)
     category_position = 0
     product_type = state == 'az' ? :state_file_az : :state_file_ny
-    es_yml = en_yml #remove
 
     questions.each do |section, questions|
       category_position += 1
