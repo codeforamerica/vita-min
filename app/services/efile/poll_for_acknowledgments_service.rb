@@ -111,7 +111,7 @@ module Efile
         status_updates += 1
         xml_node = groups_by_irs_submission_id[submission.irs_submission_id]
         status = xml_node.css('SubmissionStatusTxt').text.strip
-        state = _status_to_state(xml_node.css('SubmissionStatusTxt').text.strip)
+        new_state = _status_to_state(status)
         submission.transition_to(new_state, raw_response: xml_node.to_xml)
       end
 
