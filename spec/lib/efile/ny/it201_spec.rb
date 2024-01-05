@@ -101,7 +101,11 @@ describe Efile::Ny::It201 do
   describe 'Line 40 NYS household credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+        intake.direct_file_data.primary_claim_as_dependent = "X"
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
       end
 
       it 'sets the credit to 0 because the filer is ineligible' do
@@ -162,7 +166,11 @@ describe Efile::Ny::It201 do
   describe 'Line 48 NYC household credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+        intake.direct_file_data.primary_claim_as_dependent = "X"
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
         intake.nyc_full_year_resident = 1 # yes
       end
 
@@ -174,7 +182,6 @@ describe Efile::Ny::It201 do
 
     context 'when the filer was not a full year NYC resident' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 2 # no
       end
 
@@ -236,7 +243,7 @@ describe Efile::Ny::It201 do
   describe 'Line 69 NYC school tax credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 0 # has been claimed as a dependent
+        intake.direct_file_data.primary_claim_as_dependent = "X"
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -252,7 +259,6 @@ describe Efile::Ny::It201 do
 
     context 'when the filer was not a full year NYC resident' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 2 # no
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -268,7 +274,6 @@ describe Efile::Ny::It201 do
 
     context 'when the filer had more than $250,000 in income' do
       before do
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 200_000
         intake.direct_file_data.fed_taxable_income = 200_000
@@ -285,7 +290,6 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is single' do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -302,7 +306,6 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is mfj' do
       before do
         intake.direct_file_data.filing_status = 2 # mfj
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -319,7 +322,6 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is mfs' do
       before do
         intake.direct_file_data.filing_status = 3 # mfs
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -336,7 +338,6 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is hoh' do
       before do
         intake.direct_file_data.filing_status = 4 # hoh
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
@@ -353,7 +354,6 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is qualifying_widow' do
       before do
         intake.direct_file_data.filing_status = 5 # qualifying_widow
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # has not been claimed as a dependent
         intake.nyc_full_year_resident = 1 # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000

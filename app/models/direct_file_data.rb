@@ -51,6 +51,7 @@ class DirectFileData
     fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
     fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
     fed_w2_state: 'W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd',
+    primary_claim_as_dependent: 'IRS1040 PrimaryClaimAsDependentInd'
   }.freeze
 
   def initialize(raw_xml)
@@ -471,7 +472,16 @@ class DirectFileData
   end
 
   def claimed_as_dependent?
-    total_exempt_primary_spouse.zero?
+    primary_claim_as_dependent == "X"
+  end
+
+  def primary_claim_as_dependent
+    df_xml_value(__method__)
+  end
+
+  def primary_claim_as_dependent=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, value)
   end
 
   def primary_has_itin?
