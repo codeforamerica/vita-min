@@ -555,7 +555,7 @@ class DirectFileData
 
   def dependents
     dependents = parsed_xml.css('DependentDetail').map do |node|
-      Dependent.new(
+      StateFileDependent.new(
         first_name: node.at('DependentFirstNm')&.text,
         last_name: node.at('DependentLastNm')&.text,
         ssn: node.at('DependentSSN')&.text,
@@ -571,7 +571,7 @@ class DirectFileData
         dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
         dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
       else
-        dependents << Dependent.new(
+        dependents << StateFileDependent.new(
           first_name: node.at('ChildFirstAndLastName PersonFirstNm')&.text,
           last_name: node.at('ChildFirstAndLastName PersonLastNm')&.text,
           ssn: node.at('QualifyingChildSSN')&.text,
