@@ -1,3 +1,6 @@
+
+StatusRecordGroup = Struct.new(:irs_submission_id, :state, :xml)
+
 module Efile
   class PollForAcknowledgmentsService
     TRANSMITTED_STATUSES = ["Received", "Ready for Pickup", "Ready for Pick-Up", "Sent to State", "Received by State"]
@@ -96,28 +99,37 @@ module Efile
     def self._handle_submission_status_response(response)
       doc = Nokogiri::XML(response)
       status_updates = 0
-
-      doc.css('StatusRecordGrp').each do |status_record_group|
-        status_updates += 1
-        irs_submission_id = status_record_group.css("SubmissionId").text.strip
-        status = status_record_group.css('SubmissionStatusTxt').text.strip
-        raw_response = status_record_group.to_xml
-        submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
-
-        if TRANSMITTED_STATUSES.include?(status)
-          # no action required - the IRS are still working on it
-          submission.transition_to(:transmitted, raw_response: raw_response)
-        elsif READY_FOR_ACK_STATUSES.include?(status)
-          unless ["Denied by IRS", "Acknowledgement Received from State"].include?(status)
-            Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
-          end
-          submission.transition_to(:ready_for_ack, raw_response: raw_response)
-        else
-          submission.transition_to(:failed, raw_response: raw_response)
+      groups_by_irs_submission_id = doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
+        irs_submission_id = xml.css("SubmissionId").text.strip
+        unless groups_by_irs_submission_id[irs_submission_id]
+          groups_by_irs_submission_id[irs_submission_id] = xml
         end
       end
 
+      submissions = EfileSubmission.where(irs_submission_id: groups_by_irs_submission_id.keys)
+      submissions.each do |submission|
+        status_updates += 1
+        xml_node = groups_by_irs_submission_id[submission.irs_submission_id]
+        status = xml_node.css('SubmissionStatusTxt').text.strip
+        state = _status_to_state(xml_node.css('SubmissionStatusTxt').text.strip)
+        submission.transition_to(new_state, raw_response: xml_node.to_xml)
+      end
+
       status_updates
+    end
+  end
+
+  def _status_to_state(status)
+    if TRANSMITTED_STATUSES.include?(status)
+      # no action required - the IRS are still working on it
+      :transmitted
+    elsif READY_FOR_ACK_STATUSES.include?(status)
+      unless status == "Acknowledgement Received from State"
+        Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
+      end
+      :ready_for_ack
+    else
+      :failed
     end
   end
 end
