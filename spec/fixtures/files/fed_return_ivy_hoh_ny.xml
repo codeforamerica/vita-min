@@ -11,7 +11,7 @@
       <NameLine1Txt>IVY B&lt;IRVING</NameLine1Txt>
       <PrimaryNameControlTxt>IRVI</PrimaryNameControlTxt>
       <USAddress>
-        <AddressLine1Txt>co Amanda Jones 215 Laidback Way</AddressLine1Txt>
+        <AddressLine1Txt>215 Laidback Way</AddressLine1Txt>
         <CityNm>Rocky Point</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
         <ZIPCd>11778</ZIPCd>
@@ -205,7 +205,7 @@
       </EmployerUSAddress>
       <EmployeeNm>Ivy B Irving</EmployeeNm>
       <EmployeeUSAddress>
-        <AddressLine1Txt>co Amanda Jones 215 Laidback Way</AddressLine1Txt>
+        <AddressLine1Txt>215 Laidback Way</AddressLine1Txt>
         <CityNm>Rocky Point</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
         <ZIPCd>11778</ZIPCd>
