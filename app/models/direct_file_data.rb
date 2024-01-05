@@ -646,8 +646,9 @@ class DirectFileData
     def id
       @node['documentId']
     end
+
     def EmployeeSSN
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def EmployeeSSN=(value)
@@ -655,7 +656,7 @@ class DirectFileData
     end
 
     def EmployerEIN
-      df_xml_value(__method__).to_i
+      df_xml_value(__method__)
     end
 
     def EmployerEIN=(value)
