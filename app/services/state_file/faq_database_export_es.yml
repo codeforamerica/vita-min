@@ -96,8 +96,6 @@ question_groups:
           </ul>
           <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
           <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
-
-
   ny:
     who_can_use_this_tool:
       title: ¿Quién puede utilizar FileYourStateTaxes?
@@ -161,43 +159,44 @@ question_groups:
             <li>Crédito por otros dependientes</li>
           </ul>
     unsupported_credits_and_deductions:
-      title: What New York credits and deductions does FileYourStateTaxes not support this year?
+      title: ¿Qué créditos y deducciones de Nueva York no admite actualmente FileYourStateTaxes?
       not_supported:
-        question: "Currently, the tool does not support:"
+        question: "Actualmente, la herramienta no admite:"
         answer_html: |
-          <p><strong>Currently, the tool does not support:</strong></p>
+          <p><strong>Actualmente, la herramienta no admite:</strong></p>
           <ul>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/child_and_dependent_care_credit.htm">NYS Child and Dependent Care Credit</a></li>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/real_property_tax_credit.htm">Real Property Tax Credit</a></li>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/college_tuition_credit.htm">College tuition credit or itemized deduction</a></li>
-            <li>NYS Earned Income Credit for <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/nceic.htm">parents who do not live with their children</a> (non-custodial). Parents who do live with their children can claim the NYS Earned Income Credit using FileYourStateTaxes.</li>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/volunteerfirefighters.htm">Volunteer firefighters’ and ambulance workers’ credit</a></li>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/longterm_care_insurance_credit.htm">Long-term care insurance credit</a></li>
-            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart">Subtractions claimed on IT-225 including:</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/child_and_dependent_care_credit.htm">Crédito de la Ciudad de Nueva York por cuidado de dependientes y menores</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/language/espanol/credits/real-property-tax-credit.htm">Crédito por contribución sobre inmuebles</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/language/espanol/credits/college-tuition-credit.htm">Crédito por matrícula universitaria</a> o deducción detallada</li>
+            <li>Crédito por Ingresos del Trabajo del Estado de Nueva York para <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/nceic.htm">padres que no viven con sus hijos (sin custodia).</a> Los padres que sí viven con sus hijos pueden reclamar el Crédito por ingresos del trabajo del Estado de Nueva York usando FileYourStateTaxes.</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/volunteerfirefighters.htm">Crédito para bomberos voluntarios y trabajadores de ambulancias</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/longterm_care_insurance_credit.htm">Crédito por seguro de atención a largo plazo</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart">Deducciones reclamadas en el formulario IT-225, incluyendo:</a></li>
             <ul>
-              <li>Military combat pay</li>
-              <li>Native American Income Exclusion</li>
-              <li>HELP loan interest</li>
-              <li>Student loan forgiveness award</li>
-              <li>Health care and mental hygiene worker bonuses</li>
+              <li>Pago por combate militar</li>
+              <li>Exclusión de ingresos para nativos americanos</li>
+              <li>Intereses de préstamos HELP</li>
+              <li>Premios de condonación de préstamos estudiantiles</li>
+              <li>Bonificaciones para trabajadores de salud y salud mental</li>
             </ul>
-            <li>Other credits, deductions and resources not supported this year:</li>
+            <li>Otros créditos, deducciones y recursos no admitidos este año:</li>
             <ul>
-              <li>Itemized deductions</li>
-              <li>Change in filing status from federal to state</li>
-              <li>Estimated tax, extension payments, and prior year credit forward</li>
+              <li>Deducciones detalladas</li>
+              <li>Contribuciones al plan de ahorro universitario 529</li>
+              <li>Cambio en el estado civil para la presentación de impuestos federales a estatales</li>
+              <li>Impuesto estimado, pagos prorrogados y créditos de años anteriores</li>
             </ul>
           </ul>
       additionally:
-        question: "Additionally, you cannot use this tool to:"
+        question: "Además, no puedes utilizar FileYourStateTaxes para:"
         answer_html: |
-          <p>Additionally, you <strong>cannot</strong> use FileYourStateTaxes to:</p>
+          <p><strong>Además, no puedes utilizar FileYourStateTaxes para:</strong></p>
           <ul>
-            <li>Claim estimated taxes paid in 2023</li>
-            <li>Claim credits you want to carry over from a prior year tax return. For example, if you claimed a nonrefundable credit last year that was greater than your taxes owed, you cannot use this tool to claim the remainder of that prior year credit.</li>
-            <li>Make voluntary contributions directly on your tax return</li>
+            <li>Reclamar impuestos estimados pagados en 2023.</li>
+            <li>Reclamar créditos que desees acumular de una declaración de impuestos del año anterior. Por ejemplo, si reclamaste un crédito no reembolsable el año pasado que fue mayor que tus impuestos adeudados, no puedes usar esta herramienta para reclamar la parte restante de ese crédito del año anterior.</li>
+            <li>Hacer contribuciones voluntarias directamente en tu declaración de impuestos.</li>
           </ul>
-          <p>If you already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend checking out your other state filing options.</p>
-          <p>If you haven’t already filed your federal return using IRS Direct File and are trying to claim any of the credits or deductions listed above, we recommend seeing if you are eligible to use <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/en">GetYourRefund</a> to file your federal and state returns for free.</p>
+          <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
+          <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
 
   

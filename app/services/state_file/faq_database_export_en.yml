@@ -16,7 +16,7 @@ question_groups:
       uncommon_situations_that_would_disqualify_you:
         question: "Uncommon situations that would disqualify you from using FileYourStateTaxes:"
         answer_html: |
-          <p>Uncommon situations that would disqualify you from using FileYourStateTaxes:</p>
+          <p><strong>Uncommon situations that would disqualify you from using FileYourStateTaxes:</strong></p>
           <ul>
             <li>If you withdrew money from a 529 college savings play and the funds were <strong>not</strong> used to pay for qualifying education expenses.</li>
             <ul>
@@ -118,7 +118,7 @@ question_groups:
             <li>Not have withdrawn funds from a 529 college savings plan.</li>
           </ul>
       uncommon_situations_that_would_disqualify_you:
-        question: "Uncommon situations that would disqualify you from using FileYourStateTaxes:"
+        question: "Uncommon situations that would disqualify you frfom using FileYourStateTaxes:"
         answer_html: |
           <p><strong>Uncommon situations that would disqualify you from using FileYourStateTaxes:</strong></p>
           <ul>
