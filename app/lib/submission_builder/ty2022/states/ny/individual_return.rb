@@ -78,7 +78,9 @@ module SubmissionBuilder
               end
 
               # These dependents are for NY IT-213
+              #@submission.data_source.dependents_eligible_for_child_tax_credit.each_with_index do |dependent, index|
               @submission.data_source.dependents_eligible_for_child_tax_credit.each_with_index do |dependent, index|
+
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn
                   xml.DEP_SEQ_NMBR index+1

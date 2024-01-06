@@ -3,6 +3,7 @@
 # Table name: state_file_dependents
 #
 #  id                :bigint           not null, primary key
+#  ctc_qualifying    :boolean
 #  dob               :date
 #  eic_disability    :boolean
 #  eic_qualifying    :boolean

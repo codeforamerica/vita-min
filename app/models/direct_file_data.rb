@@ -539,6 +539,10 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation')
   end
 
+  def eitc_eligible_nodes
+    parsed_xml.css('IRS1040ScheduleEIC QualifyingChildInformation')
+  end
+
   def build_new_qualifying_child_information_node
     dd = parsed_xml.css('QualifyingChildInformation').first
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
@@ -553,36 +557,37 @@ class DirectFileData
     parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
   end
 
+  def eitc_eligible_dependents
+    @dependents ||= Hash.new{}
+    eitc_eligible_nodes.map { |node| @dependents[node.at('QualifyingChildSSN')&.text] = true }
+    @dependents
+  end
+
   def dependents
-    dependents = parsed_xml.css('DependentDetail').map do |node|
-      StateFileDependent.new(
+    dependents = []
+    dependent_detail_nodes.each do |node|
+      ssn = node.at('DependentSSN')&.text
+      dependent = StateFileDependent.new(
         first_name: node.at('DependentFirstNm')&.text,
         last_name: node.at('DependentLastNm')&.text,
-        ssn: node.at('DependentSSN')&.text,
+        ssn: ssn,
         relationship: node.at('DependentRelationshipCd')&.text,
       )
-    end
 
-    parsed_xml.css('IRS1040ScheduleEIC QualifyingChildInformation').map.with_index do |node|
-      dependent = dependents.map { |d| d if d.ssn == node.at('QualifyingChildSSN')&.text }.first
-      next unless dependent
-      if dependent.present?
+      if eitc_eligible_dependents.has_key?(ssn)
         dependent.eic_qualifying = true
         dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
         dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
-      else
-        dependents << StateFileDependent.new(
-          first_name: node.at('ChildFirstAndLastName PersonFirstNm')&.text,
-          last_name: node.at('ChildFirstAndLastName PersonLastNm')&.text,
-          ssn: node.at('QualifyingChildSSN')&.text,
-          relationship: node.at('ChildRelationshipCd')&.text,
-          eic_qualifying: true,
-          eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
-          eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
-        )
       end
+
+      dependent.ctc_qualifying = true if dependent_eligible_for_ctc(node)
+      dependents << dependent
     end
     dependents
+  end
+
+  def dependent_eligible_for_ctc(node)
+    node.at('EligibleForChildTaxCreditInd')&.text == 'X' ? true : false
   end
 
   class Dependent
