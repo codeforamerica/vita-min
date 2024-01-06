@@ -41,8 +41,8 @@ module PdfFiller
         'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
         'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
-      @submission.data_source.dependents_eligible_for_eitc.each_with_index do |dependents_node, index|
 
+      @submission.data_source.dependents.where(eic_qualifying: true).each_with_index do |dependents_node, index|
         index += 1
         answers.merge!({
                          "ln34fn#{index}" => dependents_node.first_name,

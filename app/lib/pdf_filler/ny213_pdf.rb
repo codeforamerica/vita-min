@@ -28,7 +28,7 @@ module PdfFiller
         'Line 5' => claimed_attr_value('ESC_SSN_CHLD_NMBR'),
       }
 
-      dependents = @submission.data_source.dependents_eligible_for_child_tax_credit
+      dependents = @submission.data_source.dependents.where(ctc_qualifying: true)
 
       if dependents.length > 6
         raise "Too many dependents to handle on IT213!"
