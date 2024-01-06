@@ -363,6 +363,7 @@ module Efile
       end
 
       def calculate_line_43
+        # as of Jan 2023 we do not support lines 41 and 42 so they will always be zero
         line_or_zero(:IT201_LINE_40) + line_or_zero(:IT201_LINE_41) + line_or_zero(:IT201_LINE_42)
       end
 
@@ -371,6 +372,7 @@ module Efile
       end
 
       def calculate_line_46
+        # as of Jan 2023 we do not support line 45 so this will be equal to line 44
         line_or_zero(:IT201_LINE_44) + line_or_zero(:IT201_LINE_45)
       end
 

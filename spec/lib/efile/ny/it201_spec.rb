@@ -98,7 +98,7 @@ describe Efile::Ny::It201 do
     end
   end
 
-  describe 'Line 40 NYS household credit' do
+  describe '#calculate_line_40 Line 40 NYS household credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
         intake.direct_file_data.primary_claim_as_dependent = "X"
@@ -160,6 +160,32 @@ describe Efile::Ny::It201 do
         expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
         expect(instance.lines[:IT201_LINE_40].value).to eq(120)
       end
+    end
+  end
+
+  describe "#calculate_line_43" do
+    it "is equal to line 40 because we are not supporting lines 41 and 42" do
+
+    end
+  end
+
+  describe "#calculate_line_44" do
+    context "line 43 is less than line 39" do
+      it "is the difference between lines 39 and 43" do
+
+      end
+    end
+
+    context "line 43 is greater than line 39" do
+      it "is zero" do
+
+      end
+    end
+  end
+
+  describe "#calculate_line_46" do
+    it "is equal to line 44 because we are not supporting line 45" do
+
     end
   end
 
