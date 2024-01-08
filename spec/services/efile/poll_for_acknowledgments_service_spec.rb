@@ -279,5 +279,54 @@ describe Efile::PollForAcknowledgmentsService do
         expect(described_class.transmitted_state_submission_ids).to match_array([irs_submission_id3, irs_submission_id4])
       end
     end
+
+    context "getting status from state" do
+      it "interprets ready_for_ack successfully" do
+        ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].each do |status|
+          expect(Efile::PollForAcknowledgmentsService.status_to_state(status)).to eq :ready_for_ack
+        end
+      end
+      it "interprets transmitted successfully" do
+        expect(Efile::PollForAcknowledgmentsService.status_to_state("Received")).to eq :transmitted
+      end
+      it "interprets unknown states as failed" do
+        expect(Efile::PollForAcknowledgmentsService.status_to_state("My dog ate it")).to eq :failed
+      end
+    end
+
+    context "statuses for submission_id" do
+      it "groups statuses by submission_id" do
+        doc = Nokogiri::XML(<<-TEXT
+          <?xml version='1.0' encoding='UTF-8'?>  
+          <StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+              <Cnt>4</Cnt>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+          </StatusRecordList>
+          TEXT
+        )
+        result = Efile::PollForAcknowledgmentsService.group_status_records_by_submission_id(doc)
+        expect(result.keys.length).to eq 1
+        expect(result["4414662024003wte794o"].css("SubmissionStatusTxt").text).to eq "Received by State"
+      end
+    end
   end
 end

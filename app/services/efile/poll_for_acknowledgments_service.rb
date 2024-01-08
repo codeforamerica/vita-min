@@ -128,9 +128,6 @@ module Efile
         # no action required - the IRS are still working on it
         :transmitted
       elsif READY_FOR_ACK_STATUSES.include?(status)
-        unless status == "Acknowledgement Received from State"
-          Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
-        end
         :ready_for_ack
       else
         :failed
