@@ -7,18 +7,16 @@
     <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
-      <PrimarySSN>900000016</PrimarySSN>
-      <SpouseSSN>600000014</SpouseSSN>
-      <NameLine1Txt>RUDY&lt;GIULIANI&lt;&amp; KATE MCKINNON</NameLine1Txt>
-      <PrimaryNameControlTxt>GIUL</PrimaryNameControlTxt>
-      <SpouseNameControlTxt>MCKI</SpouseNameControlTxt>
+      <PrimarySSN>400000007</PrimarySSN>
+      <NameLine1Txt>LESLIE&lt;KNOPE</NameLine1Txt>
+      <PrimaryNameControlTxt>KNOP</PrimaryNameControlTxt>
       <USAddress>
-        <AddressLine1Txt>439 Van Brunt St Apt 4</AddressLine1Txt>
-        <CityNm>Brooklyn</CityNm>
-        <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>11231</ZIPCd>
+        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
       </USAddress>
-      <PhoneNum>2125555556</PhoneNum>
+      <PhoneNum>4805557654</PhoneNum>
     </Filer>
     <AdditionalFilerInformation>
       <AtSubmissionFilingGrp>
@@ -26,26 +24,25 @@
       </AtSubmissionFilingGrp>
     </AdditionalFilerInformation>
   </ReturnHeader>
-  <ReturnData documentCnt="4">
+  <ReturnData documentCnt="5">
     <IRS1040 documentId="IRS10400001">
-      <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
-      <SpouseNm>Kate McKinnon</SpouseNm>
+      <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <Primary65OrOlderInd>X</Primary65OrOlderInd>
       <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
-        <DependentFirstNm>Count</DependentFirstNm>
-        <DependentLastNm>Dracula</DependentLastNm>
-        <DependentNameControlTxt>DRAC</DependentNameControlTxt>
-        <DependentSSN>300000030</DependentSSN>
+        <DependentFirstNm>April</DependentFirstNm>
+        <DependentLastNm>Ludgate</DependentLastNm>
+        <DependentNameControlTxt>LUDG</DependentNameControlTxt>
+        <DependentSSN>300000014</DependentSSN>
         <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
       <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
       <TotalExemptionsCnt>2</TotalExemptionsCnt>
-      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">20000</WagesAmt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
       <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
       <TipIncomeAmt>0</TipIncomeAmt>
       <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
@@ -53,55 +50,58 @@
       <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
       <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
       <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
-      <WagesSalariesAndTipsAmt>20000</WagesSalariesAndTipsAmt>
+      <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
       <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
-      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <TaxableInterestAmt>100</TaxableInterestAmt>
       <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
       <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
       <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
-      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <SocSecBnftAmt socSecBnftCd="D">8000</SocSecBnftAmt>
       <TaxableSocSecAmt>0</TaxableSocSecAmt>
       <CapitalGainLossAmt>0</CapitalGainLossAmt>
-      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
-      <TotalIncomeAmt>20000</TotalIncomeAmt>
+      <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>11100</TotalIncomeAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
-      <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
-      <TotalItemizedOrStandardDedAmt>15350</TotalItemizedOrStandardDedAmt>
-      <TotalDeductionsAmt>15350</TotalDeductionsAmt>
-      <TaxableIncomeAmt>4650</TaxableIncomeAmt>
-      <TaxAmt>468</TaxAmt>
+      <AdjustedGrossIncomeAmt>11100</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
       <AdditionalTaxAmt>0</AdditionalTaxAmt>
-      <TotalTaxBeforeCrAndOthTaxesAmt>468</TotalTaxBeforeCrAndOthTaxesAmt>
-      <CTCODCAmt>468</CTCODCAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
       <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
-      <TotalCreditsAmt>468</TotalCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
       <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
       <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
       <TotalTaxAmt>0</TotalTaxAmt>
-      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
       <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
       <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
-      <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+      <WithholdingTaxAmt>110</WithholdingTaxAmt>
       <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
-      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">0</EarnedIncomeCreditAmt>
-      <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
-      <RefundableCreditsAmt>1532</RefundableCreditsAmt>
-      <TotalPaymentsAmt>3532</TotalPaymentsAmt>
-      <OverpaidAmt>3532</OverpaidAmt>
-      <RefundAmt>3532</RefundAmt>
-      <RoutingTransitNum>123123123</RoutingTransitNum>
-      <BankAccountTypeCd>1</BankAccountTypeCd>
-      <DepositorAccountNum>123412341234</DepositorAccountNum>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">3409</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>4534</RefundableCreditsAmt>
+      <TotalPaymentsAmt>4644</TotalPaymentsAmt>
+      <OverpaidAmt>4644</OverpaidAmt>
+      <RefundAmt>4644</RefundAmt>
       <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
       <OwedAmt>0</OwedAmt>
       <EsPenaltyAmt>0</EsPenaltyAmt>
       <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-      <PrimaryOccupationTxt>Hair dyer</PrimaryOccupationTxt>
+      <PrimaryOccupationTxt>Deputy Director</PrimaryOccupationTxt>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>1000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
     <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
-      <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
-      <ModifiedAGIAmt>20000</ModifiedAGIAmt>
+      <AdjustedGrossIncomeAmt>11100</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>11100</ModifiedAGIAmt>
       <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
       <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
       <OtherDependentCnt>0</OtherDependentCnt>
@@ -112,36 +112,36 @@
       <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
       <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
       <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
-      <ACTCTaxLiabiltyLimitAmt>468</ACTCTaxLiabiltyLimitAmt>
-      <CTCODCAmt>468</CTCODCAmt>
+      <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>0</CTCODCAmt>
       <ClaimACTCAllFilersGrp>
-        <ACTCBeforeLimitAmt>1532</ACTCBeforeLimitAmt>
+        <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
         <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
         <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
-        <ACTCAfterLimitAmt>1532</ACTCAfterLimitAmt>
-        <TotalEarnedIncomeAmt>20000</TotalEarnedIncomeAmt>
+        <ACTCAfterLimitAmt>1600</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>10000</TotalEarnedIncomeAmt>
         <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
         <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
-        <NetTotalEarnedIncomeAmt>17500</NetTotalEarnedIncomeAmt>
-        <NetEarnedIncomeCalculatedAmt>2625</NetEarnedIncomeCalculatedAmt>
+        <NetTotalEarnedIncomeAmt>7500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>1125</NetEarnedIncomeCalculatedAmt>
         <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
-        <FromW2Amt>1530</FromW2Amt>
-        <CalcFromW2AndReturnAmt>1530</CalcFromW2AndReturnAmt>
-        <CalcAmtFromRetPlusTaxWhldAmt>0</CalcAmtFromRetPlusTaxWhldAmt>
-        <CalculatedDifferenceAmt>1530</CalculatedDifferenceAmt>
-        <LargerCalcIncomeOrDiffAmt>2625</LargerCalcIncomeOrDiffAmt>
+        <FromW2Amt>765</FromW2Amt>
+        <CalcFromW2AndReturnAmt>765</CalcFromW2AndReturnAmt>
+        <CalcAmtFromRetPlusTaxWhldAmt>3409</CalcAmtFromRetPlusTaxWhldAmt>
+        <CalculatedDifferenceAmt>0</CalculatedDifferenceAmt>
+        <LargerCalcIncomeOrDiffAmt>1125</LargerCalcIncomeOrDiffAmt>
       </ClaimACTCAllFilersGrp>
-      <AdditionalChildTaxCreditAmt>1532</AdditionalChildTaxCreditAmt>
+      <AdditionalChildTaxCreditAmt>1125</AdditionalChildTaxCreditAmt>
     </IRS1040Schedule8812>
     <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
       <QualifyingChildInformation>
-        <QualifyingChildNameControlTxt>DRAC</QualifyingChildNameControlTxt>
+        <QualifyingChildNameControlTxt>LUDG</QualifyingChildNameControlTxt>
         <ChildFirstAndLastName>
-          <PersonFirstNm>Count</PersonFirstNm>
-          <PersonLastNm>Dracula</PersonLastNm>
+          <PersonFirstNm>April</PersonFirstNm>
+          <PersonLastNm>Ludgate</PersonLastNm>
         </ChildFirstAndLastName>
-        <QualifyingChildSSN>300000030</QualifyingChildSSN>
-        <ChildBirthYr>2018</ChildBirthYr>
+        <QualifyingChildSSN>300000014</QualifyingChildSSN>
+        <ChildBirthYr>2019</ChildBirthYr>
         <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
         <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
@@ -149,31 +149,31 @@
       </QualifyingChildInformation>
     </IRS1040ScheduleEIC>
     <IRSW2 documentId="W20001" documentName="IRSW2">
-      <EmployeeSSN>900000016</EmployeeSSN>
+      <EmployeeSSN>400000007</EmployeeSSN>
       <EmployerEIN>678912345</EmployerEIN>
-      <EmployerNameControlTxt>FOUR</EmployerNameControlTxt>
+      <EmployerNameControlTxt>CITY</EmployerNameControlTxt>
       <EmployerName>
-        <BusinessNameLine1Txt>Four Seasons Total Landscaping</BusinessNameLine1Txt>
+        <BusinessNameLine1Txt>City of Pawnee</BusinessNameLine1Txt>
       </EmployerName>
       <EmployerUSAddress>
-        <AddressLine1Txt>300 Fake Street</AddressLine1Txt>
-        <CityNm>Brooklyn</CityNm>
-        <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>11238</ZIPCd>
+        <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
       </EmployerUSAddress>
-      <EmployeeNm>Rudy Giuliani</EmployeeNm>
+      <EmployeeNm>Leslie Knope</EmployeeNm>
       <EmployeeUSAddress>
-        <AddressLine1Txt>439 Van Brunt St Apt 4</AddressLine1Txt>
-        <CityNm>Brooklyn</CityNm>
-        <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>11231</ZIPCd>
+        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>20000</WagesAmt>
-      <WithholdingAmt>2000</WithholdingAmt>
-      <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
-      <SocialSecurityTaxAmt>1240</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
-      <MedicareTaxWithheldAmt>290</MedicareTaxWithheldAmt>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>100</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
       <AllocatedTipsAmt>0</AllocatedTipsAmt>
       <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
@@ -183,14 +183,13 @@
       </EmployersUseGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>20000</StateWagesAmt>
-          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>5</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>20000</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
-            <LocalityNm>NYC</LocalityNm>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
           </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>

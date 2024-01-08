@@ -16,7 +16,6 @@ describe Efile::Az::Az140 do
         intake.direct_file_data.primary_ssn = nil
         intake.direct_file_data.filing_status = 1 # single
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
         intake.was_incarcerated = 2 # no
       end
 
@@ -32,7 +31,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '999999999' # invalid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -47,7 +45,7 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 0 # claimed as a dependent
+      intake.direct_file_data.primary_claim_as_dependent = 'X'
       intake.was_incarcerated = 2 # no
     end
 
@@ -62,7 +60,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 1 # yes
     end
 
@@ -77,7 +74,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -92,7 +88,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 3 # mfs
       intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -107,7 +102,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 2 # mfj
       intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -122,7 +116,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 4 # hoh
       intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -137,7 +130,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -152,7 +144,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 3 # mfs
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -167,7 +158,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 2 # mfj
       intake.direct_file_data.fed_agi = 25_000 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -182,7 +172,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 4 # hoh
       intake.direct_file_data.fed_agi = 25_000 # # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
     end
 
@@ -197,7 +186,6 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.total_exempt_primary_spouse = 1 # not claimed as a dependent
       intake.was_incarcerated = 2 # no
       intake.dependents.create(dob: 5.years.ago)
       intake.dependents.create(dob: 3.years.ago)

@@ -28,7 +28,7 @@
                   :sales_use_tax_calculation_method,
                   label_text: t(".select_one"),
                   collection: [
-                    { value: :automated, label: t(".use_tax_method_automated") },
+                    { value: :automated, label: t(".use_tax_method_automated"), input_html: { "onclick": "document.querySelector('#sut-field').style.display = 'none'"} },
                     { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "data-follow-up": "#sut-field" } },
                   ]
                 )

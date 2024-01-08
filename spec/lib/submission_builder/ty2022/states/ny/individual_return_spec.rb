@@ -76,5 +76,14 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+    context 'Yonkers' do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+
+      it 'just says no to Yonkers' do
+        xml = described_class.build(submission).document
+        expect(xml.at("YNK_WRK_LVNG_IND")["claimed"]).to eq("2")
+      end
+    end
   end
 end
