@@ -1,5 +1,8 @@
 module Efile
   class PollForAcknowledgmentsService
+    TRANSMITTED_STATUSES = ["Received", "Ready for Pickup", "Ready for Pick-Up", "Sent to State", "Received by State"]
+    READY_FOR_ACK_STATUSES = ["Denied by IRS", "Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"]
+
     def self.run
       Efile::GyrEfilerService.with_lock(ActiveRecord::Base.connection) do |lock_acquired|
         unless lock_acquired
@@ -77,9 +80,9 @@ module Efile
           next
         end
 
-        if status == "Rejected"
+        if ["Rejected", "Denied by IRS"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
-        elsif status == "Accepted" || status == "A"
+        elsif ["Accepted", "A"].include?(status)
           submission.transition_to(:accepted, raw_response: raw_response)
         elsif status == "Exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
@@ -101,15 +104,11 @@ module Efile
         raw_response = status_record_group.to_xml
         submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
 
-        if ["Received",
-            "Ready for Pickup",
-            "Ready for Pick-Up",
-            "Sent to State",
-            "Received by State"].include?(status)
+        if TRANSMITTED_STATUSES.include?(status)
           # no action required - the IRS are still working on it
           submission.transition_to(:transmitted, raw_response: raw_response)
-        elsif ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].include?(status)
-          unless status == "Acknowledgement Received from State"
+        elsif READY_FOR_ACK_STATUSES.include?(status)
+          unless ["Denied by IRS", "Acknowledgement Received from State"].include?(status)
             Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
           end
           submission.transition_to(:ready_for_ack, raw_response: raw_response)
