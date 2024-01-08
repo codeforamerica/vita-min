@@ -99,6 +99,8 @@ module Efile
     def self._handle_submission_status_response(response)
       doc = Nokogiri::XML(response)
       status_updates = 0
+      # The service returns multiple status records for the each submission id. It looks like they are in reverse
+      # chronological order (But are not properly date stamped), so we grab the first ones.
       groups_by_irs_submission_id = doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
         irs_submission_id = xml.css("SubmissionId").text.strip
         unless groups_by_irs_submission_id[irs_submission_id]
@@ -117,19 +119,19 @@ module Efile
 
       status_updates
     end
-  end
 
-  def _status_to_state(status)
-    if TRANSMITTED_STATUSES.include?(status)
-      # no action required - the IRS are still working on it
-      :transmitted
-    elsif READY_FOR_ACK_STATUSES.include?(status)
-      unless status == "Acknowledgement Received from State"
-        Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
+    def _status_to_state(status)
+      if TRANSMITTED_STATUSES.include?(status)
+        # no action required - the IRS are still working on it
+        :transmitted
+      elsif READY_FOR_ACK_STATUSES.include?(status)
+        unless status == "Acknowledgement Received from State"
+          Sentry.capture_message("Retrieved status for submission #{submission.id} that should already be in ready_for_ack state")
+        end
+        :ready_for_ack
+      else
+        :failed
       end
-      :ready_for_ack
-    else
-      :failed
     end
   end
 end
