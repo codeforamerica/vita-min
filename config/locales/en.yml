@@ -1838,6 +1838,9 @@ en:
         04_detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
+    faq:
+      index:
+        title: Common questions from %{state} taxpayers
     intake_logins:
       edit:
         help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
@@ -2405,9 +2408,6 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return. <br/><br/> This usually takes a minute or two. Don't close this page.
-    faq:
-      index:
-        title: Common questions from %{state} taxpayers
     state_file_pages:
       about_page:
         action1_text: Get Started at IRS Direct File

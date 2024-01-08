@@ -15,13 +15,11 @@
   <%= t(".section1_html", direct_file_url: '') %>
 </div>
 
-<h1 class="h2"><%= t('.common_questions') %></h1>
-
+<h1 class="h2" id="common_questions"><%= t('.common_questions') %></h1>
 <section>
   <strong><%= link_to t('.az_section'), state_faq_path(us_state: "az"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "az" %>
 </section>
-
 <section class="spacing-above-35">
   <strong><%= link_to t('.ny_section'), state_faq_path(us_state: "ny"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "ny" %>
