@@ -12,9 +12,9 @@ module StateFile
       def pay_mail_online_link
         case params[:us_state]
         when "ny"
-          'https://www.tax.ny.gov/'
+          'https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm'
         when 'az'
-          'https://www.aztaxes.gov/Home/PaymentIndividual/'
+          'https://azdor.gov/making-payments-late-payments-and-filing-extensions'
         else
           ''
         end
