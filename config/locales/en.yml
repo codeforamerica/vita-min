@@ -1965,7 +1965,7 @@ en:
           title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:
-          file_with_vita: You can still file your state taxes for free with help from IRS-certified VITA volunteers in Arizona. Note that this option may take 2-3 weeks to complete.
+          file_with_vita: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
           get_started_with_vita: Get started with VITA now
           ineligible_reason:
             has_irc_125_code: your W2 lists IRC 125 benefit plan amounts.
@@ -1974,7 +1974,7 @@ en:
             married_filing_separately: you are filing “married filing separately”.
           learn_more_content_how: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
           learn_more_content_link_html: Learn more <a href="%{link}">here</a>.
-          learn_more_content_what: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in Arizona. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
+          learn_more_content_what: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
           learn_more_title: Learn more about this process
           offboarding_reason: You cannot use this tool this year because %{reason}
           other_options: What are my other state filing options?
