@@ -19,12 +19,15 @@ RSpec.describe Hub::FaqCategoryForm do
   end
 
   describe "#save" do
-    let(:params) { {
-      name_en: "New category",
-      name_es: "",
-      position: 2,
-      slug: "new_category"
-    } }
+    let(:params) do
+      {
+        name_en: "New category",
+        name_es: "",
+        position: 2,
+        product_type: "gyr",
+        slug: "new_category"
+      }
+    end
 
     it 'creates a new faq category' do
       expect {

@@ -28,13 +28,11 @@ module Hub
         redirect_to send(@faq_return_path), notice: flash_message
       else
         flash_message = "Unable to create '#{@faq_category.name_en}' category"
-        # @position_options = position_options
         render :new, error: flash_message
       end
     end
 
     def update
-      # todo: redundant?
       @faq_return_path = :hub_state_file_faq_categories_path unless @faq_category.product_type_gyr?
       @form = form_class.new(@faq_category, faq_category_params)
 
