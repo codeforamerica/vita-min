@@ -99,15 +99,7 @@ module Efile
     def self._handle_submission_status_response(response)
       doc = Nokogiri::XML(response)
       status_updates = 0
-      # The service returns multiple status records for the each submission id. It looks like they are in reverse
-      # chronological order (But are not properly date stamped), so we grab the first ones.
-      groups_by_irs_submission_id = doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
-        irs_submission_id = xml.css("SubmissionId").text.strip
-        unless groups_by_irs_submission_id[irs_submission_id]
-          groups_by_irs_submission_id[irs_submission_id] = xml
-        end
-      end
-
+      groups_by_irs_submission_id = _group_status_records_by_submission_id(doc)
       submissions = EfileSubmission.where(irs_submission_id: groups_by_irs_submission_id.keys)
       submissions.each do |submission|
         status_updates += 1
@@ -118,6 +110,17 @@ module Efile
       end
 
       status_updates
+    end
+
+    def _group_status_records_by_submission_id(doc)
+      # The service returns multiple status records for the each submission id. It looks like they are in reverse
+      # chronological order (But are not properly date stamped), so we grab the first ones.
+      doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
+        irs_submission_id = xml.css("SubmissionId").text.strip
+        unless groups_by_irs_submission_id[irs_submission_id]
+          groups_by_irs_submission_id[irs_submission_id] = xml
+        end
+      end
     end
 
     def _status_to_state(status)
