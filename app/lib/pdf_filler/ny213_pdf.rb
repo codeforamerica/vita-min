@@ -29,12 +29,9 @@ module PdfFiller
       }
 
       dependents = @submission.data_source.dependents.where(ctc_qualifying: true)
+      raise "Too many dependents to handle on IT213!" if dependents.length > 6
 
-      if dependents.length > 6
-        raise "Too many dependents to handle on IT213!"
-      end
-
-      dependents.select { |d| d.dob >= 17.years.ago }.each_with_index do |dependent, index|
+      dependents.each_with_index do |dependent, index|
         index += 1
         answers.merge!({
                          "First Name #{index}" => dependent.first_name,

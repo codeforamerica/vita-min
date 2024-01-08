@@ -43,7 +43,6 @@ class StateFileDependent < ApplicationRecord
       .where(months_in_home: 12)
       .where(relationship: ['PARENT', 'GRANDPARENT'])
   end
-  ELIGIBLE_CTC = 'EligibleForChildTaxCreditInd'.freeze
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -62,21 +61,5 @@ class StateFileDependent < ApplicationRecord
 
   def age
     ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
-  end
-
-  def eligible_for_child_tax_credit
-    dependents = self.intake&.direct_file_data&.parsed_xml&.css('DependentDetail')
-    dependents.any? do |dep|
-      dp_str = dep.to_s
-      (ELIGIBLE_CTC.in? dp_str) && (self.first_name.in? dp_str) && (self.last_name.in? dp_str) && (self.ssn.in? dp_str)
-    end
-  end
-
-  def eligible_for_eitc
-    dependents = self.intake&.direct_file_data&.parsed_xml&.css('IRS1040ScheduleEIC QualifyingChildInformation')
-    dependents.any? do |dep|
-      dp_str = dep.to_s
-      (self.first_name.in? dp_str) && (self.last_name.in? dp_str) && (self.ssn.in? dp_str)
-    end
   end
 end

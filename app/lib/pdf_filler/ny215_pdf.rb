@@ -42,7 +42,11 @@ module PdfFiller
         'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
 
-      @submission.data_source.dependents.where(eic_qualifying: true).each_with_index do |dependents_node, index|
+
+      dependents = @submission.data_source.dependents.where(eic_qualifying: true)
+      raise "Too many dependents to handle on IT215!" if dependents.length > 3
+
+      dependents.each_with_index do |dependents_node, index|
         index += 1
         answers.merge!({
                          "ln34fn#{index}" => dependents_node.first_name,

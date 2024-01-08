@@ -558,16 +558,16 @@ class DirectFileData
   end
 
   def eitc_eligible_dependents
-    @dependents ||= Hash.new{}
-    eitc_eligible_nodes.map { |node| @dependents[node.at('QualifyingChildSSN')&.text] = true }
-    @dependents
+    @eligible_dependents ||= Hash.new{}
+    eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = true }
+    @eligible_dependents
   end
 
   def dependents
-    dependents = []
+    @dependents ||= []
     dependent_detail_nodes.each do |node|
       ssn = node.at('DependentSSN')&.text
-      dependent = StateFileDependent.new(
+      dependent = Dependent.new(
         first_name: node.at('DependentFirstNm')&.text,
         last_name: node.at('DependentLastNm')&.text,
         ssn: ssn,
@@ -578,16 +578,14 @@ class DirectFileData
         dependent.eic_qualifying = true
         dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
         dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
+      else
+        dependent.eic_qualifying = false
       end
 
-      dependent.ctc_qualifying = true if dependent_eligible_for_ctc(node)
-      dependents << dependent
+      dependent.ctc_qualifying = node.at('EligibleForChildTaxCreditInd')&.text == 'X'
+      @dependents << dependent
     end
-    dependents
-  end
-
-  def dependent_eligible_for_ctc(node)
-    node.at('EligibleForChildTaxCreditInd')&.text == 'X' ? true : false
+    @dependents
   end
 
   class Dependent
@@ -597,10 +595,12 @@ class DirectFileData
                   :relationship,
                   :eic_student,
                   :eic_disability,
-                  :eic_qualifying
+                  :eic_qualifying,
+                  :ctc_qualifying
 
     def initialize(first_name:, last_name:, ssn:, relationship:,
-                   eic_student: nil, eic_disability: nil, eic_qualifying: nil)
+                   eic_student: nil, eic_disability: nil, eic_qualifying: nil,
+                   ctc_qualifying: nil)
 
       @first_name = first_name
       @last_name = last_name
@@ -609,6 +609,7 @@ class DirectFileData
       @eic_student = eic_student
       @eic_disability = eic_disability
       @eic_qualifying = eic_qualifying
+      @ctc_qualifying = ctc_qualifying
     end
 
     def attributes
