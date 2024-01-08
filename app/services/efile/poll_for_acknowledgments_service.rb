@@ -99,20 +99,20 @@ module Efile
     def self._handle_submission_status_response(response)
       doc = Nokogiri::XML(response)
       status_updates = 0
-      groups_by_irs_submission_id = _group_status_records_by_submission_id(doc)
+      groups_by_irs_submission_id = group_status_records_by_submission_id(doc)
       submissions = EfileSubmission.where(irs_submission_id: groups_by_irs_submission_id.keys)
       submissions.each do |submission|
         status_updates += 1
         xml_node = groups_by_irs_submission_id[submission.irs_submission_id]
         status = xml_node.css('SubmissionStatusTxt').text.strip
-        new_state = _status_to_state(status)
+        new_state = status_to_state(status)
         submission.transition_to(new_state, raw_response: xml_node.to_xml)
       end
 
       status_updates
     end
 
-    def _group_status_records_by_submission_id(doc)
+    def self.group_status_records_by_submission_id(doc)
       # The service returns multiple status records for the each submission id. It looks like they are in reverse
       # chronological order (But are not properly date stamped), so we grab the first ones.
       doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
@@ -123,7 +123,7 @@ module Efile
       end
     end
 
-    def _status_to_state(status)
+    def self.status_to_state(status)
       if TRANSMITTED_STATUSES.include?(status)
         # no action required - the IRS are still working on it
         :transmitted
