@@ -12,7 +12,7 @@
       <%= render 'faq_categories_and_items', category: category %>
     <% end %>
     <% unless @az_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
-      <p>No Arizona FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console)</p>
+      <p>No Arizona FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
     <% end %>
     <hr/>
     <h2 id="ny-cats">New York</h2>
@@ -21,7 +21,7 @@
       <%= render 'faq_categories_and_items', category: category %>
     <% end %>
     <% unless @ny_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
-      <p>No New York FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console)</p>
+      <p>No New York FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
     <% end %>
   </div>
 <% end %>
