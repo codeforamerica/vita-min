@@ -19,7 +19,7 @@
     <div class="reveal__content">
       <p><%= t('.learn_more_content_what') %></p>
       <p><%= t('.learn_more_content_how') %></p>
-      <p><%= t('.learn_more_content_link_html', link: StateFile::Questions::OtherFilingOptionsController.to_path_helper(us_state: params[:us_state], action: :edit)) %></p>
+      <p><%= t('.learn_more_content_link_html', link: @learn_more_link) %></p>
     </div>
   </div>
 
@@ -36,7 +36,7 @@
   </div>
 
   <div>
-    <%= link_to t('.visit_faq'), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq") %>
+    <%= link_to t('.visit_faq'), state_faq_path %>
   </div>
 
 <% end %>
