@@ -1,9 +1,10 @@
 require "rails_helper"
 
-describe Hub::FaqCategoriesController do
-  let(:user) { create :admin_user }
-  let(:faq_category) { create :faq_category, position: 1 }
-  let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2 }
+describe Hub::StateFile::FaqCategoriesController do
+  let(:user) { create :state_file_admin_user }
+  let(:faq_category) { create :faq_category, position: 1, product_type: :state_file_az }
+  let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2, product_type: :state_file_az }
+  let(:faq_category_ny) { create :faq_category, name_en: "new york category", slug: "new_york_category", position: 2, product_type: :state_file_ny }
   let!(:faq_item) { create :faq_item, faq_category: faq_category }
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category_2, slug: "there_there" }
 
@@ -17,7 +18,8 @@ describe Hub::FaqCategoriesController do
     it "renders index" do
       get :index
       expect(response).to render_template :index
-      expect(assigns(:faq_categories)).to match_array [faq_category, faq_category_2]
+      expect(assigns(:az_faq_categories)).to match_array [faq_category, faq_category_2]
+      expect(assigns(:ny_faq_categories)).to match_array [faq_category_ny]
     end
   end
 
@@ -48,7 +50,7 @@ describe Hub::FaqCategoriesController do
           name_en: "when when",
           name_es: "cuando cuando",
           position: 2,
-          product_type: :gyr,
+          product_type: :state_file_az,
         }
       }
     end
@@ -66,7 +68,7 @@ describe Hub::FaqCategoriesController do
         expect(faq_category.name_en).to eq "when when"
         expect(faq_category.name_es).to eq "cuando cuando"
         expect(faq_category.slug).to eq "when_slug"
-        expect(response).to redirect_to hub_faq_categories_path
+        expect(response).to redirect_to hub_state_file_faq_categories_path
       end
 
       it "shift other positions after it" do
@@ -144,7 +146,7 @@ describe Hub::FaqCategoriesController do
         expect(created_category.position).to eq 2
         expect(created_category.slug).to eq "third_added_category"
         expect(faq_category.position).to eq 1
-        expect(faq_category_2.reload.position).to eq 3
+        expect(faq_category_2.reload.position).to eq 2
       end
 
       it "records a paper trail" do
@@ -176,7 +178,7 @@ describe Hub::FaqCategoriesController do
           delete :destroy, params: params
         end.to change(FaqCategory, :count).by(-1).and change(FaqItem, :count).by(-1)
 
-        expect(response).to redirect_to hub_faq_categories_path
+        expect(response).to redirect_to hub_state_file_faq_categories_path
         expect(flash[:notice]).to eq "Deleted 'MyString' category and associated items"
 
         expect do

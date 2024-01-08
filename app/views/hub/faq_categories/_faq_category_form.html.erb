@@ -1,9 +1,18 @@
+<div class="spacing-above-25">
+  <div class="field-display">
+    <span class="form-question">Product type:</span>
+    <span class="label-value"><%= product_type %></span>
+  </div>
+  <%= f.hidden_field :product_type, value: product_type %>
+</div>
+
 <div class="spacing-above-25 form-width--short">
+  <% categories_in_product_type_count = FaqCategory.where(product_type: product_type).count %>
   <% if edit_form %>
-    <% position_options = (1..(FaqCategory.all.count + 1)).to_a %>
+    <% position_options = categories_in_product_type_count.present? ? (1..categories_in_product_type_count).to_a : [1] %>
     <%= f.cfa_select(:position, "Position", position_options, include_blank: false) %>
   <% else %>
-    <% position_options = FaqCategory.all.present? ? (1..(FaqCategory.all.count + 1)).to_a : [1] %>
+    <% position_options = categories_in_product_type_count.present? ? (1..(categories_in_product_type_count + 1)).to_a : [1] %>
     <%= f.cfa_select(:position, "Position", position_options, include_blank: false, selected: position_options.last) %>
   <% end %>
 </div>
@@ -15,10 +24,23 @@
 <div class="spacing-above-25">
   <%= f.cfa_input_field :name_es, "Name (Spanish)", classes: ["form-width--long"] %>
 </div>
+
+<% unless product_type == :gyr %>
+  <div class="spacing-above-25">
+    <%= f.label :description_en, "Description (English)", class: "h4" %>
+    <%= f.rich_text_area :description_en %>
+  </div>
+
+  <div class="spacing-above-25">
+    <%= f.label :description_es, "Description (Spanish)", class: "h4" %>
+    <%= f.rich_text_area :description_es %>
+  </div>
+<% end %>
+
 <% if edit_form %>
-<div class="spacing-above-25">
-  <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>
-</div>
+  <div class="spacing-above-25">
+    <%= f.cfa_input_field :slug, "Slug", classes: ["form-width--long"] %>
+  </div>
 <% end %>
 
 <div class="spacing-above-35">

@@ -3,6 +3,7 @@ module Hub
     before_action :require_admin
     before_action :set_paper_trail_whodunnit
     before_action :load_faq_category
+    before_action :load_faq_return_path
     load_and_authorize_resource
     layout "hub"
 
@@ -49,7 +50,7 @@ module Hub
       rescue ActiveRecord::InvalidForeignKey
         flash[:error] = "Unable to delete '#{@faq_item.question_en}'"
       end
-      redirect_to hub_faq_categories_path
+      redirect_to send(@faq_return_path)
     end
 
     private
@@ -60,6 +61,10 @@ module Hub
 
     def load_faq_category
       @faq_category = FaqCategory.find(params[:faq_category_id])
+    end
+
+    def load_faq_return_path
+      @faq_return_path = @faq_category.product_type_gyr? ? :hub_faq_categories_path : :hub_state_file_faq_categories_path
     end
 
     def form_class

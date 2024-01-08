@@ -7,7 +7,7 @@
     <%= render 'header_buttons', category: @faq_category %>
     <hr/>
     <%= form_with model: @form, url: hub_faq_category_path, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
-      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_faq_category_path(id: @faq_category.id), edit_form: true, product_type: :gyr %>
+      <%= render 'hub/faq_categories/faq_category_form', f: f, cancel_path: hub_state_file_faq_category_path(id: @faq_category.id), edit_form: true, product_type: @faq_category.product_type %>
     <% end %>
   </div>
 <% end %>
