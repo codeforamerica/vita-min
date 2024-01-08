@@ -282,7 +282,7 @@ describe Efile::PollForAcknowledgmentsService do
 
     context "getting status from state" do
       it "interprets ready_for_ack successfully" do
-        ["Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].each do |status|
+        ["Denied by IRS", "Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].each do |status|
           expect(Efile::PollForAcknowledgmentsService.status_to_state(status)).to eq :ready_for_ack
         end
       end

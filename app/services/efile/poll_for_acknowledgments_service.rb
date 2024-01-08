@@ -105,8 +105,9 @@ module Efile
         status_updates += 1
         xml_node = groups_by_irs_submission_id[submission.irs_submission_id]
         status = xml_node.css('SubmissionStatusTxt').text.strip
-        new_state = status_to_state(status)
-        submission.transition_to(new_state, raw_response: xml_node.to_xml)
+        new_state = submission_status_to_state(status)
+        last_raw_response = submission.efile_submission_transitions.last&.metadata["raw_response"]
+        submission.transition_to(new_state, raw_response: xml_node.to_xml) unless xml_node.to_xml == last_raw_response
       end
 
       status_updates
@@ -123,7 +124,7 @@ module Efile
       end
     end
 
-    def self.status_to_state(status)
+    def self.submission_status_to_state(status)
       if TRANSMITTED_STATUSES.include?(status)
         # no action required - the IRS are still working on it
         :transmitted
