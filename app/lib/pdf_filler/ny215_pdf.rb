@@ -46,19 +46,19 @@ module PdfFiller
       dependents = @submission.data_source.dependents.where(eic_qualifying: true)
       raise "Too many dependents to handle on IT215!" if dependents.length > 3
 
-      dependents.each_with_index do |dependents_node, index|
+      dependents.each_with_index do |dependent, index|
         index += 1
         answers.merge!({
-                         "ln34fn#{index}" => dependents_node.first_name,
-                         "ln3mi#{index}" => dependents_node.middle_initial,
-                         "ln34ln#{index}" => dependents_node.last_name,
-                         "ln34suf#{index}" => dependents_node.suffix,
-                         "ln34real#{index}" => dependents_node.relationship,
+                         "ln34fn#{index}" => dependent.first_name,
+                         "ln3mi#{index}" => dependent.middle_initial,
+                         "ln34ln#{index}" => dependent.last_name,
+                         "ln34suf#{index}" => dependent.suffix,
+                         "ln34real#{index}" => dependent.relationship,
                          "month#{index}" => nil,
-                         "ln34disability#{index}" =>  dependents_node.eic_disability,
-                         "ln34student#{index}" =>  dependents_node.eic_student ? "Yes" : "Off",
-                         "ln34ssn#{index}" => dependents_node.ssn,
-                         "ln34birth#{index}" => dependents_node.dob.strftime("%m%d%Y")
+                         "ln34disability#{index}" =>  dependent.eic_disability,
+                         "ln34student#{index}" =>  dependent.eic_student ? "Yes" : "Off",
+                         "ln34ssn#{index}" => dependent.ssn,
+                         "ln34birth#{index}" => dependent.dob.strftime("%m%d%Y")
                        })
       end
       answers

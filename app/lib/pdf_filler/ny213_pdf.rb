@@ -58,7 +58,7 @@ module PdfFiller
         answers.merge!(
           'Line 10' => claimed_attr_value('ESC_FED_CHLD_NMBR'),
           'Line 11' => claimed_attr_value('ESC_SSN_CHLD_NMBR'),
-          'Line 12' => claimed_attr_value('ESC_FED_CHLD_NMBR').to_i + claimed_attr_value('ESC_SSN_CHLD_NMBR').to_i,
+          'Line 12' => claimed_attr_value('ESC_TOT_CHLD_NMBR'),
           'Line 13 Dollars' => claimed_attr_value('ESC_LMT_2_AMT'),
         )
       end

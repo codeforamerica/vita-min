@@ -282,7 +282,6 @@ describe DirectFileData do
   end
 
   describe '#dependents' do
-
     context "when there are dependents in the xml" do
       let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_five_dependents_ny.xml')) }
       it 'returns an array of DirectFileData::Dependent objects' do

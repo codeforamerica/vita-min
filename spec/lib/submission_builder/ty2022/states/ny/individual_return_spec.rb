@@ -33,14 +33,10 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when claiming the federal EIC" do
-      let(:xml) { File.read(Rails.application.root.join("spec/fixtures/files/fed_return_zeus_8_deps_ny.xml")) }
-      let(:intake) { create(:state_file_ny_intake, raw_direct_file_data: xml) }
+      let(:intake) { create(:state_file_zeus_intake) }
 
       it 'includes the IT215 document and EIC dependents' do
-        intake.synchronize_df_dependents_to_database
-
         xml = described_class.build(submission).document
-
         expect(xml.at("IT215")).to be_present
         dependent_nodes = xml.search("dependent")
         eic_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "215" }
@@ -48,15 +44,11 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    xcontext "when claiming the federal CTC" do
-      let(:xml) { File.read(Rails.application.root.join("spec/fixtures/files/fed_return_zeus_8_deps_ny.xml")) }
-      let(:intake) { create(:state_file_ny_intake, raw_direct_file_data: xml) }
+    context "when claiming the federal CTC" do
+      let(:intake) { create(:state_file_zeus_intake) }
 
       it 'includes the IT213 document and CTC dependents' do
-        intake.synchronize_df_dependents_to_database
-
         xml = described_class.build(submission).document
-
         expect(xml.at("IT213")).to be_present
         dependent_nodes = xml.search("dependent")
         ctc_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "348" }

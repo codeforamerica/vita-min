@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Ny::It201 do
-  let(:intake) { create(:state_file_ny_intake, eligibility_lived_in_state: 1) }
+  let(:intake) { create(:state_file_ny_intake) }
   let!(:dependent) { intake.dependents.create(dob: 7.years.ago) }
   let(:instance) do
     described_class.new(
@@ -368,11 +368,18 @@ describe Efile::Ny::It201 do
     end
   end
 
-  # TODO: flesh out this test suite on the IT213 calculations
   describe '#calculate_it213' do
+    context "with a bunch of eligible dependents" do
+      let(:intake) { create(:state_file_zeus_intake) }
+
+      it "calculates the proper value for line 14" do
+        expect(instance.calculate[:IT213_LINE_14]).to eq 900 # TODO: verify this result for zeus
+      end
+    end
+
     context "when the client is not eligible because they didn't live in NY state all year" do
       before do
-        intake.eligibility_lived_in_state = 2 # no
+        intake.eligibility_lived_in_state = "no"
       end
 
       it "stops calculating IT213 after line 1 and sets IT213_LINE_14 to 0" do

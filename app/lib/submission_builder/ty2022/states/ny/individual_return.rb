@@ -83,7 +83,7 @@ module SubmissionBuilder
                   xml.DEP_SSN_NMBR dependent.ssn
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
-                  xml.DEP_FORM_ID 348
+                  xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
                   xml.DEP_RELATION_DESC dependent.relationship
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
@@ -91,7 +91,7 @@ module SubmissionBuilder
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                  xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
+                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
                 end
               end
 
@@ -108,7 +108,7 @@ module SubmissionBuilder
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                  xml.DOB_DT dependent.dob&.strftime("%Y-%m-%d")
+                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
                 end
               end
 

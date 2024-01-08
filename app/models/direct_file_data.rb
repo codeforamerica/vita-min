@@ -580,7 +580,9 @@ class DirectFileData
   end
 
   def dependents
-    @dependents ||= []
+    return @dependents if @dependents
+
+    @dependents = []
     dependent_detail_nodes.each do |node|
       ssn = node.at('DependentSSN')&.text
       dependent = Dependent.new(
@@ -859,6 +861,7 @@ class DirectFileData
         eic_student: @eic_student,
         eic_disability: @eic_disability,
         eic_qualifying: @eic_qualifying,
+        ctc_qualifying: @ctc_qualifying
       }
     end
   end
