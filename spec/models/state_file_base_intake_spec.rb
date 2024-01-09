@@ -56,6 +56,7 @@ describe StateFileBaseIntake do
     context "when timed out" do
       let!(:intake) { create :state_file_az_intake }
       it "actually times out" do
+        # So oddly enough timedout?(15.minutes.ago) actually means 'Times out in 15 minutes'
         expect(intake.timedout?(14.minutes.ago)).to eq false
         expect(intake.timedout?(15.minutes.ago)).to eq true
         expect(intake.timedout?(16.minutes.ago)).to eq true
