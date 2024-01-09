@@ -194,7 +194,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
       end
       within "#dependent-1" do
-        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1950, 10, 31)
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1940, 10, 31)
         select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
       end
       click_on I18n.t("general.continue")

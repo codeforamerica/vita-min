@@ -24,7 +24,7 @@ module Efile
         set_line(:AZ140_LINE_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AZ140_LINE_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AZ140_LINE_10A, @intake, :federal_dependent_count_under_17)
-        set_line(:AZ140_LINE_10B, @intake, :federal_dependent_count_over_17_non_senior)
+        set_line(:AZ140_LINE_10B, @intake, :federal_dependent_count_over_17_non_qualifying_senior)
         set_line(:AZ140_LINE_11A, @intake, :qualifying_parents_and_grandparents)
         set_line(:AZ140_LINE_12, @direct_file_data, :fed_agi)
         set_line(:AZ140_LINE_14, :calculate_line_14)
