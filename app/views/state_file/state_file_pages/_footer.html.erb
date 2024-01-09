@@ -41,6 +41,12 @@
 
         <% unless Rails.env.production? %>
           <li><%= link_to "Flow explorer", flows_path %></li>
+
+          <li>
+            <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/users/sessions", action: 'new') do %>
+              <%= "Hub sign in" %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>
