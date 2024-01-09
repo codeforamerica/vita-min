@@ -83,10 +83,22 @@ module SubmissionBuilder
                 xml.PR_SGN_IND claimed: 1
 
                 xml.IT201FEDADJID do
-                  @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |type, info|
+                  @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |_type, info|
                     xml.descAmt do
                       xml.DESCRIPTION claimed: info[:xml_label]
                       xml.AMOUNT claimed: info[:amount]
+                    end
+                  end
+                end
+                xml.IT201DepExmpInfo do
+                  @submission.data_source.dependents.each do |dependent|
+                    xml.depInfo do
+                      xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
+                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
+                      xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
+                      xml.DEP_RELATION_DESC claimed: dependent.relationship
+                      xml.DEP_SSN_NMBR claimed: dependent.ssn
+                      xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d")
                     end
                   end
                 end

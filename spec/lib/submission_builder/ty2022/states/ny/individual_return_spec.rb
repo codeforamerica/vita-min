@@ -32,14 +32,27 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context "when claiming the state EIC" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, spouse_first_name: "Goose", dependents: [create(:state_file_dependent, eic_qualifying: true)]) }
-      let(:filing_status) { 'married_filing_jointly' }
+    context "when claiming the federal EIC" do
+      let(:intake) { create(:state_file_zeus_intake) }
 
       it 'includes the IT215 document and EIC dependents' do
         xml = described_class.build(submission).document
-        expect(xml.at("dependent DEP_CHLD_FRST_NAME").text).to eq(intake.dependents.first.first_name)
-        expect(xml.at("IT215 E_FED_EITC_IND").attribute('claimed').value).to eq("1")
+        expect(xml.at("IT215")).to be_present
+        dependent_nodes = xml.search("dependent")
+        eic_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "215" }
+        expect(eic_dependent_nodes.length).to eq 3
+      end
+    end
+
+    context "when claiming the federal CTC" do
+      let(:intake) { create(:state_file_zeus_intake) }
+
+      it 'includes the IT213 document and CTC dependents' do
+        xml = described_class.build(submission).document
+        expect(xml.at("IT213")).to be_present
+        dependent_nodes = xml.search("dependent")
+        ctc_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "348" }
+        expect(ctc_dependent_nodes.length).to eq 3
       end
     end
 

@@ -46,7 +46,13 @@ module PdfFiller
         F1_NYC: claimed_attr_value('PR_NYC_MNTH_NMBR'),
         F2_NYC: claimed_attr_value('SP_NYC_MNTH_NMBR'),
       }
-      answers.merge!(dependents_info(@submission.data_source.dependents.select{ |dep| dep.eligible_for_child_tax_credit }))
+      if @submission.data_source.nyc_full_year_resident_yes?
+        answers[:F1_NYC] = '12'
+        if @submission.data_source.filing_status_mfj?
+          answers[:F2_NYC] = '12'
+        end
+      end
+      answers.merge!(dependents_info(@submission.data_source.dependents))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
         Line2: claimed_attr_value('INT_AMT'),

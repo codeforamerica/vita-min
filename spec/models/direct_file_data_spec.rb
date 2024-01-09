@@ -280,4 +280,53 @@ describe DirectFileData do
       end
     end
   end
+
+  describe '#dependents' do
+    context "when there are dependents in the xml" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_five_dependents_ny.xml')) }
+      it 'returns an array of DirectFileData::Dependent objects' do
+
+        expect(described_class.new(xml).dependents.count).to eq(5)
+        expect(described_class.new(xml).dependents.first).to be_an_instance_of DirectFileData::Dependent
+        expect(described_class.new(xml).dependents.first.ssn).to eq('444444444')
+      end
+    end
+
+    context "when there are no dependents in the xml" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_javier_ny.xml')) }
+      it 'returns blank array' do
+
+        expect(described_class.new(xml).dependents).to eq []
+      end
+    end
+
+    context "when there are CTC dependents in the xml" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+      it 'sets ctc_qualifying on those dependents' do
+
+        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying == false }.length).to eq(5)
+        expect(described_class.new(xml).dependents.length).to eq(8)
+      end
+    end
+
+    context "when there are EIC dependents in the xml" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+      it 'sets eic_qualifying on those dependents' do
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying == false }.length).to eq(5)
+
+        expect(described_class.new(xml).dependents.length).to eq(8)
+      end
+    end
+
+    context "when there is a eic dependent with a disability" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_robert_mfj_ny.xml')) }
+
+      it "sets eic_disability on those dependents" do
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability }.length).to eq(1)
+      end
+    end
+  end
 end

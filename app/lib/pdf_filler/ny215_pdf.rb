@@ -41,19 +41,24 @@ module PdfFiller
         'Worksheet B 4 dollars15' => claimed_attr_value('E_TOT_OTHCR_AMT'),
         'Worksheet B 5 dollars15' => claimed_attr_value('E_NET_TX_AMT')
       }
-      @xml_document.css('dependent').each_with_index do |dependents_node, index|
+
+
+      dependents = @submission.data_source.dependents.where(eic_qualifying: true)
+      raise "Too many dependents to handle on IT215!" if dependents.length > 3
+
+      dependents.each_with_index do |dependent, index|
         index += 1
         answers.merge!({
-                         "ln34fn#{index}" => dependents_node.at("DEP_CHLD_FRST_NAME")&.text,
-                         "ln3mi#{index}" => dependents_node.at("DEP_CHLD_MI_NAME")&.text,
-                         "ln34ln#{index}" => dependents_node.at("DEP_CHLD_LAST_NAME")&.text,
-                         "ln34suf#{index}" => dependents_node.at("DEP_CHLD_SFX_NAME")&.text,
-                         "ln34real#{index}" => dependents_node.at("DEP_RELATION_DESC")&.text,
-                         "month#{index}" => dependents_node.at("DEP_MNTH_LVD_NMBR")&.text,
-                         "ln34disability#{index}" =>  dependents_node.at("DEP_DISAB_IND")&.text == '1' ? "Yes" : "Off",
-                         "ln34student#{index}" =>  dependents_node.at("DEP_STUDENT_IND")&.text == '1' ? "Yes" : "Off",
-                         "ln34ssn#{index}" => dependents_node.at("DEP_SSN_NMBR")&.text,
-                         "ln34birth#{index}" => (Date.parse(dependents_node.at("DOB_DT")&.text)).strftime("%m%d%Y")
+                         "ln34fn#{index}" => dependent.first_name,
+                         "ln3mi#{index}" => dependent.middle_initial,
+                         "ln34ln#{index}" => dependent.last_name,
+                         "ln34suf#{index}" => dependent.suffix,
+                         "ln34real#{index}" => dependent.relationship,
+                         "month#{index}" => nil,
+                         "ln34disability#{index}" =>  dependent.eic_disability,
+                         "ln34student#{index}" =>  dependent.eic_student ? "Yes" : "Off",
+                         "ln34ssn#{index}" => dependent.ssn,
+                         "ln34birth#{index}" => dependent.dob.strftime("%m%d%Y")
                        })
       end
       answers

@@ -41,6 +41,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
       dependent.assign_attributes(direct_file_dependent.attributes)
+      dependent.assign_attributes(intake_id: self.id, intake_type: self.class.to_s)
       dependent.save
     end
   end

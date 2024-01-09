@@ -9,7 +9,7 @@ module StateFile
                            when "az"
                              SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
                            end
-        builder_response.errors.present? ? render(plain: builder_response.errors.join("\n")) : render(xml: builder_response.document)
+        builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end
 
       def explain_calculations

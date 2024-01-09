@@ -549,6 +549,10 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation')
   end
 
+  def eitc_eligible_nodes
+    parsed_xml.css('IRS1040ScheduleEIC QualifyingChildInformation')
+  end
+
   def build_new_qualifying_child_information_node
     dd = parsed_xml.css('QualifyingChildInformation').first
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
@@ -569,38 +573,40 @@ class DirectFileData
     parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
   end
 
-  def dependents
-    dependents = parsed_xml.css('DependentDetail').map do |node|
-      Dependent.new(
-        first_name: node.at('DependentFirstNm')&.text,
-        last_name: node.at('DependentLastNm')&.text,
-        ssn: node.at('DependentSSN')&.text,
-        relationship: node.at('DependentRelationshipCd')&.text,
-      )
-    end
-
-    parsed_xml.css('IRS1040ScheduleEIC QualifyingChildInformation').map.with_index do |node|
-      dependent = dependents.map { |d| d if d.ssn == node.at('QualifyingChildSSN')&.text }.first
-      next unless dependent
-      if dependent.present?
-        dependent.eic_qualifying = true
-        dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
-        dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
-      else
-        dependents << Dependent.new(
-          first_name: node.at('ChildFirstAndLastName PersonFirstNm')&.text,
-          last_name: node.at('ChildFirstAndLastName PersonLastNm')&.text,
-          ssn: node.at('QualifyingChildSSN')&.text,
-          relationship: node.at('ChildRelationshipCd')&.text,
-          eic_qualifying: true,
-          eic_student: node.at('ChildIsAStudentUnder24Ind')&.text,
-          eic_disability: node.at('ChildPermanentlyDisabledInd')&.text,
-        )
-      end
-    end
-    dependents
+  def eitc_eligible_dependents
+    @eligible_dependents ||= Hash.new{}
+    eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = node }
+    @eligible_dependents
   end
 
+  def dependents
+    return @dependents if @dependents
+
+    @dependents = []
+    dependent_detail_nodes.each do |node|
+      ssn = node.at('DependentSSN')&.text
+      dependent = Dependent.new(
+        first_name: node.at('DependentFirstNm')&.text,
+        last_name: node.at('DependentLastNm')&.text,
+        ssn: ssn,
+        relationship: node.at('DependentRelationshipCd')&.text,
+      )
+
+      eitc_dependent_node = eitc_eligible_dependents[ssn]
+      if eitc_dependent_node.present?
+        dependent.eic_qualifying = true
+        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind').text == "true"
+        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd').text == "true"
+      else
+        dependent.eic_qualifying = false
+      end
+
+      dependent.ctc_qualifying = node.at('EligibleForChildTaxCreditInd')&.text == 'X'
+      @dependents << dependent
+    end
+    @dependents
+  end
+    
   class DfW2
     include DfXmlCrudMethods
 
@@ -830,10 +836,12 @@ class DirectFileData
                   :relationship,
                   :eic_student,
                   :eic_disability,
-                  :eic_qualifying
+                  :eic_qualifying,
+                  :ctc_qualifying
 
     def initialize(first_name:, last_name:, ssn:, relationship:,
-                   eic_student: nil, eic_disability: nil, eic_qualifying: nil)
+                   eic_student: nil, eic_disability: nil, eic_qualifying: nil,
+                   ctc_qualifying: nil)
 
       @first_name = first_name
       @last_name = last_name
@@ -842,6 +850,7 @@ class DirectFileData
       @eic_student = eic_student
       @eic_disability = eic_disability
       @eic_qualifying = eic_qualifying
+      @ctc_qualifying = ctc_qualifying
     end
 
     def attributes
@@ -853,6 +862,7 @@ class DirectFileData
         eic_student: @eic_student,
         eic_disability: @eic_disability,
         eic_qualifying: @eic_qualifying,
+        ctc_qualifying: @ctc_qualifying
       }
     end
   end

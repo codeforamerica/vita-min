@@ -101,6 +101,11 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
+    eligibility_lived_in_state { "yes" }
+    eligibility_out_of_state_income { "no" }
+    eligibility_part_year_nyc_resident { "no" }
+    eligibility_withdrew_529 { "no" }
+    eligibility_yonkers { "no" }
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
@@ -170,6 +175,28 @@ FactoryBot.define do
 
     factory :state_file_ny_intake_after_transfer do
       sequence(:hashed_ssn) { |n| "abcdefg12346#{n}" }
+    end
+
+    factory :state_file_zeus_intake do
+      # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
+      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+
+      after(:create) do |intake|
+        intake.synchronize_df_dependents_to_database
+        {
+          "Ares" => Date.new(2009, 10, 11),
+          "Hades" => Date.new(1980, 7, 8),
+          "Hebe" => Date.new(2008, 3, 4),
+          "Hermes" => Date.new(2022, 4, 5),
+          "Poseidon" => Date.new(2000, 8, 9),
+          "Artemis" => Date.new(2003, 6, 7),
+          "Kronus" => Date.new(1940, 12, 15),
+          "Helen" => Date.new(2012, 5, 6),
+        }.each do |name, date|
+          intake.dependents.where(first_name: name).first.update(dob: date)
+        end
+        intake.dependents.reload
+      end
     end
   end
 end
