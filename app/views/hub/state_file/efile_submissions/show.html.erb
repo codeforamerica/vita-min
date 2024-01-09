@@ -60,7 +60,7 @@
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
         <ul role="list" class="logs">
-          <%= render(partial: "log", collection: @efile_submission.efile_submission_transitions, as: :transition) || "No logs yet" %>
+          <%= render("log", transitions: @efile_submission.efile_submission_transitions) %>
         </ul>
       </div>
     </div>
