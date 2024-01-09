@@ -6,8 +6,7 @@
   <div class="text--small spacing-below-35">
     <div class="spacing-above-25"><%= t(".other_options_html") %></div>
 
-    <!--    TODO: replace with real FAQ link-->
-    <div class="spacing-above-35"><%= link_to t(".faq"), root_path %></div>
+    <div class="spacing-above-35"><%= link_to t(".faq"), state_faq_path %></div>
   </div>
 
   <%= link_to @link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>

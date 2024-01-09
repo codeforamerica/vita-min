@@ -1,3 +1,4 @@
+<!--TODO: remove? similar page in FAQ? pls nothing is linking to this rn-->
 <% title = t(".title") %>
 
 <% content_for :page_title, title %>
@@ -18,6 +19,6 @@
   </div>
 
   <p><%= link_to t(".vita_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home') %></p>
-<!--  TODO: replace with FAQ link once exists-->
-  <p><%= link_to t(".faq_link"), root_path %></p>
+  <% faq_link = params[:us_state].present? ? state_faq_path(us_state: params[:us_state]) : root_path(anchor: "common_questions")  %>
+  <p><%= link_to t(".faq_link"), faq_link %></p>
 <% end %>
