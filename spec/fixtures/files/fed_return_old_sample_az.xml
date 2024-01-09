@@ -173,6 +173,8 @@
         </ChildFirstAndLastName>
         <QualifyingChildSSN>555004444</QualifyingChildSSN>
         <ChildBirthYr>2017</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
