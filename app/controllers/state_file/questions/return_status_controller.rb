@@ -9,6 +9,10 @@ module StateFile
         @reject_description = reject_description
         @refund_or_owed_amount = refund_or_owed_amount
         @refund_url = refund_url
+        @tax_payment_url = tax_payment_url
+        @download_form_name = download_form_name
+        @mail_voucher_address = mail_voucher_address
+        @voucher_path = voucher_path
       end
 
       private
@@ -39,6 +43,55 @@ module StateFile
           'https://www.tax.ny.gov/pit/file/refund.htm'
         when 'az'
           'https://aztaxes.gov/home/checkrefund'
+        else
+          ''
+        end
+      end
+
+      def tax_payment_url
+        case params[:us_state]
+        when 'ny'
+          'Tax.NY.gov'
+        when 'az'
+          'AZTaxes.gov'
+        else
+          ''
+        end
+      end
+
+      def download_form_name
+        case params[:us_state]
+        when 'ny'
+          'Form IT-201-V'
+        when 'az'
+          'Form AZ-140V'
+        else
+          ''
+        end
+      end
+
+      def mail_voucher_address
+        case params[:us_state]
+        when 'ny'
+          "NYS Personal Income Tax<br/>"\
+          "Processing Center<br/>"\
+          "Box 4124<br/>"\
+          "Binghamton, NY 13902-4124".html_safe
+        when 'az'
+          "Arizona Department of Revenue<br/>"\
+          "PO Box 29085<br/>"\
+          "Phoenix, AZ 85038-9085".html_safe
+        else
+          ''
+        end
+      end
+
+      def voucher_path
+        case params[:us_state]
+        when 'ny'
+          '/pdfs/it201v_1223.pdf'
+        when 'az'
+          '/pdfs/AZ-140V.pdf'
         else
           ''
         end
