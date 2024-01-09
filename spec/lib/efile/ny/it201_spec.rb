@@ -165,27 +165,41 @@ describe Efile::Ny::It201 do
 
   describe "#calculate_line_43" do
     it "is equal to line 40 because we are not supporting lines 41 and 42" do
-
+      instance.calculate
+      expect(instance.lines[:IT201_LINE_43].value).to eq instance.lines[:IT201_LINE_40].value
     end
   end
 
   describe "#calculate_line_44" do
     context "line 43 is less than line 39" do
-      it "is the difference between lines 39 and 43" do
+      before do
+        allow(instance).to receive(:calculate_line_43).and_return 50
+        allow(instance).to receive(:calculate_line_39).and_return 100
+      end
 
+      it "is the difference between lines 39 and 43" do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_44].value).to eq 50
       end
     end
 
     context "line 43 is greater than line 39" do
-      it "is zero" do
+      before do
+        allow(instance).to receive(:calculate_line_43).and_return 100
+        allow(instance).to receive(:calculate_line_39).and_return 50
+      end
 
+      it "is zero" do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_44].value).to eq 0
       end
     end
   end
 
   describe "#calculate_line_46" do
     it "is equal to line 44 because we are not supporting line 45" do
-
+      instance.calculate
+      expect(instance.lines[:IT201_LINE_46].value).to eq instance.lines[:IT201_LINE_44].value
     end
   end
 
