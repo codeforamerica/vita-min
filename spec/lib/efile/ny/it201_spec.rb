@@ -149,16 +149,38 @@ describe Efile::Ny::It201 do
     context 'when filing status is married filing jointly' do
       before do
         intake.direct_file_data.filing_status = 2 # mfj
-        intake.direct_file_data.fed_wages = 2_000
-        intake.direct_file_data.fed_taxable_income = 2_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
       end
 
-      it 'uses the correct table to set the value of the credit' do
-        instance.calculate
-        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
-        expect(instance.lines[:IT201_LINE_40].value).to eq(120)
+      context "income under 5000" do
+        before do
+          intake.direct_file_data.fed_wages = 2_000
+          intake.direct_file_data.fed_taxable_income = 2_000
+          intake.direct_file_data.fed_taxable_ssb = 0
+          intake.direct_file_data.fed_unemployment = 0
+        end
+
+        it 'uses the correct table to set the value of the credit' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+          expect(instance.lines[:IT201_LINE_40].value).to eq(120)
+        end
+      end
+
+      context "income between 20k and 22k and 2 dependents" do
+        before do
+          intake.dependents.create!
+          intake.direct_file_data.fed_wages = 21_000
+          intake.direct_file_data.fed_total_adjustments = 0
+          intake.direct_file_data.fed_taxable_income = 0
+          intake.direct_file_data.fed_taxable_ssb = 0
+          intake.direct_file_data.fed_unemployment = 0
+        end
+
+        it 'uses the correct table to set the value of the credit' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_19].value).to eq(21_000)
+          expect(instance.lines[:IT201_LINE_40].value).to eq(90)
+        end
       end
     end
   end
