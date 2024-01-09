@@ -37,7 +37,7 @@ class FaqItem < ApplicationRecord
     when :en
       question_en
     when :es
-      question_es
+      question_es.present? ? question_es : question_en
     end
   end
 
@@ -46,7 +46,7 @@ class FaqItem < ApplicationRecord
     when :en
       answer_en
     when :es
-      answer_es
+      answer_es.present? ? answer_es : answer_en
     end
   end
 end

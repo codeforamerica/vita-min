@@ -190,6 +190,11 @@
     }
   }
 
+  .bulleted ul {
+    padding-left: 3rem;
+    list-style: disc;
+  }
+
   .button {
     border-radius: 0.4rem;
     font-size: 2.2rem;
@@ -512,6 +517,11 @@
     font-weight: 400;
     height: 2.5rem;
     margin-bottom: 2.5rem;
+  }
+
+  .undecorated-link {
+    color: black;
+    text-decoration: none;
   }
 }
 

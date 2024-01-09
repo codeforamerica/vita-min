@@ -8,6 +8,7 @@ class FaqDatabaseExportService
       category_position += 1
       faq_category = FaqCategory.find_or_initialize_by(
         slug: section,
+        product_type: :gyr
       )
       faq_category.update(
         name_en: en_yml[section.to_s]['title'],

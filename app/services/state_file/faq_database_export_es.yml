@@ -1,0 +1,259 @@
+question_groups:
+  az:
+    who_can_use_this_tool:
+      title: ¿Quién puede usar FileYourStateTaxes?
+      in_order_to_file:
+        question: "Para presentar tus impuestos estatales de Arizona de 2023 usando FileYourStateTaxe tú (y tú cónyuge) deben:"
+        answer_html: |
+          <p><strong>Para presentar tus impuestos estatales de Arizona de 2023 usando FileYourStateTaxe tú (y tú cónyuge) deben:</strong></p>  
+          <ul>
+            <li>Presentar la declaración de impuestos federales de 2023 utilizando IRS Direct File y aceptar transferir la información de la declaración federal de impuestos a FileYourStateTaxes.</li>
+            <li>Haber vivido en Arizona durante todo el año 2023.</li>
+            <li>No tener ingresos adicionales de otros estados en 2023.</li>
+            <li>Si están casados, tú y tu cónyuge deben presentar la declaración de impuestos de 2023 conjuntamente (no pueden presentar su declaración como "casados presentando por separado").</li>
+          </ul>
+      uncommon_situations_that_would_disqualify_you:
+        question: "Situaciones poco comunes que no te permiten usar FileYourStateTaxes:"
+        answer_html: |
+          <p>Situaciones poco comunes que no te permiten usar FileYourStateTaxes:</p>
+          <ul>
+            <li>Si retiraste dinero de una cuenta de ahorro universitario 529 y los fondos no se utilizaron para pagar gastos educativos calificados.</li>
+            <ul>
+              <li>Los gastos que califican incluyen matrícula y tarifas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y alimentación, programas de aprendizaje y matrícula para K-12 de hasta $10,000. La mayoría de los demás gastos no califican.</li>
+            </ul>
+            <li>Si quieres presentar tus declaraciones de impuestos federales y estatales utilizando diferentes estados civiles (por ejemplo, presentar como cabeza de familia en tu declaración federal y presentar como soltero en tu declaración estatal).</li>
+            <li>Si quieres pedir una extensión para presentar tus impuestos estatales más tarde.</li>
+            <li>Tú o tu cónyuge califican como cónyuge lesionado y solicitan protección contra una reducción en tu reembolso debido a las deudas o incumplimientos de la otra persona.</li>
+            <li>Tienes ingresos adicionales que debes informar en tu declaración de Arizona y que no se incluyeron en tu declaración federal (por ejemplo, ingresos por intereses de un bono municipal de un estado que no es Arizona). Consulta todas las adiciones en la página 5 del Formulario AZ 140.</li>
+            <li>Recibiste un aviso del Departamento de Ingresos de Arizona informándote que un crédito que reclamaste en un año fiscal anterior está sujeto a "recaptura" (es decir, debes devolver una parte de un crédito reclamado anteriormente).</li>
+          </ul>
+    az_supported_credits_and_deductions:
+      title: ¿Cuáles créditos y deducciones de Arizona admite FileYourStateTaxes este año?
+      fyst_help:
+        question: "FileYourStateTaxes puede ayudarte a reclamar créditos, deducciones y exenciones estatales para maximizar tu reembolso, incluyendo:"
+        answer_html: |
+          <p><strong>FileYourStateTaxes puede ayudarte a reclamar créditos, deducciones y exenciones estatales para maximizar tu reembolso, incluyendo:</strong></p>
+          <ul>
+            <li>Exenciones para ti, tu cónyuge y dependientes si:</li>
+            <ul>
+              <li>Tú o tu cónyuge tienen 65 años o más, o son ciegos.</li>
+              <li>Tienes dependientes menores de 17 años.</li>
+              <li>Tienes padres o abuelos que califican.</li>
+            </ul>
+            <li>Deducción estándar.</li>
+            <li>Una deducción aumentada por donaciones caritativas.</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions">Crédito por dependientes.</a></li>
+            <li>Crédito por ingresos familiares.</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes">Impuestos estatales de Arizona retenidos de tus salarios o beneficios por desempleo.</a></li>
+            <li>Arizona state taxes withheld from your wages or unemployment benefits</li>
+          </ul>
+      irs_help:
+        question: "IRS Direct File te ayudará a reclamar los créditos fiscales federales más comunes antes de usar FileYourStateTaxes, incluyendo:"
+        answer_html: |
+          <p><strong>IRS Direct File te ayudará a reclamar los créditos fiscales federales más comunes antes de usar FileYourStateTaxes, incluyendo:</strong></p>
+          <ul>
+            <li>Crédito por ingreso del trabajo (EITC por sus siglos en inglés).</li>
+            <li>Crédito tributario por hijos.</li>
+            <li>Crédito por otros dependientes.</li>
+          </ul>
+
+    unsupported_credits_and_deductions:
+      title: ¿Qué créditos y deducciones de Arizona no admite actualmente FileYourStateTaxes?
+      not_supported:
+        question: "Actualmente, la herramienta no admite:"
+        answer_html: |
+          <p><strong>Actualmente, la herramienta no admite:</strong></p>
+          <ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/public-school-tax-credit">Crédito tributario para escuelas públicas.</a> Para calificar para este crédito, debes:</li>
+            <ul>
+              <li>Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública.</li>
+              <li>Compartir información de la escuela, incluyendo <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf">el código CTDS.</a></li>
+            </ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits">Crédito tributario por impuestos a la propiedad.</a>Para calificar para este crédito, debes:</li>
+            <ul>
+              <li>Tener 65 años o más, o recibir pagos de Seguridad de Ingreso Suplementario</li>
+              <li>Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros</li>
+              <li>Haber pagado impuestos a la propiedad o alquiler de una vivienda en Arizona durante el año</li>
+            </ul>
+            <li>Créditos no reembolsables enumerados en <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf">el Formulario AZ 301</a>, incluyendo:</li>
+            <ul>
+              <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos">Crédito por donaciones caritativas a organizaciones calificadas.</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos">Crédito por donaciones caritativas a organizaciones de cuidado y crianza calificadas.</a></li>
+            </ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/">Deducción por contribuciones al plan 529 de Arizona.</a></li>
+            <li>Deducciones detalladas.</li>
+          </ul>
+      additionally:
+        question: "Adicionalmente, no puedes usar esta herramienta para:"
+        answer_html: |
+          <p>Adicionalmente, <strong>no puedes</strong> usar esta herramienta para:</p>
+          <ul>
+            <li>Agregar dependientes que no reclamaste en la declaración federal.</li>
+            <li>Reclamar impuestos estimados pagados en 2023.</li>
+            <li>Reclamar créditos que desees acumular de una declaración de impuestos del año anterior. Por ejemplo, si reclamaste <a target="_blank" rel="nofollow noopener" href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf">un crédito no reembolsable</a> el año pasado que fue mayor que tus impuestos adeudados, no puedes usar esta herramienta para reclamar la parte restante de ese crédito del año anterior.</li>
+            <li>Hacer contribuciones voluntarias directamente en tu declaración de impuestos.</li>
+          </ul>
+          <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
+          <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
+    other_state_filing_options:
+      title: ¿Cuáles son mis otras opciones para presentar la declaración estatal este año?
+      options:
+        question: Si utilizaste IRS Direct File para presentar tu declaración federal y decides no usar FileYourStateTaxes, es probable que aún debas presentar una declaración de impuestos estatal. A continuación, encontrarás más información sobre tus otras opciones de presentación.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>Asistencia Voluntaria en Impuestos sobre los Ingresos (VITA por sus siglas en inglés) en tu estado</strong></li>
+            <p>Nos hemos asociado con sitios VITA en tu estado para crear un proceso de presentación exclusivamente estatal para hogares elegibles. Los voluntarios te ayudarán a preparar y presentar tu declaración de impuestos estatal sin costo. Este proceso suele tomar de 2 a 3 semanas.</p>
+            <ul>
+              <li>El proceso:</li>
+            <ul>
+              <li>Completa un formulario corto para solicitar asistencia solo para el estado.</li>
+              <li>Los voluntarios de VITA te llamarán para solicitar información adicional.</li>
+              <li>El voluntario de VITA compartirá un enlace para subir de forma segura en línea tu formulario de impuestos federales (1040), documentos fiscales e identificación.</li>
+              <li>Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.</li>
+              <li>Firmarás tu formulario de impuestos estatales en línea.</li>
+              <li>El sitio VITA presentará tu declaración de impuestos estatales de forma electrónica.</li>
+            </ul>
+              <li>Comienza completando este formulario.</li>
+            </ul>
+            <li><strong>Otras empresas y servicios</strong></li>
+            <p>Otras empresas ofrecen la presentación de impuestos <strong>sólo para el estado</strong>, pero ten cuidado de no volver a presentar tu declaración federal si ya utilizaste IRS Direct File. Al elegir un servicio de presentación de impuestos sólo para el estado, ten en cuenta lo siguiente:</p>
+            <ul>
+              <li>Dado que ya presentaste tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo la declaración de impuestos estatal. Es posible que debas comunicarte con su servicio de atención al cliente para confirmar si y cómo hacer esto.</li>
+              <li>Aunque solo necesitas preparar tu declaración estatal, es posible que te pidan que vuelvas a ingresar o compartas la misma información que informaste en tu declaración federal.</li>
+              <li>Al presentar, asegúrate de enviar sólo tu declaración de impuestos estatal. Si presentas tu declaración federal nuevamente, es probable que sea rechazada.</li>
+              <li>Se pueden aplicar tarifas.</li>
+            </ul>
+          </ul>
+  ny:
+    who_can_use_this_tool:
+      title: ¿Quién puede utilizar FileYourStateTaxes?
+      in_order_to_file:
+        question: "In order to use FileYourStateTaxes in New York, you (and your spouse) must:"
+        answer_html: |
+          <p><strong>Para usar FileYourStateTaxes en Nueva York, tú (y tu cónyuge) deben:</strong></p>  
+          <ul>
+            <li>Presentar la declaración de impuestos federales utilizando IRS Direct File y estar de acuerdo en transferir la información de la declaración de impuestos federales a FileYourStateTaxes.</li>
+            <li>Haber vivido en Nueva York durante todo el año 2023.</li>
+            <li>No tener ingresos de otros estados en 2023.</li>
+            <li>No haber vivido, obtenido ingresos o mantenido un hogar en Yonkers en 2023.</li>
+            <li>No haber sido residente de la ciudad de Nueva York a tiempo parcial en 2023. <em>Los residentes a tiempo completo de la ciudad de Nueva York son elegibles para utilizar esta herramienta.</em></li>
+            <ul>
+              <li>La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island.</li>
+            </ul>
+            <li>No haber retirado fondos de un plan de ahorro universitario 529.</li>
+          </ul>
+      uncommon_situations_that_would_disqualify_you:
+        question: "Situaciones poco comunes que no te permiten usar FileYourStateTaxes:"
+        answer_html: |
+          <p><strong>Situaciones poco comunes que no te permiten usar FileYourStateTaxes:</strong></p>
+          <ul>
+            <li>Adiciones o deducciones al ingreso informado en el Formulario <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pdf/2022/printable-pdfs/inc/it225i-2022.pdf">IT-225</a> de Nueva York, incluyendo contribuciones a un programa de beneficios flexibles de la ciudad de Nueva York reportadas en el W-2, casilla 14, etiquetada como "IRC 125".</li>
+            <li>Presentando con un código de condición especial en la línea G del IT-201.</li>
+            <ul>
+              <li>Esto incluye extensiones para presentar con fines específicos, como servicio militar en combate o fallecimiento del cónyuge.</li>
+            </ul>
+            <li>Si quieres presentar una extensión de presentación estatal.</li>
+            <li>Si necesitas presentar una declaración estatal enmendada de 2023 para corregir una declaración presentada anteriormente.</li>
+            <li>Si quieres presentar tus declaraciones de impuestos federales y estatales utilizando diferentes estados civiles (por ejemplo, presentas como jefe de familia en tu declaración de impuestos federales y quieres presentar como soltero en tu declaración de impuestos estatales).</li>
+          </ul>
+    ny_supported_credits_and_deductions:
+      title: ¿Cuáles créditos y deducciones de Nueva York admite FileYourStateTaxes este año?
+      fyst_help:
+        question: "FileYourStateTaxes puede ayudarte a obtener créditos, deducciones y exenciones estatales para maximizar tu reembolso, incluyendo:"
+        answer_html: |
+          <p><strong>FileYourStateTaxes puede ayudarte a obtener créditos, deducciones y exenciones estatales para maximizar tu reembolso, incluyendo:</strong></p>
+          <ul>
+              <li>Exenciones por dependientes</li>
+              <li>Deducción estándar</li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm">Crédito tributario por ingreso del trabajo</a> (del Estado de Nueva York)</li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm">Crédito Empire State por hijos</a></li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/household_credit.htm">Crédito por Unidad Familiar </a> (del Estado de Nueva York)</li>
+              <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/new_york_city_credits.htm">Créditos</a> y pagos de la Ciudad de Nueva York, para residentes a tiempo completo de la ciudad:</li>
+              <ul>
+                  <li>Crédito por Unidad Familiar (del Estado de Nueva York)</li>
+                  <li>Crédito por ingreso del trabajo de la ciudad de Nueva York</li>
+                  <li>Crédito tributario escolar de la ciudad de Nueva York</li>
+                  <li>Impuestos locales retenidos por la ciudad de Nueva York</li>
+              </ul>
+              <li>Impuestos estatales de Nueva York retenidos de tus salarios o beneficios por desempleo</li>
+          </ul>
+      irs_help:
+        question: "IRS Direct File te ayudará a reclamar los créditos tributarios federales más comunes antes de usar FileYourStateTaxes, incluyendo:"
+        answer_html: |
+          <p><strong>IRS Direct File te ayudará a reclamar los créditos tributarios federales más comunes antes de usar FileYourStateTaxes, incluyendo:</strong></p>
+          <ul>
+            <li>Crédito por ingreso del trabajo (EITC por sus siglas en inglés)</li>
+            <li>Crédito tributario por hijos</li>
+            <li>Crédito por otros dependientes</li>
+          </ul>
+    unsupported_credits_and_deductions:
+      title: ¿Qué créditos y deducciones de Nueva York no admite actualmente FileYourStateTaxes?
+      not_supported:
+        question: "Actualmente, la herramienta no admite:"
+        answer_html: |
+          <p><strong>Actualmente, la herramienta no admite:</strong></p>
+          <ul>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/child_and_dependent_care_credit.htm">Crédito de la Ciudad de Nueva York por cuidado de dependientes y menores</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/language/espanol/credits/real-property-tax-credit.htm">Crédito por contribución sobre inmuebles</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/language/espanol/credits/college-tuition-credit.htm">Crédito por matrícula universitaria</a> o deducción detallada</li>
+            <li>Crédito por Ingresos del Trabajo del Estado de Nueva York para <a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/nceic.htm">padres que no viven con sus hijos (sin custodia).</a> Los padres que sí viven con sus hijos pueden reclamar el Crédito por ingresos del trabajo del Estado de Nueva York usando FileYourStateTaxes.</li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/volunteerfirefighters.htm">Crédito para bomberos voluntarios y trabajadores de ambulancias</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/pit/credits/longterm_care_insurance_credit.htm">Crédito por seguro de atención a largo plazo</a></li>
+            <li><a target="_blank" rel="nofollow noopener" href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart">Deducciones reclamadas en el formulario IT-225, incluyendo:</a></li>
+            <ul>
+              <li>Pago por combate militar</li>
+              <li>Exclusión de ingresos para nativos americanos</li>
+              <li>Intereses de préstamos HELP</li>
+              <li>Premios de condonación de préstamos estudiantiles</li>
+              <li>Bonificaciones para trabajadores de salud y salud mental</li>
+            </ul>
+            <li>Otros créditos, deducciones y recursos no admitidos este año:</li>
+            <ul>
+              <li>Deducciones detalladas</li>
+              <li>Contribuciones al plan de ahorro universitario 529</li>
+              <li>Cambio en el estado civil para la presentación de impuestos federales a estatales</li>
+              <li>Impuesto estimado, pagos prorrogados y créditos de años anteriores</li>
+            </ul>
+          </ul>
+      additionally:
+        question: "Además, no puedes utilizar FileYourStateTaxes para:"
+        answer_html: |
+          <p><strong>Además, no puedes utilizar FileYourStateTaxes para:</strong></p>
+          <ul>
+            <li>Reclamar impuestos estimados pagados en 2023.</li>
+            <li>Reclamar créditos que desees acumular de una declaración de impuestos del año anterior. Por ejemplo, si reclamaste un crédito no reembolsable el año pasado que fue mayor que tus impuestos adeudados, no puedes usar esta herramienta para reclamar la parte restante de ese crédito del año anterior.</li>
+            <li>Hacer contribuciones voluntarias directamente en tu declaración de impuestos.</li>
+          </ul>
+          <p>Si ya presentaste tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos que revises otras opciones para presentar la declaración estatal.</p>
+          <p>Si aún no has presentado tu declaración federal usando IRS Direct File y estás tratando de reclamar alguno de los créditos o deducciones mencionados anteriormente, te recomendamos verificar si eres elegible para usar <a target="_blank" rel="nofollow noopener" href="https://www.getyourrefund.org/es">GetYourRefund</a> para presentar tus declaraciones federales y estatales sin costo.</p>
+    other_state_filing_options:
+      title: ¿Cuáles son mis otras opciones para presentar la declaración estatal este año?
+      options:
+        question: Si utilizaste IRS Direct File para presentar tu declaración federal y decides no usar FileYourStateTaxes, es probable que aún debas presentar una declaración de impuestos estatal. A continuación, encontrarás más información sobre tus otras opciones de presentación.
+        answer_html: |
+          <p><strong>If you used IRS Direct File to file your federal return and you choose not to file using FileYourStateTaxes, you most likely still have to file a state tax return. See more information about your other filing options below.</strong></p>
+          <ul>
+            <li><strong>Asistencia Voluntaria en Impuestos sobre los Ingresos (VITA por sus siglas en inglés) en tu estado</strong></li>
+            <p>Nos hemos asociado con sitios VITA en tu estado para crear un proceso de presentación exclusivamente estatal para hogares elegibles. Los voluntarios te ayudarán a preparar y presentar tu declaración de impuestos estatal sin costo. Este proceso suele tomar de 2 a 3 semanas.</p>
+            <ul>
+              <li>El proceso:</li>
+            <ul>
+              <li>Completa un formulario corto para solicitar asistencia solo para el estado.</li>
+              <li>Los voluntarios de VITA te llamarán para solicitar información adicional.</li>
+              <li>El voluntario de VITA compartirá un enlace para subir de forma segura en línea tu formulario de impuestos federales (1040), documentos fiscales e identificación.</li>
+              <li>Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.</li>
+              <li>Firmarás tu formulario de impuestos estatales en línea.</li>
+              <li>El sitio VITA presentará tu declaración de impuestos estatales de forma electrónica.</li>
+            </ul>
+              <li>Comienza completando este formulario.</li>
+            </ul>
+            <li><strong>Otras empresas y servicios</strong></li>
+            <p>Otras empresas ofrecen la presentación de impuestos <strong>sólo para el estado</strong>, pero ten cuidado de no volver a presentar tu declaración federal si ya utilizaste IRS Direct File. Al elegir un servicio de presentación de impuestos sólo para el estado, ten en cuenta lo siguiente:</p>
+            <ul>
+              <li>Dado que ya presentaste tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo la declaración de impuestos estatal. Es posible que debas comunicarte con su servicio de atención al cliente para confirmar si y cómo hacer esto.</li>
+              <li>Aunque solo necesitas preparar tu declaración estatal, es posible que te pidan que vuelvas a ingresar o compartas la misma información que informaste en tu declaración federal.</li>
+              <li>Al presentar, asegúrate de enviar sólo tu declaración de impuestos estatal. Si presentas tu declaración federal nuevamente, es probable que sea rechazada.</li>
+              <li>Se pueden aplicar tarifas.</li>
+            </ul>
+          </ul>

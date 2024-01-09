@@ -13,11 +13,12 @@ module Hub
         [Hub::SignupSelectionsController.to_path_helper(action: :index), "Bulk messaging signups CSV upload"],
         [Hub::Admin::ExperimentsController.to_path_helper(action: :index), "Experiments"],
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
-        [Hub::FaqCategoriesController.to_path_helper(action: :index), "Frequently Asked Questions"],
+        [Hub::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
       ]
       if current_user.state_file_admin?
         @state_file_actions = [
           [Hub::StateFile::EfileSubmissionsController.to_path_helper(action: :index), "Efile Submissions"],
+          [Hub::StateFile::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
         ]
       end
       @deprecated_actions = [

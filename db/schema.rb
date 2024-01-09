@@ -917,6 +917,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_184913) do
 
   create_table "faq_categories", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "description_en"
+    t.text "description_es"
     t.string "name_en"
     t.string "name_es"
     t.integer "position"

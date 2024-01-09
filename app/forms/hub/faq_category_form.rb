@@ -7,7 +7,10 @@ module Hub
       :position,
       :slug,
       :name_en,
-      :name_es
+      :name_es,
+      :description_en,
+      :description_es,
+      :product_type
     )
 
     validates_presence_of :name_en

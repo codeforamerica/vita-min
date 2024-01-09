@@ -1,0 +1,46 @@
+<div class="spacing-below-60">
+  <h2 class="spacing-below-10 faq-header"><%= link_to category.name_en, hub_faq_category_path(category) %></h2>
+  <div class="grid">
+    <div class="grid__item width-one-third">
+      <div class="field-display">
+        <span class="form-question">Position:</span>
+        <span class="label-value"><%= category.position || t("general.NA") %></span>
+      </div>
+      <div class="field-display break-word--field">
+        <span class="form-question">Slug:</span>
+        <span class="label-value"><%= category.slug || t("general.NA") %></span>
+      </div>
+    </div>
+    <div class="grid__item width-one-third">
+      <div class="field-display">
+        <span class="form-question">Name (English):</span>
+        <span class="label-value"><%= category.name_en || t("general.NA") %></span>
+      </div>
+      <div class="field-display">
+        <span class="form-question">Name (Spanish):</span>
+        <span class="label-value"><%= category.name_es || t("general.NA") %></span>
+      </div>
+      <% if category.description_en.present? || category.description_es.present? %>
+        <div class="field-display">
+          <span class="form-question">Description (English):</span>
+          <span class="label-value"><%= category.description_en || t("general.NA")  %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question">Description (Spanish):</span>
+          <span class="label-value"><%= category.description_es || t("general.NA")  %></span>
+        </div>
+      <% end %>
+    </div>
+    <div class="grid__item width-one-third">
+      <div class="field-display">
+        <span class="form-question">Product type:</span>
+        <span class="label-value"><%= category.product_type || t("general.NA") %></span>
+      </div>
+      <%= link_to "Edit", edit_hub_state_file_faq_category_path(id: category.id), class: "link--faq" %>
+    </div>
+  </div>
+  <div class="field-display">
+    <span class="form-question">FAQ Items:</span>
+    <%= render 'hub/faq_categories/faq_items_table', category: category %>
+  </div>
+</div>

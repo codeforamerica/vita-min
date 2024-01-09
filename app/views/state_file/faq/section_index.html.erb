@@ -1,0 +1,10 @@
+<% content_for :page_title, t("views.public_pages.faq.title") %>
+<h1 class="h2"><%= @faq_category.name(I18n.locale) %></h1>
+<% if @faq_category.description_en || @faq_category.description_es %>
+  <p><%= @faq_category.description(I18n.locale) %></p>
+<% end %>
+<% @faq_category.faq_items.each do |faq_item| %>
+  <div class="blue-group list--bulleted bulleted">
+      <%= faq_item.answer(I18n.locale) %>
+  </div>
+<% end %>
