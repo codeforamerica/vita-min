@@ -38,9 +38,9 @@
                   <% xml = Nokogiri::XML(t.metadata["receipt"]) %>
                   <tr>
                     <td>
-                      <%= xml.css("SubmissionReceivedTs").text.strip %>
+                      <%= DateTime.parse(xml.css("SubmissionReceivedTs").text.strip).strftime("%Y-%m-%d %H:%M") %>
                     </td>
-                    <td>Submission received time</td>
+                    <td>Submission received</td>
                   </tr>
                 <% end %>
               <% end %>
