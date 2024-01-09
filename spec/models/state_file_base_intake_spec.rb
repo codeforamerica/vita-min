@@ -52,5 +52,12 @@ describe StateFileBaseIntake do
         expect(intake.return_status).to eq('pending')
       end
     end
+
+    context "when timed out" do
+      let!(:intake) { create :state_file_az_intake }
+      it "actually times out" do
+        expect(intake.timedout?(15.minutes.ago)).to eq true
+      end
+    end
   end
 end
