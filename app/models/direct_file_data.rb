@@ -575,7 +575,7 @@ class DirectFileData
 
   def eitc_eligible_dependents
     @eligible_dependents ||= Hash.new{}
-    eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = true }
+    eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = node }
     @eligible_dependents
   end
 
@@ -592,10 +592,11 @@ class DirectFileData
         relationship: node.at('DependentRelationshipCd')&.text,
       )
 
-      if eitc_eligible_dependents.has_key?(ssn)
+      eitc_dependent_node = eitc_eligible_dependents[ssn]
+      if eitc_dependent_node.present?
         dependent.eic_qualifying = true
-        dependent.eic_student = node.at('ChildIsAStudentUnder24Ind')&.text
-        dependent.eic_disability = node.at('ChildPermanentlyDisabledInd')&.text
+        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind').text == "true"
+        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd').text == "true"
       else
         dependent.eic_qualifying = false
       end

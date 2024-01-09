@@ -313,11 +313,19 @@ describe DirectFileData do
     context "when there are EIC dependents in the xml" do
       let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
       it 'sets eic_qualifying on those dependents' do
-
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying == false }.length).to eq(5)
 
         expect(described_class.new(xml).dependents.length).to eq(8)
+      end
+    end
+
+    context "when there is a eic dependent with a disability" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_robert_mfj_ny.xml')) }
+
+      it "sets eic_disability on those dependents" do
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability }.length).to eq(1)
       end
     end
   end
