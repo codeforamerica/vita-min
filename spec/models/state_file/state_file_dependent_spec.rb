@@ -159,7 +159,7 @@ describe StateFileDependent do
     end
   end
 
-  describe "age calculates correctly" do
+  describe "#age" do
     it "when the birthday is the last day of the tax year" do
       dependent = build(
         :state_file_dependent,
@@ -173,6 +173,13 @@ describe StateFileDependent do
         dob: (MultiTenantService.statefile.end_of_current_tax_year + 1.days - 10.years).strftime("%Y-%m-%d")
       )
       expect(dependent.age).to be 9
+    end
+  end
+
+  describe "#relationship_label" do
+    it "provides a correct gender neutral relationship label" do
+      dependent = build(:state_file_dependent, relationship: "STEPBROTHER")
+      expect(dependent.relationship_label).to eq "Step-Sibling"
     end
   end
 end

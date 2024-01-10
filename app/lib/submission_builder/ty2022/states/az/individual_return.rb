@@ -4,12 +4,15 @@ module SubmissionBuilder
     module States
       module Az
         class IndividualReturn < SubmissionBuilder::Document
-          FILING_STATUSES = {
-            single: 'Single',
-            married_filing_jointly: 'MarriedJoint',
-            married_filing_separately: 'MarriedFilingSeparateReturn',
-            head_of_household: 'HeadHousehold',
-          }.freeze
+          include DependentRelationshipTable
+
+          FILING_STATUS_OPTIONS = {
+            :married_filing_jointly => 'MarriedJoint',
+            :head_of_household => 'HeadHousehold',
+            :married_filing_separately => 'MarriedFilingSeparateReturn',
+            :single => "Single"
+          }
+
           STANDARD_DEDUCTIONS = {
             single: 12950,
             married_filing_jointly: 25900,
@@ -66,9 +69,9 @@ module SubmissionBuilder
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip dependent.relationship
+                    xml.RelationShip relationship_key(dependent.relationship)
                     xml.NumMonthsLived dependent.months_in_home
-                    if dependent.dob > 17.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                    if dependent.under_17?
                       xml.DepUnder17 'X'
                     else
                       xml.Dep17AndOlder 'X'
@@ -85,7 +88,7 @@ module SubmissionBuilder
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip dependent.relationship
+                    xml.RelationShip relationship_key(dependent.relationship)
                     xml.NumMonthsLived dependent.months_in_home
                     xml.IsOverSixtyFive 'X' # all dependents in this section are over 65
                     if dependent.passed_away_yes?
@@ -161,11 +164,6 @@ module SubmissionBuilder
             end
             xml_doc.at('*')
           end
-
-          FILING_STATUS_OPTIONS = { :married_filing_jointly => 'MarriedJoint',
-                                    :head_of_household => 'HeadHousehold',
-                                    :married_filing_separately => 'MarriedFilingSeparateReturn',
-                                    :single => "Single" }
 
           def filing_status
             FILING_STATUS_OPTIONS[@submission.data_source.filing_status]

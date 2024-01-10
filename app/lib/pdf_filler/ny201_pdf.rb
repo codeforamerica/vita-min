@@ -183,7 +183,7 @@ module PdfFiller
         answers["H_first#{index}"] = dependent.first_name
         answers["H_middle#{index}"] = dependent.middle_initial
         answers["H_last#{index}"] = dependent.last_name
-        answers["H_relationship#{index}"] = dependent.relationship
+        answers["H_relationship#{index}"] = dependent.relationship_label
         answers["H_dependent_ssn#{index}"] = dependent.ssn
         answers["H_dependent_dob#{index}"] = dependent.dob.strftime("%m%d%Y")
       end

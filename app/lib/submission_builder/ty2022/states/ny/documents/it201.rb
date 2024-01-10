@@ -96,7 +96,7 @@ module SubmissionBuilder
                       xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
                       xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
                       xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                      xml.DEP_RELATION_DESC claimed: dependent.relationship
+                      xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") # no spaces
                       xml.DEP_SSN_NMBR claimed: dependent.ssn
                       xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d")
                     end

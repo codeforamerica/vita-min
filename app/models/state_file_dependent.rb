@@ -27,6 +27,20 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 class StateFileDependent < ApplicationRecord
+  RELATIONSHIP_LABELS = {
+    "DAUGHTER" => "Child",
+    "STEPCHILD" => "Child",
+    "FOSTER CHILD" => "Foster Child",
+    "GRANDCHILD" => "Grandchild",
+    "SISTER" => "Sibling",
+    "HALF SISTER" => "Half-Sibling",
+    "NEPHEW" => "Niece/Nephew",
+    "STEPBROTHER" => "Step-Sibling",
+    "PARENT" => "Parent",
+    "GRANDPARENT" => "Grandparent",
+    "NONE" => "Other",
+  }.freeze
+
   belongs_to :intake, polymorphic: true
   encrypts :ssn
   enum needed_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needed_assistance
@@ -58,7 +72,19 @@ class StateFileDependent < ApplicationRecord
     MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
   end
 
+  def under_17?
+    age < 17
+  end
+
+  def over_65?
+    age > 65
+  end
+
   def age
     ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
+  end
+
+  def relationship_label
+    RELATIONSHIP_LABELS[relationship]
   end
 end

@@ -87,7 +87,7 @@ module SubmissionBuilder
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                  xml.DEP_RELATION_DESC dependent.relationship
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
@@ -104,7 +104,7 @@ module SubmissionBuilder
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 215
-                  xml.DEP_RELATION_DESC dependent.relationship
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
