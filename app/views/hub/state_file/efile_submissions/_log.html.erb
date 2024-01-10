@@ -47,7 +47,7 @@
             </table>
           <% end %>
 
-          <% if ["failed", "rejected"].include?(transition.to_state) && transition.metadata["raw_response"].present? %>
+          <% if ["failed", "rejected"].include?(transition.to_state) && transition.metadata["raw_response"].present? && !transition.metadata["raw_response"].kind_of?(Array) %>
             <% xml = Nokogiri::XML(transition.metadata["raw_response"]) %>
             <% error_msg = xml.css("ErrorMessageTxt").text.strip %>
             <% if error_msg.present? %>
