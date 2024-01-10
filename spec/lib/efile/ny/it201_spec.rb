@@ -98,7 +98,7 @@ describe Efile::Ny::It201 do
     end
   end
 
-  describe 'Line 40 NYS household credit' do
+  describe '#calculate_line_40 Line 40 NYS household credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
         intake.direct_file_data.primary_claim_as_dependent = "X"
@@ -149,17 +149,79 @@ describe Efile::Ny::It201 do
     context 'when filing status is married filing jointly' do
       before do
         intake.direct_file_data.filing_status = 2 # mfj
-        intake.direct_file_data.fed_wages = 2_000
-        intake.direct_file_data.fed_taxable_income = 2_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
       end
 
-      it 'uses the correct table to set the value of the credit' do
-        instance.calculate
-        expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
-        expect(instance.lines[:IT201_LINE_40].value).to eq(120)
+      context "income under 5000" do
+        before do
+          intake.direct_file_data.fed_wages = 2_000
+          intake.direct_file_data.fed_taxable_income = 2_000
+          intake.direct_file_data.fed_taxable_ssb = 0
+          intake.direct_file_data.fed_unemployment = 0
+        end
+
+        it 'uses the correct table to set the value of the credit' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_19].value).to eq(1_200)
+          expect(instance.lines[:IT201_LINE_40].value).to eq(120)
+        end
       end
+
+      context "income between 20k and 22k and 2 dependents" do
+        before do
+          intake.dependents.create!
+          intake.direct_file_data.fed_wages = 21_000
+          intake.direct_file_data.fed_total_adjustments = 0
+          intake.direct_file_data.fed_taxable_income = 0
+          intake.direct_file_data.fed_taxable_ssb = 0
+          intake.direct_file_data.fed_unemployment = 0
+        end
+
+        it 'uses the correct table to set the value of the credit' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_19].value).to eq(21_000)
+          expect(instance.lines[:IT201_LINE_40].value).to eq(90)
+        end
+      end
+    end
+  end
+
+  describe "#calculate_line_43" do
+    it "is equal to line 40 because we are not supporting lines 41 and 42" do
+      instance.calculate
+      expect(instance.lines[:IT201_LINE_43].value).to eq instance.lines[:IT201_LINE_40].value
+    end
+  end
+
+  describe "#calculate_line_44" do
+    context "line 43 is less than line 39" do
+      before do
+        allow(instance).to receive(:calculate_line_43).and_return 50
+        allow(instance).to receive(:calculate_line_39).and_return 100
+      end
+
+      it "is the difference between lines 39 and 43" do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_44].value).to eq 50
+      end
+    end
+
+    context "line 43 is greater than line 39" do
+      before do
+        allow(instance).to receive(:calculate_line_43).and_return 100
+        allow(instance).to receive(:calculate_line_39).and_return 50
+      end
+
+      it "is zero" do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_44].value).to eq 0
+      end
+    end
+  end
+
+  describe "#calculate_line_46" do
+    it "is equal to line 44 because we are not supporting line 45" do
+      instance.calculate
+      expect(instance.lines[:IT201_LINE_46].value).to eq instance.lines[:IT201_LINE_44].value
     end
   end
 
