@@ -14,6 +14,19 @@ module Hub
         authorize! :read, @efile_submissions_same_intake
       end
 
+      def show_xml
+        return nil if Rails.env.production?
+
+        submission = EfileSubmission.find(params[:efile_submission_id])
+        builder_response = case submission.data_source.state_code
+                           when "ny"
+                             SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
+                           when "az"
+                             SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
+                           end
+        builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
+      end
+
       private
 
       def load_efile_submissions

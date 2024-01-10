@@ -83,7 +83,7 @@ module Efile
           next
         end
 
-        if ["Rejected", "Denied by IRS"].include?(status)
+        if ["Rejected", "R", "Denied by IRS"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
         elsif ["Accepted", "A"].include?(status)
           submission.transition_to(:accepted, raw_response: raw_response)
