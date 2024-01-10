@@ -49,47 +49,6 @@ describe StateFileDependent do
     end
   end
 
-  describe ".az_qualifying_senior" do
-    it "only returns dependents that are 65+ by end of tax year, a grandparent or parent, and 12 months in home" do
-      qualifying_grandparent = create(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "GRANDPARENT"
-      )
-      qualifying_parent = create(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "PARENT"
-      )
-      too_young = create(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date + 1.day,
-        months_in_home: 12,
-        relationship: "GRANDPARENT"
-      )
-      not_ancestor = create(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "DAUGHTER"
-      )
-      too_few_months = create(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 11,
-        relationship: "GRANDPARENT"
-      )
-      results = described_class.az_qualifying_senior
-      expect(results).to include qualifying_grandparent
-      expect(results).to include qualifying_parent
-      expect(results).not_to include too_young
-      expect(results).not_to include not_ancestor
-      expect(results).not_to include too_few_months
-    end
-  end
-
   describe "asking additional AZ senior questions" do
     it "asks more questions when a dependent is 65+ by the end of the tax year + grandparent + 12 months in home" do
       dependent = build(
@@ -144,6 +103,59 @@ describe StateFileDependent do
       )
 
       expect(dependent.ask_senior_questions?).to be false
+    end
+  end
+
+  describe "detecting qualified parents or grandparents for dependents that are 65+" do
+    it "only returns dependents that are 65+ by end of tax year, a grandparent or parent, spent 12 months in home, and needed assistance" do
+      qualifying_grandparent = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "GRANDPARENT"
+      )
+      qualifying_parent = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "PARENT"
+      )
+      too_young = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date + 1.day,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "GRANDPARENT"
+      )
+      not_ancestor = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "DAUGHTER"
+      )
+      too_few_months = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date,
+        months_in_home: 11,
+        needed_assistance: "yes",
+        relationship: "GRANDPARENT"
+      )
+      did_not_need_assistance = create(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date,
+        months_in_home: 12,
+        needed_assistance: "no",
+        relationship: "GRANDPARENT"
+      )
+      expect(qualifying_grandparent.is_qualifying_parent_or_grandparent?).to be true
+      expect(qualifying_parent.is_qualifying_parent_or_grandparent?).to be true
+      expect(too_young.is_qualifying_parent_or_grandparent?).to be false
+      expect(not_ancestor.is_qualifying_parent_or_grandparent?).to be false
+      expect(too_few_months.is_qualifying_parent_or_grandparent?).to be false
+      expect(did_not_need_assistance.is_qualifying_parent_or_grandparent?).to be false
     end
   end
 

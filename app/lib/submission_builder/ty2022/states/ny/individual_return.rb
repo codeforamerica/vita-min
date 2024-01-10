@@ -54,7 +54,10 @@ module SubmissionBuilder
                 # TODO: do we need county code? what about other school district fields?
                 # xml.COUNTY_CD @submission.data_source.residence_county
                 xml.COUNTY_NAME @submission.data_source.residence_county
-                xml.PERM_LN_1_ADR @submission.data_source.permanent_street
+                if @submission.data_source.permanent_apartment.present?
+                  xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment
+                end
+                xml.PERM_LN_2_ADR @submission.data_source.permanent_street
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip

@@ -65,7 +65,7 @@ module PdfFiller
       answers["11a check box"] = 'Yes' if @xml_document.css('QualParentsAncestors').length > 2
 
       @xml_document.css('QualParentsAncestors').each_with_index do |qualifying_relative_node, index|
-        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+        # PDF fields seem to be named consistently (11b ... 11i) whether they are on Page 1 or Page 4
         prefix = "11#{('b'..'i').to_a[index]}"
         answers.merge!(
           "#{prefix} First" => qualifying_relative_node.at("FirstName")&.text,
