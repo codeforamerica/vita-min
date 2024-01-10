@@ -44,6 +44,35 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
           expect(xml.at("DepUnder17")).to_not be_present
         end
       end
+
+      context "when a dependent is over 65 and a qualifying parent or grandparent" do
+        let(:dob) { MultiTenantService.statefile.end_of_current_tax_year - 65.years }
+
+        before do
+          intake.dependents.create(
+            first_name: "Grammy",
+            last_name: "Grams",
+            dob: dob,
+            ssn: "111111111",
+            needed_assistance: "yes",
+            relationship: "PARENT",
+            months_in_home: 12
+          )
+        end
+
+        it "claims dependent in QualParentsAncestors" do
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          qual_ancestors = xml.at("QualParentsAncestors")
+          expect(qual_ancestors).to be_present
+          expect(qual_ancestors.at("Name FirstName").text).to eq "Grammy"
+          expect(qual_ancestors.at("Name LastName").text).to eq "Grams"
+          expect(qual_ancestors.at("DependentSSN").text).to eq "111111111"
+          expect(qual_ancestors.at("RelationShip").text).to eq "PARENT"
+          expect(qual_ancestors.at("NumMonthsLived").text).to eq "12"
+          expect(qual_ancestors.at("IsOverSixtyFive").text).to eq "X"
+          expect(qual_ancestors.at("DiedInTaxYear")).to_not be_present
+        end
+      end
     end
   end
 end

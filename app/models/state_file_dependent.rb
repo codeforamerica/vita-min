@@ -38,11 +38,6 @@ class StateFileDependent < ApplicationRecord
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
 
-  scope :az_qualifying_senior, -> do
-    where(['dob <= ?', senior_cutoff_date])
-      .where(months_in_home: 12)
-      .where(relationship: ['PARENT', 'GRANDPARENT'])
-  end
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -53,6 +48,10 @@ class StateFileDependent < ApplicationRecord
   def ask_senior_questions?
     return false if dob.nil?
     dob <= StateFileDependent.senior_cutoff_date && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
+  end
+
+  def is_qualifying_parent_or_grandparent?
+    ask_senior_questions? && needed_assistance_yes?
   end
 
   def self.senior_cutoff_date

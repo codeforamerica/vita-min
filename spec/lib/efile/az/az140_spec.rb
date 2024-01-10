@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Efile::Az::Az140 do
-  let(:intake) { create(:state_file_az_intake, eligibility_lived_in_state: 1) }
-  let!(:dependent) { intake.dependents.create(dob: 7.years.ago) }
+  let(:dependents) { [create(:state_file_dependent, dob: 7.years.ago)] }
+  let(:intake) { create(:state_file_az_intake, eligibility_lived_in_state: 1, dependents: dependents) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -236,4 +236,16 @@ describe Efile::Az::Az140 do
       end
     end
   end
+
+  context "when claiming multiple dependents of different classifications" do
+    let(:intake) { create(:state_file_az_johnny_intake) }
+
+    it "counts the dependents correctly by their classifications" do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_10A].value).to eq(4)
+      expect(instance.lines[:AZ140_LINE_10B].value).to eq(3)
+      expect(instance.lines[:AZ140_LINE_11A].value).to eq(1)
+    end
+  end
+
 end

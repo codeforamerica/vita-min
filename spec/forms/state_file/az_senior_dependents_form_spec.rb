@@ -4,7 +4,7 @@ RSpec.describe StateFile::AzSeniorDependentsForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
     let!(:first_dependent) { create(:state_file_dependent, intake: intake) }
-    let!(:second_dependent) { create(:az_senior_dependent, intake: intake) }
+    let!(:second_dependent) { create(:az_senior_dependent_missing_intake_answers, intake: intake) }
 
     context "with invalid params" do
       let(:invalid_params) do
