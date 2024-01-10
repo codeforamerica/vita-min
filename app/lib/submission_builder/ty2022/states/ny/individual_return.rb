@@ -190,9 +190,6 @@ module SubmissionBuilder
               }
             ]
 
-            # Looks like we have the W2 here, but no XML. We will need to dump the element
-            # Look at state1099_g for an example of this.
-            # Apparently we can just copy the XML from the Intake Raw data IRSW2
             @submission.data_source.direct_file_data.w2s.each do |w2|
               supported_docs << {
                 xml: SubmissionBuilder::Shared::ReturnW2,

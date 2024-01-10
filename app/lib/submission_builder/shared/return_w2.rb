@@ -4,9 +4,7 @@ module SubmissionBuilder
 
       def document
         w2 = @kwargs[:w2]
-        build_xml_doc("IRSW2", documentId: "IRSW2-#{w2.id}") do |xml|
-          xml.IRSW2 w2
-        end
+        Nokogiri::XML(w2.node.to_xml)
       end
     end
   end

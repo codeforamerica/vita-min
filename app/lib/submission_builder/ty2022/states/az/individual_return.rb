@@ -212,6 +212,16 @@ module SubmissionBuilder
                 include: true
               }
             ]
+
+            @submission.data_source.direct_file_data.w2s.each do |w2|
+              supported_docs << {
+                xml: SubmissionBuilder::Shared::ReturnW2,
+                pdf: nil,
+                include: true,
+                kwargs: { w2: w2 }
+              }
+            end
+
             @submission.data_source.state_file1099_gs.each do |form1099g|
               supported_docs << {
                 xml: SubmissionBuilder::Ty2022::States::Az::Documents::State1099G,
