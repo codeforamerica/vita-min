@@ -84,7 +84,7 @@ module SubmissionBuilder
                 if @submission.data_source.email_address.present?
                   xml.TP_EMAIL_ADR claimed: @submission.data_source.email_address
                 else
-                  xml.TP_EMAIL_ADR claimed: @submission.direct_file_data.tax_payer_email
+                  xml.TP_EMAIL_ADR claimed: @submission.data_source.direct_file_data.tax_payer_email
                 end
                 xml.IT201FEDADJID do
                   @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |_type, info|
