@@ -416,6 +416,7 @@ module Efile
       end
 
       def calculate_line_61
+        # as of Jan 2023 we do not support line 60 so it is always zero
         line_or_zero(:IT201_LINE_46) + line_or_zero(:IT201_LINE_58) + line_or_zero(:IT201_LINE_59) + line_or_zero(:IT201_LINE_60)
       end
 

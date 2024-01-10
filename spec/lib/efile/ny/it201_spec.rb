@@ -240,6 +240,25 @@ describe Efile::Ny::It201 do
     end
   end
 
+  describe "#calculate_line_61" do
+    before do
+      intake.update(sales_use_tax: 50)
+    end
+
+    it "adds up some of the prior lines" do
+      instance.calculate
+      sum = instance.lines[:IT201_LINE_46].value + instance.lines[:IT201_LINE_58].value + instance.lines[:IT201_LINE_59].value
+      expect(instance.lines[:IT201_LINE_61].value).to eq(sum)
+    end
+  end
+
+  describe "#calculate_line_62" do
+    it "is the same as line 61" do
+      instance.calculate
+      expect(instance.lines[:IT201_LINE_62].value).to eq instance.lines[:IT201_LINE_62].value
+    end
+  end
+
   describe 'Line 69 NYC school tax credit' do
     context 'when the filer has been claimed as a dependent' do
       before do
