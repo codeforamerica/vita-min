@@ -11,7 +11,40 @@
 <% if @refund_or_owed_amount.positive? %>
   <p><%= t('.check_your_refund_html', refund_url: refund_url) %></p>
 <% elsif @refund_or_owed_amount.negative? %>
-  <p><%= t('.direct_debit_html') %></p>
+  <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
+    <%= t('.track_your_payment_html') if params[:us_state] == 'ny' %>
+  </p>
 <% end %>
-<p><%= t('.help_friend_html') %></p>
 <p><%= t('.register_to_vote_html') %></p>
+
+<div class="blue-group">
+  <div>
+    <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
+  </div>
+
+  <div class="spacing-above-15">
+    <%= t('.include_payment') %>
+    (<%= @download_form_name %>)
+  </div>
+
+  <div>
+    <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
+  </div>
+
+  <hr>
+
+  <% if params[:us_state] == 'az' %>
+    <div>
+      <%= t('.check_payable') %>
+    </div>
+    <hr>
+  <% end %>
+
+  <div class="spacing-below-15">
+    <%= t('.mail_voucher_and_payment') %>
+  </div>
+
+  <strong>
+    <%= @mail_voucher_address %>
+  </strong>
+</div>

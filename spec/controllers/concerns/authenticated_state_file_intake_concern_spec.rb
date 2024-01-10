@@ -46,6 +46,16 @@ RSpec.describe AuthenticatedStateFileIntakeConcern, type: :controller do
         expect(response).to be_ok
         expect(session).not_to include :after_state_file_intake_login_path
       end
+
+      context "when the session is timed out" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:timedout?).and_return(true)
+        end
+        it "sessions time out" do
+          get :index, params: { us_state: "az" }
+          expect(response).to redirect_to root_path
+        end
+      end
     end
   end
 end

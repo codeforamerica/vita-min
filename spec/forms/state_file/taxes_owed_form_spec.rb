@@ -16,6 +16,7 @@ RSpec.describe StateFile::TaxesOwedForm do
 
   before do
     allow(DateTime).to receive(:now).and_return DateTime.new(current_year.to_i, 1, 1)
+    allow(DateTime).to receive(:current).and_return DateTime.new(current_year.to_i, 1, 1)
   end
 
   describe "#save" do

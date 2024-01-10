@@ -2233,19 +2233,24 @@ en:
           info_link: View where to find this information
       return_status:
         accepted:
+          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
           check_your_refund_html: '<a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
 
             '
-          direct_debit_html: 'If you didn’t select direct debit, remember to pay your taxes by mail or online at <a target="_blank" rel="noopener nofollow" href="https://AZTaxes.gov">AZTaxes.gov</a> before the April 15 filing deadline.
+          direct_debit_html: 'If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
 
             '
-          help_friend_html: 'Help a friend or family member file their taxes for free. <a target="_blank" rel="noopener nofollow" href="">Tell them about IRS Direct File.</a>
-
-            '
+          download_voucher: Download payment voucher form
+          include_payment: You'll need to include the payment voucher form.
+          mail_voucher_and_payment: 'Mail the voucher form and payment to:'
+          pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           register_to_vote_html: '<a target="_blank" rel="noopener nofollow" href="https://vote.gov/">Register to vote.</a>
 
             '
           title: Your 2023 %{state_name} state tax return is accepted
+          track_your_payment_html: 'Track your payment <a target="_blank" rel="noopener nofollow" href="">here.</a>
+
+            '
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
