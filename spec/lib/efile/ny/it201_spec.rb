@@ -58,7 +58,7 @@ describe Efile::Ny::It201 do
 
       context 'when the filing status is married_filing_separately' do
         before do
-          intake.direct_file_data.filing_status = 3
+          intake.direct_file_data.filing_status = 3 # married_filing_separately
         end
 
         it 'sets the correct deduction amount' do
@@ -69,7 +69,7 @@ describe Efile::Ny::It201 do
 
       context 'when the filing status is married_filing_jointly' do
         before do
-          intake.direct_file_data.filing_status = 2
+          intake.direct_file_data.filing_status = 2 # married_filing_jointly
         end
 
         it 'sets the correct deduction amount' do
@@ -80,7 +80,7 @@ describe Efile::Ny::It201 do
 
       context 'when the filing status is qualifying_widow' do
         before do
-          intake.direct_file_data.filing_status = 5
+          intake.direct_file_data.filing_status = 5 # qualifying_widow
         end
 
         it 'sets the correct deduction amount' do
@@ -91,7 +91,7 @@ describe Efile::Ny::It201 do
 
       context 'when the filing status is head_of_household' do
         before do
-          intake.direct_file_data.filing_status = 4
+          intake.direct_file_data.filing_status = 4 # head_of_household
         end
 
         it 'sets the correct deduction amount' do
@@ -122,6 +122,15 @@ describe Efile::Ny::It201 do
           expect(instance.lines[:IT201_LINE_34].value).to eq(8000)
           expect(instance.lines[:IT201_LINE_35].value).to eq(0)
         end
+      end
+    end
+
+    context 'IT201_LINE_36' do
+      # let(:intake) { create(:state_file_zeus_intake) } # Has 8 dependents
+      it 'adds the correct dependent exemptions' do
+        instance.calculate
+        expect(intake.dependents.count).to eq(1)
+        expect(instance.lines[:IT201_LINE_36].value).to eq(1) # (The form adds a '000.00' to it == 1000.00)
       end
     end
   end
