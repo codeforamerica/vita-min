@@ -16,6 +16,44 @@ describe Efile::Ny::It201 do
     end
   end
 
+  describe 'Lines 34-38 New York State tax from tables' do
+    context 'when the filing status is single AND primary_claim_as_dependent' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.primary_claim_as_dependent = 'X'
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_34].value).to eq(3_100) # taxable income
+      end
+    end
+
+    context 'when the filing status is single' do
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_34].value).to eq(8_000) # taxable income
+      end
+    end
+
+    context 'when the filing status is married_filing_separately' do
+      before do
+        intake.direct_file_data.filing_status = 3 # married_filing_separately
+      end
+
+      it 'sets the correct tax amount' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_34].value).to eq(8_000) # taxable income
+      end
+    end
+
+  end
+
+
   describe 'Line 39 New York State tax from tables' do
     context 'when the filing status is single' do
       before do
