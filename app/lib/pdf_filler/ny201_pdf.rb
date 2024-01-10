@@ -47,12 +47,6 @@ module PdfFiller
         F1_NYC: claimed_attr_value('PR_NYC_MNTH_NMBR'),
         F2_NYC: claimed_attr_value('SP_NYC_MNTH_NMBR'),
       }
-      if @submission.data_source.nyc_full_year_resident_yes?
-        answers[:F1_NYC] = '12'
-        if @submission.data_source.filing_status_mfj?
-          answers[:F2_NYC] = '12'
-        end
-      end
       answers.merge!(dependents_info(@submission.data_source.dependents))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
@@ -107,6 +101,8 @@ module PdfFiller
         # TODO - 'to pay by electronic funds withdrawal' checkbox. not 100% confident what it maps to in the xml
         # Line80_box: ,
         Line80: claimed_attr_value('BAL_DUE_AMT'),
+        TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
+        Spouse_occupation: @xml_document.at('tiSpouse SP_EMP_DESC')&.text,
       )
       unless @xml_document.at('ACCT_TYPE_CD').nil?
         answers.merge!(

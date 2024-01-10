@@ -64,6 +64,7 @@ module SubmissionBuilder
                 xml.SCHOOL_CD @submission.data_source.school_district_number
                 xml.SCHOOL_NAME @submission.data_source.school_district
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation
               end
 
               if @submission.data_source.filing_status_mfj?

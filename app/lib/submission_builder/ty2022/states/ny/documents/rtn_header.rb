@@ -56,8 +56,13 @@ module SubmissionBuilder
                 # xml.PREP_ZIP_4_ADR
                 # xml.PREP_ZIP_5_ADR
                 # xml.PREP_EIN_IND
-                # xml.AREACODE_NMBR
-                # xml.EXCHNG_PHONE_NMBR
+                if @submission.data_source.phone_number.present?
+                  xml.AREACODE_NMBR @submission.data_source.phone_number[0,3]
+                  xml.EXCHNG_PHONE_NMBR @submission.data_source.phone_number[3,7]
+                else
+                  xml.AREACODE_NMBR @submission.direct_file_data.phone_number[0,3]
+                  xml.EXCHNG_PHONE_NMBR @submission.direct_file_data.phone_number[3,7]
+                end
                 # xml.DGT4_PHONE_NMBR
                 xml.FORM_TYPE
                 # xml.THRDPRTY_EMAIL_ADR
