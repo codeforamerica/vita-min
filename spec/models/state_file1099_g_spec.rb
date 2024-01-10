@@ -49,6 +49,9 @@ RSpec.describe StateFile1099G do
           recipient_street_address: '123 Main St',
           recipient_street_address_apartment: 'Apt E',
           recipient_zip: '11102',
+          unemployment_compensation: '1',
+          federal_income_tax_withheld: '0',
+          state_income_tax_withheld: '0',
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
@@ -57,6 +60,40 @@ RSpec.describe StateFile1099G do
         expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
         expect(state_file_1099.recipient_zip).to eq state_file_1099.intake.direct_file_data.mailing_zip
       end
+    end
+  end
+
+  describe "validation" do
+    let!(:state_file_1099) { create(
+      :state_file1099_g,
+      intake: create(:state_file_ny_intake),
+      address_confirmation: 'no',
+      recipient_city: 'New York',
+      recipient_street_address: '123 Main St',
+      recipient_street_address_apartment: 'Apt E',
+      recipient_zip: '11102',
+      unemployment_compensation: '1',
+      federal_income_tax_withheld: '0',
+      state_income_tax_withheld: '0',
+      ) }
+
+    it "validates unemployment_compensation" do
+      state_file_1099.unemployment_compensation = nil
+      expect(state_file_1099.save).to eq false
+      state_file_1099.unemployment_compensation = '0'
+      expect(state_file_1099.save).to eq false
+    end
+    it "validates federal_income_tax_withheld" do
+      state_file_1099.federal_income_tax_withheld = nil
+      expect(state_file_1099.save).to eq false
+      state_file_1099.federal_income_tax_withheld = '-1'
+      expect(state_file_1099.save).to eq false
+    end
+    it "validates state_income_tax_withheld" do
+      state_file_1099.state_income_tax_withheld = nil
+      expect(state_file_1099.save).to eq false
+      state_file_1099.state_income_tax_withheld = '-1'
+      expect(state_file_1099.save).to eq false
     end
   end
 end
