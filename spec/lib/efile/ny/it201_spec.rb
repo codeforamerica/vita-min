@@ -126,7 +126,6 @@ describe Efile::Ny::It201 do
     end
 
     context 'IT201_LINE_36' do
-      # let(:intake) { create(:state_file_zeus_intake) } # Has 8 dependents
       it 'adds the correct dependent exemptions' do
         instance.calculate
         expect(intake.dependents.count).to eq(1)
