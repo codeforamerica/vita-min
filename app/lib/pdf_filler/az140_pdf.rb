@@ -72,7 +72,7 @@ module PdfFiller
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
           "#{prefix} Mo in Home" => dependent.months_in_home,
-          "#{prefix} over 65" => dependent.over65? ? "X" : nil,
+          "#{prefix} over 65" => "X", # all of these dependents are 65 or older
           "#{prefix} died" => dependent.passed_away_yes? ? "X" : nil,
         )
       end

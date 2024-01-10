@@ -12,7 +12,7 @@ module SubmissionBuilder
             "GRANDCHILD" => "GRANDCHILD",
             "SISTER" => "SIBLING",
             "NEPHEW" => "NIECENEPHEW",
-            "HALF" => "SISTER	HALFSIBLING",
+            "HALF SISTER" => "HALFSIBLING",
             "STEPBROTHER" => "STEPSIBLING",
             "GRANDPARENT" => "GRANDPARENT",
             "PARENT" => "PARENT",
