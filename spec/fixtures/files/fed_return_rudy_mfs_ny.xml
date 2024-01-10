@@ -182,7 +182,7 @@
           <StateAbbreviationCd>NY</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
           <StateWagesAmt>20000</StateWagesAmt>
-          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
             <LocalWagesAndTipsAmt>20000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
