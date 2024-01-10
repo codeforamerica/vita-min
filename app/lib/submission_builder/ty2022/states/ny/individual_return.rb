@@ -186,6 +186,19 @@ module SubmissionBuilder
                 include: true
               }
             ]
+
+            # Looks like we have the W2 here, but no XML. We will need to dump the element
+            # Look at state1099_g for an example of this.
+            # Apparently we can just copy the XML from the Intake Raw data IRSW2
+            @submission.data_source.direct_file_data.w2s.each do |w2|
+              supported_docs << {
+                xml: SubmissionBuilder::Shared::ReturnW2,
+                pdf: PdfFiller::NyIt2Pdf,
+                include: true,
+                kwargs: { w2: w2 }
+              }
+            end
+
             @submission.data_source.state_file1099_gs.each do |form1099g|
               supported_docs << {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
@@ -195,14 +208,6 @@ module SubmissionBuilder
               }
             end
 
-            @submission.data_source.direct_file_data.w2s.each do |w2|
-              supported_docs << {
-                xml: nil,
-                pdf: PdfFiller::NyIt2Pdf,
-                include: true,
-                kwargs: { w2: w2 }
-              }
-            end
             supported_docs
           end
         end
