@@ -43,6 +43,9 @@ class StateFile1099G < ApplicationRecord
   validates_presence_of :payer_zip, :message => I18n.t("errors.attributes.address.zip.blank")
   validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
+  validates_presence_of :recipient_city
+  validates_presence_of :recipient_street_address
+  validates_presence_of :recipient_zip
 
   def update_conditional_attributes
     if address_confirmation_yes?
