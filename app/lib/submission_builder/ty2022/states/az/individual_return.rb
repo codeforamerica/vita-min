@@ -230,7 +230,6 @@ module SubmissionBuilder
                 kwargs: { form1099g: form1099g }
               }
             end
-            # W2s are not included.
             supported_docs
           end
 
