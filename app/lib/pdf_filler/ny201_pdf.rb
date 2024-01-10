@@ -100,8 +100,8 @@ module PdfFiller
         Line80_box: xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND'),
         Line80: claimed_attr_value('BAL_DUE_AMT'),
         TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
-        day_ac: @xml_document.at('rtnHeader AREACODE_NMBR')&.text,
-        phone_number: @xml_document.at('rtnHeader EXCHNG_PHONE_NMBR')&.text.to_s + @xml_document.at('rtnHeader DGT4_PHONE_NMBR')&.text.to_s
+        day_ac: claimed_attr_value('AREACODE_NMBR'),
+        phone_number: concat_two_xml_values('EXCHNG_PHONE_NMBR', 'DGT4_PHONE_NMBR')&.value
       )
       unless @xml_document.at('ACCT_TYPE_CD').nil?
         answers.merge!(
@@ -116,6 +116,7 @@ module PdfFiller
         answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
         answers[:signed_date] = @submission.data_source.spouse_esigned_at.to_date
       end
+
       answers
     end
 
@@ -159,7 +160,6 @@ module PdfFiller
       },
       'Line80_box' => {
         1 => 'elec funds withdrawal',
-        2 => 'Off',
       },
       'Line83a_account' => {
         "TODO1" => "business checking",
@@ -175,6 +175,10 @@ module PdfFiller
 
     def claimed_attr_value(xml_field)
       @xml_document.at(xml_field)&.attribute('claimed')&.value
+    end
+
+    def concat_two_xml_values(xml_field_1, xml_field_2)
+      claimed_attr_value(xml_field_1).to_s + claimed_attr_value(xml_field_2).to_s
     end
 
     def dependents_info(dependents)

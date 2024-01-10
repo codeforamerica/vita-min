@@ -59,6 +59,10 @@ module SubmissionBuilder
                   xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-10, 3]
                   xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-7, 3]
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-4, 4]
+                elsif @submission.data_source.direct_file_data.cell_phone_number&.present?
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-4, 4]
                 end
                 # xml.DGT4_PHONE_NMBR
                 xml.FORM_TYPE
