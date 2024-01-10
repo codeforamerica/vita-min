@@ -5,7 +5,7 @@ module SubmissionBuilder
       module Ny
         class IndividualReturn < SubmissionBuilder::Document
           def document
-            document = build_xml_doc('efile:ReturnState')
+            document = build_xml_doc('ReturnState')
             document.at("ReturnState").add_child(authentication_header)
             document.at("ReturnState").add_child(return_header)
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
@@ -31,7 +31,7 @@ module SubmissionBuilder
           private
 
           def documents_wrapper
-            xml_doc = build_xml_doc("efile:processBO") do |xml|
+            xml_doc = build_xml_doc("processBO") do |xml|
               xml.filingKeys do
                 xml.SOURCE_CD ""
                 xml.EXT_TP_ID @submission.data_source.primary.ssn

@@ -137,7 +137,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
-      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
 
       assert_flow_explorer_sample_params_includes_everything('ny')

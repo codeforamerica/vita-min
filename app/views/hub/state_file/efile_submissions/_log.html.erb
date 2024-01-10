@@ -47,6 +47,14 @@
             </table>
           <% end %>
 
+          <% if ["failed", "rejected"].include?(transition.to_state) && transition.metadata["raw_response"].present? && !transition.metadata["raw_response"].kind_of?(Array) %>
+            <% xml = Nokogiri::XML(transition.metadata["raw_response"]) %>
+            <% error_msg = xml.css("ErrorMessageTxt").text.strip %>
+            <% if error_msg.present? %>
+              <p><strong>Error message:</strong> <%= error_msg %></p>
+            <% end %>
+        <% end %>
+
           <% if transition.metadata.present? %>
             <div class="accordion spacing-above-10">
               <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
@@ -55,9 +63,12 @@
               <div class="accordion__content" id="a2">
               <pre>
                 <code>
-                  <% metadata = transition.to_state == "transmitted" ? transmitted_transitions.pluck(:metadata) : transition.metadata %>
-                  <% metadata.each do |m| %>
-                    <%= m %>
+                  <% if transition.to_state == "transmitted" %>
+                    <% transmitted_transitions.pluck(:metadata).each do |metadata| %>
+                      <%= metadata %>
+                    <% end %>
+                  <% else %>
+                    <%= transition.metadata %>
                   <% end %>
                 </code>
               </pre>

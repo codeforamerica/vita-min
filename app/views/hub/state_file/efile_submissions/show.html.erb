@@ -25,6 +25,9 @@
       <% end %>
 
       <div style="display: flex;">
+        <% unless Rails.env.production? %>
+          <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
+        <% end %>
         <% if @efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">
             <%= button_to("Resubmit",

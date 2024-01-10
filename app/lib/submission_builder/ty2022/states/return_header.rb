@@ -6,7 +6,7 @@ module SubmissionBuilder
         include SubmissionBuilder::BusinessLogicMethods
 
         def document
-          build_xml_doc("efile:ReturnHeaderState") do |xml|
+          build_xml_doc("ReturnHeaderState") do |xml|
             xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST"
             xml.ReturnTs datetime_type(@submission.created_at)
             xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
