@@ -10,11 +10,6 @@ module SubmissionBuilder
               checking: 1,
               savings: 2,
             }.freeze
-            REFUND_OR_OWE_TYPES = {
-              none: 0,
-              refund: 1,
-              owe: 2,
-            }.freeze
 
             def document
               build_xml_doc("rtnHeader") do |xml|
@@ -40,7 +35,7 @@ module SubmissionBuilder
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
-                xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
+                xml.RFND_OWE_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
 
                 # xml.SBMSN_ID
@@ -60,12 +55,10 @@ module SubmissionBuilder
                   xml.AREACODE_NMBR claimed: @submission.data_source.phone_number[-10, 3]
                   xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.phone_number[-7, 3]
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.phone_number[-4, 4]
-                else
-                  if @submission.data_source.direct_file_data.phone_number&.present?
-                    xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-10, 3]
-                    xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-7, 3]
-                    xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-4, 4]
-                  end
+                elsif @submission.data_source.direct_file_data.phone_number&.present?
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-4, 4]
                 end
                 # xml.DGT4_PHONE_NMBR
                 xml.FORM_TYPE
@@ -80,11 +73,17 @@ module SubmissionBuilder
                 # xml.FREE_FIL_IND
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
-                # xml.BNK_ACCT_ACH_IND
-                # xml.PAPER_CHK_RFND_IND
+                xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
+                if @submission.data_source.payment_or_deposit_type == "mail"
+                  xml.PAPER_CHK_RFND_IND claimed: 1
+                  xml.DIR_DEP_IND claimed: 2
+                end
+                if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+                  xml.PAPER_CHK_RFND_IND claimed: 2
+                  xml.DIR_DEP_IND claimed: 1
+                end
                 # xml.ITIN_MSMTCH_IND
                 # xml.IMPRFCT_RTN_IND
-                # xml.DIR_DEP_IND
               end
             end
 

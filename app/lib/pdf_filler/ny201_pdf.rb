@@ -96,10 +96,8 @@ module PdfFiller
         Line77: claimed_attr_value('OVR_PAID_AMT'),
         Line78: claimed_attr_value('RFND_B4_EDU_AMT'),
         Line78b: claimed_attr_value('RFND_AMT'),
-        # TODO - direct deposit or check checkbox, indicated by a single linked field in the PDF but 2 separate fields in the XML,
-        # Line78_refund:
-        # TODO - 'to pay by electronic funds withdrawal' checkbox. not 100% confident what it maps to in the xml
-        # Line80_box: ,
+        Line78_refund: xml_value_to_pdf_checkbox('Line78_refund', 'DIR_DEP_IND'),
+        Line80_box: xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND'),
         Line80: claimed_attr_value('BAL_DUE_AMT'),
         TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
         Spouse_occupation: @xml_document.at('tiSpouse SP_EMP_DESC')&.text,
@@ -151,8 +149,12 @@ module PdfFiller
         2 => 'no',
       },
       'Line78_refund' => {
-        'TODO1' => 'direct deposit',
-        'TODO2' => 'check',
+        1 => 'direct deposit',
+        2 => 'check',
+      },
+      'Line80_box' => {
+        1 => 'elec funds withdrawal',
+        2 => 'Off',
       },
       'Line83a_account' => {
         "TODO1" => "business checking",
