@@ -116,6 +116,7 @@ FactoryBot.define do
     nyc_full_year_resident { 'yes' }
     school_district { "Cool School" }
     school_district_number { 123 }
+    payment_or_deposit_type { "mail" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

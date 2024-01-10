@@ -100,7 +100,8 @@ module PdfFiller
         Line80_box: xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND'),
         Line80: claimed_attr_value('BAL_DUE_AMT'),
         TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
-        Spouse_occupation: @xml_document.at('tiSpouse SP_EMP_DESC')&.text,
+        day_ac: @xml_document.at('rtnHeader AREACODE_NMBR')&.text,
+        phone_number: @xml_document.at('rtnHeader EXCHNG_PHONE_NMBR')&.text.to_s + @xml_document.at('rtnHeader DGT4_PHONE_NMBR')&.text.to_s
       )
       unless @xml_document.at('ACCT_TYPE_CD').nil?
         answers.merge!(
@@ -110,6 +111,10 @@ module PdfFiller
           Line84_withdrawal_Date: claimed_attr_value('ELC_AUTH_EFCTV_DT'),
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
         )
+      end
+      if @submission.data_source.spouse_esigned_yes?
+        answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
+        answers[:signed_date] = @submission.data_source.spouse_esigned_at.to_date
       end
       answers
     end
