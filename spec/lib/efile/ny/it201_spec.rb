@@ -242,7 +242,7 @@ describe Efile::Ny::It201 do
 
   describe "#calculate_line_61" do
     before do
-      intake.update(sales_use_tax: 50)
+      intake.update(sales_use_tax: 50) # line 59 value
     end
 
     it "adds up some of the prior lines" do
