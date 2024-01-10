@@ -30,7 +30,7 @@
 #
 class StateFile1099G < ApplicationRecord
   belongs_to :intake, polymorphic: true
-  before_save :update_conditional_attributes
+  before_validation :update_conditional_attributes
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
