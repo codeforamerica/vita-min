@@ -151,24 +151,25 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def calculate_sales_use_tax
-    return unless household_fed_agi
+    fed_agi = direct_file_data&.fed_agi
+    return unless fed_agi
 
-    if household_fed_agi <= 15_000
+    if fed_agi <= 15_000
       3
-    elsif household_fed_agi.between?(15_001, 30_000)
+    elsif fed_agi.between?(15_001, 30_000)
       7
-    elsif household_fed_agi.between?(30_001, 50_000)
+    elsif fed_agi.between?(30_001, 50_000)
       11
-    elsif household_fed_agi.between?(50_001, 75_000)
+    elsif fed_agi.between?(50_001, 75_000)
       17
-    elsif household_fed_agi.between?(75_001, 100_000)
+    elsif fed_agi.between?(75_001, 100_000)
       23
-    elsif household_fed_agi.between?(100_001, 150_000)
+    elsif fed_agi.between?(100_001, 150_000)
       29
-    elsif household_fed_agi.between?(150_001, 200_000)
+    elsif fed_agi.between?(150_001, 200_000)
       38
-    elsif household_fed_agi >= 200_001
-      sut = (0.000195 * household_fed_agi).round
+    elsif fed_agi >= 200_001
+      sut = (0.000195 * fed_agi).round
       [sut, 125].min
     end
   end
