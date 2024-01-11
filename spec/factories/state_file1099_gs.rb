@@ -40,5 +40,8 @@ FactoryBot.define do
     unemployment_compensation { '1' }
     federal_income_tax_withheld { '0' }
     state_income_tax_withheld { '0' }
+    recipient_city {'New York'}
+    recipient_street_address {'123 Recipient St'}
+    recipient_zip {'11102'}
   end
 end
