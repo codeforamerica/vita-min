@@ -30,7 +30,7 @@ module SubmissionBuilder
                 xml.RecipientSSN recipient.ssn
                 xml.RecipientName recipient.full_name
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt form1099g.recipient_street_address
+                  xml.AddressLine1Txt form1099g.recipient_address_line1
                   xml.CityNm form1099g.recipient_city
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip

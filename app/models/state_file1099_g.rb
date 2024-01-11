@@ -30,7 +30,7 @@
 #
 class StateFile1099G < ApplicationRecord
   belongs_to :intake, polymorphic: true
-  before_save :update_conditional_attributes
+  before_validation :update_conditional_attributes
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
@@ -43,6 +43,9 @@ class StateFile1099G < ApplicationRecord
   validates_presence_of :payer_zip, :message => I18n.t("errors.attributes.address.zip.blank")
   validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
+  validates_presence_of :recipient_city
+  validates_presence_of :recipient_street_address
+  validates_presence_of :recipient_zip
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
@@ -62,5 +65,9 @@ class StateFile1099G < ApplicationRecord
     elsif recipient_spouse?
       intake.spouse.full_name
     end
+  end
+
+  def recipient_address_line1
+    "#{recipient_street_address_apartment} #{recipient_street_address}".strip
   end
 end

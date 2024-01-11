@@ -95,5 +95,11 @@ RSpec.describe StateFile1099G do
       state_file_1099.state_income_tax_withheld = '-1'
       expect(state_file_1099.save).to eq false
     end
+
+    it "yields a valid recipient address line 1" do
+      expect(state_file_1099.recipient_address_line1).to eq "Apt E 123 Main St"
+      state_file_1099.recipient_street_address_apartment = nil
+      expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
+    end
   end
 end
