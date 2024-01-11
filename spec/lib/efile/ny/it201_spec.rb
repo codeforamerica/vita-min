@@ -120,7 +120,7 @@ describe Efile::Ny::It201 do
           instance.calculate
           expect(instance.lines[:IT201_LINE_33].value).to eq(7000)
           expect(instance.lines[:IT201_LINE_34].value).to eq(8000)
-          expect(instance.lines[:IT201_LINE_35].value).to eq(0)
+          expect(instance.lines[:IT201_LINE_35].value).to eq(0) # (if line 34 is more than line 33, leave blank)
         end
       end
     end
