@@ -157,19 +157,19 @@ class StateFileNyIntake < StateFileBaseIntake
     if fed_agi <= 15_000
       3
     elsif fed_agi.between?(15_001, 30_000)
-      7
+      5
     elsif fed_agi.between?(30_001, 50_000)
-      11
+      9
     elsif fed_agi.between?(50_001, 75_000)
-      17
+      13
     elsif fed_agi.between?(75_001, 100_000)
-      23
+      18
     elsif fed_agi.between?(100_001, 150_000)
-      29
+      26
     elsif fed_agi.between?(150_001, 200_000)
-      38
+      32
     elsif fed_agi >= 200_001
-      sut = (0.000195 * fed_agi).round
+      sut = (0.000165 * fed_agi).round
       [sut, 125].min
     end
   end
