@@ -132,6 +132,20 @@ describe Efile::Ny::It201 do
         expect(instance.lines[:IT201_LINE_36].value).to eq(1) # (The form adds a '000.00' to it == 1000.00)
       end
     end
+
+    context 'IT201_LINE_37' do
+      it 'adds the correct taxable income' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_35].value).to eq(18_724)
+        expect(instance.lines[:IT201_LINE_36].value).to eq(1)
+        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724) # Taxable income (subtract line 36*1000 from line 35) .
+      end
+    end
+
+    context 'IT201_LINE_38' do
+      # TODO
+    end
+
   end
 
   describe 'Line 39 New York State tax from tables' do
