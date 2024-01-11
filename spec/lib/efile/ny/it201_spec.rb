@@ -16,6 +16,139 @@ describe Efile::Ny::It201 do
     end
   end
 
+  describe 'Line 33 New York State tax from tables' do
+    context 'when there are NY additions (lines 20-24) and subtractions (lines 25-31)' do
+      it 'populates the correct value for the New York adjusted gross income' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_24].value).to eq(32_351)
+        expect(instance.lines[:IT201_LINE_32].value).to eq(5_627)
+        expect(instance.lines[:IT201_LINE_33].value).to eq(26_724) # (subtract line 32 from line 24)
+      end
+    end
+  end
+
+  describe 'Lines 34-38 New York State tax from tables' do
+    context 'IT201_LINE_34' do
+      context 'when the filing status is single AND primary_claim_as_dependent' do
+        before do
+          intake.direct_file_data.filing_status = 1 # single
+          intake.direct_file_data.primary_claim_as_dependent = 'X'
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(3_100)
+        end
+      end
+
+      context 'when the filing status is single' do
+        before do
+          intake.direct_file_data.filing_status = 1 # single
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(8_000)
+        end
+      end
+
+      context 'when the filing status is married_filing_separately' do
+        before do
+          intake.direct_file_data.filing_status = 3 # married_filing_separately
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(8_000)
+        end
+      end
+
+      context 'when the filing status is married_filing_jointly' do
+        before do
+          intake.direct_file_data.filing_status = 2 # married_filing_jointly
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(16_050)
+        end
+      end
+
+      context 'when the filing status is qualifying_widow' do
+        before do
+          intake.direct_file_data.filing_status = 5 # qualifying_widow
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(16_050)
+        end
+      end
+
+      context 'when the filing status is head_of_household' do
+        before do
+          intake.direct_file_data.filing_status = 4 # head_of_household
+        end
+
+        it 'sets the correct deduction amount' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_34].value).to eq(11_200)
+        end
+      end
+    end
+
+    context 'IT201_LINE_35' do
+      context 'when line33 > line34' do
+        it 'populates the correct value to line35' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_33].value).to eq(26_724)
+          expect(instance.lines[:IT201_LINE_34].value).to eq(8_000)
+          expect(instance.lines[:IT201_LINE_35].value).to eq(18_724) # (Subtract line 34 from line 33)
+        end
+      end
+
+      context 'when line34 > line33' do
+        before do
+          allow(instance).to receive(:calculate_line_33).and_return(7000)
+        end
+
+        it 'leaves line35 blank' do
+          instance.calculate
+          expect(instance.lines[:IT201_LINE_33].value).to eq(7000)
+          expect(instance.lines[:IT201_LINE_34].value).to eq(8000)
+          expect(instance.lines[:IT201_LINE_35].value).to eq(0) # (if line 34 is more than line 33, leave blank)
+        end
+      end
+    end
+
+    context 'IT201_LINE_36' do
+      it 'adds the correct dependent exemptions' do
+        instance.calculate
+        expect(intake.dependents.count).to eq(1)
+        expect(instance.lines[:IT201_LINE_36].value).to eq(1) # (The form adds a '000.00' to it == 1000.00)
+      end
+    end
+
+    context 'IT201_LINE_37' do
+      it 'adds the correct taxable income' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_35].value).to eq(18_724)
+        expect(instance.lines[:IT201_LINE_36].value).to eq(1)
+        # Taxable income (subtract line 36*1000 from line 35)
+        # 18_724 - 1000
+        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724)
+      end
+    end
+
+    context 'IT201_LINE_38' do
+      it 'sets the correct taxable income' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724)
+        expect(instance.lines[:IT201_LINE_38].value).to eq(17_724) # Taxable income (from line 37 on page 2)
+      end
+    end
+  end
+
   describe 'Line 39 New York State tax from tables' do
     context 'when the filing status is single' do
       before do
