@@ -66,4 +66,8 @@ class StateFile1099G < ApplicationRecord
       intake.spouse.full_name
     end
   end
+
+  def recipient_address_line1
+    "#{recipient_street_address_apartment} #{recipient_street_address}".strip
+  end
 end
