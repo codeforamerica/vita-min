@@ -35,9 +35,12 @@ module SubmissionBuilder
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
-                xml.RFND_OWE_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
+                if @submission.data_source.calculated_refund_or_owed_amount.negative?
+                  xml.RFND_OWE_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
+                else
+                  xml.RFND_OWE_IND claimed: 2
+                end
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
-
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
@@ -78,11 +81,11 @@ module SubmissionBuilder
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
                 xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
-                if @submission.data_source.payment_or_deposit_type == "direct_deposit"
-                  xml.PAPER_CHK_RFND_IND claimed: 2
-                  xml.DIR_DEP_IND claimed: 1
+                if @submission.data_source.calculated_refund_or_owed_amount.positive?
+                  xml.PAPER_CHK_RFND_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 2 : 1
+                  xml.DIR_DEP_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
                 else
-                  xml.PAPER_CHK_RFND_IND claimed: 1
+                  xml.PAPER_CHK_RFND_IND claimed: 2
                   xml.DIR_DEP_IND claimed: 2
                 end
                 # xml.ITIN_MSMTCH_IND
