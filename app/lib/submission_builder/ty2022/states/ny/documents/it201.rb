@@ -81,7 +81,11 @@ module SubmissionBuilder
                 xml.RFND_B4_EDU_AMT claimed: calculated_fields.fetch(:IT201_LINE_78)
                 xml.RFND_AMT claimed: calculated_fields.fetch(:IT201_LINE_78B)
                 xml.PR_SGN_IND claimed: 1
-
+                if @submission.data_source.email_address.present?
+                  xml.TP_EMAIL_ADR claimed: @submission.data_source.email_address
+                else
+                  xml.TP_EMAIL_ADR claimed: @submission.data_source.direct_file_data.tax_payer_email
+                end
                 xml.IT201FEDADJID do
                   @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |_type, info|
                     xml.descAmt do
@@ -96,7 +100,7 @@ module SubmissionBuilder
                       xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
                       xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
                       xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                      xml.DEP_RELATION_DESC claimed: dependent.relationship
+                      xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") # no spaces
                       xml.DEP_SSN_NMBR claimed: dependent.ssn
                       xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d")
                     end

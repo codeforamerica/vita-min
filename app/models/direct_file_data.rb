@@ -13,6 +13,7 @@ class DirectFileData
     mailing_apartment: 'ReturnHeader Filer USAddress AddressLine2Txt',
     mailing_state: 'ReturnHeader Filer USAddress StateAbbreviationCd',
     mailing_zip: 'ReturnHeader Filer USAddress ZIPCd',
+    phone_number: 'ReturnHeader Filer PhoneNum',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
     fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
@@ -84,6 +85,10 @@ class DirectFileData
 
   def filing_status=(value)
     write_df_xml_value(__method__, value)
+  end
+
+  def phone_number
+    df_xml_value(__method__)
   end
 
   def cell_phone_number
@@ -251,6 +256,10 @@ class DirectFileData
 
   def fed_total_adjustments
     df_xml_value(__method__)&.to_i
+  end
+
+  def fed_total_adjustments=(value)
+    write_df_xml_value(__method__, value)
   end
 
   def total_state_tax_withheld

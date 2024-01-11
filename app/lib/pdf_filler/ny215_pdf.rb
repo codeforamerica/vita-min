@@ -53,7 +53,7 @@ module PdfFiller
                          "ln3mi#{index}" => dependent.middle_initial,
                          "ln34ln#{index}" => dependent.last_name,
                          "ln34suf#{index}" => dependent.suffix,
-                         "ln34real#{index}" => dependent.relationship,
+                         "ln34real#{index}" => dependent.relationship_label,
                          "month#{index}" => nil,
                          "ln34disability#{index}" =>  dependent.eic_disability,
                          "ln34student#{index}" =>  dependent.eic_student ? "Yes" : "Off",

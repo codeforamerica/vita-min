@@ -1,5 +1,4 @@
 module PdfHelper
-
   def yes_no_unfilled_to_checkbox(value)
     value == "yes" ? "1" : nil
   end

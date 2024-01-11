@@ -35,8 +35,22 @@ FactoryBot.define do
     relationship { "DAUGHTER" }
     ssn { "123456789" }
 
+    factory :az_senior_dependent_missing_intake_answers do
+      dob { StateFileDependent.senior_cutoff_date }
+      months_in_home { 12 }
+      relationship { "PARENT" }
+    end
+
     factory :az_senior_dependent do
       dob { StateFileDependent.senior_cutoff_date }
+      needed_assistance { "yes" }
+      months_in_home { 12 }
+      relationship { "PARENT" }
+    end
+
+    factory :az_senior_dependent_no_assistance do
+      dob { StateFileDependent.senior_cutoff_date }
+      needed_assistance { "no" }
       months_in_home { 12 }
       relationship { "PARENT" }
     end

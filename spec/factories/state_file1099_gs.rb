@@ -37,5 +37,8 @@ FactoryBot.define do
     payer_zip {'11102'}
     payer_tin {'123456789'}
     state_identification_number {'123456789'}
+    unemployment_compensation { '1' }
+    federal_income_tax_withheld { '0' }
+    state_income_tax_withheld { '0' }
   end
 end

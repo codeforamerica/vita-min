@@ -5,7 +5,7 @@ module SubmissionBuilder
       module Ny
         class IndividualReturn < SubmissionBuilder::Document
           def document
-            document = build_xml_doc('efile:ReturnState')
+            document = build_xml_doc('ReturnState')
             document.at("ReturnState").add_child(authentication_header)
             document.at("ReturnState").add_child(return_header)
             document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
@@ -31,7 +31,7 @@ module SubmissionBuilder
           private
 
           def documents_wrapper
-            xml_doc = build_xml_doc("efile:processBO") do |xml|
+            xml_doc = build_xml_doc("processBO") do |xml|
               xml.filingKeys do
                 xml.SOURCE_CD ""
                 xml.EXT_TP_ID @submission.data_source.primary.ssn
@@ -54,12 +54,16 @@ module SubmissionBuilder
                 # TODO: do we need county code? what about other school district fields?
                 # xml.COUNTY_CD @submission.data_source.residence_county
                 xml.COUNTY_NAME @submission.data_source.residence_county
-                xml.PERM_LN_1_ADR @submission.data_source.permanent_street
+                if @submission.data_source.permanent_apartment.present?
+                  xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment
+                end
+                xml.PERM_LN_2_ADR @submission.data_source.permanent_street
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
                 xml.SCHOOL_CD @submission.data_source.school_district_number
                 xml.SCHOOL_NAME @submission.data_source.school_district
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
@@ -84,7 +88,7 @@ module SubmissionBuilder
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                  xml.DEP_RELATION_DESC dependent.relationship
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
@@ -101,7 +105,7 @@ module SubmissionBuilder
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 215
-                  xml.DEP_RELATION_DESC dependent.relationship
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name

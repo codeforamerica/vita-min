@@ -46,6 +46,9 @@ class StateFile1099G < ApplicationRecord
   validates_presence_of :recipient_city
   validates_presence_of :recipient_street_address
   validates_presence_of :recipient_zip
+  validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
+  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
+  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
 
   def update_conditional_attributes
     if address_confirmation_yes?

@@ -42,7 +42,6 @@ module SubmissionBuilder
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
                 xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
-
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
@@ -56,8 +55,19 @@ module SubmissionBuilder
                 # xml.PREP_ZIP_4_ADR
                 # xml.PREP_ZIP_5_ADR
                 # xml.PREP_EIN_IND
-                # xml.AREACODE_NMBR
-                # xml.EXCHNG_PHONE_NMBR
+                if @submission.data_source.phone_number&.present?
+                  xml.AREACODE_NMBR claimed: @submission.data_source.phone_number[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.phone_number[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.phone_number[-4, 4]
+                elsif @submission.data_source.direct_file_data.phone_number&.present?
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number[-4, 4]
+                elsif @submission.data_source.direct_file_data.cell_phone_number&.present?
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-4, 4]
+                end
                 # xml.DGT4_PHONE_NMBR
                 xml.FORM_TYPE
                 # xml.THRDPRTY_EMAIL_ADR
@@ -71,11 +81,16 @@ module SubmissionBuilder
                 # xml.FREE_FIL_IND
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
-                # xml.BNK_ACCT_ACH_IND
-                # xml.PAPER_CHK_RFND_IND
+                xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
+                if @submission.data_source.calculated_refund_or_owed_amount.positive?
+                  xml.PAPER_CHK_RFND_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 2 : 1
+                  xml.DIR_DEP_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
+                else
+                  xml.PAPER_CHK_RFND_IND claimed: 2
+                  xml.DIR_DEP_IND claimed: 2
+                end
                 # xml.ITIN_MSMTCH_IND
                 # xml.IMPRFCT_RTN_IND
-                # xml.DIR_DEP_IND
               end
             end
 

@@ -4,12 +4,15 @@ module SubmissionBuilder
     module States
       module Az
         class IndividualReturn < SubmissionBuilder::Document
-          FILING_STATUSES = {
-            single: 'Single',
-            married_filing_jointly: 'MarriedJoint',
-            married_filing_separately: 'MarriedFilingSeparateReturn',
-            head_of_household: 'HeadHousehold',
-          }.freeze
+          include DependentRelationshipTable
+
+          FILING_STATUS_OPTIONS = {
+            :married_filing_jointly => 'MarriedJoint',
+            :head_of_household => 'HeadHousehold',
+            :married_filing_separately => 'MarriedFilingSeparateReturn',
+            :single => "Single"
+          }
+
           STANDARD_DEDUCTIONS = {
             single: 12950,
             married_filing_jointly: 25900,
@@ -56,7 +59,7 @@ module SubmissionBuilder
               end # TODO fix after we figure out dependent information
               xml.SupplementPageAttached 'X' # TODO Check box if theres not enough space on the first page for dependents
               xml.Dependents do
-                @submission.data_source.dependents.reject(&:ask_senior_questions?).each do |dependent|
+                @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
@@ -66,16 +69,16 @@ module SubmissionBuilder
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip dependent.relationship
+                    xml.RelationShip relationship_key(dependent.relationship)
                     xml.NumMonthsLived dependent.months_in_home
-                    if dependent.dob > 17.years.ago # TODO: needs to be based on a specific tax year date, also assumes we will have dob at all
+                    if dependent.under_17?
                       xml.DepUnder17 'X'
                     else
                       xml.Dep17AndOlder 'X'
                     end
                   end
                 end
-                @submission.data_source.dependents.select(&:ask_senior_questions?).each do |dependent|
+                @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.QualParentsAncestors do
                     xml.Name do
                       xml.FirstName dependent.first_name
@@ -85,17 +88,14 @@ module SubmissionBuilder
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip dependent.relationship
+                    xml.RelationShip relationship_key(dependent.relationship)
                     xml.NumMonthsLived dependent.months_in_home
-                    if dependent.dob <= MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
-                      xml.IsOverSixtyFive 'X'
-                    end
+                    xml.IsOverSixtyFive 'X' # all dependents in this section are over 65
                     if dependent.passed_away_yes?
                       xml.DiedInTaxYear 'X'
                     end
                   end
                 end
-                # TODO dependents must be partitioned into DependentDetails and QualParentsAncestors based on relationship and possibly other factors
               end
               xml.Additions do
                 xml.FedAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_12)
@@ -164,11 +164,6 @@ module SubmissionBuilder
             end
             xml_doc.at('*')
           end
-
-          FILING_STATUS_OPTIONS = { :married_filing_jointly => 'MarriedJoint',
-                                    :head_of_household => 'HeadHousehold',
-                                    :married_filing_separately => 'MarriedFilingSeparateReturn',
-                                    :single => "Single" }
 
           def filing_status
             FILING_STATUS_OPTIONS[@submission.data_source.filing_status]

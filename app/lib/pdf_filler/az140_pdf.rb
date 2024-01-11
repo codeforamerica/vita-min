@@ -42,18 +42,17 @@ module PdfFiller
       end
 
       answers["10a_10b check box"] = 'Yes' if @xml_document.css('DependentsDetail').length > 3
-
-      @xml_document.css('DependentDetails').each_with_index do |dependents_node, index|
+      @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each_with_index do |dependent, index|
         # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
         prefix = "10#{('c'..'p').to_a[index]}"
         answers.merge!(
-          "#{prefix} First" => dependents_node.at("FirstName")&.text,
-          "#{prefix} Last" => dependents_node.at("LastName")&.text,
-          "#{prefix} SSN" => dependents_node.at("DependentSSN")&.text,
-          "#{prefix} Relationship" => dependents_node.at("RelationShip")&.text,
-          "#{prefix} Mo in Home" => dependents_node.at("NumMonthsLived")&.text,
-          "#{prefix}_10a check box" => dependents_node.at("DepUnder17")&.text,
-          "#{prefix}_10b check box" => dependents_node.at("Dep17AndOlder")&.text,
+          "#{prefix} First" => dependent.first_name,
+          "#{prefix} Last" => dependent.last_name,
+          "#{prefix} SSN" => dependent.ssn.delete('-'),
+          "#{prefix} Relationship" => dependent.relationship_label,
+          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix}_10a check box" => dependent.under_17? ? "X" : nil,
+          "#{prefix}_10b check box" => dependent.under_17? ? nil : "X",
         )
       end
 
@@ -64,17 +63,17 @@ module PdfFiller
 
       answers["11a check box"] = 'Yes' if @xml_document.css('QualParentsAncestors').length > 2
 
-      @xml_document.css('QualParentsAncestors').each_with_index do |qualifying_relative_node, index|
-        # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
+      @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each_with_index do |dependent, index|
+        # PDF fields seem to be named consistently (11b ... 11i) whether they are on Page 1 or Page 4
         prefix = "11#{('b'..'i').to_a[index]}"
         answers.merge!(
-          "#{prefix} First" => qualifying_relative_node.at("FirstName")&.text,
-          "#{prefix} Last" => qualifying_relative_node.at("LastName")&.text,
-          "#{prefix} SSN" => qualifying_relative_node.at("DependentSSN")&.text,
-          "#{prefix} Relationship" => qualifying_relative_node.at("RelationShip")&.text,
-          "#{prefix} Mo in Home" => qualifying_relative_node.at("NumMonthsLived")&.text,
-          "#{prefix} over 65" => qualifying_relative_node.at("IsOverSixtyFive")&.text,
-          "#{prefix} died" => qualifying_relative_node.at("DiedInTaxYear")&.text,
+          "#{prefix} First" => dependent.first_name,
+          "#{prefix} Last" => dependent.last_name,
+          "#{prefix} SSN" => dependent.ssn.delete('-'),
+          "#{prefix} Relationship" => dependent.relationship_label,
+          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix} over 65" => "X", # all of these dependents are 65 or older
+          "#{prefix} died" => dependent.passed_away_yes? ? "X" : nil,
         )
       end
 

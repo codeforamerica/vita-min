@@ -137,7 +137,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Show XML"
-      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
 
       assert_flow_explorer_sample_params_includes_everything('ny')
@@ -194,7 +194,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
       end
       within "#dependent-1" do
-        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1950, 10, 31)
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1940, 10, 31)
         select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
       end
       click_on I18n.t("general.continue")
