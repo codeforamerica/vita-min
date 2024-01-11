@@ -78,13 +78,12 @@ module SubmissionBuilder
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
                 xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
-                if @submission.data_source.payment_or_deposit_type == "mail"
-                  xml.PAPER_CHK_RFND_IND claimed: 1
-                  xml.DIR_DEP_IND claimed: 2
-                end
                 if @submission.data_source.payment_or_deposit_type == "direct_deposit"
                   xml.PAPER_CHK_RFND_IND claimed: 2
                   xml.DIR_DEP_IND claimed: 1
+                else
+                  xml.PAPER_CHK_RFND_IND claimed: 1
+                  xml.DIR_DEP_IND claimed: 2
                 end
                 # xml.ITIN_MSMTCH_IND
                 # xml.IMPRFCT_RTN_IND

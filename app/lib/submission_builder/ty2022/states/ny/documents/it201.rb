@@ -80,9 +80,7 @@ module SubmissionBuilder
                 xml.OVR_PAID_AMT claimed: calculated_fields.fetch(:IT201_LINE_77)
                 xml.RFND_B4_EDU_AMT claimed: calculated_fields.fetch(:IT201_LINE_78)
                 xml.RFND_AMT claimed: calculated_fields.fetch(:IT201_LINE_78B)
-                if @submission.data_source.primary_esigned_yes?
-                  xml.PR_SGN_IND claimed: 1
-                end
+                xml.PR_SGN_IND claimed: 1
                 if @submission.data_source.email_address.present?
                   xml.TP_EMAIL_ADR claimed: @submission.data_source.email_address
                 else
