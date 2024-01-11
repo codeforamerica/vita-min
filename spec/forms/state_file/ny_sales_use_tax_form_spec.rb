@@ -43,7 +43,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
           form = described_class.new(intake, params)
           expect(form.untaxed_out_of_state_purchases).to eq "yes"
           expect(form.sales_use_tax_calculation_method).to eq "automated"
-          expect(form.sales_use_tax).to eq nil
+          expect(form.sales_use_tax).to eq intake.calculate_sales_use_tax
         end
       end
     end
