@@ -138,14 +138,19 @@ describe Efile::Ny::It201 do
         instance.calculate
         expect(instance.lines[:IT201_LINE_35].value).to eq(18_724)
         expect(instance.lines[:IT201_LINE_36].value).to eq(1)
-        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724) # Taxable income (subtract line 36*1000 from line 35) .
+        # Taxable income (subtract line 36*1000 from line 35)
+        # 18_724 - 1000
+        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724)
       end
     end
 
     context 'IT201_LINE_38' do
-      # TODO
+      it 'sets the correct taxable income' do
+        instance.calculate
+        expect(instance.lines[:IT201_LINE_37].value).to eq(17_724)
+        expect(instance.lines[:IT201_LINE_38].value).to eq(17_724) # Taxable income (from line 37 on page 2)
+      end
     end
-
   end
 
   describe 'Line 39 New York State tax from tables' do
