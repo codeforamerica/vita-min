@@ -78,6 +78,14 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
           expect(qual_ancestors.at("DiedInTaxYear")).to_not be_present
         end
       end
+
+      context "when there are w2s present" do
+        it "w2s are copied from the intake" do
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.css('IRSW2').count).to eq 1
+          expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
+        end
+      end
     end
   end
 end

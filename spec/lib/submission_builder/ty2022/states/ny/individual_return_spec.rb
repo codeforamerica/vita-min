@@ -77,5 +77,16 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(xml.at("YNK_WRK_LVNG_IND")["claimed"]).to eq("2")
       end
     end
+
+    context "when there are w2s present" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+
+      it "w2s are copied from the intake" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.css('IRSW2').count).to eq 1
+        expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
+      end
+    end
   end
 end
