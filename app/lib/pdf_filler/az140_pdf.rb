@@ -36,13 +36,15 @@ module PdfFiller
         "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
       }
 
-      if @xml_document.css('DependentsDetail').length > 14
-        # TODO: 14 is the 3 on page 1 plus the 11 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
+      non_qualifying_ancestor_dependents = @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?)
+      if non_qualifying_ancestor_dependents.count > 14
+        # 14 is the 3 on page 1 plus the 11 extra rows on page 4
         raise "Can't handle this many dependents for Form 140!"
+      elsif non_qualifying_ancestor_dependents.count > 3
+        answers["10a_10b check box"] = "Yes"
       end
 
-      answers["10a_10b check box"] = 'Yes' if @xml_document.css('DependentsDetail').length > 3
-      @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each_with_index do |dependent, index|
+      non_qualifying_ancestor_dependents.each_with_index do |dependent, index|
         # PDF fields seem to be named consistently (10c ... 10p) whether they are on Page 1 or Page 4
         prefix = "10#{('c'..'p').to_a[index]}"
         answers.merge!(
@@ -51,19 +53,20 @@ module PdfFiller
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
           "#{prefix} Mo in Home" => dependent.months_in_home,
-          "#{prefix}_10a check box" => dependent.under_17? ? "X" : nil,
-          "#{prefix}_10b check box" => dependent.under_17? ? nil : "X",
+          "#{prefix}_10a check box" => dependent.under_17? ? "Yes" : nil,
+          "#{prefix}_10b check box" => dependent.under_17? ? nil : "Yes",
         )
       end
 
-      if @xml_document.css('QualParentsAncestors').length > 8
-        # TODO: 8 is the 2 on page 1 plus the 6 extra rows on page 4. Seems exceedingly unlikely anyone will exceed this.
-        raise "Can't handle this many dependents for Form 140!"
+      qualifying_ancestors = @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?)
+      if qualifying_ancestors.count > 8
+        # 8 is the 2 on page 1 plus the 6 extra rows on page 4
+        raise "Can't handle this many qualifying ancestor dependents for Form 140!"
+      elsif qualifying_ancestors.count > 2
+        answers["11a check box"] = "Yes"
       end
 
-      answers["11a check box"] = 'Yes' if @xml_document.css('QualParentsAncestors').length > 2
-
-      @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each_with_index do |dependent, index|
+      qualifying_ancestors.each_with_index do |dependent, index|
         # PDF fields seem to be named consistently (11b ... 11i) whether they are on Page 1 or Page 4
         prefix = "11#{('b'..'i').to_a[index]}"
         answers.merge!(
@@ -72,8 +75,8 @@ module PdfFiller
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
           "#{prefix} Mo in Home" => dependent.months_in_home,
-          "#{prefix} over 65" => "X", # all of these dependents are 65 or older
-          "#{prefix} died" => dependent.passed_away_yes? ? "X" : nil,
+          "#{prefix} over 65" => "Yes", # all of these dependents are 65 or older
+          "#{prefix} died" => dependent.passed_away_yes? ? "Yes" : nil,
         )
       end
 

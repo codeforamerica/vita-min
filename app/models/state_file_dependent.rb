@@ -53,6 +53,7 @@ class StateFileDependent < ApplicationRecord
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
 
   def self.senior_cutoff_date
+    # Deprecated: please use `#senior?` (this method used only in tests)
     MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
   end
 
