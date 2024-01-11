@@ -47,12 +47,6 @@ module PdfFiller
         F1_NYC: claimed_attr_value('PR_NYC_MNTH_NMBR'),
         F2_NYC: claimed_attr_value('SP_NYC_MNTH_NMBR'),
       }
-      if @submission.data_source.nyc_full_year_resident_yes?
-        answers[:F1_NYC] = '12'
-        if @submission.data_source.filing_status_mfj?
-          answers[:F2_NYC] = '12'
-        end
-      end
       answers.merge!(dependents_info(@submission.data_source.dependents))
       answers.merge!(
         Line1: claimed_attr_value('WG_AMT'),
@@ -102,11 +96,11 @@ module PdfFiller
         Line77: claimed_attr_value('OVR_PAID_AMT'),
         Line78: claimed_attr_value('RFND_B4_EDU_AMT'),
         Line78b: claimed_attr_value('RFND_AMT'),
-        # TODO - direct deposit or check checkbox, indicated by a single linked field in the PDF but 2 separate fields in the XML,
-        # Line78_refund:
-        # TODO - 'to pay by electronic funds withdrawal' checkbox. not 100% confident what it maps to in the xml
-        # Line80_box: ,
         Line80: claimed_attr_value('BAL_DUE_AMT'),
+        TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
+        day_ac: claimed_attr_value('AREACODE_NMBR'),
+        day_phone: phone_number('EXCHNG_PHONE_NMBR', 'DGT4_PHONE_NMBR'),
+        sign_email: claimed_attr_value('TP_EMAIL_ADR')
       )
       unless @xml_document.at('ACCT_TYPE_CD').nil?
         answers.merge!(
@@ -116,6 +110,18 @@ module PdfFiller
           Line84_withdrawal_Date: claimed_attr_value('ELC_AUTH_EFCTV_DT'),
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
         )
+      end
+      if @submission.data_source.calculated_refund_or_owed_amount.positive?
+        answers[:Line78_refund] = xml_value_to_pdf_checkbox('Line78_refund', 'DIR_DEP_IND')
+      end
+      if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+        answers[:Line80_box] = xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND')
+      end
+      if @submission.data_source.primary_esigned_yes?
+        answers[:signed_date] = @submission.data_source.primary_esigned_at.to_date
+      end
+      if @submission.data_source.spouse_esigned_yes?
+        answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
       end
       answers
     end
@@ -155,8 +161,11 @@ module PdfFiller
         2 => 'no',
       },
       'Line78_refund' => {
-        'TODO1' => 'direct deposit',
-        'TODO2' => 'check',
+        1 => 'direct deposit',
+        2 => 'check',
+      },
+      'Line80_box' => {
+        2 => 'elec funds withdrawal',
       },
       'Line83a_account' => {
         "TODO1" => "business checking",
@@ -172,6 +181,10 @@ module PdfFiller
 
     def claimed_attr_value(xml_field)
       @xml_document.at(xml_field)&.attribute('claimed')&.value
+    end
+
+    def phone_number(xml_field_1, xml_field_2)
+      claimed_attr_value(xml_field_1).to_s + "-" + claimed_attr_value(xml_field_2).to_s
     end
 
     def dependents_info(dependents)
