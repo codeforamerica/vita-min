@@ -49,7 +49,7 @@ describe StateFileDependent do
     end
   end
 
-  describe "asking additional AZ senior questions" do
+  describe "#ask_senior_questions?" do
     it "asks more questions when a dependent is 65+ by the end of the tax year + grandparent + 12 months in home" do
       dependent = build(
         :state_file_dependent,
@@ -106,7 +106,7 @@ describe StateFileDependent do
     end
   end
 
-  describe "detecting qualified parents or grandparents for dependents that are 65+" do
+  describe "#is_qualifying_parent_or_grandparent?" do
     it "only returns dependents that are 65+ by end of tax year, a grandparent or parent, spent 12 months in home, and needed assistance" do
       qualifying_grandparent = create(
         :state_file_dependent,
@@ -159,7 +159,7 @@ describe StateFileDependent do
     end
   end
 
-  describe "age calculates correctly" do
+  describe "#age" do
     it "when the birthday is the last day of the tax year" do
       dependent = build(
         :state_file_dependent,
@@ -173,6 +173,13 @@ describe StateFileDependent do
         dob: (MultiTenantService.statefile.end_of_current_tax_year + 1.days - 10.years).strftime("%Y-%m-%d")
       )
       expect(dependent.age).to be 9
+    end
+  end
+
+  describe "#relationship_label" do
+    it "provides a correct gender neutral relationship label" do
+      dependent = build(:state_file_dependent, relationship: "STEPBROTHER")
+      expect(dependent.relationship_label).to eq "Step-Sibling"
     end
   end
 end

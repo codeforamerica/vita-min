@@ -27,6 +27,20 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 class StateFileDependent < ApplicationRecord
+  RELATIONSHIP_LABELS = {
+    "DAUGHTER" => "Child",
+    "STEPCHILD" => "Child",
+    "FOSTER CHILD" => "Foster Child",
+    "GRANDCHILD" => "Grandchild",
+    "SISTER" => "Sibling",
+    "HALF SISTER" => "Half-Sibling",
+    "NEPHEW" => "Niece/Nephew",
+    "STEPBROTHER" => "Step-Sibling",
+    "PARENT" => "Parent",
+    "GRANDPARENT" => "Grandparent",
+    "NONE" => "Other",
+  }.freeze
+
   belongs_to :intake, polymorphic: true
   encrypts :ssn
   enum needed_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needed_assistance
@@ -38,6 +52,9 @@ class StateFileDependent < ApplicationRecord
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
 
+  def self.senior_cutoff_date
+    MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
+  end
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -47,18 +64,26 @@ class StateFileDependent < ApplicationRecord
 
   def ask_senior_questions?
     return false if dob.nil?
-    dob <= StateFileDependent.senior_cutoff_date && months_in_home == 12 && (relationship == 'PARENT' || relationship == 'GRANDPARENT')
+    senior? && months_in_home == 12 && ['PARENT', 'GRANDPARENT'].include?(relationship)
   end
 
   def is_qualifying_parent_or_grandparent?
     ask_senior_questions? && needed_assistance_yes?
   end
 
-  def self.senior_cutoff_date
-    MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
+  def under_17?
+    age < 17
+  end
+
+  def senior?
+    age >= 65
   end
 
   def age
-    ((MultiTenantService.statefile.end_of_current_tax_year.to_time - dob.to_time) / 1.year.seconds).floor
+    MultiTenantService.statefile.current_tax_year - dob.year
+  end
+
+  def relationship_label
+    RELATIONSHIP_LABELS[relationship]
   end
 end

@@ -20,7 +20,12 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
       let(:dob) { 12.years.ago }
 
       before do
-        intake.dependents.create(dob: dob)
+        create(:state_file_dependent, intake: intake, dob: dob, relationship: "DAUGHTER")
+      end
+
+      it "translates the relationship to the appropriate AZ XML relationship key" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("DependentDetails RelationShip").text).to eq "CHILD"
       end
 
       context "when a dependent is under 17" do
