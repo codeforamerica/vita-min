@@ -10,6 +10,11 @@ module SubmissionBuilder
               checking: 1,
               savings: 2,
             }.freeze
+            REFUND_OR_OWE_TYPES = {
+              none: 0,
+              refund: 1,
+              owe: 2,
+            }.freeze
 
             def document
               build_xml_doc("rtnHeader") do |xml|
@@ -35,11 +40,7 @@ module SubmissionBuilder
                   xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
                 end
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
-                if @submission.data_source.calculated_refund_or_owed_amount.negative?
-                  xml.RFND_OWE_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
-                else
-                  xml.RFND_OWE_IND claimed: 2
-                end
+                xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
                 xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND

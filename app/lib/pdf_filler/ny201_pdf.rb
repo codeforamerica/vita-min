@@ -96,9 +96,7 @@ module PdfFiller
         Line77: claimed_attr_value('OVR_PAID_AMT'),
         Line78: claimed_attr_value('RFND_B4_EDU_AMT'),
         Line78b: claimed_attr_value('RFND_AMT'),
-        Line78_refund: xml_value_to_pdf_checkbox('Line78_refund', 'DIR_DEP_IND'),
         Line80: claimed_attr_value('BAL_DUE_AMT'),
-        Line80_box: xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND'),
         TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
         day_ac: claimed_attr_value('AREACODE_NMBR'),
         day_phone: phone_number('EXCHNG_PHONE_NMBR', 'DGT4_PHONE_NMBR'),
@@ -113,9 +111,17 @@ module PdfFiller
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
         )
       end
+      if @submission.data_source.calculated_refund_or_owed_amount.positive?
+        answers[:Line78_refund] = xml_value_to_pdf_checkbox('Line78_refund', 'DIR_DEP_IND')
+      end
+      if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+        answers[:Line80_box] = xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND')
+      end
+      if @submission.data_source.primary_esigned_yes?
+        answers[:signed_date] = @submission.data_source.primary_esigned_at.to_date
+      end
       if @submission.data_source.spouse_esigned_yes?
         answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
-        answers[:signed_date] = @submission.data_source.spouse_esigned_at.to_date
       end
       answers
     end
@@ -159,7 +165,7 @@ module PdfFiller
         2 => 'check',
       },
       'Line80_box' => {
-        1 => 'elec funds withdrawal',
+        2 => 'elec funds withdrawal',
       },
       'Line83a_account' => {
         "TODO1" => "business checking",
