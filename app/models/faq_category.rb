@@ -41,4 +41,13 @@ class FaqCategory < ApplicationRecord
       description_es.present? ? description_es : description_en
     end
   end
+
+  def self.state_to_product_type(state)
+    case state
+    when 'az'
+      'state_file_az'
+    when 'ny'
+      'state_file_ny'
+    end
+  end
 end
