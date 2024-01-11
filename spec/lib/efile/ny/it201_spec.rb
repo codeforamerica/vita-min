@@ -18,10 +18,6 @@ describe Efile::Ny::It201 do
 
   describe 'Line 33 New York State tax from tables' do
     context 'when the New York adjusted gross income is 50k' do
-      before do
-        intake.direct_file_data.fed_agi = 50_000
-      end
-
       it 'populates the correct value from IRS1040 AdjustedGrossIncomeAmt' do
         instance.calculate
         expect(instance.lines[:IT201_LINE_24].value).to eq(32_351)
