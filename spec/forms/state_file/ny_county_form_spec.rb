@@ -24,37 +24,39 @@ RSpec.describe StateFile::NyCountyForm do
     end
   end
 
-  describe "if county is outside of NYC" do
-    let(:form) { described_class.new(intake, valid_params) }
-    let(:valid_params) do
-      {
-        residence_county: "Albany",
-      }
+  describe ".save" do
+    context "with a non-NYC county" do
+      let(:form) { described_class.new(intake, valid_params) }
+      let(:valid_params) do
+        {
+          residence_county: "Albany",
+        }
+      end
+
+      it "saves attributes and updates residency" do
+        expect(form.valid?).to eq true
+        form.save
+
+        expect(intake.residence_county).to eq "Albany"
+        expect(intake.nyc_full_year_resident).to eq "no"
+      end
     end
 
-    it "saves attributes" do
-      expect(form.valid?).to eq true
-      form.save
+    context "with an NYC county" do
+      let(:form) { described_class.new(intake, valid_params) }
+      let(:valid_params) do
+        {
+          residence_county: "Bronx",
+        }
+      end
 
-      expect(intake.residence_county).to eq "Albany"
-      expect(intake.nyc_full_year_resident).to eq "no"
-    end
-  end
+      it "saves the county and updates residency" do
+        expect(form.valid?).to eq true
+        form.save
 
-  describe "if a NYC county is selected" do
-    let(:form) { described_class.new(intake, valid_params) }
-    let(:valid_params) do
-      {
-        residence_county: "Bronx",
-      }
-    end
-
-    it "saves attributes" do
-      expect(form.valid?).to eq true
-      form.save
-
-      expect(intake.residence_county).to eq "Bronx"
-      expect(intake.nyc_full_year_resident).to eq "yes"
+        expect(intake.residence_county).to eq "Bronx"
+        expect(intake.nyc_full_year_resident).to eq "yes"
+      end
     end
   end
 end

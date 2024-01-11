@@ -3,7 +3,16 @@ require 'rails_helper'
 RSpec.describe StateFile::Questions::ConfirmationController do
   describe "#show_xml" do
     context "in ny" do
-      let(:ny_intake) { create :state_file_ny_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
+      let(:ny_intake) do
+        create(
+          :state_file_ny_intake,
+          :with_efile_device_infos,
+          primary_first_name: "Jerry",
+          school_district_id: 441,
+          school_district: "Bellmore-Merrick CHS",
+          school_district_number: 46
+        )
+      end
       let(:efile_submission) { create :efile_submission, :for_state, data_source: ny_intake }
 
       before do

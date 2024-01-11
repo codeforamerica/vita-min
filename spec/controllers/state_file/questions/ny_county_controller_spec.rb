@@ -7,22 +7,9 @@ RSpec.describe StateFile::Questions::NyCountyController do
     sign_in intake
   end
 
-  describe "#edit" do
-    it "assigns the correct data structure to @counties" do
-      get :edit, params: { us_state: "ny" }
-
-      counties = subject.county_options
-      expect(counties).to include('Montgomery')
-      expect(counties).to include('Nassau')
-      expect(counties).to eq counties.uniq
-    end
-  end
-
   describe "#update" do
-
     # requires form_params to be set
     describe "#next_path" do
-
       let(:form_params) do
         {
           us_state: "ny",
@@ -33,7 +20,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
       end
 
       context "with return_to_review param set" do
-        it "navigates to the state review screen" do
+        it "navigates to the district page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
           expect(response).to redirect_to(controller: "ny_school_district", action: :edit, us_state: "ny", return_to_review: 'y')
         end

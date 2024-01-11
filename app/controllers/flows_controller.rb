@@ -614,6 +614,7 @@ class FlowsController < ApplicationController
         public_housing: "unfilled",
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
+        school_district_id: 441,
         school_district: "Bellmore-Merrick CHS",
         school_district_number: 46,
         spouse_birth_date: Date.parse('1979-06-22'),

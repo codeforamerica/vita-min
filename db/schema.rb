@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_06_184913) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_11_191348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1745,6 +1745,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_184913) do
     t.integer "sales_use_tax"
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.string "school_district"
+    t.integer "school_district_id"
     t.integer "school_district_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
