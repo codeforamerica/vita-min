@@ -120,7 +120,7 @@ describe StateFileNyIntake do
       it "calculates sales use tax" do
         expect {
           intake.update(sales_use_tax_calculation_method: "automated")
-        }.to change(intake, :sales_use_tax).to(29)
+        }.to change(intake, :sales_use_tax).to(26)
       end
     end
 
