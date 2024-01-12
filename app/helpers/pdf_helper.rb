@@ -56,13 +56,14 @@ module PdfHelper
       num_pages = PDF::Reader.new(pdf_tempfile.path).page_count
       barcode_page_paths = (1..num_pages).map do |page_num|
         barcode_page_tempfile = Tempfile.new
-        barcode = nys_10digit_barcode(nys_form_type, page_num)
+        barcode_string = nys_10digit_barcode_value(nys_form_type, page_num)
         pdf = Prawn::Document.new
-        pdf.rectangle([-5, 30], 155, 35)  # draw a white rectangle over the default barcode
+        pdf.rectangle([-5, 27], 125, 29)  # draw a white rectangle over the default barcode
         pdf.fill_color "ffffff"
         pdf.fill
         pdf.fill_color "000000"
-        barcode.to_pdf(pdf, width: 3.0 / 2 * 0.8, x: 0, y: 0, height: 72 / 4, bottom_margin: 0)
+        pdf.text_box barcode_string, :at => [0, 26], :width => 117, :size => 8, :align => :center
+        barcode(barcode_string).to_pdf(pdf, width: 1.1, x: -20, y: 0, height: 18, bottom_margin: 0)
         barcode_page_path = "/tmp/pg#{page_num}.pdf"
         pdf.render_file(barcode_page_path)
         barcode_page_path
@@ -82,11 +83,14 @@ module PdfHelper
     end
   end
 
-  def nys_10digit_barcode(form_type, page_num)
+  def nys_10digit_barcode_value(form_type, page_num)
     three_digit_page_num = "%03d" % page_num
     tax_year = "23"
     vendor_source_code = "1963"
-    s = "#{form_type}#{three_digit_page_num}#{tax_year}#{vendor_source_code}"
+    "#{form_type}#{three_digit_page_num}#{tax_year}#{vendor_source_code}"
+  end
+
+  def barcode(s)
     barcode = Interleave2of5.new(s)
     barcode.encode # this method call is required to compute some important internal state
   end
