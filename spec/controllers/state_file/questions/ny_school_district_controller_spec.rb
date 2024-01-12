@@ -7,49 +7,41 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
     sign_in intake
   end
 
-  describe "#edit" do
-    it "assigns the correct data structure to @school_districts including combined district names" do
-      get :edit, params: { us_state: "ny" }
-
-      school_districts = subject.school_district_options
-      expect(school_districts).to include(['Bellmore-Merrick CHS North Bellmore', 'Bellmore-Merrick CHS North Bellmore'])
-      expect(school_districts).to include(['Carle Place', 'Carle Place'])
-      expect(school_districts).to eq school_districts.uniq
-    end
-  end
-
   describe "#update" do
-    context "when the code maps to the district name" do
+    context "with a valid district id" do
       let(:form_params) {
         {
           state_file_ny_school_district_form: {
-            school_district: "Bellmore",
+            school_district_id: 440,
           }
         }
       }
 
-      it "sets the correct district number in params" do
+      it "saves the correct district id, name, and code" do
         post :update, params: { us_state: "ny" }.merge(form_params)
 
         intake.reload
+        expect(intake.school_district_id).to eq 440
         expect(intake.school_district).to eq "Bellmore"
         expect(intake.school_district_number).to eq 46
       end
     end
 
-    context "when the code comes from an elementary school district" do
+    context "when the id corresponds to an elementary school district" do
       let(:form_params) {
         {
           state_file_ny_school_district_form: {
-            school_district: "Bellmore-Merrick CHS North Bellmore",
+            school_district_id: 443,
           }
         }
       }
 
-      it "sets the district name back to the original and uses the correct district number" do
+      it "saves the correct district id, name, and code" do
         post :update, params: { us_state: "ny" }.merge(form_params)
 
         intake.reload
+
+        expect(intake.school_district_id).to eq 443
         expect(intake.school_district).to eq "Bellmore-Merrick CHS"
         expect(intake.school_district_number).to eq 441
       end
@@ -64,7 +56,7 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
           {
             us_state: "ny",
             state_file_ny_school_district_form: {
-              school_district: "Bellmore"
+              school_district_id: 440
             }
           }
         end
