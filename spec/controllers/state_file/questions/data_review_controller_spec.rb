@@ -30,6 +30,17 @@ RSpec.describe StateFile::Questions::DataReviewController do
         expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper(us_state: "az"))
       end
     end
+
+    context 'when the session times out/ is destroyed' do
+      it "redirects to the home page" do
+        allow(Sentry).to receive(:capture_exception)
+        session.destroy
+        response = get :edit, params: { us_state: "az" }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq('Your session expired. Please sign in again to continue.')
+        expect(Sentry).to have_received(:capture_exception)
+      end
+    end
   end
 
   describe "#update" do

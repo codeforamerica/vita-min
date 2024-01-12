@@ -2,6 +2,7 @@ module Questions
   class QuestionsController < ApplicationController
     before_action :redirect_in_offseason
     before_action :redirect_if_completed_intake_present
+    before_action :redirect_if_no_intake
     before_action :set_current_step, :set_in_intake_flow
     delegate :form_name, to: :class
     delegate :form_class, to: :class
@@ -96,6 +97,19 @@ module Questions
     def redirect_if_completed_intake_present
       if current_intake && current_intake.completed_at.present?
         redirect_to portal_root_path
+      end
+    end
+
+    def redirect_if_no_intake
+      unless current_intake.present?
+        begin
+          visitor_id = question_navigator.intake_class.last.visitor_id
+          raise "The session for visitor with id:#{visitor_id} has expired"
+        rescue => e
+          Sentry.capture_exception(e)
+        end
+        flash[:notice] = 'Your session expired. Please sign in again to continue.'
+        redirect_to root_path
       end
     end
 
