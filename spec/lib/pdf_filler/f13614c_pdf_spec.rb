@@ -10,6 +10,7 @@ RSpec.describe PdfFiller::F13614cPdf do
       let(:intake) do
         create(
           :intake,
+          client: build(:client, :with_consent, consented_to_service_at: Date.new(2024, 1, 1)),
           additional_info: "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
           adopted_child: "no",
           advance_ctc_amount_received: 500,
@@ -135,6 +136,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           widowed: "no",
           widowed_year: "2017",
           zip_code: "08052",
+          spouse_consented_to_service_at: Date.new(2024, 1, 1),
         )
       end
       before do
@@ -186,15 +188,8 @@ RSpec.describe PdfFiller::F13614cPdf do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         form_fields = PdfForms.new.get_fields(intake_pdf.output_file)
 
-        # can remove this?
-        page4_fields = [
-          "form1[0].page4[0].primaryTaxpayer[0]",
-          "form1[0].page4[0].primarydateSigned[0]",
-          "form1[0].page4[0].secondaryTaxpayer[0]",
-          "form1[0].page4[0].secondaryDateSigned[0]",
-        ]
         all_fields_in_pdf = form_fields.map(&:name)
-        expect(all_fields_in_pdf - page4_fields).to match_array(intake_pdf.hash_for_pdf.keys)
+        expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
       it "fills out answers from the DB into the pdf" do
@@ -468,10 +463,10 @@ RSpec.describe PdfFiller::F13614cPdf do
           "form1[0].page3[0].q15[0].noSpouse[0]" => "",
           "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" =>
             "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.\rOther income types: garden gnoming",
-          "form1[0].page4[0].primaryTaxpayer[0]" => nil,
-          "form1[0].page4[0].primarydateSigned[0]" => nil,
-          "form1[0].page4[0].secondaryTaxpayer[0]" => nil,
-          "form1[0].page4[0].secondaryDateSigned[0]" => nil
+          "form1[0].page4[0].primaryTaxpayer[0]" => "Hoofie Heifer",
+          "form1[0].page4[0].primarydateSigned[0]" => "1/1/2024",
+          "form1[0].page4[0].secondaryTaxpayer[0]" => "Hattie Heifer",
+          "form1[0].page4[0].secondaryDateSigned[0]" => "1/1/2024"
         )
   end
 

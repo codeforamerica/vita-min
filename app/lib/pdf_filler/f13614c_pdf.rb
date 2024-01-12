@@ -42,6 +42,7 @@ module PdfFiller
     }
 
     def source_pdf_name
+      # AND f15080
       "f13614c-TY2023"
     end
 
@@ -190,7 +191,25 @@ module PdfFiller
       answers.merge!(
         "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" => additional_comments,
       )
+      answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
+    end
+
+    def vita_consent_to_disclose_info
+      # aka form 15080 on page 4 info
+      return {} unless @intake.primary_consented_to_service_at.present?
+
+      data = {
+        "form1[0].page4[0].primaryTaxpayer[0]" => @intake.primary.first_and_last_name,
+        "form1[0].page4[0].primarydateSigned[0]" => strftime_date(@intake.primary_consented_to_service_at),
+      }
+      if @intake.spouse_consented_to_service_at.present?
+        data.merge!(
+          "form1[0].page4[0].secondaryTaxpayer[0]" => @intake.spouse.first_and_last_name,
+          "form1[0].page4[0].secondaryDateSigned[0]" => strftime_date(@intake.spouse_consented_to_service_at),
+          )
+      end
+      data
     end
 
     def primary_info
