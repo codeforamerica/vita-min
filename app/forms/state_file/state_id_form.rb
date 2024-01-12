@@ -3,6 +3,7 @@ module StateFile
     include DateHelper
 
     validates :id_type, presence: true
+    validates :id_number, presence: true, if: -> { id_type != "no_id" }
     validates :id_number, alphanumeric: true, length: {is: 9}, if: -> { id_type != "no_id" && state == "NY" }
     validate :issue_date_is_valid_date, unless: -> { id_type == "no_id" }
     validate :expiration_date_is_valid_date, unless: -> { id_type == "no_id" || non_expiring == "1" }
