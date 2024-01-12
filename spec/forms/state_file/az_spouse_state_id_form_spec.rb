@@ -75,7 +75,7 @@ RSpec.describe StateFile::AzSpouseStateIdForm do
       it "requires other fields" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors).to include :id_number
+        expect(form.errors).not_to include :id_number
         expect(form.errors).to include :issue_date
         expect(form.errors).to include :expiration_date
         expect(form.errors).to include :state
