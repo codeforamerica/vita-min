@@ -47,7 +47,7 @@ class StateFile::FaqDatabaseExportService
 
   def self.create_faqs_from_yml(state, en_yml, es_yml, questions)
     category_position = 0
-    product_type = state == 'az' ? :state_file_az : :state_file_ny
+    product_type = FaqCategory.state_to_product_type(state)
 
     questions.each do |section, questions|
       category_position += 1
