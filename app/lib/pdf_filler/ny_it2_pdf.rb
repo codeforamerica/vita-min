@@ -6,6 +6,10 @@ module PdfFiller
       "it2-TY2023"
     end
 
+    def nys_form_type
+      "102"
+    end
+
     def initialize(submission, kwargs)
       @submission = submission
       @kwargs = kwargs
