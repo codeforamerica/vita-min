@@ -104,6 +104,7 @@ module Questions
       if current_intake.present?
         # Assign the global id of the state_file_intake of the session to be that of the current_intake
         # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
+        # Where the session's intake does match the true current one and ends up timing out erroneously.
         session[:state_file_intake] = "gid://vita-min/#{current_intake.class}/#{current_intake.id}"
       else
         begin
