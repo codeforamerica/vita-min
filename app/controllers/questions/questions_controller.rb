@@ -101,7 +101,17 @@ module Questions
     end
 
     def redirect_if_no_intake
-      unless current_intake.present?
+      # session.delete(:state_file_intake)
+      # current_intake.timedout?(14.minutes.ago)
+      # session[:state_file_intake]
+      # current_intake
+      # binding.pry
+
+      if current_intake.present?
+        # Assign the global id of the state_file_intake of the session to be that of the current_intake
+        # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
+        session[:state_file_intake] = "gid://vita-min/#{current_intake.class}/#{current_intake.id}"
+      else
         begin
           visitor_id = question_navigator.intake_class.last.visitor_id
           raise "The session for visitor with id:#{visitor_id} has expired"
