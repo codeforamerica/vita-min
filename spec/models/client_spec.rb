@@ -593,7 +593,7 @@ describe Client do
 
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
-    let(:product_year) { 2024 }
+    let(:product_year) { Rails.configuration.product_year }
     let!(:ctc_client_accessible_ssn_match) { create :client, intake: build(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
     let!(:ctc_client_accessible_ssn_match_old_product_year) { create :client, intake: build(:ctc_intake, product_year: product_year - 1, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
     let!(:ctc_client_inaccessible_ssn_match) { create :client, intake: build(:ctc_intake, product_year: product_year, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
