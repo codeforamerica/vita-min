@@ -101,12 +101,6 @@ module Questions
     end
 
     def redirect_if_no_intake
-      # session.delete(:state_file_intake)
-      # current_intake.timedout?(14.minutes.ago)
-      # session[:state_file_intake]
-      # current_intake
-      # binding.pry
-
       if current_intake.present?
         # Assign the global id of the state_file_intake of the session to be that of the current_intake
         # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
