@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>177001012</PrimarySSN>
+      <NameLine1Txt>KHALED&lt;KHAN</NameLine1Txt>
+      <PrimaryNameControlTxt>KHAN</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>170 E 77 St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10021</ZIPCd>
+      </USAddress>
+      <PhoneNum>5815556666</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Hamilda</DependentFirstNm>
+        <DependentLastNm>Khan</DependentLastNm>
+        <DependentNameControlTxt>KHAN</DependentNameControlTxt>
+        <DependentSSN>188000017</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Faysal</DependentFirstNm>
+        <DependentLastNm>Khan</DependentLastNm>
+        <DependentNameControlTxt>KHAN</DependentNameControlTxt>
+        <DependentSSN>188000018</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">67550</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>67550</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt socSecBnftCd="D">6094</SocSecBnftAmt>
+      <TaxableSocSecAmt>5179</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>2500</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>75229</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>75229</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>47529</TaxableIncomeAmt>
+      <TaxAmt>5263</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>5263</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>1000</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>1000</TotalCreditsAmt>
+      <TaxLessCreditsAmt>4263</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>4263</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>6300</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">250</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>6550</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">0</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>0</RefundableCreditsAmt>
+      <TotalPaymentsAmt>6550</TotalPaymentsAmt>
+      <OverpaidAmt>2287</OverpaidAmt>
+      <RefundAmt>2287</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Printer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>2500</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>2500</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>75229</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>75229</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>0</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>0</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>2</OtherDependentCnt>
+      <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>1000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>1000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>5263</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>1000</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>0</ACTCBeforeLimitAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>0</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>177001012</EmployeeSSN>
+      <EmployerEIN>001425364</EmployerEIN>
+      <EmployerNameControlTxt>BOND</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Bondo Magic Co</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>One Plus One Drive</AddressLine1Txt>
+        <CityNm>Napoleon</CityNm>
+        <StateAbbreviationCd>MI</StateAbbreviationCd>
+        <ZIPCd>49261</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Khaled Khan</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>170 E 77 St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10021</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>67550</WagesAmt>
+      <WithholdingAmt>6300</WithholdingAmt>
+      <SocialSecurityWagesAmt>67550</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>4188</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>67550</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>979</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001425364</EmployerStateIdNum>
+          <StateWagesAmt>67550</StateWagesAmt>
+          <StateIncomeTaxAmt>3738</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>21800</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1869</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>270293117</EIN>
+        <WithholdingAmt>250</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>
