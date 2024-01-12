@@ -321,23 +321,29 @@ class ApplicationController < ActionController::Base
   end
 
   def homepage_banner
-    if app_time <= Rails.configuration.tax_deadline
-      :before_tax_deadline
-    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake) #&& open_for_gyr_intake?
+    if app_time <= Rails.configuration.tax_deadline && open_for_gyr_intake?
+      # after open intake, before tax_deadline
       :open_intake
+    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+      # after tax_deadline, before end_of_in_progress_intake
+      :in_progress_intake_only
     elsif app_time.between?(Rails.configuration.end_of_in_progress_intake, Rails.configuration.end_of_login)
-      :end_of_in_progress_intake
+      # after end_of_in_progress_intake, before end_of_login
+      :login_only
     elsif Rails.configuration.end_of_login <= app_time
-      :end_of_login
+      # after end of login
+      :off_season
     end
   end
   helper_method :homepage_banner
 
   def open_for_gyr_intake?
+    # has unique link && start_of_unique_links_only_intake < time < end_of_intake
     return true if cookies[:used_unique_link] == "yes" &&
       app_time >= Rails.configuration.start_of_unique_links_only_intake &&
       app_time <= Rails.configuration.end_of_intake
 
+    # start_of_open_intake < time < end_of_intake
     return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
   end
   helper_method :open_for_gyr_intake?
