@@ -86,6 +86,7 @@
 #  updated_at                         :datetime         not null
 #  federal_submission_id              :string
 #  primary_state_id_id                :bigint
+#  school_district_id                 :integer
 #  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #

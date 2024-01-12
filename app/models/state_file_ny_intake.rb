@@ -86,6 +86,7 @@
 #  updated_at                         :datetime         not null
 #  federal_submission_id              :string
 #  primary_state_id_id                :bigint
+#  school_district_id                 :integer
 #  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #
@@ -140,6 +141,14 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def state_name
     'New York'
+  end
+
+  def county_name
+    district&.county_name
+  end
+
+  def county_code
+    district&.county_code
   end
 
   def tax_calculator(include_source: false)
@@ -225,5 +234,11 @@ class StateFileNyIntake < StateFileBaseIntake
       eligibility_withdrew_529: "yes",
       permanent_address_outside_ny: "yes",
     }
+  end
+
+  private
+
+  def district
+    @district ||= NySchoolDistricts.find_by_id(school_district_id)
   end
 end
