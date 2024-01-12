@@ -2218,7 +2218,7 @@ en:
             expiration_day: Expiration Day
             expiration_month: Expiration Month
             expiration_year: Expiration Year
-            first_three_doc_num: First three characters of the document number
+            first_three_doc_num: "For New York IDs: First three characters of the document number (located on the back of your ID)"
             issue_day: Issue Day
             issue_month: Issue Month
             issue_state: Issue State
