@@ -16,7 +16,7 @@ module StateFile
                        :expiration_date_month,
                        :expiration_date_year
 
-    validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, unless: -> { id_type == "no_id" }
+    validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, if: -> { state == "NY" && id_type != "no_id" }
 
     private
 
