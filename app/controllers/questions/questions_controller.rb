@@ -106,6 +106,8 @@ module Questions
         # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
         # Where the session's intake does match the true current one and ends up timing out erroneously.
         session[:state_file_intake] = "gid://vita-min/#{current_intake.class}/#{current_intake.id}"
+        # Sign out from previous intake if they differ from current_intake
+        # TODO
       else
         begin
           visitor_id = question_navigator.intake_class.last.visitor_id
