@@ -561,7 +561,7 @@ Rails.application.routes.draw do
         end
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
-        get "/faq/:section_key", to: "state_file/faq#section_index", as: :state_faq_section
+        get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
