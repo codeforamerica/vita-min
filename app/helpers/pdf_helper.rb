@@ -85,7 +85,6 @@ module PdfHelper
 
   def nys_10digit_barcode_value(form_type, page_num)
     three_digit_page_num = "%03d" % page_num
-    tax_year = "23"
     vendor_source_code = "1963"
     "#{form_type}#{three_digit_page_num}#{tax_year}#{vendor_source_code}"
   end

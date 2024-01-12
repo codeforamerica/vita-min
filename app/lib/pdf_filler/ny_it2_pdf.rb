@@ -9,6 +9,7 @@ module PdfFiller
     def nys_form_type
       "102"
     end
+    delegate :tax_year, to: :@submission
 
     def initialize(submission, kwargs)
       @submission = submission
