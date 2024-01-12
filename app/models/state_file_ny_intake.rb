@@ -86,6 +86,7 @@
 #  updated_at                         :datetime         not null
 #  federal_submission_id              :string
 #  primary_state_id_id                :bigint
+#  school_district_id                 :integer
 #  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #
@@ -142,6 +143,14 @@ class StateFileNyIntake < StateFileBaseIntake
     'New York'
   end
 
+  def county_name
+    district&.county_name
+  end
+
+  def county_code
+    district&.county_code
+  end
+
   def tax_calculator(include_source: false)
     Efile::Ny::It201.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -157,19 +166,19 @@ class StateFileNyIntake < StateFileBaseIntake
     if fed_agi <= 15_000
       3
     elsif fed_agi.between?(15_001, 30_000)
-      7
+      5
     elsif fed_agi.between?(30_001, 50_000)
-      11
+      9
     elsif fed_agi.between?(50_001, 75_000)
-      17
+      13
     elsif fed_agi.between?(75_001, 100_000)
-      23
+      18
     elsif fed_agi.between?(100_001, 150_000)
-      29
+      26
     elsif fed_agi.between?(150_001, 200_000)
-      38
+      32
     elsif fed_agi >= 200_001
-      sut = (0.000195 * fed_agi).round
+      sut = (0.000165 * fed_agi).round
       [sut, 125].min
     end
   end
@@ -225,5 +234,11 @@ class StateFileNyIntake < StateFileBaseIntake
       eligibility_withdrew_529: "yes",
       permanent_address_outside_ny: "yes",
     }
+  end
+
+  private
+
+  def district
+    @district ||= NySchoolDistricts.find_by_id(school_district_id)
   end
 end

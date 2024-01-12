@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>146001014</PrimarySSN>
+      <SpouseSSN>147002014</SpouseSSN>
+      <NameLine1Txt>MATTHEW M &amp; MOLLY D&lt;MARTIN</NameLine1Txt>
+      <PrimaryNameControlTxt>MART</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>MART</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>254 S Pennsylvania St</AddressLine1Txt>
+        <CityNm>Buffalo</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>14201</ZIPCd>
+      </USAddress>
+      <PhoneNum>5185556666</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>Molly D Martin</SpouseNm>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <ExemptSpouseNm>Molly D Martin</ExemptSpouseNm>
+      <ExemptSpouseNameControlTxt>MART</ExemptSpouseNameControlTxt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Caroline</DependentFirstNm>
+        <DependentLastNm>Martin</DependentLastNm>
+        <DependentNameControlTxt>MART</DependentNameControlTxt>
+        <DependentSSN>188000020</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Christopher</DependentFirstNm>
+        <DependentLastNm>Martin</DependentLastNm>
+        <DependentNameControlTxt>MART</DependentNameControlTxt>
+        <DependentSSN>188000019</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>4</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">23000</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>23000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>1300</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>24300</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>24300</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1450</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>1450</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">6604</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1600</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>8204</RefundableCreditsAmt>
+      <TotalPaymentsAmt>9654</TotalPaymentsAmt>
+      <OverpaidAmt>9654</OverpaidAmt>
+      <RefundAmt>9654</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Laborer</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Real Estate Agent</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>24300</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>24300</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>1</OtherDependentCnt>
+      <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>2500</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2500</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>2500</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1600</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>23000</TotalEarnedIncomeAmt>
+        <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>20500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>3075</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>1600</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>MART</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Caroline</PersonFirstNm>
+          <PersonLastNm>Martin</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>188000020</QualifyingChildSSN>
+        <ChildBirthYr>2003</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>MART</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Christopher</PersonFirstNm>
+          <PersonLastNm>Martin</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>188000019</QualifyingChildSSN>
+        <ChildBirthYr>2013</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>147002014</EmployeeSSN>
+      <EmployerEIN>003046224</EmployerEIN>
+      <EmployerNameControlTxt>GOLD</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Goldblazer Real Estate</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>459 Dwelling Ave</AddressLine1Txt>
+        <CityNm>Faith</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>28041</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Molly D Martin</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>254 S Pennsylvania St</AddressLine1Txt>
+        <AddressLine2Txt>Apt U</AddressLine2Txt>
+        <CityNm>Buffalo</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>14201</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>6860</WagesAmt>
+      <WithholdingAmt>450</WithholdingAmt>
+      <SocialSecurityWagesAmt>6860</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>425</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>6860</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>99</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>003046224</EmployerStateIdNum>
+          <StateWagesAmt>6860</StateWagesAmt>
+          <StateIncomeTaxAmt>343</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>146001014</EmployeeSSN>
+      <EmployerEIN>002257359</EmployerEIN>
+      <EmployerNameControlTxt>WORK</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Workhard Industries</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>280 Labor Ct</AddressLine1Txt>
+        <CityNm>Faith</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>28041</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Matthew M Martin</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>254 S Pennsylvania St</AddressLine1Txt>
+        <AddressLine2Txt>Apt U</AddressLine2Txt>
+        <CityNm>Buffalo</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>14201</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>16140</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>16140</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1001</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>16140</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>234</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>002257359</EmployerStateIdNum>
+          <StateWagesAmt>16140</StateWagesAmt>
+          <StateIncomeTaxAmt>807</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

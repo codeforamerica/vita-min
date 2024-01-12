@@ -6,7 +6,12 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
-      <%= f.vita_min_state_file_select(:school_district , t(".school_district_name"), school_district_options, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+      <%= f.vita_min_state_file_select(
+            :school_district_id ,
+            t(".school_district_name"),
+            NySchoolDistricts.district_select_options_for_county(current_intake.residence_county),
+            label_class: 'form-label--bold',
+            prompt: t('general.select_prompt')) %>
     </div>
 
     <div class="reveal">

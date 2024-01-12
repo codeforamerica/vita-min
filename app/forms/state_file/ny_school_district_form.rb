@@ -3,23 +3,16 @@ require 'csv'
 module StateFile
   class NySchoolDistrictForm < QuestionsForm
     set_attributes_for :intake,
-                       :school_district,
-                       :school_district_number
+                       :school_district_id
 
-    validates :school_district, presence: true
-    validates :school_district_number, presence: true
+    validates :school_district_id, presence: true
 
     def save
-      @intake.update(attributes_for(:intake))
-    end
-
-    def self.existing_attributes(intake)
-      name = NySchoolDistricts.combined_name(intake)
-      if name
-        super.merge(school_district: name)
-      else
-        super
-      end
+      district = NySchoolDistricts.find_by_id(school_district_id.to_i)
+      @intake.update(attributes_for(:intake).merge(
+        school_district: district.district_name,
+        school_district_number: district.code
+      ))
     end
   end
 end

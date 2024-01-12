@@ -40,10 +40,12 @@
           <span id="checkbox">
             <%= f.cfa_checkbox(:non_expiring, t("state_file.questions.primary_state_id.state_id.id_details.no_expiration_date")) %>
           </span>
-          <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true, classes: ["form-width--short, spacing-above-0"]) %>
-          <% if options[:include_first_three_doc_num] == true %>
+          <div onchange="$('#first_3_doc_num_container')[event.target.value == 'NY' ? 'show' : 'hide']()">
+            <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true) %>
+          </div>
+          <div id="first_3_doc_num_container"  style="display: <%=options[:include_first_three_doc_num] ? 'block' : 'none'%>">
             <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num"), classes: ["form-width--short"]) %>
-          <% end %>
+          </div>
           <% if options[:info_link] %>
             <div class="spacing-above-25">
               <a class="info-link" href="<%= options[:info_link] %>" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>

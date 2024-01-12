@@ -86,6 +86,7 @@
 #  updated_at                         :datetime         not null
 #  federal_submission_id              :string
 #  primary_state_id_id                :bigint
+#  school_district_id                 :integer
 #  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #
@@ -114,8 +115,6 @@ FactoryBot.define do
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
     nyc_full_year_resident { 'yes' }
-    school_district { "Cool School" }
-    school_district_number { 123 }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

@@ -81,6 +81,12 @@ RSpec.describe StateFile::NyPrimaryStateIdForm do
         expect(form.errors).to include :issue_date
         expect(form.errors).to include :expiration_date
         expect(form.errors).to include :state
+        expect(form.errors).not_to include :first_three_doc_num
+      end
+      it "requires first three doc num if state is NY" do
+        form = described_class.new(intake, params)
+        form.state = "NY"
+        expect(form).not_to be_valid
         expect(form.errors).to include :first_three_doc_num
       end
     end

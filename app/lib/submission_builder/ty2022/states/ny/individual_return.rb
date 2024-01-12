@@ -51,9 +51,8 @@ module SubmissionBuilder
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip
-                # TODO: do we need county code? what about other school district fields?
-                # xml.COUNTY_CD @submission.data_source.residence_county
-                xml.COUNTY_NAME @submission.data_source.residence_county
+                xml.COUNTY_CD @submission.data_source.county_code
+                xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20)
                 if @submission.data_source.permanent_apartment.present?
                   xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment
                 end
@@ -62,7 +61,7 @@ module SubmissionBuilder
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
                 xml.SCHOOL_CD @submission.data_source.school_district_number
-                xml.SCHOOL_NAME @submission.data_source.school_district
+                xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30)
                 xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation
                 xml.COUNTRY_NAME @submission.data_source.mailing_country
               end

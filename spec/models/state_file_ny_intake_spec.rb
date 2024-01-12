@@ -86,6 +86,7 @@
 #  updated_at                         :datetime         not null
 #  federal_submission_id              :string
 #  primary_state_id_id                :bigint
+#  school_district_id                 :integer
 #  spouse_state_id_id                 :bigint
 #  visitor_id                         :string
 #
@@ -120,7 +121,7 @@ describe StateFileNyIntake do
       it "calculates sales use tax" do
         expect {
           intake.update(sales_use_tax_calculation_method: "automated")
-        }.to change(intake, :sales_use_tax).to(29)
+        }.to change(intake, :sales_use_tax).to(26)
       end
     end
 
@@ -175,20 +176,20 @@ describe StateFileNyIntake do
 
       context "when the federal agi is 75,001" do
         let(:fed_agi) { 75_001 }
-        it "returns 23" do
-          expect(intake.calculate_sales_use_tax).to eq 23
+        it "returns 18" do
+          expect(intake.calculate_sales_use_tax).to eq 18
         end
       end
 
       context "when the federal agi is 201,000" do
         let(:fed_agi) { 201_000 }
         it "returns calculation" do
-          expect(intake.calculate_sales_use_tax).to eq (201_000 * 0.000195).round
+          expect(intake.calculate_sales_use_tax).to eq (201_000 * 0.000165).round
         end
       end
 
       context "when the federal agi is 700,000" do
-        let(:fed_agi) { 700_000 }
+        let(:fed_agi) { 800_000 }
         it "returns 125" do
           expect(intake.calculate_sales_use_tax).to eq 125
         end
