@@ -12,7 +12,6 @@ module PdfFiller
       if submission.tax_return.present?
         @xml_document = SubmissionBuilder::Ty2021::Documents::Irs1040.new(submission).document
       else
-        # State file does not have a submission.tax_return - so we grab the raw data.
         @xml_document = Nokogiri::XML(submission.data_source.raw_direct_file_data)
       end
       @start_node = start_node

@@ -91,6 +91,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
     context "when there are more than 7 dependents" do
       let(:intake) { create(:state_file_zeus_intake) }
+      #let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
 
       it "creates an additional dependents pdf" do
