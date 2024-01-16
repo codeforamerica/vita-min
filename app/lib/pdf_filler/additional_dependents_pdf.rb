@@ -9,11 +9,7 @@ module PdfFiller
 
     def initialize(submission, start_node: 4)
       # For some PDF fields, use values from the database b/c the XML values are truncated or missing.
-      if submission.tax_return.present?
-        @xml_document = SubmissionBuilder::Ty2021::Documents::Irs1040.new(submission).document
-      else
-        @xml_document = Nokogiri::XML(submission.data_source.raw_direct_file_data)
-      end
+      @xml_document = SubmissionBuilder::Ty2021::Documents::Irs1040.new(submission).document
       @start_node = start_node
     end
 
