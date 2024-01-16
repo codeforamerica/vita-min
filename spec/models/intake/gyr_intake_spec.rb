@@ -135,7 +135,7 @@
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  needs_help_2021                                      :integer          default("unfilled"), not null
-#  needs_help_2022                                      :integer          default(0), not null
+#  needs_help_2022                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -485,7 +485,7 @@ describe Intake::GyrIntake do
 
     context "with unfilled filing years" do
       it "returns prior tax year" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2021
+        expect(intake.year_before_most_recent_filing_year).to eq 2022
       end
     end
 
