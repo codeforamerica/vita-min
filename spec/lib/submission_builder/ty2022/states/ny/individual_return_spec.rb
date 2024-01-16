@@ -90,16 +90,13 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when there are more than 7 dependents" do
-      let(:intake) { create(:state_file_zeus_intake) }
-      #let(:intake) { create(:state_file_ny_intake) }
+      let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
 
       it "creates an additional dependents pdf" do
-        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
-        additional_dependents = submission_builder.pdf_documents.select do |d|
-          d.pdf == PdfFiller::AdditionalDependentsPdf
-        end
-        expect(additional_dependents.present?).to eq true
+        built = described_class.build(submission)
+        binding.pry
+        expect(false).to eq true
       end
     end
   end
