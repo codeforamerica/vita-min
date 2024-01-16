@@ -38,7 +38,7 @@ module Navigation
                                     # Routes client to a vita partner, if route-able
                                     # creates TaxReturn records for backtaxes years
       Questions::AtCapacityController,
-      Questions::OptionalConsentController,
+      Questions::OptionalConsentController, # generate a "Preliminary" 13614-C with signed f15080 (vita disclosure pdf)
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,
       # Primary filer personal information
       Questions::LifeSituationsController,
@@ -150,7 +150,7 @@ module Navigation
       Questions::MailingAddressController,
       # After this links to document flow --> See Navigation::DocumentNavigation
 
-      Questions::FinalInfoController,
+      Questions::FinalInfoController, # generate and replace the "Preliminary" 13614-C with "Original 13614-C.pdf"
       Questions::SuccessfullySubmittedController,
       Questions::FeedbackController,
 

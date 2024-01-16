@@ -1,3 +1,4 @@
+# As of 2024, we are now generating the 15080 as a part of the f13614c
 module PdfFiller
   class F15080VitaConsentToDisclosePdf
     include PdfHelper
@@ -20,16 +21,15 @@ module PdfFiller
 
     def hash_for_pdf
       return {} unless @intake.primary_consented_to_service_at.present?
-
       data = {
-          primary_legal_name: @intake.primary.first_and_last_name,
-          primary_consented_at: strftime_date(@intake.primary_consented_to_service_at),
+        primary_legal_name: @intake.primary.first_and_last_name,
+        primary_consented_at: strftime_date(@intake.primary_consented_to_service_at),
       }
       if @intake.spouse_consented_to_service_at.present?
         data.merge!(
           spouse_legal_name: @intake.spouse.first_and_last_name,
           spouse_consented_at: strftime_date(@intake.spouse_consented_to_service_at),
-        )
+          )
       end
       data
     end

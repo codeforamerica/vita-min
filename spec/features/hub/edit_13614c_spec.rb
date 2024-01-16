@@ -373,8 +373,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page3" do
         # generate pdf, prove spouse ethnicity is not filled in because demographic_questions_opt_in is false
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.intake).output_file)
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].native_hawaiian[0]" }.value).to eq("Off")
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].black_african[0]" }.value).to eq("Off")
+        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].nativeHawaiian[0]" }.value).to eq("Off")
+        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].blackAfrican[0]" }.value).to eq("Off")
 
         visit hub_client_path(id: client.id)
         within ".client-profile" do
@@ -394,8 +394,8 @@ RSpec.describe "a user editing a clients 13614c form" do
 
         # generate pdf, prove spouse ethnicity is filled in because demographic_questions_hub_edit is true
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.reload.intake).output_file)
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].native_hawaiian[0]" }.value).to eq("")
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].black_african[0]" }.value).to eq("1")
+        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].nativeHawaiian[0]" }.value).to eq("")
+        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].blackAfrican[0]" }.value).to eq("1")
       end
     end
   end
