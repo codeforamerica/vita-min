@@ -11,7 +11,7 @@ module StateFileIntakeHelper
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
       click_on "Continue"
 
-      expect(page).to have_text I18n.t("state_file.questions.ny_eligibility_college_savings_withdrawal.edit.withdraw_529")
+      expect(page).to have_text "In 2023, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
     when "az"
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
@@ -74,7 +74,7 @@ module StateFileIntakeHelper
     expect(page).to have_text "Your 2023 federal tax return is ready to transfer to your state tax return."
     click_on sample_name
 
-    expect(page).to have_text "Just a moment, we’re transferring your federal tax return to pre-fill parts of your state return."
+    expect(page).to have_text "Just a moment, we’re transferring your federal tax return to complete parts of your state return."
     if Capybara.current_driver == Capybara.javascript_driver
       # Ensure JavaScript is waiting for our broadcast before we run the job that will do it
       expect(page).to have_css('[data-after-data-transfer-button][data-subscribed]', visible: :any)
