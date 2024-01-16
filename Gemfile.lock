@@ -329,7 +329,7 @@ GEM
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     libdatadog (1.0.1.1.0)
-    libddwaf (1.5.1.0.1-x86_64-darwin)
+    libddwaf (1.5.1.0.1)
       ffi (~> 1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)

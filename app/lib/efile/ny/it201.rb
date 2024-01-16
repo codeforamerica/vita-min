@@ -112,7 +112,7 @@ module Efile
       end
 
       def calculate_line_19
-        line_or_zero(:IT201_LINE_17) - line_or_zero(:IT201_LINE_18).abs
+        line_or_zero(:IT201_LINE_17) - line_or_zero(:IT201_LINE_18)
       end
 
       def calculate_line_24

@@ -4,17 +4,17 @@
     <div class="grid">
       <div class="grid__item">
         <% case banner %>
-        <% when :before_tax_deadline %>
-          <%= t('views.shared.document_deadline_warning.body_html') %>
         <% when :open_intake %>
+          <%= t('views.shared.document_deadline_warning.body_html') %>
+        <% when :in_progress_intake_only %>
           <% end_of_intake = Rails.configuration.end_of_intake %>
           <% end_of_doc_submission = Rails.configuration.end_of_docs %>
           <%= t("views.shared.environment_warning.off_season_filing",
                 end_of_intake_date: I18n.l(end_of_intake.to_date, format: :medium, locale: locale),
                 end_of_docs_date: I18n.l(end_of_doc_submission.to_date, format: :medium, locale: locale)) %>
-        <% when :end_of_in_progress_intake %>
+        <% when :login_only %>
           <strong><%= t('views.public_pages.home.closed_open_for_login_banner_html') %></strong>
-        <% when :end_of_login %>
+        <% when :off_season %>
           <strong><%= t('views.public_pages.home.closed_banner') %></strong>
         <% end %>
       </div>

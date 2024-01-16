@@ -33,7 +33,8 @@ module SubmissionBuilder
           def documents_wrapper
             xml_doc = build_xml_doc("processBO") do |xml|
               xml.filingKeys do
-                xml.SOURCE_CD ""
+                # unclear what SOURCE_CD is, but 61 is implied as the valid value
+                xml.SOURCE_CD "61" # https://docs.google.com/spreadsheets/d/16MdzKhIElG90GmC8OI2SsIPIc2CsTeSj/edit#gid=1799047667
                 xml.EXT_TP_ID @submission.data_source.primary.ssn
                 xml.LIAB_PRD_BEG_DT Date.new(@submission.data_source.tax_return_year).beginning_of_year
                 xml.LIAB_PRD_END_DT Date.new(@submission.data_source.tax_return_year).end_of_year

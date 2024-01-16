@@ -1203,45 +1203,48 @@ RSpec.describe ApplicationController do
     let(:past) { 1.minute.ago }
     let(:future) { Time.now + 1.minute }
 
-    context "when before tax deadline" do
+    context "when before tax deadline and open for gyr intake" do
       before do
         allow(Rails.application.config).to receive(:tax_deadline).and_return(future)
+        allow(subject).to receive(:open_for_gyr_intake?).and_return(true)
       end
 
       it "show document deadline warning banner" do
-        expect(subject.homepage_banner).to eq :before_tax_deadline
+        expect(subject.homepage_banner).to eq :open_intake
       end
     end
 
-    context "when during open intake" do
+    context "after tax deadline and before end-of-in-progress-intakes" do
       before do
         allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
         allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(future)
       end
 
       it "show off season filing banner" do
-        expect(subject.homepage_banner).to eq :open_intake
+        expect(subject.homepage_banner).to eq :in_progress_intake_only
       end
     end
 
-    context "when after end of inprogress intake and before end of login" do
+    context "after end of in-progress intake and before end of login" do
       before do
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(past)
         allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(past)
         allow(Rails.application.config).to receive(:end_of_login).and_return(future)
       end
 
       it "show end of docs banner" do
-        expect(subject.homepage_banner).to eq :end_of_in_progress_intake
+        expect(subject.homepage_banner).to eq :login_only
       end
     end
 
-    context "when after end of login" do
+    context "after end of login" do
       before do
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(past)
         allow(Rails.application.config).to receive(:end_of_login).and_return(past)
       end
 
       it "show end of login/closed banner" do
-        expect(subject.homepage_banner).to eq :end_of_login
+        expect(subject.homepage_banner).to eq :off_season
       end
     end
   end
