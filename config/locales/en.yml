@@ -2028,8 +2028,8 @@ en:
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
           expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
           out_of_state_income: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income received from another state.)
-          title: First, let's see if you can use this tool to file your taxes
           part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          title: First, let's see if you can use this tool to file your taxes
           used_529_for_non_qual_expense: Did you (or your spouse, if you’re filing together) withdraw money from a 529 college savings account and use it for non-qualifying expenses in 2023?
       eligibility_residence:
         edit:
@@ -2131,10 +2131,10 @@ en:
       landing_page:
         edit:
           az:
-            built_with_html: <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
             supported_by: Supported by the state of Arizona
           ny:
-            built_with_html: <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool."
             supported_by: Supported by New York State
           title: File your %{state_full_name} state taxes for free
       name_dob:
@@ -2159,20 +2159,11 @@ en:
           title: Select the county where you lived on December 31, %{filing_year}
       ny_eligibility_college_savings_withdrawal:
         edit:
+          non_qualifying_expenses:
+            reveal_info_html: "<p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> \n\n<p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>\n\n<p><strong>Select 'no' if:</strong></p>\n<ul>\n  <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>\n  <li>You didn't withdraw money from a 529 account at all.</li>\n</ul>\n"
+            title: What are qualifying and non-qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: In 2023, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
-          non_qualifying_expenses:
-            title: What are qualifying and non-qualifying expenses?
-            reveal_info_html: |
-              <p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> 
-
-              <p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>
-
-              <p><strong>Select 'no' if:</strong></p>
-              <ul>
-                <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>
-                <li>You didn't withdraw money from a 529 account at all.</li>
-              </ul>
       ny_permanent_address:
         edit:
           address_header: Address
@@ -2457,8 +2448,8 @@ en:
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with the %{state_name_pair} to integrate with the IRS Direct File tool.
         state_name_pair:
-          ny: New York State
           az: state of Arizona
+          ny: New York State
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
