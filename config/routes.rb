@@ -559,6 +559,7 @@ Rails.application.routes.draw do
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         end
+        get "payment_voucher", to: "state_file/payment_voucher#show"
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section

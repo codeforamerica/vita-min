@@ -28,7 +28,7 @@
   </div>
 
   <div>
-    <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
+    <%= link_to t('.download_voucher'), StateFile::PaymentVoucherController.to_path_helper(action: :show, us_state: params[:us_state]) %>
   </div>
 
   <hr>
