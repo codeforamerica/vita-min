@@ -6,7 +6,7 @@ RSpec.describe PdfFiller::F13614cPdf do
   let(:intake_pdf) { described_class.new(intake) }
 
   describe "#output_file" do
-    context "with a complete intake record" do
+    context "with a complete intake record and disclose consented" do
       let(:intake) do
         create(
           :intake,
@@ -602,6 +602,30 @@ RSpec.describe PdfFiller::F13614cPdf do
               end
             end
           end
+        end
+      end
+
+      context "when disclose not consented" do
+        let(:intake) do
+          create(
+            :intake,
+            client: build(:client, consented_to_service_at: Date.new(2024, 1, 1)),
+            primary_first_name: "Hoofie",
+            primary_last_name: "Heifer",
+            spouse_first_name: "Hattie",
+            spouse_last_name: "Heifer",
+          )
+        end
+
+        it "15080 fields are nil" do
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+                              "form1[0].page4[0].primaryTaxpayer[0]" => nil,
+                              "form1[0].page4[0].primarydateSigned[0]" => nil,
+                              "form1[0].page4[0].secondaryTaxpayer[0]" => nil,
+                              "form1[0].page4[0].secondaryDateSigned[0]" => nil
+                            )
         end
       end
     end
