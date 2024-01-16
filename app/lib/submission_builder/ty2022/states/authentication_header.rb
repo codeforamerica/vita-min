@@ -18,6 +18,7 @@ module SubmissionBuilder
             end
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
               state_id = @submission.data_source.primary_state_id
+              # THIS IS THE WAY!
               if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
                 xml.DrvrLcnsNum state_id.id_number
                 xml.DrvrLcnsStCd state_id.state
@@ -36,13 +37,21 @@ module SubmissionBuilder
             if @submission.data_source.filing_status_mfj?
               xml.SpsDrvrLcnsOrStateIssdIdGrp do
                 state_id = @submission.data_source.spouse_state_id
-                if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
-                  xml.DrvrLcnsNum state_id.id_number
-                  xml.DrvrLcnsStCd state_id.state
-                  xml.DrvrLcnsExprDt do
+                # THIS IS THE WAY!
+                id_type = if state_id&.id_type_driver_license?
+                            "DrvrLcns"
+                          elsif state_id&.id_type_dmv_bmv?
+                            "StateIssId"
+                          else
+                            nil
+                          end
+                if id_type
+                  xml.send("#{id_type}Num", state_id.id_number)
+                  xml.send("#{id_type}StCd", state_id.state)
+                  xml.send("#{id_type}StateIssdId") do
                     xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
                   end
-                  xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
+                  xml.send("#{id_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d"))
                 else
                   xml.DoNotHaveDrvrLcnsOrStIssdId "X"
                 end
