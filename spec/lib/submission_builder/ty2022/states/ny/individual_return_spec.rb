@@ -88,5 +88,18 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
       end
     end
+
+    context "when there are more than 7 dependents" do
+      let(:intake) { create(:state_file_zeus_intake) }
+      let(:filing_status) { 'single' }
+
+      it "creates an additional dependents pdf" do
+        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+        additional_dependents = submission_builder.pdf_documents.select do |d|
+          d.pdf == PdfFiller::AdditionalDependentsPdf
+        end
+        expect(additional_dependents.present?).to eq true
+      end
+    end
   end
 end

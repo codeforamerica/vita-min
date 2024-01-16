@@ -209,6 +209,13 @@ module SubmissionBuilder
               }
             end
 
+            supported_docs << {
+              xml: nil,
+              pdf: PdfFiller::AdditionalDependentsPdf,
+              include: @submission.data_source.dependents.count >= 8,
+              kwargs: { start_node: 7 }
+            }
+
             supported_docs
           end
         end
