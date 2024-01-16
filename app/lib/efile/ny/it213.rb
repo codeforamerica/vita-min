@@ -25,7 +25,7 @@ module Efile
           # If either line 2 or line 3 are true (1), continue. If lines 2 and 3 are both false (2), stop, you do not qualify for this credit
           if @lines[:IT213_LINE_2].value == 1 || @lines[:IT213_LINE_3].value == 1
             set_line(:IT213_LINE_4, -> { @intake.dependents.length })
-            set_line(:IT213_LINE_5, -> { 0 }) # TODO: double check that people with children without SSN/ITIN are out of scope
+            set_line(:IT213_LINE_5, :calculate_line_5)
             # If line 2 is true (1), you must complete Worksheet A and B before you continue with line 6.
             # If line 2 is false (2), skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
             if @lines[:IT213_LINE_2].value == 1
@@ -58,6 +58,8 @@ module Efile
       private
 
       def calculate_worksheets
+        # link for worksheet A: https://www.tax.ny.gov/forms/current-forms/it/it213i.htm#worksheet-a
+        # link for worksheet B: https://www.tax.ny.gov/forms/current-forms/it/it213i.htm#worksheet-b
         set_line(:IT213_WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
         set_line(:IT213_WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
         set_line(:IT213_WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
@@ -129,6 +131,22 @@ module Efile
 
       def calculate_line_3
         @lines[:IT201_LINE_19].value <= cutoff_for_filing_status ? 1 : 2
+      end
+
+      def calculate_line_5
+        count = 0
+        
+        @intake.dependents.each do |dependent|
+          if dependent.ssn.present?
+            is_itin = dependent.ssn.to_s.start_with?('9') && [*(50..65), *(70..88), *(90..92), *(94..99)].include?(dependent.ssn[3..4].to_i)
+          end
+          is_valid_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(dependent.relationship.downcase)
+
+          if is_itin && dependent.under_17? && is_valid_relationship
+            count += 1
+          end
+        end
+        count
       end
 
       def calculate_worksheet_a_line_1

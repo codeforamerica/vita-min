@@ -21,7 +21,6 @@ module SubmissionBuilder
                       xml.ESC_FED_TOT_AMT claimed: calculated_fields.fetch(:IT213_LINE_8)
                     end
                     xml.ESC_LMT_1_AMT claimed: calculated_fields.fetch(:IT213_LINE_9)
-
                     xml.ESC_TOT_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_12)
                     xml.ESC_LMT_2_AMT claimed: calculated_fields.fetch(:IT213_LINE_13)
                     xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_14)
