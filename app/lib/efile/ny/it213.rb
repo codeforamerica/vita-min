@@ -190,38 +190,6 @@ module Efile
       end
 
       def calculate_worksheet_a_line_11
-        # TODO: Check if we support these cases, if so implement worksheet for line 11 of worksheet A when they are > 0
-        # If any of these credits are > 0 then we need to do some more calculations, otherwise return value of
-        # worksheet a line 10
-        #   Mortgage interest credit (federal Form 8396)
-        #   Adoption credit (federal Form 8839)
-        #   Residential clean energy credit (federal Form 5695, Part 1)
-        #   District of Columbia first-time homebuyer credit (federal Form 8859)
-
-        # total_other_federal_credits = (@direct_file_data.fed_mortgage_interest_credit_amount || 0) +
-        #   (@direct_file_data.fed_adoption_credit_amount || 0) +
-        #   (@direct_file_data.fed_residential_clean_energy_credit_amount || 0) +
-        #   (@direct_file_data.fed_dc_homebuyer_credit_amount || 0)
-        #
-        # if total_other_federal_credits > 0
-        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1, -> { @lines[:IT213_WORKSHEET_A_LINE_8].value })
-        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2, -> { @direct_file_data.fed_total_earned_income_amount || 0 })
-        #   if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value > 3000
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value - 3000 })
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3].value * 0.15 })
-        #   else
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { 0 })
-        #   end
-        #
-        #   if @lines[:IT213_WORKSHEET_A_LINE_1].value >= 3000
-        #     if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4].value >= @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1].value
-        #       set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_6, -> { 0 })
-        #     else
-        #       # TODO: on line 6, Enter the amount from your federal instructions for Schedule 8812, Credit Limit Worksheet B, line 11, if applicable.
-        #     end
-        #   else
-        #   end
-        # end
         @lines[:IT213_WORKSHEET_A_LINE_10].value
       end
 
