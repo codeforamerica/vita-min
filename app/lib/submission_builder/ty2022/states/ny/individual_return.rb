@@ -183,11 +183,6 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
                 pdf: PdfFiller::Ny215Pdf,
                 include: receiving_215_credit
-              },
-              {
-                xml: nil,
-                pdf: PdfFiller::NyTr579ItPdf,
-                include: true
               }
             ]
 
