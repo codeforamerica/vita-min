@@ -51,10 +51,22 @@ Rails.application.configure do
   ngrok_host = ENV["NGROK_HOST"] # for example: 'd90d61a5caf9.ngrok.io'
   ctc_email_from_domain = "ctc.localhost"
   gyr_email_from_domain = "localhost"
+  statefile_email_from_domain = "statefile.localhost"
+
   config.email_from = {
-    default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
-    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"},
-    support: {ctc: "support@#{ctc_email_from_domain}", gyr: "support@#{gyr_email_from_domain}"}
+    default: {
+      ctc: "hello@#{ctc_email_from_domain}",
+      gyr: "hello@#{gyr_email_from_domain}",
+      statefile: "hello@#{statefile_email_from_domain}"},
+    noreply: {
+      ctc: "no-reply@#{ctc_email_from_domain}",
+      gyr: "no-reply@#{gyr_email_from_domain}",
+      statefile: "hello@#{statefile_email_from_domain}"},
+    support: {
+      ctc: "support@#{ctc_email_from_domain}",
+      gyr: "support@#{gyr_email_from_domain}",
+      statefile: "hello@#{statefile_email_from_domain}"}
+
   }
   if ngrok_host.present?
     config.action_mailer.default_url_options = { protocol: 'https', host: ngrok_host, port: 80 }

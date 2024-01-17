@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_11_191348) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_020831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1672,6 +1672,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_191348) do
     t.inet "ip_address"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
+  create_table "state_file_notification_emails", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "sent_at", precision: nil
+    t.string "subject", null: false
+    t.string "to", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|

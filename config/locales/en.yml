@@ -1335,6 +1335,25 @@ en:
     document_upload:
       id_type: ID Type
   messages:
+    state_file:
+      welcome:
+        email:
+          body: |
+            Hi %{client_preferred_name},
+
+            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+
+            If you would like to unsubscribe from emails, click here.
+          subject: Welcome to FileYourStateTaxes
+        sms: |
+          Hi %{client_preferred_name} - We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+
+          Need help? Reply to this text. Text "STOP" to unsubscribe.
     closing_soon:
       email:
         body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 9th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 9th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
