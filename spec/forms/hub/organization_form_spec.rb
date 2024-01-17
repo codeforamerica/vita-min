@@ -208,8 +208,9 @@ RSpec.describe Hub::OrganizationForm do
     end
 
     context "when is_independent is no" do
-      context "when a coalition is submitted" do
+      context "when a coalition is submitted and there are existing state routing targets" do
         let(:extra_params) { { is_independent: "no", states: "OH,CA", coalition_id: create(:coalition, name: "Koala Koalition").id } }
+        let!(:srt) { create(:state_routing_target, state_abbreviation: "AL", target: organization) }
 
         it "updates the organization's coalition" do
           subject.save

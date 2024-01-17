@@ -25,13 +25,13 @@ module Hub
         @states = nil
       end
       organization.assign_attributes(attributes_for(:organization))
+      UpdateStateRoutingTargetsService.update(organization, (@states || "").split(","))
 
       unless valid? & organization.valid?
         organization.errors.each { |error| self.errors.add(error.attribute, error.message) }
         return false
       end
 
-      UpdateStateRoutingTargetsService.update(organization, (@states || "").split(","))
       organization.save
     end
 
