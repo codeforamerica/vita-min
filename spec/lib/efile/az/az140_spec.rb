@@ -291,6 +291,15 @@ describe Efile::Az::Az140 do
 
   # Family income tax credit and excise credit Lines 50, 56
   describe 'Family income tax credit and excise credit' do
-    # TDOO
+    let(:intake) { create(:state_file_az_johnny_intake) }
+    before do
+      intake.direct_file_data.filing_status = 5 # qualifying_widow
+    end
+
+    it 'sets the standard deduction correctly for QSS' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_50].value).to eq(0)
+      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+    end
   end
 end
