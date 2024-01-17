@@ -24,7 +24,7 @@ module Efile
           set_line(:IT213_LINE_3, :calculate_line_3)
           # If either line 2 or line 3 are true (1), continue. If lines 2 and 3 are both false (2), stop, you do not qualify for this credit
           if @lines[:IT213_LINE_2].value == 1 || @lines[:IT213_LINE_3].value == 1
-            set_line(:IT213_LINE_4, -> { @intake.dependents.length })
+            set_line(:IT213_LINE_4, -> { @intake.dependents.where(ctc_qualifying: true).count })
             set_line(:IT213_LINE_5, :calculate_line_5)
             # If line 2 is true (1), you must complete Worksheet A and B before you continue with line 6.
             # If line 2 is false (2), skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
@@ -139,7 +139,7 @@ module Efile
           if dependent.relationship.present?
             is_valid_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(dependent.relationship.downcase)
           end
-          if dependent.odc_qualifying? && dependent.under_17? && is_valid_relationship
+          if dependent.odc_qualifying == true && dependent.under_17? && is_valid_relationship
             count += 1
           end
         end

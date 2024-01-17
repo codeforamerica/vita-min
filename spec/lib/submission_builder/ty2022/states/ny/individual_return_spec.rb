@@ -44,15 +44,15 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context "when claiming the federal CTC" do
+    context "when claiming the federal CTC and ODC" do
       let(:intake) { create(:state_file_zeus_intake) }
 
-      it 'includes the IT213 document and CTC dependents' do
+      it 'includes the IT213 document and CTC and ODC dependents' do
         xml = described_class.build(submission).document
         expect(xml.at("IT213")).to be_present
         dependent_nodes = xml.search("dependent")
         ctc_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "348" }
-        expect(ctc_dependent_nodes.length).to eq 3
+        expect(ctc_dependent_nodes.length).to eq 4
       end
     end
 
