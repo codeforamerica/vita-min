@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000005</PrimarySSN>
+      <SpouseSSN>600000005</SpouseSSN>
+      <NameLine1Txt>MARTHA &amp; GEORGE&lt;WASHINGTON</NameLine1Txt>
+      <PrimaryNameControlTxt>WASH</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>WASH</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
+      </USAddress>
+      <PhoneNum>4085555557</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>George Washington</SpouseNm>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <ExemptSpouseNm>George Washington</ExemptSpouseNm>
+      <ExemptSpouseNameControlTxt>WASH</ExemptSpouseNameControlTxt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Frances</DependentFirstNm>
+        <DependentLastNm>Bassett</DependentLastNm>
+        <DependentNameControlTxt>BASS</DependentNameControlTxt>
+        <DependentSSN>300000012</DependentSSN>
+        <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Nelly</DependentFirstNm>
+        <DependentLastNm>Bassett</DependentLastNm>
+        <DependentNameControlTxt>BASS</DependentNameControlTxt>
+        <DependentSSN>300000013</DependentSSN>
+        <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Martha</DependentFirstNm>
+        <DependentLastNm>Custis</DependentLastNm>
+        <DependentNameControlTxt>CUST</DependentNameControlTxt>
+        <DependentSSN>300000011</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>John</DependentFirstNm>
+        <DependentLastNm>Custis</DependentLastNm>
+        <DependentNameControlTxt>CUST</DependentNameControlTxt>
+        <DependentSSN>300000010</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <MoreDependentsInd>X</MoreDependentsInd>
+      <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>2</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>6</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">60000</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>60000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt>0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>60000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>60000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>32300</TaxableIncomeAmt>
+      <TaxAmt>3439</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>3439</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>3439</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>3439</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">711</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1561</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>2272</RefundableCreditsAmt>
+      <TotalPaymentsAmt>5272</TotalPaymentsAmt>
+      <OverpaidAmt>5272</OverpaidAmt>
+      <RefundAmt>5272</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Landscaper</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Military</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>60000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>60000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>4000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>2</OtherDependentCnt>
+      <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>5000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>5000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>3439</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>3439</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>1561</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>3200</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1561</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>60000</TotalEarnedIncomeAmt>
+        <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>57500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>8625</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>1561</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BASS</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Nelly</PersonFirstNm>
+          <PersonLastNm>Bassett</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000013</QualifyingChildSSN>
+        <ChildBirthYr>2004</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BASS</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Frances</PersonFirstNm>
+          <PersonLastNm>Bassett</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000012</QualifyingChildSSN>
+        <ChildBirthYr>2002</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>CUST</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>John</PersonFirstNm>
+          <PersonLastNm>Custis</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000010</QualifyingChildSSN>
+        <ChildBirthYr>2009</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000005</EmployeeSSN>
+      <EmployerEIN>567891234</EmployerEIN>
+      <EmployerNameControlTxt>CHER</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Cherry Tree Chipper</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>200 Founding Road</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Martha Washington</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
+        <AddressLine2Txt>Apt 17</AddressLine2Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>60000</WagesAmt>
+      <WithholdingAmt>3000</WithholdingAmt>
+      <SocialSecurityWagesAmt>60000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>3720</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>60000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>60000</StateWagesAmt>
+          <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

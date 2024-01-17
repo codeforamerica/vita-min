@@ -604,6 +604,7 @@ class DirectFileData
       eitc_dependent_node = eitc_eligible_dependents[ssn]
       if eitc_dependent_node.present?
         dependent.eic_qualifying = true
+        dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt').text.to_i
         dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind').text == "true"
         dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd').text == "true"
       else
@@ -848,11 +849,12 @@ class DirectFileData
                   :eic_disability,
                   :eic_qualifying,
                   :ctc_qualifying,
-                  :odc_qualifying
+                  :odc_qualifying,
+                  :months_in_home
 
     def initialize(first_name:, last_name:, ssn:, relationship:,
                    eic_student: nil, eic_disability: nil, eic_qualifying: nil,
-                   ctc_qualifying: nil, odc_qualifying: nil)
+                   ctc_qualifying: nil, odc_qualifying: nil, months_in_home: nil)
 
       @first_name = first_name
       @last_name = last_name
@@ -863,6 +865,7 @@ class DirectFileData
       @eic_qualifying = eic_qualifying
       @ctc_qualifying = ctc_qualifying
       @odc_qualifying = odc_qualifying
+      @months_in_home = months_in_home
     end
 
     def attributes
@@ -876,6 +879,7 @@ class DirectFileData
         eic_qualifying: @eic_qualifying,
         ctc_qualifying: @ctc_qualifying,
         odc_qualifying: @odc_qualifying
+        months_in_home: @months_in_home
       }
     end
   end
