@@ -3,6 +3,7 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
+      before_action :redirect_if_no_intake
       helper_method :card_postscript
 
       # default layout for all state file questions
@@ -30,6 +31,26 @@ module StateFile
           Navigation::StateFileAzQuestionNavigation
         when 'ny'
           Navigation::StateFileNyQuestionNavigation
+        end
+      end
+
+      def redirect_if_no_intake
+        if current_intake.present?
+          # Assign the global id of the state_file_intake of the session to be that of the current_intake
+          # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
+          # Where the session's intake does match the true current one and ends up timing out erroneously.
+          session[:state_file_intake] = "gid://vita-min/#{current_intake.class}/#{current_intake.id}"
+          # Sign out from previous intake if they differ from current_intake
+          # TODO
+        else
+          begin
+            visitor_id = cookies['visitor_id']
+            raise "The session for visitor with id:#{visitor_id} has expired"
+          rescue => e
+            Sentry.capture_exception(e)
+          end
+          flash[:notice] = 'Your session expired. Please sign in again to continue.'
+          redirect_to root_path
         end
       end
 
