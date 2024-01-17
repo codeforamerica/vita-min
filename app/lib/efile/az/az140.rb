@@ -180,7 +180,7 @@ module Efile
           end
           wrksht_2_line_2 = 2
           wrksht_2_line_5 = 240
-        elsif filing_status_hoh? # or qualifying_widow?
+        elsif filing_status_hoh? # or qualifying_widow
           max_income = [
             [1, 20_000],
             [2, 20_135],
