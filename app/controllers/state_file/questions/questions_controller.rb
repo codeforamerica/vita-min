@@ -50,7 +50,7 @@ module StateFile
             Sentry.capture_exception(e)
           end
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to root_path
+          redirect_to question_navigator.first.controller_path
         end
       end
 
