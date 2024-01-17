@@ -134,16 +134,7 @@ module Efile
       end
 
       def calculate_line_5
-        count = 0
-        @intake.dependents.each do |dependent|
-          if dependent.relationship.present?
-            is_valid_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(dependent.relationship.downcase)
-          end
-          if dependent.odc_qualifying == true && dependent.under_17? && is_valid_relationship
-            count += 1
-          end
-        end
-        count
+        @intake.dependents.count(&:eligible_for_child_tax_credit) - line_or_zero(:IT213_LINE_4)
       end
 
       def calculate_worksheet_a_line_1
