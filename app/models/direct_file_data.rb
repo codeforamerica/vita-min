@@ -878,7 +878,7 @@ class DirectFileData
         eic_disability: @eic_disability,
         eic_qualifying: @eic_qualifying,
         ctc_qualifying: @ctc_qualifying,
-        odc_qualifying: @odc_qualifying
+        odc_qualifying: @odc_qualifying,
         months_in_home: @months_in_home
       }
     end
