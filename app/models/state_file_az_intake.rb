@@ -159,7 +159,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def filing_status
+    return :head_of_household if direct_file_data&.filing_status == 5
     super
-    :head_of_household if direct_file_data&.filing_status == 5
   end
 end

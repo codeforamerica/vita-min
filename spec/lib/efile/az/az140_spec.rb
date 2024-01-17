@@ -251,4 +251,29 @@ describe Efile::Az::Az140 do
     end
   end
 
+  describe '#filing_status' do
+    context 'when is single' do
+      let(:intake) { create(:state_file_az_intake) }
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+      end
+
+      it 'sets filing_status to single' do
+        instance.calculate
+        expect(intake.filing_status).to eq(:single)
+      end
+    end
+
+    context 'when filing_status is qualifying_widow / QSS' do
+      let(:intake) { create(:state_file_az_intake) }
+      before do
+        intake.direct_file_data.filing_status = 5 # qualifying_widow
+      end
+
+      it 'sets filing_status to hoh' do
+        instance.calculate
+        expect(intake.filing_status).to eq(:head_of_household)
+      end
+    end
+  end
 end
