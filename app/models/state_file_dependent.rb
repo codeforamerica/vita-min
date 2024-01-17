@@ -14,6 +14,7 @@
 #  middle_initial    :string
 #  months_in_home    :integer
 #  needed_assistance :integer          default("unfilled"), not null
+#  odc_qualifying    :boolean
 #  passed_away       :integer          default("unfilled"), not null
 #  relationship      :string
 #  ssn               :string
@@ -82,6 +83,19 @@ class StateFileDependent < ApplicationRecord
 
   def age
     MultiTenantService.statefile.current_tax_year - dob.year
+  end
+
+  def eligible_for_child_tax_credit
+    return true if ctc_qualifying
+
+    if relationship
+      child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
+    end
+    if odc_qualifying && under_17? && child_credit_qualifying_relationship
+      return true
+    end
+
+    false
   end
 
   def relationship_label

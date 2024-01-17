@@ -73,7 +73,7 @@ module Efile
         set_line(:IT201_LINE_61, :calculate_line_61)
         set_line(:IT201_LINE_62, :calculate_line_62)
         @it213.calculate
-        set_line(:IT201_LINE_63, -> { @lines[:IT213_LINE_14].value })
+        set_line(:IT201_LINE_63, :calculate_line_63)
         @it215.calculate
         set_line(:IT201_LINE_65, :calculate_line_65)
         # These two lines would be needed to add support for the IT-214 real property tax credit
@@ -263,6 +263,14 @@ module Efile
 
       def calculate_line_62
         line_or_zero(:IT201_LINE_61)
+      end
+
+      def calculate_line_63
+        if @direct_file_data.claimed_as_dependent?
+          0
+        else
+          @lines[:IT213_LINE_14].value
+        end
       end
 
       def calculate_line_65

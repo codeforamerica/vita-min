@@ -14,6 +14,7 @@
 #  middle_initial    :string
 #  months_in_home    :integer
 #  needed_assistance :integer          default("unfilled"), not null
+#  odc_qualifying    :boolean
 #  passed_away       :integer          default("unfilled"), not null
 #  relationship      :string
 #  ssn               :string

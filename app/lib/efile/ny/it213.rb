@@ -24,8 +24,8 @@ module Efile
           set_line(:IT213_LINE_3, :calculate_line_3)
           # If either line 2 or line 3 are true (1), continue. If lines 2 and 3 are both false (2), stop, you do not qualify for this credit
           if @lines[:IT213_LINE_2].value == 1 || @lines[:IT213_LINE_3].value == 1
-            set_line(:IT213_LINE_4, -> { @intake.dependents.length })
-            set_line(:IT213_LINE_5, -> { 0 }) # TODO: double check that people with children without SSN/ITIN are out of scope
+            set_line(:IT213_LINE_4, -> { @intake.dependents.where(ctc_qualifying: true).count })
+            set_line(:IT213_LINE_5, :calculate_line_5)
             # If line 2 is true (1), you must complete Worksheet A and B before you continue with line 6.
             # If line 2 is false (2), skip lines 6 through 8, and enter 0 on line 9; continue with line 10.
             if @lines[:IT213_LINE_2].value == 1
@@ -58,6 +58,8 @@ module Efile
       private
 
       def calculate_worksheets
+        # link for worksheet A: https://www.tax.ny.gov/forms/current-forms/it/it213i.htm#worksheet-a
+        # link for worksheet B: https://www.tax.ny.gov/forms/current-forms/it/it213i.htm#worksheet-b
         set_line(:IT213_WORKSHEET_A_LINE_1, :calculate_worksheet_a_line_1)
         set_line(:IT213_WORKSHEET_A_LINE_2, :calculate_worksheet_a_line_2)
         set_line(:IT213_WORKSHEET_A_LINE_3, :calculate_worksheet_a_line_3)
@@ -131,8 +133,12 @@ module Efile
         @lines[:IT201_LINE_19].value <= cutoff_for_filing_status ? 1 : 2
       end
 
+      def calculate_line_5
+        @intake.dependents.count(&:eligible_for_child_tax_credit) - line_or_zero(:IT213_LINE_4)
+      end
+
       def calculate_worksheet_a_line_1
-        @intake.dependents.length * 1000
+        line_or_zero(:IT213_LINE_4) * 1000
       end
 
       def calculate_worksheet_a_line_2
@@ -190,38 +196,6 @@ module Efile
       end
 
       def calculate_worksheet_a_line_11
-        # TODO: Check if we support these cases, if so implement worksheet for line 11 of worksheet A when they are > 0
-        # If any of these credits are > 0 then we need to do some more calculations, otherwise return value of
-        # worksheet a line 10
-        #   Mortgage interest credit (federal Form 8396)
-        #   Adoption credit (federal Form 8839)
-        #   Residential clean energy credit (federal Form 5695, Part 1)
-        #   District of Columbia first-time homebuyer credit (federal Form 8859)
-
-        # total_other_federal_credits = (@direct_file_data.fed_mortgage_interest_credit_amount || 0) +
-        #   (@direct_file_data.fed_adoption_credit_amount || 0) +
-        #   (@direct_file_data.fed_residential_clean_energy_credit_amount || 0) +
-        #   (@direct_file_data.fed_dc_homebuyer_credit_amount || 0)
-        #
-        # if total_other_federal_credits > 0
-        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1, -> { @lines[:IT213_WORKSHEET_A_LINE_8].value })
-        #   set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2, -> { @direct_file_data.fed_total_earned_income_amount || 0 })
-        #   if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value > 3000
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_2].value - 3000 })
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_3].value * 0.15 })
-        #   else
-        #     set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4, -> { 0 })
-        #   end
-        #
-        #   if @lines[:IT213_WORKSHEET_A_LINE_1].value >= 3000
-        #     if @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_4].value >= @lines[:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_1].value
-        #       set_line(:IT213_WORKSHEET_A_LINE_11_WORKSHEET_LINE_6, -> { 0 })
-        #     else
-        #       # TODO: on line 6, Enter the amount from your federal instructions for Schedule 8812, Credit Limit Worksheet B, line 11, if applicable.
-        #     end
-        #   else
-        #   end
-        # end
         @lines[:IT213_WORKSHEET_A_LINE_10].value
       end
 

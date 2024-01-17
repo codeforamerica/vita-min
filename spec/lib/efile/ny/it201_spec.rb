@@ -577,7 +577,7 @@ describe Efile::Ny::It201 do
       let(:intake) { create(:state_file_zeus_intake) }
 
       it "calculates the proper value for line 14" do
-        expect(instance.calculate[:IT213_LINE_14]).to eq 900 # TODO: verify this result for zeus
+        expect(instance.calculate[:IT213_LINE_14]).to eq 742
       end
     end
 
@@ -613,6 +613,7 @@ describe Efile::Ny::It201 do
     context "when the client has claimed fed_ctc > 0 and worksheet A line 8 <= worksheet A line 12" do
       before do
         intake.direct_file_data.fed_ctc = 1_000
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
       end
 
       it "calculated worksheets and finishes calculations" do
@@ -620,7 +621,7 @@ describe Efile::Ny::It201 do
         expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
         expect(instance.lines[:IT213_LINE_2].value).to eq(1) # claimed federal CTC
         expect(instance.lines[:IT213_LINE_3].value).to eq(1) # had eligible wages
-        expect(instance.lines[:IT213_LINE_4].value).to eq(1) # one dependent
+        expect(instance.lines[:IT213_LINE_4].value).to eq(1)
         expect(instance.lines[:IT213_LINE_5].value).to eq(0)
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(1_000) # 1000 * 1 dependent
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32_351)
@@ -643,7 +644,8 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
       before do
-        intake.dependents.create(dob: 5.years.ago)
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
         intake.direct_file_data.fed_ctc = 1_000
       end
 
@@ -682,8 +684,9 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and has 3 dependents" do
       before do
-        intake.dependents.create(dob: 5.years.ago)
-        intake.dependents.create(dob: 3.years.ago)
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 1.years.ago, ctc_qualifying: true)
         intake.direct_file_data.fed_tax = 0
         intake.direct_file_data.fed_ctc = 1_000
       end
