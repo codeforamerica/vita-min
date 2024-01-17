@@ -69,7 +69,7 @@ module SubmissionBuilder
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-4, 4]
                 end
                 # xml.DGT4_PHONE_NMBR
-                xml.FORM_TYPE
+                xml.FORM_TYPE claimed: "201"
                 # xml.THRDPRTY_EMAIL_ADR
                 # xml.EFIN_ID
                 # xml.PP_PH_NMBR

@@ -59,27 +59,27 @@ module SubmissionBuilder
                 xml.TOT_NRFNDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_43)
                 xml.TX_AFT_NRFNDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_44)
                 xml.TOT_TX_AMT claimed: calculated_fields.fetch(:IT201_LINE_46)
-                xml.NYC_TXBL_INC_AMT claimed: calculated_fields.fetch(:IT201_LINE_47)
-                xml.NYC_TX_B4CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_47A)
-                xml.NYC_HH_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_48)
-                xml.NYC_TX_AFT_HH_AMT claimed: calculated_fields.fetch(:IT201_LINE_49)
-                xml.NYC_TOT_TX_AMT claimed: calculated_fields.fetch(:IT201_LINE_52)
-                xml.NYC_TAX_AFT_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_54)
-                xml.NYC_YNK_NET_TX_AMT claimed: calculated_fields.fetch(:IT201_LINE_58)
+                add_non_zero_claimed_value(xml, :NYC_TXBL_INC_AMT, calculated_fields.fetch(:IT201_LINE_47))
+                add_non_zero_claimed_value(xml, :NYC_TX_B4CR_AMT, calculated_fields.fetch(:IT201_LINE_47A))
+                add_non_zero_claimed_value(xml, :NYC_HH_CR_AMT, calculated_fields.fetch(:IT201_LINE_48))
+                add_non_zero_claimed_value(xml, :NYC_TX_AFT_HH_AMT, calculated_fields.fetch(:IT201_LINE_49))
+                add_non_zero_claimed_value(xml, :NYC_TOT_TX_AMT, calculated_fields.fetch(:IT201_LINE_52))
+                add_non_zero_claimed_value(xml, :NYC_TAX_AFT_CR_AMT, calculated_fields.fetch(:IT201_LINE_54))
+                add_non_zero_claimed_value(xml, :NYC_YNK_NET_TX_AMT, calculated_fields.fetch(:IT201_LINE_58))
                 xml.SALE_USE_AMT claimed: calculated_fields.fetch(:IT201_LINE_59) || 0
                 xml.TX_GFT_AMT claimed: calculated_fields.fetch(:IT201_LINE_61)
-                xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_63)
-                xml.EITC_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_65)
-                xml.RL_PROP_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_67)
-                xml.NYC_STAR_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_69)
-                xml.NYC_STAR_REDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_69A)
-                xml.NYC_EITC_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_70)
+                add_non_zero_claimed_value(xml, :ESC_CHLD_CR_AMT, calculated_fields.fetch(:IT201_LINE_63))
+                add_non_zero_claimed_value(xml, :EITC_CR_AMT, calculated_fields.fetch(:IT201_LINE_65))
+                add_non_zero_claimed_value(xml, :RL_PROP_CR_AMT, calculated_fields.fetch(:IT201_LINE_67))
+                add_non_zero_claimed_value(xml, :NYC_STAR_CR_AMT, calculated_fields.fetch(:IT201_LINE_69))
+                add_non_zero_claimed_value(xml, :NYC_STAR_REDCR_AMT, calculated_fields.fetch(:IT201_LINE_69A))
+                add_non_zero_claimed_value(xml, :NYC_EITC_CR_AMT, calculated_fields.fetch(:IT201_LINE_70))
                 xml.TOT_WTHLD_AMT claimed: calculated_fields.fetch(:IT201_LINE_72)
-                xml.TOT_NYC_WTHLD_AMT claimed: calculated_fields.fetch(:IT201_LINE_73)
+                add_non_zero_claimed_value(xml, :TOT_NYC_WTHLD_AMT, calculated_fields.fetch(:IT201_LINE_73))
                 xml.TOT_PAY_AMT claimed: calculated_fields.fetch(:IT201_LINE_76)
-                xml.OVR_PAID_AMT claimed: calculated_fields.fetch(:IT201_LINE_77)
-                xml.RFND_B4_EDU_AMT claimed: calculated_fields.fetch(:IT201_LINE_78)
-                xml.RFND_AMT claimed: calculated_fields.fetch(:IT201_LINE_78B)
+                add_non_zero_claimed_value(xml, :OVR_PAID_AMT, calculated_fields.fetch(:IT201_LINE_77))
+                add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, calculated_fields.fetch(:IT201_LINE_78))
+                add_non_zero_claimed_value(xml, :RFND_AMT, calculated_fields.fetch(:IT201_LINE_78B))
                 xml.PR_SGN_IND claimed: 1
                 if @submission.data_source.email_address.present?
                   xml.TP_EMAIL_ADR claimed: @submission.data_source.email_address
@@ -113,6 +113,12 @@ module SubmissionBuilder
 
             def calculated_fields
               @it201_fields ||= @submission.data_source.tax_calculator.calculate
+            end
+
+            def add_non_zero_claimed_value(xml, elem_name, claimed)
+              if claimed.present? && claimed.to_i != 0
+                xml.send(elem_name, claimed: claimed)
+              end
             end
           end
         end
