@@ -159,16 +159,27 @@ module Efile
       end
 
       def calculate_line_39
+        # This was implemented based on the official instructions:
+        # https://www.tax.ny.gov/forms/html-instructions/2023/it/it201i-2023.htm#nys-tax-table
         agi = line_or_zero(:IT201_LINE_33)
         taxable_income = line_or_zero(:IT201_LINE_38)
         if agi <= 107_650
-          # use NYS tax rate schedule
+          # Note about tax tables and not using them:
+          #   The instructions point to the use of tax tables if "NYS taxable income is less than $65,000"
+          #   These are the tax tables: https://www.tax.ny.gov/pit/file/tax-tables/it201i-2023.htm
+          #   The tax table values are themselves calculated using the NYS Tax Rate Schedule. After conferring
+          #   with Courtney O'Reilly, it was clear that using the NYS Tax Rate Schedule was the best approach was to
+          #   use the NYS Tax Rate Schedule for all NY AGI under $107,650 regardless of taxable income
+          #
+          # use the NYS tax rate schedule
+          # https://www.tax.ny.gov/forms/html-instructions/2023/it/it201i-2023.htm#nys-tax-rate-schedule
           result = NysTaxRateSchedule.calculate(taxable_income, @filing_status)
         else
           # use NYS tax computation worksheet
+          # https://www.tax.ny.gov/forms/html-instructions/2023/it/it201i-2023.htm#tax-computation
           result = NysTaxComputation.calculate(agi, taxable_income, @filing_status)
         end
-        result.round
+        result.round # rounding to the nearest dollar should be done as a final step, not before.
       end
 
       def calculate_line_40
@@ -470,11 +481,6 @@ module Efile
         else
           table_row.amounts[household_size - 1]
         end
-      end
-
-      def round_to_decimal(val, digits)
-        ten_to_the_digits_power = 10 ** digits
-        (val * ten_to_the_digits_power).round / (ten_to_the_digits_power * 1.0)
       end
     end
   end
