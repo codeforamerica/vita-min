@@ -110,7 +110,7 @@ module Questions
         # TODO
       else
         begin
-          visitor_id = question_navigator.intake_class.last.visitor_id
+          visitor_id = cookies['visitor_id']
           raise "The session for visitor with id:#{visitor_id} has expired"
         rescue => e
           Sentry.capture_exception(e)
