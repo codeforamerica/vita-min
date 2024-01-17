@@ -65,9 +65,6 @@ module SubmissionBuilder
           if xml_type
             xml_builder.send("#{xml_type}Num", state_id.id_number)
             xml_builder.send("#{xml_type}StCd", state_id.state)
-            if state_id.first_three_doc_num.present?
-              xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
-            end
             xml_builder.send("#{xml_type}ExprDt") do
               if state_id.non_expiring?
                 xml_builder.NonExpr
@@ -76,6 +73,9 @@ module SubmissionBuilder
               end
             end
             xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d"))
+            if state_id.first_three_doc_num.present?
+              xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
+            end
           else
             xml_builder.DoNotHaveDrvrLcnsOrStIssdId "X"
           end
