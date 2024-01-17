@@ -20,5 +20,21 @@ FactoryBot.define do
     state { "NY" }
     issue_date { Date.new(2020, 11, 11) }
     expiration_date { Date.new(2028, 11, 11) }
+    first_three_doc_num { "123" }
+    non_expiring { false }
+
+    trait :non_expiring do
+      expiration_date { nil }
+      non_expiring { true }
+    end
+
+    trait :non_ny do
+      state { "UT" }
+      first_three_doc_num { nil }
+    end
+
+    trait :state_issued_id do
+      id_type { "dmv_bmv" }
+    end
   end
 end
