@@ -88,7 +88,9 @@ class StateFileDependent < ApplicationRecord
   def eligible_for_child_tax_credit
     return true if ctc_qualifying
 
-    child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
+    if relationship
+      child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
+    end
     if odc_qualifying && under_17? && child_credit_qualifying_relationship
       return true
     end
