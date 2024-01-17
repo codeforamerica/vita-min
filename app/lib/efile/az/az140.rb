@@ -6,7 +6,8 @@ module Efile
       def initialize(year:, intake:, include_source: false)
         @year = year
         @intake = intake
-        @filing_status = intake.filing_status.to_sym # single, married_filing_jointly, that's all we support for now
+        # single, mfj, mfs & hoh are the ones we support for now; qualifying_widow is not supprted in AZ140
+        @filing_status = intake.filing_status.to_sym
         @dependent_count = intake.dependents.length # number
         @direct_file_data = intake.direct_file_data
         @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
@@ -121,11 +122,12 @@ module Efile
 
       def calculate_line_43
         # AZ Standard Deductions for 2023
+        # Changes will reflect here...
         if filing_status_single?
           13_850
         elsif filing_status_mfj?
           27_700
-        elsif filing_status_hoh?
+        elsif filing_status_hoh? # What if qualifying widow?
           20_800
         end
       end
@@ -179,7 +181,7 @@ module Efile
           end
           wrksht_2_line_2 = 2
           wrksht_2_line_5 = 240
-        elsif filing_status_hoh?
+        elsif filing_status_hoh? # or qualifying_widow?
           max_income = [
             [1, 20_000],
             [2, 20_135],

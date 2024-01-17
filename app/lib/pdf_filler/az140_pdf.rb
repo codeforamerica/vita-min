@@ -130,6 +130,7 @@ module PdfFiller
       "HeadHousehold" => 'Choice2',
       "MarriedFilingSeparateReturn" => 'Choice3',
       "Single" => 'Choice4',
+      # What if qualifying widow?
     }
 
     def filing_status

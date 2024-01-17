@@ -1,5 +1,8 @@
 require 'rails_helper'
 
+# Check for filing status lines 4-7
+# Check for standard deduction line 43
+# Family income tax credit and excise credit Lines 50, 56
 describe Efile::Az::Az140 do
   let(:dependents) { [create(:state_file_dependent, dob: 7.years.ago)] }
   let(:intake) { create(:state_file_az_intake, eligibility_lived_in_state: 1, dependents: dependents) }
