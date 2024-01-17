@@ -82,7 +82,9 @@ module SubmissionBuilder
               end
 
               # These dependents are for NY IT-213
-              @submission.data_source.dependents.where(ctc_qualifying: true).each_with_index do |dependent, index|
+              it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
+
+              it_213_qualified_dependents.each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn
                   xml.DEP_SEQ_NMBR index+1

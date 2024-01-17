@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_11_191348) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_010114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1655,6 +1655,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_191348) do
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
+    t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
     t.string "relationship"
     t.string "ssn"

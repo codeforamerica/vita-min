@@ -611,6 +611,7 @@ class DirectFileData
       end
 
       dependent.ctc_qualifying = node.at('EligibleForChildTaxCreditInd')&.text == 'X'
+      dependent.odc_qualifying = node.at('EligibleForODCInd')&.text == 'X'
       @dependents << dependent
     end
     @dependents
@@ -846,11 +847,12 @@ class DirectFileData
                   :eic_student,
                   :eic_disability,
                   :eic_qualifying,
-                  :ctc_qualifying
+                  :ctc_qualifying,
+                  :odc_qualifying
 
     def initialize(first_name:, last_name:, ssn:, relationship:,
                    eic_student: nil, eic_disability: nil, eic_qualifying: nil,
-                   ctc_qualifying: nil)
+                   ctc_qualifying: nil, odc_qualifying: nil)
 
       @first_name = first_name
       @last_name = last_name
@@ -860,6 +862,7 @@ class DirectFileData
       @eic_disability = eic_disability
       @eic_qualifying = eic_qualifying
       @ctc_qualifying = ctc_qualifying
+      @odc_qualifying = odc_qualifying
     end
 
     def attributes
@@ -871,7 +874,8 @@ class DirectFileData
         eic_student: @eic_student,
         eic_disability: @eic_disability,
         eic_qualifying: @eic_qualifying,
-        ctc_qualifying: @ctc_qualifying
+        ctc_qualifying: @ctc_qualifying,
+        odc_qualifying: @odc_qualifying
       }
     end
   end

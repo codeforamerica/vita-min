@@ -135,14 +135,11 @@ module Efile
 
       def calculate_line_5
         count = 0
-        
         @intake.dependents.each do |dependent|
-          if dependent.ssn.present?
-            is_itin = dependent.ssn.to_s.start_with?('9') && [*(50..65), *(70..88), *(90..92), *(94..99)].include?(dependent.ssn[3..4].to_i)
+          if dependent.relationship.present?
+            is_valid_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(dependent.relationship.downcase)
           end
-          is_valid_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(dependent.relationship.downcase)
-
-          if is_itin && dependent.under_17? && is_valid_relationship
+          if dependent.odc_qualifying? && dependent.under_17? && is_valid_relationship
             count += 1
           end
         end

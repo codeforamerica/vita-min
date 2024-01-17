@@ -587,7 +587,7 @@ describe Efile::Ny::It201 do
       let(:intake) { create(:state_file_zeus_intake) }
 
       it "calculates the proper value for line 14" do
-        expect(instance.calculate[:IT213_LINE_14]).to eq 900 # TODO: verify this result for zeus
+        expect(instance.calculate[:IT213_LINE_14]).to eq 1000
       end
     end
 
