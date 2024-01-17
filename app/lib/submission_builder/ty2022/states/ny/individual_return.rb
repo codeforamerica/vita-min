@@ -82,7 +82,9 @@ module SubmissionBuilder
               end
 
               # These dependents are for NY IT-213
-              @submission.data_source.dependents.where(ctc_qualifying: true).each_with_index do |dependent, index|
+              it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
+
+              it_213_qualified_dependents.each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn
                   xml.DEP_SEQ_NMBR index+1
@@ -155,7 +157,7 @@ module SubmissionBuilder
           def supported_documents
             tax_calculator = @submission.data_source.tax_calculator
             calculated_fields = tax_calculator.calculate
-            receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0
+            receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
             receiving_214_credit = calculated_fields[:IT214_LINE_33].present? && calculated_fields[:IT214_LINE_33] > 0
             receiving_215_credit = calculated_fields[:IT215_LINE_1].present? && !calculated_fields[:IT215_LINE_2]
             supported_docs = [
@@ -183,11 +185,6 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
                 pdf: PdfFiller::Ny215Pdf,
                 include: receiving_215_credit
-              },
-              {
-                xml: nil,
-                pdf: PdfFiller::NyTr579ItPdf,
-                include: true
               }
             ]
 
@@ -208,6 +205,13 @@ module SubmissionBuilder
                 kwargs: { form1099g: form1099g }
               }
             end
+
+            supported_docs << {
+              xml: nil,
+              pdf: PdfFiller::AdditionalDependentsPdf,
+              include: @submission.data_source.dependents.count >= 8,
+              kwargs: { start_node: 7 }
+            }
 
             supported_docs
           end

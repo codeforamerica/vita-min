@@ -135,6 +135,7 @@
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
 #  needs_help_2021                                      :integer          default(0), not null
+#  needs_help_2022                                      :integer          default(0), not null
 #  needs_help_current_year                              :integer          default(0), not null
 #  needs_help_previous_year_1                           :integer          default(0), not null
 #  needs_help_previous_year_2                           :integer          default(0), not null
@@ -674,12 +675,12 @@ describe Intake do
 
     context "with a couple filing years selected" do
       let!(:client) { create :client, tax_returns: [
-        build(:tax_return, year: 2019),
+        build(:tax_return, year: 2021),
         build(:gyr_tax_return)
       ], intake: intake }
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq([2022, 2019])
+        expect(intake.filing_years).to eq([2023, 2021])
       end
     end
   end

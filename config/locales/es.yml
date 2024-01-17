@@ -273,7 +273,7 @@ es:
       checking: Cuenta Corriente
       routing_number: Número de ruta bancaria
       savings: Cuenta de Ahorros
-    before_2014: antes de 2014
+    before_2018: antes de 2018
     blind: Es legalmente ciego
     call: Llamada
     cancel: Cancelar
@@ -1762,7 +1762,7 @@ es:
         choose_gyr: Elija Declare con Ayuda
         description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
-          file: Presente su declaración de impuestos para 2019 a %{current_tax_year}
+          file: Presente su declaración de impuestos para %{oldest_filing_year} a %{current_tax_year}
           income: 'Ingresos: menos de $66,000'
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
