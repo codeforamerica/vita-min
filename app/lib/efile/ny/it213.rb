@@ -147,7 +147,7 @@ module Efile
       end
 
       def calculate_worksheet_a_line_1
-        @intake.dependents.length * 1000
+        line_or_zero(:IT213_LINE_4) * 1000
       end
 
       def calculate_worksheet_a_line_2
