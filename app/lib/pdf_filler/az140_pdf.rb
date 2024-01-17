@@ -127,10 +127,9 @@ module PdfFiller
     
     FILING_STATUS_OPTIONS = {
       "MarriedJoint" => 'Choice1',
-      "HeadHousehold" => 'Choice2',
+      "HeadHousehold" => 'Choice2', # Qualifying Widow based state_file_az_intake#filing_status
       "MarriedFilingSeparateReturn" => 'Choice3',
       "Single" => 'Choice4',
-      # What if qualifying widow?
     }
 
     def filing_status
