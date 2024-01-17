@@ -7,7 +7,7 @@ namespace :setup do
     ["efile1040x_2020v5.1.zip", "irs"],
     ["efile1040x_2021v5.2.zip", "irs"],
     ["efile1040x_2022v5.3.zip", "irs"],
-    ["efile1040x_2023v3.0.zip", "irs"],
+    ["efile1040x_2023v5.0.zip", "irs"],
     ["NYSIndividual2023V4.0.zip", "us_states"],
     ["AZIndividual2023v1.0.zip", "us_states"],
   ].freeze

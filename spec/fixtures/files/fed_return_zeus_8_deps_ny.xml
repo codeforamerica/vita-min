@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
   <ReturnHeader binaryAttachmentCnt="0">
+    <ReturnTs>2023-09-12T16:47:43-04:00</ReturnTs>
     <TaxYr>2023</TaxYr>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareId>11111111</SoftwareId>
     <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <OriginatorGrp>
+      <EFIN>111111</EFIN>
+      <OriginatorTypeCd>ERO</OriginatorTypeCd>
+    </OriginatorGrp>
+    <PINTypeCd>Self-Select On-Line</PINTypeCd>
+    <JuratDisclosureCd>Online Self Select PIN</JuratDisclosureCd>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
       <PrimarySSN>400000015</PrimarySSN>
